@@ -1,0 +1,97 @@
+<div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># Date: 04-02-2013</span>
+<span class="c"># Author: &quot;lapipaplena&quot; &lt;lapipaplena@gmail.com&gt;</span>
+<span class="c"># Version: 4.0</span>
+<span class="c"># Licence: GPL v3.0</span>
+<span class="c"># Description: Comprueba  los ataques filtrados por fail2ban</span>
+<span class="c"># Require: fail2ban geoip-bin ccze</span>
+<span class="c">####</span>
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;$(id -u)&quot;</span> !<span class="o">=</span> <span class="s2">&quot;0&quot;</span> <span class="o">]</span>; <span class="k">then</span>
+<span class="k">	</span><span class="nb">echo</span>
+<span class="nb">	echo</span> <span class="s2">&quot;&lt;&lt; Solo root puede ejecutar este script. &gt;&gt;&quot;</span> | ccze -A
+	<span class="nb">echo</span>
+<span class="nb">	exit </span>1
+<span class="k">fi</span>
+clear
+<span class="nv">baneos</span><span class="o">=</span><span class="nv">$HOME</span>/<span class="sb">`</span>date +%s<span class="sb">`</span>.txt
+<span class="k">if</span> <span class="o">[</span> -s /var/log/fail2ban.log -a -s /var/log/fail2ban.log.1 <span class="o">]</span>
+<span class="k">then</span>
+<span class="k">	</span>cat /var/log/fail2ban.log.1 | grep Ban | grep -v 192.168. | awk <span class="s1">&#39;{print$7}&#39;</span> &gt; <span class="nv">$baneos</span>
+	cat /var/log/fail2ban.log | grep Ban | grep -v 192.168. | awk <span class="s1">&#39;{print$7}&#39;</span> &gt;&gt; <span class="nv">$baneos</span>
+<span class="k">else</span>
+<span class="k">	</span><span class="nb">echo</span>
+<span class="nb">	echo</span> <span class="s2">&quot;&lt;&lt; O fail2ban no se encuentra en el sistema o todavía no ha generado logs... abortando..... &gt;&gt;&quot;</span> | ccze -A
+	<span class="nb">echo</span>
+<span class="nb">	exit </span>1
+<span class="k">fi</span>
+<span class="k">if</span> <span class="o">[</span> -s <span class="nv">$baneos</span> <span class="o">]</span>
+<span class="k">then</span>
+<span class="k">	for </span>i in <span class="k">$(</span>cat <span class="nv">$baneos</span><span class="k">)</span>; <span class="k">do</span>
+<span class="k">		</span><span class="nv">ATAC</span><span class="o">=</span><span class="k">$(</span>geoiplookup <span class="nv">$i</span> | grep Country | awk <span class="s1">&#39;{print$4,$5}&#39;</span> | sed <span class="s1">&#39;s/Address/Enmascarada/&#39;</span><span class="k">)</span>
+		<span class="nb">printf</span> <span class="s2">&quot;%s\t --&gt; %s\n&quot;</span> <span class="s2">&quot;$i&quot;</span> <span class="s2">&quot;$ATAC&quot;</span> | ccze -A | tee -a <span class="nv">$HOME</span>/baneos1.txt
+	<span class="k">done</span>
+<span class="k">	</span><span class="nb">echo</span>
+<span class="nb">	echo</span> <span class="s2">&quot;&lt;&lt; Las ips que han sido baneadas más de una vez son: &gt;&gt;&quot;</span> | ccze -A
+	<span class="nb">echo</span>
+<span class="nb">	</span>cat <span class="nv">$HOME</span>/baneos1.txt | sort -n | uniq -d -c | sort -k1 -r | tee -a <span class="nv">$HOME</span>/reincidentes.txt
+	<span class="nb">echo</span>
+<span class="nb">	echo</span>
+<span class="k">else</span>
+<span class="k">	</span><span class="nb">echo</span>
+<span class="nb">	echo</span> <span class="s2">&quot;&lt;&lt; No existen ips baneadas... abortando.... &gt;&gt;&quot;</span> | ccze -A
+	<span class="nb">echo</span>
+<span class="nb">	exit </span>1
+<span class="k">fi</span>
+<span class="c">###</span>
+<span class="nb">echo</span>
+<span class="nb">read</span> -p <span class="s2">&quot;&lt;&lt; ¿Colocar en iptables las ips baneadas 3 o más veces? [s/n] &gt;&gt;&quot;</span> OP
+<span class="nb">echo</span>
+iptables -nL INPUT | grep DROP | awk <span class="s1">&#39;{print$4}&#39;</span> &gt; <span class="nv">$HOME</span>/blockips.txt
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$OP</span> <span class="o">=</span> s <span class="o">]</span>
+<span class="k">then</span>
+<span class="k">	</span><span class="nb">read</span> -p <span class="s2">&quot;&lt;&lt; ¿Resetear todas las reglas de iptables? [s/n] &gt;&gt; &quot;</span> OPT
+	<span class="k">if</span> <span class="o">[</span> <span class="nv">OPT</span> <span class="o">=</span> s <span class="o">]</span>
+	<span class="k">then</span>
+<span class="k">		</span>iptables -P INPUT ACCEPT
+		iptables -P FORWARD ACCEPT
+		iptables -P OUTPUT ACCEPT
+		iptables -F
+		iptables -X
+	<span class="k">else</span>
+<span class="k">		</span><span class="nb">echo</span>
+<span class="nb">		echo</span>  <span class="s2">&quot;&lt;&lt; Se conservan las reglas de iptables y se añadiran, si procede, las nuevas &gt;&gt;&quot;</span> | ccze -A
+		<span class="nb">echo</span>
+<span class="nb">	</span><span class="k">fi</span>
+<span class="k">	</span>cat <span class="nv">$baneos</span> | sort -n | uniq -d -c | sort -k1 -r &gt; <span class="nv">$HOME</span>/reincidentes1.txt
+	<span class="k">while </span><span class="nb">read </span>line
+	<span class="k">do</span>
+<span class="k">		</span><span class="nv">MAX</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$line</span> | awk <span class="s1">&#39;{print$1}&#39;</span><span class="k">)</span>
+		<span class="k">if</span> <span class="o">[</span> <span class="nv">$MAX</span> -gt 2 <span class="o">]</span>
+		<span class="k">then</span>
+<span class="k">			</span><span class="nv">BAN</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> -e <span class="s2">&quot;$line&quot;</span> | awk <span class="s1">&#39;{print$2}&#39;</span><span class="k">)</span>
+				<span class="k">if </span>grep -i <span class="nv">$BAN</span> <span class="nv">$HOME</span>/blockips.txt &gt; <span class="nv">$HOME</span>/ip.txt
+				<span class="k">then</span>
+<span class="k">					</span><span class="nb">echo</span>
+<span class="nb">					echo</span> <span class="s2">&quot;&lt;&lt; La ip $BAN ya se encuentra bloqueada. &gt;&gt;&quot;</span> | ccze -A
+					<span class="nb">echo</span>
+<span class="nb">				</span><span class="k">else</span>
+<span class="k">					</span><span class="nb">echo</span>
+<span class="nb">					</span>iptables -A INPUT -s <span class="nv">$BAN</span> -j DROP
+					<span class="nb">echo</span> <span class="s2">&quot;&lt;&lt; Se bloquea la ip $BAN por iptables. &gt;&gt;&quot;</span> | ccze -A
+					<span class="nb">echo</span>
+<span class="nb">				</span><span class="k">fi</span>
+<span class="k">		else</span>
+<span class="k">			</span><span class="nb">echo</span>
+<span class="nb">		</span><span class="k">fi</span>
+<span class="k">	done</span> &lt; <span class="nv">$HOME</span>/reincidentes1.txt
+<span class="k">else</span>
+<span class="k">	</span><span class="nb">echo</span>
+<span class="k">fi</span>
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;las reglas DROP de iptables son: &quot;</span>
+<span class="nb">echo</span>
+iptables -nL | grep DROP | ccze -A
+<span class="nb">echo</span>
+rm <span class="nv">$HOME</span>/*.txt
+<span class="nb">exit </span>0
+</pre></div>

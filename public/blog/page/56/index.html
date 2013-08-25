@@ -1,0 +1,899 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>TRACTATUS ELEMENTALIS</title>
+  <meta name="author" content="templix">
+
+  
+  <meta name="description" content="utilidad que se puede utilizar para practicamente cualquier cosa relacionada con el protocolo TCP/IP [navaja suiza] Nota.- En algunas distros está &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="https://tractatuslapipaplena.herokuapp.com/blog/page/56">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="TRACTATUS ELEMENTALIS" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <script src="/javascripts/links.js"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <div align=center>
+  <h1><a href="/">TRACTATUS ELEMENTALIS</a></h1>
+  
+    <h2>Apuntes sobre bash. Orgasmos con la terminal.</h2>
+  </dev>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS"></a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search?q=site%3Atractatuslapipaplena.herokuapp.com&q=" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:tractatuslapipaplena.herokuapp.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/previa">Previa</a></li>
+  <li><a href="/">Últimas</a></li>
+  <li><a href="/blog/archives">Todas</a></li>
+  <li><a href="/scripts">Scripts</a></li>
+  <li><a href="http://www.lapipaplena.net">Web</a></li>
+  <li><a href="http://lapipaplena.no-ip.org/wiki/">Wiki</a></li>
+  <li><a href="http://anonops.es">Foro</a></li>
+  <li><a href="http://panellpipa.no-ip.org">Socios</a></li>
+
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/netcat/">Netcat</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>utilidad que se puede utilizar para practicamente cualquier cosa relacionada con el protocolo TCP/IP [navaja suiza]</p>
+
+<p>Nota.- En algunas distros está ligeramente capado. Preferible bajarlo de http://netcat.sourceforge.net/download.php y compilarlo:</p>
+
+<blockquote><p>$ ./configure</p>
+
+<p>$ make DFLAGS=&#8221; -DTELNET -DGAPING_SECURITY_HOLE&#8221;</p>
+
+<p># make install</p>
+
+<p>$ nc -v -v -z 192.168.2.5 21 22 25 110 5900 (que se conecte a la IP, envie más información [-v por duplicado], que no envie ningún dato [-z] y que lo haga por los puertos mencionados [21,22,25,110,5900])</p>
+
+<p>$ nc -l -p 3001 -e /bin/bash  (Que esté a la escucha [-l] en el puerto 3001 [-p] y que, cuando haya conexión, ejecute nuestra shell bash [-e &#8230;.])</p>
+
+<p>$ nc IP_servidor 3001  (desde el cliente, conectamos con el servidor y todo lo que escribamos se enviará al bash del servidor y lo que nos responda aparecerá en nuestra pantallla. Para terminar la conexión CTROL-C)</p>
+
+<p>$ telnet -l usuario IP_o_nombre_host 3001 (Otra forma de establecer la conexión.)</p>
+
+<p>$ nc -l -p 3000 > archivo (Dejar el servidor listo para recibir un archivo)</p>
+
+<p>$ nc IP_servidor 3000 &lt; archivo  (enviar desde el cliente el archivo)</p>
+
+<p>$ nc -zw2 www.nombre.com 80 &amp;&amp; echo open  (comprobar si está abierto el puerto 80 de un host)</p>
+
+<p>$ nc -l -p 10000 &lt; pelicula.avi  (streaming de video-servidor)</p>
+
+<p>$ nc IP_o_host 10000 | mplayer – (streaming de video-cliente)</p>
+
+<p>$ nc -l -p 10000 &lt; fichero.mp3  (streaming de  audio-servidor)</p>
+
+<p>$ nc IP_o_host 10000 | madplay –  (streaming de audio-cliente)</p>
+
+<p>$ nc -l -p http -c &#8220;cat index.html&#8221;  (servidor http)</p>
+
+<p>$ echo “GET /” | nc www.google.com 80 > index.html  (copiar una página web)</p>
+
+<p>$ nc -l -p 10000 -c &#8220;nc host 22&#8221; (Proxy. El trafico recibido en el puerto 10000 se redirige al 22 del host especificado)</p>
+
+<p>$ nc towel.blinkenlights.nl 23  (visionar la guerra de las galaxias)</p>
+
+<p>$ dd if=/dev/sda5 | nc -l -p 10000  (clonar un disco por red. En el servidor)</p>
+
+<p>$ nc IP_o_host 10000 | dd of=sda5.img  (En el cliente)</p>
+
+<p>$ nc -l -p 7777 > /dev/null  (Prueba de rendimiento entre dos máquinas. En el Servidor)</p>
+
+<p>$ pv -r /dev/zero | nc IP_servidor 7777  (En el cliente)</p></blockquote>
+
+<p>opciones</p>
+
+<p>-v -v   .-  mostrar máxima información</p>
+
+<p>-z  .-  mostrar puertos a la escucha</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/net-acct/">Net-acct</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Demonio que crea logs del uso de la red.</p>
+
+<blockquote><p># cat /var/log/net-acct/net-acct.log</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/nessus/">Nessus</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Scaner de vulneradilidades</p>
+
+<p>Descargar nessus de: http://www.nessus.org/download/</p>
+
+<p>Registrarnos en:  http://www.nessus.org/plugins/?view=register-info</p>
+
+<p>Entrar el código de activación recibido por correo:</p>
+
+<blockquote><p># /opt/nessus/bin/nessus-fetch &#8211;register 218B-76A4-CB0F-072B-AEEA</p>
+
+<p># /opt/nessus/sbin/nessus-adduser (Entrar usuario y contraseña)</p>
+
+<p># /opt/nessus/sbin/nessusd (Arrancar el servicio)</p></blockquote>
+
+<p>Abrir navegador y entrar en la pantalla de login con:</p>
+
+<p>https://127.0.0.1:8834</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ncmpcpp/">Ncmpcpp</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Reproductor de música. Al ser del tipo cliente-servidor, Precisa mpd [ver] arrancado.</p>
+
+<p>En el archivo de configuración, que tiene que crearse, sólo es necesario especificar el directorio de música:</p>
+
+<blockquote><p>$ nano .ncmpcpp/config</p></blockquote>
+
+<p>mpd_music_dir = &#8220;/home/usuario/Musica&#8221;</p>
+
+<p>Algunas teclas de control:</p>
+
+<pre><code>F1 (Ayuda)
+
+F2 (Lista de reproducción)
+
+F3 (Explorador)
+
+F4 (Busca en la base de datos)
+
+F5 (Libreria)
+
+F6 (Editor de listas de reproduccion)
+
+F7 (Editor de etiquetas)
+
+F8 (Outputs)
+
+F9 (Visualizador musical)
+
+F10 (Reloj)
+
+@ (Informacion del servidor mpd)
+
+s (Detiene la reproducción)
+
+p (Cambia la visualización)
+
+P (Pausa la reproducción)
+
+Backspace (Pone el tema desde inicio)
+
+&lt; (Tema anterior)
+
+&gt; (Tema siguiente)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ncdu/">Ncdu</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Muestra el espacio usado por los archivos y directorios del directorio actual. Como “du” pero basado en ncurses.</p>
+
+<blockquote><p>$ ncdu /home/usuario</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/nbtscan/">Nbtscan</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Para ver máquinas que compartan información en una red por medio del protocolo NetBIOS [windows utiliza este protocolo para sus comunicaciones] GNU/Linux, BSD, Solaris y Mac utiliza el servicio samba por lo cual también serán detectados sus recursos compartidos.</p>
+
+<blockquote><p># nbtscan 192.168.0.0/24  (Obtener nombres de los PCs de nuestra red)</p>
+
+<p># nbtscan -v 192.168.0.0/24  (Obtener la tabla NetBIOS de cada uno de los PCs que encuentre)</p>
+
+<p># nbtscan -r 192.168.2.0/24  (Para escanear completamente toda la red)</p>
+
+<p># nbtscan -v -s : 192.168.2.0/24  (Lo mismo con información por columnas)</p>
+
+<p># nbtscan -r 192.168.2.1-64  (Escanear por un rango de ips)</p>
+
+<p># nbtscan -f listado   (Escanear a partir de un archivo de ips)</p></blockquote>
+
+<p>El archivo listado tendrá un formato:</p>
+
+<p>192.168.2.3</p>
+
+<p>192.168.2.6</p>
+
+<p>192.168.2.11</p>
+
+<p>&#8230;</p>
+
+<blockquote><p># nbtstat -A Ip_victima  (si hay algun pc al que se pueda entrar)</p></blockquote>
+
+<p>Si muestra la entrada <20> será susceptible de intrusion.</p>
+
+<pre><code>LOKO &lt;00&gt; UNIQUE Registered
+
+CHEPUDO &lt;00&gt; GROUP Registered
+
+LOKO &lt;03&gt; UNIQUE Registered
+
+LOKO &lt;20&gt; UNIQUE Registered 
+
+CHEPUDO &lt;1E&gt; GROUP Registered
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/nautilus/">Nautilus</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Navegador de archivos de gnome</p>
+
+<blockquote><p>$ nautilus -q  (salir de nautilus)</p>
+
+<p>$ nautilus -c  (Realizar una serie rápida de pruebas de autoevaluación)</p>
+
+<p>$ nautilus -g 1200x400 (arrancarlo con determinadas medidas)</p></blockquote>
+
+<p>Para abrir lugares especiales en nautilus, colocarse sobre el escritorio GNOME y pulsar Mayúscula+7. Se abrirá una ventana “abrir lugar” y, en ella, escribiremos:</p>
+
+<pre><code>computer:///  (Mostrar unidades y SO)
+
+network:///   (los sitios de la Red.)
+
+fonts:///   (ver las tipografías instaladas.)
+
+burn:///   (abre ventana grabar CD/DVD.)
+
+themes:///   (temas disponibles de GNOME.)
+</code></pre>
+
+<p>nautilus terminal</p>
+
+<pre><code># add-apt-repository ppa:flozz/flozz
+
+# apt-get update &amp;&amp; sudo apt-get install nautilus-terminal
+
+$ nautilus -q
+</code></pre>
+
+<p>Extensión de Nautilus que permite tener una consola incrustada, sincronizada con el explorador.</p>
+
+<p>Ctrl + Shift + t   (mostrar)</p>
+
+<p>Ctrl + Shift + h  (ocultar)</p>
+
+<p>Añadir “NUEVA PESTAÑA” en la barra de nautilus</p>
+
+<blockquote><p># nano /usr/share/nautilus/ui/nautilus-navigation-window-ui.xml</p></blockquote>
+
+<p>Y pegar en la sección toolbar:</p>
+
+<pre><code>&lt;toolitem name="New Tab" action="New Tab"/&gt; 
+</code></pre>
+
+<p>Reiniciar</p>
+
+<p>Atajos</p>
+
+<p>Ctrl+A (Seleccionar todo)</p>
+
+<p>Ctrl+C (Copiar)</p>
+
+<p>Ctrl+H (Muestra archivos ocultos)</p>
+
+<p>Ctrl+N (Abre nueva pantalla)</p>
+
+<p>Ctrl+T (Abre una nueva pestaña)</p>
+
+<p>Ctrl+Alt+D (Mostrar escritorio)</p>
+
+<p>Ctrl+Shft+N (Crear nueva carpeta)</p>
+
+<p>Shft+F10 (Activa el menú contextual para el elemento activo)</p>
+
+<p>Alt+Enter (Mostrar propiedades del elemento activo)</p>
+
+<p>Alt+Flechas (Desplazarse entre carpetas)</p>
+
+<p>Alt+tab (Navegar entre ventanas/documentos activos)</p>
+
+<p>Alt+espacio (Abre el menú de la ventana actual)</p>
+
+<p>F2 (Renombrar carpeta)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/nast/">Nast</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Conocer usuarios (inalámbricos o no) de una red local</p>
+
+<blockquote><p># nast -m  (conocer las máquinas que estan en la LAN)</p>
+
+<p># nast -g   (muestra los candidatos a gateway con un “Yep”)</p></blockquote>
+
+<p>opciones:</p>
+
+<p>-p   (modo promiscuo)</p>
+
+<p>-i  eth0 (especificando red)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/nano/">Nano</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>editor de texto.</p>
+
+<blockquote><p>$ nano -wx texto (Abrir “texto” inhabilitando “final de linea” [wrap] y la ayuda [x])</p></blockquote>
+
+<p>Nota.- “wrap” es la cantidad de caracteres de una linea y puede especificarse en los parámetros de nano.</p>
+
+<p>Archivo de configuración. Crear:</p>
+
+<blockquote><p>$ touch .nanorc</p></blockquote>
+
+<p>Algunos parámetros a incluir:</p>
+
+<p>set backup (Guarde copias con la extensión ~)</p>
+
+<p>set const  (Muestra el número de lineas)</p>
+
+<p>set casesensitive (distinguir mayúsculas y minúsculas en las búsquedas)</p>
+
+<p>set smooth (Desplazamiento suave. Sin salto de media página)</p>
+
+<p>set mouse (Habilita el uso del mouse. Precisa paquete gpm)</p>
+
+<p>set tabsize 4 (Número de espacios en la tabulación. Por defecto 8)</p>
+
+<p>set tabstospaces (convierte tabulaciones en espacios)</p>
+
+<p>set nohelp (inhabilitar la ayuda de forma permanente)</p>
+
+<p>set fill 60 (Número se caracteres por linea[wrap])</p>
+
+<p>Atajos</p>
+
+<p>Ctrl + g (Menú ayuda)</p>
+
+<p>Ctrl + j (Justificar el párrafo actual)</p>
+
+<p>Ctrl + k (Cortar y guardar la línea actual)</p>
+
+<p>Ctrl + m (Insertar un retorno de carro)</p>
+
+<p>Ctrl + o (Escribir el fichero actual a disco)</p>
+
+<p>Ctrl + u (Pegar la linea cortada)</p>
+
+<p>Ctrl + v (Moverse hacia el final del documento)</p>
+
+<p>Ctrl + w (Buscar una palabra en el texto)</p>
+
+<p>[Ctrl + w] + [Ctrl + r] (Buscar palabra y reemplazarla por otra)</p>
+
+<p>Ctrl + y (Moverse hacia el principio del documento)</p>
+
+<p>Ctrl + x (Salir de nano)</p>
+
+<p>Ctrl + d (Muestra número de palabras, lineas y caracteres)</p>
+
+<p>Mayu + Insert (Insertar del portapapeles)</p>
+
+<p>Alt + m (Soporte para ratón habilitar/deshabilitar. Precisa paquete gpm)</p>
+
+<p>Alt + y (Coloreado de sintaxis habilitar/deshabilitar)</p>
+
+<p>Alt + x (Suprimir/añadir la ayuda del final de página)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/nameif/">Nameif</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Modificar la MAC de una tarjeta de red dañada. Imaginemos el caso de un pc con dos tarjetas (eth0 y eth1) en el que la eth0 se estropea, con nameif podemos cambiar de interfaz la eth1 para ser la eth0:</p>
+
+<blockquote><p># ifconfig eth1 (Averiguar la MAC de la eth1)</p></blockquote>
+
+<p>eth1      Link encap:Ethernet  HWaddr 00:23:54:57:fc:78</p>
+
+<blockquote><p># ifconfig eth1 down (bajar la red eth1)</p>
+
+<p># nano /etc/init.d/networking</p></blockquote>
+
+<p>Añadir a continuación de la linea del PATH:</p>
+
+<p>PATH=&#8221;/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin&#8221;</p>
+
+<p>nameif eth0 00:23:54:57:fc:78</p>
+
+<p>&#8230;.</p>
+
+<p>Reiniciar el servicio:</p>
+
+<blockquote><p># /etc/init.d/networking restart</p></blockquote>
+
+<p>Comprobar que eth1 se ha convertido en eth0:</p>
+
+<blockquote><p># ifconfig eth0</p></blockquote>
+
+<p>eth0      Link encap:Ethernet  HWaddr 00:23:54:57:fc:78</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/57/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/55/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+<h1>Número de entradas</h1>
+	<ul>
+	<li>1213</li>
+	</ul>
+</section>
+<section>
+  <h1>Añadidos/modificados</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/owncloud/">owncloud</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/golismero/">golismero</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/curl/">curl</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/lorem/">lorem</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/kernel/">kernel</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/yacy/">yacy</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/virtualbox/">virtualbox</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/miniflux/">miniflux</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/sed/">sed</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Sobre mi</h1> 
+  <center>
+  <img src="/images/linux_user.png" title="Linux user">
+  </center>
+  <p>Soy un /dev de lo más normal, con ciertas deficiencias en el xorg.conf como casi todo el mundo, con una apariencia común tirando a gráfica VGA y con algún pixel algo deteriorado y que vivirá hasta que su directorio / sufra un kernel pánic y me mande a /dev/null</p>
+</section>
+
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/107431970267257491799?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+<section>
+  <h1>Blogs útiles</h1>
+  <ul>
+      <li><a href="http://distrowatch.com">Distrowatch</a></li>
+      <li><a href="http://es.wikipedia.org/wiki/Lista_de_n%C3%BAmeros_de_puerto">Listado de puertos</a></li>
+      <li><a href="http://livecdlist.com/">LiveCDs</a></li>
+      <li><a href="https://murmuring-brook-6695.herokuapp.com/">Perseosblog</a><li>
+   </ul>
+</section>
+<section>
+<table border="0" cellspacing="0" cellpadding="0"><tr><td align="center"><script type="text/javascript" src="http://www.worldtimeserver.com/clocks/embed.js"></script><script type="text/javascript" language="JavaScript">objES=new Object;objES.wtsclock="wtsclock001.swf";objES.color="CC6600";objES.wtsid="ES";objES.width=200;objES.height=200;objES.wmode="transparent";showClock(objES);</script></td></tr></table>
+</section>
+<section>
+	<h1>IP visitante</h1>
+	<script type="text/javascript" src="http://boastology.com/tools/ip2c/?im=0&cn=0&ip=1"></script>
+</section>
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - templix -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+<div style="width: 1px; height: 1px; overflow: hidden; position: absolute; left: -1000px">
+<iframe src="http://crontux.homelinux.com/getip.php"></iframe>
+</div>
+
+</body>
+</html>

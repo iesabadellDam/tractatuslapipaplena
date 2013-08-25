@@ -1,0 +1,83 @@
+screen
+Compartir sesiones de consola locales o remotas.
+>$ screen   (abre una terminal virtual genérica)
+>$ screen -S tux  (nombrar la sesión del que comparte consola)
+	$ screen -ls (conocer los screen abiertos y sus nombres)
+	There are screens on: 
+        19680.tux       (Attached) 
+        19684.xut       (Attached) 
+2 Sockets in /tmp/screens/S-juanito. 
+>$ screen -x 19680.tux  (el que se conecta)
+>$ screen -r 	Retoma el proceso desacoplado con Ctrl+a Ctrl+d 
+>$ screen -r -S nombre	Retoma el proceso "nombre" 
+>$ screen -R -D	Recupera screen despúes de un Ctrl+d
+La gestión de screen siempre empieza pulsando las teclas Ctrl+a:
+Ctrl+a c (Crear nueva ventana)
+Ctrl+a k (Matar pantalla activa / sesion activa)
+Ctrl+a X (Matar pantalla activa)
+Ctrl+a x (Bloquear terminal) 
+Ctrl+a w (Lista de ventanas)
+Ctrl+a 0-9 (Ir a la ventana numerada)
+Ctrl+a Ctrl+a (Cambiar a la última ventana)
+Ctrl+a Ctrl+p (Cambiar a la anterior ventana)
+Ctrl+a S (Dividir la terminal horizontal en regiones)
+Ctrl+a | (Dividir la terminal veticalmente)
+Ctrl+a Ctrl+n (Cambiar de región)
+Ctrl+a :resize (Redimensionar región)
+Ctrl+a F (Ajustar tamaño de la pantalla al tamaño de la nueva terminal)
+Ctrl+a K (Suprimir region)
+Ctrl+a Z (resetear screen)pi
+Ctrl+a tab (Moverse entre regiones)
+Ctrl+a d (Desacopla un proceso de una terminal, que continua en segundo plano) 
+Ctrl+a ? (Mostrar pantalla de ayuda)
+Ctrl+a Backspace (Regresar a la ventana previa)
+Ctrl+q (Si se ha pulsado una combinación erronea, desbloquea la terminal) 
+Ctrl+s (Lo mismo)
+Ctrl+a " (Muestra las shells activas)
+Ctrl+a A (Cambiar el título de la ventana)
+Ctrl+a Esc (Ver historial)
+Ctrl+a h (Guardar pantallazo en la carpeta actual con nombre hardcopy.número [0,1,2...]) 
+Ctrl+a H (Iniciar/parar registro de la ventana actual en la ventana con nombre screenlog.número [0,1,2...])
+Para compartir screen via ssh: 
+	Activar el setuid de screen:
+	# chmod +s /usr/bin/screen 
+	Ejecutar:
+	$ screen -S nombreSesion 
+	Activar acceso multiusuario:
+	Ctrl+a :multiuser on 
+	Dar permisos al usuario:
+	Ctrl+a :acladd usuario 
+	El usuario remoto debera conectar por SSH con la máquina y ejecutar: 
+	$ screen -x usuario/NombreSesion 
+Si deseamos tener una barra inferior donde aparecerá el nombre de las diferentes ventanas y la hora actual, podemos modificar/crear el fichero de configuración ~/.screenrc con el siguiente contenido (http://www.marblestation.com/?p=915): 
+	# screen -t shell 0 
+	# screen -t shell 0 motd+shell 
+	# screen -t shell2    1
+	# screen -t server    2 
+	# screen -t Mail 9   tail -f /var/log/messages 
+	select 0 
+	shelltitle "shell" 
+	# skip the startup message 
+	startup_message off 
+	# go to home dir 
+	chdir 
+	# Automatically detach on hangup. 
+	autodetach on 
+	# Change default scrollback value for new windows 
+	defscrollback 1000 
+	# Turns off alternate screen switching in xterms, 
+	# so that text in screen will go into the xterm's scrollback buffer: 
+	termcapinfo xterm* ti@:te@ 
+	altscreen on 
+	# start with visual bell as default 
+	vbell on 
+	vbell_msg "bell on %t (%n)" 
+	activity "Activity in %t(%n)" 
+	# Run a screensaver if there's nothing happening for a while. 
+	#idle 600 eval "screen cmatrix -f -o -u 10" "idle 0" 
+	idle 600 lockscreen 
+	### White 
+	#caption always "%{kW}%?%-Lw%?%{bw}%n*%f %t%?(%u)%?%{kW}%?%+Lw%? %= %{= Wk}%110`%109`%111` %H load: %l | %D %d-%m-%Y %0c:%s" 
+	### Black 
+	#caption always "%{wk}%?%-Lw%?%{bw}%n*%f %t%?(%u)%?%{wk}%?%+Lw%? %= %{= kw}%110`%109`%111` %H load: %l | %D %d-%m-%Y %0c:%s" 
+	caption always "%{wk}%?%-Lw%?%{bw}%n*%f %t%?(%u)%?%{wk}%?%+Lw%? %= %{= kw}%110`%109`%111` %H | %D %d-%m-%Y %0c:%s" 

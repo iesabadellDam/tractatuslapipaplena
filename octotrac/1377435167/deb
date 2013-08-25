@@ -1,0 +1,75 @@
+deb
+Extensión de los paquetes para distros Debian.
+1.-
+Crear un paquete para esta distro a partir de un script:
+	$ mkdir deb 
+En ese directorio recrear la estructura destino que queremos utilizar. En nuestro caso /usr/bin, el directorio para el icono y permisos: 
+	$ mkdir -p deb/usr/bin
+	$ mkdir -p deb/usr/share/applications
+Copiar el script en el bin creado:
+	$ cp script deb/usr/bin 
+Crear el subdirectorio DEBIAN: 
+	$ mkdir deb/DEBIAN 
+En su interior el fichero “control”: 
+	$ nano deb/DEBIAN/control 
+En el que pegamos datos del paquete:
+Package: nombre_que_queremos 
+Priority: optional 
+Section: misc 
+Maintainer: el_mantenedor 
+Architecture: all 
+Version: 1.0 
+Depends: Las_dependendias_del_paquete 
+Description: Pequeña_descripción_de_la_maravilla
+ Este script .... para ..... de ..... aquello....... 
+Notas: En el nombre del paquete (Package) no se admiten espacios ni barras bajas) y en la descripción (Description) el primer carácter de la segunda linea es un espacio y al final del texto, darle al intro para que ponga una linea vacia. Las dependencias que pongamos en “Depends” son las que se instalarán  con la instalación del .deb.
+Crear el paquete “menu” en el mismo directorio:
+	$ nano deb/DEBIAN/menu
+Y en su interior pegar:
+	?package(nombre_script):needs="X11" \ 
+		section="Applications/Network/Monitoring" \ 
+		title="Suport VNC" command="gnome-terminal -e script_que_sea" \ 
+		icon="/usr/share/pixmaps/gnome-term-linux2.png"
+Notas: Nombre del paquete, que precisa de las X (X11), donde se colocará en el menú “Aplicaciones” (otras opciones: section=”Apps/Multimedia”...), el comando que lo lanzará (gnome-terminal -e script) y el icono que hemos escogido. Crear el archivo nombre_script.desktop para los datos del icono:
+	$ gedit deb/usr/share/applications/nombre_script.desktop
+Y pegar el siguiente contenido:
+	[Desktop Entry] 
+	Version=1.0 
+	Name=Nombre_script 
+	GenericName=Nombre_script 
+	Comment=Pequeño_comentario 
+	Exec=Nombre_script_que_lo_lanzará 
+	Terminal=true 
+	Type=Application 
+	Categories=Application;Network; 
+	Icon=gnome-term-linux2.png 
+	StartupNotify=true
+Nota.- también varios modelos de iconos en:
+	$ ls /home/usuario/.local/share/applications/  
+Cambiar el propietario del directorio: 
+	# chown -R root.root deb 
+Finalmente crear el paquete .deb y que lo coloque en el escritorio: 
+	# dpkg -b deb /home/usuario/Escritorio/nombre.deb
+2.-
+Crear un paquete a partir de un tar.gz:
+Para el ejemplo usaremos el paquete picpuz, un juego para crear puzles a partir de una fotografia, que aunque tenga versión .deb, para el caso nos sirve.
+Crear carpeta de trabajo y entrar en ella: 
+	$ mkdir picpuz 
+	$ cd picpuz 
+Descargar y descomprimir el tar.gz y entrar en la carpeta descomprimida: 
+>$ wget http://kornelix.squarespace.com/storage/downloads/picpuz-2.2.tar.gz 
+>$ tar xvzf picpuz-2.2.tar.gz 
+>$ cd picpuz-2.2 
+Crear el nuevo paquete .orig.tar.gz con los estandares de Debian, con licencia gpl3 y generando el paquete desde las fuentes:
+	$ dh_make --createorig  -c gpl3 -s
+Construir el paquete .deb: 
+	$ dpkg-buildpackage -rfakeroot 
+Listar el contenido de un paquete .deb:
+	$ ar -tv picpuz_2.2-1_i386.deb
+Información y perspectiva general de lo que ofrece el paquete:
+	$ dpkg-deb -I picpuz_2.2-1_i386.deb
+Listar los ficheros que serán instalados:
+	$ dpkg-deb -c picpuz_2.2-1_i386.deb 
+instalarlo:
+	# dpkg -i picpuz_2.2-1_i386.deb
+Lo encontraremos en aplicaciones/juegos

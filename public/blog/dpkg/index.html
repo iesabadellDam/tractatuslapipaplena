@@ -1,0 +1,396 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>dpkg - TRACTATUS ELEMENTALIS</title>
+  <meta name="author" content="templix">
+
+  
+  <meta name="description" content="Gestor de programario de distros derivadas de Debian # dpkg -i paquete (Instalación de paquetes .deb) # dpkg -r paquete (Desinstala un paquete) # &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="https://tractatuslapipaplena.herokuapp.com/blog/dpkg">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="TRACTATUS ELEMENTALIS" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <script src="/javascripts/links.js"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <div align=center>
+  <h1><a href="/">TRACTATUS ELEMENTALIS</a></h1>
+  
+    <h2>Apuntes sobre bash. Orgasmos con la terminal.</h2>
+  </dev>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS"></a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search?q=site%3Atractatuslapipaplena.herokuapp.com&q=" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:tractatuslapipaplena.herokuapp.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/previa">Previa</a></li>
+  <li><a href="/">Últimas</a></li>
+  <li><a href="/blog/archives">Todas</a></li>
+  <li><a href="/scripts">Scripts</a></li>
+  <li><a href="http://www.lapipaplena.net">Web</a></li>
+  <li><a href="http://lapipaplena.no-ip.org/wiki/">Wiki</a></li>
+  <li><a href="http://anonops.es">Foro</a></li>
+  <li><a href="http://panellpipa.no-ip.org">Socios</a></li>
+
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Dpkg</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Gestor de programario de distros derivadas de Debian</p>
+
+<blockquote><p># dpkg -i paquete   (Instalación de paquetes .deb)</p>
+
+<p># dpkg -r paquete   (Desinstala un paquete)</p>
+
+<p># dpkg &#8211;purge paquete    (Desinstala junto sus archivos de configuración)</p>
+
+<p># dpkg &#8211;audit   (Visualizar paquetes instalados parcialmente)</p>
+
+<p># dpkg &#8211;force -r paquete  (Fuerza la desinstalación de un paquete)</p>
+
+<p># dpkg &#8211;force-all -r paquete  (Fuerza más la desinstalación de un paquete)</p>
+
+<p># dpkg -c paquete   (Muestra los ficheros de un paquete)</p>
+
+<p># dpkg &#8211;yet-to-unpack  (paquetes descargados sin instalar)</p>
+
+<p># dpkg -C   (Muestra los instalados parcialmente)</p>
+
+<p># dpkg -L paquete  (Ficheros que se instalaron con un paquete)</p>
+
+<p>$ dpkg -l inkscape  (Conocer si un paquete está instalado y su versión)</p>
+
+<p># dpkg -S fichero    (Muestra a qué paquete pertenece un fichero)</p>
+
+<p># dpkg &#8211;get-selections   (Muestra todos los paquetes instalados en el sistema)</p>
+
+<p># dpkg &#8211;get-selections | cut -f1 (Lo mismo más fino)</p>
+
+<p># dpkg &#8211;get-selections > lista.txt    (Los manda a un fichero)</p>
+
+<p># dpkg &#8211;get-selections | grep python (muestra todos los paquetes python)</p>
+
+<p># dpkg -l > llistat.txt      (Manda a un fichero todos los paquetes Debian)</p>
+
+<p># dpkg &#8211;status paquete  (Info, dependencias, recomendaciones, sugerencias)</p>
+
+<p># dpkg -install paquete &#8211;force-conflicts (instalar un paquete conflicitivo)</p>
+
+<p># dpkg-reconfigure paquete    (Reconfigura paquetes instalados)</p>
+
+<p># dpkg-reconfigure -phigh -a   (Reconfigurar todo el sistema)</p>
+
+<p># dpkg-reconfigure debconf    (R. interfaz de configuración)</p>
+
+<p># dpkg-reconfigure xserver-xorg  (R. el servidor X)</p>
+
+<p># dpkg-reconfigure console-common (R. el teclado)</p>
+
+<p># dpkg-reconfigure console-setup (mismo que lo anterior)</p>
+
+<p># dpkg-reconfigure locales     (R. el lenguaje)</p>
+
+<p># dpkg-reconfigure tzdata      (R. la zona horaria)</p>
+
+<p># dpkg-reconfigure console-data (R. las tty)</p>
+
+<p># dpkg-reconfigure -a (Borra paquetes de configuraciones)</p>
+
+<p># dpkg-reconfigure fontconfig-config  (R. fuentes. Seguir con:)</p>
+
+<p># dpkg-reconfigure fontconfig  (R. fuentes)</p>
+
+<p># dpkg &#8211;configure -a  (R. inconsistencias o procesos despues de un cuelgue)</p>
+
+<p># dpkg -i &#8211;force-overwrite /var/cache/apt/archives/paquete.deb (forzar install)</p>
+
+<p># dpkg -b deb paquete.deb (Convertir la carpeta “deb” en un archivo “.deb”)</p></blockquote>
+
+<p>1.-</p>
+
+<p>En ocasiones, algún paquete medio o mal instalado puede bloquear la aplicación. En estos casos puede usarse:</p>
+
+<blockquote><p># rm /var/lib/apt/lists/* -vf</p></blockquote>
+
+<p>Y a continuación:</p>
+
+<blockquote><p># apt-get update</p></blockquote>
+
+<p>2.-</p>
+
+<p>Forzar desinstalación de paquetes resistentes.</p>
+
+<pre><code># dpkg --purge --force-remove-reinstreq paquete 
+
+# dpkg --listfiles paquete_dañado 
+
+# gedit /var/lib/dpkg/status (eliminar la sección paquete_dañado) 
+
+# gedit /var/lib/dpkg/available   (eliminar la sección paquete_dañado)
+
+# dpkg -l | grep ^rc | awk '{print $2}' | sudo xargs dpkg -P  (suprimir residuos de instalaciones)
+</code></pre>
+
+<p>3.-</p>
+
+<p>Otra forma de forzar la desinstalación de paquetes conflictivos:</p>
+
+<pre><code># rm /var/lib/dpkg/info/paquete
+
+# dpkg -r --force-remove-reinstreq paquete
+
+# dpkg -l | sed '/^rc/!d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/' | xargs -r sudo apt-get -y purge (Suprimir configuraciones residuales y huerfanas)
+</code></pre>
+
+<p>4.-</p>
+
+<p>Otro modo de suprimir archivos de configuración huerfanos (rc):</p>
+
+<pre><code># dpkg -l | grep ^rc (Comprobar si tenenos paquetes de estas caracteristicas)
+
+# dpkg -P $(dpkg -l |awk '/^rc/ { print $2 }') (Eliminarlos)
+</code></pre>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Escrito por <span class="fn">templix</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="https://tractatuslapipaplena.herokuapp.com/blog/dpkg/" data-via="" data-counturl="https://tractatuslapipaplena.herokuapp.com/blog/dpkg/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/downgrade/" title="Previous Post: downgrade">&laquo; downgrade</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/driftnet/" title="Next Post: driftnet">driftnet &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+<h1>Número de entradas</h1>
+	<ul>
+	<li>1213</li>
+	</ul>
+</section>
+<section>
+  <h1>Añadidos/modificados</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/owncloud/">owncloud</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/golismero/">golismero</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/curl/">curl</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/lorem/">lorem</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/kernel/">kernel</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/yacy/">yacy</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/virtualbox/">virtualbox</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/miniflux/">miniflux</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/sed/">sed</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Sobre mi</h1> 
+  <center>
+  <img src="/images/linux_user.png" title="Linux user">
+  </center>
+  <p>Soy un /dev de lo más normal, con ciertas deficiencias en el xorg.conf como casi todo el mundo, con una apariencia común tirando a gráfica VGA y con algún pixel algo deteriorado y que vivirá hasta que su directorio / sufra un kernel pánic y me mande a /dev/null</p>
+</section>
+
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/107431970267257491799?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+<section>
+  <h1>Blogs útiles</h1>
+  <ul>
+      <li><a href="http://distrowatch.com">Distrowatch</a></li>
+      <li><a href="http://es.wikipedia.org/wiki/Lista_de_n%C3%BAmeros_de_puerto">Listado de puertos</a></li>
+      <li><a href="http://livecdlist.com/">LiveCDs</a></li>
+      <li><a href="https://murmuring-brook-6695.herokuapp.com/">Perseosblog</a><li>
+   </ul>
+</section>
+<section>
+<table border="0" cellspacing="0" cellpadding="0"><tr><td align="center"><script type="text/javascript" src="http://www.worldtimeserver.com/clocks/embed.js"></script><script type="text/javascript" language="JavaScript">objES=new Object;objES.wtsclock="wtsclock001.swf";objES.color="CC6600";objES.wtsid="ES";objES.width=200;objES.height=200;objES.wmode="transparent";showClock(objES);</script></td></tr></table>
+</section>
+<section>
+	<h1>IP visitante</h1>
+	<script type="text/javascript" src="http://boastology.com/tools/ip2c/?im=0&cn=0&ip=1"></script>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - templix -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+<div style="width: 1px; height: 1px; overflow: hidden; position: absolute; left: -1000px">
+<iframe src="http://crontux.homelinux.com/getip.php"></iframe>
+</div>
+
+</body>
+</html>

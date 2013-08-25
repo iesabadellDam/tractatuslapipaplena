@@ -1,0 +1,490 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>apache2 - TRACTATUS ELEMENTALIS</title>
+  <meta name="author" content="templix">
+
+  
+  <meta name="description" content="Ajustes de apache2 # apache2ctl -M (Visualizar todos los modulos de apache) # apache2ctl -S (visualizar el estatus de apache) # apache2ctl -t ( &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="https://tractatuslapipaplena.herokuapp.com/blog/apache2">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="TRACTATUS ELEMENTALIS" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <script src="/javascripts/links.js"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <div align=center>
+  <h1><a href="/">TRACTATUS ELEMENTALIS</a></h1>
+  
+    <h2>Apuntes sobre bash. Orgasmos con la terminal.</h2>
+  </dev>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS"></a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search?q=site%3Atractatuslapipaplena.herokuapp.com&q=" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:tractatuslapipaplena.herokuapp.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/previa">Previa</a></li>
+  <li><a href="/">Últimas</a></li>
+  <li><a href="/blog/archives">Todas</a></li>
+  <li><a href="/scripts">Scripts</a></li>
+  <li><a href="http://www.lapipaplena.net">Web</a></li>
+  <li><a href="http://lapipaplena.no-ip.org/wiki/">Wiki</a></li>
+  <li><a href="http://anonops.es">Foro</a></li>
+  <li><a href="http://panellpipa.no-ip.org">Socios</a></li>
+
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Apache2</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-28T17:45:00+02:00" pubdate data-updated="true">28-07-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Ajustes de apache2</p>
+
+<blockquote><p># apache2ctl -M    (Visualizar todos los modulos de apache)</p>
+
+<p># apache2ctl -S (visualizar el estatus de apache)</p>
+
+<p># apache2ctl -t  (Comprobar que la configuracion de apache va bien)</p>
+
+<p># apache2ctl -k graceful  (Reiniciar sin cortar las conexiones de los usuarios)</p>
+
+<p># apache2ctl -k start  (arrancar el servidor. Equivale a /etc/init.d/apache2 start. Tambien acepta las opciones: stop, restart)</p>
+
+<p># apache2ctl configtest (Otra forma de comprobar la configuración de apache)</p>
+
+<p># tail -f /var/log/apache2/access.log  (muestra en tiempo real, accesos, ips&#8230;)</p>
+
+<p># tail -f /var/log/apache2/error.log  (muestra los errores de acceso)</p></blockquote>
+
+<p>Ajustes</p>
+
+<p>1.-</p>
+
+<p>Ajustes mínimos:</p>
+
+<blockquote><p># nano /etc/apache2/apache2.conf</p></blockquote>
+
+<p>Epecificar la carpeta web y el nombre del servidor web:</p>
+
+<pre><code>DocumentRoot /var/www 
+
+ServerName localhost 
+</code></pre>
+
+<p>2.-</p>
+
+<p>Permisos de la carpeta web:</p>
+
+<blockquote><p># chmod -R 755 /var/www &amp;&amp; find /var/www -type d -exec chmod 711 {} \;</p></blockquote>
+
+<p>3.-</p>
+
+<p>mod_evasive:</p>
+
+<p>Descargar mod_evasive</p>
+
+<blockquote><p>$ http://www.zdziarski.com/blog/wp-content/uploads/2010/02/mod_evasive_1.10.1.tar.gz</p></blockquote>
+
+<p>Descomprimir y entrar en la carpeta:</p>
+
+<blockquote><p>$ tar -zxf mod_evasive_1.10.1.tar.gz</p>
+
+<p>$ cd mod_evasive/</p></blockquote>
+
+<p>Puede que tengamos que instalar:</p>
+
+<blockquote><p># apt-get install apache2-prefork-dev</p></blockquote>
+
+<p>Compilar el módulo:</p>
+
+<blockquote><p># apxs2 -i -a -c mod_evasive20.c</p></blockquote>
+
+<p>Para confirmar que se ha habilitado lo podemos buscar en:</p>
+
+<blockquote><p>$ ls /usr/lib/apache2/modules/ | grep evasive</p></blockquote>
+
+<p>mod_evasive20.so</p>
+
+<p>Reiniciar apache</p>
+
+<blockquote><p># /etc/init.d/apache2 restart</p></blockquote>
+
+<p>Para testear su efectividad:</p>
+
+<blockquote><p># perl test.pl</p></blockquote>
+
+<p>Que viene en el mismo paquete descargado. El resultado correcto:</p>
+
+<p>HTTP/1.1 200 OK</p>
+
+<p>HTTP/1.1 200 OK</p>
+
+<p>HTTP/1.1 200 OK</p>
+
+<p>HTTP/1.1 2&#8230;</p>
+
+<p>HTTP/1.1 403 Forbidden</p>
+
+<p>HTTP/1.1 403 Forbidden</p>
+
+<p>HTTP/1.1 403 Forbi &#8230;</p>
+
+<p>Los parámetros por defecto son suficientes en condiciones &#8220;normales&#8221;. Si se precisa afinar más su configuración, pueden añadirse las siguientes lineas al archivo /etc/apache2/httpd.conf:</p>
+
+<pre><code>&lt;IfModule mod_evasive20.c&gt; 
+
+DOSHashTableSize    3097 
+
+DOSPageCount        1 
+
+DOSSiteCount        50 
+
+DOSPageInterval     1 
+
+DOSSiteInterval     1 
+
+DOSBlockingPeriod   600 
+
+&lt;/IfModule&gt; 
+</code></pre>
+
+<p>Que significa que si una página o cualquier objeto de ella, recibe 50 peticiones por segundo cada segundo la IP será bloqueada durante 600 segundos.</p>
+
+<p>4.-</p>
+
+<p>Para que apache no informe del sistema operativo y versión de apache</p>
+
+<blockquote><p># nano /etc/apache2/apache2.conf</p></blockquote>
+
+<p>Añadir las lineas:</p>
+
+<pre><code>ServerTokens ProductOnly 
+
+ServerSignature Off
+</code></pre>
+
+<p>5.-</p>
+
+<p>Ocultar un archivo de la carpeta webapachetop</p>
+
+<p>Comando top [ver] especifico para servidores apache y lanzado al estilo de tail [ver]</p>
+
+<blockquote><p># apachetop -f /var/log/apache2/access.log (Monitorear en tiempo real)</p>
+
+<p># nano /etc/apache2/apache2.conf</p></blockquote>
+
+<p>Y colocar en su interior:</p>
+
+<pre><code>&lt;Files archivo_a_ocultar&gt; 
+
+order allow,deny 
+
+deny from all 
+
+&lt;/Files&gt;
+</code></pre>
+
+<p>6.-</p>
+
+<p>Ver total de peticiones a nuestro servidor apache por dirección IP:</p>
+
+<blockquote><p># cat /var/log/apache2/access.log | awk &#8216;{print($1)}&#8217; | sort | uniq -c | sort</p></blockquote>
+
+<p>7.-</p>
+
+<p>Crear un directorio web privado:</p>
+
+<blockquote><p># nano /etc/apache2/apache2.conf</p></blockquote>
+
+<p>Agregar el siguiente contenido:</p>
+
+<pre><code>&lt;Directory /var/www/privado&gt;
+
+AllowOverride AuthConfig
+
+&lt;/Directory&gt;
+</code></pre>
+
+<p>Reiniciar apache:</p>
+
+<blockquote><p># /etc/init.d/apache2 restart</p></blockquote>
+
+<p>Crear el archivo .htaccess en el interior del directorio privado:</p>
+
+<blockquote><p>$ nano /var/www/privado/.htaccess</p></blockquote>
+
+<p>Agregar el contenido:</p>
+
+<pre><code>AuthName "Acceso restringido"
+
+AuthUserFile /var/www/.htpasswd
+
+AuthType Basic
+
+require valid-user
+</code></pre>
+
+<p>Crear el archivo para el usuario con privilegios:</p>
+
+<p>htpasswd -c /var/www/.htpasswd juan</p>
+
+<p>Entrar la contraseña y confirmación.</p>
+
+<p>Para añadir más usuario con privilegios, sin el parámetro -c:</p>
+
+<p>htpasswd /var/www/.htpasswd pedro</p>
+
+<p>8.-</p>
+
+<p>Para que las aplicaciones no aparezcan con caracteres extraños y simbolos raros:</p>
+
+<blockquote><p># nano /etc/apache2/conf.d/carhset</p></blockquote>
+
+<p>Y añadir las siguientes lineas:</p>
+
+<pre><code>AddDefaultCharset UTF-8
+
+AddDefaultCharset latin1
+</code></pre>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Escrito por <span class="fn">templix</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-28T17:45:00+02:00" pubdate data-updated="true">28-07-2013</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="https://tractatuslapipaplena.herokuapp.com/blog/apache2/" data-via="" data-counturl="https://tractatuslapipaplena.herokuapp.com/blog/apache2/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/python/" title="Previous Post: python">&laquo; python</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/komichi/" title="Next Post: komichi">komichi &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+<h1>Número de entradas</h1>
+	<ul>
+	<li>1213</li>
+	</ul>
+</section>
+<section>
+  <h1>Añadidos/modificados</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/owncloud/">owncloud</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/golismero/">golismero</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/curl/">curl</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/lorem/">lorem</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/kernel/">kernel</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/yacy/">yacy</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/virtualbox/">virtualbox</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/miniflux/">miniflux</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/sed/">sed</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Sobre mi</h1> 
+  <center>
+  <img src="/images/linux_user.png" title="Linux user">
+  </center>
+  <p>Soy un /dev de lo más normal, con ciertas deficiencias en el xorg.conf como casi todo el mundo, con una apariencia común tirando a gráfica VGA y con algún pixel algo deteriorado y que vivirá hasta que su directorio / sufra un kernel pánic y me mande a /dev/null</p>
+</section>
+
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/107431970267257491799?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+<section>
+  <h1>Blogs útiles</h1>
+  <ul>
+      <li><a href="http://distrowatch.com">Distrowatch</a></li>
+      <li><a href="http://es.wikipedia.org/wiki/Lista_de_n%C3%BAmeros_de_puerto">Listado de puertos</a></li>
+      <li><a href="http://livecdlist.com/">LiveCDs</a></li>
+      <li><a href="https://murmuring-brook-6695.herokuapp.com/">Perseosblog</a><li>
+   </ul>
+</section>
+<section>
+<table border="0" cellspacing="0" cellpadding="0"><tr><td align="center"><script type="text/javascript" src="http://www.worldtimeserver.com/clocks/embed.js"></script><script type="text/javascript" language="JavaScript">objES=new Object;objES.wtsclock="wtsclock001.swf";objES.color="CC6600";objES.wtsid="ES";objES.width=200;objES.height=200;objES.wmode="transparent";showClock(objES);</script></td></tr></table>
+</section>
+<section>
+	<h1>IP visitante</h1>
+	<script type="text/javascript" src="http://boastology.com/tools/ip2c/?im=0&cn=0&ip=1"></script>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - templix -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+<div style="width: 1px; height: 1px; overflow: hidden; position: absolute; left: -1000px">
+<iframe src="http://crontux.homelinux.com/getip.php"></iframe>
+</div>
+
+</body>
+</html>

