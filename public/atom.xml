@@ -4,7 +4,7 @@
   <title><![CDATA[TRACTATUS ELEMENTALIS]]></title>
   <link href="https://tractatuslapipaplena.herokuapp.com/atom.xml" rel="self"/>
   <link href="https://tractatuslapipaplena.herokuapp.com/"/>
-  <updated>2013-10-27T15:40:27+01:00</updated>
+  <updated>2013-10-27T18:10:13+01:00</updated>
   <id>https://tractatuslapipaplena.herokuapp.com/</id>
   <author>
     <name><![CDATA[templix]]></name>
@@ -12,6 +12,53 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[rsync]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/rsync/"/>
+    <updated>2013-10-27T18:09:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/rsync</id>
+    <content type="html"><![CDATA[<p>Sincronizar archivos o directorios. Trabasjar con el directorio montado.</p>
+
+<blockquote><p>$ rsync -av /home/usuario/Dropbox /home/usuario/Copias_seguridad/ (Copiar todo el directorio “Dropbox” en el directorio “Copias_seguridad”)</p>
+
+<p>$ rsync -av &#8211;exclude=Dropbox /media/servidor /home/usuario/servidor/ (Sincronizar un servidor con un directorio local excluyendo el dir Dropbox)</p></blockquote>
+
+<p>Nota.- Pueden excluirse varios directorios [&#8211;exclude=Dropbox &#8211;exclude=isos &#8211;exclcude=public &#8230;]</p>
+
+<blockquote><p>$ rsync -arvuz Documentos usuario@192.168.1.5:/home/usuario/ (Copiar el directorio en otra máquina)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<pre><code>-a (respaldar recursivamente directorios y subdirectorios) 
+
+-g (conserva el atributo “group” de los archivos originales) 
+
+-E (conserva el atributo “executable” del archivo originales) 
+
+-v (aumentar el nivel de información desplegado 
+
+-z (comprime los datos que serán transferidos) 
+
+--exclude=tmp  (Excluir archivos o directorios. /tmp en este caso)
+
+--delete-during  (Borrar los archivos de origen a medida que son transferidos) 
+</code></pre>
+
+<blockquote><p>$ rsync -aHxv root@dirección_IP:/* /carpeta_destino &#8211;exclude=/dev &#8211;exclude=/proc &#8211;exclude=/sys &#8211;exclude=/tmp (copia/clonación en vivo de todo un sistema remoto a un directorio local. Se recomienda parar todos los servicios en ejecución de la máquina remota y repetir el comando varias veces hasta que no haya ningún fichero copiado, para evitar ficheros corrompidos. Se deben crear las carpetas &#8220;/dev&#8221;, &#8220;/proc&#8221;, &#8220;/sys&#8221; y &#8220;/tmp&#8221; en la carpeta de destino).</p>
+
+<p>$ rsync -avz &#8211;exclude-from &#8216;rsync_exclude&#8217; /home/usuario/ /media/sda11/copa_seguridad (Copia de seguridad del /home/usuario a otra partición excluyendo los archivos especificados en el archivo rsync_exclude)</p></blockquote>
+
+<p>Nota.- El formato del archivo rsync_exclude para excluir los ficheros ocultos [.*] todos los de la carpeta Dropbox y el video alien de la carpeta Videos será:</p>
+
+<pre><code>.*
+
+Dropbox/*
+
+Videos/alien
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[zypper]]></title>
@@ -363,31 +410,6 @@ q (salir)
 <p>BUILD_NOCONFIRM=1</p>
 
 <p>EDITFILES=0</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[yacy]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/yacy/"/>
-    <updated>2013-10-27T13:57:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/yacy</id>
-    <content type="html"><![CDATA[<p>[openjdk-6-jre-headless]</p>
-
-<p>Buscador libre y descentralizado. La red no almacenada las busquedas y no es posible censurar el contenido del indice compartido. Descarga de http://debian.yacy.net o añadiendo al sources.list la linea:</p>
-
-<pre><code>deb http://debian.yacy.net ./
-</code></pre>
-
-<p>Arrancar el demonio de forma clásica:</p>
-
-<blockquote><p># /etc/init.d/yacy start (restart para reiniciar y stop para parar)</p></blockquote>
-
-<p>El acceso se realiza colocando en la barra de direcciones del navegador:</p>
-
-<pre><code>http://localhost:8090
-</code></pre>
-
-<p>Para el acceso externo es preciso redireccionar en el router el puerto al pc correspondiente.</p>
 ]]></content>
   </entry>
   
