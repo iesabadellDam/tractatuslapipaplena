@@ -1,0 +1,79 @@
+---
+layout: post
+title: "convert"
+date: 2013-10-27 13:52
+comments: true
+categories: 
+---
+redimensionar, cambiar formatos, extraer fotogramas, convertir blanco y negro imagenes. Este comando es tan extenso que él solo merecería un libro. Consulta más exhaustiva en http://www.imagemagick.org/script/convert.php o en español http://www.rpublica.net/imagemagick/intro.html#inicio_sec)
+
+>$ convert *.jpg imagenes.pdf        (Crear un pdf con todas las imágenes)
+
+>$ convert {1,2,3,4,5,6,7,8,9}.png imagenes.pdf (Lo mismo especificando páginas y orden)
+
+>$ convert color.jpg -monochrome blanconegro.jpg (Convertir a blanco y negro)
+
+>$ convert original.png nueva.jpg        (Cambiar el formato de una imagen)
+
+>$ convert --auto-orient in.jpg out.jpg  (Reorientar una foto)
+
+>$ convert -resize 800x600 *.jpg %02d.jpg (Cambiar dimensiones de todas)
+
+>$ convert -quality 40% imagen image_reducida         (lo mismo)
+
+>$ convert -delay 60 1.jpg 2.jpg 3.jpg 123.gif (gif animado con varios jpg)
+
+>$ convert 123.gif -adjoin 1-2-3.jpg     (extraer los fotogramas de un gif)
+
+>$ convert -resize 200 awk.pdf[0] awk.png (primera imagen pdf a imagen)
+
+>$ convert file.pdf file.jpg  (convertir pdf en jpg)
+
+>$ convert imagen.png -pointsize 32 -gravity center -annotate 0 "Linux es genial" salida.png (Colocar un texto con medida 32 sin inclinación [-annnotate 0] en el centro [-gravity center] de una imagen )
+
+>$ convert imagen.jpg -alpha set -channel A -fx 0.5 imagen.png (Aumentar la tranparencia de una imagen [valor de fx: 0 toda y 1 nada] y canviarla a jpg)
+
+>$ convert -density 300 input.pdf -fill "rgb(255,255,255)" -opaque "rgb(29,5,114)" output.pdf  (convertir fondo negro a blanco para imprimir)
+
+>$ convert entrada.jpg -font Bookman-Demi -pointsize 62 -stroke white -draw "text 5,60 'Texto'" salida.jpg (poner un texto en determinadas coordenadas [5,60] especificando fuente, medida y borde de las letras en blanco)
+
+Algunas opciones:
+
+-fill red (Letra roja)
+
+-strokewidth 3 (Ancho del borde de letra)
+
+-border 3 (Emmarcar la imagen con un borde de 3 pixels)
+
+-frame  5x5+2+2 (Lo mismo estilo cuadro)
+
+ Si quisieramos el texto en rojo añadiríamos: -fill red después de -stroke white)
+
+Notas.-”delay 60″ son 60 milisegundos por fotograma
+
+"resize 150×150" Respetará la proporción de la imagen.
+
+"imagen%02d"  Renombrará todas la imagenes con nombre “imagen” y dos dígitos.
+
+"imagen%03d"   Igual pero con tres dígitos.
+
+>$ ifconfig | convert -background yellow -fill black -font Courier -pointSize 14 label:@- ifconfig.png  (convertir la salida de un comando a imagen png)
+
+ifconfig .-	comando que se ejecuta
+
+-background   .- color del fondo
+
+-fill    .-	color del texto
+
+-font  .-	fuente del texto
+
+-pointSize .-tamaño del texto
+
+label:@-    .-Nombre del archivo a generar
+
+Archivos nombre de fuentes, colores: /etc/ImageMagick/
+
+Tambien puede cambiarse el nombre de la fuente por su archivo:
+
+-font /home/usuario/.fonts/Albert.ttf
+

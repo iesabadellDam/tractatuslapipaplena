@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Es una herramienta similar a partimage para crear imágenes de una o varias particiones a la vez a un fichero asi como restaurar dichas imágenes más &hellip;">
+  <meta name="description" content="Añadir usuarios a grupos. # gpasswd -d usuario video (Para eliminar &#8220;usuario&#8221; del grupo &#8220;video&#8221;) # gpasswd -a usuario video ( &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/fsarchiver/">Fsarchiver</a></h1>
+      <h1 class="entry-title"><a href="/blog/gpasswd/">Gpasswd</a></h1>
     
     
       <p class="meta">
@@ -97,24 +97,20 @@
   
 
 
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Es una herramienta similar a partimage para crear imágenes de una o varias particiones a la vez a un fichero asi como restaurar dichas imágenes más tarde.</p>
+  <div class="entry-content"><p>Añadir usuarios a grupos.</p>
 
-<blockquote><p># fsarchiver savefs /data/imagen.fsa /dev/sda1 (creamos la imagen de la partición).</p>
+<blockquote><p># gpasswd -d usuario video (Para eliminar &#8220;usuario&#8221; del grupo &#8220;video&#8221;)</p>
 
-<p># fsarchiver savefs /data/imagen2.fsa /dev/sda1 /dev/sdb1 (creamos la imagen de dos particiones simultaneamente que seran almacenadas en el mismo fichero).</p>
+<p># gpasswd -a usuario video (Añadir &#8220;usuario&#8221; al grupo &#8220;video&#8221;)</p>
 
-<p># fsarchiver restfs /data/imagen2.fsa id=0,dest=/dev/sda1 (restauramos la primera partición de la imagen).</p>
-
-<p># fsarchiver restfs /data/imagen2.fsa id=1,dest=/dev/sdb1 (restauramos la segunda partición).</p>
-
-<p># fsarchiver restfs /data/imagen2.fsa id=0,dest=/dev/sda1 id=1,dest=/dev/sdb1 (restauramos a la vez las dos particiones).</p></blockquote>
+<p># gpasswd -A usuario video (Define a &#8220;usuario&#8221; como administrador del grupo &#8220;video&#8221;)</p></blockquote>
 </div>
   
   
@@ -127,7 +123,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/free/">Free</a></h1>
+      <h1 class="entry-title"><a href="/blog/gpart/">Gpart</a></h1>
     
     
       <p class="meta">
@@ -143,14 +139,20 @@
   
 
 
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Listar la memoria RAM y swap utilizada y disponible</p>
+  <div class="entry-content"><p>Reparar la tabla de particiones.</p>
+
+<blockquote><p># gpart /dev/sda (escanear el disco)</p>
+
+<p># gpart -W /dev/sda /dev/sda (reparar)</p>
+
+<p># gpart -f -i /dev/sda (escaneo completo [-f] y preguntando si quieres o no activar la partición encontrada [-i])</p></blockquote>
 </div>
   
   
@@ -163,7 +165,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/fping/">Fping</a></h1>
+      <h1 class="entry-title"><a href="/blog/google/">Google</a></h1>
     
     
       <p class="meta">
@@ -179,16 +181,62 @@
   
 
 
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Determina máquinas de una red activas</p>
+  <div class="entry-content"><p>Buscador.</p>
 
-<blockquote><p># fping -g 192.168.2./24 2> /dev/null | grep alive</p></blockquote>
+<p>1.-</p>
+
+<p>Mejorar busquedas :</p>
+
+<p>. No reconoce caracteres como el punto [.], el guión [-] o el circunflejo [<sup>]</sup></p>
+
+<p>. Suprimir articulos [campo de futbol -> campo futbol]</p>
+
+<p>. Google no distingue mayúsculas ni minúsculas.</p>
+
+<p>. Comillas. Busquedas textuales [&#8220;ludwig van beethoven&#8221;]</p>
+
+<p>. Operador lógico &#8220;OR&#8221; [mayúsculas] buscar dos conceptos [bach OR wagner]</p>
+
+<p>. Barra vertical. Lo mismo [beethoven|wagner]</p>
+
+<p>. ~ - Buscar palabras parecidas [~palabra]</p>
+
+<p>. related – parecido al anterior [related:www.site.com]</p>
+
+<p>. link - Buscar páginas que apuntan a otra [link:wwww.host.com]</p>
+
+<p>. info - Recabar información sobre un dominio [info:www.host.com]</p>
+
+<p>. Asterisco - Si se desconoce algún dato [&#8220;ludwig * beethoven&#8221;]</p>
+
+<p>. filetype - Buscar extensiones concretas [“comandos linux” filetype:pdf]</p>
+
+<p>. site - Restringir resultados por localización geografica [site:es arroz, armas site:onion.to …]</p>
+
+<p>. cache - Cuando la página ya no está accesible [cache:www.host.com]</p>
+
+<p>. intitle – las que contengan la palabra o frase en el título [intitle:beethoven]</p>
+
+<p>. define:palabra – Buscar la definición de una palabra.</p>
+
+<p>. Usar el menos [-] y el más [+] para excluir o incluir de una busqueda determinado concepto [comandos -militares, comandos +militares]</p>
+
+<p>. do a barrel roll – La página da una vuelta completa en la pantalla.</p>
+
+<p>2.-</p>
+
+<p>Gdrive (google-docs-fs)</p>
+
+<blockquote><p># mkdir /media/gdrive</p>
+
+<p># gmount /media/gdrive cuenta@gmail.com -d (Pedirá contraseña de la cuenta y mostrando la salida del comando. Para desmontar: gumount /media/gdrive)</p></blockquote>
 </div>
   
   
@@ -201,7 +249,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/fortune/">Fortune</a></h1>
+      <h1 class="entry-title"><a href="/blog/golismero/">Golismero</a></h1>
     
     
       <p class="meta">
@@ -217,20 +265,32 @@
   
 
 
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Mostrar frases aleatorias al abrir la terminal</p>
+  <div class="entry-content"><p>Framework para auditorías de seguridad y pentesting.</p>
 
-<p>añadir al final de /home/usuario/.bashrc:</p>
+<blockquote><p>$ git clone https://github.com/golismero/golismero.git (Descargar la última versión)</p>
 
-<p>fortune -a date</p>
+<p>$ cd golismero</p>
 
-<p>frases en /usr/share/games/fortune</p>
+<p># python golismero.py localhost -o prueba.html -o prueba.txt &#8211;audit-name prueba_localhost (Iniciar la uditoria, que guarde el resultado en .html y .txt y dándole un nombre)</p>
+
+<p># python golismero.py URL -i nikto_output.csv -o report.html -d all (Importar el resultado de un scaneo con nikto [-i] y desactivando todos los plugins [-d])</p>
+
+<p># python golismero.py URL -nd (Sin guardar los resultados en la base de datos. Por defecto lo hace automáticamente)</p>
+
+<p># python golismero.py URL -db database.db -no (Realizar el scaneo y guardarlo en la basa de datos)</p>
+
+<p># python golismero.py -db database.db -d all -o report.html (Generar un informe a partir de un scaneo guardado en la base de datos)</p>
+
+<p># python golismero.py &#8211;plugin-list (Ver listado de plugins disponibles)</p>
+
+<p># python golismero.py &#8211;plugin-info dns_analyzer (Ver detalles de un plugin concreto)</p></blockquote>
 </div>
   
   
@@ -243,7 +303,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/foremost/">Foremost</a></h1>
+      <h1 class="entry-title"><a href="/blog/gocr/">Gocr</a></h1>
     
     
       <p class="meta">
@@ -259,32 +319,20 @@
   
 
 
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Recuperación de datos</p>
+  <div class="entry-content"><p>programa que imprime en la salida estándar todo el texto que puede leer de cualquier fichero gráfico de entrada. Usado especialmente para el descifrado de kapchas. El programa necesita cierto aprendizaje.</p>
 
-<blockquote><p># foremost -i /dev/sda -o /recovery</p>
+<blockquote><p>$ mkdir ocrdb</p>
 
-<p># foremost -t jpg -i /dev/sda3 -o /home/usr/recuperado (Recuperar jdatepgs de una partición)</p></blockquote>
+<p>$ gocr -d 2 -p ./ocrdb/ -m 256 -m 130 kapcha.jpg (El aprendizaje. Lanzar varias veces)</p>
 
-<p>proceso sobre una imagen:</p>
-
-<blockquote><p># dd if=/dev/sda1 of=imagen.iso conv=noerror,sync (Crear la imagen iso del dispositivo a recuperar. “conv=noerror,sync” indica que ignore errores)</p>
-
-<p># foremost -v -t all -o /home/usuario/recuperado -i imagen.iso</p></blockquote>
-
-<p>-v .- modo detallado</p>
-
-<p>-o .- lugar donde almacenar los archivos recuperados</p>
-
-<p>-t all .- tipo de archivo a buscar. Para recuperar solo jpg: -t jpg. Para una lista de extensiones: -t jpg,doc,png</p>
-
-<p>-i .- lugar donde esta la iso a escanear.</p>
+<p>$ gocr -p ocrdb/ -m 2 kapcha.jpg (Comprobar si el programa lo resuelve solo)</p></blockquote>
 </div>
   
   
@@ -297,7 +345,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/fold/">Fold</a></h1>
+      <h1 class="entry-title"><a href="/blog/goaccess/">Goaccess</a></h1>
     
     
       <p class="meta">
@@ -313,16 +361,22 @@
   
 
 
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Formatea la salida de un archivo a una determinada longitud.</p>
+  <div class="entry-content"><p>Analiza el registro del servervidor web Apache</p>
 
-<blockquote><p>$ fold  -w50 -s archivo (50 caracteres de largo por linea y que corte por los espacios entre palabras y no por las palabras)</p></blockquote>
+<blockquote><p># goaccess -f /var/log/apache2/access.log (forma básica, especificando el fichero)</p>
+
+<p># goaccess -f /var/log/apache2/access.log -a -s -b (Habilitar lista de usuarios para el servidor seleccionado [a], activar respuesta de estado HTTP [s] y habilitar el consumo de ancho de banda total [b])</p>
+
+<p># goaccess -f /var/log/apache2/access.log -a > reporte.html (Mandar resultado a un archivo html)</p></blockquote>
+
+<p>Nota.- Con la aplicación en marxa, con F1 aparecen las teclas interactivas.</p>
 </div>
   
   
@@ -335,7 +389,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/fmt/">Fmt</a></h1>
+      <h1 class="entry-title"><a href="/blog/go2/">Go2</a></h1>
     
     
       <p class="meta">
@@ -351,16 +405,22 @@
   
 
 
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra en pantalla archivos de texto de forma optimizada (Ver diferencia con cat)</p>
+  <div class="entry-content"><p>Buscador de directorios. En Ubuntu es necesario hacer el “&#8211;setup” (mira más abajo).</p>
 
-<blockquote><p>$ fmt fichero.txt</p></blockquote>
+<blockquote><p>$ go2 images (Mostrará una lista de todos los directorios “images” del directorio personal precedidos de una letra [a, b, c&#8230;] al pulsarla, entraremos directamente en el directorio especificado)</p>
+
+<p>$ go2 -r carpeta (Busca desde el directorio raiz)</p>
+
+<p>$ go2 -l carpeta (Hace la búsqueda pero sólo muestra el resultado saliendo al acabar dicha búsqueda)</p>
+
+<p>$ /usr/lib/go2/go2.sh &#8211;setup (configura nuestro .bashrc para poder llamar al comando con go2 simplemente)</p></blockquote>
 </div>
   
   
@@ -373,7 +433,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/flvstreamer/">Flvstreamer</a></h1>
+      <h1 class="entry-title"><a href="/blog/gnome-terminal/">Gnome-terminal</a></h1>
     
     
       <p class="meta">
@@ -389,120 +449,188 @@
   
 
 
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Descarga de videos con protocolo RTMP.</p>
+  <div class="entry-content"><p>Emulador de terminal de gnome.</p>
 
-<p>Supongamos que el video a descargar tenga por ruta: http://www.tv3.cat/videos/1307049732092</p>
-
-<p>Abrir una pestaña del vavegador y pegar:</p>
-
-<p>http://www.tv3.cat/su/tvc/tvcConditionalAccess.jsp?ID=1307049732092&amp;QUALITY=H&amp;FORMAT=MP4</p>
-
-<p>Colocando en el número “ID=” el que corresponda y con la ruta rtmp que nos indique lanzar [en una sola linea]:</p>
-
-<blockquote><p>$ flvstreamer -r rtmp://mp4-500-str.tv3.cat/ondemand/mp4:g/tvcatalunya/2/9/1307049732092.mp4 -o video.mp4</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/fluxbox-generate-menu/">Fluxbox-generate_menu</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Generador de menús de fluxbox.</p>
-
-<blockquote><p>$ fluxbox-generate_menu -g (Añade un menú tipo gnome)</p>
-
-<p>$ fluxbox-generate_menu -k -o ~/.fluxbox/menu1 (Añade menú tipo kde y lo coloca en menu1 para probarlo. Sin especificar, substituiría el .fluxbox/menu)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/flunym0us/">Flunym0us</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Pruebas de vulnarabilidad de webs basadas en wordpress. Descarga http://code.google.com/p/flunym0us/downloads/list</p>
-
-<blockquote><p>$ flunym0us -H http://host -w /home/usuario/wordlist -wp -t 60 -r 1 -p 2 -T 2</p></blockquote>
+<blockquote><p>$ gnome-terminal &#8211;hide-menubar &#8211;geometry=200x70+0+0 -e &#8220;sh -c &#8216;links2 http://google.es&#8217;&#8221;&amp; (arrancar una terminal, sin menús, con unas medidas concretas y en ella, arrancar el navegador)</p></blockquote>
 
 <p>Opciones:</p>
 
-<p>-wp (Scanear un sitio wordpress)</p>
+<pre><code>--window-with-profile=perfil2  (especificar un perfil para arrancar)
 
-<p>-mo (scanear un sitio Moodle)</p>
+--show-menubar  (Mostrar los menús)
 
-<p>-H http://host (Nombre del host wordpress a scanear)</p>
+--maximize (maximizada)
 
-<p>-w /home/usuario/wordlist (Ruta al diccionario)</p>
+--full-screen (a pantalla completa)
 
-<p>-t 60 (Tiempo de espera)</p>
+--zoom=x.x (factor de ampliación de la terminal [--zoom=1.0 medida normal])
+</code></pre>
 
-<p>-r 1 (Reintentos de conexión)</p>
+<p>atajos:</p>
 
-<p>-p 2 (Numero de procesos)</p>
+<pre><code>Ctrl + a (lleva el cursor al principio de la línea)
 
-<p>-T 2 (Número de subprocesos simultaneos por proceso)</p>
+Ctrl + b (Retrocede un carácter)
+
+Ctrl + c (mata lo que se está escribiendo y devuelve el prompt)
+
+Ctrl + d (Sale de root y si está como usuario, cierra la terminal)
+
+Ctrl + e (lleva el cursor al final de la línea)
+
+Ctrl + f (adelanta un caracter)
+
+Ctrl + k (Borra de la posición actual al final de la linea)
+
+Ctrl + l (limpia la pantalla)
+
+Ctrl + r (Buscar en el historial de comandos. “Esc” editar. “Ctrl +g” abortar “Intro” ejecutar)
+
+Ctrl + t (Intercambiar las dos letras anteriores al cursor [pieran → pierna])
+
+Ctrl + u (Borra de la posición actual al principio de la linea)
+
+Ctrl + w (borra del cursor al primer espacio hacia el principio de la linea)
+
+Ctrl + y (Deshace la última acción)
+
+Ctrl + Mayu + t (Abrir nueva pestaña)
+
+Ctrl + Mayu + w (Cerrar pestaña)
+
+Esc + d (Borra de la posición actual al final de la palabra)
+
+Esc + b (Ir una palabra hacia atras)
+
+Esc + f (Ir una palabra hacia adelante)
+
+Esc + t (Intercambiar las dos palabras anteriores al cursor [sin tos → tos sin])
+
+Mayús+RePág (Hace scroll de la terminal hacia arriba)
+
+Mayús+AvPág (Hace scroll de la terminal hacia abajo)
+</code></pre>
+
+<p>1.-</p>
+
+<p>Cambiar las medidas por defecto de la terminal:</p>
+
+<blockquote><p># nano /usr/share/vte/termcap/xterm</p></blockquote>
+
+<p>Buscar la linea:</p>
+
+<p>co#80:it#8:li#24:\</p>
+
+<p>Y modificar los parámetros co (columnas) y li (lineas) con las nuevas medidas: co#100:it#8:li#10:\</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/gnome-screensaver-command/">Gnome-screensaver-command</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Herramienta de control del salvapantallas</p>
+
+<blockquote><p>$ gnome-screensaver-command -l (Bloqueo inmediato)</p></blockquote>
+
+<p>Opciones</p>
+
+<p>&#8211;exit (Salir de salvapantalla)</p>
+
+<p>-q (Consulta el estado de la pantalla)</p>
+
+<p>-t (Tiempo para que entre en acción)</p>
+
+<p>-a (Activarlo)</p>
+
+<p>-d (Desactivarlo)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/gnome-keyring/">Gnome-keyring</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Demonio para gestionar de manera segura las credenciales de acceso del usuario, como los nombre de usuario y las contraseñas. Usando algunos escritorios la consola puede mostrar el error:</p>
+
+<p>WARNING: gnome-keyring:: couldn&#8217;t connect to: /home/USER/.cache/keyring-s1KHzb/pkcs11: El fichero o directorio no existe</p>
+
+<p>Para resolverlo:</p>
+
+<blockquote><p># nano /etc/xdg/autostart/gnome-keyring-pkcs11.desktop</p></blockquote>
+
+<p>Buscar la linea:</p>
+
+<p>OnlyShowIn=GNOME;Unity;</p>
+
+<p>Y añadir el escritorio usado:</p>
+
+<p>OnlyShowIn=GNOME;Unity;LXDE;Xfce</p>
+
+<p>Reiniciar</p>
 </div>
   
   
@@ -525,7 +653,7 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1213</li>
+	<li>1290</li>
 	</ul>
 </section>
 <section>
@@ -533,43 +661,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/owncloud/">owncloud</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/golismero/">golismero</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/curl/">curl</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lorem/">lorem</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/kernel/">kernel</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/yacy/">yacy</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/virtualbox/">virtualbox</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/miniflux/">miniflux</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sed/">sed</a>
+        <a href="/blog/zdiff/">zdiff</a>
       </li>
     
   </ul>

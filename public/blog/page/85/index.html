@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Consulta las variables de configuración del sistema. $ getconf -a (Muestra el listado) $ getconf LONG_BIT (Informa sobre si se trata de un equipo de &hellip;">
+  <meta name="description" content="Unir archivos pdf y ps $ gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=1+2.pdf 1.pdf 2.pdf $ gs -q -sPAPERSIZE=a4 -dNOPAUSE -dBATCH -sDEVICE &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/getconf/">Getconf</a></h1>
+      <h1 class="entry-title"><a href="/blog/gs/">Gs</a></h1>
     
     
       <p class="meta">
@@ -97,18 +97,20 @@
   
 
 
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Consulta las variables de configuración del sistema.</p>
+  <div class="entry-content"><p>Unir archivos pdf y ps</p>
 
-<blockquote><p>$ getconf -a (Muestra el listado)</p>
+<blockquote><p>$ gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=1+2.pdf 1.pdf 2.pdf</p>
 
-<p>$ getconf LONG_BIT (Informa sobre si se trata de un equipo de 32 o 64 bits)</p></blockquote>
+<p>$ gs -q -sPAPERSIZE=a4 -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=1+2.pdf 1.pdf 2.pdf  (Especificando medida de página)</p>
+
+<p>$ gs -q -dNOPAUSE -dBATCH -sDEVICE=pswrite -sOutputFile=1+2.ps 1.ps 2.ps</p></blockquote>
 </div>
   
   
@@ -121,7 +123,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/geoiplookup/">Geoiplookup</a></h1>
+      <h1 class="entry-title"><a href="/blog/grun/">Grun</a></h1>
     
     
       <p class="meta">
@@ -137,18 +139,14 @@
   
 
 
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Localiación geográfica de una ip.</p>
-
-<blockquote><p>$ geoiplookup IP</p>
-
-<p># geoip-database-contrib_update (actualizar la BD [/usr/share/GeoIP/])</p></blockquote>
+  <div class="entry-content"><p>Lanador de aplicaciones GTK.</p>
 </div>
   
   
@@ -161,7 +159,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/genius/">Genius</a></h1>
+      <h1 class="entry-title"><a href="/blog/grub2/">Grub2</a></h1>
     
     
       <p class="meta">
@@ -177,262 +175,234 @@
   
 
 
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Calculadora.</p>
+  <div class="entry-content"><p>Gestor de arranque. Los dispositivos empiezan por 0 y las particiones empiezan con 1. “sda1” es “hd0,1” y no “hd0,0” como en el antiguo grub.</p>
 
-<blockquote><p>$ genius (Entra en el prompt. Su uso en el clásico: 60*2, 100/5&#8230; exit para salir)</p>
+<p>1.-</p>
 
-<p>$ genius –exec=50/2</p></blockquote>
-</div>
-  
-  
+<p>Modificación de parámetros generales:</p>
 
+<blockquote><p># gedit /etc/default/grub</p></blockquote>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/gemsets/">Gemsets</a></h1>
-    
-    
-      <p class="meta">
-        
+<pre><code>GRUB_DEFAULT= 0/saved (0 selecciona primera entrada, 1 la segunda... "saved" selecciona la última entrada  ejecutada.) 
 
+GRUB_TIMEOUT=10 (tiempo de espera antes de arrancar) 
 
+GRUB_HIDDEN_TIMEOUT=0  (esconder el menú de entradas. Si hay varios sistemas comentarlo) 
 
+GRUB_HIDDEN_MENU_QUIET=true (oculta la cuenta atrás. "false" la muestra) 
 
+GRUB_DISTRIBUTOR=lsb_release -i -s 2&gt; /dev/null || echo Debian (determina el nombre del sistema) 
 
+GRUB_CMDLINE_LINUX="acpi_osi=Linux" (opciones concretas que pueden pasarse al arranque) 
 
+GRUB_CMDLINE_LINUX_DEFAULT="splash noapic" (otras opciones por defecto) 
 
+GRUB_GFXMODE=1024x768 (activa el grub gráfico) 
 
-  
+GRUB_DISABLE_LINUX_RECOVERY="true" (muestra la opción de recovery mode en el menú. “false lo suprime) 
+</code></pre>
 
-
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Conjunto de gemas que definimos para una determinada versión de Ruby [ver] y que están aislados entre ellos. O sea, si tenemos dos proyectos y cada uno con una versión distinta, no tienen conflicto entre ellos. Por tanto, lo más recomendable es definir un gemset para cada proyecto en el que estemos trabajando. Ver rvm.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/gem/">Gem</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[rubygems]</p>
-
-<p>Nombre que reciben los módulos en ruby.</p>
-
-<blockquote><p>$ gem install rake (Instalar. &#8220;Rake&#8221; en este caso)</p>
-
-<p>$ gem install rake &#8211;remote (Instalar desde un servidor remoto)</p>
-
-<p>$ gem list &#8211;local (Muestra las gemas instaladas)</p>
-
-<p>$ gem list R (Lista las gemas cuyo nombre empieza por &#8220;R&#8221;)</p>
-
-<p>$ gem search &#8211;both mysql (Busca entre las gemas locales o remotas las que contengan &#8220;mysql&#8221;)</p>
-
-<p>$ gem search &#8211;remote mysql (Busca entre las gemas remotas las que contengan &#8220;mysql&#8221;)</p>
-
-<p>$ gem help push (Muestra información sobre un comando. &#8220;push&#8221; en este caso)</p>
-
-<p>$ gem uninstall rake (Desinstalar &#8220;rake&#8221;)</p>
-
-<p>$ gem environment (Información sobre rubygems)</p>
-
-<p>$ gem update (Actualizar todas las gemas del sistema)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/gelemental/">Gelemental</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra la tabla periódica de los elementos quimicos.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/gedit/">Gedit</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Editor de texto</p>
-
-<blockquote><p>$ gedit &#8211;list-encodings  (Lista la codificación de caracteres)</p>
-
-<p>$ gedit &#8211;encoding UTF-8 archivo.txt  (Abre el archivo mencionado con la cofificación especificada)</p></blockquote>
-
-<p>Atajos</p>
-
-<p>Ctrl+c (Copiar)</p>
-
-<p>Ctrl+s (Guarda documento)</p>
-
-<p>Ctrl+v (Pegar)</p>
-
-<p>Ctrl+x (Cortar)</p>
-
-<p>Ctrl+w (Cerrar ventana activa)</p>
-
-<p>Ctrl+Mayús+flecha  (seleccionar texto a derecha o izquierda)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/gdm/">Gdm</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Pantalla de login para entrar en el sistema</p>
-
-<p>1-</p>
-
-<p>Para ocultar usuarios:</p>
-
-<p>Aparecen en la pantalla de login los que tienen un ID 1000 o superior. Para conocer los ID:</p>
-
-<blockquote><p># cat /etc/passwd | gawk -F: &#8216;{print $3, $1}&#8217; | sort -n</p></blockquote>
-
-<p>Para suprimirlos:</p>
-
-<blockquote><p># nano /etc/gdm/custom.conf</p></blockquote>
-
-<p>Y el apartado greeter dejarlo:</p>
-
-<p>[greeter]</p>
-
-<p>Exclude=usuario_a_ocultar,boinc,yacy</p>
+<blockquote><p># update-grub2   (hacer efectivos los cambios)</p></blockquote>
 
 <p>2.-</p>
 
-<p>Entrada automática y otros ajustes:</p>
+<p>Para que no aparezca memtest en el menú:</p>
 
-<blockquote><p># gdmsetup</p></blockquote>
+<blockquote><p># chmod -x /etc/grub.d/20_memtest86+</p></blockquote>
+
+<p>El mismo comando con “+x” lo restituye.</p>
+
+<blockquote><p># update-grub2</p></blockquote>
+
+<p>3.-</p>
+
+<p>Quitar lineas que hacen referencia a kernels antiguos:</p>
+
+<p>﻿# dpkg &#8211;get-selections | grep linux-image  (averiguar los instalados)</p>
+
+<blockquote><p># apt-get remove &#8211;purge linux-image-2.6.xx-xx-generic</p></blockquote>
+
+<p>El update-grub2 se hará de forma automática.</p>
+
+<p>4.-</p>
+
+<p>Cambiar la imagen de fondo [apt-get install grub2-splashimages]. Si se quieren hacer con gimp, estas han de tener un tamaño de  640×480 pixeles y extensión .tga</p>
+
+<blockquote><p>$ ls /usr/share/images/grub   (directorio de la imágenes)</p>
+
+<p># gedit /etc/grub.d/05_debian_theme</p></blockquote>
+
+<p>Y modificamos en la linea:</p>
+
+<p>WALLPAPER=&#8221;/usr/share/images/grub/Lake_mapourika_NZ.tga&#8221;</p>
+
+<blockquote><p># update-grub2</p></blockquote>
+
+<p>5.-</p>
+
+<p>Reinstalar grub2 desde un live-cd o desde otra partición.</p>
+
+<blockquote><p># fdisk -l   (para saber la partición del grub que queremos instalar)</p>
+
+<p># mount /dev/sda2 /media/sda2  (motar la partición)</p>
+
+<p># mount -o bind /dev/ /media/sda2/dev/  (montar los sistemas de ficheros)</p>
+
+<p># mount -o bind /sys/ /media/sda2/sys/</p>
+
+<p># mount -o bind /proc/ /media/sda2/proc/</p>
+
+<p># chroot /media/sda2    (Chorootear la partición que alberga el grub que vamos a instalar)</p>
+
+<p># grub-install /dev/sda   (instalar grub en el disco)</p></blockquote>
+
+<p>6.-</p>
+
+<p>Para solucionar el problema de que al arrancar un sistema operativo la pantalla no muestra nada, editar el archivo:</p>
+
+<blockquote><p># nano /etc/default/grub</p></blockquote>
+
+<p>Y en la linea:</p>
+
+<p>GRUB_CMDLINE_LINUX_DEFAULT=&#8221;quiet&#8221;</p>
+
+<p>Añadir el chipset de vuestra gráfica:</p>
+
+<pre><code>General (para cualquier gráfica): nomodeset 
+
+ATI (driver libre ati o radeon): radeon.modeset=0 
+
+ATI (driver privativo): nomodeset 
+
+nVidia: xforcevesa o nomodeset 
+
+Nvidia con driver libre (nouveau): nouveau.modeset=0 
+
+Intel: i915.modeset=0 
+</code></pre>
+
+<p>Quedando la entrada, por ejemplo para una Intel; como sigue:</p>
+
+<pre><code>GRUB_CMDLINE_LINUX_DEFAULT="quiet i915.modeset=0"
+</code></pre>
+
+<p>7.-</p>
+
+<p>Modificar los colores de las fuentes para adaptarlas a las imágenes mostradas.</p>
+
+<blockquote><p># gedit /etc/grub.d/05_debian_theme</p></blockquote>
+
+<p>y modificar las líneas</p>
+
+<p>set menu_color_normal=white/black</p>
+
+<p>set menu_color_highlight=black/light-gray</p>
+
+<p>color_normal (los que se utilizan por defecto)</p>
+
+<p>color_highlight (los que se utilizan para la entrada seleccionada).</p>
+
+<p>El primero de los 2 colores de cada uno de estos campos se refiere al color de la fuente, y el segundo, al color de fondo.</p>
+
+<p>Colores permitidos:</p>
+
+<pre><code>red (rojo)
+
+green (verde) 
+
+blue (azul)
+
+yellow (amarillo)
+
+cyan (cian)
+
+magenta (magenta)
+
+white (blanco)
+
+black (negro) 
+
+light-gray (gris claro)
+</code></pre>
+
+<p>8.-</p>
+
+<p>Colocar contraseña a grub2 para dos usuarios:</p>
+
+<blockquote><p># nano /etc/grub.d/00_header</p></blockquote>
+
+<p>Colocar al final:</p>
+
+<p>cat &lt;&lt; EOF</p>
+
+<p>set superusers=”usuario1”</p>
+
+<p>password usuario1 la_contraseña</p>
+
+<p>password usuario2 otra_contraseña</p>
+
+<p>EOF</p>
+
+<p>9.-</p>
+
+<p>Para que en el grub2 salga la partición de windows del sistema pero no otras particiones ntfs (de recuperación, HP, ….)</p>
+
+<blockquote><p>$ gedit /boot/grub/grub.cfg</p></blockquote>
+
+<p>Copiar el menuentry perteneciente a la partición windows (no la de recuperación) y pastearla en:</p>
+
+<blockquote><p># gedit /etc/grub.d/40_custom</p></blockquote>
+
+<p>Luego:</p>
+
+<blockquote><p># gedit /etc/default/grub</p></blockquote>
+
+<p>Y añadir al final del archivo la linea:</p>
+
+<p>GRUB_DISABLE_OS_PROBER=true</p>
+
+<p>Recargar grub:</p>
+
+<blockquote><p># update-grub</p></blockquote>
+
+<p>Nota.- Las entradas de 40_custom no se muestran en la salida de la consola pero quedan reflejadas en el grub.cfg</p>
+
+<p>10.-</p>
+
+<p>Poner contraseña a grub2</p>
+
+<blockquote><p># grub-mkpasswd-pbkdf2 (Crear la contraseña encriptada en SHA512)</p>
+
+<p># nano /etc/grub.d/00_header</p></blockquote>
+
+<p>Y colocar al final del archivo:</p>
+
+<p>cat &lt;&lt; EOF</p>
+
+<p>set superusers=&#8221;usuario&#8221;</p>
+
+<p>password_pbkdf2 usuario contraseña_SHA512</p>
+
+<p>EOF</p>
+
+<blockquote><p># nano /etc/grub.d/10_linux</p></blockquote>
+
+<p>Buscar la linea:</p>
+
+<p>printf &#8220;menuentry &#8216;${title}&#8217; ${CLASS} {\n&#8221; &#8220;${os}&#8221; &#8220;${version}&#8221;</p>
+
+<p>Y colocar al usuario al final de {CLASS}:</p>
+
+<p>printf &#8220;menuentry &#8216;${title}&#8217; ${CLASS} &#8211;users usuario {\n&#8221; &#8220;${os}&#8221; &#8220;${version}&#8221;</p>
+
+<blockquote><p># update-grub</p></blockquote>
 </div>
   
   
@@ -445,7 +415,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/gdebi/">Gdebi</a></h1>
+      <h1 class="entry-title"><a href="/blog/grub-mkpasswd-pbkdf2/">Grub-mkpasswd-pbkdf2</a></h1>
     
     
       <p class="meta">
@@ -461,16 +431,38 @@
   
 
 
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Instalador de paquetes .deb</p>
+  <div class="entry-content"><p>Crear una contraseña para una entrada de grub2</p>
 
-<blockquote><p># gdebi paquete.deb</p></blockquote>
+<blockquote><p># grub-mkpasswd-pbkdf2</p></blockquote>
+
+<p>Se entra la contraseña y se confirma. Saldrá una codificación del tipo:</p>
+
+<p>Your PBKDF2 is grub.pbkdf2.sha512.10000.F2FE383&#8230;..</p>
+
+<p>Editar grub.cfg</p>
+
+<blockquote><p># nano /boot/grub/grub.cfg</p></blockquote>
+
+<p>Colocar al final de la parte comentada (#):</p>
+
+<p>set superusers=&#8221;NOMBRE_USUARIO&#8221;</p>
+
+<p>password_pbkdf2 NOMBRE_USUARIO grub.pbkdf2.sha512.10000.F2FE383&#8230;..</p>
+
+<p>Especificando el nombre del usuario y copipasteando la clave codificada que nos ha dado el comando anterior. Finalmente en la entrada [menuentry] que se quiere proteger inmediatamente después de las comillas [&#8216;&#8230;.&#8217;] indicando el nombre del sistema operatico:</p>
+
+<p>&#8211;users NOMBRE_USUARIO</p>
+
+<p>El resultado sería:</p>
+
+<p>menuentry &#8216;Ubuntu, amb Linux 3.2.0-24-generic (mode de restabliment)&#8217; &#8211;users NOMBRE_USUARIO &#8211;class ubuntu &#8211;class gnu-linux &#8230;.</p>
 </div>
   
   
@@ -483,7 +475,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/gdb/">Gdb</a></h1>
+      <h1 class="entry-title"><a href="/blog/grub-mkconfig/">Grub-mkconfig</a></h1>
     
     
       <p class="meta">
@@ -499,42 +491,225 @@
   
 
 
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Herramienta para depurar programas en C y C++</p>
+  <div class="entry-content"><p>Generar un fichero de configuración para grub [grub.cfg]</p>
 
-<p>Necesitamos que el programa haya sido compilado con modo debug (parámetro -g) en gcc o g++</p>
+<blockquote><p># grub-mkconfig -o /boot/grub/grub.cfg</p></blockquote>
 
-<blockquote><p>$ gdb /ruta/programa (Con esto abrimos la shell de GDB)</p></blockquote>
+<p>Despues instalar en el MBR [grub-install /dev/sda]</p>
+</div>
+  
+  
 
-<p>Dentro de la Shell de GDB podemos ejecutar comandos</p>
 
-<p>(gdb) run (ejecutara el programa sin argumentos)</p>
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/grub/">Grub</a></h1>
+    
+    
+      <p class="meta">
+        
 
-<p>(gdb) run &lt; content.xml > test.txt (Con argumentos, ejemplo de o3totxt)</p>
 
-<p>(gdb) break 10 (Decimos a GDB que queremos un punto de control en la linia 10 del código)</p>
 
-<p>(gdb) print variable (También p. Nos printara el contenido de la variable)</p>
 
-<p>(gdb) continue (Tambien c. Decimos que el programa continue ejecutándose)</p>
 
-<p>(gdb) next  (También n. Ejecuta la siguiente linia de código)</p>
 
-<p>(gdb) step (También s. Lo mismo que next pero si la siguiente linia es una función, va a dicha función y ejecuta linia a linia el código de esa función)</p>
 
-<p>(gdb) [TECLA_ENTER] (Repite el paso anterior)</p>
 
-<p>(gdb) backtrack (Printa la traza inversa)</p>
+  
 
-<p>(gdb) help (ayuda del programa)</p>
 
-<p>(gdb) quit (salimos del programa)</p>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Para restituir un gestor de arranque</p>
+
+<blockquote><p># grub</p></blockquote>
+
+<pre><code>grub&gt;
+
+grub&gt; find /boot/grub/stage1    (saber los grubs que tenemos en el PC)
+
+grub&gt; root (hd0,1)     (escogemos el que queremos instalar)  
+
+grub&gt; setup (hd0)     (y donde lo queremos instalar)
+
+grub&gt; quit                 (salir)
+</code></pre>
+
+<blockquote><p># grub-install &#8211;root-directory=/media/floppy fd0 (crear un disquete de arranque)</p>
+
+<p># grub-install &#8211;root-directory=/mnt/sda1 &#8211;recheck /dev/sda (indica el directorio donde procede grub, parecido al comando anterior)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/grpck/">Grpck</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Chequea las sintaxis correcta del fichero /etc/group.</p>
+
+<blockquote><p># grpck (Una salida vacia indica que todo es correcto)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/growisofs/">Growisofs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Grabación de dvds.</p>
+
+<blockquote><p>$ growisofs -dvd-compat -Z /dev/sdb=imagen.iso</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/groups/">Groups</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Muestra los grupos a los que pertenece el usuario.</p>
+
+<blockquote><p>$ groups usuario  (El usuario especificado)</p>
+
+<p>$ groups  (Sin especificar usuario muestra los del usuario con el que estamos)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/groupmod/">Groupmod</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Renombrar grupos.</p>
+
+<blockquote><p># grouopmod -n nuevo_grupo viejo_grupo</p></blockquote>
 </div>
   
   
@@ -557,7 +732,7 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1213</li>
+	<li>1290</li>
 	</ul>
 </section>
 <section>
@@ -565,43 +740,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/owncloud/">owncloud</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/golismero/">golismero</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/curl/">curl</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lorem/">lorem</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/kernel/">kernel</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/yacy/">yacy</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/virtualbox/">virtualbox</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/miniflux/">miniflux</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sed/">sed</a>
+        <a href="/blog/zdiff/">zdiff</a>
       </li>
     
   </ul>

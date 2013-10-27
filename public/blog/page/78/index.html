@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Servicio de protocolo de transferencia de apache $ httpd -l (visualizar los módulos activos de apache) $ httpd -L (Listado de directivas disponibles &hellip;">
+  <meta name="description" content="Para poder verificar el ancho de banda entre los clientes de una red local. Se instala en todas las máquinas de la red. # iperf -s (Poner el servidor &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/httpd/">Httpd</a></h1>
+      <h1 class="entry-title"><a href="/blog/iperf/">Iperf</a></h1>
     
     
       <p class="meta">
@@ -97,26 +97,28 @@
   
 
 
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Servicio de protocolo de transferencia de apache</p>
+  <div class="entry-content"><p>Para poder verificar el ancho de banda entre los clientes de una red local. Se instala en todas las máquinas de la red.</p>
 
-<blockquote><p>$ httpd -l  (visualizar los módulos activos de apache)</p>
+<blockquote><p># iperf -s (Poner el servidor a la escucha por el puerto 5001)</p>
 
-<p>$ httpd -L  (Listado de directivas disponibles)</p>
+<p># iperf -c 192.168.1.10 (Conectar los clientes con el servidor)</p></blockquote>
 
-<p>$ httpd -t  (realiza un test de los archivos de configuración [Syntax OK])</p>
+<p>Alguna sopciones que pueden añadirse:</p>
 
-<p>$ httpd -h  (muestra las opciones)</p>
+<p>-f B (Mostrar el resultado en Bytes por segundo [b: bytes/s, k:kilobits/s, m:megabytes/s, B:Bytes/s, K:KiloBytes/s, M:MegaBytes/s] esta opción sirva igual para el cliente que para el servidor)</p>
 
-<p>$ httpd -v (versión de apache)</p>
+<p>-t 120 (Tiempo en segundos de duración de la transmisión. Sólo para el cliente)</p>
 
-<p>$ httpd -V (versión y parámetros compilados)</p></blockquote>
+<p>-D (Lanzarlo como servicio. Sólo en el servidor)</p>
+
+<p>-i 10 (Tempo en segundos entre mediciones. Sólo cliente)</p>
 </div>
   
   
@@ -129,7 +131,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/htpasswd/">Htpasswd</a></h1>
+      <h1 class="entry-title"><a href="/blog/ipcs/">Ipcs</a></h1>
     
     
       <p class="meta">
@@ -145,16 +147,44 @@
   
 
 
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Comando con el que definimos usuario y contraseñas para el servidor apache.</p>
+  <div class="entry-content"><p>Informa sobre la comunicación entre procesos [espacios de memoria, buffers, semaforos..] listando los recursos compartidos que están creados en ese momento. Ver ipcrm. La columna &#8220;shmid&#8221; muestra el ID, la &#8220;owner&#8221; el propietario, &#8220;perms&#8221; los permisos y &#8220;bytes&#8221; el tamaño en bytes</p>
 
-<blockquote><p>$ htpasswd -c /home/USER/public_html/.htpasswd USUARIO (Creando el archivo  .htpasswd en la ruta especificada con los datos de usuario)</p></blockquote>
+<blockquote><p># ipcs -s | grep postgres  (Muestra los recursos compartidos de postgres)</p>
+
+<p># ipcs -lm (determinar los limites de memoria compartida del sistema)</p>
+
+<p># ipcs -ls (Límites actuales del contador que se utiliza para acceder a los recursos compartidos del sistema)</p>
+
+<p># ipcs -u  (Proporciona información sobre la comunicación entre procesos)</p>
+
+<p># ipcs -m (despliega los segmentos de memoria compartida)</p>
+
+<p># ipcs -mu (muestra un breve resumen)</p>
+
+<p># ipcs -ml (muestra los límites en contraposición a los valores actuales)</p>
+
+<p># ipcs -m -i 950288 (obtener detalle de un segmento de memoria compartida [valor shmid])</p>
+
+<p># ipcs -s (Muestra los semforos en el sistema)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<p>-m  (segmentos de memoria compartida )</p>
+
+<p>-q   (colas de mensajes )</p>
+
+<p>-s   (matrices de semáforos )</p>
+
+<p>-a   (todos. Opción por defecto)</p>
+
+<p>-p   (pid)</p>
 </div>
   
   
@@ -167,7 +197,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/htop/">Htop</a></h1>
+      <h1 class="entry-title"><a href="/blog/ipcrm/">Ipcrm</a></h1>
     
     
       <p class="meta">
@@ -183,14 +213,16 @@
   
 
 
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra el consumo de CPU, RAM y SWAP y debajo de estos los diferentes procesos  organizados por defecto de mayor a mejor consumo de CPU. Pulsando “u” podremos introducir el usuario a monitorizar y pulsando “k” e introduciendo el PID, materemos el proceso.</p>
+  <div class="entry-content"><p>Permite eliminar la comunicación entre procesos [ver ipcs]. Si paramos el programa con un Ctrl-C o simplemente sale de forma anormal, el recurso [la memoria compartida] no se libera y queda en el sistema. Con este comando es posible borrarla.</p>
+
+<blockquote><p># ipcrm -m 950288 (eliminar un segmento de memoria compartida)</p></blockquote>
 </div>
   
   
@@ -203,7 +235,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/html/">Html</a></h1>
+      <h1 class="entry-title"><a href="/blog/ipcalc/">Ipcalc</a></h1>
     
     
       <p class="meta">
@@ -219,57 +251,75 @@
   
 
 
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Lenguaje de marcado predominante en la elaboración de páginas web.</p>
+  <div class="entry-content"><p>Calcular las ips y mascaras de una red a partir de una ip dada o un rango.</p>
 
-<p>Las etiquetas básicas de HTML de obligada presencia en todo documento son:</p>
+<blockquote><p># ipcalc 192.168.0.1/24</p>
 
-<pre><code>&lt;!DOCTYPE&gt; (define el tipo de documento HTML) 
+<p># ipcalc 192.168.0.1/255.255.128.0</p></blockquote>
+</div>
+  
+  
 
-&lt;html&gt; (Inicio del documento) 
 
-&lt;head&gt;  (Cabecera del documento.  Metadatos que no se muestran en el navegador pero de especial relevancia para indexadores) 
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ip-ajustes/">Ip-ajustes</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>1.- Estática</p>
+
+<blockquote><p># gedit /etc/network/interfaces</p></blockquote>
+
+<pre><code>auto eth0 
+
+iface eth0 inet static 
+
+address 192.168.x.x 
+
+netmask 255.255.255.0 
+
+network 192.168.x.0 
+
+boadcast 192.168.2.255 
+
+gateway 192.168.x.1 
 </code></pre>
 
-<p>En el interior de la etiqueta <head> podemos encontrar:</p>
+<blockquote><p># /etc/init.d/networking restart (reiniciar el servicio)</p>
 
-<pre><code>&lt;title&gt;  (Título que aparece en la barra del navegador) 
-
-&lt;meta&gt;  (Metainformación del codumentos: autor, fecha realización, codificación ...) 
-
-&lt;LINK&gt;  (Otros metadatos: referencias a documentos anteriores, glosarios...) 
-
-&lt;body&gt; (Cuerpo del documento que se muestra en el navegador) 
-</code></pre>
-
-<p>Dentro de la etiqueta <body> podemos encontrar:</p>
-
-<pre><code>&lt;a&gt;  (Ancla. Crea un enlace a otro documento o parte del mismo) 
-
-&lt;h1&gt;, &lt;h2&gt;,… &lt;h6&gt;  (Establece la medida de los títulos de cabecera. De h1, más grande a h6 más pequeño) 
-
-&lt;div&gt; (División estructural de la página) 
-
-&lt;p&gt;  (Párrafo) 
-
-&lt;br&gt;  (Salto de linea) 
-
-&lt;table&gt; (Inicio de una tabla. La fias se defines con &lt;tr&gt; i las celdas dentro de las filas con &lt;td&gt;) 
-
-&lt;ul&gt; Lista desordenada.Los ítems se definen con &lt;li&gt;) 
-
-&lt;ol&gt; (Lista ordenada. Los ítems se definen con &lt;li&gt;) 
-
-&lt;dl&gt; (Lista de definición. Pueden ser &lt;dt&gt; [termino a definir] y &lt;dd&gt; Definición del termino) 
-</code></pre>
-
-<p>Excepto algunas pocas etiquetas, la mayoría requieren ser cerradas con la misma etiqueta precedida de una barra: <html>&#8230;.</html></p>
+<p>$ ifconfig (verificar la nueva ip)</p></blockquote>
 </div>
   
   
@@ -282,7 +332,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/hsetroot/">Hsetroot</a></h1>
+      <h1 class="entry-title"><a href="/blog/ip/">Ip</a></h1>
     
     
       <p class="meta">
@@ -298,26 +348,42 @@
   
 
 
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Coloca imágen en el fondo de pantalla permitiendo modificar: brillo, contraste, transparencias&#8230;</p>
+  <div class="entry-content"><p>Configuración de red. Muestra dispositivos, enrutamientos, tuneles.</p>
 
-<blockquote><p>$ hsetroot -clear &#8220;#f6f6f6&#8221; (Borra el rango de color especificado)</p>
+<blockquote><p>$ ip addr (Revisar tarjetas)</p>
 
-<p>$ hsetroot -center imagen.jpg (coloca la imagen centrada. Otras opciones: -tile: mosaico, -full: respetando proporciones y -fill: redimensiona al tamaño de la pantalla)</p>
+<p>$ ip route show (Información)</p>
 
-<p>$ hsetroot -blur 1.5 imagen.jpg (desenfoca)</p>
+<p>$ ip link show (Ver interfaces de red)</p>
 
-<p>$ hsetroot -contrast 30 imagen.jpg (Ajusta el contraste al valor)</p>
+<p>$ ip link set dev eth0 down (bajar una red)</p>
 
-<p>$ hsetroot -flipv imagen.jpg (Refleja la imagen vertical. -fliph: horizontal y -flipd: diagonal)</p>
+<p>$ ip route add default via 192.168.1.1 (establecer la ip del router)</p>
 
-<p>$ hsetroot -alpha 150 imagen.jpg</p></blockquote>
+<p>$ ip link set dev eth0 up (levantar una red)</p>
+
+<p>$ ip addr add 192.168.1.20 255.255.255.0 dev eth1 (establecer una ip estática)</p>
+
+<p>$ ip n  (MAC e IP del router)</p>
+
+<p>$ ip link set dev eth1 address 00:03:44:88:00:11 (Modificdar la MAC. Previamente bajar la red)</p>
+
+<p>$ ip route del default (Eliminar puerta de enlace para crear una nueva)</p>
+
+<p>$ ip route add default via 192.168.1.10 (Crear nueva puerta de enlace)</p>
+
+<p>$ ip -f inet addr show eth0 (información de la dirección ip)</p>
+
+<p>$ ip route add 192.168.2.0/24 via 192.168.1.10 (Añadir una red a una puerta de enlace)</p></blockquote>
+
+<p>Nota.- Verificar que /etc/resolv contenga una linea con el servidor DNS tipo: nameserver 8.8.8.8 [para las DNS de google]</p>
 </div>
   
   
@@ -330,7 +396,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/hping/">Hping</a></h1>
+      <h1 class="entry-title"><a href="/blog/iozone/">Iozone</a></h1>
     
     
       <p class="meta">
@@ -346,28 +412,28 @@
   
 
 
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Herramienta de intrusión remota (ataque ICMP)</p>
+  <div class="entry-content"><p>Realizar test de velocidad de sistemas de archivos (ext3, ext4&#8230;)</p>
 
-<blockquote><p># hping3 -I eth0 -S 192.169.2.2  (ping no silencioso)</p>
+<blockquote><p>$ iozone -s 2g -r 64 -i 0 -i 1 -b test.xls</p>
 
-<p># hping3 -I eth0 -a 192.168.2.158 -S 192.169.2.2  (enmascarando  nuestra IP con una de ficticia-192.168.1.158)</p>
+<p>$ iozone -a -g 2G -f /media/sda2</p></blockquote>
 
-<p># hping3 -I eth0 -a 192.168.2.158 -S 192.168.2.2 -p 135 (Descubrir máquinas que con un ping no responden, enmascarando la IP y especificando un puerto)</p>
+<p>-a (automático)</p>
 
-<p># hping3 -S -a ip_ficticia -p 80 -k ip_atacada</p>
+<p>-g (Tamaño de los archivos generados)</p>
 
-<p># hping3 -i m100 -S -a ip_ficticia -p 80 -k ip_atacada</p>
+<p>-f (el sistema de archivos a tratar)</p>
 
-<p># hping3 -S 192.168.1.158 &#8211;flood &#8211;rand-source -d 5000 -p 80 (Enviando paquetes lo más rápido posible [flood], simulando orígenes aleatorios [rand-source], tamaño del paquete en bites [d] y puerto de entrada)</p>
+<p>-i (0= escritura, 1= lectura, 2=lectura/escritura&#8230;.)</p>
 
-<p># hping3 &#8211;rand-source -p 80 -S &#8211;flood ip_victima (ataque DDos a una ip)</p></blockquote>
+<p>-b (archivo que generará con los resultados)</p>
 </div>
   
   
@@ -380,7 +446,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/hosts/">Hosts</a></h1>
+      <h1 class="entry-title"><a href="/blog/iotop/">Iotop</a></h1>
     
     
       <p class="meta">
@@ -396,31 +462,32 @@
   
 
 
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Configurar bloqueo de páginas web:</p>
+  <div class="entry-content"><p>monitoriza el ratio de lectura/escritura en disco .</p>
 
-<pre><code># nano /etc/hosts
-</code></pre>
+<blockquote><p>$ iotop -o -u usuario</p>
 
-<p>Y debajo de:</p>
+<p>$ iotop -a -p $(sed &#8216;s, , -p ,g&#8217; &lt;&lt;&lt;<code>pgrep "_raid|_resync|jbd2"</code>) (un raid)</p></blockquote>
 
-<p>127.0.0.1 localhost</p>
+<p>Alguns opciones:</p>
 
-<p>127.0.1.1 tux</p>
+<p>-d 2 (Actualización cada 2 segundos)</p>
 
-<p>Añadimos, después de la ip local, las que se quieran bloquear separadas por un espacio:</p>
+<p>-b (No interactivo)</p>
 
-<p>127.0.0.1 localhost</p>
+<p>-o (Sólo mostrar procesos que hacen uso de entrada/salida)</p>
 
-<p>127.0.1.1 tux</p>
+<p>-t (Incluir una marca de tiempo)</p>
 
-<p>127.0.0.1 www.porn.net www.google.es</p>
+<p>-p pid (Pid del proceso a monitorizar. Por defecto todos)</p>
+
+<p>-u usuario (especificando usuario)</p>
 </div>
   
   
@@ -433,7 +500,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/hostname/">Hostname</a></h1>
+      <h1 class="entry-title"><a href="/blog/iostat/">Iostat</a></h1>
     
     
       <p class="meta">
@@ -449,20 +516,20 @@
   
 
 
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Mostrar el nombre de &#8230;</p>
+  <div class="entry-content"><p>muestra estadísticas de la CPU y de la entrada y salida de los dispositivos y particiones.</p>
 
-<blockquote><p>$ hostname -a                (el alias de la maquina)</p>
+<blockquote><p>$ iostat -x sda -d 1 6 (6 reportes con 1 segundo de intervalo sobre el disco sda. Suprimiendo la última cifra [6] continuará reportando datos hasta finalizar con Ctrl+c)</p>
 
-<p>$ hostname -i                 (la IP del ordenador)</p>
+<p>$ iostat -d 3 (actualizará resultados cada 3 segundos)</p>
 
-<p>$ hostname -s                 (el nombre de la maquina)</p></blockquote>
+<p>$ iostat -p sda (Ver estadisticas de un disco concreto con sus particiones)</p></blockquote>
 </div>
   
   
@@ -475,7 +542,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/hostid/">Hostid</a></h1>
+      <h1 class="entry-title"><a href="/blog/inxi/">Inxi</a></h1>
     
     
       <p class="meta">
@@ -491,56 +558,58 @@
   
 
 
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra la identificación en hexadecimal del presente host.</p>
+  <div class="entry-content"><p>Muestra información del equipo (http://inxi.googlecode.com/svn/trunk/inxi).</p>
 
-<blockquote><p>$ hostid</p></blockquote>
-</div>
-  
-  
+<blockquote><p>$ inxi -Fpur -c 4</p></blockquote>
 
+<p>Algunas opciones (con inxi -h la lista completa):</p>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/host/">Host</a></h1>
-    
-    
-      <p class="meta">
-        
+<p>-A (Audio y tarjetas de sonido)</p>
 
+<p>-b (informacio básica)</p>
 
+<p>-c (formato de color de 0 a 32 para la salida de datos)</p>
 
+<p>-C (CPUs)</p>
 
+<p>-d (drivers opticos)</p>
 
+<p>-D (disco duro)</p>
 
+<p>-F (salida extendida)</p>
 
+<p>-G (tarjeta gráfica)</p>
 
-  
+<p>-i (Información de red)</p>
 
+<p>-I (Procesos, uptime, memoria&#8230;)</p>
 
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
-        
-      </p>
-    
-  </header>
+<p>-M (Datos de la máquina)</p>
 
+<p>-N (tarjetas de red)</p>
 
-  <div class="entry-content"><p>Determina la ip de un nombre o el nombre de una ip</p>
+<p>-o (particiones no montadas)</p>
 
-<blockquote><p>$ host -v -a telefonica.com</p>
+<p>-p (particiones montadas)</p>
 
-<p>$ host google.com|grep address | awk &#8216;{print $NF}&#8217; (Muestra la propia)</p></blockquote>
+<p>-r (repositorios)</p>
+
+<p>-s (sensors[temperaturas cpu])</p>
+
+<p>-S (Host, Kernel,Escritorio y Distro)</p>
+
+<p>-t cm (Procesos que consumen más cpu [c] y memoria [m])</p>
+
+<p>-u (UUID de las particiones. -uo las no montadas, -up las montadas)</p>
+
+<p>-v 6 (Distintas etiquetas de información. Del 1 al 6)</p>
 </div>
   
   
@@ -563,7 +632,7 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1213</li>
+	<li>1290</li>
 	</ul>
 </section>
 <section>
@@ -571,43 +640,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/owncloud/">owncloud</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/golismero/">golismero</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/curl/">curl</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lorem/">lorem</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/kernel/">kernel</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/yacy/">yacy</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/virtualbox/">virtualbox</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/miniflux/">miniflux</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sed/">sed</a>
+        <a href="/blog/zdiff/">zdiff</a>
       </li>
     
   </ul>

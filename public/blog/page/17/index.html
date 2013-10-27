@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Crear usuarios. # useradd -d /home/user -m user (Especifica la ruta a su $HOME) Otras opciones: -M usuario (sin directorio $HOME) -g users user ( &hellip;">
+  <meta name="description" content="Exporta todos los formatos soportados por openoffice/libreoffice a otros formatos como pdf, txt&#8230; Para una lista detallada consultar este enlace &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/useradd/">Useradd</a></h1>
+      <h1 class="entry-title"><a href="/blog/unoconv/">Unoconv</a></h1>
     
     
       <p class="meta">
@@ -97,57 +97,28 @@
   
 
 
-<time datetime="2013-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Crear usuarios.</p>
+  <div class="entry-content"><p>Exporta todos los formatos soportados por openoffice/libreoffice a otros formatos como pdf, txt&#8230; Para una lista detallada consultar este enlace:</p>
 
-<blockquote><p># useradd -d /home/user -m user (Especifica la ruta a su $HOME)</p></blockquote>
+<p>http://dag.wieers.com/home-made/unoconv/</p>
 
-<p>Otras opciones:</p>
+<blockquote><p>$ unoconv &#8211;show  (Visualizar formatos  soportados)</p>
 
-<p>-M usuario  (sin directorio $HOME)</p>
+<p>$ unoconv archivo.odt</p>
 
-<p>-g users user (grupo principal al que pertenece el usuario)</p>
+<p>$ unoconv *.odt</p>
 
-<p>-e 20111231 user (fecha de expiración de un usuario: 2011-12-31)</p>
+<p>$ unoconv -f pdf <em>.odp </em>.odt (Convierte todos los .odt y .odp a pdfs)</p>
 
-<p>-G video,audio user (grupos adicionales a los que pertenece)</p>
+<p>$ unoconv &#8211;format=txt document1.odt (convierte el documento a texto plano)</p>
 
-<p>-s /bin/bash (especifica la shell del usuario)</p>
-
-<p>-s /sbin/nologin (El usuario no podra logearse en el sistema. Ideal para usuarios con acceso a Samba o FTP sin acceso al interprete de comandos)</p>
-
-<p>-u 503 (Identificador que sera asignado al usuario. Por defecto la UID será a partir del numero 500. Si no se especifica, automáticamente se establece el siguiente número disponible a partir del último usuario creado.)</p>
-
-<p>Un ejemplo completo:</p>
-
-<blockquote><p># useradd -d /home/paco -g users -s /bin/bash -m paco</p></blockquote>
-
-<p>1.-</p>
-
-<p>/etc/default/useradd</p>
-
-<p>Archivo donde se definen los valores [shell, directorio del directorio personal, ID del grupo, expiración de la contraseña&#8230;] por defecto para la creación de nuevos usuarios [ver useradd y skel]</p>
-
-<p>Algunos parámetros:</p>
-
-<pre><code>GROUP=100
-
-HOME=/home
-
-INACTIVE=-1
-
-EXPIRE=
-
-SHELL=/bin/sh
-
-SKEL=/etc/skel
-</code></pre>
+<p>$ unoconv &#8211;format=txt &#8211;stdout document1.odt > salida.txt (envia la salida al STDOUT para redireccionarla a un fichero cualquiera)</p></blockquote>
 </div>
   
   
@@ -160,7 +131,7 @@ SKEL=/etc/skel
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/user-dirs-dot-dirs/">user-dirs.dirs</a></h1>
+      <h1 class="entry-title"><a href="/blog/unix2dos/">Unix2dos</a></h1>
     
     
       <p class="meta">
@@ -176,30 +147,40 @@ SKEL=/etc/skel
   
 
 
-<time datetime="2013-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Archivo donde se especifican los directorios que saldran por defecto en el $HOME:</p>
+  <div class="entry-content"><p>Convertir formatos unix a msdos</p>
 
-<p>XDG_DESKTOP_DIR=”$HOME/Escritorio”</p>
+<blockquote><p>$ unix2dos fichero_unix fichero_dosServidor de archivos ftp. Toda la configuración de encuentra en el archivo:</p>
 
-<p>XDG_DOWNLOAD_DIR=”$HOME/Descargas”</p>
+<p># nano /etc/vsftpd.conf</p></blockquote>
 
-<p>XDG_TEMPLATES_DIR=”$HOME/Plantillas”</p>
+<p>Algunos de los parámetros:</p>
 
-<p>XDG_PUBLICSHARE_DIR=”$HOME/Público”</p>
+<p>anonymous_enable=NO # si no queremos accesos anonimos</p>
 
-<p>XDG_DOCUMENTS_DIR=”$HOME/Documentos”</p>
+<p>local_enable=YES # Permitir accesos locales autentificados</p>
 
-<p>XDG_MUSIC_DIR=”$HOME/Música”</p>
+<p>write_enable=YES # Permite escritura en el servidor</p>
 
-<p>XDG_PICTURES_DIR=”$HOME/Imágenes”</p>
+<p>ftpd_banner=Entrando en el servidor ftp&#8230;</p>
 
-<p>XDG_VIDEOS_DIR=”$HOME/Vídeos”</p>
+<p>chroot_local_user=YES # Enjaular la conexión a su propio directorio personal</p>
+
+<p>max_clients=5 # limitar a 5 los accesos simultaneos</p>
+
+<p>Nota.- Han de redigirirse los puertos 20 y 21 y el rango especificado en el archivo de configuración:</p>
+
+<p>pasv_min_port=44000</p>
+
+<p>pasv_max_port=44100</p>
+
+<p>El cliente podrá conectarse al servidor via filezilla, gftp&#8230;</p>
 </div>
   
   
@@ -212,7 +193,7 @@ SKEL=/etc/skel
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/usbmount/">Usbmount</a></h1>
+      <h1 class="entry-title"><a href="/blog/unity/">Unity</a></h1>
     
     
       <p class="meta">
@@ -228,24 +209,20 @@ SKEL=/etc/skel
   
 
 
-<time datetime="2013-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Automontar dispositivos de almacenamiento externo. Editar:</p>
+  <div class="entry-content"><p>Escritorio.</p>
 
-<blockquote><p># nano /etc/usbmount/usbmount.conf</p></blockquote>
+<blockquote><p>$ unity &#8211;reset (Resetear la configuración de unity)</p>
 
-<p>Y verificar/modificar según necesidades, las lineas:</p>
+<p>$ unity &#8211;reset-icons (eliminar iconos agregados al launcher)</p>
 
-<p>MOUNTPOINTS=&#8221;/media/usb0 /media/usb1 /media/usb2 /media/usb3 /media/usb4 /media/usb5 /media/usb6 /media/usb7&#8221;</p>
-
-<p>FILESYSTEMS=&#8221;vfat ext2 ext3 ext4 hfsplus&#8221;</p>
-
-<p>MOUNTOPTIONS=&#8221;sync,noexec,nodev,noatime,users,umask=000&#8221;</p>
+<p>$ unity &#8211;replace (reiniciar)</p></blockquote>
 </div>
   
   
@@ -258,7 +235,7 @@ SKEL=/etc/skel
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/usb-modeswitch/">Usb_modeswitch</a></h1>
+      <h1 class="entry-title"><a href="/blog/unison/">Unison</a></h1>
     
     
       <p class="meta">
@@ -274,69 +251,38 @@ SKEL=/etc/skel
   
 
 
-<time datetime="2013-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Configuración del modem Huawei. Editar:</p>
+  <div class="entry-content"><p>Sincronización de carpetas remotas.</p>
 
-<blockquote><p># gedit /etc/usb_modeswitch.conf</p></blockquote>
+<p>Previamente crear la clave y copiarla al otro pc:</p>
 
-<pre><code>EnableLogging=0
-</code></pre>
+<blockquote><p>$ ssh-keygen -t dsa</p>
 
-<p>Y pegar el siguiente contenido:</p>
+<p>$ ssh-copy-id -i $HOME/.ssh/id_dsa.pub root@ip_o_host</p></blockquote>
 
-<pre><code># Huawei E1752
+<p>Sincronizar las carpetas (la web en este ejemplo)</p>
 
-# 
+<blockquote><p>$ unison /srv/http ssh://ip_o_host//srv/http</p></blockquote>
 
-# Contributor:
+<p>Si la carpeta a sincronizar se coloca en el archivo de configuración:</p>
 
-DefaultVendor=0x12d1
+<blockquote><p># nano /root/.unison/default.prf</p></blockquote>
 
-DefaultProduct=0x1446
+<p>root = /srv/http</p>
 
-TargetVendor=0x12d1
+<p>root = ssh://ip_o_host//srv/http</p>
 
-TargetProduct=0x1417
+<p>Puede colocarse la orden en el cron para que se actualice cada 5 minutos:</p>
 
-MessageEndpoint=0x01
+<p>crontab -e</p>
 
-MessageContent="55534243000000000000000000000011060000000000000000000000000000"
-</code></pre>
-
-<p>Verificar que el número de TargetProduc coincida con la salida de:</p>
-
-<blockquote><p># lsusb</p></blockquote>
-
-<pre><code>Bus 006 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
-
-Bus 005 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
-
-Bus 004 Device 002: ID 0461:4d03 Primax Electronics, Ltd Kensington Mouse-in-a-box
-
-Bus 004 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
-
-Bus 003 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
-
-Bus 002 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
-
-Bus 001 Device 006: ID 12d1:1417 Huawei Technologies Co., Ltd. 
-
-Bus 001 Device 003: ID 0402:5602 ALi Corp. Video Camera Controller
-
-Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
-</code></pre>
-
-<p>Arrancarlo con alguno de los siguientes comandos:</p>
-
-<blockquote><p># usb_modeswitch -v 12d1 -p 1417 -d 1</p>
-
-<p># usb_modeswitch -c /etc/usb_modeswitch.conf</p></blockquote>
+<p>*/5 * * * * /usr/bin/unison &amp;> /dev/null</p>
 </div>
   
   
@@ -349,7 +295,7 @@ Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/urlwatch/">Urlwatch</a></h1>
+      <h1 class="entry-title"><a href="/blog/uniq/">Uniq</a></h1>
     
     
       <p class="meta">
@@ -365,27 +311,20 @@ Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
   
 
 
-<time datetime="2013-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Comprueba si una página web ha sufrido cambios desde la última vez que se lanzó la aplicación. Configurar las URLs, una por linea en el archivo:</p>
+  <div class="entry-content"><p>Ignora las líneas idénticas siempre y cuando sean adyacentes.</p>
 
-<blockquote><p>$ mkdir .urlwatch</p>
+<blockquote><p>$ uniq -u archivo archivo_sin repeticiones</p>
 
-<p>$ nano .urlwatch/urls.txt</p></blockquote>
+<p>$ uniq -d archivo archivo2 (en archivo2 sólo las repetidas)</p>
 
-<pre><code>http://www.tuxapuntes.com
-
-http://crontux.homelinux.com/wiki
-
-http://systemadmin.es
-</code></pre>
-
-<blockquote><p>$ urlwatch (Lanzar la aplicación)</p></blockquote>
+<p>$ uniq -c archivo (Muestra al principio de la linea el número de veces que se repite)</p></blockquote>
 </div>
   
   
@@ -398,7 +337,7 @@ http://systemadmin.es
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/urlcrazy/">Urlcrazy</a></h1>
+      <h1 class="entry-title"><a href="/blog/unhtml/">Unhtml</a></h1>
     
     
       <p class="meta">
@@ -414,26 +353,16 @@ http://systemadmin.es
   
 
 
-<time datetime="2013-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>http://www.morningstarsecurity.com/research/urlcrazy</p>
+  <div class="entry-content"><p>Elimina todo el formato HTML que encuentra e un fichero e imprime el texto limpio.</p>
 
-<p>Herramienta que genera posibles URLs de un dominio que podrian ser usados para ataques de phising, malversing o fraudes varios.</p>
-
-<blockquote><p>$ ./urlcrazy (Muestra las opciones)</p>
-
-<p>$ ./urlcrazy -o paypal.txt paypal.com (Redirigiendo el resultado a un archivo)</p></blockquote>
-
-<p>Otras opciones:</p>
-
-<p>-p (Mostrar URL parecidas más populares según google)</p>
-
-<p>-r (No resolviendo los nombre de dominio)</p>
+<blockquote><p>$ unhtml index.html > /home/usuario/index.txt (Si no se facilita el archivo de destino, lo muestra en pantalla)</p></blockquote>
 </div>
   
   
@@ -446,7 +375,7 @@ http://systemadmin.es
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/uptime/">Uptime</a></h1>
+      <h1 class="entry-title"><a href="/blog/unhide/">Unhide</a></h1>
     
     
       <p class="meta">
@@ -462,14 +391,26 @@ http://systemadmin.es
   
 
 
-<time datetime="2013-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Tiempo transcurrido desde que se arrancó el sistema</p>
+  <div class="entry-content"><p>Herramienta forense para encontrar procesos y puertos TCP/UDP ocultos por rootkits, módulos del kernel o por otras técnicas. Incluye dos utilidades: unhide y unhide-tcp.</p>
+
+<blockquote><p>$ unhide-tcp (identifica los puertos TCP/UDP que están escuchando, pero no figuran en /bin/netstat a través de fuerza bruta)</p>
+
+<p>$ unhide proc</p></blockquote>
+
+<p>Opciones</p>
+
+<p>proc (compara /proc con la salida de /bin/ps.)</p>
+
+<p>sys (compara la info de /bin/ps con la obtenida de las llamadas al sistema.)</p>
+
+<p>brute (Identifica por fuerza bruta todos los procesos)</p>
 </div>
   
   
@@ -482,7 +423,7 @@ http://systemadmin.es
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/update-usbids/">Update-usbids</a></h1>
+      <h1 class="entry-title"><a href="/blog/unexpand/">Unexpand</a></h1>
     
     
       <p class="meta">
@@ -498,16 +439,18 @@ http://systemadmin.es
   
 
 
-<time datetime="2013-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Si al ejecutar lsusb nos muestra un mensaje &#8220;unknown device&#8221; es preciso actualizar la lista del archivo /usr/share/misc/usb.ids.</p>
+  <div class="entry-content"><p>Convertir espacios en tabulaciones.</p>
 
-<blockquote><p># update-usbids</p></blockquote>
+<blockquote><p>$ unexpand -t 4 -a texto.txt (Sólo las lineas que tengan 4 espacios en blanco, sea al inicio o entre palabras)</p>
+
+<p>$ unexpand -t 2  &#8211;first-only texto.txt (Sólo las que empiecen por 2 espacios en blanco)</p></blockquote>
 </div>
   
   
@@ -520,7 +463,7 @@ http://systemadmin.es
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/update-rc-dot-d/">update-rc.d</a></h1>
+      <h1 class="entry-title"><a href="/blog/undbx/">Undbx</a></h1>
     
     
       <p class="meta">
@@ -536,20 +479,16 @@ http://systemadmin.es
   
 
 
-<time datetime="2013-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Activar/desactivar aplicaciones o scripts en el arranque del sistema.</p>
+  <div class="entry-content"><p>Herramienta para exportar los correos de Outlook en formato DBX al formato EML para posteriormente importar en Thunderbird</p>
 
-<blockquote><p>$ update-rc.d -f gdm remove (desactivarlo)</p>
-
-<p>$ update-rc.d gdm defaults  (activarlo)</p>
-
-<p>$ update-rc.d script defaults (coloca un script en el arranque)</p></blockquote>
+<blockquote><p>$ undbx carpeta-origen carpeta-exportacion (Primero se define la carpeta origen donde se encuentran los ficheros DBX y a continuación se especifica el directorio de salida)</p></blockquote>
 </div>
   
   
@@ -562,7 +501,7 @@ http://systemadmin.es
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/update-pciids/">Update-pciids</a></h1>
+      <h1 class="entry-title"><a href="/blog/uname/">Uname</a></h1>
     
     
       <p class="meta">
@@ -578,16 +517,20 @@ http://systemadmin.es
   
 
 
-<time datetime="2013-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Si al ejecutar lspci nos muestra un mensaje &#8220;unknown device&#8221; es preciso actualizar la lista del archivo pci.ids [/usr/share/misc].</p>
+  <div class="entry-content"><p>Informa de la &#8230;</p>
 
-<blockquote><p># update-pciids</p></blockquote>
+<blockquote><p>$ uname -a (&#8230; versión instalada del kernel y otros datos)</p>
+
+<p>$ uname -m (&#8230; arquitectura de la máquina)</p>
+
+<p>$ uname -r (&#8230; versión instalada del kernel)</p></blockquote>
 </div>
   
   
@@ -610,7 +553,7 @@ http://systemadmin.es
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1213</li>
+	<li>1290</li>
 	</ul>
 </section>
 <section>
@@ -618,43 +561,43 @@ http://systemadmin.es
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/owncloud/">owncloud</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/golismero/">golismero</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/curl/">curl</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lorem/">lorem</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/kernel/">kernel</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/yacy/">yacy</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/virtualbox/">virtualbox</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/miniflux/">miniflux</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sed/">sed</a>
+        <a href="/blog/zdiff/">zdiff</a>
       </li>
     
   </ul>

@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="monitoriza el ratio de lectura/escritura en disco . $ iotop -o -u usuario $ iotop -a -p $(sed &#8216;s, , -p ,g&#8217; &lt;&lt;&lt;pgrep "_raid| &hellip;">
+  <meta name="description" content="Enviar señales a los procesos. $ kill -l (lista todas las señales que pueden mandarse a un proceso) $ kill -0 (mata todos los procesos de la shell &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/iotop/">Iotop</a></h1>
+      <h1 class="entry-title"><a href="/blog/kill/">Kill</a></h1>
     
     
       <p class="meta">
@@ -97,32 +97,44 @@
   
 
 
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>monitoriza el ratio de lectura/escritura en disco .</p>
+  <div class="entry-content"><p>Enviar señales a los procesos.</p>
 
-<blockquote><p>$ iotop -o -u usuario</p>
+<blockquote><p>$ kill -l      (lista todas las señales que pueden mandarse a un proceso)</p>
 
-<p>$ iotop -a -p $(sed &#8216;s, , -p ,g&#8217; &lt;&lt;&lt;<code>pgrep "_raid|_resync|jbd2"</code>) (un raid)</p></blockquote>
+<p>$ kill -0             (mata todos los procesos de la shell)</p>
 
-<p>Alguns opciones:</p>
+<p>$ kill -9  pid      (mata el proceso indicado con el número PID)</p>
 
-<p>-d 2 (Actualización cada 2 segundos)</p>
+<p># kill -9 <code>lsof -t -i :22</code> (Mata el proceso que corre en el puerto 22)</p>
 
-<p>-b (No interactivo)</p>
+<p>$ kill -1 pid  (reinicia el servicio indicado en PID)</p>
 
-<p>-o (Sólo mostrar procesos que hacen uso de entrada/salida)</p>
+<p>$ kill %2 (mata el proceso número 2)</p>
 
-<p>-t (Incluir una marca de tiempo)</p>
+<p>$ kill -19 pid  (Parar un proceso de forma temporal. Con -18 se reanuda)</p></blockquote>
 
-<p>-p pid (Pid del proceso a monitorizar. Por defecto todos)</p>
+<p>Algunas muestras del número y su equivalencia:</p>
 
-<p>-u usuario (especificando usuario)</p>
+<p>2 SIGINT (Interrumpido desde el teclado [igual que Ctrl+c])</p>
+
+<p>3 SIGQUIT (Cerrado desde el teclado [igual que Ctrl+])</p>
+
+<p>9 SIGKILL (forzar que uno o varios procesos terminen de forma inmediata)</p>
+
+<p>18 SIGCONT (Reanudar un proceso parado)</p>
+
+<p>19 SIGSTOP (suspender un proceso)</p>
+
+<p>20 SIGTSTP (Parar un proceso desde terminal [igual que Ctrl+z])</p>
+
+<p>Nota.- Si en vez de usar los números [kill -9 pid] usamos el nombre de la señal [kill -KILL pid] podemos omitir las letras SIG de la señal [SIGKILL]</p>
 </div>
   
   
@@ -135,7 +147,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/iostat/">Iostat</a></h1>
+      <h1 class="entry-title"><a href="/blog/kernel/">Kernel</a></h1>
     
     
       <p class="meta">
@@ -151,280 +163,89 @@
   
 
 
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>muestra estadísticas de la CPU y de la entrada y salida de los dispositivos y particiones.</p>
+  <div class="entry-content"><p>1.-</p>
 
-<blockquote><p>$ iostat -x sda -d 1 6 (6 reportes con 1 segundo de intervalo sobre el disco sda. Suprimiendo la última cifra [6] continuará reportando datos hasta finalizar con Ctrl+c)</p>
+<p>Suprimir kernels antiguos</p>
 
-<p>$ iostat -d 3 (actualizará resultados cada 3 segundos)</p>
+<blockquote><p># uname -r   (para conocer el último)</p>
 
-<p>$ iostat -p sda (Ver estadisticas de un disco concreto con sus particiones)</p></blockquote>
-</div>
-  
-  
+<p># dpkg &#8211;get-selections | egrep linux-image</p></blockquote>
 
+<p>linux-image-2.6.17-11-generic install</p>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/inxi/">Inxi</a></h1>
-    
-    
-      <p class="meta">
-        
+<p>linux-image-2.6.20-15-generic install</p>
 
+<p>linux-image-2.6.20-16-generic install</p>
 
+<p>Dejar el actual y suprimir los otros:</p>
 
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra información del equipo (http://inxi.googlecode.com/svn/trunk/inxi).</p>
-
-<blockquote><p>$ inxi -Fpur -c 4</p></blockquote>
-
-<p>Algunas opciones (con inxi -h la lista completa):</p>
-
-<p>-A (Audio y tarjetas de sonido)</p>
-
-<p>-b (informacio básica)</p>
-
-<p>-c (formato de color de 0 a 32 para la salida de datos)</p>
-
-<p>-C (CPUs)</p>
-
-<p>-d (drivers opticos)</p>
-
-<p>-D (disco duro)</p>
-
-<p>-F (salida extendida)</p>
-
-<p>-G (tarjeta gráfica)</p>
-
-<p>-i (Información de red)</p>
-
-<p>-I (Procesos, uptime, memoria&#8230;)</p>
-
-<p>-M (Datos de la máquina)</p>
-
-<p>-N (tarjetas de red)</p>
-
-<p>-o (particiones no montadas)</p>
-
-<p>-p (particiones montadas)</p>
-
-<p>-r (repositorios)</p>
-
-<p>-s (sensors[temperaturas cpu])</p>
-
-<p>-S (Host, Kernel,Escritorio y Distro)</p>
-
-<p>-t cm (Procesos que consumen más cpu [c] y memoria [m])</p>
-
-<p>-u (UUID de las particiones. -uo las no montadas, -up las montadas)</p>
-
-<p>-v 6 (Distintas etiquetas de información. Del 1 al 6)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/instmodsh/">Instmodsh</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Para conocer los módulos perl instalados. Entra en el prompt (cmd?) con 3 preguntas:</p>
-
-<p>l (List all installed modules)</p>
-
-<p>m <module> (Select a module)</p>
-
-<p>q (Quit the program)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/install-mbr/">Install-mbr</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Instala un nuevo código MBR al inicio del disco duro.</p>
-
-<blockquote><p># install-mbr /dev/sda (instala)</p>
-
-<p># install-mbr -l /dev/sda (muestra información del código mbr)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/insmod/">Insmod</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Carga modulos.</p>
-
-<blockquote><p># insmod mudulo</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/inputrc/">Inputrc</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Librería readline que permite editar líneas de texto usando los modos de emacs y vi. Esto permite estandarizar las combinaciones de teclas entre muchos comandos.</p>
-
-<blockquote><p>$ nano .inputrc</p></blockquote>
-
-<p>Ajustes que pueden añadirse al archivo personal.</p>
-
-<p>1.-</p>
-
-<p>Que al pulsar Ctrl+x Ctrl+f liste las funciones y con Ctrl+x Ctrl+v las variables:</p>
-
-<blockquote><p># Lista las funciones y variables de readline</p></blockquote>
-
-<p>&#8220;\C-x\C-f&#8221;: dump-functions</p>
-
-<p>&#8220;\C-x\C-v&#8221;: dump-variables</p>
+<blockquote><p># apt-get remove &#8211;purge linux-image-2.6.17-11-generic</p></blockquote>
 
 <p>2.-</p>
 
-<p>Que el autocompletado con la tecla &#8220;tab&#8221; no distinga mayúsculas y minúsculas:</p>
+<p>Instalar nuevo kernel:</p>
 
-<blockquote><p># Ignora diferencias de mayusculas/minusculas al</p>
+<p>Para el ejemplo descargaremos el kernel 3.3.6 para la versión de ubuntu 12.04 [http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.3.6-precise/] para la arquitectura amd64. De los varios archivos que encontramos en la página, para lo que nos ocupa, solo interesan los linux-headers y linux-image.</p>
 
-<p># completar con tabulador</p></blockquote>
+<blockquote><p>$ wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.3.6-precise/linux-headers-3.3.6-030306_3.3.6-030306.201205121335_all.deb</p>
 
-<p>set completion-ignore-case on</p>
+<p>$ wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.3.6-precise/linux-headers-3.3.6-030306-generic_3.3.6-030306.201205121335_amd64.deb</p>
+
+<p>$ wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.3.6-precise/linux-image-3.3.6-030306-generic_3.3.6-030306.201205121335_amd64.deb</p></blockquote>
+
+<p>La instalación se realiza en el mismo orden de descarga:</p>
+
+<blockquote><p># gdebi linux-headers-3.3.6-030306_3.3.6-030306.201205121335_all.deb</p>
+
+<p># gedbi linux-headers-3.3.6-030306-generic_3.3.6-030306.201205121335_amd64.deb</p>
+
+<p># gedbi linux-image-3.3.6-030306-generic_3.3.6-030306.201205121335_amd64.deb</p></blockquote>
+
+<p>Después de la instalación del kernel, instalar los drivers privativos tipo nvidia o ati. Y actualizar grub:</p>
+
+<blockquote><p># update-grub</p></blockquote>
+
+<p>3.-</p>
+
+<p>[libncurses5 libncurses5-dev]</p>
+
+<p>Compilar el kernel desde el codigo fuente. Puede ser util para habilitar soporte para algun nuevo periferico no soportado por el kernel por defecto. Escoger la ultima version del nucleo estable de kernel.org. Para el ejemplo usaremos la 3.9.11.</p>
+
+<blockquote><p># cd /usr/src</p>
+
+<p># wget https://www.kernel.org/pub/linux/kernel/v3.x/linux-3.9.11.tar.gz</p>
+
+<p># tar -zxvf linux-3.9.11.tar.gz</p>
+
+<p># cd linux-3.9.11</p>
+
+<p># make menuconfig/</p></blockquote>
+
+<p>Mostrara las opciones de configuracion por defecto que podran ser modificadas para nuestra maquina especifica. Una vez terminado, &#8220;guardar&#8221; como .config</p>
+
+<blockquote><p># make (Compilar)</p>
+
+<p># make modules_install (Instalar los modulos)</p>
+
+<p># make install (Instalar el nuevo kernel en el sistema)</p></blockquote>
+
+<p>La instalacion ya modifica el grub.cfg para que el sistema arranque con el nuevo kernel. Si este da problemas puede escogerse para el arranque el antiguo que constara en el menu de Grub. Puede verificarse el nuevo kernel con:</p>
+
+<blockquote><p>$ uname -r</p></blockquote>
+
+<p>4.-</p>
+
+<p>Borrar kernels antiguos de forma automática:</p>
+
+<pre><code># apt-get purge $(dpkg -l 'linux-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/\(.*\)-\([^0-9]\+\)/\1/")"'/d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/;/[0-9]/!d' | head -n -1) --assume-yes 
+</code></pre>
 </div>
   
   
@@ -437,7 +258,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/inittab/">Inittab</a></h1>
+      <h1 class="entry-title"><a href="/blog/kbdrate/">Kbdrate</a></h1>
     
     
       <p class="meta">
@@ -453,73 +274,16 @@
   
 
 
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Fichero que gestiona el inicio del sistema o un cambio de estado (runlevel) con el comando init (ver).</p>
+  <div class="entry-content"><p>Establece la tasa de repetición del teclado y el tiempo de retardo en las tty.</p>
 
-<blockquote><p># nano /etc/inittab</p></blockquote>
-
-<p>Especificación de si el sistema arranca en modo monousuario (1) o multiusuario (2-5). Por defecto 2 o 3:</p>
-
-<pre><code>id:2:initdefault:
-</code></pre>
-
-<p>Scripts que se ejecutarán en el inicio y en el orden que lo harán independientemente del runlevel:</p>
-
-<pre><code>si::sysinit:/etc/init.d/rcS (En algunas distros si::sysinit:/etc/rc.d/rc.sysinit)
-</code></pre>
-
-<p>Este script llama a los scripts del directorio /etc/rcS.d. Por cada runlevel se ejecutan los scripts del directorio correpondiente: rc0.d/, rc1.d/, rc2.d/, rc3.d/, rc4.d/, rc5.d/, rc6.d/, rc.local y rcS.d/. El directorio /etc/rc.local se usa para ejecutar servicios porpios del usuario. En estos directorios los scripts que empiezan por una &#8220;K&#8221; paran servicios y los que empiezan por una &#8220;S&#8221; los arrancan.</p>
-
-<p>Qué hacer si se presiona CTRL-ALT-DEL:</p>
-
-<pre><code>ca:12345:ctrlaltdel:/sbin/shutdown -t1 -a -r now
-</code></pre>
-
-<p>Qué hacer si la corriente se va/vuelve</p>
-
-<pre><code>pf::powerwait:/etc/init.d/powerfail start
-
-pn::powerfailnow:/etc/init.d/powerfail now
-
-po::powerokwait:/etc/init.d/powerfail stop
-</code></pre>
-
-<p>Despues de ejecutar los scripts de inicio, init crea un conjunto de terminales virtuales:</p>
-
-<pre><code>1:2345:respawn:/sbin/getty 38400 tty1
-
-2:23:respawn:/sbin/getty 38400 tty2
-
-3:23:respawn:/sbin/getty 38400 tty3
-
-4:23:respawn:/sbin/getty 38400 tty4
-
-5:23:respawn:/sbin/getty 38400 tty5
-
-6:23:respawn:/sbin/getty 38400 tty6
-</code></pre>
-
-<p>Utilizando la opción respawn, si alguien trata de finalizar uno de estos procesos, el proceso simplemente será regenerado (respawned).</p>
-
-<p>1.-</p>
-
-<p>Entrar de forma automática:</p>
-
-<p>Comentar la siguiente línea</p>
-
-<blockquote><p>#1:2345:respawn:/sbin/getty 38400 tty1</p></blockquote>
-
-<p>Y Agrega la siguiente linea:</p>
-
-<p>1:2345:respawn:/bin/login -f USUARIO tty1 </dev/tty1 >/dev/tty1 2>&amp;1</p>
-
-<p>Siendo USUARIO el nombre de usuario que hará login automático.</p>
+<blockquote><p># kbdrate -d 200 -r 10 (establece retardo de 200 milisegundos y velocidad de repetición de 10 por segundo)</p></blockquote>
 </div>
   
   
@@ -532,7 +296,7 @@ po::powerokwait:/etc/init.d/powerfail stop
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/initramfs/">Initramfs</a></h1>
+      <h1 class="entry-title"><a href="/blog/jumanji/">Jumanji</a></h1>
     
     
       <p class="meta">
@@ -548,24 +312,99 @@ po::powerokwait:/etc/init.d/powerfail stop
   
 
 
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Problemas durante el arranque. Consiste en un fallo de lectura de los controladores ide de discos duros por parte del kernel del sistema operativo que no logra reconocer dichos drivers. Arrancar con un livecd o pulsando “e” para editar la opción cuando salga el menu en grub:</p>
+  <div class="entry-content"><p>Navegador estilo vi con soporte flash.</p>
 
-<blockquote><p># gedit /boot/grub/menu.lst</p></blockquote>
+<p>Configuración:</p>
 
-<p>Y al final de la linea del kernel poner: rootdelay=90</p>
+<blockquote><p>$ nano .config/jumanji/jumanjirc</p>
 
-<p>Otras soluciones propuestas (sustituir el rootdelay=90 por):</p>
+<p># jumanji configuration</p>
 
-<p>pci=nomsi</p>
+<p># search engines</p></blockquote>
 
-<p>all_generix_ide</p>
+<p>searchengine gg http://google.es</p>
+
+<p>searchengine yo http://www.youtube.com/results?search_query=%s&amp;aq=f</p>
+
+<blockquote><p># browser settings</p></blockquote>
+
+<p>set homepage http://www.lapipaplena.com</p>
+
+<p>set auto_save 60</p>
+
+<p>set single_instance false</p>
+
+<blockquote><p># downloads</p></blockquote>
+
+<p>set download_dir ~/downloads/</p>
+
+<p>set download_command urxvt -e  wget &#8211;load-cookies ~/.config/jumanji/cookies &#8216;%s&#8217; -O &#8216;%s&#8217;;</p>
+
+<blockquote><p># look</p></blockquote>
+
+<p>set font droid sans mono medium 8</p>
+
+<blockquote><p># key bindings</p></blockquote>
+
+<p>map <C-q> quit</p>
+
+<blockquote><p># session</p></blockquote>
+
+<p>set default_session_name start</p>
+
+<p>set session_restored true</p>
+
+<blockquote><p># Enable plugins</p></blockquote>
+
+<p>plugin application/x-shockwave-flash</p>
+
+<p>Atajos:</p>
+
+<pre><code>o (entrar URL)
+
+t (entrar URL en nueva ventana)
+
+j (bajar por la página)
+
+k (subir)
+
+h (ir a la izquierda)
+
+k (ir a la derecha) 
+
+^f (Descenso al final de la página) 
+
+^b (Regreso al inicio de la página) 
+
+w (abrir una dirección en una nueva ventana) 
+
+^w (Cerrar ventana)
+
+^Tab (Cambiar de pestaña)
+
+^I (página anterior)
+
+^o (página siguiente) 
+
+? (Buscar palabra)
+
+r (Recargar la página)
+
+R (Recargar ignorando la caché) 
+
+y (Copiar la dirección de la página al portapapeles)
+
+^s (Mostrar código fuente)
+
+^q (Salir)
+</code></pre>
 </div>
   
   
@@ -578,7 +417,7 @@ po::powerokwait:/etc/init.d/powerfail stop
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/init/">Init</a></h1>
+      <h1 class="entry-title"><a href="/blog/jpegtran/">Jpegtran</a></h1>
     
     
       <p class="meta">
@@ -594,20 +433,246 @@ po::powerokwait:/etc/init.d/powerfail stop
   
 
 
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Para o reinicia el sistema</p>
+  <div class="entry-content"><p>Eliminar información y reducir, modificar o recortar tamaño de imagenes jpeg.</p>
 
-<blockquote><p>$ init 0    (para)</p>
+<blockquote><p>$ jpegtran -copy none optimize original.jpg resultado.jpg (Eliminando información oculta [-copy none] y reduciendo la imagen [-optimize])</p></blockquote>
 
-<p>$ init 1    (reinicia en modo  uniusuario)</p>
+<p>Algunas opciones:</p>
 
-<p>$ init 6    (reinicia)</p></blockquote>
+<p>-grayscale (Forzar salida a escala de grises)</p>
+
+<p>-rotate 90 (Rotar 90º)</p>
+
+<p>-flip horizontal (Imagen espejo horizontal [izquierda-derecha])</p>
+
+<p>-flip vertical (Imagen espejo vertical [arriba-abajo])</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/jpegjudge/">Jpegjudge</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Determina la calidad de un jpeg en una escala de 0 [menor] a 1000 [mayor calidad]</p>
+
+<blockquote><p>$ jpegjudga -b imagen.jpeg (Mostrar solo el número)</p></blockquote>
+
+<p>Nota.- Puede observarse el deterioro pasando un jpeg a png y volver a pasarlo a jpeg y comparar los resultados del primer jpeg y el último.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/jpeginfo/">Jpeginfo</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Información y test de integridad de imagenes jpeg.</p>
+
+<blockquote><p>$ jpeginfo -c imagen.jpeg</p>
+
+<p>$ jpeginfo -5 imagen.jpeg (Muestra el md5 de la imagen)</p>
+
+<p>$ jpeginfo -i imagen.jpeg</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/jp2a/">Jp2a</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Convertir imagenes jpeg a ascii.</p>
+
+<blockquote><p>$ jp2a &#8211;background=light -b &#8211;colors imagen.jpg  (Sin fondo, con borde y color)</p>
+
+<p>$ jp2a &#8211;color &#8211;html &#8211;fill &#8211;background=dark entrada.jpg –output=salida.html (con un html de salida)</p>
+
+<p>$ jp2a URL/imagen.jpg  (Con una URL de entrada)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<pre><code>--size=40x25   (Especificando medidas)
+
+--html-title=Imagen  (con un titulo)
+
+--html-no-bold (Sin caracteres en negrita)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/joomla/">Joomla</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Recuperar la clave para acceder al administrador.</p>
+
+<p>Instalar webmin y desde el navegador: https://localhost:10000</p>
+
+<p>En servidores -> Servidor BD MySQL clicar sobre la base de datos de joomla, editar la tabla jos_users i mostrar los datos id. Los usuarios estan numerados a partir del número 62. Editamos la fila del administrator admin (por ejemplo), borramos la clave y le ponemos esta:</p>
+
+<pre><code>1c7a92ae351d4e21ebdfb897508f59d6 
+</code></pre>
+
+<p>Guardar y entrar como administrator en nuestra web con el nombre de usuario: admin y la contraseña: holamundo</p>
+
+<p>Luego volver a modificar la contraseña desde el panel de control de joomla.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/join/">Join</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Muestra lineas coincidentes</p>
+
+<blockquote><p>$ join fichero1 fichero2</p>
+
+<p>$ join -v 1 fichero1 fichero2 (mostrar líneas de fichero1 que no existen en  fichero2)</p></blockquote>
 </div>
   
   
@@ -630,7 +695,7 @@ po::powerokwait:/etc/init.d/powerfail stop
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1213</li>
+	<li>1290</li>
 	</ul>
 </section>
 <section>
@@ -638,43 +703,43 @@ po::powerokwait:/etc/init.d/powerfail stop
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/owncloud/">owncloud</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/golismero/">golismero</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/curl/">curl</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lorem/">lorem</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/kernel/">kernel</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/yacy/">yacy</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/virtualbox/">virtualbox</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/miniflux/">miniflux</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sed/">sed</a>
+        <a href="/blog/zdiff/">zdiff</a>
       </li>
     
   </ul>

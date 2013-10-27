@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Software de control de versiones. Servidor donde se suben los archivos de un proyecto y donde se van registrando las modificaciones y cambios. Para &hellip;">
+  <meta name="description" content="[git-core] Manual completo en español: http://www-cs-students.stanford.edu/~blynn/gitmagic/intl/es/book.html#_hosting_git_gratuito Software de &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -94,38 +94,104 @@
   
 
 
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Software de control de versiones. Servidor donde se suben los archivos de un proyecto y donde se van registrando las modificaciones y cambios. Para el ejemplo usaremos dos directorios uno en nuestra $HOME [repositorio] y otro en Dropbox [git]</p>
+<div class="entry-content"><p>[git-core]</p>
 
-<blockquote><p>$ git init repositorio (Crear el repositorio local)</p>
+<p>Manual completo en español: <a href="http://www-cs-students.stanford.edu/~blynn/gitmagic/intl/es/book.html#_hosting_git_gratuito">http://www-cs-students.stanford.edu/~blynn/gitmagic/intl/es/book.html#_hosting_git_gratuito</a></p>
 
-<p>$ cd repositorio</p>
+<p>Software de control de versiones. Una vez registrados en Github [<a href="http://github.com">http://github.com</a>], crear un nuevo repositorio con el nombre escogido y github nos facilitará los datos de acceso [https://github.com/templix/tractatus.git].</p>
 
-<p>$ git clone . /home/USER/Dropbox/git (Sincronizar los directorios)</p>
+<p>Crear el repositorio local de un proyecto alojado en github:</p>
 
-<p>$ git add archivo (Añadir el proyecto)</p>
+<pre><code>$ mkdir tractatus (Crear el directorio local)
 
-<p>$ git config &#8211;global user.name &#8220;nombre_usuario&#8221; (Entrar datos del usuario)</p>
+$ cd tractatus (Entrar en él)
 
-<p>$ git config &#8211;global user.mail mail@direccion.com   (Entrar mail)</p>
+$ git init (Inicializar git)
+
+$ git config --global user.name "nombre_usuario" (Entrar datos del usuario) 
+
+$ git config --global user.mail mail@direccion.com   (Entrar mail)
+
+$ mv /home/usuario/tractatus.txt . (Mover el archivo al repositorio)
+
+$ git add tractatus.txt (Añadir el fichero a git)
+
+$ git commit -m 'Inicio del proyecto' (Realizar el primer commit que es una especie de copia de seguridad que nos permite ver los cambios en el pryecto y si es necesario regresar a una versión anterior)
+
+$ git remote add origin https://github.com/templix/tractatus.git (Decirle a nuestra copia local el repositorio remoto donde se alojará)
+
+$ git push origin master (Enviar los cambios al servidor remoto)
+</code></pre>
+
+<p>Otros comandos:</p>
+
+<blockquote><p>$ git clone https://github.com/templix/tractatus.git (Bajar un fichero de github)</p>
+
+<p>$ git clone ssh://usuario@host.com/home/templix/repositorio repositorio (Clonar por ssh un directorio remoto en local)</p>
 
 <p>$ git config -l (Comprobar los datos del usuario)</p>
 
+<p>$ git log (Ver historial de commits)</p>
+
 <p>$ git status (Comprobar si se han efectuado cambios)</p>
 
-<p>$ git commit -m &#8220;modifico&#8221; archivo (Registrar las modificaciones)</p>
+<p>$ git config &#8211;global credential.helper cache (guarda la contraseña en caché durante 15 min)</p>
+
+<p>$ git config &#8211;global credential.helper &#8216;cache &#8211;timeout=3600&#8217; (guarda la contraseña durante una hora)</p>
 
 <p>$ git rm archivo (Eliminar archivo)</p>
 
-<p>$ git commit -m &#8220;Eliminado&#8221; archivo (registrar la eliminación)</p>
+<p>$ git fetch origin (este comando junto con el siguiente elimina todos los cambios locales y pone la versión del servidor)</p>
 
-<p>$ git diff &#8211;color-words archivo1 archivo2  (Mostrar las diferencias en color)</p></blockquote>
+<p>$ git reset &#8211;hard origin/master</p>
+
+<p>$ git diff &#8211;color-words archivo1 archivo2  (Mostrar las diferencias en color)</p>
+
+<p>$ git instaweb &#8211;httpd=webrick (Abre el proyecto con navegador en localhost:1234)</p>
+
+<p>$ git instaweb &#8211;httpd=webrick &#8211;stop (Cierra la visualización del proyecto con el navegador)</p></blockquote>
+
+<p>1.-</p>
+
+<p>Indicar a git archivos o directorios que quedemos excluir del control de versiones.</p>
+
+<blockquote><p>$ touch .gitignore (Crear el fichero en el directorio raiz del proyecto)</p></blockquote>
+
+<p>Con el contenido que queremos excluir [Algunos ejemplos]:</p>
+
+<pre><code>*~
+
+tmp/*
+
+*.so
+
+*.zip
+
+Thumbs.db
+</code></pre>
+
+<p>Si el archivo .gitignore lo colocamos en el directorio $HOME afectará a todos los proyectos de git. Para ello lanzar:</p>
+
+<blockquote><p>$ git config &#8211;global core.excludesfile ~/.gitignore</p></blockquote>
+
+<p>2.-</p>
+
+<p>Descartar modificaciones.</p>
+
+<p>Si una vez realizadas modificaciones en un archivo, antes de lanzar el commit, queremos verlas y descartarlas:</p>
+
+<blockquote><p>$ git status</p>
+
+<p>$ git diff</p>
+
+<p>$ git checkout &#8211; archivo</p></blockquote>
 </div>
 
 
@@ -148,7 +214,7 @@
   
 
 
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
       
 
 
@@ -181,7 +247,7 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1213</li>
+	<li>1290</li>
 	</ul>
 </section>
 <section>
@@ -189,43 +255,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/owncloud/">owncloud</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/golismero/">golismero</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/curl/">curl</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lorem/">lorem</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/kernel/">kernel</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/yacy/">yacy</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/virtualbox/">virtualbox</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/miniflux/">miniflux</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sed/">sed</a>
+        <a href="/blog/zdiff/">zdiff</a>
       </li>
     
   </ul>

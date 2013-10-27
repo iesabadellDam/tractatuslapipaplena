@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Pasar un pdf a ps. Útil para imprimir archivos pdf protegidos contra escritura. $ pdftops archivo.pdf (El archivo.ps resultante puede ser impreso &hellip;">
+  <meta name="description" content="Muestra información relacionada con los procesos del sistema. $ pidstat (informa del uso de la CPU) $ pidstat -u (lo mismo) $ pidstat -d (Muestra la &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pdftops/">Pdftops</a></h1>
+      <h1 class="entry-title"><a href="/blog/pidstat/">Pidstat</a></h1>
     
     
       <p class="meta">
@@ -97,16 +97,32 @@
   
 
 
-<time datetime="2013-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:55:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Pasar un pdf a ps. Útil para imprimir archivos pdf protegidos contra escritura.</p>
+  <div class="entry-content"><p>Muestra información relacionada con los procesos del sistema.</p>
 
-<blockquote><p>$ pdftops archivo.pdf  (El archivo.ps resultante puede ser impreso aunque el archivo.pdf estuviera protegido)</p></blockquote>
+<blockquote><p>$ pidstat  (informa del uso de la CPU)</p>
+
+<p>$ pidstat -u  (lo mismo)</p>
+
+<p>$ pidstat -d  (Muestra la tasa de lectura/escritura a los medios fisicos)</p>
+
+<p>$ pidstat -p 1234  (Especifica que solo deseas analizar el proceso 1234)</p>
+
+<p>$ pidstat -C comando  (Similar a -p pero indicando el nombre del proceso)</p>
+
+<p>$ pidstat -r  (Muestra el uso de memoria de los procesos y errores de  paginación en la memoria de los procesos -page faults-).</p>
+
+<p>$ pidstat -I  (En sistemas multicore, indica la CPU en la que se ejecuta el    comando)</p>
+
+<p>$ pidstat -d 5 2 (“5” es el intervalo de tiempo y “2” el número de veces que ejecutara el comando. Cuando haya llegado al número de  ejecuciones, pidstat se parará y mostrará una media con los valores obtenidos)</p>
+
+<p>$ pidstat -d 5  (omitiendo el numero de veces a ejecutar para producir un bucle infinito. Parar con ^C)</p></blockquote>
 </div>
   
   
@@ -119,7 +135,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pdftohtml/">Pdftohtml</a></h1>
+      <h1 class="entry-title"><a href="/blog/pidof/">Pidof</a></h1>
     
     
       <p class="meta">
@@ -135,16 +151,16 @@
   
 
 
-<time datetime="2013-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:55:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Pasar un pdf a html</p>
+  <div class="entry-content"><p>muestra el Pid del programa si está activo</p>
 
-<blockquote><p>$ pdftohtml -i -stdout archivo.pdf | w3m -T text/html (leerlo por consola con w3m sin mostrar imagenes [-i])</p></blockquote>
+<blockquote><p>$ pidof firefox</p></blockquote>
 </div>
   
   
@@ -157,7 +173,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pdftk/">Pdftk</a></h1>
+      <h1 class="entry-title"><a href="/blog/pi/">Pi</a></h1>
     
     
       <p class="meta">
@@ -173,72 +189,18 @@
   
 
 
-<time datetime="2013-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:55:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Manipulación de pdfs</p>
+  <div class="entry-content"><p>Calcula la cantidad de decimales de pi que se le indique.</p>
 
-<blockquote><p>$ pdftk 1.pdf 2.pdf 3.pdf cat output 123.pdf (Unir PDFs y crear un pdf nuevo)</p>
+<blockquote><p>$ pi 100</p>
 
-<p>$ pdftk A=1.pdf B=2.pdf cat A B output 12.pdf (lo mismo utilitzando etiquetas)</p>
-
-<p>$ pdftk *.pdf cat output todos.pdf (o utilitzando comodines)</p>
-
-<p>$ pdftk A=one.pdf B=two.pdf cat A1-7 B1-5 A8 output combined.pdf (Separar páginas seleccionadas de distintos PDFs y crear uno nuevo)</p>
-
-<p>$ pdftk revista.pdf cat 37-39 output 37_39.pdf (Separar páginas de un pdf)</p>
-
-<p>$ pdftk revista.pdf cat 4 output 4.pdf (separar la 4 pagina)</p>
-
-<p>$ pdftk texto.pdf output texto.128.pdf owner_pw foopass (Encriptar un PDF restringiendo todos los permisos)</p>
-
-<p>$ pdftk mydoc.pdf output mydoc.128.pdf owner_pw foo user_pw baz (Lo mismo pero con contraseña para abrir el PDF)</p>
-
-<p>$ pdftk mydoc.pdf output mydoc.128.pdf owner_pw foo user_pw baz allow printing (Lo mismo con permiso para imprimir una vez abierto)</p>
-
-<p>$ pdftk secured.pdf input_pw foopass output unsecured.pdf (Desencriptar pdf)</p>
-
-<p>$ pdftk A=secured.pdf mydoc.pdf input_pw A=foopass cat output combined.pdf (Unir dos PDFs uno de ellos encriptado. La salida no queda encriptada))</p>
-
-<p>$ pdftk mydoc.pdf output mydoc.clear.pdf uncompress (Descomprimir cadenas de paginas PDF para editar el codigo PDF en un editor de texto)</p>
-
-<p>$ pdftk broken.pdf output fixed.pdf (Reparar una tabla XREF de PDF y las longitudes de cadena, cuando es posible))</p>
-
-<p>$ pdftk archivo.pdf output comprimido.pdf compress (Comprimir pdf)</p>
-
-<p>$ pdftk archivo.pdf output descomprimido.pdf uncompress (Descomprimir pdf)</p>
-
-<p>$ pdftk input.pdf cat 1-endE output output.pdf (rotar 90 grados el pdf)</p>
-
-<p>$ pdftk archivo.pdf dump_data_fields (obtener campos de cualquier formulario pdf)</p>
-
-<p>$ pdftk archivo.pdf dump_data_fields output campos.lst (Lo mismo derivado a un archivo)</p>
-
-<p>$ pdfcrack archivo.pdf [opciones] (Si se trata de archivos pdf con contraseña)</p>
-
-<p>$ pdfcrack archivo.pdf -n 6 -c abcdefghijklmnopqrstuvxyz -s</p></blockquote>
-
-<p>Opciones:</p>
-
-<p>-B: Realizar evaluación comparativa y salir</p>
-
-<p>-C [CADENA]: Utiliza los caracteres indicados para la busqueda de la contraseña</p>
-
-<p>-m [numero]: Se buscará hasta llegar a la longitud de caracteres de “numero”</p>
-
-<p>-n [numero]: Se empezará a probar contraseñas de “numero” caracteres</p>
-
-<p>-l [FILE]: Continuará desde el punto guardado en el archivo FILE.</p>
-
-<p>-q: Ejecutar silenciosamente</p>
-
-<p>-s: Realiza el crack permutando contraseñas</p>
-
-<p>-u: Trabajar con el “userpassword”</p>
+<p>$ pi 1000</p></blockquote>
 </div>
   
   
@@ -251,7 +213,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pdfresurrect/">Pdfresurrect</a></h1>
+      <h1 class="entry-title"><a href="/blog/php/">Php</a></h1>
     
     
       <p class="meta">
@@ -267,22 +229,48 @@
   
 
 
-<time datetime="2013-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:55:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>herramienta para la extracción/limpieza de metadatos de documentos pdf.</p>
+  <div class="entry-content"><p>Lenguaje de programación diseñado originalmente para la creación de páginas web.</p>
 
-<blockquote><p>$ pdfresurrect -i archivo.pdf   (Información del creador del pdf)</p>
+<blockquote><p>$ php -v (Conocer la versión)</p>
 
-<p>$ pdfresurrect -w archivo.pdf  (Escribe las versiones y resumen del pdf al disco)</p>
+<p>$ php -m (Muestra módulos instalados)</p>
 
-<p>$ pdfresurrect -q archivo.pdf   (Muestra el número de versiones del pdf)</p>
+<p>$ php -i (Información general de php)</p>
 
-<p>$ pdfresurrect -s  archivo.pdf  (Limpia todos los datos del pdf)</p></blockquote>
+<p>$ php -s archivo.php > archivo.html (Crea un archivo html de un php)</p>
+
+<p>$ php &#8211;ini (Informa donde esta el archivo php.ini)</p></blockquote>
+
+<p>1.-</p>
+
+<p>Configuración de php de forma segura (php.ini)</p>
+
+<pre><code># nano /etc/php5/apache2/php.ini
+
+expose_php Off (Ocultar la versión de php)
+
+session.use_trans_sid = Off (Que las URL no muestren los ID de sesiones)
+
+allow_url_fopen = Off (Desactivar acceso a URL remotas en funciones de manejo de ficheros)
+
+display_errors = Off (Evitar que los errores se muestren por pantalla)
+</code></pre>
+
+<p>2.-</p>
+
+<p>Arreglar el error: PHP Deprecated:  Comments starting with &#8216;#&#8217; are deprecated in /etc/php5/cli/conf.d/ming.ini on line 1 in Unknown on line 0</p>
+
+<pre><code># nano /etc/php5/cli/conf.d/ming.ini 
+
+Y cambiar el “#” de los comentarios por un “;”
+</code></pre>
 </div>
   
   
@@ -295,7 +283,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pdfnup/">Pdfnup</a></h1>
+      <h1 class="entry-title"><a href="/blog/photorec/">Photorec</a></h1>
     
     
       <p class="meta">
@@ -311,20 +299,16 @@
   
 
 
-<time datetime="2013-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:55:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Compactar varias páginas de un pdf en una y viceversa.</p>
+  <div class="entry-content"><p>Recuperar datos de discos, tarjetas, cds deteriorados&#8230; Precisa pantalla maximizada.</p>
 
-<blockquote><p>$ pdfnup &#8211;nup 2×4 archivo.pdf (8 páginas)</p>
-
-<p>$ pdfnup &#8211;nup 2x1 &#8211;outfile output.pdf input.pdf (dos pàgines en una)</p>
-
-<p>$ pdfnup &#8211;nup 2x2 &#8211;outfile output.pdf input.pdf  (4 páginas)</p></blockquote>
+<blockquote><p># photorec</p></blockquote>
 </div>
   
   
@@ -337,7 +321,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pdfjoin/">Pdfjoin</a></h1>
+      <h1 class="entry-title"><a href="/blog/photon/">Photon</a></h1>
     
     
       <p class="meta">
@@ -353,16 +337,18 @@
   
 
 
-<time datetime="2013-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:55:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Unir varios pdf con el mismo formato de página en uno</p>
+  <div class="entry-content"><p>Generar una galería web.</p>
 
-<blockquote><p>$ pdfjoin &#8211;fitpaper true 1.pdf 2.pdf &#8211;outfile 12.pdf</p></blockquote>
+<blockquote><p>$ photon directorio_con_las_imagenes  (Creará una nueva carpeta con todos los html)</p>
+
+<p>$ photon -o /var/www/ /home/usuario/fotos (A partir de la carpeta fotos, lo creará en el directorio web)</p></blockquote>
 </div>
   
   
@@ -375,7 +361,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pdfimages/">Pdfimages</a></h1>
+      <h1 class="entry-title"><a href="/blog/phoronix/">Phoronix</a></h1>
     
     
       <p class="meta">
@@ -391,18 +377,38 @@
   
 
 
-<time datetime="2013-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:55:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Extraer las imágenes de un pdf</p>
+  <div class="entry-content"><p>[phoronix-test-suite]</p>
 
-<blockquote><p>$ pdfimages fichero.pdf fichero</p>
+<p>suite de pruebas para medir el rendimiento de un sistema o componente del mismo [benchmarking]. Cuenta con un repositorio online con gran cantidad de pruebas y se ejecutan a través de un archivo de configuración XML.</p>
 
-<p>$ pdfimages -j fichero.pdf fichero (guardarlas en formato jpeg)</p></blockquote>
+<blockquote><p># phoronix-test-suite list-available-tests (Lista los test disponibles y una pequeña descripción)</p>
+
+<p># phoronix-test-suite list-available-suites (Lista las suites disponibles y una pequeña descripción)</p>
+
+<p># phoronix-test-suite install pts/encode-flac (Instalar con sus dependencias un test o suite. En este caso el test pts/encode-flac)</p>
+
+<p># phoronix-test-suite benchmark pts/encode-flac (Realizar la prueba que mide el tiempo que el pc tarda en convertir un wav a flac)</p>
+
+<p># phoronix-test-suite system-information (Muestra la configuración completa)</p>
+
+<p># phoronix-test-suite list-saved-results (Ver los resultados guardados)</p>
+
+<p># phoronix-test-suite result-file-to-pdf archivo.pdf (Exportar resultados a un archivo pdf)</p>
+
+<p># phoronix-test-suite result-file-to-cvs archivo.cvs (Exportar los resultados a un archivo cvs)</p>
+
+<p># phoronix-test-suite result-file-to-text archivo.txt (Exportar los resultados a un archivo txt)</p>
+
+<p># phoronix-test-suite merge-results resultado1 resultado2 resultado3 (Realizar tablas comparativas con los resultados)</p></blockquote>
+
+<p>Nota.- Al realizar un test se nos preguntará si deseamos guardar la prueba (Los resultados se guardan e $HOME/.phoronix-test-suite/test-results), luego el test comenzará y una vez terminado se nos preguntará si queremos ver los resultados en el navegador.</p>
 </div>
   
   
@@ -415,7 +421,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pdfcrack/">Pdfcrack</a></h1>
+      <h1 class="entry-title"><a href="/blog/pg/">Pg</a></h1>
     
     
       <p class="meta">
@@ -431,26 +437,16 @@
   
 
 
-<time datetime="2013-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:55:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Craqueador de pdfs</p>
+  <div class="entry-content"><p>Muestra un texto tabulado a pantalla completa de la terminal. Con la tecla intro carga nuevo párrafo.</p>
 
-<blockquote><p>$ pdfcrack -f archivo.pdf   (Sin especificaciones)</p>
-
-<p>$ pdfcrack -f archivo.pdf -w /home/usuario/diccionario (con un diccionario)</p>
-
-<p>$ pdfcrack archivo.pdf -n 6 -c abcdefghijklmnopqrstuvxyz -s</p></blockquote>
-
-<p>-n 6  (Hasta 6 caracteres)</p>
-
-<p>-c &#8230;.(enumerar todas las opciones a probar)</p>
-
-<p>-s     (Prueba el primer caracter en mayúscula)</p>
+<blockquote><p>$ pg archivo</p></blockquote>
 </div>
   
   
@@ -463,7 +459,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pdf2ps/">Pdf2ps</a></h1>
+      <h1 class="entry-title"><a href="/blog/pentbox/">Pentbox</a></h1>
     
     
       <p class="meta">
@@ -479,16 +475,18 @@
   
 
 
-<time datetime="2013-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:55:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Convertir pdf a postscript. Ver ps2pdf</p>
+  <div class="entry-content"><p>http://www.pentbox.net/download-pentbox/</p>
 
-<blockquote><p>$ pdf2ps fichero.pdf</p></blockquote>
+<p>Herramientas de penetración [verificar fortaleza de contraseñas cifradas en MD5, SHA1, SHA256, SHA512, generador de DoS i DDoS, generador de contraseñas seguras, honeypots, escaneo de puertos, ataque de fuerza bruta contra servidores HTTP, geolocalitzación de direcciones MAC&#8230;]</p>
+
+<blockquote><p>$ pentbox</p></blockquote>
 </div>
   
   
@@ -501,7 +499,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pdf2djvu/">Pdf2djvu</a></h1>
+      <h1 class="entry-title"><a href="/blog/pebrot/">Pebrot</a></h1>
     
     
       <p class="meta">
@@ -517,16 +515,38 @@
   
 
 
-<time datetime="2013-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:55:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Convertir pdfs en djvu.</p>
+  <div class="entry-content"><p>Cliente msn en ncurses. Ingresar usuario y contraseña en /home/USUARIO/.pebrot/pebrotrc</p>
 
-<blockquote><p>$ pdf2djvu -o salida.djvu archivo.pdf</p></blockquote>
+<p>Algunos atajos:</p>
+
+<p>h (lista de comandos)</p>
+
+<p>l (contactos conectados y enumerados)</p>
+
+<p>numero  (abre conversación con el número del contacto)</p>
+
+<p>i numero (invita al usuario del numero indicado a la conversación)</p>
+
+<p>e (limpia la pantalla)</p>
+
+<p>c (cierra la conversación activa)</p>
+
+<p>a usuario (añade un usuario a contactos)</p>
+
+<p>b usuario (bloquea a usuario)</p>
+
+<p>f archivo (enviar archivo)</p>
+
+<p>fa (aceptar archivo que nos envian)</p>
+
+<p>fr (rechazar recepción de archivo)</p>
 </div>
   
   
@@ -549,7 +569,7 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1213</li>
+	<li>1290</li>
 	</ul>
 </section>
 <section>
@@ -557,43 +577,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/owncloud/">owncloud</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/golismero/">golismero</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/curl/">curl</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lorem/">lorem</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/kernel/">kernel</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/yacy/">yacy</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/virtualbox/">virtualbox</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/miniflux/">miniflux</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sed/">sed</a>
+        <a href="/blog/zdiff/">zdiff</a>
       </li>
     
   </ul>

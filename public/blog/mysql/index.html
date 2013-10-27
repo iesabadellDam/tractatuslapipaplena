@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Gestor de bases de datos [BDs]. Todas las sentencias han de terminar con un punto y coma [;] menos la sentencia &#8220;USE&#8221; $ mysqldump -u root &hellip;">
+  <meta name="description" content="Gestor de bases de datos [BDs]. Las BDs se guardan en el directorio /var/lib/mysql/ $ mysqldump -u root -p proveedores > fichero.sql (Crear un backup &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -94,14 +94,14 @@
   
 
 
-<time datetime="2013-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Gestor de bases de datos [BDs]. Todas las sentencias han de terminar con un punto y coma [;] menos la sentencia &#8220;USE&#8221;</p>
+<div class="entry-content"><p>Gestor de bases de datos [BDs]. Las BDs se guardan en el directorio /var/lib/mysql/</p>
 
 <blockquote><p>$ mysqldump -u root -p proveedores > fichero.sql (Crear un backup de la BD &#8220;proveedores&#8221;.)</p>
 
@@ -113,7 +113,9 @@
 
 <p>$ mysqldump -u root -p &#8211;databases clientes proveedores > fichero.sql (Backup de dos BDs)</p>
 
-<p>$ mysqldump -u root -p proveedores &#8211;ignore-table=antiguos > fichero.sql (Backup ignorando una BDs)</p>
+<p>$ mysqldump -u root -p proveedores &#8211;ignore-table=antiguos > fichero.sql (Backup ignorando una tabla)</p>
+
+<p>$ mysqldump -u root -p base_de_datos tabla1 tabla2 > tabla1_y_tabla2.sql (Exportar solo unas tablas de una BDs)</p>
 
 <p>$ mysql -u root -p1234 (Acceder a la BD con el usuario &#8220;root&#8221; y contraseña &#8220;1234&#8221;[nótese que la contraseña está junto a la &#8220;p&#8221;)</p>
 
@@ -121,11 +123,15 @@
 
 <p>$ mysql -u root -p datos (Entrar en mysql y directamente en la BD &#8220;datos&#8221; [notese que la BDs está separada de la &#8220;p&#8221; por un espacio, sinó se tomaría como la contraseña])</p></blockquote>
 
-<p>Una vez en el prompt de mysql:</p>
+<p>Una vez en el prompt de mysql [Todas las sentencias han de terminar con un punto y coma [;] menos la sentencia &#8220;USE&#8221;]:</p>
+
+<p>mysql> SHOW VARIABLES LIKE &#8216;datadir&#8217;; (muestra el directorio donde se almacenan las BDs)</p>
 
 <p>mysql> show databases; (Mostrar las BDs existentes)</p>
 
 <p>mysql> create database datos; (Crear la BD &#8220;datos&#8221;)</p>
+
+<p>mysql> DROP DATABASE datos; (Borrar toda una base de datos)</p>
 
 <p>mysql> USE datos (Entrar en la BD &#8220;datos&#8221;. Sin punto y coma final)</p>
 
@@ -164,17 +170,33 @@
 
 <p>Antonio Gomez   portero     m   \N      2006-11-01</p>
 
+<pre><code>Nota.- El final del archivo no ha de contener ninguna linea en blanco. 
+</code></pre>
+
 <p>Para cargarlo en la BD:</p>
 
 <p>mysql> LOAD DATA LOCAL INFILE &#8220;usuarios.txt&#8221; INTO TABLE datos;</p>
+
+<pre><code>Nota.- En caso de que salga el error: The used command is not allowed with this MySQL version:
+
+# nano /etc/mysql/my.cnf
+
+Y en la sección [mysql] añadir la linea "local-infile": 
+
+    [mysql]
+
+    local-infile
+
+Reinciar mysql. 
+</code></pre>
 
 <p>LOAD DATA (Permite especificar cuál es el separador de columnas y el separador de registros. Por defecto el tabulador es el separador de columnas (campos) y el salto de línea es el separador de registros)</p>
 
 <p>Para añadir un nuevo registro a la BD anterior:</p>
 
-<p>mysql> INSERT INTO usuarios</p>
+<pre><code>mysql&gt; INSERT INTO usuarios 
 
-<pre><code>-&gt; VALUES('Jose','Robles','administrativo','m',NULL,'2012-12-01'); 
+    -&gt; VALUES('Jose','Robles','administrativo','m',NULL,'2012-12-01'); 
 </code></pre>
 
 <p>Valores y fechas entre comillas simples y valores desconocidos NULL y no \N como entrando un archivo.</p>
@@ -201,9 +223,9 @@
 
 <p>mysql> SELECT * FROM usuarios WHERE profesion=&#8221;portero&#8221; OR profesion=&#8221;contable&#8221;; (filtrar porteros y contables)</p>
 
-<p>mysql> SELECT * FROM usuarios WHERE (profesion=&#8221;portero&#8221; AND sexo=&#8221;f&#8221;)</p>
+<pre><code>mysql&gt; SELECT * FROM usuarios WHERE (profesion="portero" AND sexo="f") 
 
-<pre><code>-&gt; OR (nombre = "juan" AND sexo = "m"); (Filtrar distintas opciones encerradas entre parentesis) 
+    -&gt; OR (nombre = "juan" AND sexo = "m"); (Filtrar distintas opciones encerradas entre parentesis) 
 </code></pre>
 
 <p>mysql> SELECT apellido, nacimiento FROM usuarios;</p>
@@ -212,9 +234,132 @@
 
 <p>mysql> SELECT nombre, nacimiento FROM usuarios ORDER BY nacimiento; (Ordenar por fecha nacimiento)</p>
 
+<p>mysql> SELECT * FROM la_tabla ORDER BY la_columna; (Ordenar por el número de una columna)</p>
+
 <p>mysql> drop table usuarios; (Eliminar una tabla)</p>
 
 <p>mysql> drop table if exists usuarios; (Eliminar tabla si existe)</p>
+
+<p>mysql> CHECK TABLE la_tabla EXTENDED; (Chequear la integridad de una tabla)</p>
+
+<p>mysql> REPAIR TABLE la_tabla; (Reparar una tabla)</p>
+
+<p>1.-</p>
+
+<p>En ciertos casos, para resolver el error: mysqldump: Got error: xxxx: Table &#8216;xxxxxxxxx&#8217; doesn&#8217;t exist when using LOCK TABLES:</p>
+
+<blockquote><p>$ mysqldump -u root -p BDs &#8211;single-transaction > dump.sql</p></blockquote>
+
+<p>2.-</p>
+
+<p>Otro sistema para importar una base de datos. Primero crearla, entrar en ella y ejecutar el source sobre el fichero sql:</p>
+
+<pre><code>mysql&gt; CREATE DATABASE datos;
+
+mysql&gt; USE datos;
+
+mysql&gt; SOURCE datos.sql;
+</code></pre>
+
+<p>3.-</p>
+
+<p>Exportar una tabla a txt con determinado formato:</p>
+
+<pre><code>mysql&gt; SELECT * SELECT tabla INTO OUTFILE "tabla.txt"
+
+   --&gt; FIELDS TERMINATED BY '   '
+
+   --&gt; LINES TERMINATED BY '\n\n\r';
+</code></pre>
+
+<p>FIELDS TERMINATED BY &#8217;  &#8217; (indica que los campos de cada línea terminarán con dos espacios.</p>
+
+<p>LINES TERMINATED BY &#8216;\n\n\r &#8216;(indica el carácter como acaba cada linea, en este caso dos saltos de línea y retorno de carro</p>
+
+<p>otras instrucciones de formato:</p>
+
+<p>ENCLOSED BY &#8216;&#8221;&#8217; (Que los campos de tipo char, text, binary y enum de cada línea se entrecomillan)</p>
+
+<p>IGNORE 1 LINES (No cargar la primera línea del fichero de texto)</p>
+
+<p>LINES STARTING BY &#8216;&#8212;&#8217; (Que todas las líneas empiezen con &#8220;&#8212;&#8221;.</p>
+
+<p>4.-</p>
+
+<p>Ejemplo parecido al anterior pero ordenando el fichero por el segundo campo:</p>
+
+<pre><code>mysql&gt; SELECTC campo1,campo2,campo3 FROM tabla ORDER BY campo2 INTO OUTFILE "campos.txt"
+
+--&gt; FIELDS TERMINATED BY ' '
+
+--&gt; LINES TERMINATED BY '\n\r';
+</code></pre>
+
+<p>5.-</p>
+
+<p>Gestion de usuarios.</p>
+
+<p>Cuando creamos un nuevo usuario en MySQL, éste queda identificado por su nombre de usuario más el nombre o IP del ordenador desde el cual hemos dicho que accederá (el carácter comodín &#8216;%&#8217; representa varios ordenadores).</p>
+
+<p>Ejemplos:</p>
+
+<pre><code> juan
+
+ juan@'%'
+
+ juan@localhost
+
+ juan@'192.168.1.%'
+
+ juan@'%.dominio.org'
+</code></pre>
+
+<p>mysql> SELECT User,Host,Password FROM mysql.user; (Ver los usuarios)</p>
+
+<p>mysql> CREATE USER juan@&#8217;%&#8217; IDENTIFIED BY &#8216;1234&#8217;; (Crear un usuario con la contraseña 1234)</p>
+
+<p>mysql> CREATE USER john IDENTIFIED BY &#8216;1234&#8217;, peter IDENTIFIED BY &#8216;4321&#8217;; (Crear dos usuarios)</p>
+
+<p>mysql> RENAME USER john TO juan, peter TO pedro;</p>
+
+<p>mysql> DROP USER juan, pedro; (Borrar dos usuarios)</p>
+
+<p>mysql> SET PASSWORD FOR juan = PASSWORD(&#8216;abcde&#8217;) (Cambiar la contraseña de un usuario)</p>
+
+<p>mysql> SHOW GRANTS FOR pedro; (Ver los privilegios de un usuario)</p>
+
+<pre><code>mysql&gt; GRANT ALL ON *.* TO juan@localhost (Otorgar todos los privilegios a un usuario)
+
+mysql&gt; REVOKE ALL ON *.* FROM juan@localhost; (Anular todos los privilegios de un usuario)
+</code></pre>
+
+<p>6.-</p>
+
+<p>Acceso remoto a mysql con el usuario root:</p>
+
+<blockquote><p># nano /etc/mysql/my.cnf</p></blockquote>
+
+<p>Comentar la linea:</p>
+
+<pre><code>#bind-address           = 127.0.0.1
+</code></pre>
+
+<p>Reiniciar el servicio:</p>
+
+<blockquote><p># /etc/init.d/mysql restart</p></blockquote>
+
+<p>Entrar en el prompt de mysql y otorgar privilegios:</p>
+
+<blockquote><p># mysql -u root -p</p></blockquote>
+
+<p>Entrar la contraseña y:</p>
+
+<pre><code>mysql&gt; GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'la_contraseña' WITH GRANT OPTION;
+
+mysql&gt; FLUSH PRIVILEGES;
+
+mysql&gt; exit
+</code></pre>
 </div>
 
 
@@ -237,7 +382,7 @@
   
 
 
-<time datetime="2013-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
       
 
 
@@ -270,7 +415,7 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1213</li>
+	<li>1290</li>
 	</ul>
 </section>
 <section>
@@ -278,43 +423,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/owncloud/">owncloud</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/golismero/">golismero</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/curl/">curl</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lorem/">lorem</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/kernel/">kernel</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/yacy/">yacy</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/virtualbox/">virtualbox</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/miniflux/">miniflux</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sed/">sed</a>
+        <a href="/blog/zdiff/">zdiff</a>
       </li>
     
   </ul>

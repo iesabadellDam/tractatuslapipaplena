@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Grabación de sesiones vnc. (https://wiki.ubuntu.com/ScreenCasts/VNCREC) $ wget http://ronja.twibright.com/utils/vncrec-twibright.tgz $ tar xzvf &hellip;">
+  <meta name="description" content="Borrar usuarios # userdel usuario (Elimina al usuario pero no su directorio personal) # userdel -r usuario (lo borra junto a su directorio $HOME) # &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/vncrec/">Vncrec</a></h1>
+      <h1 class="entry-title"><a href="/blog/userdel/">Userdel</a></h1>
     
     
       <p class="meta">
@@ -97,34 +97,20 @@
   
 
 
-<time datetime="2013-07-13T16:53:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Grabación de sesiones vnc. (https://wiki.ubuntu.com/ScreenCasts/VNCREC)</p>
+  <div class="entry-content"><p>Borrar usuarios</p>
 
-<blockquote><p>$ wget http://ronja.twibright.com/utils/vncrec-twibright.tgz</p>
+<blockquote><p># userdel usuario (Elimina al usuario pero no su directorio personal)</p>
 
-<p>$ tar xzvf vncrec-twibright.tgz</p>
+<p># userdel -r usuario (lo borra junto a su directorio $HOME)</p>
 
-<p>$ cd vncrec-twibright/</p>
-
-<p>$ xmkmf</p>
-
-<p>$ make World</p>
-
-<p># cp -R vncrec-0.2 /usr/local/</p>
-
-<p># ln -s /usr/local/vncrec-0.2/vncrec/vncrec-twibright/vncrec/vncrec /usr/bin/vncrec</p>
-
-<p>$ vncrec -record archivo IP_o_host:1  (iniciar conexión y grabación)</p>
-
-<p>$ vncrec -play archivo   (reproducir la grabación)</p>
-
-<p>$ vncrec -movie archivo | ffmpeg2theora &#8211;no-audio -o archivo.ogv – (convertir la grabación a formato ogv)</p></blockquote>
+<p># userdel -f usuario (Borra al usuario y su directorio personal incluso aunque esté logeado en el sistema)</p></blockquote>
 </div>
   
   
@@ -137,7 +123,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/vmstat/">Vmstat</a></h1>
+      <h1 class="entry-title"><a href="/blog/useradd/">Useradd</a></h1>
     
     
       <p class="meta">
@@ -153,312 +139,56 @@
   
 
 
-<time datetime="2013-07-13T16:53:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Herramienta de monitorización del rendimiento. Proporciona información acerca de procesos, actividad de la CPU, memoria, paginación, bloques de entrada salida e interrupciones.</p>
+  <div class="entry-content"><p>Crear usuarios.</p>
 
-<blockquote><p># vmstat 2  (actualización cada dos segundo)</p></blockquote>
-</div>
-  
-  
+<blockquote><p># useradd -d /home/user -m user (Especifica la ruta a su $HOME)</p></blockquote>
 
+<p>Otras opciones:</p>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/vlock/">Vlock</a></h1>
-    
-    
-      <p class="meta">
-        
+<p>-M usuario  (sin directorio $HOME)</p>
 
+<p>-g users user (grupo principal al que pertenece el usuario)</p>
 
+<p>-e 20111231 user (fecha de expiración de un usuario: 2011-12-31)</p>
 
+<p>-G video,audio user (grupos adicionales a los que pertenece)</p>
 
+<p>-s /bin/bash (especifica la shell del usuario)</p>
 
+<p>-s /sbin/nologin (El usuario no podra logearse en el sistema. Ideal para usuarios con acceso a Samba o FTP sin acceso al interprete de comandos)</p>
 
+<p>-u 503 (Identificador que sera asignado al usuario. Por defecto la UID será a partir del numero 500. Si no se especifica, automáticamente se establece el siguiente número disponible a partir del último usuario creado.)</p>
 
+<p>Un ejemplo completo:</p>
 
-  
+<blockquote><p># useradd -d /home/paco -g users -s /bin/bash -m paco</p></blockquote>
 
+<p>1.-</p>
 
-<time datetime="2013-07-13T16:53:00+02:00" pubdate data-updated="true">13-07-2013</time>
-        
-      </p>
-    
-  </header>
+<p>/etc/default/useradd</p>
 
+<p>Archivo donde se definen los valores [shell, directorio del directorio personal, ID del grupo, expiración de la contraseña&#8230;] por defecto para la creación de nuevos usuarios [ver useradd y skel]</p>
 
-  <div class="entry-content"><p>Aplicación para bloquear sesiones de consola.</p>
+<p>Algunos parámetros:</p>
 
-<blockquote><p>$ vlock -c    (La bloquea)</p></blockquote>
+<pre><code>GROUP=100
 
-<p>Para desbloquearla, pulsar “enter” y la contraseña del usuario</p>
-</div>
-  
-  
+HOME=/home
 
+INACTIVE=-1
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/vlc/">Vlc</a></h1>
-    
-    
-      <p class="meta">
-        
+EXPIRE=
 
+SHELL=/bin/sh
 
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-13T16:53:00+02:00" pubdate data-updated="true">13-07-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Reproductor de video y audio</p>
-
-<blockquote><p>$ vlc -l  (listar opciones. La opción es “i” mayúscula)</p>
-
-<p>$ vlc -l | grep -i interface  (ver solo las interfaces)</p>
-
-<p>$ vlc -I ncurses (arrancar en modo ncurses)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/visitors/">Visitors</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-13T16:53:00+02:00" pubdate data-updated="true">13-07-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra estadisticas del sitio web local.</p>
-
-<blockquote><p># visitors -A /var/log/apache2/access.log -o html > report (Activar todas las opciones [-A] que guarde la salida en formato html [-o] y que base el informe en el archivo /var/log/apache2/access.log)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/vipe/">Vipe</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-13T16:53:00+02:00" pubdate data-updated="true">13-07-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[moreutils]</p>
-
-<p>Permite editar en medio de una tubería los datos que están siendo canalizadas entre programas.</p>
-
-<blockquote><p>$ ls | vipe | ifdata -pb eth0</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/view/">View</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-13T16:53:00+02:00" pubdate data-updated="true">13-07-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Ver en pantalla el contenido de un archivo.</p>
-
-<blockquote><p>$ view fichero.txt</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/vidir/">Vidir</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-13T16:53:00+02:00" pubdate data-updated="true">13-07-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[moreutils]</p>
-
-<p>Edita como un archivo de texto directorios o archivos.</p>
-
-<blockquote><p>$ vidir /home/usuario</p>
-
-<p>$ vidir *.png</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/videotop/">Videotop</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-13T16:53:00+02:00" pubdate data-updated="true">13-07-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Descarga de videos de youtube.</p>
-
-<blockquote><p>$ videotop  (Para entrar en el prompt)</p></blockquote>
-
-<p>Teclear:</p>
-
-<pre><code>:s queen (se mostrarán los videos en los que aparezca queen. Se selecciona con la flechas el que se quiera descargar y se pulsa intro. El video se encontrará en $HOME/.videotop/videos/)
-
-:5 (Descargar el video 5)
-
-:v (Muestra los videos descargados [ls $HOME/.videotop/videos])
-
-:q (salir)
-
-:delete (borrar video seleccionado)
-
-:clear (limpia la busqueda y se entra en modo buscador.)
-
-    ^r (limpia el listado)
-
-    ^n (continuación de la misma busqueda)
+SKEL=/etc/skel
 </code></pre>
 </div>
   
@@ -472,7 +202,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/video/">Video</a></h1>
+      <h1 class="entry-title"><a href="/blog/user-dirs-dot-dirs/">user-dirs.dirs</a></h1>
     
     
       <p class="meta">
@@ -488,24 +218,376 @@
   
 
 
-<time datetime="2013-07-13T16:53:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>1.- Descargar video flash:</p>
+  <div class="entry-content"><p>Archivo donde se especifican los directorios que saldran por defecto en el $HOME:</p>
 
-<p>Iniciar la reproducción del vídeo.</p>
+<p>XDG_DESKTOP_DIR=”$HOME/Escritorio”</p>
 
-<blockquote><p>$ lsof |grep Flash</p></blockquote>
+<p>XDG_DOWNLOAD_DIR=”$HOME/Descargas”</p>
 
-<p>chromium- 15931 lb 25u REG 8,2 2422656 656146 /tmp/FlashXXYX9waY (deleted)</p>
+<p>XDG_TEMPLATES_DIR=”$HOME/Plantillas”</p>
 
-<p>Los datos que interesan son: 15931 y 25. Sin cerrar la página del vídeo y una vez finalizada su carga copiarlo:</p>
+<p>XDG_PUBLICSHARE_DIR=”$HOME/Público”</p>
 
-<blockquote><p>$ cp /proc/15931/fd/25 video.flv</p></blockquote>
+<p>XDG_DOCUMENTS_DIR=”$HOME/Documentos”</p>
+
+<p>XDG_MUSIC_DIR=”$HOME/Música”</p>
+
+<p>XDG_PICTURES_DIR=”$HOME/Imágenes”</p>
+
+<p>XDG_VIDEOS_DIR=”$HOME/Vídeos”</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/usbmount/">Usbmount</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Automontar dispositivos de almacenamiento externo. Editar:</p>
+
+<blockquote><p># nano /etc/usbmount/usbmount.conf</p></blockquote>
+
+<p>Y verificar/modificar según necesidades, las lineas:</p>
+
+<p>MOUNTPOINTS=&#8221;/media/usb0 /media/usb1 /media/usb2 /media/usb3 /media/usb4 /media/usb5 /media/usb6 /media/usb7&#8221;</p>
+
+<p>FILESYSTEMS=&#8221;vfat ext2 ext3 ext4 hfsplus&#8221;</p>
+
+<p>MOUNTOPTIONS=&#8221;sync,noexec,nodev,noatime,users,umask=000&#8221;</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/usb-modeswitch/">Usb_modeswitch</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Configuración del modem Huawei. Editar:</p>
+
+<blockquote><p># gedit /etc/usb_modeswitch.conf</p></blockquote>
+
+<pre><code>EnableLogging=0
+</code></pre>
+
+<p>Y pegar el siguiente contenido:</p>
+
+<pre><code># Huawei E1752
+
+# 
+
+# Contributor:
+
+DefaultVendor=0x12d1
+
+DefaultProduct=0x1446
+
+TargetVendor=0x12d1
+
+TargetProduct=0x1417
+
+MessageEndpoint=0x01
+
+MessageContent="55534243000000000000000000000011060000000000000000000000000000"
+</code></pre>
+
+<p>Verificar que el número de TargetProduc coincida con la salida de:</p>
+
+<blockquote><p># lsusb</p></blockquote>
+
+<pre><code>Bus 006 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+
+Bus 005 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+
+Bus 004 Device 002: ID 0461:4d03 Primax Electronics, Ltd Kensington Mouse-in-a-box
+
+Bus 004 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+
+Bus 003 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+
+Bus 002 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+
+Bus 001 Device 006: ID 12d1:1417 Huawei Technologies Co., Ltd. 
+
+Bus 001 Device 003: ID 0402:5602 ALi Corp. Video Camera Controller
+
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+</code></pre>
+
+<p>Arrancarlo con alguno de los siguientes comandos:</p>
+
+<blockquote><p># usb_modeswitch -v 12d1 -p 1417 -d 1</p>
+
+<p># usb_modeswitch -c /etc/usb_modeswitch.conf</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/urlwatch/">Urlwatch</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Comprueba si una página web ha sufrido cambios desde la última vez que se lanzó la aplicación. Configurar las URLs, una por linea en el archivo:</p>
+
+<blockquote><p>$ mkdir .urlwatch</p>
+
+<p>$ nano .urlwatch/urls.txt</p></blockquote>
+
+<pre><code>http://www.tuxapuntes.com
+
+http://crontux.homelinux.com/wiki
+
+http://systemadmin.es
+</code></pre>
+
+<blockquote><p>$ urlwatch (Lanzar la aplicación)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/urlview/">Urlview</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Extraer las direcciones URL de archivos de texto.</p>
+
+<blockquote><p>$ urlview archivo.txt</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/urlcrazy/">Urlcrazy</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>http://www.morningstarsecurity.com/research/urlcrazy</p>
+
+<p>Herramienta que genera posibles URLs de un dominio que podrian ser usados para ataques de phising, malversing o fraudes varios.</p>
+
+<blockquote><p>$ ./urlcrazy (Muestra las opciones)</p>
+
+<p>$ ./urlcrazy -o paypal.txt paypal.com (Redirigiendo el resultado a un archivo)</p></blockquote>
+
+<p>Otras opciones:</p>
+
+<p>-p (Mostrar URL parecidas más populares según google)</p>
+
+<p>-r (No resolviendo los nombre de dominio)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/uptime/">Uptime</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Tiempo transcurrido desde que se arrancó el sistema</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/update-usbids/">Update-usbids</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Si al ejecutar lsusb nos muestra un mensaje &#8220;unknown device&#8221; es preciso actualizar la lista del archivo /usr/share/misc/usb.ids.</p>
+
+<blockquote><p># update-usbids</p></blockquote>
 </div>
   
   
@@ -528,7 +610,7 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1213</li>
+	<li>1290</li>
 	</ul>
 </section>
 <section>
@@ -536,43 +618,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/owncloud/">owncloud</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/golismero/">golismero</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/curl/">curl</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lorem/">lorem</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/kernel/">kernel</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/yacy/">yacy</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/virtualbox/">virtualbox</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/miniflux/">miniflux</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sed/">sed</a>
+        <a href="/blog/zdiff/">zdiff</a>
       </li>
     
   </ul>

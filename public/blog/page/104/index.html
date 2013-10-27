@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Colocar según proceda al inicio del documento la linea: &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt; &lt;meta http- &hellip;">
+  <meta name="description" content="Manipular documentos .djvu $ djvm -l fichero.djvm (Lista el contenido) $ djvm -c archivo.djvu file1.djvu file2.djvu (Crea un archivo juntando varios &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/codificacion/">Codificación</a></h1>
+      <h1 class="entry-title"><a href="/blog/djvm/">Djvm</a></h1>
     
     
       <p class="meta">
@@ -97,19 +97,20 @@
   
 
 
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Colocar según proceda al inicio del documento la linea:</p>
+  <div class="entry-content"><p>Manipular documentos .djvu</p>
 
-<pre><code>&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
+<blockquote><p>$ djvm -l fichero.djvm (Lista el contenido)</p>
 
-&lt;meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /&gt;
-</code></pre>
+<p>$ djvm -c archivo.djvu file1.djvu file2.djvu (Crea un archivo juntando varios archivos djvu)</p>
+
+<p>$ djvm -d archivo.djvu 0022 (Eliminar la página 22 del archivo.djvu)</p></blockquote>
 </div>
   
   
@@ -122,7 +123,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/cnetworkmanager/">Cnetworkmanager</a></h1>
+      <h1 class="entry-title"><a href="/blog/display/">Display</a></h1>
     
     
       <p class="meta">
@@ -138,28 +139,20 @@
   
 
 
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Información sobre conexiones de red</p>
+  <div class="entry-content"><p>visualizar imagenes en las X</p>
 
-<blockquote><p>$ cnetworkmanager -d (información sobre las tarjetas de red)</p>
+<blockquote><p>$ display imagen.jpg</p>
 
-<p>$ cnetworkmanager -c (conexión activa)</p>
+<p>$ DISPLAY=:0.0 gedit  (lanzado desde una tty, abre gedit en las X. Si solo tenemos una sesión X corriendo, puede suprimirse el “.0”)</p>
 
-<p>$ cnetworkmanager -s (lista todas la conexiónes guardadas)</p>
-
-<p>$ cnetworkmanager -u (Lista configuración de usuario de la conexión)</p>
-
-<p>$ cnetworkmanager &#8211;state  (estado de la conexión)</p>
-
-<p>$ cnetworkmanager -a (Lista puntos de acceso)</p>
-
-<p>$ cnetworkmanager -w true/false  (activar/desactivar la conexión)</p></blockquote>
+<p>$ gmessage “Cierra el firefox” -display :0 (Lanzado desde una tty mostrará el mensaje en las X)</p></blockquote>
 </div>
   
   
@@ -172,7 +165,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/cmp/">Cmp</a></h1>
+      <h1 class="entry-title"><a href="/blog/disown/">Disown</a></h1>
     
     
       <p class="meta">
@@ -188,16 +181,62 @@
   
 
 
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Compara dos ficheros octeto a octeto.</p>
+  <div class="entry-content"><p>Disociar un proceso de la terminal que lo lanzó. Cuando creamos un proceso desde una terminal, éste queda ligado a la terminal. Si se cierra la terminal, también se cierra el proceso. disown evita tal contingencia. Veamos el proceso:</p>
 
-<blockquote><p>$ cmp fichero1 fichero2</p></blockquote>
+<p>Si se lanza:</p>
+
+<blockquote><p>$ yes > /dev/null</p></blockquote>
+
+<p>Cerramos y volvemos a abrir la terminal y ejecutamos:</p>
+
+<blockquote><p>$ ps aux | grep yes | grep -v grep</p></blockquote>
+
+<p>Veremos que el proceso no existe. Si volvemos a lanzar &#8220;yes&#8221;:</p>
+
+<blockquote><p>$ yes > /dev/null</p></blockquote>
+
+<p>Pulsamos Ctrl+z:</p>
+
+<p>[1]+  Detenido                  yes > /dev/null</p>
+
+<p>Lanzando:</p>
+
+<blockquote><p>$ jobs</p></blockquote>
+
+<p>Nos mostrará la misma salida. Ahora en el promt escribimos:</p>
+
+<blockquote><p>$ disown -h %1</p></blockquote>
+
+<p>Con lo que desligamos el proceso de la terminal. Hemos liberado la terminal pero si la cerramos, aún matamos el proceso &#8220;yes&#8221;. Para que esto no ocurra, lo mandamos a segundo plano con bg y número de proceso [1]:</p>
+
+<blockquote><p>$ bg 1</p></blockquote>
+
+<p>[1]+ yes > /dev/null &amp;</p>
+
+<p>Ahora podemos cerrar la terminal sin que el proceso &#8220;yes&#8221; se vea afectado. El proceso se simplifica si ya lanzamos el comando en background:</p>
+
+<blockquote><p>$ yes > /dev/null &amp;</p></blockquote>
+
+<p>[1] 13248</p>
+
+<p>Lo disociamos de la terminal:</p>
+
+<blockquote><p>$ disown -h %1</p></blockquote>
+
+<p>Y ya podemos cerrar la terminal sin afectar al proceso.</p>
+
+<p>Otras opciones:</p>
+
+<blockquote><p>$ disown -a (Desliga todos los procesos ejecutados desde la terminal)</p>
+
+<p>$ disown -r (Desliga los que esten en marcha [running])</p></blockquote>
 </div>
   
   
@@ -210,7 +249,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/cmospwd/">Cmospwd</a></h1>
+      <h1 class="entry-title"><a href="/blog/dirs/">Dirs</a></h1>
     
     
       <p class="meta">
@@ -226,24 +265,14 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Averiguar la contraseña de la BIOS. Arrancar con un cd-live [System rescue] y modificar la entrada del kernel del menú de opciones de grub para iniciar una shell [rw init=/bin/bash]</p>
-
-<blockquote><p># cmospwd /d   (pasar la información por pantalla)</p>
-
-<p># cmospwd /k   (resetear)</p>
-
-<p># cmospwd /d /w bios.back  (copia de seguridad)</p>
-
-<p># cmospwd /l bios.back (Ver el contenido de la copia de seguridad)</p>
-
-<p># cmospwd /r bios.back  (restablecer la copia de seguridad)</p></blockquote>
+  <div class="entry-content"><p>Ver pushd</p>
 </div>
   
   
@@ -256,7 +285,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/cmatrix/">Cmatrix</a></h1>
+      <h1 class="entry-title"><a href="/blog/dig/">Dig</a></h1>
     
     
       <p class="meta">
@@ -272,20 +301,30 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Salvapantallas estilo matrix</p>
+  <div class="entry-content"><p>Realizar consultas a los servidores DNS</p>
 
-<blockquote><p>$ cmatrix -u 9 -B -C blue  (A velocidad lenta [0-9], usando todos los caracteres y especificando color [green, red, blue, white, yellow, cyan, magenta y black]</p></blockquote>
+<blockquote><p>$ dig tuxapuntes.com</p>
 
-<p>Nota.- Si durante la ejecución se pulsan las teclas siguientes, se cambia al color indicado:</p>
+<p>$ dig telefonica.net NS  (Mostrando los servidores DNS del dominio)</p>
 
-<p>! (rojo) @ (verde)# (amarillo) $ (azul) % (magenta) ^ (cyam) &amp; (blanco) ) (negro)</p>
+<p>$ dig -x 74.220.215.64 (Resolución inversa)</p></blockquote>
+
+<p>Nota.- Los datos importantes en la “ANSWER SECTION”</p>
+
+<blockquote><p>$ dig +short myip.opendns.com @resolver1.opendns.com (muestra IP externa)</p>
+
+<p>$ dig tuxapuntes.com somedomainname.net axfr   (mirar si un dominio es susceptible de ataques axfr)</p>
+
+<p>$ dig +trace tuxapuntes.com (Ver saltos de la petición hasta el servidor)</p>
+
+<p>$ dig ANY tuxapuntes.com (Consultar todos los registros de la zona DNS)</p></blockquote>
 </div>
   
   
@@ -298,7 +337,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/clive/">Clive</a></h1>
+      <h1 class="entry-title"><a href="/blog/diffpdf/">Diffpdf</a></h1>
     
     
       <p class="meta">
@@ -314,16 +353,16 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Descarga de videos de youtube.</p>
+  <div class="entry-content"><p>Compara dos archivos pdf.</p>
 
-<blockquote><p>$ clive http://video -O titulo (Dándole un titulo al vídeo)</p></blockquote>
+<blockquote><p>$ diffpdf archivo1.pdf archivo2.pdf</p></blockquote>
 </div>
   
   
@@ -336,7 +375,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/clex/">Clex</a></h1>
+      <h1 class="entry-title"><a href="/blog/diff/">Diff</a></h1>
     
     
       <p class="meta">
@@ -352,36 +391,28 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Administrador de archivos.</p>
+  <div class="entry-content"><p>Mostrar diferencias entre dos directorios o ficheros</p>
 
-<p>Algunas teclas de control:</p>
+<blockquote><p>$ diff archivo1 archivo2 (Compara diferencias entre dos ficheros)</p>
 
-<p>Ctrl-c (salir de cada una de las opciones siguientes)</p>
+<p>$ diff -r carpeta1 carpeta2 (Compara diferencias de forma recursiva en los directorios)</p>
 
-<p>alt-m (menú principal)</p>
+<p>$ diff -w fichero1 fichero2  (Descarta espacios en blanco)</p>
 
-<p>alt-w (Cambiar de directorio)</p>
+<p>$ diff -q fichero1 fichero2   (Informa si los ficheros difieren sin mostrar detalles)</p>
 
-<p>alt-s (Cambiar el tipo de visualización)</p>
+<p>$ diff -y fichero1 fichero2   (Muestra la salida a dos columnas)</p>
 
-<p>alt-/ (entrar en el directorio raiz)</p>
+<p>$ diff –urp dir1 dir2 (Compara recursivamente el contenido de 2 directorios.)</p>
 
-<p>alt-~ o alt-` (Entrar en el directorio $HOME)</p>
-
-<p>ctrl-r (Actualizar panel)</p>
-
-<p>F4 (Editar archivo [vim])</p>
-
-<p>F5 (Copiar)</p>
-
-<p>F8 (Borrar)</p>
+<p>$ diff -u &lt;(grep -vE &#8217;<sup>(#|$)&#8217;</sup> file1) &lt;(grep -vE &#8217;<sup>(#|$)&#8217;</sup> file2) (Los compara ignorando comentarios y lineas en blanco)</p></blockquote>
 </div>
   
   
@@ -394,7 +425,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/clear/">Clear</a></h1>
+      <h1 class="entry-title"><a href="/blog/dialog/">Dialog</a></h1>
     
     
       <p class="meta">
@@ -410,14 +441,146 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Limpiar la terminal.</p>
+  <div class="entry-content"><p>Muestra cuadros de diálogo para scripts</p>
+
+<blockquote><p>$ dialog &#8211;calendar &#8220;mes de junio&#8221; 0 0 1 6 2010  (&#8220;0 0&#8221; indica que se autodimensiona el cuadro. El tamaño estándar de una terminal es un ancho de 80 por un largo de 25. &#8220;1 6 2010&#8221; fecha con formato dia/mes/año)</p>
+
+<p>$ dialog &#8211;checklist &#8220;Escoger servicios&#8221; 0 0 3 vnc &#8220;&#8221; &#8220;&#8221; ssh &#8220;&#8221; &#8220;&#8221; cups &#8220;&#8221; &#8220;&#8221; (&#8220;3&#8221; numero de entradas visibles, si hay más se usará el scroll. Las &#8220;&#8221; indican parámetros vacios que puedan sustituirse por palabras o números, el primero de los cuales aparecerá en el cuadro de diálogo [vnc 1 A ssh 2 B cups 3 C])</p>
+
+<p>$ dialog &#8211;dselect /home/usuario/ 0 0  (mostrará el contenido del directorio mencionado)</p>
+
+<p>$ dialog &#8211;editbox /etc/fstab 0 0   (mostrará el contenido del fichero seleccionado)</p>
+
+<p>$ dialog &#8211;fselect /home/usuario/ 0 0  (Mostrará dos ventanas una con los directorios y la otra con los ficheros)</p>
+
+<p>$ dialog &#8211;gauge &#8220;Uso del software libre&#8221; 0 0 0  (Muestra el progreso de un proceso)</p>
+
+<p>$ for var in 0 10 20 30 40 50 60 70 80 90 100; do sleep 1; echo $var; done | dialog &#8211;gauge &#8220;Total completado&#8221; 6 60 0 (concatenación de dialogs)</p>
+
+<p>$ dialog &#8211;infobox &#8220;Esto va a explotar&#8230;.&#8221; 3 26  (Un cuadro con un texto)</p>
+
+<p>$ dialog &#8211;sleep 3 &#8211;infobox &#8220;Esto va a explotar&#8230;.&#8221; 3 26 (Vuelve al prompt a los 3 segundos)</p>
+
+<p>$ dialog &#8211;sleep 3 &#8211;title &#8220;AVISO&#8221; &#8211;infobox &#8220;Esto va a explotar en 3 segundos&#8230;.&#8221; 3 40; dialog &#8211;infobox &#8220;BOOOOOOOMMMM&#8221; 0 0 (Concatenación de dialogs)</p>
+
+<p>$ dialog &#8211;inputbox &#8220;Ingrese su nombre&#8221; 0 0 (Solicitar una linea de texto al usuario)</p>
+
+<p>$ dialog &#8211;passwordbox &#8220;Ingrese contraseña&#8221; 0 0 (Igual que inputbox pero no se muestra nada de lo que se ingresa en pantalla)</p>
+
+<p>$ dialog &#8211;title &#8220;Aquí me las den&#8221; &#8211;no-cancel &#8211;inputbox &#8220;Dejame un mensaje cariño&#8221; 0 0 &#8220;&#8221;  (Especificando un título, sin el botón de &#8220;cancelar&#8221; y con cajón para dejar un mensaje)</p>
+
+<p>$ dialog &#8211;inputmenu &#8220;Nombre del usuario&#8221; 0 0 3 &#8221; juan Perez&#8221; &#8220;c/ del Pulgar num 5&#8221; &#8220;Jose Gonzalez&#8221; &#8220;c/ pez num 11&#8221;  (Permite modificar el segundo concepto [La calle])</p>
+
+<p>$ dialog &#8211;menu &#8220;Escoge una distro&#8230;&#8221; 0 0 3 1 &#8220;Arch&#8221; 2 &#8220;Red Had&#8221; 3 &#8220;Ubuntu&#8221; 4 &#8220;Debian&#8221;</p>
+
+<p>$ dialog &#8211;mixedgauge &#8220;errores&#8221; 0 0 30 ubuntu distros</p>
+
+<p>$ dialog &#8211;msgbox &#8220;\n Aquí puedes poner un texto&#8221; 0 0   (Avisar de una acción o comunicación y separando el texto de la parte superior [\n])</p>
+
+<p>$ dialog &#8211;timeout 10 &#8211;clear &#8211;passwordbox &#8220;Entra la contraseña&#8221; 0 0 &#8220;&#8221;  (Especificando un tiempo para entrarla y limpiando la pantalla)</p>
+
+<p>$ dialog &#8211;backtitle &#8220;Sobre timeout&#8230;&#8221; &#8211;timeout 5 &#8211;pause &#8220;Espera un rato&#8230;&#8221; 10 10 5   (Esperar 5 segundos antes de volver al prompt y con el título en la parte superior de la ventana [&#8211;backtitle])</p>
+
+<p>$ dialog &#8211;radiolist &#8220;Escoger servicios&#8221; 0 0 3 vnc &#8220;&#8221; &#8220;&#8221; ssh &#8220;&#8221; &#8220;&#8221; cups &#8220;&#8221; &#8220;&#8221;  (parecido a checklist)</p>
+
+<p>$ dialog &#8211;no-shadow &#8211;tailbox /etc/fstab 0 0   (Mostrar últimas lineas de un archivo sin sombreado de la ventana)</p>
+
+<p>$ dialog &#8211;timebox &#8220;Tiempo de espera&#8221; 0 0 22 55 33</p>
+
+<p>$ dialog &#8211;extra-button &#8211;timebox &#8220;Tiempo de espera&#8221; 0 0 22 55 33  (Incluir un boton extra)</p>
+
+<p>$ dialog &#8211;defaultno &#8211;timebox &#8220;Tiempo de espera&#8221; 0 0 22 55 33  (Seleccionando por defecto &#8220;cancelar&#8221;)</p>
+
+<p>$ dialog &#8211;yesno &#8220;Quieres pasar a la siguiente opción?&#8221; 0 0 (Retornara un valor cero, si se selecciona YES o distinto de cero si se selecciona NO. Este valor se almacena en la variable $? y puede ser evaluado mediante un if, while,&#8230;)</p>
+
+<p>$ dialog &#8211;tailbox /var/log/fail2ban.log 20 100 (muestra en tiempo real las incidencias en el fichero mencionado. Equivalente a tail -f)</p></blockquote>
+
+<p>Algunos ejemplos prácticos de su uso en scripts:</p>
+
+<p>1.-</p>
+
+<blockquote><p>#!/bin/bash</p></blockquote>
+
+<p>dialog &#8211;menu &#8220;Opciones del script&#8221; 16 60 14 1 &#8220;Puertos abiertos&#8221; 2 &#8220;Intentos de acceso&#8221; 3 &#8220;las IPs externas e internas&#8221; 4 &#8220;Cantidad de intentos de ataques&#8221; 5 &#8220;Servicios activos&#8221; 6 &#8220;Salir&#8221;</p>
+
+<p>clear</p>
+
+<p>2.-</p>
+
+<blockquote><p>#!/bin/bash</p>
+
+<p># Escanear puertos abiertos</p></blockquote>
+
+<p>nmapResultat=$(sudo nmap -O localhost | grep &#8220;open&#8221; | awk &#8216;{print$1,$3}&#8217;)</p>
+
+<p>dialog &#8211;title &#8220;Resultado del escaneo de puertos&#8221; &#8211;msgbox &#8220;Los puertos abiertos son:</p>
+
+<blockquote><p>$nmapResultat&#8221; 0 0</p></blockquote>
+
+<p>clear</p>
+
+<p>3.-</p>
+
+<blockquote><p>#!/bin/bash</p>
+
+<p># Parar un servicio</p></blockquote>
+
+<p>dialog &#8211;title &#8220;samba&#8221; &#8211;yesno &#8220;Quieres detener samba?&#8221; 0 0</p>
+
+<p>case $? in</p>
+
+<p>0)</p>
+
+<p>sudo /etc/init.d/samba stop</p>
+
+<p>dialog &#8211;title &#8220;Info&#8221; &#8211;msgbox &#8220;samba detenido&#8221; 0 0;;</p>
+
+<p>1)</p>
+
+<p>dialog &#8211;title &#8220;Info&#8221; &#8211;msgbox &#8220;samba continua activo&#8221; 0 0 ;;</p>
+
+<p>255)</p>
+
+<p>dialog &#8211;title &#8220;Info&#8221; &#8211;msgbox &#8220;ESC presionado&#8230; samba activo&#8221; 0 0 ;;</p>
+
+<p>esac</p>
+
+<p>clear</p>
+
+<blockquote><p>$ dialog &#8211;title &#8220;Mensaje al mundo&#8221; &#8211;msgbox &#8220;\n      Hola a todos&#8221; 6 35</p>
+
+<p>$ dialog &#8211;yesno &#8220;¿Estás de acuerdo?&#8221; <code>tput lines</code> <code>tput cols</code></p>
+
+<p>$ dialog &#8211;menu &#8220;Escoger interfaz&#8221; 0 0 0 g &#8220;gnome&#8221; k &#8220;kde&#8221; x &#8220;xfce&#8221; 2>&amp;1</p></blockquote>
+
+<p>4.-</p>
+
+<blockquote><p>#!/bin/bash</p>
+
+<p># Respuestas  como variables</p></blockquote>
+
+<p>TMPFILE=&#8221;/tmp/scripttemp.$$&#8221;</p>
+
+<p>dialog &#8211;inputbox &#8220;Ingrese su nombre&#8221; 10 30 2> $TMPFILE</p>
+
+<p>N=<code>cat $TMPFILE</code></p>
+
+<p>dialog &#8211;inputbox &#8220;Ingrese su edad&#8221; 10 30 2> $TMPFILE</p>
+
+<p>E=<code>cat $TMPFILE</code></p>
+
+<blockquote><p># Borrar tmpfile</p></blockquote>
+
+<p>rm -f $TMPFILE</p>
+
+<p>dialog &#8211;infobox &#8220;$N tiene $E años&#8221; 3 50</p>
 </div>
   
   
@@ -430,7 +593,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/clamav/">Clamav</a></h1>
+      <h1 class="entry-title"><a href="/blog/di/">Di</a></h1>
     
     
       <p class="meta">
@@ -446,50 +609,18 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Antivirus</p>
+  <div class="entry-content"><p>Muestra información sobre las particiones [un “df” mejorado]. Ver mi.</p>
 
-<blockquote><p># freshclam -v (actualizar la lista de virus)</p>
+<blockquote><p>$ di</p>
 
-<p># freshclam -d -c 24    (arranca el demonio que actualizará clamav 24 veces diarias- Maximo 50 veces diarias)</p>
-
-<p># clamscan -ri    (Sin especificar directorio, escanear el del usuario)</p>
-
-<p># clamscan -ri &#8211;remove /home/usuario  (escanea el directorio usuario y borra directamente los archivos infectados)</p>
-
-<p># clamscan -r -l test_clamav.txt  (manda el resultado a un archivo)</p>
-
-<p># sigtool &#8211;list-sigs > list (listado de virus y troyanos que detecta)</p>
-
-<p># clamscan -v -r &#8211;bell &#8211;move=/home/usuario/cuarentena &#8211;log=/var/log/clamav/clamav.log /media/win</p></blockquote>
-
-<p>Opciones:</p>
-
-<p>-v (muestra la información)</p>
-
-<p>-r  (revisa directorios y subdirectorios)</p>
-
-<p>&#8211;bell  (aviso sonoro al detectar un virus)</p>
-
-<p>&#8211;move  (confina los virus en el directorio especificado)</p>
-
-<p>&#8211;log  (guarda los logs en el archivo especificado)</p>
-
-<p>-i  (solo mostrará los archivos infectados)</p>
-
-<p>-d  (arrancar en modo demonio)</p>
-
-<p>Archivo de logs: /var/log/clamav/clamav.log</p>
-
-<p>Configuración: /etc/clamav/clamd.conf</p>
-
-<p>Reconfigurar paquete: # dpkg-reconfigure clamav-base</p>
+<p>$ di -c (Salida en CSV, para importar una hoja de cálculo)</p></blockquote>
 </div>
   
   
@@ -502,7 +633,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/cksum/">Cksum</a></h1>
+      <h1 class="entry-title"><a href="/blog/dhcpcd/">Dhcpcd</a></h1>
     
     
       <p class="meta">
@@ -518,16 +649,16 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Suma de comprobación y número de bytes de un archivo.</p>
+  <div class="entry-content"><p>Configuración automática de la red dhcp</p>
 
-<blockquote><p>$ cksum archivo</p></blockquote>
+<blockquote><p>$ dhcpcd eth0</p></blockquote>
 </div>
   
   
@@ -550,7 +681,7 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1213</li>
+	<li>1290</li>
 	</ul>
 </section>
 <section>
@@ -558,43 +689,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/owncloud/">owncloud</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/golismero/">golismero</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/curl/">curl</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lorem/">lorem</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/kernel/">kernel</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/yacy/">yacy</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/virtualbox/">virtualbox</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/miniflux/">miniflux</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sed/">sed</a>
+        <a href="/blog/zdiff/">zdiff</a>
       </li>
     
   </ul>

@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Conversor/lector de archivos .doc $ antiword archivo.doc | less (Visualiza un doc) $ antiword -p A4 archivo.doc > archivo.ps (Convierte a ps) $ &hellip;">
+  <meta name="description" content="Cuando introducimos un comando en Bash el orden de preferencia en la búsqueda del símbolo por parte de Bash es: Primero las funciones, luego los &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/antiword/">Antiword</a></h1>
+      <h1 class="entry-title"><a href="/blog/builtin/">Builtin</a></h1>
     
     
       <p class="meta">
@@ -97,30 +97,16 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Conversor/lector de archivos .doc</p>
+  <div class="entry-content"><p>Cuando introducimos un comando en Bash el orden de preferencia en la búsqueda del símbolo por parte de Bash es: Primero las funciones, luego los comandos internos y por último los ficheros de scripts y ejecutables. builtin es más restrictivo que command [ver] y hace que no se busquen alias ni funciones, sólo comando internos [ver tambien comando enable]:</p>
 
-<blockquote><p>$ antiword archivo.doc | less (Visualiza un doc)</p>
-
-<p>$ antiword -p A4 archivo.doc > archivo.ps (Convierte a ps)</p>
-
-<p>$ antiword -t -w 25 archivo.doc > archivo.txt (Convierte a txt)</p></blockquote>
-
-<p>Algunas opciones:</p>
-
-<p>-p (Formato PostScript. 10x14, A3, A4, A5, B4, B5, ejecutivo, folio&#8230;)</p>
-
-<p>-a (Formato Adobe. 10x14, A3, A4, A5, B4, B5, ejecutivo, folio&#8230;)</p>
-
-<p>-t (Salida en forma de texto con formato: negrita, subrayado&#8230;)</p>
-
-<p>-w (Anchura del texto)</p>
+<blockquote><p>$ builtin cd /</p></blockquote>
 </div>
   
   
@@ -133,7 +119,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/anon-proxy/">Anon-proxy</a></h1>
+      <h1 class="entry-title"><a href="/blog/btsync/">Btsync</a></h1>
     
     
       <p class="meta">
@@ -149,18 +135,54 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Navegación anónima via proxy. los archivos de configuración en /etc/efault/anon-proxy.</p>
+  <div class="entry-content"><p>Compartir carpetas. Descargar el archivo que corresponda a nuestra arquitectura de http://labs.bittorrent.com/experiments/sync.html. No precisa instalación.</p>
 
-<blockquote><p># /etc/init.d/anon-proxy start (Arrancar el proxy)</p></blockquote>
+<blockquote><p>$ cd btsync_x64</p></blockquote>
 
-<p>Configurar el navegador con localhost y el puerto 4001</p>
+<p>Si no queremos modificar los datos, podemos acceder a la aplicación con la dirección del navegador: http://0.0.0.0:8888 con nombre de usuario: &#8220;admin&#8221; y contraseña: &#8220;password&#8221;. Si queremos personalizar los datos, matar el proceso:</p>
+
+<blockquote><p>$ kill -9 PID</p></blockquote>
+
+<p>Y crear el archivo de configuración:</p>
+
+<blockquote><p>$ ./btsync &#8211;dump-sample-config > sync.conf</p></blockquote>
+
+<p>Editar y modificar los parámetros indicados según conveniencias:</p>
+
+<blockquote><p>$ nano sync.conf</p></blockquote>
+
+<pre><code>"storage_path" : "/home/USUARIO/.sync"
+
+"listen" : "127.0.0.1:8888",
+
+    "login" : "USUARIO",
+
+    "password" : "CONTRASEÑA"
+</code></pre>
+
+<p>Guardar y lanzar la aplicación:</p>
+
+<blockquote><p>$ ./btsync &#8211;config sync.conf</p></blockquote>
+
+<p>Acceder por el navegador con la dirección: http://127.0.0.1:8888</p>
+
+<p>Colocar en el cron para que queda activo al reiniciar:</p>
+
+<blockquote><p>$ crontab -e</p></blockquote>
+
+<p>Colocar la linea:</p>
+
+<pre><code>@reboot /home/USUARIO/btsync_x64/btsync --config /home/USUARIO/btsync_x64/sync.conf
+</code></pre>
+
+<p>Guardar. Para compartir una carpeta: clic en &#8220;Add Folder&#8221;, seleccionar la carpeta, generar la clave pulsando en &#8220;generate&#8221; y finalizar clicando en &#8220;Add&#8221;. En el pc que sincronizará la carpeta, abrir la misma dirección, clic en &#8220;add folder&#8221; y, sin clicar en &#8220;generate&#8221;, introducir la clave generada antes y seleccionar la carpeta donde se copiará.</p>
 </div>
   
   
@@ -173,7 +195,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/animate/">Animate</a></h1>
+      <h1 class="entry-title"><a href="/blog/btscanner/">Btscanner</a></h1>
     
     
       <p class="meta">
@@ -189,16 +211,14 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>visualizar gif</p>
-
-<blockquote><p>$ animate vuelo.gif</p></blockquote>
+  <div class="entry-content"><p>Escanear dispositivos bluetooth</p>
 </div>
   
   
@@ -211,7 +231,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/anillo/">Anillo</a></h1>
+      <h1 class="entry-title"><a href="/blog/brillo/">Brillo</a></h1>
     
     
       <p class="meta">
@@ -227,18 +247,28 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Suprimir el “desbloquear anillo de claves”</p>
+  <div class="entry-content"><p>Para definir el nivel de brillo de algunos portatiles podemos recurrir al siguiente comando:</p>
 
-<blockquote><p>$ rm -Rf .gnome2/keyrings/login.keyring</p>
+<blockquote><p># echo 2000 > /sys/class/backlight/acpi_video0/brightness</p></blockquote>
 
-<p># killall gnome-keyring-daemon  (matar el demonio)</p></blockquote>
+<p>En el caso de las gráficas intel:</p>
+
+<blockquote><p># echo 2000 > /sys/class/backlight/intel_backlight/brightness</p></blockquote>
+
+<p>Para ver el nivel de brillo máximo que permite la pantalla:</p>
+
+<blockquote><p># cat /sys/class/backlight/acpi_video0/max_brightness</p></blockquote>
+
+<p>Y en intel:</p>
+
+<blockquote><p># cat /sys/class/backlight/intel_backlight/max_brightness</p></blockquote>
 </div>
   
   
@@ -251,7 +281,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/amixer/">Amixer</a></h1>
+      <h1 class="entry-title"><a href="/blog/bozocrack/">Bozocrack</a></h1>
     
     
       <p class="meta">
@@ -267,18 +297,24 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Bajar el volumen</p>
+  <div class="entry-content"><p>https://github.com/juuso/BozoCrack</p>
 
-<blockquote><p>$ amixer sset Master 50%-   (Bajar un 50% del volumen)</p>
+<p>Craquear contraseñas de hash md5 a partir de los resultados de su busqueda en google.</p>
 
-<p>$ amixer sset Master 30%+  (Sube un 30% el volumen)</p></blockquote>
+<p>Proceso:</p>
+
+<p>Copiar el hash o hashses uno debajo de otro en un archivo de texto</p>
+
+<blockquote><p>$ bozocrack archivo.txt</p></blockquote>
+
+<p>Nota.- dado que no usa diccionarios ni fuerza bruta sino solo busquedas de google, solamente se encontrarán las más usuales.</p>
 </div>
   
   
@@ -291,7 +327,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/amidi/">Amidi</a></h1>
+      <h1 class="entry-title"><a href="/blog/boxes/">Boxes</a></h1>
     
     
       <p class="meta">
@@ -307,16 +343,30 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Relativo a los dispositivos midi.</p>
+  <div class="entry-content"><p>Dibuja un marco en ascii entorno a un texto.</p>
 
-<blockquote><p>$ amidi -l     (listar los dispositivos MIDI de ALSA-utils)</p></blockquote>
+<blockquote><p>$ boxes -l | less (Ver todas las opciones de marco)</p>
+
+<p>$ echo -e &#8220;Linux es un sistema genial&#8221; | boxes -d santashopt -s extglob</p>
+
+<p>$ echo -e &#8220;\nLinux\nes un sistema\ngenial&#8221; | boxes -d peek (Con saltos de linea en el texto [\n])</p>
+
+<p>$ echo -e &#8220;\nLinux\nes un sistema\ngenial&#8221; | boxes -p a8t4 -d sunset (Con espacios en blanco alrededor del texto)</p>
+
+<p>$ echo -e &#8220;\nLinux\nes un sistema\ngenial&#8221; | boxes -a c -d sunset (texto alineado al centro [-a c])</p></blockquote>
+
+<p>Algunas otras opciones:</p>
+
+<p>-a l (texto alineado a la izquierda)</p>
+
+<p>-a r (texto alineado a la derecha)</p>
 </div>
   
   
@@ -329,7 +379,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/altavoz/">Altavoz</a></h1>
+      <h1 class="entry-title"><a href="/blog/bootlogd/">Bootlogd</a></h1>
     
     
       <p class="meta">
@@ -345,20 +395,16 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Apagar el altavoz interno del pc</p>
+  <div class="entry-content"><p>Grabar los mensajes de inicio de sesión.</p>
 
-<blockquote><p># gedit /etc/modprobe.d/blacklist</p></blockquote>
-
-<p>Y añadiremos la linea:</p>
-
-<p>blacklist pcspkr</p>
+<blockquote><p># bootlogd -l inicio.log (Especificando archivo. Por defecto en /var/log/boot)</p></blockquote>
 </div>
   
   
@@ -371,7 +417,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/alpine/">Alpine</a></h1>
+      <h1 class="entry-title"><a href="/blog/bootchart/">Bootchart</a></h1>
     
     
       <p class="meta">
@@ -387,44 +433,34 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Gestor de correo. Antes de proseguir, si queremos que nos guarde la contraseña del correo crear el archivo:</p>
+  <div class="entry-content"><p>Ver el proceso de arranque en una imagen png. En la entrada del kernel en el grub colocar: init=/sbin/bootchartd</p>
 
-<blockquote><p>$ touch .pine-passfile</p></blockquote>
+<p>Ejemplo:</p>
 
-<p>La primera vez que lo lancemos creará el archivo .pinerc y mostrará un mensaje al que pulsaremos &#8220;intro&#8221; para entrar en el menú principal. Seleccionar &#8220;setup&#8221; y del montón de parámetros que pueden personalizarse, sólo son imprescindibles 4:</p>
+<p>title  Arch Linux</p>
 
-<p>&#8220;Personal name&#8221; [Shift + c para editarlo y en la parte inferior aparecerá el editor con el cursor parpadeando] Entramos el nombre del correo:</p>
+<p>root   (hd0,0)</p>
 
-<p>usuario@correo.com [intro]</p>
+<p>kernel /boot/vmlinuz26 root=/dev/sda2 init=/sbin/bootchartd ro</p>
 
-<p>&#8220;User Domain&#8221;. Lo editamos [Shft + c] y colocamos:</p>
+<p>initrd /boot/kernel26.img</p>
 
-<p>correo.com [intro]</p>
+<p>Cuando el sistema haya arrancado lanzar:</p>
 
-<p>(gmail.com, gmx.es&#8230;. según se trate)</p>
+<blockquote><p># bootchart-render</p></blockquote>
 
-<p>&#8220;SMTP Server&#8221;. [Shft + c] y entramos:</p>
+<p>Parsing /var/log/bootchart.tgz</p>
 
-<p>touch .pine-passfilesmtp.gmail.com:587/tls/novalidate-cert/user=usuario@correo.com [intro]</p>
+<p>Wrote image: ./bootchart.png</p>
 
-<p>&#8220;Inbox Path&#8221;. [Shft + c] y ponemos:</p>
-
-<p>{pop.correo.com/pop3/ssl/novalidate-cert/user=usuario@correo.com}INBOX</p>
-
-<p>Intro y para salir de la configuración pulsar:</p>
-
-<p>Shift + e</p>
-
-<p>Preguntará si se salvan los datos. Pulsar &#8220;y&#8221; y regresamos al menú. Para entrar en el correo, seleccionar &#8220;FOLDER LIST&#8221; Preguntará la contraseña y si queremos guardarla [lo hace en el arhico .pine-passfile]</p>
-
-<p>En &#8220;COMPOSE MESSAGE&#8221; se entran los correos separados por &#8220;,&#8221; en el apartado Cc [copia oculta] o To. Ctrl + x para enviar.</p>
+<p>Lo que convertirá el ilegible archivo bootchart.tgz en una imágen en nuestro home. El archivo de configuración en /etc/bootchartd.conf</p>
 </div>
   
   
@@ -437,7 +473,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/alien/">Alien</a></h1>
+      <h1 class="entry-title"><a href="/blog/bookman/">Bookman</a></h1>
     
     
       <p class="meta">
@@ -453,22 +489,16 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Convertir formatos de distintas distribuciones</p>
+  <div class="entry-content"><p>Generar libros de las páginas man.</p>
 
-<blockquote><p>$ alien &#8211;to-deb paquete (convertir a .deb)</p>
-
-<p>$ alien  &#8211;to-rpm paquete (a .rpm)</p>
-
-<p>$ alien  &#8211;to-tgz paquete (a .tgs)</p>
-
-<p>$ alien -i  &#8211;to-deb paquete   (convertirá “paquete” y lo instalará)</p></blockquote>
+<blockquote><p>$ bookman -p -t “Paginas man” /usr/man/man1/* > man.pdf (en formato pdf [-p] y con título [-t])</p></blockquote>
 </div>
   
   
@@ -481,7 +511,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/alias/">Alias</a></h1>
+      <h1 class="entry-title"><a href="/blog/bmon/">Bmon</a></h1>
     
     
       <p class="meta">
@@ -497,20 +527,39 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Permite que una cadena de palabras sea sustituida por una más corta.</p>
+  <div class="entry-content"><p>Monitorizar el consumo de la conexión a internet. Una vez lanzado, pulsando &#8220;g&#8221; se muestra una pequeña grafica y con &#8220;d&#8221; una tabla de estadisticas. &#8220;RX Rate&#8221; son los paquetes recibidos y &#8220;TX Rate&#8221; los enviados. Pulsando &#8220;?&#8221; muestra una pequeña ayuda. Pulsar &#8220;q&#8221; para salir.</p>
 
-<blockquote><p># alias update=&#8217;sudo apt-get update&#8217; (Cuando se teclee &#8220;update&#8221; se ejecutará su equivalencia)</p>
+<blockquote><p>$ bmon -s 3 (Uso basico. Mostrara todos los interfaces de red, incluso los inactivos y refrescara cada 3 segundos)</p>
 
-<p># unalias update  (suprimir el alias)</p>
+<p>$ bmon -p eth0 (Solo mostrara el especificado)</p>
 
-<p>$ alias (listado de alias activos)</p></blockquote>
+<p>$ bmon -p eth0,eth1 (Mostrar los especificados)</p>
+
+<p>$ bmon -i list (Muestra los modulos de entrada)</p>
+
+<p>$ bmon -o list (Muestra los modulos de salida)</p>
+
+<p>$ bmon -p eth0 -i proc (Mostrara solo el que afecta el modulo proc)</p>
+
+<p>$ bmon -i proc:help (Solicitar informacion sobre un modulo)</p></blockquote>
+
+<p>Algunos parametros pueden colocarse en el archivo de configuracion:</p>
+
+<blockquote><p>$ nano .bmonrc</p></blockquote>
+
+<pre><code>policy eth0
+
+layout Statusbar red yellow reverse
+</code></pre>
+
+<p>Para no tener que especificar la red y con algun colorido. Los colores permitidos son: black, red, green, yellow, blue, magenta, cyan, white y default y sobre las partes de la ventana [layouts] que se puede incidir: Statusbar, List, Header, Selected y Default.</p>
 </div>
   
   
@@ -533,7 +582,7 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1213</li>
+	<li>1290</li>
 	</ul>
 </section>
 <section>
@@ -541,43 +590,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/owncloud/">owncloud</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/golismero/">golismero</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/curl/">curl</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lorem/">lorem</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/kernel/">kernel</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/yacy/">yacy</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/virtualbox/">virtualbox</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/miniflux/">miniflux</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sed/">sed</a>
+        <a href="/blog/zdiff/">zdiff</a>
       </li>
     
   </ul>

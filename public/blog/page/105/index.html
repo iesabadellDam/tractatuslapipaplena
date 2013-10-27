@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Listado de sesiones abiertas en la máquina.
+  <meta name="description" content="Cliente DHCP # dhclient eth0 (modifica la ip de la máquina)
 ">
   
 
@@ -82,7 +82,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ck-list-sessions/">Ck-list-sessions</a></h1>
+      <h1 class="entry-title"><a href="/blog/dhclient/">Dhclient</a></h1>
     
     
       <p class="meta">
@@ -98,14 +98,16 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Listado de sesiones abiertas en la máquina.</p>
+  <div class="entry-content"><p>Cliente DHCP</p>
+
+<blockquote><p># dhclient eth0  (modifica la ip de la máquina)</p></blockquote>
 </div>
   
   
@@ -118,7 +120,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ck-history/">Ck-history</a></h1>
+      <h1 class="entry-title"><a href="/blog/df/">Df</a></h1>
     
     
       <p class="meta">
@@ -134,20 +136,22 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Listado de los logeos en el sistema (tty, pts, ssh&#8230;)</p>
+  <div class="entry-content"><p>Mostrar información de las particiones</p>
 
-<blockquote><p>$ ck-history &#8211;frequent</p>
+<blockquote><p>$ df -h (los resultados en M y G, por defecto son en bytes)</p>
 
-<p>$ ck-history &#8211;last-compat</p>
+<p>$ df -a (de todas las particiones incluso las de 0 bloques)</p>
 
-<p>$ ck-history &#8211;last | less</p></blockquote>
+<p>$ df -t vfat (de las particiones especificadas, en el caso las vfat)</p>
+
+<p>$ df  -T (de todas las particiones y el tipo)</p></blockquote>
 </div>
   
   
@@ -160,7 +164,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/cjpeg/">Cjpeg</a></h1>
+      <h1 class="entry-title"><a href="/blog/devilspie/">Devilspie</a></h1>
     
     
       <p class="meta">
@@ -176,16 +180,44 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Convierte formatos PPM, PGM, BMP, Targa y RLE a jpeg.</p>
+  <div class="entry-content"><p>Permite especificar el comportamiento de las ventanas para que determinadas aplicaciones se abran en un escritorio concreto. Ha de colocarse en las aplicaciones de inicio.</p>
 
-<blockquote><p>$ cjpeg -grayscale -quality 60 archivo.ppm > nuevo.jpg (a escala de grises y con una calidad de 60 [ por defecto0 75])</p></blockquote>
+<blockquote><p>$ mkdir .devilspie (Crear el directorio)</p></blockquote>
+
+<p>Crear por cada aplicación un archivo .ds en el directorio:</p>
+
+<blockquote><p>$ nano .devilspie/firefox.ds</p></blockquote>
+
+<p>Con el siguiente contenido a modo de ejemplo:</p>
+
+<pre><code>(if
+
+  (is (application_name) "firefox")
+
+  (set_workspace 3)
+
+)
+</code></pre>
+
+<p>Cada vez que arranquemos firefox, se abrirá en el escritorio número 3.</p>
+
+<p>Para saber el nombre de las aplicaciones que corren en cada escritorio:</p>
+
+<blockquote><p>$ nano .devilspie/debug.ds</p></blockquote>
+
+<p>Con el siguiente contenido:</p>
+
+<pre><code>(debug)
+</code></pre>
+
+<p>Cuando arranquemos devilspie por consola, nos las mostrará.</p>
 </div>
   
   
@@ -198,7 +230,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/cjb2/">Cjb2</a></h1>
+      <h1 class="entry-title"><a href="/blog/descriptor/">Descriptor</a></h1>
     
     
       <p class="meta">
@@ -214,16 +246,24 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Convierte formatos .PBM o .TIFF a DJVU</p>
+  <div class="entry-content"><p>Toda aplicación tiene siempre tres descriptores de fichero abiertos, el 0 para la entrada estándar [stdin], el 1 para la salida estándar [stdout], y el 2 para la salida de errores estándar [stderr]. Del 3 al 9 son descriptores adicionales [ver tuberias]. En el ejemplo:</p>
 
-<blockquote><p>$ cjb2 -dpi 500 entrada.pbm salida.djvu (especificando resolución [parámetros entre 25 y 1200. Por defecto 300])</p></blockquote>
+<blockquote><p>$ ls -a >> listado.txt</p></blockquote>
+
+<p>La salida estándart [descriptor 1] se envia al fichero listado.txt, consecuentemente en pantalla no veremos nada. En el caso:</p>
+
+<blockquote><p>$ ls -zy >> listado.txt</p></blockquote>
+
+<p>El error [descriptor 2] se mostrará por pantalla y listado.txt permanecerá vacio. Para redirigir el error [descriptor 2 ]al fichero listado.txt [descriptor 1]:</p>
+
+<blockquote><p>$ ls -zy >> listado.txt 2>&amp;1</p></blockquote>
 </div>
   
   
@@ -236,7 +276,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/chvt/">Chvt</a></h1>
+      <h1 class="entry-title"><a href="/blog/denyhosts/">Denyhosts</a></h1>
     
     
       <p class="meta">
@@ -252,20 +292,32 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Cambiar de consola virtual.Si, estando en la /dev/tty1, se teclea:</p>
+  <div class="entry-content"><p>Protege contra ataques.</p>
 
-<blockquote><p>$ chvt 3  (Se irá a la /dev/tty3. Lo mismo que con Ctrl+Alt+F3)</p>
+<p>Configuración:</p>
 
-<p>$ chvt 1; sleep 10; chvt 7 (Ir a la tty1 durante 10 segundos y volver a las X)</p></blockquote>
+<blockquote><p># nano /etc/denyhosts.conf</p></blockquote>
 
-<p>Nota.- Si se está en una terminal en las X con el mismo comando se irá a la misma terminal /dev/tty3.</p>
+<p>Algunas opciones:</p>
+
+<p>SECURE_LOG = /var/log/auth.log (Ruta a los logs)</p>
+
+<p>DENY_THRESHOLD_INVALID = 5 (Intentos fallidos permitidos con una cuenta que no existe)</p>
+
+<p>DENY_THRESHOLD_VALID = 5 (Intentos falllidos con usuarios validos)</p>
+
+<p>PURGE_DENY =5d (Tiempo de baneo de una IP. 5 dias en este caso)</p>
+
+<p>BLOCK_SERVICE = sshd (Servicios que queremos proteger [ sshd, ALL&#8230;)</p>
+
+<p>Nota.- Tambien es posible arrancar el servicio con la opción &#8220;purge&#8221;  [/etc/init.d/denyhosts start &#8211;purge] para eliminar las ips bloqueadas y que se muestran en /etc/hosts.deny</p>
 </div>
   
   
@@ -278,7 +330,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/chsh/">Chsh</a></h1>
+      <h1 class="entry-title"><a href="/blog/deluser/">Deluser</a></h1>
     
     
       <p class="meta">
@@ -294,18 +346,16 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Permite cambiar la shell del usuario especificado.</p>
+  <div class="entry-content"><p>Elimina un usuario del sistema sin borrar su directorio.</p>
 
-<blockquote><p>$ chsh -l (Mostrar las shells disponibles en el sistema)</p>
-
-<p>$ chsh -s /bin/tcsh usuario</p></blockquote>
+<blockquote><p># deluser usuario</p></blockquote>
 </div>
   
   
@@ -318,7 +368,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/chroot/">Chroot</a></h1>
+      <h1 class="entry-title"><a href="/blog/delgroup/">Delgroup</a></h1>
     
     
       <p class="meta">
@@ -334,32 +384,16 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Situarte virtualmente donde le indicas como raiz</p>
+  <div class="entry-content"><p>Elimina un grupo del sistema</p>
 
-<blockquote><p># chroot /media/sda3</p></blockquote>
-
-<p>Nota.- En algunas ocaciones es necesario montar algunos sitemas de ficheros en la particion &#8220;chrootada&#8221;. Debes hacer estos pasos antes de hacer chroot:</p>
-
-<blockquote><p># mount -o bind /dev/ /media/sda3/dev/</p>
-
-<p># mount -o bind /sys/ /media/sda3/sys/</p>
-
-<p># mount -o bind /proc/ /media/sda3/proc/</p></blockquote>
-
-<p>Si no se establece conexión:</p>
-
-<blockquote><p># nano /etc/resolv.conf</p></blockquote>
-
-<p>Y colocar:   nameserver 8.8.8.8</p>
-
-<p>O en su defecto la ip del router [nameserver 192.168.1.1]</p>
+<blockquote><p># delgroup grupo</p></blockquote>
 </div>
   
   
@@ -372,7 +406,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/chronic/">Chronic</a></h1>
+      <h1 class="entry-title"><a href="/blog/declare/">Declare</a></h1>
     
     
       <p class="meta">
@@ -388,20 +422,24 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[moreutils]</p>
+  <div class="entry-content"><p>Listar las variables de entorno. En caso de que una función tenga el mismo nombre que un script tiene preferencia la función. Usado principalmente en scripts.</p>
 
-<p>Mostrará el error por la salida estándar si el comando falla, tiene salida nula o se bloquea. Si el comando se ejecuta correctamente se ocultará cualquier salida.</p>
+<blockquote><p>$ declare -f (Imprime las funciones alfabeticamente y su definición)</p>
 
-<blockquote><p>$ chronic ls (No mostrará nada porque el comando ls se ejecuta correctamente)</p>
+<p>$ declare -f funcion (Mostrará la especificada)</p>
 
-<p>$ chronic lx (Mostrará el error)</p></blockquote>
+<p>$ declare -F (Lista sólo los nombres de la funciones)</p>
+
+<p>$ declare -p var (Saber el tipo de la variable &#8220;var&#8221;)</p>
+
+<p>$ declare -i var=5 (Declarar una variable de tipo entero)</p></blockquote>
 </div>
   
   
@@ -414,7 +452,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/chromium/">Chromium</a></h1>
+      <h1 class="entry-title"><a href="/blog/debugfs/">Debugfs</a></h1>
     
     
       <p class="meta">
@@ -430,22 +468,24 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Navegador web. El perfil por defecto está en /home/usuario/.config/chromium, para crear nuevos perfiles [El inicio del parámetro son 2 guiones]:</p>
+  <div class="entry-content"><p>Depurador de sistemas ext. Permite consultar datos del sistema en tiempo real.</p>
 
-<blockquote><p>$ mkdir /home/usuario/.config/chromium-dos</p>
+<blockquote><p># debugfs (Entra en el promt de la aplicación. Pulsar letra &#8220;q&#8221; para salir del promt)</p></blockquote>
 
-<p>$ chromium &#8211;user-data-dir=/home/usuario/.config/chromium-dos</p>
+<p>debugfs 1.42 (29-Nov-2011)</p>
 
-<p>$ chromium &#8211;proxy-server=&#8221;socks://localhost:9050&#8221; (Arrancar la aplicación a través de un proxy)</p>
+<p>debugfs: help (Muestra un listado de todas las opciones)</p>
 
-<p>$ chromium &#8211;incognito (Arrancar en modo privado. Para incluir por defecto este modo en las propiedades del navegador: chromium &#8211;incognito %U)</p></blockquote>
+<p>debugfs: open /dev/sda2 (Abre un sistema de archivos)</p>
+
+<p>debugfs: stats (información de los superbloques)</p>
 </div>
   
   
@@ -458,7 +498,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/chpasswd/">Chpasswd</a></h1>
+      <h1 class="entry-title"><a href="/blog/debsums/">Debsums</a></h1>
     
     
       <p class="meta">
@@ -474,22 +514,22 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Establecer contraseñas para usuarios de un sistema</p>
+  <div class="entry-content"><p>Verificar la integridad de los ficheros.</p>
 
-<blockquote><p># echo &#8220;usuario:1234&#8221; | chpasswd -m (Que la guarde en /etc/shadow en formato md5)</p>
+<blockquote><p># debsums -s &amp;> log.txt  (Modo silencioso [-s] y redirigiendo el resultado a un archivo para posterior análisis)</p>
 
-<p># chpasswd   (Esperará la introducción de datos que consistiran en pares de nombre_de_usuario:contraseña, un par por línea. Con ctrl+D finaliza:</p></blockquote>
+<p># cat log.txt | grep &#8220;mismatch&#8221; | cut -d &#8221; &#8221; -f4 | uniq > reinstall.txt (A partir del archivo anterior, listar los que se han de reinstalar)</p>
 
-<p>usuario1:passwd1</p>
+<p># debsums -s | grep &#8220;mismatch&#8221; | cut -d &#8221; &#8221; -f4 | uniq > reinstall.txt (Lo mismo)</p>
 
-<p>usuario2:passwd2</p>
+<p># apt-get install &#8211;reinstall <code>(cat reinstall.txt)</code>  (para instalarlos a partir del listado)</p></blockquote>
 </div>
   
   
@@ -512,7 +552,7 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1213</li>
+	<li>1290</li>
 	</ul>
 </section>
 <section>
@@ -520,43 +560,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/owncloud/">owncloud</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/golismero/">golismero</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/curl/">curl</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lorem/">lorem</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/kernel/">kernel</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/yacy/">yacy</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/virtualbox/">virtualbox</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/miniflux/">miniflux</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sed/">sed</a>
+        <a href="/blog/zdiff/">zdiff</a>
       </li>
     
   </ul>

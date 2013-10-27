@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Páginas de manual para la mayoria de programas del proyecto GNU con una estructura jerarquizada. Ligeramente más complejo que las clásicas páginas &hellip;">
+  <meta name="description" content="Herramienta que permite averiguar contraseñas encriptadas El de los repositorios acostumbra a estar capado. Descargar el programa y el parche de: $ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/info/">Info</a></h1>
+      <h1 class="entry-title"><a href="/blog/john/">John</a></h1>
     
     
       <p class="meta">
@@ -97,18 +97,62 @@
   
 
 
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Páginas de manual para la mayoria de programas del proyecto GNU con una estructura jerarquizada. Ligeramente más complejo que las clásicas páginas man  [ver]</p>
+  <div class="entry-content"><p>Herramienta que permite averiguar contraseñas encriptadas</p>
 
-<blockquote><p>$ info (MUestra la lista de los nodos disponibles en el primer nivel)</p>
+<p>El de los repositorios acostumbra a estar capado. Descargar el programa y el parche de:</p>
 
-<p>$ info ifconfig</p></blockquote>
+<blockquote><p>$ wget http://www.openwall.com/john/g/john-1.7.3.4.tar.gz</p>
+
+<p>$ wget http://openwall.info/wiki/_media/john/john-1.7.3.1-generic-crypt-1.diff.gz</p></blockquote>
+
+<p>Descomprimir:</p>
+
+<blockquote><p># tar xvzf john-1.7.3.4.tar.gz</p></blockquote>
+
+<p>Entrar al directorio del programa:</p>
+
+<blockquote><p># cd john-1.7.3.4</p></blockquote>
+
+<p>Aplicar el parche:</p>
+
+<blockquote><p># gzip -dc ../john-1.7.3.1-generic-crypt-1.diff.gz | patch -p1</p></blockquote>
+
+<p>patching file src/Makefile</p>
+
+<p>patching file src/crypt_fmt.c</p>
+
+<p>patching file src/john.c</p>
+
+<p>Hunk #2 succeeded at 67 (offset 2 lines).</p>
+
+<p>El directorio donde se encuentra el código fuente es src:</p>
+
+<blockquote><p># cd src</p>
+
+<p># make</p></blockquote>
+
+<p>Con make obtendrá una lista de los sistemas soportados, luego:</p>
+
+<blockquote><p># make linux-x86-64</p></blockquote>
+
+<p>Si el sistema no esta en la lista:</p>
+
+<blockquote><p># make clean generic</p></blockquote>
+
+<p>Pruebas de detección de correcto funcionamiento.</p>
+
+<blockquote><p># cd ../run</p>
+
+<p># ./john &#8211;test</p></blockquote>
+
+<p>El fichero john.pot contiene los resultados encontrados por john. Si el fichero no está vacío significa que john ha encontrado la contraseña. El fichero john.rec contiene el estado actual de la búsqueda por si se produce una interrupción y es utilizado por el programa para reanudar la búsqueda.</p>
 </div>
   
   
@@ -121,7 +165,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/imsniff/">Imsniff</a></h1>
+      <h1 class="entry-title"><a href="/blog/joe/">Joe</a></h1>
     
     
       <p class="meta">
@@ -137,50 +181,53 @@
   
 
 
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Capturar paquetes relacionados con el protocolo MSN . Su uso pasa por el envenenamiento arp, situando nuestra máquina entre la victima y el router lanzando en varias terminales y sin cerrarlas:</p>
+  <div class="entry-content"><p>Editor de texto</p>
 
-<blockquote><p># arpspoof -i eth0 -t 192.168.1.15 192.168.1.1</p>
+<blockquote><p>$ joe -linums fichero (Abre fichero numerando las lineas)</p></blockquote>
 
-<p># arpspoof -i eth0 -t 192.168.1.1 192.168.1.15</p></blockquote>
+<p>Algunas teclas de control [&#8221;<sup>k</sup> h&#8221; significa pulsar la tecla Ctrl y sin soltarla pulsar la letra “k”, soltar estas teclas y pulsar “h”]</p>
 
-<p>Activar forwarding para que los paquetes vayan a su verdadero dueño:</p>
+<pre><code>^k h (Abrir/cerrar ventana de ayuda. Con esc . se avanza en las ventanas de ayuda y con esc , se retrocede) 
 
-<blockquote><p># echo 1 > /proc/sys/net/ipv4/ip_forward</p></blockquote>
+^k d (Guardar archivo sin salir) 
 
-<p>Crear una carpeta donde guardar los datos:</p>
+^k x (Guardar y salir) 
 
-<blockquote><p>$ mkdir snifadas</p></blockquote>
+^c (Salir sin guardar) 
 
-<p>Modificar el archivo de configuración a partir de la  propia documentación ::</p>
+^k f (Buscar palabra) 
 
-<blockquote><p># cp /usr/share/doc/imsniff/examples/imsniff.conf.sample /etc/imsniff.conf</p>
+^u (Pantalla anterior) 
 
-<p># nano /etc/imsniff.conf</p></blockquote>
+^v (Pantalla siguiente) 
 
-<p>daemonize = 0</p>
+^a (Ir al principio de linea) 
 
-<p>promisc = 0</p>
+`e (Ir al final de la linea) 
 
-<p>verbose = 2</p>
+^k u (Ir al principio del documento) 
 
-<p>chatdir = /home/USER/snifadas/chats</p>
+^k v (Ir al final del documento) 
 
-<p>debugdir = /home/USER/snifadas/debug</p>
+^d (Borrar caracter) 
 
-<p>interface eth0</p>
+^y (Borrar linea) 
 
-<p>Los directorios &#8220;chats&#8221; y &#8220;debug&#8221; los crea la misma aplicación.</p>
+^w (Borrar palabra siguiente) 
 
-<p>Lanzar el sniffer de conversaciones msn:</p>
+^o (Borrar palabra anterior) 
 
-<blockquote><p># imsniff</p></blockquote>
+^_ (Deshacer) 
+
+^c (Cancelar)
+</code></pre>
 </div>
   
   
@@ -193,7 +240,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/impressive/">Impressive</a></h1>
+      <h1 class="entry-title"><a href="/blog/jobs/">Jobs</a></h1>
     
     
       <p class="meta">
@@ -209,32 +256,24 @@
   
 
 
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Visualizar documentos PDF e imágenes (jpg, tiff, png&#8230;)</p>
+  <div class="entry-content"><p>Informa sobre los trabajos en ejecución, pendientes de ejecución que se encuentran en backgroud.</p>
 
-<blockquote><p>$ impressive documento.pdf</p>
+<blockquote><p>$ jobs -l (Mostrar también el ID)</p>
 
-<p>$ impressive -l    (lista efectos disponibles)</p>
-
-<p>$ impressive -t SqueezeLeft documento.pdf</p></blockquote>
+<p>$ jobs -p (Mostrar sólo el ID)</p></blockquote>
 
 <p>Algunas opciones:</p>
 
-<p>AvPág          Va a la página siguientes</p>
+<p>-r (Mostrar só lo las que están procesandose)</p>
 
-<p>RePág          Va a la página anterior</p>
-
-<p>z                  zoom donde esté el cursor</p>
-
-<p>f                   Activa/Desactiva la pantalla completa</p>
-
-<p>q                  Salir de la aplicación</p>
+<p>-s (Sólo las que están paradas)</p>
 </div>
   
   
@@ -247,7 +286,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/import/">Import</a></h1>
+      <h1 class="entry-title"><a href="/blog/jnettop/">Jnettop</a></h1>
     
     
       <p class="meta">
@@ -263,26 +302,16 @@
   
 
 
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Capturar la pantalla en cualquier formato</p>
+  <div class="entry-content"><p>Monitor del tráfico de red ordenado por el ancho de banda utilizado.</p>
 
-<blockquote><p>$ import -window root captura.png (captura de pantalla completa)</p>
-
-<p>$ import -window <code>xwininfo | awk '/Window id/{print $4; exit}'</code> <code>uuidgen</code>.png (Lo mismo. El puntero se convierte en una cruz y captura el esritorio donde se clica)</p>
-
-<p>$ import captura.png (captura de un área concreta))</p>
-
-<p>$ import 2 captura.png (realizar 2 capturas)</p>
-
-<p>$ import -pause 5 captura.png (Para retardar la captura 5 segundos)</p>
-
-<p>$ import -geometry 250×250! captura.png (indicando un tamaño respetando las proporciones)</p></blockquote>
+<blockquote><p># jnettop</p></blockquote>
 </div>
   
   
@@ -295,7 +324,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/img2txt/">Img2txt</a></h1>
+      <h1 class="entry-title"><a href="/blog/jhead/">Jhead</a></h1>
     
     
       <p class="meta">
@@ -311,18 +340,22 @@
   
 
 
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Pasar una imagen a ascii</p>
+  <div class="entry-content"><p>mostrará toda la metainformación incrustada en un fichero JPG incluyendo la miniatura [thumbnail] de la foto original</p>
 
-<blockquote><p>$ img2txt -f svg imagen.jpg > imagen.svg</p>
+<blockquote><p>$ jhead -st miniatura.jpg imagen_para_analizar.jpg</p>
 
-<p>$ img2txt -f html imagen.jpg > imagen.html (código html de la imagen)</p></blockquote>
+<p>$ jhead -dt imagen.jpg  (borrar el thumbnail)</p>
+
+<p>$ jhead -mkexif imagen.jpg (borra datos)</p>
+
+<p>$ jhead -purejpg imajen.jpg (borra efix)</p></blockquote>
 </div>
   
   
@@ -335,7 +368,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ifup/">Ifup</a></h1>
+      <h1 class="entry-title"><a href="/blog/java/">Java</a></h1>
     
     
       <p class="meta">
@@ -351,16 +384,16 @@
   
 
 
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Habilita la interfase especificada:</p>
+  <div class="entry-content"><p>Lenguaje de programación</p>
 
-<blockquote><p>$ ifup eth0</p></blockquote>
+<blockquote><p>$ java -jar fichero.jar  (Ejecuta un programa escrito en java)</p></blockquote>
 </div>
   
   
@@ -373,7 +406,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/iftop/">Iftop</a></h1>
+      <h1 class="entry-title"><a href="/blog/iwlist/">Iwlist</a></h1>
     
     
       <p class="meta">
@@ -389,16 +422,16 @@
   
 
 
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra el ancho de banda que está usando una red.</p>
+  <div class="entry-content"><blockquote><p># iwlist eth0 scan  (scaneo de los puntos de acceso cercanos)</p>
 
-<blockquote><p># iftop -nP -i eth0 (sin resolver las IPs[n], mostrando puerto[P] y especificando red)</p></blockquote>
+<p># iwlist s    (Lo mismo para todas las interficies)</p></blockquote>
 </div>
   
   
@@ -411,7 +444,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ifstat/">Ifstat</a></h1>
+      <h1 class="entry-title"><a href="/blog/iwconfig/">Iwconfig</a></h1>
     
     
       <p class="meta">
@@ -427,28 +460,36 @@
   
 
 
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Monitorización del trafico de red.</p>
+  <div class="entry-content"><p>Relacionado con direcciones ip y dispositivos de red inalámbricos</p>
 
-<blockquote><p>$ ifstat -z (Descarta los interfaces sin actividad)</p>
+<blockquote><p># iwconfig (Ver los datos de conección de la red inalámbrica)</p>
 
-<p>$ ifstat -i eth1 (Especificando una red)</p></blockquote>
+<p># iwconfig eth0 (Si se asocia la tarjeta de red con la conección)</p>
 
-<p>Algunas opciones:</p>
+<p># iwconfig wlan0 mode Managed  (activar el modo managed)</p>
 
-<p>-a (Muestra todas las redes)</p>
+<p># iwconfig wlan0 mode monitor (activar modo monitor)</p>
 
-<p>-T (monitorizando varias redes, muestra el total)</p>
+<p># iwconfig wlan0 key open CLAVE  (ingresar contraseña, si la hay. Si omitimos “open” se interpreta que la clave es “restricted”)</p>
 
-<p>-S (Muestra los resultados en la misma linea, si es posible)</p>
+<p># iwconfig wlan0 essid ESSID (ESSID= nombre de la red)</p></blockquote>
 
-<p>-b (Reporta los informes en Kbits / seg en lugar de kbytes / seg.)</p>
+<p>Crear una Red Wifi AdHoc</p>
+
+<blockquote><p>$ iwconfig wlan0 mode Ad-Hoc</p>
+
+<p>$ iwconfig wlan0 essid &#8220;nombre_de_la_red&#8221;</p>
+
+<p>$ iwconfig wlan0 key s:clave</p>
+
+<p>$ ifconfig wlan0 xx.xx.xx.xx netmask yy.yy.yy.yy</p></blockquote>
 </div>
   
   
@@ -461,7 +502,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ifne/">Ifne</a></h1>
+      <h1 class="entry-title"><a href="/blog/ivstools/">Ivstools</a></h1>
     
     
       <p class="meta">
@@ -477,20 +518,18 @@
   
 
 
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[moreutils]</p>
+  <div class="entry-content"><p>Herramienta para unir/convertir archivos .ivs y .cap</p>
 
-<p>Se ejecuta si la entrada estandar no está vacia.</p>
+<blockquote><p>$ ivstools &#8211;merge captura1.ivs captura2.ivs captura3.ivs total.ivs</p>
 
-<blockquote><p>$ find . -name archivo | ifne echo &#8220;Existe&#8221; (Si &#8220;archivo&#8221; existe se ejecutará el echo. Si no existe, no)</p>
-
-<p>$ find . -name archivo | ifne -n echo &#8220;No existe&#8221; (Si &#8220;archivo&#8221; no existe se ejecutará el echo. Si existe, no)</p></blockquote>
+<p>$ ivstools &#8211;captura.cap nuevo.ivs</p></blockquote>
 </div>
   
   
@@ -503,7 +542,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ifdown/">Ifdown</a></h1>
+      <h1 class="entry-title"><a href="/blog/itop/">Itop</a></h1>
     
     
       <p class="meta">
@@ -519,18 +558,30 @@
   
 
 
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Deshabilita la interfase especificada:</p>
+  <div class="entry-content"><p>Cuando un componente del hardware necesita un recurso, envia una petición de interrupción al sistema llamado IRQ y este suspende momentáneamente alguna rutina de servicio para continuarla cuando finaliza la interrupción. itop muestra estas interrupciones que vendrian a ser lo mismo que actualizar cada segundo el archivo /porc/interrupts:</p>
 
-<blockquote><p># ifdown eth0</p>
+<pre><code># watch -n 1 cat /proc/interrupts
+</code></pre>
 
-<p># ifdown -a (Deshabilita todas las redes)</p></blockquote>
+<blockquote><p># itop</p></blockquote>
+
+<p>Cuando está en ejecución, las teclas de control son:</p>
+
+<pre><code>a (Muestra todos los procesos, no solo los en uso)
+
+t (Muestra el clásico top [ver])
+
+q (Sale de "t" cierra la aplicación)
+</code></pre>
+
+<blockquote><p># itop -n 10 (Sólo muestra 10 procesos)</p></blockquote>
 </div>
   
   
@@ -553,7 +604,7 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1213</li>
+	<li>1290</li>
 	</ul>
 </section>
 <section>
@@ -561,43 +612,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/owncloud/">owncloud</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/golismero/">golismero</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/curl/">curl</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lorem/">lorem</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/kernel/">kernel</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/yacy/">yacy</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/virtualbox/">virtualbox</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/miniflux/">miniflux</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sed/">sed</a>
+        <a href="/blog/zdiff/">zdiff</a>
       </li>
     
   </ul>

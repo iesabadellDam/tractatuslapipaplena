@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Determinar si la BIOS ha bloqueado las capacidades NX de la CPU. $ check-bios-nx –verbose ok: the NX bit is operational on this CPU.
-">
+  <meta name="description" content="Servidor de archivos via web. Acceso por navegador con http://url_o_ip:puerto. $ darkhttp /home/usuario/share &#8211;port 12001 &#8211;daemon ( &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -82,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/check-bios-nx/">Check-bios-nx</a></h1>
+      <h1 class="entry-title"><a href="/blog/darkhttpd/">Darkhttpd</a></h1>
     
     
       <p class="meta">
@@ -98,18 +97,18 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Determinar si la BIOS ha bloqueado las capacidades NX de la CPU.</p>
+  <div class="entry-content"><p>Servidor de archivos via web. Acceso por navegador con http://url_o_ip:puerto.</p>
 
-<blockquote><p>$ check-bios-nx –verbose</p></blockquote>
+<blockquote><p>$ darkhttp /home/usuario/share &#8211;port 12001 &#8211;daemon (Directorio, puerto de escucha 12001 y dejando como demonio. Matar con killall darkhttpd)</p>
 
-<p>ok: the NX bit is operational on this CPU.</p>
+<p>$ darkhttp /home/usuario/share &#8211;port 12001 &#8211;log  archivo  &#8211;chroot  (Sin dejar en background. Creando un archivo con las incidencias y bloqueando el servidor en el directorio especificado. Matar con ctrl+c)</p></blockquote>
 </div>
   
   
@@ -122,7 +121,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/chattr/">Chattr</a></h1>
+      <h1 class="entry-title"><a href="/blog/dares/">Dares</a></h1>
     
     
       <p class="meta">
@@ -138,22 +137,16 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Cambia los atributos de ficheros (bloquea el fichero).</p>
+  <div class="entry-content"><p>Rescatar contenido de cds y dvds dañados</p>
 
-<blockquote><p># chattr +i /etc/resolv.conf (impedirá modificaciones por  procesos o por root)</p>
-
-<p># chattr -i /etc/resolv.conf    (lo desbloquea)</p>
-
-<p># chattr -V -R +i /home/usuario/directorio (bloqueo recursivo y mostrando toda la información)</p>
-
-<p># chattr +a  archivo (desactiva el acceso al fichero excepto para añadir datos)</p></blockquote>
+<blockquote><p>$ dares -i image_cdrom -s /tmp (salvar en /tmp)</p></blockquote>
 </div>
   
   
@@ -166,7 +159,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/chardet/">Chardet</a></h1>
+      <h1 class="entry-title"><a href="/blog/dansguardian/">Dansguardian</a></h1>
     
     
       <p class="meta">
@@ -182,16 +175,60 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Detector de codificación.</p>
+  <div class="entry-content"><p>Filtro de contenidos web (cliente) que trabaja conjuntamente con el servidor proxy squid (servidor).</p>
 
-<blockquote><p>$ chardet archivo</p></blockquote>
+<p>Adaptar el archivo de configuración:</p>
+
+<blockquote><p># nano /etc/dansguardian/dansguardian.conf</p></blockquote>
+
+<p>Algunos parámetros a especificar (caso de no estarlo):</p>
+
+<p>language = &#8216;spanish&#8217;</p>
+
+<p>reportinglevel = 3 #valores de 1, 2 y 3</p>
+
+<p>filterport = 8080</p>
+
+<p>proxyip = 127.0.0.1 #La misma ip del proxy squid</p>
+
+<p>proxyport = 3128</p>
+
+<p>Guardar el archivo.</p>
+
+<p>El listado de conceptos (ip, nombre de dominio, frases&#8230; ) por los que se puede banear y conceptos excluidos en:</p>
+
+<blockquote><p># ls /etc/dansguardian/lists/</p></blockquote>
+
+<p>Algunos de los más usuales:</p>
+
+<p>bannedextensionlist (extensiones no permitidas)</p>
+
+<p>banneriplist (listado de ips no permitidas)</p>
+
+<p>bannedmimetypelist (Tipos MIME no permitidos)</p>
+
+<p>bannedregexpurllist  (Listado de expresiones a bloquear)</p>
+
+<p>bannedurllist (Bloquear partes especificas de un sitio)</p>
+
+<p>bannedsitelist (Bloquear sitios)</p>
+
+<p>bannedphraselist (Listado de frases prohibidas encerradas entre &lt; ></p>
+
+<p>exceptionsitelist (Lista de excepciones de sitios)</p>
+
+<p>exceptioniplist (lista de excepciones de direcciones IP)</p>
+
+<p>exceptionuserlist (Lista de excepciones de nombres de usuarios que no serán filtrado)</p>
+
+<blockquote><p># /etc/init.d/dansguardian restart</p></blockquote>
 </div>
   
   
@@ -204,7 +241,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/chage/">Chage</a></h1>
+      <h1 class="entry-title"><a href="/blog/cutter/">Cutter</a></h1>
     
     
       <p class="meta">
@@ -220,34 +257,18 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Establece/visualiza el número de días para cambio de contraseña</p>
+  <div class="entry-content"><p>Cortar conexiones no deseadas</p>
 
-<blockquote><p>$ chage -l usuario   (muestras datos sobre la contraseña)</p>
+<blockquote><p># cutter 192.168.2.6 80 (especificando IP y puerto)</p>
 
-<p>$ chage -M max_días -W aviso usuario</p>
-
-<p>$ chage -d 0 usuario (en la siguiente entrada al sistema pedirá al usuario cambiar la contraseña)</p></blockquote>
-
-<p>-l: lista los parámetros actuales de la cuenta del usuario.</p>
-
-<p>-m días: mínimo de días a transcurrir para que pueda cambiar la contraseña</p>
-
-<p>-M días: máximo de días a partir del último cambio de cambio de la contraseña</p>
-
-<p>-W: Días de antelación que se ha de avisar de que su contraseña va a caducar.</p>
-
-<p>-I: Días que transcurren desde que caduca la contraseña del usuario hasta que la cuenta queda bloqueada. Si el valor es 0, la cuenta no está bloqueada después de que caduque la contraseña</p>
-
-<p>-d días: Número de días desde Enero 1 de 1970 que la contraseña fué cambiada.</p>
-
-<p>-E días: especifica fecha del bloqueo de la cuenta (formato YYYY-MM-DD)</p>
+<p># cutter 192.168.2.6   (solo IP)</p></blockquote>
 </div>
   
   
@@ -260,7 +281,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/cftp/">Cftp</a></h1>
+      <h1 class="entry-title"><a href="/blog/cut/">Cut</a></h1>
     
     
       <p class="meta">
@@ -276,20 +297,26 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Conexión remota por ftp.</p>
+  <div class="entry-content"><p>Permite buscar y/o seleccionar columnas o campos dentro de un archivo estructurado. Entre campo y campo debe existir obligatoriamente un delimitador [dos puntos, un espacio en blanco u otro carácter].</p>
 
-<blockquote><p>$ cftp usuario@host (Despues de solicitar contraseña, entra en el prompt)</p></blockquote>
+<blockquote><p>$ cut -c1-4 archivo  (muestra los 4 primeros caracteres de cada linea)</p>
 
-<p>cftp> ? (Muestra los comandos disponibles.)</p>
+<p>$ cut -d: -f1 archivo  (Muestra el primer campo delimitado por “:”)</p>
 
-<p>Pulsando “exit” salimos del prompt</p>
+<p>$ cut -d” “ -f1,5 archivo  (Mostrar el primero y el quinto, separados por espacio)</p>
+
+<p>$ cut -d” “ -f 2- archivo (Mostrar todo menos la primera columna)</p>
+
+<p>$ cut -s -d&#8221;(&#8221; -f1 archivo (“-s” suprime las lineas que no contengan el delimitador [(]). De las que sí lo contengan, mostraría el 1er campo)</p>
+
+<p>$ echo $RANDOM | cut -c1,2 (Coger los 2 primeros números de un número aleatorio [$RANDOM])</p></blockquote>
 </div>
   
   
@@ -302,7 +329,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/cdrecord/">Cdrecord</a></h1>
+      <h1 class="entry-title"><a href="/blog/curlftpfs/">Curlftpfs</a></h1>
     
     
       <p class="meta">
@@ -318,36 +345,20 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Grabación de cds</p>
+  <div class="entry-content"><p>Montar directorios remotos en local.</p>
 
-<blockquote><p>$ cdrecord -scanbus (Escaneo de grabadoras)</p>
+<blockquote><p># curlftpfs usuario:contraseña@192.168.1.10 /media/servidor</p></blockquote>
 
-<p>$ cdrecord -v dev=/dev/sdd imagen.iso (modo básico)</p>
+<p>Para automatizar el proceso, añadir al /etc/fstab la linea:</p>
 
-<p>$ cdrecord -v dev=0,1,0 speed=4 -isosize /dev/scd0 (copiar directamente de un dispositivo a otro)</p>
-
-<p>$ cdrecord -v -eject speed=8 dev=0,0,0 test.iso (iniciar la grabación)</p>
-
-<p>$ cdrecord -v dev=/dev/cdrom blank=fast (Borrar un cd regrabable)</p></blockquote>
-
-<p>opciones</p>
-
-<p>-v .- muestra más información de salida</p>
-
-<p>-eject .- expulsa el disco al finalizar la grabación</p>
-
-<p>-speed .- especifica la velocidad de grabación</p>
-
-<p>-dev .- número de dispositivo [0,1,0] obtenido con cdrecord -scanbus</p>
-
-<p>-dummy .- simula la grabación</p>
+<p>curlftpfs#usuario:contraseña@192.168.1.10 /media/servidor fuse defaults 0 0</p>
 </div>
   
   
@@ -360,7 +371,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/cdrdao/">Cdrdao</a></h1>
+      <h1 class="entry-title"><a href="/blog/curl/">Curl</a></h1>
     
     
       <p class="meta">
@@ -376,22 +387,87 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Extraer / grabar pistas de CD en modo DAO (Disk at once)</p>
+  <div class="entry-content"><p>Herramienta para la transferencia de datos desde o hacia un servidor. Permite los protocolos ftp, https, sftp, scp, tftp &#8230;</p>
 
-<blockquote><p># cdrdao read-cd -v 2 &#8211;device /dev/cdrom &#8211;read-raw &#8211;datafile imagen.bin imagen.toc (Extraer junto a su tabla de contenidos)</p>
+<blockquote><p>$ curl ftp://host (Sin ninguna opción obtiene la páquina principal del host [http, ftp&#8230;)</p>
 
-<p># cdrdao copy -v 2 &#8211;device 0,0,0 &#8211;source-device 0,1,0 &#8211;speed 4 &#8211;buffers 64 &#8211;reload &#8211;eject &#8211;on-the-fly &#8211;fast-toc (copia al vuelo de CD)</p>
+<p>$ curl ftp://host/ http://host/ (Descargar dos host simultaneos)</p>
 
-<p># cdrdao read-cd -v 2 &#8211;device 0,1,0 &#8211;read-raw &#8211;datafile img.bin img.toc (Extraer imagen)</p>
+<p>$ curl -o destino http://host (Guarda el host en destino)</p>
 
-<p># cdrdao write -v 2 &#8211;device 0,3,0 &#8211;speed 4 &#8211;buffers 64 img.toc (Grabar imagen)</p></blockquote>
+<p>$ curl -i URL (información sobre una URL)</p>
+
+<p>$ curl -o portada.png http://www.lapipaplena.net/wp-content/uploads/2012/08/meditate1.png (descargar una imagen y guardarla)</p>
+
+<p>$ curl -u usuario:contraseña http://localhost/restringido/ (Acceder a una zona que requiera autentificación)</p>
+
+<p>$ curl ftp://usuario:contraseña@host:puerto/home/usuario/archivo (Otra forma de autentificación)</p>
+
+<p>$ curl -T archivo_local ftp://host/carpeta (Subir un archivo local a un host remoto)</p>
+
+<p>$ curl -T archivo_local -a ftp://host/ (Subir un archivo local a un host remoto con el parámetro -a)</p>
+
+<p>$ curl -x proxy:8889 ftp://host (Obtener un host utilizando un proxy)</p>
+
+<p>$ curl -u usuario:contraseña -x proxy:8888 http://host (Usando proxy y con autentificación)</p>
+
+<p>$ curl -U usuario:contraseña -x proxy:8888 http://host (Cuando el proxy requiere autentificación especial)</p>
+
+<p>$ curl -r 0-99 http://host (Obtener los primeros 100 bytes del documento)</p>
+
+<p>$ curl -r -500 http://host (Obtener los últimos 500 bytes del documento)</p>
+
+<p>$ curl &#8211;proxytunnel -x proxy:8888 -T archivo_local ftp ftp://host (Usando un tunel)</p>
+
+<p>$ curl -v ftp://host (Ver información que se envia y recibe pero no los datos reales)</p>
+
+<p>$ curl &#8211;trace trace.txt host (Obtener más información y guardar en trace.txt)</p>
+
+<p>$ curl &#8211;dump-header headers.txt host (Guardar las cabeceras [cookies] en headers.txt)</p>
+
+<p>$ curl -b headers.txt www.example.com (Pasar las cabeceras obtenidas a un host)</p>
+
+<p>$ curl -e www.bueno.com http://host/ (Intentar engañar un site con una dirección falsa)</p>
+
+<p>$ curl -A &#8216;Mozilla/3.0 (Win95; I)&#8217; http://host (Intentar engañar un site especificando otro navegador)</p>
+
+<p>$ curl &#8211;limit-rate 10K host (Limitar la velocidad de transferencia a 10 kilobytes)</p>
+
+<p>$ curl -P 192.168.0.10 ftp host (Acceder a un host a partir de una ip a la que si tenemos acceso)</p>
+
+<p>$ curl -C - -o descarga hots (Proseguir una descarga interrumpida)</p>
+
+<p>$ curl -z local.html hots/remote.html (Sólo se efectuará la descarga si remote.html es más reciente que local.html)</p></blockquote>
+
+<p>Otras opciones:</p>
+
+<pre><code>$ curl -Is google.com | grep Date (Conocer la fecha via web)
+
+$ curl ip.appspot.com (Conocer la IP externa) 
+
+$ curl icanhazip.com (lo mismo)
+
+$ curl ifconfig.me (lo mismo)
+
+$ curl whatismyip.org (Otra) 
+
+$ curl -u usuario:clave --silent "https://mail.google.com/mail/feed/atom" | perl -ne 'print "\t" if /&lt;name&gt;/; print "$2\n" if /&lt;(title|name)&gt;(.*)&lt;\/\1&gt;/;' (visualizar todos los mensajes no leidos de gmail)
+
+$ curl -s 'http://geoiplookup.wikimedia.org/' | sed 's/^.*=\s*//' | python3 -mjson.tool (muestra la situación geográfica)
+
+$ curl -s http://geoiplookup.wikimedia.org/ | python3 -c 'import sys, json, string, webbrowser; webbrowser.open(string.Template("http://maps.google.com/maps?q=$lat,$lon").substitute(json.loads(sys.stdin.read().split("=")[-1])))' (Lo mismo pero abriendo una pestaña en el navegador)
+
+$ curl -s http://www.census.gov/popclock/data/population/world | awk -F'[:,]' '{print $7}' (Muestra el número de habitantes de la tierra)
+
+$ curl -s https://help.github.com/articles/generating-ssh-keys | grep -Po  --color=never "RSA key fingerprint is (:?[A-z0-9]\:?){32}" (Imprime la clave RSA de github.com)
+</code></pre>
 </div>
   
   
@@ -404,7 +480,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/cdparanoia/">Cdparanoia</a></h1>
+      <h1 class="entry-title"><a href="/blog/cups/">Cups</a></h1>
     
     
       <p class="meta">
@@ -420,18 +496,72 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Extraer pistas de audio de un cd</p>
+  <div class="entry-content"><p>Gestión de impresoras.</p>
 
-<blockquote><p>$ cdparanoia -B -d /dev/sdxx (extrae disco completo en archivos wav separados)</p>
+<p>1.-</p>
 
-<p>$ cdparanoia 5 -d /dev/sdxx (extrae el track nº 5)</p></blockquote>
+<p>Montar una impresora en red:</p>
+
+<p>En la máquina servidor (la que tiene conectada la impresora)</p>
+
+<pre><code># nano /etc/cups/cupsd.conf
+</code></pre>
+
+<p>Comentar la linea “Listen localhost:631” y añadir la ip de la máquina: “Listen 192.168.2.3:631” y en el siguiente apartado añadir los parámetros de la red:</p>
+
+<blockquote><p># Restrict access to the server…</p></blockquote>
+
+<pre><code>&lt;Location /&gt;
+</code></pre>
+
+<p>Order allow,deny</p>
+
+<p>Allow localhost</p>
+
+<p>Allow @LOCAL</p>
+
+<blockquote><p># permisos a la red local</p></blockquote>
+
+<p>Allow from 192.168.2.0/24</p>
+
+<pre><code>&lt;/Location&gt;
+</code></pre>
+
+<p>Para activar la compartición de impresoras:</p>
+
+<p>Browsing on</p>
+
+<pre><code># /etc/init.d/cupsd restart (reiniciar cups)
+</code></pre>
+
+<p>Abrir el navegador y escribir http://localhost:631 después del logeo ir a la pestaña printers y seleccionar la impresora, con lo que nos quedará en la barra de navegación algo parecido a:</p>
+
+<p>http://localhost:631/printers/PSC-1100</p>
+
+<p>Que sustituyendo “localhost” por la dirección ip de la máquina nos dará la dirección de la impresora:</p>
+
+<p>http://192.168.2.3:631/printers/PSC-1100</p>
+
+<p>En las máquinas cliente</p>
+
+<pre><code># nano /etc/cups/cupsd.conf
+</code></pre>
+
+<p>Browsing on</p>
+
+<p>BrowseAllow 192.168.2.0/24</p>
+
+<pre><code># /etc/init.d/cupsys restart
+</code></pre>
+
+<p>Y configurar la impresora de la forma habitual ya sea en Sistema -> administración -> impresoras pestaña Configuración -> URI del dispositivo y poner la dirección de la impresora o via http://localhost:631</p>
 </div>
   
   
@@ -444,7 +574,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/cdir/">Cdir</a></h1>
+      <h1 class="entry-title"><a href="/blog/csscapture/">Csscapture</a></h1>
     
     
       <p class="meta">
@@ -460,18 +590,16 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Información sobre el directorio del cd</p>
+  <div class="entry-content"><p>Capturar el css de una web.</p>
 
-<blockquote><p>$ cdir -n (Duración de las canciones de un cd)</p>
-
-<p>$ cdir -d /dev/sr0 -r (Lo mismo especificando dispositivo)</p></blockquote>
+<blockquote><p>$ csscapture -s web http://www.tuxapuntes.com (guarda en la carpeta “web”)</p></blockquote>
 </div>
   
   
@@ -484,7 +612,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/cdinfo/">Cdinfo</a></h1>
+      <h1 class="entry-title"><a href="/blog/cruft/">Cruft</a></h1>
     
     
       <p class="meta">
@@ -500,16 +628,20 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra Información del cd si se encuentra disponible.</p>
+  <div class="entry-content"><p>Lista ficheros que presumiblemente sobran, faltan o están de alguna forma incorrectos, tomando principalmente la información de la base de datos de dpkg</p>
 
-<blockquote><p>$ cdinfo -d /dev/sr0</p></blockquote>
+<blockquote><p># cruft -d /var/www</p>
+
+<p># cruft -r (Mostrar el informe)</p>
+
+<p># cruft &#8211;ignore /home/usuario (Descartando un directorio)</p></blockquote>
 </div>
   
   
@@ -532,7 +664,7 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1213</li>
+	<li>1290</li>
 	</ul>
 </section>
 <section>
@@ -540,43 +672,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/owncloud/">owncloud</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/golismero/">golismero</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/curl/">curl</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lorem/">lorem</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/kernel/">kernel</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/yacy/">yacy</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/virtualbox/">virtualbox</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/miniflux/">miniflux</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sed/">sed</a>
+        <a href="/blog/zdiff/">zdiff</a>
       </li>
     
   </ul>

@@ -1,0 +1,33 @@
+---
+layout: post
+title: "unison"
+date: 2013-10-27 13:56
+comments: true
+categories: 
+---
+Sincronización de carpetas remotas.
+
+Previamente crear la clave y copiarla al otro pc:
+
+>$ ssh-keygen -t dsa 
+
+>$ ssh-copy-id -i $HOME/.ssh/id_dsa.pub root@ip_o_host 
+
+Sincronizar las carpetas (la web en este ejemplo)
+
+>$ unison /srv/http ssh://ip_o_host//srv/http
+
+Si la carpeta a sincronizar se coloca en el archivo de configuración:
+
+>\# nano /root/.unison/default.prf
+
+root = /srv/http
+
+root = ssh://ip_o_host//srv/http
+
+Puede colocarse la orden en el cron para que se actualice cada 5 minutos:
+
+crontab -e 
+
+*/5 * * * * /usr/bin/unison &> /dev/null
+

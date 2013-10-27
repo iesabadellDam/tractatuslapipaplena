@@ -9,7 +9,8 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Crea imagenes de discos, particiones &#8230; $ dd if=/dev/zero of=/dev/hda (escribe ceros en todo el disco) $ dd if=/dev/urandom of=/dev/hda (llena &hellip;">
+  <meta name="description" content="Desfragmentar particiones ext4. # e4defrag /dev/sda2
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +82,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/dd/">Dd</a></h1>
+      <h1 class="entry-title"><a href="/blog/e4defrag/">E4defrag</a></h1>
     
     
       <p class="meta">
@@ -97,48 +98,16 @@
   
 
 
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Crea imagenes de discos, particiones &#8230;</p>
+  <div class="entry-content"><p>Desfragmentar particiones ext4.</p>
 
-<blockquote><p>$ dd if=/dev/zero of=/dev/hda  (escribe ceros en todo el disco)</p>
-
-<p>$ dd if=/dev/urandom of=/dev/hda  (llena el disco de números aleatorios)</p>
-
-<p>$ dd if=/dev/hdx of=backup-mbr bs=512 count=1  (crea una copia de seguridad del mbr)</p>
-
-<p>$ dd if=backup-mbr of=/dev/hda bs=512 count=1  (la restaura)</p>
-
-<p>$ dd if=mbr of=/dev/hda (Restaurarla)</p>
-
-<p>$ dd if=/dev/hda1 of=/dev/hda3 (copiar una partición)</p>
-
-<p>$ dd if=/hda of=/hdb bs=1M (copiar un disco en bloques de 1 mega)</p>
-
-<p>$ dd conv=noerror if=/dev/cdrom of=imagen_con_errores.img (Evitar que los errores impidan copiar datos. ütil en la recuperación de CDs o discos dañados)</p>
-
-<p>$ dd if=/dev/sda of=/dev/sdb conv=noerror,sync (Realizar una copia exacta de una partición, evitando que los errores impidan copiarla)</p>
-
-<p>$ time dd if=/dev/zero of=TEST bs=4k count=512000  (Realizar un test de velocidad del disco duro)</p>
-
-<p>$ dd if=/dev/sda1 of=copia_seguridad.tar | pv  (copiar mostrando barra de progreso)</p>
-
-<p>$ dd if=/dev/sdc bs=4096 dd of=/home/usuario/copia_seguridad | pv -s 2G (Lo mismo que el anterior)</p>
-
-<p>$ dd if=/dev/hda of=/home/hda.iso (Crear una imagen iso de una partición)</p>
-
-<p>$ dd if=/dev/hda | gzip > /home/hda.bin.gz (Crear una imagen comprimida)</p>
-
-<p>$ dd bs=1M if=/dev/sda4 | ssh usuario@host &#8216;dd of=/home/usuario/sda4.img&#8217; (crear una imagen de una partición local en un pc remoto)</p>
-
-<p>$ dd if=/dev/cdrom of=~/cd_image.iso (Crear una ISO del cd)</p>
-
-<p># dd if=/dev/sda | pv | dd of=/dev/sdb bs=1M (Clonar partición viendo gráfico del proceso)</p></blockquote>
+<blockquote><p># e4defrag /dev/sda2</p></blockquote>
 </div>
   
   
@@ -151,7 +120,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/dc/">Dc</a></h1>
+      <h1 class="entry-title"><a href="/blog/e2undo/">E2undo</a></h1>
     
     
       <p class="meta">
@@ -167,20 +136,14 @@
   
 
 
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>calculadora. Los operadores se colocan antes que sus operandos.</p>
-
-<blockquote><p>$ echo &#8220;5 2 + p&#8221; | dc (Se introducen dos números [5 y 2] se indica la operación a realizar [+] y que muestre el resultado [p])</p>
-
-<p>$ echo &#8220;4 6 + 2 * 4 / p&#8221; | dc</p>
-
-<p>$ echo &#8220;40034291 23 % p &#8221; | dc (Da el resto de la división)</p></blockquote>
+  <div class="entry-content"><p>Cuando la aplicación e2fsprogs falla, e2undo restablece el sistema de ficheros  ext2/ext3/ext4 anterior del dispositivo.</p>
 </div>
   
   
@@ -193,7 +156,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/dav/">Dav</a></h1>
+      <h1 class="entry-title"><a href="/blog/e2label/">E2label</a></h1>
     
     
       <p class="meta">
@@ -209,16 +172,18 @@
   
 
 
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Editor minimalista para ncurses.</p>
+  <div class="entry-content"><p>Poner etiquetas a las particiones y dispositivos ext3</p>
 
-<blockquote><p>$ dav archivo.txt</p></blockquote>
+<blockquote><p># e2label /dev/dispositivo_usb mi_usb  (cuando se conecte, en el escritorio aparecerá el icono con el nombre “mi_usb”)</p>
+
+<p># e2label /dev/sda5  (dirá si la partición sdb5 tiene nombre de etiqueta)</p></blockquote>
 </div>
   
   
@@ -231,7 +196,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/date/">Date</a></h1>
+      <h1 class="entry-title"><a href="/blog/e2image/">E2image</a></h1>
     
     
       <p class="meta">
@@ -247,58 +212,271 @@
   
 
 
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Relacionado con fechas y calendarios.</p>
+  <div class="entry-content"><p>Sscar una imagen de una partición.</p>
 
-<blockquote><p>$ date +%s  (en tiempo unix - desde el 1 de enero de 1970-)</p>
+<blockquote><p># e2image /dev/sda2 copia.img</p></blockquote>
+</div>
+  
+  
 
-<p>$ date -s &#8220;2010-01-10 16:59&#8221;  (forma de establecer la fecha y hora actual)</p>
 
-<p>$ date –u 0110170210  (Otra forma de establecer la fecha. mes 01, día 10, hora 17:02 y año 2010)</p>
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/e2fsck/">E2fsck</a></h1>
+    
+    
+      <p class="meta">
+        
 
-<p>$ date +&#8221;%A,%d-%m-%Y&#8221;</p></blockquote>
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Optimizar y reparar particones ext2 y ext3. Preciso desmontarla.</p>
+
+<blockquote><p># e2fsck -b 8193 /dev/hda2  (&#8220;-b 8193&#8221;que use la informacion de la primera copia del super bloque para reparar los daños.)</p>
+
+<p># e2fsck -fpDv /dev/sda1 (para optimizar la partición)</p></blockquote>
+
+<p>Nota.- &#8220;-c&#8221; buscar y marcar los bloques dañados, &#8220;-D&#8221; Optimiza, &#8220;-f&#8221; fuerza, &#8220;-p&#8221; repara y &#8220;-v&#8221; informa</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/dwb/">Dwb</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Navegador minimalista con soporte para flash.</p>
+
+<p>Atajos: dwb:keys</p>
+
+<p>Configuración: dwb:settings</p>
+
+<p>Las configuraciones en texto plano en .config/dwb/</p>
+
+<p>Algunos atajos:</p>
+
+<p>o (Para entrar una url)</p>
+
+<p>O (abrirla en una nueva pestaña)</p>
+
+<p>J (Cambiar entre pestañas)</p>
+
+<p>j (bajar por la página)</p>
+
+<p>k (subir)</p>
+
+<p>d (cerrar pestaña)</p>
+
+<p>u (reabrir pestaña cerrada)</p>
+
+<p>go (Editar la url)</p>
+
+<p>r (Recargar la página)</p>
+
+<p>R (Recargar sin usar la caché)</p>
+
+<p>f (Marcar los enlaces para escoger el que proceda)</p>
+
+<p>F (Marcar los enlaces y abrir el escogido en nueva pestaña)</p>
+
+<p>i (Modo insert para insertar en algún cuadro de dialogo)</p>
+
+<p>Esc (Volver a modo normal)</p>
+
+<p>M (Entrar url en en laces de interés)</p>
+
+<p>ctrl q (Para salir del navegador)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/dvtm/">Dvtm</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Terminal multiplexor</p>
+
+<blockquote><p>$ dvtm (Lanza la aplicacion)</p></blockquote>
+
+<p>Algunos atajos</p>
+
+<pre><code>Ctrl+g c (Crear una nueva ventana)
+
+Ctrl+g x (Cerrar la ventana enfocada)
+
+Ctrl+g l (Aumenta el ancho de la ventana enfocada)
+
+Ctrl+g h (Disminuye la anchura de la ventana enfocada)
+
+Ctrl+g j (Cambiar el foco a la siguiente ventana)
+
+Ctrl+g k (Cambiar a la ventana anterior)
+
+Ctrl+g 3 (Ir a la ventana 3 contando desde la esquina superior izquierda)
+
+Ctrl+g espacio (Redisea todas las ventanas)
+
+Ctrl+g t (Cambiar el diseño de mosaico a pila vertical)
+
+Ctrl+g b (Cambiar a diseño de mosaico)
+
+Ctrl+g g (Cambiiar a diseño de cuadrícula)
+
+Ctrl+g l (Redibujar toda la pantalla)
+
+Ctrl+g q (Salir)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/dvgrab/">Dvgrab</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Catura de videos desde una cámara digital DV.</p>
+
+<p>Previas:</p>
+
+<blockquote><p># modprobe rw1394</p>
+
+<p># chmod o+rw /dev/raw1394</p></blockquote>
+
+<p>Uso:</p>
+
+<blockquote><p>$ dvgrab &#8211;buffers 500 (Los videos se almacenarán de forma secuencial [001.avi, 002.avi&#8230;] y 500 frames. Por defecto 100)</p>
+
+<p>$ dvgrab -f avi -s 0 videos/archivo.avi (Especificando formato, sin perdida de calidad y destino)</p></blockquote>
 
 <p>Algunas opciones:</p>
 
-<p>%D  .- fecha (mm/dd/yy)</p>
+<p>-a 30 (crear nuevo archivo cada 30 segundos</p>
 
-<p>%T   .- hora:minutos:segundos (formato 24h)</p>
+<p>-csize 5 (divide el archivo de captura cuando llega a 5MB)</p>
 
-<p>%R   .- hora:minutos (formato 24h)</p>
+<p>-debug all (mostrar información de la captura.</p>
 
-<p>%d   .- día del mes (2 dígitos)</p>
+<p>-d 10,20 (tiempo total a capturar en formato SMIL. Por defecto ilimitado</p>
 
-<p>%m  .- mes (2 digitos)</p>
+<p>-every 50 (grabar un cuadro cada 50)</p>
 
-<p>%y   .- año (2 dígitos)</p>
+<p>-f dif (formato de captura. Por defecto raw. Algunos formatos: dif [raw con extensión .dif], qt [formato QuickTime], mpeg2 [compresión MPEG-2], jpeg ]secuencia de imágenes]</p>
 
-<p>%Y   .- año (4 dígitos)</p>
+<p>-F 20 (cantidad máxima de fotogramas por archivo. Por defecto ilimitado)</p>
 
-<p>%a   .- nombre abreviado del día.</p>
+<p>-nostop (no detener la reproducción en el dispositivo al cerrar la captura)</p>
 
-<p>%A   .- nombre completo del día.</p>
+<p>-rewind (rebobina el MiniDV al finalizar)</p>
 
-<p>%b   .- nombre abreviado del mes.</p>
-
-<p>%B   .- nombre completo del mes.</p>
-
-<p>%H   .- hora (2 dígitos) (0-23h)</p>
-
-<p>%I    .- hora (2 digitos) (0-12h)</p>
-
-<p>%M  .- Solo los minutos</p>
-
-<p>%S   .- Solo los segundos</p>
-
-<blockquote><p>$ date +&#8221;%A,%d-%m-%Y&#8221; &#8211;date &#8216;1966/4/20 20500 days&#8217; (Para saber cuando alguien cumplirá 20500 días desde su nacimiento)</p>
-
-<p>$ watch -n1 &#8216;banner <code>date +%T</code>&#8217; (Rejoj digital en ascii)</p></blockquote>
+<p>-t (poner fecha y hora de registro como nombre del archivo)</p>
 </div>
   
   
@@ -311,7 +489,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/darkhttpd/">Darkhttpd</a></h1>
+      <h1 class="entry-title"><a href="/blog/dvdbackup/">Dvdbackup</a></h1>
     
     
       <p class="meta">
@@ -327,18 +505,18 @@
   
 
 
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Servidor de archivos via web. Acceso por navegador con http://url_o_ip:puerto.</p>
+  <div class="entry-content"><p>Ripeo de dvds</p>
 
-<blockquote><p>$ darkhttp /home/usuario/share &#8211;port 12001 &#8211;daemon (Directorio, puerto de escucha 12001 y dejando como demonio. Matar con killall darkhttpd)</p>
+<blockquote><p>$ dvdbackup -i /dev/cdrom  (/información del dvd)</p>
 
-<p>$ darkhttp /home/usuario/share &#8211;port 12001 &#8211;log  archivo  &#8211;chroot  (Sin dejar en background. Creando un archivo con las incidencias y bloqueando el servidor en el directorio especificado. Matar con ctrl+c)</p></blockquote>
+<p>$ dvdbackup -M -i/dev/cdrom -o/home/usuario/carpeta_destino (lanzar la aplicación)</p></blockquote>
 </div>
   
   
@@ -351,7 +529,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/dares/">Dares</a></h1>
+      <h1 class="entry-title"><a href="/blog/dvdauthor/">Dvdauthor</a></h1>
     
     
       <p class="meta">
@@ -367,228 +545,18 @@
   
 
 
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Rescatar contenido de cds y dvds dañados</p>
+  <div class="entry-content"><p>Crear videos compatibles con reproductores domesticos [genera los directorios VIDEO_TS y AUDIO_TS]. Ver página man para una muestra del archivo de control.</p>
 
-<blockquote><p>$ dares -i image_cdrom -s /tmp (salvar en /tmp)</p></blockquote>
-</div>
-  
-  
+<blockquote><p>$ dvdauthor -o directorio archivo_control.xml</p>
 
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/dansguardian/">Dansguardian</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Filtro de contenidos web (cliente) que trabaja conjuntamente con el servidor proxy squid (servidor).</p>
-
-<p>Adaptar el archivo de configuración:</p>
-
-<blockquote><p># nano /etc/dansguardian/dansguardian.conf</p></blockquote>
-
-<p>Algunos parámetros a especificar (caso de no estarlo):</p>
-
-<p>language = &#8216;spanish&#8217;</p>
-
-<p>reportinglevel = 3 #valores de 1, 2 y 3</p>
-
-<p>filterport = 8080</p>
-
-<p>proxyip = 127.0.0.1 #La misma ip del proxy squid</p>
-
-<p>proxyport = 3128</p>
-
-<p>Guardar el archivo.</p>
-
-<p>El listado de conceptos (ip, nombre de dominio, frases&#8230; ) por los que se puede banear y conceptos excluidos en:</p>
-
-<blockquote><p># ls /etc/dansguardian/lists/</p></blockquote>
-
-<p>Algunos de los más usuales:</p>
-
-<p>bannedextensionlist (extensiones no permitidas)</p>
-
-<p>banneriplist (listado de ips no permitidas)</p>
-
-<p>bannedmimetypelist (Tipos MIME no permitidos)</p>
-
-<p>bannedregexpurllist  (Listado de expresiones a bloquear)</p>
-
-<p>bannedurllist (Bloquear partes especificas de un sitio)</p>
-
-<p>bannedsitelist (Bloquear sitios)</p>
-
-<p>bannedphraselist (Listado de frases prohibidas encerradas entre &lt; ></p>
-
-<p>exceptionsitelist (Lista de excepciones de sitios)</p>
-
-<p>exceptioniplist (lista de excepciones de direcciones IP)</p>
-
-<p>exceptionuserlist (Lista de excepciones de nombres de usuarios que no serán filtrado)</p>
-
-<blockquote><p># /etc/init.d/dansguardian restart</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/cutter/">Cutter</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Cortar conexiones no deseadas</p>
-
-<blockquote><p># cutter 192.168.2.6 80 (especificando IP y puerto)</p>
-
-<p># cutter 192.168.2.6   (solo IP)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/cut/">Cut</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Permite buscar y/o seleccionar columnas o campos dentro de un archivo estructurado. Entre campo y campo debe existir obligatoriamente un delimitador [dos puntos, un espacio en blanco u otro carácter].</p>
-
-<blockquote><p>$ cut -c1-4 archivo  (muestra los 4 primeros caracteres de cada linea)</p>
-
-<p>$ cut -d: -f1 archivo  (Muestra el primer campo delimitado por “:”)</p>
-
-<p>$ cut -d” “ -f1,5 archivo  (Mostrar el primero y el quinto, separados por espacio)</p>
-
-<p>$ cut -d” “ -f 2- archivo (Mostrar todo menos la primera columna)</p>
-
-<p>$ cut -s -d&#8221;(&#8221; -f1 archivo (“-s” suprime las lineas que no contengan el delimitador [(]). De las que sí lo contengan, mostraría el 1er campo)</p>
-
-<p>$ echo $RANDOM | cut -c1,2 (Coger los 2 primeros números de un número aleatorio [$RANDOM])</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/curlftpfs/">Curlftpfs</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Montar directorios remotos en local.</p>
-
-<blockquote><p># curlftpfs usuario:contraseña@192.168.1.10 /media/servidor</p></blockquote>
-
-<p>Para automatizar el proceso, añadir al /etc/fstab la linea:</p>
-
-<p>curlftpfs#usuario:contraseña@192.168.1.10 /media/servidor fuse defaults 0 0</p>
+<p>$ dvdauthor -o mi_dvd -T (crear table de contenidos)</p></blockquote>
 </div>
   
   
@@ -611,7 +579,7 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1213</li>
+	<li>1290</li>
 	</ul>
 </section>
 <section>
@@ -619,43 +587,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/owncloud/">owncloud</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/golismero/">golismero</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/curl/">curl</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lorem/">lorem</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/kernel/">kernel</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/yacy/">yacy</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/virtualbox/">virtualbox</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/miniflux/">miniflux</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sed/">sed</a>
+        <a href="/blog/zdiff/">zdiff</a>
       </li>
     
   </ul>

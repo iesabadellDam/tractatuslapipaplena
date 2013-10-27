@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Cambio de propietario de un archivo o directorio. # chown usuario archivo # chown -R usuario directorio (afecta al directorio y todos los &hellip;">
+  <meta name="description" content="Visualizar paquetes huerfanos $ deborphan &#8211;guess-all (Los muestra todos) # apt-get remove $(deborphan &#8211;guess-all) (borra todos los &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/chown/">Chown</a></h1>
+      <h1 class="entry-title"><a href="/blog/deborphan/">Deborphan</a></h1>
     
     
       <p class="meta">
@@ -97,20 +97,36 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Cambio de propietario de un archivo o directorio.</p>
+  <div class="entry-content"><p>Visualizar paquetes huerfanos</p>
 
-<blockquote><p># chown usuario archivo</p>
+<blockquote><p>$ deborphan &#8211;guess-all   (Los muestra todos)</p>
 
-<p># chown -R usuario directorio (afecta al directorio y todos los subdirectorios)</p>
+<p># apt-get remove $(deborphan &#8211;guess-all)     (borra todos los mostrados)</p>
 
-<p># chown -R usuario:grupo directorio</p></blockquote>
+<p># deborphan        (para ver las librerias huérfanas)</p>
+
+<p># dpkg -l $(deborphan)    (lo mismo que el anterior con más detalles)</p>
+
+<p># sudo dpkg &#8211;purge $(deborphan)   (eliminar los paquetes huérfanos)</p>
+
+<p># apt-get remove <code>deborphan</code> (Lo mismo)</p>
+
+<p># dpkg -l $(deborphan &#8211;find-config)  (para borrar configuraciones que no se han borrado tras la desinstalación de un paquete)</p>
+
+<p># dpkg &#8211;purge $(deborphan &#8211;ind-config)  (para eliminarlos)</p>
+
+<p># apt-get remove $(deborphan &#8211;guess-all)</p></blockquote>
+
+<p>Nota.- Normalmente estas aplicaciones han de repetirse varias veces hasta que al lanzar el comando no salga ninguna archivo huerfana.</p>
+
+<blockquote><p># deborphan | xargs sudo apt-get -y remove &#8211;purge (otra forma de eliminar paquetes huerfanos)</p></blockquote>
 </div>
   
   
@@ -123,7 +139,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/chntpw/">Chntpw</a></h1>
+      <h1 class="entry-title"><a href="/blog/deb/">Deb</a></h1>
     
     
       <p class="meta">
@@ -139,22 +155,179 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Quitar o modificar contraseñas en sistemas windows.</p>
+  <div class="entry-content"><p>Extensión de los paquetes para distros Debian.</p>
 
-<blockquote><p># cd /media/sdXX/WINDOWS/system32/config  (Entrar en el directorio)</p>
+<p>1.-</p>
 
-<p># chntpw SAM (quitar o modificar la contraseña del administrador)</p>
+<p>Crear un paquete para esta distro a partir de un script:</p>
 
-<p># chntpw -u USUARIO SAM  (quitar o modificar la contraseña de un usuario concreto)</p></blockquote>
+<pre><code>$ mkdir deb 
+</code></pre>
 
-<p>Aparece un menú de 5 opciones. Borrar contraseña es la opción 1 modificarla la 2.</p>
+<p>En ese directorio recrear la estructura destino que queremos utilizar. En nuestro caso /usr/bin, el directorio para el icono y permisos:</p>
+
+<pre><code>$ mkdir -p deb/usr/bin
+
+$ mkdir -p deb/usr/share/applications
+</code></pre>
+
+<p>Copiar el script en el bin creado:</p>
+
+<pre><code>$ cp script deb/usr/bin 
+</code></pre>
+
+<p>Crear el subdirectorio DEBIAN:</p>
+
+<pre><code>$ mkdir deb/DEBIAN 
+</code></pre>
+
+<p>En su interior el fichero “control”:</p>
+
+<pre><code>$ nano deb/DEBIAN/control 
+</code></pre>
+
+<p>En el que pegamos datos del paquete:</p>
+
+<p>Package: nombre_que_queremos</p>
+
+<p>Priority: optional</p>
+
+<p>Section: misc</p>
+
+<p>Maintainer: el_mantenedor</p>
+
+<p>Architecture: all</p>
+
+<p>Version: 1.0</p>
+
+<p>Depends: Las_dependendias_del_paquete</p>
+
+<p>Description: Pequeña_descripción_de_la_maravilla</p>
+
+<p> Este script &#8230;. para &#8230;.. de &#8230;.. aquello&#8230;&#8230;.</p>
+
+<p>Notas: En el nombre del paquete (Package) no se admiten espacios ni barras bajas) y en la descripción (Description) el primer carácter de la segunda linea es un espacio y al final del texto, darle al intro para que ponga una linea vacia. Las dependencias que pongamos en “Depends” son las que se instalarán  con la instalación del .deb.</p>
+
+<p>Crear el paquete “menu” en el mismo directorio:</p>
+
+<pre><code>$ nano deb/DEBIAN/menu
+</code></pre>
+
+<p>Y en su interior pegar:</p>
+
+<pre><code>?package(nombre_script):needs="X11" \ 
+
+    section="Applications/Network/Monitoring" \ 
+
+    title="Suport VNC" command="gnome-terminal -e script_que_sea" \ 
+
+    icon="/usr/share/pixmaps/gnome-term-linux2.png"
+</code></pre>
+
+<p>Notas: Nombre del paquete, que precisa de las X (X11), donde se colocará en el menú “Aplicaciones” (otras opciones: section=”Apps/Multimedia”&#8230;), el comando que lo lanzará (gnome-terminal -e script) y el icono que hemos escogido. Crear el archivo nombre_script.desktop para los datos del icono:</p>
+
+<pre><code>$ gedit deb/usr/share/applications/nombre_script.desktop
+</code></pre>
+
+<p>Y pegar el siguiente contenido:</p>
+
+<pre><code>[Desktop Entry] 
+
+Version=1.0 
+
+Name=Nombre_script 
+
+GenericName=Nombre_script 
+
+Comment=Pequeño_comentario 
+
+Exec=Nombre_script_que_lo_lanzará 
+
+Terminal=true 
+
+Type=Application 
+
+Categories=Application;Network; 
+
+Icon=gnome-term-linux2.png 
+
+StartupNotify=true
+</code></pre>
+
+<p>Nota.- también varios modelos de iconos en:</p>
+
+<pre><code>$ ls /home/usuario/.local/share/applications/  
+</code></pre>
+
+<p>Cambiar el propietario del directorio:</p>
+
+<pre><code># chown -R root.root deb 
+</code></pre>
+
+<p>Finalmente crear el paquete .deb y que lo coloque en el escritorio:</p>
+
+<pre><code># dpkg -b deb /home/usuario/Escritorio/nombre.deb
+</code></pre>
+
+<p>2.-</p>
+
+<p>Crear un paquete a partir de un tar.gz:</p>
+
+<p>Para el ejemplo usaremos el paquete picpuz, un juego para crear puzles a partir de una fotografia, que aunque tenga versión .deb, para el caso nos sirve.</p>
+
+<p>Crear carpeta de trabajo y entrar en ella:</p>
+
+<pre><code>$ mkdir picpuz 
+
+$ cd picpuz 
+</code></pre>
+
+<p>Descargar y descomprimir el tar.gz y entrar en la carpeta descomprimida:</p>
+
+<blockquote><p>$ wget http://kornelix.squarespace.com/storage/downloads/picpuz-2.2.tar.gz</p>
+
+<p>$ tar xvzf picpuz-2.2.tar.gz</p>
+
+<p>$ cd picpuz-2.2</p></blockquote>
+
+<p>Crear el nuevo paquete .orig.tar.gz con los estandares de Debian, con licencia gpl3 y generando el paquete desde las fuentes:</p>
+
+<pre><code>$ dh_make --createorig  -c gpl3 -s
+</code></pre>
+
+<p>Construir el paquete .deb:</p>
+
+<pre><code>$ dpkg-buildpackage -rfakeroot 
+</code></pre>
+
+<p>Listar el contenido de un paquete .deb:</p>
+
+<pre><code>$ ar -tv picpuz_2.2-1_i386.deb
+</code></pre>
+
+<p>Información y perspectiva general de lo que ofrece el paquete:</p>
+
+<pre><code>$ dpkg-deb -I picpuz_2.2-1_i386.deb
+</code></pre>
+
+<p>Listar los ficheros que serán instalados:</p>
+
+<pre><code>$ dpkg-deb -c picpuz_2.2-1_i386.deb 
+</code></pre>
+
+<p>instalarlo:</p>
+
+<pre><code># dpkg -i picpuz_2.2-1_i386.deb
+</code></pre>
+
+<p>Lo encontraremos en aplicaciones/juegos</p>
 </div>
   
   
@@ -167,7 +340,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/chmod/">Chmod</a></h1>
+      <h1 class="entry-title"><a href="/blog/deallocvt/">Deallocvt</a></h1>
     
     
       <p class="meta">
@@ -183,54 +356,24 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Gestión de permisos de los ficheros y directorios.</p>
+  <div class="entry-content"><p>Libera memoria y estructuras de datos del núcleo para todas las consolas virtuales que no se usen. Una consola virtual se considera en desuso si no es la consola en primer plano, ni  ningún  proceso  la  tiene  abierta  para  lectura  o escritura, ni se ha seleccionado ningún texto en su pantalla. Ver openvt</p>
 
-<blockquote><p>$ chmod ugo+rwx -R /home/usuario/directorio  (todos los permisos a todos los usuarios sobre el directorio y subdirectorios)</p>
+<blockquote><p># deallocvt (Las desasigna todas)</p>
 
-<p>$ chmod 777 -R /home/usuario/directorio (Equivalente en octal)</p>
+<p># deallocvt 5 (Sólo desasigna la /dev/tty5)</p></blockquote>
 
-<p>$ chmod a+w archivo (permiso de escritura para todos)</p>
+<p>Un ejemplo de uso:</p>
 
-<p>$ chmod 222 -R /home/usuario/directorio (Equivalente en octal)</p>
+<blockquote><p># openvt -s ls (lanzara el comando ls en la primera consola virtual libre. Normalmente la /dev/tty8)</p>
 
-<p>$ chmod -w archivo (Quitar permiso de escritura a un archivo)</p>
-
-<p>$ chmod +x archivo (Dar permiso de ejecución)</p>
-
-<p>$ chmod 744 archivo (Lectura, ecritura y ejecución para el usuario y sólo lectura para grupo y otros)</p>
-
-<p>$ chmod u=rwx go=rw archivo (Equivalente en alfabético)</p></blockquote>
-
-<p>Código numérico (octal):</p>
-
-<p>1 = ejecución [x]</p>
-
-<p>2 = escritura [w]</p>
-
-<p>3 (1+2) = escritura y ejecución [xw]</p>
-
-<p>4 = lectura [r]</p>
-
-<p>5 (4+1) = lectura y ejecución [rx]</p>
-
-<p>6 (4+2) = lectura y escritura [rw]</p>
-
-<p>7 (4+2+1) = lectura, escritura y ejecución [wxr]</p>
-
-<p>Código alfabético:</p>
-
-<p>r (lectura), w (escritura), x (ejecución)</p>
-
-<p>u (usuario), g (grupo), o (otros), a (para todos)</p>
-
-<p>Nota.- Cuando un directorio está marcado como ejecutable [x] significa que se puede mirar dentro [ls] o entrar en él [cd]</p>
+<p># deallocvt 8</p></blockquote>
 </div>
   
   
@@ -243,7 +386,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/chkrootkit/">Chkrootkit</a></h1>
+      <h1 class="entry-title"><a href="/blog/ddrescue/">Ddrescue</a></h1>
     
     
       <p class="meta">
@@ -259,24 +402,42 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Buscador de rootkits infiltrados en el sistema</p>
+  <div class="entry-content"><p>Recuperación de discos dañados. Proceso:</p>
 
-<blockquote><p># chkrootkit  (lanzar la aplicación)</p>
+<p>Descargar el paquete dd_rhelp (Comprobar si existe una versión posterior):</p>
 
-<p># chkrootkit -l  (visualizar las opciones de escaneo)</p>
+<blockquote><p>$ wget http://www.kalysto.org/pkg/dd_rhelp-0.1.2.tar.gz</p>
 
-<p># chkrootkit sshd tcpd  (verificar solo dos opciones)</p>
+<p>$ cd dd_rhelp-0.1.2</p>
 
-<p># chkwtmp  (Verificar alteración de logs. Si no muestra nada: bien)</p>
+<p># ./dd_rhelp /dev/sdbx sdbx.img</p></blockquote>
 
-<p># chklastlog  (Lo mismo)</p></blockquote>
+<p>Creará sdbx.img en el directorio actual, que podrá montarse:</p>
+
+<blockquote><p># mount -o loop sdbx.img /media/imagen</p></blockquote>
+
+<p>Comprobar posibles errores (para partición ext3):</p>
+
+<blockquote><p># fsck -y sdbx.img</p></blockquote>
+
+<p>Restaurar la imagen:</p>
+
+<blockquote><p># dd_rhelp sdbx.img /dev/sdax</p></blockquote>
+
+<p>Método de ejecutar ddrescue en dos pasadas, de forma que la primera sólo recupera los bloques que no contenga sectores defectuosos y el segundo se centre en recuperar el máximo de los defectuosos:</p>
+
+<blockquote><p># ddrescue -v -n /dev/sda /dev/sdb sda.txt</p>
+
+<p># ddrescue -v -r2 -d /dev/sda /dev/sdb sda.txt</p></blockquote>
+
+<p>Luego comprobar errores con fsck.</p>
 </div>
   
   
@@ -289,7 +450,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/chkdupexe/">Chkdupexe</a></h1>
+      <h1 class="entry-title"><a href="/blog/ddclient/">Ddclient</a></h1>
     
     
       <p class="meta">
@@ -305,16 +466,30 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Buscar duplicados en ejecutables.</p>
+  <div class="entry-content"><p>Configurar pc con una ip fija. Requiere registro en dyndns.org. Durante la instalación  ya preguntará los datos del registro en pero si se prefiere puede editarse el archivo de configuración y colocarlos a mano</p>
 
-<blockquote><p>$ chkdupexe</p></blockquote>
+<blockquote><p># gedit /etc/ddclient.conf</p></blockquote>
+
+<p>Completar los campos login y password con los datos correspondientes:</p>
+
+<p>protocol=dyndns2</p>
+
+<p>use=web, web=checkip.dyndns.com, web-skip=&#8217;IP Address&#8217;</p>
+
+<p>server=members.dyndns.org</p>
+
+<p>login=Nombre_registrado_en_dyndns</p>
+
+<p>password=&#8217;contraseña_de_dyndns&#8217;</p>
+
+<p>nombre_de_dominio.com</p>
 </div>
   
   
@@ -327,7 +502,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/chkconfig/">Chkconfig</a></h1>
+      <h1 class="entry-title"><a href="/blog/ddate/">Ddate</a></h1>
     
     
       <p class="meta">
@@ -343,26 +518,16 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Para activar y desactivar servicios, ver su estado y runlevel</p>
+  <div class="entry-content"><p>Convierte fechas gregorianas en fechas subrealistas. Algunas opciones coinciden con las de &#8220;date&#8221; (ver)</p>
 
-<blockquote><p>$ chkconfig &#8211;list (muestra listado de todos los servicios y nivel de ejecución)</p>
-
-<p>$ chkconfig &#8211;list apache2 (muestra nivel de ejecución del especificado)</p>
-
-<p>$ chkconfig &#8211;level 35 apache2 on (Para arrancar apache2 con runlevel 3 y5)</p>
-
-<p>$ chkconfig &#8211;level 345 nscd off (Desactivar nscd en los runlevel 3, 4 y 5)</p>
-
-<p>$ chkconfig &#8211;del sshd  (Quitar un servicio del arranque)</p>
-
-<p>$ chkconfig smb  (Indica si el servicio está activo o inactivo)</p></blockquote>
+<blockquote><p>$ ddate +%d-%B-%Y</p></blockquote>
 </div>
   
   
@@ -375,7 +540,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/chgrp/">Chgrp</a></h1>
+      <h1 class="entry-title"><a href="/blog/dd/">Dd</a></h1>
     
     
       <p class="meta">
@@ -391,16 +556,48 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Cambia el grupo al que pertenece un archivo.</p>
+  <div class="entry-content"><p>Crea imagenes de discos, particiones &#8230;</p>
 
-<blockquote><p>$ chgrp grupo archivo</p></blockquote>
+<blockquote><p>$ dd if=/dev/zero of=/dev/hda  (escribe ceros en todo el disco)</p>
+
+<p>$ dd if=/dev/urandom of=/dev/hda  (llena el disco de números aleatorios)</p>
+
+<p>$ dd if=/dev/hdx of=backup-mbr bs=512 count=1  (crea una copia de seguridad del mbr)</p>
+
+<p>$ dd if=backup-mbr of=/dev/hda bs=512 count=1  (la restaura)</p>
+
+<p>$ dd if=mbr of=/dev/hda (Restaurarla)</p>
+
+<p>$ dd if=/dev/hda1 of=/dev/hda3 (copiar una partición)</p>
+
+<p>$ dd if=/hda of=/hdb bs=1M (copiar un disco en bloques de 1 mega)</p>
+
+<p>$ dd conv=noerror if=/dev/cdrom of=imagen_con_errores.img (Evitar que los errores impidan copiar datos. ütil en la recuperación de CDs o discos dañados)</p>
+
+<p>$ dd if=/dev/sda of=/dev/sdb conv=noerror,sync (Realizar una copia exacta de una partición, evitando que los errores impidan copiarla)</p>
+
+<p>$ time dd if=/dev/zero of=TEST bs=4k count=512000  (Realizar un test de velocidad del disco duro)</p>
+
+<p>$ dd if=/dev/sda1 of=copia_seguridad.tar | pv  (copiar mostrando barra de progreso)</p>
+
+<p>$ dd if=/dev/sdc bs=4096 dd of=/home/usuario/copia_seguridad | pv -s 2G (Lo mismo que el anterior)</p>
+
+<p>$ dd if=/dev/hda of=/home/hda.iso (Crear una imagen iso de una partición)</p>
+
+<p>$ dd if=/dev/hda | gzip > /home/hda.bin.gz (Crear una imagen comprimida)</p>
+
+<p>$ dd bs=1M if=/dev/sda4 | ssh usuario@host &#8216;dd of=/home/usuario/sda4.img&#8217; (crear una imagen de una partición local en un pc remoto)</p>
+
+<p>$ dd if=/dev/cdrom of=~/cd_image.iso (Crear una ISO del cd)</p>
+
+<p># dd if=/dev/sda | pv | dd of=/dev/sdb bs=1M (Clonar partición viendo gráfico del proceso)</p></blockquote>
 </div>
   
   
@@ -413,7 +610,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/chfn/">Chfn</a></h1>
+      <h1 class="entry-title"><a href="/blog/dc/">Dc</a></h1>
     
     
       <p class="meta">
@@ -429,28 +626,20 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>modifica la información personal del usuario (nombre, domicilio, teléfono….)</p>
+  <div class="entry-content"><p>calculadora. Los operadores se colocan antes que sus operandos.</p>
 
-<blockquote><p>$ chfn usuario (permite modificar todos los datos del usuario)</p></blockquote>
+<blockquote><p>$ echo &#8220;5 2 + p&#8221; | dc (Se introducen dos números [5 y 2] se indica la operación a realizar [+] y que muestre el resultado [p])</p>
 
-<p>Opciones</p>
+<p>$ echo &#8220;4 6 + 2 * 4 / p&#8221; | dc</p>
 
-<p>-f nombre_completo</p>
-
-<p>-r domicilio</p>
-
-<p>-w teléfono_trabajo</p>
-
-<p>-h teléfono_particular</p>
-
-<p>-o otros datos</p>
+<p>$ echo &#8220;40034291 23 % p &#8221; | dc (Da el resto de la división)</p></blockquote>
 </div>
   
   
@@ -463,7 +652,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/cherokee/">Cherokee</a></h1>
+      <h1 class="entry-title"><a href="/blog/dav/">Dav</a></h1>
     
     
       <p class="meta">
@@ -479,20 +668,16 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Servidor web</p>
+  <div class="entry-content"><p>Editor minimalista para ncurses.</p>
 
-<blockquote><p># cherokee-admin -b (iniciar el gestor. En el navegador: localhost:9090)</p>
-
-<p># cherokee-admin -b -u (No pida la contraseña)</p>
-
-<p># cherokee-admin -b -p 9091 (especificar un puerto para la gestión)</p></blockquote>
+<blockquote><p>$ dav archivo.txt</p></blockquote>
 </div>
   
   
@@ -505,7 +690,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/check-language-support/">Check-language-support</a></h1>
+      <h1 class="entry-title"><a href="/blog/date/">Date</a></h1>
     
     
       <p class="meta">
@@ -521,18 +706,58 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Listado de paquetes de idiomas instalados en el sistema.</p>
+  <div class="entry-content"><p>Relacionado con fechas y calendarios.</p>
 
-<blockquote><p>$ check-language-support -l es</p>
+<blockquote><p>$ date +%s  (en tiempo unix - desde el 1 de enero de 1970-)</p>
 
-<p>$ check-language-support -a (todos)</p></blockquote>
+<p>$ date -s &#8220;2010-01-10 16:59&#8221;  (forma de establecer la fecha y hora actual)</p>
+
+<p>$ date –u 0110170210  (Otra forma de establecer la fecha. mes 01, día 10, hora 17:02 y año 2010)</p>
+
+<p>$ date +&#8221;%A,%d-%m-%Y&#8221;</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<p>%D  .- fecha (mm/dd/yy)</p>
+
+<p>%T   .- hora:minutos:segundos (formato 24h)</p>
+
+<p>%R   .- hora:minutos (formato 24h)</p>
+
+<p>%d   .- día del mes (2 dígitos)</p>
+
+<p>%m  .- mes (2 digitos)</p>
+
+<p>%y   .- año (2 dígitos)</p>
+
+<p>%Y   .- año (4 dígitos)</p>
+
+<p>%a   .- nombre abreviado del día.</p>
+
+<p>%A   .- nombre completo del día.</p>
+
+<p>%b   .- nombre abreviado del mes.</p>
+
+<p>%B   .- nombre completo del mes.</p>
+
+<p>%H   .- hora (2 dígitos) (0-23h)</p>
+
+<p>%I    .- hora (2 digitos) (0-12h)</p>
+
+<p>%M  .- Solo los minutos</p>
+
+<p>%S   .- Solo los segundos</p>
+
+<blockquote><p>$ date +&#8221;%A,%d-%m-%Y&#8221; &#8211;date &#8216;1966/4/20 20500 days&#8217; (Para saber cuando alguien cumplirá 20500 días desde su nacimiento)</p>
+
+<p>$ watch -n1 &#8216;banner <code>date +%T</code>&#8217; (Rejoj digital en ascii)</p></blockquote>
 </div>
   
   
@@ -555,7 +780,7 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1213</li>
+	<li>1290</li>
 	</ul>
 </section>
 <section>
@@ -563,43 +788,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/owncloud/">owncloud</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/golismero/">golismero</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/curl/">curl</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lorem/">lorem</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/kernel/">kernel</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/yacy/">yacy</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/virtualbox/">virtualbox</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/miniflux/">miniflux</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sed/">sed</a>
+        <a href="/blog/zdiff/">zdiff</a>
       </li>
     
   </ul>

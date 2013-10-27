@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Crear un lanzador de aplicaciones en el escritorio. $ 9menu -label gimp gimp &amp; (con el título “gimp” para lanzar “gimp”) $ 9menu &#8216;xterm -e &hellip;">
+  <meta name="description" content="Acelerador de descargas $ axel http://download.com/file.tar.gz $ axel -s 5242880 http://download.com/debian.iso (Para una velocidad media de 5120 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/9menu/">9menu</a></h1>
+      <h1 class="entry-title"><a href="/blog/axel/">Axel</a></h1>
     
     
       <p class="meta">
@@ -97,28 +97,36 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Crear un lanzador de aplicaciones en el escritorio.</p>
+  <div class="entry-content"><p>Acelerador de descargas</p>
 
-<blockquote><p>$ 9menu -label gimp gimp &amp; (con el título “gimp” para lanzar “gimp”)</p>
+<blockquote><p>$ axel http://download.com/file.tar.gz</p>
 
-<p>$ 9menu &#8216;xterm -e script.sh&#8217; &amp; (lanzador para un script de bash)</p></blockquote>
+<p>$ axel -s 5242880 http://download.com/debian.iso  (Para una velocidad media de 5120 kilobyte x seg)</p>
 
-<p>Opciones:</p>
+<p>$ axel -n 3 -s 5242880 http://download.com/my.iso  (Limitar el numero de conexiones de descarga a 3)</p></blockquote>
 
-<p>-geometry 30x20 (especificando medidas del lanzador)</p>
+<p>Pueden configurarse parámetros generales en el archivo:</p>
 
-<p>-bg yellow (color de fondo)</p>
+<blockquote><p># nano /etc/axelrc</p></blockquote>
 
-<p>-fg red (color de fuente)</p>
+<p>Añadiendo, por ejemplo:</p>
 
-<p>-popup (Que se cierre el lanzador una vez clicado)</p>
+<p>reconnect_delay = 20</p>
+
+<p>max_speed = 0</p>
+
+<p>num_connections = 10</p>
+
+<p>connection_timeout = 30</p>
+
+<p>Que realice 10 conexiones por cada archivo y sin límite de descarga.</p>
 </div>
   
   
@@ -131,7 +139,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/7zip/">7zip</a></h1>
+      <h1 class="entry-title"><a href="/blog/awstats/">Awstats</a></h1>
     
     
       <p class="meta">
@@ -147,24 +155,69 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Compresor/descompresor</p>
+  <div class="entry-content"><p>Estadísticas de la red local</p>
 
-<blockquote><p>$ 7z a fichero.7z fichero (comprime)</p>
+<p>En el fichero de configuración (/etc/awstats/awstats.conf) comprobar:</p>
 
-<p>$ 7z e comprimido (Descomprime)</p>
+<p>LogFile=&#8221;/var/log/apache2/access.log&#8221;</p>
 
-<p>$ 7z l comprimido (Muestra las propiedades)</p>
+<p>SiteDomain=”tu_dominio.com” (entre comillas nombre del host)</p>
 
-<p>$ 7z t fichero_comprimido (chequea contenido)</p>
+<p>LogFormat=1 (El usado por apache)</p>
 
-<p>$ 7z a -tgzip -p fichero.gz fichero (proteger con una contraseña)</p></blockquote>
+<p>AllowToUpdateStatsFromBrowser=1 (Actualizar via navegador)</p>
+
+<p>Lang=&#8221;es&#8221;</p>
+
+<p>Asegurar permisos:</p>
+
+<blockquote><p># chmod o+r /var/log/apache2/access.log</p></blockquote>
+
+<p>Crear enlace de las imágenes:</p>
+
+<pre><code># ln -s /usr/share/awstats/icon/ /var/www/awstats-icon 
+</code></pre>
+
+<p>Crear las estadísticas:</p>
+
+<pre><code># /usr/lib/cgi-bin/awstats.pl -update -config=/etc/awstats/awstats.conf 
+</code></pre>
+
+<p>Para ver las estadísticas, en el navegador:</p>
+
+<pre><code>http://localhost/cgi-bin/awstats.pl
+</code></pre>
+
+<p>Si no queremos que las estadísticas sean accesibles para cualquiera:</p>
+
+<pre><code># gedit /etc/apache2/sites-available/default
+</code></pre>
+
+<p>Y en la linea “Allow from All” de la sección siguiente, quitamos el “All” y ponemos 127.0.0.1 [O la ip que proceda] y reiniciamos servicio:</p>
+
+<p>ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/</p>
+
+<pre><code>&lt;Directory "/usr/lib/cgi-bin"&gt; 
+
+AllowOverride None 
+
+Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch 
+
+Order allow,deny 
+
+Allow from 127.0.0.1 
+
+&lt;/Directory&gt;
+</code></pre>
+
+<blockquote><p># /etc/init.d/apache2 force-reload</p></blockquote>
 </div>
   
   
@@ -177,7 +230,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/4g8/">4g8</a></h1>
+      <h1 class="entry-title"><a href="/blog/awk/">Awk</a></h1>
     
     
       <p class="meta">
@@ -193,42 +246,600 @@
   
 
 
-<time datetime="2013-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Capturar paquetes de equipos de una red. Previamente preparar el equipo con los pasos previos para el envenenamiento arp lanzando en dos terminales y sin cerrarlas hasta terminar la captura:</p>
+  <div class="entry-content"><p>Busca patrones y los procesa. Es practicamente un lenguaje de programación.</p>
 
-<blockquote><p># arpspoof -i eth0 -t 192.168.1.12 192.168.1.1</p>
+<p>Archivo base para ejemplo (Empleado &#8211; Precio/hora &#8211; Horas trabajadas – Cómo las cobra):</p>
 
-<p># arpspoof -i eth0 -t 192.168.1.1 192.168.1.12</p></blockquote>
+<blockquote><p>$ cat lista</p></blockquote>
 
-<p>El “12” el sniffado, el “1” el router y el -i … la red. El paquete que contiene arpspoof es dsniff. Activar forwarding para que los paquetes vayan a su verdadero dueño:</p>
+<p>Juan Gomez 6 10 banco</p>
 
-<blockquote><p># echo 1 > /proc/sys/net/ipv4/ip_forward</p></blockquote>
+<p>Clara Fuentes 7 12 banco</p>
 
-<p>Para conocer los parámetros [ips y MACs] que luego tendremos que entrar en 4g8 lanzar:</p>
+<p>Antonio Cano 6 13 metálico</p>
 
-<blockquote><p># nmap 192.168.1.0/24</p></blockquote>
+<p>José Bueno 7 0 banco</p>
 
-<p>Para conocer los equipos de la red. Una vez escogida la victima, lanzar 4g8:</p>
+<p>Matías Crespo 5 8 metálico</p>
 
-<blockquote><p># 4g8 -i eth0 -g 192.168.1.1 -G 64:69:0C:87:A8:DC -s 192.168.1.12 -S 00:19:01:54:F5:1F -w dump.pcap</p></blockquote>
+<p>Isabel Ruiz 7 0 metálico</p>
 
-<p>-g (la ip del router)</p>
+<p>María Monzón 9 16 metálico</p>
 
-<p>-G (la MAC del router)</p>
+<p>Imprimir la segunda columna (Apellidos):</p>
 
-<p>-s (la ip de la victima)</p>
+<pre><code>$ awk ' { print $2 } ' lista
+</code></pre>
 
-<p>-S (la MAC de la victima)</p>
+<p>Imprimir la última columna:</p>
 
-<p>-w (el archivo donde guardar las capturas)</p>
+<pre><code>$ awk ' { print $NF } ' lista
+</code></pre>
 
-<p>Para el análisis del archivo dump.pcap usar wireshark.</p>
+<p>Imprimir la linea 3:</p>
+
+<pre><code>$ awk ' NR == 3 ' lista
+</code></pre>
+
+<p>Imprimir todo menos la primera columna:</p>
+
+<pre><code>$ awk ' { $1 = "" ; print } ' lista
+</code></pre>
+
+<p>Imprimir las columnas tabuladas:</p>
+
+<pre><code>$ awk ' { print $1 “\t” $2 “\t” $3 “\t” $4 } ' lista
+</code></pre>
+
+<p>Imprimir las lineas que tengan menos de 22 caracteres:</p>
+
+<pre><code>$ awk 'length($0) &lt; 22' lista
+</code></pre>
+
+<p>Calcular el sueldo de los empleados que han trabajado:</p>
+
+<pre><code>$ awk ' $4 &gt; 0 { print $1,$2, $3*$4} ' lista  
+</code></pre>
+
+<p>Personas que no han trabajado:</p>
+
+<pre><code>$ awk ' $3 == 0 { print $1}' lista 
+</code></pre>
+
+<p>Buscar una entrada concreta:</p>
+
+<pre><code>$ awk '/Fuentes/ { print $0 }' lista
+</code></pre>
+
+<p>Buscar los que cobran en metálico e impimir la 2ª columna:</p>
+
+<p>Buscar dos entradas en una misma linea separándolas con punto y coma (;):</p>
+
+<pre><code>$ awk ' /'metálico'/ {print$2}' lista 
+
+$ awk '/Fuentes/ { print $0 }; /Cano/ { print$0 } ' lista
+</code></pre>
+
+<p>Buscar las entradas en las que el primer campo empiece por “J”, imprimir el 2º campo y, entre parentesis el último:</p>
+
+<pre><code>$ awk '$1 ~ /^J/ {print$2, "("$NF")"}' lista
+</code></pre>
+
+<p>Lo mismo con if:</p>
+
+<pre><code>$ awk ' { if ($1 ~ /^J/) print$2, “(“$NF”)” }' lista
+</code></pre>
+
+<p>Añadir 5 horas al 4º campo y comprobar como quedan con la modificación:</p>
+
+<pre><code>$ awk '{ $4 = ($4+5); print $0 }' lista
+</code></pre>
+
+<p>Añadir un nuevo campo ($6) con el producto del 3 y el 4:</p>
+
+<pre><code>$ awk '{ $6 = ($3*$4); print $0 }' lista
+</code></pre>
+
+<p>print permite colocar texto:</p>
+
+<pre><code>$ awk ' { print "El sueldo de ",$2," es de ",$3*$4," euros."} ' lista 
+</code></pre>
+
+<p>Variables internas:</p>
+
+<p>Mostrar el número de campos de cada linea (NF):</p>
+
+<pre><code>$ awk ' { print NF } ' lista 
+</code></pre>
+
+<p>Mostrar el número de lineas (NR):</p>
+
+<pre><code>$ awk ' { print NR } ' lista
+</code></pre>
+
+<p>Mostrar todas las lineas completas ($0):</p>
+
+<pre><code>$ awk ' { print $0 } ' lista 
+</code></pre>
+
+<p>Mostrar las lineas que tengan al menos un campo</p>
+
+<pre><code>$ awk 'NF &gt; 0' lista
+</code></pre>
+
+<p>Lo mismo con if:</p>
+
+<pre><code>$ awk '{ if (NF &gt; 0) print }' lista
+</code></pre>
+
+<p>Dar formato a la salida de datos:</p>
+
+<pre><code>$ awk ' $4 &gt; 0 { printf "%-8s .... %8.1f euros\n",$2,($3*$4) } ' lista 
+</code></pre>
+
+<blockquote><p>$4 > 0 (Que imprima los que la 4ª columna no sea cero.)</p></blockquote>
+
+<p>%-8s (Que imprima una cadena (s) justificada a la izquierda (-) en un campo de 8 caracteres de ancho.)</p>
+
+<p>%8.1f (Que imprima un numero real (f), en un campo de ocho caracteres de ancho, con un decimal.)</p>
+
+<p>Imprimir cadena, justificada a la izquierda y en campos de 10 y 5 caracteres:</p>
+
+<blockquote><p>$ awk &#8216;{ printf &#8220;%-10s %-10s %-5s %-5s %-5s\n&#8221;, $1, $2, $3, $4, $5 }&#8217; lista</p></blockquote>
+
+<p>Parecido con más florituras (todo en una sola linea)</p>
+
+<pre><code>$ awk 'BEGIN {print "nombre\tapellido\tprecio\thoras\tpago"; print  "------\t--------\t------\t-----\t----"}; {print $1"\t"$2"\t"$3"\t"$4"\t"$5 }' lista
+</code></pre>
+
+<p>Lo mismo más legible:</p>
+
+<pre><code>$ awk 'BEGIN {print "nombre\tapellido\tprecio\thoras\tpago" 
+
+&gt;                     print "------\t--------\t------\t-----\t----"} 
+
+&gt;                   {print  $1"\t"$2"\t"$3"\t"$4"\t"$5 }' lista
+</code></pre>
+
+<p>BEGIN y END son patrones especiales usados para suministrar al script awk qué hacer antes de empezar a procesar y después de haber procesado los registros de la entrada.:</p>
+
+<pre><code>$ awk 'BEGIN {print “Cuantas veces aparece la palabra banco” } 
+
+&gt;       /banco/ { ++i } 
+
+&gt;       END   {print “banco aparece “i” veces.”}' lista 
+</code></pre>
+
+<p>Los  patrones pueden combinarse mediante los operadores lógicos AND (&amp;&amp;), OR(||) y NOT(!).</p>
+
+<p>Imprimir los nombres de los empleados que ganan mas de 6.50 euros a la hora y que han trabajado mas de 14:</p>
+
+<pre><code>$ awk ' $3&gt;=6.50 &amp;&amp; $4&gt;=14 { print $1,$2 } ' lista 
+</code></pre>
+
+<p>Patrones</p>
+
+<p>buscar las lineas que contienen la cadena &#8220;banco&#8221; en el 5º campo:</p>
+
+<pre><code>$ awk ' $5 ~ /banco/ ' lista 
+</code></pre>
+
+<p>Buscar las lineas que no contengan la cadena &#8220;banco&#8221; en el 5º campo:</p>
+
+<pre><code>$ awk '  $5 !~ /banco/ ' lista
+</code></pre>
+
+<p>Mostrar los que el 4º campo no empiece por 0 o 1:</p>
+
+<pre><code>$ awk ' $4 ~ /^[^01]/' lista 
+</code></pre>
+
+<p>La salida también puede pasarse a un filtro para ordenarse:</p>
+
+<pre><code>$ awk ' { print $2 | "sort" } ' lista
+</code></pre>
+
+<p>Mostrar la linea cuyo 2º campo termina en “iz”:</p>
+
+<pre><code>$ awk '$2 ~ /iz$/' lista 
+</code></pre>
+
+<p>Mismo concepto sin especificar si la primera letra es mayúscula o minúscula y sin conocer la segunda:</p>
+
+<pre><code>$ awk '$1 ~ /^[Cc]./' lista
+</code></pre>
+
+<p>Mismo concepto incluyendo las que empiezan por “R”:</p>
+
+<pre><code>$ awk '$2 ~ /^[Cc].|^[R]/' lista 
+</code></pre>
+
+<p>“tolower” convierte el campo especificado a minúsculas:</p>
+
+<pre><code>$ awk 'tolower($1) ~ /^m/' lista     
+</code></pre>
+
+<p>Para mandar cada linea a un archivo con el nombre del 2er campo:</p>
+
+<pre><code>$ awk ' { print &gt; $2 } ' lista
+</code></pre>
+
+<p>Mandar el primer campo a un archivo y el segundo a otro:</p>
+
+<pre><code>$ awk '{ print $1 &gt; "nombres"; print $2 &gt; "apellidos" }' lista
+</code></pre>
+
+<p>Lo mismo pero mandándolo ordenado:</p>
+
+<pre><code>$ awk '{ print $1 | "sort &gt; nombres"; print $2 | "sort &gt; apellidos" }' lista 
+</code></pre>
+
+<p>Indicando caracter separador (un espacio y que imprima el 2º campo):</p>
+
+<pre><code>$ awk  -F " " ' { print $2 } ' lista 
+</code></pre>
+
+<p>Lo mismo usando BEGIN:</p>
+
+<pre><code>$ awk 'BEGIN { FS = " " } ; { print $2 }' lista
+</code></pre>
+
+<p>El siguiente  programa  muestra  como  puede usarse awk para validación de datos.</p>
+
+<blockquote><p>$ cat validar</p>
+
+<p>$3 &lt; 6.5   { print $1,$2 &#8221; ===> precio por hora bajo&#8221;, &#8220;(&#8220;$3&#8221;)&#8221; }</p>
+
+<p>$3 > 8     { print $1,$2 &#8221; ===> precio por hora alto&#8221;, &#8220;(&#8220;$3&#8221;)&#8221; }</p>
+
+<p>$5 == &#8220;banco&#8221;    { print $1,$2 &#8221; ===> Cobra por banco&#8221; }</p>
+
+<p>$5 == &#8220;metálico&#8221; { print $1,$2 &#8221; ===> Cobra en metálico&#8221; }</p></blockquote>
+
+<p>Se ejecuta con:</p>
+
+<pre><code>$ awk -f validar lista 
+</code></pre>
+
+<p>Aunque también podríamos añadir que lo ordenara por orden alfabetico del segundo campo (-k2) separado del primero por un espacio(-t” “):</p>
+
+<pre><code>$ awk -f validar lista | sort -t” “ -k2
+</code></pre>
+
+<p>Creación de scripts con awk:</p>
+
+<blockquote><p>$ cat hola</p>
+
+<p>#! /usr/bin/awk -f</p>
+
+<p># programa awk de ejemplo</p></blockquote>
+
+<p>BEGIN { print &#8220;Hola mundo cruel&#8221; }</p>
+
+<blockquote><p>$ chmod +x hola</p>
+
+<p>$ ./hola</p></blockquote>
+
+<p>Hola mundo cruel</p>
+
+<p>Es resultado es el mismo que tecleando:</p>
+
+<pre><code>$ awk -f hola 
+</code></pre>
+
+<p>Otros ejemplos:</p>
+
+<pre><code>$ awk '/d.[0-9]/{print $4}' /proc/partitions  (listar todas las particiones)
+
+$ cat 1.txt | awk '{print$1”\t”$2}'  (tabulando la salida)
+
+$ cat 1.txt | awk '!/#/{print $0}' &gt; 2.txt  (Imprime todo menos las lineas comentadas y lo manda a un archivo)
+
+$ cat 1.txt | awk 'BEGIN { FS="\n"; RS="" } { print $1 }' &gt; lista.txt (Manda a un archivo las primeras lineas precedidas de una en blanco)
+
+$ who | awk '{print $1}'  (Mostrar todos los usuarios registrados)
+
+$ awk '$1~/^DocumentRoot/{print $2}' /etc/apache2/sites-available/default (conocer la carpeta del servidor)
+
+$ awk 'BEGIN { for (i = 1; i &lt;= 7; i++) print int(101 * rand()) }' (Escribir 7 números aleatorios del 0 al 100)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/avimerge/">Avimerge</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Unir varios videos en uno</p>
+
+<blockquote><p>$ avimerge -o todos.avi -i 1.avi 2.avi 3.avi</p>
+
+<p>$ avimerge -o todos.avi -i *.avi  (todos los videos de un directorio en uno)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/avg/">Avg</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Informa de la presencia de virus. No los suprime.  (descarga: http://free.avg.com/gb-en/download.prd-alf)</p>
+
+<blockquote><p># avgctl –start (Iniciar el servicio)</p>
+
+<p># avgupdate (actualizar las definiciones de virus)</p>
+
+<p># avgscan &#8211;clean /home/usuario (escanear)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/avconv/">Avconv</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Información sobre archivos multimedia y conversión de formatos.</p>
+
+<blockquote><p>$ avconv -i video.avi video.mpeg  (Pasar de avi a mpeg)</p>
+
+<p>$ avconv -i video.avi (Información sobre un archivo)</p>
+
+<p>$ avconv -i archivo.avi -an nuevo.avi (Sacar el sonido de un avi)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/autotrace/">Autotrace</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Convierte los datos de imagen de mapa de bits en gráficos vectoriales</p>
+
+<blockquote><p>$ autotrace imagen.png &#8211;output-file imagen.svg</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/autostart/">Autostart</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Archivo de las aplicaciones que se ejecutan al inicio.</p>
+
+<blockquote><p># ls /etc/xdg/autostart/</p></blockquote>
+
+<p>Para activarlas poner:</p>
+
+<p>NoDisPlay false</p>
+
+<p>Para desactivarlas:</p>
+
+<p>NoDisplay true</p>
+
+<blockquote><p># cp /usr/share/applications/guake.desktop /etc/xdg/autostart/ (colocar una aplicación)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/autossh/">Autossh</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Similar a ssh pero reanudando la conexión en caso de corte o suspensión del trafico. Para que se realice esta reconexión, ha de tenerse la clave publica entrada en la máquina remota [ver ssh [4]]. Las opciones son las mismas que ssh.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/automater/">Automater</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>(python3-httplib2 python2.6-argparse)</p>
+
+<p>Obtener información de ips y urls inclusive si estan bloqueadas en algún blocklist. Copiar el script en python de: https://raw.github.com/1aN0rmus/TekDefense/master/Automater.py</p>
+
+<blockquote><p>$ python automater.py -t IP (De una ip)</p>
+
+<p>$ python automater.py -f ips.txt (De un listado de ips, una por linea)</p>
+
+<p>$ python automater.py -t IP -o informe.txt (Enviando el resultado a un archivo)</p></blockquote>
 </div>
   
   
@@ -237,6 +848,8 @@
     </article>
   
   <div class="pagination">
+    
+      <a class="prev" href="/blog/page/123/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -249,7 +862,7 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1213</li>
+	<li>1290</li>
 	</ul>
 </section>
 <section>
@@ -257,43 +870,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/owncloud/">owncloud</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/golismero/">golismero</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/curl/">curl</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lorem/">lorem</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/kernel/">kernel</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/yacy/">yacy</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/virtualbox/">virtualbox</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/miniflux/">miniflux</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sed/">sed</a>
+        <a href="/blog/zdiff/">zdiff</a>
       </li>
     
   </ul>

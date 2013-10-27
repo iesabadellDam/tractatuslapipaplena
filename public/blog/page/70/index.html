@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Administrador de archivos $ lfm -1 (arrancar con un solo panel) $ lfm -2 (arrancar con dos [por defecto]) $ lfm /home/usuario/Documentos /media/sda2 &hellip;">
+  <meta name="description" content="Listar archivos de un directorio. $ ls -i (Muestra todos los archivos no ocultos) $ ls -a (Muestra todos los archivos, incluso los ocultos) $ ls -l ( &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/lfm/">Lfm</a></h1>
+      <h1 class="entry-title"><a href="/blog/ls/">Ls</a></h1>
     
     
       <p class="meta">
@@ -97,22 +97,58 @@
   
 
 
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Administrador de archivos</p>
+  <div class="entry-content"><p>Listar archivos de un directorio.</p>
 
-<blockquote><p>$ lfm -1 (arrancar con un solo panel)</p>
+<blockquote><p>$ ls -i (Muestra todos los archivos no ocultos)</p>
 
-<p>$ lfm -2 (arrancar con dos [por defecto])</p>
+<p>$ ls -a (Muestra todos los archivos, incluso los ocultos)</p>
 
-<p>$ lfm /home/usuario/Documentos /media/sda2 (Abrir en cada panel un directorio)</p></blockquote>
+<p>$ ls -l (Muestra permisos, último acceso i propietarios)</p>
 
-<p>Nota.- Pulsar “q” para cerrar</p>
+<p>$ ls -1 (muestra en un listado)</p>
+
+<p>$ ls -F (Muestra a continuación de cada elemento si se trata de un directorio [/], un ejecutable [*] o un enlace [@])</p>
+
+<p>$ ls -L (En los enlaces, se muestra el archivo al que apuntan)</p>
+
+<p>$ ls -l PID (Muestra qué está corriendo con el PID especificado)</p>
+
+<p>$ ls -R    (recursivamente)</p>
+
+<p>$ ls -Z (listar visualizando los contextos en selinux [ver])</p>
+
+<p>$ ls -s    (Muestra el tamaño)</p>
+
+<p>$ ls -S (Lista por tamaño)</p>
+
+<p>$ ls ../ (Listar los archivos del directorio anterior)</p>
+
+<p>$ ls -t    (lista por fecha de modificación de más nuevo a más viejo)</p>
+
+<p>$ ls /boot /usr (Lista los dos directorios especificados)</p>
+
+<p>$ ls -ad *.sh (lista los terminados en .sh)</p>
+
+<p>$ ls *.{odt,txt} (Lista los de las extensiones mencionadas)</p>
+
+<p>$ ls -ad */ (Lista sólo los directorios)</p>
+
+<p>$ ls -alL /home/usuario/videos</p>
+
+<p>$ ls -l /lib/modules (muestra los kernels instalados)</p>
+
+<p>$ ls | xargs rm (Eliminar todos los archivos)</p>
+
+<p>$ ls @(<em>.sh|</em>.txt) (Sólo mostrará las extensiones especificadas. Precisa activación de los comodines extendidos de bash con: shopt -s extglob)</p>
+
+<p>$ ls !(<em>.sh|</em>.txt) | xargs rm (Elimina todos menos los mencionados)</p></blockquote>
 </div>
   
   
@@ -125,7 +161,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/let/">Let</a></h1>
+      <h1 class="entry-title"><a href="/blog/lp/">Lp</a></h1>
     
     
       <p class="meta">
@@ -141,55 +177,68 @@
   
 
 
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Permite asignar el resultado de una expresión aritmética a una variable.</p>
+  <div class="entry-content"><p>Gestión de impresoras y trabajos de impresión.</p>
 
-<blockquote><p>$ let a=4*3; echo $a</p></blockquote>
+<blockquote><p>$ lp fichero (imprime fichero con la impresora predeterminada)</p>
 
-<p>Ejemplo en un script:</p>
+<p>$ lp -d otra_impresora fichero (Imprime con una impresora especificada)</p>
 
-<pre><code>#!/bin/bash 
+<p>$ lsattr -R /home/usuario   (recursivamente)</p>
 
-read -p "Dime dos número del 1 al 100: " NUM1 NUM2 
+<p>$ lsattr (Muestra los atributos de los ficheros [no los permisos])</p>
 
-let SUMA=$NUM1+$NUM2 
+<p>$ lsattr -a /home/usuario   (incluye a todos los archivos de los directorios)</p>
 
-echo "La suma de $NUM1 + $NUM2 es $SUMA"
-</code></pre>
+<p>$ lpq           (muestra los trabajos pendientes y les asigna un número)</p>
 
-<p>let permite utilizar asignaciones:</p>
+<p>$ lprm 5      (borra el trabajo pendiente de impresión especificado [5])</p>
 
-<pre><code>incremento += 
+<p>$ lpstat -p -d (muestra la impresora predeterminada)</p>
 
-decremento -= 
+<p>$ lpstat -a           (muestra todas las impresoras)</p>
 
-mutiplicar por *= 
+<p>$ lpstat -v           (indicando ubicación)</p>
 
-dividir por /= 
+<p>$ lp -n 10 fichero   (imprimirá 10 copias [opciones de 1 a 100])</p>
 
-modulo por %= 
+<p>$ lp -P 7,9,12-15 fichero (imprime las páginas indicadas y de la 12 a la 15)</p>
 
-incremento en 1 ++ 
+<p>$ lp -o media=A4 fichero (especificando tipo de papel o sobre)</p></blockquote>
 
-decremento en 1 -- 
-</code></pre>
+<p>Opciones “media”:</p>
 
-<p>Ejemplo:</p>
+<p>Letter – US Letter (216x279mm).</p>
 
-<pre><code>#!/bin/bash
+<p>Legal – US Legal (216x356mm).</p>
 
-let x=1
+<p>A4 – ISO A4 (210x297mm).</p>
 
-let x+=1
+<p>COM10 – US 10 Envelope (241x105mm).</p>
 
-echo $x
-</code></pre>
+<p>DL – ISO DL Envelope (220x110mm).</p>
+
+<blockquote><p>$ lp -o media=Custom.ANCHOxLARGOmm fichero (con un papel de medida indicada)</p>
+
+<p>$ lp -o landscape fichero (rotar 90º la impresión. Imprimir apaisado)</p>
+
+<p>$ lp -o orientation-requested=4 fichero (lo mismo que el anterior)</p></blockquote>
+
+<p>1.-</p>
+
+<p>Cuando al intentar imprimir sale el mensaje: Error - Scheduler Not Responding:</p>
+
+<blockquote><p>$ nano .bashrc</p></blockquote>
+
+<p>Y añadir la linea:</p>
+
+<p>export CUPS_SERVER=localhost</p>
 </div>
   
   
@@ -202,7 +251,7 @@ echo $x
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/less/">Less</a></h1>
+      <h1 class="entry-title"><a href="/blog/lost-plus-found/">Lost+found</a></h1>
     
     
       <p class="meta">
@@ -218,47 +267,14 @@ echo $x
   
 
 
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Pagina la visualización de un fichero.</p>
-
-<blockquote><p>$ cat /etc/apt/sources.list | less</p>
-
-<p>$ less fichero</p></blockquote>
-
-<p>Atajos:</p>
-
-<pre><code>espacio (Avanzar un número de líneas igual al número de líneas de la pantalla) 
-
-enter (Avanzar de línea en línea) 
-
-y (Retroceder una línea) 
-
-G (Ir al final del texto) 
-
-g (Ir al inicio del texto) 
-
-/ (Ingresar palabra a ser buscada de la página actual al final del texto) 
-
-? (Ingresar palabra a ser buscada de la página actual al inicio del texto) 
-
-n (Ir a la siguiente coincidencia de búsqueda) 
-
-AvPág (Avanzar una pantalla de texto) 
-
-RePág (Retroceder una pantalla de texto) 
-
-v (Abrir lo que se visualiza con el editor. Por defecto vi) 
-
-h (Ayuda) 
-
-q (Salir del programa) 
-</code></pre>
+  <div class="entry-content"><p>Carpeta donde el sistema almacena archivos marcados como dañados después de una comprobación de disco realizada con el comando fsck.</p>
 </div>
   
   
@@ -271,7 +287,7 @@ q (Salir del programa)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/leafpad/">Leafpad</a></h1>
+      <h1 class="entry-title"><a href="/blog/lorem/">Lorem</a></h1>
     
     
       <p class="meta">
@@ -287,74 +303,22 @@ q (Salir del programa)
   
 
 
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Editor tipo gedit.</p>
+  <div class="entry-content"><p>[libtext-lorem-perl]</p>
 
-<p>Configuración de parámetros:</p>
+<p>Crear textos aleatorios a partir del famoso lorem ipsum.</p>
 
-<blockquote><p>$ nano .config/leafpad/leafpadrc</p></blockquote>
+<blockquote><p>$ lorem -p 4 (Generar 4 párrafos)</p>
 
-<pre><code>0.8.18.1 
+<p>$ lorem -w 10 (Generar 10 palabras)</p>
 
-1215 (Ancho) 
-
-363 (Alto) 
-
-Monospace 12 (Fuente y medida) 
-
-1 (Ajustar / desajustar lineas al ancho de la ventana [0 o 1]) 
-
-0 (Mostrar / esconder número de linea [0 o 1]) 
-
-0 
-</code></pre>
-
-<p>Atajos:</p>
-
-<pre><code>Ctrl-n (Documento nuevo) 
-
-Ctrl-o (Abrir) 
-
-Ctrl-s (Guardar) 
-
-Shift-Ctrl-s (Guardar como) 
-
-Ctrl-w (Cerrar documento) 
-
-Ctrl-p (Imprimir) 
-
-Ctrl-q (Salir) 
-
-Ctrl-z (Borrar última palabra escrita) 
-
-Ctrl-y (Deshacer "borrar última palabra") 
-
-Ctrl-x (Cortar) 
-
-Ctrl-c (Copiar) 
-
-Ctrl-v (Pegar) 
-
-Ctrl-a (Seleccionar todo el texto) 
-
-Ctrl-f (Buscar en el texto) 
-
-Ctrl-g [F3] (Siguiente busqueda) 
-
-Shift-Ctrl-g [Shift-F3] (Busqueda anterior) 
-
-Ctrl-h [Ctrl-R] (Reemplazar palabras del texto por otras) 
-
-Ctrl-j (Saltar a la linea...) 
-
-Ctrl-t (Siempre en primer plano) 
-</code></pre>
+<p>$ lorem -s 2 (Generar 2 sentencias)</p></blockquote>
 </div>
   
   
@@ -367,7 +331,7 @@ Ctrl-t (Siempre en primer plano)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ldd/">Ldd</a></h1>
+      <h1 class="entry-title"><a href="/blog/look/">Look</a></h1>
     
     
       <p class="meta">
@@ -383,16 +347,16 @@ Ctrl-t (Siempre en primer plano)
   
 
 
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Para conocer las librerias compartidas que usa una aplicación.</p>
+  <div class="entry-content"><p>Muestra entradas del diccionario que comienzan por esa palabra [/usr/share/dict/words]</p>
 
-<blockquote><p>$ ldd /usr/bin/amarok</p></blockquote>
+<blockquote><p>$ look palabra</p></blockquote>
 </div>
   
   
@@ -405,7 +369,7 @@ Ctrl-t (Siempre en primer plano)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/lckdo/">Lckdo</a></h1>
+      <h1 class="entry-title"><a href="/blog/logsave/">Logsave</a></h1>
     
     
       <p class="meta">
@@ -421,16 +385,16 @@ Ctrl-t (Siempre en primer plano)
   
 
 
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[moreutils]</p>
+  <div class="entry-content"><p>Guardar la salida de una orden en un archivo de registro.</p>
 
-<p>Bloquea la ejecución de un programa con el fin de evitar que otros procesos se ejecuten en paralelo. Se utiliza como nice [ver] y nohup [ver]</p>
+<blockquote><p>$ logsave -a file.log ifconfig (Añadiendo la salida al contenido existente)</p></blockquote>
 </div>
   
   
@@ -443,7 +407,7 @@ Ctrl-t (Siempre en primer plano)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/lazygal/">Lazygal</a></h1>
+      <h1 class="entry-title"><a href="/blog/logrotate/">Logrotate</a></h1>
     
     
       <p class="meta">
@@ -459,18 +423,18 @@ Ctrl-t (Siempre en primer plano)
   
 
 
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Generar una galería web.</p>
+  <div class="entry-content"><p>Rotación, compresión y correos del sistema de logs.</p>
 
-<blockquote><p>$ lazygal directorio_con_las_imagenes  (Creará todos los archivos en el presente directorio por lo que es preferible estar en un directorio vacio)</p>
+<blockquote><p># logrotate -d /etc/logrotate.conf (Verificación del correcto funcionamiento)</p>
 
-<p>$ lazygal -o /var/www/ /home/usuario/fotos (Lo creará en la carpeta web a partir del directorio fotos)</p></blockquote>
+<p># logrotate -f /etc/logrotate.conf  (forzar la verificación)</p></blockquote>
 </div>
   
   
@@ -483,7 +447,7 @@ Ctrl-t (Siempre en primer plano)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/lastlog/">Lastlog</a></h1>
+      <h1 class="entry-title"><a href="/blog/logout/">Logout</a></h1>
     
     
       <p class="meta">
@@ -499,16 +463,16 @@ Ctrl-t (Siempre en primer plano)
   
 
 
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Ver el momento exacto que los usuarios han entrado por última vez</p>
+  <div class="entry-content"><p>Cerrar sesión de usuario. En las ttys, las cerrará para volver a entrar el login.</p>
 
-<blockquote><p>$ lastlog -u usuario  (solo ver a &#8220;usuario&#8221;)</p></blockquote>
+<blockquote><p>$ logout</p></blockquote>
 </div>
   
   
@@ -521,7 +485,7 @@ Ctrl-t (Siempre en primer plano)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/lastcomm/">Lastcomm</a></h1>
+      <h1 class="entry-title"><a href="/blog/logname/">Logname</a></h1>
     
     
       <p class="meta">
@@ -537,16 +501,14 @@ Ctrl-t (Siempre en primer plano)
   
 
 
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra información acerca de comandos ejecutados y terminales abiertas.</p>
-
-<blockquote><p>$ lastcomm tmux tty1 (sólo muestra los epecificados)</p></blockquote>
+  <div class="entry-content"><p>Devuelve el nombre del usuario actual</p>
 </div>
   
   
@@ -559,7 +521,7 @@ Ctrl-t (Siempre en primer plano)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/lastb/">Lastb</a></h1>
+      <h1 class="entry-title"><a href="/blog/login/">Login</a></h1>
     
     
       <p class="meta">
@@ -575,16 +537,16 @@ Ctrl-t (Siempre en primer plano)
   
 
 
-<time datetime="2013-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra los intentos de conexión fallidos (/var/log/btmp)</p>
+  <div class="entry-content"><p>Solicitar la contraseña de usuario.</p>
 
-<blockquote><p># lastb   -20 (Muestra los últimos 20 intentos fallidos en logearse)</p></blockquote>
+<blockquote><p>$ login -f  usuario (Inicia nueva sesión dentro de la actual)</p></blockquote>
 </div>
   
   
@@ -607,7 +569,7 @@ Ctrl-t (Siempre en primer plano)
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1213</li>
+	<li>1290</li>
 	</ul>
 </section>
 <section>
@@ -615,43 +577,43 @@ Ctrl-t (Siempre en primer plano)
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/owncloud/">owncloud</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/golismero/">golismero</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/curl/">curl</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lorem/">lorem</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/kernel/">kernel</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/yacy/">yacy</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/virtualbox/">virtualbox</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/miniflux/">miniflux</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sed/">sed</a>
+        <a href="/blog/zdiff/">zdiff</a>
       </li>
     
   </ul>

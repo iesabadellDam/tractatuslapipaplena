@@ -1,0 +1,83 @@
+---
+layout: post
+title: "kernel"
+date: 2013-10-27 13:53
+comments: true
+categories: 
+---
+1.-
+
+Suprimir kernels antiguos
+
+>\# uname -r   (para conocer el último) 
+
+>\# dpkg --get-selections | egrep linux-image 
+
+linux-image-2.6.17-11-generic install 
+
+linux-image-2.6.20-15-generic install 
+
+linux-image-2.6.20-16-generic install 
+
+Dejar el actual y suprimir los otros: 
+
+>\# apt-get remove --purge linux-image-2.6.17-11-generic 
+
+2.-
+
+Instalar nuevo kernel:
+
+Para el ejemplo descargaremos el kernel 3.3.6 para la versión de ubuntu 12.04 [http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.3.6-precise/] para la arquitectura amd64. De los varios archivos que encontramos en la página, para lo que nos ocupa, solo interesan los linux-headers y linux-image. 
+
+>$ wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.3.6-precise/linux-headers-3.3.6-030306_3.3.6-030306.201205121335_all.deb 
+
+>$ wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.3.6-precise/linux-headers-3.3.6-030306-generic_3.3.6-030306.201205121335_amd64.deb 
+
+>$ wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.3.6-precise/linux-image-3.3.6-030306-generic_3.3.6-030306.201205121335_amd64.deb 
+
+La instalación se realiza en el mismo orden de descarga: 
+
+>\# gdebi linux-headers-3.3.6-030306_3.3.6-030306.201205121335_all.deb 
+
+>\# gedbi linux-headers-3.3.6-030306-generic_3.3.6-030306.201205121335_amd64.deb 
+
+>\# gedbi linux-image-3.3.6-030306-generic_3.3.6-030306.201205121335_amd64.deb 
+
+Después de la instalación del kernel, instalar los drivers privativos tipo nvidia o ati. Y actualizar grub: 
+
+>\# update-grub
+
+3.-
+
+[libncurses5 libncurses5-dev]
+
+Compilar el kernel desde el codigo fuente. Puede ser util para habilitar soporte para algun nuevo periferico no soportado por el kernel por defecto. Escoger la ultima version del nucleo estable de kernel.org. Para el ejemplo usaremos la 3.9.11.
+
+>\# cd /usr/src
+
+>\# wget https://www.kernel.org/pub/linux/kernel/v3.x/linux-3.9.11.tar.gz
+
+>\# tar -zxvf linux-3.9.11.tar.gz
+
+>\# cd linux-3.9.11
+
+>\# make menuconfig/
+
+Mostrara las opciones de configuracion por defecto que podran ser modificadas para nuestra maquina especifica. Una vez terminado, "guardar" como .config
+
+>\# make (Compilar)
+
+>\# make modules_install (Instalar los modulos)
+
+>\# make install (Instalar el nuevo kernel en el sistema)
+
+La instalacion ya modifica el grub.cfg para que el sistema arranque con el nuevo kernel. Si este da problemas puede escogerse para el arranque el antiguo que constara en el menu de Grub. Puede verificarse el nuevo kernel con:
+
+>$ uname -r
+
+4.-
+
+Borrar kernels antiguos de forma automática:
+
+	# apt-get purge $(dpkg -l 'linux-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/\(.*\)-\([^0-9]\+\)/\1/")"'/d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/;/[0-9]/!d' | head -n -1) --assume-yes 
+

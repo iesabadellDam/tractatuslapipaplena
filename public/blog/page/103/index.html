@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Instalar aplicaciones a partir del codigo fuente . En general, los pasos a seguir son los siguientes: Descargar el código fuente. Descomprimir. cd al &hellip;">
+  <meta name="description" content="Para que el ordenador guarde en cache las páginas visitadas y no vuelva a resolver las ips con el servidor DNS: # gedit /etc/resolv.conf &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/compilar/">Compilar</a></h1>
+      <h1 class="entry-title"><a href="/blog/dnsmasq/">Dnsmasq</a></h1>
     
     
       <p class="meta">
@@ -97,266 +97,256 @@
   
 
 
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Instalar aplicaciones a partir del codigo fuente . En general, los pasos a seguir son los siguientes:</p>
+  <div class="entry-content"><p>Para que el ordenador guarde en cache las páginas visitadas y no vuelva a resolver las ips con el servidor DNS:</p>
 
-<p>Descargar el código fuente.</p>
+<blockquote><p># gedit /etc/resolv.conf</p></blockquote>
 
-<p>Descomprimir.</p>
+<p>Independientemente de que existan más lineas indicando otras ips, añadir la siguiente:</p>
 
-<p>cd al directorio creado.</p>
+<p>nameserver 127.0.0.1</p>
 
-<blockquote><p>$ ./configure (comprueba las características del sistema, las dependencias y crea el makefile).</p>
+<p>Y para distribuir la carga entre varios servidores, añadir la linea:</p>
 
-<p>$ ./configure &#8211;prefix=/home/USUARIO/apps (instalar la aplicacion en $HOME)</p>
+<p>options timeout:1 rotate attempts:1</p>
 
-<p>$ make (se encarga de la compilación).</p>
+<p>Comprobar el correcto funcionamiento:</p>
 
-<p># make install (instala la aplicación en el sistema)</p></blockquote>
+<blockquote><p>$ dig tuxapuntes.com | grep Query</p></blockquote>
 
-<p>o mejor aún:</p>
+<p>;; Query time: 369 msec</p>
 
-<blockquote><p># checkinstall (crea un paquete .deb de forma que no haya que compilarlo la próxima vez).</p></blockquote>
+<p>Volver a lanzar dig:</p>
 
-<p>Con checkinstall constarán en el sistema los programas instalados, facilitando su desinstalación.</p>
+<blockquote><p>$ dig tuxapuntes.com | grep Query</p></blockquote>
 
-<p>Para el configure existen varios opciones. Algunas son:</p>
+<p>;; Query time: 0 msec</p>
 
-<pre><code>--prefix=/usr  (donde inslalar el programa) 
+<p>Si nuestra IP es dinámica, NetworkManager nos modificará cada cierto tiempo el archivo /etc/resolv.conf, para substituir el creado automaticamente por el nuestro:</p>
 
---syscinfdir=/etc  (donde colocar los archivos de configuración) 
+<blockquote><p># cp /etc/resolv.conf /etc/resolv.conf.local (Asegurándonos que este último tiene la linea “nameserver 127.0.0.1”)</p>
 
---locatestatedir=/var/lib  (donde colocar las librerías) 
+<p># crontab -e</p></blockquote>
+
+<p>*/3 * * * * cp /etc/resolv.conf.local /etc/resolv.conf (actualizar cada 3 minutos)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/dnsmap/">Dnsmap</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Herramienta que, mediante fuerza bruta, permite obtener los subdominios de un dominio.</p>
+
+<blockquote><p>$ dnsmap url (forma básica)</p>
+
+<p>$ dnsmap url -w words.txt -r resultado.txt (Usando un diccionario [w] y derivando el resultado a un fichero [r])</p></blockquote>
+
+<p>Nota.- Descarga de diccionarios en <a href="http://packetstormsecurity.org/Crackers/wordlists/dictionaries/">http://packetstormsecurity.org/Crackers/wordlists/dictionaries/</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/dnsdomainname/">Dnsdomainname</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Muestra el nombre del dominio DNS del sistema.</p>
+
+<blockquote><p>$ dnsdomainname</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/dnscrypt/">Dnscrypt</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Cifrar el tráfico DNS.</p>
+
+<blockquote><p>$ wget https://github.com/downloads/opendns/dnscrypt-proxy/dnscrypt-proxy-1.2.0.tar.gz</p>
+
+<p>$ tar xvvf dnscrypt-proxy-1.2.0.tar.gz</p>
+
+<p>$ cd dnscrypt-proxy-1.2.0/</p>
+
+<p>$ ./configure</p>
+
+<p>$ make</p>
+
+<p># make install</p>
+
+<p># dnscrypt-proxy &#8211;daemonize (Arrancar el demonio)</p></blockquote>
+
+<p>Modificar las DNSs en:</p>
+
+<blockquote><p># nano /etc/resolv.conf</p></blockquote>
+
+<p>Colocar:</p>
+
+<p>nameserver 127.0.0.1</p>
+
+<p>Nota.- Comentar las existentes.</p>
+
+<p>Para evitar que network-manager sobreescriba el archivo resolv.conf, bloquear el fichero:</p>
+
+<blockquote><p># chattr +i /etc/resolv.conf (Para desbloquearlo -i)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/dns/">Dns</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>El servidor DNS traduce los numeros ip a nombres inteligibles para los seres humanos. Estos servicios estan vinculados a los ISP, es decir, a nuestros proveedores de acceso a Internet. Sin embargo estas ips pueden ser modificadas para conseguir mejores rendimientos o por manias personales con algunas opciones mas libres o profesionales. La manera de saber si el servidor DNS responde correctamente es hacer un ping consistente en enviar una pequeña cantidad de información al servidor y medir la velocidad en milisegundos de la respuesta. Valores inferiores a 70 ms (Al final de la linea [time=62.9 ms]) son razonables:</p>
+
+<blockquote><p>$ ping -c 3 8.8.8.8</p></blockquote>
+
+<p>Algunas opciones a las ofrecidas por nuestras ISP:</p>
+
+<pre><code>Google -&gt; 8.8.8.8,  8.8.4.4
+
+OpenDNS -&gt; 208.67.222.222, 208.67.220.220
+
+Level3 -&gt; 4.2.2.1, 4.2.2.2, 4.2.2.3, 4.2.2.4, 4.2.2.5 y 4.2.2.6
+
+Dyn -&gt; 216.146.35.35, 216.146.36.36
+
+DNSadvantage -&gt; 156.154.70.1, 156.154.71.1
 </code></pre>
 
-<p>Uso:</p>
+<p>Ona vez escogidas las DNSs:</p>
 
-<blockquote><p># ./configure &#8211;syscinfdir=/etc &#8211;prefix=/usr &#8211;locatestatedir=/var/lib</p></blockquote>
-</div>
-  
-  
+<blockquote><p># nano /etc/resolv.conf</p></blockquote>
 
+<p>Colocar:</p>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/compgen/">Compgen</a></h1>
-    
-    
-      <p class="meta">
-        
+<pre><code>nameserver 4.2.2.1
 
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Comando para listar comandos disponibles.</p>
-
-<blockquote><p>$ compgen -c (Lista comando)</p>
-
-<p>$ compgen -a (Lista los alias)</p>
-
-<p>$ compgen -b (lista los comandos internos de bash)</p>
-
-<p>$ compgen -k (lista palabras reservadas)</p>
-
-<p>$ compgen -A function (lista las funciones)</p>
-
-<p>$ compgen -ac | grep ifconfig (Para conocer si un comando existe)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/comodines/">Comodines</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Ver “signos y comodines”</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/command/">Command</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Cuando introducimos un comando en Bash el orden de preferencia en la búsqueda del símbolo por parte de Bash es: Primero las funciones, luego los comandos internos y por último los ficheros de scripts y ejecutables. command hace que no se busquen alias ni nombres de funciones, sólo co-</p>
-
-<p>mandos internos y comandos de fichero. Si tenemos una función llamada ls() y queremos que se ejecute el comando ls y no la función:</p>
-
-<blockquote><p>$ command ls</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/comm/">Comm</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Comparación de dos ficheros. Muestra tres columnas, en la primera están las lineas que solo estan en el primer archivo, el la segunda los que solo están en el segundo y la tercera los comunes.</p>
-
-<blockquote><p>$ comm archivo1 archivo2</p>
-
-<p>$ comm -12 archivo 1 archivo2 (Elimina las columnas 1 y 2. Solo muestra la 3, o sea las lineas comunes</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/comillas/">Comillas</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>. Simples (El contenido no es interpretado por el shell. Se suele usar para indica caracteres literales)</p>
-
-<pre><code>$ echo 'a'
-
-a
+nameserver 4.2.2.2
 </code></pre>
 
-<p>. Dobles (Agrupa una cadena de caracteres o string. Se suelen usar para almacenar datos en una variable)</p>
+<p>Nota.- Comentar o borrar las existentes.</p>
 
-<pre><code>a="Linux es un sistema genial"
-</code></pre>
+<p>Para evitar que network-manager sobreescriba el archivo resolv.conf, bloquear el fichero:</p>
 
-<p>. Invertidas (Evaluan el contenido y el resultado se devuelve como variable)</p>
-
-<pre><code>$ fecha=`date`
-
-echo $fecha
-
-dg mar 17 20:53:17 CET 2013
-</code></pre>
+<blockquote><p># chattr +i /etc/resolv.conf (Para desbloquearlo -i)</p></blockquote>
 </div>
   
   
@@ -369,7 +359,7 @@ dg mar 17 20:53:17 CET 2013
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/combine/">Combine</a></h1>
+      <h1 class="entry-title"><a href="/blog/dmrc/">Dmrc</a></h1>
     
     
       <p class="meta">
@@ -385,24 +375,22 @@ dg mar 17 20:53:17 CET 2013
   
 
 
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[moreutils]</p>
+  <div class="entry-content"><p>En algunas ocasiones al iniciar ubuntu aparece la siguiente nota:</p>
 
-<p>Cuatro formas de combinar dos archivos.</p>
+<p>su archivo $HOME/.dmrc no tiene los permisos adecuados y sera ignorado. Esto causara que la sesion e idioma predeterminado no se guarden. El archivo deberia pertener al usuario y tener los permisos 644</p>
 
-<blockquote><p>$ combine archivo1 and archivo2 (Las lineas que están en los dos archivos)</p>
+<p>Para solucionarlo:</p>
 
-<p>$ combine archivo1 not archivo2 (Las que estan en archivo1 pero no en archivo2)</p>
+<blockquote><p># chmod 700 /home/usuario</p>
 
-<p>$ combine archivo1 or archivo2 (Las que están en archivo1 o archivo2)</p>
-
-<p>$ combine archivo1 xor archivo2 (Las que se encuentran en cualquiera de los dos pero no en ambos)</p></blockquote>
+<p># chmod 644 /home/usuario/.dmrc</p></blockquote>
 </div>
   
   
@@ -415,7 +403,7 @@ dg mar 17 20:53:17 CET 2013
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/column/">Column</a></h1>
+      <h1 class="entry-title"><a href="/blog/dmidecode/">Dmidecode</a></h1>
     
     
       <p class="meta">
@@ -431,18 +419,36 @@ dg mar 17 20:53:17 CET 2013
   
 
 
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra los resultados ordenados por clumnas.</p>
+  <div class="entry-content"><p>Muestra toda la información de la máquina directamente de la BIOS</p>
 
-<blockquote><p>$ column -tns: /etc/passwd (con los dos puntos como separador)</p>
+<blockquote><p># dmidecode -t (muestra los elementos sobre los que se puede solicitar)</p>
 
-<p>$ mount | column -t</p></blockquote>
+<p># dmidecode -s (Muestra el listado para afinar más la busqueda de datos)</p>
+
+<p># dmidecode -t memory | grep Size (muestra la memoria y los slots libres)</p>
+
+<p># dmidecode -t processor | grep &#8220;Core Count&#8221;  (número de “cores” reales)</p>
+
+<p># dmidecode | grep &#8220;Current Speed&#8221;  (muestra la frecuencia de la RAM)</p>
+
+<p># dmidecode -t 0  (información sobre la BIOS)</p>
+
+<p># dmidecode -t 1  (informacion del fabricante: núm serie, producto&#8230;)</p>
+
+<p># dmidecode -t 2 (información sobre la placa base)</p>
+
+<p># dmidecode -t 4  (información sobre la CPU)</p>
+
+<p># dmidecode &#8211;type=processor | grep -i -A 1 charac (si el procesador es de 32 o 64 bit)</p>
+
+<p># dmidecode -t memory | grep Maxi | grep Capa (máximo  de memoria soportada)</p></blockquote>
 </div>
   
   
@@ -455,7 +461,7 @@ dg mar 17 20:53:17 CET 2013
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/colored-dmesg/">Colored_dmesg</a></h1>
+      <h1 class="entry-title"><a href="/blog/dmesg/">Dmesg</a></h1>
     
     
       <p class="meta">
@@ -471,16 +477,20 @@ dg mar 17 20:53:17 CET 2013
   
 
 
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Como dmesg pero coloreado.</p>
+  <div class="entry-content"><p>Imprimir en pantalla los mensajes del kernel</p>
 
-<blockquote><p>$ clored_dmesg</p></blockquote>
+<blockquote><p>$ dmesg | grep -i &#8216;error&#8217;   (lista los errores del kernel)</p>
+
+<p>$ dmesg | grep hd           (inf sobre dispositivos IDE.)</p>
+
+<p>$ dmesg -c  (Limpiar el registro)</p></blockquote>
 </div>
   
   
@@ -493,7 +503,7 @@ dg mar 17 20:53:17 CET 2013
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/colordiff/">Colordiff</a></h1>
+      <h1 class="entry-title"><a href="/blog/djvusmooth/">Djvusmooth</a></h1>
     
     
       <p class="meta">
@@ -509,16 +519,54 @@ dg mar 17 20:53:17 CET 2013
   
 
 
-<time datetime="2013-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra las diferencias entre dos ficheros de forma coloreada.</p>
+  <div class="entry-content"><p>Visor y manipulador gráfico de documentos djvu.</p>
 
-<blockquote><p>$ colordiff -y archivo1 archivo2  (en dos columnas)</p></blockquote>
+<blockquote><p>$ djvusmooth archivo.djvu</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/djvudump/">Djvudump</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Mostrar la estructura interna de los archivos DjVu.</p>
+
+<blockquote><p>$ djvudump archivo.djvu</p></blockquote>
 </div>
   
   
@@ -541,7 +589,7 @@ dg mar 17 20:53:17 CET 2013
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1213</li>
+	<li>1290</li>
 	</ul>
 </section>
 <section>
@@ -549,43 +597,43 @@ dg mar 17 20:53:17 CET 2013
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/owncloud/">owncloud</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/golismero/">golismero</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/curl/">curl</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lorem/">lorem</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/kernel/">kernel</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/yacy/">yacy</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/virtualbox/">virtualbox</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/miniflux/">miniflux</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sed/">sed</a>
+        <a href="/blog/zdiff/">zdiff</a>
       </li>
     
   </ul>

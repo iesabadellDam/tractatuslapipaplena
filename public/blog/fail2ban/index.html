@@ -94,7 +94,7 @@
   
 
 
-<time datetime="2013-07-26T21:05:00+02:00" pubdate data-updated="true">26-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
         
       </p>
     
@@ -173,6 +173,74 @@ bantime = -1
 </code></pre>
 
 <p>Nota.- el bantime = -1 indica bloquear permanentemente.</p>
+
+<p>2.-</p>
+
+<p>Algunos ajustes de jail.conf para el caso de usar nginx y no apache:</p>
+
+<blockquote><p># nano /etc/fail2ban/jail.conf</p></blockquote>
+
+<p>Prevenir ataques de inyeccion de codigo</p>
+
+<pre><code>[php-url-fopen]
+
+enabled = true
+
+port    = http,https
+
+filter  = php-url-fopen
+
+logpath = /var/log/nginx/access_log
+
+maxretry = 1
+</code></pre>
+
+<p>Bloquea por iptables un día a los hosts que se conectan haciendo  uso de un &#8220;User Agent&#8221; sospechoso</p>
+
+<pre><code>[nginx-badbots]
+
+enabled  = true
+
+filter = apache-badbots
+
+action = iptables-multiport[name=BadBots, port="http,https"]
+
+logpath = /var/log/nginx*/*access*.log
+
+bantime = 86400
+
+maxretry = 1
+</code></pre>
+
+<p>Solicitar 240 páginas en 1 minuto o 4 paginas segundo, bloqueo por dos dias</p>
+
+<pre><code>[nginx-dos]
+
+enabled = true
+
+port    = http,8090
+
+filter  = nginx-dos
+
+logpath = /var/log/nginx/access.log
+
+findtime = 60
+
+bantime  = 172800
+
+maxretry = 240
+</code></pre>
+
+<p>Fallar la autentificación en el servidor web, blloqueo por 10 minutos</p>
+
+<pre><code>[nginx-auth]
+
+enabled = true
+
+port = http
+
+filter = nginx-auth
+</code></pre>
 </div>
 
 
@@ -195,7 +263,7 @@ bantime = -1
   
 
 
-<time datetime="2013-07-26T21:05:00+02:00" pubdate data-updated="true">26-07-2013</time>
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
       
 
 
@@ -212,7 +280,7 @@ bantime = -1
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/pngquant/" title="Previous Post: pngquant">&laquo; pngquant</a>
+        <a class="basic-alignment left" href="/blog/factor/" title="Previous Post: factor">&laquo; factor</a>
       
       
         <a class="basic-alignment right" href="/blog/faillog/" title="Next Post: faillog">faillog &raquo;</a>
@@ -228,7 +296,7 @@ bantime = -1
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1213</li>
+	<li>1290</li>
 	</ul>
 </section>
 <section>
@@ -236,43 +304,43 @@ bantime = -1
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/owncloud/">owncloud</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/golismero/">golismero</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/curl/">curl</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lorem/">lorem</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/kernel/">kernel</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/yacy/">yacy</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/virtualbox/">virtualbox</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/miniflux/">miniflux</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sed/">sed</a>
+        <a href="/blog/zdiff/">zdiff</a>
       </li>
     
   </ul>
