@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Gestión de permisos de los ficheros y directorios. $ chmod ugo+rwx -R /home/usuario/directorio (todos los permisos a todos los usuarios sobre el &hellip;">
+  <meta name="description" content="Situarte virtualmente donde le indicas como raiz # chroot /media/sda3 Nota.- En algunas ocaciones es necesario montar algunos sitemas de ficheros en &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,276 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/chroot/">Chroot</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Situarte virtualmente donde le indicas como raiz</p>
+
+<blockquote><p># chroot /media/sda3</p></blockquote>
+
+<p>Nota.- En algunas ocaciones es necesario montar algunos sitemas de ficheros en la particion &#8220;chrootada&#8221;. Debes hacer estos pasos antes de hacer chroot:</p>
+
+<blockquote><p># mount -o bind /dev/ /media/sda3/dev/</p>
+
+<p># mount -o bind /sys/ /media/sda3/sys/</p>
+
+<p># mount -o bind /proc/ /media/sda3/proc/</p></blockquote>
+
+<p>Si no se establece conexión:</p>
+
+<blockquote><p># nano /etc/resolv.conf</p></blockquote>
+
+<p>Y colocar:   nameserver 8.8.8.8</p>
+
+<p>O en su defecto la ip del router [nameserver 192.168.1.1]</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/chronic/">Chronic</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[moreutils]</p>
+
+<p>Mostrará el error por la salida estándar si el comando falla, tiene salida nula o se bloquea. Si el comando se ejecuta correctamente se ocultará cualquier salida.</p>
+
+<blockquote><p>$ chronic ls (No mostrará nada porque el comando ls se ejecuta correctamente)</p>
+
+<p>$ chronic lx (Mostrará el error)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/chromium/">Chromium</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Navegador web. El perfil por defecto está en /home/usuario/.config/chromium, para crear nuevos perfiles [El inicio del parámetro son 2 guiones]:</p>
+
+<blockquote><p>$ mkdir /home/usuario/.config/chromium-dos</p>
+
+<p>$ chromium &#8211;user-data-dir=/home/usuario/.config/chromium-dos</p>
+
+<p>$ chromium &#8211;proxy-server=&#8221;socks://localhost:9050&#8221; (Arrancar la aplicación a través de un proxy)</p>
+
+<p>$ chromium &#8211;incognito (Arrancar en modo privado. Para incluir por defecto este modo en las propiedades del navegador: chromium &#8211;incognito %U)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/chpasswd/">Chpasswd</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Establecer contraseñas para usuarios de un sistema</p>
+
+<blockquote><p># echo &#8220;usuario:1234&#8221; | chpasswd -m (Que la guarde en /etc/shadow en formato md5)</p>
+
+<p># chpasswd   (Esperará la introducción de datos que consistiran en pares de nombre_de_usuario:contraseña, un par por línea. Con ctrl+D finaliza:</p></blockquote>
+
+<p>usuario1:passwd1</p>
+
+<p>usuario2:passwd2</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/chown/">Chown</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Cambio de propietario de un archivo o directorio.</p>
+
+<blockquote><p># chown usuario archivo</p>
+
+<p># chown -R usuario directorio (afecta al directorio y todos los subdirectorios)</p>
+
+<p># chown -R usuario:grupo directorio</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/chntpw/">Chntpw</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Quitar o modificar contraseñas en sistemas windows.</p>
+
+<blockquote><p># cd /media/sdXX/WINDOWS/system32/config  (Entrar en el directorio)</p>
+
+<p># chntpw SAM (quitar o modificar la contraseña del administrador)</p>
+
+<p># chntpw -u USUARIO SAM  (quitar o modificar la contraseña de un usuario concreto)</p></blockquote>
+
+<p>Aparece un menú de 5 opciones. Borrar contraseña es la opción 1 modificarla la 2.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -284,260 +554,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/chgrp/">Chgrp</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Cambia el grupo al que pertenece un archivo.</p>
-
-<blockquote><p>$ chgrp grupo archivo</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/chfn/">Chfn</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>modifica la información personal del usuario (nombre, domicilio, teléfono….)</p>
-
-<blockquote><p>$ chfn usuario (permite modificar todos los datos del usuario)</p></blockquote>
-
-<p>Opciones</p>
-
-<p>-f nombre_completo</p>
-
-<p>-r domicilio</p>
-
-<p>-w teléfono_trabajo</p>
-
-<p>-h teléfono_particular</p>
-
-<p>-o otros datos</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/cherokee/">Cherokee</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Servidor web</p>
-
-<blockquote><p># cherokee-admin -b (iniciar el gestor. En el navegador: localhost:9090)</p>
-
-<p># cherokee-admin -b -u (No pida la contraseña)</p>
-
-<p># cherokee-admin -b -p 9091 (especificar un puerto para la gestión)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/check-language-support/">Check-language-support</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Listado de paquetes de idiomas instalados en el sistema.</p>
-
-<blockquote><p>$ check-language-support -l es</p>
-
-<p>$ check-language-support -a (todos)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/check-bios-nx/">Check-bios-nx</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Determinar si la BIOS ha bloqueado las capacidades NX de la CPU.</p>
-
-<blockquote><p>$ check-bios-nx –verbose</p></blockquote>
-
-<p>ok: the NX bit is operational on this CPU.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/chattr/">Chattr</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Cambia los atributos de ficheros (bloquea el fichero).</p>
-
-<blockquote><p># chattr +i /etc/resolv.conf (impedirá modificaciones por  procesos o por root)</p>
-
-<p># chattr -i /etc/resolv.conf    (lo desbloquea)</p>
-
-<p># chattr -V -R +i /home/usuario/directorio (bloqueo recursivo y mostrando toda la información)</p>
-
-<p># chattr +a  archivo (desactiva el acceso al fichero excepto para añadir datos)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/114/">&larr; Older</a>
@@ -553,12 +569,40 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1290</li>
+	<li>1296</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/mktemp/">mktemp</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/dpigs/">dpigs</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/dhomepage/">dhomepage</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/debian-timeline/">debian-timeline</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/debian-history/">debian-history</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/debget/">debget</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/checkrestart/">checkrestart</a>
+      </li>
     
       <li class="post">
         <a href="/blog/rsync/">rsync</a>
@@ -570,34 +614,6 @@
     
       <li class="post">
         <a href="/blog/zmore/">zmore</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zless/">zless</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zip/">zip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zgrep/">zgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zfgrep/">zfgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zenity/">zenity</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zegrep/">zegrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

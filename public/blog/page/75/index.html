@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Enviar señales a los procesos. $ kill -l (lista todas las señales que pueden mandarse a un proceso) $ kill -0 (mata todos los procesos de la shell &hellip;">
+  <meta name="description" content="Navegador minimalista escrito en python y pyqt4 con soporte para pestañas, flash y atajos de teclado. Descarga de http://es.sourceforge.jp/projects/ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,442 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/komichi/">Komichi</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Navegador minimalista escrito en python y pyqt4 con soporte para pestañas, flash y atajos de teclado. Descarga de http://es.sourceforge.jp/projects/sfnet_komichi/releases/</p>
+
+<p>Algunos atajos:</p>
+
+<p>Ctrl + t (Nueva pestaña)</p>
+
+<p>Ctrl + b (Marcadores)</p>
+
+<p>Alt + p (Configuracion [pagina de inicio, javascript, plugins&#8230;])</p>
+
+<p>F1 (Abrir archivo README)</p>
+
+<p>Ctrl + Mayus + t (Abrir ultima pestaña cerrada)</p>
+
+<p>F5 (Recargar pagina)</p>
+
+<p>Ctrl + o (Abrir)</p>
+
+<p>Ctrl + k (Buscar)</p>
+
+<p>Ctrl + l (Entrar url)</p>
+
+<p>Ctrl + s (Guardar la pagina)</p>
+
+<p>Ctrl + f (Buscar en la pagina)</p>
+
+<p>Ctrl + g (siguiente entrada de la busqueda)</p>
+
+<p>Ctrl + + (Aumentar zoom)</p>
+
+<p>Ctrl + - (Disminuir zoom)</p>
+
+<p>Ctrl+ 0 (Visualizacion por defecto)</p>
+
+<p>Ctrl + h (History)</p>
+
+<p>Ctrl + Mayus + del (Borrar history)</p>
+
+<p>Ctrl + Mayus + n (Entrar en modo privado)</p>
+
+<p>Ctrl + d (Entrar pagina en los marcadores)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/knocker/">Knocker</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Para detectar sistemas operativos y revisar puertos de servidores remotos.</p>
+
+<blockquote><p># knocker -H IP_o_host -SP 1 -EP 1024</p></blockquote>
+
+<p>-SP (Indica el puerto de inicio del escaneo)</p>
+
+<p>-EP (Indica el puerto final)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/knockd/">Knockd</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>El port knocking o golpeo de puertos es un mecanismo mediante la cual el cortafuegos, que mantiene cerrado un determinado puerto, detecta una secuencia preestablecida que procede de una conexión externa y abre dicho puerto para que el servicio asignado sea accesible. Este mecanismo permite añadir una capa adicional de seguridad [por oscuridad], de manera que para cualquier conexión externa no autorizada los puertos donde se brindan los servicios se muestran como cerrados, eliminando así la posibilidad de intentar la conexión y no ofreciendo información sobre el servicio configurado. Por su parte, el usuario autorizado necesita disponer de un cliente de port-knocking que envíe una secuencia de paquetes dirigidos a dicho puerto, con el fin de que el cortafuegos detecte la secuencia correcta y abra el puerto dejando accesible el servicio. Una vez desactivada esta capa de seguridad, el servicio está accesible para realizar ls conexión [por ejemplo SSH]. La aplicación precisa estar instalada en el servidor y en el cliente.</p>
+
+<p>Habilitar el servicio y especificar la red:</p>
+
+<blockquote><p># nano /etc/default/knockd</p></blockquote>
+
+<pre><code>START_KNOCKD=1
+
+KNOCKD_OPTS="-i eth0"
+</code></pre>
+
+<p>Configurar las opciones de loging y las secuencias que queremos usar:</p>
+
+<blockquote><p># nano /etc/knockd.conf</p></blockquote>
+
+<pre><code>[options]
+
+        UseSyslog
+
+[openSSH]
+
+        sequence    = 7000,8000,9000
+
+        seq_timeout = 5
+
+        command     = /sbin/iptables -A INPUT -s %IP% -p tcp --dport 22 -j ACCEPT
+
+        tcpflags    = syn
+
+[closeSSH]
+
+        sequence    = 9000,8000,7000
+
+        seq_timeout = 5
+
+        command     = /sbin/iptables -D INPUT -s %IP% -p tcp --dport 22 -j ACCEPT
+
+        tcpflags    = syn
+</code></pre>
+
+<ul>
+<li><p>UseSyslog (que envía los logs a /var/log/syslog. Si se desea un fichero de log propio, se utiliza LogFile=/var/log/knockd.log)</p></li>
+<li><p>sequence (especifica la secuencia de puertos y tipo de paquete a enviar para hacer el portknocking (por defecto TCP, pero se puede especificar una secuencia más compleja como sequence=2140:udp,4500:tcp,3025:udp)</p></li>
+<li><p>seq_timeout (especifica el periodo máximo de tiempo en segundos en el que la secuencia completa es recibida como secuencia válida)</p></li>
+<li><p>tcpflags (especifica los flags que deben ser tenidos en cuenta (fin|syn|rst|psh|ack|urg).</p></li>
+<li><p>command (especifica el comando a ejecutar cuando se reconoce la secuencia definida)</p></li>
+<li><p>%IP% (toma del valor de la ip cliente desde la que se envía la secuencia de puertos)</p></li>
+</ul>
+
+
+<p>Con esta configuración, el servidor knockd escucha permanentemente todos los puertos, esperando una secuencia válida. Si recibe paquetes TCP dirigidos a los puertos 7000, 8000 y 9000, en este mismo orden y dentro de un intervalo de 5 segundos, reconoce la directiva [openSSH] y ejecuta iptables para abrir el puerto 22 [donde escucha sshd] a la IP que solicita la conexión. Ahora el cliente SSH puede realizar la conexión, y podemos cerrar el puerto de nuevo con la directiva [closeSSH] manteniendo establecida dicha conexión.</p>
+
+<blockquote><p># service knockd start (Iniciar el servicio)</p></blockquote>
+
+<p>Probar el servicio en local:</p>
+
+<p>Parar knockd si está activo y levantarlo manualmente:</p>
+
+<blockquote><p># service knockd stop</p>
+
+<p># knockd -v -i lo</p></blockquote>
+
+<p>En otra terminal:</p>
+
+<blockquote><p>$ knock -v localhost 7000 8000 9000</p></blockquote>
+
+<p>Cuando queramos terminar la conexión:</p>
+
+<blockquote><p>$ knock -v localhost 9000 8000 7000</p></blockquote>
+
+<p>En la terminal del servidor veremos algo como:</p>
+
+<blockquote><p># knockd -v -i lo</p></blockquote>
+
+<pre><code>listening on lo...
+
+127.0.0.1: openSSH: Stage 1
+
+127.0.0.1: openSSH: Stage 2
+
+127.0.0.1: openSSH: Stage 3
+
+127.0.0.1: openSSH: OPEN SESAME
+
+openSSH: running command: /sbin/iptables -A INPUT -s 127.0.0.1 -p tcp --dport 22 -j ACCEPT
+
+127.0.0.1: closeSSH: Stage 1
+
+127.0.0.1: closeSSH: Stage 2
+
+127.0.0.1: closeSSH: Stage 3
+
+127.0.0.1: closeSSH: OPEN SESAME
+
+closeSSH: running command: /sbin/iptables -D INPUT -s 127.0.0.1 -p tcp --dport 22 -j ACCEPT
+</code></pre>
+
+<p>Si en la configuración de iptables tenemos acceso a conexiones ya establecidas:</p>
+
+<pre><code>iptables -A INPUT -p tcp -m tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
+</code></pre>
+
+<p>Podemos configurar la aplicación para que se cierre de forma automática:</p>
+
+<blockquote><p># nano /etc/knockd.conf</p></blockquote>
+
+<pre><code>[opencloseSSH]
+
+        sequence = 7000,8000,9000
+
+        seq_timeout = 5
+
+        tcpflags = syn
+
+        start_command = /sbin/iptables -I INPUT -s %IP% -p tcp --dport 22 -j ACCEPT
+
+        cmd_timeout = 25
+
+        stop_command = /sbin/iptables -D INPUT -s %IP% -p tcp  --dport 22 -j ACCEPT
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/kismet/">Kismet</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Identifica redes inalambricas de forma pasiva recolectando paquetes, detecta redes ocultas, clientes asociados y es capaz de sniffar el tráfico de las redes no encriptadas.</p>
+
+<blockquote><p># nano /etc/kismet/kismet.conf</p></blockquote>
+
+<p>Buscar la linea:  source=none,none,addme</p>
+
+<p>Y sustituirla por:  source=ath5k,eth1,wifi</p>
+
+<p>en la que “ath5k” es el driver que usamos, “eth1” la interfaz de red y “wifi” cualquier nombre.</p>
+
+<p>También en este archivo pueden configurarse otros parámetros (Puerto, host permitido, máximo de clientes, logs&#8230;) :</p>
+
+<pre><code>tcpport=2501
+
+allowedhosts=127.0.0.1
+
+maxclients=5
+
+logtemplate=/var/log/kismet/
+</code></pre>
+
+<p>En el directorio de logs, los archivos que interesan son los .pcap que pueden visionarse con wireshark.</p>
+
+<blockquote><p># kismet   (lanzar la aplicación)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/kippo/">Kippo</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Construir un honeypot por ssh.</p>
+
+<p>Descargar y desenpaquetar kippo:</p>
+
+<blockquote><p>$ wget https://kippo.googlecode.com/files/kippo-0.5.tar.gz</p>
+
+<p>$ tar xzf kippo-0.5.tar.gz</p>
+
+<p>$ cd kippo-0.5</p>
+
+<p>$ ./start.sh</p></blockquote>
+
+<p>Configuración de iptables:</p>
+
+<blockquote><p># iptables -A INPUT -i eth0 -p tcp &#8211;dport 22 -j ACCEPT</p>
+
+<p># iptables -A INPUT -i eth0 -p tcp &#8211;dport 2222 -j ACCEPT</p>
+
+<p># iptables -A PREROUTING -t nat -i eth0 -p tcp &#8211;dport 22 -j REDIRECT &#8211;to-port 2222</p></blockquote>
+
+<p>Los intentos de acceso ssh quedan registrados en el subdirectorio log:</p>
+
+<blockquote><p>$ cd kippo-0.5/log</p>
+
+<p>$ tail -f kippo.log</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/killall/">Killall</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Mata el proceso de la aplicación especificada</p>
+
+<blockquote><p>$ killall -9 scribus</p>
+
+<p>$ killall gnome-panel (reiniciar los paneles)</p>
+
+<p>$ killall -INFO dd  (chequear el estado de un proceso dd)</p>
+
+<p>$ killall -u usuario (Matar los procesos de un  usuario)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -412,274 +848,6 @@ y (Copiar la dirección de la página al portapapeles)
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/jpegtran/">Jpegtran</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Eliminar información y reducir, modificar o recortar tamaño de imagenes jpeg.</p>
-
-<blockquote><p>$ jpegtran -copy none optimize original.jpg resultado.jpg (Eliminando información oculta [-copy none] y reduciendo la imagen [-optimize])</p></blockquote>
-
-<p>Algunas opciones:</p>
-
-<p>-grayscale (Forzar salida a escala de grises)</p>
-
-<p>-rotate 90 (Rotar 90º)</p>
-
-<p>-flip horizontal (Imagen espejo horizontal [izquierda-derecha])</p>
-
-<p>-flip vertical (Imagen espejo vertical [arriba-abajo])</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/jpegjudge/">Jpegjudge</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Determina la calidad de un jpeg en una escala de 0 [menor] a 1000 [mayor calidad]</p>
-
-<blockquote><p>$ jpegjudga -b imagen.jpeg (Mostrar solo el número)</p></blockquote>
-
-<p>Nota.- Puede observarse el deterioro pasando un jpeg a png y volver a pasarlo a jpeg y comparar los resultados del primer jpeg y el último.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/jpeginfo/">Jpeginfo</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Información y test de integridad de imagenes jpeg.</p>
-
-<blockquote><p>$ jpeginfo -c imagen.jpeg</p>
-
-<p>$ jpeginfo -5 imagen.jpeg (Muestra el md5 de la imagen)</p>
-
-<p>$ jpeginfo -i imagen.jpeg</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/jp2a/">Jp2a</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Convertir imagenes jpeg a ascii.</p>
-
-<blockquote><p>$ jp2a &#8211;background=light -b &#8211;colors imagen.jpg  (Sin fondo, con borde y color)</p>
-
-<p>$ jp2a &#8211;color &#8211;html &#8211;fill &#8211;background=dark entrada.jpg –output=salida.html (con un html de salida)</p>
-
-<p>$ jp2a URL/imagen.jpg  (Con una URL de entrada)</p></blockquote>
-
-<p>Algunas opciones:</p>
-
-<pre><code>--size=40x25   (Especificando medidas)
-
---html-title=Imagen  (con un titulo)
-
---html-no-bold (Sin caracteres en negrita)
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/joomla/">Joomla</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Recuperar la clave para acceder al administrador.</p>
-
-<p>Instalar webmin y desde el navegador: https://localhost:10000</p>
-
-<p>En servidores -> Servidor BD MySQL clicar sobre la base de datos de joomla, editar la tabla jos_users i mostrar los datos id. Los usuarios estan numerados a partir del número 62. Editamos la fila del administrator admin (por ejemplo), borramos la clave y le ponemos esta:</p>
-
-<pre><code>1c7a92ae351d4e21ebdfb897508f59d6 
-</code></pre>
-
-<p>Guardar y entrar como administrator en nuestra web con el nombre de usuario: admin y la contraseña: holamundo</p>
-
-<p>Luego volver a modificar la contraseña desde el panel de control de joomla.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/join/">Join</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra lineas coincidentes</p>
-
-<blockquote><p>$ join fichero1 fichero2</p>
-
-<p>$ join -v 1 fichero1 fichero2 (mostrar líneas de fichero1 que no existen en  fichero2)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/76/">&larr; Older</a>
@@ -695,12 +863,40 @@ y (Copiar la dirección de la página al portapapeles)
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1290</li>
+	<li>1296</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/mktemp/">mktemp</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/dpigs/">dpigs</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/dhomepage/">dhomepage</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/debian-timeline/">debian-timeline</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/debian-history/">debian-history</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/debget/">debget</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/checkrestart/">checkrestart</a>
+      </li>
     
       <li class="post">
         <a href="/blog/rsync/">rsync</a>
@@ -712,34 +908,6 @@ y (Copiar la dirección de la página al portapapeles)
     
       <li class="post">
         <a href="/blog/zmore/">zmore</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zless/">zless</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zip/">zip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zgrep/">zgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zfgrep/">zfgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zenity/">zenity</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zegrep/">zegrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Acelerador de descargas $ axel http://download.com/file.tar.gz $ axel -s 5242880 http://download.com/debian.iso (Para una velocidad media de 5120 &hellip;">
+  <meta name="description" content="Archivo de configuración de la terminal propia del usuario. 1.- Para que al escribir un comando que requiera permisos de root pueda autocompletarse &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,321 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/bashrc/">Bashrc</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Archivo de configuración de la terminal propia del usuario.</p>
+
+<p>1.-</p>
+
+<p>Para que al escribir un comando que requiera permisos de root pueda autocompletarse presionando la tecla “Tab”.</p>
+
+<blockquote><p>$ gedit /home/usuario/.bashrc</p></blockquote>
+
+<p>Y añadir las líneas:</p>
+
+<p>if [ &#8220;$PS1&#8221; ]; then</p>
+
+<p>complete -cf sudo</p>
+
+<p>fi</p>
+
+<p>2.-</p>
+
+<p>Añadiendo o modificando las siguientes lineas se consigue que el history de bash se amplie al recuerdo a los últimos 3000 comandos usados, suprimiendo los repetidos y que ignore el espacio (Si se pone) de delante de un comando.</p>
+
+<p>export HISTFILESIZE=3000</p>
+
+<p>export HISTCONTROL=ignoredups:ignorespace</p>
+
+<p>3.-</p>
+
+<p>Establecer un proxy global a nuestro sistema</p>
+
+<blockquote><p>$ nano ~/.bashrc</p></blockquote>
+
+<p>Y añadir las siguientes líneas:</p>
+
+<p>export http_proxy=”http://ip_del_servidor:puerto”</p>
+
+<p>export https_proxy=”http://ip_del_servidor:puerto”</p>
+
+<p>export ftp_proxy=”http://ip_del_servidor:puerto”</p>
+
+<p>4.-</p>
+
+<p>Para que el history indique fecha y hora en la que se ha lanzado el comando:</p>
+
+<p>export HISTTIMEFORMAT=&#8217;- %F %T - &#8217;</p>
+
+<p>5.-</p>
+
+<p>Para guardar en /root un fichero de histórico por cada uno de los usuarios que se hayan pasado a root.</p>
+
+<p>export HISTFILE=/root/.bash_hist-$(who am i | awk &#8216;{print $1}&#8217;;exit)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/basename/">Basename</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Mostrar el archivo “pelado” suprimiendo su ruta y sufijos.</p>
+
+<blockquote><p>$ basename /etc/rc.d/cupsd (devolverá “cupsd”)</p>
+
+<p>$ basename /etc/rc.d/cupsd start (También devolvera “cupsd”)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/base64/">Base64</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Codificador/descodificador de textos</p>
+
+<p>cat archivo| base64 > cifrado (cifrar &#8220;archivo&#8221; y volcarlo en &#8220;cifrado&#8221;)</p>
+
+<p>cat cifrado | base64 -d > descifrado (descifrar &#8220;cifrado&#8221; y volcarlo en &#8220;descifrado&#8221;)</p>
+
+<blockquote><p>$ base64 archivo.txt  (codifica todo el texto de archivo.txt en consola)</p>
+
+<p>$ base64 -d codificado.txt (descodificar en consola)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/banner/">Banner</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Muestra un cartel en pantalla</p>
+
+<blockquote><p>$ banner Linux</p>
+
+<p>$ banner -C linux  (centra la imagen en la linea)</p>
+
+<p>$ banner -l linux   (forma cada letra con la misma letra diminuta)</p>
+
+<p>$ banner -Cck linux  (centrado y con la letra “k” formando la palabra “linux”)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/bandwidthd/">Bandwidthd</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Herramienta que analiza la utilización del ancho de banda disponible y genera reportes gráficos. Una vez instalado poner en la barra del navegador:</p>
+
+<p>file:///var/lib/bandwidthd/htdocs/index.html</p>
+
+<p>Para afinar la configuración en /etc/bandwidthd/bandwidthd.conf</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/badblocks/">Badblocks</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Utilidad para reparar sectores dañados del disco duro o pendrive. Trabajar con la unidad desmontada.</p>
+
+<blockquote><p># badblocks -s -v -n -f /dev/sda  (recuperar y reparar sectores dañados)</p>
+
+<p># badblocks -w -t random -s -v /dev/sda (Borrar un disco de forma segura)</p>
+
+<p># badblocks -s -w archivo.txt (Borrar de forma segura un archivo [irrecuperable])</p>
+
+<p># badblocks -sv /dev/sdb -o badblocks.log  (crear un informe)</p></blockquote>
+
+<p>nota.- Terminado el proceso debe formatearse la unidad, pasando a la herramienta los bloques dañados:</p>
+
+<blockquote><p># mkfs.vfat -l badblocks.log -n usb /dev/sdb  (-n es un nombre que le damos a la unidad)</p></blockquote>
+
+<p>Opciones</p>
+
+<pre><code>-s (muestra el progreso)
+
+-v (modo detallado)
+
+-n (recupera sectores dañados sin destruir informacion [modo no-destructivo])
+
+-f (repara los sectores dañados)
+
+-w (Modo destructivo)
+
+-t random (escribe de forma aleatoria en el disco)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -597,256 +912,6 @@ $ awk 'BEGIN { for (i = 1; i &lt;= 7; i++) print int(101 * rand()) }' (Escribir 
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/avg/">Avg</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Informa de la presencia de virus. No los suprime.  (descarga: http://free.avg.com/gb-en/download.prd-alf)</p>
-
-<blockquote><p># avgctl –start (Iniciar el servicio)</p>
-
-<p># avgupdate (actualizar las definiciones de virus)</p>
-
-<p># avgscan &#8211;clean /home/usuario (escanear)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/avconv/">Avconv</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Información sobre archivos multimedia y conversión de formatos.</p>
-
-<blockquote><p>$ avconv -i video.avi video.mpeg  (Pasar de avi a mpeg)</p>
-
-<p>$ avconv -i video.avi (Información sobre un archivo)</p>
-
-<p>$ avconv -i archivo.avi -an nuevo.avi (Sacar el sonido de un avi)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/autotrace/">Autotrace</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Convierte los datos de imagen de mapa de bits en gráficos vectoriales</p>
-
-<blockquote><p>$ autotrace imagen.png &#8211;output-file imagen.svg</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/autostart/">Autostart</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Archivo de las aplicaciones que se ejecutan al inicio.</p>
-
-<blockquote><p># ls /etc/xdg/autostart/</p></blockquote>
-
-<p>Para activarlas poner:</p>
-
-<p>NoDisPlay false</p>
-
-<p>Para desactivarlas:</p>
-
-<p>NoDisplay true</p>
-
-<blockquote><p># cp /usr/share/applications/guake.desktop /etc/xdg/autostart/ (colocar una aplicación)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/autossh/">Autossh</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Similar a ssh pero reanudando la conexión en caso de corte o suspensión del trafico. Para que se realice esta reconexión, ha de tenerse la clave publica entrada en la máquina remota [ver ssh [4]]. Las opciones son las mismas que ssh.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/automater/">Automater</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>(python3-httplib2 python2.6-argparse)</p>
-
-<p>Obtener información de ips y urls inclusive si estan bloqueadas en algún blocklist. Copiar el script en python de: https://raw.github.com/1aN0rmus/TekDefense/master/Automater.py</p>
-
-<blockquote><p>$ python automater.py -t IP (De una ip)</p>
-
-<p>$ python automater.py -f ips.txt (De un listado de ips, una por linea)</p>
-
-<p>$ python automater.py -t IP -o informe.txt (Enviando el resultado a un archivo)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/123/">&larr; Older</a>
@@ -862,12 +927,40 @@ $ awk 'BEGIN { for (i = 1; i &lt;= 7; i++) print int(101 * rand()) }' (Escribir 
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1290</li>
+	<li>1296</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/mktemp/">mktemp</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/dpigs/">dpigs</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/dhomepage/">dhomepage</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/debian-timeline/">debian-timeline</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/debian-history/">debian-history</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/debget/">debget</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/checkrestart/">checkrestart</a>
+      </li>
     
       <li class="post">
         <a href="/blog/rsync/">rsync</a>
@@ -879,34 +972,6 @@ $ awk 'BEGIN { for (i = 1; i &lt;= 7; i++) print int(101 * rand()) }' (Escribir 
     
       <li class="post">
         <a href="/blog/zmore/">zmore</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zless/">zless</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zip/">zip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zgrep/">zgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zfgrep/">zfgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zenity/">zenity</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zegrep/">zegrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

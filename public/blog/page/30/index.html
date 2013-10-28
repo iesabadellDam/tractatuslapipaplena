@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Muestra una imagen del cielo en la tty. Con las teclas del cursor permite moverse por entre la constelación de estrellas. $ spacedream
-">
+  <meta name="description" content="Proxy caché (intermediario para nuestra conexion a internet, guardando las paginas visualizadas en una caché) # cp /etc/squid3/squid.conf{,.defaults &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +75,343 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/squid/">Squid</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Proxy caché (intermediario para nuestra conexion a internet, guardando las paginas visualizadas en una caché)</p>
+
+<blockquote><p># cp /etc/squid3/squid.conf{,.defaults} (Realizar copia de seguridad de la configuración)</p>
+
+<p># nano /etc/squid3/squid.conf</p></blockquote>
+
+<p>Modificamos/adaptamos los siguientes ajustes basicos:</p>
+
+<p>http_port 3128 #puerto de escucha</p>
+
+<p>cache_mem 100 MB #Tamaño memoria caché</p>
+
+<p>cache_dir ufs /var/spool/squid 700 16 256 #directorio y tamaño</p>
+
+<p>acl NuestraRed src 192.168.1.0/24 #Nombre y red a la que afecta</p>
+
+<p>http_access allow NuestraRed #permitir acceso a toda la red</p>
+
+<p>http_access allow deny all #Denegamos a los de fuera de la red</p>
+
+<p>auth_param basic /usr/lib/squid/ncsa_auth /etc/squid/passwd #ruta a usuarios</p>
+
+<p>auth_param basic realm “Mensaje de acceso” #mensaje al logearse</p>
+
+<p>auth_param basic children 5 #Procesos de autentificación</p>
+
+<p>auth_param basic basic credentialsttl 1 hours #tiempo</p>
+
+<blockquote><p># squid3 -k parse (Revisión de la sintaxis del archivo squid.conf)</p></blockquote>
+
+<p>Después de las modificaciones reiniciar servicio:</p>
+
+<blockquote><p># /etc/init.d/squid3 restart</p></blockquote>
+
+<p>Configuración de usuarios (/etc/squid/passwd):</p>
+
+<blockquote><p># htpasswd -c /etc/squid3/passwd user1 (Crear archivo [-c] nombre de usuario y pedirá contraseña)</p>
+
+<p># htpasswd /etc/squid3/passwd usuario2 (Sin parámetro -c porque el archivo ya está creado. Otro usuario y contraseña)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/spumux/">Spumux</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Generar subtítulos en un video mpeg.</p>
+
+<blockquote><p>$ spumux -s0 subt.xml &lt; video.mpeg > video_subtitulado.mpeg</p></blockquote>
+
+<p>Nota.- El archivo subt.xml con un contenido:</p>
+
+<pre><code>&lt;subpictures&gt;
+
+   &lt;stream&gt;
+
+        &lt;textsub filename="SUBTITULOS.srt" characterset="ISO8859-1"
+
+                 fontsize="24.0" font="Arial.ttf" horizontal-alignment="center"
+
+                 vertical-alignment="bottom" left-margin="60" right-margin="60"
+
+                 top-margin="20" bottom-margin="30" subtitle-fps="25"
+
+                 movie-fps="29.97" movie-width="720" movie-height="478"/&gt;
+
+   &lt;/stream&gt;
+
+&lt;/subpictures&gt;
+</code></pre>
+
+<p>La fuente Arial.ttf ha de estar [o tener un enlace] en el directorio ~/.spumux</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/sponge/">Sponge</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[moreutils]</p>
+
+<p>herramienta que guarda todo el contenido a escribir hasta que recibe el EOF y luego lo escribe por lo que permite procesar un fichero y reescribirlo en el propio fichero sin perdida de datos.</p>
+
+<blockquote><p>$ tac archivo | sponge archivo (Lee al reves un archivo y lo guarda en el mismo archivo)</p>
+
+<p>$ column -t datos | sponge datos</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/splitvt/">Splitvt</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Lanzar dos shells simultaneas partiendo en dos ventanas una terminal.</p>
+
+<blockquote><p>$ splitvt -t &#8220;linux es genial&#8221; -upper ls -lower top (Con un título [-t] lanzando un ls en la ventana superior y top en la inferior)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/split/">Split</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Cortar archivos</p>
+
+<blockquote><p>$ split -d -b 100m archivo otro_archivo. (Que tengan extensión con números: .00, .01, .02. Trozos de 200 MB, archivo de entrada y de salida terminado con un punto donde se añade la extension. En este ejemplo daría salidas tipo otro_archivo.00, otro_archivo.01&#8230;.)</p>
+
+<p>$ cat prefijo* > archivo  (volver a unirlos)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/speedometer/">Speedometer</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Monitor de transferencia de ficheros [velocímetro].</p>
+
+<blockquote><p># speedometer -p -rx eth0  (tráfico recibido y el resultado en consola [-p])</p>
+
+<p># speedometer -tx eth0  (tráfico transmitido y el resultado en modo gráfico)</p>
+
+<p># speedometer -i 0.25 -rx eth0 (t. recibido, en modo gráfico y muestreo cada 0.25 segundos.)</p></blockquote>
+
+<p>pulsar “q” para cerrar</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/speaker/">Speaker</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Pruebas de sonido.</p>
+
+<blockquote><p># speaker-test -c 6           (para probar bocinas)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -219,454 +555,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/source/">Source</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Recarga o ejecuta el archivo de configuración indicado para aplicar cambios o el script de bash correspondiente.</p>
-
-<blockquote><p>$ source .bashrc</p></blockquote>
-
-<p>Este comando es equivalente a un punto [.]:</p>
-
-<blockquote><p>$ . .bashrc (lo mismo que el anterior)</p>
-
-<p>$ source script.sh</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sort/">Sort</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra la entrada ordenada.</p>
-
-<blockquote><p>$ sort archivo > archivo_ordenado  (por la primera columna)</p>
-
-<p>$ sort  [intro] (va esperando palabras o números que ordena con Ctrl+d)</p>
-
-<p>$ sort &lt;&lt; fin (Lo mismo pero ordena después de introducir “fin”)</p>
-
-<p>$ sort -o archivo1 archivo1 (escribe el resultado en el propio archivo)</p>
-
-<p>$ sort -u fichero  (ordenar eliminando lineas repetidas)</p>
-
-<p>$ sort -t , -k2n archivo  (ordenar por el segundo campo separado del primero por una “,” y por su valor numérico)</p>
-
-<p>$ sort -t , -k3 archivo   (ordenar por el tercer campo separados por comas)</p></blockquote>
-
-<p>Opciones</p>
-
-<p>-f : Ordena alfabeticamente (diferencia Minúsculas y mayúsculas).</p>
-
-<p>-n : Para ordenar los campos numéricos por su valor numérico.</p>
-
-<p>-r : De mayor a menor.</p>
-
-<p>-R : desordenar, aleatoriamente</p>
-
-<p>-k numero : Especifica por qué columna o campo realizar la ordenación</p>
-
-<p>-t : indica que vamos a usar un delimitador de campo especificado</p>
-
-<p>-u : Suprime todas las líneas repetidas después de realizar la ordenación.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sonido/">Sonido</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>1.-</p>
-
-<p>Para ver las tarjetas de sonido instaladas</p>
-
-<blockquote><p>$ cat /proc/asound/cards</p></blockquote>
-
-<p>0 [Intel ]: HDA-Intel - HDA Intel</p>
-
-<p>HDA Intel at 0xe4100000 irq 169</p>
-
-<p>1 [SAA7134 ]: SAA7134 - SAA7134</p>
-
-<p>saa7133[0] at 0xe4000000 irq 233</p>
-
-<p>2 [CMI8738MC6 ]: CMI8738-MC6 - C-Media PCI CMI8738-MC6</p>
-
-<p>C-Media PCI CMI8738-MC6 (model 55) at 0xa000, irq 225</p>
-
-<blockquote><p># asoundconf set-default-card 1 (para activar la 1)</p></blockquote>
-
-<p>Editar el fichero /etc/alsa/alsa.conf y poner estas líneas:</p>
-
-<pre><code>defaults.ctl.card 1 
-
-defaults.pcm.card 1 
-
-defaults.pcm.device 1 
-</code></pre>
-
-<p>Los cambios son automáticos, no hay ni que reiniciar el servicio.</p>
-
-<p>2.-</p>
-
-<p>Cuando al reiniciar el sonido aparece silenciado:</p>
-
-<blockquote><p># gedit /etc/pulse/default.pa</p></blockquote>
-
-<p>Comentar la linea: # load-module module-device-restore</p>
-
-<p>3.-</p>
-
-<p>Sin sonido con flash</p>
-
-<p>Si no existe, crear el archivo:</p>
-
-<blockquote><p>$ sudo touch /etc/asound.conf</p>
-
-<p># nano /etc/asound.conf</p></blockquote>
-
-<p>Pegar:</p>
-
-<pre><code>pcm.pulse { 
-
-type pulse 
-
-} 
-
-ctl.pulse { 
-
-type pulse 
-
-} 
-
-pcm.!default { 
-
-type pulse 
-
-} 
-
-ctl.!default { 
-
-type pulse 
-
-} 
-</code></pre>
-
-<p>Reiniciar.</p>
-
-<p>4.-</p>
-
-<p>Si Java bloquea el dispositivo de sonido en lugar de usar Pulseaudio</p>
-
-<blockquote><p># cd /usr/lib/jvm/java-6-sun/jre/bin/</p>
-
-<p># mv java java.bin</p>
-
-<p># nano /usr/lib/jvm/java-6-sun/jre/bin/java</p></blockquote>
-
-<p>Y copiar en su interior:</p>
-
-<blockquote><p>#!/bin/bash</p></blockquote>
-
-<p>padsp /usr/lib/jvm/java-6-sun/jre/bin/java.bin &#8220;$@&#8221;</p>
-
-<blockquote><p># chmod +x java (darle permisos)</p></blockquote>
-
-<p>5.-</p>
-
-<p>Substituir pulseaudio por alsa:</p>
-
-<blockquote><p># apt-add-repository ppa:dtl131/ppa  (Añadir los repositorios gnome-media/applets/settings-daemon)</p>
-
-<p># apt-get update  (Actualizar el sistema)</p>
-
-<p># apt-get upgrade</p>
-
-<p># apt-get install esound esound-clients esound-common libesd-alsa0 alsa-base alsa-tools alsa-utils alsa-oss linux-sound-base python-alsaaudio gnome-media libsdl1.2debian-alsa  (Instalar paquetes de alsa)</p>
-
-<p># apt-get purge libcanberra-pulse pulseaudio pulseaudio-esound-compat pulseaudio-module-bluetooth pulseaudio-module-gconf pulseaudio-module-udev pulseaudio-module-x11 gstreamer0.10-pulseaudio pulseaudio-utils pavucontrol  (Desinstalar los paquetes de pulseaudio)</p></blockquote>
-
-<p>Reiniciar</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/socklist/">Socklist</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Lista conectores de red abiertos (sockets), mostrando tipo, número de puerto y otros datos específicos.</p>
-
-<blockquote><p>$ socklist</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/snort/">Snort</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Sniffer de paquetes y detector de intrusos</p>
-
-<blockquote><p># snort -v -i eth0 (Para inspeccionar el tráfico de una red)</p>
-
-<p># snort -vde -h 192.168.0.1/24 (Inspeccionar una dirección o rango)</p>
-
-<p># snort -vde tcp (especificando protocolo)</p>
-
-<p># snort -v -X -i eth0 port 25 (Especificando un puerto y guardando la información)</p>
-
-<p># snort -v -X -i eth0 -n 5 port 25 (Capturando solo 5 paquetes)</p></blockquote>
-
-<p>La tarjeta de red tiene que estar en modo promiscuo</p>
-
-<p>Opciones</p>
-
-<p>-v          sniffer de TCP</p>
-
-<p>-d y -e    Para obtener las cabeceras</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/snoopy/">Snoopy</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>librería que se encarga de almacenar comandos y el usuario que los ejecuta.</p>
-
-<blockquote><p>$ git clone https://github.com/a2o/snoopy.git</p>
-
-<p>$ cd snoopy</p>
-
-<p>$ ./configure</p>
-
-<p>$ make</p>
-
-<p># make install</p>
-
-<p># make enable</p></blockquote>
-
-<p>Reiniciar los servicios que tengamos funcionando [apache2, ssh&#8230;]</p>
-
-<blockquote><p># /etc/init.d/ssh restart</p></blockquote>
-
-<p>Monitorizar el archivo log de registro com:</p>
-
-<blockquote><p># tail -f /var/log/auth.log</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sniffit/">Sniffit</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Snifer de red. Dado que los informes los despliega en archivos de texto por cada dato, es preferible lanzar la aplicación desde dentro de una carpeta para no llenar todo el directorio de ficheros.</p>
-
-<blockquote><p># sniffit -s 192.168.1.2  (Captura todos los paquetes con origen en la IP)</p>
-
-<p># sniffit -t 192.168.1.2 (Captura todos los paquetes con destino en la IP)</p>
-
-<p># sniffit -b -s 192.168.1.2 (Captura los paquetes con origen y destino en la IP)</p>
-
-<p># sniffit -F eth1 -b -s 192.168.1.33 -p 9001 (de un puerto y forzando dispositivo)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/31/">&larr; Older</a>
@@ -682,12 +570,40 @@ type pulse
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1290</li>
+	<li>1296</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/mktemp/">mktemp</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/dpigs/">dpigs</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/dhomepage/">dhomepage</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/debian-timeline/">debian-timeline</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/debian-history/">debian-history</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/debget/">debget</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/checkrestart/">checkrestart</a>
+      </li>
     
       <li class="post">
         <a href="/blog/rsync/">rsync</a>
@@ -699,34 +615,6 @@ type pulse
     
       <li class="post">
         <a href="/blog/zmore/">zmore</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zless/">zless</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zip/">zip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zgrep/">zgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zfgrep/">zfgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zenity/">zenity</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zegrep/">zegrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

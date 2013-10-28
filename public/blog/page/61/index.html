@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Reproductor de música. Atajos F1 (Añadir ficheros a la lista) F3 (Seleccionar todo recursivamente) Retroceso (Subir un directorio) Espacio ( &hellip;">
+  <meta name="description" content="Reproductor de video $ mplayer -vo aa movie.avi (en ascii) $ mplayer -vo aa:extended:driver=curses:contrast=50 movie.avi $ mplayer -vo caca movie.avi &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,362 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/mplayer/">Mplayer</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Reproductor de video</p>
+
+<blockquote><p>$ mplayer -vo aa movie.avi   (en ascii)</p>
+
+<p>$ mplayer -vo aa:extended:driver=curses:contrast=50 movie.avi</p>
+
+<p>$ mplayer -vo caca movie.avi  (en color)</p>
+
+<p>$ mplayer -vo fbdev file.mpeg  (reproduce en blanco y negro)</p>
+
+<p>$ mplayer -vo fbdev2 file.mpeg (reproduce en color)</p>
+
+<p>$ mplayer -vo fbdev2 -fs -zoom -double file.avi</p></blockquote>
+
+<p>-vo -help (ver opciones del driver)</p>
+
+<blockquote><p>$ mplayer -cache 128 -tv driver=v4l2:width=176:height=177 -vo xv tv:// -noborder -geometry &#8220;95%:93%&#8221; -ontop  (Abre una ventana en la esquina inferior izquierda con imagenes de la webcam)</p>
+
+<p>$ mplayer mms://flux.cxnlive.com/oldiesfm  (Escuchar una emisora)</p>
+
+<p>$ mplayer -nolirc http://5253.live.streamtheworld.com/VIRGINRADIO_DUBAIAAC (Otra forma de escuvhar una emisora)</p>
+
+<p>$ mplayer http://192.168.1.115/img/video.asf -frames 1 -vo jpeg:quality=100:maxfiles=1  (Tomar una imagen [frames 1] de una ubicación en la red)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/mpgtx/">Mpgtx</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[comandos derivados: mpgsplit, mpgcat, mpgjoin, mpginfo, mpgdemux]</p>
+
+<p>manipulación de archivos mpeg.</p>
+
+<p>mpgtx -i equivalente a mpginfo</p>
+
+<p>mpgtx -s equivalente a mpgsplit</p>
+
+<p>mpgtx -j equivalente a mpgjoin</p>
+
+<p>mpgtx -j -o equivalente a mpgcat</p>
+
+<p>mpgtx -d equivalente a mpgdemux</p>
+
+<blockquote><p>$ mpgtx -s archivo.mpg [3:15-] -b cortado.mpg (Dejar de un mpg del minuto 3,15 al final y guardarlo en cortado.mpg)</p>
+
+<p>$ mpgtx -s archivo.mpg [3:15-10:30] -b cortado.mpg (Lo mismo pero dejando del minuto 3,15 al 10,30)</p>
+
+<p>$ mpgtx -100 arhivo.mpg -b cortado (creará 100 trozos del archivo.mpg con los nombres cortado-001, cortado-002&#8230;)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/mpg123/">Mpg123</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Reproducir mp3</p>
+
+<blockquote><p>$ mpg123 archivo.mp3</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/mpd/">Mpd</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Reproductor de audio con arquitectura servidor-cliente que gestiona listas de reproducción y bases de datos. Para hacer uso de una interfaz gráfica, es necesario un cliente tipo: sonata, ario, ncmpcpp o pms.Ajustes en la configuración:</p>
+
+<blockquote><p># nano /etc/mpd.conf</p></blockquote>
+
+<p>music_directory &#8220;/home/usuario/Musica&#8221;</p>
+
+<p>playlist_directory &#8220;/home/usuario/.mpd/playlists&#8221;</p>
+
+<p>db_file &#8220;/home/usuario/.mpd/mpd.db&#8221;</p>
+
+<p>log_file &#8220;/home/usuario/.mpd/mpd.log&#8221;</p>
+
+<p>pid_file &#8220;/home/usuario/.mpd/mpd.pid&#8221;</p>
+
+<p>state_file &#8220;/home/usuario/.mpd/mpdstate&#8221;</p>
+
+<p>user &#8220;usuario&#8221;</p>
+
+<p>group &#8220;usuario&#8221;</p>
+
+<p>bind_to_address &#8220;localhost&#8221;</p>
+
+<p>port &#8220;6600&#8221;</p>
+
+<p>Crear los archivos mencionados en la configuración:</p>
+
+<blockquote><p>$ touch /home/usuario/.mpd/playlists</p>
+
+<p>$ touch /home/usuario/.mpd/mpd.db</p>
+
+<p>$ touch /home/usuario/.mpd/mpd.log</p>
+
+<p>$ touch /home/usuario/.mpd/mpd.pid</p>
+
+<p>$ touch /home/usuario/.mpd/mpdstate</p></blockquote>
+
+<p>Arrancar el demonio:</p>
+
+<blockquote><p>$ mpd</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/mp3rename/">Mp3rename</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Renombra ficheros mp3 según sus propias etiquetas [id3 tag]</p>
+
+<blockquote><p>$ mp3rename -s &#8216;&amp;a_&amp;t&#8217; (establecer las opciones predeterminadas las cuales quedan anotadas en ~/.mp3rename)</p></blockquote>
+
+<p>Opciones:</p>
+
+<p>&amp;a  (artista), &amp;b (album), &amp;k (pista), &amp;t (título), &amp;y (año)</p>
+
+<blockquote><p>$ mp3rename *.mp3  (renombrará segun las opciones predeterminadas)</p>
+
+<p>$ mp3rename -i *.mp3 (muestra los id3 tag de todos los mp3)</p></blockquote>
+
+<p>Nota.- No siempre los id3tag estan disponibles o están completos</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/mp3info/">Mp3info</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Información sobre las etiquetas ID3 de archivos mp3blaster</p>
+
+<blockquote><p>$ mp3info archivo.mp3 (Ver la información ID3)</p>
+
+<p>$ mp3info -t titulo -a artista -l album -y año -c comentario -n pista -g genero archivo.mp3</p></blockquote>
+
+<p>(Entrar información ID3 para un archivo mp3)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/mp3gain/">Mp3gain</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Analiza y ajusta archivos MP3 para que tengan el mismo nivel de volumen.</p>
+
+<blockquote><p>$ mp3gain -r -k *.mp3 (Normaliza todos los archivos  del directorio)</p>
+
+<p>$ find . -type f -iname &#8216;*.mp3&#8217; -print0 | xargs -0 mp3gain -r -k (genera una lista de los archivos mp3 contenidos en la carpeta actual, crea una tuberia con el resultado de la lista, y normaliza)</p>
+
+<p>$ find directorio -iname “*.mp3″ -exec mp3gain -r -k -m 5 (normaliza un directorio y sus subdirectorios)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -297,528 +653,6 @@ No existe el /etc/default/motion
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/most/">Most</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Visualizar páginas man con colores.</p>
-
-<blockquote><p># update-alternatives &#8211;config pager</p></blockquote>
-
-<p>Seleccionar el número que indique para most</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/mosh/">Mosh</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Un ssh mejorado.</p>
-
-<blockquote><p>$ mosh usuario@host</p>
-
-<p>$ mosh -p 5000 usuario@host</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/mosaic/">Mosaic</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>El abuelo de los navegadores (1993)</p>
-
-<blockquote><p># apt-get install build-essential lesstif2-dev libjpeg62-dev libpng12-dev x11proto-print-dev libxmu-headers libxpm-dev libxmu-dev</p>
-
-<p>$ git clone https://github.com/alandipert/ncsa-mosaic.git</p>
-
-<p>$ cd ncsa-mosaic</p></blockquote>
-
-<pre><code>$ make linux
-
-....
-
-* Welcome to NCSA Mosaic.
-
-make[1]: Leaving directory `/home/templix/ncsa-mosaic'
-</code></pre>
-
-<blockquote><p>$ cd src</p>
-
-<p>$ ./Mosaic</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/morse/">Morse</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Codifica un texto a lenguaje morse.</p>
-
-<blockquote><p>$ morse -s linux es un sistema genial</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/more/">More</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Pagina el fichero que se especifique&#8230;</p>
-
-<blockquote><p>$ cat /etc/apt/sources.list | more (&#8230;como tuberia)</p>
-
-<p>$ more -5 -d /etc/apt/sources.list  (&#8230;de cinco en cinco lineas y mostrando teclas de ayuda)</p></blockquote>
-
-<p>atajos:</p>
-
-<pre><code>espacio (adelanta una pantalla) 
-
-enter (avanza una linea) 
-
-b (retrocede una pantalla) 
-
-/ (busca la palabra introducida a continuación) 
-
-n (busca la siguiente  concurrencia a buscar) 
-
-q (Salir del programa)
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/montage/">Montage</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Crear una imagen con la unión de varias y modificar imágenes.</p>
-
-<blockquote><p>$ montage *.png salida.jpg (Con todas las imagenes del directorio)</p>
-
-<p>$ montage -adjoin imagen.png imagen.png resultado.png</p>
-
-<p>$ montage -monochrome entrada.png salida.png (convertir a blanco y negro)</p>
-
-<p>$ montage -title “En el lago” entrada.png salida.png (poner título)</p>
-
-<p>$ montage *.png -mode concatenate -tile 10x all.png (Imagen con todas las imágenes del directorio)</p>
-
-<p>$ montage -geometry +1+1 -tile 2x2 *.png salida.png</p>
-
-<p>$ montage *.png -tile 2x5 -geometry 227x147+1+1 salida.png (Colocará todos los png de la carpeta y los colocará en páginas de 10 con la geometria indicada y con una separación de 1 pixel entre ellos</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/monit/">Monit</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Monitorizador de procesos en ejecución, servicios, demonios, espacios de disco, PIDs, checksums, archivos&#8230;.</p>
-
-<blockquote><p># monit status (Acceder a los informes)</p>
-
-<p># monit -t (Comprobar errores de configuración [Control file syntax OK])</p>
-
-<p># monit -h (Listado de comandos disponibles)</p>
-
-<p># monit quit (Salir)</p>
-
-<p># monit start all (Arrancar todos los monitoreos)</p>
-
-<p># monit sotp ssh (Parar un monitoreo de un servicio)</p>
-
-<p># monit restart all (Reiniciar todos los monitoreos)</p>
-
-<p># monit summary (Mostrar resumen)</p></blockquote>
-
-<p>Configuración:</p>
-
-<pre><code># nano /etc/monitrc 
-</code></pre>
-
-<p>Las entradas globales empiezan por “set” y los servicios concretos por “check”</p>
-
-<p>Tiempo d​e actualización de datos, por defecto:</p>
-
-<pre><code>set daemon  60 
-</code></pre>
-
-<p>Especificar el archivo de eventos (logs)</p>
-
-<pre><code>set logfile /var/log/monit.log 
-</code></pre>
-
-<p>Configurar para el envio de notificaciones:</p>
-
-<pre><code>set mailserver localhost 
-
-set alert usuario@localhost.localdomain 
-
-set mail-format { 
-
-from: monit@$HOST 
-
-subject: $SERVICE $EVENT 
-
-message: $ACTION $SERVICE at $DATE on $HOST: $DESCRIPTION. 
-
-} 
-
-set mailserver mail@mail.com (servidor smtp que envia los correos [localhost para notificación local]). 
-
-set alert user@hots.com  (cuenta donde enviar los mensajes de alerta). Ejemplo para enviar notificaciones a correo gmail (en negrita los datos a modificar): 
-
-set mailserver smtp.gmail.com port 587 
-
-username usuario@gmail.com password Tfer7¿-6j 
-
-using tlsv1 
-
-with tim​eout 30 seconds 
-
-set alert usuario@gmail.com 
-
-Cambiar usuario y contraseña (por defecto: admin/monit) 
-
-allow usuario:contraseña 
-</code></pre>
-
-<p>Especificar desde donde accederemos. Sólo acceso local [localhost:2812]:</p>
-
-<p>set httpd port 2812 and use address localhost</p>
-
-<p>allow localhost</p>
-
-<p>o si queremos acceso remoto [http://ip_o_host:2812] modificar por:</p>
-
-<pre><code>set httpd port 2812 
-
-     allow localhost 
-</code></pre>
-
-<p>Tambien podemos especificar: ips, rangos, hosts concretos o usuarios para solo lectura:</p>
-
-<pre><code>allow 192.168.1.14 
-
-allow 192.168.1.1/24 
-
-allow host.com 
-
-allow usuario:contraseña read-only
-</code></pre>
-
-<p>Modificar el nombre del equipo [tiene que estar en /etc/hosts] y adaptar los porcentajes de consumo de carga del sistema [loadvg] y cpu para que al superar ciertos índices o porcentajes, envie una alerta:</p>
-
-<p>check system tux</p>
-
-<pre><code>if loadavg (1min) &gt; 4 then alert 
-
-if memory usage &gt; 75% then alert 
-
-if swap usage &gt; 85% then alert 
-
-if cpu usage (user) &gt; 70% then alert 
-
-if cpu usage (system) &gt; 70% then alert 
-
-if cpu usage (wait) &gt; 70% then alert 
-</code></pre>
-
-<p>Configurar el monitoreo de apache (Las rutas a los ficheros pertenecen a una distro arch):</p>
-
-<p>check process apache with pidfile /run/httpd/httpd.pid</p>
-
-<pre><code>start program = "/etc/rc.d/httpd start" with timeout 60 seconds 
-
-stop program  = "/etc/rc.d/httpd stop" 
-
-if cpu &gt; 80% for 5 cycles then restart 
-
-if totalmem &gt; 1500.0 MB for 5 cycles then restart 
-
-if children &gt; 250 then restart 
-
-if cpu usage &gt; 95% for 3 cycles then restart 
-
-if failed port 80 protocol http then restart 
-</code></pre>
-
-<p>Configurar monitoreo de ssh</p>
-
-<p>check process ssh with pidfile /run/sshd.pid</p>
-
-<pre><code>start program = "/etc/rc.d/sshd start" with timeout 60 seconds 
-
-stop program  = "/etc/rc.d/sshd stop" 
-
-if cpu &gt; 80% for 5 cycles then restart 
-
-if totalmem &gt; 1500.0 MB for 5 cycles then restart 
-
-if children &gt; 250 then restart 
-
-if cpu usage &gt; 95% for 3 cycles then restart 
-
-if failed port 22 protocol ssh then restart 
-</code></pre>
-
-<p>Chequear determinados puertos:</p>
-
-<p>check host localhost with address localhost</p>
-
-<pre><code>  if failed icmp type echo count 10 with timeout 15 seconds 
-
-     then alert 
-
-  if failed port 22 proto ssh then alert 
-
-  if failed port 25 proto smtp then alert 
-
-  if failed port 80 proto http then alert 
-</code></pre>
-
-<p>Monitorear ciertos archivos de configuración [de apache y ssh] para que alerte si modifica el checksum:</p>
-
-<pre><code>check file httpd.conf with path /etc/httpd/conf/httpd.conf 
-
-if changed checksum then alert 
-
-check file ssh_config with path /etc/ssh/ssh_config 
-
-if changed checksum then alert 
-</code></pre>
-
-<p>Monitorizar directorios para que envie una alerta en caso de modificación:</p>
-
-<pre><code>        check directory sbin with path /sbin 
-
-    if changed timestamp then alert 
-</code></pre>
-
-<p>Monitorizar dispositivos /dev/ [discos duros, usb&#8230;] para que avise en caso de sobrepasar determinado espacio en disco o lo desmonte al llegar a cierto porcentaje:</p>
-
-<pre><code>check device sda5 with path /dev/sda5 
-
-start = “/bin/mount /dev/sda5” 
-
-stop = “/bin/umount /dev/sda5” 
-
-if space usage &gt; 90% then alert 
-
-if space usage &gt; 98% then stop 
-</code></pre>
-
-<p>Si, al pasar algún evento queremos lanzar un script algunos ejemplos para hacerlo son:</p>
-
-<p>1.- Cuando la carga del sistema sobrepasa el indice 5 alertará y si supera el 20 ejecutará el script:</p>
-
-<p>check system dominio.com</p>
-
-<pre><code>if loadavg (1min) &gt; 5 then alert 
-
-if loadavg (1min) &gt; 20 then exec "/bin/bash /root/script.sh" 
-</code></pre>
-
-<p>2.- Si falla el servidor ftp [puerto 21], al pasar 20 segundos alertará  y ejecutará el script</p>
-
-<p>if failed port 21 protocol ftp with 20 seconds then alert and exec “/ftp/script.sh”</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/62/">&larr; Older</a>
@@ -834,12 +668,40 @@ if loadavg (1min) &gt; 20 then exec "/bin/bash /root/script.sh"
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1290</li>
+	<li>1296</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/mktemp/">mktemp</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/dpigs/">dpigs</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/dhomepage/">dhomepage</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/debian-timeline/">debian-timeline</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/debian-history/">debian-history</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/debget/">debget</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/checkrestart/">checkrestart</a>
+      </li>
     
       <li class="post">
         <a href="/blog/rsync/">rsync</a>
@@ -851,34 +713,6 @@ if loadavg (1min) &gt; 20 then exec "/bin/bash /root/script.sh"
     
       <li class="post">
         <a href="/blog/zmore/">zmore</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zless/">zless</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zip/">zip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zgrep/">zgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zfgrep/">zfgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zenity/">zenity</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zegrep/">zegrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>
