@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Consulta datos sobre el servidor NFS # nfsstat -m (Muestra datos de los puntos de montaje sólamente)
-">
+  <meta name="description" content="Herramienta para monitorear el tráfico de red. Grep para tráfico de red. # ngrep port 80 (captura todo lo que use el puerto 80) # ngrep -d eth0 port &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +75,62 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ngrep/">Ngrep</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Herramienta para monitorear el tráfico de red. Grep para tráfico de red.</p>
+
+<blockquote><p># ngrep port 80  (captura todo lo que use el puerto 80)</p>
+
+<p># ngrep -d eth0 port 80 (especificando una interfaz de red)</p>
+
+<p># ngrep -d eth0 &#8220;Host:&#8221; port 80 (Buscar una expresión en el tráfico)</p>
+
+<p># ngrep -d eth0 -W byline &#8220;Host:&#8221; port 80 (mostrar la salida por linea)</p>
+
+<p># ngrep -e -x PASS (introduciendo una cadena en la busqueda y mostrando lo que no coincida con ella)</p>
+
+<p># ngrep b    (captura todo usando el filtro por defecto)</p>
+
+<p># ngrep port 80 -O archivo (redirige la salida a un archivo)</p></blockquote>
+
+<p>Nota.- Las almoadillas (#) son paquetes que no cumplen la expresión regular.</p>
+
+<p>Otras usos:</p>
+
+<blockquote><p># ngrep -d1 -w -i “user|pass” port 21</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -647,94 +702,6 @@ color article cyan black
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/netcat/">Netcat</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>utilidad que se puede utilizar para practicamente cualquier cosa relacionada con el protocolo TCP/IP [navaja suiza]</p>
-
-<p>Nota.- En algunas distros está ligeramente capado. Preferible bajarlo de http://netcat.sourceforge.net/download.php y compilarlo:</p>
-
-<blockquote><p>$ ./configure</p>
-
-<p>$ make DFLAGS=&#8221; -DTELNET -DGAPING_SECURITY_HOLE&#8221;</p>
-
-<p># make install</p>
-
-<p>$ nc -v -v -z 192.168.2.5 21 22 25 110 5900 (que se conecte a la IP, envie más información [-v por duplicado], que no envie ningún dato [-z] y que lo haga por los puertos mencionados [21,22,25,110,5900])</p>
-
-<p>$ nc -l -p 3001 -e /bin/bash  (Que esté a la escucha [-l] en el puerto 3001 [-p] y que, cuando haya conexión, ejecute nuestra shell bash [-e &#8230;.])</p>
-
-<p>$ nc IP_servidor 3001  (desde el cliente, conectamos con el servidor y todo lo que escribamos se enviará al bash del servidor y lo que nos responda aparecerá en nuestra pantallla. Para terminar la conexión CTROL-C)</p>
-
-<p>$ telnet -l usuario IP_o_nombre_host 3001 (Otra forma de establecer la conexión.)</p>
-
-<p>$ nc -l -p 3000 > archivo (Dejar el servidor listo para recibir un archivo)</p>
-
-<p>$ nc IP_servidor 3000 &lt; archivo  (enviar desde el cliente el archivo)</p>
-
-<p>$ nc -zw2 www.nombre.com 80 &amp;&amp; echo open  (comprobar si está abierto el puerto 80 de un host)</p>
-
-<p>$ nc -l -p 10000 &lt; pelicula.avi  (streaming de video-servidor)</p>
-
-<p>$ nc IP_o_host 10000 | mplayer – (streaming de video-cliente)</p>
-
-<p>$ nc -l -p 10000 &lt; fichero.mp3  (streaming de  audio-servidor)</p>
-
-<p>$ nc IP_o_host 10000 | madplay –  (streaming de audio-cliente)</p>
-
-<p>$ nc -l -p http -c &#8220;cat index.html&#8221;  (servidor http)</p>
-
-<p>$ echo “GET /” | nc www.google.com 80 > index.html  (copiar una página web)</p>
-
-<p>$ nc -l -p 10000 -c &#8220;nc host 22&#8221; (Proxy. El trafico recibido en el puerto 10000 se redirige al 22 del host especificado)</p>
-
-<p>$ nc towel.blinkenlights.nl 23  (visionar la guerra de las galaxias)</p>
-
-<p>$ dd if=/dev/sda5 | nc -l -p 10000  (clonar un disco por red. En el servidor)</p>
-
-<p>$ nc IP_o_host 10000 | dd of=sda5.img  (En el cliente)</p>
-
-<p>$ nc -l -p 7777 > /dev/null  (Prueba de rendimiento entre dos máquinas. En el Servidor)</p>
-
-<p>$ pv -r /dev/zero | nc IP_servidor 7777  (En el cliente)</p></blockquote>
-
-<p>opciones</p>
-
-<p>-v -v   .-  mostrar máxima información</p>
-
-<p>-z  .-  mostrar puertos a la escucha</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/59/">&larr; Older</a>
@@ -750,12 +717,16 @@ color article cyan black
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1297</li>
+	<li>1298</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/zmap/">zmap</a>
+      </li>
     
       <li class="post">
         <a href="/blog/mkpasswd/">mkpasswd</a>
@@ -791,10 +762,6 @@ color article cyan black
     
       <li class="post">
         <a href="/blog/rsync/">rsync</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zypper/">zypper</a>
       </li>
     
   </ul>
