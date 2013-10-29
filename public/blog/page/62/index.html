@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Reproductor de música. Atajos F1 (Añadir ficheros a la lista) F3 (Seleccionar todo recursivamente) Retroceso (Subir un directorio) Espacio ( &hellip;">
+  <meta name="description" content="Analiza y ajusta archivos MP3 para que tengan el mismo nivel de volumen. $ mp3gain -r -k *.mp3 (Normaliza todos los archivos del directorio) $ find &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,48 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/mp3gain/">Mp3gain</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Analiza y ajusta archivos MP3 para que tengan el mismo nivel de volumen.</p>
+
+<blockquote><p>$ mp3gain -r -k *.mp3 (Normaliza todos los archivos  del directorio)</p>
+
+<p>$ find . -type f -iname &#8216;*.mp3&#8217; -print0 | xargs -0 mp3gain -r -k (genera una lista de los archivos mp3 contenidos en la carpeta actual, crea una tuberia con el resultado de la lista, y normaliza)</p>
+
+<p>$ find directorio -iname “*.mp3″ -exec mp3gain -r -k -m 5 (normaliza un directorio y sus subdirectorios)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -575,250 +617,6 @@ q (Salir del programa)
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/monit/">Monit</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Monitorizador de procesos en ejecución, servicios, demonios, espacios de disco, PIDs, checksums, archivos&#8230;.</p>
-
-<blockquote><p># monit status (Acceder a los informes)</p>
-
-<p># monit -t (Comprobar errores de configuración [Control file syntax OK])</p>
-
-<p># monit -h (Listado de comandos disponibles)</p>
-
-<p># monit quit (Salir)</p>
-
-<p># monit start all (Arrancar todos los monitoreos)</p>
-
-<p># monit sotp ssh (Parar un monitoreo de un servicio)</p>
-
-<p># monit restart all (Reiniciar todos los monitoreos)</p>
-
-<p># monit summary (Mostrar resumen)</p></blockquote>
-
-<p>Configuración:</p>
-
-<pre><code># nano /etc/monitrc 
-</code></pre>
-
-<p>Las entradas globales empiezan por “set” y los servicios concretos por “check”</p>
-
-<p>Tiempo d​e actualización de datos, por defecto:</p>
-
-<pre><code>set daemon  60 
-</code></pre>
-
-<p>Especificar el archivo de eventos (logs)</p>
-
-<pre><code>set logfile /var/log/monit.log 
-</code></pre>
-
-<p>Configurar para el envio de notificaciones:</p>
-
-<pre><code>set mailserver localhost 
-
-set alert usuario@localhost.localdomain 
-
-set mail-format { 
-
-from: monit@$HOST 
-
-subject: $SERVICE $EVENT 
-
-message: $ACTION $SERVICE at $DATE on $HOST: $DESCRIPTION. 
-
-} 
-
-set mailserver mail@mail.com (servidor smtp que envia los correos [localhost para notificación local]). 
-
-set alert user@hots.com  (cuenta donde enviar los mensajes de alerta). Ejemplo para enviar notificaciones a correo gmail (en negrita los datos a modificar): 
-
-set mailserver smtp.gmail.com port 587 
-
-username usuario@gmail.com password Tfer7¿-6j 
-
-using tlsv1 
-
-with tim​eout 30 seconds 
-
-set alert usuario@gmail.com 
-
-Cambiar usuario y contraseña (por defecto: admin/monit) 
-
-allow usuario:contraseña 
-</code></pre>
-
-<p>Especificar desde donde accederemos. Sólo acceso local [localhost:2812]:</p>
-
-<p>set httpd port 2812 and use address localhost</p>
-
-<p>allow localhost</p>
-
-<p>o si queremos acceso remoto [http://ip_o_host:2812] modificar por:</p>
-
-<pre><code>set httpd port 2812 
-
-     allow localhost 
-</code></pre>
-
-<p>Tambien podemos especificar: ips, rangos, hosts concretos o usuarios para solo lectura:</p>
-
-<pre><code>allow 192.168.1.14 
-
-allow 192.168.1.1/24 
-
-allow host.com 
-
-allow usuario:contraseña read-only
-</code></pre>
-
-<p>Modificar el nombre del equipo [tiene que estar en /etc/hosts] y adaptar los porcentajes de consumo de carga del sistema [loadvg] y cpu para que al superar ciertos índices o porcentajes, envie una alerta:</p>
-
-<p>check system tux</p>
-
-<pre><code>if loadavg (1min) &gt; 4 then alert 
-
-if memory usage &gt; 75% then alert 
-
-if swap usage &gt; 85% then alert 
-
-if cpu usage (user) &gt; 70% then alert 
-
-if cpu usage (system) &gt; 70% then alert 
-
-if cpu usage (wait) &gt; 70% then alert 
-</code></pre>
-
-<p>Configurar el monitoreo de apache (Las rutas a los ficheros pertenecen a una distro arch):</p>
-
-<p>check process apache with pidfile /run/httpd/httpd.pid</p>
-
-<pre><code>start program = "/etc/rc.d/httpd start" with timeout 60 seconds 
-
-stop program  = "/etc/rc.d/httpd stop" 
-
-if cpu &gt; 80% for 5 cycles then restart 
-
-if totalmem &gt; 1500.0 MB for 5 cycles then restart 
-
-if children &gt; 250 then restart 
-
-if cpu usage &gt; 95% for 3 cycles then restart 
-
-if failed port 80 protocol http then restart 
-</code></pre>
-
-<p>Configurar monitoreo de ssh</p>
-
-<p>check process ssh with pidfile /run/sshd.pid</p>
-
-<pre><code>start program = "/etc/rc.d/sshd start" with timeout 60 seconds 
-
-stop program  = "/etc/rc.d/sshd stop" 
-
-if cpu &gt; 80% for 5 cycles then restart 
-
-if totalmem &gt; 1500.0 MB for 5 cycles then restart 
-
-if children &gt; 250 then restart 
-
-if cpu usage &gt; 95% for 3 cycles then restart 
-
-if failed port 22 protocol ssh then restart 
-</code></pre>
-
-<p>Chequear determinados puertos:</p>
-
-<p>check host localhost with address localhost</p>
-
-<pre><code>  if failed icmp type echo count 10 with timeout 15 seconds 
-
-     then alert 
-
-  if failed port 22 proto ssh then alert 
-
-  if failed port 25 proto smtp then alert 
-
-  if failed port 80 proto http then alert 
-</code></pre>
-
-<p>Monitorear ciertos archivos de configuración [de apache y ssh] para que alerte si modifica el checksum:</p>
-
-<pre><code>check file httpd.conf with path /etc/httpd/conf/httpd.conf 
-
-if changed checksum then alert 
-
-check file ssh_config with path /etc/ssh/ssh_config 
-
-if changed checksum then alert 
-</code></pre>
-
-<p>Monitorizar directorios para que envie una alerta en caso de modificación:</p>
-
-<pre><code>        check directory sbin with path /sbin 
-
-    if changed timestamp then alert 
-</code></pre>
-
-<p>Monitorizar dispositivos /dev/ [discos duros, usb&#8230;] para que avise en caso de sobrepasar determinado espacio en disco o lo desmonte al llegar a cierto porcentaje:</p>
-
-<pre><code>check device sda5 with path /dev/sda5 
-
-start = “/bin/mount /dev/sda5” 
-
-stop = “/bin/umount /dev/sda5” 
-
-if space usage &gt; 90% then alert 
-
-if space usage &gt; 98% then stop 
-</code></pre>
-
-<p>Si, al pasar algún evento queremos lanzar un script algunos ejemplos para hacerlo son:</p>
-
-<p>1.- Cuando la carga del sistema sobrepasa el indice 5 alertará y si supera el 20 ejecutará el script:</p>
-
-<p>check system dominio.com</p>
-
-<pre><code>if loadavg (1min) &gt; 5 then alert 
-
-if loadavg (1min) &gt; 20 then exec "/bin/bash /root/script.sh" 
-</code></pre>
-
-<p>2.- Si falla el servidor ftp [puerto 21], al pasar 20 segundos alertará  y ejecutará el script</p>
-
-<p>if failed port 21 protocol ftp with 20 seconds then alert and exec “/ftp/script.sh”</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/63/">&larr; Older</a>
@@ -834,12 +632,16 @@ if loadavg (1min) &gt; 20 then exec "/bin/bash /root/script.sh"
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1299</li>
+	<li>1300</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/pigz/">pigz</a>
+      </li>
     
       <li class="post">
         <a href="/blog/bashish/">bashish</a>
@@ -875,10 +677,6 @@ if loadavg (1min) &gt; 20 then exec "/bin/bash /root/script.sh"
     
       <li class="post">
         <a href="/blog/debget/">debget</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/checkrestart/">checkrestart</a>
       </li>
     
   </ul>

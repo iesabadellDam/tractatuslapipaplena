@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Listar todos los módulos cargados del kernel, y alguna información adicional de ellos.
-">
+  <meta name="description" content="Listar ficheros o procesos abiertos # lsof -i :4662 (servicios usados por el puerto 4662 aunque esten a la escucha) # lsof -i@lapipaplena.homelinux. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +75,90 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/lsof/">Lsof</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Listar ficheros o procesos abiertos</p>
+
+<blockquote><p># lsof -i :4662  (servicios usados por el puerto 4662 aunque esten a la escucha)</p>
+
+<p># lsof -i@lapipaplena.homelinux.com  (verificar conexiones con una máquina)</p>
+
+<p># lsof -i@88.25.114.11   (lo mismo pero especificando la ip)</p>
+
+<p># lsof -i | grep ssh  (Para que muestre solo los que usan el protocolo ssh)</p>
+
+<p># lsof +D /var/log  (Mostrar los servicios que tiene abierto un directorio)</p>
+
+<p># lsof fichero  (Muestra los servicios que tiene abiertos fichero)</p>
+
+<p># lsof -nPi TCP   (Muestra los eventos de red de las conexiones TCP)</p>
+
+<p># lsof -p PID  (Ficheros que tiene abierto determinado proceso)</p>
+
+<p># lsof -N      (Muestra los archivos NFS abiertos)</p>
+
+<p># lsof -c firefox   (Muestra los ficheros abiertos por firefox)</p>
+
+<p># lsof -P -i -n -sTCP:LISTEN (listado de puertos en LISTEN)</p>
+
+<p># lsof -i -P | grep -i &#8220;listen&#8221; (otra forma de listarlos)</p>
+
+<p># lsof -i tcp -i udp  (lista puertos tcp y udp abiertos)</p>
+
+<p># lsof -Pni | grep LISTEN   (chequear puertos abiertos)</p>
+
+<p># lsof -c bash -r  (Monitorizar un proceso)</p>
+
+<p># lsof -i :631 | awk &#8216;{print $1,$2}&#8217; | sort -u  (muestra pid y demonio del puerto especificado)</p>
+
+<p># lsof -t -i :22 (Muestra el pid del puerto especificado)</p>
+
+<p># lsof -nPi | txt2html  > lsof.html (Mandar la salida a un html para visualizarlo por el navegador)</p></blockquote>
+
+<p>Opciones:</p>
+
+<p>-P (Muestra los números de puerto en vez de la aplicación que corre en ellos)</p>
+
+<p>-n (Para que no resuelva las IP de las conexiones)</p>
+
+<p>-i (Hace referencia a los eventos utilizados por procesos de red)</p>
+
+<p>-u usuario (Muestra los procesos abiertos por “usuario”)</p>
+
+<p>-x (Sigue links y puntos de montaje)</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -435,86 +518,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ls/">Ls</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Listar archivos de un directorio.</p>
-
-<blockquote><p>$ ls -i (Muestra todos los archivos no ocultos)</p>
-
-<p>$ ls -a (Muestra todos los archivos, incluso los ocultos)</p>
-
-<p>$ ls -l (Muestra permisos, último acceso i propietarios)</p>
-
-<p>$ ls -1 (muestra en un listado)</p>
-
-<p>$ ls -F (Muestra a continuación de cada elemento si se trata de un directorio [/], un ejecutable [*] o un enlace [@])</p>
-
-<p>$ ls -L (En los enlaces, se muestra el archivo al que apuntan)</p>
-
-<p>$ ls -l PID (Muestra qué está corriendo con el PID especificado)</p>
-
-<p>$ ls -R    (recursivamente)</p>
-
-<p>$ ls -Z (listar visualizando los contextos en selinux [ver])</p>
-
-<p>$ ls -s    (Muestra el tamaño)</p>
-
-<p>$ ls -S (Lista por tamaño)</p>
-
-<p>$ ls ../ (Listar los archivos del directorio anterior)</p>
-
-<p>$ ls -t    (lista por fecha de modificación de más nuevo a más viejo)</p>
-
-<p>$ ls /boot /usr (Lista los dos directorios especificados)</p>
-
-<p>$ ls -ad *.sh (lista los terminados en .sh)</p>
-
-<p>$ ls *.{odt,txt} (Lista los de las extensiones mencionadas)</p>
-
-<p>$ ls -ad */ (Lista sólo los directorios)</p>
-
-<p>$ ls -alL /home/usuario/videos</p>
-
-<p>$ ls -l /lib/modules (muestra los kernels instalados)</p>
-
-<p>$ ls | xargs rm (Eliminar todos los archivos)</p>
-
-<p>$ ls @(<em>.sh|</em>.txt) (Sólo mostrará las extensiones especificadas. Precisa activación de los comodines extendidos de bash con: shopt -s extglob)</p>
-
-<p>$ ls !(<em>.sh|</em>.txt) | xargs rm (Elimina todos menos los mencionados)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/71/">&larr; Older</a>
@@ -530,12 +533,16 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1299</li>
+	<li>1300</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/pigz/">pigz</a>
+      </li>
     
       <li class="post">
         <a href="/blog/bashish/">bashish</a>
@@ -571,10 +578,6 @@
     
       <li class="post">
         <a href="/blog/debget/">debget</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/checkrestart/">checkrestart</a>
       </li>
     
   </ul>
