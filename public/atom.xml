@@ -4,7 +4,7 @@
   <title><![CDATA[TRACTATUS ELEMENTALIS]]></title>
   <link href="https://tractatuslapipaplena.herokuapp.com/atom.xml" rel="self"/>
   <link href="https://tractatuslapipaplena.herokuapp.com/"/>
-  <updated>2013-10-31T18:25:13+01:00</updated>
+  <updated>2013-11-01T19:28:20+01:00</updated>
   <id>https://tractatuslapipaplena.herokuapp.com/</id>
   <author>
     <name><![CDATA[templix]]></name>
@@ -12,6 +12,79 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[vglrun]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/vglrun/"/>
+    <updated>2013-11-01T19:28:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/vglrun</id>
+    <content type="html"><![CDATA[<p>Ejecuta aplicaciones utilizando las librerias de VirtualGL</p>
+
+<blockquote><p>$ vglrun programa</p>
+
+<p>$ vglrun -q 70 programa (Baja la calidad de los JPG enviados entre la máquina remota y la local)</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[vglconnect]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/vglconnect/"/>
+    <updated>2013-11-01T19:28:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/vglconnect</id>
+    <content type="html"><![CDATA[<p>Crear conexión para el uso de VirtualGL entre la maquina cliente y la remota (la que ejecutará las aplicaciones OpenGL). Funciona como una conexión SSH pero con la redirección de aplicaciones gráficas activada.</p>
+
+<blockquote><p>$ vglconnect usuaro@1.2.3.4</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[rsync]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/rsync/"/>
+    <updated>2013-11-01T19:28:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/rsync</id>
+    <content type="html"><![CDATA[<p>Sincronizar archivos o directorios. Trabasjar con el directorio montado.</p>
+
+<blockquote><p>$ rsync -av /home/usuario/Dropbox /home/usuario/Copias_seguridad/ (Copiar todo el directorio “Dropbox” en el directorio “Copias_seguridad”)</p>
+
+<p>$ rsync -av &#8211;exclude=Dropbox /media/servidor /home/usuario/servidor/ (Sincronizar un servidor con un directorio local excluyendo el dir Dropbox)</p></blockquote>
+
+<p>Nota.- Pueden excluirse varios directorios [&#8211;exclude=Dropbox &#8211;exclude=isos &#8211;exclcude=public &#8230;]</p>
+
+<blockquote><p>$ rsync -arvuz Documentos usuario@192.168.1.5:/home/usuario/ (Copiar el directorio en otra máquina)</p>
+
+<p>$ rsync -arvuz -e &#8216;ssh -p 30567&#8217; Documentos usuario@192.168.1.5:/home/usuario/ (Copiar el directorio en otra máquina pero especificando otro puerto SSH)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<pre><code>-a (respaldar recursivamente directorios y subdirectorios) 
+
+-g (conserva el atributo “group” de los archivos originales) 
+
+-E (conserva el atributo “executable” del archivo originales) 
+
+-v (aumentar el nivel de información desplegado 
+
+-z (comprime los datos que serán transferidos) 
+
+--exclude=tmp  (Excluir archivos o directorios. /tmp en este caso)
+
+--delete-during  (Borrar los archivos de origen a medida que son transferidos) 
+</code></pre>
+
+<blockquote><p>$ rsync -aHxv root@dirección_IP:/* /carpeta_destino &#8211;exclude=/dev &#8211;exclude=/proc &#8211;exclude=/sys &#8211;exclude=/tmp (copia/clonación en vivo de todo un sistema remoto a un directorio local. Se recomienda parar todos los servicios en ejecución de la máquina remota y repetir el comando varias veces hasta que no haya ningún fichero copiado, para evitar ficheros corrompidos. Se deben crear las carpetas &#8220;/dev&#8221;, &#8220;/proc&#8221;, &#8220;/sys&#8221; y &#8220;/tmp&#8221; en la carpeta de destino).</p>
+
+<p>$ rsync -avz &#8211;exclude-from &#8216;rsync_exclude&#8217; /home/usuario/ /media/sda11/copa_seguridad (Copia de seguridad del /home/usuario a otra partición excluyendo los archivos especificados en el archivo rsync_exclude)</p></blockquote>
+
+<p>Nota.- El formato del archivo rsync_exclude para excluir los ficheros ocultos [.*] todos los de la carpeta Dropbox y el video alien de la carpeta Videos será:</p>
+
+<pre><code>.*
+
+Dropbox/*
+
+Videos/alien
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[getent]]></title>
@@ -230,53 +303,6 @@ Found 0 processes using old versions of upgraded files
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[rsync]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/rsync/"/>
-    <updated>2013-10-27T18:17:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/rsync</id>
-    <content type="html"><![CDATA[<p>Sincronizar archivos o directorios. Trabasjar con el directorio montado.</p>
-
-<blockquote><p>$ rsync -av /home/usuario/Dropbox /home/usuario/Copias_seguridad/ (Copiar todo el directorio “Dropbox” en el directorio “Copias_seguridad”)</p>
-
-<p>$ rsync -av &#8211;exclude=Dropbox /media/servidor /home/usuario/servidor/ (Sincronizar un servidor con un directorio local excluyendo el dir Dropbox)</p></blockquote>
-
-<p>Nota.- Pueden excluirse varios directorios [&#8211;exclude=Dropbox &#8211;exclude=isos &#8211;exclcude=public &#8230;]</p>
-
-<blockquote><p>$ rsync -arvuz Documentos usuario@192.168.1.5:/home/usuario/ (Copiar el directorio en otra máquina)</p></blockquote>
-
-<p>Algunas opciones:</p>
-
-<pre><code>-a (respaldar recursivamente directorios y subdirectorios) 
-
--g (conserva el atributo “group” de los archivos originales) 
-
--E (conserva el atributo “executable” del archivo originales) 
-
--v (aumentar el nivel de información desplegado 
-
--z (comprime los datos que serán transferidos) 
-
---exclude=tmp  (Excluir archivos o directorios. /tmp en este caso)
-
---delete-during  (Borrar los archivos de origen a medida que son transferidos) 
-</code></pre>
-
-<blockquote><p>$ rsync -aHxv root@dirección_IP:/* /carpeta_destino &#8211;exclude=/dev &#8211;exclude=/proc &#8211;exclude=/sys &#8211;exclude=/tmp (copia/clonación en vivo de todo un sistema remoto a un directorio local. Se recomienda parar todos los servicios en ejecución de la máquina remota y repetir el comando varias veces hasta que no haya ningún fichero copiado, para evitar ficheros corrompidos. Se deben crear las carpetas &#8220;/dev&#8221;, &#8220;/proc&#8221;, &#8220;/sys&#8221; y &#8220;/tmp&#8221; en la carpeta de destino).</p>
-
-<p>$ rsync -avz &#8211;exclude-from &#8216;rsync_exclude&#8217; /home/usuario/ /media/sda11/copa_seguridad (Copia de seguridad del /home/usuario a otra partición excluyendo los archivos especificados en el archivo rsync_exclude)</p></blockquote>
-
-<p>Nota.- El formato del archivo rsync_exclude para excluir los ficheros ocultos [.*] todos los de la carpeta Dropbox y el video alien de la carpeta Videos será:</p>
-
-<pre><code>.*
-
-Dropbox/*
-
-Videos/alien
-</code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
     <title type="html"><![CDATA[zypper]]></title>
     <link href="https://tractatuslapipaplena.herokuapp.com/blog/zypper/"/>
     <updated>2013-10-27T13:57:00+01:00</updated>
@@ -363,24 +389,6 @@ Videos/alien
 <blockquote><p>$ zip archivo.zip fichero1 fichero2 (Comprimir varios ficheros)</p>
 
 <p>$ zip -r archivo.zip file1 file2 dir1 (comprimir varios files y directorios)</p></blockquote>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[zgrep]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/zgrep/"/>
-    <updated>2013-10-27T13:57:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/zgrep</id>
-    <content type="html"><![CDATA[<p>imprime las líneas que cumplan la expresión regula sobre ficheros comprimidos (Ver grep)</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[zfgrep]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/zfgrep/"/>
-    <updated>2013-10-27T13:57:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/zfgrep</id>
-    <content type="html"><![CDATA[<p>Busca cadenas de texto fijas sobre archivos comprimidos (ver fgrep)</p>
 ]]></content>
   </entry>
   

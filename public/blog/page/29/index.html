@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Detectar y extraer mensajes incrustados dentro de una imagen o música $ steghide embed -cf imagen.jpg -ef archivo_texto (incrustar un texto en una &hellip;">
+  <meta name="description" content="Muestra las llamadas al sistema originadas por un proceso. $ strace comando $ strace -p PID (Por número de proceso) $ strace -c comando -o traza.txt &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,108 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/strace/">Strace</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Muestra las llamadas al sistema originadas por un proceso.</p>
+
+<blockquote><p>$ strace comando</p>
+
+<p>$ strace -p PID (Por número de proceso)</p>
+
+<p>$ strace -c comando -o traza.txt (mostrar resumen de llamadas y errores durante la ejecución y redirigido a un archivo)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<p>-f (Incluir posibles forks que haga un programa, por ejemplo httpd)</p>
+
+<p>-v (Muestra el máximo de información)</p>
+
+<p>-s 8192 (Valor de 8192 como limite de longitud de las cadenas. Por defecto 32)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/stjerm/">Stjerm</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Consola tipo guake.</p>
+
+<blockquote><p>$ stjerm -k f12 -s left -o 70 -h 250 -w 1280 (Que aparezca pulsando F12, con barra de escroll a la izquierda, opacidad del 70% y especificando ancho y largo)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<p>-ah (Ocultar automáticamente la ventana cuando no está enfocada)</p>
+
+<p>-bg red (Color de fondo)</p>
+
+<p>-bgimg imagen.png (Establecer una imagen de fondo)</p>
+
+<p>-fn (Tipo y tamaño de fuente)</p>
+
+<p>-fg blue (Color de la fuente)</p>
+
+<p>-p (Posición de la ventana [valores: top, bottom, left, right])</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -442,99 +544,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sshpass/">Sshpass</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>La contraseña para acceder por ssh a un host remoto se realiza de forma interactiva (entrándola por teclado) en algunos casos esto no es posible ya sea por tratarse de un script en el que se entra en un host remoto, se realiza alguna acción y se regresa al local o por que se precisa entrar la contraseña de forma no interactiva. Para estos casos puede ser útil este comando aunque considerando lo debil para la seguridad que entraña su uso ya que puede quedar registrado en &#8220;history&#8221;.</p>
-
-<blockquote><p>$ sshpass -f file_pas ssh -y usuario@host ifconfig (Ejecuta ifconfig en el remoto entrando como contraseña la primera palabra del archivo file_pas )</p>
-
-<p>$ sshpass -p 1234 ssh -t usuario@host &#8220;echo 1234 | sudo -S namp 192.168.1.0/24&#8221; (Ejecuta el comando &#8220;sudo nmap&#8221; en el host remoto que tiene por contraseña 1234.)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sshguard/">Sshguard</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Demonio que protege SSH y otros servicios contra ataques de fuerza bruta. Funciona observando los cambios en /var/log/auth.log, verificando si alguien esta fallando varias veces al autentificarse. Luego de varios errores de autentificacion (por defecto 14) el host ofensivo sera bloqueado por 7 minutos y se duplicará cada vez que el host ofensivo repita el ataque. Carece de archivo de configuración y puede complementarse con iptables:</p>
-
-<blockquote><p># iptables -A INPUT -j sshguard (Para activarlo en todos los puertos)</p>
-
-<p># iptables -A INPUT -m multiport -p tcp &#8211;destination-ports 21,22 -j sshguard (Para puertos concretos [ftp y ssh])</p></blockquote>
-
-<p>El archivo para colocar las direcciones no afectadas por sshguard:</p>
-
-<blockquote><p># nano /etc/sshguard/whitelist</p></blockquote>
-
-<p>Con el siguiente formato:</p>
-
-<pre><code>192.168.1.53 (Una ip)
-
-192.168.1.0/24 (Un rango)
-
-lapipaplena.net (Un host)
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/30/">&larr; Older</a>
@@ -550,12 +559,24 @@ lapipaplena.net (Un host)
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1302</li>
+	<li>1304</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/vglrun/">vglrun</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/vglconnect/">vglconnect</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/rsync/">rsync</a>
+      </li>
     
       <li class="post">
         <a href="/blog/getent/">getent</a>
@@ -583,18 +604,6 @@ lapipaplena.net (Un host)
     
       <li class="post">
         <a href="/blog/mktemp/">mktemp</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/dpigs/">dpigs</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/dhomepage/">dhomepage</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/debian-timeline/">debian-timeline</a>
       </li>
     
   </ul>
