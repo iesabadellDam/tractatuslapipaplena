@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Protege contra ataques. Configuración: # nano /etc/denyhosts.conf Algunas opciones: SECURE_LOG = /var/log/auth.log (Ruta a los logs) &hellip;">
+  <meta name="description" content="Toda aplicación tiene siempre tres descriptores de fichero abiertos, el 0 para la entrada estándar [stdin], el 1 para la salida estándar [stdout], y &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,52 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/descriptor/">Descriptor</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Toda aplicación tiene siempre tres descriptores de fichero abiertos, el 0 para la entrada estándar [stdin], el 1 para la salida estándar [stdout], y el 2 para la salida de errores estándar [stderr]. Del 3 al 9 son descriptores adicionales [ver tuberias]. En el ejemplo:</p>
+
+<blockquote><p>$ ls -a >> listado.txt</p></blockquote>
+
+<p>La salida estándart [descriptor 1] se envia al fichero listado.txt, consecuentemente en pantalla no veremos nada. En el caso:</p>
+
+<blockquote><p>$ ls -zy >> listado.txt</p></blockquote>
+
+<p>El error [descriptor 2] se mostrará por pantalla y listado.txt permanecerá vacio. Para redirigir el error [descriptor 2 ]al fichero listado.txt [descriptor 1]:</p>
+
+<blockquote><p>$ ls -zy >> listado.txt 2>&amp;1</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -647,70 +693,6 @@ $ cd picpuz
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ddrescue/">Ddrescue</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Recuperación de discos dañados. Proceso:</p>
-
-<p>Descargar el paquete dd_rhelp (Comprobar si existe una versión posterior):</p>
-
-<blockquote><p>$ wget http://www.kalysto.org/pkg/dd_rhelp-0.1.2.tar.gz</p>
-
-<p>$ cd dd_rhelp-0.1.2</p>
-
-<p># ./dd_rhelp /dev/sdbx sdbx.img</p></blockquote>
-
-<p>Creará sdbx.img en el directorio actual, que podrá montarse:</p>
-
-<blockquote><p># mount -o loop sdbx.img /media/imagen</p></blockquote>
-
-<p>Comprobar posibles errores (para partición ext3):</p>
-
-<blockquote><p># fsck -y sdbx.img</p></blockquote>
-
-<p>Restaurar la imagen:</p>
-
-<blockquote><p># dd_rhelp sdbx.img /dev/sdax</p></blockquote>
-
-<p>Método de ejecutar ddrescue en dos pasadas, de forma que la primera sólo recupera los bloques que no contenga sectores defectuosos y el segundo se centre en recuperar el máximo de los defectuosos:</p>
-
-<blockquote><p># ddrescue -v -n /dev/sda /dev/sdb sda.txt</p>
-
-<p># ddrescue -v -r2 -d /dev/sda /dev/sdb sda.txt</p></blockquote>
-
-<p>Luego comprobar errores con fsck.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/108/">&larr; Older</a>
@@ -726,12 +708,16 @@ $ cd picpuz
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1306</li>
+	<li>1307</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/randtype/">randtype</a>
+      </li>
     
       <li class="post">
         <a href="/blog/google/">google</a>
@@ -767,10 +753,6 @@ $ cd picpuz
     
       <li class="post">
         <a href="/blog/abook/">abook</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/pigz/">pigz</a>
       </li>
     
   </ul>
