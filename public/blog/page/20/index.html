@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Ignora las líneas idénticas siempre y cuando sean adyacentes. $ uniq -u archivo archivo_sin repeticiones $ uniq -d archivo archivo2 (en archivo2 sólo &hellip;">
+  <meta name="description" content="Sincronización de carpetas remotas. Previamente crear la clave y copiarla al otro pc: $ ssh-keygen -t dsa $ ssh-copy-id -i $HOME/.ssh/id_dsa.pub root &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,66 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/unison/">Unison</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Sincronización de carpetas remotas.</p>
+
+<p>Previamente crear la clave y copiarla al otro pc:</p>
+
+<blockquote><p>$ ssh-keygen -t dsa</p>
+
+<p>$ ssh-copy-id -i $HOME/.ssh/id_dsa.pub root@ip_o_host</p></blockquote>
+
+<p>Sincronizar las carpetas (la web en este ejemplo)</p>
+
+<blockquote><p>$ unison /srv/http ssh://ip_o_host//srv/http</p></blockquote>
+
+<p>Si la carpeta a sincronizar se coloca en el archivo de configuración:</p>
+
+<blockquote><p># nano /root/.unison/default.prf</p></blockquote>
+
+<p>root = /srv/http</p>
+
+<p>root = ssh://ip_o_host//srv/http</p>
+
+<p>Puede colocarse la orden en el cron para que se actualice cada 5 minutos:</p>
+
+<p>crontab -e</p>
+
+<p>*/5 * * * * /usr/bin/unison &amp;> /dev/null</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -446,136 +506,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ulimit/">Ulimit</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Permite  visualizar o limitar los recursos del sistema.</p>
-
-<blockquote><p># ulimit -f 512000 (limita a los usuarios para que no puedan crear archivos de mayor tamaño que 512000 Kb [500 #Mb])</p>
-
-<p>$ ulimit -a   (ver todos los parámetros)</p></blockquote>
-
-<p>Parámetros:</p>
-
-<pre><code>core (Tamaño máximo de los ficheros core [KB])
-
-data (Tamaño máximo para el segmento de datos [KB])
-
-fsize (Tamaño máximo para los ficheros [KB])
-
-memlock (Tamaño máximo para el espacio de direcciones bloqueado en memoria [KB])
-
-nofile (Número máximo de ficheros abiertos)
-
-rss (Tamaño máximo del conjunto residente en memoria [KB])
-
-stack (Tamaño máximo para la pila [KB])
-
-cpu (Tiempo máximo de CPU [minutos])
-
-nproc (Número máximo de procesos)
-
-as (Límite en el espacio de direcciones)
-
-maxlogins (Número máximo de logins)
-
-priority (Prioridad de base para los procesos del usuario)
-
-locks (Número máximo de ficheros bloqueados que el usuario puede mantener)
-</code></pre>
-
-<p>Nota.- El ámbito de aplicación del límite puede ser un nombre de usuario, un grupo (@grupo) o todos (*)</p>
-
-<p>Un ejemplo de limit.conf:</p>
-
-<pre><code>*               soft    nproc           10000
-
-*               hard    nproc           4096
-
-*               soft    core            unlimited
-
-*               hard    core            unlimited
-
-*               soft    memlock         131072
-
-*               hard    memlock         131072
-
-*               soft    nofile          102400
-
-*               hard    nofile          102400
-</code></pre>
-
-<p>1.-</p>
-
-<p>Evitar Forkboms [programas que consumen la totalidad de los recursos del sistema]</p>
-
-<p>Si al lanzar el comando:</p>
-
-<blockquote><p>$ ulimit -u</p></blockquote>
-
-<p>El resultado es “ilimitado” o un valor extremadamente alto, podemos ser victimas de los forkbombs. Para resolverlo podemos limitar el número de procesos abiertos a 1000 para que estos no puedan llegar a colapsar el sistema:</p>
-
-<blockquote><p># gedit /etc/security/limits.conf</p></blockquote>
-
-<p>Añadir antes de “End of file”:   * hard nproc 1000</p>
-
-<p>Reiniciar</p>
-
-<p>2.-</p>
-
-<p>En ciertas ocasiones, al procesar muchos archivos, se produce un error &#8220;for output (Too many open files)&#8221; porque se desborda el limite de 1024 k. Para solucionarlo:</p>
-
-<blockquote><p># nano /etc/security/limits.conf</p></blockquote>
-
-<p>Y añadir las siguientes lineas:</p>
-
-<pre><code>*    soft    nofile    9000
-
-*    hard    nofile    65000
-</code></pre>
-
-<p>3.-</p>
-
-<p>Limitar la cantidad de usuarios conectados al sistema:</p>
-
-<blockquote><p># nano /etc/security/limits.conf</p></blockquote>
-
-<p>Y en el parámetro maxlogins modificamos el número que deseemos:</p>
-
-<pre><code>*    -       maxlogins 3
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/21/">&larr; Older</a>
@@ -591,12 +521,16 @@ locks (Número máximo de ficheros bloqueados que el usuario puede mantener)
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1310</li>
+	<li>1311</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/arm/">arm</a>
+      </li>
     
       <li class="post">
         <a href="/blog/linuxinfo/">linuxinfo</a>
@@ -632,10 +566,6 @@ locks (Número máximo de ficheros bloqueados que el usuario puede mantener)
     
       <li class="post">
         <a href="/blog/command-not-found/">command-not-found</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/patch/">patch</a>
       </li>
     
   </ul>
