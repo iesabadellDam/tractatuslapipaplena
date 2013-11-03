@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Genera numeros aleatorio y muestra lineas de archivo de fiorma aleatoria. $ shuf -n 4 /etc/fstab -o archivo (Muestra 4 lineas aleatorias del archivo &hellip;">
+  <meta name="description" content="Gestión de impresoras y trabajos de impresión. $ lp fichero (imprime fichero con la impresora predeterminada) $ lp -d otra_impresora fichero (Imprime &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,90 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/lp/">Lp</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-03T11:57:00+01:00" pubdate data-updated="true">03-11-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Gestión de impresoras y trabajos de impresión.</p>
+
+<blockquote><p>$ lp fichero (imprime fichero con la impresora predeterminada)</p>
+
+<p>$ lp -d otra_impresora fichero (Imprime con una impresora especificada)</p>
+
+<p>$ lpq           (muestra los trabajos pendientes y les asigna un número)</p>
+
+<p>$ lprm 5      (borra el trabajo pendiente de impresión especificado [5])</p>
+
+<p>$ lpstat -p -d (muestra la impresora predeterminada)</p>
+
+<p>$ lpstat -a           (muestra todas las impresoras)</p>
+
+<p>$ lpstat -v           (indicando ubicación)</p>
+
+<p>$ lp -n 10 fichero   (imprimirá 10 copias [opciones de 1 a 100])</p>
+
+<p>$ lp -P 7,9,12-15 fichero (imprime las páginas indicadas y de la 12 a la 15)</p>
+
+<p>$ lp -o media=A4 fichero (especificando tipo de papel o sobre)</p></blockquote>
+
+<p>Opciones “media”:</p>
+
+<p>Letter – US Letter (216x279mm).</p>
+
+<p>Legal – US Legal (216x356mm).</p>
+
+<p>A4 – ISO A4 (210x297mm).</p>
+
+<p>COM10 – US 10 Envelope (241x105mm).</p>
+
+<p>DL – ISO DL Envelope (220x110mm).</p>
+
+<blockquote><p>$ lp -o media=Custom.ANCHOxLARGOmm fichero (con un papel de medida indicada)</p>
+
+<p>$ lp -o landscape fichero (rotar 90º la impresión. Imprimir apaisado)</p>
+
+<p>$ lp -o orientation-requested=4 fichero (lo mismo que el anterior)</p></blockquote>
+
+<p>1.-</p>
+
+<p>Cuando al intentar imprimir sale el mensaje: Error - Scheduler Not Responding:</p>
+
+<blockquote><p>$ nano .bashrc</p></blockquote>
+
+<p>Y añadir la linea:</p>
+
+<p>export CUPS_SERVER=localhost</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -584,82 +668,6 @@ No uso programario privativo
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/rsync/">Rsync</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-11-01T19:28:00+01:00" pubdate data-updated="true">01-11-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Sincronizar archivos o directorios. Trabasjar con el directorio montado.</p>
-
-<blockquote><p>$ rsync -av /home/usuario/Dropbox /home/usuario/Copias_seguridad/ (Copiar todo el directorio “Dropbox” en el directorio “Copias_seguridad”)</p>
-
-<p>$ rsync -av &#8211;exclude=Dropbox /media/servidor /home/usuario/servidor/ (Sincronizar un servidor con un directorio local excluyendo el dir Dropbox)</p></blockquote>
-
-<p>Nota.- Pueden excluirse varios directorios [&#8211;exclude=Dropbox &#8211;exclude=isos &#8211;exclcude=public &#8230;]</p>
-
-<blockquote><p>$ rsync -arvuz Documentos usuario@192.168.1.5:/home/usuario/ (Copiar el directorio en otra máquina)</p>
-
-<p>$ rsync -arvuz -e &#8216;ssh -p 30567&#8217; Documentos usuario@192.168.1.5:/home/usuario/ (Copiar el directorio en otra máquina pero especificando otro puerto SSH)</p></blockquote>
-
-<p>Algunas opciones:</p>
-
-<pre><code>-a (respaldar recursivamente directorios y subdirectorios) 
-
--g (conserva el atributo “group” de los archivos originales) 
-
--E (conserva el atributo “executable” del archivo originales) 
-
--v (aumentar el nivel de información desplegado 
-
--z (comprime los datos que serán transferidos) 
-
---exclude=tmp  (Excluir archivos o directorios. /tmp en este caso)
-
---delete-during  (Borrar los archivos de origen a medida que son transferidos) 
-</code></pre>
-
-<blockquote><p>$ rsync -aHxv root@dirección_IP:/* /carpeta_destino &#8211;exclude=/dev &#8211;exclude=/proc &#8211;exclude=/sys &#8211;exclude=/tmp (copia/clonación en vivo de todo un sistema remoto a un directorio local. Se recomienda parar todos los servicios en ejecución de la máquina remota y repetir el comando varias veces hasta que no haya ningún fichero copiado, para evitar ficheros corrompidos. Se deben crear las carpetas &#8220;/dev&#8221;, &#8220;/proc&#8221;, &#8220;/sys&#8221; y &#8220;/tmp&#8221; en la carpeta de destino).</p>
-
-<p>$ rsync -avz &#8211;exclude-from &#8216;rsync_exclude&#8217; /home/usuario/ /media/sda11/copa_seguridad (Copia de seguridad del /home/usuario a otra partición excluyendo los archivos especificados en el archivo rsync_exclude)</p></blockquote>
-
-<p>Nota.- El formato del archivo rsync_exclude para excluir los ficheros ocultos [.*] todos los de la carpeta Dropbox y el video alien de la carpeta Videos será:</p>
-
-<pre><code>.*
-
-Dropbox/*
-
-Videos/alien
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -679,6 +687,10 @@ Videos/alien
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/lp/">lp</a>
+      </li>
     
       <li class="post">
         <a href="/blog/shuf/">shuf</a>
@@ -714,10 +726,6 @@ Videos/alien
     
       <li class="post">
         <a href="/blog/vglconnect/">vglconnect</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/rsync/">rsync</a>
       </li>
     
   </ul>
