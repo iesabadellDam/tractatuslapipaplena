@@ -9,7 +9,8 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Encriptar directorios. # mkdir .cripta cripta (Crear los directorios) # encfs /home/usuario/.cripta /home/usuario/cripta (Montarlos especificando la &hellip;">
+  <meta name="description" content="Muestra las variables de entorno $ env | grep DISPLAY Algunas opciones para grep: SHELL, USER, PATH, KEYBOARD, LANG..
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +76,46 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/env/">Env</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Muestra las variables de entorno</p>
+
+<blockquote><p>$ env | grep DISPLAY</p></blockquote>
+
+<p>Algunas opciones para grep: SHELL, USER, PATH, KEYBOARD, LANG..</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -699,92 +740,6 @@ s/cosa/casa/[g] (Busca las líneas que contienen "cosa" y substituye "cosa" por 
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ecryptfs/">Ecryptfs</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[ecryptfs-utils cryptsetup]</p>
-
-<p>Sistema de ficheros que permite encriptar la informacion. Puede ser montado en un sistema de ficheros convencional [ext4, ext3&#8230;] lo cual siginifica que no tenemos que preocuparnos por asignarle espacio: conforme añadimos o eliminamos archivos, el espacio crece o decrece. Se podría coger un solo fichero encriptado, enviarse a otro PC y acceder a la información de ese fichero usando la misma contraseña.</p>
-
-<p>1.-</p>
-
-<p>Encriptar un directorio:</p>
-
-<blockquote><p>$ mkdir cripta (Crear directorio)</p>
-
-<p># chmod 700 cripta (Otorgarle permisos)</p>
-
-<p># mount -t ecryptfs cripta /media/tumba (Montar el directorio. Pregunta contraseña [la firma de la clave en el fichero /root/.ecryptfs/sig-cache.txt]. Las demás preguntas [método de cifrado, longitud de la contraseña&#8230;] pueden dejarse con las opciones por defecto)</p>
-
-<p># umount /media/tumba (Desmontar directorio)</p></blockquote>
-
-<p>Nota.- Es bastante usual, montar el directorio consigo mismo:</p>
-
-<blockquote><p># mount -t ecryptfs cripta cripta</p></blockquote>
-
-<p>2.-</p>
-
-<p>Ejecutar el asistente de creación de directorio cifrado:</p>
-
-<blockquote><p># ecryptfs-setup-private</p>
-
-<p># ecryptfs-umount-private (Desmontar el directorio)</p>
-
-<p># ecryptfs-mount-private (Montar el directorio)</p></blockquote>
-
-<p>Nota.- Para impedir que el directorio creado se monte automáticamente al inicio de sesión, borrar el archivo ~/.ecryptfs/auto-mount. Para revertir el proceso crear en el mismo directorio un archivo vacio:</p>
-
-<blockquote><p>$ touch ~/.ecryptfs/auto-mount</p></blockquote>
-
-<p>3.-</p>
-
-<p>Encriptar el directorio personal [$HOME]</p>
-
-<p>Salir de la cuenta de usuario y entrar en la de root.</p>
-
-<blockquote><p># modprobe ecryptfs (activar el módulo del kernel)</p>
-
-<p># ecryptfs-migrate-home -u USUARIO (Encriptar la $HOME del USUARIO)</p></blockquote>
-
-<p>Cerrar la cuenta de administrador y, sin reiniciar, entrar en la de USUARIO</p>
-
-<blockquote><p>$ ecryptfs-unwrap-passphrase (Pedirá la contraseña. Como medida de precaución es preciso anotar la cadena de texto que muestre)</p>
-
-<p># ecryptfs-setup-swap (Como media de seguridad es necesario encriptar la partición de intercambio [Swap])</p>
-
-<p># ecryptfs-rewrap-passphrase .ecryptfs/sig-cache.txt (Modificar la contraseña)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/102/">&larr; Older</a>
@@ -800,12 +755,16 @@ s/cosa/casa/[g] (Busca las líneas que contienen "cosa" y substituye "cosa" por 
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1312</li>
+	<li>1313</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/uuencode/">uuencode</a>
+      </li>
     
       <li class="post">
         <a href="/blog/logwatch/">logwatch</a>
@@ -841,10 +800,6 @@ s/cosa/casa/[g] (Busca las líneas que contienen "cosa" y substituye "cosa" por 
     
       <li class="post">
         <a href="/blog/google/">google</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/disktype/">disktype</a>
       </li>
     
   </ul>
