@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Realizar test de velocidad de sistemas de archivos (ext3, ext4&#8230;) $ iozone -s 2g -r 64 -i 0 -i 1 -b test.xls $ iozone -a -g 2G -f /media/sda2 -a &hellip;">
+  <meta name="description" content="Configuración de red. Muestra dispositivos, enrutamientos, tuneles. $ ip addr (Revisar tarjetas) $ ip route show (Información) $ ip link show (Ver &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,70 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ip/">Ip</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Configuración de red. Muestra dispositivos, enrutamientos, tuneles.</p>
+
+<blockquote><p>$ ip addr (Revisar tarjetas)</p>
+
+<p>$ ip route show (Información)</p>
+
+<p>$ ip link show (Ver interfaces de red)</p>
+
+<p>$ ip link set dev eth0 down (bajar una red)</p>
+
+<p>$ ip route add default via 192.168.1.1 (establecer la ip del router)</p>
+
+<p>$ ip link set dev eth0 up (levantar una red)</p>
+
+<p>$ ip addr add 192.168.1.20 255.255.255.0 dev eth1 (establecer una ip estática)</p>
+
+<p>$ ip n  (MAC e IP del router)</p>
+
+<p>$ ip link set dev eth1 address 00:03:44:88:00:11 (Modificdar la MAC. Previamente bajar la red)</p>
+
+<p>$ ip route del default (Eliminar puerta de enlace para crear una nueva)</p>
+
+<p>$ ip route add default via 192.168.1.10 (Crear nueva puerta de enlace)</p>
+
+<p>$ ip -f inet addr show eth0 (información de la dirección ip)</p>
+
+<p>$ ip route add 192.168.2.0/24 via 192.168.1.10 (Añadir una red a una puerta de enlace)</p></blockquote>
+
+<p>Nota.- Verificar que /etc/resolv contenga una linea con el servidor DNS tipo: nameserver 8.8.8.8 [para las DNS de google]</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -585,101 +649,6 @@ gateway 192.168.0.1
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/inittab/">Inittab</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Fichero que gestiona el inicio del sistema o un cambio de estado (runlevel) con el comando init (ver).</p>
-
-<blockquote><p># nano /etc/inittab</p></blockquote>
-
-<p>Especificación de si el sistema arranca en modo monousuario (1) o multiusuario (2-5). Por defecto 2 o 3:</p>
-
-<pre><code>id:2:initdefault:
-</code></pre>
-
-<p>Scripts que se ejecutarán en el inicio y en el orden que lo harán independientemente del runlevel:</p>
-
-<pre><code>si::sysinit:/etc/init.d/rcS (En algunas distros si::sysinit:/etc/rc.d/rc.sysinit)
-</code></pre>
-
-<p>Este script llama a los scripts del directorio /etc/rcS.d. Por cada runlevel se ejecutan los scripts del directorio correpondiente: rc0.d/, rc1.d/, rc2.d/, rc3.d/, rc4.d/, rc5.d/, rc6.d/, rc.local y rcS.d/. El directorio /etc/rc.local se usa para ejecutar servicios porpios del usuario. En estos directorios los scripts que empiezan por una &#8220;K&#8221; paran servicios y los que empiezan por una &#8220;S&#8221; los arrancan.</p>
-
-<p>Qué hacer si se presiona CTRL-ALT-DEL:</p>
-
-<pre><code>ca:12345:ctrlaltdel:/sbin/shutdown -t1 -a -r now
-</code></pre>
-
-<p>Qué hacer si la corriente se va/vuelve</p>
-
-<pre><code>pf::powerwait:/etc/init.d/powerfail start
-
-pn::powerfailnow:/etc/init.d/powerfail now
-
-po::powerokwait:/etc/init.d/powerfail stop
-</code></pre>
-
-<p>Despues de ejecutar los scripts de inicio, init crea un conjunto de terminales virtuales:</p>
-
-<pre><code>1:2345:respawn:/sbin/getty 38400 tty1
-
-2:23:respawn:/sbin/getty 38400 tty2
-
-3:23:respawn:/sbin/getty 38400 tty3
-
-4:23:respawn:/sbin/getty 38400 tty4
-
-5:23:respawn:/sbin/getty 38400 tty5
-
-6:23:respawn:/sbin/getty 38400 tty6
-</code></pre>
-
-<p>Utilizando la opción respawn, si alguien trata de finalizar uno de estos procesos, el proceso simplemente será regenerado (respawned).</p>
-
-<p>1.-</p>
-
-<p>Entrar de forma automática:</p>
-
-<p>Comentar la siguiente línea</p>
-
-<blockquote><p>#1:2345:respawn:/sbin/getty 38400 tty1</p></blockquote>
-
-<p>Y Agrega la siguiente linea:</p>
-
-<p>1:2345:respawn:/bin/login -f USUARIO tty1 </dev/tty1 >/dev/tty1 2>&amp;1</p>
-
-<p>Siendo USUARIO el nombre de usuario que hará login automático.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/82/">&larr; Older</a>
@@ -695,12 +664,16 @@ po::powerokwait:/etc/init.d/powerfail stop
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1313</li>
+	<li>1314</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/abs-guide/">abs-guide</a>
+      </li>
     
       <li class="post">
         <a href="/blog/uuencode/">uuencode</a>
@@ -736,10 +709,6 @@ po::powerokwait:/etc/init.d/powerfail stop
     
       <li class="post">
         <a href="/blog/randtype/">randtype</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/google/">google</a>
       </li>
     
   </ul>
