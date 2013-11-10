@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Demonio que crea logs del uso de la red. # cat /var/log/net-acct/net-acct.log
-">
+  <meta name="description" content="Conjunto de herramientas para manipulación de imágenes que permiten convertir entre muchos formatos gráficos conocidos [gif, bmp, jpg&#8230;] a un &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +75,214 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/netpbm/">Netpbm</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Conjunto de herramientas para manipulación de imágenes que permiten convertir entre muchos formatos gráficos conocidos [gif, bmp, jpg&#8230;] a un formato interno, o bien del formato interno a los formatos conocidos. Los formatos internos que utiliza son .ppm [Portable Pixel Map] para imágenes en color, .pgm [Portable Gray Map] para imágenes en escala de grises, y .pbm [Portable Bit Map] para imágenes formadas por bits de blanco y negro. A veces estos formatos aparecen bajo la extensión general .pnm, que abarca a todos ellos. Incluye más de 200  aplicaciones, tales como: jpegtopnm , pnmtojpeg , bmptoppm [man netpbm para un listado detallado],  muchos de estos formatos estan practicamente en desuso.</p>
+
+<blockquote><p>$ pbmtoascii -2x4 imagen.pbm  (convertir .pbm a ascii. Para mayor resolución -1x2)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/nethogs/">Nethogs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Visualiza procesos que están consumiendo más ancho de banda en el sistema</p>
+
+<blockquote><p># nethogs   (uso básico. Por defecto el dispositivo es eth0)</p>
+
+<p># nethogs eth0 eth1 (especificando dos dispositivos)</p>
+
+<p># nethogs -t eth1  (rastreando conexiones y especificando dispositivo)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/netdiscover/">Netdiscover</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Buscar máquinas [activas o pasivas] conectados  a una red.</p>
+
+<blockquote><p># netdiscover -i eth0</p>
+
+<p># netdiscover -r 192.168.1.0/24 -i eth1 (especificando rango de ips)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/netcat/">Netcat</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>utilidad que se puede utilizar para practicamente cualquier cosa relacionada con el protocolo TCP/IP [navaja suiza]</p>
+
+<p>Nota.- En algunas distros está ligeramente capado. Preferible bajarlo de http://netcat.sourceforge.net/download.php y compilarlo:</p>
+
+<blockquote><p>$ ./configure</p>
+
+<p>$ make DFLAGS=&#8221; -DTELNET -DGAPING_SECURITY_HOLE&#8221;</p>
+
+<p># make install</p>
+
+<p>$ nc -v -v -z 192.168.2.5 21 22 25 110 5900 (que se conecte a la IP, envie más información [-v por duplicado], que no envie ningún dato [-z] y que lo haga por los puertos mencionados [21,22,25,110,5900])</p>
+
+<p>$ nc -l -p 3001 -e /bin/bash  (Que esté a la escucha [-l] en el puerto 3001 [-p] y que, cuando haya conexión, ejecute nuestra shell bash [-e &#8230;.])</p>
+
+<p>$ nc IP_servidor 3001  (desde el cliente, conectamos con el servidor y todo lo que escribamos se enviará al bash del servidor y lo que nos responda aparecerá en nuestra pantallla. Para terminar la conexión CTROL-C)</p>
+
+<p>$ telnet -l usuario IP_o_nombre_host 3001 (Otra forma de establecer la conexión.)</p>
+
+<p>$ nc -l -p 3000 > archivo (Dejar el servidor listo para recibir un archivo)</p>
+
+<p>$ nc IP_servidor 3000 &lt; archivo  (enviar desde el cliente el archivo)</p>
+
+<p>$ nc -zw2 www.nombre.com 80 &amp;&amp; echo open  (comprobar si está abierto el puerto 80 de un host)</p>
+
+<p>$ nc -l -p 10000 &lt; pelicula.avi  (streaming de video-servidor)</p>
+
+<p>$ nc IP_o_host 10000 | mplayer – (streaming de video-cliente)</p>
+
+<p>$ nc -l -p 10000 &lt; fichero.mp3  (streaming de  audio-servidor)</p>
+
+<p>$ nc IP_o_host 10000 | madplay –  (streaming de audio-cliente)</p>
+
+<p>$ nc -l -p http -c &#8220;cat index.html&#8221;  (servidor http)</p>
+
+<p>$ echo “GET /” | nc www.google.com 80 > index.html  (copiar una página web)</p>
+
+<p>$ nc -l -p 10000 -c &#8220;nc host 22&#8221; (Proxy. El trafico recibido en el puerto 10000 se redirige al 22 del host especificado)</p>
+
+<p>$ nc towel.blinkenlights.nl 23  (visionar la guerra de las galaxias)</p>
+
+<p>$ dd if=/dev/sda5 | nc -l -p 10000  (clonar un disco por red. En el servidor)</p>
+
+<p>$ nc IP_o_host 10000 | dd of=sda5.img  (En el cliente)</p>
+
+<p>$ nc -l -p 7777 > /dev/null  (Prueba de rendimiento entre dos máquinas. En el Servidor)</p>
+
+<p>$ pv -r /dev/zero | nc IP_servidor 7777  (En el cliente)</p></blockquote>
+
+<p>opciones</p>
+
+<p>-v -v   .-  mostrar máxima información</p>
+
+<p>-z  .-  mostrar puertos a la escucha</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -466,252 +673,6 @@ $ nautilus -q
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/nast/">Nast</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Conocer usuarios (inalámbricos o no) de una red local</p>
-
-<blockquote><p># nast -m  (conocer las máquinas que estan en la LAN)</p>
-
-<p># nast -g   (muestra los candidatos a gateway con un “Yep”)</p></blockquote>
-
-<p>opciones:</p>
-
-<p>-p   (modo promiscuo)</p>
-
-<p>-i  eth0 (especificando red)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/nano/">Nano</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>editor de texto.</p>
-
-<blockquote><p>$ nano -wx texto (Abrir &#8220;texto&#8221; inhabilitando &#8220;final de linea&#8221; [wrap] y la ayuda [x])</p></blockquote>
-
-<p>Nota.- &#8220;wrap&#8221; es la cantidad de caracteres de una linea y puede especificarse en los parámetros de nano.</p>
-
-<p>Archivo de configuración. Crear:</p>
-
-<blockquote><p>$ touch .nanorc</p></blockquote>
-
-<p>Algunos parámetros a incluir:</p>
-
-<p>set backup (Guarde copias con la extensión ~)</p>
-
-<p>set const  (Muestra el número de lineas)</p>
-
-<p>set casesensitive (distinguir mayúsculas y minúsculas en las búsquedas)</p>
-
-<p>set smooth (Desplazamiento suave. Sin salto de media página)</p>
-
-<p>set mouse (Habilita el uso del mouse. Precisa paquete gpm)</p>
-
-<p>set tabsize 4 (Número de espacios en la tabulación. Por defecto 8)</p>
-
-<p>set tabstospaces (convierte tabulaciones en espacios)</p>
-
-<p>set nohelp (inhabilitar la ayuda de forma permanente)</p>
-
-<p>set fill 60 (Número se caracteres por linea[wrap])</p>
-
-<p>Atajos</p>
-
-<p>Ctrl + g (Menú ayuda)</p>
-
-<p>Ctrl + j (Justificar el párrafo actual)</p>
-
-<p>Ctrl + k (Cortar y guardar la línea actual)</p>
-
-<p>Ctrl + m (Insertar un retorno de carro)</p>
-
-<p>Ctrl + o (Escribir el fichero actual a disco)</p>
-
-<p>Ctrl + u (Pegar la linea cortada)</p>
-
-<p>Ctrl + v (Moverse hacia el final del documento)</p>
-
-<p>Ctrl + w (Buscar una palabra en el texto)</p>
-
-<p>[Ctrl + w] + [Ctrl + r] (Buscar palabra y reemplazarla por otra)</p>
-
-<p>Ctrl + y (Moverse hacia el principio del documento)</p>
-
-<p>Ctrl + x (Salir de nano)</p>
-
-<p>Ctrl + d (Muestra número de palabras, lineas y caracteres)</p>
-
-<p>Mayu + Insert (Insertar del portapapeles)</p>
-
-<p>Alt + m (Soporte para ratón habilitar/deshabilitar. Precisa paquete gpm)</p>
-
-<p>Alt + y (Coloreado de sintaxis habilitar/deshabilitar)</p>
-
-<p>Alt + x (Suprimir/añadir la ayuda del final de página)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/nameif/">Nameif</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Modificar la MAC de una tarjeta de red dañada. Imaginemos el caso de un pc con dos tarjetas (eth0 y eth1) en el que la eth0 se estropea, con nameif podemos cambiar de interfaz la eth1 para ser la eth0:</p>
-
-<blockquote><p># ifconfig eth1 (Averiguar la MAC de la eth1)</p></blockquote>
-
-<p>eth1      Link encap:Ethernet  HWaddr 00:23:54:57:fc:78</p>
-
-<blockquote><p># ifconfig eth1 down (bajar la red eth1)</p>
-
-<p># nano /etc/init.d/networking</p></blockquote>
-
-<p>Añadir a continuación de la linea del PATH:</p>
-
-<p>PATH=&#8221;/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin&#8221;</p>
-
-<p>nameif eth0 00:23:54:57:fc:78</p>
-
-<p>&#8230;.</p>
-
-<p>Reiniciar el servicio:</p>
-
-<blockquote><p># /etc/init.d/networking restart</p></blockquote>
-
-<p>Comprobar que eth1 se ha convertido en eth0:</p>
-
-<blockquote><p># ifconfig eth0</p></blockquote>
-
-<p>eth0      Link encap:Ethernet  HWaddr 00:23:54:57:fc:78</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/namei/">Namei</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Mostrar la ruta desde el directorio raiz hasta donde especifiquemos.</p>
-
-<blockquote><p>$ namei $(pwd) (hasta el presente directorio)</p>
-
-<p>$ namei -m $(pwd)/archivo (mostrando permisos y propietarios)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/62/">&larr; Older</a>
@@ -727,12 +688,32 @@ $ nautilus -q
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1315</li>
+	<li>1319</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/slay/">slay</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/rrenice/">rrenice</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/rkill/">rkill</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/pslist/">pslist</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/gpe-taskmanager/">gpe-taskmanager</a>
+      </li>
     
       <li class="post">
         <a href="/blog/yasat/">yasat</a>
@@ -752,26 +733,6 @@ $ nautilus -q
     
       <li class="post">
         <a href="/blog/uuencode/">uuencode</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/logwatch/">logwatch</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/arm/">arm</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/linuxinfo/">linuxinfo</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/cpuid/">cpuid</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/lp/">lp</a>
       </li>
     
   </ul>

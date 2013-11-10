@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Convierte fechas gregorianas en fechas subrealistas. Algunas opciones coinciden con las de &#8220;date&#8221; (ver) $ ddate +%d-%B-%Y
-">
+  <meta name="description" content="Extensión de los paquetes para distros Debian. 1.- Crear un paquete para esta distro a partir de un script: $ mkdir deb En ese directorio recrear la &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +75,369 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/deb/">Deb</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Extensión de los paquetes para distros Debian.</p>
+
+<p>1.-</p>
+
+<p>Crear un paquete para esta distro a partir de un script:</p>
+
+<pre><code>$ mkdir deb 
+</code></pre>
+
+<p>En ese directorio recrear la estructura destino que queremos utilizar. En nuestro caso /usr/bin, el directorio para el icono y permisos:</p>
+
+<pre><code>$ mkdir -p deb/usr/bin
+
+$ mkdir -p deb/usr/share/applications
+</code></pre>
+
+<p>Copiar el script en el bin creado:</p>
+
+<pre><code>$ cp script deb/usr/bin 
+</code></pre>
+
+<p>Crear el subdirectorio DEBIAN:</p>
+
+<pre><code>$ mkdir deb/DEBIAN 
+</code></pre>
+
+<p>En su interior el fichero “control”:</p>
+
+<pre><code>$ nano deb/DEBIAN/control 
+</code></pre>
+
+<p>En el que pegamos datos del paquete:</p>
+
+<p>Package: nombre_que_queremos</p>
+
+<p>Priority: optional</p>
+
+<p>Section: misc</p>
+
+<p>Maintainer: el_mantenedor</p>
+
+<p>Architecture: all</p>
+
+<p>Version: 1.0</p>
+
+<p>Depends: Las_dependendias_del_paquete</p>
+
+<p>Description: Pequeña_descripción_de_la_maravilla</p>
+
+<p> Este script &#8230;. para &#8230;.. de &#8230;.. aquello&#8230;&#8230;.</p>
+
+<p>Notas: En el nombre del paquete (Package) no se admiten espacios ni barras bajas) y en la descripción (Description) el primer carácter de la segunda linea es un espacio y al final del texto, darle al intro para que ponga una linea vacia. Las dependencias que pongamos en “Depends” son las que se instalarán  con la instalación del .deb.</p>
+
+<p>Crear el paquete “menu” en el mismo directorio:</p>
+
+<pre><code>$ nano deb/DEBIAN/menu
+</code></pre>
+
+<p>Y en su interior pegar:</p>
+
+<pre><code>?package(nombre_script):needs="X11" \ 
+
+    section="Applications/Network/Monitoring" \ 
+
+    title="Suport VNC" command="gnome-terminal -e script_que_sea" \ 
+
+    icon="/usr/share/pixmaps/gnome-term-linux2.png"
+</code></pre>
+
+<p>Notas: Nombre del paquete, que precisa de las X (X11), donde se colocará en el menú “Aplicaciones” (otras opciones: section=”Apps/Multimedia”&#8230;), el comando que lo lanzará (gnome-terminal -e script) y el icono que hemos escogido. Crear el archivo nombre_script.desktop para los datos del icono:</p>
+
+<pre><code>$ gedit deb/usr/share/applications/nombre_script.desktop
+</code></pre>
+
+<p>Y pegar el siguiente contenido:</p>
+
+<pre><code>[Desktop Entry] 
+
+Version=1.0 
+
+Name=Nombre_script 
+
+GenericName=Nombre_script 
+
+Comment=Pequeño_comentario 
+
+Exec=Nombre_script_que_lo_lanzará 
+
+Terminal=true 
+
+Type=Application 
+
+Categories=Application;Network; 
+
+Icon=gnome-term-linux2.png 
+
+StartupNotify=true
+</code></pre>
+
+<p>Nota.- también varios modelos de iconos en:</p>
+
+<pre><code>$ ls /home/usuario/.local/share/applications/  
+</code></pre>
+
+<p>Cambiar el propietario del directorio:</p>
+
+<pre><code># chown -R root.root deb 
+</code></pre>
+
+<p>Finalmente crear el paquete .deb y que lo coloque en el escritorio:</p>
+
+<pre><code># dpkg -b deb /home/usuario/Escritorio/nombre.deb
+</code></pre>
+
+<p>2.-</p>
+
+<p>Crear un paquete a partir de un tar.gz:</p>
+
+<p>Para el ejemplo usaremos el paquete picpuz, un juego para crear puzles a partir de una fotografia, que aunque tenga versión .deb, para el caso nos sirve.</p>
+
+<p>Crear carpeta de trabajo y entrar en ella:</p>
+
+<pre><code>$ mkdir picpuz 
+
+$ cd picpuz 
+</code></pre>
+
+<p>Descargar y descomprimir el tar.gz y entrar en la carpeta descomprimida:</p>
+
+<blockquote><p>$ wget http://kornelix.squarespace.com/storage/downloads/picpuz-2.2.tar.gz</p>
+
+<p>$ tar xvzf picpuz-2.2.tar.gz</p>
+
+<p>$ cd picpuz-2.2</p></blockquote>
+
+<p>Crear el nuevo paquete .orig.tar.gz con los estandares de Debian, con licencia gpl3 y generando el paquete desde las fuentes:</p>
+
+<pre><code>$ dh_make --createorig  -c gpl3 -s
+</code></pre>
+
+<p>Construir el paquete .deb:</p>
+
+<pre><code>$ dpkg-buildpackage -rfakeroot 
+</code></pre>
+
+<p>Listar el contenido de un paquete .deb:</p>
+
+<pre><code>$ ar -tv picpuz_2.2-1_i386.deb
+</code></pre>
+
+<p>Información y perspectiva general de lo que ofrece el paquete:</p>
+
+<pre><code>$ dpkg-deb -I picpuz_2.2-1_i386.deb
+</code></pre>
+
+<p>Listar los ficheros que serán instalados:</p>
+
+<pre><code>$ dpkg-deb -c picpuz_2.2-1_i386.deb 
+</code></pre>
+
+<p>instalarlo:</p>
+
+<pre><code># dpkg -i picpuz_2.2-1_i386.deb
+</code></pre>
+
+<p>Lo encontraremos en aplicaciones/juegos</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/deallocvt/">Deallocvt</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Libera memoria y estructuras de datos del núcleo para todas las consolas virtuales que no se usen. Una consola virtual se considera en desuso si no es la consola en primer plano, ni  ningún  proceso  la  tiene  abierta  para  lectura  o escritura, ni se ha seleccionado ningún texto en su pantalla. Ver openvt</p>
+
+<blockquote><p># deallocvt (Las desasigna todas)</p>
+
+<p># deallocvt 5 (Sólo desasigna la /dev/tty5)</p></blockquote>
+
+<p>Un ejemplo de uso:</p>
+
+<blockquote><p># openvt -s ls (lanzara el comando ls en la primera consola virtual libre. Normalmente la /dev/tty8)</p>
+
+<p># deallocvt 8</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ddrescue/">Ddrescue</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Recuperación de discos dañados. Proceso:</p>
+
+<p>Descargar el paquete dd_rhelp (Comprobar si existe una versión posterior):</p>
+
+<blockquote><p>$ wget http://www.kalysto.org/pkg/dd_rhelp-0.1.2.tar.gz</p>
+
+<p>$ cd dd_rhelp-0.1.2</p>
+
+<p># ./dd_rhelp /dev/sdbx sdbx.img</p></blockquote>
+
+<p>Creará sdbx.img en el directorio actual, que podrá montarse:</p>
+
+<blockquote><p># mount -o loop sdbx.img /media/imagen</p></blockquote>
+
+<p>Comprobar posibles errores (para partición ext3):</p>
+
+<blockquote><p># fsck -y sdbx.img</p></blockquote>
+
+<p>Restaurar la imagen:</p>
+
+<blockquote><p># dd_rhelp sdbx.img /dev/sdax</p></blockquote>
+
+<p>Método de ejecutar ddrescue en dos pasadas, de forma que la primera sólo recupera los bloques que no contenga sectores defectuosos y el segundo se centre en recuperar el máximo de los defectuosos:</p>
+
+<blockquote><p># ddrescue -v -n /dev/sda /dev/sdb sda.txt</p>
+
+<p># ddrescue -v -r2 -d /dev/sda /dev/sdb sda.txt</p></blockquote>
+
+<p>Luego comprobar errores con fsck.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ddclient/">Ddclient</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Configurar pc con una ip fija. Requiere registro en dyndns.org. Durante la instalación  ya preguntará los datos del registro en pero si se prefiere puede editarse el archivo de configuración y colocarlos a mano</p>
+
+<blockquote><p># gedit /etc/ddclient.conf</p></blockquote>
+
+<p>Completar los campos login y password con los datos correspondientes:</p>
+
+<p>protocol=dyndns2</p>
+
+<p>use=web, web=checkip.dyndns.com, web-skip=&#8217;IP Address&#8217;</p>
+
+<p>server=members.dyndns.org</p>
+
+<p>login=Nombre_registrado_en_dyndns</p>
+
+<p>password=&#8217;contraseña_de_dyndns&#8217;</p>
+
+<p>nombre_de_dominio.com</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -385,214 +747,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/dares/">Dares</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Rescatar contenido de cds y dvds dañados</p>
-
-<blockquote><p>$ dares -i image_cdrom -s /tmp (salvar en /tmp)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/dansguardian/">Dansguardian</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Filtro de contenidos web (cliente) que trabaja conjuntamente con el servidor proxy squid (servidor).</p>
-
-<p>Adaptar el archivo de configuración:</p>
-
-<blockquote><p># nano /etc/dansguardian/dansguardian.conf</p></blockquote>
-
-<p>Algunos parámetros a especificar (caso de no estarlo):</p>
-
-<p>language = &#8216;spanish&#8217;</p>
-
-<p>reportinglevel = 3 #valores de 1, 2 y 3</p>
-
-<p>filterport = 8080</p>
-
-<p>proxyip = 127.0.0.1 #La misma ip del proxy squid</p>
-
-<p>proxyport = 3128</p>
-
-<p>Guardar el archivo.</p>
-
-<p>El listado de conceptos (ip, nombre de dominio, frases&#8230; ) por los que se puede banear y conceptos excluidos en:</p>
-
-<blockquote><p># ls /etc/dansguardian/lists/</p></blockquote>
-
-<p>Algunos de los más usuales:</p>
-
-<p>bannedextensionlist (extensiones no permitidas)</p>
-
-<p>banneriplist (listado de ips no permitidas)</p>
-
-<p>bannedmimetypelist (Tipos MIME no permitidos)</p>
-
-<p>bannedregexpurllist  (Listado de expresiones a bloquear)</p>
-
-<p>bannedurllist (Bloquear partes especificas de un sitio)</p>
-
-<p>bannedsitelist (Bloquear sitios)</p>
-
-<p>bannedphraselist (Listado de frases prohibidas encerradas entre &lt; ></p>
-
-<p>exceptionsitelist (Lista de excepciones de sitios)</p>
-
-<p>exceptioniplist (lista de excepciones de direcciones IP)</p>
-
-<p>exceptionuserlist (Lista de excepciones de nombres de usuarios que no serán filtrado)</p>
-
-<blockquote><p># /etc/init.d/dansguardian restart</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/cutter/">Cutter</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Cortar conexiones no deseadas</p>
-
-<blockquote><p># cutter 192.168.2.6 80 (especificando IP y puerto)</p>
-
-<p># cutter 192.168.2.6   (solo IP)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/cut/">Cut</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Permite buscar y/o seleccionar columnas o campos dentro de un archivo estructurado. Entre campo y campo debe existir obligatoriamente un delimitador [dos puntos, un espacio en blanco u otro carácter].</p>
-
-<blockquote><p>$ cut -c1-4 archivo  (muestra los 4 primeros caracteres de cada linea)</p>
-
-<p>$ cut -d: -f1 archivo  (Muestra el primer campo delimitado por “:”)</p>
-
-<p>$ cut -d” “ -f1,5 archivo  (Mostrar el primero y el quinto, separados por espacio)</p>
-
-<p>$ cut -d” “ -f 2- archivo (Mostrar todo menos la primera columna)</p>
-
-<p>$ cut -s -d&#8221;(&#8221; -f1 archivo (“-s” suprime las lineas que no contengan el delimitador [(]). De las que sí lo contengan, mostraría el 1er campo)</p>
-
-<p>$ echo $RANDOM | cut -c1,2 (Coger los 2 primeros números de un número aleatorio [$RANDOM])</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/110/">&larr; Older</a>
@@ -608,12 +762,32 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1315</li>
+	<li>1319</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/slay/">slay</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/rrenice/">rrenice</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/rkill/">rkill</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/pslist/">pslist</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/gpe-taskmanager/">gpe-taskmanager</a>
+      </li>
     
       <li class="post">
         <a href="/blog/yasat/">yasat</a>
@@ -633,26 +807,6 @@
     
       <li class="post">
         <a href="/blog/uuencode/">uuencode</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/logwatch/">logwatch</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/arm/">arm</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/linuxinfo/">linuxinfo</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/cpuid/">cpuid</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/lp/">lp</a>
       </li>
     
   </ul>

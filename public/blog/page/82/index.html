@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Librería readline que permite editar líneas de texto usando los modos de emacs y vi. Esto permite estandarizar las combinaciones de teclas entre &hellip;">
+  <meta name="description" content="Archivo de configuración de la red en distros debian. 1.- Con IP dinámica: Colocar en el archivo las lineas: auto eth0 iface eth0 inet dhcp 2.- Con &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,229 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/interfaces/">Interfaces</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Archivo de configuración de la red en distros debian.</p>
+
+<p>1.-</p>
+
+<p>Con IP dinámica:</p>
+
+<p>Colocar en el archivo las lineas:</p>
+
+<pre><code>auto eth0
+
+iface eth0 inet dhcp
+</code></pre>
+
+<p>2.-</p>
+
+<p>Con IP fija</p>
+
+<p>Colocar en el archivo las lineas:</p>
+
+<pre><code>auto eth0
+
+iface eth0 inet static
+
+address 192.168.1.10
+
+gateway 192.168.1.1
+
+netmask 255.255.255.0
+
+broadcast 192.168.1.255
+</code></pre>
+
+<p>Reiniciar el servicio:</p>
+
+<blockquote><p># ifdown eth0</p>
+
+<p># ifup eth0</p></blockquote>
+
+<p>Nota.- Solo modificandolo en network-manager no funciona.</p>
+
+<p>3.-</p>
+
+<p>Creación de una segunda dirección IP virtual.</p>
+
+<p>Añadir las siguientes lineas a las de la IP fija:</p>
+
+<pre><code>auto eth0:1
+
+iface eth0:1 inet static
+
+address 192.168.0.15
+
+netmask 255.255.255.0
+
+broadcast 192.168.0.255
+
+gateway 192.168.0.1
+</code></pre>
+
+<p>Nota.- La instalación de nerwork-manager o wicd para la gestión de redes implica comentar las modificaciones de este archivo o en, en el caso de network-manager, editar:</p>
+
+<blockquote><p># nano  /etc/NetworkManager/NetworkManager.conf</p></blockquote>
+
+<p>Y modificar la linea:</p>
+
+<p>[ifupdown]</p>
+
+<p>managed=true</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/instmodsh/">Instmodsh</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Para conocer los módulos perl instalados. Entra en el prompt (cmd?) con 3 preguntas:</p>
+
+<p>l (List all installed modules)</p>
+
+<p>m <module> (Select a module)</p>
+
+<p>q (Quit the program)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/install-mbr/">Install-mbr</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Instala un nuevo código MBR al inicio del disco duro.</p>
+
+<blockquote><p># install-mbr /dev/sda (instala)</p>
+
+<p># install-mbr -l /dev/sda (muestra información del código mbr)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/insmod/">Insmod</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Carga modulos.</p>
+
+<blockquote><p># insmod mudulo</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -431,186 +654,6 @@ po::powerokwait:/etc/init.d/powerfail stop
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/impressive/">Impressive</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Visualizar documentos PDF e imágenes (jpg, tiff, png&#8230;)</p>
-
-<blockquote><p>$ impressive documento.pdf</p>
-
-<p>$ impressive -l    (lista efectos disponibles)</p>
-
-<p>$ impressive -t SqueezeLeft documento.pdf</p></blockquote>
-
-<p>Algunas opciones:</p>
-
-<p>AvPág          Va a la página siguientes</p>
-
-<p>RePág          Va a la página anterior</p>
-
-<p>z                  zoom donde esté el cursor</p>
-
-<p>f                   Activa/Desactiva la pantalla completa</p>
-
-<p>q                  Salir de la aplicación</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/import/">Import</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Capturar la pantalla en cualquier formato</p>
-
-<blockquote><p>$ import -window root captura.png (captura de pantalla completa)</p>
-
-<p>$ import -window <code>xwininfo | awk '/Window id/{print $4; exit}'</code> <code>uuidgen</code>.png (Lo mismo. El puntero se convierte en una cruz y captura el esritorio donde se clica)</p>
-
-<p>$ import captura.png (captura de un área concreta))</p>
-
-<p>$ import 2 captura.png (realizar 2 capturas)</p>
-
-<p>$ import -pause 5 captura.png (Para retardar la captura 5 segundos)</p>
-
-<p>$ import -geometry 250×250! captura.png (indicando un tamaño respetando las proporciones)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/img2txt/">Img2txt</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Pasar una imagen a ascii</p>
-
-<blockquote><p>$ img2txt -f svg imagen.jpg > imagen.svg</p>
-
-<p>$ img2txt -f html imagen.jpg > imagen.html (código html de la imagen)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ifup/">Ifup</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Habilita la interfase especificada:</p>
-
-<blockquote><p>$ ifup eth0</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/83/">&larr; Older</a>
@@ -626,12 +669,32 @@ po::powerokwait:/etc/init.d/powerfail stop
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1315</li>
+	<li>1319</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/slay/">slay</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/rrenice/">rrenice</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/rkill/">rkill</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/pslist/">pslist</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/gpe-taskmanager/">gpe-taskmanager</a>
+      </li>
     
       <li class="post">
         <a href="/blog/yasat/">yasat</a>
@@ -651,26 +714,6 @@ po::powerokwait:/etc/init.d/powerfail stop
     
       <li class="post">
         <a href="/blog/uuencode/">uuencode</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/logwatch/">logwatch</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/arm/">arm</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/linuxinfo/">linuxinfo</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/cpuid/">cpuid</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/lp/">lp</a>
       </li>
     
   </ul>

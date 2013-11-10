@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Modificar la codificación de un archivo $ iconv -l (Muestra todas las opciones posibles) $ iconv -t us-ascii -f utf-8 archivo.txt > re_codificado.txt &hellip;">
+  <meta name="description" content="Ejecuta uno o varios comandos dependiendo de si una condición se cumple o no. Algunos scripts de ejemplo para su uso [ver operadores]: 1.- #!/bin/ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,337 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/if/">If</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ejecuta uno o varios comandos dependiendo de si una condición se cumple o no. Algunos scripts de ejemplo para su uso [ver operadores]:</p>
+
+<p>1.-</p>
+
+<pre><code>#!/bin/bash
+
+read -p "Ingrese nombre del usuario: " USUARIO
+
+if grep -e ^$USUARIO: /etc/passwd
+
+then
+
+    echo "El usuario existe en el sistema"
+
+else
+
+    echo "Usuario desconocido"
+
+fi
+
+exit 0
+</code></pre>
+
+<p>2.-</p>
+
+<pre><code>#!/bin/bash
+
+if [ "$(id -u)" != "0" ]; then 
+
+    echo "Solo root puede ejecutar este script." 
+
+    exit 1 
+
+fi
+</code></pre>
+
+<p>3.-</p>
+
+<pre><code>#!/bin/bash 
+
+# Verificar si se ha entrado un argumento
+
+if [ -z "$1" ]
+
+then 
+
+          echo "Falta el argumento después del nombre del script" 
+
+exit 
+
+fi 
+</code></pre>
+
+<p>4.-</p>
+
+<pre><code>#!/bin/bash
+
+# Introducir dos números diferentes e indicar
+
+# cuál es el mayor 
+
+read -p "Introduce dos números: " A B
+
+if [ $A -gt $B ]
+
+then
+
+        echo $A "es el mayor"
+
+else
+
+        echo $B "es el mayor"
+
+fi
+</code></pre>
+
+<p>Con varias opciones [elif]</p>
+
+<p>5.-</p>
+
+<pre><code>#!/bin/bash
+
+ls
+
+echo
+
+read -p "Cual leer: " LEER
+
+echo
+
+if [ -f $LEER ]
+
+then
+
+    echo
+
+    cat $LEER
+
+    echo
+
+elif [ -d $LEER ]
+
+then
+
+    echo
+
+    echo "Es un directorio...."
+
+else
+
+    echo
+
+    f_echo "¡¡NO EXISTE!!"
+
+    echo
+
+fi
+</code></pre>
+
+<p>6.-</p>
+
+<pre><code>#!/bin/bash 
+
+echo "Diga si o no:"
+
+read RESPUESTA 
+
+if  [ "$RESPUESTA" = si ]; then 
+
+    echo "Has escrito si" 
+
+elif [ "$RESPUESTA" = no ]; then 
+
+    echo "Has escrito no" 
+
+elif [ "$RESPUESTA" = "" ]; then 
+
+    echo "No has escrito nada" 
+
+else 
+
+    echo "Has escrito una cosa no permitida" 
+
+fi 
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/idesk/">Idesk</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Herramienta para la creación de iconos en el escritorio. Los archivos con extensión .lnk se colocan en el directorio ~/.idesktop. Una muestra:</p>
+
+<blockquote><p>$ nano .idesktop/home.lnk</p></blockquote>
+
+<pre><code>table Icon 
+
+  Caption: Home 
+
+  Command[0]: thunar /home/usuario 
+
+  Icon: /usr/share/idesk/folder_home.xpm 
+
+  Width: 48 
+
+  Height: 48 
+
+  X: 29 
+
+  Y: 39 
+
+end 
+</code></pre>
+
+<p>Nombre del icono [Caption], El comando que se lanzará [0] con doble click izquierdo del ratón. Con [1], doble click derecho, en este caso thunar abrirá la carpeta personal [Command], la ruta al icono que se empleará [Icon], las medidas ancho [Width] y alto [Height] y la colocación en pantalla, x: distancia en pixels del lateral, y: distancia en pixels de la parte superior.</p>
+
+<p>Otros parámetros [fuentes, colores, medidas, fondos, transparencias&#8230;] pueden configurarse en el archivo ~/.ideskrc. Cualquier modificación en idesktop o ideskrc precisa matar el proceso:</p>
+
+<blockquote><p>$ killall idesk</p></blockquote>
+
+<p>Y relanzarlo:</p>
+
+<blockquote><p>$ idesk</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/identify/">Identify</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ver las propiedades de una imagen</p>
+
+<blockquote><p>$ identify imagen.gif</p>
+
+<p>$ identify -verbose imagen.jpg   (Con mucha más información)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/id/">Id</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Conocer el uid y el gid del usuario especificado</p>
+
+<blockquote><p>$ id root</p>
+
+<p>$ id -u (Del usuario no root)</p>
+
+<p>$ id -a (De todos los grupos a los que pertenece el usuario)</p>
+
+<p>$ id -un (Muestra el usuario con el que estamos)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -326,219 +657,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/htop/">Htop</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra el consumo de CPU, RAM y SWAP y debajo de estos los diferentes procesos  organizados por defecto de mayor a mejor consumo de CPU. Pulsando “u” podremos introducir el usuario a monitorizar y pulsando “k” e introduciendo el PID, materemos el proceso.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/html/">Html</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Lenguaje de marcado predominante en la elaboración de páginas web.</p>
-
-<p>Las etiquetas básicas de HTML de obligada presencia en todo documento son:</p>
-
-<pre><code>&lt;!DOCTYPE&gt; (define el tipo de documento HTML) 
-
-&lt;html&gt; (Inicio del documento) 
-
-&lt;head&gt;  (Cabecera del documento.  Metadatos que no se muestran en el navegador pero de especial relevancia para indexadores) 
-</code></pre>
-
-<p>En el interior de la etiqueta <head> podemos encontrar:</p>
-
-<pre><code>&lt;title&gt;  (Título que aparece en la barra del navegador) 
-
-&lt;meta&gt;  (Metainformación del codumentos: autor, fecha realización, codificación ...) 
-
-&lt;LINK&gt;  (Otros metadatos: referencias a documentos anteriores, glosarios...) 
-
-&lt;body&gt; (Cuerpo del documento que se muestra en el navegador) 
-</code></pre>
-
-<p>Dentro de la etiqueta <body> podemos encontrar:</p>
-
-<pre><code>&lt;a&gt;  (Ancla. Crea un enlace a otro documento o parte del mismo) 
-
-&lt;h1&gt;, &lt;h2&gt;,… &lt;h6&gt;  (Establece la medida de los títulos de cabecera. De h1, más grande a h6 más pequeño) 
-
-&lt;div&gt; (División estructural de la página) 
-
-&lt;p&gt;  (Párrafo) 
-
-&lt;br&gt;  (Salto de linea) 
-
-&lt;table&gt; (Inicio de una tabla. La fias se defines con &lt;tr&gt; i las celdas dentro de las filas con &lt;td&gt;) 
-
-&lt;ul&gt; Lista desordenada.Los ítems se definen con &lt;li&gt;) 
-
-&lt;ol&gt; (Lista ordenada. Los ítems se definen con &lt;li&gt;) 
-
-&lt;dl&gt; (Lista de definición. Pueden ser &lt;dt&gt; [termino a definir] y &lt;dd&gt; Definición del termino) 
-</code></pre>
-
-<p>Excepto algunas pocas etiquetas, la mayoría requieren ser cerradas con la misma etiqueta precedida de una barra: <html>&#8230;.</html></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/hsetroot/">Hsetroot</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Coloca imágen en el fondo de pantalla permitiendo modificar: brillo, contraste, transparencias&#8230;</p>
-
-<blockquote><p>$ hsetroot -clear &#8220;#f6f6f6&#8221; (Borra el rango de color especificado)</p>
-
-<p>$ hsetroot -center imagen.jpg (coloca la imagen centrada. Otras opciones: -tile: mosaico, -full: respetando proporciones y -fill: redimensiona al tamaño de la pantalla)</p>
-
-<p>$ hsetroot -blur 1.5 imagen.jpg (desenfoca)</p>
-
-<p>$ hsetroot -contrast 30 imagen.jpg (Ajusta el contraste al valor)</p>
-
-<p>$ hsetroot -flipv imagen.jpg (Refleja la imagen vertical. -fliph: horizontal y -flipd: diagonal)</p>
-
-<p>$ hsetroot -alpha 150 imagen.jpg</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/hping/">Hping</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Herramienta de intrusión remota (ataque ICMP)</p>
-
-<blockquote><p># hping3 -I eth0 -S 192.169.2.2  (ping no silencioso)</p>
-
-<p># hping3 -I eth0 -a 192.168.2.158 -S 192.169.2.2  (enmascarando  nuestra IP con una de ficticia-192.168.1.158)</p>
-
-<p># hping3 -I eth0 -a 192.168.2.158 -S 192.168.2.2 -p 135 (Descubrir máquinas que con un ping no responden, enmascarando la IP y especificando un puerto)</p>
-
-<p># hping3 -S -a ip_ficticia -p 80 -k ip_atacada</p>
-
-<p># hping3 -i m100 -S -a ip_ficticia -p 80 -k ip_atacada</p>
-
-<p># hping3 -S 192.168.1.158 &#8211;flood &#8211;rand-source -d 5000 -p 80 (Enviando paquetes lo más rápido posible [flood], simulando orígenes aleatorios [rand-source], tamaño del paquete en bites [d] y puerto de entrada)</p>
-
-<p># hping3 &#8211;rand-source -p 80 -S &#8211;flood ip_victima (ataque DDos a una ip)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/85/">&larr; Older</a>
@@ -554,12 +672,32 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1315</li>
+	<li>1319</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/slay/">slay</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/rrenice/">rrenice</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/rkill/">rkill</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/pslist/">pslist</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/gpe-taskmanager/">gpe-taskmanager</a>
+      </li>
     
       <li class="post">
         <a href="/blog/yasat/">yasat</a>
@@ -579,26 +717,6 @@
     
       <li class="post">
         <a href="/blog/uuencode/">uuencode</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/logwatch/">logwatch</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/arm/">arm</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/linuxinfo/">linuxinfo</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/cpuid/">cpuid</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/lp/">lp</a>
       </li>
     
   </ul>
