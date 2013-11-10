@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="1.- Eliminar contraseña de root. Iniciar sesión con un live-cd y montar la partición del discon duro [suponemos /dev/sda2] # mount /dev/sda2 /media/ &hellip;">
+  <meta name="description" content="redimensionar, cambiar formatos, extraer fotogramas, convertir blanco y negro imagenes. Este comando es tan extenso que él solo merecería un libro. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,112 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/convert/">Convert</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>redimensionar, cambiar formatos, extraer fotogramas, convertir blanco y negro imagenes. Este comando es tan extenso que él solo merecería un libro. Consulta más exhaustiva en http://www.imagemagick.org/script/convert.php o en español http://www.rpublica.net/imagemagick/intro.html#inicio_sec)</p>
+
+<blockquote><p>$ convert *.jpg imagenes.pdf        (Crear un pdf con todas las imágenes)</p>
+
+<p>$ convert {1,2,3,4,5,6,7,8,9}.png imagenes.pdf (Lo mismo especificando páginas y orden)</p>
+
+<p>$ convert color.jpg -monochrome blanconegro.jpg (Convertir a blanco y negro)</p>
+
+<p>$ convert original.png nueva.jpg        (Cambiar el formato de una imagen)</p>
+
+<p>$ convert &#8211;auto-orient in.jpg out.jpg  (Reorientar una foto)</p>
+
+<p>$ convert -resize 800x600 *.jpg %02d.jpg (Cambiar dimensiones de todas)</p>
+
+<p>$ convert -quality 40% imagen image_reducida         (lo mismo)</p>
+
+<p>$ convert -delay 60 1.jpg 2.jpg 3.jpg 123.gif (gif animado con varios jpg)</p>
+
+<p>$ convert 123.gif -adjoin 1-2-3.jpg     (extraer los fotogramas de un gif)</p>
+
+<p>$ convert -resize 200 awk.pdf[0] awk.png (primera imagen pdf a imagen)</p>
+
+<p>$ convert file.pdf file.jpg  (convertir pdf en jpg)</p>
+
+<p>$ convert imagen.png -pointsize 32 -gravity center -annotate 0 &#8220;Linux es genial&#8221; salida.png (Colocar un texto con medida 32 sin inclinación [-annnotate 0] en el centro [-gravity center] de una imagen )</p>
+
+<p>$ convert imagen.jpg -alpha set -channel A -fx 0.5 imagen.png (Aumentar la tranparencia de una imagen [valor de fx: 0 toda y 1 nada] y canviarla a jpg)</p>
+
+<p>$ convert -density 300 input.pdf -fill &#8220;rgb(255,255,255)&#8221; -opaque &#8220;rgb(29,5,114)&#8221; output.pdf  (convertir fondo negro a blanco para imprimir)</p>
+
+<p>$ convert entrada.jpg -font Bookman-Demi -pointsize 62 -stroke white -draw &#8220;text 5,60 &#8216;Texto&#8217;&#8221; salida.jpg (poner un texto en determinadas coordenadas [5,60] especificando fuente, medida y borde de las letras en blanco)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<p>-fill red (Letra roja)</p>
+
+<p>-strokewidth 3 (Ancho del borde de letra)</p>
+
+<p>-border 3 (Emmarcar la imagen con un borde de 3 pixels)</p>
+
+<p>-frame  5x5+2+2 (Lo mismo estilo cuadro)</p>
+
+<p> Si quisieramos el texto en rojo añadiríamos: -fill red después de -stroke white)</p>
+
+<p>Notas.-”delay 60″ son 60 milisegundos por fotograma</p>
+
+<p>&#8220;resize 150×150&#8221; Respetará la proporción de la imagen.</p>
+
+<p>&#8220;imagen%02d&#8221;  Renombrará todas la imagenes con nombre “imagen” y dos dígitos.</p>
+
+<p>&#8220;imagen%03d&#8221;   Igual pero con tres dígitos.</p>
+
+<blockquote><p>$ ifconfig | convert -background yellow -fill black -font Courier -pointSize 14 label:@- ifconfig.png  (convertir la salida de un comando a imagen png)</p></blockquote>
+
+<p>ifconfig .- comando que se ejecuta</p>
+
+<p>-background   .- color del fondo</p>
+
+<p>-fill    .- color del texto</p>
+
+<p>-font  .-   fuente del texto</p>
+
+<p>-pointSize .-tamaño del texto</p>
+
+<p>label:@-    .-Nombre del archivo a generar</p>
+
+<p>Archivos nombre de fuentes, colores: /etc/ImageMagick/</p>
+
+<p>Tambien puede cambiarse el nombre de la fuente por su archivo:</p>
+
+<p>-font /home/usuario/.fonts/Albert.ttf</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -567,42 +673,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/comodines/">Comodines</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Ver “signos y comodines”</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/113/">&larr; Older</a>
@@ -618,12 +688,16 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1319</li>
+	<li>1320</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/jot/">jot</a>
+      </li>
     
       <li class="post">
         <a href="/blog/slay/">slay</a>
@@ -659,10 +733,6 @@
     
       <li class="post">
         <a href="/blog/abs-guide/">abs-guide</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/uuencode/">uuencode</a>
       </li>
     
   </ul>
