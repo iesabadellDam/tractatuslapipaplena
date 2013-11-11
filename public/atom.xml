@@ -4,7 +4,7 @@
   <title><![CDATA[TRACTATUS ELEMENTALIS]]></title>
   <link href="https://tractatuslapipaplena.herokuapp.com/atom.xml" rel="self"/>
   <link href="https://tractatuslapipaplena.herokuapp.com/"/>
-  <updated>2013-11-10T21:36:25+01:00</updated>
+  <updated>2013-11-11T17:18:53+01:00</updated>
   <id>https://tractatuslapipaplena.herokuapp.com/</id>
   <author>
     <name><![CDATA[templix]]></name>
@@ -12,6 +12,71 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[integrit]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/integrit/"/>
+    <updated>2013-11-11T17:18:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/integrit</id>
+    <content type="html"><![CDATA[<p>Detectar cuando algún archivo del sistema ha sido alterado mediante la creación, la primera vez que se lanza, de una base de datos con la que confrontar los nuevos escaneos.</p>
+
+<p>Configuración:</p>
+
+<blockquote><p># /etc/integrit/integrit.con</p></blockquote>
+
+<p>Descomentar las lineas:</p>
+
+<pre><code>root=/  
+
+known=/var/lib/integrit/known.cdb       
+
+current=/var/lib/integrit/current.cdb
+</code></pre>
+
+<p>Y descartar los directorios que no se deseen incluir en el escaneo, descomentandolos [&#8220;cdrom&#8221; se descarta, &#8220;/dev&#8221; se escane, &#8220;/usr/src&#8221; no se escaneará de forma recursiva ]:</p>
+
+<pre><code>!/cdrom
+
+# !/dev
+
+=/usr/src
+</code></pre>
+
+<p>Crear la base de datos inicial:</p>
+
+<blockquote><p># integrit -u -C /etc/integrit/integrit.conf</p></blockquote>
+
+<p>Mover la base de datos a know.cdb:</p>
+
+<blockquote><p># mv /var/lib/integrit/current.cdb /var/lib/integrit/known.cdb</p></blockquote>
+
+<p>Lanzar la comprobación:</p>
+
+<blockquote><p># integrit -C /etc/integrit/integrit.conf -c</p></blockquote>
+
+<p>Si queremos colocar la orden en el cron para ser lanzada cada hora y que envie un correo al administrador:</p>
+
+<blockquote><p># crontab -e</p></blockquote>
+
+<p>Y colocamos la linea:</p>
+
+<pre><code>* 1 * * * integrit -C /etc/integrit/integrit.conf -c | mail root
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[adminer]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/adminer/"/>
+    <updated>2013-11-11T17:18:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/adminer</id>
+    <content type="html"><![CDATA[<p>Gestor de bases de datos via navegador más completa que phpmyadmin. Una vez instalado reiniciar apache:</p>
+
+<blockquote><p># /etc/init.d/apache2 restart</p></blockquote>
+
+<p>Acceder a la aplicación con, http://localhost/adminer y entrar los datos de acceso (usuario, contraseña, servidor y gestor de la BD)</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[darkstat]]></title>
@@ -460,38 +525,6 @@ Aparece si la selección contiene:  Macamos la casilla de directorio y la de arc
 <p>-i [x-y]  rango de números</p>
 
 <p>-n   Cantidad de numeros a visualizar</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[rl]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/rl/"/>
-    <updated>2013-11-03T10:57:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/rl</id>
-    <content type="html"><![CDATA[<p>[randomize-lines]</p>
-
-<p>Muestra lineas o de la entrada satandard de forma aleatoria.</p>
-
-<blockquote><p>$ rl /etc/fstab (Forma básica)</p>
-
-<p>$ seq 10 | rl &#8211;count 2 (2 números del 0 al 10)</p>
-
-<p>$ rl -n /etc/fstab -o archivo (Numerando las lineas, colocandolas de forma aleatoria y guardando el resultado en &#8220;archivo&#8221;)</p></blockquote>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[randtype]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/randtype/"/>
-    <updated>2013-11-03T10:38:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/randtype</id>
-    <content type="html"><![CDATA[<p>Utilidad para leer un archivo y mostrar la salida carácter por carácter o línea por línea a intervalos aleatorios.</p>
-
-<blockquote><p>$ randtype archivo (forma básica con valores por defecto)</p>
-
-<p>$ randtype -t 10,100000 archivo (Retarda la salida de forma aleatoria entre 10 y 100000 microsegundos)</p>
-
-<p>$ echo &#8220;Linux es un sistema genial&#8221; | randtype -m 4 (Simulando 4 errores en el tecleo de la frase)</p></blockquote>
 ]]></content>
   </entry>
   

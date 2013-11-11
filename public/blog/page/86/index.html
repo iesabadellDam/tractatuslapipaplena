@@ -9,7 +9,8 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Determina la ip de un registro DNS o, a partir de una ip, el nombre de registro $ host -v -a telefonica.com $ host -t SOA google.com $ host -R 3 &hellip;">
+  <meta name="description" content="Muestra la identificación en hexadecimal del presente host. $ hostid
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +76,97 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/hostid/">Hostid</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Muestra la identificación en hexadecimal del presente host.</p>
+
+<blockquote><p>$ hostid</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/host-dot-conf/">host.conf</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[/etc/host.conf]</p>
+
+<p>Archivo que contiene el orden de cómo serán ejecutadas las resoluciones que requiera el &#8220;Host&#8221;. Algunos parámetros:</p>
+
+<p><strong>order hosts,bind,nis</strong> (que cualquier tipo de resolución primero consulte el archivo /etc/hosts , en segundo lugar a BIND y si aún no se ha logrado la resolución, intentar con NIS)</p>
+
+<pre><code>BIND (Llamada al servidor de nombres)
+
+NIS ("Network Information Server" es un sistema de resolución desarrollado por Sun Microsystem's , su implementación generalmente esta limitada a intranets y utiliza una metodología diferente a la usada por BIND
+</code></pre>
+
+<p><strong>multi on</strong> (Que devuelva más de un resultado si existen alias ya que un host puede tener varias direcciones IP y la dirección IP puede coincidir con varios nombres de host. Por defecto es off [sólo se muestra el primero] )</p>
+
+<p><strong>spoofalert on</strong> (Intentar encontrar el nombre de host de una dirección IP. Si la aplicación no devuelve el resultado correcto, puede significar que una máquina intenta hacerse pasar por lo que no es.)</p>
+
+<p><strong>nospoof on</strong> (rechaza los resultados que no pasan la prueba de robo de identidad)</p>
+
+<p><strong>reorder on</strong> (intenta reordenar las direcciones de host para que las direcciones locales [misma subred] se listen en primer lugar)</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -488,102 +580,6 @@ username = Juanito Perez juanitoperez@gmail.com
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/hdparm/">Hdparm</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>consultar y modificar diferentes parámetros de los discos duros.</p>
-
-<blockquote><p># hdparm /dev/sda (Informa del estado [activado o no] de las opciones de hdparm)</p>
-
-<p># hdparm -tT /dev/sda (Comprobar velocidad de lectura)</p>
-
-<p># hdparm -i /dev/sda (Informa de las características del disco duro)</p>
-
-<p># hdparm -I /dev/sda (Mostrar información más extendida)</p></blockquote>
-
-<p>1.-</p>
-
-<p>Desactivación del APM (Gestión avanzada de energia) de los portatiles ya que esta tecnologia alarga la duración de la batería en detrimento de la vida útil del disco duro.</p>
-
-<blockquote><p># hdparm -I /dev/sda</p></blockquote>
-
-<p>El parámetro que indica si tenemos APM y la frecuencia de ciclo de carga-descarga es:</p>
-
-<p>Advanced power management level: 128</p>
-
-<blockquote><p># smartctl -a /dev/sda | egrep &#8216;ID|Load_Cycle&#8217;(El parámetro RAW_VALUE indica la  cantidad de ciclos que el HD ha consumido. La cantidad de ciclos oscila entre 300000 y 600000 por HD)</p>
-
-<p># hdparm -B 254 /dev/sda (Disminuir la frecuencia de los ciclos a mínimo. El valor máximo sería 1 y desactivado 255)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/hddtemp/">Hddtemp</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Indica la temperatura del disco especificado</p>
-
-<blockquote><p>$ hddtemp /dev/sda</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/87/">&larr; Older</a>
@@ -599,12 +595,20 @@ username = Juanito Perez juanitoperez@gmail.com
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1321</li>
+	<li>1323</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/integrit/">integrit</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/adminer/">adminer</a>
+      </li>
     
       <li class="post">
         <a href="/blog/darkstat/">darkstat</a>
@@ -636,14 +640,6 @@ username = Juanito Perez juanitoperez@gmail.com
     
       <li class="post">
         <a href="/blog/yasat/">yasat</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/thunar/">thunar</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/virtualbox/">virtualbox</a>
       </li>
     
   </ul>
