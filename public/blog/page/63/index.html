@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Mover o renombrar archivos o directorios $ mv archivo archivo2 (renombrar &#8220;archivo&#8221; a &#8220;archivo2&#8221;) $ mv /home/usuario/index. &hellip;">
+  <meta name="description" content="Gestor de bases de datos [BDs]. Las BDs se guardan en el directorio /var/lib/mysql/ $ mysqldump -u root -p proveedores > fichero.sql (Crear un backup &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,300 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/mysql/">Mysql</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Gestor de bases de datos [BDs]. Las BDs se guardan en el directorio /var/lib/mysql/</p>
+
+<blockquote><p>$ mysqldump -u root -p proveedores > fichero.sql (Crear un backup de la BD &#8220;proveedores&#8221;.)</p>
+
+<p>$ mysql proveedores &lt; fichero.sql (Restaurar la BD &#8220;proveedores&#8221; de un archivo)</p>
+
+<p>$ mysqlimport -u root -p clientes fichero.sql (Otra forma de restaurar una BD si esta ya existe)</p>
+
+<p>$ mysqldump -u root -p &#8211;all-databases > fichero.sql (Backup de todas las BDs)</p>
+
+<p>$ mysqldump -u root -p &#8211;databases clientes proveedores > fichero.sql (Backup de dos BDs)</p>
+
+<p>$ mysqldump -u root -p proveedores &#8211;ignore-table=antiguos > fichero.sql (Backup ignorando una tabla)</p>
+
+<p>$ mysqldump -u root -p base_de_datos tabla1 tabla2 > tabla1_y_tabla2.sql (Exportar solo unas tablas de una BDs)</p>
+
+<p>$ mysql -u root -p1234 (Acceder a la BD con el usuario &#8220;root&#8221; y contraseña &#8220;1234&#8221;[nótese que la contraseña está junto a la &#8220;p&#8221;)</p>
+
+<p>$ mysql -u root -p (Pedirá contraseña para acceder a la BD con el usuario &#8220;root&#8221;)</p>
+
+<p>$ mysql -u root -p datos (Entrar en mysql y directamente en la BD &#8220;datos&#8221; [notese que la BDs está separada de la &#8220;p&#8221; por un espacio, sinó se tomaría como la contraseña])</p></blockquote>
+
+<p>Una vez en el prompt de mysql [Todas las sentencias han de terminar con un punto y coma [;] menos la sentencia &#8220;USE&#8221;]:</p>
+
+<p>mysql> SHOW VARIABLES LIKE &#8216;datadir&#8217;; (muestra el directorio donde se almacenan las BDs)</p>
+
+<p>mysql> show databases; (Mostrar las BDs existentes)</p>
+
+<p>mysql> create database datos; (Crear la BD &#8220;datos&#8221;)</p>
+
+<p>mysql> DROP DATABASE datos; (Borrar toda una base de datos)</p>
+
+<p>mysql> USE datos (Entrar en la BD &#8220;datos&#8221;. Sin punto y coma final)</p>
+
+<p>mysql> show tables; (Mostrar las tablas de la BD en la que se ha entrado)</p>
+
+<p>mysql> DESCRIBE una_tabla (Mostrar los campos de una tabla concreta)</p>
+
+<p>mysql> exit (Salir de mysql. Tambien con &#8220;quid&#8221; o Ctrl+d)</p>
+
+<p>mysql> select version(), current_date; (Mostrar versión de mysql y fecha)</p>
+
+<p>Modelo de creación de una tabla dentro de una BD mysql:</p>
+
+<pre><code>mysql&gt; CREATE TABLE usuarios( 
+
+-&gt; nombre VARCHAR(20), apellido VARCHAR(20), 
+
+-&gt; profesión VARCHAR(20), sexo CHAR(1), nacimiento DATE, 
+
+-&gt; antiguedad DATE); 
+</code></pre>
+
+<p>VARCHAR(20) (Que los valores que se almacenarán son de longitud variable de hasta 20 caracteres)</p>
+
+<p>CHAR(1) (Que el valor será fijo y solo tendrá un caracter)</p>
+
+<p>DATE (En formato YYYY-MM-DD)</p>
+
+<p>Para entrar datos en la tabla anterior, podemos crear un archivo de texto &#8220;usuarios.txt&#8221; que contenga un registro por línea con valores separados por tabuladores, cuidando que el orden de las columnas sea el mismo que utilizamos en la sentencia CREATE TABLE. Para valores que no conozcamos podemos usar valores nulos usando \N. Ejemplo:</p>
+
+<blockquote><p>$ nano usuarios.txt</p></blockquote>
+
+<p>Juan    Borras  contable    m   1964-05-12  1988-03-27</p>
+
+<p>Maria   Gil administrativo  f   1983-10-03  2004-08-05</p>
+
+<p>Antonio Gomez   portero     m   \N      2006-11-01</p>
+
+<pre><code>Nota.- El final del archivo no ha de contener ninguna linea en blanco. 
+</code></pre>
+
+<p>Para cargarlo en la BD:</p>
+
+<p>mysql> LOAD DATA LOCAL INFILE &#8220;usuarios.txt&#8221; INTO TABLE datos;</p>
+
+<pre><code>Nota.- En caso de que salga el error: The used command is not allowed with this MySQL version:
+
+# nano /etc/mysql/my.cnf
+
+Y en la sección [mysql] añadir la linea "local-infile": 
+
+    [mysql]
+
+    local-infile
+
+Reinciar mysql. 
+</code></pre>
+
+<p>LOAD DATA (Permite especificar cuál es el separador de columnas y el separador de registros. Por defecto el tabulador es el separador de columnas (campos) y el salto de línea es el separador de registros)</p>
+
+<p>Para añadir un nuevo registro a la BD anterior:</p>
+
+<pre><code>mysql&gt; INSERT INTO usuarios 
+
+    -&gt; VALUES('Jose','Robles','administrativo','m',NULL,'2012-12-01'); 
+</code></pre>
+
+<p>Valores y fechas entre comillas simples y valores desconocidos NULL y no \N como entrando un archivo.</p>
+
+<p>mysql> SELECT * FROM usuarios; (Ver toda la tabla para comprobar si se ha añadido el último registro)</p>
+
+<p>Para modificar un registro puede realizarse borrando toda la tabla de datos y entrando nuevamente el archivo usuarios.txt si este está actualizado:</p>
+
+<p>mysql> DELETE FROM usuarios;</p>
+
+<p>mysql> LOAD DATA LOCAL INFILE &#8220;usuarios.txt&#8221; INTO TABLE usuarios;</p>
+
+<p>O modificando solo el registro:</p>
+
+<p>mysql> UPDATE usuarios SET nacimiento=&#8221;1959-04-12&#8221;</p>
+
+<p>WHERE apellido=&#8221;Gomez&#8221;;</p>
+
+<p>mysql> SELECT * FROM usuarios WHERE apellido=&#8221;Gomez&#8221;; (Verificar si se ha realizado la modificación)</p>
+
+<p>mysql> SELECT * FROM usuarios WHERE nacimiento >= &#8220;1990-1-1&#8221;; (filtrar los que han nacido antes de la fecha indicada)</p>
+
+<p>mysql> SELECT * FROM usuarios WHERE profesion=&#8221;administrativo&#8221; AND sexo=&#8221;f&#8221;; (filtrar los administrativos de sexo femenino)</p>
+
+<p>mysql> SELECT * FROM usuarios WHERE profesion=&#8221;portero&#8221; OR profesion=&#8221;contable&#8221;; (filtrar porteros y contables)</p>
+
+<pre><code>mysql&gt; SELECT * FROM usuarios WHERE (profesion="portero" AND sexo="f") 
+
+    -&gt; OR (nombre = "juan" AND sexo = "m"); (Filtrar distintas opciones encerradas entre parentesis) 
+</code></pre>
+
+<p>mysql> SELECT apellido, nacimiento FROM usuarios;</p>
+
+<p>mysql> SELECT antiguedad FROM usuarios; (Filtrar la columna &#8220;antiguedad&#8221;)</p>
+
+<p>mysql> SELECT nombre, nacimiento FROM usuarios ORDER BY nacimiento; (Ordenar por fecha nacimiento)</p>
+
+<p>mysql> SELECT * FROM la_tabla ORDER BY la_columna; (Ordenar por el número de una columna)</p>
+
+<p>mysql> drop table usuarios; (Eliminar una tabla)</p>
+
+<p>mysql> drop table if exists usuarios; (Eliminar tabla si existe)</p>
+
+<p>mysql> CHECK TABLE la_tabla EXTENDED; (Chequear la integridad de una tabla)</p>
+
+<p>mysql> REPAIR TABLE la_tabla; (Reparar una tabla)</p>
+
+<p>1.-</p>
+
+<p>En ciertos casos, para resolver el error: mysqldump: Got error: xxxx: Table &#8216;xxxxxxxxx&#8217; doesn&#8217;t exist when using LOCK TABLES:</p>
+
+<blockquote><p>$ mysqldump -u root -p BDs &#8211;single-transaction > dump.sql</p></blockquote>
+
+<p>2.-</p>
+
+<p>Otro sistema para importar una base de datos. Primero crearla, entrar en ella y ejecutar el source sobre el fichero sql:</p>
+
+<pre><code>mysql&gt; CREATE DATABASE datos;
+
+mysql&gt; USE datos;
+
+mysql&gt; SOURCE datos.sql;
+</code></pre>
+
+<p>3.-</p>
+
+<p>Exportar una tabla a txt con determinado formato:</p>
+
+<pre><code>mysql&gt; SELECT * SELECT tabla INTO OUTFILE "tabla.txt"
+
+   --&gt; FIELDS TERMINATED BY '   '
+
+   --&gt; LINES TERMINATED BY '\n\n\r';
+</code></pre>
+
+<p>FIELDS TERMINATED BY &#8217;  &#8217; (indica que los campos de cada línea terminarán con dos espacios.</p>
+
+<p>LINES TERMINATED BY &#8216;\n\n\r &#8216;(indica el carácter como acaba cada linea, en este caso dos saltos de línea y retorno de carro</p>
+
+<p>otras instrucciones de formato:</p>
+
+<p>ENCLOSED BY &#8216;&#8221;&#8217; (Que los campos de tipo char, text, binary y enum de cada línea se entrecomillan)</p>
+
+<p>IGNORE 1 LINES (No cargar la primera línea del fichero de texto)</p>
+
+<p>LINES STARTING BY &#8216;&#8212;&#8217; (Que todas las líneas empiezen con &#8220;&#8212;&#8221;.</p>
+
+<p>4.-</p>
+
+<p>Ejemplo parecido al anterior pero ordenando el fichero por el segundo campo:</p>
+
+<pre><code>mysql&gt; SELECTC campo1,campo2,campo3 FROM tabla ORDER BY campo2 INTO OUTFILE "campos.txt"
+
+--&gt; FIELDS TERMINATED BY ' '
+
+--&gt; LINES TERMINATED BY '\n\r';
+</code></pre>
+
+<p>5.-</p>
+
+<p>Gestion de usuarios.</p>
+
+<p>Cuando creamos un nuevo usuario en MySQL, éste queda identificado por su nombre de usuario más el nombre o IP del ordenador desde el cual hemos dicho que accederá (el carácter comodín &#8216;%&#8217; representa varios ordenadores).</p>
+
+<p>Ejemplos:</p>
+
+<pre><code> juan
+
+ juan@'%'
+
+ juan@localhost
+
+ juan@'192.168.1.%'
+
+ juan@'%.dominio.org'
+</code></pre>
+
+<p>mysql> SELECT User,Host,Password FROM mysql.user; (Ver los usuarios)</p>
+
+<p>mysql> CREATE USER juan@&#8217;%&#8217; IDENTIFIED BY &#8216;1234&#8217;; (Crear un usuario con la contraseña 1234)</p>
+
+<p>mysql> CREATE USER john IDENTIFIED BY &#8216;1234&#8217;, peter IDENTIFIED BY &#8216;4321&#8217;; (Crear dos usuarios)</p>
+
+<p>mysql> RENAME USER john TO juan, peter TO pedro;</p>
+
+<p>mysql> DROP USER juan, pedro; (Borrar dos usuarios)</p>
+
+<p>mysql> SET PASSWORD FOR juan = PASSWORD(&#8216;abcde&#8217;) (Cambiar la contraseña de un usuario)</p>
+
+<p>mysql> SHOW GRANTS FOR pedro; (Ver los privilegios de un usuario)</p>
+
+<pre><code>mysql&gt; GRANT ALL ON *.* TO juan@localhost (Otorgar todos los privilegios a un usuario)
+
+mysql&gt; REVOKE ALL ON *.* FROM juan@localhost; (Anular todos los privilegios de un usuario)
+</code></pre>
+
+<p>6.-</p>
+
+<p>Acceso remoto a mysql con el usuario root:</p>
+
+<blockquote><p># nano /etc/mysql/my.cnf</p></blockquote>
+
+<p>Comentar la linea:</p>
+
+<pre><code>#bind-address           = 127.0.0.1
+</code></pre>
+
+<p>Reiniciar el servicio:</p>
+
+<blockquote><p># /etc/init.d/mysql restart</p></blockquote>
+
+<p>Entrar en el prompt de mysql y otorgar privilegios:</p>
+
+<blockquote><p># mysql -u root -p</p></blockquote>
+
+<p>Entrar la contraseña y:</p>
+
+<pre><code>mysql&gt; GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'la_contraseña' WITH GRANT OPTION;
+
+mysql&gt; FLUSH PRIVILEGES;
+
+mysql&gt; exit
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -778,44 +1072,6 @@ msf exploit(vsftpd_234_backdoor) &gt; [+] Backdoor service has been spawned, han
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/mpstat/">Mpstat</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>muestra estadísticas relacionadas con la CPU.</p>
-
-<blockquote><p># mpstat 2 -P ALL (actualiza cada 2 segundos)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/64/">&larr; Older</a>
@@ -831,12 +1087,16 @@ msf exploit(vsftpd_234_backdoor) &gt; [+] Backdoor service has been spawned, han
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1324</li>
+	<li>1325</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/wapiti/">wapiti</a>
+      </li>
     
       <li class="post">
         <a href="/blog/apt-fast/">apt-fast</a>
@@ -872,10 +1132,6 @@ msf exploit(vsftpd_234_backdoor) &gt; [+] Backdoor service has been spawned, han
     
       <li class="post">
         <a href="/blog/pslist/">pslist</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/gpe-taskmanager/">gpe-taskmanager</a>
       </li>
     
   </ul>
