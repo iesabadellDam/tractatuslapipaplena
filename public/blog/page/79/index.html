@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Eliminar información y reducir, modificar o recortar tamaño de imagenes jpeg. $ jpegtran -copy none optimize original.jpg resultado.jpg (Eliminando &hellip;">
+  <meta name="description" content="1.- Suprimir kernels antiguos # uname -r (para conocer el último) # dpkg &#8211;get-selections | egrep linux-image linux-image-2.6.17-11-generic &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,276 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/kernel/">Kernel</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>1.-</p>
+
+<p>Suprimir kernels antiguos</p>
+
+<blockquote><p># uname -r   (para conocer el último)</p>
+
+<p># dpkg &#8211;get-selections | egrep linux-image</p></blockquote>
+
+<p>linux-image-2.6.17-11-generic install</p>
+
+<p>linux-image-2.6.20-15-generic install</p>
+
+<p>linux-image-2.6.20-16-generic install</p>
+
+<p>Dejar el actual y suprimir los otros:</p>
+
+<blockquote><p># apt-get remove &#8211;purge linux-image-2.6.17-11-generic</p></blockquote>
+
+<p>2.-</p>
+
+<p>Instalar nuevo kernel:</p>
+
+<p>Para el ejemplo descargaremos el kernel 3.3.6 para la versión de ubuntu 12.04 [http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.3.6-precise/] para la arquitectura amd64. De los varios archivos que encontramos en la página, para lo que nos ocupa, solo interesan los linux-headers y linux-image.</p>
+
+<blockquote><p>$ wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.3.6-precise/linux-headers-3.3.6-030306_3.3.6-030306.201205121335_all.deb</p>
+
+<p>$ wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.3.6-precise/linux-headers-3.3.6-030306-generic_3.3.6-030306.201205121335_amd64.deb</p>
+
+<p>$ wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.3.6-precise/linux-image-3.3.6-030306-generic_3.3.6-030306.201205121335_amd64.deb</p></blockquote>
+
+<p>La instalación se realiza en el mismo orden de descarga:</p>
+
+<blockquote><p># gdebi linux-headers-3.3.6-030306_3.3.6-030306.201205121335_all.deb</p>
+
+<p># gedbi linux-headers-3.3.6-030306-generic_3.3.6-030306.201205121335_amd64.deb</p>
+
+<p># gedbi linux-image-3.3.6-030306-generic_3.3.6-030306.201205121335_amd64.deb</p></blockquote>
+
+<p>Después de la instalación del kernel, instalar los drivers privativos tipo nvidia o ati. Y actualizar grub:</p>
+
+<blockquote><p># update-grub</p></blockquote>
+
+<p>3.-</p>
+
+<p>[libncurses5 libncurses5-dev]</p>
+
+<p>Compilar el kernel desde el codigo fuente. Puede ser util para habilitar soporte para algun nuevo periferico no soportado por el kernel por defecto. Escoger la ultima version del nucleo estable de kernel.org. Para el ejemplo usaremos la 3.9.11.</p>
+
+<blockquote><p># cd /usr/src</p>
+
+<p># wget https://www.kernel.org/pub/linux/kernel/v3.x/linux-3.9.11.tar.gz</p>
+
+<p># tar -zxvf linux-3.9.11.tar.gz</p>
+
+<p># cd linux-3.9.11</p>
+
+<p># make menuconfig/</p></blockquote>
+
+<p>Mostrara las opciones de configuracion por defecto que podran ser modificadas para nuestra maquina especifica. Una vez terminado, &#8220;guardar&#8221; como .config</p>
+
+<blockquote><p># make (Compilar)</p>
+
+<p># make modules_install (Instalar los modulos)</p>
+
+<p># make install (Instalar el nuevo kernel en el sistema)</p></blockquote>
+
+<p>La instalacion ya modifica el grub.cfg para que el sistema arranque con el nuevo kernel. Si este da problemas puede escogerse para el arranque el antiguo que constara en el menu de Grub. Puede verificarse el nuevo kernel con:</p>
+
+<blockquote><p>$ uname -r</p></blockquote>
+
+<p>4.-</p>
+
+<p>Borrar kernels antiguos de forma automática:</p>
+
+<pre><code># apt-get purge $(dpkg -l 'linux-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/\(.*\)-\([^0-9]\+\)/\1/")"'/d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/;/[0-9]/!d' | head -n -1) --assume-yes 
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/kbdrate/">Kbdrate</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Establece la tasa de repetición del teclado y el tiempo de retardo en las tty.</p>
+
+<blockquote><p># kbdrate -d 200 -r 10 (establece retardo de 200 milisegundos y velocidad de repetición de 10 por segundo)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/jumanji/">Jumanji</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Navegador estilo vi con soporte flash.</p>
+
+<p>Configuración:</p>
+
+<blockquote><p>$ nano .config/jumanji/jumanjirc</p>
+
+<p># jumanji configuration</p>
+
+<p># search engines</p></blockquote>
+
+<p>searchengine gg http://google.es</p>
+
+<p>searchengine yo http://www.youtube.com/results?search_query=%s&amp;aq=f</p>
+
+<blockquote><p># browser settings</p></blockquote>
+
+<p>set homepage http://www.lapipaplena.com</p>
+
+<p>set auto_save 60</p>
+
+<p>set single_instance false</p>
+
+<blockquote><p># downloads</p></blockquote>
+
+<p>set download_dir ~/downloads/</p>
+
+<p>set download_command urxvt -e  wget &#8211;load-cookies ~/.config/jumanji/cookies &#8216;%s&#8217; -O &#8216;%s&#8217;;</p>
+
+<blockquote><p># look</p></blockquote>
+
+<p>set font droid sans mono medium 8</p>
+
+<blockquote><p># key bindings</p></blockquote>
+
+<p>map <C-q> quit</p>
+
+<blockquote><p># session</p></blockquote>
+
+<p>set default_session_name start</p>
+
+<p>set session_restored true</p>
+
+<blockquote><p># Enable plugins</p></blockquote>
+
+<p>plugin application/x-shockwave-flash</p>
+
+<p>Atajos:</p>
+
+<pre><code>o (entrar URL)
+
+t (entrar URL en nueva ventana)
+
+j (bajar por la página)
+
+k (subir)
+
+h (ir a la izquierda)
+
+k (ir a la derecha) 
+
+^f (Descenso al final de la página) 
+
+^b (Regreso al inicio de la página) 
+
+w (abrir una dirección en una nueva ventana) 
+
+^w (Cerrar ventana)
+
+^Tab (Cambiar de pestaña)
+
+^I (página anterior)
+
+^o (página siguiente) 
+
+? (Buscar palabra)
+
+r (Recargar la página)
+
+R (Recargar ignorando la caché) 
+
+y (Copiar la dirección de la página al portapapeles)
+
+^s (Mostrar código fuente)
+
+^q (Salir)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -428,165 +698,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/joe/">Joe</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Editor de texto</p>
-
-<blockquote><p>$ joe -linums fichero (Abre fichero numerando las lineas)</p></blockquote>
-
-<p>Algunas teclas de control [&#8221;<sup>k</sup> h&#8221; significa pulsar la tecla Ctrl y sin soltarla pulsar la letra “k”, soltar estas teclas y pulsar “h”]</p>
-
-<pre><code>^k h (Abrir/cerrar ventana de ayuda. Con esc . se avanza en las ventanas de ayuda y con esc , se retrocede) 
-
-^k d (Guardar archivo sin salir) 
-
-^k x (Guardar y salir) 
-
-^c (Salir sin guardar) 
-
-^k f (Buscar palabra) 
-
-^u (Pantalla anterior) 
-
-^v (Pantalla siguiente) 
-
-^a (Ir al principio de linea) 
-
-`e (Ir al final de la linea) 
-
-^k u (Ir al principio del documento) 
-
-^k v (Ir al final del documento) 
-
-^d (Borrar caracter) 
-
-^y (Borrar linea) 
-
-^w (Borrar palabra siguiente) 
-
-^o (Borrar palabra anterior) 
-
-^_ (Deshacer) 
-
-^c (Cancelar)
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/jobs/">Jobs</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Informa sobre los trabajos en ejecución, pendientes de ejecución que se encuentran en backgroud.</p>
-
-<blockquote><p>$ jobs -l (Mostrar también el ID)</p>
-
-<p>$ jobs -p (Mostrar sólo el ID)</p></blockquote>
-
-<p>Algunas opciones:</p>
-
-<p>-r (Mostrar só lo las que están procesandose)</p>
-
-<p>-s (Sólo las que están paradas)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/jnettop/">Jnettop</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Monitor del tráfico de red ordenado por el ancho de banda utilizado.</p>
-
-<blockquote><p># jnettop</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/80/">&larr; Older</a>
@@ -608,6 +719,18 @@
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/du/">du</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/chown/">chown</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/chmod/">chmod</a>
+      </li>
     
       <li class="post">
         <a href="/blog/wapiti/">wapiti</a>
@@ -635,18 +758,6 @@
     
       <li class="post">
         <a href="/blog/slay/">slay</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/rrenice/">rrenice</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/rkill/">rkill</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/pslist/">pslist</a>
       </li>
     
   </ul>

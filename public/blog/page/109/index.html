@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Elimina un usuario del sistema sin borrar su directorio. # deluser usuario
-">
+  <meta name="description" content="Toda aplicación tiene siempre tres descriptores de fichero abiertos, el 0 para la entrada estándar [stdin], el 1 para la salida estándar [stdout], y &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +75,106 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/descriptor/">Descriptor</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Toda aplicación tiene siempre tres descriptores de fichero abiertos, el 0 para la entrada estándar [stdin], el 1 para la salida estándar [stdout], y el 2 para la salida de errores estándar [stderr]. Del 3 al 9 son descriptores adicionales [ver tuberias]. En el ejemplo:</p>
+
+<blockquote><p>$ ls -a >> listado.txt</p></blockquote>
+
+<p>La salida estándart [descriptor 1] se envia al fichero listado.txt, consecuentemente en pantalla no veremos nada. En el caso:</p>
+
+<blockquote><p>$ ls -zy >> listado.txt</p></blockquote>
+
+<p>El error [descriptor 2] se mostrará por pantalla y listado.txt permanecerá vacio. Para redirigir el error [descriptor 2 ]al fichero listado.txt [descriptor 1]:</p>
+
+<blockquote><p>$ ls -zy >> listado.txt 2>&amp;1</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/denyhosts/">Denyhosts</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Protege contra ataques.</p>
+
+<p>Configuración:</p>
+
+<blockquote><p># nano /etc/denyhosts.conf</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<p>SECURE_LOG = /var/log/auth.log (Ruta a los logs)</p>
+
+<p>DENY_THRESHOLD_INVALID = 5 (Intentos fallidos permitidos con una cuenta que no existe)</p>
+
+<p>DENY_THRESHOLD_VALID = 5 (Intentos falllidos con usuarios validos)</p>
+
+<p>PURGE_DENY =5d (Tiempo de baneo de una IP. 5 dias en este caso)</p>
+
+<p>BLOCK_SERVICE = sshd (Servicios que queremos proteger [ sshd, ALL&#8230;)</p>
+
+<p>Nota.- Tambien es posible arrancar el servicio con la opción &#8220;purge&#8221;  [/etc/init.d/denyhosts start &#8211;purge] para eliminar las ips bloqueadas y que se muestran en /etc/hosts.deny</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -594,122 +693,6 @@ $ cd picpuz
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ddrescue/">Ddrescue</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Recuperación de discos dañados. Proceso:</p>
-
-<p>Descargar el paquete dd_rhelp (Comprobar si existe una versión posterior):</p>
-
-<blockquote><p>$ wget http://www.kalysto.org/pkg/dd_rhelp-0.1.2.tar.gz</p>
-
-<p>$ cd dd_rhelp-0.1.2</p>
-
-<p># ./dd_rhelp /dev/sdbx sdbx.img</p></blockquote>
-
-<p>Creará sdbx.img en el directorio actual, que podrá montarse:</p>
-
-<blockquote><p># mount -o loop sdbx.img /media/imagen</p></blockquote>
-
-<p>Comprobar posibles errores (para partición ext3):</p>
-
-<blockquote><p># fsck -y sdbx.img</p></blockquote>
-
-<p>Restaurar la imagen:</p>
-
-<blockquote><p># dd_rhelp sdbx.img /dev/sdax</p></blockquote>
-
-<p>Método de ejecutar ddrescue en dos pasadas, de forma que la primera sólo recupera los bloques que no contenga sectores defectuosos y el segundo se centre en recuperar el máximo de los defectuosos:</p>
-
-<blockquote><p># ddrescue -v -n /dev/sda /dev/sdb sda.txt</p>
-
-<p># ddrescue -v -r2 -d /dev/sda /dev/sdb sda.txt</p></blockquote>
-
-<p>Luego comprobar errores con fsck.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ddclient/">Ddclient</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Configurar pc con una ip fija. Requiere registro en dyndns.org. Durante la instalación  ya preguntará los datos del registro en pero si se prefiere puede editarse el archivo de configuración y colocarlos a mano</p>
-
-<blockquote><p># gedit /etc/ddclient.conf</p></blockquote>
-
-<p>Completar los campos login y password con los datos correspondientes:</p>
-
-<p>protocol=dyndns2</p>
-
-<p>use=web, web=checkip.dyndns.com, web-skip=&#8217;IP Address&#8217;</p>
-
-<p>server=members.dyndns.org</p>
-
-<p>login=Nombre_registrado_en_dyndns</p>
-
-<p>password=&#8217;contraseña_de_dyndns&#8217;</p>
-
-<p>nombre_de_dominio.com</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/110/">&larr; Older</a>
@@ -731,6 +714,18 @@ $ cd picpuz
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/du/">du</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/chown/">chown</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/chmod/">chmod</a>
+      </li>
     
       <li class="post">
         <a href="/blog/wapiti/">wapiti</a>
@@ -758,18 +753,6 @@ $ cd picpuz
     
       <li class="post">
         <a href="/blog/slay/">slay</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/rrenice/">rrenice</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/rkill/">rkill</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/pslist/">pslist</a>
       </li>
     
   </ul>

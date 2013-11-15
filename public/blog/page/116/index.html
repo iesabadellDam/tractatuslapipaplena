@@ -9,7 +9,8 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="[moreutils] Mostrará el error por la salida estándar si el comando falla, tiene salida nula o se bloquea. Si el comando se ejecuta correctamente se &hellip;">
+  <meta name="description" content="Permite cambiar la shell del usuario especificado. $ chsh -l (Mostrar las shells disponibles en el sistema) $ chsh -s /bin/tcsh usuario
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +76,100 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/chsh/">Chsh</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Permite cambiar la shell del usuario especificado.</p>
+
+<blockquote><p>$ chsh -l (Mostrar las shells disponibles en el sistema)</p>
+
+<p>$ chsh -s /bin/tcsh usuario</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/chroot/">Chroot</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Situarte virtualmente donde le indicas como raiz</p>
+
+<blockquote><p># chroot /media/sda3</p></blockquote>
+
+<p>Nota.- En algunas ocaciones es necesario montar algunos sitemas de ficheros en la particion &#8220;chrootada&#8221;. Debes hacer estos pasos antes de hacer chroot:</p>
+
+<blockquote><p># mount -o bind /dev/ /media/sda3/dev/</p>
+
+<p># mount -o bind /sys/ /media/sda3/sys/</p>
+
+<p># mount -o bind /proc/ /media/sda3/proc/</p></blockquote>
+
+<p>Si no se establece conexión:</p>
+
+<blockquote><p># nano /etc/resolv.conf</p></blockquote>
+
+<p>Y colocar:   nameserver 8.8.8.8</p>
+
+<p>O en su defecto la ip del router [nameserver 192.168.1.1]</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -211,48 +306,6 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/chown/">Chown</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Cambio de propietario de un archivo o directorio.</p>
-
-<blockquote><p># chown usuario archivo</p>
-
-<p># chown -R usuario directorio (afecta al directorio y todos los subdirectorios)</p>
-
-<p># chown -R usuario:grupo directorio</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
       <h1 class="entry-title"><a href="/blog/chntpw/">Chntpw</a></h1>
     
     
@@ -285,82 +338,6 @@
 <p># chntpw -u USUARIO SAM  (quitar o modificar la contraseña de un usuario concreto)</p></blockquote>
 
 <p>Aparece un menú de 5 opciones. Borrar contraseña es la opción 1 modificarla la 2.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/chmod/">Chmod</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Gestión de permisos de los ficheros y directorios.</p>
-
-<blockquote><p>$ chmod ugo+rwx -R /home/usuario/directorio  (todos los permisos a todos los usuarios sobre el directorio y subdirectorios)</p>
-
-<p>$ chmod 777 -R /home/usuario/directorio (Equivalente en octal)</p>
-
-<p>$ chmod a+w archivo (permiso de escritura para todos)</p>
-
-<p>$ chmod 222 -R /home/usuario/directorio (Equivalente en octal)</p>
-
-<p>$ chmod -w archivo (Quitar permiso de escritura a un archivo)</p>
-
-<p>$ chmod +x archivo (Dar permiso de ejecución)</p>
-
-<p>$ chmod 744 archivo (Lectura, ecritura y ejecución para el usuario y sólo lectura para grupo y otros)</p>
-
-<p>$ chmod u=rwx go=rw archivo (Equivalente en alfabético)</p></blockquote>
-
-<p>Código numérico (octal):</p>
-
-<p>1 = ejecución [x]</p>
-
-<p>2 = escritura [w]</p>
-
-<p>3 (1+2) = escritura y ejecución [xw]</p>
-
-<p>4 = lectura [r]</p>
-
-<p>5 (4+1) = lectura y ejecución [rx]</p>
-
-<p>6 (4+2) = lectura y escritura [rw]</p>
-
-<p>7 (4+2+1) = lectura, escritura y ejecución [wxr]</p>
-
-<p>Código alfabético:</p>
-
-<p>r (lectura), w (escritura), x (ejecución)</p>
-
-<p>u (usuario), g (grupo), o (otros), a (para todos)</p>
-
-<p>Nota.- Cuando un directorio está marcado como ejecutable [x] significa que se puede mirar dentro [ls] o entrar en él [cd]</p>
 </div>
   
   
@@ -561,6 +538,18 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/du/">du</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/chown/">chown</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/chmod/">chmod</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/wapiti/">wapiti</a>
       </li>
     
@@ -586,18 +575,6 @@
     
       <li class="post">
         <a href="/blog/slay/">slay</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/rrenice/">rrenice</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/rkill/">rkill</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/pslist/">pslist</a>
       </li>
     
   </ul>

@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Localiación geográfica de una ip. $ geoiplookup IP # geoip-database-contrib_update (actualizar la BD [/usr/share/GeoIP/])
-">
+  <meta name="description" content="Permite listar polí­ticas y determinar si estan activas o inactivas en SELinux, implementación de seguridad para GNU/Linux que provee una variedad de &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +75,174 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/getsebool/">Getsebool</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Permite listar polí­ticas y determinar si estan activas o inactivas en SELinux, implementación de seguridad para GNU/Linux que provee una variedad de políticas de seguridad a través del uso de módulos de Seguridad en el nucleo de Linux. Ver setsebool</p>
+
+<blockquote><p># getsebool -a (Lista todas las políticas, activa o inactivas)</p>
+
+<p># getsebool -a | grep ftp (conocer que polí­ticas que incluyan la cadena ftp están activas)</p></blockquote>
+
+<pre><code>Para el servicio de FTP las políticas serían:
+
+    allow_ftpd_anon_write (Permite a usuarios anónimos escribir en el servidor)
+
+    allow_ftpd_full_access (Permite lectura y escritura sobre los archivos del servidor)
+
+    allow_ftpd_use_cifs (Permite transferencias de datos desde CIFS)
+
+    allow_ftpd_use_nfs (Permite transferencias de datos desde NFS)
+
+    ftp_home_dir (Permite a usuarios locales acceder a sus directorios de inicio)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/getenforce/">Getenforce</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Comprobar el estado de selinux.</p>
+
+<blockquote><p># getenforce</p></blockquote>
+
+<p>Estados posibles</p>
+
+<p>enforcing [impositivo] (Política de seguridad activa)</p>
+
+<p>permissive [permisivo] (Registra los eventos pero no impone la política)</p>
+
+<p>disabled [inhabilitado] (Desactivado)</p>
+
+<blockquote><p># nano /etc/selinux/config</p></blockquote>
+
+<pre><code># This file controls the state of SELinux on the system.
+
+# SELINUX= can take one of these three values:
+
+# enforcing - SELinux security policy is enforced.
+
+# permissive - SELinux prints warnings instead of enforcing.
+
+# disabled - No SELinux policy is loaded.
+
+SELINUX=permissive
+
+# SELINUXTYPE= can take one of these two values:
+
+# default - equivalent to the old strict and targeted policies
+
+# mls     - Multi-Level Security (for military and educational use)
+
+# src     - Custom policy built from source
+
+SELINUXTYPE=default
+
+# SETLOCALDEFS= Check local definition changes
+
+SETLOCALDEFS=0
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/getconf/">Getconf</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Consulta las variables de configuración del sistema.</p>
+
+<blockquote><p>$ getconf -a (Muestra el listado)</p>
+
+<p>$ getconf LONG_BIT (Informa sobre si se trata de un equipo de 32 o 64 bits)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -401,169 +568,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/gdisk/">Gdisk</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Herramienta para particionar discos rígidos de cualquier tamaño con una tabla de particiones GPT de GUID (Globally Unique Identifier) imprescindible para los discos mayores de 2 TB. Para el caso de discos rígidos SSD, por defecto gdisk asegura que sus particiones estén correctamente alineadas [discos duros que no tienen 512 bytes por sectors]. El uso de particiones GPT, elimina la necesidad de basarse en particiones primarias, extendidas o lógicas propias del sistema MBR. GPT puede soportar un número casi ilimitado de particiones y tiene solamente el límite de la cantidad de espacio reservado para las entradas de las particiones en el disco GPT, por defecto gdisk tiene un límite 128 particiones.</p>
-
-<blockquote><p># gdisk /dev/sda</p></blockquote>
-
-<p>Algunos comandos:</p>
-
-<pre><code>i (información de las particiones)
-
-l (listar particiones)
-
-m (volver al menú principal)
-
-d (borrar partición)
-
-n (crear nueva partición)
-
-o (crear nueva tabla de particiones GUID)
-
-t (cambiar tipo de partición)
-
-c (cambiar de partición)
-
-q (salir guardando los cambios)
-
-? (mostar menú de opciones)
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/gdebi/">Gdebi</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Instalador de paquetes .deb</p>
-
-<blockquote><p># gdebi paquete.deb</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/gdb/">Gdb</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Herramienta para depurar programas en C y C++</p>
-
-<p>Necesitamos que el programa haya sido compilado con modo debug (parámetro -g) en gcc o g++</p>
-
-<blockquote><p>$ gdb /ruta/programa (Con esto abrimos la shell de GDB)</p></blockquote>
-
-<p>Dentro de la Shell de GDB podemos ejecutar comandos</p>
-
-<p>(gdb) run (ejecutara el programa sin argumentos)</p>
-
-<p>(gdb) run &lt; content.xml > test.txt (Con argumentos, ejemplo de o3totxt)</p>
-
-<p>(gdb) break 10 (Decimos a GDB que queremos un punto de control en la linia 10 del código)</p>
-
-<p>(gdb) print variable (También p. Nos printara el contenido de la variable)</p>
-
-<p>(gdb) continue (Tambien c. Decimos que el programa continue ejecutándose)</p>
-
-<p>(gdb) next  (También n. Ejecuta la siguiente linia de código)</p>
-
-<p>(gdb) step (También s. Lo mismo que next pero si la siguiente linia es una función, va a dicha función y ejecuta linia a linia el código de esa función)</p>
-
-<p>(gdb) [TECLA_ENTER] (Repite el paso anterior)</p>
-
-<p>(gdb) backtrack (Printa la traza inversa)</p>
-
-<p>(gdb) help (ayuda del programa)</p>
-
-<p>(gdb) quit (salimos del programa)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/94/">&larr; Older</a>
@@ -585,6 +589,18 @@ q (salir guardando los cambios)
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/du/">du</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/chown/">chown</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/chmod/">chmod</a>
+      </li>
     
       <li class="post">
         <a href="/blog/wapiti/">wapiti</a>
@@ -612,18 +628,6 @@ q (salir guardando los cambios)
     
       <li class="post">
         <a href="/blog/slay/">slay</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/rrenice/">rrenice</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/rkill/">rkill</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/pslist/">pslist</a>
       </li>
     
   </ul>
