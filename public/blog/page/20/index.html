@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Archivo donde se especifican los directorios que saldran por defecto en el $HOME: XDG_DESKTOP_DIR=”$HOME/Escritorio” XDG_DOWNLOAD_DIR=”$HOME/ &hellip;">
+  <meta name="description" content="Crear usuarios. # useradd -d /home/user -m user (Especifica la ruta a su $HOME) Otras opciones: -M usuario (sin directorio $HOME) -g users user ( &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,85 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/useradd/">Useradd</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Crear usuarios.</p>
+
+<blockquote><p># useradd -d /home/user -m user (Especifica la ruta a su $HOME)</p></blockquote>
+
+<p>Otras opciones:</p>
+
+<p>-M usuario  (sin directorio $HOME)</p>
+
+<p>-g users user (grupo principal al que pertenece el usuario)</p>
+
+<p>-e 20111231 user (fecha de expiración de un usuario: 2011-12-31)</p>
+
+<p>-G video,audio user (grupos adicionales a los que pertenece)</p>
+
+<p>-s /bin/bash (especifica la shell del usuario)</p>
+
+<p>-s /sbin/nologin (El usuario no podra logearse en el sistema. Ideal para usuarios con acceso a Samba o FTP sin acceso al interprete de comandos)</p>
+
+<p>-u 503 (Identificador que sera asignado al usuario. Por defecto la UID será a partir del numero 500. Si no se especifica, automáticamente se establece el siguiente número disponible a partir del último usuario creado.)</p>
+
+<p>Un ejemplo completo:</p>
+
+<blockquote><p># useradd -d /home/paco -g users -s /bin/bash -m paco</p></blockquote>
+
+<p>1.-</p>
+
+<p>/etc/default/useradd</p>
+
+<p>Archivo donde se definen los valores [shell, directorio del directorio personal, ID del grupo, expiración de la contraseña&#8230;] por defecto para la creación de nuevos usuarios [ver useradd y skel]</p>
+
+<p>Algunos parámetros:</p>
+
+<pre><code>GROUP=100
+
+HOME=/home
+
+INACTIVE=-1
+
+EXPIRE=
+
+SHELL=/bin/sh
+
+SKEL=/etc/skel
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -516,44 +595,6 @@ http://systemadmin.es
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/update-pciids/">Update-pciids</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Si al ejecutar lspci nos muestra un mensaje &#8220;unknown device&#8221; es preciso actualizar la lista del archivo pci.ids [/usr/share/misc].</p>
-
-<blockquote><p># update-pciids</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/21/">&larr; Older</a>
@@ -569,12 +610,16 @@ http://systemadmin.es
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1325</li>
+	<li>1326</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/owl/">owl</a>
+      </li>
     
       <li class="post">
         <a href="/blog/date/">date</a>
@@ -610,10 +655,6 @@ http://systemadmin.es
     
       <li class="post">
         <a href="/blog/adminer/">adminer</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/darkstat/">darkstat</a>
       </li>
     
   </ul>
