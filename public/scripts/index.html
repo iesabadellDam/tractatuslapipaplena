@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Scripts 09-03-2013 destrac Descarga y consultas del tractatus via consola. Instalar las dependencias: # apt-get install cowsay ccze wget destrac ( &hellip;">
+  <meta name="description" content="Scripts 09-03-2013 gestrac Descarga y consultas del tractatus via consola. Instalar las dependencias: # apt-get install cowsay ccze git gestrac ( &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -93,15 +93,15 @@
 <time datetime="2013-03-09T22:50:00+01:00" pubdate data-updated="true">09-03-2013</time></p>
   </header>
   
-  <h3>destrac</h3>
+  <h3>gestrac</h3>
 
 <p>Descarga y consultas del tractatus via consola.</p>
 
 <p>Instalar las dependencias:</p>
 
-<blockquote><p># apt-get install cowsay ccze wget</p></blockquote>
+<blockquote><p># apt-get install cowsay ccze git</p></blockquote>
 
-<figure class='code'><figcaption><span>destrac  (destrac)</span> <a href='/downloads/scripts/destrac'>download</a></figcaption>
+<figure class='code'><figcaption><span>gestrac  (gestrac)</span> <a href='/downloads/scripts/gestrac'>download</a></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -325,28 +325,14 @@
 <span class='line-number'>221</span>
 <span class='line-number'>222</span>
 <span class='line-number'>223</span>
-<span class='line-number'>224</span>
-<span class='line-number'>225</span>
-<span class='line-number'>226</span>
-<span class='line-number'>227</span>
-<span class='line-number'>228</span>
-<span class='line-number'>229</span>
-<span class='line-number'>230</span>
-<span class='line-number'>231</span>
-<span class='line-number'>232</span>
-<span class='line-number'>233</span>
-<span class='line-number'>234</span>
-<span class='line-number'>235</span>
-<span class='line-number'>236</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c">#!/bin/bash</span>
-</span><span class='line'><span class="c"># Date: 10-06-2013</span>
+</span><span class='line'><span class="c"># Date: 01-10-2013</span>
 </span><span class='line'><span class="c"># Author: &quot;lapipaplena&quot; &lt;lapipaplena@gmail.com&gt;</span>
-</span><span class='line'><span class="c"># Version: 9.0</span>
+</span><span class='line'><span class="c"># Version: 3.0</span>
 </span><span class='line'><span class="c"># Licence: GPL v3.0</span>
-</span><span class='line'><span class="c"># Description: Script de desarrollo del tractatus</span>
-</span><span class='line'><span class="c"># Require: cowsay ccze wget</span>
-</span><span class='line'><span class="c">####</span>
-</span><span class='line'><span class="nv">DIR</span><span class="o">=</span><span class="nv">$HOME</span>/destrac
+</span><span class='line'><span class="c"># Description: Script de desarrollo del tractatus via github</span>
+</span><span class='line'><span class="c"># Require: cowsay ccze git</span>
+</span><span class='line'><span class="nv">DIR</span><span class="o">=</span><span class="nv">$HOME</span>/TRAC
 </span><span class='line'><span class="c">## comprobar privilegios</span>
 </span><span class='line'><span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;$(id -u)&quot;</span> <span class="o">=</span> <span class="s2">&quot;0&quot;</span> <span class="o">]</span>
 </span><span class='line'><span class="k">then </span>
@@ -355,99 +341,60 @@
 </span><span class='line'>  <span class="nb">echo</span>
 </span><span class='line'><span class="nb"> exit </span>1
 </span><span class='line'><span class="k">fi</span>
+</span><span class='line'><span class="c">#</span>
 </span><span class='line'><span class="k">function </span>fcolor <span class="o">()</span>
 </span><span class='line'><span class="o">{</span>
 </span><span class='line'>  <span class="nb">echo</span> <span class="nv">$1</span> | ccze -A
 </span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="c">#</span>
 </span><span class='line'><span class="k">function </span>fdir <span class="o">()</span>
 </span><span class='line'><span class="o">{</span>
-</span><span class='line'>  <span class="k">if</span> <span class="o">[</span> -d <span class="nv">$DIR</span> <span class="o">]</span>
-</span><span class='line'>  <span class="k">then</span>
-</span><span class='line'><span class="k">      </span>rm -R <span class="nv">$DIR</span>/*
-</span><span class='line'>  <span class="k">else</span>
-</span><span class='line'><span class="k">      </span>mkdir <span class="nv">$DIR</span>
-</span><span class='line'>  <span class="k">fi</span>
-</span><span class='line'><span class="k">  </span><span class="nb">cd</span> <span class="nv">$DIR</span>
+</span><span class='line'><span class="k">if</span> <span class="o">[</span> -d <span class="nv">$DIR</span> <span class="o">]</span>
+</span><span class='line'><span class="k">then</span>
+</span><span class='line'><span class="k">  </span><span class="nb">echo</span>
+</span><span class='line'><span class="k">else</span>
+</span><span class='line'><span class="k">  </span>mkdir <span class="nv">$DIR</span>
+</span><span class='line'><span class="k">fi</span>
 </span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="c">#</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">#</span>
 </span><span class='line'><span class="k">function </span>fdesglosetractatus <span class="o">()</span>
 </span><span class='line'><span class="o">{</span>
-</span><span class='line'>  <span class="k">if</span> <span class="o">[</span> -s files <span class="o">]</span>
-</span><span class='line'>  <span class="k">then</span>
-</span><span class='line'><span class="k">      </span><span class="nb">echo</span>
-</span><span class='line'><span class="nb"> </span><span class="k">else</span>
-</span><span class='line'><span class="k">      </span>mkdir files
-</span><span class='line'>  <span class="k">fi</span>
-</span><span class='line'><span class="k">  </span><span class="nb">cd </span>files
-</span><span class='line'>  <span class="c">## &lt;bloque de miguelgf de linuxespanol.com&gt;</span>
-</span><span class='line'>  cat ../0-file1.txt | awk <span class="s1">&#39;BEGIN {ESTADO=1} \</span>
-</span><span class='line'><span class="s1"> { \</span>
-</span><span class='line'><span class="s1">         if (ESTADO == 1 &amp;&amp; NF == 0) \</span>
-</span><span class='line'><span class="s1">                 {ESTADO=1} \</span>
-</span><span class='line'><span class="s1">         else    {       if (ESTADO==1 &amp;&amp; NF != 0) {NOMBRE=$1; ESTADO=2; print $0 &gt;&gt; NOMBRE} \</span>
-</span><span class='line'><span class="s1">                         else    {       if (ESTADO==2 &amp;&amp; NF == 0) {ESTADO=1} \</span>
-</span><span class='line'><span class="s1">                                         else { print $0 &gt;&gt; NOMBRE } \</span>
-</span><span class='line'><span class="s1">                                 } \</span>
-</span><span class='line'><span class="s1">                 } \</span>
-</span><span class='line'><span class="s1"> }&#39;</span>
-</span><span class='line'>    <span class="c">## &lt;/bloque&gt;</span>
-</span><span class='line'>  <span class="nb">echo</span>
-</span><span class='line'><span class="nb"> </span>fcolor <span class="s2">&quot;... proceso terminado....&quot;</span>
-</span><span class='line'>  <span class="nb">cd</span> ..
-</span><span class='line'>  ls files &gt; 0-lista.txt
-</span><span class='line'>  <span class="k">if</span> <span class="o">[</span> ! -s 0-lista.txt <span class="o">]</span>
-</span><span class='line'>  <span class="k">then</span>
-</span><span class='line'><span class="k">      </span>color <span class="s2">&quot;Se han detectado errores al procesar la descarga del Tractatus&quot;</span>
-</span><span class='line'>      <span class="nb">exit</span>
-</span><span class='line'><span class="nb"> </span><span class="k">else</span>
-</span><span class='line'><span class="k">      </span><span class="nb">echo</span>
-</span><span class='line'><span class="nb">     </span>fcolor  <span class="s2">&quot;&lt;&lt; Creado el directorio &quot;</span>files<span class="s2">&quot; correctamente ... &gt;&gt;&quot;</span>
-</span><span class='line'>  <span class="k">fi</span>
+</span><span class='line'><span class="c">#if [ -s files ]</span>
+</span><span class='line'><span class="c">#then</span>
+</span><span class='line'><span class="c"># echo</span>
+</span><span class='line'><span class="c">#else</span>
+</span><span class='line'><span class="c"># mkdir files</span>
+</span><span class='line'><span class="c">#fi</span>
+</span><span class='line'>mkdir files
+</span><span class='line'><span class="nb">cd </span>files
+</span><span class='line'><span class="c">## &lt;bloque de miguelgf de linuxespanol.com&gt;</span>
+</span><span class='line'>cat ../0-file1.txt | awk <span class="s1">&#39;BEGIN {ESTADO=1} \</span>
+</span><span class='line'><span class="s1">{ \</span>
+</span><span class='line'><span class="s1">     if (ESTADO == 1 &amp;&amp; NF == 0) \</span>
+</span><span class='line'><span class="s1">             {ESTADO=1} \</span>
+</span><span class='line'><span class="s1">     else    {       if (ESTADO==1 &amp;&amp; NF != 0) {NOMBRE=$1; ESTADO=2; print $0 &gt;&gt; NOMBRE} \</span>
+</span><span class='line'><span class="s1">                     else    {       if (ESTADO==2 &amp;&amp; NF == 0) {ESTADO=1} \</span>
+</span><span class='line'><span class="s1">                                     else { print $0 &gt;&gt; NOMBRE } \</span>
+</span><span class='line'><span class="s1">                             } \</span>
+</span><span class='line'><span class="s1">             } \</span>
+</span><span class='line'><span class="s1">}&#39;</span>
+</span><span class='line'><span class="c">## &lt;/bloque&gt;</span>
+</span><span class='line'><span class="nb">echo</span>
+</span><span class='line'>fcolor <span class="s2">&quot;... proceso terminado....&quot;</span>
+</span><span class='line'><span class="nb">cd</span> ..
+</span><span class='line'>ls files &gt; 0-lista.txt
+</span><span class='line'><span class="k">if</span> <span class="o">[</span> ! -s 0-lista.txt <span class="o">]</span>
+</span><span class='line'><span class="k">then</span>
+</span><span class='line'><span class="k">  </span>fcolor <span class="s2">&quot;Se han detectado errores al procesar la descarga del Tractatus&quot;</span>
+</span><span class='line'>  <span class="nb">exit</span>
+</span><span class='line'><span class="k">else</span>
+</span><span class='line'><span class="k">  </span><span class="nb">echo</span>
+</span><span class='line'><span class="nb"> </span>fcolor  <span class="s2">&quot;&lt;&lt; Creado el directorio &quot;</span>files<span class="s2">&quot; correctamente ... &gt;&gt;&quot;</span>
+</span><span class='line'><span class="k">fi</span>
 </span><span class='line'><span class="o">}</span>
-</span><span class='line'><span class="k">function </span>fdescarrega <span class="o">()</span>
-</span><span class='line'><span class="o">{</span>
-</span><span class='line'>  <span class="nb">echo</span>
-</span><span class='line'><span class="nb"> </span>fcolor <span class="s2">&quot; [1] Descargar última versión del Tractatus via wget&quot;</span>
-</span><span class='line'>  fcolor <span class="s2">&quot; [2] Descargar última versión del Tractatus via Dropbox&quot;</span>
-</span><span class='line'>  fcolor <span class="s2">&quot; [3] Trabajar con una copia existente&quot;</span>
-</span><span class='line'>  <span class="nb">echo</span>
-</span><span class='line'><span class="nb"> read</span> -p <span class="s2">&quot;&lt;&lt; Ingresar una opción: &gt;&gt; &quot;</span> OPC
-</span><span class='line'>  <span class="nb">echo</span>
-</span><span class='line'><span class="nb"> </span><span class="k">case</span> <span class="nv">$OPC</span> in
-</span><span class='line'>  1<span class="o">)</span>
-</span><span class='line'>      fdir
-</span><span class='line'>      curl -o 1-tractatus.txt http://crontux.homelinux.com/1-tractatus.txt
-</span><span class='line'>      cat 1-tractatus.txt | sed <span class="s1">&#39;1d&#39;</span> &gt; 0-file1.txt
-</span><span class='line'>      fdesglosetractatus
-</span><span class='line'>      <span class="nb">echo</span>;;
-</span><span class='line'>  2<span class="o">)</span>
-</span><span class='line'>      fdir
-</span><span class='line'>      cat <span class="nv">$HOME</span>/Dropbox/Dades/tractatus/1-tractatus.txt | sed <span class="s1">&#39;1d&#39;</span> &gt; 0-file1.txt
-</span><span class='line'>      fdesglosetractatus
-</span><span class='line'>      <span class="nb">echo</span>;;
-</span><span class='line'>  3<span class="o">)</span>
-</span><span class='line'>      <span class="k">if</span> <span class="o">[</span> -d <span class="nv">$DIR</span>/files <span class="o">]</span>
-</span><span class='line'>      <span class="k">then</span>
-</span><span class='line'><span class="k">          </span><span class="nb">cd</span> <span class="nv">$DIR</span>/files
-</span><span class='line'>      <span class="k">else</span>
-</span><span class='line'><span class="k">          if</span> <span class="o">[</span> -d <span class="nv">$DIR</span> <span class="o">]</span>
-</span><span class='line'>          <span class="k">then</span>
-</span><span class='line'><span class="k">              </span>rm -R <span class="nv">$DIR</span>
-</span><span class='line'>          <span class="k">fi</span>
-</span><span class='line'><span class="k">          </span><span class="nb">echo</span>
-</span><span class='line'><span class="nb">         </span>fcolor <span class="s2">&quot;&lt;&lt; No se han encontrado datos del tractatus.  &gt;&gt;&quot;</span>
-</span><span class='line'>          <span class="nb">echo</span>
-</span><span class='line'><span class="nb">         read</span> -p <span class="s2">&quot;&lt;&lt; ¿Desea descargar el tractatus? &gt;&gt; (s/n) &quot;</span> OPC2
-</span><span class='line'>          <span class="nb">echo</span>
-</span><span class='line'><span class="nb">         </span><span class="k">if</span> <span class="o">[</span> <span class="nv">$OPC2</span> <span class="o">=</span> s <span class="o">]</span>
-</span><span class='line'>          <span class="k">then</span>
-</span><span class='line'><span class="k">              </span>fdescarrega
-</span><span class='line'>          <span class="k">else</span>
-</span><span class='line'><span class="k">              </span><span class="nb">exit </span>1
-</span><span class='line'>          <span class="k">fi</span>
-</span><span class='line'><span class="k">      fi</span>
-</span><span class='line'><span class="k">      </span><span class="nb">echo</span>;;
-</span><span class='line'>  <span class="k">esac</span>
-</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="c">#</span>
 </span><span class='line'><span class="k">function </span>fpagina_man <span class="o">()</span>
 </span><span class='line'><span class="o">{</span>
 </span><span class='line'>  <span class="nv">MAN</span><span class="o">=</span><span class="k">$(</span>man <span class="nv">$COMANDO</span> | wc -l 2&gt;/dev/null<span class="k">)</span>
@@ -469,8 +416,34 @@
 </span><span class='line'>  <span class="k">fi</span>
 </span><span class='line'><span class="k">  </span><span class="nb">read</span>
 </span><span class='line'><span class="o">}</span>
-</span><span class='line'><span class="c">##### INICI PROGRAMA #####</span>
-</span><span class='line'>fdescarrega
+</span><span class='line'><span class="c">#</span>
+</span><span class='line'><span class="c">###</span>
+</span><span class='line'><span class="k">if</span> <span class="o">[</span> -d <span class="nv">$DIR</span> <span class="o">]</span>
+</span><span class='line'><span class="k">then</span>
+</span><span class='line'><span class="k">  </span><span class="nb">echo</span>
+</span><span class='line'><span class="nb"> </span>fcolor <span class="s2">&quot; &lt;&lt;Actualizando la versión del tractatus... &gt;&gt; &quot;</span>
+</span><span class='line'>  <span class="nb">cd</span> <span class="nv">$DIR</span>
+</span><span class='line'>  rm 0-*.txt
+</span><span class='line'>  rm -R files
+</span><span class='line'>  <span class="nb">echo</span>
+</span><span class='line'><span class="nb"> </span>git pull
+</span><span class='line'>  <span class="nb">echo</span>
+</span><span class='line'><span class="nb"> </span>cat tractatus.txt | sed <span class="s1">&#39;1d&#39;</span> &gt; 0-file1.txt
+</span><span class='line'>  fdesglosetractatus
+</span><span class='line'>  <span class="nb">echo</span>
+</span><span class='line'><span class="k">else</span>
+</span><span class='line'><span class="k">  </span>fdir
+</span><span class='line'>  <span class="nb">cd</span> <span class="nv">$DIR</span>
+</span><span class='line'>  git clone https://github.com/templix/tractatus.git .
+</span><span class='line'>  git init
+</span><span class='line'>  <span class="nb">echo</span>
+</span><span class='line'><span class="nb"> </span>fcolor <span class="s2">&quot; &lt;&lt; Creando directorio TRAC y repositorio git... &gt;&gt; &quot;</span>
+</span><span class='line'>  <span class="nb">echo</span>
+</span><span class='line'><span class="nb"> </span>cat tractatus.txt | sed <span class="s1">&#39;1d&#39;</span> &gt; 0-file1.txt
+</span><span class='line'>  fdesglosetractatus
+</span><span class='line'>  <span class="nb">echo</span>
+</span><span class='line'><span class="k">fi</span>
+</span><span class='line'><span class="c">###</span>
 </span><span class='line'><span class="nb">cd</span> <span class="nv">$DIR</span>/files
 </span><span class='line'><span class="nv">NUM2</span><span class="o">=</span><span class="k">$(</span>cat ../0-file1.txt | awk <span class="s1">&#39;BEGIN { FS=&quot;\n&quot;; RS=&quot;&quot; } {print $1 }&#39;</span> | awk -F <span class="s2">&quot; &quot;</span> <span class="s1">&#39;{print$1 }&#39;</span> | wc -l<span class="k">)</span>
 </span><span class='line'><span class="k">while</span> <span class="o">[</span> <span class="s2">&quot;$OPC1&quot;</span> !<span class="o">=</span> 3 <span class="o">]</span>
@@ -540,7 +513,7 @@
 </span><span class='line'><span class="nb">                         </span>clear
 </span><span class='line'>                          pr -f -d -h <span class="nv">$comando</span> <span class="nv">$comando</span> | ccze -A
 </span><span class='line'>                      <span class="k">else</span>
-</span><span class='line'><span class="k">                          </span><span class="nb">echo</span>
+</span><span class='line'><span class="k">                      </span><span class="nb">echo</span>
 </span><span class='line'><span class="nb">                     </span><span class="k">fi</span>
 </span><span class='line'><span class="k">                      </span><span class="nb">read</span>
 </span><span class='line'><span class="nb">                     echo</span>
@@ -568,6 +541,7 @@
 </span><span class='line'><span class="k">done</span>
 </span><span class='line'>clear
 </span><span class='line'><span class="nb">echo</span>
+</span><span class='line'>rm ../0-file1.txt
 </span><span class='line'><span class="nb">echo</span>  <span class="s2">&quot;=============================================================&quot;</span>
 </span><span class='line'>fcolor <span class="s2">&quot;&lt;&lt; La base de datos del tractatus cuenta con $NUM2 entradas &gt;&gt;&quot;</span>
 </span><span class='line'><span class="nb">echo</span>  <span class="s2">&quot;=============================================================&quot;</span>
@@ -583,7 +557,7 @@
 
 <blockquote><p># apt-get install fail2ban geoip-bin ccze</p></blockquote>
 
-<figure class='code'><figcaption><span>destrac  (servidef)</span> <a href='/downloads/scripts/servidef'>download</a></figcaption>
+<figure class='code'><figcaption><span>gestrac  (servidef)</span> <a href='/downloads/scripts/servidef'>download</a></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>

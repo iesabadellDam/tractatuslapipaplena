@@ -7,15 +7,15 @@ sharing: true
 footer: true
 ---
 
-### destrac
+### gestrac
 
 Descarga y consultas del tractatus via consola.
 
 Instalar las dependencias:
 
->\# apt-get install cowsay ccze wget
+>\# apt-get install cowsay ccze git
 
-{% include_code destrac lang:bash destrac %}
+{% include_code gestrac lang:bash gestrac %}
 
 ### servidef
 
@@ -23,4 +23,4 @@ script que muestra las ips y su procedencia de los ataques bloqueados por fail2b
 
 >\# apt-get install fail2ban geoip-bin ccze
 
-{% include_code destrac lang:bash servidef %}
+{% include_code gestrac lang:bash servidef %}
