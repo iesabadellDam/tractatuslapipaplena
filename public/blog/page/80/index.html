@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Gestor de ventanas $ kwin &#8211;replace (Activar kwin)
-">
+  <meta name="description" content="Cambiar formatos de audio $ lame -h -m j tema.wav tema.mp3 (Pasar de wav a mp3) $ lame -h -m j &#8211;nogap *.wav (Pasar lote de wav a mp3) $ lame -h &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +75,54 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/lame/">Lame</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Cambiar formatos de audio</p>
+
+<blockquote><p>$ lame -h -m j tema.wav tema.mp3  (Pasar de wav a mp3)</p>
+
+<p>$ lame -h -m j &#8211;nogap *.wav (Pasar lote de wav a mp3)</p>
+
+<p>$ lame -h &#8211;decode tema.mp3 tema.wav     (Pasar de mp3 a wav)</p>
+
+<p>$ for i in *.mp3; do lame -q 0 -b 160 -m j &#8220;$i&#8221; &#8220;directorio/$i&#8221;; done (Modificar el bitrate (-b 160) de todos los mp3 de “directorio”)</p></blockquote>
+
+<p>-q 0    Opciones de 0 a 9. A menor calidad, mayor velocidad de conversión.</p>
+
+<p>-m j    Activar joint stereo.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -659,117 +706,6 @@ logtemplate=/var/log/kismet/
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/kernel/">Kernel</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>1.-</p>
-
-<p>Suprimir kernels antiguos</p>
-
-<blockquote><p># uname -r   (para conocer el último)</p>
-
-<p># dpkg &#8211;get-selections | egrep linux-image</p></blockquote>
-
-<p>linux-image-2.6.17-11-generic install</p>
-
-<p>linux-image-2.6.20-15-generic install</p>
-
-<p>linux-image-2.6.20-16-generic install</p>
-
-<p>Dejar el actual y suprimir los otros:</p>
-
-<blockquote><p># apt-get remove &#8211;purge linux-image-2.6.17-11-generic</p></blockquote>
-
-<p>2.-</p>
-
-<p>Instalar nuevo kernel:</p>
-
-<p>Para el ejemplo descargaremos el kernel 3.3.6 para la versión de ubuntu 12.04 [http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.3.6-precise/] para la arquitectura amd64. De los varios archivos que encontramos en la página, para lo que nos ocupa, solo interesan los linux-headers y linux-image.</p>
-
-<blockquote><p>$ wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.3.6-precise/linux-headers-3.3.6-030306_3.3.6-030306.201205121335_all.deb</p>
-
-<p>$ wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.3.6-precise/linux-headers-3.3.6-030306-generic_3.3.6-030306.201205121335_amd64.deb</p>
-
-<p>$ wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.3.6-precise/linux-image-3.3.6-030306-generic_3.3.6-030306.201205121335_amd64.deb</p></blockquote>
-
-<p>La instalación se realiza en el mismo orden de descarga:</p>
-
-<blockquote><p># gdebi linux-headers-3.3.6-030306_3.3.6-030306.201205121335_all.deb</p>
-
-<p># gedbi linux-headers-3.3.6-030306-generic_3.3.6-030306.201205121335_amd64.deb</p>
-
-<p># gedbi linux-image-3.3.6-030306-generic_3.3.6-030306.201205121335_amd64.deb</p></blockquote>
-
-<p>Después de la instalación del kernel, instalar los drivers privativos tipo nvidia o ati. Y actualizar grub:</p>
-
-<blockquote><p># update-grub</p></blockquote>
-
-<p>3.-</p>
-
-<p>[libncurses5 libncurses5-dev]</p>
-
-<p>Compilar el kernel desde el codigo fuente. Puede ser util para habilitar soporte para algun nuevo periferico no soportado por el kernel por defecto. Escoger la ultima version del nucleo estable de kernel.org. Para el ejemplo usaremos la 3.9.11.</p>
-
-<blockquote><p># cd /usr/src</p>
-
-<p># wget https://www.kernel.org/pub/linux/kernel/v3.x/linux-3.9.11.tar.gz</p>
-
-<p># tar -zxvf linux-3.9.11.tar.gz</p>
-
-<p># cd linux-3.9.11</p>
-
-<p># make menuconfig/</p></blockquote>
-
-<p>Mostrara las opciones de configuracion por defecto que podran ser modificadas para nuestra maquina especifica. Una vez terminado, &#8220;guardar&#8221; como .config</p>
-
-<blockquote><p># make (Compilar)</p>
-
-<p># make modules_install (Instalar los modulos)</p>
-
-<p># make install (Instalar el nuevo kernel en el sistema)</p></blockquote>
-
-<p>La instalacion ya modifica el grub.cfg para que el sistema arranque con el nuevo kernel. Si este da problemas puede escogerse para el arranque el antiguo que constara en el menu de Grub. Puede verificarse el nuevo kernel con:</p>
-
-<blockquote><p>$ uname -r</p></blockquote>
-
-<p>4.-</p>
-
-<p>Borrar kernels antiguos de forma automática:</p>
-
-<pre><code># apt-get purge $(dpkg -l 'linux-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/\(.*\)-\([^0-9]\+\)/\1/")"'/d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/;/[0-9]/!d' | head -n -1) --assume-yes 
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/81/">&larr; Older</a>
@@ -785,12 +721,16 @@ logtemplate=/var/log/kismet/
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1341</li>
+	<li>1342</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/funcoeszz/">funcoeszz</a>
+      </li>
     
       <li class="post">
         <a href="/blog/nstat/">nstat</a>
@@ -826,10 +766,6 @@ logtemplate=/var/log/kismet/
     
       <li class="post">
         <a href="/blog/lzma/">lzma</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/lzip/">lzip</a>
       </li>
     
   </ul>
