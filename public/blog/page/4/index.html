@@ -9,7 +9,8 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="[tor-arm] Herramienta que permite monitorizar el comportamiento y los eventos que usan la red tor [tor-browser, vidalia&#8230;.]. Funciona de forma &hellip;">
+  <meta name="description" content="Un montón de ejemplos de bash scripting. Listado en: $ ls /usr/share/doc/abs-guide/examples/
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +76,172 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/abs-guide/">Abs-guide</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-07T17:49:00+01:00" pubdate data-updated="true">07-11-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Un montón de ejemplos de bash scripting. Listado en:</p>
+
+<blockquote><p>$ ls /usr/share/doc/abs-guide/examples/</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/uuencode/">Uuencode</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-07T16:31:00+01:00" pubdate data-updated="true">07-11-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[sharutils]</p>
+
+<p>Algoritmo utilizado para convertir datos binarios de 8 bits a formato de 7 bits. La codificación uuencoding se creó originalmente para enviar archivos binarios mediante el protocolo de correo electrónico uucp. Si no se especifica salida se muestra por pantalla (/dev/stdout)</p>
+
+<blockquote><p>$ uuencode file1 file2 > file.uue (&#8220;file1&#8221;: nombre del binario a codificar, &#8220;file2&#8221;: Nombre que tendrá el binario una vez descodificado [puede ser el mismo que el binario original] y &#8220;file.uue&#8221; el nombre que se verá en el directorio.)</p>
+
+<p>$ uudecode file.uue (Descodificar el binario. Se verá con el nombre puesto en &#8220;file2&#8221;)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/logwatch/">Logwatch</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-06T21:20:00+01:00" pubdate data-updated="true">06-11-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Analiza los archivos de logs del sistema. El sistema está pensado para que toda la configuración sea especificada en /etc/logwatch y estas directivas sobreescriban a las que están en /usr/share/logwatch. Copiamos la configuación básica:</p>
+
+<blockquote><p># cp /usr/share/logwatch/default.conf/logwatch.conf /etc/logwatch/conf</p></blockquote>
+
+<p>Los servicios y qué ficheros de log es capaz de procesar logwatch en /usr/share/logwatch/default.conf/logfiles y la configuración de logwatch para cada servicio en /usr/share/logwatch/default.conf/services.</p>
+
+<p>Configuración básica sin envio por email:</p>
+
+<blockquote><p># nano /etc/logwatch/conf/logwatch.conf</p>
+
+<p># indica el directorio donde tomara los logs</p></blockquote>
+
+<p>LogDir = /var/log</p>
+
+<blockquote><p># Salida {mail|stdout|file}</p></blockquote>
+
+<p>Output = file</p>
+
+<blockquote><p># formato de la salida {html|text}</p></blockquote>
+
+<p>Format = text</p>
+
+<blockquote><p># Indicar que busque información en los archivos /var/log/message.1 o /var/log/messages.1.gz y no solo en /var/log/messages</p></blockquote>
+
+<p>Archives = Yes</p>
+
+<blockquote><p># Dia a analizar {Yestedary|Today|all}</p></blockquote>
+
+<p>Range = All</p>
+
+<blockquote><p># Detalles de los logs (0-10)|(Low,Mid,High)</p></blockquote>
+
+<p>Detail = 8</p>
+
+<blockquote><p># Servicios monitorizados {service_name|all}</p>
+
+<p># Service = fail2ban (Especificando servicio o todos):</p></blockquote>
+
+<p>Service = All</p>
+
+<p>Notas.- Es posible poner todos los servicios y descartar algunos con Service = &#8211;fail2ban. Si el archivo de logs no está en el fichero especificado editar el servicio concreto de /usr/share/logwatch/default.conf/services y modificarlo.</p>
+
+<blockquote><p># mkdir /var/cache/logwatch (Crear el directorio, si no existe, donde se guardarán las carpetas con los informes)</p></blockquote>
+
+<p>Lanzar logwatch cada hora:</p>
+
+<blockquote><p># crontab -e</p></blockquote>
+
+<p>Y colocar la linea:</p>
+
+<p>0 1  * * *   root       /usr/sbin/logwatch</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -418,197 +585,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/google/">Google</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-11-03T10:38:00+01:00" pubdate data-updated="true">03-11-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Buscador.</p>
-
-<p>1.-</p>
-
-<p>Mejorar busquedas :</p>
-
-<p>. No reconoce caracteres como el punto [.], el guión [-] o el circunflejo [<sup>]</sup></p>
-
-<p>. Suprimir articulos [campo de futbol -> campo futbol]</p>
-
-<p>. Google no distingue mayúsculas ni minúsculas.</p>
-
-<p>. Comillas. Busquedas textuales [&#8220;ludwig van beethoven&#8221;]</p>
-
-<p>. Operador lógico &#8220;OR&#8221; [mayúsculas] buscar dos conceptos [bach OR wagner]</p>
-
-<p>. Barra vertical. Lo mismo [beethoven|wagner]</p>
-
-<p>. ~ - Buscar palabras parecidas [~palabra]</p>
-
-<p>. related – parecido al anterior [related:www.site.com]</p>
-
-<p>. link - Buscar páginas que apuntan a otra [link:wwww.host.com]</p>
-
-<p>. info - Recabar información sobre un dominio [info:www.host.com]</p>
-
-<p>. Asterisco - Si se desconoce algún dato [&#8220;ludwig * beethoven&#8221;]</p>
-
-<p>. filetype - Buscar extensiones concretas [“comandos linux” filetype:pdf]</p>
-
-<p>. site - Restringir resultados por localización geografica [site:.es arroz, armas site:onion.to …]</p>
-
-<p>. cache - Cuando la página ya no está accesible [cache:www.host.com]</p>
-
-<p>. intitle – las que contengan la palabra o frase en el título [intitle:beethoven]</p>
-
-<p>. allintitle - Las que contengan varias palabras sin necesidad de comillas [allintitle:bach,beethoben]</p>
-
-<p>. intext - Buscar la palabra solo en el texto [intext:bach]</p>
-
-<p>. define – Buscar la definición de una palabra [define:palabra]</p>
-
-<p>. inurl - Buscar por algun detalle en la url [inurl:pipa]</p>
-
-<p>. all inurl - Las que contengan varias palabras en su url</p>
-
-<p>. linux 2012..2013 - Buscar una palabra en artículos entre un rango de años.</p>
-
-<p>. 58*13 - Usar google como calculadora</p>
-
-<p>. 100USD a EUR - Conversor de divisas [EUR = Euro, USD = Dólar, JPY = Yen, GBP = Libra esterlina, CHF = Franco suizo &#8230;]</p>
-
-<p>. 42km/h a m/s - Convertir km/hora a metros/segundo</p>
-
-<p>. 1024 GB to  kb - Convertir gigabytes a kilobytes</p>
-
-<p>. 26hr to sec - Convertir horas a segundos</p>
-
-<p>. Usar el menos [-] y el más [+] para excluir o incluir de una busqueda determinado concepto [comandos -militares, comandos +militares]</p>
-
-<p>. do a barrel roll – La página da una vuelta completa en la pantalla.</p>
-
-<p>2.-</p>
-
-<p>Gdrive (google-docs-fs)</p>
-
-<blockquote><p># mkdir /media/gdrive</p>
-
-<p># gmount /media/gdrive cuenta@gmail.com -d (Pedirá contraseña de la cuenta y mostrando la salida del comando. Para desmontar: gumount /media/gdrive)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/disktype/">Disktype</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-11-02T19:46:00+01:00" pubdate data-updated="true">02-11-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Detección de formatos de disco [sistemas de archivo, particiones, volumenes, imagenes, archivos comprimidos&#8230;]</p>
-
-<blockquote><p># disktype /dev/sda2</p>
-
-<p>$ disktype imagen.iso</p>
-
-<p>$ disktype archivo</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/command-not-found/">Command-not-found</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-11-02T18:12:00+01:00" pubdate data-updated="true">02-11-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Activar las sugerencias sobre el paquete que puede tener un comando que erramos en la ortografía o no está instalado en el sistema y muestra la salida: &#8220;command not found&#8221;:</p>
-
-<blockquote><p># update-command-not-found (Recargar la base de datos)</p></blockquote>
-
-<pre><code>$ lt
-
-The program 'lt' is currently not installed.  To run 'lt' please ask your administrator to install the package 'looptools'
-
-lt: command not found
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -624,12 +600,24 @@ lt: command not found
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1332</li>
+	<li>1334</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/lzma/">lzma</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/lzip/">lzip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/gunzip/">gunzip</a>
+      </li>
     
       <li class="post">
         <a href="/blog/ts/">ts</a>
@@ -657,18 +645,6 @@ lt: command not found
     
       <li class="post">
         <a href="/blog/honeyproxy/">honeyproxy</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/owl/">owl</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/date/">date</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/tty/">tty</a>
       </li>
     
   </ul>

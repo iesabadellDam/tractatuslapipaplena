@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Permite eliminar la comunicación entre procesos [ver ipcs]. Si paramos el programa con un Ctrl-C o simplemente sale de forma anormal, el recurso [la &hellip;">
+  <meta name="description" content="Escanea la red en busca de máquinas activas. $ ipscan -s -f:range 192.168.1.1 192.168.1.255 (todo el rango de ips) $ ipscan -s -f:file ips.txt (Las &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,164 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ipscan/">Ipscan</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Escanea la red en busca de máquinas activas.</p>
+
+<blockquote><p>$ ipscan -s -f:range 192.168.1.1 192.168.1.255 (todo el rango de ips)</p>
+
+<p>$ ipscan -s -f:file ips.txt (Las especificadas en el archivo ips.txt [una por linea])</p>
+
+<p>$ ipscan -s -f:range 192.168.1.9 192.168.1.16 -o resultat.txt (Derivando el resultado a un archivo)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/iperf/">Iperf</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Para poder verificar el ancho de banda entre los clientes de una red local. Se instala en todas las máquinas de la red.</p>
+
+<blockquote><p># iperf -s (Poner el servidor a la escucha por el puerto 5001)</p>
+
+<p># iperf -c 192.168.1.10 (Conectar los clientes con el servidor)</p></blockquote>
+
+<p>Alguna sopciones que pueden añadirse:</p>
+
+<p>-f B (Mostrar el resultado en Bytes por segundo [b: bytes/s, k:kilobits/s, m:megabytes/s, B:Bytes/s, K:KiloBytes/s, M:MegaBytes/s] esta opción sirva igual para el cliente que para el servidor)</p>
+
+<p>-t 120 (Tiempo en segundos de duración de la transmisión. Sólo para el cliente)</p>
+
+<p>-D (Lanzarlo como servicio. Sólo en el servidor)</p>
+
+<p>-i 10 (Tempo en segundos entre mediciones. Sólo cliente)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ipcs/">Ipcs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Informa sobre la comunicación entre procesos [espacios de memoria, buffers, semaforos..] listando los recursos compartidos que están creados en ese momento. Ver ipcrm. La columna &#8220;shmid&#8221; muestra el ID, la &#8220;owner&#8221; el propietario, &#8220;perms&#8221; los permisos y &#8220;bytes&#8221; el tamaño en bytes</p>
+
+<blockquote><p># ipcs -s | grep postgres  (Muestra los recursos compartidos de postgres)</p>
+
+<p># ipcs -lm (determinar los limites de memoria compartida del sistema)</p>
+
+<p># ipcs -ls (Límites actuales del contador que se utiliza para acceder a los recursos compartidos del sistema)</p>
+
+<p># ipcs -u  (Proporciona información sobre la comunicación entre procesos)</p>
+
+<p># ipcs -m (despliega los segmentos de memoria compartida)</p>
+
+<p># ipcs -mu (muestra un breve resumen)</p>
+
+<p># ipcs -ml (muestra los límites en contraposición a los valores actuales)</p>
+
+<p># ipcs -m -i 950288 (obtener detalle de un segmento de memoria compartida [valor shmid])</p>
+
+<p># ipcs -s (Muestra los semforos en el sistema)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<p>-m  (segmentos de memoria compartida )</p>
+
+<p>-q   (colas de mensajes )</p>
+
+<p>-s   (matrices de semáforos )</p>
+
+<p>-a   (todos. Opción por defecto)</p>
+
+<p>-p   (pid)</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -421,231 +579,6 @@ gateway 192.168.x.1
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/inxi/">Inxi</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra información del equipo (http://inxi.googlecode.com/svn/trunk/inxi).</p>
-
-<blockquote><p>$ inxi -Fpur -c 4</p></blockquote>
-
-<p>Algunas opciones (con inxi -h la lista completa):</p>
-
-<p>-A (Audio y tarjetas de sonido)</p>
-
-<p>-b (informacio básica)</p>
-
-<p>-c (formato de color de 0 a 32 para la salida de datos)</p>
-
-<p>-C (CPUs)</p>
-
-<p>-d (drivers opticos)</p>
-
-<p>-D (disco duro)</p>
-
-<p>-F (salida extendida)</p>
-
-<p>-G (tarjeta gráfica)</p>
-
-<p>-i (Información de red)</p>
-
-<p>-I (Procesos, uptime, memoria&#8230;)</p>
-
-<p>-M (Datos de la máquina)</p>
-
-<p>-N (tarjetas de red)</p>
-
-<p>-o (particiones no montadas)</p>
-
-<p>-p (particiones montadas)</p>
-
-<p>-r (repositorios)</p>
-
-<p>-s (sensors[temperaturas cpu])</p>
-
-<p>-S (Host, Kernel,Escritorio y Distro)</p>
-
-<p>-t cm (Procesos que consumen más cpu [c] y memoria [m])</p>
-
-<p>-u (UUID de las particiones. -uo las no montadas, -up las montadas)</p>
-
-<p>-v 6 (Distintas etiquetas de información. Del 1 al 6)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/interfaces/">Interfaces</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Archivo de configuración de la red en distros debian.</p>
-
-<p>1.-</p>
-
-<p>Con IP dinámica:</p>
-
-<p>Colocar en el archivo las lineas:</p>
-
-<pre><code>auto eth0
-
-iface eth0 inet dhcp
-</code></pre>
-
-<p>2.-</p>
-
-<p>Con IP fija</p>
-
-<p>Colocar en el archivo las lineas:</p>
-
-<pre><code>auto eth0
-
-iface eth0 inet static
-
-address 192.168.1.10
-
-gateway 192.168.1.1
-
-netmask 255.255.255.0
-
-broadcast 192.168.1.255
-</code></pre>
-
-<p>Reiniciar el servicio:</p>
-
-<blockquote><p># ifdown eth0</p>
-
-<p># ifup eth0</p></blockquote>
-
-<p>Nota.- Solo modificandolo en network-manager no funciona.</p>
-
-<p>3.-</p>
-
-<p>Creación de una segunda dirección IP virtual.</p>
-
-<p>Añadir las siguientes lineas a las de la IP fija:</p>
-
-<pre><code>auto eth0:1
-
-iface eth0:1 inet static
-
-address 192.168.0.15
-
-netmask 255.255.255.0
-
-broadcast 192.168.0.255
-
-gateway 192.168.0.1
-</code></pre>
-
-<p>Nota.- La instalación de nerwork-manager o wicd para la gestión de redes implica comentar las modificaciones de este archivo o en, en el caso de network-manager, editar:</p>
-
-<blockquote><p># nano  /etc/NetworkManager/NetworkManager.conf</p></blockquote>
-
-<p>Y modificar la linea:</p>
-
-<p>[ifupdown]</p>
-
-<p>managed=true</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/instmodsh/">Instmodsh</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Para conocer los módulos perl instalados. Entra en el prompt (cmd?) con 3 preguntas:</p>
-
-<p>l (List all installed modules)</p>
-
-<p>m <module> (Select a module)</p>
-
-<p>q (Quit the program)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/84/">&larr; Older</a>
@@ -661,12 +594,24 @@ gateway 192.168.0.1
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1332</li>
+	<li>1334</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/lzma/">lzma</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/lzip/">lzip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/gunzip/">gunzip</a>
+      </li>
     
       <li class="post">
         <a href="/blog/ts/">ts</a>
@@ -694,18 +639,6 @@ gateway 192.168.0.1
     
       <li class="post">
         <a href="/blog/honeyproxy/">honeyproxy</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/owl/">owl</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/date/">date</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/tty/">tty</a>
       </li>
     
   </ul>

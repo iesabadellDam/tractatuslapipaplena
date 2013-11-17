@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Muestra dos ficheros interactivamente. $ sdiff -W -B file1 file2 (Ignorando espacios [W] y lineas en blanco [B])
-">
+  <meta name="description" content="Realiza menús de forma rápida y simple: Algunos ejemplos: 1.- #!/bin/bash OPCIONES="Uso_linux Todavía_estoy_con_windows" select opt in $OPCIONES; do &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +75,369 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/select/">Select</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:55:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Realiza menús de forma rápida y simple:</p>
+
+<p>Algunos ejemplos:</p>
+
+<p>1.-</p>
+
+<pre><code>#!/bin/bash
+
+OPCIONES="Uso_linux Todavía_estoy_con_windows"
+
+select opt in $OPCIONES; do
+
+    if [ "$opt" = "Uso_linux" ]; then
+
+        echo "Bravo, usas el mejor sistema..."
+
+        exit
+
+    elif [ "$opt" = "Todavía_estoy_con_windows" ]; then
+
+        echo "¡Evoluciona de una vez!"
+
+        exit
+
+    else
+
+        echo opción errónea
+
+    fi
+
+done
+</code></pre>
+
+<p>2.-</p>
+
+<pre><code>#!/bin/bash
+
+OPCIONES="hostname pwd exit"
+
+select opt in $OPCIONES; do
+
+    if [ "$opt" = "hostname" ]; then
+
+        echo $HOSTNAME
+
+    elif [ "$opt" = "pwd" ]; then
+
+        pwd
+
+    elif [ "$opt" = "exit" ]; then
+
+        echo "salir"
+
+        exit    
+
+    else
+
+        echo opción errónea
+
+    fi
+
+done
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/seeker/">Seeker</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:55:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Comprobar la velocidad del disco duro, pero no en el inicio que es la parte más rápida como hace hdparm, sino de forma aleatoria en todo el espacio del disco.</p>
+
+<blockquote><p># seeker /dev/sda</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/sed/">Sed</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:55:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Permite borrar líneas, registros o sustituir cadenas de caracteres dentro de las líneas.</p>
+
+<p>Archivo base para ejemplo (Empleado &#8211; Precio/hora &#8211; Horas trabajadas – Cómo las cobra):</p>
+
+<pre><code>$ cat lista 
+
+Juan Gomez 6 10 banco 
+
+Clara Fuentes 7 12 banco 
+
+Antonio Cano 6 13 metálico 
+
+José Bueno 7 0 banco 
+
+Matías Crespo 5 8 metálico 
+
+Isabel Ruiz 7 0 metálico 
+
+María Monzón 9 16 metálico
+</code></pre>
+
+<p>Mostrar la linea 4 del fichero:</p>
+
+<pre><code>$ sed -n 4p lista
+</code></pre>
+
+<p>Mostrar la 4ª y la 5ª:</p>
+
+<pre><code>$ sed -n 4,5p lista
+</code></pre>
+
+<p>Mostrar de la 3ª al final del fichero:</p>
+
+<pre><code>$ sed -n '4,$p' lista
+</code></pre>
+
+<p>Mostrar desde la primera linea que empiece por “Ant” hasta el final:</p>
+
+<pre><code>$ sed -n '/^\Ant/,$p' lista
+</code></pre>
+
+<p>Mostrar sólo los parrafos desde “Clara” hasta “Bueno”:</p>
+
+<pre><code>$ sed -n '/Clara/,/Bueno/p' lista
+</code></pre>
+
+<p>Mostrar cada linea a doble espacio:</p>
+
+<pre><code>$ sed G lista
+</code></pre>
+
+<p>Mostrar las lineas que cumplen el patrón “Ju” en alguno de sus campos:</p>
+
+<pre><code>$  sed -n '/Ju/p' lista
+</code></pre>
+
+<p>Borrar la 4ª linea del fichero:</p>
+
+<pre><code>$  sed '4d' lista
+</code></pre>
+
+<p>Borrar la última linea del fichero:</p>
+
+<pre><code>$  sed -e \$d lista
+</code></pre>
+
+<p>Lo mismo:</p>
+
+<pre><code>$ sed '$d' lista
+</code></pre>
+
+<p>Borrar las lineas que empiecen por &#8220;J&#8221;:</p>
+
+<pre><code>$ sed -e '/J/d' lista
+</code></pre>
+
+<p>Borrar la segunda linea</p>
+
+<pre><code>$ sed '2d' lista
+</code></pre>
+
+<p>Borrar la 1ª y la 2ª:</p>
+
+<pre><code>$  sed '1,2d' lista
+</code></pre>
+
+<p>Borrar desde la primera linea que empiece por &#8220;Ant&#8221; hasta el final:</p>
+
+<pre><code>$ sed -e '/^\Ant/,$d' lista
+</code></pre>
+
+<p>Borrar desde la 2 linea hasta la que tenga &#8220;Ruiz&#8221;:</p>
+
+<pre><code>$ sed '2,/Ruiz/d' lista
+</code></pre>
+
+<p>Borrar las lineas en blanco de un archivo (en &#8220;lista&#8221; no procede):</p>
+
+<pre><code>$  sed '/^$/d lista
+</code></pre>
+
+<p>Cambiar &#8220;metálico&#8221; por &#8220;gratis&#8221; excepto en la 3 linea:</p>
+
+<pre><code>$ sed '3!s/metálico/gratis/' lista
+</code></pre>
+
+<p>Cambiar &#8220;met&#8221; por &#8220;tem&#8221; en las lineas que no tengan &#8220;Cano&#8221;:</p>
+
+<pre><code>$ sed '/Cano/!s/met/tem/' lista
+</code></pre>
+
+<p>Cambiar campos (banco por cheque):</p>
+
+<pre><code>$ sed 's/banco/cheque/' lista
+</code></pre>
+
+<p>Cambiar las &#8220;J&#8221; y la &#8220;C&#8221; mayúsculas por minúsculas:</p>
+
+<pre><code>$ sed 'y/J-C/j-c/' lista
+</code></pre>
+
+<p>Substituye las vocales por &#8220;u&#8221;:</p>
+
+<pre><code>$ sed -e "s/[aeio]/u/g" lista
+</code></pre>
+
+<p>Substituir los espacios por tabulaciones:</p>
+
+<pre><code>$ sed -e 's/ /\t/g' lista
+</code></pre>
+
+<p>Alinear al centro:</p>
+
+<pre><code>$ sed -e :a -e 's/^.\{1,77\}$/ &amp;/;ta' -e 's/\( *\)\1/\1/' lista
+</code></pre>
+
+<p>Todas las opciones pueden usarse como tubería substituyendo &#8220;lista&#8221; por “cat lista |”:</p>
+
+<pre><code>$ cat lista | sed -n '4,$p'
+</code></pre>
+
+<p>Otros ejemplos:</p>
+
+<p>Mostrar lineas no comentadas de un archivo:</p>
+
+<pre><code>$ sed -e '/^#/d' /etc/fstab
+</code></pre>
+
+<p>Substituir &#8220;foto&#8221; por &#8220;FOTO&#8221; en todo los archivos del directorio:</p>
+
+<pre><code>$ ls * | sed -e 'p;s/foto/FOTO/' | xargs -n2 mv
+</code></pre>
+
+<p>Cambiar “Juan” por “Pedro” en todos los archivos .txt del presente directorio:</p>
+
+<pre><code>$ sed -i 's/Juan/Pedro/g' *.txt
+</code></pre>
+
+<p>Mostrar sólo las lineas con 4 dígitos seguidos:</p>
+
+<pre><code>$ sed '/[0-9]\{4\}/p' archivo
+</code></pre>
+
+<p>Borrar todos los espacios delante de cada linea:</p>
+
+<pre><code>$sed 's/^[ ^t]*//' archivo
+</code></pre>
+
+<p>Borrar todos los espacios detras de cada linea:</p>
+
+<pre><code>$ sed 's/[ ^t]*$//' archivo
+</code></pre>
+
+<p>Borrar todos los espacios delante y detras de cada linea:</p>
+
+<pre><code>$ sed 's/^[ ^t]*//;s/[ ^]*$//' archivo
+</code></pre>
+
+<p>Cambiar los números 3333 por 3.333. El parámetro -r sirva para activar las expresiones regulares extendidas de sed:</p>
+
+<pre><code>$ sed -r "s/\&lt;(reg|exp)[a-z]+/\U&amp;/g"
+</code></pre>
+
+<p>Contar lineas de un archivo [emulador de wc -l]:</p>
+
+<pre><code>sed -n '$=' lista
+</code></pre>
+
+<p>Insertar 5 espacios en blanco delante de cada linea:</p>
+
+<pre><code>$ sed 's/^/     /' lista
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -415,306 +777,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/screen/">Screen</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:55:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Compartir sesiones de consola locales o remotas.</p>
-
-<blockquote><p>$ screen   (abre una terminal virtual genérica)</p>
-
-<p>$ screen -S tux  (nombrar la sesión del que comparte consola)</p></blockquote>
-
-<pre><code>$ screen -ls (conocer los screen abiertos y sus nombres)
-
-There are screens on: 
-
-    19680.tux       (Attached) 
-
-    19684.xut       (Attached) 
-</code></pre>
-
-<p>2 Sockets in /tmp/screens/S-juanito.</p>
-
-<blockquote><p>$ screen -x 19680.tux  (el que se conecta)</p>
-
-<p>$ screen -r    Retoma el proceso desacoplado con Ctrl+a Ctrl+d</p>
-
-<p>$ screen -r -S nombre  Retoma el proceso &#8220;nombre&#8221;</p>
-
-<p>$ screen -R -D Recupera screen despúes de un Ctrl+d</p></blockquote>
-
-<p>La gestión de screen siempre empieza pulsando las teclas Ctrl+a:</p>
-
-<p>Ctrl+a c (Crear nueva ventana)</p>
-
-<p>Ctrl+a k (Matar pantalla activa / sesion activa)</p>
-
-<p>Ctrl+a X (Matar pantalla activa)</p>
-
-<p>Ctrl+a x (Bloquear terminal)</p>
-
-<p>Ctrl+a w (Lista de ventanas)</p>
-
-<p>Ctrl+a 0-9 (Ir a la ventana numerada)</p>
-
-<p>Ctrl+a Ctrl+a (Cambiar a la última ventana)</p>
-
-<p>Ctrl+a Ctrl+p (Cambiar a la anterior ventana)</p>
-
-<p>Ctrl+a S (Dividir la terminal horizontal en regiones)</p>
-
-<p>Ctrl+a | (Dividir la terminal veticalmente)</p>
-
-<p>Ctrl+a Ctrl+n (Cambiar de región)</p>
-
-<p>Ctrl+a :resize (Redimensionar región)</p>
-
-<p>Ctrl+a F (Ajustar tamaño de la pantalla al tamaño de la nueva terminal)</p>
-
-<p>Ctrl+a K (Suprimir region)</p>
-
-<p>Ctrl+a Z (resetear screen)pi</p>
-
-<p>Ctrl+a tab (Moverse entre regiones)</p>
-
-<p>Ctrl+a d (Desacopla un proceso de una terminal, que continua en segundo plano)</p>
-
-<p>Ctrl+a ? (Mostrar pantalla de ayuda)</p>
-
-<p>Ctrl+a Backspace (Regresar a la ventana previa)</p>
-
-<p>Ctrl+q (Si se ha pulsado una combinación erronea, desbloquea la terminal)</p>
-
-<p>Ctrl+s (Lo mismo)</p>
-
-<p>Ctrl+a &#8221; (Muestra las shells activas)</p>
-
-<p>Ctrl+a A (Cambiar el título de la ventana)</p>
-
-<p>Ctrl+a Esc (Ver historial)</p>
-
-<p>Ctrl+a h (Guardar pantallazo en la carpeta actual con nombre hardcopy.número [0,1,2&#8230;])</p>
-
-<p>Ctrl+a H (Iniciar/parar registro de la ventana actual en la ventana con nombre screenlog.número [0,1,2&#8230;])</p>
-
-<p>Para compartir screen via ssh:</p>
-
-<pre><code>Activar el setuid de screen:
-
-# chmod +s /usr/bin/screen 
-
-Ejecutar:
-
-$ screen -S nombreSesion 
-
-Activar acceso multiusuario:
-
-Ctrl+a :multiuser on 
-
-Dar permisos al usuario:
-
-Ctrl+a :acladd usuario 
-
-El usuario remoto debera conectar por SSH con la máquina y ejecutar: 
-
-$ screen -x usuario/NombreSesion 
-</code></pre>
-
-<p>Si deseamos tener una barra inferior donde aparecerá el nombre de las diferentes ventanas y la hora actual, podemos modificar/crear el fichero de configuración ~/.screenrc con el siguiente contenido (http://www.marblestation.com/?p=915):</p>
-
-<pre><code># screen -t shell 0 
-
-# screen -t shell 0 motd+shell 
-
-# screen -t shell2    1
-
-# screen -t server    2 
-
-# screen -t Mail 9   tail -f /var/log/messages 
-
-select 0 
-
-shelltitle "shell" 
-
-# skip the startup message 
-
-startup_message off 
-
-# go to home dir 
-
-chdir 
-
-# Automatically detach on hangup. 
-
-autodetach on 
-
-# Change default scrollback value for new windows 
-
-defscrollback 1000 
-
-# Turns off alternate screen switching in xterms, 
-
-# so that text in screen will go into the xterm's scrollback buffer: 
-
-termcapinfo xterm* ti@:te@ 
-
-altscreen on 
-
-# start with visual bell as default 
-
-vbell on 
-
-vbell_msg "bell on %t (%n)" 
-
-activity "Activity in %t(%n)" 
-
-# Run a screensaver if there's nothing happening for a while. 
-
-#idle 600 eval "screen cmatrix -f -o -u 10" "idle 0" 
-
-idle 600 lockscreen 
-
-### White 
-
-#caption always "%{kW}%?%-Lw%?%{bw}%n*%f %t%?(%u)%?%{kW}%?%+Lw%? %= %{= Wk}%110`%109`%111` %H load: %l | %D %d-%m-%Y %0c:%s" 
-
-### Black 
-
-#caption always "%{wk}%?%-Lw%?%{bw}%n*%f %t%?(%u)%?%{wk}%?%+Lw%? %= %{= kw}%110`%109`%111` %H load: %l | %D %d-%m-%Y %0c:%s" 
-
-caption always "%{wk}%?%-Lw%?%{bw}%n*%f %t%?(%u)%?%{wk}%?%+Lw%? %= %{= kw}%110`%109`%111` %H | %D %d-%m-%Y %0c:%s" 
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/scp/">Scp</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:55:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Copiar o transferir archivos o directorios entre una máquina remota y una local</p>
-
-<blockquote><p>$ scp pepe@host_o_IP:/home/pepe/*.odt ./pendiente (Copiará todos los .odt del directorio /home/pepe del host remoto al directorio “pendiente” de la máquina local)</p>
-
-<p>$ scp *.odt pepe@host_o_IP:/home/pepe/pendiente (transferirá todos los odt del directorio actual al directorio especificado “pendiente” del host remoto.)</p>
-
-<p>$ scp archivo usuario@host_o_IP:/home/usuario/Desktop (copiará “archivo” en local al escritorio remoto)</p>
-
-<p>$ scp -r directorio pepe@host_o_IP:/home/usuario/Desktop (copiará el directorio al host remoto)</p>
-
-<p>$ scp -P 12000 pep@chost_o_IP:/home/usuario/archivo . (especificando un puerto en el host remoto y copiar archivo al presente directorio)</p></blockquote>
-
-<p>Nota.- Si quiere transferirse al $HOME remoto puede suprimirse la ruta relativa, quedando: scp archivo pepe@host_o_IP:</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/scanimage/">Scanimage</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:55:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Escanear. Solo genera archivos tiff y pnm.</p>
-
-<pre><code>$ scanimage -L (Para conocer los datos del escaner) 
-
-&lt; device `hpaio:/usb/psc_1100_series?serial=MY387F93QWB0' is a Hewlett-Packard psc_1100_series all-in-one 
-</code></pre>
-
-<blockquote><p>$ scanimage -d hpaio:/usb/psc_1100_series?serial=MY387F93QWB0 (Especificando el escaner. Si solo existe uno no es necesaria esta opción)</p>
-
-<p>$ scanimage -v -p > imagen.tiff (Ver la información que genera, el progreso y redirigido a un archivo)</p>
-
-<p>$ scanimage &#8211;help (A continuación de la ayuda estandar, muestra las características concretas de nuestro escaner)</p>
-
-<p>$ scanimage -p &#8211;mode Color &#8211;resolution 200 -l 0 -t 0 -x 190 -y 160  > imagen.pnm (Las opciones de &#8220;mode&#8221; y &#8220;resolution&#8221; los muestra el parámetro &#8220;help&#8221;. Las opciones &#8220;l&#8221; y &#8220;t&#8221; indican que comenzará a escanear desde la esquina superior izquierda. Los limites de estos parámetros tambien los muestra &#8220;help&#8221;. &#8220;x&#8221; e &#8220;y&#8221; indican la medida a escanear. En este caso 190X160 mm)</p>
-
-<p>$ scanimage -p | convert - imagen.png (Redirigiendo la salida a convert que pasa la imagen a png)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/42/">&larr; Older</a>
@@ -730,12 +792,24 @@ caption always "%{wk}%?%-Lw%?%{bw}%n*%f %t%?(%u)%?%{wk}%?%+Lw%? %= %{= kw}%110`%
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1332</li>
+	<li>1334</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/lzma/">lzma</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/lzip/">lzip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/gunzip/">gunzip</a>
+      </li>
     
       <li class="post">
         <a href="/blog/ts/">ts</a>
@@ -763,18 +837,6 @@ caption always "%{wk}%?%-Lw%?%{bw}%n*%f %t%?(%u)%?%{wk}%?%+Lw%? %= %{= kw}%110`%
     
       <li class="post">
         <a href="/blog/honeyproxy/">honeyproxy</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/owl/">owl</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/date/">date</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/tty/">tty</a>
       </li>
     
   </ul>

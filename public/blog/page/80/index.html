@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Establece la tasa de repetición del teclado y el tiempo de retardo en las tty. # kbdrate -d 200 -r 10 (establece retardo de 200 milisegundos y &hellip;">
+  <meta name="description" content="Mata el proceso de la aplicación especificada $ killall -9 scribus $ killall gnome-panel (reiniciar los paneles) $ killall -INFO dd (chequear el &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,227 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/killall/">Killall</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Mata el proceso de la aplicación especificada</p>
+
+<blockquote><p>$ killall -9 scribus</p>
+
+<p>$ killall gnome-panel (reiniciar los paneles)</p>
+
+<p>$ killall -INFO dd  (chequear el estado de un proceso dd)</p>
+
+<p>$ killall -u usuario (Matar los procesos de un  usuario)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/kill/">Kill</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Enviar señales a los procesos.</p>
+
+<blockquote><p>$ kill -l      (lista todas las señales que pueden mandarse a un proceso)</p>
+
+<p>$ kill -0             (mata todos los procesos de la shell)</p>
+
+<p>$ kill -9  pid      (mata el proceso indicado con el número PID)</p>
+
+<p># kill -9 <code>lsof -t -i :22</code> (Mata el proceso que corre en el puerto 22)</p>
+
+<p>$ kill -1 pid  (reinicia el servicio indicado en PID)</p>
+
+<p>$ kill %2 (mata el proceso número 2)</p>
+
+<p>$ kill -19 pid  (Parar un proceso de forma temporal. Con -18 se reanuda)</p></blockquote>
+
+<p>Algunas muestras del número y su equivalencia:</p>
+
+<p>2 SIGINT (Interrumpido desde el teclado [igual que Ctrl+c])</p>
+
+<p>3 SIGQUIT (Cerrado desde el teclado [igual que Ctrl+])</p>
+
+<p>9 SIGKILL (forzar que uno o varios procesos terminen de forma inmediata)</p>
+
+<p>18 SIGCONT (Reanudar un proceso parado)</p>
+
+<p>19 SIGSTOP (suspender un proceso)</p>
+
+<p>20 SIGTSTP (Parar un proceso desde terminal [igual que Ctrl+z])</p>
+
+<p>Nota.- Si en vez de usar los números [kill -9 pid] usamos el nombre de la señal [kill -KILL pid] podemos omitir las letras SIG de la señal [SIGKILL]</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/kernel/">Kernel</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>1.-</p>
+
+<p>Suprimir kernels antiguos</p>
+
+<blockquote><p># uname -r   (para conocer el último)</p>
+
+<p># dpkg &#8211;get-selections | egrep linux-image</p></blockquote>
+
+<p>linux-image-2.6.17-11-generic install</p>
+
+<p>linux-image-2.6.20-15-generic install</p>
+
+<p>linux-image-2.6.20-16-generic install</p>
+
+<p>Dejar el actual y suprimir los otros:</p>
+
+<blockquote><p># apt-get remove &#8211;purge linux-image-2.6.17-11-generic</p></blockquote>
+
+<p>2.-</p>
+
+<p>Instalar nuevo kernel:</p>
+
+<p>Para el ejemplo descargaremos el kernel 3.3.6 para la versión de ubuntu 12.04 [http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.3.6-precise/] para la arquitectura amd64. De los varios archivos que encontramos en la página, para lo que nos ocupa, solo interesan los linux-headers y linux-image.</p>
+
+<blockquote><p>$ wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.3.6-precise/linux-headers-3.3.6-030306_3.3.6-030306.201205121335_all.deb</p>
+
+<p>$ wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.3.6-precise/linux-headers-3.3.6-030306-generic_3.3.6-030306.201205121335_amd64.deb</p>
+
+<p>$ wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.3.6-precise/linux-image-3.3.6-030306-generic_3.3.6-030306.201205121335_amd64.deb</p></blockquote>
+
+<p>La instalación se realiza en el mismo orden de descarga:</p>
+
+<blockquote><p># gdebi linux-headers-3.3.6-030306_3.3.6-030306.201205121335_all.deb</p>
+
+<p># gedbi linux-headers-3.3.6-030306-generic_3.3.6-030306.201205121335_amd64.deb</p>
+
+<p># gedbi linux-image-3.3.6-030306-generic_3.3.6-030306.201205121335_amd64.deb</p></blockquote>
+
+<p>Después de la instalación del kernel, instalar los drivers privativos tipo nvidia o ati. Y actualizar grub:</p>
+
+<blockquote><p># update-grub</p></blockquote>
+
+<p>3.-</p>
+
+<p>[libncurses5 libncurses5-dev]</p>
+
+<p>Compilar el kernel desde el codigo fuente. Puede ser util para habilitar soporte para algun nuevo periferico no soportado por el kernel por defecto. Escoger la ultima version del nucleo estable de kernel.org. Para el ejemplo usaremos la 3.9.11.</p>
+
+<blockquote><p># cd /usr/src</p>
+
+<p># wget https://www.kernel.org/pub/linux/kernel/v3.x/linux-3.9.11.tar.gz</p>
+
+<p># tar -zxvf linux-3.9.11.tar.gz</p>
+
+<p># cd linux-3.9.11</p>
+
+<p># make menuconfig/</p></blockquote>
+
+<p>Mostrara las opciones de configuracion por defecto que podran ser modificadas para nuestra maquina especifica. Una vez terminado, &#8220;guardar&#8221; como .config</p>
+
+<blockquote><p># make (Compilar)</p>
+
+<p># make modules_install (Instalar los modulos)</p>
+
+<p># make install (Instalar el nuevo kernel en el sistema)</p></blockquote>
+
+<p>La instalacion ya modifica el grub.cfg para que el sistema arranque con el nuevo kernel. Si este da problemas puede escogerse para el arranque el antiguo que constara en el menu de Grub. Puede verificarse el nuevo kernel con:</p>
+
+<blockquote><p>$ uname -r</p></blockquote>
+
+<p>4.-</p>
+
+<p>Borrar kernels antiguos de forma automática:</p>
+
+<pre><code># apt-get purge $(dpkg -l 'linux-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/\(.*\)-\([^0-9]\+\)/\1/")"'/d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/;/[0-9]/!d' | head -n -1) --assume-yes 
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -463,205 +684,6 @@ y (Copiar la dirección de la página al portapapeles)
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/join/">Join</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra lineas coincidentes</p>
-
-<blockquote><p>$ join fichero1 fichero2</p>
-
-<p>$ join -v 1 fichero1 fichero2 (mostrar líneas de fichero1 que no existen en  fichero2)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/john/">John</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Herramienta que permite averiguar contraseñas encriptadas</p>
-
-<p>El de los repositorios acostumbra a estar capado. Descargar el programa y el parche de:</p>
-
-<blockquote><p>$ wget http://www.openwall.com/john/g/john-1.7.3.4.tar.gz</p>
-
-<p>$ wget http://openwall.info/wiki/_media/john/john-1.7.3.1-generic-crypt-1.diff.gz</p></blockquote>
-
-<p>Descomprimir:</p>
-
-<blockquote><p># tar xvzf john-1.7.3.4.tar.gz</p></blockquote>
-
-<p>Entrar al directorio del programa:</p>
-
-<blockquote><p># cd john-1.7.3.4</p></blockquote>
-
-<p>Aplicar el parche:</p>
-
-<blockquote><p># gzip -dc ../john-1.7.3.1-generic-crypt-1.diff.gz | patch -p1</p></blockquote>
-
-<p>patching file src/Makefile</p>
-
-<p>patching file src/crypt_fmt.c</p>
-
-<p>patching file src/john.c</p>
-
-<p>Hunk #2 succeeded at 67 (offset 2 lines).</p>
-
-<p>El directorio donde se encuentra el código fuente es src:</p>
-
-<blockquote><p># cd src</p>
-
-<p># make</p></blockquote>
-
-<p>Con make obtendrá una lista de los sistemas soportados, luego:</p>
-
-<blockquote><p># make linux-x86-64</p></blockquote>
-
-<p>Si el sistema no esta en la lista:</p>
-
-<blockquote><p># make clean generic</p></blockquote>
-
-<p>Pruebas de detección de correcto funcionamiento.</p>
-
-<blockquote><p># cd ../run</p>
-
-<p># ./john &#8211;test</p></blockquote>
-
-<p>El fichero john.pot contiene los resultados encontrados por john. Si el fichero no está vacío significa que john ha encontrado la contraseña. El fichero john.rec contiene el estado actual de la búsqueda por si se produce una interrupción y es utilizado por el programa para reanudar la búsqueda.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/joe/">Joe</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Editor de texto</p>
-
-<blockquote><p>$ joe -linums fichero (Abre fichero numerando las lineas)</p></blockquote>
-
-<p>Algunas teclas de control [&#8221;<sup>k</sup> h&#8221; significa pulsar la tecla Ctrl y sin soltarla pulsar la letra “k”, soltar estas teclas y pulsar “h”]</p>
-
-<pre><code>^k h (Abrir/cerrar ventana de ayuda. Con esc . se avanza en las ventanas de ayuda y con esc , se retrocede) 
-
-^k d (Guardar archivo sin salir) 
-
-^k x (Guardar y salir) 
-
-^c (Salir sin guardar) 
-
-^k f (Buscar palabra) 
-
-^u (Pantalla anterior) 
-
-^v (Pantalla siguiente) 
-
-^a (Ir al principio de linea) 
-
-`e (Ir al final de la linea) 
-
-^k u (Ir al principio del documento) 
-
-^k v (Ir al final del documento) 
-
-^d (Borrar caracter) 
-
-^y (Borrar linea) 
-
-^w (Borrar palabra siguiente) 
-
-^o (Borrar palabra anterior) 
-
-^_ (Deshacer) 
-
-^c (Cancelar)
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/81/">&larr; Older</a>
@@ -677,12 +699,24 @@ y (Copiar la dirección de la página al portapapeles)
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1332</li>
+	<li>1334</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/lzma/">lzma</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/lzip/">lzip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/gunzip/">gunzip</a>
+      </li>
     
       <li class="post">
         <a href="/blog/ts/">ts</a>
@@ -710,18 +744,6 @@ y (Copiar la dirección de la página al portapapeles)
     
       <li class="post">
         <a href="/blog/honeyproxy/">honeyproxy</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/owl/">owl</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/date/">date</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/tty/">tty</a>
       </li>
     
   </ul>

