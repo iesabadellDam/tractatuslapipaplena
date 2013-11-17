@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="El abuelo de los navegadores (1993) # apt-get install build-essential lesstif2-dev libjpeg62-dev libpng12-dev x11proto-print-dev libxmu-headers &hellip;">
+  <meta name="description" content="Reproductor de música. Atajos F1 (Añadir ficheros a la lista) F3 (Seleccionar todo recursivamente) Retroceso (Subir un directorio) Espacio ( &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,307 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/mp3blaster/">Mp3blaster</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Reproductor de música.</p>
+
+<p>Atajos</p>
+
+<pre><code>F1 (Añadir ficheros a la lista)
+
+F3 (Seleccionar todo recursivamente)
+
+Retroceso (Subir un directorio)
+
+Espacio (Seleccionar archivo)
+
+U (Deseleccionar todo)
+
+D (Eliminar fichero)
+
+&lt; / &gt; (Bajar / bajar volumen)
+
+q (Salir del programa)
+
+? (Mostrar ayuda) 
+
+Enter (Entrar) 
+
+Inicio  (Ir al principio de la lista)
+
+Fin (Ir al final de la lista) 
+
+4 (Canción anterior) 
+
+5 (Reproducir/Pausar canción) 
+
+6 (Canción siguiente) 
+
+1 (Retroceder canción) 
+
+2 (Detener canción) 
+
+3 (Avanzar canción)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/mount/">Mount</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Montaje de particiones</p>
+
+<blockquote><p># mount -t ext3      (Lista las particones ext3 montados)</p>
+
+<p># mount -a       (Monta todo lo que contengan la expresion  “auto” en el /etc/fstab)</p>
+
+<p># mount -s       (Tolera opciones de montaje medio malas en vez de fallar)</p>
+
+<p># mount -o loop imagen.iso /directorio     (Montar una iso en un dir)</p>
+
+<p># mount -t vfat /dev/sdf /media/disk -o force,rw   (Forzar montaje lectura y escritura)</p>
+
+<p># mount | column -t  (muestra todo lo montado de forma ordenada)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/motion/">Motion</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Video vigilancia por acceso remoto. La configuración que viene por defecto es  suficiente, aunque siempre puede pulirse. Aquí se tratará solo de los mínimos parámetros a modificar para tener motion funcional en local y en remoto .</p>
+
+<p>Abrir los puertos 8080 y 8081 del router y del firewal (Si no se modifican los por defecto)</p>
+
+<p>En debian y derivados</p>
+
+<pre><code># nano /etc/motion/motion.conf 
+
+daemon on    (Permitir actuar como demonio) 
+
+webcam_localhost off   (permitir acceso remoto) 
+
+# nano /etc/default/motion 
+
+start_motion_daemon=yes 
+
+# /etc/init.d/motion start 
+</code></pre>
+
+<p>En arch</p>
+
+<pre><code># nano /etc/motion/motion.conf 
+
+daemon on 
+
+webcam_localhost off 
+
+Y, si no se va a usar base de datos, comentar los parámetros del   apartado mysql: 
+
+#sql_log_image on 
+
+#sql_log_snapshot on 
+
+#sql_log_mpeg off 
+
+#sql_log_timelapse off 
+
+#sql_query insert .... 
+
+# mkdir /var/run/motion  (Crear directorio para el PID) 
+
+No existe el /etc/default/motion 
+
+# /etc/rc.d/motion start 
+</code></pre>
+
+<p>Para acceder a la cámara desde el navegador:</p>
+
+<p>http://ip_o_host:8081</p>
+
+<p>Para acceder a la configuración:</p>
+
+<p>http://ip_o_host:8080</p>
+
+<p>En este caso descomentar/modificar en /etc/motion/motion.conf</p>
+
+<p>control_localhost off    (para acceder a la configuración remotamente)</p>
+
+<p>control_authentication username:password (Pide identificación)</p>
+
+<p>substituir por los datos correctos, por ejemplo:</p>
+
+<p>control_authentication juanito:password</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/most/">Most</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Visualizar páginas man con colores.</p>
+
+<blockquote><p># update-alternatives &#8211;config pager</p></blockquote>
+
+<p>Seleccionar el número que indique para most</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/mosh/">Mosh</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Un ssh mejorado.</p>
+
+<blockquote><p>$ mosh usuario@host</p>
+
+<p>$ mosh -p 5000 usuario@host</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -518,246 +819,6 @@ if loadavg (1min) &gt; 20 then exec "/bin/bash /root/script.sh"
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/molly-guard/">Molly-guard</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Evitar paradas o reinicios de servidores desde consola remota. Editar:</p>
-
-<blockquote><p># nano /etc/molly-guard/rc</p></blockquote>
-
-<p>Y descomentar la linea:</p>
-
-<p>ALWAYS_QUERY_HOSTNAME=true</p>
-
-<p>Cuando se intente parar o reiniciar el equipo vía ssh, saldrá una nota pidiendo el nombre de la máquina. Una vez introducida, se ejecutará el shutdown o reboot.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/mogrify/">Mogrify</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Cambiar formato y redimensionar imágenes de directorios</p>
-
-<blockquote><p>$ mogrify -format jpg *.png   (Cambiar el formato de varias  imágenes)</p>
-
-<p>$ mogrify -format png -sample 20%x20% *.jpg   (Reducir varias imágenes)</p>
-
-<p>$ mogrify -format png  -thumbnail 10% *jpg (Cambiar formato y crear miniaturas)</p>
-
-<p>$ mogrify -resize 50% *.jpg (reducir todas las imágenes al 50%)</p>
-
-<p>$ mogrify -strip imagen.jpg (eliminar metadatos de una imagen)</p>
-
-<p>$ mogrify -geometry 120x120 *.jpg  (Crear miniaturas)</p>
-
-<p>$ mogrify -quality 60 *.jpg  (Reducir la calidad)</p>
-
-<p>$ mogrify &#8211;auto-orient * (Reorientar todo el directorio)</p>
-
-<p>$ mogrify -resize 800 *.jpg (modificar todos los jpg de la carpeta y reducirlos manteniendo la relación a 800 pixels)</p>
-
-<p>$ mogrify -comment &#8220;comentario para introducir&#8221; salida.jpg (Entrar un comentario en los metadatos)</p>
-
-<p>$ mogrify -label &#8220;Texto de la etiqueta&#8221; input.jpg (Entrar una etiqueta)</p>
-
-<p>$ mogrify -comment @firma.txt input (Entrar un comentario a partir de un archivo firma.txt)</p>
-
-<p>$ identify -format %c imagen.png (Visualizar los comentarios)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/modulos/">Modulos</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Comandos relacionados con el manejo de los módulos del kernel</p>
-
-<blockquote><p># ls -R /lib/modules/$(uname -r) (Lista todos los modulos disponibles)</p>
-
-<p># modinfo /ruta_al_modulo/modulo.ko  (Muestra la información de un módulo)</p>
-
-<p># insmod modulo.ko  (instalar un modulo sin resolver dependencias)</p>
-
-<p># modprobe modulo.ko  (instalar un modulo incluyendo dependencias)</p>
-
-<p># depmod -a  (Generar la base de datos de dependencias de los modulos)</p>
-
-<p># insmod &#8211;force modulo.ko (Fuerza la instalación de un módulo)</p>
-
-<p># modprobe -n -v modulo.ko (Muestra los modulos y sus dependencias)</p>
-
-<p># lsmod  (Muestra todos los modulos del kernel)</p>
-
-<p># rmmod modulo.ko  (Elimina un modulo)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/module-assistant/">Module-assistant</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Paquete especifico de Debian para la instalación de controladores.</p>
-
-<blockquote><p># m-a (abre la interficie ncuses del programa)</p>
-
-<p># m-a a-i paquete (seleccionar un módulo)</p>
-
-<p># m-a list (ver lista de paquetes disponibles)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/modinfo/">Modinfo</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Información sobre módulos.</p>
-
-<blockquote><p>$ modinfo sr_mod</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/67/">&larr; Older</a>
@@ -773,12 +834,32 @@ if loadavg (1min) &gt; 20 then exec "/bin/bash /root/script.sh"
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1328</li>
+	<li>1332</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/ts/">ts</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/pee/">pee</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/errno/">errno</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/compress/">compress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/chronic/">chronic</a>
+      </li>
     
       <li class="post">
         <a href="/blog/pvesh/">pvesh</a>
@@ -798,26 +879,6 @@ if loadavg (1min) &gt; 20 then exec "/bin/bash /root/script.sh"
     
       <li class="post">
         <a href="/blog/tty/">tty</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/du/">du</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/chown/">chown</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/chmod/">chmod</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/wapiti/">wapiti</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/apt-fast/">apt-fast</a>
       </li>
     
   </ul>

@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Si al ejecutar lsusb nos muestra un mensaje &#8220;unknown device&#8221; es preciso actualizar la lista del archivo /usr/share/misc/usb.ids. # update &hellip;">
+  <meta name="description" content="Configuración del modem Huawei. Editar: # gedit /etc/usb_modeswitch.conf EnableLogging=0 Y pegar el siguiente contenido: # Huawei E1752 # # &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,268 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/usb-modeswitch/">Usb_modeswitch</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Configuración del modem Huawei. Editar:</p>
+
+<blockquote><p># gedit /etc/usb_modeswitch.conf</p></blockquote>
+
+<pre><code>EnableLogging=0
+</code></pre>
+
+<p>Y pegar el siguiente contenido:</p>
+
+<pre><code># Huawei E1752
+
+# 
+
+# Contributor:
+
+DefaultVendor=0x12d1
+
+DefaultProduct=0x1446
+
+TargetVendor=0x12d1
+
+TargetProduct=0x1417
+
+MessageEndpoint=0x01
+
+MessageContent="55534243000000000000000000000011060000000000000000000000000000"
+</code></pre>
+
+<p>Verificar que el número de TargetProduc coincida con la salida de:</p>
+
+<blockquote><p># lsusb</p></blockquote>
+
+<pre><code>Bus 006 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+
+Bus 005 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+
+Bus 004 Device 002: ID 0461:4d03 Primax Electronics, Ltd Kensington Mouse-in-a-box
+
+Bus 004 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+
+Bus 003 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+
+Bus 002 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+
+Bus 001 Device 006: ID 12d1:1417 Huawei Technologies Co., Ltd. 
+
+Bus 001 Device 003: ID 0402:5602 ALi Corp. Video Camera Controller
+
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+</code></pre>
+
+<p>Arrancarlo con alguno de los siguientes comandos:</p>
+
+<blockquote><p># usb_modeswitch -v 12d1 -p 1417 -d 1</p>
+
+<p># usb_modeswitch -c /etc/usb_modeswitch.conf</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/urlwatch/">Urlwatch</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Comprueba si una página web ha sufrido cambios desde la última vez que se lanzó la aplicación. Configurar las URLs, una por linea en el archivo:</p>
+
+<blockquote><p>$ mkdir .urlwatch</p>
+
+<p>$ nano .urlwatch/urls.txt</p></blockquote>
+
+<pre><code>http://www.tuxapuntes.com
+
+http://crontux.homelinux.com/wiki
+
+http://systemadmin.es
+</code></pre>
+
+<blockquote><p>$ urlwatch (Lanzar la aplicación)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/urlview/">Urlview</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Extraer las direcciones URL de archivos de texto.</p>
+
+<blockquote><p>$ urlview archivo.txt</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/urlcrazy/">Urlcrazy</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>http://www.morningstarsecurity.com/research/urlcrazy</p>
+
+<p>Herramienta que genera posibles URLs de un dominio que podrian ser usados para ataques de phising, malversing o fraudes varios.</p>
+
+<blockquote><p>$ ./urlcrazy (Muestra las opciones)</p>
+
+<p>$ ./urlcrazy -o paypal.txt paypal.com (Redirigiendo el resultado a un archivo)</p></blockquote>
+
+<p>Otras opciones:</p>
+
+<p>-p (Mostrar URL parecidas más populares según google)</p>
+
+<p>-r (No resolviendo los nombre de dominio)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/uptime/">Uptime</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Tiempo transcurrido desde que se arrancó el sistema</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -270,256 +532,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/update-alternatives/">Update-alternatives</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Modificar las aplicaciones por defecto cuando existen otras posibilidades</p>
-
-<blockquote><p>$ ls /etc/alternatives  (Muestra todas las posibilidades)</p>
-
-<p>$ update-alternatives &#8211;list x-www-browser (muestra las alternativas al navegador por defecto)</p>
-
-<p>$ update-alternatives &#8211;display x-www-browser (Para ver, de las opciones, la utilizada)</p>
-
-<p>$ update-alternatives &#8211;config x-www-browser (Para modificarla)</p>
-
-<p>$ update-alternatives &#8211;config x-cursor-theme (Modificar el tema del cursor)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/unzip/">Unzip</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Descomprimir archivos zip.</p>
-
-<blockquote><p>$ unzip archivo.zip</p>
-
-<p>$ unzip -v archivo.zip (Ver contenido)</p>
-
-<p>$ unzip -l archivo.odt (Ver contenido de un archivo odt)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/until/">Until</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Estructura muy parecida a while [until, do, done], pero con la forma de evaluar la condición al revés, es decir, se ejecuta mientras la condición sea falsa.</p>
-
-<p>Algunos ejemplos:</p>
-
-<p>1.-</p>
-
-<p>Decrecer un contador hasta llegar a 5</p>
-
-<pre><code>#!/bin/bash
-
-CONTADOR=10
-
-until [  $CONTADOR -lt 5 ]; do
-
-   echo "El contador a $CONTADOR"
-
-   let CONTADOR-=1
-
-done
-</code></pre>
-
-<p>2.-</p>
-
-<pre><code>#!/bin/bash
-
-SALIR=si
-
-until [ "$OPCION" = "$SALIR" ]
-
-do
-
-  echo "Pulsar teclas... "
-
-  echo "(\"$SALIR\" para salir)"
-
-  read OPCION
-
-  echo "Pulsada la opción salir ($OPCION)"
-
-  echo
-
-done
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/unsort/">Unsort</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Reordena las lineas de un archivo de forma semialeatoria.</p>
-
-<blockquote><p>$ unsort -p archivo.txt</p>
-
-<p>$ unsort -M archivo1.txt archivo2.txt (Uniendo en la salida los dos archivos)</p>
-
-<p>$ unsort -n archivo1.txt archivo2.txt (Mezcla las lineas de forma aleatoria sin alterar el orden)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/unset/">Unset</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>elimina variables locales o asigna NULL</p>
-
-<blockquote><p>$ unset HISTFILE; unset SAVEHIST  (desactiva el historial de comandos)</p>
-
-<p>$ unset -f funcion (borrar una funcion)</p>
-
-<p>$ unset VAR (Eliminar una variable)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/22/">&larr; Older</a>
@@ -535,12 +547,32 @@ done
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1328</li>
+	<li>1332</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/ts/">ts</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/pee/">pee</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/errno/">errno</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/compress/">compress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/chronic/">chronic</a>
+      </li>
     
       <li class="post">
         <a href="/blog/pvesh/">pvesh</a>
@@ -560,26 +592,6 @@ done
     
       <li class="post">
         <a href="/blog/tty/">tty</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/du/">du</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/chown/">chown</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/chmod/">chmod</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/wapiti/">wapiti</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/apt-fast/">apt-fast</a>
       </li>
     
   </ul>

@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Herramienta para realizar un test de carga del sistema. # stressapptest -s 20 -M 256 -m 8 -C 8 -W Algunas opciones: -M mbytes (Cantidad de megabytes &hellip;">
+  <meta name="description" content="Utilidad que permite a un usuario ejecutar programas con privilegios de root. En algunas distros sólo el usuario creado durante la instalación puede &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,272 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/sudo/">Sudo</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Utilidad que permite a un usuario ejecutar programas con privilegios de root. En algunas distros sólo el usuario creado durante la instalación puede ejecutar sudo con privilegios de root, los demás han de ser agregados al grupo admin.</p>
+
+<blockquote><p>$ sudo -k   (limpia la clave sudo introducida)</p>
+
+<p>$ sudo -u usuario comando   (ejecutar el comando como un usuario privilegiado distinto de root)</p>
+
+<p>$ sudo -l    (ver los permisos de sudo que tiene un usuario)</p>
+
+<p>$ sudo !! (Ejecutar el último comando con sudo)</p></blockquote>
+
+<p>Pueden añadirse las siguientes lineas en /etc/sudoers:</p>
+
+<p>Defaults passprompt=”mi frase solicitando la contraseña&#8230;”</p>
+
+<p>Defaults badpass_message=”mi frase si se entra erronea&#8230;”</p>
+
+<p>usuario    ALL=(ALL) ALL  (Añadir el usuario a sudo)</p>
+
+<p>Defaults:usuario !authenticate  (si no queremos que nos pida la contraseña)</p>
+
+<p>usuario ALL=NOPASSWD: /usr/sbin/firestarter (Para que no pida contraseña al arrancar una aplicación concreta)</p>
+
+<p>O añadir a la linea Defaults, algunos parámetros separados por comas:</p>
+
+<p>timestamp_timeout=5   (La contraseña se guardará 5 minutos.)</p>
+
+<p>insults    (Te mostrará insultos si fallas la contraseña)</p>
+
+<p>passwd_tries=2   (Permitir 2 errores al entrar la contraseña. Por defecto 3)</p>
+
+<p>rootpw (Para que nos pida la contraseña de root y no la de usuario)</p>
+
+<p>Ejemplos:</p>
+
+<p>Defaults     !lecture,tty_tickets,!fqdn,timestamp_timeout=0,insults</p>
+
+<p>Defaults@192.168.1.2 !lecture,tty&#8230;. (Permitir ejecución sólo desde nuestra máquina)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/sublime-text/">Sublime-text</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Editor. Descargar según arquitectura de http://www.sublimetext.com/2 o via ppa (Debian):</p>
+
+<blockquote><p>$ wget http://blog.anantshri.info/content/uploads/2010/09/add-apt-repository.sh.txt</p>
+
+<p># mv add-apt-repository.sh.txt /usr/sbin/add-apt-repository</p>
+
+<p># chmod o+x /usr/sbin/add-apt-repository</p>
+
+<p># chown root:root /usr/sbin/add-apt-repository</p>
+
+<p># add-apt-repository ppa:webupd8team/sublime-text-2</p>
+
+<p># apt-get update</p>
+
+<p># apt-get install sublime-text-2</p></blockquote>
+
+<p>Teclas de control:</p>
+
+<p>Ctrl + p (abrir cuadro de diálogo [goto anything] donde se entran las consultas)</p>
+
+<p>:palabra (Buscar &#8220;palabra&#8221; en el archivo abierto)</p>
+
+<p>:157 (Ir a la linea 157)</p>
+
+<p>Ctrl + ` (Ir a la consola de sublime text)</p>
+
+<p>Ctrl + Mayu + p (Acceder al control de paquetes. Entrando &#8220;Install package&#8221; se instalan nuevos plugins y con &#8220;Remove package&#8221; se desinstalan)</p>
+
+<p>Ctrl + n (Abrir nuevo documento)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/su/">Su</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Cambiar de usuario</p>
+
+<blockquote><p>$ su -m           (Cambia de root [#] a usuario normal [$])</p></blockquote>
+
+<p>Nota.-  Tambien puede hacerse tecleando “exit o con Ctrl + d”</p>
+
+<blockquote><p>$ su -  (cambia a root)</p>
+
+<p>$ su -c htop (Pedirá contraseña para lanzar htop, pero cuando se salga el prompt será de usuario, no de root)</p>
+
+<p>$ su -c &#8220;!!&#8221; root (Ejecutar el último comando ejecutado como root)</p>
+
+<p>$ su - usuario (recarga todos los archivos del perfil del usuario y se reseteen todos los paths y alias. Si no se especifica usuario, por defecto es root)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/stty/">Stty</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Muestra/modifica las características del terminal</p>
+
+<blockquote><p>$ stty -a  (muestra todas las teclas de control, algunas obsoletas. Las más útiles: ^c [para el comando actual], ^d [final de flujo de entrada], ^u [borrar desde la posición actual al principio de linea] y ^w [borrar desde la posición actual al principio de la palabra])</p>
+
+<p>$ stty size   (muestra número de columnas y lineas)</p>
+
+<p>$ stty speed  (velocidad en baudios)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/strings/">Strings</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Analizar la memoria o una particion</p>
+
+<blockquote><p>$ strings /dev/mem</p>
+
+<p>$ strings /dev/sda5</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -312,230 +578,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/steghide/">Steghide</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Detectar y extraer mensajes incrustados dentro de una imagen o música</p>
-
-<blockquote><p>$ steghide embed -cf imagen.jpg -ef archivo_texto  (incrustar un texto en una imagen)</p>
-
-<p>$ steghide embed -cf archivo.wav -ef archivo_texto (incrustar un texto en un archivo de música)</p>
-
-<p>$ steghide extract -sf imagen.jpg  (extraer el archivo incrustado)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/status/">Status</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Verifica si un servicio está activo o no.</p>
-
-<blockquote><p>$ status ssh</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/stat/">Stat</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Estadísticas de archivo, directorios y sistemas</p>
-
-<blockquote><p># stat /etc/passwd</p>
-
-<p># stat /usr</p>
-
-<p># stat -f /</p>
-
-<p>$ stat -c &#8220;%s&#8221; archivo (medida del archivo)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/startx/">Startx</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Arrancar sistema gráfico</p>
-
-<blockquote><p>$ startx &#8211; :1 (una segunda sesión gráfica accesible en ^Alt + F8)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/stalonetray/">Stalonetray</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Applet para albergar el area de notificación.</p>
-
-<blockquote><p>$ stalonetray -bg #A78B5C -d title -geometry 6x1-0+0 -i 30 (con el color especificado [-bg], decoración de ventana [-d], las medidas [6x1] y la situación en pantalla [-0+0, abajo, derecha])</p></blockquote>
-
-<p>Algunas opciones:</p>
-
-<p>-d  (none, title, border, all)</p>
-
-<p>situación:</p>
-
-<p>Abajo a la izquierda    5x1+0-0</p>
-
-<p>Abajo en el centro (1024x768) + 20 píxeles elevado 5x1-450-20</p>
-
-<p>Abajo a la derecha  5x1-0-0</p>
-
-<p>Arriba a la izquierda   5x1+0+0</p>
-
-<p>Arriba a la izquierda + 20 píxeles descendido  5x1+0+20</p>
-
-<p>Arriba en el centro (1024x768)  5x1+450+0</p>
-
-<p>Arriba a la derecha 5x1-0+0</p>
-
-<p>Arriba a la derecha + 20 píxeles descendido    5x1-0+20</p>
-
-<p>Abajo a la izquierda + 20 píxeles elevado  5x1+0-20</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/33/">&larr; Older</a>
@@ -551,12 +593,32 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1328</li>
+	<li>1332</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/ts/">ts</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/pee/">pee</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/errno/">errno</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/compress/">compress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/chronic/">chronic</a>
+      </li>
     
       <li class="post">
         <a href="/blog/pvesh/">pvesh</a>
@@ -576,26 +638,6 @@
     
       <li class="post">
         <a href="/blog/tty/">tty</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/du/">du</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/chown/">chown</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/chmod/">chmod</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/wapiti/">wapiti</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/apt-fast/">apt-fast</a>
       </li>
     
   </ul>

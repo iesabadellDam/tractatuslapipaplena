@@ -9,7 +9,8 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="[regex o patrones] Buscar cadenas de texto que coinciden con un patrón. Los comandos más usuales que las emplean son grep, find, sed y awk y cada uno &hellip;">
+  <meta name="description" content="(/var/log/faillog) almacena todos los intentos &#8220;login&#8221; fallidos realizados a una maquina. $ faillog
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +76,345 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/faillog/">Faillog</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>(/var/log/faillog) almacena todos los intentos &#8220;login&#8221; fallidos realizados a una maquina.</p>
+
+<blockquote><p>$ faillog</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fail2ban/">Fail2ban</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Cortafuegos. Habilitar los servicios en los que se quiera que actue el cortafuegos [ssh, apache2, ftp&#8230;.] editando /etc/fail2ban/jail.conf y substituyendo el “false” por “true”. Algunos parámetros de este archivo son:</p>
+
+<p>ignoreip  (lista de IPs separadas por un espacio en blanco que no serán bloqueadas)</p>
+
+<p>bantime (tiempo en segundos que un host permanecerá bloqueado)</p>
+
+<p>maxretry (número máximo de intentos de login fallidos antes de ser bloqueado)</p>
+
+<p>filter (filtro usado según el archivo /etc/fail2ban/filter.d)</p>
+
+<p>logpath (archivo que utiliza para revisar los intentos de login)</p>
+
+<p>Un ejemplo muestra de configuración para el servicio ssh:</p>
+
+<pre><code>[ssh]
+
+enabled  = true
+
+port     = ssh
+
+filter   = sshd
+
+logpath  = /var/log/auth.log
+
+maxretry = 3
+</code></pre>
+
+<blockquote><p># tail -f /var/log/fail2ban.log | grep Ban    (monitorizar las ip baneadas)</p>
+
+<p># awk &#8216;($(NF-1) = /Ban/){print $NF}&#8217; /var/log/fail2ban.log | sort | uniq -c | sort (Solo muestra las Ips.)</p>
+
+<p># awk &#8216;($(NF-1) = /Ban/){print $NF,&#8221;(&#8220;$NF&#8221;)&#8221;}&#8217; /var/log/fail2ban.log | sort | logresolve | uniq -c | sort  (Mostrando el nombre del host)</p></blockquote>
+
+<p>1.-</p>
+
+<p>Bloquear errores w00tw00t.at.ISC.SANS en los logs de apache. En realidad estas peticiones no acaban en ningún ataque concreto. Estan producidos por el escaner de puertos Dfind que al generar sus peticiones coloca &#8220;w00tw00t.at.ISC.SANS.DFind&#8221;.</p>
+
+<p>Crear el archivo:</p>
+
+<blockquote><p># nano /etc/fail2ban/filter.d/apache-w00tw00t.conf</p></blockquote>
+
+<p>Pegar el siguiente contenido:</p>
+
+<pre><code>[Definition]
+
+failregex = ^.*\[client &lt;HOST&gt;\].*w00tw00t\.at\.ISC\.SANS\.*.*
+
+ignoreregex =
+</code></pre>
+
+<p>Añadir la jaula:</p>
+
+<blockquote><p># nano /etc/fail2ban/jail.conf</p></blockquote>
+
+<p>Y pegar:</p>
+
+<pre><code>[apache-w00tw00t]
+
+enabled = true
+
+filter = apache-w00tw00t
+
+action = iptables-allports[name=w00tw00t]
+
+logpath = /var/log/apache*/error.*.log
+
+maxretry = 1
+
+bantime = -1
+</code></pre>
+
+<p>Nota.- el bantime = -1 indica bloquear permanentemente.</p>
+
+<p>2.-</p>
+
+<p>Algunos ajustes de jail.conf para el caso de usar nginx y no apache:</p>
+
+<blockquote><p># nano /etc/fail2ban/jail.conf</p></blockquote>
+
+<p>Prevenir ataques de inyeccion de codigo</p>
+
+<pre><code>[php-url-fopen]
+
+enabled = true
+
+port    = http,https
+
+filter  = php-url-fopen
+
+logpath = /var/log/nginx/access_log
+
+maxretry = 1
+</code></pre>
+
+<p>Bloquea por iptables un día a los hosts que se conectan haciendo  uso de un &#8220;User Agent&#8221; sospechoso</p>
+
+<pre><code>[nginx-badbots]
+
+enabled  = true
+
+filter = apache-badbots
+
+action = iptables-multiport[name=BadBots, port="http,https"]
+
+logpath = /var/log/nginx*/*access*.log
+
+bantime = 86400
+
+maxretry = 1
+</code></pre>
+
+<p>Solicitar 240 páginas en 1 minuto o 4 paginas segundo, bloqueo por dos dias</p>
+
+<pre><code>[nginx-dos]
+
+enabled = true
+
+port    = http,8090
+
+filter  = nginx-dos
+
+logpath = /var/log/nginx/access.log
+
+findtime = 60
+
+bantime  = 172800
+
+maxretry = 240
+</code></pre>
+
+<p>Fallar la autentificación en el servidor web, blloqueo por 10 minutos</p>
+
+<pre><code>[nginx-auth]
+
+enabled = true
+
+port = http
+
+filter = nginx-auth
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/factor/">Factor</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Sacar todos los factores de un número.</p>
+
+<blockquote><p>$ factor 100</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/extundelete/">Extundelete</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[e2fsprogs, e2fslibs, e2fslibs-dev, g++, build-essential]</p>
+
+<p>Recuperación de archivos o directorios borrados. La partición sobre la que se actua ha de estar desmontada. Descargar la aplicación de <a href="http://extundelete.sourceforge.net/">http://extundelete.sourceforge.net/</a> e instalarla con el clasico ./configure, make, sudo make install.</p>
+
+<blockquote><p># extundelete  /dev/sda11 &#8211;restore-directory /datos/dir_borrado (recuperar el directorio dir_borrado de la partición /dev/sda11. Lo guardará en el directorio RECOVERED_FILES)</p>
+
+<p># extundelete  /dev/sda11 &#8211;restore-file /datos/imagenes/foto.png -o fotos/ (recuperar un archivo y guardarlo en el directorio fotos)</p>
+
+<p># extundelete /dev/sda11 &#8211;restore-all (recuperar toda una partición)</p>
+
+<p># extundelete /dev/sda11 &#8211;restore-files files (recuperar de la partición /dev/sda11 los archivos enumerados en &#8220;files&#8221; a razón de uno por linea)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ext4magic/">Ext4magic</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Recuperación de ficheros ext3 y ext4 borrados o sobrescritos.</p>
+
+<blockquote><p># ext4magic /dev/sda2 -m -d . -f user (recuperar sólo los archivos borrados [-m] de nuestra $HOME [/dev/sda2], el resultado en el presente directorio [-d .] y del usuario &#8220;user&#8221; [-f])</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<p>-M (Emplear esta opción cuando se ha borrado todo el sistema de ficheros)</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -525,271 +865,6 @@ $ grep -E '^[a-zA-Z._-]+@.[a-zA-Z.0-9]+\.[[:alpha:]]{2,3}$' lista (Sólo mostrar
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/exit/">Exit</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Salir del interprete de comandos.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/exiftool/">Exiftool</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Lee y extrae metadatos de imágenes</p>
-
-<blockquote><p>$ exiftool -a -u -g1 foto.png</p>
-
-<p>$ exiftool -GPSAltitude=&#8221;0/1&#8221; foto.jpg  (Añadir tags a una imagen)</p>
-
-<p>$ exiftool -GPSLatitude=&#8221;41.403339&#8221; foto.jpg</p>
-
-<p>$ exiftool -GPSLatitudeRef=&#8221;N&#8221; foto.jpg</p>
-
-<p>$ exiftool -GPSLongitude=&#8221;2.1740288&#8221; foto.jpg</p>
-
-<p>$ exiftool -GPSLongitudeRef=&#8221;E&#8221; foto.jpg</p>
-
-<p>$ exiftool -TagsFromFile imagen_datos.jpg imagenFinal.jpg (Copia los datos Exif de la foto &#8220;imagen_datos.jpg&#8221; a la foto &#8220;imagenFinal.jpg&#8221;)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/exif/">Exif</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Extraer metadatos de imagenes</p>
-
-<blockquote><p>$ exif -d imagen  (mostrar todos los datos)</p>
-
-<p>$ exif -e imagen  (extraer la foto miniatura)</p>
-
-<p>$ exif -r imagen   (suprimir la foto miniatura)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/exec/">Exec</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Ejecuta comandos.</p>
-
-<blockquote><p>$ exec firefox</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/eval/">Eval</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Toma los argumentos de la línea de comandos y los ejecuta como comandos.</p>
-
-<ul>
-<li>Tenemos un texto con variables:</li>
-</ul>
-
-
-<blockquote><p>$ nano entrada_web.txt</p></blockquote>
-
-<pre><code>Hola $NOMBRE, felices de verte por la web $BLOG
-</code></pre>
-
-<p>Y un script con el siguiente contenido:</p>
-
-<pre><code>#!/bin/bash
-
-echo "¿Como te llamas? " 
-
-read NOMBRE
-
-BLOG="lapipaplena.net"
-
-eval "echo "$(cat ./entrada_web.txt)""
-</code></pre>
-
-<ul>
-<li>Substituiendo las variables del script en el texto.</li>
-</ul>
-
-
-<p>Otro ejemplo de uso de eval:</p>
-
-<blockquote><p>$ nano ejemplo.sh</p></blockquote>
-
-<pre><code>#!/bin/bash
-
-pipe="/ |"
-
-#ls $pipe wc -l
-
-eval ls $pipe wc -l
-</code></pre>
-
-<p>Descomentar la linea del &#8220;ls&#8221; y comentar la de &#8220;eval&#8221; y observar la diferencia entre ambas salidas.</p>
-
-<ul>
-<li>Otro ejemplo:</li>
-</ul>
-
-
-<blockquote><p>$ nano ejemplo.sh</p></blockquote>
-
-<pre><code>#!/bin/bash
-
-X=10
-
-Y=X
-
-#echo '$'$Y
-
-eval echo '$'$Y
-</code></pre>
-
-<p>Descomentar la linea del &#8220;echo&#8221; y comentar la de &#8220;eval&#8221; y observar la diferencia entre ambas salidas.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/102/">&larr; Older</a>
@@ -805,12 +880,32 @@ eval echo '$'$Y
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1328</li>
+	<li>1332</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/ts/">ts</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/pee/">pee</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/errno/">errno</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/compress/">compress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/chronic/">chronic</a>
+      </li>
     
       <li class="post">
         <a href="/blog/pvesh/">pvesh</a>
@@ -830,26 +925,6 @@ eval echo '$'$Y
     
       <li class="post">
         <a href="/blog/tty/">tty</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/du/">du</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/chown/">chown</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/chmod/">chmod</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/wapiti/">wapiti</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/apt-fast/">apt-fast</a>
       </li>
     
   </ul>

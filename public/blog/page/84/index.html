@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Para o reinicia el sistema $ init 0 (para) $ init 1 (reinicia en modo uniusuario) $ init 6 (reinicia)
+  <meta name="description" content="Instala un nuevo código MBR al inicio del disco duro. # install-mbr /dev/sda (instala) # install-mbr -l /dev/sda (muestra información del código mbr)
 ">
   
 
@@ -76,6 +76,285 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/install-mbr/">Install-mbr</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Instala un nuevo código MBR al inicio del disco duro.</p>
+
+<blockquote><p># install-mbr /dev/sda (instala)</p>
+
+<p># install-mbr -l /dev/sda (muestra información del código mbr)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/insmod/">Insmod</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Carga modulos.</p>
+
+<blockquote><p># insmod mudulo</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/inputrc/">Inputrc</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Librería readline que permite editar líneas de texto usando los modos de emacs y vi. Esto permite estandarizar las combinaciones de teclas entre muchos comandos.</p>
+
+<blockquote><p>$ nano .inputrc</p></blockquote>
+
+<p>Ajustes que pueden añadirse al archivo personal.</p>
+
+<p>1.-</p>
+
+<p>Que al pulsar Ctrl+x Ctrl+f liste las funciones y con Ctrl+x Ctrl+v las variables:</p>
+
+<blockquote><p># Lista las funciones y variables de readline</p></blockquote>
+
+<p>&#8220;\C-x\C-f&#8221;: dump-functions</p>
+
+<p>&#8220;\C-x\C-v&#8221;: dump-variables</p>
+
+<p>2.-</p>
+
+<p>Que el autocompletado con la tecla &#8220;tab&#8221; no distinga mayúsculas y minúsculas:</p>
+
+<blockquote><p># Ignora diferencias de mayusculas/minusculas al</p>
+
+<p># completar con tabulador</p></blockquote>
+
+<p>set completion-ignore-case on</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/inittab/">Inittab</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Fichero que gestiona el inicio del sistema o un cambio de estado (runlevel) con el comando init (ver).</p>
+
+<blockquote><p># nano /etc/inittab</p></blockquote>
+
+<p>Especificación de si el sistema arranca en modo monousuario (1) o multiusuario (2-5). Por defecto 2 o 3:</p>
+
+<pre><code>id:2:initdefault:
+</code></pre>
+
+<p>Scripts que se ejecutarán en el inicio y en el orden que lo harán independientemente del runlevel:</p>
+
+<pre><code>si::sysinit:/etc/init.d/rcS (En algunas distros si::sysinit:/etc/rc.d/rc.sysinit)
+</code></pre>
+
+<p>Este script llama a los scripts del directorio /etc/rcS.d. Por cada runlevel se ejecutan los scripts del directorio correpondiente: rc0.d/, rc1.d/, rc2.d/, rc3.d/, rc4.d/, rc5.d/, rc6.d/, rc.local y rcS.d/. El directorio /etc/rc.local se usa para ejecutar servicios porpios del usuario. En estos directorios los scripts que empiezan por una &#8220;K&#8221; paran servicios y los que empiezan por una &#8220;S&#8221; los arrancan.</p>
+
+<p>Qué hacer si se presiona CTRL-ALT-DEL:</p>
+
+<pre><code>ca:12345:ctrlaltdel:/sbin/shutdown -t1 -a -r now
+</code></pre>
+
+<p>Qué hacer si la corriente se va/vuelve</p>
+
+<pre><code>pf::powerwait:/etc/init.d/powerfail start
+
+pn::powerfailnow:/etc/init.d/powerfail now
+
+po::powerokwait:/etc/init.d/powerfail stop
+</code></pre>
+
+<p>Despues de ejecutar los scripts de inicio, init crea un conjunto de terminales virtuales:</p>
+
+<pre><code>1:2345:respawn:/sbin/getty 38400 tty1
+
+2:23:respawn:/sbin/getty 38400 tty2
+
+3:23:respawn:/sbin/getty 38400 tty3
+
+4:23:respawn:/sbin/getty 38400 tty4
+
+5:23:respawn:/sbin/getty 38400 tty5
+
+6:23:respawn:/sbin/getty 38400 tty6
+</code></pre>
+
+<p>Utilizando la opción respawn, si alguien trata de finalizar uno de estos procesos, el proceso simplemente será regenerado (respawned).</p>
+
+<p>1.-</p>
+
+<p>Entrar de forma automática:</p>
+
+<p>Comentar la siguiente línea</p>
+
+<blockquote><p>#1:2345:respawn:/sbin/getty 38400 tty1</p></blockquote>
+
+<p>Y Agrega la siguiente linea:</p>
+
+<p>1:2345:respawn:/bin/login -f USUARIO tty1 </dev/tty1 >/dev/tty1 2>&amp;1</p>
+
+<p>Siendo USUARIO el nombre de usuario que hará login automático.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/initramfs/">Initramfs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Problemas durante el arranque. Consiste en un fallo de lectura de los controladores ide de discos duros por parte del kernel del sistema operativo que no logra reconocer dichos drivers. Arrancar con un livecd o pulsando “e” para editar la opción cuando salga el menu en grub:</p>
+
+<blockquote><p># gedit /boot/grub/menu.lst</p></blockquote>
+
+<p>Y al final de la linea del kernel poner: rootdelay=90</p>
+
+<p>Otras soluciones propuestas (sustituir el rootdelay=90 por):</p>
+
+<p>pci=nomsi</p>
+
+<p>all_generix_ide</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -333,214 +612,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/img2txt/">Img2txt</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Pasar una imagen a ascii</p>
-
-<blockquote><p>$ img2txt -f svg imagen.jpg > imagen.svg</p>
-
-<p>$ img2txt -f html imagen.jpg > imagen.html (código html de la imagen)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ifup/">Ifup</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Habilita la interfase especificada:</p>
-
-<blockquote><p>$ ifup eth0</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/iftop/">Iftop</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra el ancho de banda que está usando una red.</p>
-
-<blockquote><p># iftop -nP -i eth0 (sin resolver las IPs[n], mostrando puerto[P] y especificando red)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ifstat/">Ifstat</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Monitorización del trafico de red.</p>
-
-<blockquote><p>$ ifstat -z (Descarta los interfaces sin actividad)</p>
-
-<p>$ ifstat -i eth1 (Especificando una red)</p></blockquote>
-
-<p>Algunas opciones:</p>
-
-<p>-a (Muestra todas las redes)</p>
-
-<p>-T (monitorizando varias redes, muestra el total)</p>
-
-<p>-S (Muestra los resultados en la misma linea, si es posible)</p>
-
-<p>-b (Reporta los informes en Kbits / seg en lugar de kbytes / seg.)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ifne/">Ifne</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[moreutils]</p>
-
-<p>Se ejecuta si la entrada estandar no está vacia.</p>
-
-<blockquote><p>$ find . -name archivo | ifne echo &#8220;Existe&#8221; (Si &#8220;archivo&#8221; existe se ejecutará el echo. Si no existe, no)</p>
-
-<p>$ find . -name archivo | ifne -n echo &#8220;No existe&#8221; (Si &#8220;archivo&#8221; no existe se ejecutará el echo. Si existe, no)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/85/">&larr; Older</a>
@@ -556,12 +627,32 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1328</li>
+	<li>1332</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/ts/">ts</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/pee/">pee</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/errno/">errno</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/compress/">compress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/chronic/">chronic</a>
+      </li>
     
       <li class="post">
         <a href="/blog/pvesh/">pvesh</a>
@@ -581,26 +672,6 @@
     
       <li class="post">
         <a href="/blog/tty/">tty</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/du/">du</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/chown/">chown</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/chmod/">chmod</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/wapiti/">wapiti</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/apt-fast/">apt-fast</a>
       </li>
     
   </ul>

@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Enviar solicitud ARP a una ip de la red. # arping -I eth0 IP # arping -D -I eth1 192.168.1.15; echo $? (Detectar ips duplicadas)
+  <meta name="description" content="diccionarios $ aspell &#8211;lang=ca dump master > lista.txt (crea una lista de palabras del idioma especificado)
 ">
   
 
@@ -76,6 +76,259 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/aspell/">Aspell</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>diccionarios</p>
+
+<blockquote><p>$ aspell &#8211;lang=ca dump master > lista.txt  (crea una lista de palabras del idioma especificado)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/asoundconf/">Asoundconf</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Averiguar las tarjetas de sonido instaladas</p>
+
+<blockquote><p># asoundconf list  (listarlas)</p>
+
+<p># asoundconf set-default-card 1  (activar la especificada en el comando anterior)</p>
+
+<p># asoundconf reset-default-card  (volver a la configuración por defecto)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/asciiview/">Asciiview</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Visualizar imágenes (png, jpg, gif&#8230;) en consola</p>
+
+<blockquote><p>$ asciiview imagen.jpg</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/arrays/">Arrays</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>También llamado vector, arreglo o alineación es un conjunto o agrupación de variables del mismo tipo cuyo acceso se realiza por índices. El primer indice de una array es el 0.</p>
+
+<p>Ejemplos de uso:</p>
+
+<p>1.-</p>
+
+<pre><code>#!/bin/bash
+
+array=($(ls -1))
+
+echo "escoge el archivo..."
+
+declare -p array | sed -e 's/ /\n/g'
+
+read MOD
+
+echo "Has escogido ${array[MOD]}"
+</code></pre>
+
+<p>2.-</p>
+
+<p>Recorrer un array:</p>
+
+<pre><code>fruta[1]=manzana
+
+fruta[2]=pera
+
+fruta[3]=limón
+
+fruta[4]=higo
+
+for i in "${fruta[@]}"
+
+  do
+
+    echo $i;
+
+  done
+</code></pre>
+
+<p>3.-</p>
+
+<p>Un array puede establecerse con &#8220;declare&#8221;. Tiene la misma salida:</p>
+
+<pre><code>declare -a distro=('Debian' 'Suse' 'Gentoo' 'Fedora' 'Puppy')
+
+echo ${distro[@]}
+</code></pre>
+
+<p>Que el siguiente:</p>
+
+<pre><code>distro=('Debian' 'Suse' 'Gentoo' 'Fedora' 'Puppy')
+
+echo ${distro[@]}
+</code></pre>
+
+<p>4.-</p>
+
+<p>Copiar un array:</p>
+
+<pre><code>distro=('Debian' 'Suse' 'Gentoo' 'Fedora' 'Puppy')
+
+opciones=("${distro[@]}")
+
+echo ${opciones[@]}
+</code></pre>
+
+<p>5.-</p>
+
+<p>Añadir un array a continuación de otro y mostrar el número de elementos:</p>
+
+<pre><code>distro=('Debian' 'Suse' 'Gentoo' 'Fedora' 'Puppy');
+
+Shell=('bash' 'csh' 'jsh' 'rsh' 'ksh');
+
+UnixShell=("${distro[@]}" "${Shell[@]}")
+
+echo ${UnixShell[@]}
+
+echo ${#UnixShell[@]}
+</code></pre>
+
+<p>6.-</p>
+
+<p>Algunas opciones con arrays:</p>
+
+<pre><code>echo ${#array[@]} (Mostrar la cantidad de elementos del array)
+
+echo ${#array[3]} (Mostrar el tamaño del elemento 3)
+
+echo ${!array[@]} (Mostrar los elementos que no son nulos)
+
+echo ${fruta[@]/pera/fresa} (En el ejemplo 2 substituir "pera" por "fresa")
+
+fruta=("${fruta[@]}" "melón") (Añadir un elemento)
+
+unset fruta[2] (Borrar un elemento)
+
+unset fruta (Borra todo el array)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -322,170 +575,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/argus/">Argus</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Conjunto de herramientas cliente-servidor, para el análisis de tráfico de red.</p>
-
-<blockquote><p># argus-i eth0 -w salida.arg  (capturar en tiempo real todo el trafico de red)</p>
-
-<p># ra -L0 -nr salida.arg (Leer el fichero generado)</p>
-
-<p># sudo argus -mJRU 1024 -r captura.pcap -w salida.arg (convertir un fichero pcap [wireshark, tshark, tcpdump&#8230;] a formato argus.</p>
-
-<p># ra -a -c -L0 -nr skipe.arg - host IP (Filtrar una sola IP)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/arecord/">Arecord</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Grabador de archivos de sonido.</p>
-
-<blockquote><p>$ arecord -l (Muestra los dispositivos disponibles)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/arch/">Arch</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra la arquitectura de la máquina.</p>
-
-<blockquote><p>$ arch</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ar/">Ar</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Crea, modifica y extrae archivos</p>
-
-<blockquote><p>$ ar crv libfoo.a bill.o fred.o (Añade librerias objeto a un archivo de librería estática)</p>
-
-<p>$ ar vx paquete.deb (extrae un .deb convirtiendolo en un tar.gz)</p>
-
-<p>$ ar x finalterm_0.1-0~64~saucy1_amd64.deb (Extraer los 3 archivos de un paquete deb)</p>
-
-<p>$ ar p finalterm_0.1-0~64~saucy1_amd64.deb data.tar.gz | tar xz (Extraer y descomprimir uno de los archivos de un paquete deb)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/129/">&larr; Older</a>
@@ -501,12 +590,32 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1328</li>
+	<li>1332</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/ts/">ts</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/pee/">pee</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/errno/">errno</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/compress/">compress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/chronic/">chronic</a>
+      </li>
     
       <li class="post">
         <a href="/blog/pvesh/">pvesh</a>
@@ -526,26 +635,6 @@
     
       <li class="post">
         <a href="/blog/tty/">tty</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/du/">du</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/chown/">chown</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/chmod/">chmod</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/wapiti/">wapiti</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/apt-fast/">apt-fast</a>
       </li>
     
   </ul>
