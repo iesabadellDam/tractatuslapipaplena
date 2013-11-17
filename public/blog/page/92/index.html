@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Añadir usuarios a grupos. # gpasswd -d usuario video (Para eliminar &#8220;usuario&#8221; del grupo &#8220;video&#8221;) # gpasswd -a usuario video ( &hellip;">
+  <meta name="description" content="Activar el mouse en las tty1-6. Si al arrancar el servicio [/etc/init.d/gpm start] marca error [fail] buscar el dispositivo: # find /dev -iname psaux &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,163 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/gpm/">Gpm</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Activar el mouse en las tty1-6. Si al arrancar el servicio [/etc/init.d/gpm start] marca error [fail] buscar el dispositivo:</p>
+
+<blockquote><p># find /dev -iname psaux</p></blockquote>
+
+<p>Y arrancar la aplicación con los datos obtenidos:</p>
+
+<blockquote><p># gpm -m /dev/psaux -t ps2</p></blockquote>
+
+<p>Configuración:</p>
+
+<blockquote><p># nano /etc/gpm.conf</p></blockquote>
+
+<pre><code>....
+
+device=/dev/input/mice 
+
+responsiveness=25 
+
+repeat_type=none 
+
+type=exps2 
+
+append='' 
+
+sample_rate=
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/gpg/">Gpg</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Encriptación y autentificación de claves públicas</p>
+
+<blockquote><p># gpg &#8211;keyserver subkeys.pgp.net &#8211;recv-keys XXXXXXXXXXXXXX</p>
+
+<p># gpg &#8211;export &#8211;armor XXXXXXXXXXXX | apt-key add -</p>
+
+<p># gpg &#8211;passphrase 1234 -c archivo.txt (Encriptar un archivo con la clave 1234)</p>
+
+<p># gpg &#8211;passphrase 1234 -o xx.gpg -c archivo.txt (Encriptar archivo.txt con la clave 1234 y generando como archivo de salida xx.gpg)</p>
+
+<p># gpg &#8211;dump-options  (visualizar todas las opciones)</p>
+
+<p># gpg -c archivo.txt (poner contraseña a un texto)</p>
+
+<p># gpg archivo.txt.gpg (abrir)</p>
+
+<p># gpg &#8211;refresh-keys (refrescar claves)</p>
+
+<p>$ gpg &#8211;gen-random &#8211;armor 1 8 (Crear una clave aleatoria de 8 caracteres)</p>
+
+<p>$ gpg -ab fichero.txt (Crear una firma para un fichero)</p>
+
+<p>$ gpg &#8211;gen-key (Crear las claves. Preguntará algoritmo [RSA/RSA], longitud [2048 bits], caducidad, nombre y correo [opcional])</p>
+
+<p>$ gpg &#8211;list-keys (Ver listado )</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/gperiodic/">Gperiodic</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Muestra la tabla periódica de los elementos quimicos.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -452,250 +609,6 @@ Mayús+AvPág (Hace scroll de la terminal hacia abajo)
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/gnome-screensaver-command/">Gnome-screensaver-command</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Herramienta de control del salvapantallas</p>
-
-<blockquote><p>$ gnome-screensaver-command -l (Bloqueo inmediato)</p></blockquote>
-
-<p>Opciones</p>
-
-<p>&#8211;exit (Salir de salvapantalla)</p>
-
-<p>-q (Consulta el estado de la pantalla)</p>
-
-<p>-t (Tiempo para que entre en acción)</p>
-
-<p>-a (Activarlo)</p>
-
-<p>-d (Desactivarlo)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/gnome-keyring/">Gnome-keyring</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Demonio para gestionar de manera segura las credenciales de acceso del usuario, como los nombre de usuario y las contraseñas. Usando algunos escritorios la consola puede mostrar el error:</p>
-
-<p>WARNING: gnome-keyring:: couldn&#8217;t connect to: /home/USER/.cache/keyring-s1KHzb/pkcs11: El fichero o directorio no existe</p>
-
-<p>Para resolverlo:</p>
-
-<blockquote><p># nano /etc/xdg/autostart/gnome-keyring-pkcs11.desktop</p></blockquote>
-
-<p>Buscar la linea:</p>
-
-<p>OnlyShowIn=GNOME;Unity;</p>
-
-<p>Y añadir el escritorio usado:</p>
-
-<p>OnlyShowIn=GNOME;Unity;LXDE;Xfce</p>
-
-<p>Reiniciar</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/gnome/">Gnome</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Entorno de escritorio</p>
-
-<blockquote><p># rm -rf .gnome .gnome2 .gconf .gconfd .metacity (Resetear la configuración)</p>
-
-<p>$ gnome-open archivo.odt   (abrir un archivo con la aplicación asociada a ella por defecto)</p>
-
-<p>$ gnome-open http://web.com   (lo mismo con una dirección web)</p></blockquote>
-
-<p>Ajustes</p>
-
-<p>1.-</p>
-
-<p>Suprimir rastro de los documentos e imagenes abiertas (lugares -> Documentos recientes):</p>
-
-<blockquote><p>$ rm .recently-used.xbel</p>
-
-<p>$ mkdir .recently-user.xbel</p></blockquote>
-
-<p>También:</p>
-
-<blockquote><p>$ nano .gtkrc-2.0</p></blockquote>
-
-<p>Si no está se crea. Añadir la linea:</p>
-
-<p>gtk-recent-files-max-age=0</p>
-
-<p>2.-</p>
-
-<p>Acciones sobre gnome y paneles</p>
-
-<blockquote><p># killall gnome-panel (Matar el proceso)</p>
-
-<p># dpkg &#8211;purge &#8211;force-all gnome-panel gnome-panel-data (Desinstalar)</p>
-
-<p># apt-get install gnome-panel gnome-panel-data (instalar el panel)</p>
-
-<p># apt-get install &#8211;einstall gnome-panel gnome-panel-data (reinstalarlo)</p>
-
-<p># /etc/init.d/gdm restart (reiniciar gnome)</p>
-
-<p># gnome-panel &amp; (lanzar la aplicación)</p>
-
-<p># pkg-reconfigure xserver-xorg (reconfigurar la seccion gráfica)</p>
-
-<p># apt-get remove gnome-desktop (desinstalar las X)</p>
-
-<p># apt-get install gnome-desktop (instalar las X)</p>
-
-<p># pgrep -lf gnome-panel | awk &#8216;{if ($2==&#8221;gnome-panel&#8221;) print $1}&#8217; | xargs kill -9 (reiniciar los paneles)</p></blockquote>
-
-<p>3.-</p>
-
-<p>Carpetas por defecto que aparecen en el directorio /home</p>
-
-<blockquote><p>$ cat .config/user-dirs.dirs | grep ^XDG</p></blockquote>
-
-<p>XDG_DESKTOP_DIR=&#8221;$HOME/Escriptori&#8221;</p>
-
-<p>XDG_DOWNLOAD_DIR=&#8221;$HOME/Baixades&#8221;</p>
-
-<p>XDG_TEMPLATES_DIR=&#8221;$HOME/&#8221;</p>
-
-<p>XDG_PUBLICSHARE_DIR=&#8221;$HOME/Públic&#8221;</p>
-
-<p>XDG_DOCUMENTS_DIR=&#8221;$HOME/Documents&#8221;</p>
-
-<p>XDG_MUSIC_DIR=&#8221;$HOME/Música&#8221;</p>
-
-<p>XDG_PICTURES_DIR=&#8221;$HOME/Imatges&#8221;</p>
-
-<p>XDG_VIDEOS_DIR=&#8221;$HOME/Vídeos&#8221;</p>
-
-<p>Para modificarlas editar el archivo:  nano .config/user-dirs.dirs y, si por ejemplo, tenemos las imágenes en /media/sda5/imatges con su entrada en /etc/fstab  Auto, dejamos la entrada correspondiente:</p>
-
-<p>XDG_PICTURES_DIR=&#8221;/media/sda5/imatges&#8221;</p>
-
-<p>Atajos escritorio</p>
-
-<p>Ctrl+o (Abre la carpeta personal o la del documento abierto)</p>
-
-<p>Ctrl+Alt+tecla de cursor (Cambia el espacio de trabajo)</p>
-
-<p>Ctrl+Alt+backspace (Reiniciar entorno gráfico si está activado)</p>
-
-<p>F1 (Muestra la Ayuda)</p>
-
-<p>F11 (Pantalla completa)</p>
-
-<p>Alt+Inicio (Abre la carpeta personal)</p>
-
-<p>Alt+ImprPant (Realiza una captura de la ventana actual)</p>
-
-<p>Alt+F1 (Abre el menú aplicaciones)</p>
-
-<p>Alt+F2 (Abre el cuadro lanzar aplicaciones)</p>
-
-<p>Alt+F4 (Cierra la ventana activa)</p>
-
-<p>Alt+F7 (Mueve ventana con las teclas de cursor. Para finalizar pulsar tecla)</p>
-
-<p>Alt+F8 (Cambia tamaño de ventana con teclas de cursor. finalizar pulsar tecla)</p>
-
-<p>Alt+F9 (Minimiza)</p>
-
-<p>Alt+F10 (Maximiza)</p>
-
-<p>Alt+Ctrl+Shift+teclas de cursor (Mueve la ventana activa a otra área de trabajo)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/93/">&larr; Older</a>
@@ -711,12 +624,24 @@ Mayús+AvPág (Hace scroll de la terminal hacia abajo)
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1334</li>
+	<li>1337</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/rzip/">rzip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/bzless/">bzless</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/bzexe/">bzexe</a>
+      </li>
     
       <li class="post">
         <a href="/blog/lzma/">lzma</a>
@@ -744,18 +669,6 @@ Mayús+AvPág (Hace scroll de la terminal hacia abajo)
     
       <li class="post">
         <a href="/blog/compress/">compress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/chronic/">chronic</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/pvesh/">pvesh</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/honeyproxy/">honeyproxy</a>
       </li>
     
   </ul>

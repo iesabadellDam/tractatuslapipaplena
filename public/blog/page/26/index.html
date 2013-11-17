@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Permite monitorizar [o tomar el control] el acceso a las terminales por parte de servicios remotos [ssh, telnet&#8230;] Habilitar la aceptación de &hellip;">
+  <meta name="description" content="Descarga de videos de tv3.cat. $ wget http://www.gnulinux.cat/dev/tv3.tar.gz $ tar -xvzf tv3.tar.gz $ cd tv3 $ bash install Una vez tengamos la URL &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,242 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/tv3/">Tv3</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Descarga de videos de tv3.cat.</p>
+
+<blockquote><p>$ wget http://www.gnulinux.cat/dev/tv3.tar.gz</p>
+
+<p>$ tar -xvzf tv3.tar.gz</p>
+
+<p>$ cd tv3</p>
+
+<p>$ bash install</p></blockquote>
+
+<p>Una vez tengamos la URL del video [por ejemplo: http://www.tv3.cat/videos/4226490/Especial-diada-de-Sant-Felix-a-Vilafranca]</p>
+
+<p>Arrancar la aplicación con el número que muestra:</p>
+
+<blockquote><p>$ tv3 4226490</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/tune2fs/">Tune2fs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Chequeo de la tabla de particiones</p>
+
+<blockquote><p># tune2fs -c 80 /dev/sda1 (cada 80 reinicios)</p>
+
+<p># tune2fs -i 2m /dev/sda1 (cada 2 meses)</p>
+
+<p># tune2fs -i 2w /dev/hda3 (cada 2 semanas)</p>
+
+<p># tune2fs -i 2d /dev/sda1 (cada 2 dias)</p>
+
+<p># tune2fs -l /dev/sdb1 (ver registro completo de la partición)</p>
+
+<p># tune2fs -l /dev/hda3 | grep ‘Last checked’ (ver fecha del último escaneo)</p>
+
+<p># tune2fs -l /dev/hda3 | grep -i check (veces que se fuerza el chequeo)</p>
+
+<p># tune2fs -i 0 /dev/hda3 (desactivar chequeo)</p>
+
+<p># showfsck (saber cuantas reiniciadas faltan hasta el proximo chequeo)</p>
+
+<p># tune2fs -l /dev/hda3 | grep -i ‘mount count’ (lo mismo que el anterior)</p>
+
+<p># tune2fs -m 1 /dev/sda1 (modificar el espacio reservado para root al 1%. Por defecto es del 5%. Ver dumpe2fs)</p>
+
+<p># tune2fs -O ^has_journal /dev/sda1 (Desactivar journaling en una partición)</p>
+
+<p># tune2fs -O has_journal /dev/sda1 (Activar journaling)</p></blockquote>
+
+<p>1.-</p>
+
+<p>Convertir sistema de archivos de ext3 a ext4. Desde un livecd o una partición no montada :</p>
+
+<blockquote><p># tune2fs -O extents,uninit_bg,dir_index /dev/sdax (convertir)</p>
+
+<p># fsck -pf /dev/sdax  (Para dar consistencia al nuevo sistema)</p>
+
+<p># mount -t ext4 /dev/sdax /media/punto_de_montaje (montar la unidad)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/tuberias/">Tuberias</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>1.-</p>
+
+<p>comando1 | comando2  (el resultado de comando1 se utiliza para comando2)</p>
+
+<blockquote><p>$ dmesg                            (montón de datos)</p>
+
+<p>$ dmesg | grep &#8216;error&#8217;       (solo los que den &#8220;error&#8221;)</p></blockquote>
+
+<p>2.-</p>
+
+<p>comando1 &amp; comando2 (los comando se ejecutan simultáneamente, pero  comando1 se ejecuta en segundo plano (background))</p>
+
+<blockquote><p>$ sudo firestarter &amp; ifconfig</p></blockquote>
+
+<p>[1] 16572                   (pid de firestarter en baskground)</p>
+
+<p>eth0      Link encap:Ethernet  Hwa&#8230;.  (ejecución de ifconfig)</p>
+
+<p>Matar el proceso de forma clásica (# kill -9 16572)</p>
+
+<p>3.-</p>
+
+<p>comando &amp; exit  (Lanzado como usuario normal, ejecuta el comando o abre la aplicación y cierra la terminal [gedit &amp; exit])</p>
+
+<p>4.-</p>
+
+<p>gksu comando &amp; exit (Lo mismo pero como root [gksu synaptic &amp; exit] Se cierra la terminal pero se abre una ventana pidiendo la contraseña)</p>
+
+<p>5.-</p>
+
+<p>comando1 &amp;&amp; comando2  (si comando1 funciona  se ejecuta comando2)</p>
+
+<p>Probar la diferencia con los ejemplos anterior y posterior substituyendo los caracteres.</p>
+
+<p>6.-</p>
+
+<p>comando1 || comando2  (comando2 se ejecuta solamente si comando1 falla)</p>
+
+<blockquote><p>$ sudo filestarmer || ifconfig</p></blockquote>
+
+<p>filestarmer: command not found    (error por tanto &#8230;)</p>
+
+<p>eth0      Link encap:Ethe &#8230;.           (&#8230; se ejecuta ifconfig)</p>
+
+<blockquote><p>$ ls || ifconfig                                  (solo ejecutará ls)</p></blockquote>
+
+<p>7.-</p>
+
+<p>comando1; comando2 (comando2 se ejecuta despues de comando1)</p>
+
+<blockquote><p>$ ls; ifconfig; filestarmer; who</p></blockquote>
+
+<p>8.-</p>
+
+<p>Redireccionamiento de errores:</p>
+
+<blockquote><p>$ cat archivo_inexistente</p></blockquote>
+
+<p>cat: archivo_inexistente: El fichero o el directorio no existe</p>
+
+<p>El error direccionado a un archivo [error]:</p>
+
+<blockquote><p>$ cat archivo_inexistente 2> error</p>
+
+<p>$</p></blockquote>
+
+<p>También pueden usarse dos signos > [2>> error] para añadir el error a continuación sin borrar el contenido del fichero “error”. Para mandar los errores al pozo sin fondo:</p>
+
+<blockquote><p>$ cat archivo_inexistente 2>/dev/null</p></blockquote>
+
+<p>O varios direccionamientos:</p>
+
+<blockquote><p>$ find / -name archivo > encontrado 2> errores &amp;</p>
+
+<p>$ find / -name archivo >&amp; encontrado-errores.txt (Otra forma de redirigir a dos archivos [encontrado y errores.txt])</p></blockquote>
+
+<p>Indicando que la salida del comando find (las rutas en donde encontró el “archivo ”) se almacene en el archivo “encontrado” y que si existe errores en la ejecución del comando (no tiene permisos para entrar a buscar en algún</p>
+
+<p>directorio) el error se almacene en el archivo “errores”. Adicionalmente enviamos el comando a background para poder hacer uso de la terminal mientras se realiza el proceso.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -444,128 +680,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/treil/">Treil</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Generador de una imagen en azulejo a partir de los archivos de un directorio.</p>
-
-<blockquote><p>$ treil -g 800x600 -o imagen.png /usr/share (Con una geometria determinada [g], que la imagen se guarde como imagen.png [o] y el directorio del cual crear la imagen)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/tree/">Tree</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Lista archivos y directorios en forma de arbol.</p>
-
-<blockquote><p>$ tree -d (Sólo los directorios de la presente carpeta)</p>
-
-<p>$ tree -o archivo (Enviar el resultado a un archivo)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/trash/">Trash</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Enviar a la papelera un archivo o directorio</p>
-
-<blockquote><p>$ trash-put archivo (elimina archivo)</p>
-
-<p>$ trash-list (Lista los archivos eliminados)</p>
-
-<p>$ restore-trash (Pregunta el número del archivo a restaurar)</p>
-
-<p>$ trash-empty (Vacia la papelera)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/27/">&larr; Older</a>
@@ -581,12 +695,24 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1334</li>
+	<li>1337</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/rzip/">rzip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/bzless/">bzless</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/bzexe/">bzexe</a>
+      </li>
     
       <li class="post">
         <a href="/blog/lzma/">lzma</a>
@@ -614,18 +740,6 @@
     
       <li class="post">
         <a href="/blog/compress/">compress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/chronic/">chronic</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/pvesh/">pvesh</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/honeyproxy/">honeyproxy</a>
       </li>
     
   </ul>

@@ -9,7 +9,8 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Permite especificar el comportamiento de las ventanas para que determinadas aplicaciones se abran en un escritorio concreto. Ha de colocarse en las &hellip;">
+  <meta name="description" content="Configuración automática de la red dhcp $ dhcpcd eth0
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +76,126 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/dhcpcd/">Dhcpcd</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Configuración automática de la red dhcp</p>
+
+<blockquote><p>$ dhcpcd eth0</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/dhclient/">Dhclient</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Cliente DHCP</p>
+
+<blockquote><p># dhclient eth0  (modifica la ip de la máquina)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/df/">Df</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Mostrar información de las particiones</p>
+
+<blockquote><p>$ df -h (los resultados en M y G, por defecto son en bytes)</p>
+
+<p>$ df -a (de todas las particiones incluso las de 0 bloques)</p>
+
+<p>$ df -t vfat (de las particiones especificadas, en el caso las vfat)</p>
+
+<p>$ df  -T (de todas las particiones y el tipo)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -410,309 +531,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/debsums/">Debsums</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Verificar la integridad de los ficheros.</p>
-
-<blockquote><p># debsums -s &amp;> log.txt  (Modo silencioso [-s] y redirigiendo el resultado a un archivo para posterior análisis)</p>
-
-<p># cat log.txt | grep &#8220;mismatch&#8221; | cut -d &#8221; &#8221; -f4 | uniq > reinstall.txt (A partir del archivo anterior, listar los que se han de reinstalar)</p>
-
-<p># debsums -s | grep &#8220;mismatch&#8221; | cut -d &#8221; &#8221; -f4 | uniq > reinstall.txt (Lo mismo)</p>
-
-<p># apt-get install &#8211;reinstall <code>(cat reinstall.txt)</code>  (para instalarlos a partir del listado)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/deborphan/">Deborphan</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Visualizar paquetes huerfanos</p>
-
-<blockquote><p>$ deborphan &#8211;guess-all   (Los muestra todos)</p>
-
-<p># apt-get remove $(deborphan &#8211;guess-all)     (borra todos los mostrados)</p>
-
-<p># deborphan        (para ver las librerias huérfanas)</p>
-
-<p># dpkg -l $(deborphan)    (lo mismo que el anterior con más detalles)</p>
-
-<p># sudo dpkg &#8211;purge $(deborphan)   (eliminar los paquetes huérfanos)</p>
-
-<p># apt-get remove <code>deborphan</code> (Lo mismo)</p>
-
-<p># dpkg -l $(deborphan &#8211;find-config)  (para borrar configuraciones que no se han borrado tras la desinstalación de un paquete)</p>
-
-<p># dpkg &#8211;purge $(deborphan &#8211;ind-config)  (para eliminarlos)</p>
-
-<p># apt-get remove $(deborphan &#8211;guess-all)</p></blockquote>
-
-<p>Nota.- Normalmente estas aplicaciones han de repetirse varias veces hasta que al lanzar el comando no salga ninguna archivo huerfana.</p>
-
-<blockquote><p># deborphan | xargs sudo apt-get -y remove &#8211;purge (otra forma de eliminar paquetes huerfanos)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/deb/">Deb</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Extensión de los paquetes para distros Debian.</p>
-
-<p>1.-</p>
-
-<p>Crear un paquete para esta distro a partir de un script:</p>
-
-<pre><code>$ mkdir deb 
-</code></pre>
-
-<p>En ese directorio recrear la estructura destino que queremos utilizar. En nuestro caso /usr/bin, el directorio para el icono y permisos:</p>
-
-<pre><code>$ mkdir -p deb/usr/bin
-
-$ mkdir -p deb/usr/share/applications
-</code></pre>
-
-<p>Copiar el script en el bin creado:</p>
-
-<pre><code>$ cp script deb/usr/bin 
-</code></pre>
-
-<p>Crear el subdirectorio DEBIAN:</p>
-
-<pre><code>$ mkdir deb/DEBIAN 
-</code></pre>
-
-<p>En su interior el fichero “control”:</p>
-
-<pre><code>$ nano deb/DEBIAN/control 
-</code></pre>
-
-<p>En el que pegamos datos del paquete:</p>
-
-<p>Package: nombre_que_queremos</p>
-
-<p>Priority: optional</p>
-
-<p>Section: misc</p>
-
-<p>Maintainer: el_mantenedor</p>
-
-<p>Architecture: all</p>
-
-<p>Version: 1.0</p>
-
-<p>Depends: Las_dependendias_del_paquete</p>
-
-<p>Description: Pequeña_descripción_de_la_maravilla</p>
-
-<p> Este script &#8230;. para &#8230;.. de &#8230;.. aquello&#8230;&#8230;.</p>
-
-<p>Notas: En el nombre del paquete (Package) no se admiten espacios ni barras bajas) y en la descripción (Description) el primer carácter de la segunda linea es un espacio y al final del texto, darle al intro para que ponga una linea vacia. Las dependencias que pongamos en “Depends” son las que se instalarán  con la instalación del .deb.</p>
-
-<p>Crear el paquete “menu” en el mismo directorio:</p>
-
-<pre><code>$ nano deb/DEBIAN/menu
-</code></pre>
-
-<p>Y en su interior pegar:</p>
-
-<pre><code>?package(nombre_script):needs="X11" \ 
-
-    section="Applications/Network/Monitoring" \ 
-
-    title="Suport VNC" command="gnome-terminal -e script_que_sea" \ 
-
-    icon="/usr/share/pixmaps/gnome-term-linux2.png"
-</code></pre>
-
-<p>Notas: Nombre del paquete, que precisa de las X (X11), donde se colocará en el menú “Aplicaciones” (otras opciones: section=”Apps/Multimedia”&#8230;), el comando que lo lanzará (gnome-terminal -e script) y el icono que hemos escogido. Crear el archivo nombre_script.desktop para los datos del icono:</p>
-
-<pre><code>$ gedit deb/usr/share/applications/nombre_script.desktop
-</code></pre>
-
-<p>Y pegar el siguiente contenido:</p>
-
-<pre><code>[Desktop Entry] 
-
-Version=1.0 
-
-Name=Nombre_script 
-
-GenericName=Nombre_script 
-
-Comment=Pequeño_comentario 
-
-Exec=Nombre_script_que_lo_lanzará 
-
-Terminal=true 
-
-Type=Application 
-
-Categories=Application;Network; 
-
-Icon=gnome-term-linux2.png 
-
-StartupNotify=true
-</code></pre>
-
-<p>Nota.- también varios modelos de iconos en:</p>
-
-<pre><code>$ ls /home/usuario/.local/share/applications/  
-</code></pre>
-
-<p>Cambiar el propietario del directorio:</p>
-
-<pre><code># chown -R root.root deb 
-</code></pre>
-
-<p>Finalmente crear el paquete .deb y que lo coloque en el escritorio:</p>
-
-<pre><code># dpkg -b deb /home/usuario/Escritorio/nombre.deb
-</code></pre>
-
-<p>2.-</p>
-
-<p>Crear un paquete a partir de un tar.gz:</p>
-
-<p>Para el ejemplo usaremos el paquete picpuz, un juego para crear puzles a partir de una fotografia, que aunque tenga versión .deb, para el caso nos sirve.</p>
-
-<p>Crear carpeta de trabajo y entrar en ella:</p>
-
-<pre><code>$ mkdir picpuz 
-
-$ cd picpuz 
-</code></pre>
-
-<p>Descargar y descomprimir el tar.gz y entrar en la carpeta descomprimida:</p>
-
-<blockquote><p>$ wget http://kornelix.squarespace.com/storage/downloads/picpuz-2.2.tar.gz</p>
-
-<p>$ tar xvzf picpuz-2.2.tar.gz</p>
-
-<p>$ cd picpuz-2.2</p></blockquote>
-
-<p>Crear el nuevo paquete .orig.tar.gz con los estandares de Debian, con licencia gpl3 y generando el paquete desde las fuentes:</p>
-
-<pre><code>$ dh_make --createorig  -c gpl3 -s
-</code></pre>
-
-<p>Construir el paquete .deb:</p>
-
-<pre><code>$ dpkg-buildpackage -rfakeroot 
-</code></pre>
-
-<p>Listar el contenido de un paquete .deb:</p>
-
-<pre><code>$ ar -tv picpuz_2.2-1_i386.deb
-</code></pre>
-
-<p>Información y perspectiva general de lo que ofrece el paquete:</p>
-
-<pre><code>$ dpkg-deb -I picpuz_2.2-1_i386.deb
-</code></pre>
-
-<p>Listar los ficheros que serán instalados:</p>
-
-<pre><code>$ dpkg-deb -c picpuz_2.2-1_i386.deb 
-</code></pre>
-
-<p>instalarlo:</p>
-
-<pre><code># dpkg -i picpuz_2.2-1_i386.deb
-</code></pre>
-
-<p>Lo encontraremos en aplicaciones/juegos</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/111/">&larr; Older</a>
@@ -728,12 +546,24 @@ $ cd picpuz
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1334</li>
+	<li>1337</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/rzip/">rzip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/bzless/">bzless</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/bzexe/">bzexe</a>
+      </li>
     
       <li class="post">
         <a href="/blog/lzma/">lzma</a>
@@ -761,18 +591,6 @@ $ cd picpuz
     
       <li class="post">
         <a href="/blog/compress/">compress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/chronic/">chronic</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/pvesh/">pvesh</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/honeyproxy/">honeyproxy</a>
       </li>
     
   </ul>

@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Permite definir el perfil de la CPU powersave, performance, conservative, userspace, ondemand) así como la velocidad y otros parámetros $ cpufreq- &hellip;">
+  <meta name="description" content="configurar tareas para que se ejecuten automáticamente en el sistema # crontab -e (editar el archivo crontab, si no existe se crea) $ crontab -e ( &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,190 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/crontab/">Crontab</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>configurar tareas para que se ejecuten automáticamente en el sistema</p>
+
+<blockquote><p># crontab -e      (editar el archivo crontab, si no existe se crea)</p>
+
+<p>$ crontab -e      (idem para el usuario no root)</p>
+
+<p># crontab -l       (Muestra el contenido para root)</p>
+
+<p># crontab -l -u usuario  (muestra el de usuario)</p>
+
+<p>$ crontab -l       (idem para el usuario no root)</p>
+
+<p># crontab -r       (Borra el contenido de crontab)</p></blockquote>
+
+<p>Crontab consta de 6 campos separados por un espacio que indican:</p>
+
+<p>minuto (0-59), hora (0-23), dia del mes (1-31), mes (1-12), dia de la semana (0-6, domingo=0), y comando a ejecutar. Un asterisco * como valor en los primeros cinco campos, indicará todos (todos los minutos, todas las horas &#8230;)</p>
+
+<pre><code>01 * * * *       (Se ejecuta el primer minuto de cada hora todos los dias)
+
+20 9 * * *       (a las 9:20 de la mañana todos los dias)
+
+20 21 * * *     (a las 9:20 (21:20) de la tarde todos los dias)
+
+01 6 * * 1      (a las 6:01 de todos los lunes)
+
+* * 1 1 *         (todos los minutos de todas las horas del 1 de enero) 
+
+00 12 * * 0     (a las doce en punto de todos los domingos)
+
+@reboot (Cada reinicio)
+</code></pre>
+
+<p>También es posible especificar listas en los campos:</p>
+
+<pre><code>01 15 * 1-4 1,2,3,4   (a las 3:01 de la tarde de lunes a viernes de enero a abril)
+
+*/15 * 1-15 *     (cada 15 minutos  entre el 1 y el 15 de todos los meses)
+
+*/5 * * * * cp /etc/resolv.conf.bak /etc/resolv.conf  (Ejecutar cada 5 minutos el comando especificado.)
+
+$ 0 8 * * * env DISPLAY=:0.0 vlc /home/usuario/musica/archivo.mp3 (Programar que cada dia a las 8 se abra un mp3 con el vlc) 
+</code></pre>
+
+<p>El archivo donde se guardan las tareas a realizar es:</p>
+
+<blockquote><p>$ nano /var/spool/cron/usuario</p></blockquote>
+
+<p>También pueden añadirse o modificarse en este archivo.</p>
+
+<p>1.-</p>
+
+<p>En ocasiones, y especialmente con Archlinux, crontab cambia la codificación de caracteres de los scripts. Ejecutados directamente funcionan correctamente pero al colocarlos en el cron se muestran con caracteres estraños. La causa son las variables de entorno asociadas a la máquina y al demonio del cron. Para solucionar el problema:</p>
+
+<blockquote><p># nano /etc/environment</p></blockquote>
+
+<p>Y añadir la linea:</p>
+
+<p>LANG=es_ES.UTF-8</p>
+
+<p>Reiniciar cron:</p>
+
+<blockquote><p># /etc/rc.d/crond restart</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/cpulimit/">Cpulimit</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Limitar el uso de la cpu para determinados procesos.</p>
+
+<blockquote><p># cpulimit -e yes -l 20 (el de “yes”a un 20% de la cpu. Valor entre 0 y 100)</p>
+
+<p># cpulimit -p PID -l 50 (el proceso con el numero PID al 50%)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/cpufreq-set/">Cpufreq-set</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Define el perfil de la CPU [powersave, performance, conservative, userspace, ondemand] así como la velocidad y otros parámetros</p>
+
+<blockquote><p># cpufreq-set &#8211;governor powersave (Define el perfil de velocidad de la CPU. Perfiles disponibles: conservative, powersave, performance, ondemand, userspace)</p>
+
+<p># cpufreq-set -c 0 (Definimos que queremos aplicar el comando a la CPU 0. Si se omite, por defecto tomará este valor. El rango de este valor va de 0 a N-1 CPUs. Por ejemplo con 4 núcleos iria de 0 a 3)</p>
+
+<p># cpufreq-set &#8211;min 1200000 –governor PERFIL (define la velocidad mínima del procesador en Hz para el perfil seleccionado, requiere el uso de la opción &#8211;governor. En caso de que el valor sea inferior al permitido, se utiliza la velocidad mínima soportada por la CPU. Si tenemos más de una CPU o núcleo, debemos repetir el comando para cada CPU con la opción -c e indicar el número de esta)</p>
+
+<p># cpufreq-set &#8211;max 2101000 &#8211;governor ondemand (lo mismo que –min pero con la velocidad máxima de la CPU)</p>
+
+<p># cpufreq-set -f 1600000 (Especificamos que queremos que la CPU trabaje a la velocidad deseada. Requiere que estemos usando el perfil userspace)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -376,262 +560,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/convert/">Convert</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>redimensionar, cambiar formatos, extraer fotogramas, convertir blanco y negro imagenes. Este comando es tan extenso que él solo merecería un libro. Consulta más exhaustiva en http://www.imagemagick.org/script/convert.php o en español http://www.rpublica.net/imagemagick/intro.html#inicio_sec)</p>
-
-<blockquote><p>$ convert *.jpg imagenes.pdf        (Crear un pdf con todas las imágenes)</p>
-
-<p>$ convert {1,2,3,4,5,6,7,8,9}.png imagenes.pdf (Lo mismo especificando páginas y orden)</p>
-
-<p>$ convert color.jpg -monochrome blanconegro.jpg (Convertir a blanco y negro)</p>
-
-<p>$ convert original.png nueva.jpg        (Cambiar el formato de una imagen)</p>
-
-<p>$ convert &#8211;auto-orient in.jpg out.jpg  (Reorientar una foto)</p>
-
-<p>$ convert -resize 800x600 *.jpg %02d.jpg (Cambiar dimensiones de todas)</p>
-
-<p>$ convert -quality 40% imagen image_reducida         (lo mismo)</p>
-
-<p>$ convert -delay 60 1.jpg 2.jpg 3.jpg 123.gif (gif animado con varios jpg)</p>
-
-<p>$ convert 123.gif -adjoin 1-2-3.jpg     (extraer los fotogramas de un gif)</p>
-
-<p>$ convert -resize 200 awk.pdf[0] awk.png (primera imagen pdf a imagen)</p>
-
-<p>$ convert file.pdf file.jpg  (convertir pdf en jpg)</p>
-
-<p>$ convert imagen.png -pointsize 32 -gravity center -annotate 0 &#8220;Linux es genial&#8221; salida.png (Colocar un texto con medida 32 sin inclinación [-annnotate 0] en el centro [-gravity center] de una imagen )</p>
-
-<p>$ convert imagen.jpg -alpha set -channel A -fx 0.5 imagen.png (Aumentar la tranparencia de una imagen [valor de fx: 0 toda y 1 nada] y canviarla a jpg)</p>
-
-<p>$ convert -density 300 input.pdf -fill &#8220;rgb(255,255,255)&#8221; -opaque &#8220;rgb(29,5,114)&#8221; output.pdf  (convertir fondo negro a blanco para imprimir)</p>
-
-<p>$ convert entrada.jpg -font Bookman-Demi -pointsize 62 -stroke white -draw &#8220;text 5,60 &#8216;Texto&#8217;&#8221; salida.jpg (poner un texto en determinadas coordenadas [5,60] especificando fuente, medida y borde de las letras en blanco)</p></blockquote>
-
-<p>Algunas opciones:</p>
-
-<p>-fill red (Letra roja)</p>
-
-<p>-strokewidth 3 (Ancho del borde de letra)</p>
-
-<p>-border 3 (Emmarcar la imagen con un borde de 3 pixels)</p>
-
-<p>-frame  5x5+2+2 (Lo mismo estilo cuadro)</p>
-
-<p> Si quisieramos el texto en rojo añadiríamos: -fill red después de -stroke white)</p>
-
-<p>Notas.-”delay 60″ son 60 milisegundos por fotograma</p>
-
-<p>&#8220;resize 150×150&#8221; Respetará la proporción de la imagen.</p>
-
-<p>&#8220;imagen%02d&#8221;  Renombrará todas la imagenes con nombre “imagen” y dos dígitos.</p>
-
-<p>&#8220;imagen%03d&#8221;   Igual pero con tres dígitos.</p>
-
-<blockquote><p>$ ifconfig | convert -background yellow -fill black -font Courier -pointSize 14 label:@- ifconfig.png  (convertir la salida de un comando a imagen png)</p></blockquote>
-
-<p>ifconfig .- comando que se ejecuta</p>
-
-<p>-background   .- color del fondo</p>
-
-<p>-fill    .- color del texto</p>
-
-<p>-font  .-   fuente del texto</p>
-
-<p>-pointSize .-tamaño del texto</p>
-
-<p>label:@-    .-Nombre del archivo a generar</p>
-
-<p>Archivos nombre de fuentes, colores: /etc/ImageMagick/</p>
-
-<p>Tambien puede cambiarse el nombre de la fuente por su archivo:</p>
-
-<p>-font /home/usuario/.fonts/Albert.ttf</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/contrasenas/">Contraseñas</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>1.-</p>
-
-<p>Eliminar contraseña de root. Iniciar sesión con un live-cd y montar la partición del discon duro [suponemos /dev/sda2]</p>
-
-<pre><code># mount /dev/sda2 /media/sda2
-
-# gedit /dev/sda2/etc/passwd 
-</code></pre>
-
-<p>Y en la linea: root:x:0:0:root/root:/bin/bash</p>
-
-<p>Borrar la “x”, dejandola asi: root::0:0:root/root:/bin/bash y repetir la operación con el usuario normal.</p>
-
-<p>Reiniciar</p>
-
-<p>Activar  root en gdm [parecido con otros selectores de sesión: lightdm, xdm&#8230;]</p>
-
-<pre><code># gedit /etc/gdm/gdm.conf 
-</code></pre>
-
-<p>Cambiar la linea:  AllowRoot=false   por AllowRoot=true</p>
-
-<pre><code># passwd root 
-</code></pre>
-
-<p>Entrar la contraseña</p>
-
-<p>2.-</p>
-
-<p>Cambiar el tiempo en que el sistema &#8220;olvidará&#8221; la contraseña después de un sudo:</p>
-
-<pre><code># nano /etc/sudoers 
-</code></pre>
-
-<p>Y añadir la línea: Defaults timestamp_timeout = 5</p>
-
-<p>Donde el 5 es el tiempo en minutos que la contraseña será guardada.</p>
-
-<p>3.-</p>
-
-<p>Otra forma para cuando se pierde la contraseña</p>
-
-<p>Entrar con un cd live y visualizar /etc/shadow del sistema instalado y buscar el  usuario. La estructura es parecida a:</p>
-
-<p>pepe:$1$YpVPtTE9$jNPGevJ8IjHyAqh0h04V4.:13277:0:99999:7:::</p>
-
-<p>Borrar lo que sigue al nombre del usuario para que quede:</p>
-
-<p>pepe::13277:0:99999:7:::</p>
-
-<p>de este modo el usuario no tendrá contraseña y cuando se pida, dar al intro.  Tras reiniciar, cuando aparezca el menu de grub, situarse con el cursor en la línea del kernel que se quiera usar. Pulsar &#8216;e&#8217; para editar la entrada y editar la línea kernel [pulsando &#8216;e&#8217; de nuevo]. Añadir al final de la línea lo siguiente:</p>
-
-<p>init=/bin/bash</p>
-
-<p>Esto hace que el sistema arranque una shell root sin pedir password. Es posible que el teclado esté en inglés. Pulsar &#8216;b&#8217; para comenzar el arranque del kernel. La partición raíz suele montarse como sólo lectura, asi que se deberá montar como lectura/escritura:</p>
-
-<blockquote><p># mount -o remount,rw /dev/hda2</p></blockquote>
-
-<p>Por último, cambiar la clave de root ejecutando:</p>
-
-<blockquote><p># passwd root</p></blockquote>
-
-<p>4.-</p>
-
-<p>Establecer norma en el sistema de que la contraseña tenga como nímino 8 caracteres:</p>
-
-<blockquote><p># nano /etc/pam.d/common-password</p></blockquote>
-
-<p>Y dejar la linea:</p>
-
-<p>password        [success=2 default=ignore]      pam_unix.so obscure sha512 min=8</p>
-
-<p>5.-</p>
-
-<p>Página donde comprobar la fortaleza de una contraseña: <a href="https://howsecureismypassword.net/">https://howsecureismypassword.net/</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/conspy/">Conspy</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Acceso a las tty1-6 en local o remoto.</p>
-
-<blockquote><p># conspy 1 (entra en la tty1)</p></blockquote>
-
-<p>Para salir pulsar tres veces seguidas la tecla “Esc”</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/114/">&larr; Older</a>
@@ -647,12 +575,24 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1334</li>
+	<li>1337</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/rzip/">rzip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/bzless/">bzless</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/bzexe/">bzexe</a>
+      </li>
     
       <li class="post">
         <a href="/blog/lzma/">lzma</a>
@@ -680,18 +620,6 @@
     
       <li class="post">
         <a href="/blog/compress/">compress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/chronic/">chronic</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/pvesh/">pvesh</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/honeyproxy/">honeyproxy</a>
       </li>
     
   </ul>

