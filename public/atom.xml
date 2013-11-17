@@ -4,7 +4,7 @@
   <title><![CDATA[TRACTATUS ELEMENTALIS]]></title>
   <link href="https://tractatuslapipaplena.herokuapp.com/atom.xml" rel="self"/>
   <link href="https://tractatuslapipaplena.herokuapp.com/"/>
-  <updated>2013-11-16T21:00:44+01:00</updated>
+  <updated>2013-11-17T05:42:19+01:00</updated>
   <id>https://tractatuslapipaplena.herokuapp.com/</id>
   <author>
     <name><![CDATA[templix]]></name>
@@ -12,6 +12,70 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[pvesh]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/pvesh/"/>
+    <updated>2013-11-17T05:42:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/pvesh</id>
+    <content type="html"><![CDATA[<p>ssh restrictivo propio de proxmox.</p>
+
+<blockquote><p>$ pvesh get /nodes/virtual1/qemu (Obtener un listado de todas las máquinas virtuales)</p>
+
+<p>$ pvesh create /nodes/virtual1/qemu/100/status/start (Arrancar la VM con id 100)</p>
+
+<p>$ pvesh get /nodes/virtual1/qemu/100/config (Obtener toda la configuración de la VM con id 100)</p>
+
+<p>$ pvesh delete /nodes/virtual1/qemu/100 (Borrar la máquina virtual con id 100)</p>
+
+<p>$ pvesh get /nodes/virtual1/storage (Obtener la información de los <em>Storages</em>)</p>
+
+<p>$ pvesh create /access/users -userid usuario@pve (Crear usuario)</p>
+
+<p>$ pvesh delete /access/users/usuario@pve (Eliminar usuario)</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[honeyproxy]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/honeyproxy/"/>
+    <updated>2013-11-17T05:42:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/honeyproxy</id>
+    <content type="html"><![CDATA[<p>[python-pip]</p>
+
+<p>Analiza el tráfico web. Instalación:</p>
+
+<blockquote><p># pip install pyOpenSSL pyasn1 Twisted Autobahn</p>
+
+<p>$ git clone &#8211;recursive git://github.com/mhils/HoneyProxy.git</p>
+
+<p>$ cd HoneyProxy</p>
+
+<p># python honeyproxy.py &#8211;no-gui -a 192.168.1.15 (Arrancar el servicio)</p></blockquote>
+
+<pre><code>HoneyProxy has been started!
+
+Configuration Details (normal users: ignore):
+
+GUI: http://honey:zhw78b35ioynhg8vr4jcfmn5f326d4e4@localhost:8081/app/
+
+Proxy Address: 192.168.1.15:8080
+
+WebSocket Port: 8082
+
+Auth user: honey
+
+Auth key: zhw78b35ioynhg8vr4jcfmn5f326d4e4
+</code></pre>
+
+<p>Una vez instalado y arrancado el servicio, configurar el navegador para su uso en Editar/Preferencias/Avanzado/Red/Configurar la conexión, clicar en &#8220;Configuración manual del proxy&#8221; y en servidor intermediario de HTTP porner la ip de la máquina local o remota puesta al arrancar la aplicación [192.168.1.15 en este caso] y el puerto 8080. Los informes, colocando en la barra de navegación la dirección que muestra al arrancar el servicio, en este caso: http://honey:zhw78b35ioynhg8vr4jcfmn5f326d4e4@localhost:8081/app/ (usuario: honey y key: zhw78b35ioynhg8vr4jcfmn5f326d4e4). Por defecto los informes se guardan en ./dump/sites. Para parar el servicio, matar el proceso:</p>
+
+<pre><code>$ ps aux | grep honeyproxy
+
+$ kill -9 PID
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[owl]]></title>
@@ -459,114 +523,6 @@ current=/var/lib/integrit/current.cdb
 <p>&#8211;html-output archivo.html (Mandar el resultado a un archivo que no sea el por defecto. Precisa tambien -H)</p>
 
 <p>Nota.- La visualización del archivo.html ha de realizarse como root [# firefox archivo.html]</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[thunar]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/thunar/"/>
-    <updated>2013-11-09T06:16:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/thunar</id>
-    <content type="html"><![CDATA[<p>Escritorio.</p>
-
-<blockquote><p>$ thunar -B (Con varios ficheros seleccionados, al pulsar F2 se abre la ventana para renombrarlos)</p>
-
-<p>$ thunar-volman-settings (Abre el gestor de medios extraíbles)</p></blockquote>
-
-<p>1.-</p>
-
-<p>Modificar el tema de iconos por defecto:</p>
-
-<p>Descomprimir la carpeta de iconos y moverla:</p>
-
-<blockquote><p># mv GartoonRedux /usr/share/icons</p></blockquote>
-
-<p>Editar o crear el archivo:</p>
-
-<blockquote><p>$ nano .gtkrc-2.0</p></blockquote>
-
-<p>Y modificar o añadir la linea:</p>
-
-<p>gtk-icon-theme-name = &#8220;GartoonRedux&#8221;</p>
-
-<p>Al abrir nuevamente thunar, se muestran los cambios.</p>
-
-<p>2.-</p>
-
-<p>Para habilitar el automontado de dispositivos, además de configurarlo en las propiedades, en algunas distros se precisan los paquetes gvfs gvfs-afc</p>
-
-<p>3.-</p>
-
-<p>Para incluir en el menú contextual la opción &#8220;Abrir como root&#8221;, en &#8220;editar/Configurar acciones personalizadas&#8221;, &#8220;añadir&#8221; [+] y en la pestaña &#8220;Basico&#8221; colocar en el cuadro de diálogo:</p>
-
-<pre><code>nombre: Abrir directorio como root
-
-descripcion: Abrir directorio con privilegios de root
-
-comando: gksu thunar %f
-
-icono: opcional 
-</code></pre>
-
-<p>Y en la pestaña &#8220;condiciones generales&#8221;:</p>
-
-<pre><code>Patrón de archivos: *
-
-Aparece si la selección contiene:  Macamos la casilla de directorio y la de archivo 
-</code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[virtualbox]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/virtualbox/"/>
-    <updated>2013-11-09T06:09:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/virtualbox</id>
-    <content type="html"><![CDATA[<p>[vitualbox-guest-utils]</p>
-
-<p>Herramienta que permite la virtualización de sistemas operativos.</p>
-
-<p>En la página https://www.virtualbox.org/wiki/Downloads apartado &#8220;VirtualBox 4.2 Oracle VM VirtualBox Extension Pack&#8221; clicar en &#8220;All platforms&#8221; y Descargar el paquete de extensiones Oracle_VM_VirtualBox_Extension_Pack-4.2.0-80737.vbox-extpack. Para instalarlo, doble clic en el paquete y seguir instrucciones [aceptar condiciones y contraseña de root].</p>
-
-<blockquote><p># usermod -aG vboxusers USUARIO (Agregar usuario al grupo vboxusers)</p>
-
-<p># gpasswd -a $USER vboxsf (Agregar usuario al grupo vboxsf)</p>
-
-<p># modprobe vboxdrv (Activar módulo)</p>
-
-<p>$ VBoxManage extpack install Oracle_VM_VirtualBox_Extension_Pack-4.2.16-86992.vbox-extpack (instala un pack de extensiones)</p>
-
-<p>$ VBoxManage list extpacks  (Ver paquetes de expansión instalados)</p></blockquote>
-
-<p>1.-</p>
-
-<p>Gestión de máquina virtuales desde consola:</p>
-
-<p>Para la gestión de máquinas virtuales sin interfaz gráfica, se utiliza VboxHeadless para tal proposito que incluye diferentes comandos que veremos en las próximas líneas.</p>
-
-<blockquote><p>$ VBoxManage createvm &#8211;name &#8220;maquina_virtual&#8221; &#8211;register (Creamos una máquina virtual con el nombre &#8220;maquina_virtual&#8221;)</p>
-
-<p>$ VBoxManage modifyvm &#8220;maquina_virtual&#8221; &#8211;memory 780 &#8211;acpi on &#8211;boot1 dvd &#8211;nic1 bridged &#8211;bridgeadapter1 eth0 &#8211;ostype Ubuntu (Modificamos la máquina virtual que hemos creado, asignándole 780MB de RAM, activando ACPI, definiendo que arranque desde CD/DVD, indicando que la tarjeta de red sea en modo bridge y que el la tarjeta de red del sistema a usar es la eth0, y finalmente definiendo que la máquina será un Ubuntu.)</p>
-
-<p>$ VBoxManage createvdi &#8211;filename ~/VirtualBox\VMs/maquina_virtual/maquina_virtual-disk01.vdi &#8211;size 30000 (Creamos un disco duro en formato VDI de 30 GB)</p>
-
-<p>$ VBoxManage storagectl &#8220;maquina_virtual&#8221; &#8211;name &#8220;IDE Controller&#8221; &#8211;add ide (Añadimos un controlador IDE para posteriormente conectar el disco duro)</p>
-
-<p>$ VBoxManage storageattach &#8220;maquina_virtual&#8221; &#8211;storagectl &#8220;IDE Controller&#8221; &#8211;port 0 &#8211;device 0 &#8211;type hdd &#8211;medium ~/VirtualBox\VMs/maquina_virtual/maquina_virtual-disk01.vdi (Asignamos el disco duro a la máquina virtual)</p>
-
-<p>$ VBoxManage storageattach &#8220;maquina_virtual&#8221; &#8211;storagectl &#8220;IDE Controller&#8221; &#8211;port 1 &#8211;device 0 &#8211;type dvddrive &#8211;medium ~/IS</p></blockquote>
-
-<p>O/ubuntu-12.04.2-server-i386.iso (Asignamos a la máquina Virtual una ISO de instalación, en este caso de Ubuntu Server)</p>
-
-<blockquote><p>$ VBoxManage modifyvm &#8220;maquina_virtual&#8221; &#8211;pae on (activamos PAE en la máquina Virtual)</p>
-
-<p>$ VBoxManage modifyvm &#8220;maquina_virtual&#8221; &#8211;memory 512 (Modificamos la RAM a 512MB)</p>
-
-<p>$ VBoxHeadless &#8211;startvm &#8220;maquina_virtual&#8221; (arranca una máquina virtual)</p>
-
-<p>$ VBoxHeadless &#8211;startvm &#8220;maquina_virtual&#8221; -e &#8220;TCP/Ports=7000&#8221; &amp; (Arrancamos la máquina virtual indicando que queremos un servidor RDP para conexión remota en el puerto 7000)</p>
-
-<p>$ VBoxManage controlvm &#8220;maquina_virtual&#8221; poweroff (Para la máquina virtual. Recomendable parar primero la máquina virtual desde la maquina virtual y luego ejecutar esto)</p></blockquote>
 ]]></content>
   </entry>
   

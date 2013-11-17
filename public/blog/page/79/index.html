@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Mata el proceso de la aplicación especificada $ killall -9 scribus $ killall gnome-panel (reiniciar los paneles) $ killall -INFO dd (chequear el &hellip;">
+  <meta name="description" content="Identifica redes inalambricas de forma pasiva recolectando paquetes, detecta redes ocultas, clientes asociados y es capaz de sniffar el tráfico de &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,125 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/kismet/">Kismet</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Identifica redes inalambricas de forma pasiva recolectando paquetes, detecta redes ocultas, clientes asociados y es capaz de sniffar el tráfico de las redes no encriptadas.</p>
+
+<blockquote><p># nano /etc/kismet/kismet.conf</p></blockquote>
+
+<p>Buscar la linea:  source=none,none,addme</p>
+
+<p>Y sustituirla por:  source=ath5k,eth1,wifi</p>
+
+<p>en la que “ath5k” es el driver que usamos, “eth1” la interfaz de red y “wifi” cualquier nombre.</p>
+
+<p>También en este archivo pueden configurarse otros parámetros (Puerto, host permitido, máximo de clientes, logs&#8230;) :</p>
+
+<pre><code>tcpport=2501
+
+allowedhosts=127.0.0.1
+
+maxclients=5
+
+logtemplate=/var/log/kismet/
+</code></pre>
+
+<p>En el directorio de logs, los archivos que interesan son los .pcap que pueden visionarse con wireshark.</p>
+
+<blockquote><p># kismet   (lanzar la aplicación)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/kippo/">Kippo</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Construir un honeypot por ssh.</p>
+
+<p>Descargar y desenpaquetar kippo:</p>
+
+<blockquote><p>$ wget https://kippo.googlecode.com/files/kippo-0.5.tar.gz</p>
+
+<p>$ tar xzf kippo-0.5.tar.gz</p>
+
+<p>$ cd kippo-0.5</p>
+
+<p>$ ./start.sh</p></blockquote>
+
+<p>Configuración de iptables:</p>
+
+<blockquote><p># iptables -A INPUT -i eth0 -p tcp &#8211;dport 22 -j ACCEPT</p>
+
+<p># iptables -A INPUT -i eth0 -p tcp &#8211;dport 2222 -j ACCEPT</p>
+
+<p># iptables -A PREROUTING -t nat -i eth0 -p tcp &#8211;dport 22 -j REDIRECT &#8211;to-port 2222</p></blockquote>
+
+<p>Los intentos de acceso ssh quedan registrados en el subdirectorio log:</p>
+
+<blockquote><p>$ cd kippo-0.5/log</p>
+
+<p>$ tail -f kippo.log</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -586,104 +705,6 @@ y (Copiar la dirección de la página al portapapeles)
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/jp2a/">Jp2a</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Convertir imagenes jpeg a ascii.</p>
-
-<blockquote><p>$ jp2a &#8211;background=light -b &#8211;colors imagen.jpg  (Sin fondo, con borde y color)</p>
-
-<p>$ jp2a &#8211;color &#8211;html &#8211;fill &#8211;background=dark entrada.jpg –output=salida.html (con un html de salida)</p>
-
-<p>$ jp2a URL/imagen.jpg  (Con una URL de entrada)</p></blockquote>
-
-<p>Algunas opciones:</p>
-
-<pre><code>--size=40x25   (Especificando medidas)
-
---html-title=Imagen  (con un titulo)
-
---html-no-bold (Sin caracteres en negrita)
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/joomla/">Joomla</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Recuperar la clave para acceder al administrador.</p>
-
-<p>Instalar webmin y desde el navegador: https://localhost:10000</p>
-
-<p>En servidores -> Servidor BD MySQL clicar sobre la base de datos de joomla, editar la tabla jos_users i mostrar los datos id. Los usuarios estan numerados a partir del número 62. Editamos la fila del administrator admin (por ejemplo), borramos la clave y le ponemos esta:</p>
-
-<pre><code>1c7a92ae351d4e21ebdfb897508f59d6 
-</code></pre>
-
-<p>Guardar y entrar como administrator en nuestra web con el nombre de usuario: admin y la contraseña: holamundo</p>
-
-<p>Luego volver a modificar la contraseña desde el panel de control de joomla.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/80/">&larr; Older</a>
@@ -699,12 +720,20 @@ y (Copiar la dirección de la página al portapapeles)
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1326</li>
+	<li>1328</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/pvesh/">pvesh</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/honeyproxy/">honeyproxy</a>
+      </li>
     
       <li class="post">
         <a href="/blog/owl/">owl</a>
@@ -736,14 +765,6 @@ y (Copiar la dirección de la página al portapapeles)
     
       <li class="post">
         <a href="/blog/apt-fast/">apt-fast</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/integrit/">integrit</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/adminer/">adminer</a>
       </li>
     
   </ul>
