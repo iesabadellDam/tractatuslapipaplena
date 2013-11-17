@@ -9,7 +9,8 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="[comandos derivados: mpgsplit, mpgcat, mpgjoin, mpginfo, mpgdemux] manipulación de archivos mpeg. mpgtx -i equivalente a mpginfo mpgtx -s equivalente &hellip;">
+  <meta name="description" content="muestra estadísticas relacionadas con la CPU. # mpstat 2 -P ALL (actualiza cada 2 segundos)
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +76,102 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/mpstat/">Mpstat</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>muestra estadísticas relacionadas con la CPU.</p>
+
+<blockquote><p># mpstat 2 -P ALL (actualiza cada 2 segundos)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/mplayer/">Mplayer</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Reproductor de video</p>
+
+<blockquote><p>$ mplayer -vo aa movie.avi   (en ascii)</p>
+
+<p>$ mplayer -vo aa:extended:driver=curses:contrast=50 movie.avi</p>
+
+<p>$ mplayer -vo caca movie.avi  (en color)</p>
+
+<p>$ mplayer -vo fbdev file.mpeg  (reproduce en blanco y negro)</p>
+
+<p>$ mplayer -vo fbdev2 file.mpeg (reproduce en color)</p>
+
+<p>$ mplayer -vo fbdev2 -fs -zoom -double file.avi</p></blockquote>
+
+<p>-vo -help (ver opciones del driver)</p>
+
+<blockquote><p>$ mplayer -cache 128 -tv driver=v4l2:width=176:height=177 -vo xv tv:// -noborder -geometry &#8220;95%:93%&#8221; -ontop  (Abre una ventana en la esquina inferior izquierda con imagenes de la webcam)</p>
+
+<p>$ mplayer mms://flux.cxnlive.com/oldiesfm  (Escuchar una emisora)</p>
+
+<p>$ mplayer -nolirc http://5253.live.streamtheworld.com/VIRGINRADIO_DUBAIAAC (Otra forma de escuvhar una emisora)</p>
+
+<p>$ mplayer http://192.168.1.115/img/video.asf -frames 1 -vo jpeg:quality=100:maxfiles=1  (Tomar una imagen [frames 1] de una ubicación en la red)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -497,144 +594,6 @@ Fin (Ir al final de la lista)
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/motion/">Motion</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Video vigilancia por acceso remoto. La configuración que viene por defecto es  suficiente, aunque siempre puede pulirse. Aquí se tratará solo de los mínimos parámetros a modificar para tener motion funcional en local y en remoto .</p>
-
-<p>Abrir los puertos 8080 y 8081 del router y del firewal (Si no se modifican los por defecto)</p>
-
-<p>En debian y derivados</p>
-
-<pre><code># nano /etc/motion/motion.conf 
-
-daemon on    (Permitir actuar como demonio) 
-
-webcam_localhost off   (permitir acceso remoto) 
-
-# nano /etc/default/motion 
-
-start_motion_daemon=yes 
-
-# /etc/init.d/motion start 
-</code></pre>
-
-<p>En arch</p>
-
-<pre><code># nano /etc/motion/motion.conf 
-
-daemon on 
-
-webcam_localhost off 
-
-Y, si no se va a usar base de datos, comentar los parámetros del   apartado mysql: 
-
-#sql_log_image on 
-
-#sql_log_snapshot on 
-
-#sql_log_mpeg off 
-
-#sql_log_timelapse off 
-
-#sql_query insert .... 
-
-# mkdir /var/run/motion  (Crear directorio para el PID) 
-
-No existe el /etc/default/motion 
-
-# /etc/rc.d/motion start 
-</code></pre>
-
-<p>Para acceder a la cámara desde el navegador:</p>
-
-<p>http://ip_o_host:8081</p>
-
-<p>Para acceder a la configuración:</p>
-
-<p>http://ip_o_host:8080</p>
-
-<p>En este caso descomentar/modificar en /etc/motion/motion.conf</p>
-
-<p>control_localhost off    (para acceder a la configuración remotamente)</p>
-
-<p>control_authentication username:password (Pide identificación)</p>
-
-<p>substituir por los datos correctos, por ejemplo:</p>
-
-<p>control_authentication juanito:password</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/most/">Most</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Visualizar páginas man con colores.</p>
-
-<blockquote><p># update-alternatives &#8211;config pager</p></blockquote>
-
-<p>Seleccionar el número que indique para most</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/67/">&larr; Older</a>
@@ -650,7 +609,7 @@ No existe el /etc/default/motion
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1337</li>
+	<li>1339</li>
 	</ul>
 </section>
 <section>
@@ -659,6 +618,18 @@ No existe el /etc/default/motion
     
       <li class="post">
         <a href="/blog/rzip/">rzip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/rl/">rl</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/freeradius/">freeradius</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/copy/">Copy</a>
       </li>
     
       <li class="post">
@@ -683,18 +654,6 @@ No existe el /etc/default/motion
     
       <li class="post">
         <a href="/blog/ts/">ts</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/pee/">pee</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/errno/">errno</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/compress/">compress</a>
       </li>
     
   </ul>

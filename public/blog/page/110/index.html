@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Configuración automática de la red dhcp $ dhcpcd eth0
-">
+  <meta name="description" content="Muestra cuadros de diálogo para scripts $ dialog &#8211;calendar &#8220;mes de junio&#8221; 0 0 1 6 2010 (&#8220;0 0&#8221; indica que se &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +75,214 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/dialog/">Dialog</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Muestra cuadros de diálogo para scripts</p>
+
+<blockquote><p>$ dialog &#8211;calendar &#8220;mes de junio&#8221; 0 0 1 6 2010  (&#8220;0 0&#8221; indica que se autodimensiona el cuadro. El tamaño estándar de una terminal es un ancho de 80 por un largo de 25. &#8220;1 6 2010&#8221; fecha con formato dia/mes/año)</p>
+
+<p>$ dialog &#8211;checklist &#8220;Escoger servicios&#8221; 0 0 3 vnc &#8220;&#8221; &#8220;&#8221; ssh &#8220;&#8221; &#8220;&#8221; cups &#8220;&#8221; &#8220;&#8221; (&#8220;3&#8221; numero de entradas visibles, si hay más se usará el scroll. Las &#8220;&#8221; indican parámetros vacios que puedan sustituirse por palabras o números, el primero de los cuales aparecerá en el cuadro de diálogo [vnc 1 A ssh 2 B cups 3 C])</p>
+
+<p>$ dialog &#8211;dselect /home/usuario/ 0 0  (mostrará el contenido del directorio mencionado)</p>
+
+<p>$ dialog &#8211;editbox /etc/fstab 0 0   (mostrará el contenido del fichero seleccionado)</p>
+
+<p>$ dialog &#8211;fselect /home/usuario/ 0 0  (Mostrará dos ventanas una con los directorios y la otra con los ficheros)</p>
+
+<p>$ dialog &#8211;gauge &#8220;Uso del software libre&#8221; 0 0 0  (Muestra el progreso de un proceso)</p>
+
+<p>$ for var in 0 10 20 30 40 50 60 70 80 90 100; do sleep 1; echo $var; done | dialog &#8211;gauge &#8220;Total completado&#8221; 6 60 0 (concatenación de dialogs)</p>
+
+<p>$ dialog &#8211;infobox &#8220;Esto va a explotar&#8230;.&#8221; 3 26  (Un cuadro con un texto)</p>
+
+<p>$ dialog &#8211;sleep 3 &#8211;infobox &#8220;Esto va a explotar&#8230;.&#8221; 3 26 (Vuelve al prompt a los 3 segundos)</p>
+
+<p>$ dialog &#8211;sleep 3 &#8211;title &#8220;AVISO&#8221; &#8211;infobox &#8220;Esto va a explotar en 3 segundos&#8230;.&#8221; 3 40; dialog &#8211;infobox &#8220;BOOOOOOOMMMM&#8221; 0 0 (Concatenación de dialogs)</p>
+
+<p>$ dialog &#8211;inputbox &#8220;Ingrese su nombre&#8221; 0 0 (Solicitar una linea de texto al usuario)</p>
+
+<p>$ dialog &#8211;passwordbox &#8220;Ingrese contraseña&#8221; 0 0 (Igual que inputbox pero no se muestra nada de lo que se ingresa en pantalla)</p>
+
+<p>$ dialog &#8211;title &#8220;Aquí me las den&#8221; &#8211;no-cancel &#8211;inputbox &#8220;Dejame un mensaje cariño&#8221; 0 0 &#8220;&#8221;  (Especificando un título, sin el botón de &#8220;cancelar&#8221; y con cajón para dejar un mensaje)</p>
+
+<p>$ dialog &#8211;inputmenu &#8220;Nombre del usuario&#8221; 0 0 3 &#8221; juan Perez&#8221; &#8220;c/ del Pulgar num 5&#8221; &#8220;Jose Gonzalez&#8221; &#8220;c/ pez num 11&#8221;  (Permite modificar el segundo concepto [La calle])</p>
+
+<p>$ dialog &#8211;menu &#8220;Escoge una distro&#8230;&#8221; 0 0 3 1 &#8220;Arch&#8221; 2 &#8220;Red Had&#8221; 3 &#8220;Ubuntu&#8221; 4 &#8220;Debian&#8221;</p>
+
+<p>$ dialog &#8211;mixedgauge &#8220;errores&#8221; 0 0 30 ubuntu distros</p>
+
+<p>$ dialog &#8211;msgbox &#8220;\n Aquí puedes poner un texto&#8221; 0 0   (Avisar de una acción o comunicación y separando el texto de la parte superior [\n])</p>
+
+<p>$ dialog &#8211;timeout 10 &#8211;clear &#8211;passwordbox &#8220;Entra la contraseña&#8221; 0 0 &#8220;&#8221;  (Especificando un tiempo para entrarla y limpiando la pantalla)</p>
+
+<p>$ dialog &#8211;backtitle &#8220;Sobre timeout&#8230;&#8221; &#8211;timeout 5 &#8211;pause &#8220;Espera un rato&#8230;&#8221; 10 10 5   (Esperar 5 segundos antes de volver al prompt y con el título en la parte superior de la ventana [&#8211;backtitle])</p>
+
+<p>$ dialog &#8211;radiolist &#8220;Escoger servicios&#8221; 0 0 3 vnc &#8220;&#8221; &#8220;&#8221; ssh &#8220;&#8221; &#8220;&#8221; cups &#8220;&#8221; &#8220;&#8221;  (parecido a checklist)</p>
+
+<p>$ dialog &#8211;no-shadow &#8211;tailbox /etc/fstab 0 0   (Mostrar últimas lineas de un archivo sin sombreado de la ventana)</p>
+
+<p>$ dialog &#8211;timebox &#8220;Tiempo de espera&#8221; 0 0 22 55 33</p>
+
+<p>$ dialog &#8211;extra-button &#8211;timebox &#8220;Tiempo de espera&#8221; 0 0 22 55 33  (Incluir un boton extra)</p>
+
+<p>$ dialog &#8211;defaultno &#8211;timebox &#8220;Tiempo de espera&#8221; 0 0 22 55 33  (Seleccionando por defecto &#8220;cancelar&#8221;)</p>
+
+<p>$ dialog &#8211;yesno &#8220;Quieres pasar a la siguiente opción?&#8221; 0 0 (Retornara un valor cero, si se selecciona YES o distinto de cero si se selecciona NO. Este valor se almacena en la variable $? y puede ser evaluado mediante un if, while,&#8230;)</p>
+
+<p>$ dialog &#8211;tailbox /var/log/fail2ban.log 20 100 (muestra en tiempo real las incidencias en el fichero mencionado. Equivalente a tail -f)</p></blockquote>
+
+<p>Algunos ejemplos prácticos de su uso en scripts:</p>
+
+<p>1.-</p>
+
+<blockquote><p>#!/bin/bash</p></blockquote>
+
+<p>dialog &#8211;menu &#8220;Opciones del script&#8221; 16 60 14 1 &#8220;Puertos abiertos&#8221; 2 &#8220;Intentos de acceso&#8221; 3 &#8220;las IPs externas e internas&#8221; 4 &#8220;Cantidad de intentos de ataques&#8221; 5 &#8220;Servicios activos&#8221; 6 &#8220;Salir&#8221;</p>
+
+<p>clear</p>
+
+<p>2.-</p>
+
+<blockquote><p>#!/bin/bash</p>
+
+<p># Escanear puertos abiertos</p></blockquote>
+
+<p>nmapResultat=$(sudo nmap -O localhost | grep &#8220;open&#8221; | awk &#8216;{print$1,$3}&#8217;)</p>
+
+<p>dialog &#8211;title &#8220;Resultado del escaneo de puertos&#8221; &#8211;msgbox &#8220;Los puertos abiertos son:</p>
+
+<blockquote><p>$nmapResultat&#8221; 0 0</p></blockquote>
+
+<p>clear</p>
+
+<p>3.-</p>
+
+<blockquote><p>#!/bin/bash</p>
+
+<p># Parar un servicio</p></blockquote>
+
+<p>dialog &#8211;title &#8220;samba&#8221; &#8211;yesno &#8220;Quieres detener samba?&#8221; 0 0</p>
+
+<p>case $? in</p>
+
+<p>0)</p>
+
+<p>sudo /etc/init.d/samba stop</p>
+
+<p>dialog &#8211;title &#8220;Info&#8221; &#8211;msgbox &#8220;samba detenido&#8221; 0 0;;</p>
+
+<p>1)</p>
+
+<p>dialog &#8211;title &#8220;Info&#8221; &#8211;msgbox &#8220;samba continua activo&#8221; 0 0 ;;</p>
+
+<p>255)</p>
+
+<p>dialog &#8211;title &#8220;Info&#8221; &#8211;msgbox &#8220;ESC presionado&#8230; samba activo&#8221; 0 0 ;;</p>
+
+<p>esac</p>
+
+<p>clear</p>
+
+<blockquote><p>$ dialog &#8211;title &#8220;Mensaje al mundo&#8221; &#8211;msgbox &#8220;\n      Hola a todos&#8221; 6 35</p>
+
+<p>$ dialog &#8211;yesno &#8220;¿Estás de acuerdo?&#8221; <code>tput lines</code> <code>tput cols</code></p>
+
+<p>$ dialog &#8211;menu &#8220;Escoger interfaz&#8221; 0 0 0 g &#8220;gnome&#8221; k &#8220;kde&#8221; x &#8220;xfce&#8221; 2>&amp;1</p></blockquote>
+
+<p>4.-</p>
+
+<blockquote><p>#!/bin/bash</p>
+
+<p># Respuestas  como variables</p></blockquote>
+
+<p>TMPFILE=&#8221;/tmp/scripttemp.$$&#8221;</p>
+
+<p>dialog &#8211;inputbox &#8220;Ingrese su nombre&#8221; 10 30 2> $TMPFILE</p>
+
+<p>N=<code>cat $TMPFILE</code></p>
+
+<p>dialog &#8211;inputbox &#8220;Ingrese su edad&#8221; 10 30 2> $TMPFILE</p>
+
+<p>E=<code>cat $TMPFILE</code></p>
+
+<blockquote><p># Borrar tmpfile</p></blockquote>
+
+<p>rm -f $TMPFILE</p>
+
+<p>dialog &#8211;infobox &#8220;$N tiene $E años&#8221; 3 50</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/di/">Di</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Muestra información sobre las particiones [un “df” mejorado]. Ver mi.</p>
+
+<blockquote><p>$ di</p>
+
+<p>$ di -c (Salida en CSV, para importar una hoja de cálculo)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -439,98 +646,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/declare/">Declare</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Listar las variables de entorno. En caso de que una función tenga el mismo nombre que un script tiene preferencia la función. Usado principalmente en scripts.</p>
-
-<blockquote><p>$ declare -f (Imprime las funciones alfabeticamente y su definición)</p>
-
-<p>$ declare -f funcion (Mostrará la especificada)</p>
-
-<p>$ declare -F (Lista sólo los nombres de la funciones)</p>
-
-<p>$ declare -p var (Saber el tipo de la variable &#8220;var&#8221;)</p>
-
-<p>$ declare -i var=5 (Declarar una variable de tipo entero)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/debugfs/">Debugfs</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Depurador de sistemas ext. Permite consultar datos del sistema en tiempo real.</p>
-
-<blockquote><p># debugfs (Entra en el promt de la aplicación. Pulsar letra &#8220;q&#8221; para salir del promt)</p></blockquote>
-
-<p>debugfs 1.42 (29-Nov-2011)</p>
-
-<p>debugfs: help (Muestra un listado de todas las opciones)</p>
-
-<p>debugfs: open /dev/sda2 (Abre un sistema de archivos)</p>
-
-<p>debugfs: stats (información de los superbloques)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/111/">&larr; Older</a>
@@ -546,7 +661,7 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1337</li>
+	<li>1339</li>
 	</ul>
 </section>
 <section>
@@ -555,6 +670,18 @@
     
       <li class="post">
         <a href="/blog/rzip/">rzip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/rl/">rl</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/freeradius/">freeradius</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/copy/">Copy</a>
       </li>
     
       <li class="post">
@@ -579,18 +706,6 @@
     
       <li class="post">
         <a href="/blog/ts/">ts</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/pee/">pee</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/errno/">errno</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/compress/">compress</a>
       </li>
     
   </ul>

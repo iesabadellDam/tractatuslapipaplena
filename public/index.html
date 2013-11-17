@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Compresor/descompresor. $ rzip archivo.txt (Substituye archivo.txt por archivo.txt.rz) $ rzip -d archivo.txt.rz (Descomprimir)
-">
+  <meta name="description" content="Compresor/descompresor. Crea los comprimidos con extensión .rz $ rzip archivo.txt (Substituye archivo.txt por archivo.txt.rz) $ rzip -o archivo.txt - &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -98,18 +97,184 @@
   
 
 
-<time datetime="2013-11-17T10:30:00+01:00" pubdate data-updated="true">17-11-2013</time>
+<time datetime="2013-11-17T12:48:00+01:00" pubdate data-updated="true">17-11-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Compresor/descompresor.</p>
+  <div class="entry-content"><p>Compresor/descompresor. Crea los comprimidos con extensión .rz</p>
 
 <blockquote><p>$ rzip archivo.txt (Substituye archivo.txt por archivo.txt.rz)</p>
 
-<p>$ rzip -d archivo.txt.rz (Descomprimir)</p></blockquote>
+<p>$ rzip -o archivo.txt -d archivo.txt.rz (Descomprimir. Imprescindible dar el nombre del archivo de salida [-o])</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/rl/">Rl</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-17T12:48:00+01:00" pubdate data-updated="true">17-11-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[randomize-lines]</p>
+
+<p>Muestra lineas de un archivo o de la entrada standard de forma aleatoria.</p>
+
+<blockquote><p>$ rl /etc/fstab (Forma básica)</p>
+
+<p>$ seq 10 | rl &#8211;count 2 (2 números del 0 al 10)</p>
+
+<p>$ rl -n /etc/fstab -o archivo (Numerando las lineas, colocandolas de forma aleatoria y guardando el resultado en &#8220;archivo&#8221;)</p>
+
+<p>$ rl -o archivo -c 5 archivo.txt (Guardar en archivo [-o] 5 lineas [-c] del texto archivo.txt)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/freeradius/">Freeradius</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-17T12:48:00+01:00" pubdate data-updated="true">17-11-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[libssl-dev freeradius-mysql freeradius-utils]</p>
+
+<p>Servidor.</p>
+
+<p>Configurar la base de datos:</p>
+
+<blockquote><p># nano /etc/freeradius/sites-enabled/default</p></blockquote>
+
+<p>En los apartados &#8220;authorize&#8221; y &#8220;accouting&#8221; descomentar las lineas sql</p>
+
+<blockquote><p># nano /etc/freeradius/radius.conf</p></blockquote>
+
+<p>Descomentar la linea $INCLUDE sql.conf</p>
+
+<p>Configurar usuario, contraseña y mensaje de bienvenida:</p>
+
+<blockquote><p># nano /etc/freeradius/users</p></blockquote>
+
+<p>USUARIO Cleartext-Password := &#8220;CONTRASEÑA&#8221;</p>
+
+<pre><code>    Reply-Message "Entrando en el servidor el usuario %{User_Name}"
+</code></pre>
+
+<p>Configurar usuario y contraseña del router o punto de acceso:</p>
+
+<blockquote><p># nano /etc/freeradius/clients.conf</p></blockquote>
+
+<p>client 192.168.1.0/24 {</p>
+
+<pre><code>secret      = CONTRASEÑA_ROUTER
+
+shortname   = USUARIO_ROUTE
+</code></pre>
+
+<p>Finalmente entrar en router y colocar la ip del equipo donde hemos instalado el servidor. Reiniciar el servicio.</p>
+
+<blockquote><p># /etc/init.d/freeradius restart</p>
+
+<p># freeradius -X (Arrancar em modo debug)</p>
+
+<p># radtest USUARIO testing 127.0.0.1 1812 testing123 (Testear si la configuración de un usuario está correcta)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/copy/">Copy</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-17T12:48:00+01:00" pubdate data-updated="true">17-11-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Carpetas en la nuve tipo Dropbox. Entrar en http://www.copy.com despues de registrarse y logearse, clicar en la pestaña &#8220;Install App&#8221; con lo que se nos descargará la aplicacion de escritorio.</p>
+
+<blockquote><p>$ tar -zvxf copy_agent-1.28.0657.tgz</p>
+
+<p>$ cd copy/x86_64/</p>
+
+<p>$ ./CopyAgent &#8211;install (Donde pondremos nombre de usuario y contraseña del registro y carpeta a compartir. Por defecto Copy)</p>
+
+<p>$ ./CopyConsole (Forzar actualizaciones)</p></blockquote>
 </div>
   
   
@@ -357,128 +522,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/pee/">Pee</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-11-17T07:27:00+01:00" pubdate data-updated="true">17-11-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[moreutils]</p>
-
-<p>Parecido al comando tee [ver] ejecutando cada uno de los comandos</p>
-
-<blockquote><p>$ pee ls pwd &#8220;ip a&#8221;</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/errno/">Errno</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-11-17T07:27:00+01:00" pubdate data-updated="true">17-11-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[moreutils]</p>
-
-<p>Muestra los errores de código y sus descripciones.</p>
-
-<blockquote><p>$ errno -l (Todo el listado)</p>
-
-<p>$ errno -s desconocido (Busca del listado el que contenga la descripción &#8220;desconocido&#8221;)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/compress/">Compress</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-11-17T07:27:00+01:00" pubdate data-updated="true">17-11-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Comprimir archivos. Substituye el fichero orginal añadiendole .Z. Este comando es el compresor original de Unix. Su algoritmo de compresión es bastante primitivo, pero se mantiene por razones históricas de compatibilidad.</p>
-
-<blockquote><p>$ compress fichero.txt (Creará fichero.txt.Z)</p>
-
-<p>$ uncompress fichero.txt.Z (Descomprmir)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -492,7 +535,7 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1337</li>
+	<li>1339</li>
 	</ul>
 </section>
 <section>
@@ -501,6 +544,18 @@
     
       <li class="post">
         <a href="/blog/rzip/">rzip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/rl/">rl</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/freeradius/">freeradius</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/copy/">Copy</a>
       </li>
     
       <li class="post">
@@ -525,18 +580,6 @@
     
       <li class="post">
         <a href="/blog/ts/">ts</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/pee/">pee</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/errno/">errno</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/compress/">compress</a>
       </li>
     
   </ul>

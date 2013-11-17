@@ -4,7 +4,7 @@
   <title><![CDATA[TRACTATUS ELEMENTALIS]]></title>
   <link href="https://tractatuslapipaplena.herokuapp.com/atom.xml" rel="self"/>
   <link href="https://tractatuslapipaplena.herokuapp.com/"/>
-  <updated>2013-11-17T10:30:46+01:00</updated>
+  <updated>2013-11-17T12:48:06+01:00</updated>
   <id>https://tractatuslapipaplena.herokuapp.com/</id>
   <author>
     <name><![CDATA[templix]]></name>
@@ -16,13 +16,98 @@
   <entry>
     <title type="html"><![CDATA[rzip]]></title>
     <link href="https://tractatuslapipaplena.herokuapp.com/blog/rzip/"/>
-    <updated>2013-11-17T10:30:00+01:00</updated>
+    <updated>2013-11-17T12:48:00+01:00</updated>
     <id>https://tractatuslapipaplena.herokuapp.com/blog/rzip</id>
-    <content type="html"><![CDATA[<p>Compresor/descompresor.</p>
+    <content type="html"><![CDATA[<p>Compresor/descompresor. Crea los comprimidos con extensión .rz</p>
 
 <blockquote><p>$ rzip archivo.txt (Substituye archivo.txt por archivo.txt.rz)</p>
 
-<p>$ rzip -d archivo.txt.rz (Descomprimir)</p></blockquote>
+<p>$ rzip -o archivo.txt -d archivo.txt.rz (Descomprimir. Imprescindible dar el nombre del archivo de salida [-o])</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[rl]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/rl/"/>
+    <updated>2013-11-17T12:48:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/rl</id>
+    <content type="html"><![CDATA[<p>[randomize-lines]</p>
+
+<p>Muestra lineas de un archivo o de la entrada standard de forma aleatoria.</p>
+
+<blockquote><p>$ rl /etc/fstab (Forma básica)</p>
+
+<p>$ seq 10 | rl &#8211;count 2 (2 números del 0 al 10)</p>
+
+<p>$ rl -n /etc/fstab -o archivo (Numerando las lineas, colocandolas de forma aleatoria y guardando el resultado en &#8220;archivo&#8221;)</p>
+
+<p>$ rl -o archivo -c 5 archivo.txt (Guardar en archivo [-o] 5 lineas [-c] del texto archivo.txt)</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[freeradius]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/freeradius/"/>
+    <updated>2013-11-17T12:48:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/freeradius</id>
+    <content type="html"><![CDATA[<p>[libssl-dev freeradius-mysql freeradius-utils]</p>
+
+<p>Servidor.</p>
+
+<p>Configurar la base de datos:</p>
+
+<blockquote><p># nano /etc/freeradius/sites-enabled/default</p></blockquote>
+
+<p>En los apartados &#8220;authorize&#8221; y &#8220;accouting&#8221; descomentar las lineas sql</p>
+
+<blockquote><p># nano /etc/freeradius/radius.conf</p></blockquote>
+
+<p>Descomentar la linea $INCLUDE sql.conf</p>
+
+<p>Configurar usuario, contraseña y mensaje de bienvenida:</p>
+
+<blockquote><p># nano /etc/freeradius/users</p></blockquote>
+
+<p>USUARIO Cleartext-Password := &#8220;CONTRASEÑA&#8221;</p>
+
+<pre><code>    Reply-Message "Entrando en el servidor el usuario %{User_Name}"
+</code></pre>
+
+<p>Configurar usuario y contraseña del router o punto de acceso:</p>
+
+<blockquote><p># nano /etc/freeradius/clients.conf</p></blockquote>
+
+<p>client 192.168.1.0/24 {</p>
+
+<pre><code>secret      = CONTRASEÑA_ROUTER
+
+shortname   = USUARIO_ROUTE
+</code></pre>
+
+<p>Finalmente entrar en router y colocar la ip del equipo donde hemos instalado el servidor. Reiniciar el servicio.</p>
+
+<blockquote><p># /etc/init.d/freeradius restart</p>
+
+<p># freeradius -X (Arrancar em modo debug)</p>
+
+<p># radtest USUARIO testing 127.0.0.1 1812 testing123 (Testear si la configuración de un usuario está correcta)</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Copy]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/copy/"/>
+    <updated>2013-11-17T12:48:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/copy</id>
+    <content type="html"><![CDATA[<p>Carpetas en la nuve tipo Dropbox. Entrar en http://www.copy.com despues de registrarse y logearse, clicar en la pestaña &#8220;Install App&#8221; con lo que se nos descargará la aplicacion de escritorio.</p>
+
+<blockquote><p>$ tar -zvxf copy_agent-1.28.0657.tgz</p>
+
+<p>$ cd copy/x86_64/</p>
+
+<p>$ ./CopyAgent &#8211;install (Donde pondremos nombre de usuario y contraseña del registro y carpeta a compartir. Por defecto Copy)</p>
+
+<p>$ ./CopyConsole (Forzar actualizaciones)</p></blockquote>
 ]]></content>
   </entry>
   
@@ -367,93 +452,6 @@ $ kill -9 PID
 <p>$ du fichero (Muestra el tamaño de fichero)</p>
 
 <p>$ du | sort -rn | head (Mostrar los 10 archivos que más ocupan)</p></blockquote>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[chown]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/chown/"/>
-    <updated>2013-11-15T20:00:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/chown</id>
-    <content type="html"><![CDATA[<p>Cambio de propietario de un archivo o directorio.</p>
-
-<blockquote><p># chown usuario archivo</p>
-
-<p># chown -R usuario directorio (afecta al directorio y todos los subdirectorios)</p>
-
-<p># chown -R usuario:grupo directorio</p>
-
-<p># chown &#8211;reference=file1 file2 (Mismo propietario y grupo para file2 que file1)</p></blockquote>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[chmod]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/chmod/"/>
-    <updated>2013-11-15T20:00:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/chmod</id>
-    <content type="html"><![CDATA[<p>Gestión de permisos de los ficheros y directorios.</p>
-
-<blockquote><p>$ chmod ugo+rwx -R /home/usuario/directorio  (todos los permisos a todos los usuarios sobre el directorio y subdirectorios)</p>
-
-<p>$ chmod 777 -R /home/usuario/directorio (Equivalente en octal)</p>
-
-<p>$ chmod a+w archivo (permiso de escritura para todos)</p>
-
-<p>$ chmod 222 -R /home/usuario/directorio (Equivalente en octal)</p>
-
-<p>$ chmod -w archivo (Quitar permiso de escritura a un archivo)</p>
-
-<p>$ chmod +x archivo (Dar permiso de ejecución)</p>
-
-<p>$ chmod 744 archivo (Lectura, ecritura y ejecución para el usuario y sólo lectura para grupo y otros)</p>
-
-<p>$ chmod u=rwx go=rw archivo (Equivalente en alfabético)</p>
-
-<p>$ chmod &#8211;reference=file1 file2 (Otorgar los mismos permisos de file1 a file2)</p></blockquote>
-
-<p>Código numérico (octal):</p>
-
-<p>1 = ejecución [x]</p>
-
-<p>2 = escritura [w]</p>
-
-<p>3 (1+2) = escritura y ejecución [xw]</p>
-
-<p>4 = lectura [r]</p>
-
-<p>5 (4+1) = lectura y ejecución [rx]</p>
-
-<p>6 (4+2) = lectura y escritura [rw]</p>
-
-<p>7 (4+2+1) = lectura, escritura y ejecución [wxr]</p>
-
-<p>Código alfabético:</p>
-
-<p>r (lectura), w (escritura), x (ejecución)</p>
-
-<p>u (usuario), g (grupo), o (otros), a (para todos)</p>
-
-<p>Nota.- Cuando un directorio está marcado como ejecutable [x] significa que se puede mirar dentro [ls] o entrar en él [cd]</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[wapiti]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/wapiti/"/>
-    <updated>2013-11-12T05:49:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/wapiti</id>
-    <content type="html"><![CDATA[<p>[python, python-utidylib, tidy y python-ctypes]</p>
-
-<p>Permite auditar la seguridad de las aplicaciones web buscando secuencias de comandos y formas en las que se pueda inyectar datos.</p>
-
-<blockquote><p># wapiti http://URL -u -f html -o informe (Creará un archivo, index.html [f], mostrando las anomalias en color [u] en la carpeta &#8220;informe&#8221; [o])</p></blockquote>
-
-<p>Algunas opciones:</p>
-
-<p>-f (otros formatos: json, txt, openvas y xml)</p>
-
-<p>-a user:pass (Modo de especificar usuario y contraseña si se precisa)</p>
 ]]></content>
   </entry>
   
