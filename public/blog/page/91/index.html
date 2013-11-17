@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Generar un fichero de configuración para grub [grub.cfg] # grub-mkconfig -o /boot/grub/grub.cfg Despues instalar en el MBR [grub-install /dev/sda]
-">
+  <meta name="description" content="Crear una contraseña para una entrada de grub2 # grub-mkpasswd-pbkdf2 Se entra la contraseña y se confirma. Saldrá una codificación del tipo: Your &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +75,66 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/grub-mkpasswd-pbkdf2/">Grub-mkpasswd-pbkdf2</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Crear una contraseña para una entrada de grub2</p>
+
+<blockquote><p># grub-mkpasswd-pbkdf2</p></blockquote>
+
+<p>Se entra la contraseña y se confirma. Saldrá una codificación del tipo:</p>
+
+<p>Your PBKDF2 is grub.pbkdf2.sha512.10000.F2FE383&#8230;..</p>
+
+<p>Editar grub.cfg</p>
+
+<blockquote><p># nano /boot/grub/grub.cfg</p></blockquote>
+
+<p>Colocar al final de la parte comentada (#):</p>
+
+<p>set superusers=&#8221;NOMBRE_USUARIO&#8221;</p>
+
+<p>password_pbkdf2 NOMBRE_USUARIO grub.pbkdf2.sha512.10000.F2FE383&#8230;..</p>
+
+<p>Especificando el nombre del usuario y copipasteando la clave codificada que nos ha dado el comando anterior. Finalmente en la entrada [menuentry] que se quiere proteger inmediatamente después de las comillas [&#8216;&#8230;.&#8217;] indicando el nombre del sistema operatico:</p>
+
+<p>&#8211;users NOMBRE_USUARIO</p>
+
+<p>El resultado sería:</p>
+
+<p>menuentry &#8216;Ubuntu, amb Linux 3.2.0-24-generic (mode de restabliment)&#8217; &#8211;users NOMBRE_USUARIO &#8211;class ubuntu &#8211;class gnu-linux &#8230;.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -446,78 +505,6 @@ grub&gt; quit                 (salir)
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/grep/">Grep</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Lee la entrada estándar o un archivo e imprime las líneas que cumplan el patrón. Ver expresiones regulares</p>
-
-<blockquote><p>$ grep -c &#8216;UUID&#8217; /etc/fstab (Muestra sólo el número de líneas que coinciden con el patron)</p>
-
-<p>$ grep -n &#8216;UUID&#8217; /etc/fstab (Muestra el número de lineas y su contenido)</p>
-
-<p>$ grep -i &#8216;uuid&#8217; /etc/fstab (No distingue entre mayusculas ni minúsculas)</p>
-
-<p>$ grep -w &#8216;fstab&#8217; /etc/fstab (Ha de coincidir el patron completo, no una parte)</p>
-
-<p>$ grep -v &#8216;fstab&#8217; /etc/fstab (Muestra las que no tienen el patrón)</p>
-
-<p>$ grep -E &#8216;fstab|dev&#8217; /etc/fstab (Mostras las lineas que contengan dos palabras. Requiere habilitar las expresiones regulares extendidas [ver])</p>
-
-<p>$ grep -e &#8216;fstab&#8217; -e &#8216;dev&#8217; /etc/fstab (Forma de mostrar las lineas que contengan dos palabras sin habilitar las expresiones regualres extendidas)</p>
-
-<p>$ grep -r &#8216;fstab&#8217; /etc (Buscar una palabra de un directorio y los subdirectorios)</p>
-
-<p>$ grep -l -r &#8216;fstab&#8217; /etc (Sólo mostrar los archivos que contienen la palabra en el directorio y los subdirectorios)</p>
-
-<p>$ grep -n &#8216;fstab&#8217; /etc/fstab (Mostrar la linea y el número de linea)</p>
-
-<p>$ grep -A 2 &#8216;swap&#8217; /etc/fstab (Mostrar la línea y las 2 siguientes)</p>
-
-<p>$ grep &#8211;color UUID /etc/fstab (Resaltar en color la palabra &#8220;UUID&#8221;)</p></blockquote>
-
-<p>Otras opciones:</p>
-
-<blockquote><p>$ grep -Fx -f archivo1 archivo2 (Mostrar líneas que aparezcan en dos archivos)</p>
-
-<p># grep -i -a -B35 -A90 &#8216;palabreja&#8217; /dev/sda1 > recup.txt (recuperar un archivo borrado con rm que incluye la palabra “palabreja” y su tamaño estimado: [-B50] 35 lineas anteriores a “palabreja” y [-A90] 90 lineas posteriores. Especificar partición y archivo de recuperación)</p>
-
-<p>$ grep cups /etc/services (Conocer el puerto por el que corre un servicio)</p>
-
-<p>$ grep 631 /etc/services (Conocer el servicio por el que corre un puerto)</p>
-
-<p>$ grep -s &#8216;palabra&#8217; * (Suprime los mensajes de error sobre ficheros que no existen o no se pueden leer)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/92/">&larr; Older</a>
@@ -533,12 +520,16 @@ grub&gt; quit                 (salir)
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1340</li>
+	<li>1341</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/nstat/">nstat</a>
+      </li>
     
       <li class="post">
         <a href="/blog/vnstati/">vnstati</a>
@@ -574,10 +565,6 @@ grub&gt; quit                 (salir)
     
       <li class="post">
         <a href="/blog/lzip/">lzip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/gunzip/">gunzip</a>
       </li>
     
   </ul>
