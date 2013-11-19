@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Un reloj en el escritorio. $ xdaliclock -cycle -24 -title reloj -builtin1 (cambiando de color [cycle], formato 24 horas, con titulo i medida pequeña &hellip;">
+  <meta name="description" content="Herramienta que permite simular la entrada del teclado y la actividad del ratón, mover, redimensionar ventanas, etc. $ xdotool -h (Listado de &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,113 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/xdotool/">Xdotool</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Herramienta que permite simular la entrada del teclado y la actividad del ratón, mover, redimensionar ventanas, etc.</p>
+
+<blockquote><p>$ xdotool -h  (Listado de opciones)</p>
+
+<p>$ xdotool key alt+F2 (Simula la pulsación de alt + F2 y arranca la aplicación asociada a la combinación)</p>
+
+<p>$ xdotool mousemove 0 0 (Envia el puntero a la coordenada especificada, en este caso, extremo superior izquierdo)</p>
+
+<p>$ xdotool getmouselocation (Indica las coordenadas del puntero)</p>
+
+<p>$ xdotool click 1 (Hace “click” donde esté el puntero)</p></blockquote>
+
+<p>Ejemplo en un script [que abra una nueva pestaña, escriba “ifconfig” y pulse “return”]:</p>
+
+<pre><code>#!/bin/bash
+
+xdotool key shift+ctrl+t;
+
+xdotool type "ifconfig"; 
+
+xdotool key Return;
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/xdg/">Xdg</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Establece o abre archivos y url con las aplicaciones establecidas por defecto. Estas se encuentran definidas en /usr/share/applications/defaults.list.</p>
+
+<blockquote><p>$ xdg-mime query default text/html    (Mostrar la aplicación que por defecto abre un html)</p>
+
+<p>$ xdg-mime default vlc.desktop video/mpeg  (establecer vlc por defecto)</p>
+
+<p>$ xdg-mime default pcmanfm.desktop application/x-directory (establece PcMan como gestor de ficheros)</p>
+
+<p>$ xdg-open http://www.tuxapuntes.com/   (abre la url)</p>
+
+<p>$ xdg-open imagen.jpg  (abre la imagen)</p>
+
+<p>$ cat /usr/share/applications/defaults.list. (Listado del sistema)</p>
+
+<p>$ cat .local/share/applications/mimeapps.list  (Listado del usuario)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -435,199 +542,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/xampp/">Xampp</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Gestor de páginas web locales</p>
-
-<p>Para instalar xampp es necesario desinstalar apache porque el paquete ya lo incluye.</p>
-
-<p>Descargar la aplicación de: http://www.apachefriends.org/en/xampp-linux.html</p>
-
-<blockquote><p># tar xvfz xampp-linux-1.6.5a.tar.gz -C /opt</p>
-
-<p># /opt/lampp/lampp start (Arrancar todas las aplicaciones xampp)</p></blockquote>
-
-<p>Comprobar en el navegador la correcta instalación (http://localhost) y mirar en el apartado seguridad los puntos vulnerables.</p>
-
-<blockquote><p># /opt/lampp/lampp security (Para entrar las constraseñas)</p></blockquote>
-
-<p>La proxima vez que se entre en localhost pedirá el usuario (por defecto lampp) y la contraseña introducida anteriormente.</p>
-
-<blockquote><p># /opt/lampp/lampp phpstatus (para saber la versión php)</p>
-
-<p># /opt/lampp/lampp php5 (activar php 5 o php4)</p>
-
-<p># /opt/lampp/lampp startssl (arrancar apache con soporte ssl. Para acceder: https://localhost)</p></blockquote>
-
-<p>Otras opciones:</p>
-
-<p>start / stop / restart arrancar / parar / reiniciar xampp</p>
-
-<p>startapache /stopapache arrancar / parar apache</p>
-
-<p>startmysql / stopmysql arrancar / parar la base de datos mysql</p>
-
-<p>startftp /stopftp arrancar / parar ftp server (user: nobody, password: lampp)</p>
-
-<p>Directorios:</p>
-
-<p>/opt/lampp/htdocs : Directorio donde guardar las páginas que esten online.</p>
-
-<p>/opt/lampp/etc/httpd.conf : configuración de apache.</p>
-
-<p>/opt/lampp/etc/my.cnf : configuración de mysql.</p>
-
-<p>/opt/lampp/etc/php.ini : configuración de php.</p>
-
-<p>/opt/lampp/etc/proftpd.conf : configuración de ftp.</p>
-
-<p>/opt/lampp/etc/phpmyadmin/config.inc.php : configuración de</p>
-
-<p>phpmyadmin</p>
-
-<p>1.-</p>
-
-<p>Activar el protocolo SSL en XAMPP, por defecto deshabilitado.</p>
-
-<p>Copiar los archivos libeay32.dll y ssleay32.dll de la carpeta xampp\php\ en la carpeta xampp\apache\bin\ , sobreescribiendo los existentes.</p>
-
-<p>Editar el fichero php.ini  que puede encontrarse en alguno de los siguienetes directorios:  xampp\apache\bin o xampp\php y descomentar la linea:</p>
-
-<p>extension=php_openssl.dll</p>
-
-<p>En caso de que no aparezca esa línea añadirla final del archivo</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/x11vnc/">X11vnc</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Conexion remota. Comparte la misma ventana abierta. En el cliente: xvncviewer o xtightvnc</p>
-
-<p>En el servidor:</p>
-
-<blockquote><p>$ x11vnc -storepasswd (Preguntará contraseña y donde guardarla; por defecto en /home/USER/.vnc/passwd)</p>
-
-<p>$ vncpasswd  (otra forma de entrar la contraseña)</p>
-
-<p>$ x11vnc -create  (Abrir nueva sesión)</p>
-
-<p>$ x11vnc -rfbauth /home/USER/.vnc/passwd (Arrancar el server)</p>
-
-<p>$ x11vnc -usepw -display :0  (lo mismo especificando la sesión X a visualizar)</p></blockquote>
-
-<p>En el cliente:</p>
-
-<blockquote><p># xvncviewer IP_servidor</p>
-
-<p>$ killall x11vnc (Matar el servidor)</p></blockquote>
-
-<p>Otra forma de arrancar el server  y que se ejecute en segundo plano (-bg), contraseña de acceso (-passwd) e interfaz gráfico (-gui):</p>
-
-<blockquote><p>$ x11vnc -bg -gui -passwd la_que_sea</p></blockquote>
-
-<p>Se abrirá una pantalla de configuración, en la que podremos configurar las opciones del servidor. Algunas de la pestaña Permissions:</p>
-
-<pre><code>allow: Lista de IPs (separadas por comas) a las que se permite acceso.
-
-forever: Que el servidor no cierre al desconectar el cliente 
-
-viewonly: No permitir cambios en el servidor.
-</code></pre>
-
-<p>1.-</p>
-
-<p>Conexión inversa abriendo vnc desde ssh de forma remota:</p>
-
-<blockquote><p>$ vncviewer -listen   (en el Pc al cual nos conectaremos)</p>
-
-<p># x11vnc -connect IP_o_HOST:puerto -display :0 -auth guess</p></blockquote>
-
-<p>Desde terminal en las X:</p>
-
-<blockquote><p>$ vncviewer -listen   (en el pc del que nos conectaremos)</p></blockquote>
-
-<p>Entramos por ssh al remoto de la forma normal [ssh usuario@host] y una vez dentro, lanzamos:</p>
-
-<blockquote><p>$ x11vnc -connect IP_o_HOST:puerto</p></blockquote>
-
-<p>Donde la IP_o_HOST es la máquina donde hemos lanzado el vncviewer -listen</p>
-
-<p>2.-</p>
-
-<p>Otra forma de conexión inversa:</p>
-
-<p>Abrir vinagre y en remota/conexiones inversas, clicar las dos casillas (Habilitar conexiones inversas y siempre habilitado) y luego abrir terminal y lanzar:</p>
-
-<blockquote><p>$ ssh usuario@host_remoto (Realizar la conexión ssh normal)</p></blockquote>
-
-<p>Y cuando se está en el host_remoto:</p>
-
-<blockquote><p>$ (DISPLAY=:0 x11vnc -connect host_actual:5500 &amp;)</p></blockquote>
-
-<p>Nota: los paréntesis son porque al ejecutar una sub-shell interprete todos los comandos como un único comando.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/15/">&larr; Older</a>
@@ -643,12 +557,20 @@ viewonly: No permitir cambios en el servidor.
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1342</li>
+	<li>1344</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/synaptic/">synaptic</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/hello/">hello</a>
+      </li>
     
       <li class="post">
         <a href="/blog/iptables/">iptables</a>
@@ -680,14 +602,6 @@ viewonly: No permitir cambios en el servidor.
     
       <li class="post">
         <a href="/blog/freeradius/">freeradius</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/copy/">Copy</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/bzless/">bzless</a>
       </li>
     
   </ul>

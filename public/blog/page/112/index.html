@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Configurar pc con una ip fija. Requiere registro en dyndns.org. Durante la instalación ya preguntará los datos del registro en pero si se prefiere &hellip;">
+  <meta name="description" content="Libera memoria y estructuras de datos del núcleo para todas las consolas virtuales que no se usen. Una consola virtual se considera en desuso si no &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,116 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/deallocvt/">Deallocvt</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Libera memoria y estructuras de datos del núcleo para todas las consolas virtuales que no se usen. Una consola virtual se considera en desuso si no es la consola en primer plano, ni  ningún  proceso  la  tiene  abierta  para  lectura  o escritura, ni se ha seleccionado ningún texto en su pantalla. Ver openvt</p>
+
+<blockquote><p># deallocvt (Las desasigna todas)</p>
+
+<p># deallocvt 5 (Sólo desasigna la /dev/tty5)</p></blockquote>
+
+<p>Un ejemplo de uso:</p>
+
+<blockquote><p># openvt -s ls (lanzara el comando ls en la primera consola virtual libre. Normalmente la /dev/tty8)</p>
+
+<p># deallocvt 8</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ddrescue/">Ddrescue</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Recuperación de discos dañados. Proceso:</p>
+
+<p>Descargar el paquete dd_rhelp (Comprobar si existe una versión posterior):</p>
+
+<blockquote><p>$ wget http://www.kalysto.org/pkg/dd_rhelp-0.1.2.tar.gz</p>
+
+<p>$ cd dd_rhelp-0.1.2</p>
+
+<p># ./dd_rhelp /dev/sdbx sdbx.img</p></blockquote>
+
+<p>Creará sdbx.img en el directorio actual, que podrá montarse:</p>
+
+<blockquote><p># mount -o loop sdbx.img /media/imagen</p></blockquote>
+
+<p>Comprobar posibles errores (para partición ext3):</p>
+
+<blockquote><p># fsck -y sdbx.img</p></blockquote>
+
+<p>Restaurar la imagen:</p>
+
+<blockquote><p># dd_rhelp sdbx.img /dev/sdax</p></blockquote>
+
+<p>Método de ejecutar ddrescue en dos pasadas, de forma que la primera sólo recupera los bloques que no contenga sectores defectuosos y el segundo se centre en recuperar el máximo de los defectuosos:</p>
+
+<blockquote><p># ddrescue -v -n /dev/sda /dev/sdb sda.txt</p>
+
+<p># ddrescue -v -r2 -d /dev/sda /dev/sdb sda.txt</p></blockquote>
+
+<p>Luego comprobar errores con fsck.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -476,94 +586,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/cutter/">Cutter</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Cortar conexiones no deseadas</p>
-
-<blockquote><p># cutter 192.168.2.6 80 (especificando IP y puerto)</p>
-
-<p># cutter 192.168.2.6   (solo IP)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/cut/">Cut</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Permite buscar y/o seleccionar columnas o campos dentro de un archivo estructurado. Entre campo y campo debe existir obligatoriamente un delimitador [dos puntos, un espacio en blanco u otro carácter].</p>
-
-<blockquote><p>$ cut -c1-4 archivo  (muestra los 4 primeros caracteres de cada linea)</p>
-
-<p>$ cut -d: -f1 archivo  (Muestra el primer campo delimitado por “:”)</p>
-
-<p>$ cut -d” “ -f1,5 archivo  (Mostrar el primero y el quinto, separados por espacio)</p>
-
-<p>$ cut -d” “ -f 2- archivo (Mostrar todo menos la primera columna)</p>
-
-<p>$ cut -s -d&#8221;(&#8221; -f1 archivo (“-s” suprime las lineas que no contengan el delimitador [(]). De las que sí lo contengan, mostraría el 1er campo)</p>
-
-<p>$ echo $RANDOM | cut -c1,2 (Coger los 2 primeros números de un número aleatorio [$RANDOM])</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/113/">&larr; Older</a>
@@ -579,12 +601,20 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1342</li>
+	<li>1344</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/synaptic/">synaptic</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/hello/">hello</a>
+      </li>
     
       <li class="post">
         <a href="/blog/iptables/">iptables</a>
@@ -616,14 +646,6 @@
     
       <li class="post">
         <a href="/blog/freeradius/">freeradius</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/copy/">Copy</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/bzless/">bzless</a>
       </li>
     
   </ul>

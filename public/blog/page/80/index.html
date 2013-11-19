@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Muestra los intentos de conexión fallidos (/var/log/btmp) # lastb -20 (Muestra los últimos 20 intentos fallidos en logearse)
+  <meta name="description" content="Ver el momento exacto que los usuarios han entrado por última vez $ lastlog -u usuario (solo ver a &#8220;usuario&#8221;)
 ">
   
 
@@ -76,6 +76,82 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/lastlog/">Lastlog</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ver el momento exacto que los usuarios han entrado por última vez</p>
+
+<blockquote><p>$ lastlog -u usuario  (solo ver a &#8220;usuario&#8221;)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/lastcomm/">Lastcomm</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Muestra información acerca de comandos ejecutados y terminales abiertas.</p>
+
+<blockquote><p>$ lastcomm tmux tty1 (sólo muestra los epecificados)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -564,125 +640,6 @@ closeSSH: running command: /sbin/iptables -D INPUT -s 127.0.0.1 -p tcp --dport 2
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/kismet/">Kismet</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Identifica redes inalambricas de forma pasiva recolectando paquetes, detecta redes ocultas, clientes asociados y es capaz de sniffar el tráfico de las redes no encriptadas.</p>
-
-<blockquote><p># nano /etc/kismet/kismet.conf</p></blockquote>
-
-<p>Buscar la linea:  source=none,none,addme</p>
-
-<p>Y sustituirla por:  source=ath5k,eth1,wifi</p>
-
-<p>en la que “ath5k” es el driver que usamos, “eth1” la interfaz de red y “wifi” cualquier nombre.</p>
-
-<p>También en este archivo pueden configurarse otros parámetros (Puerto, host permitido, máximo de clientes, logs&#8230;) :</p>
-
-<pre><code>tcpport=2501
-
-allowedhosts=127.0.0.1
-
-maxclients=5
-
-logtemplate=/var/log/kismet/
-</code></pre>
-
-<p>En el directorio de logs, los archivos que interesan son los .pcap que pueden visionarse con wireshark.</p>
-
-<blockquote><p># kismet   (lanzar la aplicación)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/kippo/">Kippo</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Construir un honeypot por ssh.</p>
-
-<p>Descargar y desenpaquetar kippo:</p>
-
-<blockquote><p>$ wget https://kippo.googlecode.com/files/kippo-0.5.tar.gz</p>
-
-<p>$ tar xzf kippo-0.5.tar.gz</p>
-
-<p>$ cd kippo-0.5</p>
-
-<p>$ ./start.sh</p></blockquote>
-
-<p>Configuración de iptables:</p>
-
-<blockquote><p># iptables -A INPUT -i eth0 -p tcp &#8211;dport 22 -j ACCEPT</p>
-
-<p># iptables -A INPUT -i eth0 -p tcp &#8211;dport 2222 -j ACCEPT</p>
-
-<p># iptables -A PREROUTING -t nat -i eth0 -p tcp &#8211;dport 22 -j REDIRECT &#8211;to-port 2222</p></blockquote>
-
-<p>Los intentos de acceso ssh quedan registrados en el subdirectorio log:</p>
-
-<blockquote><p>$ cd kippo-0.5/log</p>
-
-<p>$ tail -f kippo.log</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/81/">&larr; Older</a>
@@ -698,12 +655,20 @@ logtemplate=/var/log/kismet/
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1342</li>
+	<li>1344</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/synaptic/">synaptic</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/hello/">hello</a>
+      </li>
     
       <li class="post">
         <a href="/blog/iptables/">iptables</a>
@@ -735,14 +700,6 @@ logtemplate=/var/log/kismet/
     
       <li class="post">
         <a href="/blog/freeradius/">freeradius</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/copy/">Copy</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/bzless/">bzless</a>
       </li>
     
   </ul>
