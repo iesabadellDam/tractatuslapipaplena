@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Reloj digital por consola $ tty-clock -s -c -C 1 (marcando los segundo [s] en el centro de la consola [c] y en color rojo [1] Algunas opciones: -r &hellip;">
+  <meta name="description" content="Permite monitorizar [o tomar el control] el acceso a las terminales por parte de servicios remotos [ssh, telnet&#8230;] Habilitar la aceptación de &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,158 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ttysnoop/">Ttysnoop</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Permite monitorizar [o tomar el control] el acceso a las terminales por parte de servicios remotos [ssh, telnet&#8230;]</p>
+
+<p>Habilitar la aceptación de contraseñas por parte de ssh:</p>
+
+<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
+
+<p>Descomentar y modificar el parámetro:</p>
+
+<p>UseLogin yes</p>
+
+<p>Guardar y reiniciar ssh:</p>
+
+<blockquote><p># /etc/init.d/ssh restart</p></blockquote>
+
+<p>Reemplazar el login original por el ttysnnops.</p>
+
+<blockquote><p># cd /bin/</p>
+
+<p># cp -a login lg</p>
+
+<p># cp -a /usr/sbin/ttysnoops /bin/login</p></blockquote>
+
+<p>Si al lanzar el último comando sale algo parecido a:</p>
+
+<p>cp: no se ha podido crear el fichero ordinario «/bin/login»: Text file busy</p>
+
+<p>Es que existe alguna consola tty funcionando, aunque no sea como root o root está activo en alguna pts. Matar las consolas y salir de los procesos.</p>
+
+<p>Cambiar los permisos del nuevo login:</p>
+
+<blockquote><p># chmod 4755 /bin/login</p></blockquote>
+
+<p>Editar:</p>
+
+<blockquote><p># nano /etc/snooptab</p></blockquote>
+
+<p>Y modificar la linea:</p>
+
+<pre><code>* socket login /bin/login 
+</code></pre>
+
+<p>por:</p>
+
+<pre><code>* socket login /bin/lg 
+</code></pre>
+
+<p>Cuando por los comandos &#8220;who&#8221; o &#8220;finger&#8221; observemos que alguien se ha conectado a nuestra máquina:</p>
+
+<blockquote><p># who</p></blockquote>
+
+<p>marquex  pts/2        2010-09-24 16:59 (tux.local)</p>
+
+<p>marquex  tty7         2010-09-24 16:42 (:0)</p>
+
+<p>marquex  pts/0        2010-09-24 16:50 (:0.0)</p>
+
+<p>Lanzar la aplicación:</p>
+
+<blockquote><p># ttysnoop 2</p></blockquote>
+
+<p>Connected to /dev/pts/2 snoop server&#8230;</p>
+
+<p>Ctrl+&#8217;&#39; (ASCII 28) to suspend, Ctrl+&#8217;-&#8217; (ASCII 31) to terminate.</p>
+
+<p>Snoop password:</p>
+
+<p>Verified OK&#8230; Snoop started.</p>
+
+<p>La contraseña a introducir tiene que ser la de root, no vale la de usuario con sudo, por tanto los ubunteros:</p>
+
+<blockquote><p># passwd root</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ttyrec/">Ttyrec</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Grabación de una sesión tty</p>
+
+<blockquote><p>$ ttyrec archivo  (A partir de cuando vuelva a salir el prompt se grabará todo en “archivo”. Finalizar con “killall ttyrec”)</p>
+
+<p>$ ttyplay -s2 archivo (reproducir lo grabado a doble velocidad. Pulsando las telcas “-” y “+”, baja o sube la velocidad de reproducción)</p>
+
+<p>$ ttyrec -a archivo  (Añadir nueva grabación a continuación de archivo. No sobreescribe archivo)</p>
+
+<p>$ ttytime archivo  (Dirá los segundos que dura la grabación)</p></blockquote>
+
+<p>Nota.- Para compartir el archivo puede subirse a http://playterm.org/</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -414,109 +566,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/trap/">Trap</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Captura señales del teclado. Permite ejecutar un comando especificado cuando se produce una señal con un determinado valor.</p>
-
-<blockquote><p>$ trap -l (Lista todos los valores)</p>
-
-<p>$ trap &#8220;rm -f /tmp/$$ ; exit&#8221; 0 1 2 3 15 (ejecutará el rm si se produce una señal: 0 [Salida de la shell], 1 [SIGHUP, cuelgue], 2 [SIGINT, interrupción con ^C], 3 [SIGQUIT, quiet] o 15 [SIGTERM, terminate, señal por defecto de kill]</p></blockquote>
-
-<p>Ejemplo:</p>
-
-<blockquote><p>$ nano no_muero.sh</p></blockquote>
-
-<pre><code>#!/bin/bash
-
-trap "echo ' Aunque pulses Ctrl+C!'" INT
-
-while true
-
-do
-
-sleep 60;
-
-echo "No puedes matarme"
-
-done
-</code></pre>
-
-<p>El script se repetirá hasta pararlo con Ctrl+z. A continuación mirar el pid</p>
-
-<blockquote><p>$ jobs</p>
-
-<p>$ kill -9 %pid (Para matarlo definitivamente)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/traceroute/">Traceroute</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Permite seguir la pista de un paquete desde un host a otro.</p>
-
-<blockquote><p># traceroute www.tuxapuntes.com</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/28/">&larr; Older</a>
@@ -538,6 +587,14 @@ done
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/iptables/">iptables</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/gdm/">gdm</a>
+      </li>
     
       <li class="post">
         <a href="/blog/funcoeszz/">funcoeszz</a>
@@ -569,14 +626,6 @@ done
     
       <li class="post">
         <a href="/blog/bzless/">bzless</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/bzexe/">bzexe</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/lzma/">lzma</a>
       </li>
     
   </ul>
