@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Montar un sistema de archivos remoto en local. # sshfs usuario@host_o_IP:/home/usuario /home/usuario/remoto # fusermount -u /home/usuario/remoto ( &hellip;">
+  <meta name="description" content="Demonio que protege SSH y otros servicios contra ataques de fuerza bruta. Funciona observando los cambios en /var/log/auth.log, verificando si &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,59 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/sshguard/">Sshguard</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Demonio que protege SSH y otros servicios contra ataques de fuerza bruta. Funciona observando los cambios en /var/log/auth.log, verificando si alguien esta fallando varias veces al autentificarse. Luego de varios errores de autentificacion (por defecto 14) el host ofensivo sera bloqueado por 7 minutos y se duplicará cada vez que el host ofensivo repita el ataque. Carece de archivo de configuración y puede complementarse con iptables:</p>
+
+<blockquote><p># iptables -A INPUT -j sshguard (Para activarlo en todos los puertos)</p>
+
+<p># iptables -A INPUT -m multiport -p tcp &#8211;destination-ports 21,22 -j sshguard (Para puertos concretos [ftp y ssh])</p></blockquote>
+
+<p>El archivo para colocar las direcciones no afectadas por sshguard:</p>
+
+<blockquote><p># nano /etc/sshguard/whitelist</p></blockquote>
+
+<p>Con el siguiente formato:</p>
+
+<pre><code>192.168.1.53 (Una ip)
+
+192.168.1.0/24 (Un rango)
+
+lapipaplena.net (Un host)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -688,44 +741,6 @@ ForwardX11Trusted yes
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/splitvt/">Splitvt</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Lanzar dos shells simultaneas partiendo en dos ventanas una terminal.</p>
-
-<blockquote><p>$ splitvt -t &#8220;linux es genial&#8221; -upper ls -lower top (Con un título [-t] lanzando un ls en la ventana superior y top en la inferior)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/37/">&larr; Older</a>
@@ -747,6 +762,10 @@ ForwardX11Trusted yes
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/noip2/">noip2</a>
+      </li>
     
       <li class="post">
         <a href="/blog/speaker/">speaker</a>
@@ -782,10 +801,6 @@ ForwardX11Trusted yes
     
       <li class="post">
         <a href="/blog/gdm/">gdm</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/funcoeszz/">funcoeszz</a>
       </li>
     
   </ul>

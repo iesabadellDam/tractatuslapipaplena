@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Informa a Debian de los paquetes más populares. Normalmente esta aplicación es lanzada por cron (/etc/cron.daily/popularity-contest). El archivo de &hellip;">
+  <meta name="description" content="[postgresql php5-pgsql] Gestión de base de datos. En caso de querer aceptar conexiones externas: # nano /etc/postgresql/9.1/main/postgresql.conf &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,144 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/postgres/">Postgres</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:55:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[postgresql php5-pgsql]</p>
+
+<p>Gestión de base de datos. En caso de querer aceptar conexiones externas:</p>
+
+<blockquote><p># nano /etc/postgresql/9.1/main/postgresql.conf</p></blockquote>
+
+<p>Substituir la linea:</p>
+
+<pre><code>listen_addresses = 'localhost'
+</code></pre>
+
+<p>por:</p>
+
+<pre><code>listen_addresses = '*'
+</code></pre>
+
+<p>1.-</p>
+
+<p>Pasos previos para la creación del usuario y la base de datos:</p>
+
+<pre><code>$ sudo -s
+
+# su postgres (Cambiar a la cuenta del usuario por defecto)
+
+$ createuser NOMBRE_DEL_USUARIO (Crear un usuario. Pregunta si con privilegios o sin [Shall the new role be a superuser? (y/n)])
+
+$ createdb NOMBRE_BASE_DE_DATOS -E utf8 -O NOMBRE_DEL_USUARIO (Crear una base de datos especificando propietario y codificación)
+
+$ psql
+
+postgres=# alter user NOMBRE_DEL_USUARIO with passwrd 'LA_CONTRASEÑA'; (Establecer contraseña de un usuario)
+</code></pre>
+
+<p>2.-</p>
+
+<p>Para crear un usuario que sea el mismo que el sistema operativo y con privilegios de administrador:</p>
+
+<pre><code>$ sudo -u postgres createuser --superuser $USER
+
+$ sudo -u postgres psql
+
+$ postgres=# \password USUARIO
+</code></pre>
+
+<p>3.-</p>
+
+<p>Creación de un base de datos [la llamaremos &#8220;misdatos&#8221;]:</p>
+
+<pre><code>$ createdb misdatos (Si se ha creado el mismo usuario que el sistema operativo)
+
+$ sudo -u postgres createdb misdatos (En caso de sólo existir el usuario por defecto [postgres])
+
+$ createdb (Crea una base de datos con el mismo nombre que el usuario)
+
+$ createdb misdatos (Crea una base de datos con un nombre concreto)
+
+$ dropdb misdatos (Eliminar una base de datos)
+</code></pre>
+
+<p>4.-</p>
+
+<p>Acceso a una base de datos:</p>
+
+<pre><code>$ sudo -u usuario psql base_de_datos (Cuando el usuario no es el mismo del sistema)
+
+$ psql misdatos (Entrar en el prompt de la base de datos especificada)
+
+misdatos=# (Prompt de la base de datos de administrador)
+
+misdatos=&gt; (Prompt de la base de datos sin privilegios)
+</code></pre>
+
+<p>5.-</p>
+
+<p>Creación de una tabla (igual que para mysql [ver]):</p>
+
+<pre><code>CREATE TABLE usuario(
+
+nombre VARCHAR(20), apellido VARCHAR(20),
+
+profesión VARCHAR(20), sexo CHAR(1), nacimiento DATE,
+
+antiguedad DATE);
+</code></pre>
+
+<p>misdatos=# DROP TABLE nombre_de_la_tabla; (Borrar una tabla)</p>
+
+<p>misdatos=# INSERT INTO usuario VALUES (&#8216;juan antonio&#8217;, &#8216;gomez&#8217;, &#8216;admin&#8217;, &#8216;h&#8217;, &#8216;1985-10-06&#8217;, &#8216;2008-03-11&#8217;); (Entrar datos en el mismo orden en el que se ha creado la tabla)</p>
+
+<p>misdatos=# SELECT * FROM usuario; (Ver el contenido de una tabla)</p>
+
+<p>misdatos=# SELECT nombre FROM usuario; (Seleccionar una columna de una tabla)</p>
+
+<p>misdatos=# SELECT * FROM usuario ORDER BY nombre; (Mostrar una tabla ordenado segun una columna)</p>
+
+<p>Las metaordenes de psql son un conjunto de órdenes internas, no propiamente órdenes SQL. Todas empiezan con la barra invertida [].</p>
+
+<pre><code>\h (Muestra la ayuda. Pulsando "q" salimos de la ayuda)
+
+\? (Ver todas las ordenes internas)
+
+\q (Salir de psql)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -436,48 +574,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/plowshare/">Plowshare</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:55:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>herramienta que permite subir y descargar archivos alojados en megaupload, rapidshare&#8230; ]http://plowshare.googlecode.com/files/plowshare-SVN-r1575-snapshot.tar.gz]</p>
-
-<blockquote><p>$ plowdown url (Descargar un archivo)</p>
-
-<p>$ plowdown lista_de_links.txt (descarga una lista de links)</p>
-
-<p>$ plowdown -a usuario:contraseña url (caso de precisar usuario y contraseña)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/54/">&larr; Older</a>
@@ -499,6 +595,10 @@
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/noip2/">noip2</a>
+      </li>
     
       <li class="post">
         <a href="/blog/speaker/">speaker</a>
@@ -534,10 +634,6 @@
     
       <li class="post">
         <a href="/blog/gdm/">gdm</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/funcoeszz/">funcoeszz</a>
       </li>
     
   </ul>
