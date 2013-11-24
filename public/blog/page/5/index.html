@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Gestor de bases de datos via navegador más completa que phpmyadmin. Una vez instalado reiniciar apache: # /etc/init.d/apache2 restart Acceder a la &hellip;">
+  <meta name="description" content="Detectar cuando algún archivo del sistema ha sido alterado mediante la creación, la primera vez que se lanza, de una base de datos con la que &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,85 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/integrit/">Integrit</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-11T17:18:00+01:00" pubdate data-updated="true">11-11-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Detectar cuando algún archivo del sistema ha sido alterado mediante la creación, la primera vez que se lanza, de una base de datos con la que confrontar los nuevos escaneos.</p>
+
+<p>Configuración:</p>
+
+<blockquote><p># /etc/integrit/integrit.con</p></blockquote>
+
+<p>Descomentar las lineas:</p>
+
+<pre><code>root=/  
+
+known=/var/lib/integrit/known.cdb       
+
+current=/var/lib/integrit/current.cdb
+</code></pre>
+
+<p>Y descartar los directorios que no se deseen incluir en el escaneo, descomentandolos [&#8220;cdrom&#8221; se descarta, &#8220;/dev&#8221; se escane, &#8220;/usr/src&#8221; no se escaneará de forma recursiva ]:</p>
+
+<pre><code>!/cdrom
+
+# !/dev
+
+=/usr/src
+</code></pre>
+
+<p>Crear la base de datos inicial:</p>
+
+<blockquote><p># integrit -u -C /etc/integrit/integrit.conf</p></blockquote>
+
+<p>Mover la base de datos a know.cdb:</p>
+
+<blockquote><p># mv /var/lib/integrit/current.cdb /var/lib/integrit/known.cdb</p></blockquote>
+
+<p>Lanzar la comprobación:</p>
+
+<blockquote><p># integrit -C /etc/integrit/integrit.conf -c</p></blockquote>
+
+<p>Si queremos colocar la orden en el cron para ser lanzada cada hora y que envie un correo al administrador:</p>
+
+<blockquote><p># crontab -e</p></blockquote>
+
+<p>Y colocamos la linea:</p>
+
+<pre><code>* 1 * * * integrit -C /etc/integrit/integrit.conf -c | mail root
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -468,88 +547,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/thunar/">Thunar</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-11-09T06:16:00+01:00" pubdate data-updated="true">09-11-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Escritorio.</p>
-
-<blockquote><p>$ thunar -B (Con varios ficheros seleccionados, al pulsar F2 se abre la ventana para renombrarlos)</p>
-
-<p>$ thunar-volman-settings (Abre el gestor de medios extraíbles)</p></blockquote>
-
-<p>1.-</p>
-
-<p>Modificar el tema de iconos por defecto:</p>
-
-<p>Descomprimir la carpeta de iconos y moverla:</p>
-
-<blockquote><p># mv GartoonRedux /usr/share/icons</p></blockquote>
-
-<p>Editar o crear el archivo:</p>
-
-<blockquote><p>$ nano .gtkrc-2.0</p></blockquote>
-
-<p>Y modificar o añadir la linea:</p>
-
-<p>gtk-icon-theme-name = &#8220;GartoonRedux&#8221;</p>
-
-<p>Al abrir nuevamente thunar, se muestran los cambios.</p>
-
-<p>2.-</p>
-
-<p>Para habilitar el automontado de dispositivos, además de configurarlo en las propiedades, en algunas distros se precisan los paquetes gvfs gvfs-afc</p>
-
-<p>3.-</p>
-
-<p>Para incluir en el menú contextual la opción &#8220;Abrir como root&#8221;, en &#8220;editar/Configurar acciones personalizadas&#8221;, &#8220;añadir&#8221; [+] y en la pestaña &#8220;Basico&#8221; colocar en el cuadro de diálogo:</p>
-
-<pre><code>nombre: Abrir directorio como root
-
-descripcion: Abrir directorio con privilegios de root
-
-comando: gksu thunar %f
-
-icono: opcional 
-</code></pre>
-
-<p>Y en la pestaña &#8220;condiciones generales&#8221;:</p>
-
-<pre><code>Patrón de archivos: *
-
-Aparece si la selección contiene:  Macamos la casilla de directorio y la de archivo 
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -571,6 +568,10 @@ Aparece si la selección contiene:  Macamos la casilla de directorio y la de arc
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/while/">while</a>
+      </li>
     
       <li class="post">
         <a href="/blog/aide/">aide</a>
@@ -606,10 +607,6 @@ Aparece si la selección contiene:  Macamos la casilla de directorio y la de arc
     
       <li class="post">
         <a href="/blog/synaptic/">synaptic</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/hello/">hello</a>
       </li>
     
   </ul>

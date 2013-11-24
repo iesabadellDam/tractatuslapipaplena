@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Sistema de detección de intrusos. No evita la intrusión, sólo informa que esta se ha producido y qué archivos fueron modificados. La primera vez que &hellip;">
+  <meta name="description" content="Ejecuta una seria de comandos mientras que una determinada condicion sea cumpla. Algunos scripts de su uso: 1.- #!/bin/bash RESPUESTA=s while [ $ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,175 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/while/">While</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-24T17:59:00+01:00" pubdate data-updated="true">24-11-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ejecuta una seria de comandos mientras que una determinada condicion sea cumpla. Algunos scripts de su uso:</p>
+
+<p>1.-</p>
+
+<pre><code>#!/bin/bash
+
+RESPUESTA=s
+
+while [ $RESPUESTA = s ]
+
+do
+
+    echo "Introducir nombre: "
+
+    read NOMBRE
+
+    echo "Hola $NOMBRE"
+
+    echo
+
+    echo "¿Desea continuar? (s/n)"
+
+    read RESPUESTA
+
+done
+</code></pre>
+
+<p>2.-</p>
+
+<pre><code>#!/bin/bash
+
+while [ "$OPCION" != 5 ]
+
+do
+
+    echo
+
+    echo "[1] Listar directorio"
+
+    echo "[2] Directorio donde te encuentras"
+
+    echo "[3] fecha de hoy"
+
+    echo "[4] Usuarios conectados"
+
+    echo "[5] Salir"
+
+    echo
+
+    read -p "Ingrese una opción: " OPCION
+
+    echo
+
+    case $OPCION in
+
+        1) ls;;
+
+        2) pwd;;
+
+        3) date +%D ;;
+
+        4) who;;
+
+        5);;
+
+        *) echo "Opción ingresada no valida, intentelo de nuevo";;
+
+    esac
+
+done
+
+exit 0
+</code></pre>
+
+<p>3.-</p>
+
+<pre><code>#!/bin/bash
+
+# imprimir números del 1 al 10
+
+LIMITE=10
+
+a=1
+
+while [ "$a" -le $LIMITE ]
+
+do
+
+  echo "$a "
+
+  let "a+=1"
+
+done
+</code></pre>
+
+<p>4.-</p>
+
+<pre><code>Leer un archivo linea a linea:
+
+#!/bin/bash
+
+while read linea
+
+do
+
+   echo "---&gt; $linea "
+
+done &lt; archivo.txt
+</code></pre>
+
+<p>5.-</p>
+
+<p>Especificando un separador [:]</p>
+
+<pre><code>#!/bin/bash
+
+while IFS=: read user pass uid gid full home shell
+
+do
+
+echo -e "$full :\n\
+
+        Pseudo : $user\n\
+
+        UID :\t $uid\n\
+
+        GID :\t $gid\n\
+
+        Home :\t $home\n\
+
+        Shell :\t $shell\n\n"
+
+done &lt; /etc/passwd
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1038,48 +1207,6 @@ Editor colors: editnormal, editbold, editmarked
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/hello/">Hello</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-11-19T21:07:00+01:00" pubdate data-updated="true">19-11-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra el clásico &#8220;Hola, mundo&#8221; o un saludo personalizable.</p>
-
-<blockquote><p>$ hello -t (El tradicional &#8220;Hola, mundo&#8221;)</p>
-
-<p>$ hello -n (Un &#8220;Hola, mundo&#8221; de nueva generación)</p>
-
-<p>$ hello -g &#8220;Linux es un sistema genial&#8221; (Muestra la frase)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1099,6 +1226,10 @@ Editor colors: editnormal, editbold, editmarked
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/while/">while</a>
+      </li>
     
       <li class="post">
         <a href="/blog/aide/">aide</a>
@@ -1134,10 +1265,6 @@ Editor colors: editnormal, editbold, editmarked
     
       <li class="post">
         <a href="/blog/synaptic/">synaptic</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/hello/">hello</a>
       </li>
     
   </ul>
