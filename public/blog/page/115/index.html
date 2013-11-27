@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Acceso a las tty1-6 en local o remoto. # conspy 1 (entra en la tty1) Para salir pulsar tres veces seguidas la tecla “Esc”
-">
+  <meta name="description" content="1.- Eliminar contraseña de root. Iniciar sesión con un live-cd y montar la partición del discon duro [suponemos /dev/sda2] # mount /dev/sda2 /media/ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +75,116 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/contrasenas/">Contraseñas</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>1.-</p>
+
+<p>Eliminar contraseña de root. Iniciar sesión con un live-cd y montar la partición del discon duro [suponemos /dev/sda2]</p>
+
+<pre><code># mount /dev/sda2 /media/sda2
+
+# gedit /dev/sda2/etc/passwd 
+</code></pre>
+
+<p>Y en la linea: root:x:0:0:root/root:/bin/bash</p>
+
+<p>Borrar la “x”, dejandola asi: root::0:0:root/root:/bin/bash y repetir la operación con el usuario normal.</p>
+
+<p>Reiniciar</p>
+
+<p>Activar  root en gdm [parecido con otros selectores de sesión: lightdm, xdm&#8230;]</p>
+
+<pre><code># gedit /etc/gdm/gdm.conf 
+</code></pre>
+
+<p>Cambiar la linea:  AllowRoot=false   por AllowRoot=true</p>
+
+<pre><code># passwd root 
+</code></pre>
+
+<p>Entrar la contraseña</p>
+
+<p>2.-</p>
+
+<p>Cambiar el tiempo en que el sistema &#8220;olvidará&#8221; la contraseña después de un sudo:</p>
+
+<pre><code># nano /etc/sudoers 
+</code></pre>
+
+<p>Y añadir la línea: Defaults timestamp_timeout = 5</p>
+
+<p>Donde el 5 es el tiempo en minutos que la contraseña será guardada.</p>
+
+<p>3.-</p>
+
+<p>Otra forma para cuando se pierde la contraseña</p>
+
+<p>Entrar con un cd live y visualizar /etc/shadow del sistema instalado y buscar el  usuario. La estructura es parecida a:</p>
+
+<p>pepe:$1$YpVPtTE9$jNPGevJ8IjHyAqh0h04V4.:13277:0:99999:7:::</p>
+
+<p>Borrar lo que sigue al nombre del usuario para que quede:</p>
+
+<p>pepe::13277:0:99999:7:::</p>
+
+<p>de este modo el usuario no tendrá contraseña y cuando se pida, dar al intro.  Tras reiniciar, cuando aparezca el menu de grub, situarse con el cursor en la línea del kernel que se quiera usar. Pulsar &#8216;e&#8217; para editar la entrada y editar la línea kernel [pulsando &#8216;e&#8217; de nuevo]. Añadir al final de la línea lo siguiente:</p>
+
+<p>init=/bin/bash</p>
+
+<p>Esto hace que el sistema arranque una shell root sin pedir password. Es posible que el teclado esté en inglés. Pulsar &#8216;b&#8217; para comenzar el arranque del kernel. La partición raíz suele montarse como sólo lectura, asi que se deberá montar como lectura/escritura:</p>
+
+<blockquote><p># mount -o remount,rw /dev/hda2</p></blockquote>
+
+<p>Por último, cambiar la clave de root ejecutando:</p>
+
+<blockquote><p># passwd root</p></blockquote>
+
+<p>4.-</p>
+
+<p>Establecer norma en el sistema de que la contraseña tenga como nímino 8 caracteres:</p>
+
+<blockquote><p># nano /etc/pam.d/common-password</p></blockquote>
+
+<p>Y dejar la linea:</p>
+
+<p>password        [success=2 default=ignore]      pam_unix.so obscure sha512 min=8</p>
+
+<p>5.-</p>
+
+<p>Página donde comprobar la fortaleza de una contraseña: <a href="https://howsecureismypassword.net/">https://howsecureismypassword.net/</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -494,46 +603,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/command/">Command</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Cuando introducimos un comando en Bash el orden de preferencia en la búsqueda del símbolo por parte de Bash es: Primero las funciones, luego los comandos internos y por último los ficheros de scripts y ejecutables. command hace que no se busquen alias ni nombres de funciones, sólo co-</p>
-
-<p>mandos internos y comandos de fichero. Si tenemos una función llamada ls() y queremos que se ejecute el comando ls y no la función:</p>
-
-<blockquote><p>$ command ls</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/116/">&larr; Older</a>
@@ -549,12 +618,16 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1345</li>
+	<li>1346</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/ifs/">ifs</a>
+      </li>
     
       <li class="post">
         <a href="/blog/chmod/">chmod</a>
@@ -590,10 +663,6 @@
     
       <li class="post">
         <a href="/blog/grub2/">grub2</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/mc/">mc</a>
       </li>
     
   </ul>

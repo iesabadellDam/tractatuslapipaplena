@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Mostrar el archivo “pelado” suprimiendo su ruta y sufijos. $ basename /etc/rc.d/cupsd (devolverá “cupsd”) $ basename /etc/rc.d/cupsd start (También &hellip;">
+  <meta name="description" content="Archivo de configuración de la terminal propia del usuario. 1.- Para que al escribir un comando que requiera permisos de root pueda autocompletarse &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,90 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/bashrc/">Bashrc</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Archivo de configuración de la terminal propia del usuario.</p>
+
+<p>1.-</p>
+
+<p>Para que al escribir un comando que requiera permisos de root pueda autocompletarse presionando la tecla “Tab”.</p>
+
+<blockquote><p>$ gedit /home/usuario/.bashrc</p></blockquote>
+
+<p>Y añadir las líneas:</p>
+
+<p>if [ &#8220;$PS1&#8221; ]; then</p>
+
+<p>complete -cf sudo</p>
+
+<p>fi</p>
+
+<p>2.-</p>
+
+<p>Añadiendo o modificando las siguientes lineas se consigue que el history de bash se amplie al recuerdo a los últimos 3000 comandos usados, suprimiendo los repetidos y que ignore el espacio (Si se pone) de delante de un comando.</p>
+
+<p>export HISTFILESIZE=3000</p>
+
+<p>export HISTCONTROL=ignoredups:ignorespace</p>
+
+<p>3.-</p>
+
+<p>Establecer un proxy global a nuestro sistema</p>
+
+<blockquote><p>$ nano ~/.bashrc</p></blockquote>
+
+<p>Y añadir las siguientes líneas:</p>
+
+<p>export http_proxy=”http://ip_del_servidor:puerto”</p>
+
+<p>export https_proxy=”http://ip_del_servidor:puerto”</p>
+
+<p>export ftp_proxy=”http://ip_del_servidor:puerto”</p>
+
+<p>4.-</p>
+
+<p>Para que el history indique fecha y hora en la que se ha lanzado el comando:</p>
+
+<p>export HISTTIMEFORMAT=&#8217;- %F %T - &#8217;</p>
+
+<p>5.-</p>
+
+<p>Para guardar en /root un fichero de histórico por cada uno de los usuarios que se hayan pasado a root.</p>
+
+<p>export HISTFILE=/root/.bash_hist-$(who am i | awk &#8216;{print $1}&#8217;;exit)</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -828,48 +912,6 @@ $ awk 'BEGIN { for (i = 1; i &lt;= 7; i++) print int(101 * rand()) }' (Escribir 
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/avg/">Avg</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Informa de la presencia de virus. No los suprime.  (descarga: http://free.avg.com/gb-en/download.prd-alf)</p>
-
-<blockquote><p># avgctl –start (Iniciar el servicio)</p>
-
-<p># avgupdate (actualizar las definiciones de virus)</p>
-
-<p># avgscan &#8211;clean /home/usuario (escanear)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/128/">&larr; Older</a>
@@ -885,12 +927,16 @@ $ awk 'BEGIN { for (i = 1; i &lt;= 7; i++) print int(101 * rand()) }' (Escribir 
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1345</li>
+	<li>1346</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/ifs/">ifs</a>
+      </li>
     
       <li class="post">
         <a href="/blog/chmod/">chmod</a>
@@ -926,10 +972,6 @@ $ awk 'BEGIN { for (i = 1; i &lt;= 7; i++) print int(101 * rand()) }' (Escribir 
     
       <li class="post">
         <a href="/blog/grub2/">grub2</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/mc/">mc</a>
       </li>
     
   </ul>

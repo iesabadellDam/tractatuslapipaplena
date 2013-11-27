@@ -4,7 +4,7 @@
   <title><![CDATA[TRACTATUS ELEMENTALIS]]></title>
   <link href="https://tractatuslapipaplena.herokuapp.com/atom.xml" rel="self"/>
   <link href="https://tractatuslapipaplena.herokuapp.com/"/>
-  <updated>2013-11-27T14:53:40+01:00</updated>
+  <updated>2013-11-27T21:21:35+01:00</updated>
   <id>https://tractatuslapipaplena.herokuapp.com/</id>
   <author>
     <name><![CDATA[templix]]></name>
@@ -12,6 +12,67 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[ifs]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/ifs/"/>
+    <updated>2013-11-27T21:21:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/ifs</id>
+    <content type="html"><![CDATA[<p>Internal Field Separator (separador de campos internos) sirve para indicar cual es el valor que se usa como separador. Si no se especifica ninguno es el espacio.</p>
+
+<p>Algunos ejemplos:</p>
+
+<p>1.-</p>
+
+<pre><code>#!/bin/bash
+
+# dividir una IP en 4 variables
+
+# Guardar el separador de campos original
+
+OLDIFS=$IFS
+
+read -p "Dime la ip: " IP
+
+# Establecemos el separador de campos en el punto
+
+IFS=.
+
+read IP1 IP2 IP3 IP4 &lt;&lt;&lt; "$IP"
+
+echo "$IP1 $IP2 $IP3 $IP4"
+
+# Restablecemos el separador original (El espacio)
+
+IFS=$OLDIFS
+</code></pre>
+
+<p>2.-</p>
+
+<pre><code>#!/bin/bash
+
+#Almacenamos el valor original de la variable IFS
+
+OLDIFS=$IFS
+
+#Cambiamos el valor del IFS a final de linea [\n]
+
+IFS=$'\n'
+
+for line in $(cat file.txt)
+
+do
+
+    echo $line
+
+done
+
+#Restauramos el IFS
+
+IFS=$OLDIFS
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[chmod]]></title>
@@ -1201,55 +1262,6 @@ export ZZPATH=/usr/bin/funcoeszz
 <p>$ rl -n /etc/fstab -o archivo (Numerando las lineas, colocandolas de forma aleatoria y guardando el resultado en &#8220;archivo&#8221;)</p>
 
 <p>$ rl -o archivo -c 5 archivo.txt (Guardar en archivo [-o] 5 lineas [-c] del texto archivo.txt)</p></blockquote>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[freeradius]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/freeradius/"/>
-    <updated>2013-11-17T12:48:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/freeradius</id>
-    <content type="html"><![CDATA[<p>[libssl-dev freeradius-mysql freeradius-utils]</p>
-
-<p>Servidor.</p>
-
-<p>Configurar la base de datos:</p>
-
-<blockquote><p># nano /etc/freeradius/sites-enabled/default</p></blockquote>
-
-<p>En los apartados &#8220;authorize&#8221; y &#8220;accouting&#8221; descomentar las lineas sql</p>
-
-<blockquote><p># nano /etc/freeradius/radius.conf</p></blockquote>
-
-<p>Descomentar la linea $INCLUDE sql.conf</p>
-
-<p>Configurar usuario, contraseña y mensaje de bienvenida:</p>
-
-<blockquote><p># nano /etc/freeradius/users</p></blockquote>
-
-<p>USUARIO Cleartext-Password := &#8220;CONTRASEÑA&#8221;</p>
-
-<pre><code>    Reply-Message "Entrando en el servidor el usuario %{User_Name}"
-</code></pre>
-
-<p>Configurar usuario y contraseña del router o punto de acceso:</p>
-
-<blockquote><p># nano /etc/freeradius/clients.conf</p></blockquote>
-
-<p>client 192.168.1.0/24 {</p>
-
-<pre><code>secret      = CONTRASEÑA_ROUTER
-
-shortname   = USUARIO_ROUTE
-</code></pre>
-
-<p>Finalmente entrar en router y colocar la ip del equipo donde hemos instalado el servidor. Reiniciar el servicio.</p>
-
-<blockquote><p># /etc/init.d/freeradius restart</p>
-
-<p># freeradius -X (Arrancar em modo debug)</p>
-
-<p># radtest USUARIO testing 127.0.0.1 1812 testing123 (Testear si la configuración de un usuario está correcta)</p></blockquote>
 ]]></content>
   </entry>
   
