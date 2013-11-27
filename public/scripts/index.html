@@ -326,9 +326,9 @@
 <span class='line-number'>222</span>
 <span class='line-number'>223</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c">#!/bin/bash</span>
-</span><span class='line'><span class="c"># Date: 01-10-2013</span>
+</span><span class='line'><span class="c"># Date: 22-11-2013</span>
 </span><span class='line'><span class="c"># Author: &quot;lapipaplena&quot; &lt;lapipaplena@gmail.com&gt;</span>
-</span><span class='line'><span class="c"># Version: 3.0</span>
+</span><span class='line'><span class="c"># Version: 4.0</span>
 </span><span class='line'><span class="c"># Licence: GPL v3.0</span>
 </span><span class='line'><span class="c"># Description: Script de desarrollo del tractatus via github</span>
 </span><span class='line'><span class="c"># Require: cowsay ccze git</span>
@@ -337,7 +337,7 @@
 </span><span class='line'><span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;$(id -u)&quot;</span> <span class="o">=</span> <span class="s2">&quot;0&quot;</span> <span class="o">]</span>
 </span><span class='line'><span class="k">then </span>
 </span><span class='line'><span class="k">  </span><span class="nb">echo</span>
-</span><span class='line'><span class="nb"> echo</span> <span class="s2">&quot;&lt;&lt; Ejecutar el script como usuario sin privilegios... abortando.... &gt;&gt;&quot;</span>
+</span><span class='line'><span class="nb">  echo</span> <span class="s2">&quot;&lt;&lt; Ejecutar el script como usuario sin privilegios... abortando.... &gt;&gt;&quot;</span>
 </span><span class='line'>  <span class="nb">echo</span>
 </span><span class='line'><span class="nb"> exit </span>1
 </span><span class='line'><span class="k">fi</span>
@@ -357,30 +357,31 @@
 </span><span class='line'><span class="k">fi</span>
 </span><span class='line'><span class="o">}</span>
 </span><span class='line'><span class="c">#</span>
-</span><span class='line'>
-</span><span class='line'><span class="c">#</span>
 </span><span class='line'><span class="k">function </span>fdesglosetractatus <span class="o">()</span>
 </span><span class='line'><span class="o">{</span>
-</span><span class='line'><span class="c">#if [ -s files ]</span>
-</span><span class='line'><span class="c">#then</span>
-</span><span class='line'><span class="c"># echo</span>
-</span><span class='line'><span class="c">#else</span>
-</span><span class='line'><span class="c"># mkdir files</span>
-</span><span class='line'><span class="c">#fi</span>
 </span><span class='line'>mkdir files
 </span><span class='line'><span class="nb">cd </span>files
-</span><span class='line'><span class="c">## &lt;bloque de miguelgf de linuxespanol.com&gt;</span>
-</span><span class='line'>cat ../0-file1.txt | awk <span class="s1">&#39;BEGIN {ESTADO=1} \</span>
-</span><span class='line'><span class="s1">{ \</span>
-</span><span class='line'><span class="s1">     if (ESTADO == 1 &amp;&amp; NF == 0) \</span>
-</span><span class='line'><span class="s1">             {ESTADO=1} \</span>
-</span><span class='line'><span class="s1">     else    {       if (ESTADO==1 &amp;&amp; NF != 0) {NOMBRE=$1; ESTADO=2; print $0 &gt;&gt; NOMBRE} \</span>
-</span><span class='line'><span class="s1">                     else    {       if (ESTADO==2 &amp;&amp; NF == 0) {ESTADO=1} \</span>
-</span><span class='line'><span class="s1">                                     else { print $0 &gt;&gt; NOMBRE } \</span>
-</span><span class='line'><span class="s1">                             } \</span>
-</span><span class='line'><span class="s1">             } \</span>
-</span><span class='line'><span class="s1">}&#39;</span>
-</span><span class='line'><span class="c">## &lt;/bloque&gt;</span>
+</span><span class='line'><span class="nv">ESTAT</span><span class="o">=</span>1 <span class="c"># 1 - Linia en blanc, 2- comanda, </span>
+</span><span class='line'><span class="nv">COMANDA</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+</span><span class='line'><span class="k">while </span><span class="nb">read </span>linia
+</span><span class='line'><span class="k">do</span>
+</span><span class='line'><span class="k">  if</span> <span class="o">[</span> <span class="nv">$ESTAT</span> -eq 1 <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> -z <span class="s2">&quot;${linia}&quot;</span> <span class="o">]</span>;
+</span><span class='line'>  <span class="k">then</span>
+</span><span class='line'><span class="k">      </span><span class="nv">ESTAT</span><span class="o">=</span>1
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'><span class="k">      if</span> <span class="o">[</span> <span class="nv">$ESTAT</span> -eq 1 <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> ! -z <span class="s2">&quot;${linia}&quot;</span> <span class="o">]</span>;
+</span><span class='line'>      <span class="k">then</span>
+</span><span class='line'><span class="k">          </span><span class="nv">ESTAT</span><span class="o">=</span>2
+</span><span class='line'>          <span class="nb">read</span> -ra COMANDA <span class="o">&lt;&lt;&lt;</span> <span class="s2">&quot;$linia&quot;</span>
+</span><span class='line'>          <span class="nb">echo</span> <span class="s2">&quot;$linia&quot;</span> &gt;&gt; <span class="s2">&quot;$COMANDA&quot;</span>
+</span><span class='line'>      <span class="k">elif</span> <span class="o">[</span> <span class="nv">$ESTAT</span> -eq 2 <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> -z <span class="s2">&quot;${linia}&quot;</span> <span class="o">]</span>;
+</span><span class='line'>      <span class="k">then</span>
+</span><span class='line'><span class="k">          </span><span class="nv">ESTAT</span><span class="o">=</span>1
+</span><span class='line'>      <span class="k">else</span>
+</span><span class='line'><span class="k">          </span><span class="nb">echo</span> <span class="s2">&quot;$linia&quot;</span> &gt;&gt; <span class="s2">&quot;$COMANDA&quot;</span>
+</span><span class='line'>      <span class="k">fi</span>
+</span><span class='line'><span class="k">  fi</span>
+</span><span class='line'><span class="k">done</span> &lt; ../0-file1.txt
 </span><span class='line'><span class="nb">echo</span>
 </span><span class='line'>fcolor <span class="s2">&quot;... proceso terminado....&quot;</span>
 </span><span class='line'><span class="nb">cd</span> ..
@@ -401,12 +402,12 @@
 </span><span class='line'>  <span class="k">if</span> <span class="o">[</span> <span class="nv">$MAN</span> -gt 2 <span class="o">]</span>
 </span><span class='line'>  <span class="k">then</span>
 </span><span class='line'><span class="k">      </span><span class="nb">echo</span>
-</span><span class='line'><span class="nb">     read</span> -p <span class="s2">&quot;No existe la entrada $COMANDO en el tractatus... ¿Visualizar su página man?  (s/n) &quot;</span> CON
+</span><span class='line'><span class="nb">      read</span> -p <span class="s2">&quot;No existe la entrada $COMANDO en el tractatus... ¿Visualizar su página man?  (s/n) &quot;</span> CON
 </span><span class='line'>      <span class="nb">echo</span>
-</span><span class='line'><span class="nb">     </span><span class="k">if</span> <span class="o">[</span> <span class="nv">$CON</span> <span class="o">=</span> s <span class="o">]</span>
+</span><span class='line'><span class="nb">      </span><span class="k">if</span> <span class="o">[</span> <span class="nv">$CON</span> <span class="o">=</span> s <span class="o">]</span>
 </span><span class='line'>      <span class="k">then</span>
 </span><span class='line'><span class="k">          </span><span class="nb">echo</span>
-</span><span class='line'><span class="nb">         </span>man <span class="nv">$COMANDO</span>
+</span><span class='line'><span class="nb">          </span>man <span class="nv">$COMANDO</span>
 </span><span class='line'>          <span class="nb">echo</span>
 </span><span class='line'><span class="nb">     </span><span class="k">else</span>
 </span><span class='line'><span class="k">          </span><span class="nb">echo</span>
@@ -421,14 +422,14 @@
 </span><span class='line'><span class="k">if</span> <span class="o">[</span> -d <span class="nv">$DIR</span> <span class="o">]</span>
 </span><span class='line'><span class="k">then</span>
 </span><span class='line'><span class="k">  </span><span class="nb">echo</span>
-</span><span class='line'><span class="nb"> </span>fcolor <span class="s2">&quot; &lt;&lt;Actualizando la versión del tractatus... &gt;&gt; &quot;</span>
+</span><span class='line'><span class="nb">  </span>fcolor <span class="s2">&quot; &lt;&lt;Actualizando la versión del tractatus... &gt;&gt; &quot;</span>
 </span><span class='line'>  <span class="nb">cd</span> <span class="nv">$DIR</span>
 </span><span class='line'>  rm 0-*.txt
 </span><span class='line'>  rm -R files
 </span><span class='line'>  <span class="nb">echo</span>
-</span><span class='line'><span class="nb"> </span>git pull
+</span><span class='line'><span class="nb">  </span>git pull
 </span><span class='line'>  <span class="nb">echo</span>
-</span><span class='line'><span class="nb"> </span>cat tractatus.txt | sed <span class="s1">&#39;1d&#39;</span> &gt; 0-file1.txt
+</span><span class='line'><span class="nb">  </span>cat tractatus.txt | sed <span class="s1">&#39;1d&#39;</span> &gt; 0-file1.txt
 </span><span class='line'>  fdesglosetractatus
 </span><span class='line'>  <span class="nb">echo</span>
 </span><span class='line'><span class="k">else</span>
@@ -437,9 +438,9 @@
 </span><span class='line'>  git clone https://github.com/templix/tractatus.git .
 </span><span class='line'>  git init
 </span><span class='line'>  <span class="nb">echo</span>
-</span><span class='line'><span class="nb"> </span>fcolor <span class="s2">&quot; &lt;&lt; Creando directorio TRAC y repositorio git... &gt;&gt; &quot;</span>
+</span><span class='line'><span class="nb">  </span>fcolor <span class="s2">&quot; &lt;&lt; Creando directorio TRAC y repositorio git... &gt;&gt; &quot;</span>
 </span><span class='line'>  <span class="nb">echo</span>
-</span><span class='line'><span class="nb"> </span>cat tractatus.txt | sed <span class="s1">&#39;1d&#39;</span> &gt; 0-file1.txt
+</span><span class='line'><span class="nb">  </span>cat tractatus.txt | sed <span class="s1">&#39;1d&#39;</span> &gt; 0-file1.txt
 </span><span class='line'>  fdesglosetractatus
 </span><span class='line'>  <span class="nb">echo</span>
 </span><span class='line'><span class="k">fi</span>
@@ -449,39 +450,38 @@
 </span><span class='line'><span class="k">while</span> <span class="o">[</span> <span class="s2">&quot;$OPC1&quot;</span> !<span class="o">=</span> 3 <span class="o">]</span>
 </span><span class='line'><span class="k">do</span>
 </span><span class='line'><span class="k">  </span><span class="nb">echo</span>
-</span><span class='line'><span class="nb"> </span>fcolor <span class="s2">&quot;[1] Entrar una busqueda&quot;</span>
+</span><span class='line'><span class="nb">  </span>fcolor <span class="s2">&quot;[1] Entrar una busqueda&quot;</span>
 </span><span class='line'>  fcolor <span class="s2">&quot;[2] Realizar busqueda avanzada&quot;</span>
 </span><span class='line'>  fcolor <span class="s2">&quot;[3] Salir&quot;</span>
 </span><span class='line'>  <span class="nb">echo</span>
-</span><span class='line'><span class="nb"> read</span> -p <span class="s2">&quot;&lt;&lt; Ingresar opción (NO distingue mayúsculas y minúsculas): &gt;&gt; &quot;</span> OPC1
+</span><span class='line'><span class="nb">  read</span> -p <span class="s2">&quot;&lt;&lt; Ingresar opción (NO distingue mayúsculas y minúsculas): &gt;&gt; &quot;</span> OPC1
 </span><span class='line'>  <span class="nb">echo</span>
-</span><span class='line'><span class="nb"> </span><span class="k">case</span> <span class="nv">$OPC1</span> in
+</span><span class='line'><span class="nb">  </span><span class="k">case</span> <span class="nv">$OPC1</span> in
 </span><span class='line'>  1<span class="o">)</span>
 </span><span class='line'>      <span class="c"># Buscar los comandos deseados.</span>
 </span><span class='line'>      <span class="nb">echo</span>
 </span><span class='line'><span class="nb">         </span>fcolor <span class="s2">&quot;&lt;&lt; Introducir dato a consultar: &gt;&gt;&quot;</span>
 </span><span class='line'>          <span class="nb">echo</span>
-</span><span class='line'><span class="nb">         read </span>COMAND_
+</span><span class='line'><span class="nb">          read </span>COMAND_
 </span><span class='line'>          <span class="nv">COMANDO</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="s2">&quot;$COMAND_&quot;</span> | tr <span class="s1">&#39;A-Z&#39;</span> <span class="s1">&#39;a-z&#39;</span><span class="k">)</span>
 </span><span class='line'>          clear
 </span><span class='line'>      <span class="k">if</span> <span class="o">[</span> -e <span class="s2">&quot;$COMANDO&quot;</span> <span class="o">]</span>
 </span><span class='line'>      <span class="k">then</span>
 </span><span class='line'><span class="k">          </span>pr -f -d -h <span class="nv">$COMANDO</span> <span class="nv">$COMANDO</span> | ccze -A
 </span><span class='line'>          <span class="nb">echo</span>
-</span><span class='line'><span class="nb">         read</span>
+</span><span class='line'><span class="nb">          read</span>
 </span><span class='line'><span class="nb">     </span><span class="k">else</span>
 </span><span class='line'><span class="k">          </span>fpagina_man
-</span><span class='line'>      <span class="nb">echo</span>
+</span><span class='line'>          <span class="nb">echo</span>
 </span><span class='line'><span class="nb">     </span><span class="k">fi</span>
-</span><span class='line'><span class="c">#     read</span>
-</span><span class='line'>      clear;;
+</span><span class='line'><span class="k">     </span>clear;;
 </span><span class='line'>  2<span class="o">)</span>
 </span><span class='line'>      <span class="c">### Busqueda recursiva</span>
 </span><span class='line'>      clear
 </span><span class='line'>      <span class="nb">echo</span>
-</span><span class='line'><span class="nb">         </span>fcolor <span class="s2">&quot;&lt;&lt; Introducir dato a consultar: &gt;&gt;&quot;</span>
+</span><span class='line'><span class="nb">          </span>fcolor <span class="s2">&quot;&lt;&lt; Introducir dato a consultar: &gt;&gt;&quot;</span>
 </span><span class='line'>          <span class="nb">echo</span>
-</span><span class='line'><span class="nb">         read </span>COMAND_
+</span><span class='line'><span class="nb">          read </span>COMAND_
 </span><span class='line'>          <span class="nv">COMANDO</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="s2">&quot;$COMAND_&quot;</span> | tr <span class="s1">&#39;A-Z&#39;</span> <span class="s1">&#39;a-z&#39;</span><span class="k">)</span>
 </span><span class='line'>          clear
 </span><span class='line'>          grep -l <span class="nv">$COMANDO</span> * | cut -d/ -f2 &gt; ../0-file3.txt
@@ -491,18 +491,18 @@
 </span><span class='line'>              <span class="k">while</span> <span class="o">[</span> <span class="nv">$OP</span> <span class="o">=</span> s <span class="o">]</span>
 </span><span class='line'>              <span class="k">do</span>
 </span><span class='line'><span class="k">                  </span><span class="nb">echo</span>
-</span><span class='line'><span class="nb">                 </span>fcolor <span class="s2">&quot;El dato entrado sale en los siguientes ficheros: &quot;</span>
+</span><span class='line'><span class="nb">                  </span>fcolor <span class="s2">&quot;El dato entrado sale en los siguientes ficheros: &quot;</span>
 </span><span class='line'>                  <span class="nb">echo</span>
-</span><span class='line'><span class="nb">                 </span><span class="nv">numero</span><span class="o">=</span>0
+</span><span class='line'><span class="nb">                  </span><span class="nv">numero</span><span class="o">=</span>0
 </span><span class='line'>                  <span class="k">for </span>linia in <span class="sb">`</span>cat ../0-file3.txt<span class="sb">`</span>; <span class="k">do</span>
 </span><span class='line'><span class="k">                      </span><span class="nb">let </span>numero+<span class="o">=</span>1
 </span><span class='line'>                      <span class="nb">echo</span> <span class="s2">&quot;[$numero] $linia&quot;</span>
 </span><span class='line'>                  <span class="k">done</span>
 </span><span class='line'><span class="k">                  </span><span class="nb">echo</span>
-</span><span class='line'><span class="nb">                 echo</span> <span class="s2">&quot;[0] Cancelar&quot;</span>
+</span><span class='line'><span class="nb">                  echo</span> <span class="s2">&quot;[0] Cancelar&quot;</span>
 </span><span class='line'>                  <span class="nb">echo</span>
-</span><span class='line'><span class="nb">                 echo</span>
-</span><span class='line'><span class="nb">                 </span>fcolor <span class="s2">&quot;&lt;&lt; Comando a mostrar... &gt;&gt;&quot;</span>
+</span><span class='line'><span class="nb">                  echo</span>
+</span><span class='line'><span class="nb">                  </span>fcolor <span class="s2">&quot;&lt;&lt; Comando a mostrar... &gt;&gt;&quot;</span>
 </span><span class='line'>                  <span class="nb">read </span>COM
 </span><span class='line'>                  <span class="k">if</span> <span class="o">[</span> <span class="nv">$COM</span> -ne 0 <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> <span class="nv">$COM</span> -le <span class="nv">$numero</span> <span class="o">]</span>;
 </span><span class='line'>                  <span class="k">then</span>
@@ -510,20 +510,20 @@
 </span><span class='line'>                      <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;$?&quot;</span> -eq <span class="s2">&quot;0&quot;</span> <span class="o">]</span>
 </span><span class='line'>                      <span class="k">then</span>
 </span><span class='line'><span class="k">                          </span><span class="nb">echo</span>
-</span><span class='line'><span class="nb">                         </span>clear
+</span><span class='line'><span class="nb">                          </span>clear
 </span><span class='line'>                          pr -f -d -h <span class="nv">$comando</span> <span class="nv">$comando</span> | ccze -A
 </span><span class='line'>                      <span class="k">else</span>
-</span><span class='line'><span class="k">                      </span><span class="nb">echo</span>
+</span><span class='line'><span class="k">                          </span><span class="nb">echo</span>
 </span><span class='line'><span class="nb">                     </span><span class="k">fi</span>
-</span><span class='line'><span class="k">                      </span><span class="nb">read</span>
+</span><span class='line'><span class="k">                     </span><span class="nb">read</span>
 </span><span class='line'><span class="nb">                     echo</span>
 </span><span class='line'><span class="nb">                     </span>fcolor <span class="s2">&quot;&lt;&lt; Consultar otro comando del listado? [s/n] &gt;&gt;&quot;</span>
-</span><span class='line'>                      <span class="nb">read </span>OP
-</span><span class='line'>                      clear
+</span><span class='line'>                     <span class="nb">read </span>OP
+</span><span class='line'>                     clear
 </span><span class='line'>                  <span class="k">elif</span> <span class="o">[</span> <span class="nv">$COM</span> -gt <span class="nv">$numero</span> <span class="o">]</span> ;
 </span><span class='line'>                  <span class="k">then</span>
 </span><span class='line'><span class="k">                      </span><span class="nb">echo</span>
-</span><span class='line'><span class="nb">                     </span>clear
+</span><span class='line'><span class="nb">                      </span>clear
 </span><span class='line'>                      cowsay -f tux <span class="s2">&quot;No existe en el listado&quot;</span>
 </span><span class='line'>                      <span class="nb">read</span>
 </span><span class='line'><span class="nb">                 </span><span class="k">else</span>

@@ -1,0 +1,224 @@
+<div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># Date: 22-11-2013</span>
+<span class="c"># Author: &quot;lapipaplena&quot; &lt;lapipaplena@gmail.com&gt;</span>
+<span class="c"># Version: 4.0</span>
+<span class="c"># Licence: GPL v3.0</span>
+<span class="c"># Description: Script de desarrollo del tractatus via github</span>
+<span class="c"># Require: cowsay ccze git</span>
+<span class="nv">DIR</span><span class="o">=</span><span class="nv">$HOME</span>/TRAC
+<span class="c">## comprobar privilegios</span>
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;$(id -u)&quot;</span> <span class="o">=</span> <span class="s2">&quot;0&quot;</span> <span class="o">]</span>
+<span class="k">then </span>
+<span class="k">  </span><span class="nb">echo</span>
+<span class="nb">  echo</span> <span class="s2">&quot;&lt;&lt; Ejecutar el script como usuario sin privilegios... abortando.... &gt;&gt;&quot;</span>
+  <span class="nb">echo</span>
+<span class="nb"> exit </span>1
+<span class="k">fi</span>
+<span class="c">#</span>
+<span class="k">function </span>fcolor <span class="o">()</span>
+<span class="o">{</span>
+  <span class="nb">echo</span> <span class="nv">$1</span> | ccze -A
+<span class="o">}</span>
+<span class="c">#</span>
+<span class="k">function </span>fdir <span class="o">()</span>
+<span class="o">{</span>
+<span class="k">if</span> <span class="o">[</span> -d <span class="nv">$DIR</span> <span class="o">]</span>
+<span class="k">then</span>
+<span class="k">  </span><span class="nb">echo</span>
+<span class="k">else</span>
+<span class="k">  </span>mkdir <span class="nv">$DIR</span>
+<span class="k">fi</span>
+<span class="o">}</span>
+<span class="c">#</span>
+<span class="k">function </span>fdesglosetractatus <span class="o">()</span>
+<span class="o">{</span>
+mkdir files
+<span class="nb">cd </span>files
+<span class="nv">ESTAT</span><span class="o">=</span>1 <span class="c"># 1 - Linia en blanc, 2- comanda, </span>
+<span class="nv">COMANDA</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+<span class="k">while </span><span class="nb">read </span>linia
+<span class="k">do</span>
+<span class="k">	if</span> <span class="o">[</span> <span class="nv">$ESTAT</span> -eq 1 <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> -z <span class="s2">&quot;${linia}&quot;</span> <span class="o">]</span>; 
+	<span class="k">then</span>
+<span class="k">		</span><span class="nv">ESTAT</span><span class="o">=</span>1
+	<span class="k">else</span>
+<span class="k">		if</span> <span class="o">[</span> <span class="nv">$ESTAT</span> -eq 1 <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> ! -z <span class="s2">&quot;${linia}&quot;</span> <span class="o">]</span>;
+		<span class="k">then</span>
+<span class="k">			</span><span class="nv">ESTAT</span><span class="o">=</span>2
+			<span class="nb">read</span> -ra COMANDA <span class="o">&lt;&lt;&lt;</span> <span class="s2">&quot;$linia&quot;</span>
+			<span class="nb">echo</span> <span class="s2">&quot;$linia&quot;</span> &gt;&gt; <span class="s2">&quot;$COMANDA&quot;</span>
+		<span class="k">elif</span> <span class="o">[</span> <span class="nv">$ESTAT</span> -eq 2 <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> -z <span class="s2">&quot;${linia}&quot;</span> <span class="o">]</span>;
+		<span class="k">then</span>
+<span class="k">			</span><span class="nv">ESTAT</span><span class="o">=</span>1
+		<span class="k">else</span>
+<span class="k">			</span><span class="nb">echo</span> <span class="s2">&quot;$linia&quot;</span> &gt;&gt; <span class="s2">&quot;$COMANDA&quot;</span>
+		<span class="k">fi</span>
+<span class="k">	fi</span>
+<span class="k">done</span> &lt; ../0-file1.txt
+<span class="nb">echo</span>
+fcolor <span class="s2">&quot;... proceso terminado....&quot;</span>
+<span class="nb">cd</span> ..
+ls files &gt; 0-lista.txt
+<span class="k">if</span> <span class="o">[</span> ! -s 0-lista.txt <span class="o">]</span>
+<span class="k">then</span>
+<span class="k">  </span>fcolor <span class="s2">&quot;Se han detectado errores al procesar la descarga del Tractatus&quot;</span>
+  <span class="nb">exit</span>
+<span class="k">else</span>
+<span class="k">  </span><span class="nb">echo</span>
+<span class="nb"> </span>fcolor  <span class="s2">&quot;&lt;&lt; Creado el directorio &quot;</span>files<span class="s2">&quot; correctamente ... &gt;&gt;&quot;</span>
+<span class="k">fi</span>
+<span class="o">}</span>
+<span class="c">#</span>
+<span class="k">function </span>fpagina_man <span class="o">()</span>
+<span class="o">{</span>
+  <span class="nv">MAN</span><span class="o">=</span><span class="k">$(</span>man <span class="nv">$COMANDO</span> | wc -l 2&gt;/dev/null<span class="k">)</span>
+  <span class="k">if</span> <span class="o">[</span> <span class="nv">$MAN</span> -gt 2 <span class="o">]</span>
+  <span class="k">then</span>
+<span class="k">      </span><span class="nb">echo</span>
+<span class="nb">      read</span> -p <span class="s2">&quot;No existe la entrada $COMANDO en el tractatus... ¿Visualizar su página man?  (s/n) &quot;</span> CON
+      <span class="nb">echo</span>
+<span class="nb">      </span><span class="k">if</span> <span class="o">[</span> <span class="nv">$CON</span> <span class="o">=</span> s <span class="o">]</span>
+      <span class="k">then</span>
+<span class="k">          </span><span class="nb">echo</span>
+<span class="nb">          </span>man <span class="nv">$COMANDO</span>
+          <span class="nb">echo</span>
+<span class="nb">     </span><span class="k">else</span>
+<span class="k">          </span><span class="nb">echo</span>
+<span class="nb">     </span><span class="k">fi</span>
+<span class="k">  else</span>
+<span class="k">      </span>cowsay -f tux <span class="s2">&quot;Concepto inexistente en el tractatus y en las páginas man&quot;</span>
+  <span class="k">fi</span>
+<span class="k">  </span><span class="nb">read</span>
+<span class="o">}</span>
+<span class="c">#</span>
+<span class="c">###</span>
+<span class="k">if</span> <span class="o">[</span> -d <span class="nv">$DIR</span> <span class="o">]</span>
+<span class="k">then</span>
+<span class="k">  </span><span class="nb">echo</span>
+<span class="nb">  </span>fcolor <span class="s2">&quot; &lt;&lt;Actualizando la versión del tractatus... &gt;&gt; &quot;</span>
+  <span class="nb">cd</span> <span class="nv">$DIR</span>
+  rm 0-*.txt
+  rm -R files
+  <span class="nb">echo</span>
+<span class="nb">  </span>git pull
+  <span class="nb">echo</span>
+<span class="nb">  </span>cat tractatus.txt | sed <span class="s1">&#39;1d&#39;</span> &gt; 0-file1.txt
+  fdesglosetractatus
+  <span class="nb">echo</span>
+<span class="k">else</span>
+<span class="k">  </span>fdir
+  <span class="nb">cd</span> <span class="nv">$DIR</span>
+  git clone https://github.com/templix/tractatus.git .
+  git init
+  <span class="nb">echo</span>
+<span class="nb">  </span>fcolor <span class="s2">&quot; &lt;&lt; Creando directorio TRAC y repositorio git... &gt;&gt; &quot;</span>
+  <span class="nb">echo</span>
+<span class="nb">  </span>cat tractatus.txt | sed <span class="s1">&#39;1d&#39;</span> &gt; 0-file1.txt
+  fdesglosetractatus
+  <span class="nb">echo</span>
+<span class="k">fi</span>
+<span class="c">###</span>
+<span class="nb">cd</span> <span class="nv">$DIR</span>/files
+<span class="nv">NUM2</span><span class="o">=</span><span class="k">$(</span>cat ../0-file1.txt | awk <span class="s1">&#39;BEGIN { FS=&quot;\n&quot;; RS=&quot;&quot; } {print $1 }&#39;</span> | awk -F <span class="s2">&quot; &quot;</span> <span class="s1">&#39;{print$1 }&#39;</span> | wc -l<span class="k">)</span>
+<span class="k">while</span> <span class="o">[</span> <span class="s2">&quot;$OPC1&quot;</span> !<span class="o">=</span> 3 <span class="o">]</span>
+<span class="k">do</span>
+<span class="k">  </span><span class="nb">echo</span>
+<span class="nb">  </span>fcolor <span class="s2">&quot;[1] Entrar una busqueda&quot;</span>
+  fcolor <span class="s2">&quot;[2] Realizar busqueda avanzada&quot;</span>
+  fcolor <span class="s2">&quot;[3] Salir&quot;</span>
+  <span class="nb">echo</span>
+<span class="nb">  read</span> -p <span class="s2">&quot;&lt;&lt; Ingresar opción (NO distingue mayúsculas y minúsculas): &gt;&gt; &quot;</span> OPC1
+  <span class="nb">echo</span>
+<span class="nb">  </span><span class="k">case</span> <span class="nv">$OPC1</span> in
+  1<span class="o">)</span>
+      <span class="c"># Buscar los comandos deseados.</span>
+      <span class="nb">echo</span>
+<span class="nb">         </span>fcolor <span class="s2">&quot;&lt;&lt; Introducir dato a consultar: &gt;&gt;&quot;</span>
+          <span class="nb">echo</span>
+<span class="nb">          read </span>COMAND_
+          <span class="nv">COMANDO</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="s2">&quot;$COMAND_&quot;</span> | tr <span class="s1">&#39;A-Z&#39;</span> <span class="s1">&#39;a-z&#39;</span><span class="k">)</span>
+          clear
+      <span class="k">if</span> <span class="o">[</span> -e <span class="s2">&quot;$COMANDO&quot;</span> <span class="o">]</span>
+      <span class="k">then</span>
+<span class="k">          </span>pr -f -d -h <span class="nv">$COMANDO</span> <span class="nv">$COMANDO</span> | ccze -A
+          <span class="nb">echo</span>
+<span class="nb">          read</span>
+<span class="nb">     </span><span class="k">else</span>
+<span class="k">          </span>fpagina_man
+          <span class="nb">echo</span>
+<span class="nb">     </span><span class="k">fi</span>
+<span class="k">     </span>clear;;
+  2<span class="o">)</span>
+      <span class="c">### Busqueda recursiva</span>
+      clear
+      <span class="nb">echo</span>
+<span class="nb">          </span>fcolor <span class="s2">&quot;&lt;&lt; Introducir dato a consultar: &gt;&gt;&quot;</span>
+          <span class="nb">echo</span>
+<span class="nb">          read </span>COMAND_
+          <span class="nv">COMANDO</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="s2">&quot;$COMAND_&quot;</span> | tr <span class="s1">&#39;A-Z&#39;</span> <span class="s1">&#39;a-z&#39;</span><span class="k">)</span>
+          clear
+          grep -l <span class="nv">$COMANDO</span> * | cut -d/ -f2 &gt; ../0-file3.txt
+          <span class="k">if</span> <span class="o">[</span> -s ../0-file3.txt <span class="o">]</span>
+          <span class="k">then</span>
+<span class="k">              </span><span class="nv">OP</span><span class="o">=</span>s
+              <span class="k">while</span> <span class="o">[</span> <span class="nv">$OP</span> <span class="o">=</span> s <span class="o">]</span>
+              <span class="k">do</span>
+<span class="k">                  </span><span class="nb">echo</span>
+<span class="nb">                  </span>fcolor <span class="s2">&quot;El dato entrado sale en los siguientes ficheros: &quot;</span>
+                  <span class="nb">echo</span>
+<span class="nb">                  </span><span class="nv">numero</span><span class="o">=</span>0
+                  <span class="k">for </span>linia in <span class="sb">`</span>cat ../0-file3.txt<span class="sb">`</span>; <span class="k">do</span>
+<span class="k">                      </span><span class="nb">let </span>numero+<span class="o">=</span>1
+                      <span class="nb">echo</span> <span class="s2">&quot;[$numero] $linia&quot;</span>
+                  <span class="k">done</span>
+<span class="k">                  </span><span class="nb">echo</span>
+<span class="nb">                  echo</span> <span class="s2">&quot;[0] Cancelar&quot;</span>
+                  <span class="nb">echo</span>
+<span class="nb">                  echo</span>
+<span class="nb">                  </span>fcolor <span class="s2">&quot;&lt;&lt; Comando a mostrar... &gt;&gt;&quot;</span>
+                  <span class="nb">read </span>COM
+                  <span class="k">if</span> <span class="o">[</span> <span class="nv">$COM</span> -ne 0 <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> <span class="nv">$COM</span> -le <span class="nv">$numero</span> <span class="o">]</span>;
+                  <span class="k">then</span>
+<span class="k">                      </span><span class="nv">comando</span><span class="o">=</span><span class="sb">`</span>sed -n <span class="k">${</span><span class="nv">COM</span><span class="k">}</span>p ../0-file3.txt<span class="sb">`</span>
+                      <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;$?&quot;</span> -eq <span class="s2">&quot;0&quot;</span> <span class="o">]</span>
+                      <span class="k">then</span>
+<span class="k">                          </span><span class="nb">echo</span>
+<span class="nb">                          </span>clear
+                          pr -f -d -h <span class="nv">$comando</span> <span class="nv">$comando</span> | ccze -A
+                      <span class="k">else</span>
+<span class="k">                          </span><span class="nb">echo</span>
+<span class="nb">                     </span><span class="k">fi</span>
+<span class="k">                     </span><span class="nb">read</span>
+<span class="nb">                     echo</span>
+<span class="nb">                     </span>fcolor <span class="s2">&quot;&lt;&lt; Consultar otro comando del listado? [s/n] &gt;&gt;&quot;</span>
+                     <span class="nb">read </span>OP
+                     clear
+                  <span class="k">elif</span> <span class="o">[</span> <span class="nv">$COM</span> -gt <span class="nv">$numero</span> <span class="o">]</span> ;
+                  <span class="k">then</span>
+<span class="k">                      </span><span class="nb">echo</span>
+<span class="nb">                      </span>clear
+                      cowsay -f tux <span class="s2">&quot;No existe en el listado&quot;</span>
+                      <span class="nb">read</span>
+<span class="nb">                 </span><span class="k">else</span>
+<span class="k">                      </span><span class="nv">OP</span><span class="o">=</span><span class="s2">&quot;n&quot;</span>
+                      clear
+                  <span class="k">fi</span>
+<span class="k">              done</span>
+<span class="k">          else</span>
+<span class="k">              </span>fpagina_man
+              <span class="nb">echo</span>
+<span class="nb">         </span><span class="k">fi</span>
+<span class="k">      </span><span class="nb">echo</span>;;
+  3<span class="o">)</span>;;
+  <span class="k">esac</span>
+<span class="k">done</span>
+clear
+<span class="nb">echo</span>
+rm ../0-file1.txt
+<span class="nb">echo</span>  <span class="s2">&quot;=============================================================&quot;</span>
+fcolor <span class="s2">&quot;&lt;&lt; La base de datos del tractatus cuenta con $NUM2 entradas &gt;&gt;&quot;</span>
+<span class="nb">echo</span>  <span class="s2">&quot;=============================================================&quot;</span>
+<span class="nb">cd</span> <span class="nv">$HOME</span>
+<span class="nb">echo</span>
+<span class="nb">exit</span>
+</pre></div>
