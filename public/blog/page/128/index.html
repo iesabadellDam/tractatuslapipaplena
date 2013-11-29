@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Unir varios videos en uno $ avimerge -o todos.avi -i 1.avi 2.avi 3.avi $ avimerge -o todos.avi -i *.avi (todos los videos de un directorio en uno)
-">
+  <meta name="description" content="Estadísticas de la red local En el fichero de configuración (/etc/awstats/awstats.conf) comprobar: LogFile=&#8221;/var/log/apache2/access.log&#8221; &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +75,429 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/awstats/">Awstats</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Estadísticas de la red local</p>
+
+<p>En el fichero de configuración (/etc/awstats/awstats.conf) comprobar:</p>
+
+<p>LogFile=&#8221;/var/log/apache2/access.log&#8221;</p>
+
+<p>SiteDomain=”tu_dominio.com” (entre comillas nombre del host)</p>
+
+<p>LogFormat=1 (El usado por apache)</p>
+
+<p>AllowToUpdateStatsFromBrowser=1 (Actualizar via navegador)</p>
+
+<p>Lang=&#8221;es&#8221;</p>
+
+<p>Asegurar permisos:</p>
+
+<blockquote><p># chmod o+r /var/log/apache2/access.log</p></blockquote>
+
+<p>Crear enlace de las imágenes:</p>
+
+<pre><code># ln -s /usr/share/awstats/icon/ /var/www/awstats-icon 
+</code></pre>
+
+<p>Crear las estadísticas:</p>
+
+<pre><code># /usr/lib/cgi-bin/awstats.pl -update -config=/etc/awstats/awstats.conf 
+</code></pre>
+
+<p>Para ver las estadísticas, en el navegador:</p>
+
+<pre><code>http://localhost/cgi-bin/awstats.pl
+</code></pre>
+
+<p>Si no queremos que las estadísticas sean accesibles para cualquiera:</p>
+
+<pre><code># gedit /etc/apache2/sites-available/default
+</code></pre>
+
+<p>Y en la linea “Allow from All” de la sección siguiente, quitamos el “All” y ponemos 127.0.0.1 [O la ip que proceda] y reiniciamos servicio:</p>
+
+<p>ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/</p>
+
+<pre><code>&lt;Directory "/usr/lib/cgi-bin"&gt; 
+
+AllowOverride None 
+
+Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch 
+
+Order allow,deny 
+
+Allow from 127.0.0.1 
+
+&lt;/Directory&gt;
+</code></pre>
+
+<blockquote><p># /etc/init.d/apache2 force-reload</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/awk/">Awk</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Busca patrones y los procesa. Es practicamente un lenguaje de programación.</p>
+
+<p>Archivo base para ejemplo (Empleado &#8211; Precio/hora &#8211; Horas trabajadas – Cómo las cobra):</p>
+
+<blockquote><p>$ cat lista</p></blockquote>
+
+<p>Juan Gomez 6 10 banco</p>
+
+<p>Clara Fuentes 7 12 banco</p>
+
+<p>Antonio Cano 6 13 metálico</p>
+
+<p>José Bueno 7 0 banco</p>
+
+<p>Matías Crespo 5 8 metálico</p>
+
+<p>Isabel Ruiz 7 0 metálico</p>
+
+<p>María Monzón 9 16 metálico</p>
+
+<p>Imprimir la segunda columna (Apellidos):</p>
+
+<pre><code>$ awk ' { print $2 } ' lista
+</code></pre>
+
+<p>Imprimir la última columna:</p>
+
+<pre><code>$ awk ' { print $NF } ' lista
+</code></pre>
+
+<p>Imprimir la linea 3:</p>
+
+<pre><code>$ awk ' NR == 3 ' lista
+</code></pre>
+
+<p>Imprimir todo menos la primera columna:</p>
+
+<pre><code>$ awk ' { $1 = "" ; print } ' lista
+</code></pre>
+
+<p>Imprimir las columnas tabuladas:</p>
+
+<pre><code>$ awk ' { print $1 “\t” $2 “\t” $3 “\t” $4 } ' lista
+</code></pre>
+
+<p>Imprimir las lineas que tengan menos de 22 caracteres:</p>
+
+<pre><code>$ awk 'length($0) &lt; 22' lista
+</code></pre>
+
+<p>Calcular el sueldo de los empleados que han trabajado:</p>
+
+<pre><code>$ awk ' $4 &gt; 0 { print $1,$2, $3*$4} ' lista  
+</code></pre>
+
+<p>Personas que no han trabajado:</p>
+
+<pre><code>$ awk ' $3 == 0 { print $1}' lista 
+</code></pre>
+
+<p>Buscar una entrada concreta:</p>
+
+<pre><code>$ awk '/Fuentes/ { print $0 }' lista
+</code></pre>
+
+<p>Buscar los que cobran en metálico e impimir la 2ª columna:</p>
+
+<p>Buscar dos entradas en una misma linea separándolas con punto y coma (;):</p>
+
+<pre><code>$ awk ' /'metálico'/ {print$2}' lista 
+
+$ awk '/Fuentes/ { print $0 }; /Cano/ { print$0 } ' lista
+</code></pre>
+
+<p>Buscar las entradas en las que el primer campo empiece por “J”, imprimir el 2º campo y, entre parentesis el último:</p>
+
+<pre><code>$ awk '$1 ~ /^J/ {print$2, "("$NF")"}' lista
+</code></pre>
+
+<p>Lo mismo con if:</p>
+
+<pre><code>$ awk ' { if ($1 ~ /^J/) print$2, “(“$NF”)” }' lista
+</code></pre>
+
+<p>Añadir 5 horas al 4º campo y comprobar como quedan con la modificación:</p>
+
+<pre><code>$ awk '{ $4 = ($4+5); print $0 }' lista
+</code></pre>
+
+<p>Añadir un nuevo campo ($6) con el producto del 3 y el 4:</p>
+
+<pre><code>$ awk '{ $6 = ($3*$4); print $0 }' lista
+</code></pre>
+
+<p>print permite colocar texto:</p>
+
+<pre><code>$ awk ' { print "El sueldo de ",$2," es de ",$3*$4," euros."} ' lista 
+</code></pre>
+
+<p>Variables internas:</p>
+
+<p>Mostrar el número de campos de cada linea (NF):</p>
+
+<pre><code>$ awk ' { print NF } ' lista 
+</code></pre>
+
+<p>Mostrar el número de lineas (NR):</p>
+
+<pre><code>$ awk ' { print NR } ' lista
+</code></pre>
+
+<p>Mostrar todas las lineas completas ($0):</p>
+
+<pre><code>$ awk ' { print $0 } ' lista 
+</code></pre>
+
+<p>Mostrar las lineas que tengan al menos un campo</p>
+
+<pre><code>$ awk 'NF &gt; 0' lista
+</code></pre>
+
+<p>Lo mismo con if:</p>
+
+<pre><code>$ awk '{ if (NF &gt; 0) print }' lista
+</code></pre>
+
+<p>Dar formato a la salida de datos:</p>
+
+<pre><code>$ awk ' $4 &gt; 0 { printf "%-8s .... %8.1f euros\n",$2,($3*$4) } ' lista 
+</code></pre>
+
+<blockquote><p>$4 > 0 (Que imprima los que la 4ª columna no sea cero.)</p></blockquote>
+
+<p>%-8s (Que imprima una cadena (s) justificada a la izquierda (-) en un campo de 8 caracteres de ancho.)</p>
+
+<p>%8.1f (Que imprima un numero real (f), en un campo de ocho caracteres de ancho, con un decimal.)</p>
+
+<p>Imprimir cadena, justificada a la izquierda y en campos de 10 y 5 caracteres:</p>
+
+<blockquote><p>$ awk &#8216;{ printf &#8220;%-10s %-10s %-5s %-5s %-5s\n&#8221;, $1, $2, $3, $4, $5 }&#8217; lista</p></blockquote>
+
+<p>Parecido con más florituras (todo en una sola linea)</p>
+
+<pre><code>$ awk 'BEGIN {print "nombre\tapellido\tprecio\thoras\tpago"; print  "------\t--------\t------\t-----\t----"}; {print $1"\t"$2"\t"$3"\t"$4"\t"$5 }' lista
+</code></pre>
+
+<p>Lo mismo más legible:</p>
+
+<pre><code>$ awk 'BEGIN {print "nombre\tapellido\tprecio\thoras\tpago" 
+
+&gt;                     print "------\t--------\t------\t-----\t----"} 
+
+&gt;                   {print  $1"\t"$2"\t"$3"\t"$4"\t"$5 }' lista
+</code></pre>
+
+<p>BEGIN y END son patrones especiales usados para suministrar al script awk qué hacer antes de empezar a procesar y después de haber procesado los registros de la entrada.:</p>
+
+<pre><code>$ awk 'BEGIN {print “Cuantas veces aparece la palabra banco” } 
+
+&gt;       /banco/ { ++i } 
+
+&gt;       END   {print “banco aparece “i” veces.”}' lista 
+</code></pre>
+
+<p>Los  patrones pueden combinarse mediante los operadores lógicos AND (&amp;&amp;), OR(||) y NOT(!).</p>
+
+<p>Imprimir los nombres de los empleados que ganan mas de 6.50 euros a la hora y que han trabajado mas de 14:</p>
+
+<pre><code>$ awk ' $3&gt;=6.50 &amp;&amp; $4&gt;=14 { print $1,$2 } ' lista 
+</code></pre>
+
+<p>Patrones</p>
+
+<p>buscar las lineas que contienen la cadena &#8220;banco&#8221; en el 5º campo:</p>
+
+<pre><code>$ awk ' $5 ~ /banco/ ' lista 
+</code></pre>
+
+<p>Buscar las lineas que no contengan la cadena &#8220;banco&#8221; en el 5º campo:</p>
+
+<pre><code>$ awk '  $5 !~ /banco/ ' lista
+</code></pre>
+
+<p>Mostrar los que el 4º campo no empiece por 0 o 1:</p>
+
+<pre><code>$ awk ' $4 ~ /^[^01]/' lista 
+</code></pre>
+
+<p>La salida también puede pasarse a un filtro para ordenarse:</p>
+
+<pre><code>$ awk ' { print $2 | "sort" } ' lista
+</code></pre>
+
+<p>Mostrar la linea cuyo 2º campo termina en “iz”:</p>
+
+<pre><code>$ awk '$2 ~ /iz$/' lista 
+</code></pre>
+
+<p>Mismo concepto sin especificar si la primera letra es mayúscula o minúscula y sin conocer la segunda:</p>
+
+<pre><code>$ awk '$1 ~ /^[Cc]./' lista
+</code></pre>
+
+<p>Mismo concepto incluyendo las que empiezan por “R”:</p>
+
+<pre><code>$ awk '$2 ~ /^[Cc].|^[R]/' lista 
+</code></pre>
+
+<p>“tolower” convierte el campo especificado a minúsculas:</p>
+
+<pre><code>$ awk 'tolower($1) ~ /^m/' lista     
+</code></pre>
+
+<p>Para mandar cada linea a un archivo con el nombre del 2er campo:</p>
+
+<pre><code>$ awk ' { print &gt; $2 } ' lista
+</code></pre>
+
+<p>Mandar el primer campo a un archivo y el segundo a otro:</p>
+
+<pre><code>$ awk '{ print $1 &gt; "nombres"; print $2 &gt; "apellidos" }' lista
+</code></pre>
+
+<p>Lo mismo pero mandándolo ordenado:</p>
+
+<pre><code>$ awk '{ print $1 | "sort &gt; nombres"; print $2 | "sort &gt; apellidos" }' lista 
+</code></pre>
+
+<p>Indicando caracter separador (un espacio y que imprima el 2º campo):</p>
+
+<pre><code>$ awk  -F " " ' { print $2 } ' lista 
+</code></pre>
+
+<p>Lo mismo usando BEGIN:</p>
+
+<pre><code>$ awk 'BEGIN { FS = " " } ; { print $2 }' lista
+</code></pre>
+
+<p>El siguiente  programa  muestra  como  puede usarse awk para validación de datos.</p>
+
+<blockquote><p>$ cat validar</p>
+
+<p>$3 &lt; 6.5   { print $1,$2 &#8221; ===> precio por hora bajo&#8221;, &#8220;(&#8220;$3&#8221;)&#8221; }</p>
+
+<p>$3 > 8     { print $1,$2 &#8221; ===> precio por hora alto&#8221;, &#8220;(&#8220;$3&#8221;)&#8221; }</p>
+
+<p>$5 == &#8220;banco&#8221;    { print $1,$2 &#8221; ===> Cobra por banco&#8221; }</p>
+
+<p>$5 == &#8220;metálico&#8221; { print $1,$2 &#8221; ===> Cobra en metálico&#8221; }</p></blockquote>
+
+<p>Se ejecuta con:</p>
+
+<pre><code>$ awk -f validar lista 
+</code></pre>
+
+<p>Aunque también podríamos añadir que lo ordenara por orden alfabetico del segundo campo (-k2) separado del primero por un espacio(-t” “):</p>
+
+<pre><code>$ awk -f validar lista | sort -t” “ -k2
+</code></pre>
+
+<p>Creación de scripts con awk:</p>
+
+<blockquote><p>$ cat hola</p>
+
+<p>#! /usr/bin/awk -f</p>
+
+<p># programa awk de ejemplo</p></blockquote>
+
+<p>BEGIN { print &#8220;Hola mundo cruel&#8221; }</p>
+
+<blockquote><p>$ chmod +x hola</p>
+
+<p>$ ./hola</p></blockquote>
+
+<p>Hola mundo cruel</p>
+
+<p>Es resultado es el mismo que tecleando:</p>
+
+<pre><code>$ awk -f hola 
+</code></pre>
+
+<p>Otros ejemplos:</p>
+
+<pre><code>$ awk '/d.[0-9]/{print $4}' /proc/partitions  (listar todas las particiones)
+
+$ cat 1.txt | awk '{print$1”\t”$2}'  (tabulando la salida)
+
+$ cat 1.txt | awk '!/#/{print $0}' &gt; 2.txt  (Imprime todo menos las lineas comentadas y lo manda a un archivo)
+
+$ cat 1.txt | awk 'BEGIN { FS="\n"; RS="" } { print $1 }' &gt; lista.txt (Manda a un archivo las primeras lineas precedidas de una en blanco)
+
+$ who | awk '{print $1}'  (Mostrar todos los usuarios registrados)
+
+$ awk '$1~/^DocumentRoot/{print $2}' /etc/apache2/sites-available/default (conocer la carpeta del servidor)
+
+$ awk 'BEGIN { for (i = 1; i &lt;= 7; i++) print int(101 * rand()) }' (Escribir 7 números aleatorios del 0 al 100)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -405,105 +827,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/aurvote/">Aurvote</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Votar un paquete de aur para ser incluido en los repositorios de community.</p>
-
-<blockquote><p>$ aurvote broadcom-wl</p></blockquote>
-
-<p>1.-</p>
-
-<p>Para votar utomaticamente un paquete al instalarlo:</p>
-
-<blockquote><p>$ nano .config/aurvote</p></blockquote>
-
-<p>Y añadir las lineas:</p>
-
-<pre><code>user=usuario 
-
-pass=contraseña
-</code></pre>
-
-<p>Nota.- son el nombre de usuario y contraseña del registro en https://aur.archlinux.org/</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/aumix/">Aumix</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Control de sonido.</p>
-
-<blockquote><p>$ aumix -v75 (al 75% del total)</p>
-
-<p>$ aumix -v100 (máximo)</p>
-
-<p>$ aumix -v +10 (aumentar el volumen un 10%)</p>
-
-<p>$ aumix -v -10 (disminuirlo)</p>
-
-<p>$ aumix -v mute (silenciarlo)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/129/">&larr; Older</a>
@@ -519,12 +842,20 @@ pass=contraseña
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1347</li>
+	<li>1349</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/tcptrack/">tcptrack</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/ipband/">ipband</a>
+      </li>
     
       <li class="post">
         <a href="/blog/hashtag/">hashtag</a>
@@ -556,14 +887,6 @@ pass=contraseña
     
       <li class="post">
         <a href="/blog/speaker/">speaker</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/monit/">monit</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/lightdm/">lightdm</a>
       </li>
     
   </ul>

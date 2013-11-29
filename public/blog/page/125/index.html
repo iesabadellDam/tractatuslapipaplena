@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Para definir el nivel de brillo de algunos portatiles podemos recurrir al siguiente comando: # echo 2000 > /sys/class/backlight/acpi_video0/ &hellip;">
+  <meta name="description" content="Compartir carpetas. Descargar el archivo que corresponda a nuestra arquitectura de http://labs.bittorrent.com/experiments/sync.html. No precisa &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,118 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/btsync/">Btsync</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Compartir carpetas. Descargar el archivo que corresponda a nuestra arquitectura de http://labs.bittorrent.com/experiments/sync.html. No precisa instalación.</p>
+
+<blockquote><p>$ cd btsync_x64</p></blockquote>
+
+<p>Si no queremos modificar los datos, podemos acceder a la aplicación con la dirección del navegador: http://0.0.0.0:8888 con nombre de usuario: &#8220;admin&#8221; y contraseña: &#8220;password&#8221;. Si queremos personalizar los datos, matar el proceso:</p>
+
+<blockquote><p>$ kill -9 PID</p></blockquote>
+
+<p>Y crear el archivo de configuración:</p>
+
+<blockquote><p>$ ./btsync &#8211;dump-sample-config > sync.conf</p></blockquote>
+
+<p>Editar y modificar los parámetros indicados según conveniencias:</p>
+
+<blockquote><p>$ nano sync.conf</p></blockquote>
+
+<pre><code>"storage_path" : "/home/USUARIO/.sync"
+
+"listen" : "127.0.0.1:8888",
+
+    "login" : "USUARIO",
+
+    "password" : "CONTRASEÑA"
+</code></pre>
+
+<p>Guardar y lanzar la aplicación:</p>
+
+<blockquote><p>$ ./btsync &#8211;config sync.conf</p></blockquote>
+
+<p>Acceder por el navegador con la dirección: http://127.0.0.1:8888</p>
+
+<p>Colocar en el cron para que queda activo al reiniciar:</p>
+
+<blockquote><p>$ crontab -e</p></blockquote>
+
+<p>Colocar la linea:</p>
+
+<pre><code>@reboot /home/USUARIO/btsync_x64/btsync --config /home/USUARIO/btsync_x64/sync.conf
+</code></pre>
+
+<p>Guardar. Para compartir una carpeta: clic en &#8220;Add Folder&#8221;, seleccionar la carpeta, generar la clave pulsando en &#8220;generate&#8221; y finalizar clicando en &#8220;Add&#8221;. En el pc que sincronizará la carpeta, abrir la misma dirección, clic en &#8220;add folder&#8221; y, sin clicar en &#8220;generate&#8221;, introducir la clave generada antes y seleccionar la carpeta donde se copiará.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/btscanner/">Btscanner</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Escanear dispositivos bluetooth</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -479,96 +591,6 @@ layout Statusbar red yellow reverse
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/blkid/">Blkid</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra uuid de cada partición y el tipo de formato.</p>
-
-<blockquote><p># blkit</p></blockquote>
-
-<p>Tambien con:</p>
-
-<blockquote><p>$ ls -lF /dev/disk/by-uuid/</p>
-
-<p># blkid -i /dev/sda (Información sobre los sectores)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/bind/">Bind</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Para probar combinaciones de teclas que no queremos almacenar de forma permanente en el archivo .inputrc (ver)</p>
-
-<blockquote><p>$ bind &#8220;&#34;\C-x\C-g&#34;: dump-functions&#8221; (asignará las teclas Ctrl+x Ctrl+g para ver las funciones readline)</p>
-
-<p>$ bind -P (listado de asignación de teclas de cada función readline)</p>
-
-<p>$ bind -l (Otra forma de ver el listado)</p>
-
-<p>$ bind -p (Otra forma)</p>
-
-<p>$ bind -x &#8220;&#34;\C-l&#34;: ls -la&#8221; (asignar combinaciones de teclas que ejecutan comandos. ls -la al pulsar Ctrl+l)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/126/">&larr; Older</a>
@@ -584,12 +606,20 @@ layout Statusbar red yellow reverse
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1347</li>
+	<li>1349</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/tcptrack/">tcptrack</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/ipband/">ipband</a>
+      </li>
     
       <li class="post">
         <a href="/blog/hashtag/">hashtag</a>
@@ -621,14 +651,6 @@ layout Statusbar red yellow reverse
     
       <li class="post">
         <a href="/blog/speaker/">speaker</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/monit/">monit</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/lightdm/">lightdm</a>
       </li>
     
   </ul>

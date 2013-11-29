@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="[secure-delete] Aplicación para eliminar de forma segura datos de disco sobreescribiendo su espacio. Es de funcionamiento lento, pero por eso se le &hellip;">
+  <meta name="description" content="Comunicación cifrada entre dos máquinas. $ ssh usuario@host (básica) $ ssh -v usuario@IP_o_host (comprobar errores en una conexión) $ ssh -p 4000 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,265 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ssh/">Ssh</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Comunicación cifrada entre dos máquinas.</p>
+
+<blockquote><p>$ ssh usuario@host (básica)</p>
+
+<p>$ ssh -v usuario@IP_o_host (comprobar errores en una conexión)</p>
+
+<p>$ ssh -p 4000 usuario@host (especificando un puerto)</p>
+
+<p>$ ssh -fND localhost:2080 usuario@host (Crear un servidor proxy en una máquina remota. La “N” es para que no se puedan ejecutar comandos)</p>
+
+<p>$ ssh -X -Y usuario@host akregator (Lanzar una aplicación remota en local. Ver punto 11 de esta entrada)</p>
+
+<p>$ ssh usuario@host ls (lanzar un comando remoto y visualizarlo en local)</p>
+
+<p>$ ssh -t usuario@host newsbeuter  (lo mismo si precisa consola)</p>
+
+<p>$ ssh -D 9999 usuario@host (abrir un puerto a partir del cual tunelar una conexión)</p>
+
+<p>$ ssh user@host_ip &#8216;DISPLAY=&#8221;:0.0&#8221; import -window root screenshot.png&#8217; (realizar pantallazo de una sesión remota. Se archiva en el remoto no en local)</p>
+
+<p>$ ssh usuario@host &#8220;tar -cf - /home/usuario/dir&#8221; | gzip dir.tar.gz (Comprimir un directorio remoto)</p>
+
+<p># gedit /var/run/motd   (modificar el mensaje de bienvenida de ssh)</p></blockquote>
+
+<p>1.-</p>
+
+<p>conexión remota. El servidor ha de tener el archivo /etc/ssh/sshd_config con los siguientes parámetros:</p>
+
+<p>AllowTcpForwarding yes</p>
+
+<p>GatewayPorts yes</p>
+
+<p>Luego configurar Firefox para usar un servidor proxy 127.0.0.1 puerto 9999.</p>
+
+<p>2.-</p>
+
+<blockquote><p># gedit /etc/issue.net   (modificar el mensaje antes del login. Para activarlo, descomentar del archivo “/etc/ssh/sshd_config” la línea: Banner /etc/issue.net)</p></blockquote>
+
+<p>3.-</p>
+
+<p>Tunel inverso:</p>
+
+<blockquote><p>$ ssh -R 10000:localhost:22 usuario2@host2 (lanzado desde host1 hacia host2 crea un tunel por el puerto 10000)</p>
+
+<p>$ ssh usuario2@host2 (Lanzado desde host3 hacia host2)</p></blockquote>
+
+<p>Una vez entrado en host2, lanzar:</p>
+
+<blockquote><p>$ ssh usuario1@localhost -p 10000 (Para conectar el host3 con el host1)</p></blockquote>
+
+<p>4.-</p>
+
+<p>Crear clave publica para acceder a un remoto sin que pida identificación:</p>
+
+<blockquote><p>$ ssh-keygen -b 4096 -t rsa  (Crear la clave)</p>
+
+<p>$ ssh-copy-id usuario@IP_o_HOST (enviar la clave al remoto)</p></blockquote>
+
+<p>5.-</p>
+
+<p>Para deshabilitar el acceso a todos los usuarios excepto a root:</p>
+
+<blockquote><p># touch /etc/nologin</p>
+
+<p># chmod 644 /etc/nologin</p></blockquote>
+
+<p>6.-</p>
+
+<p>Deshabilitar/personalizar los mensajes que aparecen cuando nos logueamos en algunas distros a un host remoto mediante SSH.</p>
+
+<blockquote><p>$ touch /home/usuario/.hushlogin (Creando este fichero vacio se deshabilitan los mensajes. Borrandolo vuelven a aparecer)</p>
+
+<p># nano /etc/motd (Archivo para personalizar los mensaje de bienvenida a quien se loguea en el sistema)</p></blockquote>
+
+<p>7.-</p>
+
+<p>Crear un atajo para la conexión a un servidor remoto:</p>
+
+<blockquote><p>$ nano .ssh/config</p></blockquote>
+
+<p>Y pegar el siguiente contenido debidamente modificado con nuestros datos:</p>
+
+<pre><code>host servidor
+
+ hostname 192.168.1.10 
+
+ user USUARIO_REMOTO
+</code></pre>
+
+<p>Nota.- Delante de la segunda y tercera linea existe un espacio.</p>
+
+<p>Al crear este archivo, la conexión se realizará con:</p>
+
+<blockquote><p>$ ssh servidor (Pedirá igualmente contraseña)</p></blockquote>
+
+<p>8.-</p>
+
+<p>Evitar desconexiones por inactividad:</p>
+
+<blockquote><p>$ nano .ssh/config</p></blockquote>
+
+<p>Y pegar el siguiente contenido:</p>
+
+<pre><code>Host *
+
+    ServerAliveInterval 120
+
+    ServerAliveCountMax 3
+</code></pre>
+
+<p>9.-</p>
+
+<p>Añadir un registro de las acciones realizadas dentro de cada sesión SFTP</p>
+
+<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
+
+<p>Y dejar la linea como se indica:</p>
+
+<p>Subsystem sftp /usr/lib/openssh/sftp-server -l INFO</p>
+
+<p>Tras reiniciar ssh, el registro se plasmará en /var/log/auth.log</p>
+
+<p>10.-</p>
+
+<p>Aumentando la seguridad del servidor ssh:</p>
+
+<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
+
+<p>Y añadir o modificar las siguientes lineas:</p>
+
+<pre><code>AllowUsers juan pedro andrés (Limitando a uno o varios los usuarios autorizados)
+
+AllowGroup oficina (Restringir acceso a solo un grupo)
+
+Port 372 (Modificando puerto. Aconsejable uno inferior al 1024)
+
+LoginGraceTime 40 (Mostrar la pantalla de login 40 segundos antes de cerrarse)
+
+MaxStartups 4 (Cantidad máxima de conexiones simultaneas)
+
+MaxAuthTries 3 (Limitar el número de intentos de logeo, tras los cuales se cierra la conexión)
+</code></pre>
+
+<p>11.-</p>
+
+<p>Ajustes para tunelar aplicaciones gráficas:</p>
+
+<p>En el servidor:</p>
+
+<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
+
+<pre><code>AllowTcpForwarding yes
+
+X11Forwarding yes
+
+X11DisplayOffset 10
+
+X11UseLocalhost yes
+</code></pre>
+
+<p>En la máquina cliente:</p>
+
+<blockquote><p># nano /etc/ssh/ssh_config</p></blockquote>
+
+<pre><code>ForwardX11 yes
+
+ForwardX11Trusted yes
+</code></pre>
+
+<p>Después de reiniciar ssh, con el parámetro -X se visualizará la gui remota que tambien tiene que estar instalada en local.</p>
+
+<blockquote><p>$ ssh -X usuario@host akregator</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ss/">Ss</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Utilidad para investigar sockets. Sustituye a netstat.</p>
+
+<blockquote><p># ss -r  (resolviendo las IPs)</p>
+
+<p># ss -n  (sin resolver)</p>
+
+<p># ss  (igual)</p>
+
+<p># ss -l   (muestra los que estan esperando conexión)</p>
+
+<p># ss -o  (con conexión establecida)</p>
+
+<p># ss -p  (con la aplicación que los motiva)</p>
+
+<p># ss -a | grep ssh  (De todas las conexiones, solo muestra las ssh)</p>
+
+<p># ss -tpan &#8216;sport = :22&#8217; (ver conexiones por el puerto 22)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -459,110 +718,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sox/">Sox</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Unir ficheros de audio en uno. Soporta mp3, wav, ogg&#8230;</p>
-
-<blockquote><p>$ soxmix 1.mp3 2.mp3 mezcla.mp3</p>
-
-<p>$ sox file.mp3 file2.mp3 trim 0 5 (corta los primeros 5 segundos de file.mp3 y los guarda en file2.mp3)</p>
-
-<p>$ sox file.mp3 file.wav (pasar de mp3a wav)</p>
-
-<p>$ sox 2.wav 3.wav speed 0.5 (3.wav irá a la mitad de velocitad que 2.wav)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sources-dot-list/">sources.list</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Archivo que contiene las fuentes o repositorios de los paquetes de software en las distros derivadas de Debian.</p>
-
-<p>Generador de sources.list optimizado via web:</p>
-
-<p><a href="http://debgen.simplylinux.ch/" title="sources.list a la carta">http://debgen.simplylinux.ch/</a></p>
-
-<p>División del programario según Debian y Ubuntu:</p>
-
-<p>DEBIAN:</p>
-
-<p>main (Paquetes 100% libres según las directovas de Debian)</p>
-
-<p>contrib (Paquetes que dependen de alguno que no es 100% libre según las directivas de Debian)</p>
-
-<p>non-free (Paquetes que o bien no cumplen la directiva de Debian o no facilitan el código fuente)</p>
-
-<p>UBUNTU:</p>
-
-<p>main (Paquetes que cumplen los requisitos de la licencia de Ubuntu)</p>
-
-<p>restricted (soportados por los desarrolladores de Ubuntu pero o bien no cumplen su licencia o no se tiene acceso al código fuente)</p>
-
-<p>Universe (Programas mantenidos por la comunidad)</p>
-
-<p>Multiverse (Programas comerciales o privativos de terceras empresas o fabricantes)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/38/">&larr; Older</a>
@@ -578,12 +733,20 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1347</li>
+	<li>1349</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/tcptrack/">tcptrack</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/ipband/">ipband</a>
+      </li>
     
       <li class="post">
         <a href="/blog/hashtag/">hashtag</a>
@@ -615,14 +778,6 @@
     
       <li class="post">
         <a href="/blog/speaker/">speaker</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/monit/">monit</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/lightdm/">lightdm</a>
       </li>
     
   </ul>
