@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Capturar el css de una web. $ csscapture -s web http://www.tuxapuntes.com (guarda en la carpeta “web”)
-">
+  <meta name="description" content="Gestión de impresoras. 1.- Montar una impresora en red: En la máquina servidor (la que tiene conectada la impresora) # nano /etc/cups/cupsd.conf &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +75,100 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/cups/">Cups</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Gestión de impresoras.</p>
+
+<p>1.-</p>
+
+<p>Montar una impresora en red:</p>
+
+<p>En la máquina servidor (la que tiene conectada la impresora)</p>
+
+<pre><code># nano /etc/cups/cupsd.conf
+</code></pre>
+
+<p>Comentar la linea “Listen localhost:631” y añadir la ip de la máquina: “Listen 192.168.2.3:631” y en el siguiente apartado añadir los parámetros de la red:</p>
+
+<blockquote><p># Restrict access to the server…</p></blockquote>
+
+<pre><code>&lt;Location /&gt;
+</code></pre>
+
+<p>Order allow,deny</p>
+
+<p>Allow localhost</p>
+
+<p>Allow @LOCAL</p>
+
+<blockquote><p># permisos a la red local</p></blockquote>
+
+<p>Allow from 192.168.2.0/24</p>
+
+<pre><code>&lt;/Location&gt;
+</code></pre>
+
+<p>Para activar la compartición de impresoras:</p>
+
+<p>Browsing on</p>
+
+<pre><code># /etc/init.d/cupsd restart (reiniciar cups)
+</code></pre>
+
+<p>Abrir el navegador y escribir http://localhost:631 después del logeo ir a la pestaña printers y seleccionar la impresora, con lo que nos quedará en la barra de navegación algo parecido a:</p>
+
+<p>http://localhost:631/printers/PSC-1100</p>
+
+<p>Que sustituyendo “localhost” por la dirección ip de la máquina nos dará la dirección de la impresora:</p>
+
+<p>http://192.168.2.3:631/printers/PSC-1100</p>
+
+<p>En las máquinas cliente</p>
+
+<pre><code># nano /etc/cups/cupsd.conf
+</code></pre>
+
+<p>Browsing on</p>
+
+<p>BrowseAllow 192.168.2.0/24</p>
+
+<pre><code># /etc/init.d/cupsys restart
+</code></pre>
+
+<p>Y configurar la impresora de la forma habitual ya sea en Sistema -> administración -> impresoras pestaña Configuración -> URI del dispositivo y poner la dirección de la impresora o via http://localhost:631</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -511,56 +604,6 @@ $ 0 8 * * * env DISPLAY=:0.0 vlc /home/usuario/musica/archivo.mp3 (Programar que
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/cp/">Cp</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Copiar archivos</p>
-
-<blockquote><p>$ cp -r  (Copia archivos y directorios de forma recursiva)</p>
-
-<p>$ cp -i   (Pide confirmacion antes de sobreescribir)</p>
-
-<p>$ cp -f   (Borra el archivo de destino sin preguntar)</p>
-
-<p>$ cp -u  (copia sólo cuando el archivo de origen es más reciente que el archivo de destino o cuando el archivo destino falta)</p>
-
-<p>$ cp -p  (Copiar conservando los permisos de usuario y grupo)</p>
-
-<p>$ cp archivo{,.back} (Hará una copia .back del archivo)</p>
-
-<p>$ cp archivo archivo.$$ (“$$” es una variable del shell que contiene el pid )</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/115/">&larr; Older</a>
@@ -576,12 +619,16 @@ $ 0 8 * * * env DISPLAY=:0.0 vlc /home/usuario/musica/archivo.mp3 (Programar que
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1349</li>
+	<li>1350</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/cansina/">cansina</a>
+      </li>
     
       <li class="post">
         <a href="/blog/tcptrack/">tcptrack</a>
@@ -617,10 +664,6 @@ $ 0 8 * * * env DISPLAY=:0.0 vlc /home/usuario/musica/archivo.mp3 (Programar que
     
       <li class="post">
         <a href="/blog/noip2/">noip2</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/speaker/">speaker</a>
       </li>
     
   </ul>
