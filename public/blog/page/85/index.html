@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Informa sobre la comunicación entre procesos [espacios de memoria, buffers, semaforos..] listando los recursos compartidos que están creados en ese &hellip;">
+  <meta name="description" content="Para poder verificar el ancho de banda entre los clientes de una red local. Se instala en todas las máquinas de la red. # iperf -s (Poner el servidor &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,56 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/iperf/">Iperf</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Para poder verificar el ancho de banda entre los clientes de una red local. Se instala en todas las máquinas de la red.</p>
+
+<blockquote><p># iperf -s (Poner el servidor a la escucha por el puerto 5001)</p>
+
+<p># iperf -c 192.168.1.10 (Conectar los clientes con el servidor)</p></blockquote>
+
+<p>Alguna sopciones que pueden añadirse:</p>
+
+<p>-f B (Mostrar el resultado en Bytes por segundo [b: bytes/s, k:kilobits/s, m:megabytes/s, B:Bytes/s, K:KiloBytes/s, M:MegaBytes/s] esta opción sirva igual para el cliente que para el servidor)</p>
+
+<p>-t 120 (Tiempo en segundos de duración de la transmisión. Sólo para el cliente)</p>
+
+<p>-D (Lanzarlo como servicio. Sólo en el servidor)</p>
+
+<p>-i 10 (Tempo en segundos entre mediciones. Sólo cliente)</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -567,109 +617,6 @@ gateway 192.168.x.1
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/interfaces/">Interfaces</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Archivo de configuración de la red en distros debian.</p>
-
-<p>1.-</p>
-
-<p>Con IP dinámica:</p>
-
-<p>Colocar en el archivo las lineas:</p>
-
-<pre><code>auto eth0
-
-iface eth0 inet dhcp
-</code></pre>
-
-<p>2.-</p>
-
-<p>Con IP fija</p>
-
-<p>Colocar en el archivo las lineas:</p>
-
-<pre><code>auto eth0
-
-iface eth0 inet static
-
-address 192.168.1.10
-
-gateway 192.168.1.1
-
-netmask 255.255.255.0
-
-broadcast 192.168.1.255
-</code></pre>
-
-<p>Reiniciar el servicio:</p>
-
-<blockquote><p># ifdown eth0</p>
-
-<p># ifup eth0</p></blockquote>
-
-<p>Nota.- Solo modificandolo en network-manager no funciona.</p>
-
-<p>3.-</p>
-
-<p>Creación de una segunda dirección IP virtual.</p>
-
-<p>Añadir las siguientes lineas a las de la IP fija:</p>
-
-<pre><code>auto eth0:1
-
-iface eth0:1 inet static
-
-address 192.168.0.15
-
-netmask 255.255.255.0
-
-broadcast 192.168.0.255
-
-gateway 192.168.0.1
-</code></pre>
-
-<p>Nota.- La instalación de nerwork-manager o wicd para la gestión de redes implica comentar las modificaciones de este archivo o en, en el caso de network-manager, editar:</p>
-
-<blockquote><p># nano  /etc/NetworkManager/NetworkManager.conf</p></blockquote>
-
-<p>Y modificar la linea:</p>
-
-<p>[ifupdown]</p>
-
-<p>managed=true</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/86/">&larr; Older</a>
@@ -685,12 +632,16 @@ gateway 192.168.0.1
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1350</li>
+	<li>1351</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/cmus/">cmus</a>
+      </li>
     
       <li class="post">
         <a href="/blog/cansina/">cansina</a>
@@ -726,10 +677,6 @@ gateway 192.168.0.1
     
       <li class="post">
         <a href="/blog/miniflux/">miniflux</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/noip2/">noip2</a>
       </li>
     
   </ul>
