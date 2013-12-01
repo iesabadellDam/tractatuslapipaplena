@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Visualizar páginas man con colores. # update-alternatives &#8211;config pager Seleccionar el número que indique para most
-">
+  <meta name="description" content="Video vigilancia por acceso remoto. La configuración que viene por defecto es suficiente, aunque siempre puede pulirse. Aquí se tratará solo de los &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +75,104 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/motion/">Motion</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Video vigilancia por acceso remoto. La configuración que viene por defecto es  suficiente, aunque siempre puede pulirse. Aquí se tratará solo de los mínimos parámetros a modificar para tener motion funcional en local y en remoto .</p>
+
+<p>Abrir los puertos 8080 y 8081 del router y del firewal (Si no se modifican los por defecto)</p>
+
+<p>En debian y derivados</p>
+
+<pre><code># nano /etc/motion/motion.conf 
+
+daemon on    (Permitir actuar como demonio) 
+
+webcam_localhost off   (permitir acceso remoto) 
+
+# nano /etc/default/motion 
+
+start_motion_daemon=yes 
+
+# /etc/init.d/motion start 
+</code></pre>
+
+<p>En arch</p>
+
+<pre><code># nano /etc/motion/motion.conf 
+
+daemon on 
+
+webcam_localhost off 
+
+Y, si no se va a usar base de datos, comentar los parámetros del   apartado mysql: 
+
+#sql_log_image on 
+
+#sql_log_snapshot on 
+
+#sql_log_mpeg off 
+
+#sql_log_timelapse off 
+
+#sql_query insert .... 
+
+# mkdir /var/run/motion  (Crear directorio para el PID) 
+
+No existe el /etc/default/motion 
+
+# /etc/rc.d/motion start 
+</code></pre>
+
+<p>Para acceder a la cámara desde el navegador:</p>
+
+<p>http://ip_o_host:8081</p>
+
+<p>Para acceder a la configuración:</p>
+
+<p>http://ip_o_host:8080</p>
+
+<p>En este caso descomentar/modificar en /etc/motion/motion.conf</p>
+
+<p>control_localhost off    (para acceder a la configuración remotamente)</p>
+
+<p>control_authentication username:password (Pide identificación)</p>
+
+<p>substituir por los datos correctos, por ejemplo:</p>
+
+<p>control_authentication juanito:password</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -515,48 +612,6 @@ q (Salir del programa)
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/module-assistant/">Module-assistant</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Paquete especifico de Debian para la instalación de controladores.</p>
-
-<blockquote><p># m-a (abre la interficie ncuses del programa)</p>
-
-<p># m-a a-i paquete (seleccionar un módulo)</p>
-
-<p># m-a list (ver lista de paquetes disponibles)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/70/">&larr; Older</a>
@@ -572,12 +627,16 @@ q (Salir del programa)
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1351</li>
+	<li>1352</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/hash-identifier/">hash-identifier</a>
+      </li>
     
       <li class="post">
         <a href="/blog/cmus/">cmus</a>
@@ -613,10 +672,6 @@ q (Salir del programa)
     
       <li class="post">
         <a href="/blog/aide/">aide</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/miniflux/">miniflux</a>
       </li>
     
   </ul>
