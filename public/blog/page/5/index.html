@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Instalador de paquetes para archlinux. $ owl refresh (Refrescar la lista de paquetes) $ owl update (Refrescar la lista y actualizarlos [-Syu]) $ owl &hellip;">
+  <meta name="description" content="ssh restrictivo propio de proxmox. $ pvesh get /nodes/virtual1/qemu (Obtener un listado de todas las máquinas virtuales) $ pvesh create /nodes/ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,124 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/pvesh/">Pvesh</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-17T05:42:00+01:00" pubdate data-updated="true">17-11-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>ssh restrictivo propio de proxmox.</p>
+
+<blockquote><p>$ pvesh get /nodes/virtual1/qemu (Obtener un listado de todas las máquinas virtuales)</p>
+
+<p>$ pvesh create /nodes/virtual1/qemu/100/status/start (Arrancar la VM con id 100)</p>
+
+<p>$ pvesh get /nodes/virtual1/qemu/100/config (Obtener toda la configuración de la VM con id 100)</p>
+
+<p>$ pvesh delete /nodes/virtual1/qemu/100 (Borrar la máquina virtual con id 100)</p>
+
+<p>$ pvesh get /nodes/virtual1/storage (Obtener la información de los <em>Storages</em>)</p>
+
+<p>$ pvesh create /access/users -userid usuario@pve (Crear usuario)</p>
+
+<p>$ pvesh delete /access/users/usuario@pve (Eliminar usuario)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/honeyproxy/">Honeyproxy</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-17T05:42:00+01:00" pubdate data-updated="true">17-11-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[python-pip]</p>
+
+<p>Analiza el tráfico web. Instalación:</p>
+
+<blockquote><p># pip install pyOpenSSL pyasn1 Twisted Autobahn</p>
+
+<p>$ git clone &#8211;recursive git://github.com/mhils/HoneyProxy.git</p>
+
+<p>$ cd HoneyProxy</p>
+
+<p># python honeyproxy.py &#8211;no-gui -a 192.168.1.15 (Arrancar el servicio)</p></blockquote>
+
+<pre><code>HoneyProxy has been started!
+
+Configuration Details (normal users: ignore):
+
+GUI: http://honey:zhw78b35ioynhg8vr4jcfmn5f326d4e4@localhost:8081/app/
+
+Proxy Address: 192.168.1.15:8080
+
+WebSocket Port: 8082
+
+Auth user: honey
+
+Auth key: zhw78b35ioynhg8vr4jcfmn5f326d4e4
+</code></pre>
+
+<p>Una vez instalado y arrancado el servicio, configurar el navegador para su uso en Editar/Preferencias/Avanzado/Red/Configurar la conexión, clicar en &#8220;Configuración manual del proxy&#8221; y en servidor intermediario de HTTP porner la ip de la máquina local o remota puesta al arrancar la aplicación [192.168.1.15 en este caso] y el puerto 8080. Los informes, colocando en la barra de navegación la dirección que muestra al arrancar el servicio, en este caso: http://honey:zhw78b35ioynhg8vr4jcfmn5f326d4e4@localhost:8081/app/ (usuario: honey y key: zhw78b35ioynhg8vr4jcfmn5f326d4e4). Por defecto los informes se guardan en ./dump/sites. Para parar el servicio, matar el proceso:</p>
+
+<pre><code>$ ps aux | grep honeyproxy
+
+$ kill -9 PID
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -541,86 +659,6 @@ current=/var/lib/integrit/current.cdb
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/adminer/">Adminer</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-11-11T17:18:00+01:00" pubdate data-updated="true">11-11-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Gestor de bases de datos via navegador más completa que phpmyadmin. Una vez instalado reiniciar apache:</p>
-
-<blockquote><p># /etc/init.d/apache2 restart</p></blockquote>
-
-<p>Acceder a la aplicación con, http://localhost/adminer y entrar los datos de acceso (usuario, contraseña, servidor y gestor de la BD)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/darkstat/">Darkstat</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-11-10T21:36:00+01:00" pubdate data-updated="true">10-11-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Analizar el tráfico de red via navegador. Una vez instalado arrancar el demonio:</p>
-
-<blockquote><p># /etc/init.d/darkstat start</p></blockquote>
-
-<p>Y pasado un tiempo visualizar los datos en: http://localhost:666</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -636,12 +674,24 @@ current=/var/lib/integrit/current.cdb
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1352</li>
+	<li>1353</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/while/">while</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/unoconv/">unoconv</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/ssconvert/">ssconvert</a>
+      </li>
     
       <li class="post">
         <a href="/blog/hash-identifier/">hash-identifier</a>
@@ -669,18 +719,6 @@ current=/var/lib/integrit/current.cdb
     
       <li class="post">
         <a href="/blog/ifs/">ifs</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/chmod/">chmod</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/while/">while</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/aide/">aide</a>
       </li>
     
   </ul>

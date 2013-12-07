@@ -1,11 +1,11 @@
 ---
 layout: post
 title: "while"
-date: 2013-11-24 20:57
+date: 2013-12-07 06:00
 comments: true
 categories: 
 ---
-Ejecuta una seria de comandos mientras que una determinada condicion sea cumpla. Algunos scripts de su uso:
+Ejecuta una seria de comandos mientras que una determinada condicion sea cumpla. Algunos scripts ilustrativos:
 
 1.-
 
@@ -134,4 +134,42 @@ Especificando un separador [:]
 		    Shell :\t $shell\n\n"
 
 	done < /etc/passwd
+
+6.-
+
+Leer un archivo pasado como parámetro, descartar las lineas en blanco y colorear alternativamente las siguientes en amarillo y rojo.
+
+	#!/bin/bash
+
+	COLOR=1
+
+	while read linia
+
+	do
+
+		if [ -z "${linia}" ] 
+
+		then
+
+			continue
+
+		fi
+
+		if [ $COLOR -eq 0 ]
+
+		then
+
+			echo -e "\e[1;30;41m$linia\033[0m" #VERMELL - 0
+
+			COLOR=1
+
+		else
+
+			echo -e "\e[1;30;43m$linia\033[0m" #GROC - 1
+
+			COLOR=0
+
+		fi
+
+	done < $1
 

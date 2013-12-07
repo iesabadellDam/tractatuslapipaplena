@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Identifica la encriptación de un hash. Descarga: https://code.google.com/p/hash-identifier/ $ python Hash_ID_v1.1.py Cuando sale el promt pastear el &hellip;">
+  <meta name="description" content="Ejecuta una seria de comandos mientras que una determinada condicion sea cumpla. Algunos scripts ilustrativos: 1.- #!/bin/bash RESPUESTA=s while [ $ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,6 +81,306 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/while/">While</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-07T06:00:00+01:00" pubdate data-updated="true">07-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ejecuta una seria de comandos mientras que una determinada condicion sea cumpla. Algunos scripts ilustrativos:</p>
+
+<p>1.-</p>
+
+<pre><code>#!/bin/bash
+
+RESPUESTA=s
+
+while [ $RESPUESTA = s ]
+
+do
+
+    echo "Introducir nombre: "
+
+    read NOMBRE
+
+    echo "Hola $NOMBRE"
+
+    echo
+
+    echo "¿Desea continuar? (s/n)"
+
+    read RESPUESTA
+
+done
+</code></pre>
+
+<p>2.-</p>
+
+<pre><code>#!/bin/bash
+
+while [ "$OPCION" != 5 ]
+
+do
+
+    echo
+
+    echo "[1] Listar directorio"
+
+    echo "[2] Directorio donde te encuentras"
+
+    echo "[3] fecha de hoy"
+
+    echo "[4] Usuarios conectados"
+
+    echo "[5] Salir"
+
+    echo
+
+    read -p "Ingrese una opción: " OPCION
+
+    echo
+
+    case $OPCION in
+
+        1) ls;;
+
+        2) pwd;;
+
+        3) date +%D ;;
+
+        4) who;;
+
+        5);;
+
+        *) echo "Opción ingresada no valida, intentelo de nuevo";;
+
+    esac
+
+done
+
+exit 0
+</code></pre>
+
+<p>3.-</p>
+
+<pre><code>#!/bin/bash
+
+# imprimir números del 1 al 10
+
+LIMITE=10
+
+a=1
+
+while [ "$a" -le $LIMITE ]
+
+do
+
+  echo "$a "
+
+  let "a+=1"
+
+done
+</code></pre>
+
+<p>4.-</p>
+
+<p>Leer un archivo linea a linea:</p>
+
+<pre><code>#!/bin/bash
+
+while read linea
+
+do
+
+   echo "---&gt; $linea "
+
+done &lt; archivo.txt
+</code></pre>
+
+<p>5.-</p>
+
+<p>Especificando un separador [:]</p>
+
+<pre><code>#!/bin/bash
+
+while IFS=: read user pass uid gid full home shell
+
+do
+
+echo -e "$full :\n\
+
+        Pseudo : $user\n\
+
+        UID :\t $uid\n\
+
+        GID :\t $gid\n\
+
+        Home :\t $home\n\
+
+        Shell :\t $shell\n\n"
+
+done &lt; /etc/passwd
+</code></pre>
+
+<p>6.-</p>
+
+<p>Leer un archivo pasado como parámetro, descartar las lineas en blanco y colorear alternativamente las siguientes en amarillo y rojo.</p>
+
+<pre><code>#!/bin/bash
+
+COLOR=1
+
+while read linia
+
+do
+
+    if [ -z "${linia}" ] 
+
+    then
+
+        continue
+
+    fi
+
+    if [ $COLOR -eq 0 ]
+
+    then
+
+        echo -e "\e[1;30;41m$linia\033[0m" #VERMELL - 0
+
+        COLOR=1
+
+    else
+
+        echo -e "\e[1;30;43m$linia\033[0m" #GROC - 1
+
+        COLOR=0
+
+    fi
+
+done &lt; $1
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/unoconv/">Unoconv</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-07T06:00:00+01:00" pubdate data-updated="true">07-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Exporta todos los formatos soportados por openoffice/libreoffice a otros formatos como pdf, txt&#8230; creando un archivo con el mismo nombre de origen pero con la nueva extensión. Para una lista detallada consultar este enlace: <a href="http://dag.wieers.com/home-made/unoconv/">http://dag.wieers.com/home-made/unoconv/</a></p>
+
+<blockquote><p>$ unoconv &#8211;show  (Visualizar formatos  soportados)</p>
+
+<p>$ unoconv -f xls archivo.csv (convertir un csv a xls)</p>
+
+<p>$ unoconv -f pdf <em>.odp </em>.odt (Convierte todos los .odt y .odp a pdfs)</p>
+
+<p>$ unoconv &#8211;format=txt document1.odt (convierte el documento a texto plano)</p>
+
+<p>$ unoconv &#8211;format=txt &#8211;stdout document1.odt > salida.txt (envia la salida al STDOUT para redireccionarla a un fichero cualquiera)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ssconvert/">Ssconvert</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-07T06:00:00+01:00" pubdate data-updated="true">07-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[gnumeric]</p>
+
+<p>Conversor de formatos de hoja de cálculo por línea de comandos.</p>
+
+<blockquote><p>$ ssconvert &#8211;list-exporters (Listado de conversiones de salida)</p>
+
+<p>$ ssconvert &#8211;list-importers (Litado de conversiones de entrada)</p>
+
+<p>$ ssconvert entrada.xls salida.csv (De formato excel a csv)</p>
+
+<p>$ ssconvert -E utf-8 entrada.xls salida.csv (Especificando una codificación para la salida)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/hash-identifier/">Hash-identifier</a></h1>
     
     
@@ -97,14 +397,14 @@
   
 
 
-<time datetime="2013-12-01T07:02:00+01:00" pubdate data-updated="true">01-12-2013</time>
+<time datetime="2013-12-07T06:00:00+01:00" pubdate data-updated="true">07-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Identifica la encriptación de un hash. Descarga: https://code.google.com/p/hash-identifier/</p>
+  <div class="entry-content"><p>Identifica la encriptación de un hash. Descarga: <a href="https://code.google.com/p/hash-identifier/">https://code.google.com/p/hash-identifier/</a></p>
 
 <blockquote><p>$ python Hash_ID_v1.1.py</p></blockquote>
 
@@ -528,298 +828,6 @@ IFS=$OLDIFS
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/chmod/">Chmod</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-11-25T21:10:00+01:00" pubdate data-updated="true">25-11-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Gestión de permisos de los ficheros y directorios.</p>
-
-<blockquote><p>$ chmod ugo+rwx -R /home/usuario/directorio  (todos los permisos a todos los usuarios sobre el directorio y subdirectorios)</p>
-
-<p>$ chmod 777 -R /home/usuario/directorio (Equivalente en octal)</p>
-
-<p>$ chmod a+w archivo (permiso de escritura para todos)</p>
-
-<p>$ chmod 222 -R /home/usuario/directorio (Equivalente en octal)</p>
-
-<p>$ chmod -w archivo (Quitar permiso de escritura a un archivo)</p>
-
-<p>$ chmod +x archivo (Dar permiso de ejecución)</p>
-
-<p>$ chmod 744 archivo (Lectura, ecritura y ejecución para el usuario y sólo lectura para grupo y otros)</p>
-
-<p>$ chmod u=rwx go=rw archivo (Equivalente en alfabético)</p>
-
-<p>$ chmod &#8211;reference=file1 file2 (Otorgar los mismos permisos de file1 a file2)</p></blockquote>
-
-<p>Código numérico (octal):</p>
-
-<pre><code>1 = ejecución [x]
-
-2 = escritura [w]
-
-3 (1+2) = escritura y ejecución [xw]
-
-4 = lectura [r]
-
-5 (4+1) = lectura y ejecución [rx]
-
-6 (4+2) = lectura y escritura [rw]
-
-7 (4+2+1) = lectura, escritura y ejecución [wxr]
-</code></pre>
-
-<p>Código alfabético:</p>
-
-<p>r (lectura), w (escritura), x (ejecución)</p>
-
-<p>u (usuario), g (grupo), o (otros), a (para todos)</p>
-
-<p>Nota.- Cuando un directorio está marcado como ejecutable [x] significa que se puede mirar dentro [ls] o entrar en él [cd]</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/while/">While</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-11-24T20:57:00+01:00" pubdate data-updated="true">24-11-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Ejecuta una seria de comandos mientras que una determinada condicion sea cumpla. Algunos scripts de su uso:</p>
-
-<p>1.-</p>
-
-<pre><code>#!/bin/bash
-
-RESPUESTA=s
-
-while [ $RESPUESTA = s ]
-
-do
-
-    echo "Introducir nombre: "
-
-    read NOMBRE
-
-    echo "Hola $NOMBRE"
-
-    echo
-
-    echo "¿Desea continuar? (s/n)"
-
-    read RESPUESTA
-
-done
-</code></pre>
-
-<p>2.-</p>
-
-<pre><code>#!/bin/bash
-
-while [ "$OPCION" != 5 ]
-
-do
-
-    echo
-
-    echo "[1] Listar directorio"
-
-    echo "[2] Directorio donde te encuentras"
-
-    echo "[3] fecha de hoy"
-
-    echo "[4] Usuarios conectados"
-
-    echo "[5] Salir"
-
-    echo
-
-    read -p "Ingrese una opción: " OPCION
-
-    echo
-
-    case $OPCION in
-
-        1) ls;;
-
-        2) pwd;;
-
-        3) date +%D ;;
-
-        4) who;;
-
-        5);;
-
-        *) echo "Opción ingresada no valida, intentelo de nuevo";;
-
-    esac
-
-done
-
-exit 0
-</code></pre>
-
-<p>3.-</p>
-
-<pre><code>#!/bin/bash
-
-# imprimir números del 1 al 10
-
-LIMITE=10
-
-a=1
-
-while [ "$a" -le $LIMITE ]
-
-do
-
-  echo "$a "
-
-  let "a+=1"
-
-done
-</code></pre>
-
-<p>4.-</p>
-
-<p>Leer un archivo linea a linea:</p>
-
-<pre><code>#!/bin/bash
-
-while read linea
-
-do
-
-   echo "---&gt; $linea "
-
-done &lt; archivo.txt
-</code></pre>
-
-<p>5.-</p>
-
-<p>Especificando un separador [:]</p>
-
-<pre><code>#!/bin/bash
-
-while IFS=: read user pass uid gid full home shell
-
-do
-
-echo -e "$full :\n\
-
-        Pseudo : $user\n\
-
-        UID :\t $uid\n\
-
-        GID :\t $gid\n\
-
-        Home :\t $home\n\
-
-        Shell :\t $shell\n\n"
-
-done &lt; /etc/passwd
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/aide/">Aide</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-11-24T16:44:00+01:00" pubdate data-updated="true">24-11-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Sistema de detección de intrusos. No evita la intrusión, sólo informa que esta se ha producido y qué archivos fueron modificados. La primera vez que se ejecuta, crea una base de datos con los atributos, usuarios, permisos&#8230; de los archivos especificados aplicándoles una o varias funciones hash por lo que el mejor momento para instalar esta aplicación es con un sistema recien instalado.</p>
-
-<blockquote><p># aide -i (Crear la base de datos)</p>
-
-<p># aide -u (Actualizar la base de datos)</p>
-
-<p># aide -c (Hacer un chequeo del sistema para comprobar modificaciones)</p></blockquote>
-
-<p>Nota.- Los archivos de configuración: /etc/aide/aide.conf.d/, /etc/aide/aide.conf y /etc/default/aide</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -833,12 +841,24 @@ done &lt; /etc/passwd
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1352</li>
+	<li>1353</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/while/">while</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/unoconv/">unoconv</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/ssconvert/">ssconvert</a>
+      </li>
     
       <li class="post">
         <a href="/blog/hash-identifier/">hash-identifier</a>
@@ -866,18 +886,6 @@ done &lt; /etc/passwd
     
       <li class="post">
         <a href="/blog/ifs/">ifs</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/chmod/">chmod</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/while/">while</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/aide/">aide</a>
       </li>
     
   </ul>

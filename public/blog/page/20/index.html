@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Cuenta caracteres, lineas, palabras&#8230; $ wc /etc/hosts /etc/fstab (Muestra lineas, palabras y caracteres de los dos archivos) $ wc -c /etc/fstab &hellip;">
+  <meta name="description" content="Genera reportes en formato html de los accesos a una página web instalada en la misma máquina. Configuración mínima: # nano /etc/webalizer/webalizer. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,114 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/webalizer/">Webalizer</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Genera reportes en formato html de los accesos a una página web instalada en la misma máquina.</p>
+
+<p>Configuración mínima:</p>
+
+<blockquote><p># nano /etc/webalizer/webalizer.conf</p></blockquote>
+
+<p>Verificando que el siguiente contenido esté descomentado:</p>
+
+<pre><code>LogFile         /var/log/apache2/access.log
+
+OutputDir       /var/www/webalizer
+
+Incremental     yes
+
+ReportTitle     Estidísticas de PAGINAWEB_NOMBRE
+
+Hostname URL_PAGINA
+
+IgnoreSite      localhost
+</code></pre>
+
+<p>Especificamos los logs a analizar [logfile], el directorio de salida de los resultados [outputdir], que analice todo por separado [incremental], título de la página de reporte [reporttitle], nombre de la página a analizar [hostname] y que innore los accesos desde la propia máquina [ignoresite]</p>
+
+<blockquote><p># webalizer -c /etc/webalizer.conf -d (que se base en el archivo especificado [-c] y que haga debugging de los reportes por si todo salió sin errores [-d])</p></blockquote>
+
+<p>Dado que los reportes solo se realizan cuando se ejecuta el comando, es preferible colocar la linea en crontab:</p>
+
+<blockquote><p>$ crontab -e</p></blockquote>
+
+<p>Y añadir:</p>
+
+<pre><code>0 0 * * * /usr/bin/webalizer -c /etc/webalizer.conf -d
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/weather/">Weather</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Estado del tiempo. Buscar el código de la ciudad en:</p>
+
+<p>http://www.nws.noaa.gov/tg/siteloc.shtml</p>
+
+<blockquote><p>$ weather -m -v LEGE  (En decimal con la maxima información y para Gerona [España])</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -419,104 +527,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/vtclock/">Vtclock</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Reloj digital.</p>
-
-<blockquote><p>$ vtclock -2 -d 1 (Usando la fuente 2 [de 1 a 5] y desplazandose por la terminal cada segundo)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/vsftpd/">Vsftpd</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Servidor de archivos ftp. Toda la configuración de encuentra en el archivo:</p>
-
-<blockquote><p># nano /etc/vsftpd.conf</p></blockquote>
-
-<p>Algunos de los parámetros:</p>
-
-<p>anonymous_enable=NO # si no queremos accesos anonimos</p>
-
-<p>local_enable=YES # Permitir accesos locales autentificados</p>
-
-<p>write_enable=YES # Permite escritura en el servidor</p>
-
-<p>ftpd_banner=Entrando en el servidor ftp&#8230;</p>
-
-<p>chroot_local_user=YES # Enjaular la conexión a su propio directorio personal</p>
-
-<p>max_clients=5 # limitar a 5 los accesos simultaneos</p>
-
-<p>Nota.- Han de redigirirse los puertos 20 y 21 y el rango especificado en el archivo de configuración:</p>
-
-<p>pasv_min_port=44000</p>
-
-<p>pasv_max_port=44100</p>
-
-<p>El cliente podrá conectarse al servidor via filezilla, gftp&#8230;</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/21/">&larr; Older</a>
@@ -532,12 +542,24 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1352</li>
+	<li>1353</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/while/">while</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/unoconv/">unoconv</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/ssconvert/">ssconvert</a>
+      </li>
     
       <li class="post">
         <a href="/blog/hash-identifier/">hash-identifier</a>
@@ -565,18 +587,6 @@
     
       <li class="post">
         <a href="/blog/ifs/">ifs</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/chmod/">chmod</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/while/">while</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/aide/">aide</a>
       </li>
     
   </ul>

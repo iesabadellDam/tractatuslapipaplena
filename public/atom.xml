@@ -4,7 +4,7 @@
   <title><![CDATA[TRACTATUS ELEMENTALIS]]></title>
   <link href="https://tractatuslapipaplena.herokuapp.com/atom.xml" rel="self"/>
   <link href="https://tractatuslapipaplena.herokuapp.com/"/>
-  <updated>2013-12-01T07:02:36+01:00</updated>
+  <updated>2013-12-07T06:00:30+01:00</updated>
   <id>https://tractatuslapipaplena.herokuapp.com/</id>
   <author>
     <name><![CDATA[templix]]></name>
@@ -14,11 +14,230 @@
 
   
   <entry>
+    <title type="html"><![CDATA[while]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/while/"/>
+    <updated>2013-12-07T06:00:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/while</id>
+    <content type="html"><![CDATA[<p>Ejecuta una seria de comandos mientras que una determinada condicion sea cumpla. Algunos scripts ilustrativos:</p>
+
+<p>1.-</p>
+
+<pre><code>#!/bin/bash
+
+RESPUESTA=s
+
+while [ $RESPUESTA = s ]
+
+do
+
+    echo "Introducir nombre: "
+
+    read NOMBRE
+
+    echo "Hola $NOMBRE"
+
+    echo
+
+    echo "¿Desea continuar? (s/n)"
+
+    read RESPUESTA
+
+done
+</code></pre>
+
+<p>2.-</p>
+
+<pre><code>#!/bin/bash
+
+while [ "$OPCION" != 5 ]
+
+do
+
+    echo
+
+    echo "[1] Listar directorio"
+
+    echo "[2] Directorio donde te encuentras"
+
+    echo "[3] fecha de hoy"
+
+    echo "[4] Usuarios conectados"
+
+    echo "[5] Salir"
+
+    echo
+
+    read -p "Ingrese una opción: " OPCION
+
+    echo
+
+    case $OPCION in
+
+        1) ls;;
+
+        2) pwd;;
+
+        3) date +%D ;;
+
+        4) who;;
+
+        5);;
+
+        *) echo "Opción ingresada no valida, intentelo de nuevo";;
+
+    esac
+
+done
+
+exit 0
+</code></pre>
+
+<p>3.-</p>
+
+<pre><code>#!/bin/bash
+
+# imprimir números del 1 al 10
+
+LIMITE=10
+
+a=1
+
+while [ "$a" -le $LIMITE ]
+
+do
+
+  echo "$a "
+
+  let "a+=1"
+
+done
+</code></pre>
+
+<p>4.-</p>
+
+<p>Leer un archivo linea a linea:</p>
+
+<pre><code>#!/bin/bash
+
+while read linea
+
+do
+
+   echo "---&gt; $linea "
+
+done &lt; archivo.txt
+</code></pre>
+
+<p>5.-</p>
+
+<p>Especificando un separador [:]</p>
+
+<pre><code>#!/bin/bash
+
+while IFS=: read user pass uid gid full home shell
+
+do
+
+echo -e "$full :\n\
+
+        Pseudo : $user\n\
+
+        UID :\t $uid\n\
+
+        GID :\t $gid\n\
+
+        Home :\t $home\n\
+
+        Shell :\t $shell\n\n"
+
+done &lt; /etc/passwd
+</code></pre>
+
+<p>6.-</p>
+
+<p>Leer un archivo pasado como parámetro, descartar las lineas en blanco y colorear alternativamente las siguientes en amarillo y rojo.</p>
+
+<pre><code>#!/bin/bash
+
+COLOR=1
+
+while read linia
+
+do
+
+    if [ -z "${linia}" ] 
+
+    then
+
+        continue
+
+    fi
+
+    if [ $COLOR -eq 0 ]
+
+    then
+
+        echo -e "\e[1;30;41m$linia\033[0m" #VERMELL - 0
+
+        COLOR=1
+
+    else
+
+        echo -e "\e[1;30;43m$linia\033[0m" #GROC - 1
+
+        COLOR=0
+
+    fi
+
+done &lt; $1
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[unoconv]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/unoconv/"/>
+    <updated>2013-12-07T06:00:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/unoconv</id>
+    <content type="html"><![CDATA[<p>Exporta todos los formatos soportados por openoffice/libreoffice a otros formatos como pdf, txt&#8230; creando un archivo con el mismo nombre de origen pero con la nueva extensión. Para una lista detallada consultar este enlace: <a href="http://dag.wieers.com/home-made/unoconv/">http://dag.wieers.com/home-made/unoconv/</a></p>
+
+<blockquote><p>$ unoconv &#8211;show  (Visualizar formatos  soportados)</p>
+
+<p>$ unoconv -f xls archivo.csv (convertir un csv a xls)</p>
+
+<p>$ unoconv -f pdf <em>.odp </em>.odt (Convierte todos los .odt y .odp a pdfs)</p>
+
+<p>$ unoconv &#8211;format=txt document1.odt (convierte el documento a texto plano)</p>
+
+<p>$ unoconv &#8211;format=txt &#8211;stdout document1.odt > salida.txt (envia la salida al STDOUT para redireccionarla a un fichero cualquiera)</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[ssconvert]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/ssconvert/"/>
+    <updated>2013-12-07T06:00:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/ssconvert</id>
+    <content type="html"><![CDATA[<p>[gnumeric]</p>
+
+<p>Conversor de formatos de hoja de cálculo por línea de comandos.</p>
+
+<blockquote><p>$ ssconvert &#8211;list-exporters (Listado de conversiones de salida)</p>
+
+<p>$ ssconvert &#8211;list-importers (Litado de conversiones de entrada)</p>
+
+<p>$ ssconvert entrada.xls salida.csv (De formato excel a csv)</p>
+
+<p>$ ssconvert -E utf-8 entrada.xls salida.csv (Especificando una codificación para la salida)</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[hash-identifier]]></title>
     <link href="https://tractatuslapipaplena.herokuapp.com/blog/hash-identifier/"/>
-    <updated>2013-12-01T07:02:00+01:00</updated>
+    <updated>2013-12-07T06:00:00+01:00</updated>
     <id>https://tractatuslapipaplena.herokuapp.com/blog/hash-identifier</id>
-    <content type="html"><![CDATA[<p>Identifica la encriptación de un hash. Descarga: https://code.google.com/p/hash-identifier/</p>
+    <content type="html"><![CDATA[<p>Identifica la encriptación de un hash. Descarga: <a href="https://code.google.com/p/hash-identifier/">https://code.google.com/p/hash-identifier/</a></p>
 
 <blockquote><p>$ python Hash_ID_v1.1.py</p></blockquote>
 
@@ -325,148 +544,6 @@ IFS=$OLDIFS
 <p>u (usuario), g (grupo), o (otros), a (para todos)</p>
 
 <p>Nota.- Cuando un directorio está marcado como ejecutable [x] significa que se puede mirar dentro [ls] o entrar en él [cd]</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[while]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/while/"/>
-    <updated>2013-11-24T20:57:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/while</id>
-    <content type="html"><![CDATA[<p>Ejecuta una seria de comandos mientras que una determinada condicion sea cumpla. Algunos scripts de su uso:</p>
-
-<p>1.-</p>
-
-<pre><code>#!/bin/bash
-
-RESPUESTA=s
-
-while [ $RESPUESTA = s ]
-
-do
-
-    echo "Introducir nombre: "
-
-    read NOMBRE
-
-    echo "Hola $NOMBRE"
-
-    echo
-
-    echo "¿Desea continuar? (s/n)"
-
-    read RESPUESTA
-
-done
-</code></pre>
-
-<p>2.-</p>
-
-<pre><code>#!/bin/bash
-
-while [ "$OPCION" != 5 ]
-
-do
-
-    echo
-
-    echo "[1] Listar directorio"
-
-    echo "[2] Directorio donde te encuentras"
-
-    echo "[3] fecha de hoy"
-
-    echo "[4] Usuarios conectados"
-
-    echo "[5] Salir"
-
-    echo
-
-    read -p "Ingrese una opción: " OPCION
-
-    echo
-
-    case $OPCION in
-
-        1) ls;;
-
-        2) pwd;;
-
-        3) date +%D ;;
-
-        4) who;;
-
-        5);;
-
-        *) echo "Opción ingresada no valida, intentelo de nuevo";;
-
-    esac
-
-done
-
-exit 0
-</code></pre>
-
-<p>3.-</p>
-
-<pre><code>#!/bin/bash
-
-# imprimir números del 1 al 10
-
-LIMITE=10
-
-a=1
-
-while [ "$a" -le $LIMITE ]
-
-do
-
-  echo "$a "
-
-  let "a+=1"
-
-done
-</code></pre>
-
-<p>4.-</p>
-
-<p>Leer un archivo linea a linea:</p>
-
-<pre><code>#!/bin/bash
-
-while read linea
-
-do
-
-   echo "---&gt; $linea "
-
-done &lt; archivo.txt
-</code></pre>
-
-<p>5.-</p>
-
-<p>Especificando un separador [:]</p>
-
-<pre><code>#!/bin/bash
-
-while IFS=: read user pass uid gid full home shell
-
-do
-
-echo -e "$full :\n\
-
-        Pseudo : $user\n\
-
-        UID :\t $uid\n\
-
-        GID :\t $gid\n\
-
-        Home :\t $home\n\
-
-        Shell :\t $shell\n\n"
-
-done &lt; /etc/passwd
-</code></pre>
 ]]></content>
   </entry>
   
@@ -1186,138 +1263,6 @@ Editor colors: editnormal, editbold, editmarked
 <p>Ctrl + p (Aplicar los cambios)</p>
 
 <p>Ctrl + q (Salir)</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[hello]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/hello/"/>
-    <updated>2013-11-19T21:07:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/hello</id>
-    <content type="html"><![CDATA[<p>Muestra el clásico &#8220;Hola, mundo&#8221; o un saludo personalizable.</p>
-
-<blockquote><p>$ hello -t (El tradicional &#8220;Hola, mundo&#8221;)</p>
-
-<p>$ hello -n (Un &#8220;Hola, mundo&#8221; de nueva generación)</p>
-
-<p>$ hello -g &#8220;Linux es un sistema genial&#8221; (Muestra la frase)</p></blockquote>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[iptables]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/iptables/"/>
-    <updated>2013-11-19T18:28:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/iptables</id>
-    <content type="html"><![CDATA[<p>herramienta de cortafuegos y trafico de red.</p>
-
-<p>Algunos ejemplos generales:</p>
-
-<pre><code># iptables -F (eliminar todas las reglas)
-
-# iptables -L (si está activo y con qué reglas)
-
-# iptables -L -vn (mostrando los puertos e información detallada)
-
-# iptables -L -t nat (Listar reglas de una tabla concreta)
-
-# iptables -L fail2ban-ssh (comprobar las ips bloqueadas por fail2ban)
-
-# iptables -D fail2ban-ssh 1 (Quitar la primera ip baneada de las ips bloqueadas)
-
-# iptables -nL --line-numbers (muestra el orden de ejecución de las reglas)
-
-# iptables -nL INPUT (Lista todas las reglas de entrada)
-
-# iptables -nL FORWARD (Lista todas las reglas de salida)
-
-# iptables -D INPUT 3 (borrar la regla número 3)
-
-# iptables -A INPUT -j LOG (Guardar logs de todos los bloqueos)
-</code></pre>
-
-<p>Bloquear (DROP)</p>
-
-<pre><code># iptables -P INPUT DROP (Bloquear todo lo que entra)
-
-# iptables -A INPUT -s IP -j DROP (una ip)
-
-# iptables -A INPUT -s IP -i eth0 -j DROP (una ip de una red)
-
-# iptables -A INPUT -s IP -p tcp -dport 22 -j DROP (un puerto de una ip) 
-
-# iptables -A INPUT -s 192.168.1.0/24 -j DROP (una red)
-
-# iptables -A INPUT -m mac --mac-source 00:11:22:33:44:55 -j DROP (una mac)
-
-# iptables -A INPUT -p tcp --destination-port 21 -j DROP (puerto 21 de entrada)
-
-# iptables -A INPUT -p tcp -s IP --destination-port 21 -j DROP (el puerto 21 de entrada sólo para una IP)
-
-# iptables -A INPUT -p tcp -i eth0 -m multiport --destination-port 22,80,443 -j ACCEPT (Varios puertos)
-
-# iptables -A INPUT p tcp -s 192.168.1.0/24 --destination-port 21 -j DROP (el  puerto 21 de entrada para todo un rango de IPs)
-
-# iptables -A FORWARD -p tcp --dport 25 -j DROP (la salida del puerto 25)
-
-# iptables -A INPUT -p tcp --dport 22 -j LOG --log-prefix "Puerto 22 bloqueado" iptables -A INPUT -p tcp --dport 22 -j DROP (haciendo aparecer una mensaje informando del bloqueo)
-</code></pre>
-
-<p>Permitir (ACCEPT)</p>
-
-<pre><code># iptables -I INPUT 3 -s 192.168.1.0/8 -j ACCEPT (a la red especificada y poner la regla en tercer lugar)
-
-# iptables -D INPUT -s 192.168.1.0/8 -j ACCEPT (Quitar la regla anterior) 
-
-# iptables -A INPUT -i lo -p all -j ACCEPT (todas las entradas a localhost)
-
-# iptables -A OUTPUT -o lo -p all -j ACCEPT (todas las salidas a localhost)
-
-# iptables -A INPUT -p tcp --dport ssh -j ACCEPT (Un servicio concreto)
-
-# iptables -A INPUT -p tcp -i eth0 -m multiport --destination-port 22,80,443 -j ACCEPT (Todas las entradas a varios puertos)
-
-# iptables -A OUTPUT -o eth0 -p tcp -d 192.168.101.0/24 --dport 22 -j ACCEPT  (Permitir trafico ssh saliente para la red especificada)  
-</code></pre>
-
-<p>1.-</p>
-
-<p>Salvar unas reglas de iptables y restablecerlas manualmente:</p>
-
-<blockquote><p># iptables-save -c > /etc/iptables.rules</p>
-
-<p># iptables-restore &lt; /etc/iptables.rules</p></blockquote>
-
-<p>2.-</p>
-
-<p>Salvar unas reglas de iptables para que se activen automaticamente tras un reinicio:</p>
-
-<p>Salvar las reglas:</p>
-
-<blockquote><p># iptables-save > /etc/iptables/rules.v4</p></blockquote>
-
-<p>Crear el archivo:</p>
-
-<blockquote><p># nano /etc/network/if-pre-up.d/iptables (Crear archivo)</p></blockquote>
-
-<p>Con el siguiente contenido:</p>
-
-<pre><code>#!/bin/bash
-
-/sbin/iptables-restore &lt; /etc/iptables/rules.v4
-</code></pre>
-
-<p>Otorgar permisos:</p>
-
-<blockquote><p># chmod +x /etc/network/if-pre-up.d/iptables</p></blockquote>
-
-<p>3.-</p>
-
-<p>Otra opción para salvar las reglas y que se activen tras un reinicio:</p>
-
-<blockquote><p># /etc/init.d/iptables-persistent save (Guardar las reglas existentes)</p>
-
-<p># /etc/init.d/iptables-persistent flush (Reseteará todas las reglas)</p></blockquote>
 ]]></content>
   </entry>
   
