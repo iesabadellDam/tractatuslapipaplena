@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Gestión de permisos de los ficheros y directorios. $ chmod ugo+rwx -R /home/usuario/directorio (todos los permisos a todos los usuarios sobre el &hellip;">
+  <meta name="description" content="Internal Field Separator (separador de campos internos) sirve para indicar cual es el valor que se usa como separador. Si no se especifica ninguno es &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,94 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ifs/">Ifs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-27T21:21:00+01:00" pubdate data-updated="true">27-11-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Internal Field Separator (separador de campos internos) sirve para indicar cual es el valor que se usa como separador. Si no se especifica ninguno es el espacio.</p>
+
+<p>Algunos ejemplos:</p>
+
+<p>1.-</p>
+
+<pre><code>#!/bin/bash
+
+# dividir una IP en 4 variables
+
+# Guardar el separador de campos original
+
+OLDIFS=$IFS
+
+read -p "Dime la ip: " IP
+
+# Establecemos el separador de campos en el punto
+
+IFS=.
+
+read IP1 IP2 IP3 IP4 &lt;&lt;&lt; "$IP"
+
+echo "$IP1 $IP2 $IP3 $IP4"
+
+# Restablecemos el separador original (El espacio)
+
+IFS=$OLDIFS
+</code></pre>
+
+<p>2.-</p>
+
+<pre><code>#!/bin/bash
+
+#Almacenamos el valor original de la variable IFS
+
+OLDIFS=$IFS
+
+#Cambiamos el valor del IFS a final de linea [\n]
+
+IFS=$'\n'
+
+for line in $(cat file.txt)
+
+do
+
+    echo $line
+
+done
+
+#Restauramos el IFS
+
+IFS=$OLDIFS
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1069,54 +1157,6 @@ Editor colors: editnormal, editbold, editmarked
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/synaptic/">Synaptic</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-11-19T21:12:00+01:00" pubdate data-updated="true">19-11-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Interfaz gráfica para apt, sistema de gestión de paquetes basadas en Debian.</p>
-
-<p>Atajos de teclado:</p>
-
-<p>Ctrl + f (Buscar paquete)</p>
-
-<p>Ctrl + r (Refrescar lista de paquetes)</p>
-
-<p>Ctrl + g (Marcar todas las actualizaciones)</p>
-
-<p>Ctrl + p (Aplicar los cambios)</p>
-
-<p>Ctrl + q (Salir)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -1138,6 +1178,10 @@ Editor colors: editnormal, editbold, editmarked
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/rkhunter/">rkhunter</a>
+      </li>
     
       <li class="post">
         <a href="/blog/ssconvert/">ssconvert</a>
@@ -1173,10 +1217,6 @@ Editor colors: editnormal, editbold, editmarked
     
       <li class="post">
         <a href="/blog/hashtag/">hashtag</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/ifs/">ifs</a>
       </li>
     
   </ul>
