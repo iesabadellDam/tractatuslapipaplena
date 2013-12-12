@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "awk"
-date: 2013-10-27 13:51
+date: 2013-12-12 14:36
 comments: true
 categories: 
 ---
@@ -225,26 +225,6 @@ Aunque también podríamos añadir que lo ordenara por orden alfabetico del segu
 
 	$ awk -f validar lista | sort -t” “ -k2
 
-Creación de scripts con awk:
-
->$ cat hola
-
->\#! /usr/bin/awk -f 
-
->\# programa awk de ejemplo 
-
-BEGIN { print "Hola mundo cruel" } 
-
->$ chmod +x hola
-
->$ ./hola
-
-Hola mundo cruel
-
-Es resultado es el mismo que tecleando:
-
-	$ awk -f hola 
-
 Otros ejemplos: 
 
 	$ awk '/d.[0-9]/{print $4}' /proc/partitions  (listar todas las particiones)
@@ -260,4 +240,26 @@ Otros ejemplos:
 	$ awk '$1~/^DocumentRoot/{print $2}' /etc/apache2/sites-available/default (conocer la carpeta del servidor)
 
 	$ awk 'BEGIN { for (i = 1; i <= 7; i++) print int(101 * rand()) }' (Escribir 7 números aleatorios del 0 al 100)
+
+Creación de scripts con awk:
+
+1.-
+
+Imprimir el simple "Hola mundo cruel"
+
+	#! /usr/bin/awk -f 
+
+	BEGIN { print "Hola mundo cruel" } 
+
+Es resultado es el mismo que tecleando:
+
+	$ awk -f hola
+
+2.-
+
+Mandar el segundo campo de listado.txt a un archivo y el sexto a otro:
+
+	awk '{ print$2 > "lista_nombres"
+
+	       print$6 > "lista_telefonos" }' listado.txt 
 

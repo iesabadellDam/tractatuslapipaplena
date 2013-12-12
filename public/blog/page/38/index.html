@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Generar subtítulos en un video mpeg. $ spumux -s0 subt.xml &lt; video.mpeg > video_subtitulado.mpeg Nota.- El archivo subt.xml con un contenido: &lt; &hellip;">
+  <meta name="description" content="[secure-delete] Aplicación para eliminar de forma segura datos de disco sobreescribiendo su espacio. Es de funcionamiento lento, pero por eso se le &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,126 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/srm/">Srm</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[secure-delete]</p>
+
+<p>Aplicación para eliminar de forma segura datos de disco sobreescribiendo su espacio. Es de funcionamiento lento, pero por eso se le considera el más efectivo</p>
+
+<blockquote><p>$ srm -f dir (Modo rápido i el más inseguro)</p>
+
+<p>$ srm -l dir (Como realizar dos veces srm -f)</p>
+
+<p>$ srm archivo.txt (Se sobreescribe 38 veces)</p>
+
+<p>$ srm -rzv dir (se sobreescriben 38 veces los archivos y subdirectorios incluidos [r], sobreescribnedo ceros en el último borrado [z] y mostrando el proceso [v])</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/squid/">Squid</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Proxy caché (intermediario para nuestra conexion a internet, guardando las paginas visualizadas en una caché)</p>
+
+<blockquote><p># cp /etc/squid3/squid.conf{,.defaults} (Realizar copia de seguridad de la configuración)</p>
+
+<p># nano /etc/squid3/squid.conf</p></blockquote>
+
+<p>Modificamos/adaptamos los siguientes ajustes basicos:</p>
+
+<p>http_port 3128 #puerto de escucha</p>
+
+<p>cache_mem 100 MB #Tamaño memoria caché</p>
+
+<p>cache_dir ufs /var/spool/squid 700 16 256 #directorio y tamaño</p>
+
+<p>acl NuestraRed src 192.168.1.0/24 #Nombre y red a la que afecta</p>
+
+<p>http_access allow NuestraRed #permitir acceso a toda la red</p>
+
+<p>http_access allow deny all #Denegamos a los de fuera de la red</p>
+
+<p>auth_param basic /usr/lib/squid/ncsa_auth /etc/squid/passwd #ruta a usuarios</p>
+
+<p>auth_param basic realm “Mensaje de acceso” #mensaje al logearse</p>
+
+<p>auth_param basic children 5 #Procesos de autentificación</p>
+
+<p>auth_param basic basic credentialsttl 1 hours #tiempo</p>
+
+<blockquote><p># squid3 -k parse (Revisión de la sintaxis del archivo squid.conf)</p></blockquote>
+
+<p>Después de las modificaciones reiniciar servicio:</p>
+
+<blockquote><p># /etc/init.d/squid3 restart</p></blockquote>
+
+<p>Configuración de usuarios (/etc/squid/passwd):</p>
+
+<blockquote><p># htpasswd -c /etc/squid3/passwd user1 (Crear archivo [-c] nombre de usuario y pedirá contraseña)</p>
+
+<p># htpasswd /etc/squid3/passwd usuario2 (Sin parámetro -c porque el archivo ya está creado. Otro usuario y contraseña)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -443,116 +563,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/source/">Source</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Recarga o ejecuta el archivo de configuración indicado para aplicar cambios o el script de bash correspondiente.</p>
-
-<blockquote><p>$ source .bashrc</p></blockquote>
-
-<p>Este comando es equivalente a un punto [.]:</p>
-
-<blockquote><p>$ . .bashrc (lo mismo que el anterior)</p>
-
-<p>$ source script.sh</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sort/">Sort</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra la entrada ordenada.</p>
-
-<blockquote><p>$ sort archivo > archivo_ordenado  (por la primera columna)</p>
-
-<p>$ sort  [intro] (va esperando palabras o números que ordena con Ctrl+d)</p>
-
-<p>$ sort &lt;&lt; fin (Lo mismo pero ordena después de introducir “fin”)</p>
-
-<p>$ sort -o archivo1 archivo1 (escribe el resultado en el propio archivo)</p>
-
-<p>$ sort -u fichero  (ordenar eliminando lineas repetidas)</p>
-
-<p>$ sort -t , -k2n archivo  (ordenar por el segundo campo separado del primero por una “,” y por su valor numérico)</p>
-
-<p>$ sort -t , -k3 archivo   (ordenar por el tercer campo separados por comas)</p></blockquote>
-
-<p>Opciones</p>
-
-<p>-f : Ordena alfabeticamente (diferencia Minúsculas y mayúsculas).</p>
-
-<p>-n : Para ordenar los campos numéricos por su valor numérico.</p>
-
-<p>-r : De mayor a menor.</p>
-
-<p>-R : desordenar, aleatoriamente</p>
-
-<p>-k numero : Especifica por qué columna o campo realizar la ordenación</p>
-
-<p>-t : indica que vamos a usar un delimitador de campo especificado</p>
-
-<p>-u : Suprime todas las líneas repetidas después de realizar la ordenación.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/39/">&larr; Older</a>
@@ -574,6 +584,14 @@
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/awk/">awk</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/avconv/">avconv</a>
+      </li>
     
       <li class="post">
         <a href="/blog/ipmitool/">ipmitool</a>
@@ -605,14 +623,6 @@
     
       <li class="post">
         <a href="/blog/cmus/">cmus</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/cansina/">cansina</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/tcptrack/">tcptrack</a>
       </li>
     
   </ul>

@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="configurar nuevamente la zona horaria
-">
+  <meta name="description" content="Muestra las zonas horarias especificadas por el usuario y las guarda en el archivo ~/.tzlist. $ tzwatch -c (Lanzar tantas veces como de zonas &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +75,93 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/tzwatch/">Tzwatch</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Muestra las zonas horarias especificadas por el usuario y las guarda en el archivo ~/.tzlist.</p>
+
+<blockquote><p>$ tzwatch -c (Lanzar tantas veces como de zonas horarias se quiere disponer de información y seguir las instrucciones: Add Zone, Americas, 26 [Guatemala], mostrará la información y preguntará si es correcta, 1 [yes] y Done [salir])</p>
+
+<p>$ tzwatch (Mostrará hora local de cada una de las zonas elegidas)</p></blockquote>
+
+<pre><code>[~]$ tzwatch
+
+Mon Oct  7 02:39:39 CST 2013   Australia/Adelaide
+
+Sun Oct  6 18:09:39 CEST 2013   Europe/Madrid
+
+Sun Oct  6 10:09:39 CST 2013   America/Guatemala
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/tzselect/">Tzselect</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Pregunta al usuario información sobre la localización actual y muestra la descripción de la zona horaria correspondiente.</p>
+
+<blockquote><p>$ tzselect</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -417,128 +503,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/tv3/">Tv3</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Descarga de videos de tv3.cat.</p>
-
-<blockquote><p>$ wget http://www.gnulinux.cat/dev/tv3.tar.gz</p>
-
-<p>$ tar -xvzf tv3.tar.gz</p>
-
-<p>$ cd tv3</p>
-
-<p>$ bash install</p></blockquote>
-
-<p>Una vez tengamos la URL del video [por ejemplo: http://www.tv3.cat/videos/4226490/Especial-diada-de-Sant-Felix-a-Vilafranca]</p>
-
-<p>Arrancar la aplicación con el número que muestra:</p>
-
-<blockquote><p>$ tv3 4226490</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/tune2fs/">Tune2fs</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Chequeo de la tabla de particiones</p>
-
-<blockquote><p># tune2fs -c 80 /dev/sda1 (cada 80 reinicios)</p>
-
-<p># tune2fs -i 2m /dev/sda1 (cada 2 meses)</p>
-
-<p># tune2fs -i 2w /dev/hda3 (cada 2 semanas)</p>
-
-<p># tune2fs -i 2d /dev/sda1 (cada 2 dias)</p>
-
-<p># tune2fs -l /dev/sdb1 (ver registro completo de la partición)</p>
-
-<p># tune2fs -l /dev/hda3 | grep ‘Last checked’ (ver fecha del último escaneo)</p>
-
-<p># tune2fs -l /dev/hda3 | grep -i check (veces que se fuerza el chequeo)</p>
-
-<p># tune2fs -i 0 /dev/hda3 (desactivar chequeo)</p>
-
-<p># showfsck (saber cuantas reiniciadas faltan hasta el proximo chequeo)</p>
-
-<p># tune2fs -l /dev/hda3 | grep -i ‘mount count’ (lo mismo que el anterior)</p>
-
-<p># tune2fs -m 1 /dev/sda1 (modificar el espacio reservado para root al 1%. Por defecto es del 5%. Ver dumpe2fs)</p>
-
-<p># tune2fs -O ^has_journal /dev/sda1 (Desactivar journaling en una partición)</p>
-
-<p># tune2fs -O has_journal /dev/sda1 (Activar journaling)</p></blockquote>
-
-<p>1.-</p>
-
-<p>Convertir sistema de archivos de ext3 a ext4. Desde un livecd o una partición no montada :</p>
-
-<blockquote><p># tune2fs -O extents,uninit_bg,dir_index /dev/sdax (convertir)</p>
-
-<p># fsck -pf /dev/sdax  (Para dar consistencia al nuevo sistema)</p>
-
-<p># mount -t ext4 /dev/sdax /media/punto_de_montaje (montar la unidad)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/29/">&larr; Older</a>
@@ -560,6 +524,14 @@
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/awk/">awk</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/avconv/">avconv</a>
+      </li>
     
       <li class="post">
         <a href="/blog/ipmitool/">ipmitool</a>
@@ -591,14 +563,6 @@
     
       <li class="post">
         <a href="/blog/cmus/">cmus</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/cansina/">cansina</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/tcptrack/">tcptrack</a>
       </li>
     
   </ul>

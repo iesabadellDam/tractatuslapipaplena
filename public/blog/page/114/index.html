@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Cortar conexiones no deseadas # cutter 192.168.2.6 80 (especificando IP y puerto) # cutter 192.168.2.6 (solo IP)
+  <meta name="description" content="Rescatar contenido de cds y dvds dañados $ dares -i image_cdrom -s /tmp (salvar en /tmp)
 ">
   
 
@@ -76,6 +76,126 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/dares/">Dares</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Rescatar contenido de cds y dvds dañados</p>
+
+<blockquote><p>$ dares -i image_cdrom -s /tmp (salvar en /tmp)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/dansguardian/">Dansguardian</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Filtro de contenidos web (cliente) que trabaja conjuntamente con el servidor proxy squid (servidor).</p>
+
+<p>Adaptar el archivo de configuración:</p>
+
+<blockquote><p># nano /etc/dansguardian/dansguardian.conf</p></blockquote>
+
+<p>Algunos parámetros a especificar (caso de no estarlo):</p>
+
+<p>language = &#8216;spanish&#8217;</p>
+
+<p>reportinglevel = 3 #valores de 1, 2 y 3</p>
+
+<p>filterport = 8080</p>
+
+<p>proxyip = 127.0.0.1 #La misma ip del proxy squid</p>
+
+<p>proxyport = 3128</p>
+
+<p>Guardar el archivo.</p>
+
+<p>El listado de conceptos (ip, nombre de dominio, frases&#8230; ) por los que se puede banear y conceptos excluidos en:</p>
+
+<blockquote><p># ls /etc/dansguardian/lists/</p></blockquote>
+
+<p>Algunos de los más usuales:</p>
+
+<p>bannedextensionlist (extensiones no permitidas)</p>
+
+<p>banneriplist (listado de ips no permitidas)</p>
+
+<p>bannedmimetypelist (Tipos MIME no permitidos)</p>
+
+<p>bannedregexpurllist  (Listado de expresiones a bloquear)</p>
+
+<p>bannedurllist (Bloquear partes especificas de un sitio)</p>
+
+<p>bannedsitelist (Bloquear sitios)</p>
+
+<p>bannedphraselist (Listado de frases prohibidas encerradas entre &lt; ></p>
+
+<p>exceptionsitelist (Lista de excepciones de sitios)</p>
+
+<p>exceptioniplist (lista de excepciones de direcciones IP)</p>
+
+<p>exceptionuserlist (Lista de excepciones de nombres de usuarios que no serán filtrado)</p>
+
+<blockquote><p># /etc/init.d/dansguardian restart</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -588,92 +708,6 @@ $ 0 8 * * * env DISPLAY=:0.0 vlc /home/usuario/musica/archivo.mp3 (Programar que
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/cpulimit/">Cpulimit</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Limitar el uso de la cpu para determinados procesos.</p>
-
-<blockquote><p># cpulimit -e yes -l 20 (el de “yes”a un 20% de la cpu. Valor entre 0 y 100)</p>
-
-<p># cpulimit -p PID -l 50 (el proceso con el numero PID al 50%)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/cpufreq-set/">Cpufreq-set</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Define el perfil de la CPU [powersave, performance, conservative, userspace, ondemand] así como la velocidad y otros parámetros</p>
-
-<blockquote><p># cpufreq-set &#8211;governor powersave (Define el perfil de velocidad de la CPU. Perfiles disponibles: conservative, powersave, performance, ondemand, userspace)</p>
-
-<p># cpufreq-set -c 0 (Definimos que queremos aplicar el comando a la CPU 0. Si se omite, por defecto tomará este valor. El rango de este valor va de 0 a N-1 CPUs. Por ejemplo con 4 núcleos iria de 0 a 3)</p>
-
-<p># cpufreq-set &#8211;min 1200000 –governor PERFIL (define la velocidad mínima del procesador en Hz para el perfil seleccionado, requiere el uso de la opción &#8211;governor. En caso de que el valor sea inferior al permitido, se utiliza la velocidad mínima soportada por la CPU. Si tenemos más de una CPU o núcleo, debemos repetir el comando para cada CPU con la opción -c e indicar el número de esta)</p>
-
-<p># cpufreq-set &#8211;max 2101000 &#8211;governor ondemand (lo mismo que –min pero con la velocidad máxima de la CPU)</p>
-
-<p># cpufreq-set -f 1600000 (Especificamos que queremos que la CPU trabaje a la velocidad deseada. Requiere que estemos usando el perfil userspace)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/115/">&larr; Older</a>
@@ -695,6 +729,14 @@ $ 0 8 * * * env DISPLAY=:0.0 vlc /home/usuario/musica/archivo.mp3 (Programar que
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/awk/">awk</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/avconv/">avconv</a>
+      </li>
     
       <li class="post">
         <a href="/blog/ipmitool/">ipmitool</a>
@@ -726,14 +768,6 @@ $ 0 8 * * * env DISPLAY=:0.0 vlc /home/usuario/musica/archivo.mp3 (Programar que
     
       <li class="post">
         <a href="/blog/cmus/">cmus</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/cansina/">cansina</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/tcptrack/">tcptrack</a>
       </li>
     
   </ul>
