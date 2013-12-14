@@ -94,7 +94,7 @@
   
 
 
-<time datetime="2013-12-14T11:35:00+01:00" pubdate data-updated="true">14-12-2013</time>
+<time datetime="2013-12-14T16:51:00+01:00" pubdate data-updated="true">14-12-2013</time>
         
       </p>
     
@@ -177,6 +177,21 @@ María Monzón 9 16 metálico
 <pre><code>$ awk '/Fuentes/ { print $0 }; /Cano/ { print$0 } ' lista
 </code></pre>
 
+<p>Imprimir lineas que tengan alguno de los campos o los dos:</p>
+
+<pre><code>$ awk '/Bueno/ || /Cano/' lista
+</code></pre>
+
+<p>Imprimir lineas que tengan los dos campos:</p>
+
+<pre><code>$ awk '/Bueno/ &amp;&amp; /7/' lista
+</code></pre>
+
+<p>Imprimir las lineas que no tengan el cammpo:</p>
+
+<pre><code>$ awk '! /metálico/' lista
+</code></pre>
+
 <p>Buscar las entradas en las que el primer campo empiece por “J”, imprimir el 2º campo y, entre parentesis el último:</p>
 
 <pre><code>$ awk '$1 ~ /^J/ {print$2, "("$NF")"}' lista
@@ -200,6 +215,15 @@ María Monzón 9 16 metálico
 <p>print permite colocar texto:</p>
 
 <pre><code>$ awk ' { print "El sueldo de ",$2," es de ",$3*$4," euros."} ' lista 
+</code></pre>
+
+<p>Mostar las veces que aparece &#8220;banco&#8221;:</p>
+
+<pre><code>awk 'BEGIN { print "Veces que aparece banco" }
+
+&gt;        /banco/ { ++banco }
+
+&gt;         END       { print "banco aparece " banco " veces." }' lista
 </code></pre>
 
 <p><strong>Variables internas:</strong></p>
@@ -242,7 +266,8 @@ $4 &gt; 0 (Que imprima los que la 4ª columna no sea cero.)
 
 <p>Imprimir cadena, justificada a la izquierda y en campos de 10 y 5 caracteres:</p>
 
-<blockquote><p>$ awk &#8216;{ printf &#8220;%-10s %-10s %-5s %-5s %-5s\n&#8221;, $1, $2, $3, $4, $5 }&#8217; lista</p></blockquote>
+<pre><code>$ awk '{ printf "%-10s %-10s %-5s %-5s %-5s\n", $1, $2, $3, $4, $5 }' lista
+</code></pre>
 
 <p>Parecido con más florituras (todo en una sola linea)</p>
 
@@ -253,9 +278,9 @@ $4 &gt; 0 (Que imprima los que la 4ª columna no sea cero.)
 
 <pre><code>$ awk 'BEGIN {print "nombre\tapellido\tprecio\thoras\tpago" 
 
-&gt;                     print "------\t--------\t------\t-----\t----"} 
+&gt;             print "------\t--------\t------\t-----\t----"} 
 
-&gt;                   {print  $1"\t"$2"\t"$3"\t"$4"\t"$5 }' lista
+&gt;            {print  $1"\t"$2"\t"$3"\t"$4"\t"$5 }' lista
 </code></pre>
 
 <p>BEGIN y END son patrones especiales usados para suministrar al script awk qué hacer antes de empezar a procesar y después de haber procesado los registros de la entrada.:</p>
@@ -378,9 +403,9 @@ $ who | awk '{print $1}'  (Mostrar todos los usuarios registrados)
 $ awk '$1~/^DocumentRoot/{print $2}' /etc/apache2/sites-available/default (conocer la carpeta del servidor)
 
 $ awk 'BEGIN { for (i = 1; i &lt;= 7; i++) print int(101 * rand()) }' (Escribir 7 números aleatorios del 0 al 100)
-</code></pre>
 
-<p>Creación de scripts con awk:</p>
+Creación de scripts con awk:
+</code></pre>
 
 <p>1.-</p>
 
@@ -460,7 +485,7 @@ BEGIN {
   
 
 
-<time datetime="2013-12-14T11:35:00+01:00" pubdate data-updated="true">14-12-2013</time>
+<time datetime="2013-12-14T16:51:00+01:00" pubdate data-updated="true">14-12-2013</time>
       
 
 

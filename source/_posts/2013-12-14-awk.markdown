@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "awk"
-date: 2013-12-14 11:35
+date: 2013-12-14 16:51
 comments: true
 categories: 
 ---
@@ -69,6 +69,18 @@ Buscar dos entradas en una misma linea separándolas con punto y coma (;):
 
 	$ awk '/Fuentes/ { print $0 }; /Cano/ { print$0 } ' lista
 
+Imprimir lineas que tengan alguno de los campos o los dos:
+
+	$ awk '/Bueno/ || /Cano/' lista
+
+Imprimir lineas que tengan los dos campos:
+
+	$ awk '/Bueno/ && /7/' lista
+
+Imprimir las lineas que no tengan el cammpo:
+
+	$ awk '! /metálico/' lista
+
 Buscar las entradas en las que el primer campo empiece por “J”, imprimir el 2º campo y, entre parentesis el último:
 
 	$ awk '$1 ~ /^J/ {print$2, "("$NF")"}' lista
@@ -88,6 +100,14 @@ Añadir un nuevo campo ($6) con el producto del 3 y el 4:
 print permite colocar texto: 
 
 	$ awk ' { print "El sueldo de ",$2," es de ",$3*$4," euros."} ' lista 
+
+Mostar las veces que aparece "banco":
+
+	awk 'BEGIN { print "Veces que aparece banco" }
+
+	>        /banco/ { ++banco }
+
+	>         END       { print "banco aparece " banco " veces." }' lista
 
 **Variables internas:** 
 
@@ -123,7 +143,7 @@ Dar formato a la salida de datos:
 
 Imprimir cadena, justificada a la izquierda y en campos de 10 y 5 caracteres:
 
->$ awk '{ printf "%-10s %-10s %-5s %-5s %-5s\n", $1, $2, $3, $4, $5 }' lista
+	$ awk '{ printf "%-10s %-10s %-5s %-5s %-5s\n", $1, $2, $3, $4, $5 }' lista
 
 Parecido con más florituras (todo en una sola linea)
 
@@ -133,9 +153,9 @@ Lo mismo más legible:
 
 	$ awk 'BEGIN {print "nombre\tapellido\tprecio\thoras\tpago" 
 
-	>                     print "------\t--------\t------\t-----\t----"} 
+	>             print "------\t--------\t------\t-----\t----"} 
 
-	>                   {print  $1"\t"$2"\t"$3"\t"$4"\t"$5 }' lista
+	>            {print  $1"\t"$2"\t"$3"\t"$4"\t"$5 }' lista
 
 BEGIN y END son patrones especiales usados para suministrar al script awk qué hacer antes de empezar a procesar y después de haber procesado los registros de la entrada.:
 
@@ -241,7 +261,7 @@ Otros ejemplos:
 
 	$ awk 'BEGIN { for (i = 1; i <= 7; i++) print int(101 * rand()) }' (Escribir 7 números aleatorios del 0 al 100)
 
-Creación de scripts con awk:
+	Creación de scripts con awk:
 
 1.-
 
