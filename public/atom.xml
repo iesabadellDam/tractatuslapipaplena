@@ -4,7 +4,7 @@
   <title><![CDATA[TRACTATUS ELEMENTALIS]]></title>
   <link href="https://tractatuslapipaplena.herokuapp.com/atom.xml" rel="self"/>
   <link href="https://tractatuslapipaplena.herokuapp.com/"/>
-  <updated>2013-12-14T06:15:05+01:00</updated>
+  <updated>2013-12-14T07:50:43+01:00</updated>
   <id>https://tractatuslapipaplena.herokuapp.com/</id>
   <author>
     <name><![CDATA[templix]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[awk]]></title>
     <link href="https://tractatuslapipaplena.herokuapp.com/blog/awk/"/>
-    <updated>2013-12-14T06:15:00+01:00</updated>
+    <updated>2013-12-14T07:50:00+01:00</updated>
     <id>https://tractatuslapipaplena.herokuapp.com/blog/awk</id>
     <content type="html"><![CDATA[<p>Busca patrones y los procesa. Es practicamente un lenguaje de programación.</p>
 
@@ -302,14 +302,16 @@ $ awk 'BEGIN { for (i = 1; i &lt;= 7; i++) print int(101 * rand()) }' (Escribir 
 
 <p>Imprimir el simple &#8220;Hola mundo cruel&#8221;</p>
 
-<pre><code>#! /usr/bin/awk -f 
+<pre><code>#!/usr/bin/awk -f 
 
 BEGIN { print "Hola mundo cruel" } 
 </code></pre>
 
-<p>Es resultado es el mismo que tecleando:</p>
+<p>Lo mismo pero incluido en un script de bash:</p>
 
-<pre><code>$ awk -f hola
+<pre><code>#!/bin/bash
+
+awk 'BEGIN { print "Hola mundo cruel" }'
 </code></pre>
 
 <p>2.-</p>
@@ -321,6 +323,36 @@ BEGIN { print "Hola mundo cruel" }
 awk '{ print$2 &gt; "lista_nombres"
 
        print$6 &gt; "lista_telefonos" }' listado.txt 
+</code></pre>
+
+<p>3.-</p>
+
+<p>Pasar el comando date&#8230; a variable [getline dia_actual], cerrar el comando [close] e imprimirlo en pantalla:</p>
+
+<pre><code>#!/usr/bin/awk -f
+
+BEGIN {
+
+           "date +%d-%m-%Y" | getline dia_actual
+
+           close("date +%d-%m-%Y")
+
+           print "Hoy estamos a " dia_actual
+
+}
+</code></pre>
+
+<p>En bash:</p>
+
+<pre><code>awk 'BEGIN {
+
+           "date +%d-%m-%Y" | getline dia_actual
+
+           close("date +%d-%m-%Y")
+
+           print "Hoy estamos a " dia_actual
+
+}'
 </code></pre>
 ]]></content>
   </entry>
