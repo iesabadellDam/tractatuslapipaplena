@@ -4,7 +4,7 @@
   <title><![CDATA[TRACTATUS ELEMENTALIS]]></title>
   <link href="https://tractatuslapipaplena.herokuapp.com/atom.xml" rel="self"/>
   <link href="https://tractatuslapipaplena.herokuapp.com/"/>
-  <updated>2013-12-14T23:03:34+01:00</updated>
+  <updated>2013-12-15T13:23:08+01:00</updated>
   <id>https://tractatuslapipaplena.herokuapp.com/</id>
   <author>
     <name><![CDATA[templix]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[grub2]]></title>
     <link href="https://tractatuslapipaplena.herokuapp.com/blog/grub2/"/>
-    <updated>2013-12-14T23:03:00+01:00</updated>
+    <updated>2013-12-15T13:23:00+01:00</updated>
     <id>https://tractatuslapipaplena.herokuapp.com/blog/grub2</id>
     <content type="html"><![CDATA[<p>Gestor de arranque. Los dispositivos empiezan por 0 y las particiones empiezan con 1. “sda1” es “hd0,1” y no “hd0,0” como en el antiguo grub.</p>
 
@@ -24,46 +24,45 @@
 
 <p>Modificación de parámetros generales:</p>
 
-<blockquote><p># gedit /etc/default/grub</p></blockquote>
+<blockquote><h1>gedit /etc/default/grub</h1></blockquote>
 
-<pre><code>GRUB_DEFAULT= 0/saved (0 selecciona primera entrada, 1 la segunda... "saved" selecciona la última entrada  ejecutada.) 
+<p>GRUB_DEFAULT= 0/saved (0 selecciona primera entrada, 1 la segunda&#8230; &#8220;saved&#8221; selecciona la última entrada  ejecutada.)</p>
 
-GRUB_TIMEOUT=10 (tiempo de espera antes de arrancar) 
+<p>GRUB_TIMEOUT=10 (tiempo de espera antes de arrancar)</p>
 
-GRUB_HIDDEN_TIMEOUT=0  (esconder el menú de entradas. Si hay varios sistemas comentarlo) 
+<p>GRUB_HIDDEN_TIMEOUT=0  (esconder el menú de entradas. Si hay varios sistemas comentarlo)</p>
 
-GRUB_HIDDEN_MENU_QUIET=true (oculta la cuenta atrás. "false" la muestra) 
+<p>GRUB_HIDDEN_MENU_QUIET=true (oculta la cuenta atrás. &#8220;false&#8221; la muestra)</p>
 
-GRUB_DISTRIBUTOR=lsb_release -i -s 2&gt; /dev/null || echo Debian (determina el nombre del sistema) 
+<p>GRUB_DISTRIBUTOR=lsb_release -i -s 2> /dev/null || echo Debian (determina el nombre del sistema)</p>
 
-GRUB_CMDLINE_LINUX="acpi_osi=Linux" (opciones concretas que pueden pasarse al arranque) 
+<p>GRUB_CMDLINE_LINUX=&#8221;acpi_osi=Linux&#8221; (opciones concretas que pueden pasarse al arranque)</p>
 
-GRUB_CMDLINE_LINUX_DEFAULT="splash noapic" (otras opciones por defecto) 
+<p>GRUB_CMDLINE_LINUX_DEFAULT=&#8221;splash noapic&#8221; (otras opciones por defecto)</p>
 
-GRUB_GFXMODE=1024x768 (activa el grub gráfico) 
+<p>GRUB_GFXMODE=1024x768 (activa el grub gráfico)</p>
 
-GRUB_DISABLE_LINUX_RECOVERY="true" (muestra la opción de recovery mode en el menú. “false lo suprime) 
-</code></pre>
+<p>GRUB_DISABLE_LINUX_RECOVERY=&#8221;true&#8221; (muestra la opción de recovery mode en el menú. “false lo suprime)</p>
 
-<blockquote><p># update-grub2   (hacer efectivos los cambios)</p></blockquote>
+<blockquote><h1>update-grub2   (hacer efectivos los cambios)</h1></blockquote>
 
 <p>2.-</p>
 
 <p>Para que no aparezca memtest en el menú:</p>
 
-<blockquote><p># chmod -x /etc/grub.d/20_memtest86+</p></blockquote>
+<blockquote><h1>chmod -x /etc/grub.d/20_memtest86+</h1></blockquote>
 
 <p>El mismo comando con “+x” lo restituye.</p>
 
-<blockquote><p># update-grub2</p></blockquote>
+<blockquote><h1>update-grub2</h1></blockquote>
 
 <p>3.-</p>
 
 <p>Quitar lineas que hacen referencia a kernels antiguos:</p>
 
-<blockquote><p># dpkg &#8211;get-selections | grep linux-image  (averiguar los instalados)</p>
+<blockquote><h1>dpkg &#8211;get-selections | grep linux-image  (averiguar los instalados)</h1>
 
-<p># apt-get remove &#8211;purge linux-image-2.6.xx-xx-generic</p></blockquote>
+<h1>apt-get remove &#8211;purge linux-image-2.6.xx-xx-generic</h1></blockquote>
 
 <p>El update-grub2 se hará de forma automática.</p>
 
@@ -73,37 +72,37 @@ GRUB_DISABLE_LINUX_RECOVERY="true" (muestra la opción de recovery mode en el me
 
 <blockquote><p>$ ls /usr/share/images/grub   (directorio de la imágenes)</p>
 
-<p># gedit /etc/grub.d/05_debian_theme</p></blockquote>
+<h1>gedit /etc/grub.d/05_debian_theme</h1></blockquote>
 
 <p>Y modificamos en la linea:</p>
 
 <p>WALLPAPER=&#8221;/usr/share/images/grub/Lake_mapourika_NZ.tga&#8221;</p>
 
-<blockquote><p># update-grub2</p></blockquote>
+<blockquote><h1>update-grub2</h1></blockquote>
 
 <p>5.-</p>
 
 <p>Reinstalar grub2 desde un live-cd o desde otra partición.</p>
 
-<blockquote><p># fdisk -l   (para saber la partición del grub que queremos instalar)</p>
+<blockquote><h1>fdisk -l   (para saber la partición del grub que queremos instalar)</h1>
 
-<p># mount /dev/sda2 /media/sda2  (motar la partición)</p>
+<h1>mount /dev/sda2 /media/sda2  (motar la partición)</h1>
 
-<p># mount -o bind /dev/ /media/sda2/dev/  (montar los sistemas de ficheros)</p>
+<h1>mount -o bind /dev/ /media/sda2/dev/  (montar los sistemas de ficheros)</h1>
 
-<p># mount -o bind /sys/ /media/sda2/sys/</p>
+<h1>mount -o bind /sys/ /media/sda2/sys/</h1>
 
-<p># mount -o bind /proc/ /media/sda2/proc/</p>
+<h1>mount -o bind /proc/ /media/sda2/proc/</h1>
 
-<p># chroot /media/sda2    (Chorootear la partición que alberga el grub que vamos a instalar)</p>
+<h1>chroot /media/sda2    (Chorootear la partición que alberga el grub que vamos a instalar)</h1>
 
-<p># grub-install /dev/sda   (instalar grub en el disco)</p></blockquote>
+<h1>grub-install /dev/sda   (instalar grub en el disco)</h1></blockquote>
 
 <p>6.-</p>
 
 <p>Para solucionar el problema de que al arrancar un sistema operativo la pantalla no muestra nada, editar el archivo:</p>
 
-<blockquote><p># nano /etc/default/grub</p></blockquote>
+<blockquote><h1>nano /etc/default/grub</h1></blockquote>
 
 <p>Y en la linea:</p>
 
@@ -111,29 +110,27 @@ GRUB_DISABLE_LINUX_RECOVERY="true" (muestra la opción de recovery mode en el me
 
 <p>Añadir el chipset de vuestra gráfica:</p>
 
-<pre><code>General (para cualquier gráfica): nomodeset 
+<p>General (para cualquier gráfica): nomodeset</p>
 
-ATI (driver libre ati o radeon): radeon.modeset=0 
+<p>ATI (driver libre ati o radeon): radeon.modeset=0</p>
 
-ATI (driver privativo): nomodeset 
+<p>ATI (driver privativo): nomodeset</p>
 
-nVidia: xforcevesa o nomodeset 
+<p>nVidia: xforcevesa o nomodeset</p>
 
-Nvidia con driver libre (nouveau): nouveau.modeset=0 
+<p>Nvidia con driver libre (nouveau): nouveau.modeset=0</p>
 
-Intel: i915.modeset=0 
-</code></pre>
+<p>Intel: i915.modeset=0</p>
 
 <p>Quedando la entrada, por ejemplo para una Intel; como sigue:</p>
 
-<pre><code>GRUB_CMDLINE_LINUX_DEFAULT="quiet i915.modeset=0"
-</code></pre>
+<p>GRUB_CMDLINE_LINUX_DEFAULT=&#8221;quiet i915.modeset=0&#8221;</p>
 
 <p>7.-</p>
 
 <p>Modificar los colores de las fuentes para adaptarlas a las imágenes mostradas.</p>
 
-<blockquote><p># gedit /etc/grub.d/05_debian_theme</p></blockquote>
+<blockquote><h1>gedit /etc/grub.d/05_debian_theme</h1></blockquote>
 
 <p>y modificar las líneas</p>
 
@@ -149,30 +146,29 @@ Intel: i915.modeset=0
 
 <p>Colores permitidos:</p>
 
-<pre><code>red (rojo)
+<p>red (rojo)</p>
 
-green (verde) 
+<p>green (verde)</p>
 
-blue (azul)
+<p>blue (azul)</p>
 
-yellow (amarillo)
+<p>yellow (amarillo)</p>
 
-cyan (cian)
+<p>cyan (cian)</p>
 
-magenta (magenta)
+<p>magenta (magenta)</p>
 
-white (blanco)
+<p>white (blanco)</p>
 
-black (negro) 
+<p>black (negro)</p>
 
-light-gray (gris claro)
-</code></pre>
+<p>light-gray (gris claro)</p>
 
 <p>8.-</p>
 
 <p>Colocar contraseña a grub2 para dos usuarios:</p>
 
-<blockquote><p># nano /etc/grub.d/00_header</p></blockquote>
+<blockquote><h1>nano /etc/grub.d/00_header</h1></blockquote>
 
 <p>Colocar al final:</p>
 
@@ -194,11 +190,11 @@ light-gray (gris claro)
 
 <p>Copiar el menuentry perteneciente a la partición windows (no la de recuperación) y pastearla en:</p>
 
-<blockquote><p># gedit /etc/grub.d/40_custom</p></blockquote>
+<blockquote><h1>gedit /etc/grub.d/40_custom</h1></blockquote>
 
 <p>Luego:</p>
 
-<blockquote><p># gedit /etc/default/grub</p></blockquote>
+<blockquote><h1>gedit /etc/default/grub</h1></blockquote>
 
 <p>Y añadir al final del archivo la linea:</p>
 
@@ -206,7 +202,7 @@ light-gray (gris claro)
 
 <p>Recargar grub:</p>
 
-<blockquote><p># update-grub</p></blockquote>
+<blockquote><h1>update-grub</h1></blockquote>
 
 <p>Nota.- Las entradas de 40_custom no se muestran en la salida de la consola pero quedan reflejadas en el grub.cfg</p>
 
@@ -214,9 +210,9 @@ light-gray (gris claro)
 
 <p>Poner contraseña a grub2</p>
 
-<blockquote><p># grub-mkpasswd-pbkdf2 (Crear la contraseña encriptada en SHA512)</p>
+<blockquote><h1>grub-mkpasswd-pbkdf2 (Crear la contraseña encriptada en SHA512)</h1>
 
-<p># nano /etc/grub.d/00_header</p></blockquote>
+<h1>nano /etc/grub.d/00_header</h1></blockquote>
 
 <p>Y colocar al final del archivo:</p>
 
@@ -228,35 +224,33 @@ light-gray (gris claro)
 
 <p>EOF</p>
 
-<blockquote><p># nano /etc/grub.d/10_linux</p></blockquote>
+<blockquote><h1>nano /etc/grub.d/10_linux</h1></blockquote>
 
 <p>Buscar la linea:</p>
 
-<p>printf &#8220;menuentry &#8216;${title}&#8217; ${CLASS} {\n&#8221; &#8220;${os}&#8221; &#8220;${version}&#8221;</p>
+<p>printf &#8220;menuentry &#8216;${title}&#8217; ${CLASS} {n&#8221; &#8220;${os}&#8221; &#8220;${version}&#8221;</p>
 
 <p>Y colocar al usuario al final de {CLASS}:</p>
 
-<p>printf &#8220;menuentry &#8216;${title}&#8217; ${CLASS} &#8211;users usuario {\n&#8221; &#8220;${os}&#8221; &#8220;${version}&#8221;</p>
+<p>printf &#8220;menuentry &#8216;${title}&#8217; ${CLASS} &#8211;users usuario {n&#8221; &#8220;${os}&#8221; &#8220;${version}&#8221;</p>
 
-<blockquote><p># update-grub</p></blockquote>
+<blockquote><h1>update-grub</h1></blockquote>
 
 <p>11.-</p>
 
 <p>Entrar como root desde grub sin contraseña:</p>
 
-<pre><code>1.- Cuando sale el menú de grub desplazarse al sistema que se quiere arrancar y pulsar la letra "e"
+<p>1.- Cuando sale el menú de grub desplazarse al sistema que se quiere arrancar y pulsar la letra &#8220;e&#8221;</p>
 
-2.- moverse a la linea del kernel
-</code></pre>
+<p>2.- moverse a la linea del kernel</p>
 
 <p>En este punto puede optarse por dos soluciones:</p>
 
-<pre><code>a) borrar todo desde después de "ro" hasta el final y colocar init=/bin/bash [linux   /boot/vmlinuz-3.2.0-4-amd64 root=UUID=de1d7793-c3d2-4e03-b79d-1a76905619e6 ro init=/bin/bash ]. El teclado estará en inglés.
+<p>a) borrar todo desde después de &#8220;ro&#8221; hasta el final y colocar init=/bin/bash [linux   /boot/vmlinuz-3.2.0-4-amd64 root=UUID=de1d7793-c3d2-4e03-b79d-1a76905619e6 ro init=/bin/bash ]. El teclado estará en inglés.</p>
 
-b) ponemos al final de la linea "single" [linux   /boot/vmlinuz-3.2.0-4-amd64 root=UUID=de1d7793-c3d2-4e03-b79d-1a76905619e6 ro  quiet single ]
-</code></pre>
+<p>b) ponemos al final de la linea &#8220;single&#8221; [linux   /boot/vmlinuz-3.2.0-4-amd64 root=UUID=de1d7793-c3d2-4e03-b79d-1a76905619e6 ro  quiet single ]</p>
 
-<p>Y proseguir con el arranque pulsando F10 o Ctrl+x.</p>
+<p>Y proseguir con el arranque pulsando F10 o Ctrl+x con lo que el sistema iniciará con una consola root.</p>
 ]]></content>
   </entry>
   
