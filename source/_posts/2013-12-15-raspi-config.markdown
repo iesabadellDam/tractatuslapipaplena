@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "raspi-config"
-date: 2013-12-15 18:39
+date: 2013-12-15 18:56
 comments: true
 categories: 
 ---

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "ck-list-sessions"
-date: 2013-12-15 18:35
+date: 2013-12-15 18:51
 comments: true
 categories: 
 ---

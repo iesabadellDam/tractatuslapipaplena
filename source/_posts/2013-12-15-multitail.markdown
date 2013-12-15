@@ -1,17 +1,17 @@
 ---
 layout: post
 title: "multitail"
-date: 2013-12-15 18:38
+date: 2013-12-15 18:55
 comments: true
 categories: 
 ---
 Abrir en una ventana varios procesos tail.
 
->~$ multitail /var/log/messagess /var/log/apache2/access.log
+>$ multitail /var/log/messagess /var/log/apache2/access.log
 
->~$ multitail -R 2 -l "netstat -t" -ci green /var/log/apache2/access.log -ci yellow /var/log/apache2/error.log
+>$ multitail -R 2 -l "netstat -t" -ci green /var/log/apache2/access.log -ci yellow /var/log/apache2/error.log
 
->~$ multitail -a netstat.log -R 2 -l "netstat -t tcp" /var/log/apache/access.log
+>$ multitail -a netstat.log -R 2 -l "netstat -t tcp" /var/log/apache/access.log 
 
 Algunas opciones:
 
@@ -31,13 +31,13 @@ Algunas opciones:
 
 Notas:
 
-F1 (abrir la ayuda)
+	F1 (abrir la ayuda)
 
-^g (cerrar ventana ayuda)
+	^g (cerrar ventana ayuda)
 
-b   (selecionar proceso)
+	b   (selecionar proceso)
 
-q   (cerrar ventana proceso)
+	q   (cerrar ventana proceso)
 
-v   (Cambiar la orientación horizontal/vertical)
+	v   (Cambiar la orientación horizontal/vertical)
 

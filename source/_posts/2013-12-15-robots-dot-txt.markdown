@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "robots.txt"
-date: 2013-12-15 18:39
+date: 2013-12-15 18:56
 comments: true
 categories: 
 ---
@@ -11,35 +11,35 @@ Algunos comandos:
 
 User-agent (Indica qué tipo de robot debe cumplir con la directiva que se indica)
 
-User-agent: * (Incluir todos los buscadores)
+	User-agent: * (Incluir todos los buscadores)
 
-User-agent: Googlebot (Especificar el buscador de Google)
+	User-agent: Googlebot (Especificar el buscador de Google)
 
-User-agent: Bingbot (Especificar el robot de Bing)
+	User-agent: Bingbot (Especificar el robot de Bing)
 
 Disallow  (Niega el acceso a un directorio, un archivo o una página)
 
-Disallow: (Permite la entrada a todo el sitio)
+	Disallow: (Permite la entrada a todo el sitio)
 
-Disallow: / (Denegar todo el sitio)
+	Disallow: / (Denegar todo el sitio)
 
-Disallow: /directorio/ (Denegar un directorio)
+	Disallow: /directorio/ (Denegar un directorio)
 
-Disallow: /restringido*/ (Denegar directorios que comienzan por "restringido")
+	Disallow: /restringido*/ (Denegar directorios que comienzan por "restringido")
 
-Disallow: /pagina.html (Denegar una página)
+	Disallow: /pagina.html (Denegar una página)
 
-Disallow: /*.png$ (Denegar los archivos que terminen con la extensión .png)
+	Disallow: /*.png$ (Denegar los archivos que terminen con la extensión .png)
 
 Allow (Permitir el acceso a directorios, archivos o páginas)
 
-Allow: /directorio/subdirectorio/ (Permitir un subdirectorio)
+	Allow: /directorio/subdirectorio/ (Permitir un subdirectorio)
 
 Sitemap (Indica la ruta a un mapa del sitio en XML)
 
-Sitemap: http://web.com/sitemap.xml
+	Sitemap: http://web.com/sitemap.xml
 
 Crawl-delay (Indica número de segundos que debe esperar para cada acceso a cada página)
 
-Crawl-delay: 30
+	Crawl-delay: 30
 

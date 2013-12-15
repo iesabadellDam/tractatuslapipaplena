@@ -1,13 +1,13 @@
 ---
 layout: post
 title: "magicrescue"
-date: 2013-12-15 18:37
+date: 2013-12-15 18:54
 comments: true
 categories: 
 ---
 Recuperar archivos borrados
 
->~$ magicrescue -d /home/usuario/rescue -r /usr/share/magicrescue/recipes/avi /dev/sda3
+>$ magicrescue -d /home/usuario/rescue -r /usr/share/magicrescue/recipes/avi /dev/sda3
 
 Notas.-
 

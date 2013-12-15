@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Ejecuta una seria de comandos mientras que una determinada condicion sea cumpla. Algunos scripts ilustrativos: 1.- !/bin/bash RESPUESTA=s while [ $ &hellip;">
+  <meta name="description" content="Ejecuta una seria de comandos mientras que una determinada condicion sea cumpla. Algunos scripts ilustrativos: 1.- #!/bin/bash RESPUESTA=s while [ $ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -94,7 +94,7 @@
   
 
 
-<time datetime="2013-12-15T18:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:58:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -105,159 +105,175 @@
 
 <p>1.-</p>
 
-<h1>!/bin/bash</h1>
+<pre><code>#!/bin/bash
 
-<p>RESPUESTA=s</p>
+RESPUESTA=s
 
-<p>while [ $RESPUESTA = s ]</p>
+while [ $RESPUESTA = s ]
 
-<p>do</p>
+do
 
-<p>echo &#8220;Introducir nombre: &#8221;</p>
+    echo "Introducir nombre: "
 
-<p>read NOMBRE</p>
+    read NOMBRE
 
-<p>echo &#8220;Hola $NOMBRE&#8221;</p>
+    echo "Hola $NOMBRE"
 
-<p>echo</p>
+    echo
 
-<p>echo &#8220;¿Desea continuar? (s/n)&#8221;</p>
+    echo "¿Desea continuar? (s/n)"
 
-<p>read RESPUESTA</p>
+    read RESPUESTA
 
-<p>done</p>
+done
+</code></pre>
 
 <p>2.-</p>
 
-<h1>!/bin/bash</h1>
+<pre><code>#!/bin/bash
 
-<p>while [ &#8220;$OPCION&#8221; != 5 ]</p>
+while [ "$OPCION" != 5 ]
 
-<p>do</p>
+do
 
-<p>echo</p>
+    echo
 
-<p>echo &#8220;[1] Listar directorio&#8221;</p>
+    echo "[1] Listar directorio"
 
-<p>echo &#8220;[2] Directorio donde te encuentras&#8221;</p>
+    echo "[2] Directorio donde te encuentras"
 
-<p>echo &#8220;[3] fecha de hoy&#8221;</p>
+    echo "[3] fecha de hoy"
 
-<p>echo &#8220;[4] Usuarios conectados&#8221;</p>
+    echo "[4] Usuarios conectados"
 
-<p>echo &#8220;[5] Salir&#8221;</p>
+    echo "[5] Salir"
 
-<p>echo</p>
+    echo
 
-<p>read -p &#8220;Ingrese una opción: &#8221; OPCION</p>
+    read -p "Ingrese una opción: " OPCION
 
-<p>echo</p>
+    echo
 
-<p>case $OPCION in</p>
+    case $OPCION in
 
-<p>1) ls;;</p>
+        1) ls;;
 
-<p>2) pwd;;</p>
+        2) pwd;;
 
-<p>3) date +%D ;;</p>
+        3) date +%D ;;
 
-<p>4) who;;</p>
+        4) who;;
 
-<p>5);;</p>
+        5);;
 
-<p>*) echo &#8220;Opción ingresada no valida, intentelo de nuevo&#8221;;;</p>
+        *) echo "Opción ingresada no valida, intentelo de nuevo";;
 
-<p>esac</p>
+    esac
 
-<p>done</p>
+done
 
-<p>exit 0</p>
+exit 0
+</code></pre>
 
 <p>3.-</p>
 
-<h1>!/bin/bash</h1>
+<pre><code>#!/bin/bash
 
-<h1>imprimir números del 1 al 10</h1>
+# imprimir números del 1 al 10
 
-<p>LIMITE=10</p>
+LIMITE=10
 
-<p>a=1</p>
+a=1
 
-<p>while [ &#8220;$a&#8221; -le $LIMITE ]</p>
+while [ "$a" -le $LIMITE ]
 
-<p>do</p>
+do
 
-<p>echo &#8220;$a &#8221;</p>
+  echo "$a "
 
-<p>let &#8220;a+=1&#8221;</p>
+  let "a+=1"
 
-<p>done</p>
+done
+</code></pre>
 
 <p>4.-</p>
 
 <p>Leer un archivo linea a linea:</p>
 
-<h1>!/bin/bash</h1>
+<pre><code>#!/bin/bash
 
-<p>while read linea</p>
+while read linea
 
-<p>do</p>
+do
 
-<p>echo &#8220;&#8212;> $linea &#8221;</p>
+   echo "---&gt; $linea "
 
-<p>done &lt; archivo.txt</p>
+done &lt; archivo.txt
+</code></pre>
 
 <p>5.-</p>
 
 <p>Especificando un separador [:]</p>
 
-<h1>!/bin/bash</h1>
+<pre><code>#!/bin/bash
 
-<p>while IFS=: read user pass uid gid full home shell</p>
+while IFS=: read user pass uid gid full home shell
 
-<p>do</p>
+do
 
-<p>echo -e &#8220;$full :n           Pseudo : $usern         UID :t $uidn            GID :t $gidn            Home :t $homen          Shell :t $shellnn&#8221;</p>
+echo -e "$full :\n\
 
-<p>done &lt; /etc/passwd</p>
+        Pseudo : $user\n\
+
+        UID :\t $uid\n\
+
+        GID :\t $gid\n\
+
+        Home :\t $home\n\
+
+        Shell :\t $shell\n\n"
+
+done &lt; /etc/passwd
+</code></pre>
 
 <p>6.-</p>
 
 <p>Leer un archivo pasado como parámetro, descartar las lineas en blanco y colorear alternativamente las siguientes en amarillo y rojo.</p>
 
-<h1>!/bin/bash</h1>
+<pre><code>#!/bin/bash
 
-<p>COLOR=1</p>
+COLOR=1
 
-<p>while read linia</p>
+while read linia
 
-<p>do</p>
+do
 
-<p>if [ -z &#8220;${linia}&#8221; ]</p>
+    if [ -z "${linia}" ] 
 
-<p>then</p>
+    then
 
-<p>continue</p>
+        continue
 
-<p>fi</p>
+    fi
 
-<p>if [ $COLOR -eq 0 ]</p>
+    if [ $COLOR -eq 0 ]
 
-<p>then</p>
+    then
 
-<p>echo -e &#8220;e[1;30;41m$linia033[0m&#8221; #VERMELL - 0</p>
+        echo -e "\e[1;30;41m$linia\033[0m" #VERMELL - 0
 
-<p>COLOR=1</p>
+        COLOR=1
 
-<p>else</p>
+    else
 
-<p>echo -e &#8220;e[1;30;43m$linia033[0m&#8221; #GROC - 1</p>
+        echo -e "\e[1;30;43m$linia\033[0m" #GROC - 1
 
-<p>COLOR=0</p>
+        COLOR=0
 
-<p>fi</p>
+    fi
 
-<p>done &lt; $1</p>
+done &lt; $1
+</code></pre>
 </div>
 
 
@@ -280,7 +296,7 @@
   
 
 
-<time datetime="2013-12-15T18:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:58:00+01:00" pubdate data-updated="true">15-12-2013</time>
       
 
 
@@ -312,9 +328,9 @@
   
     <section>
 <h1>Número de entradas</h1>
-        <ul>
-        <li>1354</li>
-        </ul>
+	<ul>
+	<li>1354</li>
+	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>

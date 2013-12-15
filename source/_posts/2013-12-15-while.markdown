@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "while"
-date: 2013-12-15 18:41
+date: 2013-12-15 18:58
 comments: true
 categories: 
 ---
@@ -9,157 +9,167 @@ Ejecuta una seria de comandos mientras que una determinada condicion sea cumpla.
 
 1.-
 
-#!/bin/bash
+	#!/bin/bash
 
-RESPUESTA=s
+	RESPUESTA=s
 
-while [ $RESPUESTA = s ]
+	while [ $RESPUESTA = s ]
 
-do
+	do
 
-echo "Introducir nombre: "
+		echo "Introducir nombre: "
 
-read NOMBRE
+		read NOMBRE
 
-echo "Hola $NOMBRE"
+		echo "Hola $NOMBRE"
 
-echo
+		echo
 
-echo "¿Desea continuar? (s/n)"
+		echo "¿Desea continuar? (s/n)"
 
-read RESPUESTA
+		read RESPUESTA
 
-done
+	done
 
 2.-
 
-#!/bin/bash
+	#!/bin/bash
 
-while [ "$OPCION" != 5 ]
+	while [ "$OPCION" != 5 ]
 
-do
+	do
 
-echo
+		echo
 
-echo "[1] Listar directorio"
+		echo "[1] Listar directorio"
 
-echo "[2] Directorio donde te encuentras"
+		echo "[2] Directorio donde te encuentras"
 
-echo "[3] fecha de hoy"
+		echo "[3] fecha de hoy"
 
-echo "[4] Usuarios conectados"
+		echo "[4] Usuarios conectados"
 
-echo "[5] Salir"
+		echo "[5] Salir"
 
-echo
+		echo
 
-read -p "Ingrese una opción: " OPCION
+		read -p "Ingrese una opción: " OPCION
 
-echo
+		echo
 
-case $OPCION in
+		case $OPCION in
 
-1) ls;;
+			1) ls;;
 
-2) pwd;;
+			2) pwd;;
 
-3) date +%D ;;
+			3) date +%D ;;
 
-4) who;;
+			4) who;;
 
-5);;
+			5);;
 
-*) echo "Opción ingresada no valida, intentelo de nuevo";;
+			*) echo "Opción ingresada no valida, intentelo de nuevo";;
 
-esac
+		esac
 
-done
+	done
 
-exit 0
+	exit 0
 
 3.-
 
-#!/bin/bash
+	#!/bin/bash
 
-# imprimir números del 1 al 10
+	# imprimir números del 1 al 10
 
-LIMITE=10
+	LIMITE=10
 
-a=1
+	a=1
 
-while [ "$a" -le $LIMITE ]
+	while [ "$a" -le $LIMITE ]
 
-do
+	do
 
-echo "$a "
+	  echo "$a "
 
-let "a+=1"
+	  let "a+=1"
 
-done
+	done
 
 4.-
 
 Leer un archivo linea a linea:
 
-#!/bin/bash
+	#!/bin/bash
 
-while read linea
+	while read linea
 
-do
+	do
 
-echo "---> $linea "
+	   echo "---> $linea "
 
-done < archivo.txt
+	done < archivo.txt
 
 5.-
 
 Especificando un separador [:]
 
-#!/bin/bash
+	#!/bin/bash
 
-while IFS=: read user pass uid gid full home shell
+	while IFS=: read user pass uid gid full home shell
 
-do
+	do
 
-echo -e "$full :n		    Pseudo : $usern		    UID :t $uidn		    GID :t $gidn		    Home :t $homen		    Shell :t $shellnn"
+	echo -e "$full :\n\
 
-done < /etc/passwd
+		    Pseudo : $user\n\
+
+		    UID :\t $uid\n\
+
+		    GID :\t $gid\n\
+
+		    Home :\t $home\n\
+
+		    Shell :\t $shell\n\n"
+
+	done < /etc/passwd
 
 6.-
 
 Leer un archivo pasado como parámetro, descartar las lineas en blanco y colorear alternativamente las siguientes en amarillo y rojo.
 
-#!/bin/bash
+	#!/bin/bash
 
-COLOR=1
+	COLOR=1
 
-while read linia
+	while read linia
 
-do
+	do
 
-if [ -z "${linia}" ]
+		if [ -z "${linia}" ] 
 
-then
+		then
 
-continue
+			continue
 
-fi
+		fi
 
-if [ $COLOR -eq 0 ]
+		if [ $COLOR -eq 0 ]
 
-then
+		then
 
-echo -e "e[1;30;41m$linia033[0m" #VERMELL - 0
+			echo -e "\e[1;30;41m$linia\033[0m" #VERMELL - 0
 
-COLOR=1
+			COLOR=1
 
-else
+		else
 
-echo -e "e[1;30;43m$linia033[0m" #GROC - 1
+			echo -e "\e[1;30;43m$linia\033[0m" #GROC - 1
 
-COLOR=0
+			COLOR=0
 
-fi
+		fi
 
-done < $1
+	done < $1
 

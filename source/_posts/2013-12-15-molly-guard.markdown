@@ -1,13 +1,13 @@
 ---
 layout: post
 title: "molly-guard"
-date: 2013-12-15 18:38
+date: 2013-12-15 18:55
 comments: true
 categories: 
 ---
 Evitar paradas o reinicios de servidores desde consola remota. Editar:
 
->~# nano /etc/molly-guard/rc
+>\# nano /etc/molly-guard/rc
 
 Y descomentar la linea:
 

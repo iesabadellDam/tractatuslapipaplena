@@ -1,15 +1,15 @@
 ---
 layout: post
 title: "smbclient"
-date: 2013-12-15 18:40
+date: 2013-12-15 18:57
 comments: true
 categories: 
 ---
 Conectar recursos compartidos de windows desde linux.
 
->~$ smbclient //192.168.1.155/compartido -U usuario (Después de ingresar usuario y contraseña entra en el prompt del recurso compartido)
+>$ smbclient //192.168.1.155/compartido -U usuario (Después de ingresar usuario y contraseña entra en el prompt del recurso compartido)
 
->~$ smbclient -L //192.168.1.155 (Ver los recursos compartidos de la IP especificada.
+>$ smbclient -L //192.168.1.155 (Ver los recursos compartidos de la IP especificada.
 
 1.-
 

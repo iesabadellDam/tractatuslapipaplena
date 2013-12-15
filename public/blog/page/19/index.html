@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Permite visualizar o limitar los recursos del sistema. ~# ulimit -f 512000 (limita a los usuarios para que no puedan crear archivos de mayor tamaño &hellip;">
+  <meta name="description" content="Permite visualizar o limitar los recursos del sistema. # ulimit -f 512000 (limita a los usuarios para que no puedan crear archivos de mayor tamaño &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -97,7 +97,7 @@
   
 
 
-<time datetime="2013-12-15T18:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:58:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -106,61 +106,59 @@
 
   <div class="entry-content"><p>Permite  visualizar o limitar los recursos del sistema.</p>
 
-<blockquote><p>~# ulimit -f 512000 (limita a los usuarios para que no puedan crear archivos de mayor tamaño que 512000 Kb [500 #Mb])</p>
+<blockquote><p># ulimit -f 512000 (limita a los usuarios para que no puedan crear archivos de mayor tamaño que 512000 Kb [500 #Mb])</p>
 
-<p>~$ ulimit -a   (ver todos los parámetros)</p></blockquote>
+<p>$ ulimit -a   (ver todos los parámetros)</p></blockquote>
 
 <p>Parámetros:</p>
 
-<p>core (Tamaño máximo de los ficheros core [KB])</p>
+<pre><code>core (Tamaño máximo de los ficheros core [KB])
 
-<p>data (Tamaño máximo para el segmento de datos [KB])</p>
+data (Tamaño máximo para el segmento de datos [KB])
 
-<p>fsize (Tamaño máximo para los ficheros [KB])</p>
+fsize (Tamaño máximo para los ficheros [KB])
 
-<p>memlock (Tamaño máximo para el espacio de direcciones bloqueado en memoria [KB])</p>
+memlock (Tamaño máximo para el espacio de direcciones bloqueado en memoria [KB])
 
-<p>nofile (Número máximo de ficheros abiertos)</p>
+nofile (Número máximo de ficheros abiertos)
 
-<p>rss (Tamaño máximo del conjunto residente en memoria [KB])</p>
+rss (Tamaño máximo del conjunto residente en memoria [KB])
 
-<p>stack (Tamaño máximo para la pila [KB])</p>
+stack (Tamaño máximo para la pila [KB])
 
-<p>cpu (Tiempo máximo de CPU [minutos])</p>
+cpu (Tiempo máximo de CPU [minutos])
 
-<p>nproc (Número máximo de procesos)</p>
+nproc (Número máximo de procesos)
 
-<p>as (Límite en el espacio de direcciones)</p>
+as (Límite en el espacio de direcciones)
 
-<p>maxlogins (Número máximo de logins)</p>
+maxlogins (Número máximo de logins)
 
-<p>priority (Prioridad de base para los procesos del usuario)</p>
+priority (Prioridad de base para los procesos del usuario)
 
-<p>locks (Número máximo de ficheros bloqueados que el usuario puede mantener)</p>
+locks (Número máximo de ficheros bloqueados que el usuario puede mantener)
+</code></pre>
 
 <p>Nota.- El ámbito de aplicación del límite puede ser un nombre de usuario, un grupo (@grupo) o todos (*)</p>
 
 <p>Un ejemplo de limit.conf:</p>
 
-<ul>
-<li><pre><code>        soft    nproc           10000
-</code></pre></li>
-<li><pre><code>        hard    nproc           4096
-</code></pre></li>
-<li><pre><code>        soft    core            unlimited
-</code></pre></li>
-<li><pre><code>        hard    core            unlimited
-</code></pre></li>
-<li><pre><code>        soft    memlock         131072
-</code></pre></li>
-<li><pre><code>        hard    memlock         131072
-</code></pre></li>
-<li><pre><code>        soft    nofile          102400
-</code></pre></li>
-<li><pre><code>        hard    nofile          102400
-</code></pre></li>
-</ul>
+<pre><code>*               soft    nproc           10000
 
+*               hard    nproc           4096
+
+*               soft    core            unlimited
+
+*               hard    core            unlimited
+
+*               soft    memlock         131072
+
+*               hard    memlock         131072
+
+*               soft    nofile          102400
+
+*               hard    nofile          102400
+</code></pre>
 
 <p>1.-</p>
 
@@ -168,11 +166,11 @@
 
 <p>Si al lanzar el comando:</p>
 
-<blockquote><p>~$ ulimit -u</p></blockquote>
+<blockquote><p>$ ulimit -u</p></blockquote>
 
 <p>El resultado es “ilimitado” o un valor extremadamente alto, podemos ser victimas de los forkbombs. Para resolverlo podemos limitar el número de procesos abiertos a 1000 para que estos no puedan llegar a colapsar el sistema:</p>
 
-<blockquote><p>~# gedit /etc/security/limits.conf</p></blockquote>
+<blockquote><p># gedit /etc/security/limits.conf</p></blockquote>
 
 <p>Añadir antes de “End of file”:   * hard nproc 1000</p>
 
@@ -182,32 +180,25 @@
 
 <p>En ciertas ocasiones, al procesar muchos archivos, se produce un error &#8220;for output (Too many open files)&#8221; porque se desborda el limite de 1024 k. Para solucionarlo:</p>
 
-<blockquote><p>~# nano /etc/security/limits.conf</p></blockquote>
+<blockquote><p># nano /etc/security/limits.conf</p></blockquote>
 
 <p>Y añadir las siguientes lineas:</p>
 
-<ul>
-<li><p> soft    nofile    9000</p></li>
-<li><p> hard    nofile    65000</p></li>
-</ul>
+<pre><code>*    soft    nofile    9000
 
+*    hard    nofile    65000
+</code></pre>
 
 <p>3.-</p>
 
 <p>Limitar la cantidad de usuarios conectados al sistema:</p>
 
-<blockquote><p>~# nano /etc/security/limits.conf</p></blockquote>
+<blockquote><p># nano /etc/security/limits.conf</p></blockquote>
 
 <p>Y en el parámetro maxlogins modificamos el número que deseemos:</p>
 
-<ul>
-<li><ul>
-<li><pre><code> maxlogins 3
-</code></pre></li>
-</ul>
-</li>
-</ul>
-
+<pre><code>*    -       maxlogins 3
+</code></pre>
 </div>
   
   
@@ -236,7 +227,7 @@
   
 
 
-<time datetime="2013-12-15T18:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:58:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -245,7 +236,8 @@
 
   <div class="entry-content"><p>Subrayado de palabras en la terminal.</p>
 
-<p>$ echo $&#8217;linux es gb_eb_nb_ib_ab_lb<em> &#8217; | ul (Cada letra a subrayar ha de ir seguida de b</em>)</p>
+<pre><code>$ echo $'linux es g\b_e\b_n\b_i\b_a\b_l\b_ ' | ul (Cada letra a subrayar ha de ir seguida de \b_)
+</code></pre>
 </div>
   
   
@@ -274,7 +266,7 @@
   
 
 
-<time datetime="2013-12-15T18:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:58:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -283,25 +275,25 @@
 
   <div class="entry-content"><p>Cortafuegos</p>
 
-<blockquote><p>~# ufw enable (activar el cortafuegos. “disable” para desactivarlo)</p>
+<blockquote><p># ufw enable (activar el cortafuegos. “disable” para desactivarlo)</p>
 
-<p>~# ufw deny 4662 (bloquea el puerto)</p>
+<p># ufw deny 4662 (bloquea el puerto)</p>
 
-<p>~# ufw delete deny 4662 (Elimina una regla)</p>
+<p># ufw delete deny 4662 (Elimina una regla)</p>
 
-<p>~# ufw allow smtp (permitir servicios concretos)</p>
+<p># ufw allow smtp (permitir servicios concretos)</p>
 
-<p>~# ufw status (visualizar las normas definidas)</p>
+<p># ufw status (visualizar las normas definidas)</p>
 
-<p>~# ufw status verbose (Información de estado con mayor detalle)</p>
+<p># ufw status verbose (Información de estado con mayor detalle)</p>
 
-<p>~# ufw default allow (permitir todo por defecto)</p>
+<p># ufw default allow (permitir todo por defecto)</p>
 
-<p>~# ufw default deny (bloquear todo por defecto)</p>
+<p># ufw default deny (bloquear todo por defecto)</p>
 
-<p>~# ufw deny from ip (bloquear dirección ip)</p>
+<p># ufw deny from ip (bloquear dirección ip)</p>
 
-<p>~# ufw logging on (activar los logs. “off” para desactivarlos. Herramienta de registro: fwanalog, fwlogwatch, o lire.)</p></blockquote>
+<p># ufw logging on (activar los logs. “off” para desactivarlos. Herramienta de registro: fwanalog, fwlogwatch, o lire.)</p></blockquote>
 </div>
   
   
@@ -330,7 +322,7 @@
   
 
 
-<time datetime="2013-12-15T18:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:58:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -339,11 +331,11 @@
 
   <div class="entry-content"><p>Comando para montar y desmontar volumenes usando el demonio que llaman programas como Nautilus o Thunar. Con este método conseguimos que desde estos programas se pueda desmontar cómodamente la partición y además sin necesidad de permisos.</p>
 
-<blockquote><p>~$ udisks &#8211;mount /dev/sda1 (montará esta partición).</p>
+<blockquote><p>$ udisks &#8211;mount /dev/sda1 (montará esta partición).</p>
 
-<p>~$ udisks &#8211;unmount /dev/sda1 (desmontará esta partición).</p>
+<p>$ udisks &#8211;unmount /dev/sda1 (desmontará esta partición).</p>
 
-<p>~$ udisks &#8211;monitor (Monitoriza la actividad del demonio. Muy útil para verificar si una partición es montada o no)</p></blockquote>
+<p>$ udisks &#8211;monitor (Monitoriza la actividad del demonio. Muy útil para verificar si una partición es montada o no)</p></blockquote>
 </div>
   
   
@@ -372,7 +364,7 @@
   
 
 
-<time datetime="2013-12-15T18:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:58:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -381,7 +373,7 @@
 
   <div class="entry-content"><p>Herramienta  para montar automaticamente unidades en Archlinux. Debe arrancarse el servicio antes de ejecutarse el gestor de ventanas en el archivo .xinitrc. Un ejemplo:</p>
 
-<blockquote><p>~# nano .xinitrc</p></blockquote>
+<blockquote><p># nano .xinitrc</p></blockquote>
 
 <p>udiskie &amp;</p>
 
@@ -414,7 +406,7 @@
   
 
 
-<time datetime="2013-12-15T18:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:58:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -423,17 +415,18 @@
 
   <div class="entry-content"><p>Muestra las zonas horarias especificadas por el usuario y las guarda en el archivo ~/.tzlist.</p>
 
-<blockquote><p>~$ tzwatch -c (Lanzar tantas veces como de zonas horarias se quiere disponer de información y seguir las instrucciones: Add Zone, Americas, 26 [Guatemala], mostrará la información y preguntará si es correcta, 1 [yes] y Done [salir])</p>
+<blockquote><p>$ tzwatch -c (Lanzar tantas veces como de zonas horarias se quiere disponer de información y seguir las instrucciones: Add Zone, Americas, 26 [Guatemala], mostrará la información y preguntará si es correcta, 1 [yes] y Done [salir])</p>
 
-<p>~$ tzwatch (Mostrará hora local de cada una de las zonas elegidas)</p></blockquote>
+<p>$ tzwatch (Mostrará hora local de cada una de las zonas elegidas)</p></blockquote>
 
-<p>[~]$ tzwatch</p>
+<pre><code>[~]$ tzwatch
 
-<p>Mon Oct  7 02:39:39 CST 2013   Australia/Adelaide</p>
+Mon Oct  7 02:39:39 CST 2013   Australia/Adelaide
 
-<p>Sun Oct  6 18:09:39 CEST 2013   Europe/Madrid</p>
+Sun Oct  6 18:09:39 CEST 2013   Europe/Madrid
 
-<p>Sun Oct  6 10:09:39 CST 2013   America/Guatemala</p>
+Sun Oct  6 10:09:39 CST 2013   America/Guatemala
+</code></pre>
 </div>
   
   
@@ -462,7 +455,7 @@
   
 
 
-<time datetime="2013-12-15T18:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:58:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -471,7 +464,7 @@
 
   <div class="entry-content"><p>Pregunta al usuario información sobre la localización actual y muestra la descripción de la zona horaria correspondiente.</p>
 
-<blockquote><p>~$ tzselect</p></blockquote>
+<blockquote><p>$ tzselect</p></blockquote>
 </div>
   
   
@@ -500,7 +493,7 @@
   
 
 
-<time datetime="2013-12-15T18:40:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:58:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -536,7 +529,7 @@
   
 
 
-<time datetime="2013-12-15T18:40:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:58:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -572,7 +565,7 @@
   
 
 
-<time datetime="2013-12-15T18:40:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:58:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -581,11 +574,11 @@
 
   <div class="entry-content"><p>Buscar la ubicación del ejecutable e informar si el comando es un alias.</p>
 
-<blockquote><p>~$ type mplayer</p>
+<blockquote><p>$ type mplayer</p>
 
-<p>~$ type -a algo (Conocer todas las definiciones de “algo”, teniendo en cuenta que si “algo” es una alias, una función y un script prevalece este orden)</p>
+<p>$ type -a algo (Conocer todas las definiciones de “algo”, teniendo en cuenta que si “algo” es una alias, una función y un script prevalece este orden)</p>
 
-<p>~$ type -t cp (Conocer el tipo de un símbolo)</p></blockquote>
+<p>$ type -t cp (Conocer el tipo de un símbolo)</p></blockquote>
 </div>
   
   
@@ -607,9 +600,9 @@
   
     <section>
 <h1>Número de entradas</h1>
-        <ul>
-        <li>1354</li>
-        </ul>
+	<ul>
+	<li>1354</li>
+	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>

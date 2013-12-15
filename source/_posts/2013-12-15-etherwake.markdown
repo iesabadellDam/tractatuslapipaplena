@@ -1,11 +1,11 @@
 ---
 layout: post
 title: "etherwake"
-date: 2013-12-15 18:36
+date: 2013-12-15 18:52
 comments: true
 categories: 
 ---
 Arrancar un ordenador [especificado por su MAC] de forma remota una vez activado en la BIOS "Wake On Lan"
 
->~# etherwake -i eth0 00:16:E6:31:1A:22
+>\# etherwake -i eth0 00:16:E6:31:1A:22
 

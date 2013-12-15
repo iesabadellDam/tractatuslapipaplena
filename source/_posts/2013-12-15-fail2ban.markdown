@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "fail2ban"
-date: 2013-12-15 18:36
+date: 2013-12-15 18:52
 comments: true
 categories: 
 ---
@@ -19,23 +19,23 @@ logpath (archivo que utiliza para revisar los intentos de login)
 
 Un ejemplo muestra de configuración para el servicio ssh:
 
-[ssh]
+	[ssh]
 
-enabled  = true
+	enabled  = true
 
-port     = ssh
+	port     = ssh
 
-filter   = sshd
+	filter   = sshd
 
-logpath  = /var/log/auth.log
+	logpath  = /var/log/auth.log
 
-maxretry = 3
+	maxretry = 3
 
->~# tail -f /var/log/fail2ban.log | grep Ban    (monitorizar las ip baneadas)
+>\# tail -f /var/log/fail2ban.log | grep Ban    (monitorizar las ip baneadas)
 
->~# awk '($(NF-1) = /Ban/){print $NF}' /var/log/fail2ban.log | sort | uniq -c | sort (Solo muestra las Ips.)
+>\# awk '($(NF-1) = /Ban/){print $NF}' /var/log/fail2ban.log | sort | uniq -c | sort (Solo muestra las Ips.)
 
->~# awk '($(NF-1) = /Ban/){print $NF,"("$NF")"}' /var/log/fail2ban.log | sort | logresolve | uniq -c | sort  (Mostrando el nombre del host)
+>\# awk '($(NF-1) = /Ban/){print $NF,"("$NF")"}' /var/log/fail2ban.log | sort | logresolve | uniq -c | sort  (Mostrando el nombre del host)
 
 1.-
 
@@ -43,99 +43,99 @@ Bloquear errores w00tw00t.at.ISC.SANS en los logs de apache. En realidad estas p
 
 Crear el archivo:
 
->~# nano /etc/fail2ban/filter.d/apache-w00tw00t.conf
+>\# nano /etc/fail2ban/filter.d/apache-w00tw00t.conf
 
 Pegar el siguiente contenido:
 
-[Definition]
+	[Definition]
 
-failregex = ^.*[client <HOST>].*w00tw00t.at.ISC.SANS.*.*
+	failregex = ^.*\[client <HOST>\].*w00tw00t\.at\.ISC\.SANS\.*.*
 
-ignoreregex =
+	ignoreregex =
 
 Añadir la jaula:
 
->~# nano /etc/fail2ban/jail.conf
+>\# nano /etc/fail2ban/jail.conf
 
 Y pegar:
 
-[apache-w00tw00t]
+	[apache-w00tw00t]
 
-enabled = true
+	enabled = true
 
-filter = apache-w00tw00t
+	filter = apache-w00tw00t
 
-action = iptables-allports[name=w00tw00t]
+	action = iptables-allports[name=w00tw00t]
 
-logpath = /var/log/apache*/error.*.log
+	logpath = /var/log/apache*/error.*.log
 
-maxretry = 1
+	maxretry = 1
 
-bantime = -1
+	bantime = -1
 
-Nota.- el bantime = -1 indica bloquear permanentemente.
+Nota.- el bantime = -1 indica bloquear permanentemente. 
 
 2.-
 
 Algunos ajustes de jail.conf para el caso de usar nginx y no apache:
 
->~# nano /etc/fail2ban/jail.conf
+>\# nano /etc/fail2ban/jail.conf
 
 Prevenir ataques de inyeccion de codigo
 
-[php-url-fopen]
+	[php-url-fopen]
 
-enabled = true
+	enabled = true
 
-port    = http,https
+	port    = http,https
 
-filter  = php-url-fopen
+	filter  = php-url-fopen
 
-logpath = /var/log/nginx/access_log
+	logpath = /var/log/nginx/access_log
 
-maxretry = 1
+	maxretry = 1
 
 Bloquea por iptables un día a los hosts que se conectan haciendo  uso de un "User Agent" sospechoso
 
-[nginx-badbots]
+	[nginx-badbots]
 
-enabled  = true
+	enabled  = true
 
-filter = apache-badbots
+	filter = apache-badbots
 
-action = iptables-multiport[name=BadBots, port="http,https"]
+	action = iptables-multiport[name=BadBots, port="http,https"]
 
-logpath = /var/log/nginx*/*access*.log
+	logpath = /var/log/nginx*/*access*.log
 
-bantime = 86400
+	bantime = 86400
 
-maxretry = 1
+	maxretry = 1
 
 Solicitar 240 páginas en 1 minuto o 4 paginas segundo, bloqueo por dos dias
 
-[nginx-dos]
+	[nginx-dos]
 
-enabled = true
+	enabled = true
 
-port    = http,8090
+	port    = http,8090
 
-filter  = nginx-dos
+	filter  = nginx-dos
 
-logpath = /var/log/nginx/access.log
+	logpath = /var/log/nginx/access.log
 
-findtime = 60
+	findtime = 60
 
-bantime  = 172800
+	bantime  = 172800
 
-maxretry = 240
+	maxretry = 240
 
 Fallar la autentificación en el servidor web, blloqueo por 10 minutos
 
-[nginx-auth]
+	[nginx-auth]
 
-enabled = true
+	enabled = true
 
-port = http
+	port = http
 
-filter = nginx-auth
+	filter = nginx-auth
 

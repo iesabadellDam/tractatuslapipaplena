@@ -1,19 +1,19 @@
 ---
 layout: post
 title: "bozocrack"
-date: 2013-12-15 18:34
+date: 2013-12-15 18:51
 comments: true
 categories: 
 ---
-https://github.com/juuso/BozoCrack
+https://github.com/juuso/BozoCrack 
 
-Craquear contraseñas de hash md5 a partir de los resultados de su busqueda en google.
+Craquear contraseñas de hash md5 a partir de los resultados de su busqueda en google. 
 
-Proceso:
+Proceso: 
 
-Copiar el hash o hashses uno debajo de otro en un archivo de texto
+Copiar el hash o hashses uno debajo de otro en un archivo de texto 
 
->~$ bozocrack archivo.txt
+>$ bozocrack archivo.txt 
 
 Nota.- dado que no usa diccionarios ni fuerza bruta sino solo busquedas de google, solamente se encontrarán las más usuales.
 

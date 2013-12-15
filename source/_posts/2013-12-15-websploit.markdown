@@ -1,15 +1,15 @@
 ---
 layout: post
 title: "websploit"
-date: 2013-12-15 18:41
+date: 2013-12-15 18:58
 comments: true
 categories: 
 ---
 Explotación de vulnerabilidades y ataques en red. Contiene varios módulos divididos en: web, red, explotación y wifi. Descarga: http://sourceforge.net/projects/websploit/
 
-Uso básico:
+Uso básico: 
 
->~# websploit (Lanzar la aplicación y entrar en el prompt)
+>\# websploit (Lanzar la aplicación y entrar en el prompt)
 
 wsf > show modules (Ver los mudulos disponibles)
 

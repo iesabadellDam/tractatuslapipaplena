@@ -1,15 +1,15 @@
 ---
 layout: post
 title: "hal-device"
-date: 2013-12-15 18:36
+date: 2013-12-15 18:53
 comments: true
 categories: 
 ---
 Crea, suprime y muestra dispositivos
 
->~$ hal-device -a dispositivo  (añadir)
+>$ hal-device -a dispositivo  (añadir)
 
->~$ hal-device -r dispositivo   (borrar)
+>$ hal-device -r dispositivo   (borrar)
 
->~$ hal-device | grep volume.label  (mostrar etiquetas de todos los volumenes)
+>$ hal-device | grep volume.label  (mostrar etiquetas de todos los volumenes)
 

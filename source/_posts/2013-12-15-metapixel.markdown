@@ -1,15 +1,15 @@
 ---
 layout: post
 title: "metapixel"
-date: 2013-12-15 18:38
+date: 2013-12-15 18:54
 comments: true
 categories: 
 ---
-Generar mosaicos de fotos [collage].
+Generar mosaicos de fotos [collage]. 
 
->~$ mkdir collage (Crear el directorio)
+>$ mkdir collage (Crear el directorio) 
 
->~$ metapixel-prepare --width=10 --height=10 -r Imatges/ collage (Copiar con las medidas introducidas [width y height] desde el directorio de imágenes de forma recursiva [-r] al directorio creado)
+>$ metapixel-prepare --width=10 --height=10 -r Imatges/ collage (Copiar con las medidas introducidas [width y height] desde el directorio de imágenes de forma recursiva [-r] al directorio creado) 
 
->~$ metapixel --metapixel Imagenes/imagen.jpeg destino.jpg --library collage/ (Que coja la imágen.jpg del directorio Imagenes y la convierta en destino.jpg usando el directorio "collage")
+>$ metapixel --metapixel Imagenes/imagen.jpeg destino.jpg --library collage/ (Que coja la imágen.jpg del directorio Imagenes y la convierta en destino.jpg usando el directorio "collage")
 

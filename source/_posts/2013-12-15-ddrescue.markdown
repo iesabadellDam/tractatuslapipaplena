@@ -1,37 +1,37 @@
 ---
 layout: post
 title: "ddrescue"
-date: 2013-12-15 18:35
+date: 2013-12-15 18:52
 comments: true
 categories: 
 ---
-Recuperación de discos dañados. Proceso:
+Recuperación de discos dañados. Proceso: 
 
-Descargar el paquete dd_rhelp (Comprobar si existe una versión posterior):
+Descargar el paquete dd_rhelp (Comprobar si existe una versión posterior): 
 
->~$ wget http://www.kalysto.org/pkg/dd_rhelp-0.1.2.tar.gz
+>$ wget http://www.kalysto.org/pkg/dd_rhelp-0.1.2.tar.gz 
 
->~$ cd dd_rhelp-0.1.2
+>$ cd dd_rhelp-0.1.2 
 
->~# ./dd_rhelp /dev/sdbx sdbx.img
+>\# ./dd_rhelp /dev/sdbx sdbx.img 
 
-Creará sdbx.img en el directorio actual, que podrá montarse:
+Creará sdbx.img en el directorio actual, que podrá montarse: 
 
->~# mount -o loop sdbx.img /media/imagen
+>\# mount -o loop sdbx.img /media/imagen 
 
-Comprobar posibles errores (para partición ext3):
+Comprobar posibles errores (para partición ext3): 
 
->~# fsck -y sdbx.img
+>\# fsck -y sdbx.img 
 
-Restaurar la imagen:
+Restaurar la imagen: 
 
->~# dd_rhelp sdbx.img /dev/sdax
+>\# dd_rhelp sdbx.img /dev/sdax
 
 Método de ejecutar ddrescue en dos pasadas, de forma que la primera sólo recupera los bloques que no contenga sectores defectuosos y el segundo se centre en recuperar el máximo de los defectuosos:
 
->~# ddrescue -v -n /dev/sda /dev/sdb sda.txt
+>\# ddrescue -v -n /dev/sda /dev/sdb sda.txt
 
->~# ddrescue -v -r2 -d /dev/sda /dev/sdb sda.txt
+>\# ddrescue -v -r2 -d /dev/sda /dev/sdb sda.txt
 
 Luego comprobar errores con fsck.
 

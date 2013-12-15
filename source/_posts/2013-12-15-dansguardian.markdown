@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "dansguardian"
-date: 2013-12-15 18:35
+date: 2013-12-15 18:52
 comments: true
 categories: 
 ---
@@ -9,7 +9,7 @@ Filtro de contenidos web (cliente) que trabaja conjuntamente con el servidor pro
 
 Adaptar el archivo de configuración:
 
->~# nano /etc/dansguardian/dansguardian.conf
+>\# nano /etc/dansguardian/dansguardian.conf
 
 Algunos parámetros a especificar (caso de no estarlo):
 
@@ -27,29 +27,29 @@ Guardar el archivo.
 
 El listado de conceptos (ip, nombre de dominio, frases... ) por los que se puede banear y conceptos excluidos en:
 
->~# ls /etc/dansguardian/lists/
+>\# ls /etc/dansguardian/lists/
 
 Algunos de los más usuales:
 
-bannedextensionlist (extensiones no permitidas)
+bannedextensionlist (extensiones no permitidas) 
 
-banneriplist (listado de ips no permitidas)
+banneriplist (listado de ips no permitidas) 
 
-bannedmimetypelist (Tipos MIME no permitidos)
+bannedmimetypelist (Tipos MIME no permitidos) 
 
-bannedregexpurllist  (Listado de expresiones a bloquear)
+bannedregexpurllist  (Listado de expresiones a bloquear) 
 
-bannedurllist (Bloquear partes especificas de un sitio)
+bannedurllist (Bloquear partes especificas de un sitio) 
 
-bannedsitelist (Bloquear sitios)
+bannedsitelist (Bloquear sitios) 
 
-bannedphraselist (Listado de frases prohibidas encerradas entre < >
+bannedphraselist (Listado de frases prohibidas encerradas entre < > 
 
-exceptionsitelist (Lista de excepciones de sitios)
+exceptionsitelist (Lista de excepciones de sitios) 
 
-exceptioniplist (lista de excepciones de direcciones IP)
+exceptioniplist (lista de excepciones de direcciones IP) 
 
-exceptionuserlist (Lista de excepciones de nombres de usuarios que no serán filtrado)
+exceptionuserlist (Lista de excepciones de nombres de usuarios que no serán filtrado) 
 
->~# /etc/init.d/dansguardian restart
+>\# /etc/init.d/dansguardian restart
 

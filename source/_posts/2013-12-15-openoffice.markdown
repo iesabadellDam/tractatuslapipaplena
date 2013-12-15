@@ -1,15 +1,15 @@
 ---
 layout: post
 title: "openoffice"
-date: 2013-12-15 18:38
+date: 2013-12-15 18:55
 comments: true
 categories: 
 ---
 Suite ofimática
 
->~$ soffice --writer (--calc, --impress, --draw, --math, --base) Arrancar el programa
+>$ soffice --writer (--calc, --impress, --draw, --math, --base) Arrancar el programa 
 
->~# spadmin  (Administración de impresoras)
+>\# spadmin  (Administración de impresoras)
 
 Ajustes
 
@@ -17,9 +17,9 @@ Ajustes
 
 Para que las presentaciones no se abran automaticamente:
 
-Descargar (ImpressRunner.oxt):
+Descargar (ImpressRunner.oxt): 
 
-Abrir Impress y en herramientas -> administrador de extensiones -> agregar
+Abrir Impress y en herramientas -> administrador de extensiones -> agregar 
 
 Buscar el archivo descargado. Reiniciar la aplicación. Cuando inicie la presentación, clicar esc y cancelar.
 
@@ -27,5 +27,5 @@ Buscar el archivo descargado. Reiniciar la aplicación. Cuando inicie la present
 
 Para previsualizar en miniaturas los documentos:
 
->~# apt-get install ooo-thumbnailer
+>\# apt-get install ooo-thumbnailer
 

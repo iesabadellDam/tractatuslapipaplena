@@ -1,13 +1,13 @@
 ---
 layout: post
 title: "screenfetch"
-date: 2013-12-15 18:39
+date: 2013-12-15 18:56
 comments: true
 categories: 
 ---
-Muestra información del equipo junto al logo de la distro.
+Muestra información del equipo junto al logo de la distro. 
 
->~$ wget -c https://raw.github.com/KittyKatt/screenFetch/master/screenfetch-dev -O screenfetch
+>$ wget -c https://raw.github.com/KittyKatt/screenFetch/master/screenfetch-dev -O screenfetch
 
->~$ ./screenfetch
+>$ ./screenfetch
 

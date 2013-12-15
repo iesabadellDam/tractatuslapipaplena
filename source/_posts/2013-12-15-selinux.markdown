@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "selinux"
-date: 2013-12-15 18:39
+date: 2013-12-15 18:56
 comments: true
 categories: 
 ---
@@ -11,35 +11,35 @@ SELinux proporciona una forma de acceso a recursos basada en políticas de contr
 
 Los módulos SELinux disponibles se almacenan en el directorio /usr/share/selinux/default/.
 
->~# semodule -i módulo.pp (habilitar un módulos en la configuración actual. La extensión pp significa paquete de política [«policy package»]).
+>\# semodule -i módulo.pp (habilitar un módulos en la configuración actual. La extensión pp significa paquete de política [«policy package»]).
 
->~# semodule -r módulo (Elimina un módulo de la configuración actual)
+>\# semodule -r módulo (Elimina un módulo de la configuración actual)
 
->~# semodule -l (Enumera los módulos habilitados actualmente)
+>\# semodule -l (Enumera los módulos habilitados actualmente)
 
->~# semanage login -a -s staff_u juan (mapear una cuenta a un usuario especifico de SELinux)
+>\# semanage login -a -s staff_u juan (mapear una cuenta a un usuario especifico de SELinux)
 
->~# restorecon -R -F /home/juan (etiquetar los ficheros del usuario mapeado juan)
+>\# restorecon -R -F /home/juan (etiquetar los ficheros del usuario mapeado juan)
 
->~# semanage user -l (enumera las asociaciones entre las identidades de usuario de SELinux y los roles permitidos)
+>\# semanage user -l (enumera las asociaciones entre las identidades de usuario de SELinux y los roles permitidos)
 
->~# semanage login -d juan (elimina la asociación asignada al usuario juan)
+>\# semanage login -d juan (elimina la asociación asignada al usuario juan)
 
->~# semanage login -m juan (Modificar la asociación asignada al usuario)
+>\# semanage login -m juan (Modificar la asociación asignada al usuario)
 
->~# semanage login -l (enumera las correspondencias actuales entre identificadores de usuarios y entidades SELinux)
+>\# semanage login -l (enumera las correspondencias actuales entre identificadores de usuarios y entidades SELinux)
 
 tabla de los usuarios estándar SELinux disponibles:
 
-user_u 	(Usuario normal que se utilizan para cuentas de usuario que no van a ser empleadas para administrar ningún servicio del sistema)
+	user_u 	(Usuario normal que se utilizan para cuentas de usuario que no van a ser empleadas para administrar ningún servicio del sistema)
 
-staff_u (Para administradores con derechos para conmutar roles y ganar privilegios elevados)
+	staff_u (Para administradores con derechos para conmutar roles y ganar privilegios elevados)
 
-root (Cuenta root ligeramente diferente de la cuenta staff_u. Los ficheros protegidos por control de acceso basado en root no pueden ser gestionados por los staff_u)
+	root (Cuenta root ligeramente diferente de la cuenta staff_u. Los ficheros protegidos por control de acceso basado en root no pueden ser gestionados por los staff_u)
 
-sysadm_u (Administración del sistema. Por defecto, esta cuenta no se utiliza inmediatamente ya que este usuario obtiene de forma inmediata el rol administrativo (por lo que staff_u y root todavía necesitarán conmutar roles).
+	sysadm_u (Administración del sistema. Por defecto, esta cuenta no se utiliza inmediatamente ya que este usuario obtiene de forma inmediata el rol administrativo (por lo que staff_u y root todavía necesitarán conmutar roles).
 
-system_u (administrar servicios. Nunca se debe utilizar para usuarios finales ya que ofrece acceso directo al rol del sistema)
+	system_u (administrar servicios. Nunca se debe utilizar para usuarios finales ya que ofrece acceso directo al rol del sistema)
 
-unconfined_u 	Usado cuando la directriz es targeted, este usuario SELinux tiene muchos privilegios (esencialmente no está limitado en sus acciones, aunque todavía se gestiona través de SELinux con una directriz "muy abierta").
+	unconfined_u 	Usado cuando la directriz es targeted, este usuario SELinux tiene muchos privilegios (esencialmente no está limitado en sus acciones, aunque todavía se gestiona través de SELinux con una directriz "muy abierta"). 
 

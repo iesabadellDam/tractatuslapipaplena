@@ -94,7 +94,7 @@
   
 
 
-<time datetime="2013-12-15T18:36:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -115,23 +115,24 @@
 
 <p>Un ejemplo muestra de configuración para el servicio ssh:</p>
 
-<p>[ssh]</p>
+<pre><code>[ssh]
 
-<p>enabled  = true</p>
+enabled  = true
 
-<p>port     = ssh</p>
+port     = ssh
 
-<p>filter   = sshd</p>
+filter   = sshd
 
-<p>logpath  = /var/log/auth.log</p>
+logpath  = /var/log/auth.log
 
-<p>maxretry = 3</p>
+maxretry = 3
+</code></pre>
 
-<blockquote><p>~# tail -f /var/log/fail2ban.log | grep Ban    (monitorizar las ip baneadas)</p>
+<blockquote><p># tail -f /var/log/fail2ban.log | grep Ban    (monitorizar las ip baneadas)</p>
 
-<p>~# awk &#8216;($(NF-1) = /Ban/){print $NF}&#8217; /var/log/fail2ban.log | sort | uniq -c | sort (Solo muestra las Ips.)</p>
+<p># awk &#8216;($(NF-1) = /Ban/){print $NF}&#8217; /var/log/fail2ban.log | sort | uniq -c | sort (Solo muestra las Ips.)</p>
 
-<p>~# awk &#8216;($(NF-1) = /Ban/){print $NF,&#8221;(&#8220;$NF&#8221;)&#8221;}&#8217; /var/log/fail2ban.log | sort | logresolve | uniq -c | sort  (Mostrando el nombre del host)</p></blockquote>
+<p># awk &#8216;($(NF-1) = /Ban/){print $NF,&#8221;(&#8220;$NF&#8221;)&#8221;}&#8217; /var/log/fail2ban.log | sort | logresolve | uniq -c | sort  (Mostrando el nombre del host)</p></blockquote>
 
 <p>1.-</p>
 
@@ -139,35 +140,37 @@
 
 <p>Crear el archivo:</p>
 
-<blockquote><p>~# nano /etc/fail2ban/filter.d/apache-w00tw00t.conf</p></blockquote>
+<blockquote><p># nano /etc/fail2ban/filter.d/apache-w00tw00t.conf</p></blockquote>
 
 <p>Pegar el siguiente contenido:</p>
 
-<p>[Definition]</p>
+<pre><code>[Definition]
 
-<p>failregex = ^.<em>[client <HOST>].</em>w00tw00t.at.ISC.SANS.<em>.</em></p>
+failregex = ^.*\[client &lt;HOST&gt;\].*w00tw00t\.at\.ISC\.SANS\.*.*
 
-<p>ignoreregex =</p>
+ignoreregex =
+</code></pre>
 
 <p>Añadir la jaula:</p>
 
-<blockquote><p>~# nano /etc/fail2ban/jail.conf</p></blockquote>
+<blockquote><p># nano /etc/fail2ban/jail.conf</p></blockquote>
 
 <p>Y pegar:</p>
 
-<p>[apache-w00tw00t]</p>
+<pre><code>[apache-w00tw00t]
 
-<p>enabled = true</p>
+enabled = true
 
-<p>filter = apache-w00tw00t</p>
+filter = apache-w00tw00t
 
-<p>action = iptables-allports[name=w00tw00t]</p>
+action = iptables-allports[name=w00tw00t]
 
-<p>logpath = /var/log/apache<em>/error.</em>.log</p>
+logpath = /var/log/apache*/error.*.log
 
-<p>maxretry = 1</p>
+maxretry = 1
 
-<p>bantime = -1</p>
+bantime = -1
+</code></pre>
 
 <p>Nota.- el bantime = -1 indica bloquear permanentemente.</p>
 
@@ -175,65 +178,69 @@
 
 <p>Algunos ajustes de jail.conf para el caso de usar nginx y no apache:</p>
 
-<blockquote><p>~# nano /etc/fail2ban/jail.conf</p></blockquote>
+<blockquote><p># nano /etc/fail2ban/jail.conf</p></blockquote>
 
 <p>Prevenir ataques de inyeccion de codigo</p>
 
-<p>[php-url-fopen]</p>
+<pre><code>[php-url-fopen]
 
-<p>enabled = true</p>
+enabled = true
 
-<p>port    = http,https</p>
+port    = http,https
 
-<p>filter  = php-url-fopen</p>
+filter  = php-url-fopen
 
-<p>logpath = /var/log/nginx/access_log</p>
+logpath = /var/log/nginx/access_log
 
-<p>maxretry = 1</p>
+maxretry = 1
+</code></pre>
 
 <p>Bloquea por iptables un día a los hosts que se conectan haciendo  uso de un &#8220;User Agent&#8221; sospechoso</p>
 
-<p>[nginx-badbots]</p>
+<pre><code>[nginx-badbots]
 
-<p>enabled  = true</p>
+enabled  = true
 
-<p>filter = apache-badbots</p>
+filter = apache-badbots
 
-<p>action = iptables-multiport[name=BadBots, port=&#8221;http,https&#8221;]</p>
+action = iptables-multiport[name=BadBots, port="http,https"]
 
-<p>logpath = /var/log/nginx<em>/</em>access*.log</p>
+logpath = /var/log/nginx*/*access*.log
 
-<p>bantime = 86400</p>
+bantime = 86400
 
-<p>maxretry = 1</p>
+maxretry = 1
+</code></pre>
 
 <p>Solicitar 240 páginas en 1 minuto o 4 paginas segundo, bloqueo por dos dias</p>
 
-<p>[nginx-dos]</p>
+<pre><code>[nginx-dos]
 
-<p>enabled = true</p>
+enabled = true
 
-<p>port    = http,8090</p>
+port    = http,8090
 
-<p>filter  = nginx-dos</p>
+filter  = nginx-dos
 
-<p>logpath = /var/log/nginx/access.log</p>
+logpath = /var/log/nginx/access.log
 
-<p>findtime = 60</p>
+findtime = 60
 
-<p>bantime  = 172800</p>
+bantime  = 172800
 
-<p>maxretry = 240</p>
+maxretry = 240
+</code></pre>
 
 <p>Fallar la autentificación en el servidor web, blloqueo por 10 minutos</p>
 
-<p>[nginx-auth]</p>
+<pre><code>[nginx-auth]
 
-<p>enabled = true</p>
+enabled = true
 
-<p>port = http</p>
+port = http
 
-<p>filter = nginx-auth</p>
+filter = nginx-auth
+</code></pre>
 </div>
 
 
@@ -256,7 +263,7 @@
   
 
 
-<time datetime="2013-12-15T18:36:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
       
 
 
@@ -288,9 +295,9 @@
   
     <section>
 <h1>Número de entradas</h1>
-        <ul>
-        <li>1354</li>
-        </ul>
+	<ul>
+	<li>1354</li>
+	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>

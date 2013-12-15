@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "bootchart"
-date: 2013-12-15 18:34
+date: 2013-12-15 18:51
 comments: true
 categories: 
 ---
@@ -19,7 +19,7 @@ initrd /boot/kernel26.img
 
 Cuando el sistema haya arrancado lanzar:
 
->~# bootchart-render
+>\# bootchart-render
 
 Parsing /var/log/bootchart.tgz
 

@@ -1,47 +1,47 @@
 ---
 layout: post
 title: "rsync"
-date: 2013-12-15 18:39
+date: 2013-12-15 18:56
 comments: true
 categories: 
 ---
 Sincronizar archivos o directorios. Trabasjar con el directorio montado.
 
->~$ rsync -av /home/usuario/Dropbox /home/usuario/Copias_seguridad/ (Copiar todo el directorio “Dropbox” en el directorio “Copias_seguridad”)
+>$ rsync -av /home/usuario/Dropbox /home/usuario/Copias_seguridad/ (Copiar todo el directorio “Dropbox” en el directorio “Copias_seguridad”)
 
->~$ rsync -av --exclude=Dropbox /media/servidor /home/usuario/servidor/ (Sincronizar un servidor con un directorio local excluyendo el dir Dropbox)
+>$ rsync -av --exclude=Dropbox /media/servidor /home/usuario/servidor/ (Sincronizar un servidor con un directorio local excluyendo el dir Dropbox)
 
 Nota.- Pueden excluirse varios directorios [--exclude=Dropbox --exclude=isos --exclcude=public ...]
 
->~$ rsync -arvuz Documentos usuario@192.168.1.5:/home/usuario/ (Copiar el directorio en otra máquina)
+>$ rsync -arvuz Documentos usuario@192.168.1.5:/home/usuario/ (Copiar el directorio en otra máquina)
 
->~$ rsync -arvuz -e 'ssh -p 30567' Documentos usuario@192.168.1.5:/home/usuario/ (Copiar el directorio en otra máquina pero especificando otro puerto SSH)
+>$ rsync -arvuz -e 'ssh -p 30567' Documentos usuario@192.168.1.5:/home/usuario/ (Copiar el directorio en otra máquina pero especificando otro puerto SSH)
 
 Algunas opciones:
 
--a (respaldar recursivamente directorios y subdirectorios)
+	-a (respaldar recursivamente directorios y subdirectorios) 
 
--g (conserva el atributo “group” de los archivos originales)
+	-g (conserva el atributo “group” de los archivos originales) 
 
--E (conserva el atributo “executable” del archivo originales)
+	-E (conserva el atributo “executable” del archivo originales) 
 
--v (aumentar el nivel de información desplegado
+	-v (aumentar el nivel de información desplegado 
 
--z (comprime los datos que serán transferidos)
+	-z (comprime los datos que serán transferidos) 
 
---exclude=tmp  (Excluir archivos o directorios. /tmp en este caso)
+	--exclude=tmp  (Excluir archivos o directorios. /tmp en este caso)
 
---delete-during  (Borrar los archivos de origen a medida que son transferidos)
+	--delete-during  (Borrar los archivos de origen a medida que son transferidos) 
 
->~$ rsync -aHxv root@dirección_IP:/* /carpeta_destino --exclude=/dev --exclude=/proc --exclude=/sys --exclude=/tmp (copia/clonación en vivo de todo un sistema remoto a un directorio local. Se recomienda parar todos los servicios en ejecución de la máquina remota y repetir el comando varias veces hasta que no haya ningún fichero copiado, para evitar ficheros corrompidos. Se deben crear las carpetas "/dev", "/proc", "/sys" y "/tmp" en la carpeta de destino).
+>$ rsync -aHxv root@dirección_IP:/* /carpeta_destino --exclude=/dev --exclude=/proc --exclude=/sys --exclude=/tmp (copia/clonación en vivo de todo un sistema remoto a un directorio local. Se recomienda parar todos los servicios en ejecución de la máquina remota y repetir el comando varias veces hasta que no haya ningún fichero copiado, para evitar ficheros corrompidos. Se deben crear las carpetas "/dev", "/proc", "/sys" y "/tmp" en la carpeta de destino).
 
->~$ rsync -avz --exclude-from 'rsync_exclude' /home/usuario/ /media/sda11/copa_seguridad (Copia de seguridad del /home/usuario a otra partición excluyendo los archivos especificados en el archivo rsync_exclude)
+>$ rsync -avz --exclude-from 'rsync_exclude' /home/usuario/ /media/sda11/copa_seguridad (Copia de seguridad del /home/usuario a otra partición excluyendo los archivos especificados en el archivo rsync_exclude)
 
 Nota.- El formato del archivo rsync_exclude para excluir los ficheros ocultos [.*] todos los de la carpeta Dropbox y el video alien de la carpeta Videos será:
 
-.*
+	.*
 
-Dropbox/*
+	Dropbox/*
 
-Videos/alien
+	Videos/alien
 

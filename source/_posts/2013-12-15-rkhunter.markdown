@@ -1,33 +1,33 @@
 ---
 layout: post
 title: "rkhunter"
-date: 2013-12-15 18:39
+date: 2013-12-15 18:56
 comments: true
 categories: 
 ---
 Buscador de rootkits instalados en el sistema
 
->~# rkhunter --update  (Recargar la base de datos)
+>\# rkhunter --update  (Recargar la base de datos)
 
->~# rkhunter -c  (iniciar la aplicación)
+>\# rkhunter -c  (iniciar la aplicación)
 
->~# rkhunter -c -sk (iniciar la aplicación sin pedir confirmación para proseguir)
+>\# rkhunter -c -sk (iniciar la aplicación sin pedir confirmación para proseguir)
 
->~# rkhunter -c -sk --propupd (Lanzar con la opción "propupd" si se ha modificado la función Hash o para reconstruir la base de datos y evitar "Warnings" tipo: Warning: The file properties have changed)
+>\# rkhunter -c -sk --propupd (Lanzar con la opción "propupd" si se ha modificado la función Hash o para reconstruir la base de datos y evitar "Warnings" tipo: Warning: The file properties have changed)
 
->~# rkhunter --list (Ver las opciones)
+>\# rkhunter --list (Ver las opciones)
 
->~# rkhunter --enable group_accounts,system_commands  (Solo chequear estas dos opciones)
+>\# rkhunter --enable group_accounts,system_commands  (Solo chequear estas dos opciones)
 
->~# rkhunter --disable shared_libs  (Descartar esta opción del chequeo)
+>\# rkhunter --disable shared_libs  (Descartar esta opción del chequeo)
 
->~# cat /var/log/rkhunter.log | grep Warning (Visualizar los "Warnings")
+>\# cat /var/log/rkhunter.log | grep Warning (Visualizar los "Warnings")
 
 1.-
 
 Para solucionar el error: Warning: Hidden directory found: /etc/.java
 
->~# nano /etc/rkhunter.conf
+>\# nano /etc/rkhunter.conf
 
 Y descomentar la linea:
 
@@ -39,7 +39,7 @@ Nota.- para errores similares con archivos ocultos [/dev/.udev, /dev/.initramfs.
 
 Para errores de versión de ciertas aplicaciones [Warning: Application 'gpg', version ....]
 
->~# nano /etc/rkhunter.conf
+>\# nano /etc/rkhunter.conf
 
 Añadir apps a la linea:
 
@@ -55,11 +55,11 @@ DISABLE_TESTS="suspscan hidden_procs deleted_files packet_cap_apps apps promisc"
 
 Para que los valores se obtengan del gestor de paquetes correspondiente:
 
->~# nano /etc/rkhunter.conf
+>\# nano /etc/rkhunter.conf
 
 Y descomentar y modificar la linea PKGMGR:
 
 PKGMGR=DPKG
 
-Nota.- Otras opciones para distros no debian o para desactivar la opción: RPM, BSD,SOLARIS y NONE
+Nota.- Otras opciones para distros no debian o para desactivar la opción: RPM, BSD,SOLARIS y NONE 
 

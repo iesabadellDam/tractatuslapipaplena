@@ -1,13 +1,13 @@
 ---
 layout: post
 title: "gxmessage"
-date: 2013-12-15 18:36
+date: 2013-12-15 18:53
 comments: true
 categories: 
 ---
 Dejar mensajes en la pantalla
 
->~$ gxmessage -center -fg red -bg black "No cierren la terminal"
+>$ gxmessage -center -fg red -bg black "No cierren la terminal"
 
 -fg (Color de fuente)
 

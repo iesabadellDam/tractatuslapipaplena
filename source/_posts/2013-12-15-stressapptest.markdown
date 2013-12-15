@@ -1,19 +1,19 @@
 ---
 layout: post
 title: "stressapptest"
-date: 2013-12-15 18:40
+date: 2013-12-15 18:57
 comments: true
 categories: 
 ---
 Herramienta para realizar un test de carga del sistema.
 
->~# stressapptest -s 20 -M 256 -m 8 -C 8 -W
+>\# stressapptest -s 20 -M 256 -m 8 -C 8 -W
 
 Algunas opciones:
 
 -M mbytes  (Cantidad de megabytes de memoria RAM para realizar las pruebas. Por defecto toda la disponible)
 
--s 20 (Tiempo que durará el proceso)
+-s 20 (Tiempo que durará el proceso) 
 
 -m 8 (Cantidad de procesos de copiado de memoria)
 

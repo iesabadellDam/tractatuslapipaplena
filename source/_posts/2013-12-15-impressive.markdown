@@ -1,17 +1,17 @@
 ---
 layout: post
 title: "impressive"
-date: 2013-12-15 18:37
+date: 2013-12-15 18:53
 comments: true
 categories: 
 ---
 Visualizar documentos PDF e imágenes (jpg, tiff, png...)
 
->~$ impressive documento.pdf
+>$ impressive documento.pdf
 
->~$ impressive -l    (lista efectos disponibles)
+>$ impressive -l    (lista efectos disponibles)
 
->~$ impressive -t SqueezeLeft documento.pdf
+>$ impressive -t SqueezeLeft documento.pdf
 
 Algunas opciones:
 

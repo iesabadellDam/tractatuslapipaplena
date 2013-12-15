@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "flvstreamer"
-date: 2013-12-15 18:36
+date: 2013-12-15 18:53
 comments: true
 categories: 
 ---
@@ -15,5 +15,5 @@ http://www.tv3.cat/su/tvc/tvcConditionalAccess.jsp?ID=1307049732092&QUALITY=H&FO
 
 Colocando en el número “ID=” el que corresponda y con la ruta rtmp que nos indique lanzar [en una sola linea]:
 
->~$ flvstreamer -r rtmp://mp4-500-str.tv3.cat/ondemand/mp4:g/tvcatalunya/2/9/1307049732092.mp4 -o video.mp4
+>$ flvstreamer -r rtmp://mp4-500-str.tv3.cat/ondemand/mp4:g/tvcatalunya/2/9/1307049732092.mp4 -o video.mp4
 

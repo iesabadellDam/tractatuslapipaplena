@@ -1,61 +1,61 @@
 ---
 layout: post
 title: "operadores"
-date: 2013-12-15 18:38
+date: 2013-12-15 18:55
 comments: true
 categories: 
 ---
 [bash scripting]
 
-lógicos o de comparación de cadenas alfanuméricas:
+lógicos o de comparación de cadenas alfanuméricas: 
 
-= (Verdadero si las 2 cadenas son iguales)
+	= (Verdadero si las 2 cadenas son iguales)
 
-!= (Verdadero si las 2 cadenas son distintas)
+	!= (Verdadero si las 2 cadenas son distintas)
 
--n (Informa si la cadena tiene longitud mayor a cero)
+	-n (Informa si la cadena tiene longitud mayor a cero)
 
--z (Informa si la cadena tiene longitud igual a cero)
+	-z (Informa si la cadena tiene longitud igual a cero)
 
-== (Verdadero si las 2 cadenas son iguales [solo en bash])
+	== (Verdadero si las 2 cadenas son iguales [solo en bash])
 
-< (Si una cadena es menor que otra)
+	< (Si una cadena es menor que otra)
 
-> (Si una cadena es mayor que otra)
+	> (Si una cadena es mayor que otra)
 
 lógicos o de comparacion de valores numericos
 
-x -lt y (x menor que y)
+	x -lt y (x menor que y)
 
-x -le y (x menor o igual que y)
+	x -le y (x menor o igual que y)
 
-x -eq y (x igual que y)
+	x -eq y (x igual que y)
 
-x -ge y (x mayor o igual que y)
+	x -ge y (x mayor o igual que y)
 
-x -gt y (x mayor que y)
+	x -gt y (x mayor que y)
 
-x -ne y (x no igual que y)
+	x -ne y (x no igual que y)
 
 De comprobacion de atributos de fichero
 
--d fichero (fichero existe y es un directorio)
+	-d fichero (fichero existe y es un directorio)
 
--e fichero (fichero existe)
+	-e fichero (fichero existe)
 
--f fichero (fichero existe y es regular [no un directorio])
+	-f fichero (fichero existe y es regular [no un directorio])
 
--r fichero (si fichero tiene permiso de lectura)
+	-r fichero (si fichero tiene permiso de lectura)
 
--s fichero (fichero existe y no esta vacio)
+	-s fichero (fichero existe y no esta vacio)
 
--w fichero (si fichero tiene permiso de escritura)
+	-w fichero (si fichero tiene permiso de escritura)
 
--x fichero (si fichero tiene permiso de ejecucion o de busqueda si es un directorio)
+	-x fichero (si fichero tiene permiso de ejecucion o de busqueda si es un directorio)
 
--O fichero (si eres dueño del fichero)
+	-O fichero (si eres dueño del fichero)
 
--G fichero (si el grupo del fichero es igual al tuyo)
+	-G fichero (si el grupo del fichero es igual al tuyo)
 
 Algunos ejemplos:
 
@@ -63,71 +63,71 @@ Algunos ejemplos:
 
 Comprobar si un fichero tiene datos:
 
-#!/bin/bash
+	#!/bin/bash 
 
-A=/etc/fstab
+	A=/etc/fstab
 
-if [ -s "$A" ]
+	if [ -s "$A" ] 
 
-then
+	then 
 
-echo "Tiene datos"
+		echo "Tiene datos" 
 
-else
+	else 
 
-echo "No los tiene"
+		echo "No los tiene" 
 
-fi
+	fi
 
 2.-
 
 Comprobar si un directorio es el personal del usuario:
 
-#!/bin/bash
+	#!/bin/bash 
 
-read -p "Ingrese un directorio: " DIR
+	read -p "Ingrese un directorio: " DIR 
 
-if [ $DIR = home ]
+	if [ $DIR = home ]
 
-then
+	then 
 
-echo "Es tu directorio personal"
+	 	echo "Es tu directorio personal" 
 
-else
+	else 
 
-echo "No es tu home"
+		echo "No es tu home" 
 
-fi
+	fi 
 
-exit 0
+	exit 0
 
 3.-
 
 Verificar si un archivo pasado como argumento existe o no:
 
-#!/bin/bash
+	#!/bin/bash
 
-if [ $# -eq 0 ]
+	if [ $# -eq 0 ]
 
-then
+	then
 
-echo "Falta el parametro"
+		 echo "Falta el parametro"
 
-exit
+		 exit
 
-else
+	else
 
-if [ -f $1 ]
+		if [ -f $1 ]
 
-then
+		then
 
-echo "archivo existe"
+			echo "archivo existe"
 
-else
+		else
 
-echo "archivo no existe"
+			echo "archivo no existe"
 
-fi
+		fi
 
-fi
+	fi 
 

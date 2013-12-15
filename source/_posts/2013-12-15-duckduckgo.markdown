@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "duckduckgo"
-date: 2013-12-15 18:35
+date: 2013-12-15 18:52
 comments: true
 categories: 
 ---
@@ -9,73 +9,73 @@ Buscador alternativo que respeta la privacidad del usuario.
 
 Filtros:
 
-site:lapipaplena.net (Busca en la url especificada)
+	site:lapipaplena.net (Busca en la url especificada)
 
-qrcode "linux es un sistema genial" (Crear código QR de un texto)
+	qrcode "linux es un sistema genial" (Crear código QR de un texto)
 
-md5 lapipaplena (Generar un hash de un texto en md5)
+	md5 lapipaplena (Generar un hash de un texto en md5)
 
-base64 encode "Un texto" (Generar un hash en base64)
+	base64 encode "Un texto" (Generar un hash en base64)
 
-anagram "linux es genial" (Generar un anagrama [cambio de posición de los carácteres)
+	anagram "linux es genial" (Generar un anagrama [cambio de posición de los carácteres)
 
-shorten http://lapipaplena.net (Acortador de URL)
+	shorten http://lapipaplena.net (Acortador de URL)
 
-maps ibiza (Muestra el mapa solicitado)
+	maps ibiza (Muestra el mapa solicitado)
 
-@templix (De un usuario de twitter)
+	@templix (De un usuario de twitter)
 
-recipes "tortilla de patatas" (Recetas de cocina)
+	recipes "tortilla de patatas" (Recetas de cocina)
 
-color codes (Muestra los códigos de los colores)
+	color codes (Muestra los códigos de los colores)
 
-Algunos comandos para utilizar en buscadores externos [Bangs]
+Algunos comandos para utilizar en buscadores externos [Bangs] 
 
-!wes (Busca en la wikipedia en español)
+	!wes (Busca en la wikipedia en español)
 
-!github (En github)
+	!github (En github)
 
-!b (En bing)
+	!b (En bing)
 
-!meneame (En meneame)
+	!meneame (En meneame)
 
-!tw (En twitter)
+	!tw (En twitter)
 
-!fb (En facebook)
+	!fb (En facebook)
 
-!flickr (En flickr)
+	!flickr (En flickr)
 
-!grooveshark (En grooveshark)
+	!grooveshark (En grooveshark)
 
-!y (En yahoo)
+	!y (En yahoo)
 
-!enes (En google translate inglés-español)
+	!enes (En google translate inglés-español)
 
-!gplus (En google+)
+	!gplus (En google+)
 
-!g (En google)
+	!g (En google)
 
-!gi (En google images)
+	!gi (En google images)
 
-!m (En google maps)
+	!m (En google maps)
 
-!gmail (En gmail)
+	!gmail (En gmail)
 
-!ebay (En ebay)
+	!ebay (En ebay) 
 
 Algunos atajos:
 
-d (Busca más resultados en el sitio web resaltado)
+	d (Busca más resultados en el sitio web resaltado)
 
-Ctrl+enter (Abre resultado en una nueva ventana)
+	Ctrl+enter (Abre resultado en una nueva ventana)
 
-Ees (Sale de la caja de búsqueda y va a los resultados)
+	Ees (Sale de la caja de búsqueda y va a los resultados)
 
-h (Coloca el cursor en la caja de búsqueda)
+	h (Coloca el cursor en la caja de búsqueda)
 
-r (Si existe, va a los relacionados)
+	r (Si existe, va a los relacionados)
 
-s (Si existe, va al enlace sugerido
+	s (Si existe, va al enlace sugerido
 
-t (Va al inicio de la página)
+	t (Va al inicio de la página) 
 

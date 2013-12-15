@@ -1,29 +1,29 @@
 ---
 layout: post
 title: "ip-ajustes"
-date: 2013-12-15 18:37
+date: 2013-12-15 18:54
 comments: true
 categories: 
 ---
 1.- Estática
 
->~# gedit /etc/network/interfaces
+>\# gedit /etc/network/interfaces 
 
-auto eth0
+	auto eth0 
 
-iface eth0 inet static
+	iface eth0 inet static 
 
-address 192.168.x.x
+	address 192.168.x.x 
 
-netmask 255.255.255.0
+	netmask 255.255.255.0 
 
-network 192.168.x.0
+	network 192.168.x.0 
 
-boadcast 192.168.2.255
+	boadcast 192.168.2.255 
 
-gateway 192.168.x.1
+	gateway 192.168.x.1 
 
->~# /etc/init.d/networking restart (reiniciar el servicio)
+>\# /etc/init.d/networking restart (reiniciar el servicio) 
 
->~$ ifconfig (verificar la nueva ip)
+>$ ifconfig (verificar la nueva ip) 
 

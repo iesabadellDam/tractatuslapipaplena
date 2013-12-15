@@ -1,11 +1,11 @@
 ---
 layout: post
 title: "traceroute"
-date: 2013-12-15 18:40
+date: 2013-12-15 18:57
 comments: true
 categories: 
 ---
 Permite seguir la pista de un paquete desde un host a otro.
 
->~# traceroute www.tuxapuntes.com
+>\# traceroute www.tuxapuntes.com
 

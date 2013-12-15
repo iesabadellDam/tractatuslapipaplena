@@ -1,21 +1,21 @@
 ---
 layout: post
 title: "macchanger"
-date: 2013-12-15 18:37
+date: 2013-12-15 18:54
 comments: true
 categories: 
 ---
 Modificar la MAC
 
->~# macchanger -s eth0 (Muestra la MAC)
+>\# macchanger -s eth0 (Muestra la MAC)
 
->~# macchanger -m 00:01:02:03:04:05 eth0  (poner la tarjeta de red a la escucha por la interfaz eth0 con la MAC especificada)
+>\# macchanger -m 00:01:02:03:04:05 eth0  (poner la tarjeta de red a la escucha por la interfaz eth0 con la MAC especificada)
 
->~# macchanger -A eth0 (Establece proveedor MAC aleatorio)
+>\# macchanger -A eth0 (Establece proveedor MAC aleatorio)
 
->~# macchanger -r eth0  (MAC completamente aleatoria)
+>\# macchanger -r eth0  (MAC completamente aleatoria)
 
->~# macchanger -l  (Listar los comienzos de las MAC de los principales fabricantes)
+>\# macchanger -l  (Listar los comienzos de las MAC de los principales fabricantes)
 
->~# macchanger –-list=Sony   (Muestra los comienzos de las MAC de Sony)
+>\# macchanger –-list=Sony   (Muestra los comienzos de las MAC de Sony) 
 

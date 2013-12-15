@@ -1,11 +1,11 @@
 ---
 layout: post
 title: "djvusmooth"
-date: 2013-12-15 18:35
+date: 2013-12-15 18:52
 comments: true
 categories: 
 ---
 Visor y manipulador gráfico de documentos djvu.
 
->~$ djvusmooth archivo.djvu
+>$ djvusmooth archivo.djvu
 

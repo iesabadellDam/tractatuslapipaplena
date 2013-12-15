@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Recuperación de discos dañados. Proceso: Descargar el paquete dd_rhelp (Comprobar si existe una versión posterior): ~$ wget http://www.kalysto.org/ &hellip;">
+  <meta name="description" content="Recuperación de discos dañados. Proceso: Descargar el paquete dd_rhelp (Comprobar si existe una versión posterior): $ wget http://www.kalysto.org/pkg &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -97,7 +97,7 @@
   
 
 
-<time datetime="2013-12-15T18:35:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -108,29 +108,29 @@
 
 <p>Descargar el paquete dd_rhelp (Comprobar si existe una versión posterior):</p>
 
-<blockquote><p>~$ wget http://www.kalysto.org/pkg/dd_rhelp-0.1.2.tar.gz</p>
+<blockquote><p>$ wget http://www.kalysto.org/pkg/dd_rhelp-0.1.2.tar.gz</p>
 
-<p>~$ cd dd_rhelp-0.1.2</p>
+<p>$ cd dd_rhelp-0.1.2</p>
 
-<p>~# ./dd_rhelp /dev/sdbx sdbx.img</p></blockquote>
+<p># ./dd_rhelp /dev/sdbx sdbx.img</p></blockquote>
 
 <p>Creará sdbx.img en el directorio actual, que podrá montarse:</p>
 
-<blockquote><p>~# mount -o loop sdbx.img /media/imagen</p></blockquote>
+<blockquote><p># mount -o loop sdbx.img /media/imagen</p></blockquote>
 
 <p>Comprobar posibles errores (para partición ext3):</p>
 
-<blockquote><p>~# fsck -y sdbx.img</p></blockquote>
+<blockquote><p># fsck -y sdbx.img</p></blockquote>
 
 <p>Restaurar la imagen:</p>
 
-<blockquote><p>~# dd_rhelp sdbx.img /dev/sdax</p></blockquote>
+<blockquote><p># dd_rhelp sdbx.img /dev/sdax</p></blockquote>
 
 <p>Método de ejecutar ddrescue en dos pasadas, de forma que la primera sólo recupera los bloques que no contenga sectores defectuosos y el segundo se centre en recuperar el máximo de los defectuosos:</p>
 
-<blockquote><p>~# ddrescue -v -n /dev/sda /dev/sdb sda.txt</p>
+<blockquote><p># ddrescue -v -n /dev/sda /dev/sdb sda.txt</p>
 
-<p>~# ddrescue -v -r2 -d /dev/sda /dev/sdb sda.txt</p></blockquote>
+<p># ddrescue -v -r2 -d /dev/sda /dev/sdb sda.txt</p></blockquote>
 
 <p>Luego comprobar errores con fsck.</p>
 </div>
@@ -161,7 +161,7 @@
   
 
 
-<time datetime="2013-12-15T18:35:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -170,7 +170,7 @@
 
   <div class="entry-content"><p>Configurar pc con una ip fija. Requiere registro en dyndns.org. Durante la instalación  ya preguntará los datos del registro en pero si se prefiere puede editarse el archivo de configuración y colocarlos a mano</p>
 
-<blockquote><p>~# gedit /etc/ddclient.conf</p></blockquote>
+<blockquote><p># gedit /etc/ddclient.conf</p></blockquote>
 
 <p>Completar los campos login y password con los datos correspondientes:</p>
 
@@ -213,7 +213,7 @@
   
 
 
-<time datetime="2013-12-15T18:35:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -222,7 +222,7 @@
 
   <div class="entry-content"><p>Convierte fechas gregorianas en fechas subrealistas. Algunas opciones coinciden con las de &#8220;date&#8221; (ver)</p>
 
-<blockquote><p>~$ ddate +%d-%B-%Y</p></blockquote>
+<blockquote><p>$ ddate +%d-%B-%Y</p></blockquote>
 </div>
   
   
@@ -251,7 +251,7 @@
   
 
 
-<time datetime="2013-12-15T18:35:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -260,39 +260,39 @@
 
   <div class="entry-content"><p>Crea imagenes de discos, particiones &#8230;</p>
 
-<blockquote><p>~$ dd if=/dev/zero of=/dev/hda  (escribe ceros en todo el disco)</p>
+<blockquote><p>$ dd if=/dev/zero of=/dev/hda  (escribe ceros en todo el disco)</p>
 
-<p>~$ dd if=/dev/urandom of=/dev/hda  (llena el disco de números aleatorios)</p>
+<p>$ dd if=/dev/urandom of=/dev/hda  (llena el disco de números aleatorios)</p>
 
-<p>~$ dd if=/dev/hdx of=backup-mbr bs=512 count=1  (crea una copia de seguridad del mbr)</p>
+<p>$ dd if=/dev/hdx of=backup-mbr bs=512 count=1  (crea una copia de seguridad del mbr)</p>
 
-<p>~$ dd if=backup-mbr of=/dev/hda bs=512 count=1  (la restaura)</p>
+<p>$ dd if=backup-mbr of=/dev/hda bs=512 count=1  (la restaura)</p>
 
-<p>~$ dd if=mbr of=/dev/hda (Restaurarla)</p>
+<p>$ dd if=mbr of=/dev/hda (Restaurarla)</p>
 
-<p>~$ dd if=/dev/hda1 of=/dev/hda3 (copiar una partición)</p>
+<p>$ dd if=/dev/hda1 of=/dev/hda3 (copiar una partición)</p>
 
-<p>~$ dd if=/hda of=/hdb bs=1M (copiar un disco en bloques de 1 mega)</p>
+<p>$ dd if=/hda of=/hdb bs=1M (copiar un disco en bloques de 1 mega)</p>
 
-<p>~$ dd conv=noerror if=/dev/cdrom of=imagen_con_errores.img (Evitar que los errores impidan copiar datos. ütil en la recuperación de CDs o discos dañados)</p>
+<p>$ dd conv=noerror if=/dev/cdrom of=imagen_con_errores.img (Evitar que los errores impidan copiar datos. ütil en la recuperación de CDs o discos dañados)</p>
 
-<p>~$ dd if=/dev/sda of=/dev/sdb conv=noerror,sync (Realizar una copia exacta de una partición, evitando que los errores impidan copiarla)</p>
+<p>$ dd if=/dev/sda of=/dev/sdb conv=noerror,sync (Realizar una copia exacta de una partición, evitando que los errores impidan copiarla)</p>
 
-<p>~$ time dd if=/dev/zero of=TEST bs=4k count=512000  (Realizar un test de velocidad del disco duro)</p>
+<p>$ time dd if=/dev/zero of=TEST bs=4k count=512000  (Realizar un test de velocidad del disco duro)</p>
 
-<p>~$ dd if=/dev/sda1 of=copia_seguridad.tar | pv  (copiar mostrando barra de progreso)</p>
+<p>$ dd if=/dev/sda1 of=copia_seguridad.tar | pv  (copiar mostrando barra de progreso)</p>
 
-<p>~$ dd if=/dev/sdc bs=4096 dd of=/home/usuario/copia_seguridad | pv -s 2G (Lo mismo que el anterior)</p>
+<p>$ dd if=/dev/sdc bs=4096 dd of=/home/usuario/copia_seguridad | pv -s 2G (Lo mismo que el anterior)</p>
 
-<p>~$ dd if=/dev/hda of=/home/hda.iso (Crear una imagen iso de una partición)</p>
+<p>$ dd if=/dev/hda of=/home/hda.iso (Crear una imagen iso de una partición)</p>
 
-<p>~$ dd if=/dev/hda | gzip > /home/hda.bin.gz (Crear una imagen comprimida)</p>
+<p>$ dd if=/dev/hda | gzip > /home/hda.bin.gz (Crear una imagen comprimida)</p>
 
-<p>~$ dd bs=1M if=/dev/sda4 | ssh usuario@host &#8216;dd of=/home/usuario/sda4.img&#8217; (crear una imagen de una partición local en un pc remoto)</p>
+<p>$ dd bs=1M if=/dev/sda4 | ssh usuario@host &#8216;dd of=/home/usuario/sda4.img&#8217; (crear una imagen de una partición local en un pc remoto)</p>
 
-<p>~$ dd if=/dev/cdrom of=~/cd_image.iso (Crear una ISO del cd)</p>
+<p>$ dd if=/dev/cdrom of=~/cd_image.iso (Crear una ISO del cd)</p>
 
-<p>~# dd if=/dev/sda | pv | dd of=/dev/sdb bs=1M (Clonar partición viendo gráfico del proceso)</p></blockquote>
+<p># dd if=/dev/sda | pv | dd of=/dev/sdb bs=1M (Clonar partición viendo gráfico del proceso)</p></blockquote>
 </div>
   
   
@@ -321,7 +321,7 @@
   
 
 
-<time datetime="2013-12-15T18:35:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -330,11 +330,11 @@
 
   <div class="entry-content"><p>calculadora. Los operadores se colocan antes que sus operandos.</p>
 
-<blockquote><p>~$ echo &#8220;5 2 + p&#8221; | dc (Se introducen dos números [5 y 2] se indica la operación a realizar [+] y que muestre el resultado [p])</p>
+<blockquote><p>$ echo &#8220;5 2 + p&#8221; | dc (Se introducen dos números [5 y 2] se indica la operación a realizar [+] y que muestre el resultado [p])</p>
 
-<p>~$ echo &#8220;4 6 + 2 * 4 / p&#8221; | dc</p>
+<p>$ echo &#8220;4 6 + 2 * 4 / p&#8221; | dc</p>
 
-<p>~$ echo &#8220;40034291 23 % p &#8221; | dc (Da el resto de la división)</p></blockquote>
+<p>$ echo &#8220;40034291 23 % p &#8221; | dc (Da el resto de la división)</p></blockquote>
 </div>
   
   
@@ -363,7 +363,7 @@
   
 
 
-<time datetime="2013-12-15T18:35:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -372,7 +372,7 @@
 
   <div class="entry-content"><p>Editor minimalista para ncurses.</p>
 
-<blockquote><p>~$ dav archivo.txt</p></blockquote>
+<blockquote><p>$ dav archivo.txt</p></blockquote>
 </div>
   
   
@@ -401,7 +401,7 @@
   
 
 
-<time datetime="2013-12-15T18:35:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -410,13 +410,13 @@
 
   <div class="entry-content"><p>Relacionado con fechas y calendarios.</p>
 
-<blockquote><p>~$ date +%s  (en tiempo unix - desde el 1 de enero de 1970-)</p>
+<blockquote><p>$ date +%s  (en tiempo unix - desde el 1 de enero de 1970-)</p>
 
-<p>~$ date -s &#8220;2010-01-10 16:59&#8221;  (forma de establecer la fecha y hora actual)</p>
+<p>$ date -s &#8220;2010-01-10 16:59&#8221;  (forma de establecer la fecha y hora actual)</p>
 
-<p>~$ date –u 0110170210  (Otra forma de establecer la fecha. mes 01, día 10, hora 17:02 y año 2010)</p>
+<p>$ date –u 0110170210  (Otra forma de establecer la fecha. mes 01, día 10, hora 17:02 y año 2010)</p>
 
-<p>~$ date +&#8221;%A,%d-%m-%Y&#8221;</p></blockquote>
+<p>$ date +&#8221;%A,%d-%m-%Y&#8221;</p></blockquote>
 
 <p>Algunas opciones:</p>
 
@@ -450,17 +450,17 @@
 
 <p>%S   .- Solo los segundos</p>
 
-<blockquote><p>~$ date +&#8221;%A,%d-%m-%Y&#8221; &#8211;date &#8216;1966/4/20 20500 days&#8217; (Para saber cuando alguien cumplirá 20500 días desde su nacimiento)</p>
+<blockquote><p>$ date +&#8221;%A,%d-%m-%Y&#8221; &#8211;date &#8216;1966/4/20 20500 days&#8217; (Para saber cuando alguien cumplirá 20500 días desde su nacimiento)</p>
 
-<p>~$ watch -n1 &#8216;banner <code>date +%T</code>&#8217; (Rejoj digital en ascii)</p></blockquote>
+<p>$ watch -n1 &#8216;banner <code>date +%T</code>&#8217; (Rejoj digital en ascii)</p></blockquote>
 
 <p>1.-</p>
 
 <p>Saber la hora encualquier parte del mundo:</p>
 
-<blockquote><p>~$ TZ=&#8221;America/Guatemala&#8221; date (Muestra la hora actual de Guatemala)</p>
+<blockquote><p>$ TZ=&#8221;America/Guatemala&#8221; date (Muestra la hora actual de Guatemala)</p>
 
-<p>~$ TZ=&#8221;Europe/Berlin&#8221; date (Muestra la de Berlin)</p></blockquote>
+<p>$ TZ=&#8221;Europe/Berlin&#8221; date (Muestra la de Berlin)</p></blockquote>
 </div>
   
   
@@ -489,7 +489,7 @@
   
 
 
-<time datetime="2013-12-15T18:35:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -498,7 +498,7 @@
 
   <div class="entry-content"><p>Analizar el tráfico de red via navegador. Una vez instalado arrancar el demonio:</p>
 
-<blockquote><p>~# /etc/init.d/darkstat start</p></blockquote>
+<blockquote><p># /etc/init.d/darkstat start</p></blockquote>
 
 <p>Y pasado un tiempo visualizar los datos en: http://localhost:666</p>
 </div>
@@ -529,7 +529,7 @@
   
 
 
-<time datetime="2013-12-15T18:35:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -538,9 +538,9 @@
 
   <div class="entry-content"><p>Servidor de archivos via web. Acceso por navegador con http://url_o_ip:puerto.</p>
 
-<blockquote><p>~$ darkhttp /home/usuario/share &#8211;port 12001 &#8211;daemon (Directorio, puerto de escucha 12001 y dejando como demonio. Matar con killall darkhttpd)</p>
+<blockquote><p>$ darkhttp /home/usuario/share &#8211;port 12001 &#8211;daemon (Directorio, puerto de escucha 12001 y dejando como demonio. Matar con killall darkhttpd)</p>
 
-<p>~$ darkhttp /home/usuario/share &#8211;port 12001 &#8211;log  archivo  &#8211;chroot  (Sin dejar en background. Creando un archivo con las incidencias y bloqueando el servidor en el directorio especificado. Matar con ctrl+c)</p></blockquote>
+<p>$ darkhttp /home/usuario/share &#8211;port 12001 &#8211;log  archivo  &#8211;chroot  (Sin dejar en background. Creando un archivo con las incidencias y bloqueando el servidor en el directorio especificado. Matar con ctrl+c)</p></blockquote>
 </div>
   
   
@@ -569,7 +569,7 @@
   
 
 
-<time datetime="2013-12-15T18:35:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -578,7 +578,7 @@
 
   <div class="entry-content"><p>Rescatar contenido de cds y dvds dañados</p>
 
-<blockquote><p>~$ dares -i image_cdrom -s /tmp (salvar en /tmp)</p></blockquote>
+<blockquote><p>$ dares -i image_cdrom -s /tmp (salvar en /tmp)</p></blockquote>
 </div>
   
   
@@ -600,9 +600,9 @@
   
     <section>
 <h1>Número de entradas</h1>
-        <ul>
-        <li>1354</li>
-        </ul>
+	<ul>
+	<li>1354</li>
+	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>

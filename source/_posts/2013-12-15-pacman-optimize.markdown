@@ -1,11 +1,11 @@
 ---
 layout: post
 title: "pacman-optimize"
-date: 2013-12-15 18:38
+date: 2013-12-15 18:55
 comments: true
 categories: 
 ---
 Reagrupa archivos fragmentados de la base de datos de pacman
 
->~# pacman-optimize
+>\# pacman-optimize
 

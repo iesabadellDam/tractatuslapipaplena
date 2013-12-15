@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Compartir sesiones de consola locales o remotas. ~$ screen (abre una terminal virtual genérica) ~$ screen -S tux (nombrar la sesión del que comparte &hellip;">
+  <meta name="description" content="Compartir sesiones de consola locales o remotas. $ screen (abre una terminal virtual genérica) $ screen -S tux (nombrar la sesión del que comparte &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -94,7 +94,7 @@
   
 
 
-<time datetime="2013-12-15T18:39:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:56:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -103,27 +103,28 @@
 
 <div class="entry-content"><p>Compartir sesiones de consola locales o remotas.</p>
 
-<blockquote><p>~$ screen   (abre una terminal virtual genérica)</p>
+<blockquote><p>$ screen   (abre una terminal virtual genérica)</p>
 
-<p>~$ screen -S tux  (nombrar la sesión del que comparte consola)</p></blockquote>
+<p>$ screen -S tux  (nombrar la sesión del que comparte consola)</p></blockquote>
 
-<p>$ screen -ls (conocer los screen abiertos y sus nombres)</p>
+<pre><code>$ screen -ls (conocer los screen abiertos y sus nombres)
 
-<p>There are screens on:</p>
+There are screens on: 
 
-<p>19680.tux       (Attached)</p>
+    19680.tux       (Attached) 
 
-<p>19684.xut       (Attached)</p>
+    19684.xut       (Attached) 
+</code></pre>
 
 <p>2 Sockets in /tmp/screens/S-juanito.</p>
 
-<blockquote><p>~$ screen -x 19680.tux  (el que se conecta)</p>
+<blockquote><p>$ screen -x 19680.tux  (el que se conecta)</p>
 
-<p>~$ screen -r   Retoma el proceso desacoplado con Ctrl+a Ctrl+d</p>
+<p>$ screen -r    Retoma el proceso desacoplado con Ctrl+a Ctrl+d</p>
 
-<p>~$ screen -r -S nombre Retoma el proceso &#8220;nombre&#8221;</p>
+<p>$ screen -r -S nombre  Retoma el proceso &#8220;nombre&#8221;</p>
 
-<p>~$ screen -R -D    Recupera screen despúes de un Ctrl+d</p></blockquote>
+<p>$ screen -R -D Recupera screen despúes de un Ctrl+d</p></blockquote>
 
 <p>La gestión de screen siempre empieza pulsando las teclas Ctrl+a:</p>
 
@@ -181,89 +182,91 @@
 
 <p>Para compartir screen via ssh:</p>
 
-<p>Activar el setuid de screen:</p>
+<pre><code>Activar el setuid de screen:
 
-<h1>chmod +s /usr/bin/screen</h1>
+# chmod +s /usr/bin/screen 
 
-<p>Ejecutar:</p>
+Ejecutar:
 
-<p>$ screen -S nombreSesion</p>
+$ screen -S nombreSesion 
 
-<p>Activar acceso multiusuario:</p>
+Activar acceso multiusuario:
 
-<p>Ctrl+a :multiuser on</p>
+Ctrl+a :multiuser on 
 
-<p>Dar permisos al usuario:</p>
+Dar permisos al usuario:
 
-<p>Ctrl+a :acladd usuario</p>
+Ctrl+a :acladd usuario 
 
-<p>El usuario remoto debera conectar por SSH con la máquina y ejecutar:</p>
+El usuario remoto debera conectar por SSH con la máquina y ejecutar: 
 
-<p>$ screen -x usuario/NombreSesion</p>
+$ screen -x usuario/NombreSesion 
+</code></pre>
 
 <p>Si deseamos tener una barra inferior donde aparecerá el nombre de las diferentes ventanas y la hora actual, podemos modificar/crear el fichero de configuración ~/.screenrc con el siguiente contenido (http://www.marblestation.com/?p=915):</p>
 
-<h1>screen -t shell 0</h1>
+<pre><code># screen -t shell 0 
 
-<h1>screen -t shell 0 motd+shell</h1>
+# screen -t shell 0 motd+shell 
 
-<h1>screen -t shell2    1</h1>
+# screen -t shell2    1
 
-<h1>screen -t server    2</h1>
+# screen -t server    2 
 
-<h1>screen -t Mail 9   tail -f /var/log/messages</h1>
+# screen -t Mail 9   tail -f /var/log/messages 
 
-<p>select 0</p>
+select 0 
 
-<p>shelltitle &#8220;shell&#8221;</p>
+shelltitle "shell" 
 
-<h1>skip the startup message</h1>
+# skip the startup message 
 
-<p>startup_message off</p>
+startup_message off 
 
-<h1>go to home dir</h1>
+# go to home dir 
 
-<p>chdir</p>
+chdir 
 
-<h1>Automatically detach on hangup.</h1>
+# Automatically detach on hangup. 
 
-<p>autodetach on</p>
+autodetach on 
 
-<h1>Change default scrollback value for new windows</h1>
+# Change default scrollback value for new windows 
 
-<p>defscrollback 1000</p>
+defscrollback 1000 
 
-<h1>Turns off alternate screen switching in xterms,</h1>
+# Turns off alternate screen switching in xterms, 
 
-<h1>so that text in screen will go into the xterm&#8217;s scrollback buffer:</h1>
+# so that text in screen will go into the xterm's scrollback buffer: 
 
-<p>termcapinfo xterm* ti@:te@</p>
+termcapinfo xterm* ti@:te@ 
 
-<p>altscreen on</p>
+altscreen on 
 
-<h1>start with visual bell as default</h1>
+# start with visual bell as default 
 
-<p>vbell on</p>
+vbell on 
 
-<p>vbell_msg &#8220;bell on %t (%n)&#8221;</p>
+vbell_msg "bell on %t (%n)" 
 
-<p>activity &#8220;Activity in %t(%n)&#8221;</p>
+activity "Activity in %t(%n)" 
 
-<h1>Run a screensaver if there&#8217;s nothing happening for a while.</h1>
+# Run a screensaver if there's nothing happening for a while. 
 
-<h1>idle 600 eval &#8220;screen cmatrix -f -o -u 10&#8221; &#8220;idle 0&#8221;</h1>
+#idle 600 eval "screen cmatrix -f -o -u 10" "idle 0" 
 
-<p>idle 600 lockscreen</p>
+idle 600 lockscreen 
 
-<h3>White</h3>
+### White 
 
-<h1>caption always &#8220;%{kW}%?%-Lw%?%{bw}%n*%f %t%?(%u)%?%{kW}%?%+Lw%? %= %{= Wk}%110<code>%109</code>%111` %H load: %l | %D %d-%m-%Y %0c:%s&#8221;</h1>
+#caption always "%{kW}%?%-Lw%?%{bw}%n*%f %t%?(%u)%?%{kW}%?%+Lw%? %= %{= Wk}%110`%109`%111` %H load: %l | %D %d-%m-%Y %0c:%s" 
 
-<h3>Black</h3>
+### Black 
 
-<h1>caption always &#8220;%{wk}%?%-Lw%?%{bw}%n*%f %t%?(%u)%?%{wk}%?%+Lw%? %= %{= kw}%110<code>%109</code>%111` %H load: %l | %D %d-%m-%Y %0c:%s&#8221;</h1>
+#caption always "%{wk}%?%-Lw%?%{bw}%n*%f %t%?(%u)%?%{wk}%?%+Lw%? %= %{= kw}%110`%109`%111` %H load: %l | %D %d-%m-%Y %0c:%s" 
 
-<p>caption always &#8220;%{wk}%?%-Lw%?%{bw}%n*%f %t%?(%u)%?%{wk}%?%+Lw%? %= %{= kw}%110<code>%109</code>%111` %H | %D %d-%m-%Y %0c:%s&#8221;</p>
+caption always "%{wk}%?%-Lw%?%{bw}%n*%f %t%?(%u)%?%{wk}%?%+Lw%? %= %{= kw}%110`%109`%111` %H | %D %d-%m-%Y %0c:%s" 
+</code></pre>
 </div>
 
 
@@ -286,7 +289,7 @@
   
 
 
-<time datetime="2013-12-15T18:39:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:56:00+01:00" pubdate data-updated="true">15-12-2013</time>
       
 
 
@@ -318,9 +321,9 @@
   
     <section>
 <h1>Número de entradas</h1>
-        <ul>
-        <li>1354</li>
-        </ul>
+	<ul>
+	<li>1354</li>
+	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>

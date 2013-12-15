@@ -1,13 +1,13 @@
 ---
 layout: post
 title: "xdaliclock"
-date: 2013-12-15 18:41
+date: 2013-12-15 18:58
 comments: true
 categories: 
 ---
 Un reloj en el escritorio.
 
->~$ xdaliclock -cycle -24 -title reloj -builtin1 (cambiando de color [cycle], formato 24 horas, con titulo i medida pequeña [de builtin0 a builtin4]
+>$ xdaliclock -cycle -24 -title reloj -builtin1 (cambiando de color [cycle], formato 24 horas, con titulo i medida pequeña [de builtin0 a builtin4]
 
 Algunas opciones:
 
