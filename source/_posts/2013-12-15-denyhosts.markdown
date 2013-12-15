@@ -1,27 +1,27 @@
 ---
 layout: post
 title: "denyhosts"
-date: 2013-12-15 16:10
+date: 2013-12-15 18:14
 comments: true
 categories: 
 ---
-Protege contra ataques. 
+Protege contra ataques.
 
-Configuración: 
+Configuración:
 
->\# nano /etc/denyhosts.conf 
+>~# nano /etc/denyhosts.conf
 
-Algunas opciones: 
+Algunas opciones:
 
-SECURE_LOG = /var/log/auth.log (Ruta a los logs) 
+SECURE_LOG = /var/log/auth.log (Ruta a los logs)
 
-DENY_THRESHOLD_INVALID = 5 (Intentos fallidos permitidos con una cuenta que no existe) 
+DENY_THRESHOLD_INVALID = 5 (Intentos fallidos permitidos con una cuenta que no existe)
 
-DENY_THRESHOLD_VALID = 5 (Intentos falllidos con usuarios validos) 
+DENY_THRESHOLD_VALID = 5 (Intentos falllidos con usuarios validos)
 
-PURGE_DENY =5d (Tiempo de baneo de una IP. 5 dias en este caso) 
+PURGE_DENY =5d (Tiempo de baneo de una IP. 5 dias en este caso)
 
-BLOCK_SERVICE = sshd (Servicios que queremos proteger [ sshd, ALL...) 
+BLOCK_SERVICE = sshd (Servicios que queremos proteger [ sshd, ALL...)
 
-Nota.- Tambien es posible arrancar el servicio con la opción "purge"  [/etc/init.d/denyhosts start --purge] para eliminar las ips bloqueadas y que se muestran en /etc/hosts.deny 
+Nota.- Tambien es posible arrancar el servicio con la opción "purge"  [/etc/init.d/denyhosts start --purge] para eliminar las ips bloqueadas y que se muestran en /etc/hosts.deny
 

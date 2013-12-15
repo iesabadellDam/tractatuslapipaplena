@@ -1,17 +1,17 @@
 ---
 layout: post
 title: "command-not-found"
-date: 2013-12-15 16:09
+date: 2013-12-15 18:14
 comments: true
 categories: 
 ---
 Activar las sugerencias sobre el paquete que puede tener un comando que erramos en la ortografía o no está instalado en el sistema y muestra la salida: "command not found":
 
->\# update-command-not-found (Recargar la base de datos)
+>~# update-command-not-found (Recargar la base de datos)
 
-	$ lt
+$ lt
 
-	The program 'lt' is currently not installed.  To run 'lt' please ask your administrator to install the package 'looptools'
+The program 'lt' is currently not installed.  To run 'lt' please ask your administrator to install the package 'looptools'
 
-	lt: command not found
+lt: command not found
 

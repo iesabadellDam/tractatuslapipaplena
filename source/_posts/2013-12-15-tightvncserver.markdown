@@ -1,19 +1,19 @@
 ---
 layout: post
 title: "tightvncserver"
-date: 2013-12-15 16:15
+date: 2013-12-15 18:19
 comments: true
 categories: 
 ---
 Conexión remota.
 
-En el Servidor: 
+En el Servidor:
 
->\# tightvncserver -depth 16 -geometry 640x480
+>~# tightvncserver -depth 16 -geometry 640x480
 
-En el Cliente: 
+En el Cliente:
 
->$ xtightvncviewer 
+>$ xtightvncviewer
 
-Nota.- Sale una caja de texto donde entrar la ip o nombre del host y otra para ingresar la clave. 
+Nota.- Sale una caja de texto donde entrar la ip o nombre del host y otra para ingresar la clave.
 

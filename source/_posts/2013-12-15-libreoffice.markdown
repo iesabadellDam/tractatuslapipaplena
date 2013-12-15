@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "libreoffice"
-date: 2013-12-15 16:12
+date: 2013-12-15 18:16
 comments: true
 categories: 
 ---
@@ -15,49 +15,49 @@ Cambiar de pantalla de inicio
 
 >$ tar -zxvf 140076-libreoffice_splash.tar.gz
 
->\# cp about.png intro.png /usr/lib/libreoffice/program/
+>~# cp about.png intro.png /usr/lib/libreoffice/program/
 
 En el archivo readme.txt se especifica el último paso:
 
 Modificar el archivo /etc/libreoffice/sofficerc con siguientes parámatros:
 
-	[Bootstrap] 
+[Bootstrap]
 
-	HideEula=1 
+HideEula=1
 
-	Logo=1 
+Logo=1
 
-	NativeProgress=true 
+NativeProgress=true
 
-	ProgressBarColor=78,158,1 
+ProgressBarColor=78,158,1
 
-	ProgressFrameColor=45,45,45 
+ProgressFrameColor=45,45,45
 
-	ProgressPosition=60,277 
+ProgressPosition=60,277
 
-	ProgressSize=320,6
+ProgressSize=320,6
 
 Atajos (write)
 
-	Ctrl+Inicio (Ir al inicio del documento) 
+Ctrl+Inicio (Ir al inicio del documento)
 
-	Crtl+Fin Ir al final del documento) 
+Crtl+Fin Ir al final del documento)
 
-	Ctrl+u (Subrayado) 
+Ctrl+u (Subrayado)
 
-	Ctrl+i (cursiva) 
+Ctrl+i (cursiva)
 
-	Ctrl+b (negrita) 
+Ctrl+b (negrita)
 
-	Ctrl+e (texto centrado) 
+Ctrl+e (texto centrado)
 
-	Ctrl+l	 (texto alineado a la izquierda) 
+Ctrl+l	 (texto alineado a la izquierda)
 
-	Ctrl+m (Formateado de fuente por defecto) 
+Ctrl+m (Formateado de fuente por defecto)
 
-	Ctrl+a (seleccionar todo el texto) 
+Ctrl+a (seleccionar todo el texto)
 
-	Ctrl+s (Guardar documento) 
+Ctrl+s (Guardar documento)
 
-	F7 (Ortografia y gramatica)
+F7 (Ortografia y gramatica)
 

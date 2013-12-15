@@ -1,11 +1,11 @@
 ---
 layout: post
 title: "microfono"
-date: 2013-12-15 16:12
+date: 2013-12-15 18:17
 comments: true
 categories: 
 ---
->\# gedit /etc/modprobe.d/alsa-base.conf
+>~# gedit /etc/modprobe.d/alsa-base.conf
 
 Añadir:
 

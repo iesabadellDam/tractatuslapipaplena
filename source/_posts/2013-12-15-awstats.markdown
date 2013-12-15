@@ -1,59 +1,59 @@
 ---
 layout: post
 title: "awstats"
-date: 2013-12-15 16:09
+date: 2013-12-15 18:13
 comments: true
 categories: 
 ---
 Estadísticas de la red local
 
-En el fichero de configuración (/etc/awstats/awstats.conf) comprobar: 
+En el fichero de configuración (/etc/awstats/awstats.conf) comprobar:
 
-LogFile="/var/log/apache2/access.log" 
+LogFile="/var/log/apache2/access.log"
 
 SiteDomain=”tu_dominio.com” (entre comillas nombre del host)
 
 LogFormat=1 (El usado por apache)
 
-AllowToUpdateStatsFromBrowser=1 (Actualizar via navegador) 
+AllowToUpdateStatsFromBrowser=1 (Actualizar via navegador)
 
 Lang="es"
 
 Asegurar permisos:
 
->\# chmod o+r /var/log/apache2/access.log
+>~# chmod o+r /var/log/apache2/access.log
 
-Crear enlace de las imágenes: 
+Crear enlace de las imágenes:
 
-	# ln -s /usr/share/awstats/icon/ /var/www/awstats-icon 
+# ln -s /usr/share/awstats/icon/ /var/www/awstats-icon
 
-Crear las estadísticas: 
+Crear las estadísticas:
 
-	# /usr/lib/cgi-bin/awstats.pl -update -config=/etc/awstats/awstats.conf 
+# /usr/lib/cgi-bin/awstats.pl -update -config=/etc/awstats/awstats.conf
 
-Para ver las estadísticas, en el navegador: 
+Para ver las estadísticas, en el navegador:
 
-	http://localhost/cgi-bin/awstats.pl
+http://localhost/cgi-bin/awstats.pl
 
 Si no queremos que las estadísticas sean accesibles para cualquiera:
 
-	# gedit /etc/apache2/sites-available/default
+# gedit /etc/apache2/sites-available/default
 
 Y en la linea “Allow from All” de la sección siguiente, quitamos el “All” y ponemos 127.0.0.1 [O la ip que proceda] y reiniciamos servicio:
 
-ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/ 
+ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
 
-	<Directory "/usr/lib/cgi-bin"> 
+<Directory "/usr/lib/cgi-bin">
 
-	AllowOverride None 
+AllowOverride None
 
-	Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch 
+Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
 
-	Order allow,deny 
+Order allow,deny
 
-	Allow from 127.0.0.1 
+Allow from 127.0.0.1
 
-	</Directory>
+</Directory>
 
->\# /etc/init.d/apache2 force-reload
+>~# /etc/init.d/apache2 force-reload
 

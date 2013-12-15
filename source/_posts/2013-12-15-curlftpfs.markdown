@@ -1,13 +1,13 @@
 ---
 layout: post
 title: "curlftpfs"
-date: 2013-12-15 16:10
+date: 2013-12-15 18:14
 comments: true
 categories: 
 ---
 Montar directorios remotos en local.
 
->\# curlftpfs usuario:contraseña@192.168.1.10 /media/servidor
+>~# curlftpfs usuario:contraseña@192.168.1.10 /media/servidor
 
 Para automatizar el proceso, añadir al /etc/fstab la linea:
 

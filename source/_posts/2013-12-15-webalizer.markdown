@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "webalizer"
-date: 2013-12-15 16:16
+date: 2013-12-15 18:20
 comments: true
 categories: 
 ---
@@ -9,25 +9,25 @@ Genera reportes en formato html de los accesos a una página web instalada en la
 
 Configuración mínima:
 
->\# nano /etc/webalizer/webalizer.conf
+>~# nano /etc/webalizer/webalizer.conf
 
 Verificando que el siguiente contenido esté descomentado:
 
-	LogFile         /var/log/apache2/access.log
+LogFile         /var/log/apache2/access.log
 
-	OutputDir       /var/www/webalizer
+OutputDir       /var/www/webalizer
 
-	Incremental     yes
+Incremental     yes
 
-	ReportTitle     Estidísticas de PAGINAWEB_NOMBRE
+ReportTitle     Estidísticas de PAGINAWEB_NOMBRE
 
-	Hostname URL_PAGINA
+Hostname URL_PAGINA
 
-	IgnoreSite      localhost
+IgnoreSite      localhost
 
 Especificamos los logs a analizar [logfile], el directorio de salida de los resultados [outputdir], que analice todo por separado [incremental], título de la página de reporte [reporttitle], nombre de la página a analizar [hostname] y que innore los accesos desde la propia máquina [ignoresite]
 
->\# webalizer -c /etc/webalizer.conf -d (que se base en el archivo especificado [-c] y que haga debugging de los reportes por si todo salió sin errores [-d])
+>~# webalizer -c /etc/webalizer.conf -d (que se base en el archivo especificado [-c] y que haga debugging de los reportes por si todo salió sin errores [-d])
 
 Dado que los reportes solo se realizan cuando se ejecuta el comando, es preferible colocar la linea en crontab:
 
@@ -35,5 +35,5 @@ Dado que los reportes solo se realizan cuando se ejecuta el comando, es preferib
 
 Y añadir:
 
-	0 0 * * * /usr/bin/webalizer -c /etc/webalizer.conf -d
+0 0 * * * /usr/bin/webalizer -c /etc/webalizer.conf -d
 

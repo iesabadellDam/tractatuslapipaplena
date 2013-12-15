@@ -98,7 +98,7 @@
   
 
 
-<time datetime="2013-12-15T16:15:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:19:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -136,7 +136,7 @@
   
 
 
-<time datetime="2013-12-15T16:15:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:19:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -180,7 +180,7 @@
   
 
 
-<time datetime="2013-12-15T16:15:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:19:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -240,7 +240,7 @@
   
 
 
-<time datetime="2013-12-15T16:15:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:19:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -284,7 +284,7 @@
   
 
 
-<time datetime="2013-12-15T16:15:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:19:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -350,7 +350,7 @@
   
 
 
-<time datetime="2013-12-15T16:15:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:19:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -375,16 +375,15 @@
 
 <p>C-Media PCI CMI8738-MC6 (model 55) at 0xa000, irq 225</p>
 
-<blockquote><p># asoundconf set-default-card 1 (para activar la 1)</p></blockquote>
+<blockquote><p>~# asoundconf set-default-card 1 (para activar la 1)</p></blockquote>
 
 <p>Editar el fichero /etc/alsa/alsa.conf y poner estas líneas:</p>
 
-<pre><code>defaults.ctl.card 1 
+<p>defaults.ctl.card 1</p>
 
-defaults.pcm.card 1 
+<p>defaults.pcm.card 1</p>
 
-defaults.pcm.device 1 
-</code></pre>
+<p>defaults.pcm.device 1</p>
 
 <p>Los cambios son automáticos, no hay ni que reiniciar el servicio.</p>
 
@@ -392,7 +391,7 @@ defaults.pcm.device 1
 
 <p>Cuando al reiniciar el sonido aparece silenciado:</p>
 
-<blockquote><p># gedit /etc/pulse/default.pa</p></blockquote>
+<blockquote><p>~# gedit /etc/pulse/default.pa</p></blockquote>
 
 <p>Comentar la linea: # load-module module-device-restore</p>
 
@@ -404,34 +403,33 @@ defaults.pcm.device 1
 
 <blockquote><p>$ sudo touch /etc/asound.conf</p>
 
-<p># nano /etc/asound.conf</p></blockquote>
+<p>~# nano /etc/asound.conf</p></blockquote>
 
 <p>Pegar:</p>
 
-<pre><code>pcm.pulse { 
+<p>pcm.pulse {</p>
 
-type pulse 
+<p>type pulse</p>
 
-} 
+<p>}</p>
 
-ctl.pulse { 
+<p>ctl.pulse {</p>
 
-type pulse 
+<p>type pulse</p>
 
-} 
+<p>}</p>
 
-pcm.!default { 
+<p>pcm.!default {</p>
 
-type pulse 
+<p>type pulse</p>
 
-} 
+<p>}</p>
 
-ctl.!default { 
+<p>ctl.!default {</p>
 
-type pulse 
+<p>type pulse</p>
 
-} 
-</code></pre>
+<p>}</p>
 
 <p>Reiniciar.</p>
 
@@ -439,33 +437,33 @@ type pulse
 
 <p>Si Java bloquea el dispositivo de sonido en lugar de usar Pulseaudio</p>
 
-<blockquote><p># cd /usr/lib/jvm/java-6-sun/jre/bin/</p>
+<blockquote><p>~# cd /usr/lib/jvm/java-6-sun/jre/bin/</p>
 
-<p># mv java java.bin</p>
+<p>~# mv java java.bin</p>
 
-<p># nano /usr/lib/jvm/java-6-sun/jre/bin/java</p></blockquote>
+<p>~# nano /usr/lib/jvm/java-6-sun/jre/bin/java</p></blockquote>
 
 <p>Y copiar en su interior:</p>
 
-<blockquote><p>#!/bin/bash</p></blockquote>
+<blockquote><p>~#!/bin/bash</p></blockquote>
 
 <p>padsp /usr/lib/jvm/java-6-sun/jre/bin/java.bin &#8220;$@&#8221;</p>
 
-<blockquote><p># chmod +x java (darle permisos)</p></blockquote>
+<blockquote><p>~# chmod +x java (darle permisos)</p></blockquote>
 
 <p>5.-</p>
 
 <p>Substituir pulseaudio por alsa:</p>
 
-<blockquote><p># apt-add-repository ppa:dtl131/ppa  (Añadir los repositorios gnome-media/applets/settings-daemon)</p>
+<blockquote><p>~# apt-add-repository ppa:dtl131/ppa  (Añadir los repositorios gnome-media/applets/settings-daemon)</p>
 
-<p># apt-get update  (Actualizar el sistema)</p>
+<p>~# apt-get update  (Actualizar el sistema)</p>
 
-<p># apt-get upgrade</p>
+<p>~# apt-get upgrade</p>
 
-<p># apt-get install esound esound-clients esound-common libesd-alsa0 alsa-base alsa-tools alsa-utils alsa-oss linux-sound-base python-alsaaudio gnome-media libsdl1.2debian-alsa  (Instalar paquetes de alsa)</p>
+<p>~# apt-get install esound esound-clients esound-common libesd-alsa0 alsa-base alsa-tools alsa-utils alsa-oss linux-sound-base python-alsaaudio gnome-media libsdl1.2debian-alsa  (Instalar paquetes de alsa)</p>
 
-<p># apt-get purge libcanberra-pulse pulseaudio pulseaudio-esound-compat pulseaudio-module-bluetooth pulseaudio-module-gconf pulseaudio-module-udev pulseaudio-module-x11 gstreamer0.10-pulseaudio pulseaudio-utils pavucontrol  (Desinstalar los paquetes de pulseaudio)</p></blockquote>
+<p>~# apt-get purge libcanberra-pulse pulseaudio pulseaudio-esound-compat pulseaudio-module-bluetooth pulseaudio-module-gconf pulseaudio-module-udev pulseaudio-module-x11 gstreamer0.10-pulseaudio pulseaudio-utils pavucontrol  (Desinstalar los paquetes de pulseaudio)</p></blockquote>
 
 <p>Reiniciar</p>
 </div>
@@ -496,7 +494,7 @@ type pulse
   
 
 
-<time datetime="2013-12-15T16:15:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:19:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -534,7 +532,7 @@ type pulse
   
 
 
-<time datetime="2013-12-15T16:15:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:19:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -543,15 +541,15 @@ type pulse
 
   <div class="entry-content"><p>Sniffer de paquetes y detector de intrusos</p>
 
-<blockquote><p># snort -v -i eth0 (Para inspeccionar el tráfico de una red)</p>
+<blockquote><p>~# snort -v -i eth0 (Para inspeccionar el tráfico de una red)</p>
 
-<p># snort -vde -h 192.168.0.1/24 (Inspeccionar una dirección o rango)</p>
+<p>~# snort -vde -h 192.168.0.1/24 (Inspeccionar una dirección o rango)</p>
 
-<p># snort -vde tcp (especificando protocolo)</p>
+<p>~# snort -vde tcp (especificando protocolo)</p>
 
-<p># snort -v -X -i eth0 port 25 (Especificando un puerto y guardando la información)</p>
+<p>~# snort -v -X -i eth0 port 25 (Especificando un puerto y guardando la información)</p>
 
-<p># snort -v -X -i eth0 -n 5 port 25 (Capturando solo 5 paquetes)</p></blockquote>
+<p>~# snort -v -X -i eth0 -n 5 port 25 (Capturando solo 5 paquetes)</p></blockquote>
 
 <p>La tarjeta de red tiene que estar en modo promiscuo</p>
 
@@ -588,7 +586,7 @@ type pulse
   
 
 
-<time datetime="2013-12-15T16:15:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:19:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -605,17 +603,17 @@ type pulse
 
 <p>$ make</p>
 
-<p># make install</p>
+<p>~# make install</p>
 
-<p># make enable</p></blockquote>
+<p>~# make enable</p></blockquote>
 
 <p>Reiniciar los servicios que tengamos funcionando [apache2, ssh&#8230;]</p>
 
-<blockquote><p># /etc/init.d/ssh restart</p></blockquote>
+<blockquote><p>~# /etc/init.d/ssh restart</p></blockquote>
 
 <p>Monitorizar el archivo log de registro com:</p>
 
-<blockquote><p># tail -f /var/log/auth.log</p></blockquote>
+<blockquote><p>~# tail -f /var/log/auth.log</p></blockquote>
 </div>
   
   
@@ -644,7 +642,7 @@ type pulse
   
 
 
-<time datetime="2013-12-15T16:15:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:19:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -653,13 +651,13 @@ type pulse
 
   <div class="entry-content"><p>Snifer de red. Dado que los informes los despliega en archivos de texto por cada dato, es preferible lanzar la aplicación desde dentro de una carpeta para no llenar todo el directorio de ficheros.</p>
 
-<blockquote><p># sniffit -s 192.168.1.2  (Captura todos los paquetes con origen en la IP)</p>
+<blockquote><p>~# sniffit -s 192.168.1.2  (Captura todos los paquetes con origen en la IP)</p>
 
-<p># sniffit -t 192.168.1.2 (Captura todos los paquetes con destino en la IP)</p>
+<p>~# sniffit -t 192.168.1.2 (Captura todos los paquetes con destino en la IP)</p>
 
-<p># sniffit -b -s 192.168.1.2 (Captura los paquetes con origen y destino en la IP)</p>
+<p>~# sniffit -b -s 192.168.1.2 (Captura los paquetes con origen y destino en la IP)</p>
 
-<p># sniffit -F eth1 -b -s 192.168.1.33 -p 9001 (de un puerto y forzando dispositivo)</p></blockquote>
+<p>~# sniffit -F eth1 -b -s 192.168.1.33 -p 9001 (de un puerto y forzando dispositivo)</p></blockquote>
 </div>
   
   
@@ -681,9 +679,9 @@ type pulse
   
     <section>
 <h1>Número de entradas</h1>
-	<ul>
-	<li>1354</li>
-	</ul>
+        <ul>
+        <li>1354</li>
+        </ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>

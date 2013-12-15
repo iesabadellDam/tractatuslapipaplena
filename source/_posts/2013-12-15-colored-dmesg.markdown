@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "colored_dmesg"
-date: 2013-12-15 16:09
+date: 2013-12-15 18:14
 comments: true
 categories: 
 ---

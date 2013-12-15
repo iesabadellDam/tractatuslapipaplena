@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "electricsheep"
-date: 2013-12-15 16:10
+date: 2013-12-15 18:14
 comments: true
 categories: 
 ---
@@ -11,17 +11,7 @@ salva pantallas (screen saver) de arte abstracto en el que colaboran miles de pe
 
 Añadir la linea al final del apartado:
 
-	....
+....
 
-	- GL:                           companioncube -root                         \n\
-
-	- GL:                           hilbert -root                               \n\
-
-	- GL:                           tronbit -root                               \n\
-
-	                                unicode -root                               \n\
-
-                                	electricsheep                               \n\
-
-Nota.- Los videos se encuentran en ~/.electricsheep en formato .avi
+- GL:                           companioncube -root                         n	- GL:                           hilbert -root                               n	- GL:                           tronbit -root                               n	                                unicode -root                               n                                	electricsheep                               nNota.- Los videos se encuentran en ~/.electricsheep en formato .avi
 

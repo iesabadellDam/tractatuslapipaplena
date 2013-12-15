@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "ssh-keygen"
-date: 2013-12-15 16:15
+date: 2013-12-15 18:19
 comments: true
 categories: 
 ---
@@ -17,7 +17,7 @@ Creación, gestión y conversión de claves utilizadas para la autenticación de
 
 Para ver la huella digital cada vez que se ingresa en un host remoto:
 
->\# nano /etc/ssh/ssh_config
+>~# nano /etc/ssh/ssh_config
 
 Descomentar la linea y dejarla:
 

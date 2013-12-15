@@ -1,55 +1,55 @@
 ---
 layout: post
 title: "grub2"
-date: 2013-12-15 16:11
+date: 2013-12-15 18:15
 comments: true
 categories: 
 ---
-Gestor de arranque. Los dispositivos empiezan por 0 y las particiones empiezan con 1. “sda1” es “hd0,1” y no “hd0,0” como en el antiguo grub. 
+Gestor de arranque. Los dispositivos empiezan por 0 y las particiones empiezan con 1. “sda1” es “hd0,1” y no “hd0,0” como en el antiguo grub.
 
 1.-
 
 Modificación de parámetros generales:
 
->\# gedit /etc/default/grub
+>~# gedit /etc/default/grub
 
-	GRUB_DEFAULT= 0/saved (0 selecciona primera entrada, 1 la segunda... "saved" selecciona la última entrada  ejecutada.) 
+GRUB_DEFAULT= 0/saved (0 selecciona primera entrada, 1 la segunda... "saved" selecciona la última entrada  ejecutada.)
 
-	GRUB_TIMEOUT=10 (tiempo de espera antes de arrancar) 
+GRUB_TIMEOUT=10 (tiempo de espera antes de arrancar)
 
-	GRUB_HIDDEN_TIMEOUT=0  (esconder el menú de entradas. Si hay varios sistemas comentarlo) 
+GRUB_HIDDEN_TIMEOUT=0  (esconder el menú de entradas. Si hay varios sistemas comentarlo)
 
-	GRUB_HIDDEN_MENU_QUIET=true (oculta la cuenta atrás. "false" la muestra) 
+GRUB_HIDDEN_MENU_QUIET=true (oculta la cuenta atrás. "false" la muestra)
 
-	GRUB_DISTRIBUTOR=lsb_release -i -s 2> /dev/null || echo Debian (determina el nombre del sistema) 
+GRUB_DISTRIBUTOR=lsb_release -i -s 2> /dev/null || echo Debian (determina el nombre del sistema)
 
-	GRUB_CMDLINE_LINUX="acpi_osi=Linux" (opciones concretas que pueden pasarse al arranque) 
+GRUB_CMDLINE_LINUX="acpi_osi=Linux" (opciones concretas que pueden pasarse al arranque)
 
-	GRUB_CMDLINE_LINUX_DEFAULT="splash noapic" (otras opciones por defecto) 
+GRUB_CMDLINE_LINUX_DEFAULT="splash noapic" (otras opciones por defecto)
 
-	GRUB_GFXMODE=1024x768 (activa el grub gráfico) 
+GRUB_GFXMODE=1024x768 (activa el grub gráfico)
 
-	GRUB_DISABLE_LINUX_RECOVERY="true" (muestra la opción de recovery mode en el menú. “false lo suprime) 
+GRUB_DISABLE_LINUX_RECOVERY="true" (muestra la opción de recovery mode en el menú. “false lo suprime)
 
->\# update-grub2   (hacer efectivos los cambios)
+>~# update-grub2   (hacer efectivos los cambios)
 
 2.-
 
-Para que no aparezca memtest en el menú: 
+Para que no aparezca memtest en el menú:
 
->\# chmod -x /etc/grub.d/20_memtest86+  
+>~# chmod -x /etc/grub.d/20_memtest86+
 
 El mismo comando con “+x” lo restituye.
 
->\# update-grub2
+>~# update-grub2
 
 3.-
 
 Quitar lineas que hacen referencia a kernels antiguos:
 
->\# dpkg --get-selections | grep linux-image  (averiguar los instalados)
+>~# dpkg --get-selections | grep linux-image  (averiguar los instalados)
 
->\# apt-get remove --purge linux-image-2.6.xx-xx-generic 
+>~# apt-get remove --purge linux-image-2.6.xx-xx-generic
 
 El update-grub2 se hará de forma automática.
 
@@ -59,67 +59,67 @@ Cambiar la imagen de fondo [apt-get install grub2-splashimages]. Si se quieren h
 
 >$ ls /usr/share/images/grub   (directorio de la imágenes)
 
->\# gedit /etc/grub.d/05_debian_theme 
+>~# gedit /etc/grub.d/05_debian_theme
 
 Y modificamos en la linea:
 
-WALLPAPER="/usr/share/images/grub/Lake_mapourika_NZ.tga" 
+WALLPAPER="/usr/share/images/grub/Lake_mapourika_NZ.tga"
 
->\# update-grub2 
+>~# update-grub2
 
 5.-
 
 Reinstalar grub2 desde un live-cd o desde otra partición.
 
->\# fdisk -l   (para saber la partición del grub que queremos instalar) 
+>~# fdisk -l   (para saber la partición del grub que queremos instalar)
 
->\# mount /dev/sda2 /media/sda2  (motar la partición)
+>~# mount /dev/sda2 /media/sda2  (motar la partición)
 
->\# mount -o bind /dev/ /media/sda2/dev/  (montar los sistemas de ficheros)
+>~# mount -o bind /dev/ /media/sda2/dev/  (montar los sistemas de ficheros)
 
->\# mount -o bind /sys/ /media/sda2/sys/
+>~# mount -o bind /sys/ /media/sda2/sys/
 
->\# mount -o bind /proc/ /media/sda2/proc/ 
+>~# mount -o bind /proc/ /media/sda2/proc/
 
->\# chroot /media/sda2    (Chorootear la partición que alberga el grub que vamos a instalar)
+>~# chroot /media/sda2    (Chorootear la partición que alberga el grub que vamos a instalar)
 
->\# grub-install /dev/sda   (instalar grub en el disco)
+>~# grub-install /dev/sda   (instalar grub en el disco)
 
 6.-
 
-Para solucionar el problema de que al arrancar un sistema operativo la pantalla no muestra nada, editar el archivo: 
+Para solucionar el problema de que al arrancar un sistema operativo la pantalla no muestra nada, editar el archivo:
 
->\# nano /etc/default/grub 
+>~# nano /etc/default/grub
 
-Y en la linea: 
+Y en la linea:
 
-GRUB_CMDLINE_LINUX_DEFAULT="quiet" 
+GRUB_CMDLINE_LINUX_DEFAULT="quiet"
 
-Añadir el chipset de vuestra gráfica: 
+Añadir el chipset de vuestra gráfica:
 
-	General (para cualquier gráfica): nomodeset 
+General (para cualquier gráfica): nomodeset
 
-	ATI (driver libre ati o radeon): radeon.modeset=0 
+ATI (driver libre ati o radeon): radeon.modeset=0
 
-	ATI (driver privativo): nomodeset 
+ATI (driver privativo): nomodeset
 
-	nVidia: xforcevesa o nomodeset 
+nVidia: xforcevesa o nomodeset
 
-	Nvidia con driver libre (nouveau): nouveau.modeset=0 
+Nvidia con driver libre (nouveau): nouveau.modeset=0
 
-	Intel: i915.modeset=0 
+Intel: i915.modeset=0
 
-Quedando la entrada, por ejemplo para una Intel; como sigue: 
+Quedando la entrada, por ejemplo para una Intel; como sigue:
 
-	GRUB_CMDLINE_LINUX_DEFAULT="quiet i915.modeset=0"
+GRUB_CMDLINE_LINUX_DEFAULT="quiet i915.modeset=0"
 
 7.-
 
 Modificar los colores de las fuentes para adaptarlas a las imágenes mostradas.
 
->\# gedit /etc/grub.d/05_debian_theme
+>~# gedit /etc/grub.d/05_debian_theme
 
-y modificar las líneas 
+y modificar las líneas
 
 set menu_color_normal=white/black
 
@@ -133,29 +133,29 @@ El primero de los 2 colores de cada uno de estos campos se refiere al color de l
 
 Colores permitidos:
 
-	red (rojo)
+red (rojo)
 
-	green (verde) 
+green (verde)
 
-	blue (azul)
+blue (azul)
 
-	yellow (amarillo)
+yellow (amarillo)
 
-	cyan (cian)
+cyan (cian)
 
-	magenta (magenta)
+magenta (magenta)
 
-	white (blanco)
+white (blanco)
 
-	black (negro) 
+black (negro)
 
-	light-gray (gris claro)
+light-gray (gris claro)
 
 8.-
 
 Colocar contraseña a grub2 para dos usuarios:
 
->\# nano /etc/grub.d/00_header
+>~# nano /etc/grub.d/00_header
 
 Colocar al final:
 
@@ -171,71 +171,71 @@ EOF
 
 9.-
 
-Para que en el grub2 salga la partición de windows del sistema pero no otras particiones ntfs (de recuperación, HP, ….) 
+Para que en el grub2 salga la partición de windows del sistema pero no otras particiones ntfs (de recuperación, HP, ….)
 
->$ gedit /boot/grub/grub.cfg 
+>$ gedit /boot/grub/grub.cfg
 
-Copiar el menuentry perteneciente a la partición windows (no la de recuperación) y pastearla en: 
+Copiar el menuentry perteneciente a la partición windows (no la de recuperación) y pastearla en:
 
->\# gedit /etc/grub.d/40_custom 
+>~# gedit /etc/grub.d/40_custom
 
-Luego: 
+Luego:
 
->\# gedit /etc/default/grub 
+>~# gedit /etc/default/grub
 
 Y añadir al final del archivo la linea:
 
-GRUB_DISABLE_OS_PROBER=true 
+GRUB_DISABLE_OS_PROBER=true
 
-Recargar grub: 
+Recargar grub:
 
->\# update-grub 
+>~# update-grub
 
 Nota.- Las entradas de 40_custom no se muestran en la salida de la consola pero quedan reflejadas en el grub.cfg
 
-10.- 
+10.-
 
-Poner contraseña a grub2 
+Poner contraseña a grub2
 
->\# grub-mkpasswd-pbkdf2 (Crear la contraseña encriptada en SHA512) 
+>~# grub-mkpasswd-pbkdf2 (Crear la contraseña encriptada en SHA512)
 
->\# nano /etc/grub.d/00_header 
+>~# nano /etc/grub.d/00_header
 
-Y colocar al final del archivo: 
+Y colocar al final del archivo:
 
-cat << EOF 
+cat << EOF
 
-set superusers="usuario" 
+set superusers="usuario"
 
-password_pbkdf2 usuario contraseña_SHA512 
+password_pbkdf2 usuario contraseña_SHA512
 
-EOF 
+EOF
 
->\# nano /etc/grub.d/10_linux 
+>~# nano /etc/grub.d/10_linux
 
-Buscar la linea: 
+Buscar la linea:
 
-printf "menuentry '${title}' ${CLASS} {\n" "${os}" "${version}" 
+printf "menuentry '${title}' ${CLASS} {n" "${os}" "${version}"
 
-Y colocar al usuario al final de {CLASS}: 
+Y colocar al usuario al final de {CLASS}:
 
-printf "menuentry '${title}' ${CLASS} --users usuario {\n" "${os}" "${version}" 
+printf "menuentry '${title}' ${CLASS} --users usuario {n" "${os}" "${version}"
 
->\# update-grub
+>~# update-grub
 
 11.-
 
 Entrar como root desde grub sin contraseña:
 
-	1.- Cuando sale el menú de grub desplazarse al sistema que se quiere arrancar y pulsar la letra "e"
+1.- Cuando sale el menú de grub desplazarse al sistema que se quiere arrancar y pulsar la letra "e"
 
-	2.- moverse a la linea del kernel
+2.- moverse a la linea del kernel
 
 En este punto puede optarse por dos soluciones:
 
-	a) borrar todo desde después de "ro" hasta el final y colocar init=/bin/bash [linux   /boot/vmlinuz-3.2.0-4-amd64 root=UUID=de1d7793-c3d2-4e03-b79d-1a76905619e6 ro init=/bin/bash ]. El teclado estará en inglés.
+a) borrar todo desde después de "ro" hasta el final y colocar init=/bin/bash [linux   /boot/vmlinuz-3.2.0-4-amd64 root=UUID=de1d7793-c3d2-4e03-b79d-1a76905619e6 ro init=/bin/bash ]. El teclado estará en inglés.
 
-	b) ponemos al final de la linea "single" [linux   /boot/vmlinuz-3.2.0-4-amd64 root=UUID=de1d7793-c3d2-4e03-b79d-1a76905619e6 ro  quiet single ]
+b) ponemos al final de la linea "single" [linux   /boot/vmlinuz-3.2.0-4-amd64 root=UUID=de1d7793-c3d2-4e03-b79d-1a76905619e6 ro  quiet single ]
 
 Y proseguir con el arranque pulsando F10 o Ctrl+x con lo que el sistema iniciará con una consola root.
 

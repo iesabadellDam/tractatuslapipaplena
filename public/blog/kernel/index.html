@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="1.- Suprimir kernels antiguos # uname -r (para conocer el último) # dpkg &#8211;get-selections | egrep linux-image linux-image-2.6.17-11-generic &hellip;">
+  <meta name="description" content="1.- Suprimir kernels antiguos ~# uname -r (para conocer el último) ~# dpkg &#8211;get-selections | egrep linux-image linux-image-2.6.17-11-generic &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -94,7 +94,7 @@
   
 
 
-<time datetime="2013-12-15T16:12:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:16:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -105,9 +105,9 @@
 
 <p>Suprimir kernels antiguos</p>
 
-<blockquote><p># uname -r   (para conocer el último)</p>
+<blockquote><p>~# uname -r   (para conocer el último)</p>
 
-<p># dpkg &#8211;get-selections | egrep linux-image</p></blockquote>
+<p>~# dpkg &#8211;get-selections | egrep linux-image</p></blockquote>
 
 <p>linux-image-2.6.17-11-generic install</p>
 
@@ -117,7 +117,7 @@
 
 <p>Dejar el actual y suprimir los otros:</p>
 
-<blockquote><p># apt-get remove &#8211;purge linux-image-2.6.17-11-generic</p></blockquote>
+<blockquote><p>~# apt-get remove &#8211;purge linux-image-2.6.17-11-generic</p></blockquote>
 
 <p>2.-</p>
 
@@ -133,15 +133,15 @@
 
 <p>La instalación se realiza en el mismo orden de descarga:</p>
 
-<blockquote><p># gdebi linux-headers-3.3.6-030306_3.3.6-030306.201205121335_all.deb</p>
+<blockquote><p>~# gdebi linux-headers-3.3.6-030306_3.3.6-030306.201205121335_all.deb</p>
 
-<p># gedbi linux-headers-3.3.6-030306-generic_3.3.6-030306.201205121335_amd64.deb</p>
+<p>~# gedbi linux-headers-3.3.6-030306-generic_3.3.6-030306.201205121335_amd64.deb</p>
 
-<p># gedbi linux-image-3.3.6-030306-generic_3.3.6-030306.201205121335_amd64.deb</p></blockquote>
+<p>~# gedbi linux-image-3.3.6-030306-generic_3.3.6-030306.201205121335_amd64.deb</p></blockquote>
 
 <p>Después de la instalación del kernel, instalar los drivers privativos tipo nvidia o ati. Y actualizar grub:</p>
 
-<blockquote><p># update-grub</p></blockquote>
+<blockquote><p>~# update-grub</p></blockquote>
 
 <p>3.-</p>
 
@@ -149,23 +149,23 @@
 
 <p>Compilar el kernel desde el codigo fuente. Puede ser util para habilitar soporte para algun nuevo periferico no soportado por el kernel por defecto. Escoger la ultima version del nucleo estable de kernel.org. Para el ejemplo usaremos la 3.9.11.</p>
 
-<blockquote><p># cd /usr/src</p>
+<blockquote><p>~# cd /usr/src</p>
 
-<p># wget https://www.kernel.org/pub/linux/kernel/v3.x/linux-3.9.11.tar.gz</p>
+<p>~# wget https://www.kernel.org/pub/linux/kernel/v3.x/linux-3.9.11.tar.gz</p>
 
-<p># tar -zxvf linux-3.9.11.tar.gz</p>
+<p>~# tar -zxvf linux-3.9.11.tar.gz</p>
 
-<p># cd linux-3.9.11</p>
+<p>~# cd linux-3.9.11</p>
 
-<p># make menuconfig/</p></blockquote>
+<p>~# make menuconfig/</p></blockquote>
 
 <p>Mostrara las opciones de configuracion por defecto que podran ser modificadas para nuestra maquina especifica. Una vez terminado, &#8220;guardar&#8221; como .config</p>
 
-<blockquote><p># make (Compilar)</p>
+<blockquote><p>~# make (Compilar)</p>
 
-<p># make modules_install (Instalar los modulos)</p>
+<p>~# make modules_install (Instalar los modulos)</p>
 
-<p># make install (Instalar el nuevo kernel en el sistema)</p></blockquote>
+<p>~# make install (Instalar el nuevo kernel en el sistema)</p></blockquote>
 
 <p>La instalacion ya modifica el grub.cfg para que el sistema arranque con el nuevo kernel. Si este da problemas puede escogerse para el arranque el antiguo que constara en el menu de Grub. Puede verificarse el nuevo kernel con:</p>
 
@@ -175,8 +175,7 @@
 
 <p>Borrar kernels antiguos de forma automática:</p>
 
-<pre><code># apt-get purge $(dpkg -l 'linux-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/\(.*\)-\([^0-9]\+\)/\1/")"'/d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/;/[0-9]/!d' | head -n -1) --assume-yes 
-</code></pre>
+<h1>apt-get purge $(dpkg -l &#8216;linux-<em>&#8217; | sed &#8216;/<sup>ii/!d;/&#8217;&#8221;$(uname</sup> -r | sed &#8220;s/(.</em>)-([<sup>0-9]+)/1/&#8221;)&#8221;&#8217;/d;s/<sup>[^</sup></sup> ]<em> [^ ]</em> ([^ ]<em>).</em>/1/;/[0-9]/!d&#8217; | head -n -1) &#8211;assume-yes</h1>
 </div>
 
 
@@ -199,7 +198,7 @@
   
 
 
-<time datetime="2013-12-15T16:12:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:16:00+01:00" pubdate data-updated="true">15-12-2013</time>
       
 
 
@@ -231,9 +230,9 @@
   
     <section>
 <h1>Número de entradas</h1>
-	<ul>
-	<li>1354</li>
-	</ul>
+        <ul>
+        <li>1354</li>
+        </ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>

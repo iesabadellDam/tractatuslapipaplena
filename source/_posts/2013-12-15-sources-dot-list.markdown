@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "sources.list"
-date: 2013-12-15 16:15
+date: 2013-12-15 18:19
 comments: true
 categories: 
 ---
@@ -29,5 +29,5 @@ restricted (soportados por los desarrolladores de Ubuntu pero o bien no cumplen 
 
 Universe (Programas mantenidos por la comunidad)
 
-Multiverse (Programas comerciales o privativos de terceras empresas o fabricantes) 
+Multiverse (Programas comerciales o privativos de terceras empresas o fabricantes)
 

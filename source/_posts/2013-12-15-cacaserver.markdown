@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "cacaserver"
-date: 2013-12-15 16:09
+date: 2013-12-15 18:13
 comments: true
 categories: 
 ---
@@ -15,5 +15,5 @@ En el servidor:
 
 En el remoto:
 
->$ telnet IP_o_Host 51914 
+>$ telnet IP_o_Host 51914
 

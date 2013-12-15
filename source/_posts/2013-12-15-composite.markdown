@@ -1,13 +1,13 @@
 ---
 layout: post
 title: "composite"
-date: 2013-12-15 16:10
+date: 2013-12-15 18:14
 comments: true
 categories: 
 ---
 Mezclar dos imágenes por consola
 
->$ composite -geometry 96x96+250+70 delante.jpg fondo.jpg imagen.jpg 
+>$ composite -geometry 96x96+250+70 delante.jpg fondo.jpg imagen.jpg
 
 >$ composite -dissolve 50 -gravity Center una.png  dos.png salida.png
 
@@ -23,7 +23,7 @@ Mezclar dos imágenes por consola
 
 opciones:
 
-dissolve.- Indica el grado de fusión entre una y otra imagen. 
+dissolve.- Indica el grado de fusión entre una y otra imagen.
 
 gravity .- Indica dónde se mezclan las imágenes. Valores: SorthWest, North, NorthEast, West, Center, East, SouthWest, South y SouthEast
 

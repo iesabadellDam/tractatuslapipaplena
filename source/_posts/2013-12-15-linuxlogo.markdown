@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "linuxlogo"
-date: 2013-12-15 16:12
+date: 2013-12-15 18:16
 comments: true
 categories: 
 ---
@@ -17,5 +17,5 @@ Muestra datos de la cpu junto al logo de distintas distros. Listado en /etc/linu
 
 >$ linuxlogo -L random_ba (aleatorio y en ascii)
 
->$ linuxlogo -L redhat -F "Redhat linux 5.2\nkernel version 3.2.0-4-amd64" (Especificando logo y texto)
+>$ linuxlogo -L redhat -F "Redhat linux 5.2nkernel version 3.2.0-4-amd64" (Especificando logo y texto)
 

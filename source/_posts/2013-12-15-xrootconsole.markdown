@@ -1,13 +1,13 @@
 ---
 layout: post
 title: "xrootconsole"
-date: 2013-12-15 16:16
+date: 2013-12-15 18:20
 comments: true
 categories: 
 ---
 Mostrar un archivo en la pantalla del escritorio.
 
->$ xrootconsole archivo 
+>$ xrootconsole archivo
 
 >$ xrootconsole -bg black -fg red (especificando color de fondo y letra)
 

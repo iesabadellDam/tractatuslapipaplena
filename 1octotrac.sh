@@ -54,7 +54,7 @@ git pull
 echo
 cd $DIR
 cat $HOME/tractatus/tractatus.txt | sed '1d' > 0-file1.txt
-cat 0-file1.txt | sed -e 's/^[#]/>\\#/' -e 's/^[$]/>$/' -e 's/^[<]/\t\</' >> 0-file1.md
+cat 0-file1.txt | sed -e 's/^[#]/>\\~#/' -e 's/^[$]/>$/' -e 's/^[<]/\t\</' >> 0-file1.md
 cd $FILES
 ESTAT=1 # 1 - Linia en blanc, 2- comanda, 
 COMANDA=""
@@ -112,8 +112,9 @@ then
                         else
                                 color " << No efectuo cambios... salir... >> "
 								echo
-#                                rm -R $DIRNUEVO
-                                exit
+                                rm -R $DIRNUEVO
+                        	rm @(0-*.md|0-*.txt) 2>/dev/null
+				exit
                         fi
                         for linea in `cat 0-cambios.txt`; do
                                 let numero+=1
@@ -141,7 +142,7 @@ fi
 ## Borrar ficheros usados
 echo
 color "<< ....Actualizado el directorio y eliminados ficheros temporales... >>"
-#rm @(0-*.md|0-*.txt) 2>/dev/null
+rm @(0-*.md|0-*.txt) 2>/dev/null
 echo
 ## Colocar en el sidebar el número do entradas
 ENTRADAS=$(ls $FILES/* | wc -l)

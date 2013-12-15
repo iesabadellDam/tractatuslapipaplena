@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Permite visualizar o limitar los recursos del sistema. # ulimit -f 512000 (limita a los usuarios para que no puedan crear archivos de mayor tamaño &hellip;">
+  <meta name="description" content="Permite visualizar o limitar los recursos del sistema. ~# ulimit -f 512000 (limita a los usuarios para que no puedan crear archivos de mayor tamaño &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -94,7 +94,7 @@
   
 
 
-<time datetime="2013-12-15T16:15:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:19:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -103,59 +103,61 @@
 
 <div class="entry-content"><p>Permite  visualizar o limitar los recursos del sistema.</p>
 
-<blockquote><p># ulimit -f 512000 (limita a los usuarios para que no puedan crear archivos de mayor tamaño que 512000 Kb [500 #Mb])</p>
+<blockquote><p>~# ulimit -f 512000 (limita a los usuarios para que no puedan crear archivos de mayor tamaño que 512000 Kb [500 #Mb])</p>
 
 <p>$ ulimit -a   (ver todos los parámetros)</p></blockquote>
 
 <p>Parámetros:</p>
 
-<pre><code>core (Tamaño máximo de los ficheros core [KB])
+<p>core (Tamaño máximo de los ficheros core [KB])</p>
 
-data (Tamaño máximo para el segmento de datos [KB])
+<p>data (Tamaño máximo para el segmento de datos [KB])</p>
 
-fsize (Tamaño máximo para los ficheros [KB])
+<p>fsize (Tamaño máximo para los ficheros [KB])</p>
 
-memlock (Tamaño máximo para el espacio de direcciones bloqueado en memoria [KB])
+<p>memlock (Tamaño máximo para el espacio de direcciones bloqueado en memoria [KB])</p>
 
-nofile (Número máximo de ficheros abiertos)
+<p>nofile (Número máximo de ficheros abiertos)</p>
 
-rss (Tamaño máximo del conjunto residente en memoria [KB])
+<p>rss (Tamaño máximo del conjunto residente en memoria [KB])</p>
 
-stack (Tamaño máximo para la pila [KB])
+<p>stack (Tamaño máximo para la pila [KB])</p>
 
-cpu (Tiempo máximo de CPU [minutos])
+<p>cpu (Tiempo máximo de CPU [minutos])</p>
 
-nproc (Número máximo de procesos)
+<p>nproc (Número máximo de procesos)</p>
 
-as (Límite en el espacio de direcciones)
+<p>as (Límite en el espacio de direcciones)</p>
 
-maxlogins (Número máximo de logins)
+<p>maxlogins (Número máximo de logins)</p>
 
-priority (Prioridad de base para los procesos del usuario)
+<p>priority (Prioridad de base para los procesos del usuario)</p>
 
-locks (Número máximo de ficheros bloqueados que el usuario puede mantener)
-</code></pre>
+<p>locks (Número máximo de ficheros bloqueados que el usuario puede mantener)</p>
 
 <p>Nota.- El ámbito de aplicación del límite puede ser un nombre de usuario, un grupo (@grupo) o todos (*)</p>
 
 <p>Un ejemplo de limit.conf:</p>
 
-<pre><code>*               soft    nproc           10000
+<ul>
+<li><pre><code>        soft    nproc           10000
+</code></pre></li>
+<li><pre><code>        hard    nproc           4096
+</code></pre></li>
+<li><pre><code>        soft    core            unlimited
+</code></pre></li>
+<li><pre><code>        hard    core            unlimited
+</code></pre></li>
+<li><pre><code>        soft    memlock         131072
+</code></pre></li>
+<li><pre><code>        hard    memlock         131072
+</code></pre></li>
+<li><pre><code>        soft    nofile          102400
+</code></pre></li>
+<li><pre><code>        hard    nofile          102400
+</code></pre></li>
+</ul>
 
-*               hard    nproc           4096
-
-*               soft    core            unlimited
-
-*               hard    core            unlimited
-
-*               soft    memlock         131072
-
-*               hard    memlock         131072
-
-*               soft    nofile          102400
-
-*               hard    nofile          102400
-</code></pre>
 
 <p>1.-</p>
 
@@ -167,7 +169,7 @@ locks (Número máximo de ficheros bloqueados que el usuario puede mantener)
 
 <p>El resultado es “ilimitado” o un valor extremadamente alto, podemos ser victimas de los forkbombs. Para resolverlo podemos limitar el número de procesos abiertos a 1000 para que estos no puedan llegar a colapsar el sistema:</p>
 
-<blockquote><p># gedit /etc/security/limits.conf</p></blockquote>
+<blockquote><p>~# gedit /etc/security/limits.conf</p></blockquote>
 
 <p>Añadir antes de “End of file”:   * hard nproc 1000</p>
 
@@ -177,25 +179,32 @@ locks (Número máximo de ficheros bloqueados que el usuario puede mantener)
 
 <p>En ciertas ocasiones, al procesar muchos archivos, se produce un error &#8220;for output (Too many open files)&#8221; porque se desborda el limite de 1024 k. Para solucionarlo:</p>
 
-<blockquote><p># nano /etc/security/limits.conf</p></blockquote>
+<blockquote><p>~# nano /etc/security/limits.conf</p></blockquote>
 
 <p>Y añadir las siguientes lineas:</p>
 
-<pre><code>*    soft    nofile    9000
+<ul>
+<li><p> soft    nofile    9000</p></li>
+<li><p> hard    nofile    65000</p></li>
+</ul>
 
-*    hard    nofile    65000
-</code></pre>
 
 <p>3.-</p>
 
 <p>Limitar la cantidad de usuarios conectados al sistema:</p>
 
-<blockquote><p># nano /etc/security/limits.conf</p></blockquote>
+<blockquote><p>~# nano /etc/security/limits.conf</p></blockquote>
 
 <p>Y en el parámetro maxlogins modificamos el número que deseemos:</p>
 
-<pre><code>*    -       maxlogins 3
-</code></pre>
+<ul>
+<li><ul>
+<li><pre><code> maxlogins 3
+</code></pre></li>
+</ul>
+</li>
+</ul>
+
 </div>
 
 
@@ -218,7 +227,7 @@ locks (Número máximo de ficheros bloqueados que el usuario puede mantener)
   
 
 
-<time datetime="2013-12-15T16:15:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:19:00+01:00" pubdate data-updated="true">15-12-2013</time>
       
 
 
@@ -250,9 +259,9 @@ locks (Número máximo de ficheros bloqueados que el usuario puede mantener)
   
     <section>
 <h1>Número de entradas</h1>
-	<ul>
-	<li>1354</li>
-	</ul>
+        <ul>
+        <li>1354</li>
+        </ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>

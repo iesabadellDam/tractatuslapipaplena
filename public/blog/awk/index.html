@@ -94,7 +94,7 @@
   
 
 
-<time datetime="2013-12-15T16:09:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:13:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -107,264 +107,222 @@
 
 <blockquote><p>$ cat lista</p></blockquote>
 
-<pre><code>Juan Gomez 6 10 banco 
+<p>Juan Gomez 6 10 banco</p>
 
-Clara Fuentes 7 12 banco 
+<p>Clara Fuentes 7 12 banco</p>
 
-Antonio Cano 6 13 metálico 
+<p>Antonio Cano 6 13 metálico</p>
 
-José Bueno 7 0 banco 
+<p>José Bueno 7 0 banco</p>
 
-Matías Crespo 5 8 metálico 
+<p>Matías Crespo 5 8 metálico</p>
 
-Isabel Ruiz 7 0 metálico 
+<p>Isabel Ruiz 7 0 metálico</p>
 
-María Monzón 9 16 metálico
-</code></pre>
+<p>María Monzón 9 16 metálico</p>
 
 <p>Imprimir la segunda columna (Apellidos):</p>
 
-<pre><code>$ awk ' { print $2 } ' lista
-</code></pre>
+<p>$ awk &#8217; { print $2 } &#8217; lista</p>
 
 <p>Imprimir la última columna:</p>
 
-<pre><code>$ awk ' { print $NF } ' lista
-</code></pre>
+<p>$ awk &#8217; { print $NF } &#8217; lista</p>
 
 <p>Imprimir la linea 3:</p>
 
-<pre><code>$ awk ' NR == 3 ' lista
-</code></pre>
+<p>$ awk &#8217; NR == 3 &#8217; lista</p>
 
 <p>Imprimir todo menos la primera columna:</p>
 
-<pre><code>$ awk ' { $1 = "" ; print } ' lista
-</code></pre>
+<p>$ awk &#8217; { $1 = &#8220;&#8221; ; print } &#8217; lista</p>
 
 <p>Imprimir las columnas tabuladas:</p>
 
-<pre><code>$ awk ' { print $1 “\t” $2 “\t” $3 “\t” $4 } ' lista
-</code></pre>
+<p>$ awk &#8217; { print $1 “t” $2 “t” $3 “t” $4 } &#8217; lista</p>
 
 <p>Imprimir las lineas que tengan menos de 22 caracteres:</p>
 
-<pre><code>$ awk 'length($0) &lt; 22' lista
-</code></pre>
+<p>$ awk &#8216;length($0) &lt; 22&#8217; lista</p>
 
 <p>Calcular el sueldo de los empleados que han trabajado:</p>
 
-<pre><code>$ awk ' $4 &gt; 0 { print $1,$2, $3*$4} ' lista  
-</code></pre>
+<p>$ awk &#8217; $4 > 0 { print $1,$2, $3*$4} &#8217; lista</p>
 
 <p>Personas que no han trabajado:</p>
 
-<pre><code>$ awk ' $3 == 0 { print $1}' lista 
-</code></pre>
+<p>$ awk &#8217; $3 == 0 { print $1}&#8217; lista</p>
 
 <p>Buscar una entrada concreta:</p>
 
-<pre><code>$ awk '/Fuentes/ { print $0 }' lista
-</code></pre>
+<p>$ awk &#8216;/Fuentes/ { print $0 }&#8217; lista</p>
 
 <p>Buscar los que cobran en metálico e impimir la 2ª columna:</p>
 
-<pre><code>$ awk ' /'metálico'/ {print$2}' lista 
-</code></pre>
+<p>$ awk &#8217; /&#8217;metálico&#8217;/ {print$2}&#8217; lista</p>
 
 <p>Buscar dos entradas en una misma linea separándolas con punto y coma (;):</p>
 
-<pre><code>$ awk '/Fuentes/ { print $0 }; /Cano/ { print$0 } ' lista
-</code></pre>
+<p>$ awk &#8216;/Fuentes/ { print $0 }; /Cano/ { print$0 } &#8217; lista</p>
 
 <p>Imprimir lineas que tengan alguno de los campos o los dos:</p>
 
-<pre><code>$ awk '/Bueno/ || /Cano/' lista
-</code></pre>
+<p>$ awk &#8216;/Bueno/ || /Cano/&#8217; lista</p>
 
 <p>Imprimir lineas que tengan los dos campos:</p>
 
-<pre><code>$ awk '/Bueno/ &amp;&amp; /7/' lista
-</code></pre>
+<p>$ awk &#8216;/Bueno/ &amp;&amp; /7/&#8217; lista</p>
 
 <p>Imprimir las lineas que no tengan el cammpo:</p>
 
-<pre><code>$ awk '! /metálico/' lista
-</code></pre>
+<p>$ awk &#8216;! /metálico/&#8217; lista</p>
 
 <p>Buscar las entradas en las que el primer campo empiece por “J”, imprimir el 2º campo y, entre parentesis el último:</p>
 
-<pre><code>$ awk '$1 ~ /^J/ {print$2, "("$NF")"}' lista
-</code></pre>
+<p>$ awk &#8216;$1 ~ /<sup>J/</sup> {print$2, &#8220;(&#8220;$NF&#8221;)&#8221;}&#8217; lista</p>
 
 <p>Lo mismo con if:</p>
 
-<pre><code>$ awk ' { if ($1 ~ /^J/) print$2, “(“$NF”)” }' lista
-</code></pre>
+<p>$ awk &#8217; { if ($1 ~ /<sup>J/)</sup> print$2, “(“$NF”)” }&#8217; lista</p>
 
 <p>Añadir 5 horas al 4º campo y comprobar como quedan con la modificación:</p>
 
-<pre><code>$ awk '{ $4 = ($4+5); print $0 }' lista
-</code></pre>
+<p>$ awk &#8216;{ $4 = ($4+5); print $0 }&#8217; lista</p>
 
 <p>Añadir un nuevo campo ($6) con el producto del 3 y el 4:</p>
 
-<pre><code>$ awk '{ $6 = ($3*$4); print $0 }' lista
-</code></pre>
+<p>$ awk &#8216;{ $6 = ($3*$4); print $0 }&#8217; lista</p>
 
 <p>print permite colocar texto:</p>
 
-<pre><code>$ awk ' { print "El sueldo de ",$2," es de ",$3*$4," euros."} ' lista 
-</code></pre>
+<p>$ awk &#8217; { print &#8220;El sueldo de &#8220;,$2,&#8221; es de &#8220;,$3*$4,&#8221; euros.&#8221;} &#8217; lista</p>
 
 <p>Mostar las veces que aparece &#8220;banco&#8221;:</p>
 
-<pre><code>awk 'BEGIN { print "Veces que aparece banco" }
+<p>awk &#8216;BEGIN { print &#8220;Veces que aparece banco&#8221; }</p>
 
-&gt;        /banco/ { ++banco }
+<blockquote><pre><code>   /banco/ { ++banco }
 
-&gt;         END       { print "banco aparece " banco " veces." }' lista
-</code></pre>
+    END       { print "banco aparece " banco " veces." }' lista
+</code></pre></blockquote>
 
 <p><strong>Variables internas:</strong></p>
 
 <p>Mostrar el número de campos de cada linea (NF):</p>
 
-<pre><code>$ awk ' { print NF } ' lista 
-</code></pre>
+<p>$ awk &#8217; { print NF } &#8217; lista</p>
 
 <p>Mostrar el número de lineas (NR):</p>
 
-<pre><code>$ awk ' { print NR } ' lista
-</code></pre>
+<p>$ awk &#8217; { print NR } &#8217; lista</p>
 
 <p>Mostrar todas las lineas completas ($0):</p>
 
-<pre><code>$ awk ' { print $0 } ' lista 
-</code></pre>
+<p>$ awk &#8217; { print $0 } &#8217; lista</p>
 
 <p>Mostrar las lineas que tengan al menos un campo</p>
 
-<pre><code>$ awk 'NF &gt; 0' lista
-</code></pre>
+<p>$ awk &#8216;NF > 0&#8217; lista</p>
 
 <p>Lo mismo con if:</p>
 
-<pre><code>$ awk '{ if (NF &gt; 0) print }' lista
-</code></pre>
+<p>$ awk &#8216;{ if (NF > 0) print }&#8217; lista</p>
 
 <p>Dar formato a la salida de datos:</p>
 
-<pre><code>$ awk ' $4 &gt; 0 { printf "%-8s .... %8.1f euros\n",$2,($3*$4) } ' lista 
+<p>$ awk &#8217; $4 > 0 { printf &#8220;%-8s &#8230;. %8.1f eurosn&#8221;,$2,($3*$4) } &#8217; lista</p>
 
-$4 &gt; 0 (Que imprima los que la 4ª columna no sea cero.)
+<p>$4 > 0 (Que imprima los que la 4ª columna no sea cero.)</p>
 
-%-8s (Que imprima una cadena (s) justificada a la izquierda (-) en un campo de 8 caracteres de ancho.)
+<p>%-8s (Que imprima una cadena (s) justificada a la izquierda (-) en un campo de 8 caracteres de ancho.)</p>
 
-%8.1f (Que imprima un numero real (f), en un campo de ocho caracteres de ancho, con un decimal(.))
-</code></pre>
+<p>%8.1f (Que imprima un numero real (f), en un campo de ocho caracteres de ancho, con un decimal(.))</p>
 
 <p>Imprimir cadena, justificada a la izquierda y en campos de 10 y 5 caracteres:</p>
 
-<pre><code>$ awk '{ printf "%-10s %-10s %-5s %-5s %-5s\n", $1, $2, $3, $4, $5 }' lista
-</code></pre>
+<p>$ awk &#8216;{ printf &#8220;%-10s %-10s %-5s %-5s %-5sn&#8221;, $1, $2, $3, $4, $5 }&#8217; lista</p>
 
 <p>Parecido con más florituras (todo en una sola linea)</p>
 
-<pre><code>$ awk 'BEGIN {print "nombre\tapellido\tprecio\thoras\tpago"; print  "------\t--------\t------\t-----\t----"}; {print $1"\t"$2"\t"$3"\t"$4"\t"$5 }' lista
-</code></pre>
+<p>$ awk &#8216;BEGIN {print &#8220;nombretapellidotpreciothorastpago&#8221;; print  &#8220;&#8212;&#8212;t&#8212;&#8212;&#8211;t&#8212;&#8212;t&#8212;&#8211;t&#8212;-&#8220;}; {print $1&#8221;t&#8221;$2&#8221;t&#8221;$3&#8221;t&#8221;$4&#8221;t&#8221;$5 }&#8217; lista</p>
 
 <p>Lo mismo más legible:</p>
 
-<pre><code>$ awk 'BEGIN {print "nombre\tapellido\tprecio\thoras\tpago" 
+<p>$ awk &#8216;BEGIN {print &#8220;nombretapellidotpreciothorastpago&#8221;</p>
 
-&gt;             print "------\t--------\t------\t-----\t----"} 
+<blockquote><pre><code>        print "------t--------t------t-----t----"}
 
-&gt;            {print  $1"\t"$2"\t"$3"\t"$4"\t"$5 }' lista
-</code></pre>
+       {print  $1"t"$2"t"$3"t"$4"t"$5 }' lista
+</code></pre></blockquote>
 
 <p>BEGIN y END son patrones especiales usados para suministrar al script awk qué hacer antes de empezar a procesar y después de haber procesado los registros de la entrada.:</p>
 
-<pre><code>$ awk 'BEGIN {print “Cuantas veces aparece la palabra banco” } 
+<p>$ awk &#8216;BEGIN {print “Cuantas veces aparece la palabra banco” }</p>
 
-&gt;       /banco/ { ++i } 
+<blockquote><pre><code>  /banco/ { ++i }
 
-&gt;       END   {print “banco aparece “i” veces.”}' lista 
-</code></pre>
+  END   {print “banco aparece “i” veces.”}' lista
+</code></pre></blockquote>
 
 <p>Los  patrones pueden combinarse mediante los operadores lógicos AND (&amp;&amp;), OR(||) y NOT(!).</p>
 
 <p>Imprimir los nombres de los empleados que ganan mas de 6.50 euros a la hora y que han trabajado mas de 14:</p>
 
-<pre><code>$ awk ' $3&gt;=6.50 &amp;&amp; $4&gt;=14 { print $1,$2 } ' lista 
-</code></pre>
+<p>$ awk &#8217; $3>=6.50 &amp;&amp; $4>=14 { print $1,$2 } &#8217; lista</p>
 
 <p>Patrones</p>
 
 <p>buscar las lineas que contienen la cadena &#8220;banco&#8221; en el 5º campo:</p>
 
-<pre><code>$ awk ' $5 ~ /banco/ ' lista 
-</code></pre>
+<p>$ awk &#8217; $5 ~ /banco/ &#8217; lista</p>
 
 <p>Buscar las lineas que no contengan la cadena &#8220;banco&#8221; en el 5º campo:</p>
 
-<pre><code>$ awk '  $5 !~ /banco/ ' lista
-</code></pre>
+<p>$ awk &#8217;  $5 !~ /banco/ &#8217; lista</p>
 
 <p>Mostrar los que el 4º campo no empiece por 0 o 1:</p>
 
-<pre><code>$ awk ' $4 ~ /^[^01]/' lista 
-</code></pre>
+<p>$ awk &#8217; $4 ~ /<sup>[<sup>01]/&#8217;</sup></sup> lista</p>
 
 <p>La salida también puede pasarse a un filtro para ordenarse:</p>
 
-<pre><code>$ awk ' { print $2 | "sort" } ' lista
-</code></pre>
+<p>$ awk &#8217; { print $2 | &#8220;sort&#8221; } &#8217; lista</p>
 
 <p>Mostrar la linea cuyo 2º campo termina en “iz”:</p>
 
-<pre><code>$ awk '$2 ~ /iz$/' lista 
-</code></pre>
+<p>$ awk &#8216;$2 ~ /iz$/&#8217; lista</p>
 
 <p>Mismo concepto sin especificar si la primera letra es mayúscula o minúscula y sin conocer la segunda:</p>
 
-<pre><code>$ awk '$1 ~ /^[Cc]./' lista
-</code></pre>
+<p>$ awk &#8216;$1 ~ /<sup>[Cc]./&#8217;</sup> lista</p>
 
 <p>Mismo concepto incluyendo las que empiezan por “R”:</p>
 
-<pre><code>$ awk '$2 ~ /^[Cc].|^[R]/' lista 
-</code></pre>
+<p>$ awk &#8216;$2 ~ /<sup>[Cc].|<sup>[R]/&#8217;</sup></sup> lista</p>
 
 <p>“tolower” convierte el campo especificado a minúsculas:</p>
 
-<pre><code>$ awk 'tolower($1) ~ /^m/' lista     
-</code></pre>
+<p>$ awk &#8216;tolower($1) ~ /<sup>m/&#8217;</sup> lista</p>
 
 <p>Para mandar cada linea a un archivo con el nombre del 2er campo:</p>
 
-<pre><code>$ awk ' { print &gt; $2 } ' lista
-</code></pre>
+<p>$ awk &#8217; { print > $2 } &#8217; lista</p>
 
 <p>Mandar el primer campo a un archivo y el segundo a otro:</p>
 
-<pre><code>$ awk '{ print $1 &gt; "nombres"; print $2 &gt; "apellidos" }' lista
-</code></pre>
+<p>$ awk &#8216;{ print $1 > &#8220;nombres&#8221;; print $2 > &#8220;apellidos&#8221; }&#8217; lista</p>
 
 <p>Lo mismo pero mandándolo ordenado:</p>
 
-<pre><code>$ awk '{ print $1 | "sort &gt; nombres"; print $2 | "sort &gt; apellidos" }' lista 
-</code></pre>
+<p>$ awk &#8216;{ print $1 | &#8220;sort > nombres&#8221;; print $2 | &#8220;sort > apellidos&#8221; }&#8217; lista</p>
 
 <p>Indicando caracter separador (un espacio y que imprima el 2º campo):</p>
 
-<pre><code>$ awk  -F " " ' { print $2 } ' lista 
-</code></pre>
+<p>$ awk  -F &#8221; &#8221; &#8217; { print $2 } &#8217; lista</p>
 
 <p>Lo mismo usando BEGIN:</p>
 
-<pre><code>$ awk 'BEGIN { FS = " " } ; { print $2 }' lista
-</code></pre>
+<p>$ awk &#8216;BEGIN { FS = &#8221; &#8221; } ; { print $2 }&#8217; lista</p>
 
 <p>El siguiente  programa  muestra  como  puede usarse awk para validación de datos.</p>
 
@@ -380,89 +338,81 @@ $4 &gt; 0 (Que imprima los que la 4ª columna no sea cero.)
 
 <p>Se ejecuta con:</p>
 
-<pre><code>$ awk -f validar lista 
-</code></pre>
+<p>$ awk -f validar lista</p>
 
 <p>Aunque también podríamos añadir que lo ordenara por orden alfabetico del segundo campo (-k2) separado del primero por un espacio(-t” “):</p>
 
-<pre><code>$ awk -f validar lista | sort -t” “ -k2
-</code></pre>
+<p>$ awk -f validar lista | sort -t” “ -k2</p>
 
 <p>Otros ejemplos:</p>
 
-<pre><code>$ awk '/d.[0-9]/{print $4}' /proc/partitions  (listar todas las particiones)
+<p>$ awk &#8216;/d.[0-9]/{print $4}&#8217; /proc/partitions  (listar todas las particiones)</p>
 
-$ cat 1.txt | awk '{print$1”\t”$2}'  (tabulando la salida)
+<p>$ cat 1.txt | awk &#8216;{print$1”t”$2}&#8217;  (tabulando la salida)</p>
 
-$ cat 1.txt | awk '!/#/{print $0}' &gt; 2.txt  (Imprime todo menos las lineas comentadas y lo manda a un archivo)
+<p>$ cat 1.txt | awk &#8216;!/#/{print $0}&#8217; > 2.txt  (Imprime todo menos las lineas comentadas y lo manda a un archivo)</p>
 
-$ cat 1.txt | awk 'BEGIN { FS="\n"; RS="" } { print $1 }' &gt; lista.txt (Manda a un archivo las primeras lineas precedidas de una en blanco)
+<p>$ cat 1.txt | awk &#8216;BEGIN { FS=&#8221;n&#8221;; RS=&#8221;&#8221; } { print $1 }&#8217; > lista.txt (Manda a un archivo las primeras lineas precedidas de una en blanco)</p>
 
-$ who | awk '{print $1}'  (Mostrar todos los usuarios registrados)
+<p>$ who | awk &#8216;{print $1}&#8217;  (Mostrar todos los usuarios registrados)</p>
 
-$ awk '$1~/^DocumentRoot/{print $2}' /etc/apache2/sites-available/default (conocer la carpeta del servidor)
+<p>$ awk &#8216;$1~/<sup>DocumentRoot/{print</sup> $2}&#8217; /etc/apache2/sites-available/default (conocer la carpeta del servidor)</p>
 
-$ awk 'BEGIN { for (i = 1; i &lt;= 7; i++) print int(101 * rand()) }' (Escribir 7 números aleatorios del 0 al 100)
+<p>$ awk &#8216;BEGIN { for (i = 1; i &lt;= 7; i++) print int(101 * rand()) }&#8217; (Escribir 7 números aleatorios del 0 al 100)</p>
 
-Creación de scripts con awk:
-</code></pre>
+<p>Creación de scripts con awk:</p>
 
 <p>1.-</p>
 
 <p>Imprimir el simple &#8220;Hola mundo cruel&#8221;</p>
 
-<pre><code>#!/usr/bin/awk -f 
+<h1>!/usr/bin/awk -f</h1>
 
-BEGIN { print "Hola mundo cruel" } 
-</code></pre>
+<p>BEGIN { print &#8220;Hola mundo cruel&#8221; }</p>
 
 <p>Lo mismo pero incluido en un script de bash:</p>
 
-<pre><code>#!/bin/bash
+<h1>!/bin/bash</h1>
 
-awk 'BEGIN { print "Hola mundo cruel" }'
-</code></pre>
+<p>awk &#8216;BEGIN { print &#8220;Hola mundo cruel&#8221; }&#8217;</p>
 
 <p>2.-</p>
 
 <p>Mandar el segundo campo de listado.txt a un archivo y el sexto a otro:</p>
 
-<pre><code>#! /usr/bin/awk -f  
+<h1>! /usr/bin/awk -f</h1>
 
-awk '{ print$2 &gt; "lista_nombres"
+<p>awk &#8216;{ print$2 > &#8220;lista_nombres&#8221;</p>
 
-       print$6 &gt; "lista_telefonos" }' listado.txt 
-</code></pre>
+<p>print$6 > &#8220;lista_telefonos&#8221; }&#8217; listado.txt</p>
 
 <p>3.-</p>
 
 <p>Pasar el comando date&#8230; a variable [getline dia_actual], cerrar el comando [close] e imprimirlo en pantalla:</p>
 
-<pre><code>#!/usr/bin/awk -f
+<h1>!/usr/bin/awk -f</h1>
 
-BEGIN {
+<p>BEGIN {</p>
 
-           "date +%d-%m-%Y" | getline dia_actual
+<p>&#8220;date +%d-%m-%Y&#8221; | getline dia_actual</p>
 
-           close("date +%d-%m-%Y")
+<p>close(&#8220;date +%d-%m-%Y&#8221;)</p>
 
-           print "Hoy estamos a " dia_actual
+<p>print &#8220;Hoy estamos a &#8221; dia_actual</p>
 
-}
-</code></pre>
+<p>}</p>
 
 <p>En bash:</p>
 
-<pre><code>awk 'BEGIN {
+<p>awk &#8216;BEGIN {</p>
 
-           "date +%d-%m-%Y" | getline dia_actual
+<p>&#8220;date +%d-%m-%Y&#8221; | getline dia_actual</p>
 
-           close("date +%d-%m-%Y")
+<p>close(&#8220;date +%d-%m-%Y&#8221;)</p>
 
-           print "Hoy estamos a " dia_actual
+<p>print &#8220;Hoy estamos a &#8221; dia_actual</p>
 
-}'
-</code></pre>
+<p>}&#8217;</p>
 </div>
 
 
@@ -485,7 +435,7 @@ BEGIN {
   
 
 
-<time datetime="2013-12-15T16:09:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:13:00+01:00" pubdate data-updated="true">15-12-2013</time>
       
 
 
@@ -517,9 +467,9 @@ BEGIN {
   
     <section>
 <h1>Número de entradas</h1>
-	<ul>
-	<li>1354</li>
-	</ul>
+        <ul>
+        <li>1354</li>
+        </ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "check-bios-nx"
-date: 2013-12-15 16:09
+date: 2013-12-15 18:13
 comments: true
 categories: 
 ---

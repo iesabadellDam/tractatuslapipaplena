@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "termsaver"
-date: 2013-12-15 16:15
+date: 2013-12-15 18:19
 comments: true
 categories: 
 ---
@@ -11,15 +11,15 @@ Salvapantallas para la terminal.
 
 Otras opciones:
 
-	asciiartfarts (Imagenes en ascii)
+asciiartfarts (Imagenes en ascii)
 
-	clock (Un reloj digital)
+clock (Un reloj digital)
 
-	dot (Un punto)
+dot (Un punto)
 
-	rfc (Contenido RTC [conjunto de documentos que sirven de referencia para la comunidad de Internet])
+rfc (Contenido RTC [conjunto de documentos que sirven de referencia para la comunidad de Internet])
 
-	matrix (Código matrix)
+matrix (Código matrix)
 
 >$ termsaver programmer --help (Muestra ejemplos de como usar la opción indicada)
 
@@ -27,5 +27,5 @@ Otras opciones:
 
 >$ termsaver urlfetcher -u lapipaplena.org (Mostrará el código de la página indicada)
 
->$ termsaver programmer -p script.sh (Mostrará el código indicado linea a linea) 
+>$ termsaver programmer -p script.sh (Mostrará el código indicado linea a linea)
 

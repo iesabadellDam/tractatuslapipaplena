@@ -1,15 +1,15 @@
 ---
 layout: post
 title: "asoundconf"
-date: 2013-12-15 16:09
+date: 2013-12-15 18:13
 comments: true
 categories: 
 ---
 Averiguar las tarjetas de sonido instaladas
 
->\# asoundconf list  (listarlas)
+>~# asoundconf list  (listarlas)
 
->\# asoundconf set-default-card 1  (activar la especificada en el comando anterior)
+>~# asoundconf set-default-card 1  (activar la especificada en el comando anterior)
 
->\# asoundconf reset-default-card  (volver a la configuración por defecto)
+>~# asoundconf reset-default-card  (volver a la configuración por defecto)
 

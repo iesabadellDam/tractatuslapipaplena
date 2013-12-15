@@ -98,7 +98,7 @@
   
 
 
-<time datetime="2013-12-15T16:14:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:18:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -138,7 +138,7 @@
   
 
 
-<time datetime="2013-12-15T16:14:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:18:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -174,7 +174,7 @@
   
 
 
-<time datetime="2013-12-15T16:14:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:18:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -183,19 +183,19 @@
 
   <div class="entry-content"><p>Preenlazar binarios y bibliotecas ELF compartidas para acelerar su tiempo de inicio. Precisa lanzar prelink despues de cada nueva instalación de paquetes o configurarlo en el cron.</p>
 
-<blockquote><p># prelink -amR (Para equipos x86)</p>
+<blockquote><p>~# prelink -amR (Para equipos x86)</p>
 
-<p># prelink -aR (Para equipos x86_64)</p></blockquote>
+<p>~# prelink -aR (Para equipos x86_64)</p></blockquote>
 
 <p>Modificar las opciones de prelink:</p>
 
-<blockquote><p># nano /etc/default/prelink</p></blockquote>
+<blockquote><p>~# nano /etc/default/prelink</p></blockquote>
 
 <p>Y modificamos la línea que pone: PRELINKING=unknown por:</p>
 
 <p>PRELINKING=yes</p>
 
-<blockquote><p># prelink -au (Devolver el sistema a su punto de partida)</p></blockquote>
+<blockquote><p>~# prelink -au (Devolver el sistema a su punto de partida)</p></blockquote>
 </div>
   
   
@@ -224,7 +224,7 @@
   
 
 
-<time datetime="2013-12-15T16:14:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:18:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -262,7 +262,7 @@
   
 
 
-<time datetime="2013-12-15T16:14:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:18:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -300,7 +300,7 @@
   
 
 
-<time datetime="2013-12-15T16:14:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:18:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -336,7 +336,7 @@
   
 
 
-<time datetime="2013-12-15T16:14:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:18:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -372,7 +372,7 @@
   
 
 
-<time datetime="2013-12-15T16:14:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:18:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -383,86 +383,79 @@
 
 <p>Gestión de base de datos. En caso de querer aceptar conexiones externas:</p>
 
-<blockquote><p># nano /etc/postgresql/9.1/main/postgresql.conf</p></blockquote>
+<blockquote><p>~# nano /etc/postgresql/9.1/main/postgresql.conf</p></blockquote>
 
 <p>Substituir la linea:</p>
 
-<pre><code>listen_addresses = 'localhost'
-</code></pre>
+<p>listen_addresses = &#8216;localhost&#8217;</p>
 
 <p>por:</p>
 
-<pre><code>listen_addresses = '*'
-</code></pre>
+<p>listen_addresses = &#8216;*&#8217;</p>
 
 <p>1.-</p>
 
 <p>Pasos previos para la creación del usuario y la base de datos:</p>
 
-<pre><code>$ sudo -s
+<p>$ sudo -s</p>
 
-# su postgres (Cambiar a la cuenta del usuario por defecto)
+<h1>su postgres (Cambiar a la cuenta del usuario por defecto)</h1>
 
-$ createuser NOMBRE_DEL_USUARIO (Crear un usuario. Pregunta si con privilegios o sin [Shall the new role be a superuser? (y/n)])
+<p>$ createuser NOMBRE_DEL_USUARIO (Crear un usuario. Pregunta si con privilegios o sin [Shall the new role be a superuser? (y/n)])</p>
 
-$ createdb NOMBRE_BASE_DE_DATOS -E utf8 -O NOMBRE_DEL_USUARIO (Crear una base de datos especificando propietario y codificación)
+<p>$ createdb NOMBRE_BASE_DE_DATOS -E utf8 -O NOMBRE_DEL_USUARIO (Crear una base de datos especificando propietario y codificación)</p>
 
-$ psql
+<p>$ psql</p>
 
-postgres=# alter user NOMBRE_DEL_USUARIO with passwrd 'LA_CONTRASEÑA'; (Establecer contraseña de un usuario)
-</code></pre>
+<p>postgres=# alter user NOMBRE_DEL_USUARIO with passwrd &#8216;LA_CONTRASEÑA&#8217;; (Establecer contraseña de un usuario)</p>
 
 <p>2.-</p>
 
 <p>Para crear un usuario que sea el mismo que el sistema operativo y con privilegios de administrador:</p>
 
-<pre><code>$ sudo -u postgres createuser --superuser $USER
+<p>$ sudo -u postgres createuser &#8211;superuser $USER</p>
 
-$ sudo -u postgres psql
+<p>$ sudo -u postgres psql</p>
 
-$ postgres=# \password USUARIO
-</code></pre>
+<p>$ postgres=# password USUARIO</p>
 
 <p>3.-</p>
 
 <p>Creación de un base de datos [la llamaremos &#8220;misdatos&#8221;]:</p>
 
-<pre><code>$ createdb misdatos (Si se ha creado el mismo usuario que el sistema operativo)
+<p>$ createdb misdatos (Si se ha creado el mismo usuario que el sistema operativo)</p>
 
-$ sudo -u postgres createdb misdatos (En caso de sólo existir el usuario por defecto [postgres])
+<p>$ sudo -u postgres createdb misdatos (En caso de sólo existir el usuario por defecto [postgres])</p>
 
-$ createdb (Crea una base de datos con el mismo nombre que el usuario)
+<p>$ createdb (Crea una base de datos con el mismo nombre que el usuario)</p>
 
-$ createdb misdatos (Crea una base de datos con un nombre concreto)
+<p>$ createdb misdatos (Crea una base de datos con un nombre concreto)</p>
 
-$ dropdb misdatos (Eliminar una base de datos)
-</code></pre>
+<p>$ dropdb misdatos (Eliminar una base de datos)</p>
 
 <p>4.-</p>
 
 <p>Acceso a una base de datos:</p>
 
-<pre><code>$ sudo -u usuario psql base_de_datos (Cuando el usuario no es el mismo del sistema)
+<p>$ sudo -u usuario psql base_de_datos (Cuando el usuario no es el mismo del sistema)</p>
 
-$ psql misdatos (Entrar en el prompt de la base de datos especificada)
+<p>$ psql misdatos (Entrar en el prompt de la base de datos especificada)</p>
 
-misdatos=# (Prompt de la base de datos de administrador)
+<p>misdatos=# (Prompt de la base de datos de administrador)</p>
 
-misdatos=&gt; (Prompt de la base de datos sin privilegios)
-</code></pre>
+<p>misdatos=> (Prompt de la base de datos sin privilegios)</p>
 
 <p>5.-</p>
 
 <p>Creación de una tabla (igual que para mysql [ver]):</p>
 
-<pre><code>CREATE TABLE usuario(
+<p>CREATE TABLE usuario(</p>
 
-nombre VARCHAR(20), apellido VARCHAR(20),
+<p>nombre VARCHAR(20), apellido VARCHAR(20),</p>
 
-profesión VARCHAR(20), sexo CHAR(1), nacimiento DATE,
+<p>profesión VARCHAR(20), sexo CHAR(1), nacimiento DATE,</p>
 
-antiguedad DATE);
-</code></pre>
+<p>antiguedad DATE);</p>
 
 <p>misdatos=# DROP TABLE nombre_de_la_tabla; (Borrar una tabla)</p>
 
@@ -476,12 +469,11 @@ antiguedad DATE);
 
 <p>Las metaordenes de psql son un conjunto de órdenes internas, no propiamente órdenes SQL. Todas empiezan con la barra invertida [].</p>
 
-<pre><code>\h (Muestra la ayuda. Pulsando "q" salimos de la ayuda)
+<p>h (Muestra la ayuda. Pulsando &#8220;q&#8221; salimos de la ayuda)</p>
 
-\? (Ver todas las ordenes internas)
+<p>? (Ver todas las ordenes internas)</p>
 
-\q (Salir de psql)
-</code></pre>
+<p>q (Salir de psql)</p>
 </div>
   
   
@@ -510,7 +502,7 @@ antiguedad DATE);
   
 
 
-<time datetime="2013-12-15T16:14:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:18:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -519,7 +511,7 @@ antiguedad DATE);
 
   <div class="entry-content"><p>Informa a Debian de los paquetes más populares. Normalmente esta aplicación es lanzada por cron (/etc/cron.daily/popularity-contest). El archivo de configuración se encuentra en /etc/popularity-contest.conf. Si queremos ver el listado de lo que manda a Debian:</p>
 
-<blockquote><p># popularity-contest > listado</p></blockquote>
+<blockquote><p>~# popularity-contest > listado</p></blockquote>
 </div>
   
   
@@ -548,7 +540,7 @@ antiguedad DATE);
   
 
 
-<time datetime="2013-12-15T16:14:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:18:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -577,9 +569,9 @@ antiguedad DATE);
   
     <section>
 <h1>Número de entradas</h1>
-	<ul>
-	<li>1354</li>
-	</ul>
+        <ul>
+        <li>1354</li>
+        </ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>

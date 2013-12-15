@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Permite visualizar o limitar los recursos del sistema. # ulimit -f 512000 (limita a los usuarios para que no puedan crear archivos de mayor tamaño &hellip;">
+  <meta name="description" content="Permite visualizar o limitar los recursos del sistema. ~# ulimit -f 512000 (limita a los usuarios para que no puedan crear archivos de mayor tamaño &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -97,7 +97,7 @@
   
 
 
-<time datetime="2013-12-15T16:15:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:19:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -106,59 +106,61 @@
 
   <div class="entry-content"><p>Permite  visualizar o limitar los recursos del sistema.</p>
 
-<blockquote><p># ulimit -f 512000 (limita a los usuarios para que no puedan crear archivos de mayor tamaño que 512000 Kb [500 #Mb])</p>
+<blockquote><p>~# ulimit -f 512000 (limita a los usuarios para que no puedan crear archivos de mayor tamaño que 512000 Kb [500 #Mb])</p>
 
 <p>$ ulimit -a   (ver todos los parámetros)</p></blockquote>
 
 <p>Parámetros:</p>
 
-<pre><code>core (Tamaño máximo de los ficheros core [KB])
+<p>core (Tamaño máximo de los ficheros core [KB])</p>
 
-data (Tamaño máximo para el segmento de datos [KB])
+<p>data (Tamaño máximo para el segmento de datos [KB])</p>
 
-fsize (Tamaño máximo para los ficheros [KB])
+<p>fsize (Tamaño máximo para los ficheros [KB])</p>
 
-memlock (Tamaño máximo para el espacio de direcciones bloqueado en memoria [KB])
+<p>memlock (Tamaño máximo para el espacio de direcciones bloqueado en memoria [KB])</p>
 
-nofile (Número máximo de ficheros abiertos)
+<p>nofile (Número máximo de ficheros abiertos)</p>
 
-rss (Tamaño máximo del conjunto residente en memoria [KB])
+<p>rss (Tamaño máximo del conjunto residente en memoria [KB])</p>
 
-stack (Tamaño máximo para la pila [KB])
+<p>stack (Tamaño máximo para la pila [KB])</p>
 
-cpu (Tiempo máximo de CPU [minutos])
+<p>cpu (Tiempo máximo de CPU [minutos])</p>
 
-nproc (Número máximo de procesos)
+<p>nproc (Número máximo de procesos)</p>
 
-as (Límite en el espacio de direcciones)
+<p>as (Límite en el espacio de direcciones)</p>
 
-maxlogins (Número máximo de logins)
+<p>maxlogins (Número máximo de logins)</p>
 
-priority (Prioridad de base para los procesos del usuario)
+<p>priority (Prioridad de base para los procesos del usuario)</p>
 
-locks (Número máximo de ficheros bloqueados que el usuario puede mantener)
-</code></pre>
+<p>locks (Número máximo de ficheros bloqueados que el usuario puede mantener)</p>
 
 <p>Nota.- El ámbito de aplicación del límite puede ser un nombre de usuario, un grupo (@grupo) o todos (*)</p>
 
 <p>Un ejemplo de limit.conf:</p>
 
-<pre><code>*               soft    nproc           10000
+<ul>
+<li><pre><code>        soft    nproc           10000
+</code></pre></li>
+<li><pre><code>        hard    nproc           4096
+</code></pre></li>
+<li><pre><code>        soft    core            unlimited
+</code></pre></li>
+<li><pre><code>        hard    core            unlimited
+</code></pre></li>
+<li><pre><code>        soft    memlock         131072
+</code></pre></li>
+<li><pre><code>        hard    memlock         131072
+</code></pre></li>
+<li><pre><code>        soft    nofile          102400
+</code></pre></li>
+<li><pre><code>        hard    nofile          102400
+</code></pre></li>
+</ul>
 
-*               hard    nproc           4096
-
-*               soft    core            unlimited
-
-*               hard    core            unlimited
-
-*               soft    memlock         131072
-
-*               hard    memlock         131072
-
-*               soft    nofile          102400
-
-*               hard    nofile          102400
-</code></pre>
 
 <p>1.-</p>
 
@@ -170,7 +172,7 @@ locks (Número máximo de ficheros bloqueados que el usuario puede mantener)
 
 <p>El resultado es “ilimitado” o un valor extremadamente alto, podemos ser victimas de los forkbombs. Para resolverlo podemos limitar el número de procesos abiertos a 1000 para que estos no puedan llegar a colapsar el sistema:</p>
 
-<blockquote><p># gedit /etc/security/limits.conf</p></blockquote>
+<blockquote><p>~# gedit /etc/security/limits.conf</p></blockquote>
 
 <p>Añadir antes de “End of file”:   * hard nproc 1000</p>
 
@@ -180,25 +182,32 @@ locks (Número máximo de ficheros bloqueados que el usuario puede mantener)
 
 <p>En ciertas ocasiones, al procesar muchos archivos, se produce un error &#8220;for output (Too many open files)&#8221; porque se desborda el limite de 1024 k. Para solucionarlo:</p>
 
-<blockquote><p># nano /etc/security/limits.conf</p></blockquote>
+<blockquote><p>~# nano /etc/security/limits.conf</p></blockquote>
 
 <p>Y añadir las siguientes lineas:</p>
 
-<pre><code>*    soft    nofile    9000
+<ul>
+<li><p> soft    nofile    9000</p></li>
+<li><p> hard    nofile    65000</p></li>
+</ul>
 
-*    hard    nofile    65000
-</code></pre>
 
 <p>3.-</p>
 
 <p>Limitar la cantidad de usuarios conectados al sistema:</p>
 
-<blockquote><p># nano /etc/security/limits.conf</p></blockquote>
+<blockquote><p>~# nano /etc/security/limits.conf</p></blockquote>
 
 <p>Y en el parámetro maxlogins modificamos el número que deseemos:</p>
 
-<pre><code>*    -       maxlogins 3
-</code></pre>
+<ul>
+<li><ul>
+<li><pre><code> maxlogins 3
+</code></pre></li>
+</ul>
+</li>
+</ul>
+
 </div>
   
   
@@ -227,7 +236,7 @@ locks (Número máximo de ficheros bloqueados que el usuario puede mantener)
   
 
 
-<time datetime="2013-12-15T16:15:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:19:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -236,8 +245,7 @@ locks (Número máximo de ficheros bloqueados que el usuario puede mantener)
 
   <div class="entry-content"><p>Subrayado de palabras en la terminal.</p>
 
-<pre><code>$ echo $'linux es g\b_e\b_n\b_i\b_a\b_l\b_ ' | ul (Cada letra a subrayar ha de ir seguida de \b_)
-</code></pre>
+<p>$ echo $&#8217;linux es gb_eb_nb_ib_ab_lb<em> &#8217; | ul (Cada letra a subrayar ha de ir seguida de b</em>)</p>
 </div>
   
   
@@ -266,7 +274,7 @@ locks (Número máximo de ficheros bloqueados que el usuario puede mantener)
   
 
 
-<time datetime="2013-12-15T16:15:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:19:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -275,25 +283,25 @@ locks (Número máximo de ficheros bloqueados que el usuario puede mantener)
 
   <div class="entry-content"><p>Cortafuegos</p>
 
-<blockquote><p># ufw enable (activar el cortafuegos. “disable” para desactivarlo)</p>
+<blockquote><p>~# ufw enable (activar el cortafuegos. “disable” para desactivarlo)</p>
 
-<p># ufw deny 4662 (bloquea el puerto)</p>
+<p>~# ufw deny 4662 (bloquea el puerto)</p>
 
-<p># ufw delete deny 4662 (Elimina una regla)</p>
+<p>~# ufw delete deny 4662 (Elimina una regla)</p>
 
-<p># ufw allow smtp (permitir servicios concretos)</p>
+<p>~# ufw allow smtp (permitir servicios concretos)</p>
 
-<p># ufw status (visualizar las normas definidas)</p>
+<p>~# ufw status (visualizar las normas definidas)</p>
 
-<p># ufw status verbose (Información de estado con mayor detalle)</p>
+<p>~# ufw status verbose (Información de estado con mayor detalle)</p>
 
-<p># ufw default allow (permitir todo por defecto)</p>
+<p>~# ufw default allow (permitir todo por defecto)</p>
 
-<p># ufw default deny (bloquear todo por defecto)</p>
+<p>~# ufw default deny (bloquear todo por defecto)</p>
 
-<p># ufw deny from ip (bloquear dirección ip)</p>
+<p>~# ufw deny from ip (bloquear dirección ip)</p>
 
-<p># ufw logging on (activar los logs. “off” para desactivarlos. Herramienta de registro: fwanalog, fwlogwatch, o lire.)</p></blockquote>
+<p>~# ufw logging on (activar los logs. “off” para desactivarlos. Herramienta de registro: fwanalog, fwlogwatch, o lire.)</p></blockquote>
 </div>
   
   
@@ -322,7 +330,7 @@ locks (Número máximo de ficheros bloqueados que el usuario puede mantener)
   
 
 
-<time datetime="2013-12-15T16:15:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:19:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -364,7 +372,7 @@ locks (Número máximo de ficheros bloqueados que el usuario puede mantener)
   
 
 
-<time datetime="2013-12-15T16:15:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:19:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -373,7 +381,7 @@ locks (Número máximo de ficheros bloqueados que el usuario puede mantener)
 
   <div class="entry-content"><p>Herramienta  para montar automaticamente unidades en Archlinux. Debe arrancarse el servicio antes de ejecutarse el gestor de ventanas en el archivo .xinitrc. Un ejemplo:</p>
 
-<blockquote><p># nano .xinitrc</p></blockquote>
+<blockquote><p>~# nano .xinitrc</p></blockquote>
 
 <p>udiskie &amp;</p>
 
@@ -406,7 +414,7 @@ locks (Número máximo de ficheros bloqueados que el usuario puede mantener)
   
 
 
-<time datetime="2013-12-15T16:15:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:19:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -419,14 +427,13 @@ locks (Número máximo de ficheros bloqueados que el usuario puede mantener)
 
 <p>$ tzwatch (Mostrará hora local de cada una de las zonas elegidas)</p></blockquote>
 
-<pre><code>[~]$ tzwatch
+<p>[~]$ tzwatch</p>
 
-Mon Oct  7 02:39:39 CST 2013   Australia/Adelaide
+<p>Mon Oct  7 02:39:39 CST 2013   Australia/Adelaide</p>
 
-Sun Oct  6 18:09:39 CEST 2013   Europe/Madrid
+<p>Sun Oct  6 18:09:39 CEST 2013   Europe/Madrid</p>
 
-Sun Oct  6 10:09:39 CST 2013   America/Guatemala
-</code></pre>
+<p>Sun Oct  6 10:09:39 CST 2013   America/Guatemala</p>
 </div>
   
   
@@ -455,7 +462,7 @@ Sun Oct  6 10:09:39 CST 2013   America/Guatemala
   
 
 
-<time datetime="2013-12-15T16:15:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:19:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -493,7 +500,7 @@ Sun Oct  6 10:09:39 CST 2013   America/Guatemala
   
 
 
-<time datetime="2013-12-15T16:15:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:19:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -529,7 +536,7 @@ Sun Oct  6 10:09:39 CST 2013   America/Guatemala
   
 
 
-<time datetime="2013-12-15T16:15:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:19:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -565,7 +572,7 @@ Sun Oct  6 10:09:39 CST 2013   America/Guatemala
   
 
 
-<time datetime="2013-12-15T16:15:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:19:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -600,9 +607,9 @@ Sun Oct  6 10:09:39 CST 2013   America/Guatemala
   
     <section>
 <h1>Número de entradas</h1>
-	<ul>
-	<li>1354</li>
-	</ul>
+        <ul>
+        <li>1354</li>
+        </ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>

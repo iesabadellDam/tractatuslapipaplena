@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "contraseñas"
-date: 2013-12-15 16:10
+date: 2013-12-15 18:14
 comments: true
 categories: 
 ---
@@ -9,65 +9,65 @@ categories:
 
 Eliminar contraseña de root. Iniciar sesión con un live-cd y montar la partición del discon duro [suponemos /dev/sda2]
 
-	# mount /dev/sda2 /media/sda2
+# mount /dev/sda2 /media/sda2
 
-	# gedit /dev/sda2/etc/passwd 
+# gedit /dev/sda2/etc/passwd
 
-Y en la linea: root:x:0:0:root/root:/bin/bash 
+Y en la linea: root:x:0:0:root/root:/bin/bash
 
 Borrar la “x”, dejandola asi: root::0:0:root/root:/bin/bash y repetir la operación con el usuario normal.
 
-Reiniciar 
+Reiniciar
 
 Activar  root en gdm [parecido con otros selectores de sesión: lightdm, xdm...]
 
-	# gedit /etc/gdm/gdm.conf 
+# gedit /etc/gdm/gdm.conf
 
-Cambiar la linea:  AllowRoot=false   por AllowRoot=true 
+Cambiar la linea:  AllowRoot=false   por AllowRoot=true
 
-	# passwd root 
+# passwd root
 
-Entrar la contraseña 
+Entrar la contraseña
 
 2.-
 
-Cambiar el tiempo en que el sistema "olvidará" la contraseña después de un sudo: 
+Cambiar el tiempo en que el sistema "olvidará" la contraseña después de un sudo:
 
-	# nano /etc/sudoers 
+# nano /etc/sudoers
 
-Y añadir la línea: Defaults timestamp_timeout = 5 
+Y añadir la línea: Defaults timestamp_timeout = 5
 
-Donde el 5 es el tiempo en minutos que la contraseña será guardada. 
+Donde el 5 es el tiempo en minutos que la contraseña será guardada.
 
 3.-
 
-Otra forma para cuando se pierde la contraseña 
+Otra forma para cuando se pierde la contraseña
 
-Entrar con un cd live y visualizar /etc/shadow del sistema instalado y buscar el  usuario. La estructura es parecida a: 
+Entrar con un cd live y visualizar /etc/shadow del sistema instalado y buscar el  usuario. La estructura es parecida a:
 
-pepe:$1$YpVPtTE9$jNPGevJ8IjHyAqh0h04V4.:13277:0:99999:7::: 
+pepe:$1$YpVPtTE9$jNPGevJ8IjHyAqh0h04V4.:13277:0:99999:7:::
 
-Borrar lo que sigue al nombre del usuario para que quede: 
+Borrar lo que sigue al nombre del usuario para que quede:
 
-pepe::13277:0:99999:7::: 
+pepe::13277:0:99999:7:::
 
-de este modo el usuario no tendrá contraseña y cuando se pida, dar al intro.  Tras reiniciar, cuando aparezca el menu de grub, situarse con el cursor en la línea del kernel que se quiera usar. Pulsar 'e' para editar la entrada y editar la línea kernel [pulsando 'e' de nuevo]. Añadir al final de la línea lo siguiente: 
+de este modo el usuario no tendrá contraseña y cuando se pida, dar al intro.  Tras reiniciar, cuando aparezca el menu de grub, situarse con el cursor en la línea del kernel que se quiera usar. Pulsar 'e' para editar la entrada y editar la línea kernel [pulsando 'e' de nuevo]. Añadir al final de la línea lo siguiente:
 
-init=/bin/bash 
+init=/bin/bash
 
-Esto hace que el sistema arranque una shell root sin pedir password. Es posible que el teclado esté en inglés. Pulsar 'b' para comenzar el arranque del kernel. La partición raíz suele montarse como sólo lectura, asi que se deberá montar como lectura/escritura: 
+Esto hace que el sistema arranque una shell root sin pedir password. Es posible que el teclado esté en inglés. Pulsar 'b' para comenzar el arranque del kernel. La partición raíz suele montarse como sólo lectura, asi que se deberá montar como lectura/escritura:
 
->\# mount -o remount,rw /dev/hda2 
+>~# mount -o remount,rw /dev/hda2
 
-Por último, cambiar la clave de root ejecutando: 
+Por último, cambiar la clave de root ejecutando:
 
->\# passwd root 
+>~# passwd root
 
 4.-
 
 Establecer norma en el sistema de que la contraseña tenga como nímino 8 caracteres:
 
->\# nano /etc/pam.d/common-password
+>~# nano /etc/pam.d/common-password
 
 Y dejar la linea:
 

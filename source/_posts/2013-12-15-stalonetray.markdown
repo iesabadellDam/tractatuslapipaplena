@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "stalonetray"
-date: 2013-12-15 16:15
+date: 2013-12-15 18:19
 comments: true
 categories: 
 ---
@@ -15,21 +15,21 @@ Algunas opciones:
 
 situación:
 
-Abajo a la izquierda	5x1+0-0 
+Abajo a la izquierda	5x1+0-0
 
-Abajo en el centro (1024x768) + 20 píxeles elevado	5x1-450-20 
+Abajo en el centro (1024x768) + 20 píxeles elevado	5x1-450-20
 
-Abajo a la derecha	5x1-0-0 
+Abajo a la derecha	5x1-0-0
 
-Arriba a la izquierda	5x1+0+0 
+Arriba a la izquierda	5x1+0+0
 
-Arriba a la izquierda + 20 píxeles descendido	5x1+0+20 
+Arriba a la izquierda + 20 píxeles descendido	5x1+0+20
 
-Arriba en el centro (1024x768)	5x1+450+0 
+Arriba en el centro (1024x768)	5x1+450+0
 
-Arriba a la derecha	5x1-0+0 
+Arriba a la derecha	5x1-0+0
 
-Arriba a la derecha + 20 píxeles descendido	5x1-0+20 
+Arriba a la derecha + 20 píxeles descendido	5x1-0+20
 
-Abajo a la izquierda + 20 píxeles elevado	5x1+0-20 
+Abajo a la izquierda + 20 píxeles elevado	5x1+0-20
 

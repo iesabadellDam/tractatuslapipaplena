@@ -97,7 +97,7 @@
   
 
 
-<time datetime="2013-12-15T16:13:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:17:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -147,7 +147,7 @@
   
 
 
-<time datetime="2013-12-15T16:13:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:17:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -156,73 +156,69 @@
 
   <div class="entry-content"><p>Monitorizador de procesos en ejecución, servicios, demonios, espacios de disco, PIDs, checksums, archivos&#8230;.</p>
 
-<blockquote><p># monit status (Acceder a los informes)</p>
+<blockquote><p>~# monit status (Acceder a los informes)</p>
 
-<p># monit -t (Comprobar errores de configuración [Control file syntax OK])</p>
+<p>~# monit -t (Comprobar errores de configuración [Control file syntax OK])</p>
 
-<p># monit -h (Listado de comandos disponibles)</p>
+<p>~# monit -h (Listado de comandos disponibles)</p>
 
-<p># monit quit (Salir)</p>
+<p>~# monit quit (Salir)</p>
 
-<p># monit start all (Arrancar todos los monitoreos)</p>
+<p>~# monit start all (Arrancar todos los monitoreos)</p>
 
-<p># monit sotp ssh (Parar un monitoreo de un servicio)</p>
+<p>~# monit sotp ssh (Parar un monitoreo de un servicio)</p>
 
-<p># monit restart all (Reiniciar todos los monitoreos)</p>
+<p>~# monit restart all (Reiniciar todos los monitoreos)</p>
 
-<p># monit summary (Mostrar resumen)</p></blockquote>
+<p>~# monit summary (Mostrar resumen)</p></blockquote>
 
 <p>Configuración:</p>
 
-<pre><code># nano /etc/monitrc 
-</code></pre>
+<h1>nano /etc/monitrc</h1>
 
 <p>Las entradas globales empiezan por “set” y los servicios concretos por “check”</p>
 
 <p>Tiempo de actualización de datos, por defecto:</p>
 
-<pre><code>set daemon  60 
-</code></pre>
+<p>set daemon  60</p>
 
 <p>Especificar el archivo de eventos (logs)</p>
 
-<pre><code>set logfile /var/log/monit.log 
-</code></pre>
+<p>set logfile /var/log/monit.log</p>
 
 <p>Configurar para el envio de notificaciones:</p>
 
-<pre><code>set mailserver localhost 
+<p>set mailserver localhost</p>
 
-set alert usuario@localhost.localdomain 
+<p>set alert usuario@localhost.localdomain</p>
 
-set mail-format { 
+<p>set mail-format {</p>
 
-from: monit@$HOST 
+<p>from: monit@$HOST</p>
 
-subject: $SERVICE $EVENT 
+<p>subject: $SERVICE $EVENT</p>
 
-message: $ACTION $SERVICE at $DATE on $HOST: $DESCRIPTION. 
+<p>message: $ACTION $SERVICE at $DATE on $HOST: $DESCRIPTION.</p>
 
-} 
+<p>}</p>
 
-set mailserver mail@mail.com (servidor smtp que envia los correos [localhost para notificación local]). 
+<p>set mailserver mail@mail.com (servidor smtp que envia los correos [localhost para notificación local]).</p>
 
-set alert user@hots.com  (cuenta donde enviar los mensajes de alerta). Ejemplo para enviar notificaciones a correo gmail (en negrita los datos a modificar): 
+<p>set alert user@hots.com  (cuenta donde enviar los mensajes de alerta). Ejemplo para enviar notificaciones a correo gmail (en negrita los datos a modificar):</p>
 
-set mailserver smtp.gmail.com port 587 
+<p>set mailserver smtp.gmail.com port 587</p>
 
-username usuario@gmail.com password Tfer7¿-6j 
+<p>username usuario@gmail.com password Tfer7¿-6j</p>
 
-using tlsv1 
+<p>using tlsv1</p>
 
-with timeout 30 seconds 
+<p>with timeout 30 seconds</p>
 
-set alert usuario@gmail.com 
+<p>set alert usuario@gmail.com</p>
 
-Cambiar usuario y contraseña (por defecto: admin/monit) 
+<p>Cambiar usuario y contraseña (por defecto: admin/monit)</p>
 
-allow usuario:contraseña 
-</code></pre>
+<p>allow usuario:contraseña</p>
 
 <p>Especificar desde donde accederemos. Sólo acceso local [localhost:2812]:</p>
 
@@ -232,122 +228,113 @@ allow usuario:contraseña
 
 <p>o si queremos acceso remoto [http://ip_o_host:2812] modificar por:</p>
 
-<pre><code>set httpd port 2812 
+<p>set httpd port 2812</p>
 
-     allow localhost 
-</code></pre>
+<p>allow localhost</p>
 
 <p>Tambien podemos especificar: ips, rangos, hosts concretos o usuarios para solo lectura:</p>
 
-<pre><code>allow 192.168.1.14 
+<p>allow 192.168.1.14</p>
 
-allow 192.168.1.1/24 
+<p>allow 192.168.1.1/24</p>
 
-allow host.com 
+<p>allow host.com</p>
 
-allow usuario:contraseña read-only
-</code></pre>
+<p>allow usuario:contraseña read-only</p>
 
 <p>Modificar el nombre del equipo [tiene que estar en /etc/hosts] y adaptar los porcentajes de consumo de carga del sistema [loadvg] y cpu para que al superar ciertos índices o porcentajes, envie una alerta:</p>
 
 <p>check system tux</p>
 
-<pre><code>if loadavg (1min) &gt; 4 then alert 
+<p>if loadavg (1min) > 4 then alert</p>
 
-if memory usage &gt; 75% then alert 
+<p>if memory usage > 75% then alert</p>
 
-if swap usage &gt; 85% then alert 
+<p>if swap usage > 85% then alert</p>
 
-if cpu usage (user) &gt; 70% then alert 
+<p>if cpu usage (user) > 70% then alert</p>
 
-if cpu usage (system) &gt; 70% then alert 
+<p>if cpu usage (system) > 70% then alert</p>
 
-if cpu usage (wait) &gt; 70% then alert 
-</code></pre>
+<p>if cpu usage (wait) > 70% then alert</p>
 
 <p>Configurar el monitoreo de apache (Las rutas a los ficheros pertenecen a una distro arch):</p>
 
 <p>check process apache with pidfile /run/httpd/httpd.pid</p>
 
-<pre><code>start program = "/etc/rc.d/httpd start" with timeout 60 seconds 
+<p>start program = &#8220;/etc/rc.d/httpd start&#8221; with timeout 60 seconds</p>
 
-stop program  = "/etc/rc.d/httpd stop" 
+<p>stop program  = &#8220;/etc/rc.d/httpd stop&#8221;</p>
 
-if cpu &gt; 80% for 5 cycles then restart 
+<p>if cpu > 80% for 5 cycles then restart</p>
 
-if totalmem &gt; 1500.0 MB for 5 cycles then restart 
+<p>if totalmem > 1500.0 MB for 5 cycles then restart</p>
 
-if children &gt; 250 then restart 
+<p>if children > 250 then restart</p>
 
-if cpu usage &gt; 95% for 3 cycles then restart 
+<p>if cpu usage > 95% for 3 cycles then restart</p>
 
-if failed port 80 protocol http then restart 
-</code></pre>
+<p>if failed port 80 protocol http then restart</p>
 
 <p>Configurar monitoreo de ssh</p>
 
 <p>check process ssh with pidfile /run/sshd.pid</p>
 
-<pre><code>start program = "/etc/rc.d/sshd start" with timeout 60 seconds 
+<p>start program = &#8220;/etc/rc.d/sshd start&#8221; with timeout 60 seconds</p>
 
-stop program  = "/etc/rc.d/sshd stop" 
+<p>stop program  = &#8220;/etc/rc.d/sshd stop&#8221;</p>
 
-if cpu &gt; 80% for 5 cycles then restart 
+<p>if cpu > 80% for 5 cycles then restart</p>
 
-if totalmem &gt; 1500.0 MB for 5 cycles then restart 
+<p>if totalmem > 1500.0 MB for 5 cycles then restart</p>
 
-if children &gt; 250 then restart 
+<p>if children > 250 then restart</p>
 
-if cpu usage &gt; 95% for 3 cycles then restart 
+<p>if cpu usage > 95% for 3 cycles then restart</p>
 
-if failed port 22 protocol ssh then restart 
-</code></pre>
+<p>if failed port 22 protocol ssh then restart</p>
 
 <p>Chequear determinados puertos:</p>
 
 <p>check host localhost with address localhost</p>
 
-<pre><code>  if failed icmp type echo count 10 with timeout 15 seconds 
+<p>if failed icmp type echo count 10 with timeout 15 seconds</p>
 
-     then alert 
+<p>then alert</p>
 
-  if failed port 22 proto ssh then alert 
+<p>if failed port 22 proto ssh then alert</p>
 
-  if failed port 25 proto smtp then alert 
+<p>if failed port 25 proto smtp then alert</p>
 
-  if failed port 80 proto http then alert 
-</code></pre>
+<p>if failed port 80 proto http then alert</p>
 
 <p>Monitorear ciertos archivos de configuración [de apache y ssh] para que alerte si modifica el checksum:</p>
 
-<pre><code>check file httpd.conf with path /etc/httpd/conf/httpd.conf 
+<p>check file httpd.conf with path /etc/httpd/conf/httpd.conf</p>
 
-if changed checksum then alert 
+<p>if changed checksum then alert</p>
 
-check file ssh_config with path /etc/ssh/ssh_config 
+<p>check file ssh_config with path /etc/ssh/ssh_config</p>
 
-if changed checksum then alert 
-</code></pre>
+<p>if changed checksum then alert</p>
 
 <p>Monitorizar directorios para que envie una alerta en caso de modificación:</p>
 
-<pre><code>        check directory sbin with path /sbin 
+<p>check directory sbin with path /sbin</p>
 
-    if changed timestamp then alert 
-</code></pre>
+<p>if changed timestamp then alert</p>
 
 <p>Monitorizar dispositivos /dev/ [discos duros, usb&#8230;] para que avise en caso de sobrepasar determinado espacio en disco o lo desmonte al llegar a cierto porcentaje:</p>
 
-<pre><code>check device sda5 with path /dev/sda5 
+<p>check device sda5 with path /dev/sda5</p>
 
-start = “/bin/mount /dev/sda5” 
+<p>start = “/bin/mount /dev/sda5”</p>
 
-stop = “/bin/umount /dev/sda5” 
+<p>stop = “/bin/umount /dev/sda5”</p>
 
-if space usage &gt; 90% then alert 
+<p>if space usage > 90% then alert</p>
 
-if space usage &gt; 98% then stop 
-</code></pre>
+<p>if space usage > 98% then stop</p>
 
 <p>Si, al pasar algún evento queremos lanzar un script algunos ejemplos para hacerlo son:</p>
 
@@ -355,10 +342,9 @@ if space usage &gt; 98% then stop
 
 <p>check system dominio.com</p>
 
-<pre><code>if loadavg (1min) &gt; 5 then alert 
+<p>if loadavg (1min) > 5 then alert</p>
 
-if loadavg (1min) &gt; 20 then exec "/bin/bash /root/script.sh" 
-</code></pre>
+<p>if loadavg (1min) > 20 then exec &#8220;/bin/bash /root/script.sh&#8221;</p>
 
 <p>2.- Si falla el servidor ftp [puerto 21], al pasar 20 segundos alertará  y ejecutará el script</p>
 
@@ -391,7 +377,7 @@ if loadavg (1min) &gt; 20 then exec "/bin/bash /root/script.sh"
   
 
 
-<time datetime="2013-12-15T16:13:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:17:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -400,7 +386,7 @@ if loadavg (1min) &gt; 20 then exec "/bin/bash /root/script.sh"
 
   <div class="entry-content"><p>Evitar paradas o reinicios de servidores desde consola remota. Editar:</p>
 
-<blockquote><p># nano /etc/molly-guard/rc</p></blockquote>
+<blockquote><p>~# nano /etc/molly-guard/rc</p></blockquote>
 
 <p>Y descomentar la linea:</p>
 
@@ -435,7 +421,7 @@ if loadavg (1min) &gt; 20 then exec "/bin/bash /root/script.sh"
   
 
 
-<time datetime="2013-12-15T16:13:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:17:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -497,7 +483,7 @@ if loadavg (1min) &gt; 20 then exec "/bin/bash /root/script.sh"
   
 
 
-<time datetime="2013-12-15T16:13:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:17:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -506,23 +492,23 @@ if loadavg (1min) &gt; 20 then exec "/bin/bash /root/script.sh"
 
   <div class="entry-content"><p>Comandos relacionados con el manejo de los módulos del kernel</p>
 
-<blockquote><p># ls -R /lib/modules/$(uname -r) (Lista todos los modulos disponibles)</p>
+<blockquote><p>~# ls -R /lib/modules/$(uname -r) (Lista todos los modulos disponibles)</p>
 
-<p># modinfo /ruta_al_modulo/modulo.ko  (Muestra la información de un módulo)</p>
+<p>~# modinfo /ruta_al_modulo/modulo.ko  (Muestra la información de un módulo)</p>
 
-<p># insmod modulo.ko  (instalar un modulo sin resolver dependencias)</p>
+<p>~# insmod modulo.ko  (instalar un modulo sin resolver dependencias)</p>
 
-<p># modprobe modulo.ko  (instalar un modulo incluyendo dependencias)</p>
+<p>~# modprobe modulo.ko  (instalar un modulo incluyendo dependencias)</p>
 
-<p># depmod -a  (Generar la base de datos de dependencias de los modulos)</p>
+<p>~# depmod -a  (Generar la base de datos de dependencias de los modulos)</p>
 
-<p># insmod &#8211;force modulo.ko (Fuerza la instalación de un módulo)</p>
+<p>~# insmod &#8211;force modulo.ko (Fuerza la instalación de un módulo)</p>
 
-<p># modprobe -n -v modulo.ko (Muestra los modulos y sus dependencias)</p>
+<p>~# modprobe -n -v modulo.ko (Muestra los modulos y sus dependencias)</p>
 
-<p># lsmod  (Muestra todos los modulos del kernel)</p>
+<p>~# lsmod  (Muestra todos los modulos del kernel)</p>
 
-<p># rmmod modulo.ko  (Elimina un modulo)</p></blockquote>
+<p>~# rmmod modulo.ko  (Elimina un modulo)</p></blockquote>
 </div>
   
   
@@ -551,7 +537,7 @@ if loadavg (1min) &gt; 20 then exec "/bin/bash /root/script.sh"
   
 
 
-<time datetime="2013-12-15T16:13:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:17:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -560,11 +546,11 @@ if loadavg (1min) &gt; 20 then exec "/bin/bash /root/script.sh"
 
   <div class="entry-content"><p>Paquete especifico de Debian para la instalación de controladores.</p>
 
-<blockquote><p># m-a (abre la interficie ncuses del programa)</p>
+<blockquote><p>~# m-a (abre la interficie ncuses del programa)</p>
 
-<p># m-a a-i paquete (seleccionar un módulo)</p>
+<p>~# m-a a-i paquete (seleccionar un módulo)</p>
 
-<p># m-a list (ver lista de paquetes disponibles)</p></blockquote>
+<p>~# m-a list (ver lista de paquetes disponibles)</p></blockquote>
 </div>
   
   
@@ -593,7 +579,7 @@ if loadavg (1min) &gt; 20 then exec "/bin/bash /root/script.sh"
   
 
 
-<time datetime="2013-12-15T16:13:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:17:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -631,7 +617,7 @@ if loadavg (1min) &gt; 20 then exec "/bin/bash /root/script.sh"
   
 
 
-<time datetime="2013-12-15T16:13:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:17:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -640,7 +626,7 @@ if loadavg (1min) &gt; 20 then exec "/bin/bash /root/script.sh"
 
   <div class="entry-content"><p>Instalación de modems inalámbricos:</p>
 
-<blockquote><p># apt-get install usb-modeswitch</p>
+<blockquote><p>~# apt-get install usb-modeswitch</p>
 
 <p>$ wget http://www.sakis3g.org/versions/latest/i386/sakis3g.gz</p>
 
@@ -677,7 +663,7 @@ if loadavg (1min) &gt; 20 then exec "/bin/bash /root/script.sh"
   
 
 
-<time datetime="2013-12-15T16:13:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:17:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -688,77 +674,73 @@ if loadavg (1min) &gt; 20 then exec "/bin/bash /root/script.sh"
 
 <p>Copiar el archivo de configuración al directorio personal:</p>
 
-<pre><code>$ cp /usr/share/doc/moc/examples/config.example.gz ~/.moc/
+<p>$ cp /usr/share/doc/moc/examples/config.example.gz ~/.moc/</p>
 
-$ cd ~/.moc/
+<p>$ cd ~/.moc/</p>
 
-$ gzip -d config.example.gz
+<p>$ gzip -d config.example.gz</p>
 
-$ mv config.example config
-</code></pre>
+<p>$ mv config.example config</p>
 
 <p>El listado de temas</p>
 
 <blockquote><p>$ ls /usr/share/moc/themes.</p></blockquote>
 
-<pre><code>black_theme  darkdot_theme  example_theme  green_theme moca_theme  nightly_theme  red_theme  transparent-background yellow_red_theme
-</code></pre>
+<p>black_theme  darkdot_theme  example_theme  green_theme moca_theme  nightly_theme  red_theme  transparent-background yellow_red_theme</p>
 
 <p>Para hacer definitivo el cambio, el que se escoja se coloca en:</p>
 
 <blockquote><p>$ nano .moc/config:</p></blockquote>
 
-<pre><code># Theme file. This can be absolute path or relative to
+<h1>Theme file. This can be absolute path or relative to</h1>
 
-# /usr/share/moc/themes/ (depends on installation prefix) or ~/.moc/themes/
+<h1>/usr/share/moc/themes/ (depends on installation prefix) or ~/.moc/themes/</h1>
 
-Theme                   = moca_theme 
-</code></pre>
+<p>Theme                   = moca_theme</p>
 
 <blockquote><p>$ mocp  (arrancar la aplicación)</p></blockquote>
 
 <p>Teclas de control:</p>
 
-<pre><code> &gt;  (subir volumen 1%) 
+<blockquote><p> (subir volumen 1%)</p></blockquote>
 
- &lt;  (Bajar volumen 1%) 
+<p>&lt;  (Bajar volumen 1%)</p>
 
- ,  (Bajar volumen 5%) 
+<p>,  (Bajar volumen 5%)</p>
 
- .  (Subir volumen 5%) 
+<p>.  (Subir volumen 5%)</p>
 
- h  (Lista de teclas)
+<p>h  (Lista de teclas)</p>
 
- T  (Para cambiar el tema. Sólo para la presente sesión)
+<p>T  (Para cambiar el tema. Sólo para la presente sesión)</p>
 
- n  (Reproduce siguiente canción)
+<p>n  (Reproduce siguiente canción)</p>
 
- b  (Reproduce la canción anterior)
+<p>b  (Reproduce la canción anterior)</p>
 
- A  (Añade un directorio a la lista de reproducción) 
+<p>A  (Añade un directorio a la lista de reproducción)</p>
 
- a  (Añade solo un archivo a la lista)
+<p>a  (Añade solo un archivo a la lista)</p>
 
- c  (Quita un archivo de la lista de reproducción)
+<p>c  (Quita un archivo de la lista de reproducción)</p>
 
- C  (Borra toda la lista)
+<p>C  (Borra toda la lista)</p>
 
- q  (Pasar a segundo plano. Vuelve a primer plano, según la ditro con: ./moc, moc, ./mocp) 
+<p>q  (Pasar a segundo plano. Vuelve a primer plano, según la ditro con: ./moc, moc, ./mocp)</p>
 
- Q  (Cierra totalmente el programa) 
+<p>Q  (Cierra totalmente el programa)</p>
 
- l  (Cambia de doble ventana a ventana simple y viceversa)
+<p>l  (Cambia de doble ventana a ventana simple y viceversa)</p>
 
- tabulador   (Cambiamos de pantalla, en caso de estar dividida)
+<p>tabulador   (Cambiamos de pantalla, en caso de estar dividida)</p>
 
- p o espacio (Pausar) 
+<p>p o espacio (Pausar)</p>
 
- enter       (Play)
+<p>enter       (Play)</p>
 
- Crtl + u    (Para entrar una url. Pulsando intro la incluye en playlist)
+<p>Crtl + u    (Para entrar una url. Pulsando intro la incluye en playlist)</p>
 
- d  (Borrar una url del playlist)
-</code></pre>
+<p>d  (Borrar una url del playlist)</p>
 
 <p>1.-</p>
 
@@ -770,100 +752,97 @@ Theme                   = moca_theme
 
 <p>Si funciona, colocar la linea en .moc/config:</p>
 
-<pre><code>PreferredDecoders       += mp3(ffmpeg)
-</code></pre>
+<p>PreferredDecoders       += mp3(ffmpeg)</p>
 
 <p>2.-</p>
 
 <p>Una pequeña lista de url musicales (Tambien válidas para vlc u otros reproductores en streaming):</p>
 
-<pre><code># Ibiza
+<h1>Ibiza</h1>
 
-http://s6.viastreaming.net:7010
+<p>http://s6.viastreaming.net:7010</p>
 
-# City Dance
+<h1>City Dance</h1>
 
-http://streaming.radionomy.com:8000/City-Dance-Radio
+<p>http://streaming.radionomy.com:8000/City-Dance-Radio</p>
 
-# Dance-Makina
+<h1>Dance-Makina</h1>
 
-http://uplink.duplexfx.com:8044
+<p>http://uplink.duplexfx.com:8044</p>
 
-# Progressive
+<h1>Progressive</h1>
 
-http://85.25.86.69:8000/
+<p>http://85.25.86.69:8000/</p>
 
-# De los 90
+<h1>De los 90</h1>
 
-http://91.121.38.216:8018/
+<p>http://91.121.38.216:8018/</p>
 
-# Hardcore
+<h1>Hardcore</h1>
 
-http://eilo.org:8000/happycore
+<p>http://eilo.org:8000/happycore</p>
 
-# Punk-Rock
+<h1>Punk-Rock</h1>
 
-http://broadcast.rantradio.com:9000
+<p>http://broadcast.rantradio.com:9000</p>
 
-# Heavy Metal
+<h1>Heavy Metal</h1>
 
-http://s5.voscast.com:7346/
+<p>http://s5.voscast.com:7346/</p>
 
-# Black-Metal
+<h1>Black-Metal</h1>
 
-http://radio.hazzardofdarkness.com:6666/ (Black-Metal
+<p>http://radio.hazzardofdarkness.com:6666/ (Black-Metal</p>
 
-# Rock Alternativo
+<h1>Rock Alternativo</h1>
 
-http://66.55.148.27:10054
+<p>http://66.55.148.27:10054</p>
 
-# Piano Jazz
+<h1>Piano Jazz</h1>
 
-http://80.94.69.106:6814/
+<p>http://80.94.69.106:6814/</p>
 
-# Relax New Age
+<h1>Relax New Age</h1>
 
-http://radio2.trancemission.fm:80/
+<p>http://radio2.trancemission.fm:80/</p>
 
-# Hip-Hop
+<h1>Hip-Hop</h1>
 
-http://sc4.spacialnet.com:26368/
+<p>http://sc4.spacialnet.com:26368/</p>
 
-# Italiana
+<h1>Italiana</h1>
 
-http://italia.lolliradio.net:8010/
+<p>http://italia.lolliradio.net:8010/</p>
 
-# Beattles
+<h1>Beattles</h1>
 
-http://uplink.duplexfx.com:8062/
+<p>http://uplink.duplexfx.com:8062/</p>
 
-# Pop
+<h1>Pop</h1>
 
-http://listen.radionomy.com/lonestar-radio
+<p>http://listen.radionomy.com/lonestar-radio</p>
 
-# Rock-Pop, britpop
+<h1>Rock-Pop, britpop</h1>
 
-http://listen.radionomy.com/walesfm
-</code></pre>
+<p>http://listen.radionomy.com/walesfm</p>
 
 <p>3.-</p>
 
 <p>Moc también puede ser usado en modo servidor lo que nos permite liberar la terminal.</p>
 
-<pre><code>$ mocp -S  (Lanza el modo servidor)
+<p>$ mocp -S  (Lanza el modo servidor)</p>
 
-$ mocp -p  (Reproduce el playlist)
+<p>$ mocp -p  (Reproduce el playlist)</p>
 
-$ mocp -f  (Avanza al suguiente track del playlist)
+<p>$ mocp -f  (Avanza al suguiente track del playlist)</p>
 
-$ mocp -r  (Retrocede al anterior track del playlist)
+<p>$ mocp -r  (Retrocede al anterior track del playlist)</p>
 
-$ mocp -s  (Para la reproducción)
+<p>$ mocp -s  (Para la reproducción)</p>
 
-$ mocp -P  (Pausa la reproducción)
+<p>$ mocp -P  (Pausa la reproducción)</p>
 
-$ mocp -x  (Mata el servidor)
-</code></pre>
+<p>$ mocp -x  (Mata el servidor)</p>
 </div>
   
   
@@ -892,7 +871,7 @@ $ mocp -x  (Mata el servidor)
   
 
 
-<time datetime="2013-12-15T16:13:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T18:17:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -905,7 +884,7 @@ $ mocp -x  (Mata el servidor)
 
 <p>$ mmv &#8220;;*.abc&#8221; &#8220;#1#2.cba&#8221; (Renombrar todas las extensiones &#8220;PNG&#8221; a &#8220;png&#8221; del directorio actual y sus subdirectorios)</p>
 
-<p># mmv “/;*.PNG” “#1#2.png” (Renombrar todos los ficheros del sistema)</p>
+<p>~# mmv “/;*.PNG” “#1#2.png” (Renombrar todos los ficheros del sistema)</p>
 
 <p>$ mmv &#8220;*.flv.mpg&#8221; &#8220;#1.mpg&#8221; (Renombrar todos los archivos terminados en .flv.mpg a .mpg)</p></blockquote>
 </div>
@@ -929,9 +908,9 @@ $ mocp -x  (Mata el servidor)
   
     <section>
 <h1>Número de entradas</h1>
-	<ul>
-	<li>1354</li>
-	</ul>
+        <ul>
+        <li>1354</li>
+        </ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
