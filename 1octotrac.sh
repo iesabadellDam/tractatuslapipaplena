@@ -112,7 +112,6 @@ then
                         else
                                 color " << No efectuo cambios... salir... >> "
                                 rm -R $DIRNUEVO
-                                rm 0-*
                                 exit
                         fi
                         for linea in `cat 0-cambios.txt`; do
@@ -135,7 +134,6 @@ then
                         color "<< No existe directorio antiguo para verificar modificaciones.... >>"
                         ## Convertir a post
                         DIR2=$FILES
-                        rm $DIR/0-*
                         _post
                         echo
 fi
