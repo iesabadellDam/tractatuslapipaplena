@@ -1,13 +1,13 @@
 ---
 layout: post
 title: "grub-mkpasswd-pbkdf2"
-date: 2013-12-15 15:42
+date: 2013-12-15 16:11
 comments: true
 categories: 
 ---
 Crear una contraseña para una entrada de grub2
 
-># grub-mkpasswd-pbkdf2
+>\# grub-mkpasswd-pbkdf2
 
 Se entra la contraseña y se confirma. Saldrá una codificación del tipo:
 
@@ -15,7 +15,7 @@ Your PBKDF2 is grub.pbkdf2.sha512.10000.F2FE383.....
 
 Editar grub.cfg
 
-># nano /boot/grub/grub.cfg
+>\# nano /boot/grub/grub.cfg
 
 Colocar al final de la parte comentada (#):
 

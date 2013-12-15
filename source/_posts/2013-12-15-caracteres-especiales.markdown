@@ -1,53 +1,53 @@
 ---
 layout: post
 title: "caracteres-especiales"
-date: 2013-12-15 15:40
+date: 2013-12-15 16:09
 comments: true
 categories: 
 ---
 Son signos con un caracter especial en bash:
 
-~ (Directorio home)
+	~ (Directorio home)
 
-` (Sustitución de comando)
+	` (Sustitución de comando)
 
-# (Comentario)
+	# (Comentario)
 
-$ (Variable)
+	$ (Variable)
 
-& (Proceso en background)
+	& (Proceso en background)
 
-; (Separador de comandos)
+	; (Separador de comandos)
 
-* (Comodín para cero o cualquier número de caracteres)
+	* (Comodín para cero o cualquier número de caracteres)
 
-? (Comodín para un sólo carácter)
+	? (Comodín para un sólo carácter)
 
-/ (Separador de directorios)
+	/ (Separador de directorios)
 
-( (Empezar un subshell)
+	( (Empezar un subshell)
 
-) (Terminar un subshell)
+	) (Terminar un subshell)
 
- (Carácter de escape)
+	\ (Carácter de escape)
 
-< (Redirigir la entrada)
+	< (Redirigir la entrada)
 
-> (Redirigir la salida)
+	> (Redirigir la salida)
 
-| (Tuberia)
+	| (Tuberia)
 
-[ (Empieza conjunto de caracteres comodín)
+	[ (Empieza conjunto de caracteres comodín)
 
-] (Acaba conjunto de caracteres comodín)
+	] (Acaba conjunto de caracteres comodín)
 
-{ (Empieza un bloque de comando)
+	{ (Empieza un bloque de comando)
 
-} (Acaba un bloque de comando)
+	} (Acaba un bloque de comando)
 
-' (Entrecomillado fuerte)
+	' (Entrecomillado fuerte)
 
-" (Entrecomillado débil)
+	" (Entrecomillado débil)
 
-! (No lógico de código de terminación)
+	! (No lógico de código de terminación)
 

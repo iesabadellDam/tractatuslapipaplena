@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Gestión de impresoras. 1.- Montar una impresora en red: En la máquina servidor (la que tiene conectada la impresora) nano /etc/cups/cupsd.conf &hellip;">
+  <meta name="description" content="Gestión de impresoras. 1.- Montar una impresora en red: En la máquina servidor (la que tiene conectada la impresora) # nano /etc/cups/cupsd.conf &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -94,7 +94,7 @@
   
 
 
-<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:10:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -109,13 +109,15 @@
 
 <p>En la máquina servidor (la que tiene conectada la impresora)</p>
 
-<h1>nano /etc/cups/cupsd.conf</h1>
+<pre><code># nano /etc/cups/cupsd.conf
+</code></pre>
 
 <p>Comentar la linea “Listen localhost:631” y añadir la ip de la máquina: “Listen 192.168.2.3:631” y en el siguiente apartado añadir los parámetros de la red:</p>
 
-<blockquote><h1>Restrict access to the server…</h1></blockquote>
+<blockquote><p># Restrict access to the server…</p></blockquote>
 
-<p><Location /></p>
+<pre><code>&lt;Location /&gt;
+</code></pre>
 
 <p>Order allow,deny</p>
 
@@ -123,17 +125,19 @@
 
 <p>Allow @LOCAL</p>
 
-<blockquote><h1>permisos a la red local</h1></blockquote>
+<blockquote><p># permisos a la red local</p></blockquote>
 
 <p>Allow from 192.168.2.0/24</p>
 
-<p></Location></p>
+<pre><code>&lt;/Location&gt;
+</code></pre>
 
 <p>Para activar la compartición de impresoras:</p>
 
 <p>Browsing on</p>
 
-<h1>/etc/init.d/cupsd restart (reiniciar cups)</h1>
+<pre><code># /etc/init.d/cupsd restart (reiniciar cups)
+</code></pre>
 
 <p>Abrir el navegador y escribir http://localhost:631 después del logeo ir a la pestaña printers y seleccionar la impresora, con lo que nos quedará en la barra de navegación algo parecido a:</p>
 
@@ -145,13 +149,15 @@
 
 <p>En las máquinas cliente</p>
 
-<h1>nano /etc/cups/cupsd.conf</h1>
+<pre><code># nano /etc/cups/cupsd.conf
+</code></pre>
 
 <p>Browsing on</p>
 
 <p>BrowseAllow 192.168.2.0/24</p>
 
-<h1>/etc/init.d/cupsys restart</h1>
+<pre><code># /etc/init.d/cupsys restart
+</code></pre>
 
 <p>Y configurar la impresora de la forma habitual ya sea en Sistema -> administración -> impresoras pestaña Configuración -> URI del dispositivo y poner la dirección de la impresora o via http://localhost:631</p>
 </div>
@@ -176,7 +182,7 @@
   
 
 
-<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:10:00+01:00" pubdate data-updated="true">15-12-2013</time>
       
 
 
@@ -208,9 +214,9 @@
   
     <section>
 <h1>Número de entradas</h1>
-        <ul>
-        <li>1354</li>
-        </ul>
+	<ul>
+	<li>1354</li>
+	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>

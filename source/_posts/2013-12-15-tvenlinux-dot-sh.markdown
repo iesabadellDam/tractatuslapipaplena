@@ -1,27 +1,27 @@
 ---
 layout: post
 title: "TVenLinux.sh"
-date: 2013-12-15 15:46
+date: 2013-12-15 16:15
 comments: true
 categories: 
 ---
-[mplayer, zenity, rtmpdump y curl]
+[mplayer, zenity, rtmpdump y curl] 
 
-Script para poder ver prácticamente todos los canales de la TDT a través de Internet. Descarga: http://www.tvenlinux.com/TVenLinux.sh. Despues de otorgar permisos [chmod +x TVenLinux.sh) ejecutar con ./TVenLinux.sh.
+Script para poder ver prácticamente todos los canales de la TDT a través de Internet. Descarga: http://www.tvenlinux.com/TVenLinux.sh. Despues de otorgar permisos [chmod +x TVenLinux.sh) ejecutar con ./TVenLinux.sh. 
 
-Atajos
+Atajos 
 
-q (Salir para cambiar de programa o finalizar)
+q (Salir para cambiar de programa o finalizar) 
 
-cursor izquierdo (Si el video y el audio están descompasados, podemos volver 10 segundos atrás y suele solucionar el problema)
+cursor izquierdo (Si el video y el audio están descompasados, podemos volver 10 segundos atrás y suele solucionar el problema) 
 
-cursor derecho (Avanza 10 segundos)
+cursor derecho (Avanza 10 segundos) 
 
-m (Silencia)
+m (Silencia) 
 
-p (Pausa / inicia la reproducción. En casos de desconexiones frecuentes, pausar la reproducción permite aumentar la caché)
+p (Pausa / inicia la reproducción. En casos de desconexiones frecuentes, pausar la reproducción permite aumentar la caché) 
 
-f (Pantalla completa)
+f (Pantalla completa) 
 
 Mays + t (Siempre encima)
 

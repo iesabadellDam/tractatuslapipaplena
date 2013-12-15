@@ -1,13 +1,13 @@
 ---
 layout: post
 title: "normalize"
-date: 2013-12-15 15:44
+date: 2013-12-15 16:13
 comments: true
 categories: 
 ---
 Ajustar volumen
 
->$ normalize-audio *.wav
+>$ normalize-audio *.wav  
 
->$ normalize-mp3 *.mp3
+>$ normalize-mp3 *.mp3 
 

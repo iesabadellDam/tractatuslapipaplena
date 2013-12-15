@@ -94,7 +94,7 @@
   
 
 
-<time datetime="2013-12-15T15:43:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:12:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -105,39 +105,41 @@
 
 <p>Habilitar el servicio y especificar la red:</p>
 
-<blockquote><h1>nano /etc/default/knockd</h1></blockquote>
+<blockquote><p># nano /etc/default/knockd</p></blockquote>
 
-<p>START_KNOCKD=1</p>
+<pre><code>START_KNOCKD=1
 
-<p>KNOCKD_OPTS=&#8221;-i eth0&#8221;</p>
+KNOCKD_OPTS="-i eth0"
+</code></pre>
 
 <p>Configurar las opciones de loging y las secuencias que queremos usar:</p>
 
-<blockquote><h1>nano /etc/knockd.conf</h1></blockquote>
+<blockquote><p># nano /etc/knockd.conf</p></blockquote>
 
-<p>[options]</p>
+<pre><code>[options]
 
-<p>UseSyslog</p>
+        UseSyslog
 
-<p>[openSSH]</p>
+[openSSH]
 
-<p>sequence    = 7000,8000,9000</p>
+        sequence    = 7000,8000,9000
 
-<p>seq_timeout = 5</p>
+        seq_timeout = 5
 
-<p>command     = /sbin/iptables -A INPUT -s %IP% -p tcp &#8211;dport 22 -j ACCEPT</p>
+        command     = /sbin/iptables -A INPUT -s %IP% -p tcp --dport 22 -j ACCEPT
 
-<p>tcpflags    = syn</p>
+        tcpflags    = syn
 
-<p>[closeSSH]</p>
+[closeSSH]
 
-<p>sequence    = 9000,8000,7000</p>
+        sequence    = 9000,8000,7000
 
-<p>seq_timeout = 5</p>
+        seq_timeout = 5
 
-<p>command     = /sbin/iptables -D INPUT -s %IP% -p tcp &#8211;dport 22 -j ACCEPT</p>
+        command     = /sbin/iptables -D INPUT -s %IP% -p tcp --dport 22 -j ACCEPT
 
-<p>tcpflags    = syn</p>
+        tcpflags    = syn
+</code></pre>
 
 <ul>
 <li><p>UseSyslog (que envía los logs a /var/log/syslog. Si se desea un fichero de log propio, se utiliza LogFile=/var/log/knockd.log)</p></li>
@@ -151,15 +153,15 @@
 
 <p>Con esta configuración, el servidor knockd escucha permanentemente todos los puertos, esperando una secuencia válida. Si recibe paquetes TCP dirigidos a los puertos 7000, 8000 y 9000, en este mismo orden y dentro de un intervalo de 5 segundos, reconoce la directiva [openSSH] y ejecuta iptables para abrir el puerto 22 [donde escucha sshd] a la IP que solicita la conexión. Ahora el cliente SSH puede realizar la conexión, y podemos cerrar el puerto de nuevo con la directiva [closeSSH] manteniendo establecida dicha conexión.</p>
 
-<blockquote><h1>service knockd start (Iniciar el servicio)</h1></blockquote>
+<blockquote><p># service knockd start (Iniciar el servicio)</p></blockquote>
 
 <p>Probar el servicio en local:</p>
 
 <p>Parar knockd si está activo y levantarlo manualmente:</p>
 
-<blockquote><h1>service knockd stop</h1>
+<blockquote><p># service knockd stop</p>
 
-<h1>knockd -v -i lo</h1></blockquote>
+<p># knockd -v -i lo</p></blockquote>
 
 <p>En otra terminal:</p>
 
@@ -171,51 +173,54 @@
 
 <p>En la terminal del servidor veremos algo como:</p>
 
-<blockquote><h1>knockd -v -i lo</h1></blockquote>
+<blockquote><p># knockd -v -i lo</p></blockquote>
 
-<p>listening on lo&#8230;</p>
+<pre><code>listening on lo...
 
-<p>127.0.0.1: openSSH: Stage 1</p>
+127.0.0.1: openSSH: Stage 1
 
-<p>127.0.0.1: openSSH: Stage 2</p>
+127.0.0.1: openSSH: Stage 2
 
-<p>127.0.0.1: openSSH: Stage 3</p>
+127.0.0.1: openSSH: Stage 3
 
-<p>127.0.0.1: openSSH: OPEN SESAME</p>
+127.0.0.1: openSSH: OPEN SESAME
 
-<p>openSSH: running command: /sbin/iptables -A INPUT -s 127.0.0.1 -p tcp &#8211;dport 22 -j ACCEPT</p>
+openSSH: running command: /sbin/iptables -A INPUT -s 127.0.0.1 -p tcp --dport 22 -j ACCEPT
 
-<p>127.0.0.1: closeSSH: Stage 1</p>
+127.0.0.1: closeSSH: Stage 1
 
-<p>127.0.0.1: closeSSH: Stage 2</p>
+127.0.0.1: closeSSH: Stage 2
 
-<p>127.0.0.1: closeSSH: Stage 3</p>
+127.0.0.1: closeSSH: Stage 3
 
-<p>127.0.0.1: closeSSH: OPEN SESAME</p>
+127.0.0.1: closeSSH: OPEN SESAME
 
-<p>closeSSH: running command: /sbin/iptables -D INPUT -s 127.0.0.1 -p tcp &#8211;dport 22 -j ACCEPT</p>
+closeSSH: running command: /sbin/iptables -D INPUT -s 127.0.0.1 -p tcp --dport 22 -j ACCEPT
+</code></pre>
 
 <p>Si en la configuración de iptables tenemos acceso a conexiones ya establecidas:</p>
 
-<p>iptables -A INPUT -p tcp -m tcp &#8211;sport 22 -m state &#8211;state ESTABLISHED -j ACCEPT</p>
+<pre><code>iptables -A INPUT -p tcp -m tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
+</code></pre>
 
 <p>Podemos configurar la aplicación para que se cierre de forma automática:</p>
 
-<blockquote><h1>nano /etc/knockd.conf</h1></blockquote>
+<blockquote><p># nano /etc/knockd.conf</p></blockquote>
 
-<p>[opencloseSSH]</p>
+<pre><code>[opencloseSSH]
 
-<p>sequence = 7000,8000,9000</p>
+        sequence = 7000,8000,9000
 
-<p>seq_timeout = 5</p>
+        seq_timeout = 5
 
-<p>tcpflags = syn</p>
+        tcpflags = syn
 
-<p>start_command = /sbin/iptables -I INPUT -s %IP% -p tcp &#8211;dport 22 -j ACCEPT</p>
+        start_command = /sbin/iptables -I INPUT -s %IP% -p tcp --dport 22 -j ACCEPT
 
-<p>cmd_timeout = 25</p>
+        cmd_timeout = 25
 
-<p>stop_command = /sbin/iptables -D INPUT -s %IP% -p tcp  &#8211;dport 22 -j ACCEPT</p>
+        stop_command = /sbin/iptables -D INPUT -s %IP% -p tcp  --dport 22 -j ACCEPT
+</code></pre>
 </div>
 
 
@@ -238,7 +243,7 @@
   
 
 
-<time datetime="2013-12-15T15:43:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:12:00+01:00" pubdate data-updated="true">15-12-2013</time>
       
 
 
@@ -270,9 +275,9 @@
   
     <section>
 <h1>Número de entradas</h1>
-        <ul>
-        <li>1354</li>
-        </ul>
+	<ul>
+	<li>1354</li>
+	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>

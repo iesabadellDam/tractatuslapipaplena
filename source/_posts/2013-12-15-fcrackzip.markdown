@@ -1,13 +1,13 @@
 ---
 layout: post
 title: "fcrackzip"
-date: 2013-12-15 15:41
+date: 2013-12-15 16:10
 comments: true
 categories: 
 ---
 Craquear zips protegidos
 
->$ fcrackzip -c aA1 -l 5 archivo_protegido.zip
+>$ fcrackzip -c aA1 -l 5 archivo_protegido.zip 
 
 -c aA1!  (Prueba ninúsculas, mayúsculas, números y caracteres especiales [!:$%&/()=?{[]}+*~#])
 

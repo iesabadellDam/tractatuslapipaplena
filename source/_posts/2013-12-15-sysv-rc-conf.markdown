@@ -1,11 +1,11 @@
 ---
 layout: post
 title: "sysv-rc-conf"
-date: 2013-12-15 15:46
+date: 2013-12-15 16:15
 comments: true
 categories: 
 ---
 Gestionar el arranque de las aplicaciones al inicio.
 
-># sysv-rc-conf
+>\# sysv-rc-conf
 

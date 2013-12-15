@@ -94,7 +94,7 @@
   
 
 
-<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:15:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -123,7 +123,7 @@
 
 <p>$ ssh usuario@host &#8220;tar -cf - /home/usuario/dir&#8221; | gzip dir.tar.gz (Comprimir un directorio remoto)</p>
 
-<h1>gedit /var/run/motd   (modificar el mensaje de bienvenida de ssh)</h1></blockquote>
+<p># gedit /var/run/motd   (modificar el mensaje de bienvenida de ssh)</p></blockquote>
 
 <p>1.-</p>
 
@@ -137,7 +137,7 @@
 
 <p>2.-</p>
 
-<blockquote><h1>gedit /etc/issue.net   (modificar el mensaje antes del login. Para activarlo, descomentar del archivo “/etc/ssh/sshd_config” la línea: Banner /etc/issue.net)</h1></blockquote>
+<blockquote><p># gedit /etc/issue.net   (modificar el mensaje antes del login. Para activarlo, descomentar del archivo “/etc/ssh/sshd_config” la línea: Banner /etc/issue.net)</p></blockquote>
 
 <p>3.-</p>
 
@@ -163,9 +163,9 @@
 
 <p>Para deshabilitar el acceso a todos los usuarios excepto a root:</p>
 
-<blockquote><h1>touch /etc/nologin</h1>
+<blockquote><p># touch /etc/nologin</p>
 
-<h1>chmod 644 /etc/nologin</h1></blockquote>
+<p># chmod 644 /etc/nologin</p></blockquote>
 
 <p>6.-</p>
 
@@ -173,7 +173,7 @@
 
 <blockquote><p>$ touch /home/usuario/.hushlogin (Creando este fichero vacio se deshabilitan los mensajes. Borrandolo vuelven a aparecer)</p>
 
-<h1>nano /etc/motd (Archivo para personalizar los mensaje de bienvenida a quien se loguea en el sistema)</h1></blockquote>
+<p># nano /etc/motd (Archivo para personalizar los mensaje de bienvenida a quien se loguea en el sistema)</p></blockquote>
 
 <p>7.-</p>
 
@@ -183,11 +183,12 @@
 
 <p>Y pegar el siguiente contenido debidamente modificado con nuestros datos:</p>
 
-<p>host servidor</p>
+<pre><code>host servidor
 
-<p>hostname 192.168.1.10</p>
+ hostname 192.168.1.10 
 
-<p>user USUARIO_REMOTO</p>
+ user USUARIO_REMOTO
+</code></pre>
 
 <p>Nota.- Delante de la segunda y tercera linea existe un espacio.</p>
 
@@ -203,17 +204,18 @@
 
 <p>Y pegar el siguiente contenido:</p>
 
-<p>Host *</p>
+<pre><code>Host *
 
-<p>ServerAliveInterval 120</p>
+    ServerAliveInterval 120
 
-<p>ServerAliveCountMax 3</p>
+    ServerAliveCountMax 3
+</code></pre>
 
 <p>9.-</p>
 
 <p>Añadir un registro de las acciones realizadas dentro de cada sesión SFTP</p>
 
-<blockquote><h1>nano /etc/ssh/sshd_config</h1></blockquote>
+<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
 
 <p>Y dejar la linea como se indica:</p>
 
@@ -225,21 +227,22 @@
 
 <p>Aumentando la seguridad del servidor ssh:</p>
 
-<blockquote><h1>nano /etc/ssh/sshd_config</h1></blockquote>
+<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
 
 <p>Y añadir o modificar las siguientes lineas:</p>
 
-<p>AllowUsers juan pedro andrés (Limitando a uno o varios los usuarios autorizados)</p>
+<pre><code>AllowUsers juan pedro andrés (Limitando a uno o varios los usuarios autorizados)
 
-<p>AllowGroup oficina (Restringir acceso a solo un grupo)</p>
+AllowGroup oficina (Restringir acceso a solo un grupo)
 
-<p>Port 372 (Modificando puerto. Aconsejable uno inferior al 1024)</p>
+Port 372 (Modificando puerto. Aconsejable uno inferior al 1024)
 
-<p>LoginGraceTime 40 (Mostrar la pantalla de login 40 segundos antes de cerrarse)</p>
+LoginGraceTime 40 (Mostrar la pantalla de login 40 segundos antes de cerrarse)
 
-<p>MaxStartups 4 (Cantidad máxima de conexiones simultaneas)</p>
+MaxStartups 4 (Cantidad máxima de conexiones simultaneas)
 
-<p>MaxAuthTries 3 (Limitar el número de intentos de logeo, tras los cuales se cierra la conexión)</p>
+MaxAuthTries 3 (Limitar el número de intentos de logeo, tras los cuales se cierra la conexión)
+</code></pre>
 
 <p>11.-</p>
 
@@ -247,23 +250,25 @@
 
 <p>En el servidor:</p>
 
-<blockquote><h1>nano /etc/ssh/sshd_config</h1></blockquote>
+<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
 
-<p>AllowTcpForwarding yes</p>
+<pre><code>AllowTcpForwarding yes
 
-<p>X11Forwarding yes</p>
+X11Forwarding yes
 
-<p>X11DisplayOffset 10</p>
+X11DisplayOffset 10
 
-<p>X11UseLocalhost yes</p>
+X11UseLocalhost yes
+</code></pre>
 
 <p>En la máquina cliente:</p>
 
-<blockquote><h1>nano /etc/ssh/ssh_config</h1></blockquote>
+<blockquote><p># nano /etc/ssh/ssh_config</p></blockquote>
 
-<p>ForwardX11 yes</p>
+<pre><code>ForwardX11 yes
 
-<p>ForwardX11Trusted yes</p>
+ForwardX11Trusted yes
+</code></pre>
 
 <p>Después de reiniciar ssh, con el parámetro -X se visualizará la gui remota que tambien tiene que estar instalada en local.</p>
 
@@ -290,7 +295,7 @@
   
 
 
-<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:15:00+01:00" pubdate data-updated="true">15-12-2013</time>
       
 
 
@@ -322,9 +327,9 @@
   
     <section>
 <h1>Número de entradas</h1>
-        <ul>
-        <li>1354</li>
-        </ul>
+	<ul>
+	<li>1354</li>
+	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>

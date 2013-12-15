@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "interfaces"
-date: 2013-12-15 15:42
+date: 2013-12-15 16:12
 comments: true
 categories: 
 ---
@@ -13,9 +13,9 @@ Con IP dinámica:
 
 Colocar en el archivo las lineas:
 
-auto eth0
+	auto eth0
 
-iface eth0 inet dhcp
+	iface eth0 inet dhcp
 
 2.-
 
@@ -23,23 +23,23 @@ Con IP fija
 
 Colocar en el archivo las lineas:
 
-auto eth0
+	auto eth0
 
-iface eth0 inet static
+	iface eth0 inet static
 
-address 192.168.1.10
+	address 192.168.1.10
 
-gateway 192.168.1.1
+	gateway 192.168.1.1
 
-netmask 255.255.255.0
+	netmask 255.255.255.0
 
-broadcast 192.168.1.255
+	broadcast 192.168.1.255
 
 Reiniciar el servicio:
 
-># ifdown eth0
+>\# ifdown eth0
 
-># ifup eth0
+>\# ifup eth0
 
 Nota.- Solo modificandolo en network-manager no funciona.
 
@@ -49,21 +49,21 @@ Creación de una segunda dirección IP virtual.
 
 Añadir las siguientes lineas a las de la IP fija:
 
-auto eth0:1
+	auto eth0:1
 
-iface eth0:1 inet static
+	iface eth0:1 inet static
 
-address 192.168.0.15
+	address 192.168.0.15
 
-netmask 255.255.255.0
+	netmask 255.255.255.0
 
-broadcast 192.168.0.255
+	broadcast 192.168.0.255
 
-gateway 192.168.0.1
+	gateway 192.168.0.1
 
 Nota.- La instalación de nerwork-manager o wicd para la gestión de redes implica comentar las modificaciones de este archivo o en, en el caso de network-manager, editar:
 
-># nano  /etc/NetworkManager/NetworkManager.conf
+>\# nano  /etc/NetworkManager/NetworkManager.conf
 
 Y modificar la linea:
 

@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Filtro de contenidos web (cliente) que trabaja conjuntamente con el servidor proxy squid (servidor). Adaptar el archivo de configuración: nano /etc/ &hellip;">
+  <meta name="description" content="Filtro de contenidos web (cliente) que trabaja conjuntamente con el servidor proxy squid (servidor). Adaptar el archivo de configuración: # nano /etc &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -97,7 +97,7 @@
   
 
 
-<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:10:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -108,7 +108,7 @@
 
 <p>Adaptar el archivo de configuración:</p>
 
-<blockquote><h1>nano /etc/dansguardian/dansguardian.conf</h1></blockquote>
+<blockquote><p># nano /etc/dansguardian/dansguardian.conf</p></blockquote>
 
 <p>Algunos parámetros a especificar (caso de no estarlo):</p>
 
@@ -126,7 +126,7 @@
 
 <p>El listado de conceptos (ip, nombre de dominio, frases&#8230; ) por los que se puede banear y conceptos excluidos en:</p>
 
-<blockquote><h1>ls /etc/dansguardian/lists/</h1></blockquote>
+<blockquote><p># ls /etc/dansguardian/lists/</p></blockquote>
 
 <p>Algunos de los más usuales:</p>
 
@@ -150,7 +150,7 @@
 
 <p>exceptionuserlist (Lista de excepciones de nombres de usuarios que no serán filtrado)</p>
 
-<blockquote><h1>/etc/init.d/dansguardian restart</h1></blockquote>
+<blockquote><p># /etc/init.d/dansguardian restart</p></blockquote>
 </div>
   
   
@@ -179,7 +179,7 @@
   
 
 
-<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:10:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -188,9 +188,9 @@
 
   <div class="entry-content"><p>Cortar conexiones no deseadas</p>
 
-<blockquote><h1>cutter 192.168.2.6 80 (especificando IP y puerto)</h1>
+<blockquote><p># cutter 192.168.2.6 80 (especificando IP y puerto)</p>
 
-<h1>cutter 192.168.2.6   (solo IP)</h1></blockquote>
+<p># cutter 192.168.2.6   (solo IP)</p></blockquote>
 </div>
   
   
@@ -219,7 +219,7 @@
   
 
 
-<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:10:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -267,7 +267,7 @@
   
 
 
-<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:10:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -276,7 +276,7 @@
 
   <div class="entry-content"><p>Montar directorios remotos en local.</p>
 
-<blockquote><h1>curlftpfs usuario:contraseña@192.168.1.10 /media/servidor</h1></blockquote>
+<blockquote><p># curlftpfs usuario:contraseña@192.168.1.10 /media/servidor</p></blockquote>
 
 <p>Para automatizar el proceso, añadir al /etc/fstab la linea:</p>
 
@@ -309,7 +309,7 @@
   
 
 
-<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:10:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -370,25 +370,26 @@
 
 <p>Otras opciones:</p>
 
-<p>$ curl -Is google.com | grep Date (Conocer la fecha via web)</p>
+<pre><code>$ curl -Is google.com | grep Date (Conocer la fecha via web)
 
-<p>$ curl ip.appspot.com (Conocer la IP externa)</p>
+$ curl ip.appspot.com (Conocer la IP externa) 
 
-<p>$ curl icanhazip.com (lo mismo)</p>
+$ curl icanhazip.com (lo mismo)
 
-<p>$ curl ifconfig.me (lo mismo)</p>
+$ curl ifconfig.me (lo mismo)
 
-<p>$ curl whatismyip.org (Otra)</p>
+$ curl whatismyip.org (Otra) 
 
-<p>$ curl -u usuario:clave &#8211;silent &#8220;https://mail.google.com/mail/feed/atom&#8221; | perl -ne &#8216;print &#8220;t&#8221; if /<name>/; print &#8220;$2n&#8221; if /&lt;(title|name)>(.*)</1>/;&#8217; (visualizar todos los mensajes no leidos de gmail)</p>
+$ curl -u usuario:clave --silent "https://mail.google.com/mail/feed/atom" | perl -ne 'print "\t" if /&lt;name&gt;/; print "$2\n" if /&lt;(title|name)&gt;(.*)&lt;\/\1&gt;/;' (visualizar todos los mensajes no leidos de gmail)
 
-<p>$ curl -s &#8216;http://geoiplookup.wikimedia.org/&#8217; | sed &#8216;s/<sup>.<em>=s</em>//&#8217;</sup> | python3 -mjson.tool (muestra la situación geográfica)</p>
+$ curl -s 'http://geoiplookup.wikimedia.org/' | sed 's/^.*=\s*//' | python3 -mjson.tool (muestra la situación geográfica)
 
-<p>$ curl -s http://geoiplookup.wikimedia.org/ | python3 -c &#8216;import sys, json, string, webbrowser; webbrowser.open(string.Template(&#8220;http://maps.google.com/maps?q=$lat,$lon&#8221;).substitute(json.loads(sys.stdin.read().split(&#8220;=&#8221;)[-1])))&#8217; (Lo mismo pero abriendo una pestaña en el navegador)</p>
+$ curl -s http://geoiplookup.wikimedia.org/ | python3 -c 'import sys, json, string, webbrowser; webbrowser.open(string.Template("http://maps.google.com/maps?q=$lat,$lon").substitute(json.loads(sys.stdin.read().split("=")[-1])))' (Lo mismo pero abriendo una pestaña en el navegador)
 
-<p>$ curl -s http://www.census.gov/popclock/data/population/world | awk -F&#8217;[:,]&#8217; &#8216;{print $7}&#8217; (Muestra el número de habitantes de la tierra)</p>
+$ curl -s http://www.census.gov/popclock/data/population/world | awk -F'[:,]' '{print $7}' (Muestra el número de habitantes de la tierra)
 
-<p>$ curl -s https://help.github.com/articles/generating-ssh-keys | grep -Po  &#8211;color=never &#8220;RSA key fingerprint is (:?[A-z0-9]:?){32}&#8221; (Imprime la clave RSA de github.com)</p>
+$ curl -s https://help.github.com/articles/generating-ssh-keys | grep -Po  --color=never "RSA key fingerprint is (:?[A-z0-9]\:?){32}" (Imprime la clave RSA de github.com)
+</code></pre>
 </div>
   
   
@@ -417,7 +418,7 @@
   
 
 
-<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:10:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -432,13 +433,15 @@
 
 <p>En la máquina servidor (la que tiene conectada la impresora)</p>
 
-<h1>nano /etc/cups/cupsd.conf</h1>
+<pre><code># nano /etc/cups/cupsd.conf
+</code></pre>
 
 <p>Comentar la linea “Listen localhost:631” y añadir la ip de la máquina: “Listen 192.168.2.3:631” y en el siguiente apartado añadir los parámetros de la red:</p>
 
-<blockquote><h1>Restrict access to the server…</h1></blockquote>
+<blockquote><p># Restrict access to the server…</p></blockquote>
 
-<p><Location /></p>
+<pre><code>&lt;Location /&gt;
+</code></pre>
 
 <p>Order allow,deny</p>
 
@@ -446,17 +449,19 @@
 
 <p>Allow @LOCAL</p>
 
-<blockquote><h1>permisos a la red local</h1></blockquote>
+<blockquote><p># permisos a la red local</p></blockquote>
 
 <p>Allow from 192.168.2.0/24</p>
 
-<p></Location></p>
+<pre><code>&lt;/Location&gt;
+</code></pre>
 
 <p>Para activar la compartición de impresoras:</p>
 
 <p>Browsing on</p>
 
-<h1>/etc/init.d/cupsd restart (reiniciar cups)</h1>
+<pre><code># /etc/init.d/cupsd restart (reiniciar cups)
+</code></pre>
 
 <p>Abrir el navegador y escribir http://localhost:631 después del logeo ir a la pestaña printers y seleccionar la impresora, con lo que nos quedará en la barra de navegación algo parecido a:</p>
 
@@ -468,13 +473,15 @@
 
 <p>En las máquinas cliente</p>
 
-<h1>nano /etc/cups/cupsd.conf</h1>
+<pre><code># nano /etc/cups/cupsd.conf
+</code></pre>
 
 <p>Browsing on</p>
 
 <p>BrowseAllow 192.168.2.0/24</p>
 
-<h1>/etc/init.d/cupsys restart</h1>
+<pre><code># /etc/init.d/cupsys restart
+</code></pre>
 
 <p>Y configurar la impresora de la forma habitual ya sea en Sistema -> administración -> impresoras pestaña Configuración -> URI del dispositivo y poner la dirección de la impresora o via http://localhost:631</p>
 </div>
@@ -505,7 +512,7 @@
   
 
 
-<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:10:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -543,7 +550,7 @@
   
 
 
-<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:10:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -552,11 +559,11 @@
 
   <div class="entry-content"><p>Lista ficheros que presumiblemente sobran, faltan o están de alguna forma incorrectos, tomando principalmente la información de la base de datos de dpkg</p>
 
-<blockquote><h1>cruft -d /var/www</h1>
+<blockquote><p># cruft -d /var/www</p>
 
-<h1>cruft -r (Mostrar el informe)</h1>
+<p># cruft -r (Mostrar el informe)</p>
 
-<h1>cruft &#8211;ignore /home/usuario (Descartando un directorio)</h1></blockquote>
+<p># cruft &#8211;ignore /home/usuario (Descartando un directorio)</p></blockquote>
 </div>
   
   
@@ -585,7 +592,7 @@
   
 
 
-<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:10:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -594,51 +601,47 @@
 
   <div class="entry-content"><p>configurar tareas para que se ejecuten automáticamente en el sistema</p>
 
-<blockquote><h1>crontab -e      (editar el archivo crontab, si no existe se crea)</h1>
+<blockquote><p># crontab -e      (editar el archivo crontab, si no existe se crea)</p>
 
 <p>$ crontab -e      (idem para el usuario no root)</p>
 
-<h1>crontab -l       (Muestra el contenido para root)</h1>
+<p># crontab -l       (Muestra el contenido para root)</p>
 
-<h1>crontab -l -u usuario  (muestra el de usuario)</h1>
+<p># crontab -l -u usuario  (muestra el de usuario)</p>
 
 <p>$ crontab -l       (idem para el usuario no root)</p>
 
-<h1>crontab -r       (Borra el contenido de crontab)</h1></blockquote>
+<p># crontab -r       (Borra el contenido de crontab)</p></blockquote>
 
 <p>Crontab consta de 6 campos separados por un espacio que indican:</p>
 
 <p>minuto (0-59), hora (0-23), dia del mes (1-31), mes (1-12), dia de la semana (0-6, domingo=0), y comando a ejecutar. Un asterisco * como valor en los primeros cinco campos, indicará todos (todos los minutos, todas las horas &#8230;)</p>
 
-<p>01 * * * *       (Se ejecuta el primer minuto de cada hora todos los dias)</p>
+<pre><code>01 * * * *       (Se ejecuta el primer minuto de cada hora todos los dias)
 
-<p>20 9 * * *       (a las 9:20 de la mañana todos los dias)</p>
+20 9 * * *       (a las 9:20 de la mañana todos los dias)
 
-<p>20 21 * * *     (a las 9:20 (21:20) de la tarde todos los dias)</p>
+20 21 * * *     (a las 9:20 (21:20) de la tarde todos los dias)
 
-<p>01 6 * * 1      (a las 6:01 de todos los lunes)</p>
+01 6 * * 1      (a las 6:01 de todos los lunes)
 
-<ul>
-<li><ul>
-<li>1 1 *         (todos los minutos de todas las horas del 1 de enero)</li>
-</ul>
-</li>
-</ul>
+* * 1 1 *         (todos los minutos de todas las horas del 1 de enero) 
 
+00 12 * * 0     (a las doce en punto de todos los domingos)
 
-<p>00 12 * * 0     (a las doce en punto de todos los domingos)</p>
-
-<p>@reboot (Cada reinicio)</p>
+@reboot (Cada reinicio)
+</code></pre>
 
 <p>También es posible especificar listas en los campos:</p>
 
-<p>01 15 * 1-4 1,2,3,4   (a las 3:01 de la tarde de lunes a viernes de enero a abril)</p>
+<pre><code>01 15 * 1-4 1,2,3,4   (a las 3:01 de la tarde de lunes a viernes de enero a abril)
 
-<p>*/15 * 1-15 *     (cada 15 minutos  entre el 1 y el 15 de todos los meses)</p>
+*/15 * 1-15 *     (cada 15 minutos  entre el 1 y el 15 de todos los meses)
 
-<p>*/5 * * * * cp /etc/resolv.conf.bak /etc/resolv.conf  (Ejecutar cada 5 minutos el comando especificado.)</p>
+*/5 * * * * cp /etc/resolv.conf.bak /etc/resolv.conf  (Ejecutar cada 5 minutos el comando especificado.)
 
-<p>$ 0 8 * * * env DISPLAY=:0.0 vlc /home/usuario/musica/archivo.mp3 (Programar que cada dia a las 8 se abra un mp3 con el vlc)</p>
+$ 0 8 * * * env DISPLAY=:0.0 vlc /home/usuario/musica/archivo.mp3 (Programar que cada dia a las 8 se abra un mp3 con el vlc) 
+</code></pre>
 
 <p>El archivo donde se guardan las tareas a realizar es:</p>
 
@@ -650,7 +653,7 @@
 
 <p>En ocasiones, y especialmente con Archlinux, crontab cambia la codificación de caracteres de los scripts. Ejecutados directamente funcionan correctamente pero al colocarlos en el cron se muestran con caracteres estraños. La causa son las variables de entorno asociadas a la máquina y al demonio del cron. Para solucionar el problema:</p>
 
-<blockquote><h1>nano /etc/environment</h1></blockquote>
+<blockquote><p># nano /etc/environment</p></blockquote>
 
 <p>Y añadir la linea:</p>
 
@@ -658,7 +661,7 @@
 
 <p>Reiniciar cron:</p>
 
-<blockquote><h1>/etc/rc.d/crond restart</h1></blockquote>
+<blockquote><p># /etc/rc.d/crond restart</p></blockquote>
 </div>
   
   
@@ -687,7 +690,7 @@
   
 
 
-<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:10:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -696,9 +699,9 @@
 
   <div class="entry-content"><p>Limitar el uso de la cpu para determinados procesos.</p>
 
-<blockquote><h1>cpulimit -e yes -l 20 (el de “yes”a un 20% de la cpu. Valor entre 0 y 100)</h1>
+<blockquote><p># cpulimit -e yes -l 20 (el de “yes”a un 20% de la cpu. Valor entre 0 y 100)</p>
 
-<h1>cpulimit -p PID -l 50 (el proceso con el numero PID al 50%)</h1></blockquote>
+<p># cpulimit -p PID -l 50 (el proceso con el numero PID al 50%)</p></blockquote>
 </div>
   
   
@@ -720,9 +723,9 @@
   
     <section>
 <h1>Número de entradas</h1>
-        <ul>
-        <li>1354</li>
-        </ul>
+	<ul>
+	<li>1354</li>
+	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>

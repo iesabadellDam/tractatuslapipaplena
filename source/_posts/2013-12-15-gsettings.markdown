@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "gsettings"
-date: 2013-12-15 15:42
+date: 2013-12-15 16:11
 comments: true
 categories: 
 ---
@@ -11,31 +11,31 @@ Herramienta de configuración. Equivalente a gconftool-2 [gconf-editor] pero par
 
 >$ gsettings set com.canonical.indicator.sound blacklisted-media-players "['xmms2']" (añadir aplicaciones en el menú de sonido)
 
-Opciones
+Opciones 
 
-help (Muestra informacion)
+help (Muestra informacion) 
 
-list-schemas (Lista de esquemas instalados)
+list-schemas (Lista de esquemas instalados) 
 
-list-relocatable-schemas (Lista los que pueden ser modificados)
+list-relocatable-schemas (Lista los que pueden ser modificados) 
 
 list-keys (Lista las claves de un esquema)
 
-list-children	 (lista los procesos hijos de un esquema)
+list-children	 (lista los procesos hijos de un esquema) 
 
-list-recursively (Lista claves y valores recursivamente)
+list-recursively (Lista claves y valores recursivamente) 
 
-range (Consulta el rango de la clave)
+range (Consulta el rango de la clave) 
 
 get (Obtine el valor de una clave)
 
-set (Establece el valor de una clave)
+set (Establece el valor de una clave) 
 
-reset (Reinicia el valor de la clave)
+reset (Reinicia el valor de la clave) 
 
 reset-recursively (Reinicia los valores de todo un esquema)
 
 writable (Comprueba si un clave es modificable)
 
-monitor (Hace un seguimiento por si hay cambios)
+monitor (Hace un seguimiento por si hay cambios) 
 

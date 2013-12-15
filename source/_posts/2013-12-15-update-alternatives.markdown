@@ -1,11 +1,11 @@
 ---
 layout: post
 title: "update-alternatives"
-date: 2013-12-15 15:46
+date: 2013-12-15 16:15
 comments: true
 categories: 
 ---
-Modificar las aplicaciones por defecto cuando existen otras posibilidades
+Modificar las aplicaciones por defecto cuando existen otras posibilidades 
 
 >$ ls /etc/alternatives  (Muestra todas las posibilidades)
 

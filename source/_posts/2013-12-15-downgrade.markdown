@@ -1,13 +1,13 @@
 ---
 layout: post
 title: "downgrade"
-date: 2013-12-15 15:41
+date: 2013-12-15 16:10
 comments: true
 categories: 
 ---
 Bajar versión a un programa instalado.
 
-># downgrade firefox
+>\# downgrade firefox 
 
 Mostrará la salida: “please choose a version, [s]earch A.R.M., or [q]uit:”
 

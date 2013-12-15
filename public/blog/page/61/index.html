@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Conocer usuarios (inalámbricos o no) de una red local nast -m (conocer las máquinas que estan en la LAN) nast -g (muestra los candidatos a gateway &hellip;">
+  <meta name="description" content="Conocer usuarios (inalámbricos o no) de una red local # nast -m (conocer las máquinas que estan en la LAN) # nast -g (muestra los candidatos a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -97,7 +97,7 @@
   
 
 
-<time datetime="2013-12-15T15:44:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:13:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -106,9 +106,9 @@
 
   <div class="entry-content"><p>Conocer usuarios (inalámbricos o no) de una red local</p>
 
-<blockquote><h1>nast -m  (conocer las máquinas que estan en la LAN)</h1>
+<blockquote><p># nast -m  (conocer las máquinas que estan en la LAN)</p>
 
-<h1>nast -g   (muestra los candidatos a gateway con un “Yep”)</h1></blockquote>
+<p># nast -g   (muestra los candidatos a gateway con un “Yep”)</p></blockquote>
 
 <p>opciones:</p>
 
@@ -143,7 +143,7 @@
   
 
 
-<time datetime="2013-12-15T15:44:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:13:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -241,7 +241,7 @@
   
 
 
-<time datetime="2013-12-15T15:44:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:13:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -250,13 +250,13 @@
 
   <div class="entry-content"><p>Modificar la MAC de una tarjeta de red dañada. Imaginemos el caso de un pc con dos tarjetas (eth0 y eth1) en el que la eth0 se estropea, con nameif podemos cambiar de interfaz la eth1 para ser la eth0:</p>
 
-<blockquote><h1>ifconfig eth1 (Averiguar la MAC de la eth1)</h1></blockquote>
+<blockquote><p># ifconfig eth1 (Averiguar la MAC de la eth1)</p></blockquote>
 
 <p>eth1      Link encap:Ethernet  HWaddr 00:23:54:57:fc:78</p>
 
-<blockquote><h1>ifconfig eth1 down (bajar la red eth1)</h1>
+<blockquote><p># ifconfig eth1 down (bajar la red eth1)</p>
 
-<h1>nano /etc/init.d/networking</h1></blockquote>
+<p># nano /etc/init.d/networking</p></blockquote>
 
 <p>Añadir a continuación de la linea del PATH:</p>
 
@@ -268,11 +268,11 @@
 
 <p>Reiniciar el servicio:</p>
 
-<blockquote><h1>/etc/init.d/networking restart</h1></blockquote>
+<blockquote><p># /etc/init.d/networking restart</p></blockquote>
 
 <p>Comprobar que eth1 se ha convertido en eth0:</p>
 
-<blockquote><h1>ifconfig eth0</h1></blockquote>
+<blockquote><p># ifconfig eth0</p></blockquote>
 
 <p>eth0      Link encap:Ethernet  HWaddr 00:23:54:57:fc:78</p>
 </div>
@@ -303,7 +303,7 @@
   
 
 
-<time datetime="2013-12-15T15:44:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:13:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -343,7 +343,7 @@
   
 
 
-<time datetime="2013-12-15T15:44:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:13:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -394,13 +394,14 @@
 
 <p>Modelo de creación de una tabla dentro de una BD mysql:</p>
 
-<p>mysql> CREATE TABLE usuarios(</p>
+<pre><code>mysql&gt; CREATE TABLE usuarios( 
 
-<p>-> nombre VARCHAR(20), apellido VARCHAR(20),</p>
+-&gt; nombre VARCHAR(20), apellido VARCHAR(20), 
 
-<p>-> profesión VARCHAR(20), sexo CHAR(1), nacimiento DATE,</p>
+-&gt; profesión VARCHAR(20), sexo CHAR(1), nacimiento DATE, 
 
-<p>-> antiguedad DATE);</p>
+-&gt; antiguedad DATE); 
+</code></pre>
 
 <p>VARCHAR(20) (Que los valores que se almacenarán son de longitud variable de hasta 20 caracteres)</p>
 
@@ -408,7 +409,7 @@
 
 <p>DATE (En formato YYYY-MM-DD)</p>
 
-<p>Para entrar datos en la tabla anterior, podemos crear un archivo de texto &#8220;usuarios.txt&#8221; que contenga un registro por línea con valores separados por tabuladores, cuidando que el orden de las columnas sea el mismo que utilizamos en la sentencia CREATE TABLE. Para valores que no conozcamos podemos usar valores nulos usando N. Ejemplo:</p>
+<p>Para entrar datos en la tabla anterior, podemos crear un archivo de texto &#8220;usuarios.txt&#8221; que contenga un registro por línea con valores separados por tabuladores, cuidando que el orden de las columnas sea el mismo que utilizamos en la sentencia CREATE TABLE. Para valores que no conozcamos podemos usar valores nulos usando \N. Ejemplo:</p>
 
 <blockquote><p>$ nano usuarios.txt</p></blockquote>
 
@@ -416,35 +417,38 @@
 
 <p>Maria   Gil administrativo  f   1983-10-03  2004-08-05</p>
 
-<p>Antonio Gomez   portero     m   N       2006-11-01</p>
+<p>Antonio Gomez   portero     m   \N      2006-11-01</p>
 
-<p>Nota.- El final del archivo no ha de contener ninguna linea en blanco.</p>
+<pre><code>Nota.- El final del archivo no ha de contener ninguna linea en blanco. 
+</code></pre>
 
 <p>Para cargarlo en la BD:</p>
 
 <p>mysql> LOAD DATA LOCAL INFILE &#8220;usuarios.txt&#8221; INTO TABLE datos;</p>
 
-<p>Nota.- En caso de que salga el error: The used command is not allowed with this MySQL version:</p>
+<pre><code>Nota.- En caso de que salga el error: The used command is not allowed with this MySQL version:
 
-<h1>nano /etc/mysql/my.cnf</h1>
+# nano /etc/mysql/my.cnf
 
-<p>Y en la sección [mysql] añadir la linea &#8220;local-infile&#8221;:</p>
+Y en la sección [mysql] añadir la linea "local-infile": 
 
-<p>[mysql]</p>
+    [mysql]
 
-<p>local-infile</p>
+    local-infile
 
-<p>Reinciar mysql.</p>
+Reinciar mysql. 
+</code></pre>
 
 <p>LOAD DATA (Permite especificar cuál es el separador de columnas y el separador de registros. Por defecto el tabulador es el separador de columnas (campos) y el salto de línea es el separador de registros)</p>
 
 <p>Para añadir un nuevo registro a la BD anterior:</p>
 
-<p>mysql> INSERT INTO usuarios</p>
+<pre><code>mysql&gt; INSERT INTO usuarios 
 
-<p>-> VALUES(&#8216;Jose&#8217;,&#8217;Robles&#8217;,&#8217;administrativo&#8217;,&#8217;m&#8217;,NULL,&#8217;2012-12-01&#8217;);</p>
+    -&gt; VALUES('Jose','Robles','administrativo','m',NULL,'2012-12-01'); 
+</code></pre>
 
-<p>Valores y fechas entre comillas simples y valores desconocidos NULL y no N como entrando un archivo.</p>
+<p>Valores y fechas entre comillas simples y valores desconocidos NULL y no \N como entrando un archivo.</p>
 
 <p>mysql> SELECT * FROM usuarios; (Ver toda la tabla para comprobar si se ha añadido el último registro)</p>
 
@@ -468,9 +472,10 @@
 
 <p>mysql> SELECT * FROM usuarios WHERE profesion=&#8221;portero&#8221; OR profesion=&#8221;contable&#8221;; (filtrar porteros y contables)</p>
 
-<p>mysql> SELECT * FROM usuarios WHERE (profesion=&#8221;portero&#8221; AND sexo=&#8221;f&#8221;)</p>
+<pre><code>mysql&gt; SELECT * FROM usuarios WHERE (profesion="portero" AND sexo="f") 
 
-<p>-> OR (nombre = &#8220;juan&#8221; AND sexo = &#8220;m&#8221;); (Filtrar distintas opciones encerradas entre parentesis)</p>
+    -&gt; OR (nombre = "juan" AND sexo = "m"); (Filtrar distintas opciones encerradas entre parentesis) 
+</code></pre>
 
 <p>mysql> SELECT apellido, nacimiento FROM usuarios;</p>
 
@@ -498,25 +503,27 @@
 
 <p>Otro sistema para importar una base de datos. Primero crearla, entrar en ella y ejecutar el source sobre el fichero sql:</p>
 
-<p>mysql> CREATE DATABASE datos;</p>
+<pre><code>mysql&gt; CREATE DATABASE datos;
 
-<p>mysql> USE datos;</p>
+mysql&gt; USE datos;
 
-<p>mysql> SOURCE datos.sql;</p>
+mysql&gt; SOURCE datos.sql;
+</code></pre>
 
 <p>3.-</p>
 
 <p>Exportar una tabla a txt con determinado formato:</p>
 
-<p>mysql> SELECT * SELECT tabla INTO OUTFILE &#8220;tabla.txt&#8221;</p>
+<pre><code>mysql&gt; SELECT * SELECT tabla INTO OUTFILE "tabla.txt"
 
-<p>&#8211;> FIELDS TERMINATED BY &#8217;   &#8217;</p>
+   --&gt; FIELDS TERMINATED BY '   '
 
-<p>&#8211;> LINES TERMINATED BY &#8216;nnr&#8217;;</p>
+   --&gt; LINES TERMINATED BY '\n\n\r';
+</code></pre>
 
 <p>FIELDS TERMINATED BY &#8217;  &#8217; (indica que los campos de cada línea terminarán con dos espacios.</p>
 
-<p>LINES TERMINATED BY &#8216;nnr &#8216;(indica el carácter como acaba cada linea, en este caso dos saltos de línea y retorno de carro</p>
+<p>LINES TERMINATED BY &#8216;\n\n\r &#8216;(indica el carácter como acaba cada linea, en este caso dos saltos de línea y retorno de carro</p>
 
 <p>otras instrucciones de formato:</p>
 
@@ -530,11 +537,12 @@
 
 <p>Ejemplo parecido al anterior pero ordenando el fichero por el segundo campo:</p>
 
-<p>mysql> SELECTC campo1,campo2,campo3 FROM tabla ORDER BY campo2 INTO OUTFILE &#8220;campos.txt&#8221;</p>
+<pre><code>mysql&gt; SELECTC campo1,campo2,campo3 FROM tabla ORDER BY campo2 INTO OUTFILE "campos.txt"
 
-<p>&#8211;> FIELDS TERMINATED BY &#8217; &#8217;</p>
+--&gt; FIELDS TERMINATED BY ' '
 
-<p>&#8211;> LINES TERMINATED BY &#8216;nr&#8217;;</p>
+--&gt; LINES TERMINATED BY '\n\r';
+</code></pre>
 
 <p>5.-</p>
 
@@ -544,15 +552,16 @@
 
 <p>Ejemplos:</p>
 
-<p>juan</p>
+<pre><code> juan
 
-<p>juan@&#8217;%&#8217;</p>
+ juan@'%'
 
-<p>juan@localhost</p>
+ juan@localhost
 
-<p>juan@&#8217;192.168.1.%&#8217;</p>
+ juan@'192.168.1.%'
 
-<p>juan@&#8217;%.dominio.org&#8217;</p>
+ juan@'%.dominio.org'
+</code></pre>
 
 <p>mysql> SELECT User,Host,Password FROM mysql.user; (Ver los usuarios)</p>
 
@@ -568,35 +577,38 @@
 
 <p>mysql> SHOW GRANTS FOR pedro; (Ver los privilegios de un usuario)</p>
 
-<p>mysql> GRANT ALL ON <em>.</em> TO juan@localhost (Otorgar todos los privilegios a un usuario)</p>
+<pre><code>mysql&gt; GRANT ALL ON *.* TO juan@localhost (Otorgar todos los privilegios a un usuario)
 
-<p>mysql> REVOKE ALL ON <em>.</em> FROM juan@localhost; (Anular todos los privilegios de un usuario)</p>
+mysql&gt; REVOKE ALL ON *.* FROM juan@localhost; (Anular todos los privilegios de un usuario)
+</code></pre>
 
 <p>6.-</p>
 
 <p>Acceso remoto a mysql con el usuario root:</p>
 
-<blockquote><h1>nano /etc/mysql/my.cnf</h1></blockquote>
+<blockquote><p># nano /etc/mysql/my.cnf</p></blockquote>
 
 <p>Comentar la linea:</p>
 
-<h1>bind-address           = 127.0.0.1</h1>
+<pre><code>#bind-address           = 127.0.0.1
+</code></pre>
 
 <p>Reiniciar el servicio:</p>
 
-<blockquote><h1>/etc/init.d/mysql restart</h1></blockquote>
+<blockquote><p># /etc/init.d/mysql restart</p></blockquote>
 
 <p>Entrar en el prompt de mysql y otorgar privilegios:</p>
 
-<blockquote><h1>mysql -u root -p</h1></blockquote>
+<blockquote><p># mysql -u root -p</p></blockquote>
 
 <p>Entrar la contraseña y:</p>
 
-<p>mysql> GRANT ALL PRIVILEGES ON <em>.</em> TO &#8216;root&#8217;@&#8217;%&#8217; IDENTIFIED BY &#8216;la_contraseña&#8217; WITH GRANT OPTION;</p>
+<pre><code>mysql&gt; GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'la_contraseña' WITH GRANT OPTION;
 
-<p>mysql> FLUSH PRIVILEGES;</p>
+mysql&gt; FLUSH PRIVILEGES;
 
-<p>mysql> exit</p>
+mysql&gt; exit
+</code></pre>
 </div>
   
   
@@ -625,7 +637,7 @@
   
 
 
-<time datetime="2013-12-15T15:44:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:13:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -669,7 +681,7 @@
   
 
 
-<time datetime="2013-12-15T15:44:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:13:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -700,11 +712,12 @@
 
 <p>Guardar.</p>
 
-<h1>mutt  (Para arrancar la aplicación en ncurses)</h1>
+<pre><code># mutt  (Para arrancar la aplicación en ncurses)
 
-<p>$ echo | mutt -a paquete.tar.gz -s &#8216;el paquete&#8217; -c juanito@gmail.com -b     pedrito@gmail.com  (enviar un paquete[-a], asunto[-s], carbon copy[cc] y    Blind Carbon Copy[bcc]</p>
+$ echo | mutt -a paquete.tar.gz -s 'el paquete' -c juanito@gmail.com -b     pedrito@gmail.com  (enviar un paquete[-a], asunto[-s], carbon copy[cc] y    Blind Carbon Copy[bcc]
 
-<p>$ mutt -s “asunto” destinatario@correo.com &lt;&lt;&lt; “mensaje a enviar”</p>
+$ mutt -s “asunto” destinatario@correo.com &lt;&lt;&lt; “mensaje a enviar”
+</code></pre>
 </div>
   
   
@@ -733,7 +746,7 @@
   
 
 
-<time datetime="2013-12-15T15:44:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:13:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -781,7 +794,7 @@
   
 
 
-<time datetime="2013-12-15T15:44:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:13:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -794,17 +807,18 @@
 
 <p>Arrancada la aplicación, algunas teclas de control son:</p>
 
-<p>L, M (Voltea el pdf)</p>
+<pre><code>L, M (Voltea el pdf)
 
-<p>h,j,k,l (scroll)</p>
+h,j,k,l (scroll)
 
-<p>+, - (Aumentar/diminuir medida del texto)</p>
++, - (Aumentar/diminuir medida del texto)
 
-<p>15g (Ir a la página 15)</p>
+15g (Ir a la página 15)
 
-<p>/ (Abre diálogo “buscar texto”)</p>
+/ (Abre diálogo “buscar texto”)
 
-<p>n, N (Ir a la siguiente/anterior busqueda)</p>
+n, N (Ir a la siguiente/anterior busqueda)
+</code></pre>
 </div>
   
   
@@ -833,7 +847,7 @@
   
 
 
-<time datetime="2013-12-15T15:44:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:13:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -866,15 +880,16 @@
 
 <p>Notas:</p>
 
-<p>F1 (abrir la ayuda)</p>
+<pre><code>F1 (abrir la ayuda)
 
-<p>^g (cerrar ventana ayuda)</p>
+^g (cerrar ventana ayuda)
 
-<p>b   (selecionar proceso)</p>
+b   (selecionar proceso)
 
-<p>q   (cerrar ventana proceso)</p>
+q   (cerrar ventana proceso)
 
-<p>v   (Cambiar la orientación horizontal/vertical)</p>
+v   (Cambiar la orientación horizontal/vertical)
+</code></pre>
 </div>
   
   
@@ -896,9 +911,9 @@
   
     <section>
 <h1>Número de entradas</h1>
-        <ul>
-        <li>1354</li>
-        </ul>
+	<ul>
+	<li>1354</li>
+	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>

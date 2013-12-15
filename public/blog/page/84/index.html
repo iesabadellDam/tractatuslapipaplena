@@ -97,7 +97,7 @@
   
 
 
-<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:11:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -149,7 +149,7 @@
   
 
 
-<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:11:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -158,17 +158,17 @@
 
   <div class="entry-content"><p>Define direcciones ip y dispositivos de red</p>
 
-<blockquote><h1>ifconfig  (ver los datos de conexión)</h1>
+<blockquote><p># ifconfig  (ver los datos de conexión)</p>
 
-<h1>ifconfig eth0 up 192.168.1.2 (Levanta la placa de red eth0 y le da la ip)</h1>
+<p># ifconfig eth0 up 192.168.1.2 (Levanta la placa de red eth0 y le da la ip)</p>
 
-<h1>ifconfig eth0 down (Cierra la red eth0)</h1>
+<p># ifconfig eth0 down (Cierra la red eth0)</p>
 
-<h1>ifconfig eth0 promisc (Poner la placa en modo promiscuo)</h1>
+<p># ifconfig eth0 promisc (Poner la placa en modo promiscuo)</p>
 
-<h1>ifconfig wlan0 up (si se trata de redes inalámbricas)</h1>
+<p># ifconfig wlan0 up (si se trata de redes inalámbricas)</p>
 
-<h1>ifconfig eth0 hw ether 00:01:02:03:04:05  (cambiar la dirección MAC)</h1></blockquote>
+<p># ifconfig eth0 hw ether 00:01:02:03:04:05  (cambiar la dirección MAC)</p></blockquote>
 </div>
   
   
@@ -197,7 +197,7 @@
   
 
 
-<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:11:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -208,141 +208,147 @@
 
 <p>1.-</p>
 
-<h1>!/bin/bash</h1>
+<pre><code>#!/bin/bash
 
-<p>read -p &#8220;Ingrese nombre del usuario: &#8221; USUARIO</p>
+read -p "Ingrese nombre del usuario: " USUARIO
 
-<p>if grep -e ^$USUARIO: /etc/passwd</p>
+if grep -e ^$USUARIO: /etc/passwd
 
-<p>then</p>
+then
 
-<p>echo &#8220;El usuario existe en el sistema&#8221;</p>
+    echo "El usuario existe en el sistema"
 
-<p>else</p>
+else
 
-<p>echo &#8220;Usuario desconocido&#8221;</p>
+    echo "Usuario desconocido"
 
-<p>fi</p>
+fi
 
-<p>exit 0</p>
+exit 0
+</code></pre>
 
 <p>2.-</p>
 
-<h1>!/bin/bash</h1>
+<pre><code>#!/bin/bash
 
-<p>if [ &#8220;$(id -u)&#8221; != &#8220;0&#8221; ]; then</p>
+if [ "$(id -u)" != "0" ]; then 
 
-<p>echo &#8220;Solo root puede ejecutar este script.&#8221;</p>
+    echo "Solo root puede ejecutar este script." 
 
-<p>exit 1</p>
+    exit 1 
 
-<p>fi</p>
+fi
+</code></pre>
 
 <p>3.-</p>
 
-<h1>!/bin/bash</h1>
+<pre><code>#!/bin/bash 
 
-<h1>Verificar si se ha entrado un argumento</h1>
+# Verificar si se ha entrado un argumento
 
-<p>if [ -z &#8220;$1&#8221; ]</p>
+if [ -z "$1" ]
 
-<p>then</p>
+then 
 
-<p>echo &#8220;Falta el argumento después del nombre del script&#8221;</p>
+          echo "Falta el argumento después del nombre del script" 
 
-<p>exit</p>
+exit 
 
-<p>fi</p>
+fi 
+</code></pre>
 
 <p>4.-</p>
 
-<h1>!/bin/bash</h1>
+<pre><code>#!/bin/bash
 
-<h1>Introducir dos números diferentes e indicar</h1>
+# Introducir dos números diferentes e indicar
 
-<h1>cuál es el mayor</h1>
+# cuál es el mayor 
 
-<p>read -p &#8220;Introduce dos números: &#8221; A B</p>
+read -p "Introduce dos números: " A B
 
-<p>if [ $A -gt $B ]</p>
+if [ $A -gt $B ]
 
-<p>then</p>
+then
 
-<p>echo $A &#8220;es el mayor&#8221;</p>
+        echo $A "es el mayor"
 
-<p>else</p>
+else
 
-<p>echo $B &#8220;es el mayor&#8221;</p>
+        echo $B "es el mayor"
 
-<p>fi</p>
+fi
+</code></pre>
 
 <p>Con varias opciones [elif]</p>
 
 <p>5.-</p>
 
-<h1>!/bin/bash</h1>
+<pre><code>#!/bin/bash
 
-<p>ls</p>
+ls
 
-<p>echo</p>
+echo
 
-<p>read -p &#8220;Cual leer: &#8221; LEER</p>
+read -p "Cual leer: " LEER
 
-<p>echo</p>
+echo
 
-<p>if [ -f $LEER ]</p>
+if [ -f $LEER ]
 
-<p>then</p>
+then
 
-<p>echo</p>
+    echo
 
-<p>cat $LEER</p>
+    cat $LEER
 
-<p>echo</p>
+    echo
 
-<p>elif [ -d $LEER ]</p>
+elif [ -d $LEER ]
 
-<p>then</p>
+then
 
-<p>echo</p>
+    echo
 
-<p>echo &#8220;Es un directorio&#8230;.&#8221;</p>
+    echo "Es un directorio...."
 
-<p>else</p>
+else
 
-<p>echo</p>
+    echo
 
-<p>f_echo &#8220;¡¡NO EXISTE!!&#8221;</p>
+    f_echo "¡¡NO EXISTE!!"
 
-<p>echo</p>
+    echo
 
-<p>fi</p>
+fi
+</code></pre>
 
 <p>6.-</p>
 
-<h1>!/bin/bash</h1>
+<pre><code>#!/bin/bash 
 
-<p>echo &#8220;Diga si o no:&#8221;</p>
+echo "Diga si o no:"
 
-<p>read RESPUESTA</p>
+read RESPUESTA 
 
-<p>if  [ &#8220;$RESPUESTA&#8221; = si ]; then</p>
+if  [ "$RESPUESTA" = si ]; then 
 
-<p>echo &#8220;Has escrito si&#8221;</p>
+    echo "Has escrito si" 
 
-<p>elif [ &#8220;$RESPUESTA&#8221; = no ]; then</p>
+elif [ "$RESPUESTA" = no ]; then 
 
-<p>echo &#8220;Has escrito no&#8221;</p>
+    echo "Has escrito no" 
 
-<p>elif [ &#8220;$RESPUESTA&#8221; = &#8220;&#8221; ]; then</p>
+elif [ "$RESPUESTA" = "" ]; then 
 
-<p>echo &#8220;No has escrito nada&#8221;</p>
+    echo "No has escrito nada" 
 
-<p>else</p>
+else 
 
-<p>echo &#8220;Has escrito una cosa no permitida&#8221;</p>
+    echo "Has escrito una cosa no permitida" 
 
-<p>fi</p>
+fi 
+</code></pre>
 </div>
   
   
@@ -371,7 +377,7 @@
   
 
 
-<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:11:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -382,23 +388,24 @@
 
 <blockquote><p>$ nano .idesktop/home.lnk</p></blockquote>
 
-<p>table Icon</p>
+<pre><code>table Icon 
 
-<p>Caption: Home</p>
+  Caption: Home 
 
-<p>Command[0]: thunar /home/usuario</p>
+  Command[0]: thunar /home/usuario 
 
-<p>Icon: /usr/share/idesk/folder_home.xpm</p>
+  Icon: /usr/share/idesk/folder_home.xpm 
 
-<p>Width: 48</p>
+  Width: 48 
 
-<p>Height: 48</p>
+  Height: 48 
 
-<p>X: 29</p>
+  X: 29 
 
-<p>Y: 39</p>
+  Y: 39 
 
-<p>end</p>
+end 
+</code></pre>
 
 <p>Nombre del icono [Caption], El comando que se lanzará [0] con doble click izquierdo del ratón. Con [1], doble click derecho, en este caso thunar abrirá la carpeta personal [Command], la ruta al icono que se empleará [Icon], las medidas ancho [Width] y alto [Height] y la colocación en pantalla, x: distancia en pixels del lateral, y: distancia en pixels de la parte superior.</p>
 
@@ -437,7 +444,7 @@
   
 
 
-<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:11:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -477,7 +484,7 @@
   
 
 
-<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:11:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -521,7 +528,7 @@
   
 
 
-<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:11:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -563,7 +570,7 @@
   
 
 
-<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:11:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -601,7 +608,7 @@
   
 
 
-<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:11:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -610,11 +617,11 @@
 
   <div class="entry-content"><p>Ver fecha y hora de la BIOS</p>
 
-<blockquote><h1>hwclock -D (Muestra toda la información))</h1>
+<blockquote><p># hwclock -D (Muestra toda la información))</p>
 
-<h1>hwclock -w (sincroniza la del hardware a la del sistema)</h1>
+<p># hwclock -w (sincroniza la del hardware a la del sistema)</p>
 
-<h1>hwclock -r  (verifica desfase entre ambas)</h1></blockquote>
+<p># hwclock -r  (verifica desfase entre ambas)</p></blockquote>
 </div>
   
   
@@ -643,7 +650,7 @@
   
 
 
-<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:11:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -652,11 +659,11 @@
 
   <div class="entry-content"><p>Ping específico para conexiones HTTP</p>
 
-<blockquote><h1>httping -g http://www.tuxapuntes.com</h1>
+<blockquote><p># httping -g http://www.tuxapuntes.com</p>
 
-<h1>httping -h localhost</h1>
+<p># httping -h localhost</p>
 
-<h1>httping -h localhost -p 80</h1></blockquote>
+<p># httping -h localhost -p 80</p></blockquote>
 </div>
   
   
@@ -678,9 +685,9 @@
   
     <section>
 <h1>Número de entradas</h1>
-        <ul>
-        <li>1354</li>
-        </ul>
+	<ul>
+	<li>1354</li>
+	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>

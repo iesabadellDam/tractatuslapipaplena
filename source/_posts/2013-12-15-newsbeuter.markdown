@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "newsbeuter"
-date: 2013-12-15 15:44
+date: 2013-12-15 16:13
 comments: true
 categories: 
 ---
@@ -15,53 +15,53 @@ Lector RSS en consola
 
 Algunos atajos [newsbeuter -h]:
 
-q (Subir pantalla/salir de la aplicación)
+	q (Subir pantalla/salir de la aplicación)
 
-Q (Salir de la aplicación)
+	Q (Salir de la aplicación)
 
-C (Marcarlos todos como leidos)
+	C (Marcarlos todos como leidos)
 
-A (Fuente leida)
+	A (Fuente leida)
 
-n (Pasar a siguiente fuente no leida)
+	n (Pasar a siguiente fuente no leida)
 
-p (Pasar a la anterior fuente no leida)
+	p (Pasar a la anterior fuente no leida)
 
-o (Abrir noticia en el navegador [lynx por defecto ])
+	o (Abrir noticia en el navegador [lynx por defecto ])
 
-u (Ver listado de URLs de la noticia, Introduciendo el indice la abre)
+	u (Ver listado de URLs de la noticia, Introduciendo el indice la abre)
 
-/ (Abrir busqueda)
+	/ (Abrir busqueda)
 
-? (Abrir diálogo de ayuda)
+	? (Abrir diálogo de ayuda)
 
 1.-
 
 Para incorporar los feeds de google reader editar o crear si no existe:
 
->$ nano .newsbeuter/config
+>$ nano .newsbeuter/config 
 
 texto que se tiene que agregar:
 
-urls-source "googlereader"
+	urls-source "googlereader" 
 
-googlereader-login "login_de_googlereader"
+	googlereader-login "login_de_googlereader" 
 
-googlereader-password "contraseña"
+	googlereader-password "contraseña"
 
 2.-
 
 Otros ajustes que pueden hacerse en este archivo:
 
-auto-reload yes
+	auto-reload yes 
 
-reload-time 15
+	reload-time 15 
 
-keep-articles-days 15
+	keep-articles-days 15 
 
-browser "elinks %u"
+	browser "elinks %u"
 
-notify-beep yes
+	notify-beep yes
 
 Que relea las fuentes al arrancar, las actualice cada 15 minutos, que guarde las noticias 15 dias, las abra con elinks y que avise con un beep las nuevas noticias. Si las noticias se leen en las X puede especificarse como navegador firefox o chromium [browser firefox]
 
@@ -69,7 +69,7 @@ Que relea las fuentes al arrancar, las actualice cada 15 minutos, que guarde las
 
 Configurar colores:
 
-Los colores soportados: black, red, green, yellow, blue, magenta, cyan y white.
+Los colores soportados: black, red, green, yellow, blue, magenta, cyan y white. 
 
 Los elementos sobre los que se puede actuar: listnormal [lista de las fuentes], listfocus [Fuente o articulo donde está el foco], info (Linea superior y penúltima de la pantalla que muestra información], background [última linea de la pantalla] y article [articulo que se abre para su lectura]
 
@@ -79,13 +79,13 @@ Muestra de mi configuración de color:
 
 >$ nano .newsbeuter/config
 
-color listnormal yellow black
+	color listnormal yellow black
 
-color listfocus green blue bold
+	color listfocus green blue bold
 
-color info yellow blue bold
+	color info yellow blue bold
 
-color background red black bold
+	color background red black bold
 
-color article cyan black
+	color article cyan black
 

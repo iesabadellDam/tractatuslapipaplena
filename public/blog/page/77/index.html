@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Comprobar si la CPU tiene soporte para extensiones KVM. kvm-ok INFO: Your CPU does not support KVM extensions KVM acceleration can NOT be used
+  <meta name="description" content="Comprobar si la CPU tiene soporte para extensiones KVM. # kvm-ok INFO: Your CPU does not support KVM extensions KVM acceleration can NOT be used
 ">
   
 
@@ -98,7 +98,7 @@
   
 
 
-<time datetime="2013-12-15T15:43:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:12:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -107,7 +107,7 @@
 
   <div class="entry-content"><p>Comprobar si la CPU  tiene soporte para extensiones KVM.</p>
 
-<blockquote><h1>kvm-ok</h1></blockquote>
+<blockquote><p># kvm-ok</p></blockquote>
 
 <p>INFO: Your CPU does not support KVM extensions</p>
 
@@ -140,7 +140,7 @@
   
 
 
-<time datetime="2013-12-15T15:43:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:12:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -216,7 +216,7 @@
   
 
 
-<time datetime="2013-12-15T15:43:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:12:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -225,7 +225,7 @@
 
   <div class="entry-content"><p>Para detectar sistemas operativos y revisar puertos de servidores remotos.</p>
 
-<blockquote><h1>knocker -H IP_o_host -SP 1 -EP 1024</h1></blockquote>
+<blockquote><p># knocker -H IP_o_host -SP 1 -EP 1024</p></blockquote>
 
 <p>-SP (Indica el puerto de inicio del escaneo)</p>
 
@@ -258,7 +258,7 @@
   
 
 
-<time datetime="2013-12-15T15:43:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:12:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -269,39 +269,41 @@
 
 <p>Habilitar el servicio y especificar la red:</p>
 
-<blockquote><h1>nano /etc/default/knockd</h1></blockquote>
+<blockquote><p># nano /etc/default/knockd</p></blockquote>
 
-<p>START_KNOCKD=1</p>
+<pre><code>START_KNOCKD=1
 
-<p>KNOCKD_OPTS=&#8221;-i eth0&#8221;</p>
+KNOCKD_OPTS="-i eth0"
+</code></pre>
 
 <p>Configurar las opciones de loging y las secuencias que queremos usar:</p>
 
-<blockquote><h1>nano /etc/knockd.conf</h1></blockquote>
+<blockquote><p># nano /etc/knockd.conf</p></blockquote>
 
-<p>[options]</p>
+<pre><code>[options]
 
-<p>UseSyslog</p>
+        UseSyslog
 
-<p>[openSSH]</p>
+[openSSH]
 
-<p>sequence    = 7000,8000,9000</p>
+        sequence    = 7000,8000,9000
 
-<p>seq_timeout = 5</p>
+        seq_timeout = 5
 
-<p>command     = /sbin/iptables -A INPUT -s %IP% -p tcp &#8211;dport 22 -j ACCEPT</p>
+        command     = /sbin/iptables -A INPUT -s %IP% -p tcp --dport 22 -j ACCEPT
 
-<p>tcpflags    = syn</p>
+        tcpflags    = syn
 
-<p>[closeSSH]</p>
+[closeSSH]
 
-<p>sequence    = 9000,8000,7000</p>
+        sequence    = 9000,8000,7000
 
-<p>seq_timeout = 5</p>
+        seq_timeout = 5
 
-<p>command     = /sbin/iptables -D INPUT -s %IP% -p tcp &#8211;dport 22 -j ACCEPT</p>
+        command     = /sbin/iptables -D INPUT -s %IP% -p tcp --dport 22 -j ACCEPT
 
-<p>tcpflags    = syn</p>
+        tcpflags    = syn
+</code></pre>
 
 <ul>
 <li><p>UseSyslog (que envía los logs a /var/log/syslog. Si se desea un fichero de log propio, se utiliza LogFile=/var/log/knockd.log)</p></li>
@@ -315,15 +317,15 @@
 
 <p>Con esta configuración, el servidor knockd escucha permanentemente todos los puertos, esperando una secuencia válida. Si recibe paquetes TCP dirigidos a los puertos 7000, 8000 y 9000, en este mismo orden y dentro de un intervalo de 5 segundos, reconoce la directiva [openSSH] y ejecuta iptables para abrir el puerto 22 [donde escucha sshd] a la IP que solicita la conexión. Ahora el cliente SSH puede realizar la conexión, y podemos cerrar el puerto de nuevo con la directiva [closeSSH] manteniendo establecida dicha conexión.</p>
 
-<blockquote><h1>service knockd start (Iniciar el servicio)</h1></blockquote>
+<blockquote><p># service knockd start (Iniciar el servicio)</p></blockquote>
 
 <p>Probar el servicio en local:</p>
 
 <p>Parar knockd si está activo y levantarlo manualmente:</p>
 
-<blockquote><h1>service knockd stop</h1>
+<blockquote><p># service knockd stop</p>
 
-<h1>knockd -v -i lo</h1></blockquote>
+<p># knockd -v -i lo</p></blockquote>
 
 <p>En otra terminal:</p>
 
@@ -335,51 +337,54 @@
 
 <p>En la terminal del servidor veremos algo como:</p>
 
-<blockquote><h1>knockd -v -i lo</h1></blockquote>
+<blockquote><p># knockd -v -i lo</p></blockquote>
 
-<p>listening on lo&#8230;</p>
+<pre><code>listening on lo...
 
-<p>127.0.0.1: openSSH: Stage 1</p>
+127.0.0.1: openSSH: Stage 1
 
-<p>127.0.0.1: openSSH: Stage 2</p>
+127.0.0.1: openSSH: Stage 2
 
-<p>127.0.0.1: openSSH: Stage 3</p>
+127.0.0.1: openSSH: Stage 3
 
-<p>127.0.0.1: openSSH: OPEN SESAME</p>
+127.0.0.1: openSSH: OPEN SESAME
 
-<p>openSSH: running command: /sbin/iptables -A INPUT -s 127.0.0.1 -p tcp &#8211;dport 22 -j ACCEPT</p>
+openSSH: running command: /sbin/iptables -A INPUT -s 127.0.0.1 -p tcp --dport 22 -j ACCEPT
 
-<p>127.0.0.1: closeSSH: Stage 1</p>
+127.0.0.1: closeSSH: Stage 1
 
-<p>127.0.0.1: closeSSH: Stage 2</p>
+127.0.0.1: closeSSH: Stage 2
 
-<p>127.0.0.1: closeSSH: Stage 3</p>
+127.0.0.1: closeSSH: Stage 3
 
-<p>127.0.0.1: closeSSH: OPEN SESAME</p>
+127.0.0.1: closeSSH: OPEN SESAME
 
-<p>closeSSH: running command: /sbin/iptables -D INPUT -s 127.0.0.1 -p tcp &#8211;dport 22 -j ACCEPT</p>
+closeSSH: running command: /sbin/iptables -D INPUT -s 127.0.0.1 -p tcp --dport 22 -j ACCEPT
+</code></pre>
 
 <p>Si en la configuración de iptables tenemos acceso a conexiones ya establecidas:</p>
 
-<p>iptables -A INPUT -p tcp -m tcp &#8211;sport 22 -m state &#8211;state ESTABLISHED -j ACCEPT</p>
+<pre><code>iptables -A INPUT -p tcp -m tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
+</code></pre>
 
 <p>Podemos configurar la aplicación para que se cierre de forma automática:</p>
 
-<blockquote><h1>nano /etc/knockd.conf</h1></blockquote>
+<blockquote><p># nano /etc/knockd.conf</p></blockquote>
 
-<p>[opencloseSSH]</p>
+<pre><code>[opencloseSSH]
 
-<p>sequence = 7000,8000,9000</p>
+        sequence = 7000,8000,9000
 
-<p>seq_timeout = 5</p>
+        seq_timeout = 5
 
-<p>tcpflags = syn</p>
+        tcpflags = syn
 
-<p>start_command = /sbin/iptables -I INPUT -s %IP% -p tcp &#8211;dport 22 -j ACCEPT</p>
+        start_command = /sbin/iptables -I INPUT -s %IP% -p tcp --dport 22 -j ACCEPT
 
-<p>cmd_timeout = 25</p>
+        cmd_timeout = 25
 
-<p>stop_command = /sbin/iptables -D INPUT -s %IP% -p tcp  &#8211;dport 22 -j ACCEPT</p>
+        stop_command = /sbin/iptables -D INPUT -s %IP% -p tcp  --dport 22 -j ACCEPT
+</code></pre>
 </div>
   
   
@@ -408,7 +413,7 @@
   
 
 
-<time datetime="2013-12-15T15:43:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:12:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -417,7 +422,7 @@
 
   <div class="entry-content"><p>Identifica redes inalambricas de forma pasiva recolectando paquetes, detecta redes ocultas, clientes asociados y es capaz de sniffar el tráfico de las redes no encriptadas.</p>
 
-<blockquote><h1>nano /etc/kismet/kismet.conf</h1></blockquote>
+<blockquote><p># nano /etc/kismet/kismet.conf</p></blockquote>
 
 <p>Buscar la linea:  source=none,none,addme</p>
 
@@ -427,17 +432,18 @@
 
 <p>También en este archivo pueden configurarse otros parámetros (Puerto, host permitido, máximo de clientes, logs&#8230;) :</p>
 
-<p>tcpport=2501</p>
+<pre><code>tcpport=2501
 
-<p>allowedhosts=127.0.0.1</p>
+allowedhosts=127.0.0.1
 
-<p>maxclients=5</p>
+maxclients=5
 
-<p>logtemplate=/var/log/kismet/</p>
+logtemplate=/var/log/kismet/
+</code></pre>
 
 <p>En el directorio de logs, los archivos que interesan son los .pcap que pueden visionarse con wireshark.</p>
 
-<blockquote><h1>kismet   (lanzar la aplicación)</h1></blockquote>
+<blockquote><p># kismet   (lanzar la aplicación)</p></blockquote>
 </div>
   
   
@@ -466,7 +472,7 @@
   
 
 
-<time datetime="2013-12-15T15:43:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:12:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -487,11 +493,11 @@
 
 <p>Configuración de iptables:</p>
 
-<blockquote><h1>iptables -A INPUT -i eth0 -p tcp &#8211;dport 22 -j ACCEPT</h1>
+<blockquote><p># iptables -A INPUT -i eth0 -p tcp &#8211;dport 22 -j ACCEPT</p>
 
-<h1>iptables -A INPUT -i eth0 -p tcp &#8211;dport 2222 -j ACCEPT</h1>
+<p># iptables -A INPUT -i eth0 -p tcp &#8211;dport 2222 -j ACCEPT</p>
 
-<h1>iptables -A PREROUTING -t nat -i eth0 -p tcp &#8211;dport 22 -j REDIRECT &#8211;to-port 2222</h1></blockquote>
+<p># iptables -A PREROUTING -t nat -i eth0 -p tcp &#8211;dport 22 -j REDIRECT &#8211;to-port 2222</p></blockquote>
 
 <p>Los intentos de acceso ssh quedan registrados en el subdirectorio log:</p>
 
@@ -526,7 +532,7 @@
   
 
 
-<time datetime="2013-12-15T15:43:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:12:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -570,7 +576,7 @@
   
 
 
-<time datetime="2013-12-15T15:43:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:12:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -585,7 +591,7 @@
 
 <p>$ kill -9  pid      (mata el proceso indicado con el número PID)</p>
 
-<h1>kill -9 <code>lsof -t -i :22</code> (Mata el proceso que corre en el puerto 22)</h1>
+<p># kill -9 <code>lsof -t -i :22</code> (Mata el proceso que corre en el puerto 22)</p>
 
 <p>$ kill -1 pid  (reinicia el servicio indicado en PID)</p>
 
@@ -636,7 +642,7 @@
   
 
 
-<time datetime="2013-12-15T15:43:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:12:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -647,9 +653,9 @@
 
 <p>Suprimir kernels antiguos</p>
 
-<blockquote><h1>uname -r   (para conocer el último)</h1>
+<blockquote><p># uname -r   (para conocer el último)</p>
 
-<h1>dpkg &#8211;get-selections | egrep linux-image</h1></blockquote>
+<p># dpkg &#8211;get-selections | egrep linux-image</p></blockquote>
 
 <p>linux-image-2.6.17-11-generic install</p>
 
@@ -659,7 +665,7 @@
 
 <p>Dejar el actual y suprimir los otros:</p>
 
-<blockquote><h1>apt-get remove &#8211;purge linux-image-2.6.17-11-generic</h1></blockquote>
+<blockquote><p># apt-get remove &#8211;purge linux-image-2.6.17-11-generic</p></blockquote>
 
 <p>2.-</p>
 
@@ -675,15 +681,15 @@
 
 <p>La instalación se realiza en el mismo orden de descarga:</p>
 
-<blockquote><h1>gdebi linux-headers-3.3.6-030306_3.3.6-030306.201205121335_all.deb</h1>
+<blockquote><p># gdebi linux-headers-3.3.6-030306_3.3.6-030306.201205121335_all.deb</p>
 
-<h1>gedbi linux-headers-3.3.6-030306-generic_3.3.6-030306.201205121335_amd64.deb</h1>
+<p># gedbi linux-headers-3.3.6-030306-generic_3.3.6-030306.201205121335_amd64.deb</p>
 
-<h1>gedbi linux-image-3.3.6-030306-generic_3.3.6-030306.201205121335_amd64.deb</h1></blockquote>
+<p># gedbi linux-image-3.3.6-030306-generic_3.3.6-030306.201205121335_amd64.deb</p></blockquote>
 
 <p>Después de la instalación del kernel, instalar los drivers privativos tipo nvidia o ati. Y actualizar grub:</p>
 
-<blockquote><h1>update-grub</h1></blockquote>
+<blockquote><p># update-grub</p></blockquote>
 
 <p>3.-</p>
 
@@ -691,23 +697,23 @@
 
 <p>Compilar el kernel desde el codigo fuente. Puede ser util para habilitar soporte para algun nuevo periferico no soportado por el kernel por defecto. Escoger la ultima version del nucleo estable de kernel.org. Para el ejemplo usaremos la 3.9.11.</p>
 
-<blockquote><h1>cd /usr/src</h1>
+<blockquote><p># cd /usr/src</p>
 
-<h1>wget https://www.kernel.org/pub/linux/kernel/v3.x/linux-3.9.11.tar.gz</h1>
+<p># wget https://www.kernel.org/pub/linux/kernel/v3.x/linux-3.9.11.tar.gz</p>
 
-<h1>tar -zxvf linux-3.9.11.tar.gz</h1>
+<p># tar -zxvf linux-3.9.11.tar.gz</p>
 
-<h1>cd linux-3.9.11</h1>
+<p># cd linux-3.9.11</p>
 
-<h1>make menuconfig/</h1></blockquote>
+<p># make menuconfig/</p></blockquote>
 
 <p>Mostrara las opciones de configuracion por defecto que podran ser modificadas para nuestra maquina especifica. Una vez terminado, &#8220;guardar&#8221; como .config</p>
 
-<blockquote><h1>make (Compilar)</h1>
+<blockquote><p># make (Compilar)</p>
 
-<h1>make modules_install (Instalar los modulos)</h1>
+<p># make modules_install (Instalar los modulos)</p>
 
-<h1>make install (Instalar el nuevo kernel en el sistema)</h1></blockquote>
+<p># make install (Instalar el nuevo kernel en el sistema)</p></blockquote>
 
 <p>La instalacion ya modifica el grub.cfg para que el sistema arranque con el nuevo kernel. Si este da problemas puede escogerse para el arranque el antiguo que constara en el menu de Grub. Puede verificarse el nuevo kernel con:</p>
 
@@ -717,7 +723,8 @@
 
 <p>Borrar kernels antiguos de forma automática:</p>
 
-<h1>apt-get purge $(dpkg -l &#8216;linux-<em>&#8217; | sed &#8216;/<sup>ii/!d;/&#8217;&#8221;$(uname</sup> -r | sed &#8220;s/(.</em>)-([<sup>0-9]+)/1/&#8221;)&#8221;&#8217;/d;s/<sup>[^</sup></sup> ]<em> [^ ]</em> ([^ ]<em>).</em>/1/;/[0-9]/!d&#8217; | head -n -1) &#8211;assume-yes</h1>
+<pre><code># apt-get purge $(dpkg -l 'linux-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/\(.*\)-\([^0-9]\+\)/\1/")"'/d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/;/[0-9]/!d' | head -n -1) --assume-yes 
+</code></pre>
 </div>
   
   
@@ -746,7 +753,7 @@
   
 
 
-<time datetime="2013-12-15T15:43:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:12:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -755,7 +762,7 @@
 
   <div class="entry-content"><p>Establece la tasa de repetición del teclado y el tiempo de retardo en las tty.</p>
 
-<blockquote><h1>kbdrate -d 200 -r 10 (establece retardo de 200 milisegundos y velocidad de repetición de 10 por segundo)</h1></blockquote>
+<blockquote><p># kbdrate -d 200 -r 10 (establece retardo de 200 milisegundos y velocidad de repetición de 10 por segundo)</p></blockquote>
 </div>
   
   
@@ -777,9 +784,9 @@
   
     <section>
 <h1>Número de entradas</h1>
-        <ul>
-        <li>1354</li>
-        </ul>
+	<ul>
+	<li>1354</li>
+	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>

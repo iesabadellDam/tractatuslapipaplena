@@ -1,13 +1,13 @@
 ---
 layout: post
 title: "getenforce"
-date: 2013-12-15 15:42
+date: 2013-12-15 16:11
 comments: true
 categories: 
 ---
 Comprobar el estado de selinux.
 
-># getenforce
+>\# getenforce
 
 Estados posibles
 
@@ -17,31 +17,31 @@ permissive [permisivo] (Registra los eventos pero no impone la política)
 
 disabled [inhabilitado] (Desactivado)
 
-># nano /etc/selinux/config
+>\# nano /etc/selinux/config
 
-# This file controls the state of SELinux on the system.
+	# This file controls the state of SELinux on the system.
 
-# SELINUX= can take one of these three values:
+	# SELINUX= can take one of these three values:
 
-# enforcing - SELinux security policy is enforced.
+	# enforcing - SELinux security policy is enforced.
 
-# permissive - SELinux prints warnings instead of enforcing.
+	# permissive - SELinux prints warnings instead of enforcing.
 
-# disabled - No SELinux policy is loaded.
+	# disabled - No SELinux policy is loaded.
 
-SELINUX=permissive
+	SELINUX=permissive
 
-# SELINUXTYPE= can take one of these two values:
+	# SELINUXTYPE= can take one of these two values:
 
-# default - equivalent to the old strict and targeted policies
+	# default - equivalent to the old strict and targeted policies
 
-# mls     - Multi-Level Security (for military and educational use)
+	# mls     - Multi-Level Security (for military and educational use)
 
-# src     - Custom policy built from source
+	# src     - Custom policy built from source
 
-SELINUXTYPE=default
+	SELINUXTYPE=default
 
-# SETLOCALDEFS= Check local definition changes
+	# SETLOCALDEFS= Check local definition changes
 
-SETLOCALDEFS=0
+	SETLOCALDEFS=0
 

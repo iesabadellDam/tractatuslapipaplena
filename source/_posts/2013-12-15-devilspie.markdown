@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "devilspie"
-date: 2013-12-15 15:41
+date: 2013-12-15 16:10
 comments: true
 categories: 
 ---
@@ -15,13 +15,13 @@ Crear por cada aplicación un archivo .ds en el directorio:
 
 Con el siguiente contenido a modo de ejemplo:
 
-(if
+	(if
 
-(is (application_name) "firefox")
+	  (is (application_name) "firefox")
 
-(set_workspace 3)
+	  (set_workspace 3)
 
-)
+	)
 
 Cada vez que arranquemos firefox, se abrirá en el escritorio número 3.
 
@@ -31,7 +31,7 @@ Para saber el nombre de las aplicaciones que corren en cada escritorio:
 
 Con el siguiente contenido:
 
-(debug)
+	(debug)
 
 Cuando arranquemos devilspie por consola, nos las mostrará.
 

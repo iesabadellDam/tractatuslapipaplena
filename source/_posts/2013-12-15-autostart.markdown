@@ -1,13 +1,13 @@
 ---
 layout: post
 title: "autostart"
-date: 2013-12-15 15:40
+date: 2013-12-15 16:09
 comments: true
 categories: 
 ---
 Archivo de las aplicaciones que se ejecutan al inicio.
 
-># ls /etc/xdg/autostart/
+>\# ls /etc/xdg/autostart/
 
 Para activarlas poner:
 
@@ -17,5 +17,5 @@ Para desactivarlas:
 
 NoDisplay true
 
-># cp /usr/share/applications/guake.desktop /etc/xdg/autostart/ (colocar una aplicación)
+>\# cp /usr/share/applications/guake.desktop /etc/xdg/autostart/ (colocar una aplicación)
 

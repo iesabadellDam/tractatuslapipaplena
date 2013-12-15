@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "bandwidthd"
-date: 2013-12-15 15:40
+date: 2013-12-15 16:09
 comments: true
 categories: 
 ---
@@ -9,5 +9,5 @@ Herramienta que analiza la utilización del ancho de banda disponible y genera r
 
 file:///var/lib/bandwidthd/htdocs/index.html
 
-Para afinar la configuración en /etc/bandwidthd/bandwidthd.conf
+Para afinar la configuración en /etc/bandwidthd/bandwidthd.conf 
 

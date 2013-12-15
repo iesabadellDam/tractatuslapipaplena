@@ -1,11 +1,11 @@
 ---
 layout: post
 title: "pdftotext"
-date: 2013-12-15 15:44
+date: 2013-12-15 16:13
 comments: true
 categories: 
 ---
-[xpdf-utils]
+[xpdf-utils]       
 
 Para pasar un pdf a txt o a html.
 

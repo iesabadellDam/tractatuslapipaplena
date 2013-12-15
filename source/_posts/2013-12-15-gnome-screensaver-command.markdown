@@ -1,17 +1,17 @@
 ---
 layout: post
 title: "gnome-screensaver-command"
-date: 2013-12-15 15:42
+date: 2013-12-15 16:11
 comments: true
 categories: 
 ---
-Herramienta de control del salvapantallas
+Herramienta de control del salvapantallas 
 
 >$ gnome-screensaver-command -l (Bloqueo inmediato)
 
-Opciones
+Opciones 
 
---exit (Salir de salvapantalla)
+--exit (Salir de salvapantalla)  
 
 -q (Consulta el estado de la pantalla)
 

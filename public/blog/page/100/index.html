@@ -97,7 +97,7 @@
   
 
 
-<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:10:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -145,7 +145,7 @@
   
 
 
-<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:10:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -183,7 +183,7 @@
   
 
 
-<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:10:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -219,7 +219,7 @@
   
 
 
-<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:10:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -257,7 +257,7 @@
   
 
 
-<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:10:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -278,23 +278,24 @@
 
 <p>Un ejemplo muestra de configuración para el servicio ssh:</p>
 
-<p>[ssh]</p>
+<pre><code>[ssh]
 
-<p>enabled  = true</p>
+enabled  = true
 
-<p>port     = ssh</p>
+port     = ssh
 
-<p>filter   = sshd</p>
+filter   = sshd
 
-<p>logpath  = /var/log/auth.log</p>
+logpath  = /var/log/auth.log
 
-<p>maxretry = 3</p>
+maxretry = 3
+</code></pre>
 
-<blockquote><h1>tail -f /var/log/fail2ban.log | grep Ban    (monitorizar las ip baneadas)</h1>
+<blockquote><p># tail -f /var/log/fail2ban.log | grep Ban    (monitorizar las ip baneadas)</p>
 
-<h1>awk &#8216;($(NF-1) = /Ban/){print $NF}&#8217; /var/log/fail2ban.log | sort | uniq -c | sort (Solo muestra las Ips.)</h1>
+<p># awk &#8216;($(NF-1) = /Ban/){print $NF}&#8217; /var/log/fail2ban.log | sort | uniq -c | sort (Solo muestra las Ips.)</p>
 
-<h1>awk &#8216;($(NF-1) = /Ban/){print $NF,&#8221;(&#8220;$NF&#8221;)&#8221;}&#8217; /var/log/fail2ban.log | sort | logresolve | uniq -c | sort  (Mostrando el nombre del host)</h1></blockquote>
+<p># awk &#8216;($(NF-1) = /Ban/){print $NF,&#8221;(&#8220;$NF&#8221;)&#8221;}&#8217; /var/log/fail2ban.log | sort | logresolve | uniq -c | sort  (Mostrando el nombre del host)</p></blockquote>
 
 <p>1.-</p>
 
@@ -302,35 +303,37 @@
 
 <p>Crear el archivo:</p>
 
-<blockquote><h1>nano /etc/fail2ban/filter.d/apache-w00tw00t.conf</h1></blockquote>
+<blockquote><p># nano /etc/fail2ban/filter.d/apache-w00tw00t.conf</p></blockquote>
 
 <p>Pegar el siguiente contenido:</p>
 
-<p>[Definition]</p>
+<pre><code>[Definition]
 
-<p>failregex = ^.<em>[client <HOST>].</em>w00tw00t.at.ISC.SANS.<em>.</em></p>
+failregex = ^.*\[client &lt;HOST&gt;\].*w00tw00t\.at\.ISC\.SANS\.*.*
 
-<p>ignoreregex =</p>
+ignoreregex =
+</code></pre>
 
 <p>Añadir la jaula:</p>
 
-<blockquote><h1>nano /etc/fail2ban/jail.conf</h1></blockquote>
+<blockquote><p># nano /etc/fail2ban/jail.conf</p></blockquote>
 
 <p>Y pegar:</p>
 
-<p>[apache-w00tw00t]</p>
+<pre><code>[apache-w00tw00t]
 
-<p>enabled = true</p>
+enabled = true
 
-<p>filter = apache-w00tw00t</p>
+filter = apache-w00tw00t
 
-<p>action = iptables-allports[name=w00tw00t]</p>
+action = iptables-allports[name=w00tw00t]
 
-<p>logpath = /var/log/apache<em>/error.</em>.log</p>
+logpath = /var/log/apache*/error.*.log
 
-<p>maxretry = 1</p>
+maxretry = 1
 
-<p>bantime = -1</p>
+bantime = -1
+</code></pre>
 
 <p>Nota.- el bantime = -1 indica bloquear permanentemente.</p>
 
@@ -338,65 +341,69 @@
 
 <p>Algunos ajustes de jail.conf para el caso de usar nginx y no apache:</p>
 
-<blockquote><h1>nano /etc/fail2ban/jail.conf</h1></blockquote>
+<blockquote><p># nano /etc/fail2ban/jail.conf</p></blockquote>
 
 <p>Prevenir ataques de inyeccion de codigo</p>
 
-<p>[php-url-fopen]</p>
+<pre><code>[php-url-fopen]
 
-<p>enabled = true</p>
+enabled = true
 
-<p>port    = http,https</p>
+port    = http,https
 
-<p>filter  = php-url-fopen</p>
+filter  = php-url-fopen
 
-<p>logpath = /var/log/nginx/access_log</p>
+logpath = /var/log/nginx/access_log
 
-<p>maxretry = 1</p>
+maxretry = 1
+</code></pre>
 
 <p>Bloquea por iptables un día a los hosts que se conectan haciendo  uso de un &#8220;User Agent&#8221; sospechoso</p>
 
-<p>[nginx-badbots]</p>
+<pre><code>[nginx-badbots]
 
-<p>enabled  = true</p>
+enabled  = true
 
-<p>filter = apache-badbots</p>
+filter = apache-badbots
 
-<p>action = iptables-multiport[name=BadBots, port=&#8221;http,https&#8221;]</p>
+action = iptables-multiport[name=BadBots, port="http,https"]
 
-<p>logpath = /var/log/nginx<em>/</em>access*.log</p>
+logpath = /var/log/nginx*/*access*.log
 
-<p>bantime = 86400</p>
+bantime = 86400
 
-<p>maxretry = 1</p>
+maxretry = 1
+</code></pre>
 
 <p>Solicitar 240 páginas en 1 minuto o 4 paginas segundo, bloqueo por dos dias</p>
 
-<p>[nginx-dos]</p>
+<pre><code>[nginx-dos]
 
-<p>enabled = true</p>
+enabled = true
 
-<p>port    = http,8090</p>
+port    = http,8090
 
-<p>filter  = nginx-dos</p>
+filter  = nginx-dos
 
-<p>logpath = /var/log/nginx/access.log</p>
+logpath = /var/log/nginx/access.log
 
-<p>findtime = 60</p>
+findtime = 60
 
-<p>bantime  = 172800</p>
+bantime  = 172800
 
-<p>maxretry = 240</p>
+maxretry = 240
+</code></pre>
 
 <p>Fallar la autentificación en el servidor web, blloqueo por 10 minutos</p>
 
-<p>[nginx-auth]</p>
+<pre><code>[nginx-auth]
 
-<p>enabled = true</p>
+enabled = true
 
-<p>port = http</p>
+port = http
 
-<p>filter = nginx-auth</p>
+filter = nginx-auth
+</code></pre>
 </div>
   
   
@@ -425,7 +432,7 @@
   
 
 
-<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:10:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -463,7 +470,7 @@
   
 
 
-<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:10:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -474,13 +481,13 @@
 
 <p>Recuperación de archivos o directorios borrados. La partición sobre la que se actua ha de estar desmontada. Descargar la aplicación de <a href="http://extundelete.sourceforge.net/">http://extundelete.sourceforge.net/</a> e instalarla con el clasico ./configure, make, sudo make install.</p>
 
-<blockquote><h1>extundelete  /dev/sda11 &#8211;restore-directory /datos/dir_borrado (recuperar el directorio dir_borrado de la partición /dev/sda11. Lo guardará en el directorio RECOVERED_FILES)</h1>
+<blockquote><p># extundelete  /dev/sda11 &#8211;restore-directory /datos/dir_borrado (recuperar el directorio dir_borrado de la partición /dev/sda11. Lo guardará en el directorio RECOVERED_FILES)</p>
 
-<h1>extundelete  /dev/sda11 &#8211;restore-file /datos/imagenes/foto.png -o fotos/ (recuperar un archivo y guardarlo en el directorio fotos)</h1>
+<p># extundelete  /dev/sda11 &#8211;restore-file /datos/imagenes/foto.png -o fotos/ (recuperar un archivo y guardarlo en el directorio fotos)</p>
 
-<h1>extundelete /dev/sda11 &#8211;restore-all (recuperar toda una partición)</h1>
+<p># extundelete /dev/sda11 &#8211;restore-all (recuperar toda una partición)</p>
 
-<h1>extundelete /dev/sda11 &#8211;restore-files files (recuperar de la partición /dev/sda11 los archivos enumerados en &#8220;files&#8221; a razón de uno por linea)</h1></blockquote>
+<p># extundelete /dev/sda11 &#8211;restore-files files (recuperar de la partición /dev/sda11 los archivos enumerados en &#8220;files&#8221; a razón de uno por linea)</p></blockquote>
 </div>
   
   
@@ -509,7 +516,7 @@
   
 
 
-<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:10:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -518,7 +525,7 @@
 
   <div class="entry-content"><p>Recuperación de ficheros ext3 y ext4 borrados o sobrescritos.</p>
 
-<blockquote><h1>ext4magic /dev/sda2 -m -d . -f user (recuperar sólo los archivos borrados [-m] de nuestra $HOME [/dev/sda2], el resultado en el presente directorio [-d .] y del usuario &#8220;user&#8221; [-f])</h1></blockquote>
+<blockquote><p># ext4magic /dev/sda2 -m -d . -f user (recuperar sólo los archivos borrados [-m] de nuestra $HOME [/dev/sda2], el resultado en el presente directorio [-d .] y del usuario &#8220;user&#8221; [-f])</p></blockquote>
 
 <p>Algunas opciones:</p>
 
@@ -551,7 +558,7 @@
   
 
 
-<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:10:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -564,154 +571,156 @@
 
 <blockquote><p>$ cat file</p></blockquote>
 
-<h1>/etc/fstab: static file system information.</h1>
+<pre><code># /etc/fstab: static file system information.
 
-<p>UUID=de1d7793-c3d2-4e03-b79d-1a76905619e6 /               ext4    errors=remount-ro 0       1</p>
+UUID=de1d7793-c3d2-4e03-b79d-1a76905619e6 /               ext4    errors=remount-ro 0       1
 
-<p>UUID=ccc71238-d89d-435b-a4e2-c2d836f800bb none            swap    sw              0       0</p>
+UUID=ccc71238-d89d-435b-a4e2-c2d836f800bb none            swap    sw              0       0
 
-<p>/dev/sr0        /media/cdrom0   udf,iso9660 user,noauto     0       0</p>
+/dev/sr0        /media/cdrom0   udf,iso9660 user,noauto     0       0
 
-<p>/dev/sda5       /media/datos    ext4    defaults        0       0</p>
+/dev/sda5       /media/datos    ext4    defaults        0       0
 
-<p>/dev/sda7       /media/fotos    ext3    defaults        0       0</p>
+/dev/sda7       /media/fotos    ext3    defaults        0       0
 
-<p>servidor:/home/templix /media/servidor  nfs4 defaults   0       0</p>
+servidor:/home/templix /media/servidor  nfs4 defaults   0       0
 
-<h3>Otras cosas</h3>
+### Otras cosas
 
-<p>7592 esto es un número&#8230;.</p>
+7592 esto es un número....
 
-<p>la letra z es la última</p>
+la letra z es la última
 
-<p>aminora</p>
+aminora
 
-<p>mediaplayer es un reproductor</p>
+mediaplayer es un reproductor
 
-<p>tres cincos hace 555</p>
+tres cincos hace 555
 
-<p>salta la rana</p>
+salta la rana
 
-<p>aRmARIO</p>
+aRmARIO
+</code></pre>
 
 <p>Nota.- Los siguientes ejemplos se basarán en el comando grep. En algunos casos, al corresponder a expresiones regulares extendidas, se usará con el argumento -E. Las expresiones regulares han de ir siempre encerradas con comillas simples.</p>
 
-<p>Literales (Sólo encajan con ellos mismos)</p>
+<pre><code>Literales (Sólo encajan con ellos mismos)
 
-<p>$ grep &#8216;media&#8217; file (mostrara las lineas que contengan &#8220;media&#8221; incluso &#8220;mediaplayer&#8221;)</p>
+    $ grep 'media' file (mostrara las lineas que contengan "media" incluso "mediaplayer")
 
-<p>$ grep &#8217;<media>&#8217; file (Sólo mostrará las que contengan exactamente &#8220;media&#8221;)</p>
+    $ grep '\&lt;media\&gt;' file (Sólo mostrará las que contengan exactamente "media")
 
-<p>. [punto] (Cualquier caracter)</p>
+. [punto] (Cualquier caracter)
 
-<p>$ grep &#8216;me.ia&#8217; file (Misma salida que el anterior)</p>
+    $ grep 'me.ia' file (Misma salida que el anterior)
 
-<p>$ grep &#8216;&lt;m&#8230;a>&#8217; file (Mostrar las de cinco letras que empiecen por &#8220;m&#8221; y terminen en &#8220;a&#8221;)</p>
+    $ grep '\&lt;m...a\&gt;' file (Mostrar las de cinco letras que empiecen por "m" y terminen en "a")
 
-<p>$ grep &#8216;m&#8230;a>&#8217; file (Mostrar las lineas que contengan una palabra de cinco letras que empiece por &#8220;m&#8221; y termine con &#8220;a&#8221; sin nada a continuación)</p>
+    $ grep 'm...a\&gt;' file (Mostrar las lineas que contengan una palabra de cinco letras que empiece por "m" y termine con "a" sin nada a continuación)
 
-<p>[] [Corchetes] (Cualquier caracter de los encerrados entre corchetes)</p>
+[] [Corchetes] (Cualquier caracter de los encerrados entre corchetes)
 
-<p>$ grep &#8216;[wz]&#8217; file (Mostras las que contengan &#8220;w&#8221; o &#8220;z&#8221;)</p>
+    $ grep '[wz]' file (Mostras las que contengan "w" o "z")
 
-<p>$ grep &#8216;sda[0-9]&#8217; file (Mostrar las lineas con palabras que empiecen por sda seguidas de un número del 0 al 9)</p>
+    $ grep 'sda[0-9]' file (Mostrar las lineas con palabras que empiecen por sda seguidas de un número del 0 al 9)
 
-<p>$ grep &#8216;[0-9]-&#8217; file (Buscar lineas que tengan un número seguido de un -)</p>
+    $ grep '[0-9]-' file (Buscar lineas que tengan un número seguido de un -)
 
-<p>| [Tuberia] (Especificar varias opciones)</p>
+| [Tuberia] (Especificar varias opciones)
 
-<p>$ grep -E &#8216;e(xt|rvi)(3|dor)&#8217; file (Mostrar las que contengan ext3 y ervidor [servidor])</p>
+    $ grep -E 'e(xt|rvi)(3|dor)' file (Mostrar las que contengan ext3 y ervidor [servidor])
 
-<p>$ grep -E &#8216;datos|servidor&#8217; file (Mostrar las que tengan las palabras &#8220;datos&#8221; y &#8220;servidor&#8221;)</p>
+    $ grep -E 'datos|servidor' file (Mostrar las que tengan las palabras "datos" y "servidor")
 
-<ul>
-<li>[Guión] (Siempre que no siga a un corchete, especifica un rango)</li>
-</ul>
+- [Guión] (Siempre que no siga a un corchete, especifica un rango)
 
+    $ grep '[0-2]$' file (Lineas que contengan los números 0,1 y 2)
 
-<p>$ grep &#8216;[0-2]$&#8217; file (Lineas que contengan los números 0,1 y 2)</p>
+^ [Circunflejo] (Si va precedido de un corchete significa "todo lo que no sea lo que sigue". En los demás casos significa "que la linea empiece por lo que sigue)
 
-<p>^ [Circunflejo] (Si va precedido de un corchete significa &#8220;todo lo que no sea lo que sigue&#8221;. En los demás casos significa &#8220;que la linea empiece por lo que sigue)</p>
+    $ grep '^UUID' file (Mostrar las que empiecen por UUID)
 
-<p>$ grep &#8217;<sup>UUID&#8217;</sup> file (Mostrar las que empiecen por UUID)</p>
+    $ grep ':[^/]' file (Las que tengan ":" y no vayan seguidos de una "/")
 
-<p>$ grep &#8216;:[<sup>/]&#8217;</sup> file (Las que tengan &#8220;:&#8221; y no vayan seguidos de una &#8220;/&#8221;)</p>
+    $ grep -e '^UUID' -e '^\/' file (Mostrar las que empiecen por UUID y por / . La barra de escape [\] convierte al siguiente caracter en literal)
 
-<p>$ grep -e &#8217;<sup>UUID&#8217;</sup> -e &#8217;<sup>/&#8217;</sup> file (Mostrar las que empiecen por UUID y por / . La barra de escape [] convierte al siguiente caracter en literal)</p>
+$ [Dolar] (Indica que el carácter precedente aparece al final de la linea)
 
-<p>$ [Dolar] (Indica que el carácter precedente aparece al final de la linea)</p>
+    $ grep '0$' file (Muestra las que terminen en 0)
 
-<p>$ grep &#8216;0$&#8217; file (Muestra las que terminen en 0)</p>
+    grep '\.$' file (Muestra las lineas que terminan con un punto)
 
-<p>grep &#8216;.$&#8217; file (Muestra las lineas que terminan con un punto)</p>
++ [Signo más] (Una o más veces).
 
-<ul>
-<li>[Signo más] (Una o más veces).</li>
-</ul>
+    $ grep -E '\-[0-9]+' file (Buscar las lineas con varios números precedidos por un guión [que ha de escaparse con una barra])
 
+* (Asterisco) (Ninguna o más veces)
 
-<p>$ grep -E &#8216;-[0-9]+&#8217; file (Buscar las lineas con varios números precedidos por un guión [que ha de escaparse con una barra])</p>
+    $ grep -E '(fot).*' file (Mostrar las que tengan "fot" y puedan estar o no seguidas de otros caracteres)
 
-<ul>
-<li>(Asterisco) (Ninguna o más veces)</li>
-</ul>
+? (Interrogante) (Un caracter impreciso)
 
+    $ grep -E 'ext4?' file (indica que el caracter anterior [el 4] puede ser distinto de 4 o puede no existir, o sea que mostrará lineas que contengan ext4, ext3, ext...)
 
-<p>$ grep -E &#8216;(fot).*&#8217; file (Mostrar las que tengan &#8220;fot&#8221; y puedan estar o no seguidas de otros caracteres)</p>
+{n,m} [Llaves] (Que el caracter anterior a la llave se muestre las veces que indica entre el número n y el m. Si omitimos m significa como mínimo n veces.
 
-<p>? (Interrogante) (Un caracter impreciso)</p>
+    $ grep '5\{2,5\}.*' file (Que se muestre las lineas que tengan un 5 entre dos y cinco veces. Las llaves se escapan)
 
-<p>$ grep -E &#8216;ext4?&#8217; file (indica que el caracter anterior [el 4] puede ser distinto de 4 o puede no existir, o sea que mostrará lineas que contengan ext4, ext3, ext&#8230;)</p>
+    $ grep '5\{3\}.*' file (Muestra las lineas en las que el 5 sale tres veces)
 
-<p>{n,m} [Llaves] (Que el caracter anterior a la llave se muestre las veces que indica entre el número n y el m. Si omitimos m significa como mínimo n veces.</p>
+    $ grep '5\{3,\}.*' file (Muestra las lineas en las que el 5 sale como mínimo tres veces)
 
-<p>$ grep &#8216;5{2,5}.*&#8217; file (Que se muestre las lineas que tengan un 5 entre dos y cinco veces. Las llaves se escapan)</p>
+b (Que lo precedente sea el final de una palabra. Siempre ha de escaparse.)
 
-<p>$ grep &#8216;5{3}.*&#8217; file (Muestra las lineas en las que el 5 sale tres veces)</p>
-
-<p>$ grep &#8216;5{3,}.*&#8217; file (Muestra las lineas en las que el 5 sale como mínimo tres veces)</p>
-
-<p>b (Que lo precedente sea el final de una palabra. Siempre ha de escaparse.)</p>
-
-<p>$ grep &#8216;sb&#8217; file (Muestra las lineas que contienen alguna palabra acabada en &#8220;s&#8221;)</p>
+    $ grep 's\b' file (Muestra las lineas que contienen alguna palabra acabada en "s")
+</code></pre>
 
 <p>Otros ejemplos:</p>
 
 <p>Buscar las lineas que no empiecen por #:</p>
 
-<p>$ grep -v &#8217;<sup>#&#8217;</sup> file</p>
+<pre><code>$ grep -v '^#' file
+</code></pre>
 
 <p>Mostrar lineas que empiecen por # y las que terminen en 0:</p>
 
-<p>$ grep -E &#8217;<sup>#|0$&#8217;</sup> file</p>
+<pre><code>$ grep -E '^#|0$' file
+</code></pre>
 
 <p>Buscar lineas que tengan : seguidos de una barra que ha de escaparse:</p>
 
-<p>$ grep &#8216;:/&#8217; file</p>
+<pre><code>$ grep ':\/' file
+</code></pre>
 
 <p>Buscar las lineas que tengan una &#8220;o&#8221; seguida de al menos 3 dígitos:</p>
 
-<p>$ grep &#8216;o[0-9]{3}&#8217; file</p>
+<pre><code>$ grep 'o[0-9]\{3\}' file
+</code></pre>
 
 <p>Buscar lineas que tengan algún dígito:</p>
 
-<p>$ grep &#8216;[[:digit:]]&#8217; file</p>
+<pre><code>$ grep '[[:digit:]]' file
+</code></pre>
 
 <p>Buscar lineas que empiecen por un caracter alfabético:</p>
 
-<p>$ grep &#8217;<sup>[[:alpha:]]&#8217;</sup> file</p>
+<pre><code>$ grep '^[[:alpha:]]' file
+</code></pre>
 
 <p>Buscar lineas que tengan &#8220;ext&#8221; usando parentesis:</p>
 
-<p>$ grep &#8216;(ext)&#8217; file</p>
+<pre><code>$ grep '\(ext\)' file
+</code></pre>
 
 <p>Buscar lineas que que tengan un número entre 2 y 9 al menos una vez y esten precedidos de espacio, tabulación o salto de linea:</p>
 
-<p>$grep -E &#8216;s[2-9]+&#8217; file</p>
+<pre><code>$grep -E '\s[2-9]+' file
+</code></pre>
 
 <p>Mostrar lineas con entre 3 y 6 letras mayúsculas:</p>
 
-<p>$ grep &#8216;[A-Z]{3,6}&#8217; file</p>
+<pre><code>$ grep '[A-Z]\{3,6\}' file
+</code></pre>
 
 <p>Algunos casos comentados:</p>
 
@@ -719,35 +728,39 @@
 
 <blockquote><p>$ touch nada.8.sh.5</p></blockquote>
 
-<p>$ ls | grep &#8216;.<em>.[6-8].</em>.[1-6]&#8217;</p>
+<pre><code>$ ls | grep '.*.[6-8].*.[1-6]'
+</code></pre>
 
 <p>Nota.- Cuando se usen con el comando grep han de ir siempre encerradas con comillas simples.</p>
 
-<p>.* (Cero o más caracteres. El punto inicial es imprescindible)</p>
+<pre><code>.* (Cero o más caracteres. El punto inicial es imprescindible)
 
-<p>.[6-8] (Seguidos de un punto y un número que contenga entre el 6 y el 8)</p>
+.[6-8] (Seguidos de un punto y un número que contenga entre el 6 y el 8)
 
-<p>.* (seguido un punto y cero o más caracteres)</p>
+.* (seguido un punto y cero o más caracteres)
 
-<p>.[1-6] (y terminado con un punto seguido de un número que contenga del 1 al 6)</p>
+.[1-6] (y terminado con un punto seguido de un número que contenga del 1 al 6)
+</code></pre>
 
 <p>Nota.- Los corchetes NO indican UN número de un dígito sinó un número que contenga el margen especificado [6,7,8 para el primer corchete y 1,2,3,4,5,6 para el segundo, por tanto también listaría el archivo nada.0357.sh.389 pero no nada.0352.sh.389 porque el número 0352 no contiene ninguno del margen especificado.</p>
 
 <p>Nótese la diferencia en la expresión regular usando el comando mv [sin comillas simples y sin el punto delante del primer asterisco]:</p>
 
-<p>$ mv <em>.[6-8].</em>.[1-6] prueba</p>
+<pre><code>$ mv *.[6-8].*.[1-6] prueba
+</code></pre>
 
 <p>2.-</p>
 
 <p>Buscar en el directorio scripts, todos los que sean de bash:</p>
 
-<p>$ grep -i &#8217;<sup>#.*bash&#8217;</sup> scripts/*</p>
+<pre><code>$ grep -i '^#.*bash' scripts/*
 
-<p>^#.*bash (Que el primer caracter de la primera linea sea # y que despues de cero o más caracteres aparezca la palabra bash)</p>
+    ^#.*bash (Que el primer caracter de la primera linea sea # y que despues de cero o más caracteres aparezca la palabra bash)
 
-<p>$ grep -i &#8216;$.*bash&#8217; scripts</p>
+    $ grep -i '$.*bash' scripts
 
-<p>&#8217;$.*bash&#8217; (En todos los ficheros del directorio, que al final de la primera linea y despues de cero o más caracteres apararezca la palabra bash)</p>
+    '$.*bash' (En todos los ficheros del directorio, que al final de la primera linea y despues de cero o más caracteres apararezca la palabra bash)
+</code></pre>
 
 <p>3.-</p>
 
@@ -755,31 +768,33 @@
 
 <blockquote><p>$ cat lista</p></blockquote>
 
-<p>juangomez@gmail.com</p>
+<pre><code>juangomez@gmail.com
 
-<p>clarafuentes@</p>
+clarafuentes@
 
-<p>@yahoo.es</p>
+@yahoo.es
 
-<p>ant.rodri-perez@hotmail.nadadenada</p>
+ant.rodri-perez@hotmail.nadadenada
 
-<p>pedro@blog.empresa.travel</p>
+pedro@blog.empresa.travel
+</code></pre>
 
 <hr />
 
-<p>$ grep -E &#8217;<sup>[a-zA-Z._-]+@[a-zA-Z0-9.]+.[a-z]+$&#8217;</sup> lista</p>
+<pre><code>$ grep -E '^[a-zA-Z._-]+@[a-zA-Z0-9.]+\.[a-z]+$' lista
 
-<p>^[a-zA-Z._-]+ (Que empiece con una palabra que pueda contener mayúsculas, minúsculas, puntos, guiones o guiones bajos)</p>
+    ^[a-zA-Z._-]+ (Que empiece con una palabra que pueda contener mayúsculas, minúsculas, puntos, guiones o guiones bajos)
 
-<p>@ (Seguida de una @ literal)</p>
+    @ (Seguida de una @ literal)
 
-<p>[a-zA-Z0-9.]+ (A continuación varios caracteres que pueden ser mayúsculas, minúsculas, puntos o números)</p>
+    [a-zA-Z0-9.]+ (A continuación varios caracteres que pueden ser mayúsculas, minúsculas, puntos o números)
 
-<p>. (Después un punto literal)</p>
+    \. (Después un punto literal)
 
-<p>[a-z]+$ (Para terminar, uno o varios caracteres en minúscula)</p>
+    [a-z]+$ (Para terminar, uno o varios caracteres en minúscula)
 
-<p>$ grep -E &#8217;<sup>[a-zA-Z._-]+@.[a-zA-Z.0-9]+.[[:alpha:]]{2,3}$&#8217;</sup> lista (Sólo mostrará las que terrminen con 2 o 3 letras)</p>
+$ grep -E '^[a-zA-Z._-]+@.[a-zA-Z.0-9]+\.[[:alpha:]]{2,3}$' lista (Sólo mostrará las que terrminen con 2 o 3 letras)
+</code></pre>
 </div>
   
   
@@ -808,7 +823,7 @@
   
 
 
-<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:10:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -845,9 +860,9 @@
   
     <section>
 <h1>Número de entradas</h1>
-        <ul>
-        <li>1354</li>
-        </ul>
+	<ul>
+	<li>1354</li>
+	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>

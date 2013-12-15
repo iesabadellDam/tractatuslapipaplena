@@ -97,7 +97,7 @@
   
 
 
-<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:12:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -112,9 +112,10 @@
 
 <p>Colocar en el archivo las lineas:</p>
 
-<p>auto eth0</p>
+<pre><code>auto eth0
 
-<p>iface eth0 inet dhcp</p>
+iface eth0 inet dhcp
+</code></pre>
 
 <p>2.-</p>
 
@@ -122,23 +123,24 @@
 
 <p>Colocar en el archivo las lineas:</p>
 
-<p>auto eth0</p>
+<pre><code>auto eth0
 
-<p>iface eth0 inet static</p>
+iface eth0 inet static
 
-<p>address 192.168.1.10</p>
+address 192.168.1.10
 
-<p>gateway 192.168.1.1</p>
+gateway 192.168.1.1
 
-<p>netmask 255.255.255.0</p>
+netmask 255.255.255.0
 
-<p>broadcast 192.168.1.255</p>
+broadcast 192.168.1.255
+</code></pre>
 
 <p>Reiniciar el servicio:</p>
 
-<blockquote><h1>ifdown eth0</h1>
+<blockquote><p># ifdown eth0</p>
 
-<h1>ifup eth0</h1></blockquote>
+<p># ifup eth0</p></blockquote>
 
 <p>Nota.- Solo modificandolo en network-manager no funciona.</p>
 
@@ -148,21 +150,22 @@
 
 <p>Añadir las siguientes lineas a las de la IP fija:</p>
 
-<p>auto eth0:1</p>
+<pre><code>auto eth0:1
 
-<p>iface eth0:1 inet static</p>
+iface eth0:1 inet static
 
-<p>address 192.168.0.15</p>
+address 192.168.0.15
 
-<p>netmask 255.255.255.0</p>
+netmask 255.255.255.0
 
-<p>broadcast 192.168.0.255</p>
+broadcast 192.168.0.255
 
-<p>gateway 192.168.0.1</p>
+gateway 192.168.0.1
+</code></pre>
 
 <p>Nota.- La instalación de nerwork-manager o wicd para la gestión de redes implica comentar las modificaciones de este archivo o en, en el caso de network-manager, editar:</p>
 
-<blockquote><h1>nano  /etc/NetworkManager/NetworkManager.conf</h1></blockquote>
+<blockquote><p># nano  /etc/NetworkManager/NetworkManager.conf</p></blockquote>
 
 <p>Y modificar la linea:</p>
 
@@ -197,7 +200,7 @@
   
 
 
-<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:12:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -208,46 +211,46 @@
 
 <p>Configuración:</p>
 
-<blockquote><h1>/etc/integrit/integrit.con</h1></blockquote>
+<blockquote><p># /etc/integrit/integrit.con</p></blockquote>
 
 <p>Descomentar las lineas:</p>
 
-<p>root=/</p>
+<pre><code>root=/  
 
-<p>known=/var/lib/integrit/known.cdb</p>
+known=/var/lib/integrit/known.cdb       
 
-<p>current=/var/lib/integrit/current.cdb</p>
+current=/var/lib/integrit/current.cdb
+</code></pre>
 
 <p>Y descartar los directorios que no se deseen incluir en el escaneo, descomentandolos [&#8220;cdrom&#8221; se descarta, &#8220;/dev&#8221; se escane, &#8220;/usr/src&#8221; no se escaneará de forma recursiva ]:</p>
 
-<p>!/cdrom</p>
+<pre><code>!/cdrom
 
-<h1>!/dev</h1>
+# !/dev
 
-<p>=/usr/src</p>
+=/usr/src
+</code></pre>
 
 <p>Crear la base de datos inicial:</p>
 
-<blockquote><h1>integrit -u -C /etc/integrit/integrit.conf</h1></blockquote>
+<blockquote><p># integrit -u -C /etc/integrit/integrit.conf</p></blockquote>
 
 <p>Mover la base de datos a know.cdb:</p>
 
-<blockquote><h1>mv /var/lib/integrit/current.cdb /var/lib/integrit/known.cdb</h1></blockquote>
+<blockquote><p># mv /var/lib/integrit/current.cdb /var/lib/integrit/known.cdb</p></blockquote>
 
 <p>Lanzar la comprobación:</p>
 
-<blockquote><h1>integrit -C /etc/integrit/integrit.conf -c</h1></blockquote>
+<blockquote><p># integrit -C /etc/integrit/integrit.conf -c</p></blockquote>
 
 <p>Si queremos colocar la orden en el cron para ser lanzada cada hora y que envie un correo al administrador:</p>
 
-<blockquote><h1>crontab -e</h1></blockquote>
+<blockquote><p># crontab -e</p></blockquote>
 
 <p>Y colocamos la linea:</p>
 
-<ul>
-<li>1 * * * integrit -C /etc/integrit/integrit.conf -c | mail root</li>
-</ul>
-
+<pre><code>* 1 * * * integrit -C /etc/integrit/integrit.conf -c | mail root
+</code></pre>
 </div>
   
   
@@ -276,7 +279,7 @@
   
 
 
-<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:12:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -318,7 +321,7 @@
   
 
 
-<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:12:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -327,9 +330,9 @@
 
   <div class="entry-content"><p>Instala un nuevo código MBR al inicio del disco duro.</p>
 
-<blockquote><h1>install-mbr /dev/sda (instala)</h1>
+<blockquote><p># install-mbr /dev/sda (instala)</p>
 
-<h1>install-mbr -l /dev/sda (muestra información del código mbr)</h1></blockquote>
+<p># install-mbr -l /dev/sda (muestra información del código mbr)</p></blockquote>
 </div>
   
   
@@ -358,7 +361,7 @@
   
 
 
-<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:11:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -367,7 +370,7 @@
 
   <div class="entry-content"><p>Carga modulos.</p>
 
-<blockquote><h1>insmod mudulo</h1></blockquote>
+<blockquote><p># insmod mudulo</p></blockquote>
 </div>
   
   
@@ -396,7 +399,7 @@
   
 
 
-<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:11:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -413,19 +416,19 @@
 
 <p>Que al pulsar Ctrl+x Ctrl+f liste las funciones y con Ctrl+x Ctrl+v las variables:</p>
 
-<blockquote><h1>Lista las funciones y variables de readline</h1></blockquote>
+<blockquote><p># Lista las funciones y variables de readline</p></blockquote>
 
-<p>&#8220;C-xC-f&#8221;: dump-functions</p>
+<p>&#8220;\C-x\C-f&#8221;: dump-functions</p>
 
-<p>&#8220;C-xC-v&#8221;: dump-variables</p>
+<p>&#8220;\C-x\C-v&#8221;: dump-variables</p>
 
 <p>2.-</p>
 
 <p>Que el autocompletado con la tecla &#8220;tab&#8221; no distinga mayúsculas y minúsculas:</p>
 
-<blockquote><h1>Ignora diferencias de mayusculas/minusculas al</h1>
+<blockquote><p># Ignora diferencias de mayusculas/minusculas al</p>
 
-<h1>completar con tabulador</h1></blockquote>
+<p># completar con tabulador</p></blockquote>
 
 <p>set completion-ignore-case on</p>
 </div>
@@ -456,7 +459,7 @@
   
 
 
-<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:11:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -465,43 +468,48 @@
 
   <div class="entry-content"><p>Fichero que gestiona el inicio del sistema o un cambio de estado (runlevel) con el comando init (ver).</p>
 
-<blockquote><h1>nano /etc/inittab</h1></blockquote>
+<blockquote><p># nano /etc/inittab</p></blockquote>
 
 <p>Especificación de si el sistema arranca en modo monousuario (1) o multiusuario (2-5). Por defecto 2 o 3:</p>
 
-<p>id:2:initdefault:</p>
+<pre><code>id:2:initdefault:
+</code></pre>
 
 <p>Scripts que se ejecutarán en el inicio y en el orden que lo harán independientemente del runlevel:</p>
 
-<p>si::sysinit:/etc/init.d/rcS (En algunas distros si::sysinit:/etc/rc.d/rc.sysinit)</p>
+<pre><code>si::sysinit:/etc/init.d/rcS (En algunas distros si::sysinit:/etc/rc.d/rc.sysinit)
+</code></pre>
 
 <p>Este script llama a los scripts del directorio /etc/rcS.d. Por cada runlevel se ejecutan los scripts del directorio correpondiente: rc0.d/, rc1.d/, rc2.d/, rc3.d/, rc4.d/, rc5.d/, rc6.d/, rc.local y rcS.d/. El directorio /etc/rc.local se usa para ejecutar servicios porpios del usuario. En estos directorios los scripts que empiezan por una &#8220;K&#8221; paran servicios y los que empiezan por una &#8220;S&#8221; los arrancan.</p>
 
 <p>Qué hacer si se presiona CTRL-ALT-DEL:</p>
 
-<p>ca:12345:ctrlaltdel:/sbin/shutdown -t1 -a -r now</p>
+<pre><code>ca:12345:ctrlaltdel:/sbin/shutdown -t1 -a -r now
+</code></pre>
 
 <p>Qué hacer si la corriente se va/vuelve</p>
 
-<p>pf::powerwait:/etc/init.d/powerfail start</p>
+<pre><code>pf::powerwait:/etc/init.d/powerfail start
 
-<p>pn::powerfailnow:/etc/init.d/powerfail now</p>
+pn::powerfailnow:/etc/init.d/powerfail now
 
-<p>po::powerokwait:/etc/init.d/powerfail stop</p>
+po::powerokwait:/etc/init.d/powerfail stop
+</code></pre>
 
 <p>Despues de ejecutar los scripts de inicio, init crea un conjunto de terminales virtuales:</p>
 
-<p>1:2345:respawn:/sbin/getty 38400 tty1</p>
+<pre><code>1:2345:respawn:/sbin/getty 38400 tty1
 
-<p>2:23:respawn:/sbin/getty 38400 tty2</p>
+2:23:respawn:/sbin/getty 38400 tty2
 
-<p>3:23:respawn:/sbin/getty 38400 tty3</p>
+3:23:respawn:/sbin/getty 38400 tty3
 
-<p>4:23:respawn:/sbin/getty 38400 tty4</p>
+4:23:respawn:/sbin/getty 38400 tty4
 
-<p>5:23:respawn:/sbin/getty 38400 tty5</p>
+5:23:respawn:/sbin/getty 38400 tty5
 
-<p>6:23:respawn:/sbin/getty 38400 tty6</p>
+6:23:respawn:/sbin/getty 38400 tty6
+</code></pre>
 
 <p>Utilizando la opción respawn, si alguien trata de finalizar uno de estos procesos, el proceso simplemente será regenerado (respawned).</p>
 
@@ -511,7 +519,7 @@
 
 <p>Comentar la siguiente línea</p>
 
-<blockquote><h1>1:2345:respawn:/sbin/getty 38400 tty1</h1></blockquote>
+<blockquote><p>#1:2345:respawn:/sbin/getty 38400 tty1</p></blockquote>
 
 <p>Y Agrega la siguiente linea:</p>
 
@@ -546,7 +554,7 @@
   
 
 
-<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:11:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -555,7 +563,7 @@
 
   <div class="entry-content"><p>Problemas durante el arranque. Consiste en un fallo de lectura de los controladores ide de discos duros por parte del kernel del sistema operativo que no logra reconocer dichos drivers. Arrancar con un livecd o pulsando “e” para editar la opción cuando salga el menu en grub:</p>
 
-<blockquote><h1>gedit /boot/grub/menu.lst</h1></blockquote>
+<blockquote><p># gedit /boot/grub/menu.lst</p></blockquote>
 
 <p>Y al final de la linea del kernel poner: rootdelay=90</p>
 
@@ -592,7 +600,7 @@
   
 
 
-<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:11:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -634,7 +642,7 @@
   
 
 
-<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T16:11:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -667,9 +675,9 @@
   
     <section>
 <h1>Número de entradas</h1>
-        <ul>
-        <li>1354</li>
-        </ul>
+	<ul>
+	<li>1354</li>
+	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "xbindkeys"
-date: 2013-12-15 15:47
+date: 2013-12-15 16:16
 comments: true
 categories: 
 ---
@@ -17,7 +17,7 @@ Modo de entrar un atajo:
 
 "gnome-terminal"
 
-Mod4 + t
+   Mod4 + t
 
 Abrirá la terminal pulsando las teclas “Win” + “t”
 

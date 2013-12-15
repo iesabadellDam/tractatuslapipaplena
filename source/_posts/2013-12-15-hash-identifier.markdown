@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "hash-identifier"
-date: 2013-12-15 15:42
+date: 2013-12-15 16:11
 comments: true
 categories: 
 ---
@@ -13,29 +13,29 @@ Cuando sale el promt pastear el hash:
 
 HASH: caf90169eefa5f807d577486b9f795ab86ae2983c5c20806cff959117e90af18
 
-Possible Hashs:
+	Possible Hashs:
 
-[+]  SHA-256
+	[+]  SHA-256
 
-[+]  Haval-256
+	[+]  Haval-256
 
-Least Possible Hashs:
+	Least Possible Hashs:
 
-[+]  GOST R 34.11-94
+	[+]  GOST R 34.11-94
 
-[+]  RipeMD-256
+	[+]  RipeMD-256
 
-[+]  SNEFRU-256
+	[+]  SNEFRU-256
 
-[+]  SHA-256(HMAC)
+	[+]  SHA-256(HMAC)
 
-[+]  Haval-256(HMAC)
+	[+]  Haval-256(HMAC)
 
-[+]  RipeMD-256(HMAC)
+	[+]  RipeMD-256(HMAC)
 
-[+]  SNEFRU-256(HMAC)
+	[+]  SNEFRU-256(HMAC)
 
-[+]  SHA-256(md5($pass))
+	[+]  SHA-256(md5($pass))
 
-[+]  SHA-256(sha1($pass))
+	[+]  SHA-256(sha1($pass))
 

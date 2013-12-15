@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "funcoeszz"
-date: 2013-12-15 15:42
+date: 2013-12-15 16:11
 comments: true
 categories: 
 ---
@@ -9,11 +9,11 @@ Conjunto de 65 funciones y utilidades varias. Una vez instalado:
 
 >$ funcoeszz zzzz --bashrc (Para colocar las lineas en .bashrc)
 
-# Instalacao das Funcoes ZZ (www.funcoeszz.net)
+	# Instalacao das Funcoes ZZ (www.funcoeszz.net)
 
-source /usr/bin/funcoeszz
+	source /usr/bin/funcoeszz
 
-export ZZPATH=/usr/bin/funcoeszz
+	export ZZPATH=/usr/bin/funcoeszz
 
 >$ source .bashrc (Releer el fichero)
 
@@ -21,7 +21,7 @@ export ZZPATH=/usr/bin/funcoeszz
 
 >$ funcoeszz zzzz --teste (Comprobar que todos los ejecutables que necesita la aplicación estan instalados)
 
->$ funcoeszz zzzz --atualiza (Baja las últimas versiones de las funciones)
+>$ funcoeszz zzzz --atualiza (Baja las últimas versiones de las funciones) 
 
 >$ funcoeszz ajuda (Ayuda muy util sobre como usar cada un de las funciones)
 
