@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Colorear la salida de los comandos especificados en /etc/grc.conf $ grc ping www.tuxapuntes.com
-">
+  <meta name="description" content="Lee la entrada estándar o un archivo e imprime las líneas que cumplan el patrón. Ver expresiones regulares $ grep -c &#8216;UUID&#8217; /etc/fstab ( &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +75,78 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/grep/">Grep</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-15T18:53:00+01:00" pubdate data-updated="true">15-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Lee la entrada estándar o un archivo e imprime las líneas que cumplan el patrón. Ver expresiones regulares</p>
+
+<blockquote><p>$ grep -c &#8216;UUID&#8217; /etc/fstab (Muestra sólo el número de líneas que coinciden con el patron)</p>
+
+<p>$ grep -n &#8216;UUID&#8217; /etc/fstab (Muestra el número de lineas y su contenido)</p>
+
+<p>$ grep -i &#8216;uuid&#8217; /etc/fstab (No distingue entre mayusculas ni minúsculas)</p>
+
+<p>$ grep -w &#8216;fstab&#8217; /etc/fstab (Ha de coincidir el patron completo, no una parte)</p>
+
+<p>$ grep -v &#8216;fstab&#8217; /etc/fstab (Muestra las que no tienen el patrón)</p>
+
+<p>$ grep -E &#8216;fstab|dev&#8217; /etc/fstab (Mostras las lineas que contengan dos palabras. Requiere habilitar las expresiones regulares extendidas [ver])</p>
+
+<p>$ grep -e &#8216;fstab&#8217; -e &#8216;dev&#8217; /etc/fstab (Forma de mostrar las lineas que contengan dos palabras sin habilitar las expresiones regualres extendidas)</p>
+
+<p>$ grep -r &#8216;fstab&#8217; /etc (Buscar una palabra de un directorio y los subdirectorios)</p>
+
+<p>$ grep -l -r &#8216;fstab&#8217; /etc (Sólo mostrar los archivos que contienen la palabra en el directorio y los subdirectorios)</p>
+
+<p>$ grep -n &#8216;fstab&#8217; /etc/fstab (Mostrar la linea y el número de linea)</p>
+
+<p>$ grep -A 2 &#8216;swap&#8217; /etc/fstab (Mostrar la línea y las 2 siguientes)</p>
+
+<p>$ grep &#8211;color UUID /etc/fstab (Resaltar en color la palabra &#8220;UUID&#8221;)</p></blockquote>
+
+<p>Otras opciones:</p>
+
+<blockquote><p>$ grep -Fx -f archivo1 archivo2 (Mostrar líneas que aparezcan en dos archivos)</p>
+
+<p># grep -i -a -B35 -A90 &#8216;palabreja&#8217; /dev/sda1 > recup.txt (recuperar un archivo borrado con rm que incluye la palabra “palabreja” y su tamaño estimado: [-B50] 35 lineas anteriores a “palabreja” y [-A90] 90 lineas posteriores. Especificar partición y archivo de recuperación)</p>
+
+<p>$ grep cups /etc/services (Conocer el puerto por el que corre un servicio)</p>
+
+<p>$ grep 631 /etc/services (Conocer el servicio por el que corre un puerto)</p>
+
+<p>$ grep -s &#8216;palabra&#8217; * (Suprime los mensajes de error sobre ficheros que no existen o no se pueden leer)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -472,110 +543,6 @@ sample_rate=
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/google/">Google</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:53:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Buscador.</p>
-
-<p>1.-</p>
-
-<p>Mejorar busquedas :</p>
-
-<p>. No reconoce caracteres como el punto [.], el guión [-] o el circunflejo [<sup>]</sup></p>
-
-<p>. Suprimir articulos [campo de futbol -> campo futbol]</p>
-
-<p>. Google no distingue mayúsculas ni minúsculas.</p>
-
-<p>. Comillas. Busquedas textuales [&#8220;ludwig van beethoven&#8221;]</p>
-
-<p>. Operador lógico &#8220;OR&#8221; [mayúsculas] buscar dos conceptos [bach OR wagner]</p>
-
-<p>. Barra vertical. Lo mismo [beethoven|wagner]</p>
-
-<p>. ~ - Buscar palabras parecidas [~palabra]</p>
-
-<p>. related – parecido al anterior [related:www.site.com]</p>
-
-<p>. link - Buscar páginas que apuntan a otra [link:wwww.host.com]</p>
-
-<p>. info - Recabar información sobre un dominio [info:www.host.com]</p>
-
-<p>. Asterisco - Si se desconoce algún dato [&#8220;ludwig * beethoven&#8221;]</p>
-
-<p>. filetype - Buscar extensiones concretas [“comandos linux” filetype:pdf]</p>
-
-<p>. site - Restringir resultados por localización geografica [site:.es arroz, armas site:onion.to …]</p>
-
-<p>. cache - Cuando la página ya no está accesible [cache:www.host.com]</p>
-
-<p>. intitle – las que contengan la palabra o frase en el título [intitle:beethoven]</p>
-
-<p>. allintitle - Las que contengan varias palabras sin necesidad de comillas [allintitle:bach,beethoben]</p>
-
-<p>. intext - Buscar la palabra solo en el texto [intext:bach]</p>
-
-<p>. define – Buscar la definición de una palabra [define:palabra]</p>
-
-<p>. inurl - Buscar por algun detalle en la url [inurl:pipa]</p>
-
-<p>. all inurl - Las que contengan varias palabras en su url</p>
-
-<p>. linux 2012..2013 - Buscar una palabra en artículos entre un rango de años.</p>
-
-<p>. 58*13 - Usar google como calculadora</p>
-
-<p>. 100USD a EUR - Conversor de divisas [EUR = Euro, USD = Dólar, JPY = Yen, GBP = Libra esterlina, CHF = Franco suizo &#8230;]</p>
-
-<p>. 42km/h a m/s - Convertir km/hora a metros/segundo</p>
-
-<p>. 1024 GB to  kb - Convertir gigabytes a kilobytes</p>
-
-<p>. 26hr to sec - Convertir horas a segundos</p>
-
-<p>. Usar el menos [-] y el más [+] para excluir o incluir de una busqueda determinado concepto [comandos -militares, comandos +militares]</p>
-
-<p>. do a barrel roll – La página da una vuelta completa en la pantalla.</p>
-
-<p>2.-</p>
-
-<p>Gdrive (google-docs-fs)</p>
-
-<blockquote><p># mkdir /media/gdrive</p>
-
-<p># gmount /media/gdrive cuenta@gmail.com -d (Pedirá contraseña de la cuenta y mostrando la salida del comando. Para desmontar: gumount /media/gdrive)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/91/">&larr; Older</a>
@@ -597,6 +564,10 @@ sample_rate=
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/aewan/">aewan</a>
+      </li>
     
       <li class="post">
         <a href="/blog/zypper/">zypper</a>
@@ -632,10 +603,6 @@ sample_rate=
     
       <li class="post">
         <a href="/blog/zegrep/">zegrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>
