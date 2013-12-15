@@ -1,13 +1,13 @@
 ---
 layout: post
 title: "hash-identifier"
-date: 2013-12-15 18:15
+date: 2013-12-15 18:36
 comments: true
 categories: 
 ---
 Identifica la encriptación de un hash. Descarga: <https://code.google.com/p/hash-identifier/>
 
->$ python Hash_ID_v1.1.py
+>~$ python Hash_ID_v1.1.py
 
 Cuando sale el promt pastear el hash:
 

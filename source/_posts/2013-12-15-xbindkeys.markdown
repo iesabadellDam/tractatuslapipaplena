@@ -1,17 +1,17 @@
 ---
 layout: post
 title: "xbindkeys"
-date: 2013-12-15 18:20
+date: 2013-12-15 18:41
 comments: true
 categories: 
 ---
 Gestión de atajos de teclado. Archivo de configuración en .xbindkeysrc.
 
->$ xbindkeys -d (Muestra cuales)
+>~$ xbindkeys -d (Muestra cuales)
 
->$ xbindkeys -k  (dará nombre de la tecla pulsada)
+>~$ xbindkeys -k  (dará nombre de la tecla pulsada)
 
->$ xbindkeys -km (Para consultar varias teclas)
+>~$ xbindkeys -km (Para consultar varias teclas)
 
 Modo de entrar un atajo:
 

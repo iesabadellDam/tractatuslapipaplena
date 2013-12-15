@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "expresiones-regulares"
-date: 2013-12-15 18:15
+date: 2013-12-15 18:36
 comments: true
 categories: 
 ---
@@ -9,7 +9,7 @@ categories:
 
 Buscar cadenas de texto que coinciden con un patrón. Los comandos más usuales que las emplean son grep, find, sed y awk y cada uno con sus pecualiaridades. Para ilustrar dichas expresiones se usa un archivo de texto al que llamo file.
 
->$ cat file
+>~$ cat file
 
 # /etc/fstab: static file system information.
 
@@ -155,7 +155,7 @@ Algunos casos comentados:
 
 1.-
 
->$ touch nada.8.sh.5
+>~$ touch nada.8.sh.5
 
 $ ls | grep '.*.[6-8].*.[1-6]'
 
@@ -191,7 +191,7 @@ $ grep -i '$.*bash' scripts
 
 Ver los correos electrónicos completos de una lista en la que los hay incompletos:
 
->$ cat lista
+>~$ cat lista
 
 juangomez@gmail.com
 

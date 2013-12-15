@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "install-mbr"
-date: 2013-12-15 18:16
+date: 2013-12-15 18:37
 comments: true
 categories: 
 ---

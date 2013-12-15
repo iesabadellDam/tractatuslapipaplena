@@ -1,11 +1,11 @@
 ---
 layout: post
 title: "dnstracer"
-date: 2013-12-15 18:14
+date: 2013-12-15 18:35
 comments: true
 categories: 
 ---
 Consultas DNS desde una ip o un host. dnstracer determina cuando un servidor de nombres de dominio [DNS] obtiene información de un nombre de anfitrión dado, y a continuación el servidor DNS manda la respuesta de autorización.
 
->$ dnstracer host
+>~$ dnstracer host
 

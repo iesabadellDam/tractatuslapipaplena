@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "ip-ajustes"
-date: 2013-12-15 18:16
+date: 2013-12-15 18:37
 comments: true
 categories: 
 ---
@@ -25,5 +25,5 @@ gateway 192.168.x.1
 
 >~# /etc/init.d/networking restart (reiniciar el servicio)
 
->$ ifconfig (verificar la nueva ip)
+>~$ ifconfig (verificar la nueva ip)
 

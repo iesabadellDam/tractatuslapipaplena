@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "tightvncserver"
-date: 2013-12-15 18:19
+date: 2013-12-15 18:40
 comments: true
 categories: 
 ---
@@ -13,7 +13,7 @@ En el Servidor:
 
 En el Cliente:
 
->$ xtightvncviewer
+>~$ xtightvncviewer
 
 Nota.- Sale una caja de texto donde entrar la ip o nombre del host y otra para ingresar la clave.
 

@@ -1,13 +1,13 @@
 ---
 layout: post
 title: "stalonetray"
-date: 2013-12-15 18:19
+date: 2013-12-15 18:40
 comments: true
 categories: 
 ---
 Applet para albergar el area de notificación.
 
->$ stalonetray -bg #A78B5C -d title -geometry 6x1-0+0 -i 30 (con el color especificado [-bg], decoración de ventana [-d], las medidas [6x1] y la situación en pantalla [-0+0, abajo, derecha])
+>~$ stalonetray -bg #A78B5C -d title -geometry 6x1-0+0 -i 30 (con el color especificado [-bg], decoración de ventana [-d], las medidas [6x1] y la situación en pantalla [-0+0, abajo, derecha])
 
 Algunas opciones:
 

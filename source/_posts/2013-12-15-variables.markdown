@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "variables"
-date: 2013-12-15 18:20
+date: 2013-12-15 18:41
 comments: true
 categories: 
 ---
@@ -13,19 +13,19 @@ Variables globales (disponibles para todos los procesos invocados por la shell)
 
 Al ejecutar un script la línea de comandos introducida se guarda en unas variables especiales que podemos referenciar:
 
->$0 (Nombre del comando)
+>~$0 (Nombre del comando)
 
->$1 (Primer argumento)
+>~$1 (Primer argumento)
 
->$2 (Segundo...)
+>~$2 (Segundo...)
 
->$@ (Todos los argumentos introducidos, separados por espacios)
+>~$@ (Todos los argumentos introducidos, separados por espacios)
 
->$# (Número de argumentos)
+>~$# (Número de argumentos)
 
->$$ (identificador del proceso)
+>~$$ (identificador del proceso)
 
->$? (Cuando finaliza la ejecución de un proceso, $? será cero (0) si se ejecuta correctamente y distinto de cero si se ha producido algún error. Es muy usual guardar su valor en una variable (VAR=$?) para su posterior uso.)
+>~$? (Cuando finaliza la ejecución de un proceso, $? será cero (0) si se ejecuta correctamente y distinto de cero si se ha producido algún error. Es muy usual guardar su valor en una variable (VAR=$?) para su posterior uso.)
 
 Para declarar una variable sólo se precisa asignarle un valor. Nunca el valor puede preceder a la variable. No se ponen espacios ni antes ni después del signo igual. El nombre puede contener caracteres alfabéticos (A-Z, a-z), numéricos (0-9) o el guión bajo ‘_’. El primer carácter no puede ser un número o contener otros signos (2DIR, .DIR, -VAR...)
 

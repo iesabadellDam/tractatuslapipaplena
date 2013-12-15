@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "octopress"
-date: 2013-12-15 18:17
+date: 2013-12-15 18:38
 comments: true
 categories: 
 ---
@@ -11,47 +11,47 @@ CMS para gestión de contenido web que genera automaticamente los archivos html,
 
 Pasos previos para su instalación en Debian y derivados:
 
->$ curl -L https://get.rvm.io | bash -s stable –ruby
+>~$ curl -L https://get.rvm.io | bash -s stable –ruby
 
->$ source ~/.rvm/scripts/rvm
+>~$ source ~/.rvm/scripts/rvm
 
->$ rvm install 1.9.3
+>~$ rvm install 1.9.3
 
->$ rvm use 1.9.3
+>~$ rvm use 1.9.3
 
->$ rvm rubygems latest
+>~$ rvm rubygems latest
 
 En Arch (requiere el paquete curl):
 
->$ curl -L get.rvm.io | bash -s stable
+>~$ curl -L get.rvm.io | bash -s stable
 
->$ source ~/.rvm/scripts/rvm
+>~$ source ~/.rvm/scripts/rvm
 
->$ rvm requirements
+>~$ rvm requirements
 
->$ rvm install 1.9.3
+>~$ rvm install 1.9.3
 
->$ rvm use 1.9.3 –default
+>~$ rvm use 1.9.3 –default
 
->$ rvm rubygems current
+>~$ rvm rubygems current
 
 Instalación de octopress:
 
->$ git clone git://github.com/imathis/octopress.git octopress
+>~$ git clone git://github.com/imathis/octopress.git octopress
 
->$ cd octopress
+>~$ cd octopress
 
->$ gem install bundler
+>~$ gem install bundler
 
->$ bundle install
+>~$ bundle install
 
->$ rake install
+>~$ rake install
 
 Generar contenido (Ver markdown):
 
->$ cd octopress
+>~$ cd octopress
 
->$ rake new_post[“nombre_del_nuevo_post”]
+>~$ rake new_post[“nombre_del_nuevo_post”]
 
 Crea un archivo en la carpeta /home/usuario/octopress/source/_posts/ con el siguiente encabezado:
 
@@ -73,17 +73,17 @@ Título del post [title], fecha [date], si permitimos o no comentarios [true/fal
 
 A continuación de este encabezado introducimos la entrada del post. Al finalizar la entrada para generar el archivo en la carpeta “public”:
 
->$ rake generate
+>~$ rake generate
 
 Para visualizarlo en local [http://localhost:4000] lanzar:
 
->$ rake preview
+>~$ rake preview
 
 Y no cerrar la terminal. Para matar la previsualización pulsar Ctrl +c
 
 La configuración del titulo del blog, subtítulo, autor, etc. Algunos parámetros a especificar:
 
->$ nano _config.yml
+>~$ nano _config.yml
 
 url: http://crontux.homelinux.com
 
@@ -135,17 +135,17 @@ googleplus_hidden: false
 
 Para la creación de nuevas páginas:
 
->$ rake new_page[previa]
+>~$ rake new_page[previa]
 
 Si queremos que la nueva página salga en una pestaña "previa" en la cabecera:
 
->$ nano source/_includes/custom/navigation.html
+>~$ nano source/_includes/custom/navigation.html
 
 <li><a href="/previa">Previa</a></li>
 
 En este archivo tambien se pueden personalizar los nombres de las pestañas. Si queremos una pestaña con un enlace a una web:
 
->$ nano source/_includes/custom/navigation.html
+>~$ nano source/_includes/custom/navigation.html
 
 <li><a href="http://www.lapipaplena.net">Web</a></li>
 
@@ -153,7 +153,7 @@ En este archivo tambien se pueden personalizar los nombres de las pestañas. Si 
 
 Crear un apartado "Sobre mi" en el sidebar con una imagen web en el centro de la linea:
 
->$ nano source/_includes/custom/asides/about.html
+>~$ nano source/_includes/custom/asides/about.html
 
 Con el siguiente contenido:
 
@@ -173,7 +173,7 @@ Con el siguiente contenido:
 
 Luego añadir el achivo en:
 
->$ nano _config.yml
+>~$ nano _config.yml
 
 en la linea:
 
@@ -183,7 +183,7 @@ default_asides: [asides/num_entradas.html, asides/recent_posts.html, custom/asid
 
 Para mostrar archivo con código [script.sh, por ejemplo] se ha de colocar en texto plano en la ruta especificada en _config.yml, linea code_dir [downloads/scripts/ en este caso] y si lo queremos en la barra de navegación:
 
->$ nano source/_includes/custom/navigation.html
+>~$ nano source/_includes/custom/navigation.html
 
 Y añadir la linea:
 
@@ -197,23 +197,23 @@ Al principio de la linea antes del % colocar una llave abierta y al final despue
 
 Nota.- Despues de cualquier modificación en las entradas o en los archivos de configuración lanzar:
 
->$ rake generate
+>~$ rake generate
 
 3.-
 
 Instalar un nuevo tema:
 
->$ git clone git://github.com/tommy351/Octopress-Theme-Slash.git .themes/slash
+>~$ git clone git://github.com/tommy351/Octopress-Theme-Slash.git .themes/slash
 
->$ rake install['slash']
+>~$ rake install['slash']
 
->$ rake generate
+>~$ rake generate
 
 4.-
 
 Para que las busquedas se realicen en el mismo site y no en la web:
 
->$ nano _config.yml
+>~$ nano _config.yml
 
 Modificar la linea:
 
@@ -223,7 +223,7 @@ simple_search: http://www.google.com/search?q=site%3Awww.lapipaplena.net&q=
 
 Quitar la fecha del post en la url:
 
->$ nano _config.yml
+>~$ nano _config.yml
 
 Y dejar la linea:
 
@@ -237,7 +237,7 @@ Colocar en el sidebar un blogroll
 
 Crear el fichero:
 
->$ nano source/_includes/asides/blog_roll.html
+>~$ nano source/_includes/asides/blog_roll.html
 
 Con el siguiente contenido, adaptado según gustos:
 
@@ -259,7 +259,7 @@ Con el siguiente contenido, adaptado según gustos:
 
 Editar:
 
->$nano _config.yml
+>~$nano _config.yml
 
 Y añadir asides/blog_roll.html a la linea:
 
@@ -269,7 +269,7 @@ default_asides: [asides/recent_posts.html, asides/twitter.html, asides/blog_roll
 
 Modificar el "Posted by" por "Escrito por"
 
->$ nano source/_includes/post/author.html
+>~$ nano source/_includes/post/author.html
 
 Modificar la linea que empieza por "if author":
 
@@ -281,7 +281,7 @@ Mostrar datos del visitante de la web:
 
 Crear:
 
->$ nano octopress/source/_includes/asides/ip_visitante.html
+>~$ nano octopress/source/_includes/asides/ip_visitante.html
 
 Con el siguiente contenido:
 
@@ -301,7 +301,7 @@ cn=1 (1 mostrar nombre país, 0 no mostrar)
 
 ip=1 (1 IP, 0 no mostrar)
 
->$ nano _config.yml
+>~$ nano _config.yml
 
 Y añadir a la linea default_asides el archivo según el lugar que queremos que ocupe en el sidebar [en tercer lugar en este ejemplo]:
 
@@ -321,7 +321,7 @@ Con medidas determinadas y en la derecha:
 
 Modificación de colores. Por ejemplo la barra de navegación:
 
->$ nano sass/custom/_colors.scss
+>~$ nano sass/custom/_colors.scss
 
 Buscar la variable $nav-bg, descomentarla (quitarle las dos //) y colocar el código de color escogido:
 
@@ -335,7 +335,7 @@ $nav-bg: desaturate(lighten(#C68800, 18), 5);
 
 Colocar una imagen en el header que previamente habremos copiado en el directorio public/images:
 
->$ nano source/stylesheets/screen.css
+>~$ nano source/stylesheets/screen.css
 
 Y pegamos al final:
 
@@ -355,7 +355,7 @@ background-repeat: no-repeat;
 
 Quitar la opción RSS de la barra de navegación:
 
->$ nano source/_includes/navigation.html
+>~$ nano source/_includes/navigation.html
 
 Y borrarlo en la linea "site.subscribe_rss"
 
@@ -363,7 +363,7 @@ Y borrarlo en la linea "site.subscribe_rss"
 
 Centrar el título del blog:
 
->$ nano source/_includes/custom/header.html
+>~$ nano source/_includes/custom/header.html
 
 Y dejarlo:
 
@@ -387,9 +387,9 @@ Y dejarlo:
 
 Resolver el error en el rake preview "WARN  TCPServer Error: Address already in use - bind(2)"
 
->$ lsof -i4000 (Para conocer el pid del proceso)
+>~$ lsof -i4000 (Para conocer el pid del proceso)
 
->$ kill -9 PID
+>~$ kill -9 PID
 
 14.-
 
@@ -421,7 +421,7 @@ fclose($file);
 
 Y luego en la carpeta octopress:
 
->$ nano source/_includes/after_footer.html
+>~$ nano source/_includes/after_footer.html
 
 Añadir al final:
 
@@ -435,7 +435,7 @@ Añadir al final:
 
 Para que las url se abran en una nueva pestaña.
 
->$ nano source/javascripts/links.js
+>~$ nano source/javascripts/links.js
 
 Y pegamos:
 
@@ -463,7 +463,7 @@ window.open(this.href, '_blank');
 
 });
 
->$ nano source/_includes/head.html
+>~$ nano source/_includes/head.html
 
 Añadir la linea:
 
@@ -475,19 +475,19 @@ Nota.- Los 4 parentesis que abren y cierran el código "root_url" han de substit
 
 Añadir en el sidebar las sección "Entradas más populares" [Popular posts]
 
->$ cd octopress
+>~$ cd octopress
 
->$ nano Gemfile
+>~$ nano Gemfile
 
 Y añadir al final la linea:
 
 gem 'octopress-popular-posts'
 
->$ bundle install
+>~$ bundle install
 
->$ bundle exec octopress-popular-posts install
+>~$ bundle exec octopress-popular-posts install
 
->$ nano _config.yml
+>~$ nano _config.yml
 
 Añadir al final la linea [5 es el número de posts que saldrán]:
 
@@ -497,19 +497,19 @@ Y en la linea "default_asides:" añadimos en el lugar que deseemos:
 
 default_asides: [....ent_posts.html, custom/asides/popular_posts.html,custom/asid...]
 
->$ nano .gitignore
+>~$ nano .gitignore
 
 Aadir la linea:
 
 .page_ranks
 
->$ nano source/_includes_custom/asides/popular_posts.html
+>~$ nano source/_includes_custom/asides/popular_posts.html
 
 Y substituir "Popular posts" por "Entradas más vistas"
 
 Para mantener actualizado el plugin lanzar de vez en cuando:
 
->$ bundle exec octopress-popular-posts install
+>~$ bundle exec octopress-popular-posts install
 
 17.-
 

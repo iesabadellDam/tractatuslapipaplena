@@ -1,15 +1,15 @@
 ---
 layout: post
 title: "gsettings"
-date: 2013-12-15 18:15
+date: 2013-12-15 18:36
 comments: true
 categories: 
 ---
 Herramienta de configuración. Equivalente a gconftool-2 [gconf-editor] pero para gnome3 [dconf-editor]
 
->$ gsettings set com.canonical.indicator.session show-real-name-on-panel false (Borrar el nombre del panel de unity)
+>~$ gsettings set com.canonical.indicator.session show-real-name-on-panel false (Borrar el nombre del panel de unity)
 
->$ gsettings set com.canonical.indicator.sound blacklisted-media-players "['xmms2']" (añadir aplicaciones en el menú de sonido)
+>~$ gsettings set com.canonical.indicator.sound blacklisted-media-players "['xmms2']" (añadir aplicaciones en el menú de sonido)
 
 Opciones
 

@@ -1,11 +1,11 @@
 ---
 layout: post
 title: "spacedream"
-date: 2013-12-15 18:19
+date: 2013-12-15 18:40
 comments: true
 categories: 
 ---
 Muestra una imagen del cielo en la tty. Con las teclas del cursor permite moverse por entre la constelación de estrellas.
 
->$ spacedream
+>~$ spacedream
 

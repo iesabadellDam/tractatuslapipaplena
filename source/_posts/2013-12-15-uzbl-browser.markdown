@@ -1,13 +1,13 @@
 ---
 layout: post
 title: "uzbl-browser"
-date: 2013-12-15 18:20
+date: 2013-12-15 18:41
 comments: true
 categories: 
 ---
 Navegador estilo vi. Arrancarlo con uzbl-tabbed para permitir pestañas.
 
->$ nano .config/uzbl/config (archivos de configuración)
+>~$ nano .config/uzbl/config (archivos de configuración)
 
 Atajos:
 

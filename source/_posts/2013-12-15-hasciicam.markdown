@@ -1,13 +1,13 @@
 ---
 layout: post
 title: "hasciicam"
-date: 2013-12-15 18:15
+date: 2013-12-15 18:36
 comments: true
 categories: 
 ---
 Visualizar la webcam via ascii.
 
->$ hasciicam -m html -c 50 -o (En modo html, contraste 50 [de 0 a 100. Por defecto 4] y guardar el archivo)
+>~$ hasciicam -m html -c 50 -o (En modo html, contraste 50 [de 0 a 100. Por defecto 4] y guardar el archivo)
 
 Otras opciones:
 

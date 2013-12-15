@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "cacaserver"
-date: 2013-12-15 18:13
+date: 2013-12-15 18:34
 comments: true
 categories: 
 ---
@@ -11,9 +11,9 @@ Servidor telnet para librerias libcaca.
 
 En el servidor:
 
->$ CACA_DRIVER=raw cacafire | cacaserver
+>~$ CACA_DRIVER=raw cacafire | cacaserver
 
 En el remoto:
 
->$ telnet IP_o_Host 51914
+>~$ telnet IP_o_Host 51914
 

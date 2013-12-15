@@ -1,13 +1,13 @@
 ---
 layout: post
 title: "gnome-terminal"
-date: 2013-12-15 18:15
+date: 2013-12-15 18:36
 comments: true
 categories: 
 ---
 Emulador de terminal de gnome.
 
->$ gnome-terminal --hide-menubar --geometry=200x70+0+0 -e "sh -c 'links2 http://google.es'"& (arrancar una terminal, sin menús, con unas medidas concretas y en ella, arrancar el navegador)
+>~$ gnome-terminal --hide-menubar --geometry=200x70+0+0 -e "sh -c 'links2 http://google.es'"& (arrancar una terminal, sin menús, con unas medidas concretas y en ella, arrancar el navegador)
 
 Opciones:
 

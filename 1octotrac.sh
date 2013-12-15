@@ -54,7 +54,7 @@ git pull
 echo
 cd $DIR
 cat $HOME/tractatus/tractatus.txt | sed '1d' > 0-file1.txt
-cat 0-file1.txt | sed -e 's/^[#]/>\\~#/' -e 's/^[$]/>$/' -e 's/^[<]/\t\</' >> 0-file1.md
+cat 0-file1.txt | sed -e 's/^[#]/>\~#/' -e 's/^[$]/>\~$/' -e 's/^[<]/\t\</' >> 0-file1.md
 cd $FILES
 ESTAT=1 # 1 - Linia en blanc, 2- comanda, 
 COMANDA=""

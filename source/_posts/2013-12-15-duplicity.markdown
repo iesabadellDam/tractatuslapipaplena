@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "duplicity"
-date: 2013-12-15 18:14
+date: 2013-12-15 18:35
 comments: true
 categories: 
 ---
@@ -9,7 +9,7 @@ Herramienta para realizar backups tanto en modo local como remoto
 
 >~# duplicity full /home file:///backups/ (realiza un backup copmpleto [full] en modo local de la carpeta /home en la carpeta /backups)
 
->$ duplicity /home/usuario scp://usuario@host/dir (Backup de un directorio local a un servidor remoto)
+>~$ duplicity /home/usuario scp://usuario@host/dir (Backup de un directorio local a un servidor remoto)
 
 Algunas opciones:
 

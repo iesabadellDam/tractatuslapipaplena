@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "libreoffice"
-date: 2013-12-15 18:16
+date: 2013-12-15 18:37
 comments: true
 categories: 
 ---
@@ -11,9 +11,9 @@ Suite ofimática. Ver lo..
 
 Cambiar de pantalla de inicio
 
->$ wget http://gnome-look.org/CONTENT/content-files/140076-libreoffice_splash.tar.gz
+>~$ wget http://gnome-look.org/CONTENT/content-files/140076-libreoffice_splash.tar.gz
 
->$ tar -zxvf 140076-libreoffice_splash.tar.gz
+>~$ tar -zxvf 140076-libreoffice_splash.tar.gz
 
 >~# cp about.png intro.png /usr/lib/libreoffice/program/
 

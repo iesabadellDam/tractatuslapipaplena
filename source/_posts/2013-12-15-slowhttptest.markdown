@@ -1,13 +1,13 @@
 ---
 layout: post
 title: "slowhttptest"
-date: 2013-12-15 18:19
+date: 2013-12-15 18:40
 comments: true
 categories: 
 ---
 Efectuar ataques Slow Http Dos
 
->$ slowhttptest -c 1000 -H -g -o ataque -i 10 -r 200 -t GET -u http://192.168.1.154 -x 30 -p 3
+>~$ slowhttptest -c 1000 -H -g -o ataque -i 10 -r 200 -t GET -u http://192.168.1.154 -x 30 -p 3
 
 c (Número de conexiones con límite en 65539)
 

@@ -1,17 +1,17 @@
 ---
 layout: post
 title: "newsbeuter"
-date: 2013-12-15 18:17
+date: 2013-12-15 18:38
 comments: true
 categories: 
 ---
 Lector RSS en consola
 
->$ newsbeuter -i archivo.opml  (cargar los feeds de otra aplicación)
+>~$ newsbeuter -i archivo.opml  (cargar los feeds de otra aplicación)
 
->$ newsbeuter -r (arrancar la aplicación obteniendo todas las fuentes)
+>~$ newsbeuter -r (arrancar la aplicación obteniendo todas las fuentes)
 
->$ newsbeuter -e (exportar las fuentes a un archivo)
+>~$ newsbeuter -e (exportar las fuentes a un archivo)
 
 Algunos atajos [newsbeuter -h]:
 
@@ -39,7 +39,7 @@ u (Ver listado de URLs de la noticia, Introduciendo el indice la abre)
 
 Para incorporar los feeds de google reader editar o crear si no existe:
 
->$ nano .newsbeuter/config
+>~$ nano .newsbeuter/config
 
 texto que se tiene que agregar:
 
@@ -77,7 +77,7 @@ Los atributos: standout, underline, reverse, blink, dim, bold, protect e invis [
 
 Muestra de mi configuración de color:
 
->$ nano .newsbeuter/config
+>~$ nano .newsbeuter/config
 
 color listnormal yellow black
 

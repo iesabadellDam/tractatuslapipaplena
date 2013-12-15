@@ -1,17 +1,17 @@
 ---
 layout: post
 title: "bluetooth"
-date: 2013-12-15 18:13
+date: 2013-12-15 18:34
 comments: true
 categories: 
 ---
 Enviar archivos a dispositivos
 
->$ hcitool scan  (buscar dispositivo)
+>~$ hcitool scan  (buscar dispositivo)
 
->$ sdptool browse XX:XX:XX:XX:XX:XX (Con su identificador buscar el canal a utilizar)
+>~$ sdptool browse XX:XX:XX:XX:XX:XX (Con su identificador buscar el canal a utilizar)
 
->$ obexftp -b XX:XX:XX:XX:XX:XX -B 2 -p foto.jpg  (mandar el archivo)
+>~$ obexftp -b XX:XX:XX:XX:XX:XX -B 2 -p foto.jpg  (mandar el archivo)
 
 Opciones
 

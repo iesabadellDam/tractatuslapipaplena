@@ -1,17 +1,17 @@
 ---
 layout: post
 title: "devilspie"
-date: 2013-12-15 18:14
+date: 2013-12-15 18:35
 comments: true
 categories: 
 ---
 Permite especificar el comportamiento de las ventanas para que determinadas aplicaciones se abran en un escritorio concreto. Ha de colocarse en las aplicaciones de inicio.
 
->$ mkdir .devilspie (Crear el directorio)
+>~$ mkdir .devilspie (Crear el directorio)
 
 Crear por cada aplicación un archivo .ds en el directorio:
 
->$ nano .devilspie/firefox.ds
+>~$ nano .devilspie/firefox.ds
 
 Con el siguiente contenido a modo de ejemplo:
 
@@ -27,7 +27,7 @@ Cada vez que arranquemos firefox, se abrirá en el escritorio número 3.
 
 Para saber el nombre de las aplicaciones que corren en cada escritorio:
 
->$ nano .devilspie/debug.ds
+>~$ nano .devilspie/debug.ds
 
 Con el siguiente contenido:
 

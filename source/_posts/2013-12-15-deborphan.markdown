@@ -1,13 +1,13 @@
 ---
 layout: post
 title: "deborphan"
-date: 2013-12-15 18:14
+date: 2013-12-15 18:35
 comments: true
 categories: 
 ---
 Visualizar paquetes huerfanos
 
->$ deborphan --guess-all   (Los muestra todos)
+>~$ deborphan --guess-all   (Los muestra todos)
 
 >~# apt-get remove $(deborphan --guess-all)     (borra todos los mostrados)
 

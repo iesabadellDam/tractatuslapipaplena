@@ -1,11 +1,11 @@
 ---
 layout: post
 title: "nmblookup"
-date: 2013-12-15 18:17
+date: 2013-12-15 18:38
 comments: true
 categories: 
 ---
 Resolución de nombres netbios
 
->$ nmblookup -A 192.168.1.125
+>~$ nmblookup -A 192.168.1.125
 

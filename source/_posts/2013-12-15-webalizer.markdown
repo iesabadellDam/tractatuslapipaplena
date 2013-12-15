@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "webalizer"
-date: 2013-12-15 18:20
+date: 2013-12-15 18:41
 comments: true
 categories: 
 ---
@@ -31,7 +31,7 @@ Especificamos los logs a analizar [logfile], el directorio de salida de los resu
 
 Dado que los reportes solo se realizan cuando se ejecuta el comando, es preferible colocar la linea en crontab:
 
->$ crontab -e
+>~$ crontab -e
 
 Y añadir:
 

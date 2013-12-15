@@ -1,13 +1,13 @@
 ---
 layout: post
 title: "openoffice"
-date: 2013-12-15 18:17
+date: 2013-12-15 18:38
 comments: true
 categories: 
 ---
 Suite ofimática
 
->$ soffice --writer (--calc, --impress, --draw, --math, --base) Arrancar el programa
+>~$ soffice --writer (--calc, --impress, --draw, --math, --base) Arrancar el programa
 
 >~# spadmin  (Administración de impresoras)
 

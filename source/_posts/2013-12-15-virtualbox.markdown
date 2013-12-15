@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "virtualbox"
-date: 2013-12-15 18:20
+date: 2013-12-15 18:41
 comments: true
 categories: 
 ---
@@ -17,9 +17,9 @@ En la página https://www.virtualbox.org/wiki/Downloads apartado "VirtualBox 4.2
 
 >~# modprobe vboxdrv (Activar módulo)
 
->$ VBoxManage extpack install Oracle_VM_VirtualBox_Extension_Pack-4.2.16-86992.vbox-extpack (instala un pack de extensiones)
+>~$ VBoxManage extpack install Oracle_VM_VirtualBox_Extension_Pack-4.2.16-86992.vbox-extpack (instala un pack de extensiones)
 
->$ VBoxManage list extpacks  (Ver paquetes de expansión instalados)
+>~$ VBoxManage list extpacks  (Ver paquetes de expansión instalados)
 
 1.-
 
@@ -27,27 +27,27 @@ Gestión de máquina virtuales desde consola:
 
 Para la gestión de máquinas virtuales sin interfaz gráfica, se utiliza VboxHeadless para tal proposito que incluye diferentes comandos que veremos en las próximas líneas.
 
->$ VBoxManage createvm --name "maquina_virtual" --register (Creamos una máquina virtual con el nombre "maquina_virtual")
+>~$ VBoxManage createvm --name "maquina_virtual" --register (Creamos una máquina virtual con el nombre "maquina_virtual")
 
->$ VBoxManage modifyvm "maquina_virtual" --memory 780 --acpi on --boot1 dvd --nic1 bridged --bridgeadapter1 eth0 --ostype Ubuntu (Modificamos la máquina virtual que hemos creado, asignándole 780MB de RAM, activando ACPI, definiendo que arranque desde CD/DVD, indicando que la tarjeta de red sea en modo bridge y que el la tarjeta de red del sistema a usar es la eth0, y finalmente definiendo que la máquina será un Ubuntu.)
+>~$ VBoxManage modifyvm "maquina_virtual" --memory 780 --acpi on --boot1 dvd --nic1 bridged --bridgeadapter1 eth0 --ostype Ubuntu (Modificamos la máquina virtual que hemos creado, asignándole 780MB de RAM, activando ACPI, definiendo que arranque desde CD/DVD, indicando que la tarjeta de red sea en modo bridge y que el la tarjeta de red del sistema a usar es la eth0, y finalmente definiendo que la máquina será un Ubuntu.)
 
->$ VBoxManage createvdi --filename ~/VirtualBoxVMs/maquina_virtual/maquina_virtual-disk01.vdi --size 30000 (Creamos un disco duro en formato VDI de 30 GB)
+>~$ VBoxManage createvdi --filename ~/VirtualBoxVMs/maquina_virtual/maquina_virtual-disk01.vdi --size 30000 (Creamos un disco duro en formato VDI de 30 GB)
 
->$ VBoxManage storagectl "maquina_virtual" --name "IDE Controller" --add ide (Añadimos un controlador IDE para posteriormente conectar el disco duro)
+>~$ VBoxManage storagectl "maquina_virtual" --name "IDE Controller" --add ide (Añadimos un controlador IDE para posteriormente conectar el disco duro)
 
->$ VBoxManage storageattach "maquina_virtual" --storagectl "IDE Controller" --port 0 --device 0 --type hdd --medium ~/VirtualBoxVMs/maquina_virtual/maquina_virtual-disk01.vdi (Asignamos el disco duro a la máquina virtual)
+>~$ VBoxManage storageattach "maquina_virtual" --storagectl "IDE Controller" --port 0 --device 0 --type hdd --medium ~/VirtualBoxVMs/maquina_virtual/maquina_virtual-disk01.vdi (Asignamos el disco duro a la máquina virtual)
 
->$ VBoxManage storageattach "maquina_virtual" --storagectl "IDE Controller" --port 1 --device 0 --type dvddrive --medium ~/IS
+>~$ VBoxManage storageattach "maquina_virtual" --storagectl "IDE Controller" --port 1 --device 0 --type dvddrive --medium ~/IS
 
 O/ubuntu-12.04.2-server-i386.iso (Asignamos a la máquina Virtual una ISO de instalación, en este caso de Ubuntu Server)
 
->$ VBoxManage modifyvm "maquina_virtual" --pae on (activamos PAE en la máquina Virtual)
+>~$ VBoxManage modifyvm "maquina_virtual" --pae on (activamos PAE en la máquina Virtual)
 
->$ VBoxManage modifyvm "maquina_virtual" --memory 512 (Modificamos la RAM a 512MB)
+>~$ VBoxManage modifyvm "maquina_virtual" --memory 512 (Modificamos la RAM a 512MB)
 
->$ VBoxHeadless --startvm "maquina_virtual" (arranca una máquina virtual)
+>~$ VBoxHeadless --startvm "maquina_virtual" (arranca una máquina virtual)
 
->$ VBoxHeadless --startvm "maquina_virtual" -e "TCP/Ports=7000" & (Arrancamos la máquina virtual indicando que queremos un servidor RDP para conexión remota en el puerto 7000)
+>~$ VBoxHeadless --startvm "maquina_virtual" -e "TCP/Ports=7000" & (Arrancamos la máquina virtual indicando que queremos un servidor RDP para conexión remota en el puerto 7000)
 
->$ VBoxManage controlvm "maquina_virtual" poweroff (Para la máquina virtual. Recomendable parar primero la máquina virtual desde la maquina virtual y luego ejecutar esto)
+>~$ VBoxManage controlvm "maquina_virtual" poweroff (Para la máquina virtual. Recomendable parar primero la máquina virtual desde la maquina virtual y luego ejecutar esto)
 

@@ -1,15 +1,15 @@
 ---
 layout: post
 title: "golismero"
-date: 2013-12-15 18:15
+date: 2013-12-15 18:36
 comments: true
 categories: 
 ---
 Framework para auditorías de seguridad y pentesting.
 
->$ git clone https://github.com/golismero/golismero.git (Descargar la última versión)
+>~$ git clone https://github.com/golismero/golismero.git (Descargar la última versión)
 
->$ cd golismero
+>~$ cd golismero
 
 >~# python golismero.py localhost -o prueba.html -o prueba.txt --audit-name prueba_localhost (Iniciar la uditoria, que guarde el resultado en .html y .txt y dándole un nombre)
 

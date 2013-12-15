@@ -1,13 +1,13 @@
 ---
 layout: post
 title: "mjpg-streamer"
-date: 2013-12-15 18:17
+date: 2013-12-15 18:38
 comments: true
 categories: 
 ---
 Streaming de video
 
->$ mjpg_streamer -i "input_uvc.so -y -f 5" -o output_http.so -p 3000 -n -c USER:CONTRASEÑA -b
+>~$ mjpg_streamer -i "input_uvc.so -y -f 5" -o output_http.so -p 3000 -n -c USER:CONTRASEÑA -b
 
 Opciones:
 
@@ -29,5 +29,5 @@ http://localhost:3000/?action=stream    (reproducir video)
 
 Matar el proceso con:
 
->$ kill -9 `pidof mjpg_streamer`
+>~$ kill -9 `pidof mjpg_streamer`
 

@@ -1,13 +1,13 @@
 ---
 layout: post
 title: "sublime-text"
-date: 2013-12-15 18:19
+date: 2013-12-15 18:40
 comments: true
 categories: 
 ---
 Editor. Descargar según arquitectura de http://www.sublimetext.com/2 o via ppa (Debian):
 
->$ wget http://blog.anantshri.info/content/uploads/2010/09/add-apt-repository.sh.txt
+>~$ wget http://blog.anantshri.info/content/uploads/2010/09/add-apt-repository.sh.txt
 
 >~# mv add-apt-repository.sh.txt /usr/sbin/add-apt-repository
 

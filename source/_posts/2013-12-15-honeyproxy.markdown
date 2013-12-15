@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "honeyproxy"
-date: 2013-12-15 18:15
+date: 2013-12-15 18:37
 comments: true
 categories: 
 ---
@@ -11,9 +11,9 @@ Analiza el tráfico web. Instalación:
 
 >~# pip install pyOpenSSL pyasn1 Twisted Autobahn
 
->$ git clone --recursive git://github.com/mhils/HoneyProxy.git
+>~$ git clone --recursive git://github.com/mhils/HoneyProxy.git
 
->$ cd HoneyProxy
+>~$ cd HoneyProxy
 
 >~# python honeyproxy.py --no-gui -a 192.168.1.15 (Arrancar el servicio)
 
