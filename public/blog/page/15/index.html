@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Lista las aplicaciones que se están ejecutando en una sesión. # xlsclients -display :0 (Especificando sesión) # xlsclients -a (Lo mismo de la sesión &hellip;">
+  <meta name="description" content="Existen dos tipos de variables: Variables locales (tiene valor únicamente dentro de nuestra shell) Variables globales (disponibles para todos los &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/xlsclients/">Xlsclients</a></h1>
+      <h1 class="entry-title"><a href="/blog/variables/">Variables</a></h1>
     
     
       <p class="meta">
@@ -97,20 +97,128 @@
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Lista las aplicaciones que se están ejecutando en una sesión.</p>
+  <div class="entry-content"><p>Existen dos tipos de variables:</p>
 
-<blockquote><p># xlsclients -display :0   (Especificando sesión)</p>
+<p>Variables locales (tiene valor únicamente dentro de nuestra shell)</p>
 
-<p># xlsclients -a      (Lo mismo de la sesión actual)</p>
+<p>Variables globales (disponibles para todos los procesos invocados por la shell)</p>
 
-<p># xlsclients -l  (Lista extendida)</p></blockquote>
+<p>Al ejecutar un script la línea de comandos introducida se guarda en unas variables especiales que podemos referenciar:</p>
+
+<blockquote><p>$0 (Nombre del comando)</p>
+
+<p>$1 (Primer argumento)</p>
+
+<p>$2 (Segundo&#8230;)</p>
+
+<p>$@ (Todos los argumentos introducidos, separados por espacios)</p>
+
+<p>$# (Número de argumentos)</p>
+
+<p>$$ (identificador del proceso)</p>
+
+<p>$? (Cuando finaliza la ejecución de un proceso, $? será cero (0) si se ejecuta correctamente y distinto de cero si se ha producido algún error. Es muy usual guardar su valor en una variable (VAR=$?) para su posterior uso.)</p></blockquote>
+
+<p>Para declarar una variable sólo se precisa asignarle un valor. Nunca el valor puede preceder a la variable. No se ponen espacios ni antes ni después del signo igual. El nombre puede contener caracteres alfabéticos (A-Z, a-z), numéricos (0-9) o el guión bajo ‘_’. El primer carácter no puede ser un número o contener otros signos (2DIR, .DIR, -VAR&#8230;)</p>
+
+<p>DIR=&#8221;/var/www&#8221;</p>
+
+<p>También puede asignarse a partir del contenido de un fichero:</p>
+
+<p>$ firma=$(&lt;firma.txt)</p>
+
+<p>Puede asignarse a la salida de un comando encerrado entrecomillas graves:</p>
+
+<p>WHO=<code>who | awk '{print$2}'</code></p>
+
+<p>O entra parentesis antecedido por el signo dolars ($):</p>
+
+<p>WHO=$(who | awk &#8216;{print$2}&#8217;)</p>
+
+<p>Variables introducidas por el teclado:</p>
+
+<p>echo &#8220;Como te llamas&#8221;</p>
+
+<p>read NOMBRE</p>
+
+<p>Puede especificarse un tiempo (en segundos) de espera para entrar lo solicitado (-t):</p>
+
+<p>read -t 10 -p &#8220;¿Nombre y apellido? &#8221; NOMBRE APELLIDO</p>
+
+<p>Para definir variables numéricas se utiliza el comando let:</p>
+
+<p>let A=100</p>
+
+<p>let B=200</p>
+
+<p>let C=$A+$B</p>
+
+<p>Si al llamar a una variable, esta va seguida de un carácter que sea otra letra, numero o el guión normal o bajo, La encerraremos entre llaves &#8216;{}&#8217;:</p>
+
+<p>ARCHIVO=&#8221;registro&#8221;</p>
+
+<p>echo &#8220;${ARCHIVO}_2011.txt&#8221;</p>
+
+<p>registro_2011.txt</p>
+
+<p>Cuando bash encuentra en una palabra el signo &#8220;$&#8221; todo lo que va a continuación se considera el nombre de una variable y todos los caracteres desde el &#8220;$&#8221; hasta el final de la palabra son sustituidos por dicha variable:</p>
+
+<p>COSA=&#8221;mastro&#8221;</p>
+
+<p>echo &#8220;ca$COSA&#8221;</p>
+
+<p>camastro</p>
+
+<p>Otra forma de entrar variables es mostrando un promt:</p>
+
+<p>$ read -p &#8220;palabra> &#8221; PALABRA</p>
+
+<p>Si no indicamos nombre de variable, lo ingresado se guarda en la variable REPLY:</p>
+
+<p>read</p>
+
+<p>juan jose pedro</p>
+
+<p>$ echo $REPLY</p>
+
+<p>juan jose pedro</p>
+
+<p>Modificar parte de una variable:</p>
+
+<p>a=&#8221;Linux es un sistema genial&#8221;</p>
+
+<p>echo ${a/geni/brut}</p>
+
+<p>Linux es un sistema brutal</p>
+
+<p>Algunas de la variables globales:</p>
+
+<p>$HOME  (ruta del directorio home del usuario)</p>
+
+<p>$PATH    (directorios donde se encuentran los ejecutables)</p>
+
+<p>$TERM    (nombre de la terminal)</p>
+
+<p>$BASH    (ruta del interprete bash )</p>
+
+<p>$PWD      (directorio actual)</p>
+
+<p>$USER     (Usuario)</p>
+
+<p>$HOSTNAME  (Nombre del equipo)</p>
+
+<p>$HISTFILE (ruta para el histórico de comandos ejecutados)</p>
+
+<p>$UID     (Número de usuario para el sistema)</p>
+
+<p>$RANDOM (números aleatorios entre 0 y 32767)</p>
 </div>
   
   
@@ -123,7 +231,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/xlock/">Xlock</a></h1>
+      <h1 class="entry-title"><a href="/blog/uzbl-browser/">Uzbl-browser</a></h1>
     
     
       <p class="meta">
@@ -139,18 +247,70 @@
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Activar el protector de pantalla. Solicitará contraseña para salir.</p>
+  <div class="entry-content"><p>Navegador estilo vi. Arrancarlo con uzbl-tabbed para permitir pestañas.</p>
 
-<blockquote><p>$ xlock -mode anemona</p></blockquote>
+<blockquote><p>$ nano .config/uzbl/config (archivos de configuración)</p></blockquote>
 
-<p>Existen muchas opciones de “mode”: atlantis, dragon, crystal&#8230;)</p>
+<p>Atajos:</p>
+
+<p>j (descendeer en la página)</p>
+
+<p>k (subir en la página)</p>
+
+<p>h (ir a la izquierda de la página)</p>
+
+<p>l (ir a la derecha de la página)</p>
+
+<p>&lt;&lt; (ir al final de la página)</p>
+
+<blockquote><blockquote><p>(ir al principio de la página)</p></blockquote></blockquote>
+
+<p>o (abrir guión para entrar una url)</p>
+
+<p>gg (abrir guión para entrar una busqueda en google)</p>
+
+<p>gh (página de inicio)</p>
+
+<p>gn (abrir nueva pestaña en blanco)</p>
+
+<p>go (abrir dirección en una nueva pestaña)</p>
+
+<p>gt (ir a la siguiente pestaña)</p>
+
+<p>gT (ir a la pestaña anterior)</p>
+
+<p>gi+2 (ir a la pestaña 2)</p>
+
+<p>w (abrir nueva ventana)</p>
+
+<p>b (volver a la página anterior)</p>
+
+<p>u (favoritos)</p>
+
+<p>U (historial)</p>
+
+<p>Esc (anular)</p>
+
+<p>S (stop)</p>
+
+<p>ZZ (Cerrar pestaña /cerrar ventaña / salir de uzbl)</p>
+
+<p>r (actualizar página)</p>
+
+<p>R (actualizar página desde la caché)</p>
+
+<p>/ (Guión para entrar una busqueda en la página)</p>
+
+<p>n (ir a la busqueda siguiente)</p>
+
+<p>N (ir a la busqueda anterior)</p>
 </div>
   
   
@@ -163,7 +323,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/xli/">Xli</a></h1>
+      <h1 class="entry-title"><a href="/blog/uuidgen/">Uuidgen</a></h1>
     
     
       <p class="meta">
@@ -179,35 +339,18 @@
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Visor de imágenes.</p>
+  <div class="entry-content"><p>Crear nuevo valor uuid</p>
 
-<blockquote><p>$ xli imagen.jpg</p></blockquote>
+<blockquote><p>$ uuidgen -r (Aleatorio)</p>
 
-<p>Teclas de control:</p>
-
-<pre><code>l (Rotar 1/4 a la izquierda)
-
-r (Rotar 1/4 a la derecha)
-
-. (Actualizar la imagen)
-
-números del 5 al 2 (Aclarar la imagen)
-
-números del 6 al 9 (Oscurecer la imagen)
-
-&lt; (Empequeñecer)
-
-&gt; (Agrandar)
-
-q (salir)
-</code></pre>
+<p>$ uuidgen -t (Crea un UUID basado en el reloj del sistema)</p></blockquote>
 </div>
   
   
@@ -220,7 +363,7 @@ q (salir)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/xkill/">Xkill</a></h1>
+      <h1 class="entry-title"><a href="/blog/uuencode/">Uuencode</a></h1>
     
     
       <p class="meta">
@@ -236,16 +379,20 @@ q (salir)
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Matar aplicaciones rebeldes.</p>
+  <div class="entry-content"><p>[sharutils]</p>
 
-<blockquote><p>$ xkill (El cursor se convierte en una calavera y donde se clica mata la aplicación)</p></blockquote>
+<p>Algoritmo utilizado para convertir datos binarios de 8 bits a formato de 7 bits. La codificación uuencoding se creó originalmente para enviar archivos binarios mediante el protocolo de correo electrónico uucp. Si no se especifica salida se muestra por pantalla (/dev/stdout)</p>
+
+<blockquote><p>$ uuencode file1 file2 > file.uue (&#8220;file1&#8221;: nombre del binario a codificar, &#8220;file2&#8221;: Nombre que tendrá el binario una vez descodificado [puede ser el mismo que el binario original] y &#8220;file.uue&#8221; el nombre que se verá en el directorio.)</p>
+
+<p>$ uudecode file.uue (Descodificar el binario. Se verá con el nombre puesto en &#8220;file2&#8221;)</p></blockquote>
 </div>
   
   
@@ -258,7 +405,7 @@ q (salir)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/xinput/">Xinput</a></h1>
+      <h1 class="entry-title"><a href="/blog/utorrent/">Utorrent</a></h1>
     
     
       <p class="meta">
@@ -274,16 +421,76 @@ q (salir)
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra las id de los dispositivos de entrada.</p>
+  <div class="entry-content"><p>Descarga de torrents. Previamente crear los directorios de descargas:</p>
 
-<blockquote><p>$ xinput</p></blockquote>
+<blockquote><p>$ mkdir rtorrent</p>
+
+<p>$ mkdir rtorrent/descargas</p>
+
+<p>$ mkdir rtorrent/sesion vsftpd</p>
+
+<p>$ mkdir rtorrent/torrents</p></blockquote>
+
+<p>Los torrents se colocan en la carpeta rtorrent/torrents para que al abrir la aplicación los coja directo. Crear un archivo de configuración:</p>
+
+<blockquote><p>$ touch .rtorrent.rc</p></blockquote>
+
+<p>Editarlo y pegar las siguientes entradas:</p>
+
+<blockquote><p>$ nano .rtorrent.rc</p>
+
+<h1>Session directory</h1></blockquote>
+
+<p>session = /home/USER/rtorrent/sesion</p>
+
+<p>directory = /home/USER/rtorrent/descargas</p>
+
+<p>schedule = watch_directory,5,5,load_start=/home/USER/rtorrent/torrents/*.torrent</p>
+
+<blockquote><h1>Port range to use for listening.</h1></blockquote>
+
+<p>port_range = 55556-55560</p>
+
+<blockquote><h1>Maximum number of simultanious uploads per torrent.</h1></blockquote>
+
+<p>max_uploads = 5</p>
+
+<blockquote><h1>Global upload and download rate in KiB. &#8220;0&#8221; for unlimited.</h1>
+
+<h1>download_rate = 0</h1></blockquote>
+
+<p>upload_rate = 50</p>
+
+<blockquote><h1>Maximum and minimum number of peers to connect to per torrent.</h1>
+
+<h1>min_peers = 40</h1></blockquote>
+
+<p>max_peers = 80</p>
+
+<blockquote><h1>Same as above but for seeding completed torrents (-1 = same as downloading)</h1></blockquote>
+
+<p>min_peers_seed = 10</p>
+
+<p>max_peers_seed = 30</p>
+
+<p>Algunos atajos:</p>
+
+<p>^ q (cierra la aplicación)</p>
+
+<p>Flechas arriba y abajo (Selecciona torrents)</p>
+
+<p>flecha derecha (Muestra información sobre el torrent seleccionado)</p>
+
+<p>^ s (Inicia la descarga el torrent seleccionado)</p>
+
+<p>^ d (para la descarga o, si está parada, suprime el torrent)</p>
 </div>
   
   
@@ -296,7 +503,7 @@ q (salir)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/xgamma/">Xgamma</a></h1>
+      <h1 class="entry-title"><a href="/blog/users/">Users</a></h1>
     
     
       <p class="meta">
@@ -312,24 +519,16 @@ q (salir)
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Cambiar el brillo de la pantalla.</p>
+  <div class="entry-content"><p>Quien está conectado al sistema</p>
 
-<blockquote><p>$ xgamma -gamma 2.0</p>
-
-<p>$ xgamma -gamma 1.0 (Vuelve a la situación anterior)</p>
-
-<p>$ xgamma -rgamma 2.0 (aumentar rojos)</p>
-
-<p>$ xgamma -bgamma 2.2 (aumentar azules)</p>
-
-<p>$ xgamma -ggamma 2.2 (aumentar los verdes)</p></blockquote>
+<blockquote><p>$ users | xargs -n1 echo | sort | uniq -c  (número de sesiones abierta por los usuarios.</p></blockquote>
 </div>
   
   
@@ -342,7 +541,7 @@ q (salir)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/xfrun4/">Xfrun4</a></h1>
+      <h1 class="entry-title"><a href="/blog/usermod/">Usermod</a></h1>
     
     
       <p class="meta">
@@ -358,14 +557,32 @@ q (salir)
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Lanzador de aplicaciones propio de xfce.</p>
+  <div class="entry-content"><p>modifica propiedades de los usuarios [directorio base, el shell, grupos a los que pertenece, expiración, bloqueo/desbloqueo de la cuenta]</p>
+
+<blockquote><h1>usermod -G grupo1,grupo2 usuario (añade usuario a grupos)</h1>
+
+<h1>usermod -a -G video usuario  (incluye usuario al grupo video. )</h1>
+
+<h1>usermod -e 2009-12-10 user  (la cuenta de user expira el 20-12-09)vsftpd</h1>
+
+<h1>usermod -L usuario  (Bloquea a usuario)</h1>
+
+<h1>usermod -U usuario  (Desbloquea a usuario)</h1>
+
+<h1>usermod -u 999 usuario (baja el ID del usuario, normalmente 1000, para ocultarlo de la pantalla de login [gdm])</h1>
+
+<h1>usermod -s /sbin/nologin apache (Otorga al usuario apache una shell que no permite la ejecución de ningún comando)</h1>
+
+<h1>usermod -l juan pedro (Cambiar el nombre de usuario “pedro” a “juan”)</h1>
+
+<h1>usermod -d /home/nuevo -m usuario (modificar el nombre del directorio  home de un usuario)</h1></blockquote>
 </div>
   
   
@@ -378,7 +595,7 @@ q (salir)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/xfpt/">Xfpt</a></h1>
+      <h1 class="entry-title"><a href="/blog/userdel/">Userdel</a></h1>
     
     
       <p class="meta">
@@ -394,16 +611,20 @@ q (salir)
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Crear un xml a partir de un texto plano.</p>
+  <div class="entry-content"><p>Borrar usuarios</p>
 
-<blockquote><p>$ xfpt -o archivo.txt</p></blockquote>
+<blockquote><h1>userdel usuario (Elimina al usuario pero no su directorio personal)</h1>
+
+<h1>userdel -r usuario (lo borra junto a su directorio $HOME)</h1>
+
+<h1>userdel -f usuario (Borra al usuario y su directorio personal incluso aunque esté logeado en el sistema)</h1></blockquote>
 </div>
   
   
@@ -416,7 +637,7 @@ q (salir)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/xfm/">Xfm</a></h1>
+      <h1 class="entry-title"><a href="/blog/useradd/">Useradd</a></h1>
     
     
       <p class="meta">
@@ -432,14 +653,56 @@ q (salir)
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Gestor de archivos minimalista.</p>
+  <div class="entry-content"><p>Crear usuarios.</p>
+
+<blockquote><h1>useradd -d /home/user -m user (Especifica la ruta a su $HOME)</h1></blockquote>
+
+<p>Otras opciones:</p>
+
+<p>-M usuario  (sin directorio $HOME)</p>
+
+<p>-g users user (grupo principal al que pertenece el usuario)</p>
+
+<p>-e 20111231 user (fecha de expiración de un usuario: 2011-12-31)</p>
+
+<p>-G video,audio user (grupos adicionales a los que pertenece)</p>
+
+<p>-s /bin/bash (especifica la shell del usuario)</p>
+
+<p>-s /sbin/nologin (El usuario no podra logearse en el sistema. Ideal para usuarios con acceso a Samba o FTP sin acceso al interprete de comandos)</p>
+
+<p>-u 503 (Identificador que sera asignado al usuario. Por defecto la UID será a partir del numero 500. Si no se especifica, automáticamente se establece el siguiente número disponible a partir del último usuario creado.)</p>
+
+<p>Un ejemplo completo:</p>
+
+<blockquote><h1>useradd -d /home/paco -g users -s /bin/bash -m paco</h1></blockquote>
+
+<p>1.-</p>
+
+<p>/etc/default/useradd</p>
+
+<p>Archivo donde se definen los valores [shell, directorio del directorio personal, ID del grupo, expiración de la contraseña&#8230;] por defecto para la creación de nuevos usuarios [ver useradd y skel]</p>
+
+<p>Algunos parámetros:</p>
+
+<p>GROUP=100</p>
+
+<p>HOME=/home</p>
+
+<p>INACTIVE=-1</p>
+
+<p>EXPIRE=</p>
+
+<p>SHELL=/bin/sh</p>
+
+<p>SKEL=/etc/skel</p>
 </div>
   
   
@@ -452,7 +715,7 @@ q (salir)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/xflock4/">Xflock4</a></h1>
+      <h1 class="entry-title"><a href="/blog/user-dirs-dot-dirs/">user-dirs.dirs</a></h1>
     
     
       <p class="meta">
@@ -468,14 +731,30 @@ q (salir)
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Activa el protector de pantalla. Solicitará contraseña para salir.</p>
+  <div class="entry-content"><p>Archivo donde se especifican los directorios que saldran por defecto en el $HOME:</p>
+
+<p>XDG_DESKTOP_DIR=”$HOME/Escritorio”</p>
+
+<p>XDG_DOWNLOAD_DIR=”$HOME/Descargas”</p>
+
+<p>XDG_TEMPLATES_DIR=”$HOME/Plantillas”</p>
+
+<p>XDG_PUBLICSHARE_DIR=”$HOME/Público”</p>
+
+<p>XDG_DOCUMENTS_DIR=”$HOME/Documentos”</p>
+
+<p>XDG_MUSIC_DIR=”$HOME/Música”</p>
+
+<p>XDG_PICTURES_DIR=”$HOME/Imágenes”</p>
+
+<p>XDG_VIDEOS_DIR=”$HOME/Vídeos”</p>
 </div>
   
   
@@ -506,43 +785,43 @@ q (salir)
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/grub2/">grub2</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/printf/">printf</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdftotext/">pdftotext</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/avconv/">avconv</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ipmitool/">ipmitool</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tmux/">tmux</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/rkhunter/">rkhunter</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssconvert/">ssconvert</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/while/">while</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

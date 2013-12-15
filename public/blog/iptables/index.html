@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="herramienta de cortafuegos y trafico de red. Algunos ejemplos generales: # iptables -F (eliminar todas las reglas) # iptables -L (si está activo y &hellip;">
+  <meta name="description" content="herramienta de cortafuegos y trafico de red. Algunos ejemplos generales: iptables -F (eliminar todas las reglas) iptables -L (si está activo y con &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -94,7 +94,7 @@
   
 
 
-<time datetime="2013-11-19T18:28:00+01:00" pubdate data-updated="true">19-11-2013</time>
+<time datetime="2013-12-15T15:43:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -105,80 +105,77 @@
 
 <p>Algunos ejemplos generales:</p>
 
-<pre><code># iptables -F (eliminar todas las reglas)
+<h1>iptables -F (eliminar todas las reglas)</h1>
 
-# iptables -L (si está activo y con qué reglas)
+<h1>iptables -L (si está activo y con qué reglas)</h1>
 
-# iptables -L -vn (mostrando los puertos e información detallada)
+<h1>iptables -L -vn (mostrando los puertos e información detallada)</h1>
 
-# iptables -L -t nat (Listar reglas de una tabla concreta)
+<h1>iptables -L -t nat (Listar reglas de una tabla concreta)</h1>
 
-# iptables -L fail2ban-ssh (comprobar las ips bloqueadas por fail2ban)
+<h1>iptables -L fail2ban-ssh (comprobar las ips bloqueadas por fail2ban)</h1>
 
-# iptables -D fail2ban-ssh 1 (Quitar la primera ip baneada de las ips bloqueadas)
+<h1>iptables -D fail2ban-ssh 1 (Quitar la primera ip baneada de las ips bloqueadas)</h1>
 
-# iptables -nL --line-numbers (muestra el orden de ejecución de las reglas)
+<h1>iptables -nL &#8211;line-numbers (muestra el orden de ejecución de las reglas)</h1>
 
-# iptables -nL INPUT (Lista todas las reglas de entrada)
+<h1>iptables -nL INPUT (Lista todas las reglas de entrada)</h1>
 
-# iptables -nL FORWARD (Lista todas las reglas de salida)
+<h1>iptables -nL FORWARD (Lista todas las reglas de salida)</h1>
 
-# iptables -D INPUT 3 (borrar la regla número 3)
+<h1>iptables -D INPUT 3 (borrar la regla número 3)</h1>
 
-# iptables -A INPUT -j LOG (Guardar logs de todos los bloqueos)
-</code></pre>
+<h1>iptables -A INPUT -j LOG (Guardar logs de todos los bloqueos)</h1>
 
 <p>Bloquear (DROP)</p>
 
-<pre><code># iptables -P INPUT DROP (Bloquear todo lo que entra)
+<h1>iptables -P INPUT DROP (Bloquear todo lo que entra)</h1>
 
-# iptables -A INPUT -s IP -j DROP (una ip)
+<h1>iptables -A INPUT -s IP -j DROP (una ip)</h1>
 
-# iptables -A INPUT -s IP -i eth0 -j DROP (una ip de una red)
+<h1>iptables -A INPUT -s IP -i eth0 -j DROP (una ip de una red)</h1>
 
-# iptables -A INPUT -s IP -p tcp -dport 22 -j DROP (un puerto de una ip) 
+<h1>iptables -A INPUT -s IP -p tcp -dport 22 -j DROP (un puerto de una ip)</h1>
 
-# iptables -A INPUT -s 192.168.1.0/24 -j DROP (una red)
+<h1>iptables -A INPUT -s 192.168.1.0/24 -j DROP (una red)</h1>
 
-# iptables -A INPUT -m mac --mac-source 00:11:22:33:44:55 -j DROP (una mac)
+<h1>iptables -A INPUT -m mac &#8211;mac-source 00:11:22:33:44:55 -j DROP (una mac)</h1>
 
-# iptables -A INPUT -p tcp --destination-port 21 -j DROP (puerto 21 de entrada)
+<h1>iptables -A INPUT -p tcp &#8211;destination-port 21 -j DROP (puerto 21 de entrada)</h1>
 
-# iptables -A INPUT -p tcp -s IP --destination-port 21 -j DROP (el puerto 21 de entrada sólo para una IP)
+<h1>iptables -A INPUT -p tcp -s IP &#8211;destination-port 21 -j DROP (el puerto 21 de entrada sólo para una IP)</h1>
 
-# iptables -A INPUT -p tcp -i eth0 -m multiport --destination-port 22,80,443 -j ACCEPT (Varios puertos)
+<h1>iptables -A INPUT -p tcp -i eth0 -m multiport &#8211;destination-port 22,80,443 -j ACCEPT (Varios puertos)</h1>
 
-# iptables -A INPUT p tcp -s 192.168.1.0/24 --destination-port 21 -j DROP (el  puerto 21 de entrada para todo un rango de IPs)
+<h1>iptables -A INPUT p tcp -s 192.168.1.0/24 &#8211;destination-port 21 -j DROP (el  puerto 21 de entrada para todo un rango de IPs)</h1>
 
-# iptables -A FORWARD -p tcp --dport 25 -j DROP (la salida del puerto 25)
+<h1>iptables -A FORWARD -p tcp &#8211;dport 25 -j DROP (la salida del puerto 25)</h1>
 
-# iptables -A INPUT -p tcp --dport 22 -j LOG --log-prefix "Puerto 22 bloqueado" iptables -A INPUT -p tcp --dport 22 -j DROP (haciendo aparecer una mensaje informando del bloqueo)
-</code></pre>
+<h1>iptables -A INPUT -p tcp &#8211;dport 22 -j LOG &#8211;log-prefix &#8220;Puerto 22 bloqueado&#8221; iptables -A INPUT -p tcp &#8211;dport 22 -j DROP (haciendo aparecer una mensaje informando del bloqueo)</h1>
 
 <p>Permitir (ACCEPT)</p>
 
-<pre><code># iptables -I INPUT 3 -s 192.168.1.0/8 -j ACCEPT (a la red especificada y poner la regla en tercer lugar)
+<h1>iptables -I INPUT 3 -s 192.168.1.0/8 -j ACCEPT (a la red especificada y poner la regla en tercer lugar)</h1>
 
-# iptables -D INPUT -s 192.168.1.0/8 -j ACCEPT (Quitar la regla anterior) 
+<h1>iptables -D INPUT -s 192.168.1.0/8 -j ACCEPT (Quitar la regla anterior)</h1>
 
-# iptables -A INPUT -i lo -p all -j ACCEPT (todas las entradas a localhost)
+<h1>iptables -A INPUT -i lo -p all -j ACCEPT (todas las entradas a localhost)</h1>
 
-# iptables -A OUTPUT -o lo -p all -j ACCEPT (todas las salidas a localhost)
+<h1>iptables -A OUTPUT -o lo -p all -j ACCEPT (todas las salidas a localhost)</h1>
 
-# iptables -A INPUT -p tcp --dport ssh -j ACCEPT (Un servicio concreto)
+<h1>iptables -A INPUT -p tcp &#8211;dport ssh -j ACCEPT (Un servicio concreto)</h1>
 
-# iptables -A INPUT -p tcp -i eth0 -m multiport --destination-port 22,80,443 -j ACCEPT (Todas las entradas a varios puertos)
+<h1>iptables -A INPUT -p tcp -i eth0 -m multiport &#8211;destination-port 22,80,443 -j ACCEPT (Todas las entradas a varios puertos)</h1>
 
-# iptables -A OUTPUT -o eth0 -p tcp -d 192.168.101.0/24 --dport 22 -j ACCEPT  (Permitir trafico ssh saliente para la red especificada)  
-</code></pre>
+<h1>iptables -A OUTPUT -o eth0 -p tcp -d 192.168.101.0/24 &#8211;dport 22 -j ACCEPT  (Permitir trafico ssh saliente para la red especificada)</h1>
 
 <p>1.-</p>
 
 <p>Salvar unas reglas de iptables y restablecerlas manualmente:</p>
 
-<blockquote><p># iptables-save -c > /etc/iptables.rules</p>
+<blockquote><h1>iptables-save -c > /etc/iptables.rules</h1>
 
-<p># iptables-restore &lt; /etc/iptables.rules</p></blockquote>
+<h1>iptables-restore &lt; /etc/iptables.rules</h1></blockquote>
 
 <p>2.-</p>
 
@@ -186,30 +183,29 @@
 
 <p>Salvar las reglas:</p>
 
-<blockquote><p># iptables-save > /etc/iptables/rules.v4</p></blockquote>
+<blockquote><h1>iptables-save > /etc/iptables/rules.v4</h1></blockquote>
 
 <p>Crear el archivo:</p>
 
-<blockquote><p># nano /etc/network/if-pre-up.d/iptables (Crear archivo)</p></blockquote>
+<blockquote><h1>nano /etc/network/if-pre-up.d/iptables (Crear archivo)</h1></blockquote>
 
 <p>Con el siguiente contenido:</p>
 
-<pre><code>#!/bin/bash
+<h1>!/bin/bash</h1>
 
-/sbin/iptables-restore &lt; /etc/iptables/rules.v4
-</code></pre>
+<p>/sbin/iptables-restore &lt; /etc/iptables/rules.v4</p>
 
 <p>Otorgar permisos:</p>
 
-<blockquote><p># chmod +x /etc/network/if-pre-up.d/iptables</p></blockquote>
+<blockquote><h1>chmod +x /etc/network/if-pre-up.d/iptables</h1></blockquote>
 
 <p>3.-</p>
 
 <p>Otra opción para salvar las reglas y que se activen tras un reinicio:</p>
 
-<blockquote><p># /etc/init.d/iptables-persistent save (Guardar las reglas existentes)</p>
+<blockquote><h1>/etc/init.d/iptables-persistent save (Guardar las reglas existentes)</h1>
 
-<p># /etc/init.d/iptables-persistent flush (Reseteará todas las reglas)</p></blockquote>
+<h1>/etc/init.d/iptables-persistent flush (Reseteará todas las reglas)</h1></blockquote>
 </div>
 
 
@@ -232,7 +228,7 @@
   
 
 
-<time datetime="2013-11-19T18:28:00+01:00" pubdate data-updated="true">19-11-2013</time>
+<time datetime="2013-12-15T15:43:00+01:00" pubdate data-updated="true">15-12-2013</time>
       
 
 
@@ -249,10 +245,10 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/gdm/" title="Previous Post: gdm">&laquo; gdm</a>
+        <a class="basic-alignment left" href="/blog/ipscan/" title="Previous Post: ipscan">&laquo; ipscan</a>
       
       
-        <a class="basic-alignment right" href="/blog/hello/" title="Next Post: hello">hello &raquo;</a>
+        <a class="basic-alignment right" href="/blog/iptotal/" title="Next Post: iptotal">iptotal &raquo;</a>
       
     </p>
   </footer>
@@ -273,43 +269,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/grub2/">grub2</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/printf/">printf</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdftotext/">pdftotext</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/avconv/">avconv</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ipmitool/">ipmitool</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tmux/">tmux</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/rkhunter/">rkhunter</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssconvert/">ssconvert</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/while/">while</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

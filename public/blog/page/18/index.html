@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Limitar el ancho de banda de la conexion de una red. Prioriza telnet y ssh sobre tráfico web, y este sobre las descargas de datos. Para limitar &hellip;">
+  <meta name="description" content="Sincronización de carpetas remotas. Previamente crear la clave y copiarla al otro pc: $ ssh-keygen -t dsa $ ssh-copy-id -i $HOME/.ssh/id_dsa.pub root &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/wondershaper/">Wondershaper</a></h1>
+      <h1 class="entry-title"><a href="/blog/unison/">Unison</a></h1>
     
     
       <p class="meta">
@@ -97,20 +97,38 @@
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Limitar el ancho de banda de la conexion de una red. Prioriza telnet y ssh sobre tráfico web, y este sobre las descargas de datos. Para limitar aplicaciones ver trickle.</p>
+  <div class="entry-content"><p>Sincronización de carpetas remotas.</p>
 
-<blockquote><p># wondershaper eth0 (Muestra el estado de la red eth0)</p>
+<p>Previamente crear la clave y copiarla al otro pc:</p>
 
-<p># wondershaper eth0 1024 512 (limita la conexión a 1024 kbps de bajada y 512 kbps de subida)</p>
+<blockquote><p>$ ssh-keygen -t dsa</p>
 
-<p># wondershaper clear eth0  (Elimina los ajustes realizados en la red especificada)</p></blockquote>
+<p>$ ssh-copy-id -i $HOME/.ssh/id_dsa.pub root@ip_o_host</p></blockquote>
+
+<p>Sincronizar las carpetas (la web en este ejemplo)</p>
+
+<blockquote><p>$ unison /srv/http ssh://ip_o_host//srv/http</p></blockquote>
+
+<p>Si la carpeta a sincronizar se coloca en el archivo de configuración:</p>
+
+<blockquote><h1>nano /root/.unison/default.prf</h1></blockquote>
+
+<p>root = /srv/http</p>
+
+<p>root = ssh://ip_o_host//srv/http</p>
+
+<p>Puede colocarse la orden en el cron para que se actualice cada 5 minutos:</p>
+
+<p>crontab -e</p>
+
+<p>*/5 * * * * /usr/bin/unison &amp;> /dev/null</p>
 </div>
   
   
@@ -123,7 +141,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/wodim/">Wodim</a></h1>
+      <h1 class="entry-title"><a href="/blog/uniq/">Uniq</a></h1>
     
     
       <p class="meta">
@@ -139,20 +157,20 @@
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Grabación de cds i dvds</p>
+  <div class="entry-content"><p>Ignora las líneas idénticas siempre y cuando sean adyacentes.</p>
 
-<blockquote><p>$ wodim -v -eject dev=/dev/cdrw -data imagen.iso  (Grabar una iso)</p>
+<blockquote><p>$ uniq -u archivo archivo_sin repeticiones</p>
 
-<p>$ wodim -v -eject dev=/dev/dvd -data imagen.iso  (Grabar imagen en un DVD)</p>
+<p>$ uniq -d archivo archivo2 (en archivo2 sólo las repetidas)</p>
 
-<p>$ wodim -v -eject blank=fast dev=/dev/cdrw  (Borrar un CD)</p></blockquote>
+<p>$ uniq -c archivo (Muestra al principio de la linea el número de veces que se repite)</p></blockquote>
 </div>
   
   
@@ -165,7 +183,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/wmctrl/">Wmctrl</a></h1>
+      <h1 class="entry-title"><a href="/blog/unhtml/">Unhtml</a></h1>
     
     
       <p class="meta">
@@ -181,20 +199,16 @@
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Interactuar con las ventanas</p>
+  <div class="entry-content"><p>Elimina todo el formato HTML que encuentra e un fichero e imprime el texto limpio.</p>
 
-<blockquote><p>$ wmctrl -l (Muestra el ID de todas las ventanas)</p>
-
-<p>$ wmctrl -s 2  (Ir al escritorio 3 [la primera es la 0])</p></blockquote>
-
-<p>xdaliclock -cycle -24 -title hora -noseconds -builtin1</p>
+<blockquote><p>$ unhtml index.html > /home/usuario/index.txt (Si no se facilita el archivo de destino, lo muestra en pantalla)</p></blockquote>
 </div>
   
   
@@ -207,7 +221,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/wkhtmltopdf/">Wkhtmltopdf</a></h1>
+      <h1 class="entry-title"><a href="/blog/unhide/">Unhide</a></h1>
     
     
       <p class="meta">
@@ -223,24 +237,26 @@
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Pasar una página web o un archivo html a pdf</p>
+  <div class="entry-content"><p>Herramienta forense para encontrar procesos y puertos TCP/UDP ocultos por rootkits, módulos del kernel o por otras técnicas. Incluye dos utilidades: unhide y unhide-tcp.</p>
 
-<blockquote><p>$ wkhtmltopdf tuxapuntes.com tuxapuntes.pdf</p>
+<blockquote><p>$ unhide-tcp (identifica los puertos TCP/UDP que están escuchando, pero no figuran en /bin/netstat a través de fuerza bruta)</p>
 
-<p>$ wkhtmltopdf -O Landscape -s A4 file.html file.pdf (Apaisado y A4)</p></blockquote>
+<p>$ unhide proc</p></blockquote>
 
-<p>Algunas opciones:</p>
+<p>Opciones</p>
 
-<p>-O Portrait (Vertical)</p>
+<p>proc (compara /proc con la salida de /bin/ps.)</p>
 
-<p>-s A3</p>
+<p>sys (compara la info de /bin/ps con la obtenida de las llamadas al sistema.)</p>
+
+<p>brute (Identifica por fuerza bruta todos los procesos)</p>
 </div>
   
   
@@ -253,7 +269,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/wipe/">Wipe</a></h1>
+      <h1 class="entry-title"><a href="/blog/unexpand/">Unexpand</a></h1>
     
     
       <p class="meta">
@@ -269,20 +285,18 @@
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Borrado de archivos, directorios, particiones o discos de forma segura.</p>
+  <div class="entry-content"><p>Convertir espacios en tabulaciones.</p>
 
-<blockquote><p>$ wipe archivo (Sobreescribiendo 34 veces el espacio)</p>
+<blockquote><p>$ unexpand -t 4 -a texto.txt (Sólo las lineas que tengan 4 espacios en blanco, sea al inicio o entre palabras)</p>
 
-<p>$ wipe -fq (Sin pedir confirmación y sólo reescribiendo 4 veces)</p>
-
-<p>$ wipe -rq -Q 10 -i -c DIR/ (Que suprima los subdirectorios [r], que haga 10 pasadas y no sólo 4 [-q -Q 10], que muestre detalles [-i] y por si tienen permisos que chmod entre en acción [c]</p></blockquote>
+<p>$ unexpand -t 2  &#8211;first-only texto.txt (Sólo las que empiecen por 2 espacios en blanco)</p></blockquote>
 </div>
   
   
@@ -295,7 +309,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/winetricks/">Winetricks</a></h1>
+      <h1 class="entry-title"><a href="/blog/undbx/">Undbx</a></h1>
     
     
       <p class="meta">
@@ -311,20 +325,16 @@
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Herramienta para instalar librerias y complementos para wine</p>
+  <div class="entry-content"><p>Herramienta para exportar los correos de Outlook en formato DBX al formato EML para posteriormente importar en Thunderbird</p>
 
-<blockquote><p>$ winetricks (ejecuta la interfaz gráfica del programa)</p>
-
-<p>$ winetricks corefonts (Instala fuentes como Arial y Verdana)</p></blockquote>
-
-<p>Más referencias de winetricks aqui: <a href="http://wiki.winehq.org/winetricks">http://wiki.winehq.org/winetricks</a></p>
+<blockquote><p>$ undbx carpeta-origen carpeta-exportacion (Primero se define la carpeta origen donde se encuentran los ficheros DBX y a continuación se especifica el directorio de salida)</p></blockquote>
 </div>
   
   
@@ -337,7 +347,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/wine/">Wine</a></h1>
+      <h1 class="entry-title"><a href="/blog/uname/">Uname</a></h1>
     
     
       <p class="meta">
@@ -353,30 +363,20 @@
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Ejecuta programas de Windows en Linux</p>
+  <div class="entry-content"><p>Informa de la &#8230;</p>
 
-<blockquote><p>$ wine programa.exe</p>
+<blockquote><p>$ uname -a (&#8230; versión instalada del kernel y otros datos)</p>
 
-<p>$ winecfg (Abre la ventana de configuración)</p></blockquote>
+<p>$ uname -m (&#8230; arquitectura de la máquina)</p>
 
-<p>1.-</p>
-
-<p>En distros de 64 bits, ejecutar wine en modo 32 bits</p>
-
-<p>Se debe eliminar o mover la carpeta ~/.wine y recrearla de nuevo. Primero se realiza un export de la variable WINEARCH en la terminal</p>
-
-<blockquote><p>$ export WINEARCH=win32</p></blockquote>
-
-<p>Y luego se ejecuta wine de nuevo</p>
-
-<blockquote><p>$ wine programa32bits.exe</p></blockquote>
+<p>$ uname -r (&#8230; versión instalada del kernel)</p></blockquote>
 </div>
   
   
@@ -389,7 +389,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/windows/">Windows</a></h1>
+      <h1 class="entry-title"><a href="/blog/unalias/">Unalias</a></h1>
     
     
       <p class="meta">
@@ -405,128 +405,16 @@
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>1.-</p>
+  <div class="entry-content"><p>Suprimir alias.</p>
 
-<p>Redimensionar desde windows:</p>
-
-<p>Botón derecho en: Mi PC \ Administrar o Inicio \ Panel de control \ Herramientas administrativas \ Administracion De Equipos. Clicar con el boton derecho sobre la particion que queremos modificar. Aparecen dos opciones:</p>
-
-<ul>
-<li><p>Extend Volume</p></li>
-<li><p>Shirnk Volume</p></li>
-</ul>
-
-
-<p>La opcion de Shrink Volume es la que nos permite liberar espacio de la partición. Windows moverá los archivos necesarios en su interior. Igualmente informá del tamaño maximo que puede liberar con garantias de integridad de datos. El espacio libre podremos particionarlo posteriormente usando herramientas clásicas como gparted.</p>
-
-<p>2.-</p>
-
-<p>Re-dimensionar desde Linux:</p>
-
-<p>Cuando a gparted le resulta imposible re-dimensionar particiones ntfs [con vista, por ejemplo] usaremos un Live con las herramientas ntfsprogs [puppy, entre otras]. Previamente habremos desfragmentado la partición win y, si procede, reparados posibles errores de disco desde la consola del sistema [cmd] lazando chkdsk /c</p>
-
-<p>Arrancado el Live, averiguamos el nombre de la partición:</p>
-
-<blockquote><p># fdisk -l | grep NTFS</p></blockquote>
-
-<p>Si no hemos lanzado chkdsk en win, con linux podemos reparar los posibles errores con:</p>
-
-<blockquote><p># ntfsfix /dev/sdax</p></blockquote>
-
-<p>Comprobar si detecta correctamente la partición win:</p>
-
-<blockquote><p># sudo ntfsresize -P -i -f -v /dev/hda1 &#8211;ad-sectors</p></blockquote>
-
-<p>ntfsresize v2.0.0 (libntfs 10:0:0)</p>
-
-<p>Device name : /dev/hda1</p>
-
-<p>NTFS volume version: 3.1</p>
-
-<p>&#8230;</p>
-
-<p>Ordinary : 55549 MB 49454</p>
-
-<p>You might resize at 25961267200 bytes or 25962 MB (freeing 32608 MB).</p>
-
-<p>Please make a test run using both the -n and -s options before real resizing!</p>
-
-<p>Indica cuánto podemos redimensionar (25962 MB) y cuánto espacio quedaría libre (32608 MB).Suponemos que deseamos dejar el sistema de ficheros en 29055000000 by (29055 MB). Primero lo simulamos (recomendable realizar la prueba varias veces):</p>
-
-<blockquote><p># ntfsresize -f -s 29055000000 -n /dev/hda1 &#8211;bad-sectors</p></blockquote>
-
-<p>ntfsresize v2.0.0 (libntfs 10:0:0)</p>
-
-<p>Device name : /dev/hda1</p>
-
-<p>NTFS volume version: 3.1</p>
-
-<p>&#8230;</p>
-
-<p>ERROR: Extended record needed (1096 > 1024), not yet supported!</p>
-
-<p>Please try to free less space.</p>
-
-<p>Indica que no se ha dejado suficiente espacio para desplazar los datos.</p>
-
-<p>dejamos más espacio:</p>
-
-<blockquote><p># ntfsresize -f -s 31055000000 -n /dev/hda1 &#8211;bad-sectors</p></blockquote>
-
-<p>ntfsresize v2.0.0 (libntfs 10:0:0)</p>
-
-<p>Device name : /dev/hda1</p>
-
-<p>&#8230;</p>
-
-<p>Updating Boot record …</p>
-
-<p>The read-only test run ended successfully.</p>
-
-<p>La simulación sale correcta, procedemos a aplicarla quitando el parámetro -n</p>
-
-<blockquote><p># ntfsresize -f -s 31055000000 /dev/hda1 &#8211;bad-sectors</p></blockquote>
-
-<p>ntfsresize v2.0.0 (libntfs 10:0:0)Device name : &#8230;</p>
-
-<p>&#8230;</p>
-
-<p>Syncing device …</p>
-
-<p>Successfully resized NTFS on device ‘/dev/hda1′.</p>
-
-<p>3.-</p>
-
-<p>Crear un usuario administrador en windows [7, server 2008&#8230;]</p>
-
-<p>Arrancar con un Live-cd y montar la partición win.</p>
-
-<p>Entrar en C:\Windows\System32</p>
-
-<p>Borrar el archivo Magnify.exe</p>
-
-<p>Copiar el fichero cmd.exe y renombrar como Magnify.exe</p>
-
-<p>Reiniciar para que arranque Windows.</p>
-
-<p>Ejecutar la herramienta de lupa y arrancará una ventana de comandos como usuario administrador</p>
-
-<p>Crear un usuario administrador:</p>
-
-<p>net user /add admin</p>
-
-<p>net localgroup administrators admin /add</p>
-
-<p>net user admin *</p>
-
-<p>Reiniciar win y entrar con el usuario creado.</p>
+<blockquote><p>$ unalias -a (Suprime todos los alias)</p></blockquote>
 </div>
   
   
@@ -539,7 +427,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/wicd-gtk/">Wicd-gtk</a></h1>
+      <h1 class="entry-title"><a href="/blog/umount/">Umount</a></h1>
     
     
       <p class="meta">
@@ -555,16 +443,22 @@
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Applet de wicd para el area de notificación (tray)</p>
+  <div class="entry-content"><p>Desmontar particiones</p>
 
-<blockquote><p>$ wicd-gtk -a</p></blockquote>
+<blockquote><p>$ umount -a (Desmonta todas las especificadas en /etc/mtab)</p>
+
+<p>$ umount -r (Si falla el desmontaje, intenta remontar como “solo lectura”)</p>
+
+<p>$ umount -t vfat,ext3 (Solo desmonta los tipos especificados)</p>
+
+<p>$ umount -fl (fuerza el desmonte de la particion)</p></blockquote>
 </div>
   
   
@@ -577,7 +471,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/wicd-curses/">Wicd-curses</a></h1>
+      <h1 class="entry-title"><a href="/blog/umask/">Umask</a></h1>
     
     
       <p class="meta">
@@ -593,18 +487,18 @@
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>conexiones a una red inalambrica.</p>
+  <div class="entry-content"><p>Fija los permisos de un fichero o directorio.</p>
 
-<blockquote><p>$ wicd-curses</p></blockquote>
+<blockquote><p>$ umask (muestra permisos actuales. Normalmente 0022 o 0002)</p>
 
-<p>Si hay redes libres seleccionar la red y presionar la tecla C. Si existen redes  con seguridad habilitada, situarnos en la red con la que deseemos conectar, y presionar la tecla -> [la flecha derecha]. Mostrará otro menu donde ingresar  protocolo de seguridad y clave.</p>
+<p>$ umask 0002 (activa los permisos 775 para el presente directorio. Elprimer cero, indica que los datos serán dados en octal. Los otros tres números [002] han de restarse de 777 para tener los permisos del fichero o directorio)</p></blockquote>
 </div>
   
   
@@ -635,43 +529,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/grub2/">grub2</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/printf/">printf</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdftotext/">pdftotext</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/avconv/">avconv</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ipmitool/">ipmitool</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tmux/">tmux</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/rkhunter/">rkhunter</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssconvert/">ssconvert</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/while/">while</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

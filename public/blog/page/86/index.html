@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Configuración de red. Muestra dispositivos, enrutamientos, tuneles. $ ip addr (Revisar tarjetas) $ ip route show (Información) $ ip link show (Ver &hellip;">
+  <meta name="description" content="Determina la ip de un registro DNS o, a partir de una ip, el nombre de registro $ host -v -a telefonica.com $ host -t SOA google.com $ host -R 3 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ip/">Ip</a></h1>
+      <h1 class="entry-title"><a href="/blog/host/">Host</a></h1>
     
     
       <p class="meta">
@@ -97,42 +97,40 @@
   
 
 
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Configuración de red. Muestra dispositivos, enrutamientos, tuneles.</p>
+  <div class="entry-content"><p>Determina la ip de un registro DNS o, a partir de una ip, el nombre de registro</p>
 
-<blockquote><p>$ ip addr (Revisar tarjetas)</p>
+<blockquote><p>$ host -v -a telefonica.com</p>
 
-<p>$ ip route show (Información)</p>
+<p>$ host -t SOA google.com</p>
 
-<p>$ ip link show (Ver interfaces de red)</p>
+<p>$ host -R 3 google.es (Eleva a 3 el número de intentos para obtener respuesta. Por defecto 1)</p>
 
-<p>$ ip link set dev eth0 down (bajar una red)</p>
+<p>$ host -C google.es (Muestra los registros SOA y los servidores de nombres autorizados.)</p></blockquote>
 
-<p>$ ip route add default via 192.168.1.1 (establecer la ip del router)</p>
+<p>Tipos de registros</p>
 
-<p>$ ip link set dev eth0 up (levantar una red)</p>
+<p>A (Registro de dirección que resuelve un nombre de un anfitrión hacia una dirección IPv4)</p>
 
-<p>$ ip addr add 192.168.1.20 255.255.255.0 dev eth1 (establecer una ip estática)</p>
+<p>AAA (Registro de dirección que resuelve un nombre de un anfitrión hacia una dirección IPv6)</p>
 
-<p>$ ip n  (MAC e IP del router)</p>
+<p>MX (Registro de servidor de correo que sirve para definir una lista de servidores de correo para un dominio, así como la prioridad, el que tiene el número más bajo de los servidores de correo es el que tiene mayor prioridad.)</p>
 
-<p>$ ip link set dev eth1 address 00:03:44:88:00:11 (Modificdar la MAC. Previamente bajar la red)</p>
+<p>PTR (Registro de apuntador que resuelve direcciones IPv4 hacia el nombre anfitriones. Es decir, hace lo contrario al registro A. Se utiliza en zonas de Resolución Inversa)</p>
 
-<p>$ ip route del default (Eliminar puerta de enlace para crear una nueva)</p>
+<p>NS (Registro de servidor de nombres que sirve para definir una lista de servidores de nombres con autoridad para un dominio)</p>
 
-<p>$ ip route add default via 192.168.1.10 (Crear nueva puerta de enlace)</p>
+<p>SOA (Registro de inicio de autoridad que especifica el Servidor DNS Maestro (o Primario) que proporcionará la información con autoridad acerca de un dominio de Internet, dirección de correo electrónico del administrador, número de serie del dominio y parámetros de tiempo para la zona)</p>
 
-<p>$ ip -f inet addr show eth0 (información de la dirección ip)</p>
+<p>SRV (Registro de servicios que especifica información acerca de servicios disponibles a través del dominio)</p>
 
-<p>$ ip route add 192.168.2.0/24 via 192.168.1.10 (Añadir una red a una puerta de enlace)</p></blockquote>
-
-<p>Nota.- Verificar que /etc/resolv contenga una linea con el servidor DNS tipo: nameserver 8.8.8.8 [para las DNS de google]</p>
+<p>CNAME (Registro de nombre canónico que hace que un nombre sea alias de otro)</p>
 </div>
   
   
@@ -145,7 +143,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/iozone/">Iozone</a></h1>
+      <h1 class="entry-title"><a href="/blog/honeyproxy/">Honeyproxy</a></h1>
     
     
       <p class="meta">
@@ -161,28 +159,44 @@
   
 
 
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Realizar test de velocidad de sistemas de archivos (ext3, ext4&#8230;)</p>
+  <div class="entry-content"><p>[python-pip]</p>
 
-<blockquote><p>$ iozone -s 2g -r 64 -i 0 -i 1 -b test.xls</p>
+<p>Analiza el tráfico web. Instalación:</p>
 
-<p>$ iozone -a -g 2G -f /media/sda2</p></blockquote>
+<blockquote><h1>pip install pyOpenSSL pyasn1 Twisted Autobahn</h1>
 
-<p>-a (automático)</p>
+<p>$ git clone &#8211;recursive git://github.com/mhils/HoneyProxy.git</p>
 
-<p>-g (Tamaño de los archivos generados)</p>
+<p>$ cd HoneyProxy</p>
 
-<p>-f (el sistema de archivos a tratar)</p>
+<h1>python honeyproxy.py &#8211;no-gui -a 192.168.1.15 (Arrancar el servicio)</h1></blockquote>
 
-<p>-i (0= escritura, 1= lectura, 2=lectura/escritura&#8230;.)</p>
+<p>HoneyProxy has been started!</p>
 
-<p>-b (archivo que generará con los resultados)</p>
+<p>Configuration Details (normal users: ignore):</p>
+
+<p>GUI: http://honey:zhw78b35ioynhg8vr4jcfmn5f326d4e4@localhost:8081/app/</p>
+
+<p>Proxy Address: 192.168.1.15:8080</p>
+
+<p>WebSocket Port: 8082</p>
+
+<p>Auth user: honey</p>
+
+<p>Auth key: zhw78b35ioynhg8vr4jcfmn5f326d4e4</p>
+
+<p>Una vez instalado y arrancado el servicio, configurar el navegador para su uso en Editar/Preferencias/Avanzado/Red/Configurar la conexión, clicar en &#8220;Configuración manual del proxy&#8221; y en servidor intermediario de HTTP porner la ip de la máquina local o remota puesta al arrancar la aplicación [192.168.1.15 en este caso] y el puerto 8080. Los informes, colocando en la barra de navegación la dirección que muestra al arrancar el servicio, en este caso: http://honey:zhw78b35ioynhg8vr4jcfmn5f326d4e4@localhost:8081/app/ (usuario: honey y key: zhw78b35ioynhg8vr4jcfmn5f326d4e4). Por defecto los informes se guardan en ./dump/sites. Para parar el servicio, matar el proceso:</p>
+
+<p>$ ps aux | grep honeyproxy</p>
+
+<p>$ kill -9 PID</p>
 </div>
   
   
@@ -195,7 +209,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/iotop/">Iotop</a></h1>
+      <h1 class="entry-title"><a href="/blog/hodie/">Hodie</a></h1>
     
     
       <p class="meta">
@@ -211,32 +225,18 @@
   
 
 
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>monitoriza el ratio de lectura/escritura en disco .</p>
+  <div class="entry-content"><p>Muestra la fecha en latín.</p>
 
-<blockquote><p>$ iotop -o -u usuario</p>
+<blockquote><p>$ hodie -n (En numeral)</p>
 
-<p>$ iotop -a -p $(sed &#8216;s, , -p ,g&#8217; &lt;&lt;&lt;<code>pgrep "_raid|_resync|jbd2"</code>) (un raid)</p></blockquote>
-
-<p>Alguns opciones:</p>
-
-<p>-d 2 (Actualización cada 2 segundos)</p>
-
-<p>-b (No interactivo)</p>
-
-<p>-o (Sólo mostrar procesos que hacen uso de entrada/salida)</p>
-
-<p>-t (Incluir una marca de tiempo)</p>
-
-<p>-p pid (Pid del proceso a monitorizar. Por defecto todos)</p>
-
-<p>-u usuario (especificando usuario)</p>
+<p>$ hodie -c -v (De forma clásica)</p></blockquote>
 </div>
   
   
@@ -249,7 +249,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/iostat/">Iostat</a></h1>
+      <h1 class="entry-title"><a href="/blog/history/">History</a></h1>
     
     
       <p class="meta">
@@ -265,20 +265,30 @@
   
 
 
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>muestra estadísticas de la CPU y de la entrada y salida de los dispositivos y particiones.</p>
+  <div class="entry-content"><p>Lista los comandos utilizados por el usuario</p>
 
-<blockquote><p>$ iostat -x sda -d 1 6 (6 reportes con 1 segundo de intervalo sobre el disco sda. Suprimiendo la última cifra [6] continuará reportando datos hasta finalizar con Ctrl+c)</p>
+<blockquote><p>$ history 20       (Lista los últimos 20)</p>
 
-<p>$ iostat -d 3 (actualizará resultados cada 3 segundos)</p>
+<p>$ history -c        (Elimina el historial)</p>
 
-<p>$ iostat -p sda (Ver estadisticas de un disco concreto con sus particiones)</p></blockquote>
+<p>$ history -d 125 (Eliminar la orden 125. útil si se escribió la contraseña y esta queda visible en el historial)</p>
+
+<p>$ history | awk &#8216;{print $2}&#8217; | sort | uniq -c | sort -rn | head -10 (lista los 10 comandos más usados y numero de veces)</p>
+
+<p>$ !354  (ejecutará el comando 354 del listado de history)</p>
+
+<p>$ history | grep cp  (Buscar en el historial las veces que se ha lanzado “cp”)</p>
+
+<p>$ history -a (Guardar el historial sin cerrar la sesión)</p>
+
+<p>$ echo $HISTCMD (número de comandos registrados en history)</p></blockquote>
 </div>
   
   
@@ -291,7 +301,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/inxi/">Inxi</a></h1>
+      <h1 class="entry-title"><a href="/blog/hidd/">Hidd</a></h1>
     
     
       <p class="meta">
@@ -307,58 +317,18 @@
   
 
 
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra información del equipo (http://inxi.googlecode.com/svn/trunk/inxi).</p>
+  <div class="entry-content"><p>Gestionar dispositivos blueetoth</p>
 
-<blockquote><p>$ inxi -Fpur -c 4</p></blockquote>
+<blockquote><h1>hidd &#8211;search (Buscar dispositivos)</h1>
 
-<p>Algunas opciones (con inxi -h la lista completa):</p>
-
-<p>-A (Audio y tarjetas de sonido)</p>
-
-<p>-b (informacio básica)</p>
-
-<p>-c (formato de color de 0 a 32 para la salida de datos)</p>
-
-<p>-C (CPUs)</p>
-
-<p>-d (drivers opticos)</p>
-
-<p>-D (disco duro)</p>
-
-<p>-F (salida extendida)</p>
-
-<p>-G (tarjeta gráfica)</p>
-
-<p>-i (Información de red)</p>
-
-<p>-I (Procesos, uptime, memoria&#8230;)</p>
-
-<p>-M (Datos de la máquina)</p>
-
-<p>-N (tarjetas de red)</p>
-
-<p>-o (particiones no montadas)</p>
-
-<p>-p (particiones montadas)</p>
-
-<p>-r (repositorios)</p>
-
-<p>-s (sensors[temperaturas cpu])</p>
-
-<p>-S (Host, Kernel,Escritorio y Distro)</p>
-
-<p>-t cm (Procesos que consumen más cpu [c] y memoria [m])</p>
-
-<p>-u (UUID de las particiones. -uo las no montadas, -up las montadas)</p>
-
-<p>-v 6 (Distintas etiquetas de información. Del 1 al 6)</p>
+<h1>hidd &#8211;connect 0A:1B:2C:4D:5E:6F (Conectar a un dispositivo)</h1></blockquote>
 </div>
   
   
@@ -371,7 +341,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/interfaces/">Interfaces</a></h1>
+      <h1 class="entry-title"><a href="/blog/hg/">Hg</a></h1>
     
     
       <p class="meta">
@@ -387,81 +357,54 @@
   
 
 
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Archivo de configuración de la red en distros debian.</p>
+  <div class="entry-content"><p>Mercurial es un potente programa de control de versiones para nuestros proyectos. Previamente crear en la carpeta personal, el archivo:</p>
 
-<p>1.-</p>
+<blockquote><p>$ nano .hgrc</p></blockquote>
 
-<p>Con IP dinámica:</p>
+<p>Con el siguiente contenido:</p>
 
-<p>Colocar en el archivo las lineas:</p>
+<p>[ui]</p>
 
-<pre><code>auto eth0
+<p>username = Juanito Perez juanitoperez@gmail.com</p>
 
-iface eth0 inet dhcp
-</code></pre>
+<blockquote><p>$ hg init repositorio . (crea un repositorio en el directorio actual o en el que se especifique)</p>
 
-<p>2.-</p>
+<p>$ hg add  (añade los ficheros existentes en el directorio a nuestro proyecto)</p>
 
-<p>Con IP fija</p>
+<p>$ hg clone http://servidor.com/hg (clona un repositorio a la carpeta actual)</p>
 
-<p>Colocar en el archivo las lineas:</p>
+<p>$ hg clone ssh://usuario@servidor.com/carpeta repositorio (clona &#8220;carpeta&#8221; usando ssh en el directorio &#8220;repositorio&#8221; del directorio actual)</p>
 
-<pre><code>auto eth0
+<p>$ hg status (muestra el estado de los ficheros del proyecto)</p>
 
-iface eth0 inet static
+<p>$ hg commit (realizamos un commit al proyecto)</p>
 
-address 192.168.1.10
+<p>$ hg push (enviamos los cambios al repositorio remoto)</p>
 
-gateway 192.168.1.1
+<p>$ hg pull (recuperamos cambios del repositorio)</p>
 
-netmask 255.255.255.0
+<p>$ hg update (Recargar los archivos despues de un pull)</p>
 
-broadcast 192.168.1.255
-</code></pre>
+<p>$ hg update -C (Mezclar cambios [merge])</p>
 
-<p>Reiniciar el servicio:</p>
+<p>$ hg log (vemos todos los cambios realizados en el proyecto)</p>
 
-<blockquote><p># ifdown eth0</p>
+<p>$ hg log -r 5 (Muestra la 5ª revisión)</p>
 
-<p># ifup eth0</p></blockquote>
+<p>$ hg log -r 2:5 (Muestra de las 2ª a la 5ª revisión)</p>
 
-<p>Nota.- Solo modificandolo en network-manager no funciona.</p>
+<p>$ hg log -p -r 6 (Muestra todas las modificaciónes del archivo de la 6ª revisión)</p>
 
-<p>3.-</p>
+<p>$ hg tip -v (Muestra los datos de la última revisión)</p>
 
-<p>Creación de una segunda dirección IP virtual.</p>
-
-<p>Añadir las siguientes lineas a las de la IP fija:</p>
-
-<pre><code>auto eth0:1
-
-iface eth0:1 inet static
-
-address 192.168.0.15
-
-netmask 255.255.255.0
-
-broadcast 192.168.0.255
-
-gateway 192.168.0.1
-</code></pre>
-
-<p>Nota.- La instalación de nerwork-manager o wicd para la gestión de redes implica comentar las modificaciones de este archivo o en, en el caso de network-manager, editar:</p>
-
-<blockquote><p># nano  /etc/NetworkManager/NetworkManager.conf</p></blockquote>
-
-<p>Y modificar la linea:</p>
-
-<p>[ifupdown]</p>
-
-<p>managed=true</p>
+<p>$ hg help comando (vemos la ayuda integrada del hg para el comando)</p></blockquote>
 </div>
   
   
@@ -474,7 +417,7 @@ gateway 192.168.0.1
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/instmodsh/">Instmodsh</a></h1>
+      <h1 class="entry-title"><a href="/blog/hexdump/">Hexdump</a></h1>
     
     
       <p class="meta">
@@ -490,20 +433,16 @@ gateway 192.168.0.1
   
 
 
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Para conocer los módulos perl instalados. Entra en el prompt (cmd?) con 3 preguntas:</p>
+  <div class="entry-content"><p>Editor de archivos binarios.</p>
 
-<p>l (List all installed modules)</p>
-
-<p>m <module> (Select a module)</p>
-
-<p>q (Quit the program)</p>
+<blockquote><p>$ hexdump -C archivo_binario</p></blockquote>
 </div>
   
   
@@ -516,7 +455,7 @@ gateway 192.168.0.1
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/install-mbr/">Install-mbr</a></h1>
+      <h1 class="entry-title"><a href="/blog/heroku/">Heroku</a></h1>
     
     
       <p class="meta">
@@ -532,18 +471,38 @@ gateway 192.168.0.1
   
 
 
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Instala un nuevo código MBR al inicio del disco duro.</p>
+  <div class="entry-content"><p>Gestión de los blogs alojados en <a href="http://www.heroku.com">http://www.heroku.com</a> Ver octopress 17.</p>
 
-<blockquote><p># install-mbr /dev/sda (instala)</p>
+<blockquote><p>$ heroku apps:rename nuevo_nombre (Renombrar un blog. Si se hace en la web en algunos casos da problemas)</p>
 
-<p># install-mbr -l /dev/sda (muestra información del código mbr)</p></blockquote>
+<p>$ heroku addons (Ver los addons instalados)</p>
+
+<p>$ heroku apps (Muestra los blogs alojados)</p>
+
+<p>$ heroku login (Logearse con el nombre de usuario y contraseña de registro)</p>
+
+<p>$ heroku create (Crea el repositorio en el directorio actual)</p>
+
+<p>$ heroku logs (Muestra los logs)</p>
+
+<p>$ heroku ps (Ver las aplicaciones corriendo en heroku)</p>
+
+<p>$ heroku restart web.1 (Reiniciar la aplicación a aprtir del dato obtenido com ps)</p>
+
+<p>$ heroku apps:destroy mighty-fortress-6385 (Eliminar una app)</p>
+
+<p>$ heroku sharing &#8211;app tractatuslapipaplena (Ver los colaboradores de un proyecto)</p>
+
+<p>$ heroku auth:login (Pide los datos de registro)</p>
+
+<p>$ heroku keys:add ~/.ssh/id_rsa.pub (Subir la clave publica)</p></blockquote>
 </div>
   
   
@@ -556,7 +515,7 @@ gateway 192.168.0.1
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/insmod/">Insmod</a></h1>
+      <h1 class="entry-title"><a href="/blog/hello/">Hello</a></h1>
     
     
       <p class="meta">
@@ -572,16 +531,20 @@ gateway 192.168.0.1
   
 
 
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Carga modulos.</p>
+  <div class="entry-content"><p>Muestra el clásico &#8220;Hola, mundo&#8221; o un saludo personalizable.</p>
 
-<blockquote><p># insmod mudulo</p></blockquote>
+<blockquote><p>$ hello -t (El tradicional &#8220;Hola, mundo&#8221;)</p>
+
+<p>$ hello -n (Un &#8220;Hola, mundo&#8221; de nueva generación)</p>
+
+<p>$ hello -g &#8220;Linux es un sistema genial&#8221; (Muestra la frase)</p></blockquote>
 </div>
   
   
@@ -594,7 +557,7 @@ gateway 192.168.0.1
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/inputrc/">Inputrc</a></h1>
+      <h1 class="entry-title"><a href="/blog/head/">Head</a></h1>
     
     
       <p class="meta">
@@ -610,38 +573,20 @@ gateway 192.168.0.1
   
 
 
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Librería readline que permite editar líneas de texto usando los modos de emacs y vi. Esto permite estandarizar las combinaciones de teclas entre muchos comandos.</p>
+  <div class="entry-content"><p>muestra por defecto las primeras 10 lineas de un archivo si no se especifica cantidad.</p>
 
-<blockquote><p>$ nano .inputrc</p></blockquote>
+<blockquote><p>$ head /var/log/apache2/access.log</p>
 
-<p>Ajustes que pueden añadirse al archivo personal.</p>
+<p>$ head -50 /var/log/maillog  (las primeras 50)</p>
 
-<p>1.-</p>
-
-<p>Que al pulsar Ctrl+x Ctrl+f liste las funciones y con Ctrl+x Ctrl+v las variables:</p>
-
-<blockquote><p># Lista las funciones y variables de readline</p></blockquote>
-
-<p>&#8220;\C-x\C-f&#8221;: dump-functions</p>
-
-<p>&#8220;\C-x\C-v&#8221;: dump-variables</p>
-
-<p>2.-</p>
-
-<p>Que el autocompletado con la tecla &#8220;tab&#8221; no distinga mayúsculas y minúsculas:</p>
-
-<blockquote><p># Ignora diferencias de mayusculas/minusculas al</p>
-
-<p># completar con tabulador</p></blockquote>
-
-<p>set completion-ignore-case on</p>
+<p>$ head -5 archivo1 archivo2 (Muestra las 5 primeras lineas de los dos archivos)</p></blockquote>
 </div>
   
   
@@ -672,43 +617,43 @@ gateway 192.168.0.1
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/grub2/">grub2</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/printf/">printf</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdftotext/">pdftotext</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/avconv/">avconv</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ipmitool/">ipmitool</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tmux/">tmux</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/rkhunter/">rkhunter</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssconvert/">ssconvert</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/while/">while</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Cliente DHCP # dhclient eth0 (modifica la ip de la máquina)
-">
+  <meta name="description" content="Filtro de contenidos web (cliente) que trabaja conjuntamente con el servidor proxy squid (servidor). Adaptar el archivo de configuración: nano /etc/ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -82,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/dhclient/">Dhclient</a></h1>
+      <h1 class="entry-title"><a href="/blog/dansguardian/">Dansguardian</a></h1>
     
     
       <p class="meta">
@@ -98,16 +97,60 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Cliente DHCP</p>
+  <div class="entry-content"><p>Filtro de contenidos web (cliente) que trabaja conjuntamente con el servidor proxy squid (servidor).</p>
 
-<blockquote><p># dhclient eth0  (modifica la ip de la máquina)</p></blockquote>
+<p>Adaptar el archivo de configuración:</p>
+
+<blockquote><h1>nano /etc/dansguardian/dansguardian.conf</h1></blockquote>
+
+<p>Algunos parámetros a especificar (caso de no estarlo):</p>
+
+<p>language = &#8216;spanish&#8217;</p>
+
+<p>reportinglevel = 3 #valores de 1, 2 y 3</p>
+
+<p>filterport = 8080</p>
+
+<p>proxyip = 127.0.0.1 #La misma ip del proxy squid</p>
+
+<p>proxyport = 3128</p>
+
+<p>Guardar el archivo.</p>
+
+<p>El listado de conceptos (ip, nombre de dominio, frases&#8230; ) por los que se puede banear y conceptos excluidos en:</p>
+
+<blockquote><h1>ls /etc/dansguardian/lists/</h1></blockquote>
+
+<p>Algunos de los más usuales:</p>
+
+<p>bannedextensionlist (extensiones no permitidas)</p>
+
+<p>banneriplist (listado de ips no permitidas)</p>
+
+<p>bannedmimetypelist (Tipos MIME no permitidos)</p>
+
+<p>bannedregexpurllist  (Listado de expresiones a bloquear)</p>
+
+<p>bannedurllist (Bloquear partes especificas de un sitio)</p>
+
+<p>bannedsitelist (Bloquear sitios)</p>
+
+<p>bannedphraselist (Listado de frases prohibidas encerradas entre &lt; ></p>
+
+<p>exceptionsitelist (Lista de excepciones de sitios)</p>
+
+<p>exceptioniplist (lista de excepciones de direcciones IP)</p>
+
+<p>exceptionuserlist (Lista de excepciones de nombres de usuarios que no serán filtrado)</p>
+
+<blockquote><h1>/etc/init.d/dansguardian restart</h1></blockquote>
 </div>
   
   
@@ -120,7 +163,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/df/">Df</a></h1>
+      <h1 class="entry-title"><a href="/blog/cutter/">Cutter</a></h1>
     
     
       <p class="meta">
@@ -136,22 +179,18 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Mostrar información de las particiones</p>
+  <div class="entry-content"><p>Cortar conexiones no deseadas</p>
 
-<blockquote><p>$ df -h (los resultados en M y G, por defecto son en bytes)</p>
+<blockquote><h1>cutter 192.168.2.6 80 (especificando IP y puerto)</h1>
 
-<p>$ df -a (de todas las particiones incluso las de 0 bloques)</p>
-
-<p>$ df -t vfat (de las particiones especificadas, en el caso las vfat)</p>
-
-<p>$ df  -T (de todas las particiones y el tipo)</p></blockquote>
+<h1>cutter 192.168.2.6   (solo IP)</h1></blockquote>
 </div>
   
   
@@ -164,7 +203,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/devilspie/">Devilspie</a></h1>
+      <h1 class="entry-title"><a href="/blog/cut/">Cut</a></h1>
     
     
       <p class="meta">
@@ -180,44 +219,26 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Permite especificar el comportamiento de las ventanas para que determinadas aplicaciones se abran en un escritorio concreto. Ha de colocarse en las aplicaciones de inicio.</p>
+  <div class="entry-content"><p>Permite buscar y/o seleccionar columnas o campos dentro de un archivo estructurado. Entre campo y campo debe existir obligatoriamente un delimitador [dos puntos, un espacio en blanco u otro carácter].</p>
 
-<blockquote><p>$ mkdir .devilspie (Crear el directorio)</p></blockquote>
+<blockquote><p>$ cut -c1-4 archivo  (muestra los 4 primeros caracteres de cada linea)</p>
 
-<p>Crear por cada aplicación un archivo .ds en el directorio:</p>
+<p>$ cut -d: -f1 archivo  (Muestra el primer campo delimitado por “:”)</p>
 
-<blockquote><p>$ nano .devilspie/firefox.ds</p></blockquote>
+<p>$ cut -d” “ -f1,5 archivo  (Mostrar el primero y el quinto, separados por espacio)</p>
 
-<p>Con el siguiente contenido a modo de ejemplo:</p>
+<p>$ cut -d” “ -f 2- archivo (Mostrar todo menos la primera columna)</p>
 
-<pre><code>(if
+<p>$ cut -s -d&#8221;(&#8221; -f1 archivo (“-s” suprime las lineas que no contengan el delimitador [(]). De las que sí lo contengan, mostraría el 1er campo)</p>
 
-  (is (application_name) "firefox")
-
-  (set_workspace 3)
-
-)
-</code></pre>
-
-<p>Cada vez que arranquemos firefox, se abrirá en el escritorio número 3.</p>
-
-<p>Para saber el nombre de las aplicaciones que corren en cada escritorio:</p>
-
-<blockquote><p>$ nano .devilspie/debug.ds</p></blockquote>
-
-<p>Con el siguiente contenido:</p>
-
-<pre><code>(debug)
-</code></pre>
-
-<p>Cuando arranquemos devilspie por consola, nos las mostrará.</p>
+<p>$ echo $RANDOM | cut -c1,2 (Coger los 2 primeros números de un número aleatorio [$RANDOM])</p></blockquote>
 </div>
   
   
@@ -230,7 +251,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/descriptor/">Descriptor</a></h1>
+      <h1 class="entry-title"><a href="/blog/curlftpfs/">Curlftpfs</a></h1>
     
     
       <p class="meta">
@@ -246,24 +267,20 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Toda aplicación tiene siempre tres descriptores de fichero abiertos, el 0 para la entrada estándar [stdin], el 1 para la salida estándar [stdout], y el 2 para la salida de errores estándar [stderr]. Del 3 al 9 son descriptores adicionales [ver tuberias]. En el ejemplo:</p>
+  <div class="entry-content"><p>Montar directorios remotos en local.</p>
 
-<blockquote><p>$ ls -a >> listado.txt</p></blockquote>
+<blockquote><h1>curlftpfs usuario:contraseña@192.168.1.10 /media/servidor</h1></blockquote>
 
-<p>La salida estándart [descriptor 1] se envia al fichero listado.txt, consecuentemente en pantalla no veremos nada. En el caso:</p>
+<p>Para automatizar el proceso, añadir al /etc/fstab la linea:</p>
 
-<blockquote><p>$ ls -zy >> listado.txt</p></blockquote>
-
-<p>El error [descriptor 2] se mostrará por pantalla y listado.txt permanecerá vacio. Para redirigir el error [descriptor 2 ]al fichero listado.txt [descriptor 1]:</p>
-
-<blockquote><p>$ ls -zy >> listado.txt 2>&amp;1</p></blockquote>
+<p>curlftpfs#usuario:contraseña@192.168.1.10 /media/servidor fuse defaults 0 0</p>
 </div>
   
   
@@ -276,7 +293,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/denyhosts/">Denyhosts</a></h1>
+      <h1 class="entry-title"><a href="/blog/curl/">Curl</a></h1>
     
     
       <p class="meta">
@@ -292,32 +309,86 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Protege contra ataques.</p>
+  <div class="entry-content"><p>Herramienta para la transferencia de datos desde o hacia un servidor. Permite los protocolos ftp, https, sftp, scp, tftp &#8230;</p>
 
-<p>Configuración:</p>
+<blockquote><p>$ curl ftp://host (Sin ninguna opción obtiene la páquina principal del host [http, ftp&#8230;)</p>
 
-<blockquote><p># nano /etc/denyhosts.conf</p></blockquote>
+<p>$ curl ftp://host/ http://host/ (Descargar dos host simultaneos)</p>
 
-<p>Algunas opciones:</p>
+<p>$ curl -o destino http://host (Guarda el host en destino)</p>
 
-<p>SECURE_LOG = /var/log/auth.log (Ruta a los logs)</p>
+<p>$ curl -i URL (información sobre una URL)</p>
 
-<p>DENY_THRESHOLD_INVALID = 5 (Intentos fallidos permitidos con una cuenta que no existe)</p>
+<p>$ curl -o portada.png http://www.lapipaplena.net/wp-content/uploads/2012/08/meditate1.png (descargar una imagen y guardarla)</p>
 
-<p>DENY_THRESHOLD_VALID = 5 (Intentos falllidos con usuarios validos)</p>
+<p>$ curl -u usuario:contraseña http://localhost/restringido/ (Acceder a una zona que requiera autentificación)</p>
 
-<p>PURGE_DENY =5d (Tiempo de baneo de una IP. 5 dias en este caso)</p>
+<p>$ curl ftp://usuario:contraseña@host:puerto/home/usuario/archivo (Otra forma de autentificación)</p>
 
-<p>BLOCK_SERVICE = sshd (Servicios que queremos proteger [ sshd, ALL&#8230;)</p>
+<p>$ curl -T archivo_local ftp://host/carpeta (Subir un archivo local a un host remoto)</p>
 
-<p>Nota.- Tambien es posible arrancar el servicio con la opción &#8220;purge&#8221;  [/etc/init.d/denyhosts start &#8211;purge] para eliminar las ips bloqueadas y que se muestran en /etc/hosts.deny</p>
+<p>$ curl -T archivo_local -a ftp://host/ (Subir un archivo local a un host remoto con el parámetro -a)</p>
+
+<p>$ curl -x proxy:8889 ftp://host (Obtener un host utilizando un proxy)</p>
+
+<p>$ curl -u usuario:contraseña -x proxy:8888 http://host (Usando proxy y con autentificación)</p>
+
+<p>$ curl -U usuario:contraseña -x proxy:8888 http://host (Cuando el proxy requiere autentificación especial)</p>
+
+<p>$ curl -r 0-99 http://host (Obtener los primeros 100 bytes del documento)</p>
+
+<p>$ curl -r -500 http://host (Obtener los últimos 500 bytes del documento)</p>
+
+<p>$ curl &#8211;proxytunnel -x proxy:8888 -T archivo_local ftp ftp://host (Usando un tunel)</p>
+
+<p>$ curl -v ftp://host (Ver información que se envia y recibe pero no los datos reales)</p>
+
+<p>$ curl &#8211;trace trace.txt host (Obtener más información y guardar en trace.txt)</p>
+
+<p>$ curl &#8211;dump-header headers.txt host (Guardar las cabeceras [cookies] en headers.txt)</p>
+
+<p>$ curl -b headers.txt www.example.com (Pasar las cabeceras obtenidas a un host)</p>
+
+<p>$ curl -e www.bueno.com http://host/ (Intentar engañar un site con una dirección falsa)</p>
+
+<p>$ curl -A &#8216;Mozilla/3.0 (Win95; I)&#8217; http://host (Intentar engañar un site especificando otro navegador)</p>
+
+<p>$ curl &#8211;limit-rate 10K host (Limitar la velocidad de transferencia a 10 kilobytes)</p>
+
+<p>$ curl -P 192.168.0.10 ftp host (Acceder a un host a partir de una ip a la que si tenemos acceso)</p>
+
+<p>$ curl -C - -o descarga hots (Proseguir una descarga interrumpida)</p>
+
+<p>$ curl -z local.html hots/remote.html (Sólo se efectuará la descarga si remote.html es más reciente que local.html)</p></blockquote>
+
+<p>Otras opciones:</p>
+
+<p>$ curl -Is google.com | grep Date (Conocer la fecha via web)</p>
+
+<p>$ curl ip.appspot.com (Conocer la IP externa)</p>
+
+<p>$ curl icanhazip.com (lo mismo)</p>
+
+<p>$ curl ifconfig.me (lo mismo)</p>
+
+<p>$ curl whatismyip.org (Otra)</p>
+
+<p>$ curl -u usuario:clave &#8211;silent &#8220;https://mail.google.com/mail/feed/atom&#8221; | perl -ne &#8216;print &#8220;t&#8221; if /<name>/; print &#8220;$2n&#8221; if /&lt;(title|name)>(.*)</1>/;&#8217; (visualizar todos los mensajes no leidos de gmail)</p>
+
+<p>$ curl -s &#8216;http://geoiplookup.wikimedia.org/&#8217; | sed &#8216;s/<sup>.<em>=s</em>//&#8217;</sup> | python3 -mjson.tool (muestra la situación geográfica)</p>
+
+<p>$ curl -s http://geoiplookup.wikimedia.org/ | python3 -c &#8216;import sys, json, string, webbrowser; webbrowser.open(string.Template(&#8220;http://maps.google.com/maps?q=$lat,$lon&#8221;).substitute(json.loads(sys.stdin.read().split(&#8220;=&#8221;)[-1])))&#8217; (Lo mismo pero abriendo una pestaña en el navegador)</p>
+
+<p>$ curl -s http://www.census.gov/popclock/data/population/world | awk -F&#8217;[:,]&#8217; &#8216;{print $7}&#8217; (Muestra el número de habitantes de la tierra)</p>
+
+<p>$ curl -s https://help.github.com/articles/generating-ssh-keys | grep -Po  &#8211;color=never &#8220;RSA key fingerprint is (:?[A-z0-9]:?){32}&#8221; (Imprime la clave RSA de github.com)</p>
 </div>
   
   
@@ -330,7 +401,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/deluser/">Deluser</a></h1>
+      <h1 class="entry-title"><a href="/blog/cups/">Cups</a></h1>
     
     
       <p class="meta">
@@ -346,16 +417,66 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Elimina un usuario del sistema sin borrar su directorio.</p>
+  <div class="entry-content"><p>Gestión de impresoras.</p>
 
-<blockquote><p># deluser usuario</p></blockquote>
+<p>1.-</p>
+
+<p>Montar una impresora en red:</p>
+
+<p>En la máquina servidor (la que tiene conectada la impresora)</p>
+
+<h1>nano /etc/cups/cupsd.conf</h1>
+
+<p>Comentar la linea “Listen localhost:631” y añadir la ip de la máquina: “Listen 192.168.2.3:631” y en el siguiente apartado añadir los parámetros de la red:</p>
+
+<blockquote><h1>Restrict access to the server…</h1></blockquote>
+
+<p><Location /></p>
+
+<p>Order allow,deny</p>
+
+<p>Allow localhost</p>
+
+<p>Allow @LOCAL</p>
+
+<blockquote><h1>permisos a la red local</h1></blockquote>
+
+<p>Allow from 192.168.2.0/24</p>
+
+<p></Location></p>
+
+<p>Para activar la compartición de impresoras:</p>
+
+<p>Browsing on</p>
+
+<h1>/etc/init.d/cupsd restart (reiniciar cups)</h1>
+
+<p>Abrir el navegador y escribir http://localhost:631 después del logeo ir a la pestaña printers y seleccionar la impresora, con lo que nos quedará en la barra de navegación algo parecido a:</p>
+
+<p>http://localhost:631/printers/PSC-1100</p>
+
+<p>Que sustituyendo “localhost” por la dirección ip de la máquina nos dará la dirección de la impresora:</p>
+
+<p>http://192.168.2.3:631/printers/PSC-1100</p>
+
+<p>En las máquinas cliente</p>
+
+<h1>nano /etc/cups/cupsd.conf</h1>
+
+<p>Browsing on</p>
+
+<p>BrowseAllow 192.168.2.0/24</p>
+
+<h1>/etc/init.d/cupsys restart</h1>
+
+<p>Y configurar la impresora de la forma habitual ya sea en Sistema -> administración -> impresoras pestaña Configuración -> URI del dispositivo y poner la dirección de la impresora o via http://localhost:631</p>
 </div>
   
   
@@ -368,7 +489,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/delgroup/">Delgroup</a></h1>
+      <h1 class="entry-title"><a href="/blog/csscapture/">Csscapture</a></h1>
     
     
       <p class="meta">
@@ -384,16 +505,16 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Elimina un grupo del sistema</p>
+  <div class="entry-content"><p>Capturar el css de una web.</p>
 
-<blockquote><p># delgroup grupo</p></blockquote>
+<blockquote><p>$ csscapture -s web http://www.tuxapuntes.com (guarda en la carpeta “web”)</p></blockquote>
 </div>
   
   
@@ -406,7 +527,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/declare/">Declare</a></h1>
+      <h1 class="entry-title"><a href="/blog/cruft/">Cruft</a></h1>
     
     
       <p class="meta">
@@ -422,24 +543,20 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Listar las variables de entorno. En caso de que una función tenga el mismo nombre que un script tiene preferencia la función. Usado principalmente en scripts.</p>
+  <div class="entry-content"><p>Lista ficheros que presumiblemente sobran, faltan o están de alguna forma incorrectos, tomando principalmente la información de la base de datos de dpkg</p>
 
-<blockquote><p>$ declare -f (Imprime las funciones alfabeticamente y su definición)</p>
+<blockquote><h1>cruft -d /var/www</h1>
 
-<p>$ declare -f funcion (Mostrará la especificada)</p>
+<h1>cruft -r (Mostrar el informe)</h1>
 
-<p>$ declare -F (Lista sólo los nombres de la funciones)</p>
-
-<p>$ declare -p var (Saber el tipo de la variable &#8220;var&#8221;)</p>
-
-<p>$ declare -i var=5 (Declarar una variable de tipo entero)</p></blockquote>
+<h1>cruft &#8211;ignore /home/usuario (Descartando un directorio)</h1></blockquote>
 </div>
   
   
@@ -452,7 +569,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/debugfs/">Debugfs</a></h1>
+      <h1 class="entry-title"><a href="/blog/crontab/">Crontab</a></h1>
     
     
       <p class="meta">
@@ -468,24 +585,80 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Depurador de sistemas ext. Permite consultar datos del sistema en tiempo real.</p>
+  <div class="entry-content"><p>configurar tareas para que se ejecuten automáticamente en el sistema</p>
 
-<blockquote><p># debugfs (Entra en el promt de la aplicación. Pulsar letra &#8220;q&#8221; para salir del promt)</p></blockquote>
+<blockquote><h1>crontab -e      (editar el archivo crontab, si no existe se crea)</h1>
 
-<p>debugfs 1.42 (29-Nov-2011)</p>
+<p>$ crontab -e      (idem para el usuario no root)</p>
 
-<p>debugfs: help (Muestra un listado de todas las opciones)</p>
+<h1>crontab -l       (Muestra el contenido para root)</h1>
 
-<p>debugfs: open /dev/sda2 (Abre un sistema de archivos)</p>
+<h1>crontab -l -u usuario  (muestra el de usuario)</h1>
 
-<p>debugfs: stats (información de los superbloques)</p>
+<p>$ crontab -l       (idem para el usuario no root)</p>
+
+<h1>crontab -r       (Borra el contenido de crontab)</h1></blockquote>
+
+<p>Crontab consta de 6 campos separados por un espacio que indican:</p>
+
+<p>minuto (0-59), hora (0-23), dia del mes (1-31), mes (1-12), dia de la semana (0-6, domingo=0), y comando a ejecutar. Un asterisco * como valor en los primeros cinco campos, indicará todos (todos los minutos, todas las horas &#8230;)</p>
+
+<p>01 * * * *       (Se ejecuta el primer minuto de cada hora todos los dias)</p>
+
+<p>20 9 * * *       (a las 9:20 de la mañana todos los dias)</p>
+
+<p>20 21 * * *     (a las 9:20 (21:20) de la tarde todos los dias)</p>
+
+<p>01 6 * * 1      (a las 6:01 de todos los lunes)</p>
+
+<ul>
+<li><ul>
+<li>1 1 *         (todos los minutos de todas las horas del 1 de enero)</li>
+</ul>
+</li>
+</ul>
+
+
+<p>00 12 * * 0     (a las doce en punto de todos los domingos)</p>
+
+<p>@reboot (Cada reinicio)</p>
+
+<p>También es posible especificar listas en los campos:</p>
+
+<p>01 15 * 1-4 1,2,3,4   (a las 3:01 de la tarde de lunes a viernes de enero a abril)</p>
+
+<p>*/15 * 1-15 *     (cada 15 minutos  entre el 1 y el 15 de todos los meses)</p>
+
+<p>*/5 * * * * cp /etc/resolv.conf.bak /etc/resolv.conf  (Ejecutar cada 5 minutos el comando especificado.)</p>
+
+<p>$ 0 8 * * * env DISPLAY=:0.0 vlc /home/usuario/musica/archivo.mp3 (Programar que cada dia a las 8 se abra un mp3 con el vlc)</p>
+
+<p>El archivo donde se guardan las tareas a realizar es:</p>
+
+<blockquote><p>$ nano /var/spool/cron/usuario</p></blockquote>
+
+<p>También pueden añadirse o modificarse en este archivo.</p>
+
+<p>1.-</p>
+
+<p>En ocasiones, y especialmente con Archlinux, crontab cambia la codificación de caracteres de los scripts. Ejecutados directamente funcionan correctamente pero al colocarlos en el cron se muestran con caracteres estraños. La causa son las variables de entorno asociadas a la máquina y al demonio del cron. Para solucionar el problema:</p>
+
+<blockquote><h1>nano /etc/environment</h1></blockquote>
+
+<p>Y añadir la linea:</p>
+
+<p>LANG=es_ES.UTF-8</p>
+
+<p>Reiniciar cron:</p>
+
+<blockquote><h1>/etc/rc.d/crond restart</h1></blockquote>
 </div>
   
   
@@ -498,7 +671,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/debsums/">Debsums</a></h1>
+      <h1 class="entry-title"><a href="/blog/cpulimit/">Cpulimit</a></h1>
     
     
       <p class="meta">
@@ -514,22 +687,18 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Verificar la integridad de los ficheros.</p>
+  <div class="entry-content"><p>Limitar el uso de la cpu para determinados procesos.</p>
 
-<blockquote><p># debsums -s &amp;> log.txt  (Modo silencioso [-s] y redirigiendo el resultado a un archivo para posterior análisis)</p>
+<blockquote><h1>cpulimit -e yes -l 20 (el de “yes”a un 20% de la cpu. Valor entre 0 y 100)</h1>
 
-<p># cat log.txt | grep &#8220;mismatch&#8221; | cut -d &#8221; &#8221; -f4 | uniq > reinstall.txt (A partir del archivo anterior, listar los que se han de reinstalar)</p>
-
-<p># debsums -s | grep &#8220;mismatch&#8221; | cut -d &#8221; &#8221; -f4 | uniq > reinstall.txt (Lo mismo)</p>
-
-<p># apt-get install &#8211;reinstall <code>(cat reinstall.txt)</code>  (para instalarlos a partir del listado)</p></blockquote>
+<h1>cpulimit -p PID -l 50 (el proceso con el numero PID al 50%)</h1></blockquote>
 </div>
   
   
@@ -560,43 +729,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/grub2/">grub2</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/printf/">printf</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdftotext/">pdftotext</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/avconv/">avconv</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ipmitool/">ipmitool</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tmux/">tmux</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/rkhunter/">rkhunter</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssconvert/">ssconvert</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/while/">while</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

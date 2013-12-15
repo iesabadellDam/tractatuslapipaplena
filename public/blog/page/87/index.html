@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Fichero que gestiona el inicio del sistema o un cambio de estado (runlevel) con el comando init (ver). # nano /etc/inittab Especificación de si el &hellip;">
+  <meta name="description" content="consultar y modificar diferentes parámetros de los discos duros. hdparm /dev/sda (Informa del estado [activado o no] de las opciones de hdparm) &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/inittab/">Inittab</a></h1>
+      <h1 class="entry-title"><a href="/blog/hdparm/">Hdparm</a></h1>
     
     
       <p class="meta">
@@ -97,73 +97,36 @@
   
 
 
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Fichero que gestiona el inicio del sistema o un cambio de estado (runlevel) con el comando init (ver).</p>
+  <div class="entry-content"><p>consultar y modificar diferentes parámetros de los discos duros.</p>
 
-<blockquote><p># nano /etc/inittab</p></blockquote>
+<blockquote><h1>hdparm /dev/sda (Informa del estado [activado o no] de las opciones de hdparm)</h1>
 
-<p>Especificación de si el sistema arranca en modo monousuario (1) o multiusuario (2-5). Por defecto 2 o 3:</p>
+<h1>hdparm -tT /dev/sda (Comprobar velocidad de lectura)</h1>
 
-<pre><code>id:2:initdefault:
-</code></pre>
+<h1>hdparm -i /dev/sda (Informa de las características del disco duro)</h1>
 
-<p>Scripts que se ejecutarán en el inicio y en el orden que lo harán independientemente del runlevel:</p>
-
-<pre><code>si::sysinit:/etc/init.d/rcS (En algunas distros si::sysinit:/etc/rc.d/rc.sysinit)
-</code></pre>
-
-<p>Este script llama a los scripts del directorio /etc/rcS.d. Por cada runlevel se ejecutan los scripts del directorio correpondiente: rc0.d/, rc1.d/, rc2.d/, rc3.d/, rc4.d/, rc5.d/, rc6.d/, rc.local y rcS.d/. El directorio /etc/rc.local se usa para ejecutar servicios porpios del usuario. En estos directorios los scripts que empiezan por una &#8220;K&#8221; paran servicios y los que empiezan por una &#8220;S&#8221; los arrancan.</p>
-
-<p>Qué hacer si se presiona CTRL-ALT-DEL:</p>
-
-<pre><code>ca:12345:ctrlaltdel:/sbin/shutdown -t1 -a -r now
-</code></pre>
-
-<p>Qué hacer si la corriente se va/vuelve</p>
-
-<pre><code>pf::powerwait:/etc/init.d/powerfail start
-
-pn::powerfailnow:/etc/init.d/powerfail now
-
-po::powerokwait:/etc/init.d/powerfail stop
-</code></pre>
-
-<p>Despues de ejecutar los scripts de inicio, init crea un conjunto de terminales virtuales:</p>
-
-<pre><code>1:2345:respawn:/sbin/getty 38400 tty1
-
-2:23:respawn:/sbin/getty 38400 tty2
-
-3:23:respawn:/sbin/getty 38400 tty3
-
-4:23:respawn:/sbin/getty 38400 tty4
-
-5:23:respawn:/sbin/getty 38400 tty5
-
-6:23:respawn:/sbin/getty 38400 tty6
-</code></pre>
-
-<p>Utilizando la opción respawn, si alguien trata de finalizar uno de estos procesos, el proceso simplemente será regenerado (respawned).</p>
+<h1>hdparm -I /dev/sda (Mostrar información más extendida)</h1></blockquote>
 
 <p>1.-</p>
 
-<p>Entrar de forma automática:</p>
+<p>Desactivación del APM (Gestión avanzada de energia) de los portatiles ya que esta tecnologia alarga la duración de la batería en detrimento de la vida útil del disco duro.</p>
 
-<p>Comentar la siguiente línea</p>
+<blockquote><h1>hdparm -I /dev/sda</h1></blockquote>
 
-<blockquote><p>#1:2345:respawn:/sbin/getty 38400 tty1</p></blockquote>
+<p>El parámetro que indica si tenemos APM y la frecuencia de ciclo de carga-descarga es:</p>
 
-<p>Y Agrega la siguiente linea:</p>
+<p>Advanced power management level: 128</p>
 
-<p>1:2345:respawn:/bin/login -f USUARIO tty1 </dev/tty1 >/dev/tty1 2>&amp;1</p>
+<blockquote><h1>smartctl -a /dev/sda | egrep &#8216;ID|Load_Cycle&#8217;(El parámetro RAW_VALUE indica la  cantidad de ciclos que el HD ha consumido. La cantidad de ciclos oscila entre 300000 y 600000 por HD)</h1>
 
-<p>Siendo USUARIO el nombre de usuario que hará login automático.</p>
+<h1>hdparm -B 254 /dev/sda (Disminuir la frecuencia de los ciclos a mínimo. El valor máximo sería 1 y desactivado 255)</h1></blockquote>
 </div>
   
   
@@ -176,7 +139,7 @@ po::powerokwait:/etc/init.d/powerfail stop
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/initramfs/">Initramfs</a></h1>
+      <h1 class="entry-title"><a href="/blog/hddtemp/">Hddtemp</a></h1>
     
     
       <p class="meta">
@@ -192,24 +155,16 @@ po::powerokwait:/etc/init.d/powerfail stop
   
 
 
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Problemas durante el arranque. Consiste en un fallo de lectura de los controladores ide de discos duros por parte del kernel del sistema operativo que no logra reconocer dichos drivers. Arrancar con un livecd o pulsando “e” para editar la opción cuando salga el menu en grub:</p>
+  <div class="entry-content"><p>Indica la temperatura del disco especificado</p>
 
-<blockquote><p># gedit /boot/grub/menu.lst</p></blockquote>
-
-<p>Y al final de la linea del kernel poner: rootdelay=90</p>
-
-<p>Otras soluciones propuestas (sustituir el rootdelay=90 por):</p>
-
-<p>pci=nomsi</p>
-
-<p>all_generix_ide</p>
+<blockquote><p>$ hddtemp /dev/sda</p></blockquote>
 </div>
   
   
@@ -222,7 +177,7 @@ po::powerokwait:/etc/init.d/powerfail stop
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/init/">Init</a></h1>
+      <h1 class="entry-title"><a href="/blog/hcitool/">Hcitool</a></h1>
     
     
       <p class="meta">
@@ -238,20 +193,18 @@ po::powerokwait:/etc/init.d/powerfail stop
   
 
 
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Para o reinicia el sistema</p>
+  <div class="entry-content"><p>Configuración de disposivos bluetooth</p>
 
-<blockquote><p>$ init 0    (para)</p>
+<blockquote><p>$ hcitool scan (Busca dispositivos activos)</p>
 
-<p>$ init 1    (reinicia en modo  uniusuario)</p>
-
-<p>$ init 6    (reinicia)</p></blockquote>
+<p>$ hcitool info   (Muestra información de los dispositivos encontrados)</p></blockquote>
 </div>
   
   
@@ -264,7 +217,7 @@ po::powerokwait:/etc/init.d/powerfail stop
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/info/">Info</a></h1>
+      <h1 class="entry-title"><a href="/blog/hciconfig/">Hciconfig</a></h1>
     
     
       <p class="meta">
@@ -280,18 +233,28 @@ po::powerokwait:/etc/init.d/powerfail stop
   
 
 
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Páginas de manual para la mayoria de programas del proyecto GNU con una estructura jerarquizada. Ligeramente más complejo que las clásicas páginas man  [ver]</p>
+  <div class="entry-content"><p>Configuración de dispositivos bluetooth.</p>
 
-<blockquote><p>$ info (MUestra la lista de los nodos disponibles en el primer nivel)</p>
+<blockquote><h1>hciconfig -a (Para saber cual es el dispositivo)</h1>
 
-<p>$ info ifconfig</p></blockquote>
+<h1>hciconfig hci0 up (Levantar el dispositivo)</h1>
+
+<h1>hciconfig hci0 down (Parar el dispositivo)</h1>
+
+<h1>hciconfig hci0 revision (Información completa del dispositivo)</h1>
+
+<h1>hciconfig hci0 piscan  (activar visivilidad de la exploración)</h1>
+
+<h1>hciconfig hci0 noscan   (Desactivarla)</h1>
+
+<h1>hciconfig -h (Listado completo de comandos disponibles)</h1></blockquote>
 </div>
   
   
@@ -304,7 +267,7 @@ po::powerokwait:/etc/init.d/powerfail stop
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/imsniff/">Imsniff</a></h1>
+      <h1 class="entry-title"><a href="/blog/hashtag/">Hashtag</a></h1>
     
     
       <p class="meta">
@@ -320,50 +283,20 @@ po::powerokwait:/etc/init.d/powerfail stop
   
 
 
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Capturar paquetes relacionados con el protocolo MSN . Su uso pasa por el envenenamiento arp, situando nuestra máquina entre la victima y el router lanzando en varias terminales y sin cerrarlas:</p>
+  <div class="entry-content"><p>Analiza e identifica varios hashes de contraseñas en función de su tipo. Descarga de <a href="https://github.com/SmeegeSec/HashTag">https://github.com/SmeegeSec/HashTag</a></p>
 
-<blockquote><p># arpspoof -i eth0 -t 192.168.1.15 192.168.1.1</p>
+<blockquote><h1>hashtag -sh $1$MtCReiOj$zvOdxVzPtrQ.PXNW3hTHI0 (Analizar uno sólo)</h1>
 
-<p># arpspoof -i eth0 -t 192.168.1.1 192.168.1.15</p></blockquote>
+<h1>hashtag -f archivo (Analizar todos los hash contenidos en un archivo)</h1>
 
-<p>Activar forwarding para que los paquetes vayan a su verdadero dueño:</p>
-
-<blockquote><p># echo 1 > /proc/sys/net/ipv4/ip_forward</p></blockquote>
-
-<p>Crear una carpeta donde guardar los datos:</p>
-
-<blockquote><p>$ mkdir snifadas</p></blockquote>
-
-<p>Modificar el archivo de configuración a partir de la  propia documentación ::</p>
-
-<blockquote><p># cp /usr/share/doc/imsniff/examples/imsniff.conf.sample /etc/imsniff.conf</p>
-
-<p># nano /etc/imsniff.conf</p></blockquote>
-
-<p>daemonize = 0</p>
-
-<p>promisc = 0</p>
-
-<p>verbose = 2</p>
-
-<p>chatdir = /home/USER/snifadas/chats</p>
-
-<p>debugdir = /home/USER/snifadas/debug</p>
-
-<p>interface eth0</p>
-
-<p>Los directorios &#8220;chats&#8221; y &#8220;debug&#8221; los crea la misma aplicación.</p>
-
-<p>Lanzar el sniffer de conversaciones msn:</p>
-
-<blockquote><p># imsniff</p></blockquote>
+<h1>hashtag -d dir -o archivo (recorrer un directorio y todos los subdirectorios intentando identificar todos los hash potenciales y mandando el resultado a un archivo. Si no se especifica, la salida es HashTag_Output_File.txt)</h1></blockquote>
 </div>
   
   
@@ -376,7 +309,7 @@ po::powerokwait:/etc/init.d/powerfail stop
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/impressive/">Impressive</a></h1>
+      <h1 class="entry-title"><a href="/blog/hash-identifier/">Hash-identifier</a></h1>
     
     
       <p class="meta">
@@ -392,32 +325,46 @@ po::powerokwait:/etc/init.d/powerfail stop
   
 
 
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Visualizar documentos PDF e imágenes (jpg, tiff, png&#8230;)</p>
+  <div class="entry-content"><p>Identifica la encriptación de un hash. Descarga: <a href="https://code.google.com/p/hash-identifier/">https://code.google.com/p/hash-identifier/</a></p>
 
-<blockquote><p>$ impressive documento.pdf</p>
+<blockquote><p>$ python Hash_ID_v1.1.py</p></blockquote>
 
-<p>$ impressive -l    (lista efectos disponibles)</p>
+<p>Cuando sale el promt pastear el hash:</p>
 
-<p>$ impressive -t SqueezeLeft documento.pdf</p></blockquote>
+<p>HASH: caf90169eefa5f807d577486b9f795ab86ae2983c5c20806cff959117e90af18</p>
 
-<p>Algunas opciones:</p>
+<p>Possible Hashs:</p>
 
-<p>AvPág          Va a la página siguientes</p>
+<p>[+]  SHA-256</p>
 
-<p>RePág          Va a la página anterior</p>
+<p>[+]  Haval-256</p>
 
-<p>z                  zoom donde esté el cursor</p>
+<p>Least Possible Hashs:</p>
 
-<p>f                   Activa/Desactiva la pantalla completa</p>
+<p>[+]  GOST R 34.11-94</p>
 
-<p>q                  Salir de la aplicación</p>
+<p>[+]  RipeMD-256</p>
+
+<p>[+]  SNEFRU-256</p>
+
+<p>[+]  SHA-256(HMAC)</p>
+
+<p>[+]  Haval-256(HMAC)</p>
+
+<p>[+]  RipeMD-256(HMAC)</p>
+
+<p>[+]  SNEFRU-256(HMAC)</p>
+
+<p>[+]  SHA-256(md5($pass))</p>
+
+<p>[+]  SHA-256(sha1($pass))</p>
 </div>
   
   
@@ -430,7 +377,7 @@ po::powerokwait:/etc/init.d/powerfail stop
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/import/">Import</a></h1>
+      <h1 class="entry-title"><a href="/blog/hasciicam/">Hasciicam</a></h1>
     
     
       <p class="meta">
@@ -446,26 +393,24 @@ po::powerokwait:/etc/init.d/powerfail stop
   
 
 
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Capturar la pantalla en cualquier formato</p>
+  <div class="entry-content"><p>Visualizar la webcam via ascii.</p>
 
-<blockquote><p>$ import -window root captura.png (captura de pantalla completa)</p>
+<blockquote><p>$ hasciicam -m html -c 50 -o (En modo html, contraste 50 [de 0 a 100. Por defecto 4] y guardar el archivo)</p></blockquote>
 
-<p>$ import -window <code>xwininfo | awk '/Window id/{print $4; exit}'</code> <code>uuidgen</code>.png (Lo mismo. El puntero se convierte en una cruz y captura el esritorio donde se clica)</p>
+<p>Otras opciones:</p>
 
-<p>$ import captura.png (captura de un área concreta))</p>
+<p>-i /dev/xxxx (Especificando dispositivo.Por defecto /dev/video)</p>
 
-<p>$ import 2 captura.png (realizar 2 capturas)</p>
+<p>-o archivo (Guardar imagen en archivo. Se reescribe según el parámetro -r. Si no se especifica salida, por defecto es hasciicam.html [para html] y hasciicam.txt [para txt])</p>
 
-<p>$ import -pause 5 captura.png (Para retardar la captura 5 segundos)</p>
-
-<p>$ import -geometry 250×250! captura.png (indicando un tamaño respetando las proporciones)</p></blockquote>
+<p>-r 1 (Refrescar imagen cada 1 segundo. Por defecto 2. No afecta al modo live)</p>
 </div>
   
   
@@ -478,7 +423,7 @@ po::powerokwait:/etc/init.d/powerfail stop
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/img2txt/">Img2txt</a></h1>
+      <h1 class="entry-title"><a href="/blog/hal-device/">Hal-device</a></h1>
     
     
       <p class="meta">
@@ -494,18 +439,20 @@ po::powerokwait:/etc/init.d/powerfail stop
   
 
 
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Pasar una imagen a ascii</p>
+  <div class="entry-content"><p>Crea, suprime y muestra dispositivos</p>
 
-<blockquote><p>$ img2txt -f svg imagen.jpg > imagen.svg</p>
+<blockquote><p>$ hal-device -a dispositivo  (añadir)</p>
 
-<p>$ img2txt -f html imagen.jpg > imagen.html (código html de la imagen)</p></blockquote>
+<p>$ hal-device -r dispositivo   (borrar)</p>
+
+<p>$ hal-device | grep volume.label  (mostrar etiquetas de todos los volumenes)</p></blockquote>
 </div>
   
   
@@ -518,7 +465,7 @@ po::powerokwait:/etc/init.d/powerfail stop
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ifup/">Ifup</a></h1>
+      <h1 class="entry-title"><a href="/blog/hachoir-metadata/">Hachoir-metadata</a></h1>
     
     
       <p class="meta">
@@ -534,16 +481,14 @@ po::powerokwait:/etc/init.d/powerfail stop
   
 
 
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Habilita la interfase especificada:</p>
-
-<blockquote><p>$ ifup eth0</p></blockquote>
+  <div class="entry-content"><p>Ver entrada python-hachoir-metadata</p>
 </div>
   
   
@@ -556,7 +501,7 @@ po::powerokwait:/etc/init.d/powerfail stop
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/iftop/">Iftop</a></h1>
+      <h1 class="entry-title"><a href="/blog/gzip/">Gzip</a></h1>
     
     
       <p class="meta">
@@ -572,16 +517,22 @@ po::powerokwait:/etc/init.d/powerfail stop
   
 
 
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra el ancho de banda que está usando una red.</p>
+  <div class="entry-content"><p>Comprime un fichero (ni empaqueta ni comprime directorios)</p>
 
-<blockquote><p># iftop -nP -i eth0 (sin resolver las IPs[n], mostrando puerto[P] y especificando red)</p></blockquote>
+<blockquote><p>$ gzip -r fichero (Comprimir)</p>
+
+<p>$ gzip -9 archivo (Con compresión máxima)</p>
+
+<p>$ gzip -d fichero.gz (Descomprimir)</p>
+
+<p>$ gzip -c fichero.gz (Ver contenido)</p></blockquote>
 </div>
   
   
@@ -612,43 +563,43 @@ po::powerokwait:/etc/init.d/powerfail stop
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/grub2/">grub2</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/printf/">printf</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdftotext/">pdftotext</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/avconv/">avconv</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ipmitool/">ipmitool</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tmux/">tmux</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/rkhunter/">rkhunter</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssconvert/">ssconvert</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/while/">while</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

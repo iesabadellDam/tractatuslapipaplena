@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Convierte formatos .PBM o .TIFF a DJVU $ cjb2 -dpi 500 entrada.pbm salida.djvu (especificando resolución [parámetros entre 25 y 1200. Por defecto 300 &hellip;">
+  <meta name="description" content="[debian-goodies] Muestra procesos activos que están utilizando una versión anterior de algún fichero que haya sido actualizado. $ checkrestart -v &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/cjb2/">Cjb2</a></h1>
+      <h1 class="entry-title"><a href="/blog/checkrestart/">Checkrestart</a></h1>
     
     
       <p class="meta">
@@ -97,16 +97,22 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:40:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Convierte formatos .PBM o .TIFF a DJVU</p>
+  <div class="entry-content"><p>[debian-goodies]</p>
 
-<blockquote><p>$ cjb2 -dpi 500 entrada.pbm salida.djvu (especificando resolución [parámetros entre 25 y 1200. Por defecto 300])</p></blockquote>
+<p>Muestra procesos activos que están utilizando una versión anterior de algún fichero que haya sido actualizado.</p>
+
+<p>$ checkrestart -v</p>
+
+<p>Found 0 processes using old versions of upgraded files</p>
+
+<p>Nota.- Aunque la salida muestre gran cantidad de paquetes [por ejemplo por tener una &#8220;testing&#8221; o por una actualización del navegador mientras este está activo] no es preciso reiniciar el sistema o la aplicación.</p>
 </div>
   
   
@@ -119,7 +125,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/chvt/">Chvt</a></h1>
+      <h1 class="entry-title"><a href="/blog/check-language-support/">Check-language-support</a></h1>
     
     
       <p class="meta">
@@ -135,20 +141,18 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:40:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Cambiar de consola virtual.Si, estando en la /dev/tty1, se teclea:</p>
+  <div class="entry-content"><p>Listado de paquetes de idiomas instalados en el sistema.</p>
 
-<blockquote><p>$ chvt 3  (Se irá a la /dev/tty3. Lo mismo que con Ctrl+Alt+F3)</p>
+<blockquote><p>$ check-language-support -l es</p>
 
-<p>$ chvt 1; sleep 10; chvt 7 (Ir a la tty1 durante 10 segundos y volver a las X)</p></blockquote>
-
-<p>Nota.- Si se está en una terminal en las X con el mismo comando se irá a la misma terminal /dev/tty3.</p>
+<p>$ check-language-support -a (todos)</p></blockquote>
 </div>
   
   
@@ -161,7 +165,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/chsh/">Chsh</a></h1>
+      <h1 class="entry-title"><a href="/blog/check-bios-nx/">Check-bios-nx</a></h1>
     
     
       <p class="meta">
@@ -177,18 +181,18 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:40:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Permite cambiar la shell del usuario especificado.</p>
+  <div class="entry-content"><p>Determinar si la BIOS ha bloqueado las capacidades NX de la CPU.</p>
 
-<blockquote><p>$ chsh -l (Mostrar las shells disponibles en el sistema)</p>
+<blockquote><p>$ check-bios-nx –verbose</p></blockquote>
 
-<p>$ chsh -s /bin/tcsh usuario</p></blockquote>
+<p>ok: the NX bit is operational on this CPU.</p>
 </div>
   
   
@@ -201,7 +205,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/chroot/">Chroot</a></h1>
+      <h1 class="entry-title"><a href="/blog/chattr/">Chattr</a></h1>
     
     
       <p class="meta">
@@ -217,32 +221,22 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:40:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Situarte virtualmente donde le indicas como raiz</p>
+  <div class="entry-content"><p>Cambia los atributos de ficheros (bloquea el fichero).</p>
 
-<blockquote><p># chroot /media/sda3</p></blockquote>
+<blockquote><h1>chattr +i /etc/resolv.conf (impedirá modificaciones por  procesos o por root)</h1>
 
-<p>Nota.- En algunas ocaciones es necesario montar algunos sitemas de ficheros en la particion &#8220;chrootada&#8221;. Debes hacer estos pasos antes de hacer chroot:</p>
+<h1>chattr -i /etc/resolv.conf    (lo desbloquea)</h1>
 
-<blockquote><p># mount -o bind /dev/ /media/sda3/dev/</p>
+<h1>chattr -V -R +i /home/usuario/directorio (bloqueo recursivo y mostrando toda la información)</h1>
 
-<p># mount -o bind /sys/ /media/sda3/sys/</p>
-
-<p># mount -o bind /proc/ /media/sda3/proc/</p></blockquote>
-
-<p>Si no se establece conexión:</p>
-
-<blockquote><p># nano /etc/resolv.conf</p></blockquote>
-
-<p>Y colocar:   nameserver 8.8.8.8</p>
-
-<p>O en su defecto la ip del router [nameserver 192.168.1.1]</p>
+<h1>chattr +a  archivo (desactiva el acceso al fichero excepto para añadir datos)</h1></blockquote>
 </div>
   
   
@@ -255,7 +249,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/chromium/">Chromium</a></h1>
+      <h1 class="entry-title"><a href="/blog/chardet/">Chardet</a></h1>
     
     
       <p class="meta">
@@ -271,22 +265,16 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:40:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Navegador web. El perfil por defecto está en /home/usuario/.config/chromium, para crear nuevos perfiles [El inicio del parámetro son 2 guiones]:</p>
+  <div class="entry-content"><p>Detector de codificación.</p>
 
-<blockquote><p>$ mkdir /home/usuario/.config/chromium-dos</p>
-
-<p>$ chromium &#8211;user-data-dir=/home/usuario/.config/chromium-dos</p>
-
-<p>$ chromium &#8211;proxy-server=&#8221;socks://localhost:9050&#8221; (Arrancar la aplicación a través de un proxy)</p>
-
-<p>$ chromium &#8211;incognito (Arrancar en modo privado. Para incluir por defecto este modo en las propiedades del navegador: chromium &#8211;incognito %U)</p></blockquote>
+<blockquote><p>$ chardet archivo</p></blockquote>
 </div>
   
   
@@ -299,7 +287,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/chpasswd/">Chpasswd</a></h1>
+      <h1 class="entry-title"><a href="/blog/chage/">Chage</a></h1>
     
     
       <p class="meta">
@@ -315,22 +303,34 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:40:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Establecer contraseñas para usuarios de un sistema</p>
+  <div class="entry-content"><p>Establece/visualiza el número de días para cambio de contraseña</p>
 
-<blockquote><p># echo &#8220;usuario:1234&#8221; | chpasswd -m (Que la guarde en /etc/shadow en formato md5)</p>
+<blockquote><p>$ chage -l usuario   (muestras datos sobre la contraseña)</p>
 
-<p># chpasswd   (Esperará la introducción de datos que consistiran en pares de nombre_de_usuario:contraseña, un par por línea. Con ctrl+D finaliza:</p></blockquote>
+<p>$ chage -M max_días -W aviso usuario</p>
 
-<p>usuario1:passwd1</p>
+<p>$ chage -d 0 usuario (en la siguiente entrada al sistema pedirá al usuario cambiar la contraseña)</p></blockquote>
 
-<p>usuario2:passwd2</p>
+<p>-l: lista los parámetros actuales de la cuenta del usuario.</p>
+
+<p>-m días: mínimo de días a transcurrir para que pueda cambiar la contraseña</p>
+
+<p>-M días: máximo de días a partir del último cambio de cambio de la contraseña</p>
+
+<p>-W: Días de antelación que se ha de avisar de que su contraseña va a caducar.</p>
+
+<p>-I: Días que transcurren desde que caduca la contraseña del usuario hasta que la cuenta queda bloqueada. Si el valor es 0, la cuenta no está bloqueada después de que caduque la contraseña</p>
+
+<p>-d días: Número de días desde Enero 1 de 1970 que la contraseña fué cambiada.</p>
+
+<p>-E días: especifica fecha del bloqueo de la cuenta (formato YYYY-MM-DD)</p>
 </div>
   
   
@@ -343,7 +343,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/chntpw/">Chntpw</a></h1>
+      <h1 class="entry-title"><a href="/blog/cftp/">Cftp</a></h1>
     
     
       <p class="meta">
@@ -359,22 +359,20 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:40:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Quitar o modificar contraseñas en sistemas windows.</p>
+  <div class="entry-content"><p>Conexión remota por ftp.</p>
 
-<blockquote><p># cd /media/sdXX/WINDOWS/system32/config  (Entrar en el directorio)</p>
+<blockquote><p>$ cftp usuario@host (Despues de solicitar contraseña, entra en el prompt)</p></blockquote>
 
-<p># chntpw SAM (quitar o modificar la contraseña del administrador)</p>
+<p>cftp> ? (Muestra los comandos disponibles.)</p>
 
-<p># chntpw -u USUARIO SAM  (quitar o modificar la contraseña de un usuario concreto)</p></blockquote>
-
-<p>Aparece un menú de 5 opciones. Borrar contraseña es la opción 1 modificarla la 2.</p>
+<p>Pulsando “exit” salimos del prompt</p>
 </div>
   
   
@@ -387,7 +385,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/chkrootkit/">Chkrootkit</a></h1>
+      <h1 class="entry-title"><a href="/blog/cdrecord/">Cdrecord</a></h1>
     
     
       <p class="meta">
@@ -403,24 +401,36 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:40:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Buscador de rootkits infiltrados en el sistema</p>
+  <div class="entry-content"><p>Grabación de cds</p>
 
-<blockquote><p># chkrootkit  (lanzar la aplicación)</p>
+<blockquote><p>$ cdrecord -scanbus (Escaneo de grabadoras)</p>
 
-<p># chkrootkit -l  (visualizar las opciones de escaneo)</p>
+<p>$ cdrecord -v dev=/dev/sdd imagen.iso (modo básico)</p>
 
-<p># chkrootkit sshd tcpd  (verificar solo dos opciones)</p>
+<p>$ cdrecord -v dev=0,1,0 speed=4 -isosize /dev/scd0 (copiar directamente de un dispositivo a otro)</p>
 
-<p># chkwtmp  (Verificar alteración de logs. Si no muestra nada: bien)</p>
+<p>$ cdrecord -v -eject speed=8 dev=0,0,0 test.iso (iniciar la grabación)</p>
 
-<p># chklastlog  (Lo mismo)</p></blockquote>
+<p>$ cdrecord -v dev=/dev/cdrom blank=fast (Borrar un cd regrabable)</p></blockquote>
+
+<p>opciones</p>
+
+<p>-v .- muestra más información de salida</p>
+
+<p>-eject .- expulsa el disco al finalizar la grabación</p>
+
+<p>-speed .- especifica la velocidad de grabación</p>
+
+<p>-dev .- número de dispositivo [0,1,0] obtenido con cdrecord -scanbus</p>
+
+<p>-dummy .- simula la grabación</p>
 </div>
   
   
@@ -433,7 +443,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/chkdupexe/">Chkdupexe</a></h1>
+      <h1 class="entry-title"><a href="/blog/cdrdao/">Cdrdao</a></h1>
     
     
       <p class="meta">
@@ -449,16 +459,22 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:40:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Buscar duplicados en ejecutables.</p>
+  <div class="entry-content"><p>Extraer / grabar pistas de CD en modo DAO (Disk at once)</p>
 
-<blockquote><p>$ chkdupexe</p></blockquote>
+<blockquote><h1>cdrdao read-cd -v 2 &#8211;device /dev/cdrom &#8211;read-raw &#8211;datafile imagen.bin imagen.toc (Extraer junto a su tabla de contenidos)</h1>
+
+<h1>cdrdao copy -v 2 &#8211;device 0,0,0 &#8211;source-device 0,1,0 &#8211;speed 4 &#8211;buffers 64 &#8211;reload &#8211;eject &#8211;on-the-fly &#8211;fast-toc (copia al vuelo de CD)</h1>
+
+<h1>cdrdao read-cd -v 2 &#8211;device 0,1,0 &#8211;read-raw &#8211;datafile img.bin img.toc (Extraer imagen)</h1>
+
+<h1>cdrdao write -v 2 &#8211;device 0,3,0 &#8211;speed 4 &#8211;buffers 64 img.toc (Grabar imagen)</h1></blockquote>
 </div>
   
   
@@ -471,7 +487,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/chkconfig/">Chkconfig</a></h1>
+      <h1 class="entry-title"><a href="/blog/cdparanoia/">Cdparanoia</a></h1>
     
     
       <p class="meta">
@@ -487,26 +503,18 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:40:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Para activar y desactivar servicios, ver su estado y runlevel</p>
+  <div class="entry-content"><p>Extraer pistas de audio de un cd</p>
 
-<blockquote><p>$ chkconfig &#8211;list (muestra listado de todos los servicios y nivel de ejecución)</p>
+<blockquote><p>$ cdparanoia -B -d /dev/sdxx (extrae disco completo en archivos wav separados)</p>
 
-<p>$ chkconfig &#8211;list apache2 (muestra nivel de ejecución del especificado)</p>
-
-<p>$ chkconfig &#8211;level 35 apache2 on (Para arrancar apache2 con runlevel 3 y5)</p>
-
-<p>$ chkconfig &#8211;level 345 nscd off (Desactivar nscd en los runlevel 3, 4 y 5)</p>
-
-<p>$ chkconfig &#8211;del sshd  (Quitar un servicio del arranque)</p>
-
-<p>$ chkconfig smb  (Indica si el servicio está activo o inactivo)</p></blockquote>
+<p>$ cdparanoia 5 -d /dev/sdxx (extrae el track nº 5)</p></blockquote>
 </div>
   
   
@@ -537,43 +545,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/grub2/">grub2</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/printf/">printf</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdftotext/">pdftotext</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/avconv/">avconv</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ipmitool/">ipmitool</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tmux/">tmux</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/rkhunter/">rkhunter</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssconvert/">ssconvert</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/while/">while</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

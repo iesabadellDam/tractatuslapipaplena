@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Gestor de programario de distros derivadas de Debian # dpkg -i paquete (Instalación de paquetes .deb) # dpkg -r paquete (Desinstala un paquete) # &hellip;">
+  <meta name="description" content="Muestra cuadros de diálogo para scripts $ dialog &#8211;calendar &#8220;mes de junio&#8221; 0 0 1 6 2010 (&#8220;0 0&#8221; indica que se &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/dpkg/">Dpkg</a></h1>
+      <h1 class="entry-title"><a href="/blog/dialog/">Dialog</a></h1>
     
     
       <p class="meta">
@@ -97,127 +97,146 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Gestor de programario de distros derivadas de Debian</p>
+  <div class="entry-content"><p>Muestra cuadros de diálogo para scripts</p>
 
-<blockquote><p># dpkg -i paquete   (Instalación de paquetes .deb)</p>
+<blockquote><p>$ dialog &#8211;calendar &#8220;mes de junio&#8221; 0 0 1 6 2010  (&#8220;0 0&#8221; indica que se autodimensiona el cuadro. El tamaño estándar de una terminal es un ancho de 80 por un largo de 25. &#8220;1 6 2010&#8221; fecha con formato dia/mes/año)</p>
 
-<p># dpkg -r paquete   (Desinstala un paquete)</p>
+<p>$ dialog &#8211;checklist &#8220;Escoger servicios&#8221; 0 0 3 vnc &#8220;&#8221; &#8220;&#8221; ssh &#8220;&#8221; &#8220;&#8221; cups &#8220;&#8221; &#8220;&#8221; (&#8220;3&#8221; numero de entradas visibles, si hay más se usará el scroll. Las &#8220;&#8221; indican parámetros vacios que puedan sustituirse por palabras o números, el primero de los cuales aparecerá en el cuadro de diálogo [vnc 1 A ssh 2 B cups 3 C])</p>
 
-<p># dpkg &#8211;purge paquete    (Desinstala junto sus archivos de configuración)</p>
+<p>$ dialog &#8211;dselect /home/usuario/ 0 0  (mostrará el contenido del directorio mencionado)</p>
 
-<p># dpkg &#8211;audit   (Visualizar paquetes instalados parcialmente)</p>
+<p>$ dialog &#8211;editbox /etc/fstab 0 0   (mostrará el contenido del fichero seleccionado)</p>
 
-<p># dpkg &#8211;force -r paquete  (Fuerza la desinstalación de un paquete)</p>
+<p>$ dialog &#8211;fselect /home/usuario/ 0 0  (Mostrará dos ventanas una con los directorios y la otra con los ficheros)</p>
 
-<p># dpkg &#8211;force-all -r paquete  (Fuerza más la desinstalación de un paquete)</p>
+<p>$ dialog &#8211;gauge &#8220;Uso del software libre&#8221; 0 0 0  (Muestra el progreso de un proceso)</p>
 
-<p># dpkg -c paquete   (Muestra los ficheros de un paquete)</p>
+<p>$ for var in 0 10 20 30 40 50 60 70 80 90 100; do sleep 1; echo $var; done | dialog &#8211;gauge &#8220;Total completado&#8221; 6 60 0 (concatenación de dialogs)</p>
 
-<p># dpkg &#8211;yet-to-unpack  (paquetes descargados sin instalar)</p>
+<p>$ dialog &#8211;infobox &#8220;Esto va a explotar&#8230;.&#8221; 3 26  (Un cuadro con un texto)</p>
 
-<p># dpkg -C   (Muestra los instalados parcialmente)</p>
+<p>$ dialog &#8211;sleep 3 &#8211;infobox &#8220;Esto va a explotar&#8230;.&#8221; 3 26 (Vuelve al prompt a los 3 segundos)</p>
 
-<p># dpkg -L paquete  (Ficheros que se instalaron con un paquete)</p>
+<p>$ dialog &#8211;sleep 3 &#8211;title &#8220;AVISO&#8221; &#8211;infobox &#8220;Esto va a explotar en 3 segundos&#8230;.&#8221; 3 40; dialog &#8211;infobox &#8220;BOOOOOOOMMMM&#8221; 0 0 (Concatenación de dialogs)</p>
 
-<p>$ dpkg -l inkscape  (Conocer si un paquete está instalado y su versión)</p>
+<p>$ dialog &#8211;inputbox &#8220;Ingrese su nombre&#8221; 0 0 (Solicitar una linea de texto al usuario)</p>
 
-<p># dpkg -S fichero    (Muestra a qué paquete pertenece un fichero)</p>
+<p>$ dialog &#8211;passwordbox &#8220;Ingrese contraseña&#8221; 0 0 (Igual que inputbox pero no se muestra nada de lo que se ingresa en pantalla)</p>
 
-<p># dpkg &#8211;get-selections   (Muestra todos los paquetes instalados en el sistema)</p>
+<p>$ dialog &#8211;title &#8220;Aquí me las den&#8221; &#8211;no-cancel &#8211;inputbox &#8220;Dejame un mensaje cariño&#8221; 0 0 &#8220;&#8221;  (Especificando un título, sin el botón de &#8220;cancelar&#8221; y con cajón para dejar un mensaje)</p>
 
-<p># dpkg &#8211;get-selections | cut -f1 (Lo mismo más fino)</p>
+<p>$ dialog &#8211;inputmenu &#8220;Nombre del usuario&#8221; 0 0 3 &#8221; juan Perez&#8221; &#8220;c/ del Pulgar num 5&#8221; &#8220;Jose Gonzalez&#8221; &#8220;c/ pez num 11&#8221;  (Permite modificar el segundo concepto [La calle])</p>
 
-<p># dpkg &#8211;get-selections > lista.txt    (Los manda a un fichero)</p>
+<p>$ dialog &#8211;menu &#8220;Escoge una distro&#8230;&#8221; 0 0 3 1 &#8220;Arch&#8221; 2 &#8220;Red Had&#8221; 3 &#8220;Ubuntu&#8221; 4 &#8220;Debian&#8221;</p>
 
-<p># dpkg &#8211;get-selections | grep python (muestra todos los paquetes python)</p>
+<p>$ dialog &#8211;mixedgauge &#8220;errores&#8221; 0 0 30 ubuntu distros</p>
 
-<p># dpkg -l > llistat.txt      (Manda a un fichero todos los paquetes Debian)</p>
+<p>$ dialog &#8211;msgbox &#8220;n Aquí puedes poner un texto&#8221; 0 0   (Avisar de una acción o comunicación y separando el texto de la parte superior [n])</p>
 
-<p># dpkg &#8211;status paquete  (Info, dependencias, recomendaciones, sugerencias)</p>
+<p>$ dialog &#8211;timeout 10 &#8211;clear &#8211;passwordbox &#8220;Entra la contraseña&#8221; 0 0 &#8220;&#8221;  (Especificando un tiempo para entrarla y limpiando la pantalla)</p>
 
-<p># dpkg -install paquete &#8211;force-conflicts (instalar un paquete conflicitivo)</p>
+<p>$ dialog &#8211;backtitle &#8220;Sobre timeout&#8230;&#8221; &#8211;timeout 5 &#8211;pause &#8220;Espera un rato&#8230;&#8221; 10 10 5   (Esperar 5 segundos antes de volver al prompt y con el título en la parte superior de la ventana [&#8211;backtitle])</p>
 
-<p># dpkg-reconfigure paquete    (Reconfigura paquetes instalados)</p>
+<p>$ dialog &#8211;radiolist &#8220;Escoger servicios&#8221; 0 0 3 vnc &#8220;&#8221; &#8220;&#8221; ssh &#8220;&#8221; &#8220;&#8221; cups &#8220;&#8221; &#8220;&#8221;  (parecido a checklist)</p>
 
-<p># dpkg-reconfigure -phigh -a   (Reconfigurar todo el sistema)</p>
+<p>$ dialog &#8211;no-shadow &#8211;tailbox /etc/fstab 0 0   (Mostrar últimas lineas de un archivo sin sombreado de la ventana)</p>
 
-<p># dpkg-reconfigure debconf    (R. interfaz de configuración)</p>
+<p>$ dialog &#8211;timebox &#8220;Tiempo de espera&#8221; 0 0 22 55 33</p>
 
-<p># dpkg-reconfigure xserver-xorg  (R. el servidor X)</p>
+<p>$ dialog &#8211;extra-button &#8211;timebox &#8220;Tiempo de espera&#8221; 0 0 22 55 33  (Incluir un boton extra)</p>
 
-<p># dpkg-reconfigure console-common (R. el teclado)</p>
+<p>$ dialog &#8211;defaultno &#8211;timebox &#8220;Tiempo de espera&#8221; 0 0 22 55 33  (Seleccionando por defecto &#8220;cancelar&#8221;)</p>
 
-<p># dpkg-reconfigure console-setup (mismo que lo anterior)</p>
+<p>$ dialog &#8211;yesno &#8220;Quieres pasar a la siguiente opción?&#8221; 0 0 (Retornara un valor cero, si se selecciona YES o distinto de cero si se selecciona NO. Este valor se almacena en la variable $? y puede ser evaluado mediante un if, while,&#8230;)</p>
 
-<p># dpkg-reconfigure locales     (R. el lenguaje)</p>
+<p>$ dialog &#8211;tailbox /var/log/fail2ban.log 20 100 (muestra en tiempo real las incidencias en el fichero mencionado. Equivalente a tail -f)</p></blockquote>
 
-<p># dpkg-reconfigure tzdata      (R. la zona horaria)</p>
-
-<p># dpkg-reconfigure console-data (R. las tty)</p>
-
-<p># dpkg-reconfigure -a (Borra paquetes de configuraciones)</p>
-
-<p># dpkg-reconfigure fontconfig-config  (R. fuentes. Seguir con:)</p>
-
-<p># dpkg-reconfigure fontconfig  (R. fuentes)</p>
-
-<p># dpkg &#8211;configure -a  (R. inconsistencias o procesos despues de un cuelgue)</p>
-
-<p># dpkg -i &#8211;force-overwrite /var/cache/apt/archives/paquete.deb (forzar install)</p>
-
-<p># dpkg -b deb paquete.deb (Convertir la carpeta “deb” en un archivo “.deb”)</p></blockquote>
+<p>Algunos ejemplos prácticos de su uso en scripts:</p>
 
 <p>1.-</p>
 
-<p>En ocasiones, algún paquete medio o mal instalado puede bloquear la aplicación. En estos casos puede usarse:</p>
+<blockquote><h1>!/bin/bash</h1></blockquote>
 
-<blockquote><p># rm /var/lib/apt/lists/* -vf</p></blockquote>
+<p>dialog &#8211;menu &#8220;Opciones del script&#8221; 16 60 14 1 &#8220;Puertos abiertos&#8221; 2 &#8220;Intentos de acceso&#8221; 3 &#8220;las IPs externas e internas&#8221; 4 &#8220;Cantidad de intentos de ataques&#8221; 5 &#8220;Servicios activos&#8221; 6 &#8220;Salir&#8221;</p>
 
-<p>Y a continuación:</p>
-
-<blockquote><p># apt-get update</p></blockquote>
+<p>clear</p>
 
 <p>2.-</p>
 
-<p>Forzar desinstalación de paquetes resistentes.</p>
+<blockquote><h1>!/bin/bash</h1>
 
-<pre><code># dpkg --purge --force-remove-reinstreq paquete 
+<h1>Escanear puertos abiertos</h1></blockquote>
 
-# dpkg --listfiles paquete_dañado 
+<p>nmapResultat=$(sudo nmap -O localhost | grep &#8220;open&#8221; | awk &#8216;{print$1,$3}&#8217;)</p>
 
-# gedit /var/lib/dpkg/status (eliminar la sección paquete_dañado) 
+<p>dialog &#8211;title &#8220;Resultado del escaneo de puertos&#8221; &#8211;msgbox &#8220;Los puertos abiertos son:</p>
 
-# gedit /var/lib/dpkg/available   (eliminar la sección paquete_dañado)
+<blockquote><p>$nmapResultat&#8221; 0 0</p></blockquote>
 
-# dpkg -l | grep ^rc | awk '{print $2}' | sudo xargs dpkg -P  (suprimir residuos de instalaciones)
-</code></pre>
+<p>clear</p>
 
 <p>3.-</p>
 
-<p>Otra forma de forzar la desinstalación de paquetes conflictivos:</p>
+<blockquote><h1>!/bin/bash</h1>
 
-<pre><code># rm /var/lib/dpkg/info/paquete
+<h1>Parar un servicio</h1></blockquote>
 
-# dpkg -r --force-remove-reinstreq paquete
+<p>dialog &#8211;title &#8220;samba&#8221; &#8211;yesno &#8220;Quieres detener samba?&#8221; 0 0</p>
 
-# dpkg -l | sed '/^rc/!d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/' | xargs -r sudo apt-get -y purge (Suprimir configuraciones residuales y huerfanas)
-</code></pre>
+<p>case $? in</p>
+
+<p>0)</p>
+
+<p>sudo /etc/init.d/samba stop</p>
+
+<p>dialog &#8211;title &#8220;Info&#8221; &#8211;msgbox &#8220;samba detenido&#8221; 0 0;;</p>
+
+<p>1)</p>
+
+<p>dialog &#8211;title &#8220;Info&#8221; &#8211;msgbox &#8220;samba continua activo&#8221; 0 0 ;;</p>
+
+<p>255)</p>
+
+<p>dialog &#8211;title &#8220;Info&#8221; &#8211;msgbox &#8220;ESC presionado&#8230; samba activo&#8221; 0 0 ;;</p>
+
+<p>esac</p>
+
+<p>clear</p>
+
+<blockquote><p>$ dialog &#8211;title &#8220;Mensaje al mundo&#8221; &#8211;msgbox &#8220;n      Hola a todos&#8221; 6 35</p>
+
+<p>$ dialog &#8211;yesno &#8220;¿Estás de acuerdo?&#8221; <code>tput lines</code> <code>tput cols</code></p>
+
+<p>$ dialog &#8211;menu &#8220;Escoger interfaz&#8221; 0 0 0 g &#8220;gnome&#8221; k &#8220;kde&#8221; x &#8220;xfce&#8221; 2>&amp;1</p></blockquote>
 
 <p>4.-</p>
 
-<p>Otro modo de suprimir archivos de configuración huerfanos (rc):</p>
+<blockquote><h1>!/bin/bash</h1>
 
-<pre><code># dpkg -l | grep ^rc (Comprobar si tenenos paquetes de estas caracteristicas)
+<h1>Respuestas  como variables</h1></blockquote>
 
-# dpkg -P $(dpkg -l |awk '/^rc/ { print $2 }') (Eliminarlos)
-</code></pre>
+<p>TMPFILE=&#8221;/tmp/scripttemp.$$&#8221;</p>
+
+<p>dialog &#8211;inputbox &#8220;Ingrese su nombre&#8221; 10 30 2> $TMPFILE</p>
+
+<p>N=<code>cat $TMPFILE</code></p>
+
+<p>dialog &#8211;inputbox &#8220;Ingrese su edad&#8221; 10 30 2> $TMPFILE</p>
+
+<p>E=<code>cat $TMPFILE</code></p>
+
+<blockquote><h1>Borrar tmpfile</h1></blockquote>
+
+<p>rm -f $TMPFILE</p>
+
+<p>dialog &#8211;infobox &#8220;$N tiene $E años&#8221; 3 50</p>
 </div>
   
   
@@ -230,7 +249,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/downgrade/">Downgrade</a></h1>
+      <h1 class="entry-title"><a href="/blog/di/">Di</a></h1>
     
     
       <p class="meta">
@@ -246,20 +265,18 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Bajar versión a un programa instalado.</p>
+  <div class="entry-content"><p>Muestra información sobre las particiones [un “df” mejorado]. Ver mi.</p>
 
-<blockquote><p># downgrade firefox</p></blockquote>
+<blockquote><p>$ di</p>
 
-<p>Mostrará la salida: “please choose a version, [s]earch A.R.M., or [q]uit:”</p>
-
-<p>Pulsando “s” mostrará las versiones disponibles para ser instaladas.</p>
+<p>$ di -c (Salida en CSV, para importar una hoja de cálculo)</p></blockquote>
 </div>
   
   
@@ -272,7 +289,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/dosfsck/">Dosfsck</a></h1>
+      <h1 class="entry-title"><a href="/blog/dhomepage/">Dhomepage</a></h1>
     
     
       <p class="meta">
@@ -288,28 +305,18 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Comprobar y reparar sistemas de archivos MS-DOS</p>
+  <div class="entry-content"><p>[debian-goodies]</p>
 
-<blockquote><p># dosfsck -altrvV /dev/sdbx</p></blockquote>
+<p>Abre, si existe, en el navegador la página de información de un paquete debian.</p>
 
-<p>-a (repara automaticamente)</p>
-
-<p>-l  (Lista las rutas de los archivos procesados)</p>
-
-<p>-t  (Marca los clusters inaccesibles como dañados.)</p>
-
-<p>-r  (Repara el sistema preguntando cuando hay varias soluciones)</p>
-
-<p>-v  (Modo detallado)</p>
-
-<p>-V  (Realiza una pasada de verificación)</p>
+<blockquote><p>$ dhomepage debian-history</p></blockquote>
 </div>
   
   
@@ -322,7 +329,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/doscan/">Doscan</a></h1>
+      <h1 class="entry-title"><a href="/blog/dhcpcd/">Dhcpcd</a></h1>
     
     
       <p class="meta">
@@ -338,16 +345,16 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Scanner de interfaces para conocer los servicios de red activos.</p>
+  <div class="entry-content"><p>Configuración automática de la red dhcp</p>
 
-<blockquote><p># doscan &#8211;banner 100 &#8211;port 22 192.0.2.0/24</p></blockquote>
+<blockquote><p>$ dhcpcd eth0</p></blockquote>
 </div>
   
   
@@ -360,7 +367,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/dos2unix/">Dos2unix</a></h1>
+      <h1 class="entry-title"><a href="/blog/dhclient/">Dhclient</a></h1>
     
     
       <p class="meta">
@@ -376,16 +383,16 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Convertir un formato de fichero texto MSDOS a UNIX.</p>
+  <div class="entry-content"><p>Cliente DHCP</p>
 
-<blockquote><p>$ dos2unix filedos.txt fileunix.txt</p></blockquote>
+<blockquote><h1>dhclient eth0  (modifica la ip de la máquina)</h1></blockquote>
 </div>
   
   
@@ -398,7 +405,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/dontzap/">Dontzap</a></h1>
+      <h1 class="entry-title"><a href="/blog/df/">Df</a></h1>
     
     
       <p class="meta">
@@ -414,18 +421,22 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Activa CRTL+ALT+Retroceso para reiniciar las X</p>
+  <div class="entry-content"><p>Mostrar información de las particiones</p>
 
-<p>dontzap -d     (Lo activa)</p>
+<blockquote><p>$ df -h (los resultados en M y G, por defecto son en bytes)</p>
 
-<p>dontzap -e      (Lo desactiva)</p>
+<p>$ df -a (de todas las particiones incluso las de 0 bloques)</p>
+
+<p>$ df -t vfat (de las particiones especificadas, en el caso las vfat)</p>
+
+<p>$ df  -T (de todas las particiones y el tipo)</p></blockquote>
 </div>
   
   
@@ -438,7 +449,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/dog/">Dog</a></h1>
+      <h1 class="entry-title"><a href="/blog/devilspie/">Devilspie</a></h1>
     
     
       <p class="meta">
@@ -454,14 +465,42 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Parecido a cat.</p>
+  <div class="entry-content"><p>Permite especificar el comportamiento de las ventanas para que determinadas aplicaciones se abran en un escritorio concreto. Ha de colocarse en las aplicaciones de inicio.</p>
+
+<blockquote><p>$ mkdir .devilspie (Crear el directorio)</p></blockquote>
+
+<p>Crear por cada aplicación un archivo .ds en el directorio:</p>
+
+<blockquote><p>$ nano .devilspie/firefox.ds</p></blockquote>
+
+<p>Con el siguiente contenido a modo de ejemplo:</p>
+
+<p>(if</p>
+
+<p>(is (application_name) &#8220;firefox&#8221;)</p>
+
+<p>(set_workspace 3)</p>
+
+<p>)</p>
+
+<p>Cada vez que arranquemos firefox, se abrirá en el escritorio número 3.</p>
+
+<p>Para saber el nombre de las aplicaciones que corren en cada escritorio:</p>
+
+<blockquote><p>$ nano .devilspie/debug.ds</p></blockquote>
+
+<p>Con el siguiente contenido:</p>
+
+<p>(debug)</p>
+
+<p>Cuando arranquemos devilspie por consola, nos las mostrará.</p>
 </div>
   
   
@@ -474,7 +513,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/do-release-upgrade/">Do-release-upgrade</a></h1>
+      <h1 class="entry-title"><a href="/blog/descriptor/">Descriptor</a></h1>
     
     
       <p class="meta">
@@ -490,16 +529,24 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Herramienta para actualizar sistemas basados en Ubuntu a una nueva versión de la distribución.</p>
+  <div class="entry-content"><p>Toda aplicación tiene siempre tres descriptores de fichero abiertos, el 0 para la entrada estándar [stdin], el 1 para la salida estándar [stdout], y el 2 para la salida de errores estándar [stderr]. Del 3 al 9 son descriptores adicionales [ver tuberias]. En el ejemplo:</p>
 
-<blockquote><p># do-release-upgrade</p></blockquote>
+<blockquote><p>$ ls -a >> listado.txt</p></blockquote>
+
+<p>La salida estándart [descriptor 1] se envia al fichero listado.txt, consecuentemente en pantalla no veremos nada. En el caso:</p>
+
+<blockquote><p>$ ls -zy >> listado.txt</p></blockquote>
+
+<p>El error [descriptor 2] se mostrará por pantalla y listado.txt permanecerá vacio. Para redirigir el error [descriptor 2 ]al fichero listado.txt [descriptor 1]:</p>
+
+<blockquote><p>$ ls -zy >> listado.txt 2>&amp;1</p></blockquote>
 </div>
   
   
@@ -512,7 +559,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/dnstracer/">Dnstracer</a></h1>
+      <h1 class="entry-title"><a href="/blog/denyhosts/">Denyhosts</a></h1>
     
     
       <p class="meta">
@@ -528,16 +575,32 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Consultas DNS desde una ip o un host. dnstracer determina cuando un servidor de nombres de dominio [DNS] obtiene información de un nombre de anfitrión dado, y a continuación el servidor DNS manda la respuesta de autorización.</p>
+  <div class="entry-content"><p>Protege contra ataques.</p>
 
-<blockquote><p>$ dnstracer host</p></blockquote>
+<p>Configuración:</p>
+
+<blockquote><h1>nano /etc/denyhosts.conf</h1></blockquote>
+
+<p>Algunas opciones:</p>
+
+<p>SECURE_LOG = /var/log/auth.log (Ruta a los logs)</p>
+
+<p>DENY_THRESHOLD_INVALID = 5 (Intentos fallidos permitidos con una cuenta que no existe)</p>
+
+<p>DENY_THRESHOLD_VALID = 5 (Intentos falllidos con usuarios validos)</p>
+
+<p>PURGE_DENY =5d (Tiempo de baneo de una IP. 5 dias en este caso)</p>
+
+<p>BLOCK_SERVICE = sshd (Servicios que queremos proteger [ sshd, ALL&#8230;)</p>
+
+<p>Nota.- Tambien es posible arrancar el servicio con la opción &#8220;purge&#8221;  [/etc/init.d/denyhosts start &#8211;purge] para eliminar las ips bloqueadas y que se muestran en /etc/hosts.deny</p>
 </div>
   
   
@@ -550,7 +613,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/dnstop/">Dnstop</a></h1>
+      <h1 class="entry-title"><a href="/blog/deluser/">Deluser</a></h1>
     
     
       <p class="meta">
@@ -566,49 +629,16 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Monitorear el tráfico dns.</p>
+  <div class="entry-content"><p>Elimina un usuario del sistema sin borrar su directorio.</p>
 
-<blockquote><p># dnstop -i 192.168.1.3 -p -r 2 eth0 (Excluir la propia máquina [i], en modo no promiscuo [p], actualizando cada 2 segundos [r] y la red objetivo)</p></blockquote>
-
-<p>En la mayoria de los casos, lo normal en lanzar:</p>
-
-<blockquote><p># dnstop eth0</p></blockquote>
-
-<p>Y realizar las consultas de forma interactiva pulsando las siguientes teclas:</p>
-
-<pre><code>s (visualizar las direcciones de origen)
-
-d (visualizar las direcciones de destino)
-
-t (desglosar por tipo)
-
-r (mostrar el desglose de los códigos de respuesta)
-
-1 (mostrar consulta de primer nivel [.com, .net, .info])
-
-2 (mostrar consulta de segundo nivel) 
-
-3 (mostrar consulta de tercer nivel)
-
-! (mostrar fuente y consulta de primer nivel)
-
-@ (mostrar fuente y consulta de segundo nivel)
-
-# (mostrar fuente y consulta de tercer nivel)
-
-Ctrl + r (Reinicia el contador)
-
-? (Muestra la ayuda)
-
-Ctrl + x (Salir)
-</code></pre>
+<blockquote><h1>deluser usuario</h1></blockquote>
 </div>
   
   
@@ -639,43 +669,43 @@ Ctrl + x (Salir)
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/grub2/">grub2</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/printf/">printf</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdftotext/">pdftotext</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/avconv/">avconv</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ipmitool/">ipmitool</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tmux/">tmux</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/rkhunter/">rkhunter</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssconvert/">ssconvert</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/while/">while</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

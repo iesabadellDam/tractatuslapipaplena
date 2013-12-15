@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Descomprimir archivos zip. $ unzip archivo.zip $ unzip -v archivo.zip (Ver contenido) $ unzip -l archivo.odt (Ver contenido de un archivo odt)
+  <meta name="description" content="Gestión de impresoras. Lanza la gui. $ system-config-printer
 ">
   
 
@@ -82,7 +82,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/unzip/">Unzip</a></h1>
+      <h1 class="entry-title"><a href="/blog/system-config-printer/">System-config-printer</a></h1>
     
     
       <p class="meta">
@@ -98,20 +98,16 @@
   
 
 
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Descomprimir archivos zip.</p>
+  <div class="entry-content"><p>Gestión de impresoras. Lanza la gui.</p>
 
-<blockquote><p>$ unzip archivo.zip</p>
-
-<p>$ unzip -v archivo.zip (Ver contenido)</p>
-
-<p>$ unzip -l archivo.odt (Ver contenido de un archivo odt)</p></blockquote>
+<blockquote><p>$ system-config-printer</p></blockquote>
 </div>
   
   
@@ -124,7 +120,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/until/">Until</a></h1>
+      <h1 class="entry-title"><a href="/blog/syslinux/">Syslinux</a></h1>
     
     
       <p class="meta">
@@ -140,56 +136,16 @@
   
 
 
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Estructura muy parecida a while [until, do, done], pero con la forma de evaluar la condición al revés, es decir, se ejecuta mientras la condición sea falsa.</p>
+  <div class="entry-content"><p>Hacer particiones arrancables</p>
 
-<p>Algunos ejemplos:</p>
-
-<p>1.-</p>
-
-<p>Decrecer un contador hasta llegar a 5</p>
-
-<pre><code>#!/bin/bash
-
-CONTADOR=10
-
-until [  $CONTADOR -lt 5 ]; do
-
-   echo "El contador a $CONTADOR"
-
-   let CONTADOR-=1
-
-done
-</code></pre>
-
-<p>2.-</p>
-
-<pre><code>#!/bin/bash
-
-SALIR=si
-
-until [ "$OPCION" = "$SALIR" ]
-
-do
-
-  echo "Pulsar teclas... "
-
-  echo "(\"$SALIR\" para salir)"
-
-  read OPCION
-
-  echo "Pulsada la opción salir ($OPCION)"
-
-  echo
-
-done
-</code></pre>
+<blockquote><p>$ syslinux /dev/sda1</p></blockquote>
 </div>
   
   
@@ -202,7 +158,7 @@ done
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/unsort/">Unsort</a></h1>
+      <h1 class="entry-title"><a href="/blog/sysctl/">Sysctl</a></h1>
     
     
       <p class="meta">
@@ -218,20 +174,30 @@ done
   
 
 
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Reordena las lineas de un archivo de forma semialeatoria.</p>
+  <div class="entry-content"><p>Muestra la configuración de los parámetros del kernel</p>
 
-<blockquote><p>$ unsort -p archivo.txt</p>
+<blockquote><h1>sysctl -a | more (Muestra todas las [muchisimas] variables)</h1>
 
-<p>$ unsort -M archivo1.txt archivo2.txt (Uniendo en la salida los dos archivos)</p>
+<h1>sysctl fs.file-max     (máximo de ficheros que pueden abrirse en el sistema)</h1>
 
-<p>$ unsort -n archivo1.txt archivo2.txt (Mezcla las lineas de forma aleatoria sin alterar el orden)</p></blockquote>
+<h1>sysctl fs.file-max=256000   (modificarlo a 256000)</h1>
+
+<h1>sysctl -w vm.swappiness=10 (usar más memoria RAM y menos SWAP)</h1>
+
+<h1>sysctl kernel.panic=5 (forzar reinicio a los 5 segundos despues de un kernel panic)</h1></blockquote>
+
+<p>Para hacer los cambios permanentes añadir las lineas al archivo /etc/sysctl.conf:</p>
+
+<blockquote><h1>echo &#8220;kernel.panic=5&#8221; >> /etc/sysctl.conf</h1>
+
+<h1>echo &#8220;vm.swappiness=10&#8221; >> /etc/sysctl.conf</h1></blockquote>
 </div>
   
   
@@ -244,7 +210,7 @@ done
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/unset/">Unset</a></h1>
+      <h1 class="entry-title"><a href="/blog/synclient/">Synclient</a></h1>
     
     
       <p class="meta">
@@ -260,20 +226,18 @@ done
   
 
 
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>elimina variables locales o asigna NULL</p>
+  <div class="entry-content"><p>Consultar/modificar las opciones del touchpad</p>
 
-<blockquote><p>$ unset HISTFILE; unset SAVEHIST  (desactiva el historial de comandos)</p>
+<blockquote><p>$ synclient -l (Ver la configuración)</p>
 
-<p>$ unset -f funcion (borrar una funcion)</p>
-
-<p>$ unset VAR (Eliminar una variable)</p></blockquote>
+<p>$ synclient TapButton1=1 TapButton2=2 VertEdgeScroll=1 (Activar el click y el escroll. Para hacerlo permanente poner la linea en el inicio [en fluxbox sería en /.fluxbox/startup]</p></blockquote>
 </div>
   
   
@@ -286,7 +250,7 @@ done
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/unrar/">Unrar</a></h1>
+      <h1 class="entry-title"><a href="/blog/sync/">Sync</a></h1>
     
     
       <p class="meta">
@@ -302,16 +266,18 @@ done
   
 
 
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Descomprimir archivos rar.</p>
+  <div class="entry-content"><p>Sincroniza memoria y disco [escribe el contenido de los buffers en disco]</p>
 
-<blockquote><p>$ unrar x archivo.rar</p></blockquote>
+<blockquote><p>$ sync</p>
+
+<h1>sync; init 0 (Sincronizar y apagar el equipo)</h1></blockquote>
 </div>
   
   
@@ -324,7 +290,7 @@ done
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/unix2dos/">Unix2dos</a></h1>
+      <h1 class="entry-title"><a href="/blog/synaptic/">Synaptic</a></h1>
     
     
       <p class="meta">
@@ -340,40 +306,26 @@ done
   
 
 
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Convertir formatos unix a msdos</p>
+  <div class="entry-content"><p>Interfaz gráfica para apt, sistema de gestión de paquetes basadas en Debian.</p>
 
-<blockquote><p>$ unix2dos fichero_unix fichero_dosServidor de archivos ftp. Toda la configuración de encuentra en el archivo:</p>
+<p>Atajos de teclado:</p>
 
-<p># nano /etc/vsftpd.conf</p></blockquote>
+<p>Ctrl + f (Buscar paquete)</p>
 
-<p>Algunos de los parámetros:</p>
+<p>Ctrl + r (Refrescar lista de paquetes)</p>
 
-<p>anonymous_enable=NO # si no queremos accesos anonimos</p>
+<p>Ctrl + g (Marcar todas las actualizaciones)</p>
 
-<p>local_enable=YES # Permitir accesos locales autentificados</p>
+<p>Ctrl + p (Aplicar los cambios)</p>
 
-<p>write_enable=YES # Permite escritura en el servidor</p>
-
-<p>ftpd_banner=Entrando en el servidor ftp&#8230;</p>
-
-<p>chroot_local_user=YES # Enjaular la conexión a su propio directorio personal</p>
-
-<p>max_clients=5 # limitar a 5 los accesos simultaneos</p>
-
-<p>Nota.- Han de redigirirse los puertos 20 y 21 y el rango especificado en el archivo de configuración:</p>
-
-<p>pasv_min_port=44000</p>
-
-<p>pasv_max_port=44100</p>
-
-<p>El cliente podrá conectarse al servidor via filezilla, gftp&#8230;</p>
+<p>Ctrl + q (Salir)</p>
 </div>
   
   
@@ -386,7 +338,7 @@ done
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/unity/">Unity</a></h1>
+      <h1 class="entry-title"><a href="/blog/swappiness/">Swappiness</a></h1>
     
     
       <p class="meta">
@@ -402,20 +354,16 @@ done
   
 
 
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Escritorio.</p>
+  <div class="entry-content"><p>Uso de la swap por parte del sistema. Ver sysctl.</p>
 
-<blockquote><p>$ unity &#8211;reset (Resetear la configuración de unity)</p>
-
-<p>$ unity &#8211;reset-icons (eliminar iconos agregados al launcher)</p>
-
-<p>$ unity &#8211;replace (reiniciar)</p></blockquote>
+<blockquote><p>$  cat /proc/sys/vm/swappiness</p></blockquote>
 </div>
   
   
@@ -428,7 +376,7 @@ done
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/unison/">Unison</a></h1>
+      <h1 class="entry-title"><a href="/blog/swapon/">Swapon</a></h1>
     
     
       <p class="meta">
@@ -444,38 +392,20 @@ done
   
 
 
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Sincronización de carpetas remotas.</p>
+  <div class="entry-content"><p>Activar una partición swap.</p>
 
-<p>Previamente crear la clave y copiarla al otro pc:</p>
+<blockquote><p>$ swapon /dev/hda5</p>
 
-<blockquote><p>$ ssh-keygen -t dsa</p>
+<p>$ swapon -a (Activar todas las particiones swap del /etc/fstab)</p>
 
-<p>$ ssh-copy-id -i $HOME/.ssh/id_dsa.pub root@ip_o_host</p></blockquote>
-
-<p>Sincronizar las carpetas (la web en este ejemplo)</p>
-
-<blockquote><p>$ unison /srv/http ssh://ip_o_host//srv/http</p></blockquote>
-
-<p>Si la carpeta a sincronizar se coloca en el archivo de configuración:</p>
-
-<blockquote><p># nano /root/.unison/default.prf</p></blockquote>
-
-<p>root = /srv/http</p>
-
-<p>root = ssh://ip_o_host//srv/http</p>
-
-<p>Puede colocarse la orden en el cron para que se actualice cada 5 minutos:</p>
-
-<p>crontab -e</p>
-
-<p>*/5 * * * * /usr/bin/unison &amp;> /dev/null</p>
+<p>$ swapon -s (Comprobar estado actual de la memória swap)</p></blockquote>
 </div>
   
   
@@ -488,7 +418,7 @@ done
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/uniq/">Uniq</a></h1>
+      <h1 class="entry-title"><a href="/blog/swapoff/">Swapoff</a></h1>
     
     
       <p class="meta">
@@ -504,20 +434,16 @@ done
   
 
 
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Ignora las líneas idénticas siempre y cuando sean adyacentes.</p>
+  <div class="entry-content"><p>Desactivar una partición swap.</p>
 
-<blockquote><p>$ uniq -u archivo archivo_sin repeticiones</p>
-
-<p>$ uniq -d archivo archivo2 (en archivo2 sólo las repetidas)</p>
-
-<p>$ uniq -c archivo (Muestra al principio de la linea el número de veces que se repite)</p></blockquote>
+<blockquote><p>$ swapoff -a (Desactivar todas las especificadas en /etc/fstab)</p></blockquote>
 </div>
   
   
@@ -530,7 +456,7 @@ done
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/unhtml/">Unhtml</a></h1>
+      <h1 class="entry-title"><a href="/blog/suspend/">Suspend</a></h1>
     
     
       <p class="meta">
@@ -546,16 +472,16 @@ done
   
 
 
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Elimina todo el formato HTML que encuentra e un fichero e imprime el texto limpio.</p>
+  <div class="entry-content"><p>Cuando es posible, suspender la shell actual.</p>
 
-<blockquote><p>$ unhtml index.html > /home/usuario/index.txt (Si no se facilita el archivo de destino, lo muestra en pantalla)</p></blockquote>
+<blockquote><h1>suspend -f (Pasará de root a nuestro usuario)</h1></blockquote>
 </div>
   
   
@@ -586,43 +512,43 @@ done
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/grub2/">grub2</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/printf/">printf</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdftotext/">pdftotext</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/avconv/">avconv</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ipmitool/">ipmitool</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tmux/">tmux</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/rkhunter/">rkhunter</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssconvert/">ssconvert</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/while/">while</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

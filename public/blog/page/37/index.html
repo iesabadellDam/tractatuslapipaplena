@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Arrancar sistema gráfico $ startx &#8211; :1 (una segunda sesión gráfica accesible en ^Alt + F8)
-">
+  <meta name="description" content="Permite recuperar datos de particiones ntfs incluso corruptas. scrounge-ntfs -l /dev/sda (Para vusializar los datos del disco) La salida del comando &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -82,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/startx/">Startx</a></h1>
+      <h1 class="entry-title"><a href="/blog/scrounge-ntfs/">Scrounge-ntfs</a></h1>
     
     
       <p class="meta">
@@ -98,16 +97,28 @@
   
 
 
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Arrancar sistema gráfico</p>
+  <div class="entry-content"><p>Permite recuperar datos de particiones ntfs incluso corruptas.</p>
 
-<blockquote><p>$ startx &#8211; :1 (una segunda sesión gráfica accesible en ^Alt + F8)</p></blockquote>
+<blockquote><h1>scrounge-ntfs -l /dev/sda  (Para vusializar los datos del disco)</h1></blockquote>
+
+<p>La salida del comando puede ser paracida a:</p>
+
+<p>Drive: /dev/sdc</p>
+
+<p>63              16787862        8               6291456</p>
+
+<p>16787925        471607195       8               6291456</p>
+
+<p>Con estos datos lanzar:</p>
+
+<blockquote><h1>scrounge-ntfs -m 6291456 -c 8 /dev/sdc 16787925 471607195</h1></blockquote>
 </div>
   
   
@@ -120,7 +131,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/stalonetray/">Stalonetray</a></h1>
+      <h1 class="entry-title"><a href="/blog/scrot/">Scrot</a></h1>
     
     
       <p class="meta">
@@ -136,40 +147,26 @@
   
 
 
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Applet para albergar el area de notificación.</p>
+  <div class="entry-content"><p>Captura de pantalla</p>
 
-<blockquote><p>$ stalonetray -bg #A78B5C -d title -geometry 6x1-0+0 -i 30 (con el color especificado [-bg], decoración de ventana [-d], las medidas [6x1] y la situación en pantalla [-0+0, abajo, derecha])</p></blockquote>
+<blockquote><p>$ scrot (Con los valores por defecto)</p>
 
-<p>Algunas opciones:</p>
+<p>$ scrot captura.png</p>
 
-<p>-d  (none, title, border, all)</p>
+<p>$ scrot -s captura.png (Para seleccionar un área en concreto)</p>
 
-<p>situación:</p>
+<p>$ scrot -d 5 captura.png (retardar la captura 5 segundos)</p>
 
-<p>Abajo a la izquierda    5x1+0-0</p>
+<p>$ scrot -t 50 captura.png (para reducir la captura un 50%)</p>
 
-<p>Abajo en el centro (1024x768) + 20 píxeles elevado 5x1-450-20</p>
-
-<p>Abajo a la derecha  5x1-0-0</p>
-
-<p>Arriba a la izquierda   5x1+0+0</p>
-
-<p>Arriba a la izquierda + 20 píxeles descendido  5x1+0+20</p>
-
-<p>Arriba en el centro (1024x768)  5x1+450+0</p>
-
-<p>Arriba a la derecha 5x1-0+0</p>
-
-<p>Arriba a la derecha + 20 píxeles descendido    5x1-0+20</p>
-
-<p>Abajo a la izquierda + 20 píxeles elevado  5x1+0-20</p>
+<p>$ scrot -ucd 5 (“u” captura la ventana que tiene el foco, “c” que muestre la cuenta regresiva y “d 5” los segundos de retardo)</p></blockquote>
 </div>
   
   
@@ -182,7 +179,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/st/">St</a></h1>
+      <h1 class="entry-title"><a href="/blog/script/">Script</a></h1>
     
     
       <p class="meta">
@@ -198,343 +195,518 @@
   
 
 
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Terminal simple.</p>
+  <div class="entry-content"><p>Copia en un fichero toda la actividad tecleada en consola hasta cesar con &#8220;exit&#8221;</p>
 
-<blockquote><p>$ st -t Reiniciar -e sudo init 6 (Abrir un terminal st con título para entrar la contraseña y reiniciar)</p></blockquote>
-</div>
-  
-  
+<blockquote><p>$ script -a fichero.txt</p>
 
+<p>$ script -t 2> sesion.con -a sesion.vid  (grabará la sesion. Parar el proceso con crtl+d)</p>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sswap/">Sswap</a></h1>
-    
-    
-      <p class="meta">
-        
+<p>$ scriptreplay sesion.con sesion.vid  (reproduce la sesión grabada)</p>
 
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[secure-delete]</p>
-
-<p>Borrado seguro de swap. Previamente desactivar con swapoff /dev/sda7 y al finalizar el proceso volver a activarla con swapon /dev/sda7 [Si no sabemos donde se encuentra la swap: cat /proc/swaps. Argumentos paracidos a srm [ver] y sfill [ver]. El espacio se sobreescribe 38 veces.</p>
-
-<blockquote><p>$ sswap -f /dev/sda7 (Modo rápido e inseguro)</p>
-
-<p>$ sswap -lv /dev/sda7 (Como lanzar dos veces sswap -f y mostrando el proceso)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sslstrip/">Sslstrip</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Herramienta para engañar al usuario haciéndole pensar que se encuentra en un sitio de Internet con cifrado SSL [HTTPS], cuando en realidad todos los datos están siendo transmitidos en abierto [HTTP].</p>
-
-<p>Configuración de reenvío de paquetes IP:</p>
-
-<blockquote><p># echo 1 > /proc/sys/net/ipv4/ip_forward</p></blockquote>
-
-<p>Envenenamiento ARP (paquete dsniff):</p>
-
-<blockquote><p># arpspoof -i eth0 -t ip_victima ip_router</p></blockquote>
-
-<p>En caso de querer atacar toda la red, solo especificar la ip router:</p>
-
-<blockquote><p># arpspoof -i eth0 ip_router</p></blockquote>
-
-<p>Redirección de puertos usando Iptables:</p>
-
-<blockquote><p># iptables -t nat -A PREROUTING -p tcp &#8211;destination-port 80 -j REDIRECT &#8211;to-ports 31715</p></blockquote>
-
-<p>Al reiniciar el ordenador se borrará la regla, si se quiere borrar al momento cambiar &#8220;-A&#8221; por un &#8220;-D&#8221; en el comando anterior.</p>
-
-<p>Arrancar sslstrip y ponerlo a la escucha:</p>
-
-<blockquote><p># sslstrip -k -f -l 31715 -w archivo.log</p></blockquote>
-
-<p>Visionar en tiempo real los paquetes capturados:</p>
-
-<blockquote><p>#  tail -f archivo.log</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sshpass/">Sshpass</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>La contraseña para acceder por ssh a un host remoto se realiza de forma interactiva (entrándola por teclado) en algunos casos esto no es posible ya sea por tratarse de un script en el que se entra en un host remoto, se realiza alguna acción y se regresa al local o por que se precisa entrar la contraseña de forma no interactiva. Para estos casos puede ser útil este comando aunque considerando lo debil para la seguridad que entraña su uso ya que puede quedar registrado en &#8220;history&#8221;.</p>
-
-<blockquote><p>$ sshpass -f file_pas ssh -y usuario@host ifconfig (Ejecuta ifconfig en el remoto entrando como contraseña la primera palabra del archivo file_pas )</p>
-
-<p>$ sshpass -p 1234 ssh -t usuario@host &#8220;echo 1234 | sudo -S namp 192.168.1.0/24&#8221; (Ejecuta el comando &#8220;sudo nmap&#8221; en el host remoto que tiene por contraseña 1234.)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sshguard/">Sshguard</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Demonio que protege SSH y otros servicios contra ataques de fuerza bruta. Funciona observando los cambios en /var/log/auth.log, verificando si alguien esta fallando varias veces al autentificarse. Luego de varios errores de autentificacion (por defecto 14) el host ofensivo sera bloqueado por 7 minutos y se duplicará cada vez que el host ofensivo repita el ataque. Carece de archivo de configuración y puede complementarse con iptables:</p>
-
-<blockquote><p># iptables -A INPUT -j sshguard (Para activarlo en todos los puertos)</p>
-
-<p># iptables -A INPUT -m multiport -p tcp &#8211;destination-ports 21,22 -j sshguard (Para puertos concretos [ftp y ssh])</p></blockquote>
-
-<p>El archivo para colocar las direcciones no afectadas por sshguard:</p>
-
-<blockquote><p># nano /etc/sshguard/whitelist</p></blockquote>
-
-<p>Con el siguiente formato:</p>
-
-<pre><code>192.168.1.53 (Una ip)
-
-192.168.1.0/24 (Un rango)
-
-lapipaplena.net (Un host)
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sshfs/">Sshfs</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Montar un sistema de archivos remoto en local.</p>
-
-<blockquote><p># sshfs usuario@host_o_IP:/home/usuario /home/usuario/remoto</p>
-
-<p># fusermount -u /home/usuario/remoto  (Desmontarlo)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sshd/">Sshd</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Demonio ssh</p>
-
-<blockquote><p>$ sshd -t (Verificar si existen errores en el archivo de configuración)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ssh-keygen/">Ssh-keygen</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Creación, gestión y conversión de claves utilizadas para la autenticación de cliente y servidor. Cuando no se especifica ninguna opción, ssh-keygen genera un par de claves RSA de 2048 bits y solicita un nombre de clave y una frase de paso para proteger la clave privada. Las claves públicas se crean usando el mismo nombre base que la clave privada con una extensión .pub añadida. La ubicación de la clave se muestra cuando se completa la generación de claves. Ver ssh</p>
-
-<blockquote><p>$ ssh-keygen -lvf ~/.ssh/known_hosts (Ver todas las huellas digitales y las imágenes randomart)</p>
-
-<p>$ ssh-keygen -t rsa -C newserver -f .ssh/newkey (Generar el par de llaves publica y privada. Caso de exitir preguntará si se sobreescribe)</p>
-
-<p>$ ssh-keygen -B -f .ssh/id_rsa.pub (Muestra la huella digital de la llave especificada en formato SHA-1)</p></blockquote>
+<p>$ script -f /dev/pts/3   (redirigir hacia otra terminal)</p></blockquote>
 
 <p>1.-</p>
 
-<p>Para ver la huella digital cada vez que se ingresa en un host remoto:</p>
+<p>Varias formas de ejecutar un script:</p>
 
-<blockquote><p># nano /etc/ssh/ssh_config</p></blockquote>
+<blockquote><p>$ bash miscript.sh</p>
 
-<p>Descomentar la linea y dejarla:</p>
+<p>$ sh miscript.sh</p>
 
-<p>VisualHostKey yes</p>
+<p>$ source miscript.sh</p></blockquote>
+
+<p>O activando el bit de ejecución en los permisos del fichero:</p>
+
+<blockquote><p>$ chmod +x miscript.sh</p>
+
+<p>$ ./miscript.sh</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/scribes/">Scribes</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Editor minimalista especial para programadores.</p>
+
+<p>Algunos atajos:</p>
+
+<p>Ctrl + o (Abrir archivo)</p>
+
+<p>Ctrl + s (Guardar)</p>
+
+<p>Ctrl + Mayus + s (Renombrar)</p>
+
+<p>Ctrl + p (Imprimir)</p>
+
+<p>Ctrl + t (Indentar lineas seleccionadas)</p>
+
+<p>Ctrl + Mayus + t (Suprimir indentación)</p>
+
+<p>Alt +t (Convertir espacios en tabulaciones)</p>
+
+<p>Alt + Mayus + t (Convertir tabulaciones a espacios)</p>
+
+<p>Alt + r (Suprimir espacios al final de linea)</p>
+
+<p>Alt + d (Suprimir linea)</p>
+
+<p>Alt + F4 (Cerrar el editor)</p>
+
+<p>F1 (Abrir la ayuda)</p>
+
+<p>F12 (Abrir preferencias)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/screenkey/">Screenkey</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[python-xlib]</p>
+
+<p>Aplicacion que, durante una grabacion de escritorio en la que salen terminales y comandos, muestra por pantalla una franja negra en la que se puede apreciar las teclas que se pulsan para que las puedan ver mejor los televidentes. Iniciar la aplicacion (Se mostrara en el area del tray) y la grabacion del escritorio con alguna de las herramientas (gtk-recordMyDesktop, kazam, etc) y pararla con killall -9 screenkey cuando finalice la grabacion.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/screenfetch/">Screenfetch</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Muestra información del equipo junto al logo de la distro.</p>
+
+<blockquote><p>$ wget -c https://raw.github.com/KittyKatt/screenFetch/master/screenfetch-dev -O screenfetch</p>
+
+<p>$ ./screenfetch</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/screen/">Screen</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Compartir sesiones de consola locales o remotas.</p>
+
+<blockquote><p>$ screen   (abre una terminal virtual genérica)</p>
+
+<p>$ screen -S tux  (nombrar la sesión del que comparte consola)</p></blockquote>
+
+<p>$ screen -ls (conocer los screen abiertos y sus nombres)</p>
+
+<p>There are screens on:</p>
+
+<p>19680.tux       (Attached)</p>
+
+<p>19684.xut       (Attached)</p>
+
+<p>2 Sockets in /tmp/screens/S-juanito.</p>
+
+<blockquote><p>$ screen -x 19680.tux  (el que se conecta)</p>
+
+<p>$ screen -r    Retoma el proceso desacoplado con Ctrl+a Ctrl+d</p>
+
+<p>$ screen -r -S nombre  Retoma el proceso &#8220;nombre&#8221;</p>
+
+<p>$ screen -R -D Recupera screen despúes de un Ctrl+d</p></blockquote>
+
+<p>La gestión de screen siempre empieza pulsando las teclas Ctrl+a:</p>
+
+<p>Ctrl+a c (Crear nueva ventana)</p>
+
+<p>Ctrl+a k (Matar pantalla activa / sesion activa)</p>
+
+<p>Ctrl+a X (Matar pantalla activa)</p>
+
+<p>Ctrl+a x (Bloquear terminal)</p>
+
+<p>Ctrl+a w (Lista de ventanas)</p>
+
+<p>Ctrl+a 0-9 (Ir a la ventana numerada)</p>
+
+<p>Ctrl+a Ctrl+a (Cambiar a la última ventana)</p>
+
+<p>Ctrl+a Ctrl+p (Cambiar a la anterior ventana)</p>
+
+<p>Ctrl+a S (Dividir la terminal horizontal en regiones)</p>
+
+<p>Ctrl+a | (Dividir la terminal veticalmente)</p>
+
+<p>Ctrl+a Ctrl+n (Cambiar de región)</p>
+
+<p>Ctrl+a :resize (Redimensionar región)</p>
+
+<p>Ctrl+a F (Ajustar tamaño de la pantalla al tamaño de la nueva terminal)</p>
+
+<p>Ctrl+a K (Suprimir region)</p>
+
+<p>Ctrl+a Z (resetear screen)pi</p>
+
+<p>Ctrl+a tab (Moverse entre regiones)</p>
+
+<p>Ctrl+a d (Desacopla un proceso de una terminal, que continua en segundo plano)</p>
+
+<p>Ctrl+a ? (Mostrar pantalla de ayuda)</p>
+
+<p>Ctrl+a Backspace (Regresar a la ventana previa)</p>
+
+<p>Ctrl+q (Si se ha pulsado una combinación erronea, desbloquea la terminal)</p>
+
+<p>Ctrl+s (Lo mismo)</p>
+
+<p>Ctrl+a &#8221; (Muestra las shells activas)</p>
+
+<p>Ctrl+a A (Cambiar el título de la ventana)</p>
+
+<p>Ctrl+a Esc (Ver historial)</p>
+
+<p>Ctrl+a h (Guardar pantallazo en la carpeta actual con nombre hardcopy.número [0,1,2&#8230;])</p>
+
+<p>Ctrl+a H (Iniciar/parar registro de la ventana actual en la ventana con nombre screenlog.número [0,1,2&#8230;])</p>
+
+<p>Para compartir screen via ssh:</p>
+
+<p>Activar el setuid de screen:</p>
+
+<h1>chmod +s /usr/bin/screen</h1>
+
+<p>Ejecutar:</p>
+
+<p>$ screen -S nombreSesion</p>
+
+<p>Activar acceso multiusuario:</p>
+
+<p>Ctrl+a :multiuser on</p>
+
+<p>Dar permisos al usuario:</p>
+
+<p>Ctrl+a :acladd usuario</p>
+
+<p>El usuario remoto debera conectar por SSH con la máquina y ejecutar:</p>
+
+<p>$ screen -x usuario/NombreSesion</p>
+
+<p>Si deseamos tener una barra inferior donde aparecerá el nombre de las diferentes ventanas y la hora actual, podemos modificar/crear el fichero de configuración ~/.screenrc con el siguiente contenido (http://www.marblestation.com/?p=915):</p>
+
+<h1>screen -t shell 0</h1>
+
+<h1>screen -t shell 0 motd+shell</h1>
+
+<h1>screen -t shell2    1</h1>
+
+<h1>screen -t server    2</h1>
+
+<h1>screen -t Mail 9   tail -f /var/log/messages</h1>
+
+<p>select 0</p>
+
+<p>shelltitle &#8220;shell&#8221;</p>
+
+<h1>skip the startup message</h1>
+
+<p>startup_message off</p>
+
+<h1>go to home dir</h1>
+
+<p>chdir</p>
+
+<h1>Automatically detach on hangup.</h1>
+
+<p>autodetach on</p>
+
+<h1>Change default scrollback value for new windows</h1>
+
+<p>defscrollback 1000</p>
+
+<h1>Turns off alternate screen switching in xterms,</h1>
+
+<h1>so that text in screen will go into the xterm&#8217;s scrollback buffer:</h1>
+
+<p>termcapinfo xterm* ti@:te@</p>
+
+<p>altscreen on</p>
+
+<h1>start with visual bell as default</h1>
+
+<p>vbell on</p>
+
+<p>vbell_msg &#8220;bell on %t (%n)&#8221;</p>
+
+<p>activity &#8220;Activity in %t(%n)&#8221;</p>
+
+<h1>Run a screensaver if there&#8217;s nothing happening for a while.</h1>
+
+<h1>idle 600 eval &#8220;screen cmatrix -f -o -u 10&#8221; &#8220;idle 0&#8221;</h1>
+
+<p>idle 600 lockscreen</p>
+
+<h3>White</h3>
+
+<h1>caption always &#8220;%{kW}%?%-Lw%?%{bw}%n*%f %t%?(%u)%?%{kW}%?%+Lw%? %= %{= Wk}%110<code>%109</code>%111` %H load: %l | %D %d-%m-%Y %0c:%s&#8221;</h1>
+
+<h3>Black</h3>
+
+<h1>caption always &#8220;%{wk}%?%-Lw%?%{bw}%n*%f %t%?(%u)%?%{wk}%?%+Lw%? %= %{= kw}%110<code>%109</code>%111` %H load: %l | %D %d-%m-%Y %0c:%s&#8221;</h1>
+
+<p>caption always &#8220;%{wk}%?%-Lw%?%{bw}%n*%f %t%?(%u)%?%{wk}%?%+Lw%? %= %{= kw}%110<code>%109</code>%111` %H | %D %d-%m-%Y %0c:%s&#8221;</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/scp/">Scp</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Copiar o transferir archivos o directorios entre una máquina remota y una local</p>
+
+<blockquote><p>$ scp pepe@host_o_IP:/home/pepe/*.odt ./pendiente (Copiará todos los .odt del directorio /home/pepe del host remoto al directorio “pendiente” de la máquina local)</p>
+
+<p>$ scp *.odt pepe@host_o_IP:/home/pepe/pendiente (transferirá todos los odt del directorio actual al directorio especificado “pendiente” del host remoto.)</p>
+
+<p>$ scp archivo usuario@host_o_IP:/home/usuario/Desktop (copiará “archivo” en local al escritorio remoto)</p>
+
+<p>$ scp -r directorio pepe@host_o_IP:/home/usuario/Desktop (copiará el directorio al host remoto)</p>
+
+<p>$ scp -P 12000 pep@chost_o_IP:/home/usuario/archivo . (especificando un puerto en el host remoto y copiar archivo al presente directorio)</p></blockquote>
+
+<p>Nota.- Si quiere transferirse al $HOME remoto puede suprimirse la ruta relativa, quedando: scp archivo pepe@host_o_IP:</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/scanimage/">Scanimage</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Escanear. Solo genera archivos tiff y pnm.</p>
+
+<p>$ scanimage -L (Para conocer los datos del escaner)</p>
+
+<p>&lt; device `hpaio:/usb/psc_1100_series?serial=MY387F93QWB0&#8217; is a Hewlett-Packard psc_1100_series all-in-one</p>
+
+<blockquote><p>$ scanimage -d hpaio:/usb/psc_1100_series?serial=MY387F93QWB0 (Especificando el escaner. Si solo existe uno no es necesaria esta opción)</p>
+
+<p>$ scanimage -v -p > imagen.tiff (Ver la información que genera, el progreso y redirigido a un archivo)</p>
+
+<p>$ scanimage &#8211;help (A continuación de la ayuda estandar, muestra las características concretas de nuestro escaner)</p>
+
+<p>$ scanimage -p &#8211;mode Color &#8211;resolution 200 -l 0 -t 0 -x 190 -y 160  > imagen.pnm (Las opciones de &#8220;mode&#8221; y &#8220;resolution&#8221; los muestra el parámetro &#8220;help&#8221;. Las opciones &#8220;l&#8221; y &#8220;t&#8221; indican que comenzará a escanear desde la esquina superior izquierda. Los limites de estos parámetros tambien los muestra &#8220;help&#8221;. &#8220;x&#8221; e &#8220;y&#8221; indican la medida a escanear. En este caso 190X160 mm)</p>
+
+<p>$ scanimage -p | convert - imagen.png (Redirigiendo la salida a convert que pasa la imagen a png)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/scan/">Scan</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Sintonizar canales de TV. El directorio /usr/share/dvb/dvb-t/ contiene las zonas de cobertura de la televisión digital terrestre.</p>
+
+<blockquote><p>$ scan /usr/share/dvb/dvb-t/es-Rocacorba > channels.conf</p></blockquote>
+
+<p>Copiar el archivo creado en el directorio .vlc/ [si no existe se crea] Abrir vlc con el siguiente comando:</p>
+
+<blockquote><p>$ vlc .vlc/channels.conf (Bucar los canales en View/Play list)</p></blockquote>
 </div>
   
   
@@ -565,43 +737,43 @@ lapipaplena.net (Un host)
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/grub2/">grub2</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/printf/">printf</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdftotext/">pdftotext</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/avconv/">avconv</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ipmitool/">ipmitool</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tmux/">tmux</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/rkhunter/">rkhunter</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssconvert/">ssconvert</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/while/">while</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

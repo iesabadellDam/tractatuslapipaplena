@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Monitorizador de procesos en ejecución, servicios, demonios, espacios de disco, PIDs, checksums, archivos&#8230;. # monit status (Acceder a los &hellip;">
+  <meta name="description" content="Monitorizador de procesos en ejecución, servicios, demonios, espacios de disco, PIDs, checksums, archivos&#8230;. monit status (Acceder a los &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -94,7 +94,7 @@
   
 
 
-<time datetime="2013-11-21T17:03:00+01:00" pubdate data-updated="true">21-11-2013</time>
+<time datetime="2013-12-15T15:44:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -103,73 +103,69 @@
 
 <div class="entry-content"><p>Monitorizador de procesos en ejecución, servicios, demonios, espacios de disco, PIDs, checksums, archivos&#8230;.</p>
 
-<blockquote><p># monit status (Acceder a los informes)</p>
+<blockquote><h1>monit status (Acceder a los informes)</h1>
 
-<p># monit -t (Comprobar errores de configuración [Control file syntax OK])</p>
+<h1>monit -t (Comprobar errores de configuración [Control file syntax OK])</h1>
 
-<p># monit -h (Listado de comandos disponibles)</p>
+<h1>monit -h (Listado de comandos disponibles)</h1>
 
-<p># monit quit (Salir)</p>
+<h1>monit quit (Salir)</h1>
 
-<p># monit start all (Arrancar todos los monitoreos)</p>
+<h1>monit start all (Arrancar todos los monitoreos)</h1>
 
-<p># monit sotp ssh (Parar un monitoreo de un servicio)</p>
+<h1>monit sotp ssh (Parar un monitoreo de un servicio)</h1>
 
-<p># monit restart all (Reiniciar todos los monitoreos)</p>
+<h1>monit restart all (Reiniciar todos los monitoreos)</h1>
 
-<p># monit summary (Mostrar resumen)</p></blockquote>
+<h1>monit summary (Mostrar resumen)</h1></blockquote>
 
 <p>Configuración:</p>
 
-<pre><code># nano /etc/monitrc 
-</code></pre>
+<h1>nano /etc/monitrc</h1>
 
 <p>Las entradas globales empiezan por “set” y los servicios concretos por “check”</p>
 
 <p>Tiempo de actualización de datos, por defecto:</p>
 
-<pre><code>set daemon  60 
-</code></pre>
+<p>set daemon  60</p>
 
 <p>Especificar el archivo de eventos (logs)</p>
 
-<pre><code>set logfile /var/log/monit.log 
-</code></pre>
+<p>set logfile /var/log/monit.log</p>
 
 <p>Configurar para el envio de notificaciones:</p>
 
-<pre><code>set mailserver localhost 
+<p>set mailserver localhost</p>
 
-set alert usuario@localhost.localdomain 
+<p>set alert usuario@localhost.localdomain</p>
 
-set mail-format { 
+<p>set mail-format {</p>
 
-from: monit@$HOST 
+<p>from: monit@$HOST</p>
 
-subject: $SERVICE $EVENT 
+<p>subject: $SERVICE $EVENT</p>
 
-message: $ACTION $SERVICE at $DATE on $HOST: $DESCRIPTION. 
+<p>message: $ACTION $SERVICE at $DATE on $HOST: $DESCRIPTION.</p>
 
-} 
+<p>}</p>
 
-set mailserver mail@mail.com (servidor smtp que envia los correos [localhost para notificación local]). 
+<p>set mailserver mail@mail.com (servidor smtp que envia los correos [localhost para notificación local]).</p>
 
-set alert user@hots.com  (cuenta donde enviar los mensajes de alerta). Ejemplo para enviar notificaciones a correo gmail (en negrita los datos a modificar): 
+<p>set alert user@hots.com  (cuenta donde enviar los mensajes de alerta). Ejemplo para enviar notificaciones a correo gmail (en negrita los datos a modificar):</p>
 
-set mailserver smtp.gmail.com port 587 
+<p>set mailserver smtp.gmail.com port 587</p>
 
-username usuario@gmail.com password Tfer7¿-6j 
+<p>username usuario@gmail.com password Tfer7¿-6j</p>
 
-using tlsv1 
+<p>using tlsv1</p>
 
-with timeout 30 seconds 
+<p>with timeout 30 seconds</p>
 
-set alert usuario@gmail.com 
+<p>set alert usuario@gmail.com</p>
 
-Cambiar usuario y contraseña (por defecto: admin/monit) 
+<p>Cambiar usuario y contraseña (por defecto: admin/monit)</p>
 
-allow usuario:contraseña 
-</code></pre>
+<p>allow usuario:contraseña</p>
 
 <p>Especificar desde donde accederemos. Sólo acceso local [localhost:2812]:</p>
 
@@ -179,122 +175,113 @@ allow usuario:contraseña
 
 <p>o si queremos acceso remoto [http://ip_o_host:2812] modificar por:</p>
 
-<pre><code>set httpd port 2812 
+<p>set httpd port 2812</p>
 
-     allow localhost 
-</code></pre>
+<p>allow localhost</p>
 
 <p>Tambien podemos especificar: ips, rangos, hosts concretos o usuarios para solo lectura:</p>
 
-<pre><code>allow 192.168.1.14 
+<p>allow 192.168.1.14</p>
 
-allow 192.168.1.1/24 
+<p>allow 192.168.1.1/24</p>
 
-allow host.com 
+<p>allow host.com</p>
 
-allow usuario:contraseña read-only
-</code></pre>
+<p>allow usuario:contraseña read-only</p>
 
 <p>Modificar el nombre del equipo [tiene que estar en /etc/hosts] y adaptar los porcentajes de consumo de carga del sistema [loadvg] y cpu para que al superar ciertos índices o porcentajes, envie una alerta:</p>
 
 <p>check system tux</p>
 
-<pre><code>if loadavg (1min) &gt; 4 then alert 
+<p>if loadavg (1min) > 4 then alert</p>
 
-if memory usage &gt; 75% then alert 
+<p>if memory usage > 75% then alert</p>
 
-if swap usage &gt; 85% then alert 
+<p>if swap usage > 85% then alert</p>
 
-if cpu usage (user) &gt; 70% then alert 
+<p>if cpu usage (user) > 70% then alert</p>
 
-if cpu usage (system) &gt; 70% then alert 
+<p>if cpu usage (system) > 70% then alert</p>
 
-if cpu usage (wait) &gt; 70% then alert 
-</code></pre>
+<p>if cpu usage (wait) > 70% then alert</p>
 
 <p>Configurar el monitoreo de apache (Las rutas a los ficheros pertenecen a una distro arch):</p>
 
 <p>check process apache with pidfile /run/httpd/httpd.pid</p>
 
-<pre><code>start program = "/etc/rc.d/httpd start" with timeout 60 seconds 
+<p>start program = &#8220;/etc/rc.d/httpd start&#8221; with timeout 60 seconds</p>
 
-stop program  = "/etc/rc.d/httpd stop" 
+<p>stop program  = &#8220;/etc/rc.d/httpd stop&#8221;</p>
 
-if cpu &gt; 80% for 5 cycles then restart 
+<p>if cpu > 80% for 5 cycles then restart</p>
 
-if totalmem &gt; 1500.0 MB for 5 cycles then restart 
+<p>if totalmem > 1500.0 MB for 5 cycles then restart</p>
 
-if children &gt; 250 then restart 
+<p>if children > 250 then restart</p>
 
-if cpu usage &gt; 95% for 3 cycles then restart 
+<p>if cpu usage > 95% for 3 cycles then restart</p>
 
-if failed port 80 protocol http then restart 
-</code></pre>
+<p>if failed port 80 protocol http then restart</p>
 
 <p>Configurar monitoreo de ssh</p>
 
 <p>check process ssh with pidfile /run/sshd.pid</p>
 
-<pre><code>start program = "/etc/rc.d/sshd start" with timeout 60 seconds 
+<p>start program = &#8220;/etc/rc.d/sshd start&#8221; with timeout 60 seconds</p>
 
-stop program  = "/etc/rc.d/sshd stop" 
+<p>stop program  = &#8220;/etc/rc.d/sshd stop&#8221;</p>
 
-if cpu &gt; 80% for 5 cycles then restart 
+<p>if cpu > 80% for 5 cycles then restart</p>
 
-if totalmem &gt; 1500.0 MB for 5 cycles then restart 
+<p>if totalmem > 1500.0 MB for 5 cycles then restart</p>
 
-if children &gt; 250 then restart 
+<p>if children > 250 then restart</p>
 
-if cpu usage &gt; 95% for 3 cycles then restart 
+<p>if cpu usage > 95% for 3 cycles then restart</p>
 
-if failed port 22 protocol ssh then restart 
-</code></pre>
+<p>if failed port 22 protocol ssh then restart</p>
 
 <p>Chequear determinados puertos:</p>
 
 <p>check host localhost with address localhost</p>
 
-<pre><code>  if failed icmp type echo count 10 with timeout 15 seconds 
+<p>if failed icmp type echo count 10 with timeout 15 seconds</p>
 
-     then alert 
+<p>then alert</p>
 
-  if failed port 22 proto ssh then alert 
+<p>if failed port 22 proto ssh then alert</p>
 
-  if failed port 25 proto smtp then alert 
+<p>if failed port 25 proto smtp then alert</p>
 
-  if failed port 80 proto http then alert 
-</code></pre>
+<p>if failed port 80 proto http then alert</p>
 
 <p>Monitorear ciertos archivos de configuración [de apache y ssh] para que alerte si modifica el checksum:</p>
 
-<pre><code>check file httpd.conf with path /etc/httpd/conf/httpd.conf 
+<p>check file httpd.conf with path /etc/httpd/conf/httpd.conf</p>
 
-if changed checksum then alert 
+<p>if changed checksum then alert</p>
 
-check file ssh_config with path /etc/ssh/ssh_config 
+<p>check file ssh_config with path /etc/ssh/ssh_config</p>
 
-if changed checksum then alert 
-</code></pre>
+<p>if changed checksum then alert</p>
 
 <p>Monitorizar directorios para que envie una alerta en caso de modificación:</p>
 
-<pre><code>        check directory sbin with path /sbin 
+<p>check directory sbin with path /sbin</p>
 
-    if changed timestamp then alert 
-</code></pre>
+<p>if changed timestamp then alert</p>
 
 <p>Monitorizar dispositivos /dev/ [discos duros, usb&#8230;] para que avise en caso de sobrepasar determinado espacio en disco o lo desmonte al llegar a cierto porcentaje:</p>
 
-<pre><code>check device sda5 with path /dev/sda5 
+<p>check device sda5 with path /dev/sda5</p>
 
-start = “/bin/mount /dev/sda5” 
+<p>start = “/bin/mount /dev/sda5”</p>
 
-stop = “/bin/umount /dev/sda5” 
+<p>stop = “/bin/umount /dev/sda5”</p>
 
-if space usage &gt; 90% then alert 
+<p>if space usage > 90% then alert</p>
 
-if space usage &gt; 98% then stop 
-</code></pre>
+<p>if space usage > 98% then stop</p>
 
 <p>Si, al pasar algún evento queremos lanzar un script algunos ejemplos para hacerlo son:</p>
 
@@ -302,10 +289,9 @@ if space usage &gt; 98% then stop
 
 <p>check system dominio.com</p>
 
-<pre><code>if loadavg (1min) &gt; 5 then alert 
+<p>if loadavg (1min) > 5 then alert</p>
 
-if loadavg (1min) &gt; 20 then exec "/bin/bash /root/script.sh" 
-</code></pre>
+<p>if loadavg (1min) > 20 then exec &#8220;/bin/bash /root/script.sh&#8221;</p>
 
 <p>2.- Si falla el servidor ftp [puerto 21], al pasar 20 segundos alertará  y ejecutará el script</p>
 
@@ -332,7 +318,7 @@ if loadavg (1min) &gt; 20 then exec "/bin/bash /root/script.sh"
   
 
 
-<time datetime="2013-11-21T17:03:00+01:00" pubdate data-updated="true">21-11-2013</time>
+<time datetime="2013-12-15T15:44:00+01:00" pubdate data-updated="true">15-12-2013</time>
       
 
 
@@ -349,10 +335,10 @@ if loadavg (1min) &gt; 20 then exec "/bin/bash /root/script.sh"
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/lightdm/" title="Previous Post: lightdm">&laquo; lightdm</a>
+        <a class="basic-alignment left" href="/blog/molly-guard/" title="Previous Post: molly-guard">&laquo; molly-guard</a>
       
       
-        <a class="basic-alignment right" href="/blog/speaker/" title="Next Post: speaker">speaker &raquo;</a>
+        <a class="basic-alignment right" href="/blog/montage/" title="Next Post: montage">montage &raquo;</a>
       
     </p>
   </footer>
@@ -373,43 +359,43 @@ if loadavg (1min) &gt; 20 then exec "/bin/bash /root/script.sh"
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/grub2/">grub2</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/printf/">printf</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdftotext/">pdftotext</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/avconv/">avconv</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ipmitool/">ipmitool</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tmux/">tmux</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/rkhunter/">rkhunter</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssconvert/">ssconvert</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/while/">while</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

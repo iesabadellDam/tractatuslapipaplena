@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Comunicación cifrada entre dos máquinas. $ ssh usuario@host (básica) $ ssh -v usuario@IP_o_host (comprobar errores en una conexión) $ ssh -p 4000 &hellip;">
+  <meta name="description" content="Recureprar archivos borrados Editar el archivo /etc/scalpel/scalpel.conf y descomentamos la linea de la extensión que se quiere recuperar. P.e. para &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ssh/">Ssh</a></h1>
+      <h1 class="entry-title"><a href="/blog/scalpel/">Scalpel</a></h1>
     
     
       <p class="meta">
@@ -97,185 +97,18 @@
   
 
 
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Comunicación cifrada entre dos máquinas.</p>
+  <div class="entry-content"><p>Recureprar archivos borrados</p>
 
-<blockquote><p>$ ssh usuario@host (básica)</p>
+<p>Editar el archivo /etc/scalpel/scalpel.conf y descomentamos la linea de la extensión que se quiere recuperar. P.e. para un .avi seria la linea 110. Guardar y arrancar la aplicación:</p>
 
-<p>$ ssh -v usuario@IP_o_host (comprobar errores en una conexión)</p>
-
-<p>$ ssh -p 4000 usuario@host (especificando un puerto)</p>
-
-<p>$ ssh -fND localhost:2080 usuario@host (Crear un servidor proxy en una máquina remota. La “N” es para que no se puedan ejecutar comandos)</p>
-
-<p>$ ssh -X -Y usuario@host akregator (Lanzar una aplicación remota en local. Ver punto 11 de esta entrada)</p>
-
-<p>$ ssh usuario@host ls (lanzar un comando remoto y visualizarlo en local)</p>
-
-<p>$ ssh -t usuario@host newsbeuter  (lo mismo si precisa consola)</p>
-
-<p>$ ssh -D 9999 usuario@host (abrir un puerto a partir del cual tunelar una conexión)</p>
-
-<p>$ ssh user@host_ip &#8216;DISPLAY=&#8221;:0.0&#8221; import -window root screenshot.png&#8217; (realizar pantallazo de una sesión remota. Se archiva en el remoto no en local)</p>
-
-<p>$ ssh usuario@host &#8220;tar -cf - /home/usuario/dir&#8221; | gzip dir.tar.gz (Comprimir un directorio remoto)</p>
-
-<p># gedit /var/run/motd   (modificar el mensaje de bienvenida de ssh)</p></blockquote>
-
-<p>1.-</p>
-
-<p>conexión remota. El servidor ha de tener el archivo /etc/ssh/sshd_config con los siguientes parámetros:</p>
-
-<p>AllowTcpForwarding yes</p>
-
-<p>GatewayPorts yes</p>
-
-<p>Luego configurar Firefox para usar un servidor proxy 127.0.0.1 puerto 9999.</p>
-
-<p>2.-</p>
-
-<blockquote><p># gedit /etc/issue.net   (modificar el mensaje antes del login. Para activarlo, descomentar del archivo “/etc/ssh/sshd_config” la línea: Banner /etc/issue.net)</p></blockquote>
-
-<p>3.-</p>
-
-<p>Tunel inverso:</p>
-
-<blockquote><p>$ ssh -R 10000:localhost:22 usuario2@host2 (lanzado desde host1 hacia host2 crea un tunel por el puerto 10000)</p>
-
-<p>$ ssh usuario2@host2 (Lanzado desde host3 hacia host2)</p></blockquote>
-
-<p>Una vez entrado en host2, lanzar:</p>
-
-<blockquote><p>$ ssh usuario1@localhost -p 10000 (Para conectar el host3 con el host1)</p></blockquote>
-
-<p>4.-</p>
-
-<p>Crear clave publica para acceder a un remoto sin que pida identificación:</p>
-
-<blockquote><p>$ ssh-keygen -b 4096 -t rsa  (Crear la clave)</p>
-
-<p>$ ssh-copy-id usuario@IP_o_HOST (enviar la clave al remoto)</p></blockquote>
-
-<p>5.-</p>
-
-<p>Para deshabilitar el acceso a todos los usuarios excepto a root:</p>
-
-<blockquote><p># touch /etc/nologin</p>
-
-<p># chmod 644 /etc/nologin</p></blockquote>
-
-<p>6.-</p>
-
-<p>Deshabilitar/personalizar los mensajes que aparecen cuando nos logueamos en algunas distros a un host remoto mediante SSH.</p>
-
-<blockquote><p>$ touch /home/usuario/.hushlogin (Creando este fichero vacio se deshabilitan los mensajes. Borrandolo vuelven a aparecer)</p>
-
-<p># nano /etc/motd (Archivo para personalizar los mensaje de bienvenida a quien se loguea en el sistema)</p></blockquote>
-
-<p>7.-</p>
-
-<p>Crear un atajo para la conexión a un servidor remoto:</p>
-
-<blockquote><p>$ nano .ssh/config</p></blockquote>
-
-<p>Y pegar el siguiente contenido debidamente modificado con nuestros datos:</p>
-
-<pre><code>host servidor
-
- hostname 192.168.1.10 
-
- user USUARIO_REMOTO
-</code></pre>
-
-<p>Nota.- Delante de la segunda y tercera linea existe un espacio.</p>
-
-<p>Al crear este archivo, la conexión se realizará con:</p>
-
-<blockquote><p>$ ssh servidor (Pedirá igualmente contraseña)</p></blockquote>
-
-<p>8.-</p>
-
-<p>Evitar desconexiones por inactividad:</p>
-
-<blockquote><p>$ nano .ssh/config</p></blockquote>
-
-<p>Y pegar el siguiente contenido:</p>
-
-<pre><code>Host *
-
-    ServerAliveInterval 120
-
-    ServerAliveCountMax 3
-</code></pre>
-
-<p>9.-</p>
-
-<p>Añadir un registro de las acciones realizadas dentro de cada sesión SFTP</p>
-
-<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
-
-<p>Y dejar la linea como se indica:</p>
-
-<p>Subsystem sftp /usr/lib/openssh/sftp-server -l INFO</p>
-
-<p>Tras reiniciar ssh, el registro se plasmará en /var/log/auth.log</p>
-
-<p>10.-</p>
-
-<p>Aumentando la seguridad del servidor ssh:</p>
-
-<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
-
-<p>Y añadir o modificar las siguientes lineas:</p>
-
-<pre><code>AllowUsers juan pedro andrés (Limitando a uno o varios los usuarios autorizados)
-
-AllowGroup oficina (Restringir acceso a solo un grupo)
-
-Port 372 (Modificando puerto. Aconsejable uno inferior al 1024)
-
-LoginGraceTime 40 (Mostrar la pantalla de login 40 segundos antes de cerrarse)
-
-MaxStartups 4 (Cantidad máxima de conexiones simultaneas)
-
-MaxAuthTries 3 (Limitar el número de intentos de logeo, tras los cuales se cierra la conexión)
-</code></pre>
-
-<p>11.-</p>
-
-<p>Ajustes para tunelar aplicaciones gráficas:</p>
-
-<p>En el servidor:</p>
-
-<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
-
-<pre><code>AllowTcpForwarding yes
-
-X11Forwarding yes
-
-X11DisplayOffset 10
-
-X11UseLocalhost yes
-</code></pre>
-
-<p>En la máquina cliente:</p>
-
-<blockquote><p># nano /etc/ssh/ssh_config</p></blockquote>
-
-<pre><code>ForwardX11 yes
-
-ForwardX11Trusted yes
-</code></pre>
-
-<p>Después de reiniciar ssh, con el parámetro -X se visualizará la gui remota que tambien tiene que estar instalada en local.</p>
-
-<blockquote><p>$ ssh -X usuario@host akregator</p></blockquote>
+<blockquote><h1>scalpel /dev/sda2 -o carpeta_recup (Se recuperará los avi de sda2 y se guardaran en carpeta_recup)</h1></blockquote>
 </div>
   
   
@@ -288,7 +121,7 @@ ForwardX11Trusted yes
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ss/">Ss</a></h1>
+      <h1 class="entry-title"><a href="/blog/sc/">Sc</a></h1>
     
     
       <p class="meta">
@@ -304,30 +137,58 @@ ForwardX11Trusted yes
   
 
 
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Utilidad para investigar sockets. Sustituye a netstat.</p>
+  <div class="entry-content"><p>Hoja de cálculo</p>
 
-<blockquote><p># ss -r  (resolviendo las IPs)</p>
+<blockquote><p>$ sc</p></blockquote>
 
-<p># ss -n  (sin resolver)</p>
+<p>Teclas básicas:</p>
 
-<p># ss  (igual)</p>
+<p>Cursores (moverse entre las celdas)</p>
 
-<p># ss -l   (muestra los que estan esperando conexión)</p>
+<p>= (añadir valor numérico o formula)</p>
 
-<p># ss -o  (con conexión establecida)</p>
+<p>&lt; (texto alineado a la izquierda)</p>
 
-<p># ss -p  (con la aplicación que los motiva)</p>
+<blockquote><p>(texto alineado a la derecha)</p></blockquote>
 
-<p># ss -a | grep ssh  (De todas las conexiones, solo muestra las ssh)</p>
+<p> (texto Centrado)</p>
 
-<p># ss -tpan &#8216;sport = :22&#8217; (ver conexiones por el puerto 22)</p></blockquote>
+<p>e (modificar una celda de tipo numérico)</p>
+
+<p>E (modificar una celda de texto)</p>
+
+<p>x (Borrar contenido de una celda)</p>
+
+<p>P (Guardar el trabajo. Usa extensión .sc)</p>
+
+<p>Q (Salir)</p>
+
+<p>Formulas:</p>
+
+<p>= @sum(A2:C2) (Suma de las casillas A2,B2 y C2)</p>
+
+<p>= @prod(A2:B2) (Producto de A2 por B2)</p>
+
+<p>= @avg(A2:A3) (Media entre A2 y A3)</p>
+
+<p>= @count(A1:A5) (Contar las entradas no en blanco)</p>
+
+<p>Operaciones básicas:</p>
+
+<p>e A1+A4 (Sumar A1 y A4)</p>
+
+<p>e A1-A3 (Restar A3 de A1)</p>
+
+<p>e A1*A2 (Multiplicar A1 por A2)</p>
+
+<p>e A5/A2 (Dividir A5 por A2)</p>
 </div>
   
   
@@ -340,7 +201,7 @@ ForwardX11Trusted yes
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/srm/">Srm</a></h1>
+      <h1 class="entry-title"><a href="/blog/sar/">Sar</a></h1>
     
     
       <p class="meta">
@@ -356,24 +217,18 @@ ForwardX11Trusted yes
   
 
 
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[secure-delete]</p>
+  <div class="entry-content"><p>Controlando logs. Herramienta de monitorización del rendimiento. Cubre la mayoría de las áreas del sistema:  Uso de la CPU [opción -u, por defecto],  Colas de procesos y carga del sistema [opción -q],  Estadísticas por proceso [-x [PID | ALL]],  Creación de procesos [-c] y cambios de contexto [-w],  Actividad de los dispositivos de bloque [-d] y TTY [-y],  Uso de memoria y espacio de swap [-r],  Estadísticas de memoria [-R], de paginación [-B] y de swapping [-W],  Estadísticas de interrupciones [-I]. [/var/log/sysstat/sadd .-”dd” indica el dia]</p>
 
-<p>Aplicación para eliminar de forma segura datos de disco sobreescribiendo su espacio. Es de funcionamiento lento, pero por eso se le considera el más efectivo</p>
+<blockquote><p>$ sar -q 10 3 (3 muestras cada 10&#8217;)</p>
 
-<blockquote><p>$ srm -f dir (Modo rápido i el más inseguro)</p>
-
-<p>$ srm -l dir (Como realizar dos veces srm -f)</p>
-
-<p>$ srm archivo.txt (Se sobreescribe 38 veces)</p>
-
-<p>$ srm -rzv dir (se sobreescriben 38 veces los archivos y subdirectorios incluidos [r], sobreescribnedo ceros en el último borrado [z] y mostrando el proceso [v])</p></blockquote>
+<p>$ sar -Ruy 5 2 (2 muestras cada 5&#8217;)</p></blockquote>
 </div>
   
   
@@ -386,7 +241,7 @@ ForwardX11Trusted yes
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/squid/">Squid</a></h1>
+      <h1 class="entry-title"><a href="/blog/sakura/">Sakura</a></h1>
     
     
       <p class="meta">
@@ -402,52 +257,16 @@ ForwardX11Trusted yes
   
 
 
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Proxy caché (intermediario para nuestra conexion a internet, guardando las paginas visualizadas en una caché)</p>
+  <div class="entry-content"><p>Terminal</p>
 
-<blockquote><p># cp /etc/squid3/squid.conf{,.defaults} (Realizar copia de seguridad de la configuración)</p>
-
-<p># nano /etc/squid3/squid.conf</p></blockquote>
-
-<p>Modificamos/adaptamos los siguientes ajustes basicos:</p>
-
-<p>http_port 3128 #puerto de escucha</p>
-
-<p>cache_mem 100 MB #Tamaño memoria caché</p>
-
-<p>cache_dir ufs /var/spool/squid 700 16 256 #directorio y tamaño</p>
-
-<p>acl NuestraRed src 192.168.1.0/24 #Nombre y red a la que afecta</p>
-
-<p>http_access allow NuestraRed #permitir acceso a toda la red</p>
-
-<p>http_access allow deny all #Denegamos a los de fuera de la red</p>
-
-<p>auth_param basic /usr/lib/squid/ncsa_auth /etc/squid/passwd #ruta a usuarios</p>
-
-<p>auth_param basic realm “Mensaje de acceso” #mensaje al logearse</p>
-
-<p>auth_param basic children 5 #Procesos de autentificación</p>
-
-<p>auth_param basic basic credentialsttl 1 hours #tiempo</p>
-
-<blockquote><p># squid3 -k parse (Revisión de la sintaxis del archivo squid.conf)</p></blockquote>
-
-<p>Después de las modificaciones reiniciar servicio:</p>
-
-<blockquote><p># /etc/init.d/squid3 restart</p></blockquote>
-
-<p>Configuración de usuarios (/etc/squid/passwd):</p>
-
-<blockquote><p># htpasswd -c /etc/squid3/passwd user1 (Crear archivo [-c] nombre de usuario y pedirá contraseña)</p>
-
-<p># htpasswd /etc/squid3/passwd usuario2 (Sin parámetro -c porque el archivo ya está creado. Otro usuario y contraseña)</p></blockquote>
+<blockquote><p>$ sakura -e tail -f /var/log/fail2ban</p></blockquote>
 </div>
   
   
@@ -460,7 +279,7 @@ ForwardX11Trusted yes
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/spumux/">Spumux</a></h1>
+      <h1 class="entry-title"><a href="/blog/saidar/">Saidar</a></h1>
     
     
       <p class="meta">
@@ -476,39 +295,18 @@ ForwardX11Trusted yes
   
 
 
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Generar subtítulos en un video mpeg.</p>
+  <div class="entry-content"><p>Visualizar estadisticas del sistema</p>
 
-<blockquote><p>$ spumux -s0 subt.xml &lt; video.mpeg > video_subtitulado.mpeg</p></blockquote>
+<blockquote><p>$ saidar -c (en color)</p>
 
-<p>Nota.- El archivo subt.xml con un contenido:</p>
-
-<pre><code>&lt;subpictures&gt;
-
-   &lt;stream&gt;
-
-        &lt;textsub filename="SUBTITULOS.srt" characterset="ISO8859-1"
-
-                 fontsize="24.0" font="Arial.ttf" horizontal-alignment="center"
-
-                 vertical-alignment="bottom" left-margin="60" right-margin="60"
-
-                 top-margin="20" bottom-margin="30" subtitle-fps="25"
-
-                 movie-fps="29.97" movie-width="720" movie-height="478"/&gt;
-
-   &lt;/stream&gt;
-
-&lt;/subpictures&gt;
-</code></pre>
-
-<p>La fuente Arial.ttf ha de estar [o tener un enlace] en el directorio ~/.spumux</p>
+<p>$ saidar -d 2 (actualizar datos cada 2 segundos. Por defecto cada 3)</p></blockquote>
 </div>
   
   
@@ -521,7 +319,7 @@ ForwardX11Trusted yes
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/sponge/">Sponge</a></h1>
+      <h1 class="entry-title"><a href="/blog/rzip/">Rzip</a></h1>
     
     
       <p class="meta">
@@ -537,20 +335,18 @@ ForwardX11Trusted yes
   
 
 
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[moreutils]</p>
+  <div class="entry-content"><p>Compresor/descompresor. Crea los comprimidos con extensión .rz</p>
 
-<p>herramienta que guarda todo el contenido a escribir hasta que recibe el EOF y luego lo escribe por lo que permite procesar un fichero y reescribirlo en el propio fichero sin perdida de datos.</p>
+<blockquote><p>$ rzip archivo.txt (Substituye archivo.txt por archivo.txt.rz)</p>
 
-<blockquote><p>$ tac archivo | sponge archivo (Lee al reves un archivo y lo guarda en el mismo archivo)</p>
-
-<p>$ column -t datos | sponge datos</p></blockquote>
+<p>$ rzip -o archivo.txt -d archivo.txt.rz (Descomprimir. Imprescindible dar el nombre del archivo de salida [-o])</p></blockquote>
 </div>
   
   
@@ -563,7 +359,7 @@ ForwardX11Trusted yes
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/splitvt/">Splitvt</a></h1>
+      <h1 class="entry-title"><a href="/blog/rxvt/">Rxvt</a></h1>
     
     
       <p class="meta">
@@ -579,16 +375,28 @@ ForwardX11Trusted yes
   
 
 
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Lanzar dos shells simultaneas partiendo en dos ventanas una terminal.</p>
+  <div class="entry-content"><p>Emulador de terminal</p>
 
-<blockquote><p>$ splitvt -t &#8220;linux es genial&#8221; -upper ls -lower top (Con un título [-t] lanzando un ls en la ventana superior y top en la inferior)</p></blockquote>
+<blockquote><p>$ rxvt -geometry 100x40 -e links2 http://google.es</p></blockquote>
+
+<p>Opciones:</p>
+
+<p>-geometry 100x12  (especificar medidas)</p>
+
+<p>-bg red (color de fondo)</p>
+
+<p>-fg white (Color de fuente)</p>
+
+<p>-cr blue  (Color del cursor)</p>
+
+<p>-title &#8220;Consola linux&#8221; (especificar un título)</p>
 </div>
   
   
@@ -601,7 +409,7 @@ ForwardX11Trusted yes
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/split/">Split</a></h1>
+      <h1 class="entry-title"><a href="/blog/rvm/">Rvm</a></h1>
     
     
       <p class="meta">
@@ -617,18 +425,30 @@ ForwardX11Trusted yes
   
 
 
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Cortar archivos</p>
+  <div class="entry-content"><p>Paquete de gestión para entornos ruby y las gemas de cada proycto.</p>
 
-<blockquote><p>$ split -d -b 100m archivo otro_archivo. (Que tengan extensión con números: .00, .01, .02. Trozos de 200 MB, archivo de entrada y de salida terminado con un punto donde se añade la extension. En este ejemplo daría salidas tipo otro_archivo.00, otro_archivo.01&#8230;.)</p>
+<blockquote><p>$ rvm install 1.9.2 (Instalar una versión de ruby)</p>
 
-<p>$ cat prefijo* > archivo  (volver a unirlos)</p></blockquote>
+<p>$ rvm requirements (Instalar dependencias)</p>
+
+<p>$ rvm upgrade 1.8.7 ruby-1.8.7-p299 (Actualizar de la versión de ruby 1.8.7-p299 a la siguiente)</p>
+
+<p>$ rvm &#8211;default ruby-1.9.2 (Establecer la versión de ruby por defecto)</p>
+
+<p>$ rvm gemset list (Lista gemsets [ver] creados, mostrando el que está por defecto y versión)</p>
+
+<p>$ rvm gemset create NOMBRE_GEMSET (Crear un gemset)</p>
+
+<p>$ rvm gemset use NOMBRE_GEMSET (Utilizar un gemset)</p>
+
+<p>$ rvm gemset use VERSION@NOMBRE_GEMSET (Especificar versión de ruby y el gemset a cambiar)</p></blockquote>
 </div>
   
   
@@ -641,7 +461,7 @@ ForwardX11Trusted yes
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/speedometer/">Speedometer</a></h1>
+      <h1 class="entry-title"><a href="/blog/runlevel/">Runlevel</a></h1>
     
     
       <p class="meta">
@@ -657,22 +477,16 @@ ForwardX11Trusted yes
   
 
 
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Monitor de transferencia de ficheros [velocímetro].</p>
+  <div class="entry-content"><p>conocer el nivel de ejecución actual del sistema [gráfico, monousuario&#8230;]</p>
 
-<blockquote><p># speedometer -p -rx eth0  (tráfico recibido y el resultado en consola [-p])</p>
-
-<p># speedometer -tx eth0  (tráfico transmitido y el resultado en modo gráfico)</p>
-
-<p># speedometer -i 0.25 -rx eth0 (t. recibido, en modo gráfico y muestreo cada 0.25 segundos.)</p></blockquote>
-
-<p>pulsar “q” para cerrar</p>
+<blockquote><p>$ runlevel</p></blockquote>
 </div>
   
   
@@ -685,7 +499,7 @@ ForwardX11Trusted yes
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/spacedream/">Spacedream</a></h1>
+      <h1 class="entry-title"><a href="/blog/ruby/">Ruby</a></h1>
     
     
       <p class="meta">
@@ -701,16 +515,38 @@ ForwardX11Trusted yes
   
 
 
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra una imagen del cielo en la tty. Con las teclas del cursor permite moverse por entre la constelación de estrellas.</p>
+  <div class="entry-content"><p>Lenguaje de programación orientado a objetos. Ver irb.</p>
 
-<blockquote><p>$ spacedream</p></blockquote>
+<p>Instalación:</p>
+
+<p>$ curl -L https://get.rvm.io | bash -s stable &#8211;ruby</p>
+
+<p>$ source ~/.rvm/scripts/rvm</p>
+
+<p>$ rvm install 1.9.3</p>
+
+<p>$ rvm &#8211;default ruby-1.9.3</p>
+
+<p>Y comprobar o añadir:</p>
+
+<blockquote><p>$ nano .bashrc</p></blockquote>
+
+<p>La linea:</p>
+
+<p>[[ -s &#8220;$HOME/.rvm/scripts/rvm&#8221; ]] &amp;&amp; source &#8220;$HOME/.rvm/scripts/rvm&#8221;</p>
+
+<blockquote><p>$ ruby script.rb (ejecutar un script de ruby)</p>
+
+<p>$ ruby -e &#8220;puts Dir.glob(&#8216;*&#8217;).count&#8221; (la opción -e permite introducir directamente código en la linea de comando. Mostrar la cantidad de archivos del presente directorio en este caso)</p>
+
+<p>$ ruby -v (Versión de ruby)</p></blockquote>
 </div>
   
   
@@ -741,43 +577,43 @@ ForwardX11Trusted yes
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/grub2/">grub2</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/printf/">printf</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdftotext/">pdftotext</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/avconv/">avconv</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ipmitool/">ipmitool</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tmux/">tmux</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/rkhunter/">rkhunter</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssconvert/">ssconvert</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/while/">while</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="[moreutils] Permite editar en medio de una tubería los datos que están siendo canalizadas entre programas. $ ls | vipe | ifdata -pb eth0
-">
+  <meta name="description" content="información sobre el estado del sistema, procesos, uso del procesador, memoria etc&#8230; en ejecucion $ top | grep Tasks (Visualizar procesos &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -82,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/vipe/">Vipe</a></h1>
+      <h1 class="entry-title"><a href="/blog/top/">Top</a></h1>
     
     
       <p class="meta">
@@ -98,18 +97,68 @@
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[moreutils]</p>
+  <div class="entry-content"><p>información sobre el estado del sistema, procesos, uso del procesador, memoria etc&#8230; en ejecucion</p>
 
-<p>Permite editar en medio de una tubería los datos que están siendo canalizadas entre programas.</p>
+<blockquote><p>$ top | grep Tasks (Visualizar procesos abiertos incluidos los zombies)</p>
 
-<blockquote><p>$ ls | vipe | ifdata -pb eth0</p></blockquote>
+<p>$ top -u usuario  (procesos abiertos por el usuario indicado)</p>
+
+<p>$ top -p $(pgrep -d, yaourt) (Monitorizar un proceso)</p>
+
+<p>$ top -p <code>pgrep pidgin</code> (Monitorear un proceso)</p>
+
+<p>$ top -b -n 2 -d 2 (En modo batch [b] que termine el comando despues de mostrar 2 procesos top [n] con un intervalo de 2 segundos [d])</p></blockquote>
+
+<p>Teclas de control</p>
+
+<p>Ctrl + m (los ordenamos por uso de memoria)</p>
+
+<p>Ctrl + c  (Salir)</p>
+
+<p>k  (y colocar el PID correspondiente mataremos el proceso)</p>
+
+<p>Z  (para modificar el color. Con “z” se escoge el color)</p>
+
+<p>n  ( y colocar el número de procesos que queremos visualizar)</p>
+
+<p>A  (abre multiples ventanas “top”)</p>
+
+<p>f   (activa/desactiva columnas a visualizar)</p>
+
+<p>o  (Modifica el orden de las columnas)</p>
+
+<p>G + num (del 1 al 4 cambia el modo de presentación)</p>
+
+<p>W (Graba el tipo de visualización. A partir de la siguiente vez que se lance la aplicación se mostrará con los parámetros grabados)</p>
+
+<p>Columnas:</p>
+
+<p>PID .-       Identificador</p>
+
+<p>USER.-   Usuario que ha ejecutado el proceso.</p>
+
+<p>PR.-         Prioridad</p>
+
+<p>NI.-         Valor nice del proceso (negativos-> mayor prioridad)</p>
+
+<p>RES.-        Memoria RAM ocupada por el proceso.</p>
+
+<p>%CPU.-   Porcentaje ocupado de la CPU</p>
+
+<p>TIME+.-  Cuanto tiempo lleva el proceso en el sistema.</p>
+
+<p>COMMAND.- Nombre del procesos y sus parametros.</p>
+
+<p>PPID.-       PID del proceso padre.</p>
+
+<p>UID.-        ID del usuario que ha ejecutado el proceso.</p>
 </div>
   
   
@@ -122,7 +171,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/vim/">Vim</a></h1>
+      <h1 class="entry-title"><a href="/blog/tomb/">Tomb</a></h1>
     
     
       <p class="meta">
@@ -138,280 +187,28 @@
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Editor</p>
+  <div class="entry-content"><p>Encriptar directorios. Por seguridad ha de desactivarse la partición swap (intercambio) antes de crear la tumba o al acceder a ella a menos que tengamos la swap encriptada.</p>
 
-<blockquote><p>$ vim fichero (Abrir un fichero)</p>
+<blockquote><h1>swapoff -a (“swapon” para activarla nuevamente)</h1></blockquote>
 
-<p>$ vim -x fichero (Poner contraseña a un fichero)</p>
+<p>En algunas distros es necesario activar el demonio:</p>
 
-<p>$ vimtutor (Lanzar un tutorial elemental de vim)</p></blockquote>
+<blockquote><h1>/etc/init.d/cryptdisks start</h1>
 
-<p>Algunas teclas para no morir en el intento:</p>
+<h1>tomb create -s 1024 &#8211;ignore-swap cripta (Crear el directorio encriptado .tomb y el de la clave .key, especificando medida. Pedirá contraseña y confirmación. )</h1>
 
-<p>Teclas de modo:</p>
+<h1>tomb-open cripta.tomb (Abrir el directorio encriptado cuando .tomb y .key estan en el mismo directorio. Lo montará en /media/tumba.tomb)</h1>
 
-<pre><code>i (Entrar en modo edición)
+<h1>tomb -k /root/cripta.tomb.key open cripta.tomb (Montar el directorio encriptado cuando .key está en otro directorio [/root]</h1>
 
-esc (Salir modo edición y entrar en modo comando)
-</code></pre>
-
-<p>Movimientos básicos con el cursor:</p>
-
-<pre><code>k (Arriba)
-
-j (Abajo)
-
-h (Derecha)
-
-l (Izquierda)
-
-b (Ir al principio de la palabra anterior)
-
-w (Ir al principio de la palabra posterior)
-
-e (Ir a la última letra de la palabra anterior)
-
-$ (Ir al final de la linea)
-
-0 (Ir al principio de la linea)
-
-ge (Ir a la última letra de la palabra posterior)
-
-20G (Ir a la linea 20)
-
-gg (Ir al principio del ficherol)
-
-G (Ir al final del fichero)
-
-{ (Pasar al siguiente párrafo)
-
-} (Pasar al anterior párrafo)
-</code></pre>
-
-<p>Entrar y salir del vim:</p>
-
-<pre><code>:q! (Salir sin guardar)
-
-:w (Guardar cambios sin salir)
-
-:x (Guardar cambios y salir)
-
-:w fichero (Guardar en un fichero distinto y seguir)
-
-:e fichero2 (Cierra el fichero actual y abre fichero2)
-
-:e . (Abre un navegador de ficheros en el directorio actual)
-</code></pre>
-
-<p>Cortar, Copiar y Pegar.</p>
-
-<p>Con los cursores nos desplazamos por el fichero hasta llegar al inicio</p>
-
-<p>de la zona que queremos copiar. Salimos del modo edición (si estamos en él)</p>
-
-<p>pulsando esc y</p>
-
-<pre><code>v (Entra en modo visual y con los cursores seleccionar lo que queremos copiar)
-
-c (Para cortar)
-
-y (Para copiar)
-</code></pre>
-
-<p>Aparecerá debajo un mensaje informando de las lineas copiadas. Nos desplazamos</p>
-
-<p>donde queramos pegar el fragmento y en modo normal:</p>
-
-<pre><code>p (Para pegar)
-</code></pre>
-
-<p>Para buscar una palabra, escribimos en modo normal:</p>
-
-<pre><code>/palabra
-</code></pre>
-
-<p>Resalta la palabra encontrada o avisa de que no existe</p>
-
-<pre><code>n (Buscarla hacia delante)
-
-N (Buscarla hacia atrás))
-
-Para sustituir un texto debemos escribir la secuencia:
-
-:%s/texto1/texto2/g
-</code></pre>
-
-<p>donde texto1 es el texto a buscar y texto2 el</p>
-
-<p>texto que será reemplazado. la g final sustituirá todas las coincidencias</p>
-
-<p>que encuentre en todo el fichero</p>
-
-<p>Más operaciones de texto:</p>
-
-<pre><code>dd (Suprimir línea actual gaurdarla en el buffer. "p" para pegar)
-
-u (Deshacer el último cambio en el fichero)
-
-Ctrl + r (Rehacer el último cambio en el fichero)
-
-:25 (Ir a la linea 25)
-
-o (Añadir linea en blanco despues de la linea y entrar en edición)
-
-O (Añadir linea en blanco antes de la linea y entrar en edición)
-</code></pre>
-
-<p>Ejecución de comandos durante la edición:</p>
-
-<pre><code>:!ls (Muestra listado del directorio y con intro regresa al editor)
-
-:shell (Pausa la edición y entra en modo shell)
-
-:exit (Termina el modo shell y regresa a la edición)
-
-Ctrl z (Suspende vim y entra en la shell. Con fg vuelve a vim)
-</code></pre>
-
-<p>Dividir la pantalla:</p>
-
-<pre><code>:split fichero (Abrir un archivo en una division horizontal de la ventana)
-
-:vsplit fichero (Abrir un archivo en una division vertical de la ventana)
-
-Ctrl + w + flecha cursor (Moverse entre las distintas divisiones de una ventana)
-
-:new (Crea una nueva ventana vacia)
-
-:r archivo (Insertar "archivo" donde esté el cursor)
-</code></pre>
-
-<p>Opciones con las ventanas:</p>
-
-<p>Pulsar Ctrl + w y a continuacion alguna de las siguientes opciones:</p>
-
-<pre><code>n (crear nueva ventana)
-
-H (mover ventana hacia la izquierda)
-
-J (mover ventana hacia abajo)
-
-K (mover ventana hacia arriba)
-
-L (mover ventana hacia la derecha)
-
-h (ir a la ventana de la izquierda)
-
-j (ir a la ventana de abajo)
-
-k (ir a la ventana de arriba)
-
-l (ir a la ventana de la derecha)
-
-t (ir a la ventana de más arriba)
-
-b (ir a la ventana de más abajo)
-
-w (pasar a la siguiente ventana)
-
-+ (aumentar el tamaño de la ventana en 1 linea)
-
-- (disminuir el tamaño de la ventana en 1 linea)
-</code></pre>
-
-<p>Para crear ventanas de anchura especifica:</p>
-
-<pre><code>10 Ctrl w _ (Crear nueva  de 10 lineas de ancho))
-
-5 Ctrl w + (Aumenta 5 lineas la ventana actual)
-</code></pre>
-
-<p>Crear pestañas:</p>
-
-<pre><code>:tabnew fichero      (Abrir un archivo en una nueva pestaña)
-
-gt           (Moverse entre pestañas)
-
-:close  (Cierra la ventana o la subdivision de la ventana)
-
-:only   (Cierra todas las ventanas menos la actual)
-</code></pre>
-
-<p>Imprimir:</p>
-
-<pre><code>:ha (Imprimir todo el documento)
-
-:ha &gt; archivo.pdf (Imprimir a pdf)
-</code></pre>
-
-<p>Guardar sesiones:</p>
-
-<pre><code>:mksession! archivo (Guarda la sesión actual en "archivo")
-
-:source archivo (Restablece una sesión anterior)
-</code></pre>
-
-<p>Crear atajos de teclado [mapping]. Colocar en ~/.vimrc:</p>
-
-<pre><code>map ,p :tabprevious (Ir a la pestaña anterior pulsando ,p
-</code></pre>
-
-<p>algunos ajustes que pueden implementarse, bien durante la edición [en modo normal] o</p>
-
-<p>permanentemente en ~/.vimrc [en este caso quitar los dos puntos iniciales]:</p>
-
-<pre><code>:set ts=4 (Fija los tabulados a 4 espacios)
-
-:set sw=4 (Fija los indentados a 4 espacios)
-
-:set number/nonumber (Activa/desactiva el numerado de lineas)
-
-:set backup/nobackup (Activa/desactiva la copia de seguridad automática)
-
-:set directory=dir (fija la carpeta donde se harán las copias)  
-
-:syntax on/off (Activa/desactiva el resaltado de sintaxis)
-
-:color darkblue (Cambia el color del vim [evening, desert, elflord, koehler, morning..])
-
-:set cindent (Activa indentado automático)
-
-:set mouse=a/mouse= (Activa/desactiva el uso del ratón)
-
-:set paste/nopaste (Activa/desactiva el modo pegar texto literalmente)
-
-:spell (Activa el corrector ortográfico)
-
-:setlocal spell spelllang=es (Activa el idioma español del corrector ortográfico)
-
-:set spellfile=~/.vimdic  (Fija diccionario de palabras desconocidas)
-</code></pre>
-
-<p>1.-</p>
-
-<p>Poner un esquema de colores:</p>
-
-<blockquote><p>$ mkdir -p ~/.vim/colors (Crear el directorio caso de no existir)</p></blockquote>
-
-<p>Entrar en <a href="http://www.vim.org/scripts/script_search_results.php">http://www.vim.org/scripts/script_search_results.php</a> y escoger los deseados y copiarlos en el directorio creado. Despues crear [si no existe] el fichero:</p>
-
-<blockquote><p>$ vim .vimrc</p></blockquote>
-
-<p>Y pegar el texto:</p>
-
-<pre><code>syntax on
-
-colorscheme oceandeep
-</code></pre>
-
-<p>En colorscheme poner el escogido, en este caso oceandeep. Guardar.</p>
+<h1>tomb close cripta (Cerrar el directorio. En realidad desmontarlo)</h1></blockquote>
 </div>
   
   
@@ -424,7 +221,7 @@ colorscheme oceandeep
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/view/">View</a></h1>
+      <h1 class="entry-title"><a href="/blog/toilet/">Toilet</a></h1>
     
     
       <p class="meta">
@@ -440,16 +237,32 @@ colorscheme oceandeep
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Ver en pantalla el contenido de un archivo.</p>
+  <div class="entry-content"><p>Edición de banners</p>
 
-<blockquote><p>$ view fichero.txt</p></blockquote>
+<blockquote><p>$ toilet -f future -F gay texto</p>
+
+<p>$ toilet -t -f smblock -F metal -E html texto</p></blockquote>
+
+<p>Opciones</p>
+
+<p>-f bigmono12 (Otras fuentes: bigmono9, circle, emboss, emboss2, future, mono12, mono9, smblock, smbraille, smmono12, smmono9)</p>
+
+<p>-F gay (filtro &#8220;gay&#8221; o &#8220;metal&#8221;)</p>
+
+<p>-E html (Saca en formato en html para su inclusión en una web)</p>
+
+<p>-t (se adapta al ancho de la terminal)</p>
+
+<p>-S (letras más juntas. Por defecto es -s)</p>
+
+<p>-o (más juntas)</p>
 </div>
   
   
@@ -462,7 +275,7 @@ colorscheme oceandeep
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/vidir/">Vidir</a></h1>
+      <h1 class="entry-title"><a href="/blog/tmux/">Tmux</a></h1>
     
     
       <p class="meta">
@@ -478,20 +291,80 @@ colorscheme oceandeep
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[moreutils]</p>
+  <div class="entry-content"><p>Terminal multiplexor</p>
 
-<p>Edita como un archivo de texto directorios o archivos.</p>
+<blockquote><p>$ tmux (Lanzar la aplicación)</p>
 
-<blockquote><p>$ vidir /home/usuario</p>
+<p>$ tmux ls (Listar las sesiones tmux abiertas)</p>
 
-<p>$ vidir *.png</p></blockquote>
+<p>$ tmux attach -t 0 (Sincronizarse con la sesión 0 [attach] en local o en remoto via ssh)</p>
+
+<p>$ tmux rename-session -t 0 tty1 (Renombrar la sesion 0 a tty1)</p>
+
+<p>$ tmux kill-window -t 2 (Matar la sesión tmux número 2)</p>
+
+<p>$ tmux new-session -s hack_wifi (Abrir sesión con un nombre)</p>
+
+<p>$ tmux list-commands (Listar la sintaxis de todos los comandos soportados)</p>
+
+<p>$ tmux list-keys (Listado de todas las teclas de control)</p>
+
+<p>$ tmux new-session -d &#8216;vi /etc/apt/sources.list&#8217; ; split-window -d &#8216;newsbeuter&#8217; ; attach (Arrancar una sesión tmux con el sources.list en el panel superior y con el lector RSS newsbeuter en el inferior)</p>
+
+<p>$ tmux new-session ; split-window ; split-window -h ; split-window -v ; attach (Arrancar la aplicación con varios panels horizontales y verticales)</p></blockquote>
+
+<p>Un completo tutorial en: <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=tmux&amp;sektion=1">http://www.openbsd.org/cgi-bin/man.cgi?query=tmux&amp;sektion=1</a></p>
+
+<p>Atajos:</p>
+
+<p>Ctrl+b c (Crear una nueva ventana)</p>
+
+<p>Ctrl+b d (Salir de tmux actual (detach) sin cerrar sesión)</p>
+
+<p>Ctrl+b n (Ir a la ventana siguiente)</p>
+
+<p>Ctrl+b p (Ir a la ventana anterior)</p>
+
+<p>Ctrl+b &amp; (Matar la ventana actual, incluye todos los paneles)</p>
+
+<p>Ctrl+b x (Matar panel actual)</p>
+
+<p>Ctrl+b , (cambiar el nombre de la ventana actual )</p>
+
+<p>Ctrl+b % (Dividir verticalmente la ventana actual en dos paneles)</p>
+
+<p>Ctrl+b &#8221; (Dividir horizontalmente la ventana actual en dos paneles)</p>
+
+<p>Ctrl+b q (Mostrar brevemente los números de cada panel)</p>
+
+<p>Ctrl+b o (Cambiar al siguiente panel)</p>
+
+<p>Ctrl+b ? (Lista todas las combinaciones de teclas de control)</p>
+
+<p>Ctrl+b w (Lista todas las ventanas)</p>
+
+<p>Ctrl+b núm (Moverse a la ventana seleccionada (0-9). No al panel)</p>
+
+<p>Ctrl+b up (Ir al panel de encima)</p>
+
+<p>Ctrl+b down (Ir al panel de abajo)</p>
+
+<p>Ctrl+b left (Ir al panel de la izquierda)</p>
+
+<p>Ctrl+b right (Ir al panel de la derecha)</p>
+
+<p>Ctrl+b t (Muestra en el panel un reloj digital)</p>
+
+<p>Ctrl+b s (Elegir sesión)</p>
+
+<p>Ctrl+b [ (Entra en modo scroll con la teclas del cursor. Termina pulsando q)</p>
 </div>
   
   
@@ -504,7 +377,7 @@ colorscheme oceandeep
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/videotop/">Videotop</a></h1>
+      <h1 class="entry-title"><a href="/blog/tmpfs/">Tmpfs</a></h1>
     
     
       <p class="meta">
@@ -520,35 +393,20 @@ colorscheme oceandeep
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Descarga de videos de youtube.</p>
+  <div class="entry-content"><p>Permite asignar parte de la memoria física para ser utilizada como una partición lo que permite una vez montada, leer o escribir archivos de la RAM como si de una partición de disco se tratara. Dado que se está escribiendo en la memoria RAM del sistema, esta se borra en un reinicio o en un cuelgue. Relacionado con ramfs [ver], se diferencia de este en que tmpfs usa swap y que no permite escribir más que el tamaño que se ha especificado en el montaje. El proceso:</p>
 
-<blockquote><p>$ videotop  (Para entrar en el prompt)</p></blockquote>
+<blockquote><h1>mkdir /media/tmp</h1>
 
-<p>Teclear:</p>
+<h1>mount -t tmpfs -o size=20m tmpfs /media/tmp</h1></blockquote>
 
-<pre><code>:s queen (se mostrarán los videos en los que aparezca queen. Se selecciona con la flechas el que se quiera descargar y se pulsa intro. El video se encontrará en $HOME/.videotop/videos/)
-
-:5 (Descargar el video 5)
-
-:v (Muestra los videos descargados [ls $HOME/.videotop/videos])
-
-:q (salir)
-
-:delete (borrar video seleccionado)
-
-:clear (limpia la busqueda y se entra en modo buscador.)
-
-    ^r (limpia el listado)
-
-    ^n (continuación de la misma busqueda)
-</code></pre>
+<p>Comprobar con df -k [ver] o mount [ver] su correcto montaje</p>
 </div>
   
   
@@ -561,7 +419,7 @@ colorscheme oceandeep
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/video/">Video</a></h1>
+      <h1 class="entry-title"><a href="/blog/tload/">Tload</a></h1>
     
     
       <p class="meta">
@@ -577,24 +435,16 @@ colorscheme oceandeep
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>1.- Descargar video flash:</p>
+  <div class="entry-content"><p>Muestra el promedio de carga en el terminal en forma de dibujos de caracteres.</p>
 
-<p>Iniciar la reproducción del vídeo.</p>
-
-<blockquote><p>$ lsof |grep Flash</p></blockquote>
-
-<p>chromium- 15931 lb 25u REG 8,2 2422656 656146 /tmp/FlashXXYX9waY (deleted)</p>
-
-<p>Los datos que interesan son: 15931 y 25. Sin cerrar la página del vídeo y una vez finalizada su carga copiarlo:</p>
-
-<blockquote><p>$ cp /proc/15931/fd/25 video.flv</p></blockquote>
+<blockquote><p>$ tload -d 2 (Con actualizacion cada 2 segundos)</p></blockquote>
 </div>
   
   
@@ -607,7 +457,7 @@ colorscheme oceandeep
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/vfu/">Vfu</a></h1>
+      <h1 class="entry-title"><a href="/blog/timidity/">Timidity</a></h1>
     
     
       <p class="meta">
@@ -623,38 +473,18 @@ colorscheme oceandeep
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Gestor de archivos. Configuración en /home/USUARIO/.vfu/vfu.conf</p>
+  <div class="entry-content"><p>Convertir formatos de audio de midi a wav  o a ogg</p>
 
-<blockquote><p>$ vfu -d /usr/local -i (Especificando directorio y de forma interactiva)</p>
+<blockquote><p>$ timidity -Ow -s 44100 -o output.wav input.mid  (MIDI -> WAV)</p>
 
-<p>$ vfu (Abre el presente directorio)</p></blockquote>
-
-<p>Algunos atajos:</p>
-
-<p>c (Copiar)</p>
-
-<p>Enter (entrar en un directorio o abrir documento)</p>
-
-<p>e (Eliminar)</p>
-
-<p>g (Seleccionar/deseleccionar todo)</p>
-
-<p>i (Editar archivo. Por defecto usa joe. Modificar en el archivo de configuración)</p>
-
-<p>h (Muestra las teclas de ayuda)</p>
-
-<p>n (Buscar)</p>
-
-<p>Flecha derecha (Renombrar)</p>
-
-<p>q (Salir)</p>
+<p>$ timidity -Og -s 44100 -o output.ogg input.mid  ( MIDI -> OGG)</p></blockquote>
 </div>
   
   
@@ -667,7 +497,7 @@ colorscheme oceandeep
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/vdir/">Vdir</a></h1>
+      <h1 class="entry-title"><a href="/blog/times/">Times</a></h1>
     
     
       <p class="meta">
@@ -683,14 +513,14 @@ colorscheme oceandeep
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Equivalente a ls -l.</p>
+  <div class="entry-content"><p>Muestra los tiempos de usuario y sistema acumulados para procesos ejecutados desde el interprete de comandos</p>
 </div>
   
   
@@ -703,7 +533,7 @@ colorscheme oceandeep
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/vcftpd/">Vcftpd</a></h1>
+      <h1 class="entry-title"><a href="/blog/timeout/">Timeout</a></h1>
     
     
       <p class="meta">
@@ -719,38 +549,16 @@ colorscheme oceandeep
   
 
 
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Servidor de archivos ftp. Toda la configuración de encuentra en el archivo:</p>
+  <div class="entry-content"><p>Limita el tiempo de funcionamiento de un comando o aplicación.</p>
 
-<blockquote><p># nano /etc/vsftpd.conf</p></blockquote>
-
-<p>Algunos de los parámetros:</p>
-
-<p>anonymous_enable=NO # si no queremos accesos anonimos</p>
-
-<p>local_enable=YES # Permitir accesos locales autentificados</p>
-
-<p>write_enable=YES # Permite escritura en el servidor</p>
-
-<p>ftpd_banner=Entrando en el servidor ftp&#8230;</p>
-
-<p>chroot_local_user=YES # Enjaular la conexión a su propio directorio personal</p>
-
-<p>max_clients=5 # limitar a 5 los accesos simultaneos</p>
-
-<p>Nota.- Han de redigirirse los puertos 20 y 21 y el rango especificado en el archivo de configuración:</p>
-
-<p>pasv_min_port=44000</p>
-
-<p>pasv_max_port=44100</p>
-
-<p>El cliente podrá conectarse al servidor via filezilla, gftp&#8230;</p>
+<blockquote><p>$ timeout 60 firefox (arrancará firefox y se cerrará a los 60 segundo)</p></blockquote>
 </div>
   
   
@@ -763,7 +571,7 @@ colorscheme oceandeep
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/variables/">Variables</a></h1>
+      <h1 class="entry-title"><a href="/blog/time/">Time</a></h1>
     
     
       <p class="meta">
@@ -779,141 +587,20 @@ colorscheme oceandeep
   
 
 
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Existen dos tipos de variables:</p>
+  <div class="entry-content"><p>Devuelve el tiempo de ejecución de un comando o aplicación.</p>
 
-<p>Variables locales (tiene valor únicamente dentro de nuestra shell)</p>
+<blockquote><p>$ time netstat -anpt</p>
 
-<p>Variables globales (disponibles para todos los procesos invocados por la shell)</p>
+<h1>time nmap -sS www.tuxapuntes.com</h1>
 
-<p>Al ejecutar un script la línea de comandos introducida se guarda en unas variables especiales que podemos referenciar:</p>
-
-<blockquote><p>$0 (Nombre del comando)</p>
-
-<p>$1 (Primer argumento)</p>
-
-<p>$2 (Segundo&#8230;)</p>
-
-<p>$@ (Todos los argumentos introducidos, separados por espacios)</p>
-
-<p>$# (Número de argumentos)</p>
-
-<p>$$ (identificador del proceso)</p>
-
-<p>$? (Cuando finaliza la ejecución de un proceso, $? será cero (0) si se ejecuta correctamente y distinto de cero si se ha producido algún error. Es muy usual guardar su valor en una variable (VAR=$?) para su posterior uso.)</p></blockquote>
-
-<p>Para declarar una variable sólo se precisa asignarle un valor. Nunca el valor puede preceder a la variable. No se ponen espacios ni antes ni después del signo igual. El nombre puede contener caracteres alfabéticos (A-Z, a-z), numéricos (0-9) o el guión bajo ‘_’. El primer carácter no puede ser un número o contener otros signos (2DIR, .DIR, -VAR&#8230;)</p>
-
-<pre><code>DIR="/var/www" 
-</code></pre>
-
-<p>También puede asignarse a partir del contenido de un fichero:</p>
-
-<pre><code>$ firma=$(&lt;firma.txt)  
-</code></pre>
-
-<p>Puede asignarse a la salida de un comando encerrado entrecomillas graves:</p>
-
-<pre><code>WHO=`who | awk '{print$2}'` 
-</code></pre>
-
-<p>O entra parentesis antecedido por el signo dolars ($):</p>
-
-<pre><code>WHO=$(who | awk '{print$2}') 
-</code></pre>
-
-<p>Variables introducidas por el teclado:</p>
-
-<pre><code>echo "Como te llamas" 
-
-read NOMBRE 
-</code></pre>
-
-<p>Puede especificarse un tiempo (en segundos) de espera para entrar lo solicitado (-t):</p>
-
-<pre><code>read -t 10 -p "¿Nombre y apellido? " NOMBRE APELLIDO
-</code></pre>
-
-<p>Para definir variables numéricas se utiliza el comando let:</p>
-
-<pre><code>let A=100
-
-let B=200 
-
-let C=$A+$B 
-</code></pre>
-
-<p>Si al llamar a una variable, esta va seguida de un carácter que sea otra letra, numero o el guión normal o bajo, La encerraremos entre llaves &#8216;{}&#8217;:</p>
-
-<pre><code>ARCHIVO="registro" 
-
-echo "${ARCHIVO}_2011.txt"
-
-registro_2011.txt
-</code></pre>
-
-<p>Cuando bash encuentra en una palabra el signo &#8220;$&#8221; todo lo que va a continuación se considera el nombre de una variable y todos los caracteres desde el &#8220;$&#8221; hasta el final de la palabra son sustituidos por dicha variable:</p>
-
-<pre><code>COSA="mastro" 
-
-echo "ca$COSA"
-
-camastro
-</code></pre>
-
-<p>Otra forma de entrar variables es mostrando un promt:</p>
-
-<pre><code>$ read -p "palabra&gt; " PALABRA
-</code></pre>
-
-<p>Si no indicamos nombre de variable, lo ingresado se guarda en la variable REPLY:</p>
-
-<pre><code>read
-
-juan jose pedro
-
-$ echo $REPLY
-
-juan jose pedro
-</code></pre>
-
-<p>Modificar parte de una variable:</p>
-
-<pre><code>a="Linux es un sistema genial" 
-
-echo ${a/geni/brut}
-
-Linux es un sistema brutal
-</code></pre>
-
-<p>Algunas de la variables globales:</p>
-
-<pre><code>$HOME  (ruta del directorio home del usuario) 
-
-$PATH    (directorios donde se encuentran los ejecutables) 
-
-$TERM    (nombre de la terminal) 
-
-$BASH    (ruta del interprete bash )
-
-$PWD      (directorio actual)
-
-$USER     (Usuario)
-
-$HOSTNAME  (Nombre del equipo)
-
-$HISTFILE (ruta para el histórico de comandos ejecutados)
-
-$UID     (Número de usuario para el sistema)
-
-$RANDOM (números aleatorios entre 0 y 32767)
-</code></pre>
+<p>$ time echo &#8220;scale=5000; 4*a(1)&#8221; | bc -l -q (Calcula 5000 decimales de pi para comprobar velocidad del procesador)</p></blockquote>
 </div>
   
   
@@ -944,43 +631,43 @@ $RANDOM (números aleatorios entre 0 y 32767)
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/grub2/">grub2</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/printf/">printf</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdftotext/">pdftotext</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/avconv/">avconv</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ipmitool/">ipmitool</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tmux/">tmux</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/rkhunter/">rkhunter</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssconvert/">ssconvert</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/while/">while</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

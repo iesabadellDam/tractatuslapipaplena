@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Eliminar información y reducir, modificar o recortar tamaño de imagenes jpeg. $ jpegtran -copy none optimize original.jpg resultado.jpg (Eliminando &hellip;">
+  <meta name="description" content="Capturar paquetes relacionados con el protocolo MSN . Su uso pasa por el envenenamiento arp, situando nuestra máquina entre la victima y el router &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/jpegtran/">Jpegtran</a></h1>
+      <h1 class="entry-title"><a href="/blog/imsniff/">Imsniff</a></h1>
     
     
       <p class="meta">
@@ -97,26 +97,104 @@
   
 
 
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Eliminar información y reducir, modificar o recortar tamaño de imagenes jpeg.</p>
+  <div class="entry-content"><p>Capturar paquetes relacionados con el protocolo MSN . Su uso pasa por el envenenamiento arp, situando nuestra máquina entre la victima y el router lanzando en varias terminales y sin cerrarlas:</p>
 
-<blockquote><p>$ jpegtran -copy none optimize original.jpg resultado.jpg (Eliminando información oculta [-copy none] y reduciendo la imagen [-optimize])</p></blockquote>
+<blockquote><h1>arpspoof -i eth0 -t 192.168.1.15 192.168.1.1</h1>
+
+<h1>arpspoof -i eth0 -t 192.168.1.1 192.168.1.15</h1></blockquote>
+
+<p>Activar forwarding para que los paquetes vayan a su verdadero dueño:</p>
+
+<blockquote><h1>echo 1 > /proc/sys/net/ipv4/ip_forward</h1></blockquote>
+
+<p>Crear una carpeta donde guardar los datos:</p>
+
+<blockquote><p>$ mkdir snifadas</p></blockquote>
+
+<p>Modificar el archivo de configuración a partir de la  propia documentación ::</p>
+
+<blockquote><h1>cp /usr/share/doc/imsniff/examples/imsniff.conf.sample /etc/imsniff.conf</h1>
+
+<h1>nano /etc/imsniff.conf</h1></blockquote>
+
+<p>daemonize = 0</p>
+
+<p>promisc = 0</p>
+
+<p>verbose = 2</p>
+
+<p>chatdir = /home/USER/snifadas/chats</p>
+
+<p>debugdir = /home/USER/snifadas/debug</p>
+
+<p>interface eth0</p>
+
+<p>Los directorios &#8220;chats&#8221; y &#8220;debug&#8221; los crea la misma aplicación.</p>
+
+<p>Lanzar el sniffer de conversaciones msn:</p>
+
+<blockquote><h1>imsniff</h1></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/impressive/">Impressive</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Visualizar documentos PDF e imágenes (jpg, tiff, png&#8230;)</p>
+
+<blockquote><p>$ impressive documento.pdf</p>
+
+<p>$ impressive -l    (lista efectos disponibles)</p>
+
+<p>$ impressive -t SqueezeLeft documento.pdf</p></blockquote>
 
 <p>Algunas opciones:</p>
 
-<p>-grayscale (Forzar salida a escala de grises)</p>
+<p>AvPág          Va a la página siguientes</p>
 
-<p>-rotate 90 (Rotar 90º)</p>
+<p>RePág          Va a la página anterior</p>
 
-<p>-flip horizontal (Imagen espejo horizontal [izquierda-derecha])</p>
+<p>z                  zoom donde esté el cursor</p>
 
-<p>-flip vertical (Imagen espejo vertical [arriba-abajo])</p>
+<p>f                   Activa/Desactiva la pantalla completa</p>
+
+<p>q                  Salir de la aplicación</p>
 </div>
   
   
@@ -129,7 +207,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/jpegjudge/">Jpegjudge</a></h1>
+      <h1 class="entry-title"><a href="/blog/import/">Import</a></h1>
     
     
       <p class="meta">
@@ -145,18 +223,26 @@
   
 
 
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Determina la calidad de un jpeg en una escala de 0 [menor] a 1000 [mayor calidad]</p>
+  <div class="entry-content"><p>Capturar la pantalla en cualquier formato</p>
 
-<blockquote><p>$ jpegjudga -b imagen.jpeg (Mostrar solo el número)</p></blockquote>
+<blockquote><p>$ import -window root captura.png (captura de pantalla completa)</p>
 
-<p>Nota.- Puede observarse el deterioro pasando un jpeg a png y volver a pasarlo a jpeg y comparar los resultados del primer jpeg y el último.</p>
+<p>$ import -window <code>xwininfo | awk '/Window id/{print $4; exit}'</code> <code>uuidgen</code>.png (Lo mismo. El puntero se convierte en una cruz y captura el esritorio donde se clica)</p>
+
+<p>$ import captura.png (captura de un área concreta))</p>
+
+<p>$ import 2 captura.png (realizar 2 capturas)</p>
+
+<p>$ import -pause 5 captura.png (Para retardar la captura 5 segundos)</p>
+
+<p>$ import -geometry 250×250! captura.png (indicando un tamaño respetando las proporciones)</p></blockquote>
 </div>
   
   
@@ -169,7 +255,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/jpeginfo/">Jpeginfo</a></h1>
+      <h1 class="entry-title"><a href="/blog/img2txt/">Img2txt</a></h1>
     
     
       <p class="meta">
@@ -185,20 +271,18 @@
   
 
 
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Información y test de integridad de imagenes jpeg.</p>
+  <div class="entry-content"><p>Pasar una imagen a ascii</p>
 
-<blockquote><p>$ jpeginfo -c imagen.jpeg</p>
+<blockquote><p>$ img2txt -f svg imagen.jpg > imagen.svg</p>
 
-<p>$ jpeginfo -5 imagen.jpeg (Muestra el md5 de la imagen)</p>
-
-<p>$ jpeginfo -i imagen.jpeg</p></blockquote>
+<p>$ img2txt -f html imagen.jpg > imagen.html (código html de la imagen)</p></blockquote>
 </div>
   
   
@@ -211,7 +295,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/jp2a/">Jp2a</a></h1>
+      <h1 class="entry-title"><a href="/blog/ifup/">Ifup</a></h1>
     
     
       <p class="meta">
@@ -227,29 +311,104 @@
   
 
 
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Convertir imagenes jpeg a ascii.</p>
+  <div class="entry-content"><p>Habilita la interfase especificada:</p>
 
-<blockquote><p>$ jp2a &#8211;background=light -b &#8211;colors imagen.jpg  (Sin fondo, con borde y color)</p>
+<blockquote><p>$ ifup eth0</p></blockquote>
+</div>
+  
+  
 
-<p>$ jp2a &#8211;color &#8211;html &#8211;fill &#8211;background=dark entrada.jpg –output=salida.html (con un html de salida)</p>
 
-<p>$ jp2a URL/imagen.jpg  (Con una URL de entrada)</p></blockquote>
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/iftop/">Iftop</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Muestra el ancho de banda que está usando una red.</p>
+
+<blockquote><h1>iftop -nP -i eth0 (sin resolver las IPs[n], mostrando puerto[P] y especificando red)</h1></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ifstat/">Ifstat</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Monitorización del trafico de red.</p>
+
+<blockquote><p>$ ifstat -z (Descarta los interfaces sin actividad)</p>
+
+<p>$ ifstat -i eth1 (Especificando una red)</p></blockquote>
 
 <p>Algunas opciones:</p>
 
-<pre><code>--size=40x25   (Especificando medidas)
+<p>-a (Muestra todas las redes)</p>
 
---html-title=Imagen  (con un titulo)
+<p>-T (monitorizando varias redes, muestra el total)</p>
 
---html-no-bold (Sin caracteres en negrita)
-</code></pre>
+<p>-S (Muestra los resultados en la misma linea, si es posible)</p>
+
+<p>-b (Reporta los informes en Kbits / seg en lugar de kbytes / seg.)</p>
 </div>
   
   
@@ -262,7 +421,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/joomla/">Joomla</a></h1>
+      <h1 class="entry-title"><a href="/blog/ifs/">Ifs</a></h1>
     
     
       <p class="meta">
@@ -278,25 +437,64 @@
   
 
 
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Recuperar la clave para acceder al administrador.</p>
+  <div class="entry-content"><p>Internal Field Separator (separador de campos internos) sirve para indicar cual es el valor que se usa como separador. Si no se especifica ninguno es el espacio.</p>
 
-<p>Instalar webmin y desde el navegador: https://localhost:10000</p>
+<p>Algunos ejemplos:</p>
 
-<p>En servidores -> Servidor BD MySQL clicar sobre la base de datos de joomla, editar la tabla jos_users i mostrar los datos id. Los usuarios estan numerados a partir del número 62. Editamos la fila del administrator admin (por ejemplo), borramos la clave y le ponemos esta:</p>
+<p>1.-</p>
 
-<pre><code>1c7a92ae351d4e21ebdfb897508f59d6 
-</code></pre>
+<h1>!/bin/bash</h1>
 
-<p>Guardar y entrar como administrator en nuestra web con el nombre de usuario: admin y la contraseña: holamundo</p>
+<h1>dividir una IP en 4 variables</h1>
 
-<p>Luego volver a modificar la contraseña desde el panel de control de joomla.</p>
+<h1>Guardar el separador de campos original</h1>
+
+<p>OLDIFS=$IFS</p>
+
+<p>read -p &#8220;Dime la ip: &#8221; IP</p>
+
+<h1>Establecemos el separador de campos en el punto</h1>
+
+<p>IFS=.</p>
+
+<p>read IP1 IP2 IP3 IP4 &lt;&lt;&lt; &#8220;$IP&#8221;</p>
+
+<p>echo &#8220;$IP1 $IP2 $IP3 $IP4&#8221;</p>
+
+<h1>Restablecemos el separador original (El espacio)</h1>
+
+<p>IFS=$OLDIFS</p>
+
+<p>2.-</p>
+
+<h1>!/bin/bash</h1>
+
+<h1>Almacenamos el valor original de la variable IFS</h1>
+
+<p>OLDIFS=$IFS</p>
+
+<h1>Cambiamos el valor del IFS a final de linea [n]</h1>
+
+<p>IFS=$&#8217;n&#8217;</p>
+
+<p>for line in $(cat file.txt)</p>
+
+<p>do</p>
+
+<p>echo $line</p>
+
+<p>done</p>
+
+<h1>Restauramos el IFS</h1>
+
+<p>IFS=$OLDIFS</p>
 </div>
   
   
@@ -309,7 +507,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/join/">Join</a></h1>
+      <h1 class="entry-title"><a href="/blog/ifne/">Ifne</a></h1>
     
     
       <p class="meta">
@@ -325,18 +523,20 @@
   
 
 
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra lineas coincidentes</p>
+  <div class="entry-content"><p>[moreutils]</p>
 
-<blockquote><p>$ join fichero1 fichero2</p>
+<p>Se ejecuta si la entrada estandar no está vacia.</p>
 
-<p>$ join -v 1 fichero1 fichero2 (mostrar líneas de fichero1 que no existen en  fichero2)</p></blockquote>
+<blockquote><p>$ find . -name archivo | ifne echo &#8220;Existe&#8221; (Si &#8220;archivo&#8221; existe se ejecutará el echo. Si no existe, no)</p>
+
+<p>$ find . -name archivo | ifne -n echo &#8220;No existe&#8221; (Si &#8220;archivo&#8221; no existe se ejecutará el echo. Si existe, no)</p></blockquote>
 </div>
   
   
@@ -349,7 +549,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/john/">John</a></h1>
+      <h1 class="entry-title"><a href="/blog/ifdown/">Ifdown</a></h1>
     
     
       <p class="meta">
@@ -365,221 +565,18 @@
   
 
 
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Herramienta que permite averiguar contraseñas encriptadas</p>
+  <div class="entry-content"><p>Deshabilita la interfase especificada:</p>
 
-<p>El de los repositorios acostumbra a estar capado. Descargar el programa y el parche de:</p>
+<blockquote><h1>ifdown eth0</h1>
 
-<blockquote><p>$ wget http://www.openwall.com/john/g/john-1.7.3.4.tar.gz</p>
-
-<p>$ wget http://openwall.info/wiki/_media/john/john-1.7.3.1-generic-crypt-1.diff.gz</p></blockquote>
-
-<p>Descomprimir:</p>
-
-<blockquote><p># tar xvzf john-1.7.3.4.tar.gz</p></blockquote>
-
-<p>Entrar al directorio del programa:</p>
-
-<blockquote><p># cd john-1.7.3.4</p></blockquote>
-
-<p>Aplicar el parche:</p>
-
-<blockquote><p># gzip -dc ../john-1.7.3.1-generic-crypt-1.diff.gz | patch -p1</p></blockquote>
-
-<p>patching file src/Makefile</p>
-
-<p>patching file src/crypt_fmt.c</p>
-
-<p>patching file src/john.c</p>
-
-<p>Hunk #2 succeeded at 67 (offset 2 lines).</p>
-
-<p>El directorio donde se encuentra el código fuente es src:</p>
-
-<blockquote><p># cd src</p>
-
-<p># make</p></blockquote>
-
-<p>Con make obtendrá una lista de los sistemas soportados, luego:</p>
-
-<blockquote><p># make linux-x86-64</p></blockquote>
-
-<p>Si el sistema no esta en la lista:</p>
-
-<blockquote><p># make clean generic</p></blockquote>
-
-<p>Pruebas de detección de correcto funcionamiento.</p>
-
-<blockquote><p># cd ../run</p>
-
-<p># ./john &#8211;test</p></blockquote>
-
-<p>El fichero john.pot contiene los resultados encontrados por john. Si el fichero no está vacío significa que john ha encontrado la contraseña. El fichero john.rec contiene el estado actual de la búsqueda por si se produce una interrupción y es utilizado por el programa para reanudar la búsqueda.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/joe/">Joe</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Editor de texto</p>
-
-<blockquote><p>$ joe -linums fichero (Abre fichero numerando las lineas)</p></blockquote>
-
-<p>Algunas teclas de control [&#8221;<sup>k</sup> h&#8221; significa pulsar la tecla Ctrl y sin soltarla pulsar la letra “k”, soltar estas teclas y pulsar “h”]</p>
-
-<pre><code>^k h (Abrir/cerrar ventana de ayuda. Con esc . se avanza en las ventanas de ayuda y con esc , se retrocede) 
-
-^k d (Guardar archivo sin salir) 
-
-^k x (Guardar y salir) 
-
-^c (Salir sin guardar) 
-
-^k f (Buscar palabra) 
-
-^u (Pantalla anterior) 
-
-^v (Pantalla siguiente) 
-
-^a (Ir al principio de linea) 
-
-`e (Ir al final de la linea) 
-
-^k u (Ir al principio del documento) 
-
-^k v (Ir al final del documento) 
-
-^d (Borrar caracter) 
-
-^y (Borrar linea) 
-
-^w (Borrar palabra siguiente) 
-
-^o (Borrar palabra anterior) 
-
-^_ (Deshacer) 
-
-^c (Cancelar)
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/jobs/">Jobs</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Informa sobre los trabajos en ejecución, pendientes de ejecución que se encuentran en backgroud.</p>
-
-<blockquote><p>$ jobs -l (Mostrar también el ID)</p>
-
-<p>$ jobs -p (Mostrar sólo el ID)</p></blockquote>
-
-<p>Algunas opciones:</p>
-
-<p>-r (Mostrar só lo las que están procesandose)</p>
-
-<p>-s (Sólo las que están paradas)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/jnettop/">Jnettop</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Monitor del tráfico de red ordenado por el ancho de banda utilizado.</p>
-
-<blockquote><p># jnettop</p></blockquote>
+<h1>ifdown -a (Deshabilita todas las redes)</h1></blockquote>
 </div>
   
   
@@ -610,43 +607,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/grub2/">grub2</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/printf/">printf</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdftotext/">pdftotext</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/avconv/">avconv</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ipmitool/">ipmitool</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tmux/">tmux</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/rkhunter/">rkhunter</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssconvert/">ssconvert</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/while/">while</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

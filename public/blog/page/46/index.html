@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Terminal $ sakura -e tail -f /var/log/fail2ban
+  <meta name="description" content="Escaneador de ataques a puertos. Los resultados en /var/log/psad/analysis.out psad -A -i eth0
 ">
   
 
@@ -82,7 +82,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/sakura/">Sakura</a></h1>
+      <h1 class="entry-title"><a href="/blog/psad/">Psad</a></h1>
     
     
       <p class="meta">
@@ -98,16 +98,16 @@
   
 
 
-<time datetime="2013-10-27T13:55:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Terminal</p>
+  <div class="entry-content"><p>Escaneador de ataques a puertos. Los resultados en /var/log/psad/analysis.out</p>
 
-<blockquote><p>$ sakura -e tail -f /var/log/fail2ban</p></blockquote>
+<blockquote><h1>psad -A -i eth0</h1></blockquote>
 </div>
   
   
@@ -120,7 +120,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/saidar/">Saidar</a></h1>
+      <h1 class="entry-title"><a href="/blog/ps2pdf/">Ps2pdf</a></h1>
     
     
       <p class="meta">
@@ -136,18 +136,24 @@
   
 
 
-<time datetime="2013-10-27T13:55:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Visualizar estadisticas del sistema</p>
+  <div class="entry-content"><p>Pasar un archivo ps a pdf</p>
 
-<blockquote><p>$ saidar -c (en color)</p>
+<blockquote><p>$ man -t mount | ps2pdf -  mount.pdf   (salvar a pdf una página man del comando &#8220;mount&#8221;)</p></blockquote>
 
-<p>$ saidar -d 2 (actualizar datos cada 2 segundos. Por defecto cada 3)</p></blockquote>
+<p>Convertir pdf en formato A4 a A5 para imprimir como libro con las páginas ordenadas:</p>
+
+<blockquote><p>$ pdftops archivo.pdf  (convertir el .pdf a .ps)</p>
+
+<p>$ psbook archivo.ps | psnup -pa4 -2 > archivo_A5.ps (convertir el archivo generado de A4 a A5)</p>
+
+<p>$ ps2pdf archivo_A5.ps archivo_A5.pdf  (convertir nuevamente a pdf listo para imprimir)</p></blockquote>
 </div>
   
   
@@ -160,7 +166,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rxvt/">Rxvt</a></h1>
+      <h1 class="entry-title"><a href="/blog/ps/">Ps</a></h1>
     
     
       <p class="meta">
@@ -176,28 +182,64 @@
   
 
 
-<time datetime="2013-10-27T13:55:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Emulador de terminal</p>
+  <div class="entry-content"><p>Informa sobre el estado de los procesos</p>
 
-<blockquote><p>$ rxvt -geometry 100x40 -e links2 http://google.es</p></blockquote>
+<blockquote><p>$ ps             (muestra el PID de la consola)</p>
 
-<p>Opciones:</p>
+<p>$ ps -ef (lista entera y completa de los procesos del sistema )</p>
 
-<p>-geometry 100x12  (especificar medidas)</p>
+<p>$ ps u          (Muestra el usuario y la hora de inicio de los ultimos procesos ejecutados)</p>
 
-<p>-bg red (color de fondo)</p>
+<p>$ ps r (Muestra solo los procesos que se estan ejecutando)</p>
 
-<p>-fg white (Color de fuente)</p>
+<p>$ ps x (Muestra los que no estan controlados por ninguna terminal)</p>
 
-<p>-cr blue  (Color del cursor)</p>
+<p>$ ps S (Muestra  tiempo de CPU y fallos de los procesos hijos)</p>
 
-<p>-title &#8220;Consola linux&#8221; (especificar un título)</p>
+<p>$ ps aux | sort -nrk 4 | head (Los 10 procesos que consumen más memoria)</p>
+
+<p>$ ps -C firefox (ver los procesos asociados a una aplicación)</p>
+
+<p>$ ps -l PID  (informa de la aplicación que corre por un PID)</p>
+
+<p>$ ps -p $$ (Informa del pid de la propia terminal)</p></blockquote>
+
+<p>Opciones</p>
+
+<p>a (muestra lo que se está ejecutando en ttys conocidas)</p>
+
+<p>x (muestra lo que se se está ejecutando desconociendo en cual tty)</p>
+
+<p>u (muestra los usuarios que están ejecutando los procesos)</p>
+
+<p>flags:</p>
+
+<p>USER (usuario que ejecuta el proceso)</p>
+
+<p>PID (número del proceso)</p>
+
+<p>%CPU (porcentaje de CPU que está utilizando)</p>
+
+<p>%MEM (porcentaje de memoria)</p>
+
+<p>RSS (cantidad de memoria en kilobytes que ha utilizado el proceso)</p>
+
+<p>TTY (consola desde la que se está ejecutando)</p>
+
+<p>Stat (muestra el estado del proceso: S &#8220;durmiendo&#8221;, R &#8220;corriendo&#8221;, T &#8220;parado&#8221;, Z &#8220;zombie&#8221;)</p>
+
+<p>START (hora a la que empezó el proceso)</p>
+
+<p>TIME (tiempo de CPU que ha usado el proceso desde su inicio)</p>
+
+<p>COMMAND (nombre del comando que se está ejecutando)</p>
 </div>
   
   
@@ -210,7 +252,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rvm/">Rvm</a></h1>
+      <h1 class="entry-title"><a href="/blog/proxychains/">Proxychains</a></h1>
     
     
       <p class="meta">
@@ -226,30 +268,44 @@
   
 
 
-<time datetime="2013-10-27T13:55:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Paquete de gestión para entornos ruby y las gemas de cada proycto.</p>
+  <div class="entry-content"><p>[tor privoxy]</p>
 
-<blockquote><p>$ rvm install 1.9.2 (Instalar una versión de ruby)</p>
+<p>Convierte en anonima la conexión que realiza una aplicación determinada [Ver privoxy]</p>
 
-<p>$ rvm requirements (Instalar dependencias)</p>
+<blockquote><h1>nano /etc/proxychains.conf</h1></blockquote>
 
-<p>$ rvm upgrade 1.8.7 ruby-1.8.7-p299 (Actualizar de la versión de ruby 1.8.7-p299 a la siguiente)</p>
+<p>Descomentar o añadir las lineas [usar el mismo puerto que en privoxy]:</p>
 
-<p>$ rvm &#8211;default ruby-1.9.2 (Establecer la versión de ruby por defecto)</p>
+<blockquote><h1>defaults set to &#8220;tor&#8221;</h1></blockquote>
 
-<p>$ rvm gemset list (Lista gemsets [ver] creados, mostrando el que está por defecto y versión)</p>
+<p>socks4  127.0.0.1 9050</p>
 
-<p>$ rvm gemset create NOMBRE_GEMSET (Crear un gemset)</p>
+<p>Iniciar tor o, caso de usar vidalia, crear nueva identidad.</p>
 
-<p>$ rvm gemset use NOMBRE_GEMSET (Utilizar un gemset)</p>
+<blockquote><h1>/etc/init.d/tor restart</h1>
 
-<p>$ rvm gemset use VERSION@NOMBRE_GEMSET (Especificar versión de ruby y el gemset a cambiar)</p></blockquote>
+<h1>proxychains curl ifconfig.me (Si la ip no es la nuestra indica que todo está correctamente funcionando)</h1></blockquote>
+
+<p>Si configuramos el navegador para usar proxy podemos comprobar su correcto funcionamiento con https://check.torproject.org/</p>
+
+<blockquote><h1>proxychains firefox ifconfig.me (Arrancar el navegador bajo proxy)</h1>
+
+<h1>proxychains nmap -Pn -sT IP (Lanzar nmap con proxy. -Pn y -sT son para dificultar en lo posible dejar trazas)</h1></blockquote>
+
+<p>Otros ejemplos:</p>
+
+<blockquote><h1>proxychains nessusd -D</h1>
+
+<h1>proxychains msfconsole</h1>
+
+<h1>proxychains ssh -D 127.0.0.1:9050 usuario@host</h1></blockquote>
 </div>
   
   
@@ -262,7 +318,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/runlevel/">Runlevel</a></h1>
+      <h1 class="entry-title"><a href="/blog/proftpd/">Proftpd</a></h1>
     
     
       <p class="meta">
@@ -278,16 +334,24 @@
   
 
 
-<time datetime="2013-10-27T13:55:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>conocer el nivel de ejecución actual del sistema [gráfico, monousuario&#8230;]</p>
+  <div class="entry-content"><p>Servidor ftp local.</p>
 
-<blockquote><p>$ runlevel</p></blockquote>
+<blockquote><h1>nano /etc/proftp/proftpd.conf</h1></blockquote>
+
+<p>DefaultRoot     /home/usuario                    users, !otros</p>
+
+<p>DefaultRoot     /home/usuario/servidor      otros</p>
+
+<p>Indicamos que el directorio raiz de los usuarios del grupo “users” es /home/usuario  pero los del grupo “otros” solo pueden acceder al directorio servidor.</p>
+
+<blockquote><p>$ tail -f /var/log/proftpd  (monitorizar los logs)</p></blockquote>
 </div>
   
   
@@ -300,7 +364,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ruby/">Ruby</a></h1>
+      <h1 class="entry-title"><a href="/blog/procinfo/">Procinfo</a></h1>
     
     
       <p class="meta">
@@ -316,40 +380,16 @@
   
 
 
-<time datetime="2013-10-27T13:55:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Lenguaje de programación orientado a objetos. Ver irb.</p>
+  <div class="entry-content"><p>Estadisticas del sistema de ficheros virtual /proc</p>
 
-<p>Instalación:</p>
-
-<pre><code>$ curl -L https://get.rvm.io | bash -s stable --ruby
-
-$ source ~/.rvm/scripts/rvm
-
-$ rvm install 1.9.3
-
-$ rvm --default ruby-1.9.3
-</code></pre>
-
-<p>Y comprobar o añadir:</p>
-
-<blockquote><p>$ nano .bashrc</p></blockquote>
-
-<p>La linea:</p>
-
-<pre><code> [[ -s "$HOME/.rvm/scripts/rvm" ]] &amp;&amp; source "$HOME/.rvm/scripts/rvm"
-</code></pre>
-
-<blockquote><p>$ ruby script.rb (ejecutar un script de ruby)</p>
-
-<p>$ ruby -e &#8220;puts Dir.glob(&#8216;*&#8217;).count&#8221; (la opción -e permite introducir directamente código en la linea de comando. Mostrar la cantidad de archivos del presente directorio en este caso)</p>
-
-<p>$ ruby -v (Versión de ruby)</p></blockquote>
+<blockquote><p>$ procinfo -n2 (actualización cada 2 segundos)</p></blockquote>
 </div>
   
   
@@ -362,7 +402,7 @@ $ rvm --default ruby-1.9.3
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rtorrent/">Rtorrent</a></h1>
+      <h1 class="entry-title"><a href="/blog/privoxy/">Privoxy</a></h1>
     
     
       <p class="meta">
@@ -378,16 +418,22 @@ $ rvm --default ruby-1.9.3
   
 
 
-<time datetime="2013-10-27T13:55:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Descarga de archivos a partir de torrents</p>
+  <div class="entry-content"><p>filtrar datos que se utilizan en la navegación web (cookies, encabezados&#8230;). Es importante usarlo con Tor ya que a veces el navegador ejecuta por sí mismo las resoluciones DNS y las agrega a las cabeceras de la petición http.</p>
 
-<blockquote><p>$ rtorrent url.torrent</p></blockquote>
+<blockquote><h1>nano /etc/privoxy/config</h1></blockquote>
+
+<p>Añadir la linea:</p>
+
+<p>forward-socks5 / 127.0.0.1:5060 .</p>
+
+<p>Nota.- No olvidar el punto final.</p>
 </div>
   
   
@@ -400,7 +446,7 @@ $ rvm --default ruby-1.9.3
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rtcwake/">Rtcwake</a></h1>
+      <h1 class="entry-title"><a href="/blog/prips/">Prips</a></h1>
     
     
       <p class="meta">
@@ -416,26 +462,18 @@ $ rvm --default ruby-1.9.3
   
 
 
-<time datetime="2013-10-27T13:55:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Suspender/hibernar el pc e iniciarlo a una hora determinada.</p>
+  <div class="entry-content"><p>imprimir las direcciones IP de un rango determinado.</p>
 
-<blockquote><p># rtcwake -u -m disk -s 150 &amp;&amp; deluge (Asume el tiempo UTC, suspende a disco y vuelve a activarse dentro de 150 minutos arrancando la aplicación deluge)</p></blockquote>
+<blockquote><p>$ prips 192.168.1.0/24</p>
 
-<p>Otros modos [m]:</p>
-
-<p>standby (Modo por defecto y el que menos energia ahorra)</p>
-
-<p>mem (Suspende a RAM. Más ahorrativo)</p>
-
-<p>off (Apaga el ordenador completamente)</p>
-
-<p>no (No suspende inmediatamente, unicamente establece la hora en que despierta el sistema)</p>
+<p>$ prips -i 4 192.168.1.5 192.168.1.150  (solo una de cada cuatro)</p></blockquote>
 </div>
   
   
@@ -448,7 +486,7 @@ $ rvm --default ruby-1.9.3
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rsstail/">Rsstail</a></h1>
+      <h1 class="entry-title"><a href="/blog/printf/">Printf</a></h1>
     
     
       <p class="meta">
@@ -464,28 +502,44 @@ $ rvm --default ruby-1.9.3
   
 
 
-<time datetime="2013-10-27T13:55:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Mostrar noticias rss en estilo multitail</p>
+  <div class="entry-content"><p>Escribe y formatea datos</p>
 
-<blockquote><p>$ rsstail -n 1 -d -u http://web.com -u http://web1.com -u http://web3.com</p></blockquote>
+<blockquote><p>$ printf &#8220;%50sn&#8221; | tr &#8217; &#8217; -  (Generar una linea discontinua)</p>
+
+<p>$ printf &#8220;%sn&#8221; ${PATH//://* }  (listar aplicaciones y comandos del PATH)</p>
+
+<p>$ printf &#8220;%sn&#8221; .*  (listar archivos y directorios ocultos de la carpeta actual)</p>
+
+<p>$ printf &#8220;e[8;10;100;t&#8221; (Cambiar la medida de la  terminal)</p>
+
+<p>$ printf &#8220;%st &#8211;> %sn&#8221; &#8220;$A&#8221; &#8220;$B&#8221; (Dos variables en columnas tabuladas)</p>
+
+<p>$ printf &#8220;%sn&#8221; Escribir cada palabra en una &#8220;nueva linea&#8221; (Pues eso, excepto las dos últimas entrecomilladas)</p>
+
+<p>$ printf &#8220;%06dn&#8221; &#8220;$RANDOM&#8221; &#8220;$RANDOM&#8221; &#8220;$RANDOM&#8221; &#8220;$RANDOM&#8221; (Iguala las cuatro salidas de $RANDOM a 6 cifras con ceros delante[%06d])</p>
+
+<p>$ printf &#8220;%-10s %-10s %sn&#8221;, $1, $2, $3 (3 variables justificadas a la izquierda, las dos primeras con 10 caracteres)</p></blockquote>
 
 <p>Algunas opciones:</p>
 
-<p>-n 1  (Actualizar cada segundo)</p>
+<p>%c (Imprime el primer carácter de una variable cadena)</p>
 
-<p>-d     (Mostrar descripción)</p>
+<p>%d (Imprime un número decimal)</p>
 
-<p>-z      (Continuar incluso con errores xml)</p>
+<p>%s (Cadena)</p>
 
-<p>-l      (Mostrar enlaces)</p>
+<p>%b (Interpreta las secuencias de escape del argumento cadena)</p>
 
-<p>-u URL (Host del feed)</p>
+<p>%q (Escribe el argumento cadena de forma que pueda ser usado como entrada a otro comando)</p>
+
+<p>%% (Escribe % literal)</p>
 </div>
   
   
@@ -498,7 +552,7 @@ $ rvm --default ruby-1.9.3
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rpm/">Rpm</a></h1>
+      <h1 class="entry-title"><a href="/blog/printenv/">Printenv</a></h1>
     
     
       <p class="meta">
@@ -514,32 +568,18 @@ $ rvm --default ruby-1.9.3
   
 
 
-<time datetime="2013-10-27T13:55:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Gestor de paqueteria de distros basadas en Red Hat.</p>
+  <div class="entry-content"><p>Para saber los valores de todas las variables de entorno predefinidas por  la shell (TERM, SHELL, PWD, LC_ALL, USER, USERNAME, HOME, LOGNAME, BROWSER, DISPLAY&#8230;).</p>
 
-<blockquote><p># rpm -ivh paquete (instalar un paquete)</p>
+<blockquote><p>$ echo $SHELL (Ver el valor de una variable)</p>
 
-<p># rpm -ivh –nodeeps paquete (instalar paquete rpm ignorando dependencias)</p>
-
-<p># rpm -e paquete (eliminar paquete)</p>
-
-<p># rpm -qa (Listar todos los paquetes instalados)</p>
-
-<p># rpm -qi paquete (información de un paquete)</p>
-
-<p># rpm -q paquete &#8211;whatrequires (listar dependencias de un paquete)</p>
-
-<p># rpm -qf /etc/httpd/conf/httpd.conf (A qué paquete pertenece un archivo)</p>
-
-<p># rpm &#8211;checksig paquete (verificar integridad de un paquete)</p>
-
-<p># rpm -qa gpg-pubkey (verificar la integridad de todos los paquetes)</p></blockquote>
+<p>$ export SHELL=/bin/sh (Modificar el valor de una variable sólo en la presente sesión. Para hacer el cambio permanente colocar la linea en .bashrc)</p></blockquote>
 </div>
   
   
@@ -570,43 +610,43 @@ $ rvm --default ruby-1.9.3
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/grub2/">grub2</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/printf/">printf</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdftotext/">pdftotext</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/avconv/">avconv</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ipmitool/">ipmitool</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tmux/">tmux</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/rkhunter/">rkhunter</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssconvert/">ssconvert</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/while/">while</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

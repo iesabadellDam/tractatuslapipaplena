@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Gestor de arranque. Los dispositivos empiezan por 0 y las particiones empiezan con 1. “sda1” es “hd0,1” y no “hd0,0” como en el antiguo grub. 1.- &hellip;">
+  <meta name="description" content="Gestor de paquetes de opensuse (rpm) zypper (Generar una lista de paquetes instalados) zypper repos (Listar repositorios) zypper install paquete ( &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/grub2/">Grub2</a></h1>
+      <h1 class="entry-title"><a href="/blog/zypper/">Zypper</a></h1>
     
     
       <p class="meta">
@@ -97,246 +97,64 @@
   
 
 
-<time datetime="2013-12-15T15:19:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-15T15:47:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Gestor de arranque. Los dispositivos empiezan por 0 y las particiones empiezan con 1. “sda1” es “hd0,1” y no “hd0,0” como en el antiguo grub.</p>
+  <div class="entry-content"><p>Gestor de paquetes de opensuse (rpm)</p>
 
-<p>1.-</p>
+<blockquote><h1>zypper (Generar una lista de paquetes instalados)</h1>
 
-<p>Modificación de parámetros generales:</p>
+<h1>zypper repos (Listar repositorios)</h1>
 
-<blockquote><h1>gedit /etc/default/grub</h1></blockquote>
+<h1>zypper install paquete  (Instalar paquete)</h1>
 
-<p>GRUB_DEFAULT= 0/saved (0 selecciona primera entrada, 1 la segunda&#8230; &#8220;saved&#8221; selecciona la última entrada  ejecutada.)</p>
+<h1>zypper install rutadelpaquete (Instalar paquetes que no está en los repositorios)</h1>
 
-<p>GRUB_TIMEOUT=10 (tiempo de espera antes de arrancar)</p>
+<h1>zypper install &#8211;force paquete (Reinstalar)</h1>
 
-<p>GRUB_HIDDEN_TIMEOUT=0  (esconder el menú de entradas. Si hay varios sistemas comentarlo)</p>
+<h1>zypper remove paquete (Desinstalar paquete)</h1>
 
-<p>GRUB_HIDDEN_MENU_QUIET=true (oculta la cuenta atrás. &#8220;false&#8221; la muestra)</p>
+<h1>zypper remove &#8211;clean-deps paquete (Desinstalar con dependencias)</h1>
 
-<p>GRUB_DISTRIBUTOR=lsb_release -i -s 2> /dev/null || echo Debian (determina el nombre del sistema)</p>
+<h1>zypper search paquete (Buscar paquete)</h1>
 
-<p>GRUB_CMDLINE_LINUX=&#8221;acpi_osi=Linux&#8221; (opciones concretas que pueden pasarse al arranque)</p>
+<h1>zypper help comando (ayuda para un comando)</h1>
 
-<p>GRUB_CMDLINE_LINUX_DEFAULT=&#8221;splash noapic&#8221; (otras opciones por defecto)</p>
+<h1>zypper update (Actualizar base de datos y el sistema)</h1>
 
-<p>GRUB_GFXMODE=1024x768 (activa el grub gráfico)</p>
+<h1>zypper info paquete (Buscar información de paquete)</h1>
 
-<p>GRUB_DISABLE_LINUX_RECOVERY=&#8221;true&#8221; (muestra la opción de recovery mode en el menú. “false lo suprime)</p>
+<h1>zypper clean (Limpiar caché e información obsoleta)</h1>
 
-<blockquote><h1>update-grub2   (hacer efectivos los cambios)</h1></blockquote>
+<h1>zypper refresh (Actualizar información)</h1>
 
-<p>2.-</p>
+<h1>zypper dist-upgrade (Actualizar distro)</h1>
 
-<p>Para que no aparezca memtest en el menú:</p>
+<h1>zypper al &#8216;paquete&#8217; (Descartar paquete para actualizaciones)</h1>
 
-<blockquote><h1>chmod -x /etc/grub.d/20_memtest86+</h1></blockquote>
+<h1>zypper rl &#8216;paquete&#8217; (Desbloquear paquete del bloqueo anterior)</h1>
 
-<p>El mismo comando con “+x” lo restituye.</p>
+<h1>zypper verify (Verificar dependencias)</h1>
 
-<blockquote><h1>update-grub2</h1></blockquote>
+<h1>zypper intall-new-recommends (Instalar paquetes recomendados)</h1>
 
-<p>3.-</p>
+<h1>zypper list-updates (Listar Actualizaciones disponibles)</h1>
 
-<p>Quitar lineas que hacen referencia a kernels antiguos:</p>
+<h1>zypper list-patches (Listar parches disponibles)</h1>
 
-<blockquote><h1>dpkg &#8211;get-selections | grep linux-image  (averiguar los instalados)</h1>
+<h1>zypper patches (Instalar parches disponibles)</h1>
 
-<h1>apt-get remove &#8211;purge linux-image-2.6.xx-xx-generic</h1></blockquote>
+<h1>zypper addrepo rutadelrepositorio (Añadir repositorio)</h1>
 
-<p>El update-grub2 se hará de forma automática.</p>
+<h1>zypper addrepo -f repositorio rutadelrepositorio (Añadir con actualización automática)</h1>
 
-<p>4.-</p>
+<h1>zypper modifyrepo &#8211;disable repositorio (Desactivar repositorio)</h1>
 
-<p>Cambiar la imagen de fondo [apt-get install grub2-splashimages]. Si se quieren hacer con gimp, estas han de tener un tamaño de  640×480 pixeles y extensión .tga</p>
-
-<blockquote><p>$ ls /usr/share/images/grub   (directorio de la imágenes)</p>
-
-<h1>gedit /etc/grub.d/05_debian_theme</h1></blockquote>
-
-<p>Y modificamos en la linea:</p>
-
-<p>WALLPAPER=&#8221;/usr/share/images/grub/Lake_mapourika_NZ.tga&#8221;</p>
-
-<blockquote><h1>update-grub2</h1></blockquote>
-
-<p>5.-</p>
-
-<p>Reinstalar grub2 desde un live-cd o desde otra partición.</p>
-
-<blockquote><h1>fdisk -l   (para saber la partición del grub que queremos instalar)</h1>
-
-<h1>mount /dev/sda2 /media/sda2  (motar la partición)</h1>
-
-<h1>mount -o bind /dev/ /media/sda2/dev/  (montar los sistemas de ficheros)</h1>
-
-<h1>mount -o bind /sys/ /media/sda2/sys/</h1>
-
-<h1>mount -o bind /proc/ /media/sda2/proc/</h1>
-
-<h1>chroot /media/sda2    (Chorootear la partición que alberga el grub que vamos a instalar)</h1>
-
-<h1>grub-install /dev/sda   (instalar grub en el disco)</h1></blockquote>
-
-<p>6.-</p>
-
-<p>Para solucionar el problema de que al arrancar un sistema operativo la pantalla no muestra nada, editar el archivo:</p>
-
-<blockquote><h1>nano /etc/default/grub</h1></blockquote>
-
-<p>Y en la linea:</p>
-
-<p>GRUB_CMDLINE_LINUX_DEFAULT=&#8221;quiet&#8221;</p>
-
-<p>Añadir el chipset de vuestra gráfica:</p>
-
-<p>General (para cualquier gráfica): nomodeset</p>
-
-<p>ATI (driver libre ati o radeon): radeon.modeset=0</p>
-
-<p>ATI (driver privativo): nomodeset</p>
-
-<p>nVidia: xforcevesa o nomodeset</p>
-
-<p>Nvidia con driver libre (nouveau): nouveau.modeset=0</p>
-
-<p>Intel: i915.modeset=0</p>
-
-<p>Quedando la entrada, por ejemplo para una Intel; como sigue:</p>
-
-<p>GRUB_CMDLINE_LINUX_DEFAULT=&#8221;quiet i915.modeset=0&#8221;</p>
-
-<p>7.-</p>
-
-<p>Modificar los colores de las fuentes para adaptarlas a las imágenes mostradas.</p>
-
-<blockquote><h1>gedit /etc/grub.d/05_debian_theme</h1></blockquote>
-
-<p>y modificar las líneas</p>
-
-<p>set menu_color_normal=white/black</p>
-
-<p>set menu_color_highlight=black/light-gray</p>
-
-<p>color_normal (los que se utilizan por defecto)</p>
-
-<p>color_highlight (los que se utilizan para la entrada seleccionada).</p>
-
-<p>El primero de los 2 colores de cada uno de estos campos se refiere al color de la fuente, y el segundo, al color de fondo.</p>
-
-<p>Colores permitidos:</p>
-
-<p>red (rojo)</p>
-
-<p>green (verde)</p>
-
-<p>blue (azul)</p>
-
-<p>yellow (amarillo)</p>
-
-<p>cyan (cian)</p>
-
-<p>magenta (magenta)</p>
-
-<p>white (blanco)</p>
-
-<p>black (negro)</p>
-
-<p>light-gray (gris claro)</p>
-
-<p>8.-</p>
-
-<p>Colocar contraseña a grub2 para dos usuarios:</p>
-
-<blockquote><h1>nano /etc/grub.d/00_header</h1></blockquote>
-
-<p>Colocar al final:</p>
-
-<p>cat &lt;&lt; EOF</p>
-
-<p>set superusers=”usuario1”</p>
-
-<p>password usuario1 la_contraseña</p>
-
-<p>password usuario2 otra_contraseña</p>
-
-<p>EOF</p>
-
-<p>9.-</p>
-
-<p>Para que en el grub2 salga la partición de windows del sistema pero no otras particiones ntfs (de recuperación, HP, ….)</p>
-
-<blockquote><p>$ gedit /boot/grub/grub.cfg</p></blockquote>
-
-<p>Copiar el menuentry perteneciente a la partición windows (no la de recuperación) y pastearla en:</p>
-
-<blockquote><h1>gedit /etc/grub.d/40_custom</h1></blockquote>
-
-<p>Luego:</p>
-
-<blockquote><h1>gedit /etc/default/grub</h1></blockquote>
-
-<p>Y añadir al final del archivo la linea:</p>
-
-<p>GRUB_DISABLE_OS_PROBER=true</p>
-
-<p>Recargar grub:</p>
-
-<blockquote><h1>update-grub</h1></blockquote>
-
-<p>Nota.- Las entradas de 40_custom no se muestran en la salida de la consola pero quedan reflejadas en el grub.cfg</p>
-
-<p>10.-</p>
-
-<p>Poner contraseña a grub2</p>
-
-<blockquote><h1>grub-mkpasswd-pbkdf2 (Crear la contraseña encriptada en SHA512)</h1>
-
-<h1>nano /etc/grub.d/00_header</h1></blockquote>
-
-<p>Y colocar al final del archivo:</p>
-
-<p>cat &lt;&lt; EOF</p>
-
-<p>set superusers=&#8221;usuario&#8221;</p>
-
-<p>password_pbkdf2 usuario contraseña_SHA512</p>
-
-<p>EOF</p>
-
-<blockquote><h1>nano /etc/grub.d/10_linux</h1></blockquote>
-
-<p>Buscar la linea:</p>
-
-<p>printf &#8220;menuentry &#8216;${title}&#8217; ${CLASS} {n&#8221; &#8220;${os}&#8221; &#8220;${version}&#8221;</p>
-
-<p>Y colocar al usuario al final de {CLASS}:</p>
-
-<p>printf &#8220;menuentry &#8216;${title}&#8217; ${CLASS} &#8211;users usuario {n&#8221; &#8220;${os}&#8221; &#8220;${version}&#8221;</p>
-
-<blockquote><h1>update-grub</h1></blockquote>
-
-<p>11.-</p>
-
-<p>Entrar como root desde grub sin contraseña:</p>
-
-<p>1.- Cuando sale el menú de grub desplazarse al sistema que se quiere arrancar y pulsar la letra &#8220;e&#8221;</p>
-
-<p>2.- moverse a la linea del kernel</p>
-
-<p>En este punto puede optarse por dos soluciones:</p>
-
-<p>a) borrar todo desde después de &#8220;ro&#8221; hasta el final y colocar init=/bin/bash [linux   /boot/vmlinuz-3.2.0-4-amd64 root=UUID=de1d7793-c3d2-4e03-b79d-1a76905619e6 ro init=/bin/bash ]. El teclado estará en inglés.</p>
-
-<p>b) ponemos al final de la linea &#8220;single&#8221; [linux   /boot/vmlinuz-3.2.0-4-amd64 root=UUID=de1d7793-c3d2-4e03-b79d-1a76905619e6 ro  quiet single ]</p>
-
-<p>Y proseguir con el arranque pulsando F10 o Ctrl+x con lo que el sistema iniciará con una consola root.</p>
+<h1>zypper removerepo nombredelrepositorio (Suprimir repositorio)</h1></blockquote>
 </div>
   
   
@@ -349,7 +167,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/awk/">Awk</a></h1>
+      <h1 class="entry-title"><a href="/blog/zmore/">Zmore</a></h1>
     
     
       <p class="meta">
@@ -365,375 +183,14 @@
   
 
 
-<time datetime="2013-12-14T16:51:00+01:00" pubdate data-updated="true">14-12-2013</time>
+<time datetime="2013-12-15T15:47:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Busca patrones y los procesa. Es practicamente un lenguaje de programación.</p>
-
-<p>Archivo base para ejemplo (Empleado &#8211; Precio/hora &#8211; Horas trabajadas – Cómo las cobra):</p>
-
-<blockquote><p>$ cat lista</p></blockquote>
-
-<pre><code>Juan Gomez 6 10 banco 
-
-Clara Fuentes 7 12 banco 
-
-Antonio Cano 6 13 metálico 
-
-José Bueno 7 0 banco 
-
-Matías Crespo 5 8 metálico 
-
-Isabel Ruiz 7 0 metálico 
-
-María Monzón 9 16 metálico
-</code></pre>
-
-<p>Imprimir la segunda columna (Apellidos):</p>
-
-<pre><code>$ awk ' { print $2 } ' lista
-</code></pre>
-
-<p>Imprimir la última columna:</p>
-
-<pre><code>$ awk ' { print $NF } ' lista
-</code></pre>
-
-<p>Imprimir la linea 3:</p>
-
-<pre><code>$ awk ' NR == 3 ' lista
-</code></pre>
-
-<p>Imprimir todo menos la primera columna:</p>
-
-<pre><code>$ awk ' { $1 = "" ; print } ' lista
-</code></pre>
-
-<p>Imprimir las columnas tabuladas:</p>
-
-<pre><code>$ awk ' { print $1 “\t” $2 “\t” $3 “\t” $4 } ' lista
-</code></pre>
-
-<p>Imprimir las lineas que tengan menos de 22 caracteres:</p>
-
-<pre><code>$ awk 'length($0) &lt; 22' lista
-</code></pre>
-
-<p>Calcular el sueldo de los empleados que han trabajado:</p>
-
-<pre><code>$ awk ' $4 &gt; 0 { print $1,$2, $3*$4} ' lista  
-</code></pre>
-
-<p>Personas que no han trabajado:</p>
-
-<pre><code>$ awk ' $3 == 0 { print $1}' lista 
-</code></pre>
-
-<p>Buscar una entrada concreta:</p>
-
-<pre><code>$ awk '/Fuentes/ { print $0 }' lista
-</code></pre>
-
-<p>Buscar los que cobran en metálico e impimir la 2ª columna:</p>
-
-<pre><code>$ awk ' /'metálico'/ {print$2}' lista 
-</code></pre>
-
-<p>Buscar dos entradas en una misma linea separándolas con punto y coma (;):</p>
-
-<pre><code>$ awk '/Fuentes/ { print $0 }; /Cano/ { print$0 } ' lista
-</code></pre>
-
-<p>Imprimir lineas que tengan alguno de los campos o los dos:</p>
-
-<pre><code>$ awk '/Bueno/ || /Cano/' lista
-</code></pre>
-
-<p>Imprimir lineas que tengan los dos campos:</p>
-
-<pre><code>$ awk '/Bueno/ &amp;&amp; /7/' lista
-</code></pre>
-
-<p>Imprimir las lineas que no tengan el cammpo:</p>
-
-<pre><code>$ awk '! /metálico/' lista
-</code></pre>
-
-<p>Buscar las entradas en las que el primer campo empiece por “J”, imprimir el 2º campo y, entre parentesis el último:</p>
-
-<pre><code>$ awk '$1 ~ /^J/ {print$2, "("$NF")"}' lista
-</code></pre>
-
-<p>Lo mismo con if:</p>
-
-<pre><code>$ awk ' { if ($1 ~ /^J/) print$2, “(“$NF”)” }' lista
-</code></pre>
-
-<p>Añadir 5 horas al 4º campo y comprobar como quedan con la modificación:</p>
-
-<pre><code>$ awk '{ $4 = ($4+5); print $0 }' lista
-</code></pre>
-
-<p>Añadir un nuevo campo ($6) con el producto del 3 y el 4:</p>
-
-<pre><code>$ awk '{ $6 = ($3*$4); print $0 }' lista
-</code></pre>
-
-<p>print permite colocar texto:</p>
-
-<pre><code>$ awk ' { print "El sueldo de ",$2," es de ",$3*$4," euros."} ' lista 
-</code></pre>
-
-<p>Mostar las veces que aparece &#8220;banco&#8221;:</p>
-
-<pre><code>awk 'BEGIN { print "Veces que aparece banco" }
-
-&gt;        /banco/ { ++banco }
-
-&gt;         END       { print "banco aparece " banco " veces." }' lista
-</code></pre>
-
-<p><strong>Variables internas:</strong></p>
-
-<p>Mostrar el número de campos de cada linea (NF):</p>
-
-<pre><code>$ awk ' { print NF } ' lista 
-</code></pre>
-
-<p>Mostrar el número de lineas (NR):</p>
-
-<pre><code>$ awk ' { print NR } ' lista
-</code></pre>
-
-<p>Mostrar todas las lineas completas ($0):</p>
-
-<pre><code>$ awk ' { print $0 } ' lista 
-</code></pre>
-
-<p>Mostrar las lineas que tengan al menos un campo</p>
-
-<pre><code>$ awk 'NF &gt; 0' lista
-</code></pre>
-
-<p>Lo mismo con if:</p>
-
-<pre><code>$ awk '{ if (NF &gt; 0) print }' lista
-</code></pre>
-
-<p>Dar formato a la salida de datos:</p>
-
-<pre><code>$ awk ' $4 &gt; 0 { printf "%-8s .... %8.1f euros\n",$2,($3*$4) } ' lista 
-
-$4 &gt; 0 (Que imprima los que la 4ª columna no sea cero.)
-
-%-8s (Que imprima una cadena (s) justificada a la izquierda (-) en un campo de 8 caracteres de ancho.)
-
-%8.1f (Que imprima un numero real (f), en un campo de ocho caracteres de ancho, con un decimal(.))
-</code></pre>
-
-<p>Imprimir cadena, justificada a la izquierda y en campos de 10 y 5 caracteres:</p>
-
-<pre><code>$ awk '{ printf "%-10s %-10s %-5s %-5s %-5s\n", $1, $2, $3, $4, $5 }' lista
-</code></pre>
-
-<p>Parecido con más florituras (todo en una sola linea)</p>
-
-<pre><code>$ awk 'BEGIN {print "nombre\tapellido\tprecio\thoras\tpago"; print  "------\t--------\t------\t-----\t----"}; {print $1"\t"$2"\t"$3"\t"$4"\t"$5 }' lista
-</code></pre>
-
-<p>Lo mismo más legible:</p>
-
-<pre><code>$ awk 'BEGIN {print "nombre\tapellido\tprecio\thoras\tpago" 
-
-&gt;             print "------\t--------\t------\t-----\t----"} 
-
-&gt;            {print  $1"\t"$2"\t"$3"\t"$4"\t"$5 }' lista
-</code></pre>
-
-<p>BEGIN y END son patrones especiales usados para suministrar al script awk qué hacer antes de empezar a procesar y después de haber procesado los registros de la entrada.:</p>
-
-<pre><code>$ awk 'BEGIN {print “Cuantas veces aparece la palabra banco” } 
-
-&gt;       /banco/ { ++i } 
-
-&gt;       END   {print “banco aparece “i” veces.”}' lista 
-</code></pre>
-
-<p>Los  patrones pueden combinarse mediante los operadores lógicos AND (&amp;&amp;), OR(||) y NOT(!).</p>
-
-<p>Imprimir los nombres de los empleados que ganan mas de 6.50 euros a la hora y que han trabajado mas de 14:</p>
-
-<pre><code>$ awk ' $3&gt;=6.50 &amp;&amp; $4&gt;=14 { print $1,$2 } ' lista 
-</code></pre>
-
-<p>Patrones</p>
-
-<p>buscar las lineas que contienen la cadena &#8220;banco&#8221; en el 5º campo:</p>
-
-<pre><code>$ awk ' $5 ~ /banco/ ' lista 
-</code></pre>
-
-<p>Buscar las lineas que no contengan la cadena &#8220;banco&#8221; en el 5º campo:</p>
-
-<pre><code>$ awk '  $5 !~ /banco/ ' lista
-</code></pre>
-
-<p>Mostrar los que el 4º campo no empiece por 0 o 1:</p>
-
-<pre><code>$ awk ' $4 ~ /^[^01]/' lista 
-</code></pre>
-
-<p>La salida también puede pasarse a un filtro para ordenarse:</p>
-
-<pre><code>$ awk ' { print $2 | "sort" } ' lista
-</code></pre>
-
-<p>Mostrar la linea cuyo 2º campo termina en “iz”:</p>
-
-<pre><code>$ awk '$2 ~ /iz$/' lista 
-</code></pre>
-
-<p>Mismo concepto sin especificar si la primera letra es mayúscula o minúscula y sin conocer la segunda:</p>
-
-<pre><code>$ awk '$1 ~ /^[Cc]./' lista
-</code></pre>
-
-<p>Mismo concepto incluyendo las que empiezan por “R”:</p>
-
-<pre><code>$ awk '$2 ~ /^[Cc].|^[R]/' lista 
-</code></pre>
-
-<p>“tolower” convierte el campo especificado a minúsculas:</p>
-
-<pre><code>$ awk 'tolower($1) ~ /^m/' lista     
-</code></pre>
-
-<p>Para mandar cada linea a un archivo con el nombre del 2er campo:</p>
-
-<pre><code>$ awk ' { print &gt; $2 } ' lista
-</code></pre>
-
-<p>Mandar el primer campo a un archivo y el segundo a otro:</p>
-
-<pre><code>$ awk '{ print $1 &gt; "nombres"; print $2 &gt; "apellidos" }' lista
-</code></pre>
-
-<p>Lo mismo pero mandándolo ordenado:</p>
-
-<pre><code>$ awk '{ print $1 | "sort &gt; nombres"; print $2 | "sort &gt; apellidos" }' lista 
-</code></pre>
-
-<p>Indicando caracter separador (un espacio y que imprima el 2º campo):</p>
-
-<pre><code>$ awk  -F " " ' { print $2 } ' lista 
-</code></pre>
-
-<p>Lo mismo usando BEGIN:</p>
-
-<pre><code>$ awk 'BEGIN { FS = " " } ; { print $2 }' lista
-</code></pre>
-
-<p>El siguiente  programa  muestra  como  puede usarse awk para validación de datos.</p>
-
-<blockquote><p>$ cat validar</p>
-
-<p>$3 &lt; 6.5   { print $1,$2 &#8221; ===> precio por hora bajo&#8221;, &#8220;(&#8220;$3&#8221;)&#8221; }</p>
-
-<p>$3 > 8     { print $1,$2 &#8221; ===> precio por hora alto&#8221;, &#8220;(&#8220;$3&#8221;)&#8221; }</p>
-
-<p>$5 == &#8220;banco&#8221;    { print $1,$2 &#8221; ===> Cobra por banco&#8221; }</p>
-
-<p>$5 == &#8220;metálico&#8221; { print $1,$2 &#8221; ===> Cobra en metálico&#8221; }</p></blockquote>
-
-<p>Se ejecuta con:</p>
-
-<pre><code>$ awk -f validar lista 
-</code></pre>
-
-<p>Aunque también podríamos añadir que lo ordenara por orden alfabetico del segundo campo (-k2) separado del primero por un espacio(-t” “):</p>
-
-<pre><code>$ awk -f validar lista | sort -t” “ -k2
-</code></pre>
-
-<p>Otros ejemplos:</p>
-
-<pre><code>$ awk '/d.[0-9]/{print $4}' /proc/partitions  (listar todas las particiones)
-
-$ cat 1.txt | awk '{print$1”\t”$2}'  (tabulando la salida)
-
-$ cat 1.txt | awk '!/#/{print $0}' &gt; 2.txt  (Imprime todo menos las lineas comentadas y lo manda a un archivo)
-
-$ cat 1.txt | awk 'BEGIN { FS="\n"; RS="" } { print $1 }' &gt; lista.txt (Manda a un archivo las primeras lineas precedidas de una en blanco)
-
-$ who | awk '{print $1}'  (Mostrar todos los usuarios registrados)
-
-$ awk '$1~/^DocumentRoot/{print $2}' /etc/apache2/sites-available/default (conocer la carpeta del servidor)
-
-$ awk 'BEGIN { for (i = 1; i &lt;= 7; i++) print int(101 * rand()) }' (Escribir 7 números aleatorios del 0 al 100)
-
-Creación de scripts con awk:
-</code></pre>
-
-<p>1.-</p>
-
-<p>Imprimir el simple &#8220;Hola mundo cruel&#8221;</p>
-
-<pre><code>#!/usr/bin/awk -f 
-
-BEGIN { print "Hola mundo cruel" } 
-</code></pre>
-
-<p>Lo mismo pero incluido en un script de bash:</p>
-
-<pre><code>#!/bin/bash
-
-awk 'BEGIN { print "Hola mundo cruel" }'
-</code></pre>
-
-<p>2.-</p>
-
-<p>Mandar el segundo campo de listado.txt a un archivo y el sexto a otro:</p>
-
-<pre><code>#! /usr/bin/awk -f  
-
-awk '{ print$2 &gt; "lista_nombres"
-
-       print$6 &gt; "lista_telefonos" }' listado.txt 
-</code></pre>
-
-<p>3.-</p>
-
-<p>Pasar el comando date&#8230; a variable [getline dia_actual], cerrar el comando [close] e imprimirlo en pantalla:</p>
-
-<pre><code>#!/usr/bin/awk -f
-
-BEGIN {
-
-           "date +%d-%m-%Y" | getline dia_actual
-
-           close("date +%d-%m-%Y")
-
-           print "Hoy estamos a " dia_actual
-
-}
-</code></pre>
-
-<p>En bash:</p>
-
-<pre><code>awk 'BEGIN {
-
-           "date +%d-%m-%Y" | getline dia_actual
-
-           close("date +%d-%m-%Y")
-
-           print "Hoy estamos a " dia_actual
-
-}'
-</code></pre>
+  <div class="entry-content"><p>Pagina la visualización de un fichero comprimido (Ver more)</p>
 </div>
   
   
@@ -746,7 +203,7 @@ BEGIN {
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/printf/">Printf</a></h1>
+      <h1 class="entry-title"><a href="/blog/zmap/">Zmap</a></h1>
     
     
       <p class="meta">
@@ -762,44 +219,16 @@ BEGIN {
   
 
 
-<time datetime="2013-12-14T11:20:00+01:00" pubdate data-updated="true">14-12-2013</time>
+<time datetime="2013-12-15T15:47:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Escribe y formatea datos</p>
+  <div class="entry-content"><p>Herramienta que permite escanear las direcciones IP de todo Internet en menos de 1 hora. Para incrementar la velocidad, el escaneo no se realiza por orden de número de IPs sinó a saltos. Desgarga:</p>
 
-<blockquote><p>$ printf &#8220;%50s\n&#8221; | tr &#8217; &#8217; -  (Generar una linea discontinua)</p>
-
-<p>$ printf &#8220;%s\n&#8221; ${PATH//:/\/* }  (listar aplicaciones y comandos del PATH)</p>
-
-<p>$ printf &#8220;%s\n&#8221; .*  (listar archivos y directorios ocultos de la carpeta actual)</p>
-
-<p>$ printf &#8220;\e[8;10;100;t&#8221; (Cambiar la medida de la  terminal)</p>
-
-<p>$ printf &#8220;%s\t &#8211;> %s\n&#8221; &#8220;$A&#8221; &#8220;$B&#8221; (Dos variables en columnas tabuladas)</p>
-
-<p>$ printf &#8220;%s\n&#8221; Escribir cada palabra en una &#8220;nueva linea&#8221; (Pues eso, excepto las dos últimas entrecomilladas)</p>
-
-<p>$ printf &#8220;%06d\n&#8221; &#8220;$RANDOM&#8221; &#8220;$RANDOM&#8221; &#8220;$RANDOM&#8221; &#8220;$RANDOM&#8221; (Iguala las cuatro salidas de $RANDOM a 6 cifras con ceros delante[%06d])</p>
-
-<p>$ printf &#8220;%-10s %-10s %s\n&#8221;, $1, $2, $3 (3 variables justificadas a la izquierda, las dos primeras con 10 caracteres)</p></blockquote>
-
-<p>Algunas opciones:</p>
-
-<p>%c (Imprime el primer carácter de una variable cadena)</p>
-
-<p>%d (Imprime un número decimal)</p>
-
-<p>%s (Cadena)</p>
-
-<p>%b (Interpreta las secuencias de escape del argumento cadena)</p>
-
-<p>%q (Escribe el argumento cadena de forma que pueda ser usado como entrada a otro comando)</p>
-
-<p>%% (Escribe % literal)</p>
+<blockquote><p>$ git clone https://github.com/zmap/zmap.git</p></blockquote>
 </div>
   
   
@@ -812,7 +241,7 @@ BEGIN {
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pdftotext/">Pdftotext</a></h1>
+      <h1 class="entry-title"><a href="/blog/zless/">Zless</a></h1>
     
     
       <p class="meta">
@@ -828,24 +257,14 @@ BEGIN {
   
 
 
-<time datetime="2013-12-12T18:09:00+01:00" pubdate data-updated="true">12-12-2013</time>
+<time datetime="2013-12-15T15:47:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[xpdf-utils]</p>
-
-<p>Para pasar un pdf a txt o a html.</p>
-
-<blockquote><p>$ pdftotext -listenc (Lista las codificaciones soportadas)</p>
-
-<p>$ pdftotext -layout texto.pdf texto.txt</p>
-
-<p>$ pdftotext -htmlmeta texto.pdf text.html</p>
-
-<p>$ pdftotext -enc UTF-8 -htmlmeta texto.pdf texto.html (Especificando una codificación)</p></blockquote>
+  <div class="entry-content"><p>Pagina la visualización de un fichero comprimido (Ver less).</p>
 </div>
   
   
@@ -858,7 +277,7 @@ BEGIN {
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/avconv/">Avconv</a></h1>
+      <h1 class="entry-title"><a href="/blog/zip/">Zip</a></h1>
     
     
       <p class="meta">
@@ -874,35 +293,18 @@ BEGIN {
   
 
 
-<time datetime="2013-12-12T14:36:00+01:00" pubdate data-updated="true">12-12-2013</time>
+<time datetime="2013-12-15T15:47:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Información sobre archivos multimedia y conversión de formatos.</p>
+  <div class="entry-content"><p>comprime y empaqueta</p>
 
-<blockquote><p>$ avconv -i video.avi video.mpeg  (Pasar de avi a mpeg)</p>
+<blockquote><p>$ zip archivo.zip fichero1 fichero2 (Comprimir varios ficheros)</p>
 
-<p>$ avconv -i video.avi (Información sobre un archivo)</p>
-
-<p>$ avconv -i archivo.avi -an nuevo.avi (Sacar el sonido de un avi)</p></blockquote>
-
-<p>1.-</p>
-
-<p>Convertir varios archivos mp4 a mp3:</p>
-
-<pre><code>#!/bin/bash
-
-for i in *.mp4
-
-do
-
-        avconv -i "$i" -b 256k "${i%.mp4}.mp3"
-
-done
-</code></pre>
+<p>$ zip -r archivo.zip file1 file2 dir1 (comprimir varios files y directorios)</p></blockquote>
 </div>
   
   
@@ -915,7 +317,7 @@ done
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ipmitool/">Ipmitool</a></h1>
+      <h1 class="entry-title"><a href="/blog/zgrep/">Zgrep</a></h1>
     
     
       <p class="meta">
@@ -931,47 +333,14 @@ done
   
 
 
-<time datetime="2013-12-12T14:20:00+01:00" pubdate data-updated="true">12-12-2013</time>
+<time datetime="2013-12-15T15:47:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[openipmi]</p>
-
-<p>Obtener datos del estado de un servidor [que lo soporte] tanto en local desde el propio servidor cómo en remoto. Se trata de un chipset que permite obtener información del estado de diferentes componentes hardware, temperaturas, voltajes, etc&#8230; Primero habilitar el demon ipmievd:</p>
-
-<blockquote><p># nano /etc/default/ipmievd</p></blockquote>
-
-<p>Y modificar la linea:</p>
-
-<p>ENABLED=true</p>
-
-<p>En algunas distros es preciso cargar los módulos:</p>
-
-<pre><code># ipmi_msghandler
-
-# ipmi_si
-
-# ipmi_devintf
-
-# ipmi_watchdog
-
-# ipmi_poweroff
-</code></pre>
-
-<blockquote><p># /etc/init.d/ipmi start (Arrancar el servicio)</p>
-
-<p># ipmitool sensor get &#8220;Ambient Temp&#8221; (Consulta de la temperatura ambiente)</p>
-
-<p># ipmitool user list (Listado de usuarios configurados)</p>
-
-<p># ipmitool -I lan -H 192.168.1.5 -U usuario sel elist (Litar los logs del sistema)</p>
-
-<p># ipmitool -H 192.168.1.10 -U usuario -P contraseña chassis status (Estado de chasis remoto)</p>
-
-<p># ipmitool sdr type Temperature (Obtener la temperatura)</p></blockquote>
+  <div class="entry-content"><p>imprime las líneas que cumplan la expresión regula sobre ficheros comprimidos (Ver grep)</p>
 </div>
   
   
@@ -984,7 +353,7 @@ done
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/tmux/">Tmux</a></h1>
+      <h1 class="entry-title"><a href="/blog/zfgrep/">Zfgrep</a></h1>
     
     
       <p class="meta">
@@ -1000,81 +369,14 @@ done
   
 
 
-<time datetime="2013-12-10T19:53:00+01:00" pubdate data-updated="true">10-12-2013</time>
+<time datetime="2013-12-15T15:47:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Terminal multiplexor</p>
-
-<blockquote><p>$ tmux (Lanzar la aplicación)</p>
-
-<p>$ tmux ls (Listar las sesiones tmux abiertas)</p>
-
-<p>$ tmux attach -t 0 (Sincronizarse con la sesión 0 [attach] en local o en remoto via ssh)</p>
-
-<p>$ tmux rename-session -t 0 tty1 (Renombrar la sesion 0 a tty1)</p>
-
-<p>$ tmux kill-window -t 2 (Matar la sesión tmux número 2)</p>
-
-<p>$ tmux new-session -s hack_wifi (Abrir sesión con un nombre)</p>
-
-<p>$ tmux list-commands (Listar la sintaxis de todos los comandos soportados)</p>
-
-<p>$ tmux list-keys (Listado de todas las teclas de control)</p>
-
-<p>$ tmux new-session -d &#8216;vi /etc/apt/sources.list&#8217; \; split-window -d &#8216;newsbeuter&#8217; \; attach (Arrancar una sesión tmux con el sources.list en el panel superior y con el lector RSS newsbeuter en el inferior)</p>
-
-<p>$ tmux new-session \; split-window \; split-window -h \; split-window -v \; attach (Arrancar la aplicación con varios panels horizontales y verticales)</p></blockquote>
-
-<p>Un completo tutorial en: <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=tmux&amp;sektion=1">http://www.openbsd.org/cgi-bin/man.cgi?query=tmux&amp;sektion=1</a></p>
-
-<p>Atajos:</p>
-
-<pre><code>Ctrl+b c (Crear una nueva ventana)
-
-Ctrl+b d (Salir de tmux actual (detach) sin cerrar sesión)
-
-Ctrl+b n (Ir a la ventana siguiente)
-
-Ctrl+b p (Ir a la ventana anterior)
-
-Ctrl+b &amp; (Matar la ventana actual, incluye todos los paneles)
-
-Ctrl+b x (Matar panel actual)
-
-Ctrl+b , (cambiar el nombre de la ventana actual )
-
-Ctrl+b % (Dividir verticalmente la ventana actual en dos paneles)
-
-Ctrl+b " (Dividir horizontalmente la ventana actual en dos paneles)
-
-Ctrl+b q (Mostrar brevemente los números de cada panel)
-
-Ctrl+b o (Cambiar al siguiente panel)
-
-Ctrl+b ? (Lista todas las combinaciones de teclas de control)
-
-Ctrl+b w (Lista todas las ventanas)
-
-Ctrl+b núm (Moverse a la ventana seleccionada (0-9). No al panel)
-
-Ctrl+b up (Ir al panel de encima)
-
-Ctrl+b down (Ir al panel de abajo)
-
-Ctrl+b left (Ir al panel de la izquierda)
-
-Ctrl+b right (Ir al panel de la derecha)
-
-Ctrl+b t (Muestra en el panel un reloj digital)
-
-Ctrl+b s (Elegir sesión)
-
-Ctrl+b [ (Entra en modo scroll con la teclas del cursor. Termina pulsando q)
-</code></pre>
+  <div class="entry-content"><p>Busca cadenas de texto fijas sobre archivos comprimidos (ver fgrep)</p>
 </div>
   
   
@@ -1087,7 +389,7 @@ Ctrl+b [ (Entra en modo scroll con la teclas del cursor. Termina pulsando q)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rkhunter/">Rkhunter</a></h1>
+      <h1 class="entry-title"><a href="/blog/zenity/">Zenity</a></h1>
     
     
       <p class="meta">
@@ -1103,70 +405,26 @@ Ctrl+b [ (Entra en modo scroll con la teclas del cursor. Termina pulsando q)
   
 
 
-<time datetime="2013-12-08T18:54:00+01:00" pubdate data-updated="true">08-12-2013</time>
+<time datetime="2013-12-15T15:47:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Buscador de rootkits instalados en el sistema</p>
+  <div class="entry-content"><p>Creación de dialogos gráficos simples. Especialmente para scripts.</p>
 
-<blockquote><p># rkhunter &#8211;update  (Recargar la base de datos)</p>
+<blockquote><p>$ zenity -?   (muestra las opciones de la aplicación y de ayuda)</p>
 
-<p># rkhunter -c  (iniciar la aplicación)</p>
+<p>$ zenity &#8211;title Archivo &#8211;width 800 &#8211;height 600 &#8211;text-info &#8211;filename /home/usuario/archivo.txt (mostrar un archivo)</p>
 
-<p># rkhunter -c -sk (iniciar la aplicación sin pedir confirmación para proseguir)</p>
+<p>$ zenity &#8211;info &#8211;text=&#8221;Este PC va a explotar en 10 segundos. Date por muerto.&#8221;</p>
 
-<p># rkhunter -c -sk &#8211;propupd (Lanzar con la opción &#8220;propupd&#8221; si se ha modificado la función Hash o para reconstruir la base de datos y evitar &#8220;Warnings&#8221; tipo: Warning: The file properties have changed)</p>
+<p>$ zenity &#8211;password &#8211;username (Muestra diálogo entrar usuario y contraseña)</p>
 
-<p># rkhunter &#8211;list (Ver las opciones)</p>
+<p>$ zenity &#8211;calendar (Muestra el calendario)</p>
 
-<p># rkhunter &#8211;enable group_accounts,system_commands  (Solo chequear estas dos opciones)</p>
-
-<p># rkhunter &#8211;disable shared_libs  (Descartar esta opción del chequeo)</p>
-
-<p># cat /var/log/rkhunter.log | grep Warning (Visualizar los &#8220;Warnings&#8221;)</p></blockquote>
-
-<p>1.-</p>
-
-<p>Para solucionar el error: Warning: Hidden directory found: /etc/.java</p>
-
-<blockquote><p># nano /etc/rkhunter.conf</p></blockquote>
-
-<p>Y descomentar la linea:</p>
-
-<p>ALLOWHIDDENDIR=&#8221;/etc/.java&#8221;</p>
-
-<p>Nota.- para errores similares con archivos ocultos [/dev/.udev, /dev/.initramfs&#8230; ], descomentar la linea correspondiente.</p>
-
-<p>2.-</p>
-
-<p>Para errores de versión de ciertas aplicaciones [Warning: Application &#8216;gpg&#8217;, version &#8230;.]</p>
-
-<blockquote><p># nano /etc/rkhunter.conf</p></blockquote>
-
-<p>Añadir apps a la linea:</p>
-
-<p>DISABLE_TESTS=&#8221;suspscan hidden_procs deleted_files packet_cap_apps apps&#8221;</p>
-
-<p>3.-</p>
-
-<p>Para suprimir falsa advertencias sobre posibles interfaces promiscuos [P.ejemplo de un servidor virtual], añadir &#8220;promisc&#8221; a la opción DISABLE_TESTS:</p>
-
-<p>DISABLE_TESTS=&#8221;suspscan hidden_procs deleted_files packet_cap_apps apps promisc&#8221;</p>
-
-<p>4.-</p>
-
-<p>Para que los valores se obtengan del gestor de paquetes correspondiente:</p>
-
-<blockquote><p># nano /etc/rkhunter.conf</p></blockquote>
-
-<p>Y descomentar y modificar la linea PKGMGR:</p>
-
-<p>PKGMGR=DPKG</p>
-
-<p>Nota.- Otras opciones para distros no debian o para desactivar la opción: RPM, BSD,SOLARIS y NONE</p>
+<p>$ zenity &#8211;scale (Muestra la escala)</p></blockquote>
 </div>
   
   
@@ -1179,7 +437,7 @@ Ctrl+b [ (Entra en modo scroll con la teclas del cursor. Termina pulsando q)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ssconvert/">Ssconvert</a></h1>
+      <h1 class="entry-title"><a href="/blog/zegrep/">Zegrep</a></h1>
     
     
       <p class="meta">
@@ -1195,26 +453,14 @@ Ctrl+b [ (Entra en modo scroll con la teclas del cursor. Termina pulsando q)
   
 
 
-<time datetime="2013-12-07T06:26:00+01:00" pubdate data-updated="true">07-12-2013</time>
+<time datetime="2013-12-15T15:47:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[gnumeric]</p>
-
-<p>Conversor de formatos de hoja de cálculo por línea de comandos.</p>
-
-<blockquote><p>$ ssconvert &#8211;list-exporters (Listado de conversiones de salida)</p>
-
-<p>$ ssconvert &#8211;list-importers (Litado de conversiones de entrada)</p>
-
-<p>$ ssconvert entrada.xls salida.csv (De formato excel a csv)</p>
-
-<p>$ ssconvert -E utf-8 entrada.xls salida.csv (Especificando una codificación para la salida)</p>
-
-<p>$ ssconvert &#8211;export-type=Gnumeric_stf:stf_assistant -O &#8216;separator=| format=preserve charset=unicode&#8217; entrada.xls salida.csv (Especificando opcionalmente un exportador [&#8211;export-type] que permite exportar a txt, especificando un separador de campos que no sea el por defecto [el espacio] sinó la barra vertical [|], preservando el formato de las celdas del original [format], otras opciones de format son &#8220;automatic&#8221; [por defecto] y &#8220;raw&#8221; [sin formato] y con codificación de salida en unicode [por defecto UTF-8])</p></blockquote>
+  <div class="entry-content"><p>Busca expresiones regulares sobre archivos comprimidos (Ver egrep)</p>
 </div>
   
   
@@ -1227,7 +473,7 @@ Ctrl+b [ (Entra en modo scroll con la teclas del cursor. Termina pulsando q)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/while/">While</a></h1>
+      <h1 class="entry-title"><a href="/blog/zdump/">Zdump</a></h1>
     
     
       <p class="meta">
@@ -1243,186 +489,16 @@ Ctrl+b [ (Entra en modo scroll con la teclas del cursor. Termina pulsando q)
   
 
 
-<time datetime="2013-12-07T06:00:00+01:00" pubdate data-updated="true">07-12-2013</time>
+<time datetime="2013-12-15T15:47:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Ejecuta una seria de comandos mientras que una determinada condicion sea cumpla. Algunos scripts ilustrativos:</p>
+  <div class="entry-content"><p>Visualiza la zona horaria especificada.</p>
 
-<p>1.-</p>
-
-<pre><code>#!/bin/bash
-
-RESPUESTA=s
-
-while [ $RESPUESTA = s ]
-
-do
-
-    echo "Introducir nombre: "
-
-    read NOMBRE
-
-    echo "Hola $NOMBRE"
-
-    echo
-
-    echo "¿Desea continuar? (s/n)"
-
-    read RESPUESTA
-
-done
-</code></pre>
-
-<p>2.-</p>
-
-<pre><code>#!/bin/bash
-
-while [ "$OPCION" != 5 ]
-
-do
-
-    echo
-
-    echo "[1] Listar directorio"
-
-    echo "[2] Directorio donde te encuentras"
-
-    echo "[3] fecha de hoy"
-
-    echo "[4] Usuarios conectados"
-
-    echo "[5] Salir"
-
-    echo
-
-    read -p "Ingrese una opción: " OPCION
-
-    echo
-
-    case $OPCION in
-
-        1) ls;;
-
-        2) pwd;;
-
-        3) date +%D ;;
-
-        4) who;;
-
-        5);;
-
-        *) echo "Opción ingresada no valida, intentelo de nuevo";;
-
-    esac
-
-done
-
-exit 0
-</code></pre>
-
-<p>3.-</p>
-
-<pre><code>#!/bin/bash
-
-# imprimir números del 1 al 10
-
-LIMITE=10
-
-a=1
-
-while [ "$a" -le $LIMITE ]
-
-do
-
-  echo "$a "
-
-  let "a+=1"
-
-done
-</code></pre>
-
-<p>4.-</p>
-
-<p>Leer un archivo linea a linea:</p>
-
-<pre><code>#!/bin/bash
-
-while read linea
-
-do
-
-   echo "---&gt; $linea "
-
-done &lt; archivo.txt
-</code></pre>
-
-<p>5.-</p>
-
-<p>Especificando un separador [:]</p>
-
-<pre><code>#!/bin/bash
-
-while IFS=: read user pass uid gid full home shell
-
-do
-
-echo -e "$full :\n\
-
-        Pseudo : $user\n\
-
-        UID :\t $uid\n\
-
-        GID :\t $gid\n\
-
-        Home :\t $home\n\
-
-        Shell :\t $shell\n\n"
-
-done &lt; /etc/passwd
-</code></pre>
-
-<p>6.-</p>
-
-<p>Leer un archivo pasado como parámetro, descartar las lineas en blanco y colorear alternativamente las siguientes en amarillo y rojo.</p>
-
-<pre><code>#!/bin/bash
-
-COLOR=1
-
-while read linia
-
-do
-
-    if [ -z "${linia}" ] 
-
-    then
-
-        continue
-
-    fi
-
-    if [ $COLOR -eq 0 ]
-
-    then
-
-        echo -e "\e[1;30;41m$linia\033[0m" #VERMELL - 0
-
-        COLOR=1
-
-    else
-
-        echo -e "\e[1;30;43m$linia\033[0m" #GROC - 1
-
-        COLOR=0
-
-    fi
-
-done &lt; $1
-</code></pre>
+<blockquote><p>$ zdump Madrid</p></blockquote>
 </div>
   
   
@@ -1451,43 +527,43 @@ done &lt; $1
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/grub2/">grub2</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/printf/">printf</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdftotext/">pdftotext</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/avconv/">avconv</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ipmitool/">ipmitool</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tmux/">tmux</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/rkhunter/">rkhunter</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssconvert/">ssconvert</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/while/">while</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

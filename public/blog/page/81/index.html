@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Generar una galería web. $ lazygal directorio_con_las_imagenes (Creará todos los archivos en el presente directorio por lo que es preferible estar en &hellip;">
+  <meta name="description" content="Informa sobre la comunicación entre procesos [espacios de memoria, buffers, semaforos..] listando los recursos compartidos que están creados en ese &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/lazygal/">Lazygal</a></h1>
+      <h1 class="entry-title"><a href="/blog/ipcs/">Ipcs</a></h1>
     
     
       <p class="meta">
@@ -97,18 +97,44 @@
   
 
 
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:43:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Generar una galería web.</p>
+  <div class="entry-content"><p>Informa sobre la comunicación entre procesos [espacios de memoria, buffers, semaforos..] listando los recursos compartidos que están creados en ese momento. Ver ipcrm. La columna &#8220;shmid&#8221; muestra el ID, la &#8220;owner&#8221; el propietario, &#8220;perms&#8221; los permisos y &#8220;bytes&#8221; el tamaño en bytes</p>
 
-<blockquote><p>$ lazygal directorio_con_las_imagenes  (Creará todos los archivos en el presente directorio por lo que es preferible estar en un directorio vacio)</p>
+<blockquote><h1>ipcs -s | grep postgres  (Muestra los recursos compartidos de postgres)</h1>
 
-<p>$ lazygal -o /var/www/ /home/usuario/fotos (Lo creará en la carpeta web a partir del directorio fotos)</p></blockquote>
+<h1>ipcs -lm (determinar los limites de memoria compartida del sistema)</h1>
+
+<h1>ipcs -ls (Límites actuales del contador que se utiliza para acceder a los recursos compartidos del sistema)</h1>
+
+<h1>ipcs -u  (Proporciona información sobre la comunicación entre procesos)</h1>
+
+<h1>ipcs -m (despliega los segmentos de memoria compartida)</h1>
+
+<h1>ipcs -mu (muestra un breve resumen)</h1>
+
+<h1>ipcs -ml (muestra los límites en contraposición a los valores actuales)</h1>
+
+<h1>ipcs -m -i 950288 (obtener detalle de un segmento de memoria compartida [valor shmid])</h1>
+
+<h1>ipcs -s (Muestra los semforos en el sistema)</h1></blockquote>
+
+<p>Algunas opciones:</p>
+
+<p>-m  (segmentos de memoria compartida )</p>
+
+<p>-q   (colas de mensajes )</p>
+
+<p>-s   (matrices de semáforos )</p>
+
+<p>-a   (todos. Opción por defecto)</p>
+
+<p>-p   (pid)</p>
 </div>
   
   
@@ -121,7 +147,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/latex2html/">Latex2html</a></h1>
+      <h1 class="entry-title"><a href="/blog/ipcrm/">Ipcrm</a></h1>
     
     
       <p class="meta">
@@ -137,18 +163,16 @@
   
 
 
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:43:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Covierte un archivo latex a formato html. Crea un directorio con el mismo nombre del archivo.</p>
+  <div class="entry-content"><p>Permite eliminar la comunicación entre procesos [ver ipcs]. Si paramos el programa con un Ctrl-C o simplemente sale de forma anormal, el recurso [la memoria compartida] no se libera y queda en el sistema. Con este comando es posible borrarla.</p>
 
-<blockquote><p>$ latex2html archivo.tex</p>
-
-<p>$ latex2html -dir DIR archivo.tex (Creará los archivos html en el directorio especificado [tiene que existir])</p></blockquote>
+<blockquote><h1>ipcrm -m 950288 (eliminar un segmento de memoria compartida)</h1></blockquote>
 </div>
   
   
@@ -161,7 +185,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/latex/">Latex</a></h1>
+      <h1 class="entry-title"><a href="/blog/ipcalc/">Ipcalc</a></h1>
     
     
       <p class="meta">
@@ -177,107 +201,18 @@
   
 
 
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:43:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[texlive texlive-lang-spanish]</p>
+  <div class="entry-content"><p>Calcular las ips y mascaras de una red a partir de una ip dada o un rango.</p>
 
-<p>Sistema de composición de textos, orientado especialmente a la creación de libros, documentos científicos y técnicos que contengan fórmulas matemáticas. La elaboración del documento requiere normalmente de dos etapas: en la primera hay que crear mediante cualquier editor de texto llano un fichero fuente que, con las órdenes y comandos adecuados, contenga el texto que queramos imprimir. La segunda consiste en procesar este fichero; el procesador de textos interpreta las órdenes escritas en él y compila el documento, dejándolo preparado para que pueda ser enviado a la salida correspondiente. LaTeX ofrece siempre la misma salida, con independencia del dispositivo (impresora, pantalla, etc.) o el sistema operativo (MS Windows, MacOS, Unix, GNU/Linux, etc.) y puede ser exportado a partir de una misma fuente a numerosos formatos [Ps, PDF, SGML, HTML, RTF, etc.]. Otra ventaja de LaTeX es que calcula la cantidad óptima de caracteres por línea para optimizar la lectura, 66 por defecto. Existen miles de instrucciones. Aquí una pequeña muestra para no morir en el intento.</p>
+<blockquote><h1>ipcalc 192.168.0.1/24</h1>
 
-<p>A continuación una estructura elemental de un documento:</p>
-
-<p>Los comentarios van precedidos por el signo de porcentaje [%]</p>
-
-<p>La primera linea puede especificar el papel [A4], tamaño de la letra [10pt, 11pt, 12pt], tipo de texto [article, report, book, letter, slides&#8230;], cantidad de columnas [twocolumn]:</p>
-
-<pre><code>\documentclass[a4paper, 12pt]{article} 
-
-\documentclass[12pt,twocolumn]{report}
-</code></pre>
-
-<p>Activar el soporte Unicode [para  dieresis, eñes&#8230;]</p>
-
-<pre><code>\usepackage[utf8]{inputenc}
-
-\usepackage[spanish]{babel}
-</code></pre>
-
-<p>Especificar título, autor, fecha. &#8220;date&#8221;, si no se especifica, pone la fecha actual:</p>
-
-<pre><code>\title{Lorem Ipsum} 
-
-\author{La Pipa Plena} 
-
-\date{ }
-</code></pre>
-
-<p>El cuerpo del documento se inicia con \maketitle</p>
-
-<p>Inicio y final de texto. Entre párrafos ha de dejarse una linea en blanco. El primer párrafo de una subsección, sección o capítulo no está sangrado, pero los restantes sí.:</p>
-
-<pre><code>\begin{document}
-
-Est et quia non voluptatum. Aspernatur facilis excepturi aut. Voluptatem perspiciatis id cum ab nostrum. Qui rerum nisi vitae quae. Quam consequatur eaque minima ipsum distinctio. Est dolorem tempore perspiciatis quisquam accusantium exercitationem consequatur.
-
-\end{document}
-</code></pre>
-
-<p>Secciones y subsecciones del texto:</p>
-
-<pre><code>\section{Introducción}
-
-\section{Historia}
-
-\subsection{Historia inicios}
-
-\subsection{Historia continuación}
-</code></pre>
-
-<p>Formatos de texto:</p>
-
-<pre><code>\texbf{texto en negrita}
-
-\emph{destaca el texto}
-
-\texit{texto en cursiva}
-
-\underline{texto subrayado}
-
-\texsc{texto en versalita}
-</code></pre>
-
-<p>Tamaño de la letra. Estos comandos afectan a todo el texto que les sigue mientras no se modifique nuevamente y sin necesidad de encerrarlo entre llaves. De más pequeña a más grande: \tiny, \scriptsize, \footnotesize, \small, \normalsize (la normal), \large, \Large, \LARGE, \huge, \Huge</p>
-
-<pre><code>\normalsize Ipsam \tiny iusto odio commodi \scriptsize inventore rem. \footnotesize Qui maiores minima \small dignissimos aut mollitia et. \normalsize Voluptates \large magnam autem similique quas. \LARGE nihil aspernatur nisi blanditiis. \huge Ad repudiandae fuga blanditiis. \Huge Est voluptate in ipsam sint \ normalsize optio.
-</code></pre>
-
-<p>Centrar un párrafo:</p>
-
-<pre><code>\begin{center}
-
-Est et quia non voluptatum. Aspernatur facilis excepturi aut. Voluptatem perspiciatis id cum ab nostrum. Qui rerum nisi vitae quae. Quam consequatur eaque minima ipsum distinctio. Est dolorem tempore perspiciatis quisquam accusantium exercitationem consequatur.
-
-\end{center}    
-</code></pre>
-
-<p>alinear texto:</p>
-
-<pre><code>\centering {Texto a centrar}
-
-\raggedleft {Texto a la derecha}
-
-\raggedright {Texto a la izquierda}
-</code></pre>
-
-<p>Para confeccionar un documento en latex puede usarse cualquier editor [vim, nano, gedit&#8230;] y para convertirlo a pdf compilarlo con:</p>
-
-<blockquote><p>$ pdflatex texto.tex</p></blockquote>
-
-<p>Tambien podemos visualizar directamente el .dvi con la aplicación evince o usar gummi que, al tener la pantalla dividida en dos partes, permite crear el documento y visualizarlo en tiempo real.</p>
+<h1>ipcalc 192.168.0.1/255.255.128.0</h1></blockquote>
 </div>
   
   
@@ -290,7 +225,7 @@ Est et quia non voluptatum. Aspernatur facilis excepturi aut. Voluptatem perspic
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/lastlog/">Lastlog</a></h1>
+      <h1 class="entry-title"><a href="/blog/ipband/">Ipband</a></h1>
     
     
       <p class="meta">
@@ -306,16 +241,46 @@ Est et quia non voluptatum. Aspernatur facilis excepturi aut. Voluptatem perspic
   
 
 
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:43:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Ver el momento exacto que los usuarios han entrado por última vez</p>
+  <div class="entry-content"><p>Mostrar datos de la conexión. Copiar el arxivo de configuración:</p>
 
-<blockquote><p>$ lastlog -u usuario  (solo ver a &#8220;usuario&#8221;)</p></blockquote>
+<blockquote><h1>cp /usr/share/doc/ipband/examples/ipband.conf-simple /etc/ipband.conf</h1></blockquote>
+
+<p>Y descomentar o modificar los siguientes parámetros:</p>
+
+<p>debug 0</p>
+
+<p>interface eth1</p>
+
+<p>fork yes</p>
+
+<p>htmlfile /srv/www/htdocs/ipbandwidth/index.html</p>
+
+<p>htmltitle Consumo de banda</p>
+
+<p>average 10</p>
+
+<p>accumulate no</p>
+
+<p>maskbits 32</p>
+
+<p>localrange 192.168.1.0/24</p>
+
+<p>Reiniciar el servicio:</p>
+
+<blockquote><h1>/etc/init.d/ipband restart</h1></blockquote>
+
+<p>Arrancar la aplicación:</p>
+
+<blockquote><h1>ipband</h1></blockquote>
+
+<p>Los informes se muestran poniendo en la barra del navegador: http://localhost/html/ipbandwidth/index.html</p>
 </div>
   
   
@@ -328,7 +293,7 @@ Est et quia non voluptatum. Aspernatur facilis excepturi aut. Voluptatem perspic
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/lastcomm/">Lastcomm</a></h1>
+      <h1 class="entry-title"><a href="/blog/ip-ajustes/">Ip-ajustes</a></h1>
     
     
       <p class="meta">
@@ -344,16 +309,34 @@ Est et quia non voluptatum. Aspernatur facilis excepturi aut. Voluptatem perspic
   
 
 
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:43:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra información acerca de comandos ejecutados y terminales abiertas.</p>
+  <div class="entry-content"><p>1.- Estática</p>
 
-<blockquote><p>$ lastcomm tmux tty1 (sólo muestra los epecificados)</p></blockquote>
+<blockquote><h1>gedit /etc/network/interfaces</h1></blockquote>
+
+<p>auto eth0</p>
+
+<p>iface eth0 inet static</p>
+
+<p>address 192.168.x.x</p>
+
+<p>netmask 255.255.255.0</p>
+
+<p>network 192.168.x.0</p>
+
+<p>boadcast 192.168.2.255</p>
+
+<p>gateway 192.168.x.1</p>
+
+<blockquote><h1>/etc/init.d/networking restart (reiniciar el servicio)</h1>
+
+<p>$ ifconfig (verificar la nueva ip)</p></blockquote>
 </div>
   
   
@@ -366,7 +349,7 @@ Est et quia non voluptatum. Aspernatur facilis excepturi aut. Voluptatem perspic
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/lastb/">Lastb</a></h1>
+      <h1 class="entry-title"><a href="/blog/ip/">Ip</a></h1>
     
     
       <p class="meta">
@@ -382,16 +365,42 @@ Est et quia non voluptatum. Aspernatur facilis excepturi aut. Voluptatem perspic
   
 
 
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:43:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra los intentos de conexión fallidos (/var/log/btmp)</p>
+  <div class="entry-content"><p>Configuración de red. Muestra dispositivos, enrutamientos, tuneles.</p>
 
-<blockquote><p># lastb   -20 (Muestra los últimos 20 intentos fallidos en logearse)</p></blockquote>
+<blockquote><p>$ ip addr (Revisar tarjetas)</p>
+
+<p>$ ip route show (Información)</p>
+
+<p>$ ip link show (Ver interfaces de red)</p>
+
+<p>$ ip link set dev eth0 down (bajar una red)</p>
+
+<p>$ ip route add default via 192.168.1.1 (establecer la ip del router)</p>
+
+<p>$ ip link set dev eth0 up (levantar una red)</p>
+
+<p>$ ip addr add 192.168.1.20 255.255.255.0 dev eth1 (establecer una ip estática)</p>
+
+<p>$ ip n  (MAC e IP del router)</p>
+
+<p>$ ip link set dev eth1 address 00:03:44:88:00:11 (Modificdar la MAC. Previamente bajar la red)</p>
+
+<p>$ ip route del default (Eliminar puerta de enlace para crear una nueva)</p>
+
+<p>$ ip route add default via 192.168.1.10 (Crear nueva puerta de enlace)</p>
+
+<p>$ ip -f inet addr show eth0 (información de la dirección ip)</p>
+
+<p>$ ip route add 192.168.2.0/24 via 192.168.1.10 (Añadir una red a una puerta de enlace)</p></blockquote>
+
+<p>Nota.- Verificar que /etc/resolv contenga una linea con el servidor DNS tipo: nameserver 8.8.8.8 [para las DNS de google]</p>
 </div>
   
   
@@ -404,7 +413,7 @@ Est et quia non voluptatum. Aspernatur facilis excepturi aut. Voluptatem perspic
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/last/">Last</a></h1>
+      <h1 class="entry-title"><a href="/blog/iozone/">Iozone</a></h1>
     
     
       <p class="meta">
@@ -420,26 +429,28 @@ Est et quia non voluptatum. Aspernatur facilis excepturi aut. Voluptatem perspic
   
 
 
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:43:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra la ultima vez que se conecto un usuario [/var/log/wtmp].</p>
+  <div class="entry-content"><p>Realizar test de velocidad de sistemas de archivos (ext3, ext4&#8230;)</p>
 
-<blockquote><p>$ last -n 10 (Muestra los últimos 10 eventos. )</p>
+<blockquote><p>$ iozone -s 2g -r 64 -i 0 -i 1 -b test.xls</p>
 
-<p>$ last reboot (la útima vez que se reinició)</p>
+<p>$ iozone -a -g 2G -f /media/sda2</p></blockquote>
 
-<p>$ last -i (Mostrando la ip)</p>
+<p>-a (automático)</p>
 
-<p>$ last tty1 (que lo hizo a la tty1)</p>
+<p>-g (Tamaño de los archivos generados)</p>
 
-<p>$ last usuario (que se conectó “usuario”)</p>
+<p>-f (el sistema de archivos a tratar)</p>
 
-<p>$ last -f /media/sda2/var/log/wtmp (Analizar el acceso de otro sistema)</p></blockquote>
+<p>-i (0= escritura, 1= lectura, 2=lectura/escritura&#8230;.)</p>
+
+<p>-b (archivo que generará con los resultados)</p>
 </div>
   
   
@@ -452,7 +463,7 @@ Est et quia non voluptatum. Aspernatur facilis excepturi aut. Voluptatem perspic
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/lame/">Lame</a></h1>
+      <h1 class="entry-title"><a href="/blog/iotop/">Iotop</a></h1>
     
     
       <p class="meta">
@@ -468,26 +479,32 @@ Est et quia non voluptatum. Aspernatur facilis excepturi aut. Voluptatem perspic
   
 
 
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:43:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Cambiar formatos de audio</p>
+  <div class="entry-content"><p>monitoriza el ratio de lectura/escritura en disco .</p>
 
-<blockquote><p>$ lame -h -m j tema.wav tema.mp3  (Pasar de wav a mp3)</p>
+<blockquote><p>$ iotop -o -u usuario</p>
 
-<p>$ lame -h -m j &#8211;nogap *.wav (Pasar lote de wav a mp3)</p>
+<p>$ iotop -a -p $(sed &#8216;s, , -p ,g&#8217; &lt;&lt;&lt;<code>pgrep "_raid|_resync|jbd2"</code>) (un raid)</p></blockquote>
 
-<p>$ lame -h &#8211;decode tema.mp3 tema.wav     (Pasar de mp3 a wav)</p>
+<p>Alguns opciones:</p>
 
-<p>$ for i in *.mp3; do lame -q 0 -b 160 -m j &#8220;$i&#8221; &#8220;directorio/$i&#8221;; done (Modificar el bitrate (-b 160) de todos los mp3 de “directorio”)</p></blockquote>
+<p>-d 2 (Actualización cada 2 segundos)</p>
 
-<p>-q 0    Opciones de 0 a 9. A menor calidad, mayor velocidad de conversión.</p>
+<p>-b (No interactivo)</p>
 
-<p>-m j    Activar joint stereo.</p>
+<p>-o (Sólo mostrar procesos que hacen uso de entrada/salida)</p>
+
+<p>-t (Incluir una marca de tiempo)</p>
+
+<p>-p pid (Pid del proceso a monitorizar. Por defecto todos)</p>
+
+<p>-u usuario (especificando usuario)</p>
 </div>
   
   
@@ -500,7 +517,7 @@ Est et quia non voluptatum. Aspernatur facilis excepturi aut. Voluptatem perspic
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/kwin/">Kwin</a></h1>
+      <h1 class="entry-title"><a href="/blog/iostat/">Iostat</a></h1>
     
     
       <p class="meta">
@@ -516,16 +533,20 @@ Est et quia non voluptatum. Aspernatur facilis excepturi aut. Voluptatem perspic
   
 
 
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Gestor de ventanas</p>
+  <div class="entry-content"><p>muestra estadísticas de la CPU y de la entrada y salida de los dispositivos y particiones.</p>
 
-<blockquote><p>$ kwin &#8211;replace (Activar kwin)</p></blockquote>
+<blockquote><p>$ iostat -x sda -d 1 6 (6 reportes con 1 segundo de intervalo sobre el disco sda. Suprimiendo la última cifra [6] continuará reportando datos hasta finalizar con Ctrl+c)</p>
+
+<p>$ iostat -d 3 (actualizará resultados cada 3 segundos)</p>
+
+<p>$ iostat -p sda (Ver estadisticas de un disco concreto con sus particiones)</p></blockquote>
 </div>
   
   
@@ -538,7 +559,7 @@ Est et quia non voluptatum. Aspernatur facilis excepturi aut. Voluptatem perspic
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/kvm-ok/">Kvm-ok</a></h1>
+      <h1 class="entry-title"><a href="/blog/inxi/">Inxi</a></h1>
     
     
       <p class="meta">
@@ -554,20 +575,58 @@ Est et quia non voluptatum. Aspernatur facilis excepturi aut. Voluptatem perspic
   
 
 
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Comprobar si la CPU  tiene soporte para extensiones KVM.</p>
+  <div class="entry-content"><p>Muestra información del equipo (http://inxi.googlecode.com/svn/trunk/inxi).</p>
 
-<blockquote><p># kvm-ok</p></blockquote>
+<blockquote><p>$ inxi -Fpur -c 4</p></blockquote>
 
-<p>INFO: Your CPU does not support KVM extensions</p>
+<p>Algunas opciones (con inxi -h la lista completa):</p>
 
-<p>KVM acceleration can NOT be used</p>
+<p>-A (Audio y tarjetas de sonido)</p>
+
+<p>-b (informacio básica)</p>
+
+<p>-c (formato de color de 0 a 32 para la salida de datos)</p>
+
+<p>-C (CPUs)</p>
+
+<p>-d (drivers opticos)</p>
+
+<p>-D (disco duro)</p>
+
+<p>-F (salida extendida)</p>
+
+<p>-G (tarjeta gráfica)</p>
+
+<p>-i (Información de red)</p>
+
+<p>-I (Procesos, uptime, memoria&#8230;)</p>
+
+<p>-M (Datos de la máquina)</p>
+
+<p>-N (tarjetas de red)</p>
+
+<p>-o (particiones no montadas)</p>
+
+<p>-p (particiones montadas)</p>
+
+<p>-r (repositorios)</p>
+
+<p>-s (sensors[temperaturas cpu])</p>
+
+<p>-S (Host, Kernel,Escritorio y Distro)</p>
+
+<p>-t cm (Procesos que consumen más cpu [c] y memoria [m])</p>
+
+<p>-u (UUID de las particiones. -uo las no montadas, -up las montadas)</p>
+
+<p>-v 6 (Distintas etiquetas de información. Del 1 al 6)</p>
 </div>
   
   
@@ -598,43 +657,43 @@ Est et quia non voluptatum. Aspernatur facilis excepturi aut. Voluptatem perspic
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/grub2/">grub2</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/printf/">printf</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdftotext/">pdftotext</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/avconv/">avconv</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ipmitool/">ipmitool</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tmux/">tmux</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/rkhunter/">rkhunter</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssconvert/">ssconvert</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/while/">while</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

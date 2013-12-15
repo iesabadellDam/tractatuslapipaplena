@@ -111,7 +111,8 @@ then
                                 rm -R $DIRANTIGUO
                         else
                                 color " << No efectuo cambios... salir... >> "
-                                rm -R $DIRNUEVO
+								echo
+#                                rm -R $DIRNUEVO
                                 exit
                         fi
                         for linea in `cat 0-cambios.txt`; do
@@ -140,7 +141,7 @@ fi
 ## Borrar ficheros usados
 echo
 color "<< ....Actualizado el directorio y eliminados ficheros temporales... >>"
-rm @(0-*.md|0-*.txt) 2>/dev/null
+#rm @(0-*.md|0-*.txt) 2>/dev/null
 echo
 ## Colocar en el sidebar el número do entradas
 ENTRADAS=$(ls $FILES/* | wc -l)

@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Conocer los datos del registro de un dominio. Especificar sin las www $ whois todo-linux.com
-">
+  <meta name="description" content="Permite visualizar o limitar los recursos del sistema. ulimit -f 512000 (limita a los usuarios para que no puedan crear archivos de mayor tamaño que &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -82,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/whois/">Whois</a></h1>
+      <h1 class="entry-title"><a href="/blog/ulimit/">Ulimit</a></h1>
     
     
       <p class="meta">
@@ -98,16 +97,117 @@
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Conocer los datos del registro de un dominio. Especificar sin las www</p>
+  <div class="entry-content"><p>Permite  visualizar o limitar los recursos del sistema.</p>
 
-<blockquote><p>$ whois todo-linux.com</p></blockquote>
+<blockquote><h1>ulimit -f 512000 (limita a los usuarios para que no puedan crear archivos de mayor tamaño que 512000 Kb [500 #Mb])</h1>
+
+<p>$ ulimit -a   (ver todos los parámetros)</p></blockquote>
+
+<p>Parámetros:</p>
+
+<p>core (Tamaño máximo de los ficheros core [KB])</p>
+
+<p>data (Tamaño máximo para el segmento de datos [KB])</p>
+
+<p>fsize (Tamaño máximo para los ficheros [KB])</p>
+
+<p>memlock (Tamaño máximo para el espacio de direcciones bloqueado en memoria [KB])</p>
+
+<p>nofile (Número máximo de ficheros abiertos)</p>
+
+<p>rss (Tamaño máximo del conjunto residente en memoria [KB])</p>
+
+<p>stack (Tamaño máximo para la pila [KB])</p>
+
+<p>cpu (Tiempo máximo de CPU [minutos])</p>
+
+<p>nproc (Número máximo de procesos)</p>
+
+<p>as (Límite en el espacio de direcciones)</p>
+
+<p>maxlogins (Número máximo de logins)</p>
+
+<p>priority (Prioridad de base para los procesos del usuario)</p>
+
+<p>locks (Número máximo de ficheros bloqueados que el usuario puede mantener)</p>
+
+<p>Nota.- El ámbito de aplicación del límite puede ser un nombre de usuario, un grupo (@grupo) o todos (*)</p>
+
+<p>Un ejemplo de limit.conf:</p>
+
+<ul>
+<li><pre><code>        soft    nproc           10000
+</code></pre></li>
+<li><pre><code>        hard    nproc           4096
+</code></pre></li>
+<li><pre><code>        soft    core            unlimited
+</code></pre></li>
+<li><pre><code>        hard    core            unlimited
+</code></pre></li>
+<li><pre><code>        soft    memlock         131072
+</code></pre></li>
+<li><pre><code>        hard    memlock         131072
+</code></pre></li>
+<li><pre><code>        soft    nofile          102400
+</code></pre></li>
+<li><pre><code>        hard    nofile          102400
+</code></pre></li>
+</ul>
+
+
+<p>1.-</p>
+
+<p>Evitar Forkboms [programas que consumen la totalidad de los recursos del sistema]</p>
+
+<p>Si al lanzar el comando:</p>
+
+<blockquote><p>$ ulimit -u</p></blockquote>
+
+<p>El resultado es “ilimitado” o un valor extremadamente alto, podemos ser victimas de los forkbombs. Para resolverlo podemos limitar el número de procesos abiertos a 1000 para que estos no puedan llegar a colapsar el sistema:</p>
+
+<blockquote><h1>gedit /etc/security/limits.conf</h1></blockquote>
+
+<p>Añadir antes de “End of file”:   * hard nproc 1000</p>
+
+<p>Reiniciar</p>
+
+<p>2.-</p>
+
+<p>En ciertas ocasiones, al procesar muchos archivos, se produce un error &#8220;for output (Too many open files)&#8221; porque se desborda el limite de 1024 k. Para solucionarlo:</p>
+
+<blockquote><h1>nano /etc/security/limits.conf</h1></blockquote>
+
+<p>Y añadir las siguientes lineas:</p>
+
+<ul>
+<li><p> soft    nofile    9000</p></li>
+<li><p> hard    nofile    65000</p></li>
+</ul>
+
+
+<p>3.-</p>
+
+<p>Limitar la cantidad de usuarios conectados al sistema:</p>
+
+<blockquote><h1>nano /etc/security/limits.conf</h1></blockquote>
+
+<p>Y en el parámetro maxlogins modificamos el número que deseemos:</p>
+
+<ul>
+<li><ul>
+<li><pre><code> maxlogins 3
+</code></pre></li>
+</ul>
+</li>
+</ul>
+
 </div>
   
   
@@ -120,7 +220,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/whoami/">Whoami</a></h1>
+      <h1 class="entry-title"><a href="/blog/ul/">Ul</a></h1>
     
     
       <p class="meta">
@@ -136,16 +236,16 @@
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra el usuario con el que estamos. Misma salida que id -un [ver]</p>
+  <div class="entry-content"><p>Subrayado de palabras en la terminal.</p>
 
-<blockquote><p>$ whoami</p></blockquote>
+<p>$ echo $&#8217;linux es gb_eb_nb_ib_ab_lb<em> &#8217; | ul (Cada letra a subrayar ha de ir seguida de b</em>)</p>
 </div>
   
   
@@ -158,7 +258,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/who/">Who</a></h1>
+      <h1 class="entry-title"><a href="/blog/ufw/">Ufw</a></h1>
     
     
       <p class="meta">
@@ -174,24 +274,34 @@
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[whowatch]</p>
+  <div class="entry-content"><p>Cortafuegos</p>
 
-<p>Muestra información sobre los usuarios que están conectados al equipo.</p>
+<blockquote><h1>ufw enable (activar el cortafuegos. “disable” para desactivarlo)</h1>
 
-<blockquote><p>$ who -b (Tiempo desde el último arranque del sistema)</p>
+<h1>ufw deny 4662 (bloquea el puerto)</h1>
 
-<p>$ who -d (Procesos truncados)</p>
+<h1>ufw delete deny 4662 (Elimina una regla)</h1>
 
-<p>$ who -r (Informa del runlevel activo)</p>
+<h1>ufw allow smtp (permitir servicios concretos)</h1>
 
-<p>$ who am i (usuario, número de terminal y fecha de entrada en dicha terminal)</p></blockquote>
+<h1>ufw status (visualizar las normas definidas)</h1>
+
+<h1>ufw status verbose (Información de estado con mayor detalle)</h1>
+
+<h1>ufw default allow (permitir todo por defecto)</h1>
+
+<h1>ufw default deny (bloquear todo por defecto)</h1>
+
+<h1>ufw deny from ip (bloquear dirección ip)</h1>
+
+<h1>ufw logging on (activar los logs. “off” para desactivarlos. Herramienta de registro: fwanalog, fwlogwatch, o lire.)</h1></blockquote>
 </div>
   
   
@@ -204,7 +314,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/whiptail/">Whiptail</a></h1>
+      <h1 class="entry-title"><a href="/blog/udisks/">Udisks</a></h1>
     
     
       <p class="meta">
@@ -220,14 +330,20 @@
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra ventanas en consola. Parecido a dialog con menos opciones.</p>
+  <div class="entry-content"><p>Comando para montar y desmontar volumenes usando el demonio que llaman programas como Nautilus o Thunar. Con este método conseguimos que desde estos programas se pueda desmontar cómodamente la partición y además sin necesidad de permisos.</p>
+
+<blockquote><p>$ udisks &#8211;mount /dev/sda1 (montará esta partición).</p>
+
+<p>$ udisks &#8211;unmount /dev/sda1 (desmontará esta partición).</p>
+
+<p>$ udisks &#8211;monitor (Monitoriza la actividad del demonio. Muy útil para verificar si una partición es montada o no)</p></blockquote>
 </div>
   
   
@@ -240,7 +356,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/which/">Which</a></h1>
+      <h1 class="entry-title"><a href="/blog/udiskie/">Udiskie</a></h1>
     
     
       <p class="meta">
@@ -256,16 +372,20 @@
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Para encontrar el ejecutable si está en el path</p>
+  <div class="entry-content"><p>Herramienta  para montar automaticamente unidades en Archlinux. Debe arrancarse el servicio antes de ejecutarse el gestor de ventanas en el archivo .xinitrc. Un ejemplo:</p>
 
-<blockquote><p>$ which firefox</p></blockquote>
+<blockquote><h1>nano .xinitrc</h1></blockquote>
+
+<p>udiskie &amp;</p>
+
+<p>exec openbox-session</p>
 </div>
   
   
@@ -278,7 +398,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/whereis/">Whereis</a></h1>
+      <h1 class="entry-title"><a href="/blog/tzwatch/">Tzwatch</a></h1>
     
     
       <p class="meta">
@@ -294,16 +414,26 @@
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Para encontrar donde se ha instalado un programa, su manual, &#8230;</p>
+  <div class="entry-content"><p>Muestra las zonas horarias especificadas por el usuario y las guarda en el archivo ~/.tzlist.</p>
 
-<blockquote><p>$ whereis firefox</p></blockquote>
+<blockquote><p>$ tzwatch -c (Lanzar tantas veces como de zonas horarias se quiere disponer de información y seguir las instrucciones: Add Zone, Americas, 26 [Guatemala], mostrará la información y preguntará si es correcta, 1 [yes] y Done [salir])</p>
+
+<p>$ tzwatch (Mostrará hora local de cada una de las zonas elegidas)</p></blockquote>
+
+<p>[~]$ tzwatch</p>
+
+<p>Mon Oct  7 02:39:39 CST 2013   Australia/Adelaide</p>
+
+<p>Sun Oct  6 18:09:39 CEST 2013   Europe/Madrid</p>
+
+<p>Sun Oct  6 10:09:39 CST 2013   America/Guatemala</p>
 </div>
   
   
@@ -316,7 +446,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/when/">When</a></h1>
+      <h1 class="entry-title"><a href="/blog/tzselect/">Tzselect</a></h1>
     
     
       <p class="meta">
@@ -332,52 +462,16 @@
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Agenda personal.</p>
+  <div class="entry-content"><p>Pregunta al usuario información sobre la localización actual y muestra la descripción de la zona horaria correspondiente.</p>
 
-<blockquote><p>$ wget http://www.lightandmatter.com/when/when.tar.gz</p>
-
-<p>$ tar -zxvf when.tar.gz</p>
-
-<p>$ cd when_dist</p>
-
-<p># make install</p></blockquote>
-
-<p>La primera vez que se lance preguntará donde queremos el directorio personal [por defecto en .when]: pulsar &#8220;y&#8221; y el editor que queremos [por defecto emacs] yo puse &#8220;nano&#8221;, siempre sin las comillas.</p>
-
-<p>Colocar en .bashrc un alias para que muestre la información en español:</p>
-
-<blockquote><p>$ nano .bashrc</p></blockquote>
-
-<p>Añadir la linea:</p>
-
-<p>alias when=&#8217;when &#8211;language=es&#8217;</p>
-
-<p>Si no tenemos ninguna entrada en .when/calendar al lanzar:</p>
-
-<blockquote><p>$ when (Mostrará fecha actual)</p></blockquote>
-
-<p>Para entrar datos:</p>
-
-<blockquote><p>$ nano .when/calendar</p></blockquote>
-
-<p>El formato de los datos es:</p>
-
-<p>2013 mar 19 , Gritar tres veces: Stallman es un genio&#8230;</p>
-
-<p>Una vez entrados los datos al lanzar:</p>
-
-<blockquote><p>$ when</p></blockquote>
-
-<p>Mostrará la fecha actual y los datos más proximos.</p>
-
-<p>Nota.- La abreviatura de los meses ha de ser en inglés: jan, feb, mar, apr, may,jun, jul, aug, sep, oct, nov, dec.</p>
+<blockquote><p>$ tzselect</p></blockquote>
 </div>
   
   
@@ -390,7 +484,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/whatweb/">Whatweb</a></h1>
+      <h1 class="entry-title"><a href="/blog/tzconfig/">Tzconfig</a></h1>
     
     
       <p class="meta">
@@ -406,26 +500,14 @@
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Identifica sitios web: tecnología web, sistemas de gestión de contenidos [CMS], plataformas de blogs, estadística, bibliotecas JavaScript, servidores, dispositivos embebidos, direcciones de correo, versiones, errores SQL&#8230;. cuenta con más de 1600 plugins.</p>
-
-<blockquote><p>$ whatweb -l (Muestra listado de plugins)</p>
-
-<p>$ whatweb -I nginx (Información sobre los plugins relacionados con &#8220;nginx&#8221;)</p>
-
-<p>$ whatweb URL (Uso básico)</p>
-
-<p>$ whatweb -a 3 -v URL (Con un nivel agresivo [a 1: pasivo, a 3: agresivo y a 4: muy agresivo] usando todos los plugins [por defecto], y que muestre toda la información [v])</p>
-
-<p>$ $ whatweb -p nginx URL (Sólo usar un plugin)</p>
-
-<p>$ whatweb 192.168.1.0/24 (Que analice toda una red)</p></blockquote>
+  <div class="entry-content"><p>configurar nuevamente la zona horaria</p>
 </div>
   
   
@@ -438,7 +520,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/whatis/">Whatis</a></h1>
+      <h1 class="entry-title"><a href="/blog/typeset/">Typeset</a></h1>
     
     
       <p class="meta">
@@ -454,16 +536,14 @@
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Mostrar una breve descripción de un comando.</p>
-
-<blockquote><p>$ whatis ifconfig</p></blockquote>
+  <div class="entry-content"><p>Define variables y les da atributos. Ver &#8220;declare&#8221;</p>
 </div>
   
   
@@ -476,7 +556,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/wget/">Wget</a></h1>
+      <h1 class="entry-title"><a href="/blog/type/">Type</a></h1>
     
     
       <p class="meta">
@@ -492,42 +572,20 @@
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Realizar descargas de una web. Soporta protocolo http, https y ftp.</p>
+  <div class="entry-content"><p>Buscar la ubicación del ejecutable e informar si el comando es un alias.</p>
 
-<blockquote><p>$ wget http://www.ubuntu.org/ubuntu.iso  (descarga básica)</p>
+<blockquote><p>$ type mplayer</p>
 
-<p>$ wget http://www.tuxapuntes.com (descargar página incial del sitio web)</p>
+<p>$ type -a algo (Conocer todas las definiciones de “algo”, teniendo en cuenta que si “algo” es una alias, una función y un script prevalece este orden)</p>
 
-<p>$ wget http://www.ubuntu.org/ubuntu.iso ftp://www.debian.org/debian5.iso (varias descargas)</p>
-
-<p>$ wget -i archivo.txt  (Realizar las descargas enumeradas en archivo.txt)</p>
-
-<p>$ wget &#8211;limit-rate=60k ftp://ftp.ubuntu.org/hardy.iso (limitar ancho banda)</p>
-
-<p>$ wget -p http://www.tuxapuntes.com (todos los elementos extras)</p>
-
-<p>$ wget -c http://direccion_de_la_descarga.com (reiniciar descarga interrumpida)</p>
-
-<p>$ wget &#8211;spider  &#8211;no-parent -r -o log.txt http://web.com (lista enlaces rotos)</p>
-
-<p>$ wget -m -p -k -P archivo http://www.tuxapuntes.com (descargar todo un sitio recursivamente [-m], todo tipo de recursos, css, imágenes y demás para que se vea localmente [-p] y convierte los enlaces a accesibles de forma local [-k])</p>
-
-<p>$ wget &#8211;wait=20 &#8211;limit-rate=20K -r -p -U Mozilla http://url.com (lo mismo pero haciendo pausas entre páginas y simulando ser un navegador)</p>
-
-<p>$ wget -O - -q http://checkip.dyndns.org/ | cut -d&#8217;:&#8217; -f2 | cut -d&#8217;&lt;&#8217; -f1| cut -c2- (Conocer la ip publica)</p>
-
-<p>$ wget -O - -q http://whatismyip.org/ (Lo mismo)</p>
-
-<p>$ wget –http-user=usuario –http-password=contraseña URL (Descargar con usuario y contraseña)</p>
-
-<p>$ wget –ftp-user=usuario –ftp-password=contraseña URL (Lo mismo con protocolo ftp)</p></blockquote>
+<p>$ type -t cp (Conocer el tipo de un símbolo)</p></blockquote>
 </div>
   
   
@@ -558,43 +616,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/grub2/">grub2</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/printf/">printf</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdftotext/">pdftotext</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/avconv/">avconv</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ipmitool/">ipmitool</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tmux/">tmux</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/rkhunter/">rkhunter</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssconvert/">ssconvert</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/while/">while</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

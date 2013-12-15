@@ -1,0 +1,57 @@
+---
+layout: post
+title: "bashrc"
+date: 2013-12-15 15:40
+comments: true
+categories: 
+---
+Archivo de configuración de la terminal propia del usuario.
+
+1.-
+
+Para que al escribir un comando que requiera permisos de root pueda autocompletarse presionando la tecla “Tab”.
+
+>$ gedit /home/usuario/.bashrc
+
+Y añadir las líneas:
+
+if [ "$PS1" ]; then
+
+complete -cf sudo
+
+fi
+
+2.-
+
+Añadiendo o modificando las siguientes lineas se consigue que el history de bash se amplie al recuerdo a los últimos 3000 comandos usados, suprimiendo los repetidos y que ignore el espacio (Si se pone) de delante de un comando.
+
+export HISTFILESIZE=3000
+
+export HISTCONTROL=ignoredups:ignorespace
+
+3.-
+
+Establecer un proxy global a nuestro sistema
+
+>$ nano ~/.bashrc
+
+Y añadir las siguientes líneas:
+
+export http_proxy=”http://ip_del_servidor:puerto”
+
+export https_proxy=”http://ip_del_servidor:puerto”
+
+export ftp_proxy=”http://ip_del_servidor:puerto”
+
+4.-
+
+Para que el history indique fecha y hora en la que se ha lanzado el comando:
+
+export HISTTIMEFORMAT='- %F %T - '
+
+5.-
+
+Para guardar en /root un fichero de histórico por cada uno de los usuarios que se hayan pasado a root.
+
+export HISTFILE=/root/.bash_hist-$(who am i | awk '{print $1}';exit)
+

@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Conjunto de 65 funciones y utilidades varias. Una vez instalado: $ funcoeszz zzzz &#8211;bashrc (Para colocar las lineas en .bashrc) # Instalacao das &hellip;">
+  <meta name="description" content="Emulador de terminal $ xterm -bg black -fg gray -bc -cr red -e ssh usuario@remoto.com $ xterm -fg white -bg blue -e links2 http://google.es &amp; ( &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/funcoeszz/">Funcoeszz</a></h1>
+      <h1 class="entry-title"><a href="/blog/xterm/">Xterm</a></h1>
     
     
       <p class="meta">
@@ -97,35 +97,62 @@
   
 
 
-<time datetime="2013-11-17T21:11:00+01:00" pubdate data-updated="true">17-11-2013</time>
+<time datetime="2013-12-15T15:47:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Conjunto de 65 funciones y utilidades varias. Una vez instalado:</p>
+  <div class="entry-content"><p>Emulador de terminal</p>
 
-<blockquote><p>$ funcoeszz zzzz &#8211;bashrc (Para colocar las lineas en .bashrc)</p></blockquote>
+<blockquote><p>$ xterm -bg black -fg gray -bc -cr red -e ssh usuario@remoto.com</p>
 
-<pre><code># Instalacao das Funcoes ZZ (www.funcoeszz.net)
+<p>$ xterm -fg white -bg blue -e links2 http://google.es &amp; (Abrir navegador en una terminal con fondo azul y letra blanca)</p>
 
-source /usr/bin/funcoeszz
+<p>$ xterm -u8 (Arrancar la terminal con soporte utf-8 [equivalente a lanzarla con uxterm])</p></blockquote>
 
-export ZZPATH=/usr/bin/funcoeszz
-</code></pre>
+<p>Opciones:</p>
 
-<blockquote><p>$ source .bashrc (Releer el fichero)</p>
+<p>-cr blue (cursor de color azul [white, yellow, grey, red&#8230;])</p>
 
-<p>$ funcoeszz zzzz (listado de los 65 funciones)</p>
+<p>-geom 100x100 (especificar dimensiones)</p>
 
-<p>$ funcoeszz zzzz &#8211;teste (Comprobar que todos los ejecutables que necesita la aplicación estan instalados)</p>
+<p>-maximized  (Ventana maximizada)</p>
 
-<p>$ funcoeszz zzzz &#8211;atualiza (Baja las últimas versiones de las funciones)</p>
+<p>1.-</p>
 
-<p>$ funcoeszz ajuda (Ayuda muy util sobre como usar cada un de las funciones)</p>
+<p>Modificar las medidas por defecto:</p>
 
-<p>$ funcoeszz ascii (Lanzar una de las funciones del listado)</p></blockquote>
+<blockquote><h1>nano /usr/share/vte/termcap/xterm</h1></blockquote>
+
+<p>Buscar la linea:</p>
+
+<p>co#80:it#8:li#24:Y modificar los parámetros co [columnas] y li [líneas] por ejemplo:</p>
+
+<p>co#120:it#8:li#15:2.-</p>
+
+<p>Otras  personalizaciones:</p>
+
+<p>Modificar o crear el archivo:</p>
+
+<blockquote><p>$ nano .Xresources</p></blockquote>
+
+<p>Pegar el contenido:</p>
+
+<p>XTerm*Background: black</p>
+
+<p>XTerm*Foreground: yellow</p>
+
+<p>XTerm*font: 9x15</p>
+
+<p>XTerm*saveLines: 1000</p>
+
+<p>XTerm*HiForeColor: white</p>
+
+<p>XTerm*HiBackColor: #c06077</p>
+
+<blockquote><p>$ xrdb -merge .Xresources (Aplicar los cambios, en caso contrario no se aplicaran hasta el siguiente reinicio)</p></blockquote>
 </div>
   
   
@@ -138,7 +165,7 @@ export ZZPATH=/usr/bin/funcoeszz
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/nstat/">Nstat</a></h1>
+      <h1 class="entry-title"><a href="/blog/xset/">Xset</a></h1>
     
     
       <p class="meta">
@@ -154,22 +181,38 @@ export ZZPATH=/usr/bin/funcoeszz
   
 
 
-<time datetime="2013-11-17T16:24:00+01:00" pubdate data-updated="true">17-11-2013</time>
+<time datetime="2013-12-15T15:47:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra las estadísticas de la red.</p>
+  <div class="entry-content"><p>Aplicación para establecer parámetros del servidor X</p>
 
-<blockquote><p>$ nstat</p>
+<blockquote><h1>xset q (muestra información de la configuración actual)</h1>
 
-<p>$ nstat -z (Mostrando los contadores a cero. Por defecto no se muestran)</p>
+<h1>xset dpms 200 300 600 (segundos para entrar en standby [200], en suspenso [300] y apagado [600]</h1>
 
-<p>$ nstat -a (Volcado absoluto de todos los contadores)</p>
+<h1>xset m 4 (Para que el mouse se mueva más rápido. Valores de 1 a 5)</h1>
 
-<p>$ nstat -r (Resetear los contadores)</p></blockquote>
+<h1>xset -dpms (quita el apagado de pantalla)</h1>
+
+<h1>xset +dpms (lo activa nuevamente)</h1>
+
+<h1>xset dpms force off (apaga el monitor. Se enciende moviendo el cursor)</h1>
+
+<h1>xset s noblank  (preferencias del salvapantallas)</h1>
+
+<h1>xset s off (Quitar la activación del salvapantallas)</h1>
+
+<h1>xset fp default (restaura el path de fuentes de X)</h1>
+
+<h1>xset r rate 200 10 (establece retardo de 200 milisegundos y velocidad de repetición de 10 por segundo)</h1>
+
+<h1>xset r rate (devuelve a los parámetros por defecto)</h1>
+
+<h1>xset -b off/on  (Activa/desactiva los pitidos del altavoz interno. Mismo efecto que: # gedit /etc/inputrc        y desclicar la linea      set bell-style none)</h1></blockquote>
 </div>
   
   
@@ -182,7 +225,7 @@ export ZZPATH=/usr/bin/funcoeszz
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/vnstati/">Vnstati</a></h1>
+      <h1 class="entry-title"><a href="/blog/xsel/">Xsel</a></h1>
     
     
       <p class="meta">
@@ -198,20 +241,22 @@ export ZZPATH=/usr/bin/funcoeszz
   
 
 
-<time datetime="2013-11-17T16:13:00+01:00" pubdate data-updated="true">17-11-2013</time>
+<time datetime="2013-12-15T15:47:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[vnstat]</p>
+  <div class="entry-content"><p>Permite manipular el portapapeles de las X desde la línea de comandos.</p>
 
-<p>Crea un png de la salida del comando vnstat.</p>
+<blockquote><p>$ xsel -p | more  (Mostrar todo lo copiado al portapapeles)</p>
 
-<blockquote><p>$ vnstati -s -vs -i eth1 -o vnstat.png (Mostrando resumen del tráfico de salida [s], incluyendo datos por hora en gráfica vertical [vs], especificando la red y guardando en vnstat.png [o])</p>
+<p>$ xsel &#8211;clipboard > archivo.txt (Volcar el contenido del portapapeles)</p>
 
-<p>$ vnstati -h -c 15 -o vnstat2.png (por horas [h] y actualizando si han pasado 15 minutos del último reporte)</p></blockquote>
+<p>$ cat /etc/apt/sources.list | xsel -b  (Copiar al portapapeles)</p>
+
+<p>$ xsel &#8211;clipboard  (Pegar lo copiado)</p></blockquote>
 </div>
   
   
@@ -224,7 +269,7 @@ export ZZPATH=/usr/bin/funcoeszz
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rzip/">Rzip</a></h1>
+      <h1 class="entry-title"><a href="/blog/xrootconsole/">Xrootconsole</a></h1>
     
     
       <p class="meta">
@@ -240,18 +285,24 @@ export ZZPATH=/usr/bin/funcoeszz
   
 
 
-<time datetime="2013-11-17T12:48:00+01:00" pubdate data-updated="true">17-11-2013</time>
+<time datetime="2013-12-15T15:47:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Compresor/descompresor. Crea los comprimidos con extensión .rz</p>
+  <div class="entry-content"><p>Mostrar un archivo en la pantalla del escritorio.</p>
 
-<blockquote><p>$ rzip archivo.txt (Substituye archivo.txt por archivo.txt.rz)</p>
+<blockquote><p>$ xrootconsole archivo</p>
 
-<p>$ rzip -o archivo.txt -d archivo.txt.rz (Descomprimir. Imprescindible dar el nombre del archivo de salida [-o])</p></blockquote>
+<p>$ xrootconsole -bg black -fg red (especificando color de fondo y letra)</p></blockquote>
+
+<p>Otras opciones:</p>
+
+<p>-geometry 70x20 (Por defecto 80x10+0+0)</p>
+
+<p>-fn fuente (Especificando fuente)</p>
 </div>
   
   
@@ -264,7 +315,7 @@ export ZZPATH=/usr/bin/funcoeszz
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rl/">Rl</a></h1>
+      <h1 class="entry-title"><a href="/blog/xrestop/">Xrestop</a></h1>
     
     
       <p class="meta">
@@ -280,24 +331,16 @@ export ZZPATH=/usr/bin/funcoeszz
   
 
 
-<time datetime="2013-11-17T12:48:00+01:00" pubdate data-updated="true">17-11-2013</time>
+<time datetime="2013-12-15T15:47:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[randomize-lines]</p>
+  <div class="entry-content"><p>Monitoriza los recuros X11 de los clientes conectados. Ayuda a encontrar problemas con el consumo de las aplicaciones que corren en las X. Se considera un derivado de top.</p>
 
-<p>Muestra lineas de un archivo o de la entrada standard de forma aleatoria.</p>
-
-<blockquote><p>$ rl /etc/fstab (Forma básica)</p>
-
-<p>$ seq 10 | rl &#8211;count 2 (2 números del 0 al 10)</p>
-
-<p>$ rl -n /etc/fstab -o archivo (Numerando las lineas, colocandolas de forma aleatoria y guardando el resultado en &#8220;archivo&#8221;)</p>
-
-<p>$ rl -o archivo -c 5 archivo.txt (Guardar en archivo [-o] 5 lineas [-c] del texto archivo.txt)</p></blockquote>
+<blockquote><p>$ xrestop</p></blockquote>
 </div>
   
   
@@ -310,7 +353,7 @@ export ZZPATH=/usr/bin/funcoeszz
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/freeradius/">Freeradius</a></h1>
+      <h1 class="entry-title"><a href="/blog/xrefresh/">Xrefresh</a></h1>
     
     
       <p class="meta">
@@ -326,54 +369,14 @@ export ZZPATH=/usr/bin/funcoeszz
   
 
 
-<time datetime="2013-11-17T12:48:00+01:00" pubdate data-updated="true">17-11-2013</time>
+<time datetime="2013-12-15T15:47:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[libssl-dev freeradius-mysql freeradius-utils]</p>
-
-<p>Servidor.</p>
-
-<p>Configurar la base de datos:</p>
-
-<blockquote><p># nano /etc/freeradius/sites-enabled/default</p></blockquote>
-
-<p>En los apartados &#8220;authorize&#8221; y &#8220;accouting&#8221; descomentar las lineas sql</p>
-
-<blockquote><p># nano /etc/freeradius/radius.conf</p></blockquote>
-
-<p>Descomentar la linea $INCLUDE sql.conf</p>
-
-<p>Configurar usuario, contraseña y mensaje de bienvenida:</p>
-
-<blockquote><p># nano /etc/freeradius/users</p></blockquote>
-
-<p>USUARIO Cleartext-Password := &#8220;CONTRASEÑA&#8221;</p>
-
-<pre><code>    Reply-Message "Entrando en el servidor el usuario %{User_Name}"
-</code></pre>
-
-<p>Configurar usuario y contraseña del router o punto de acceso:</p>
-
-<blockquote><p># nano /etc/freeradius/clients.conf</p></blockquote>
-
-<p>client 192.168.1.0/24 {</p>
-
-<pre><code>secret      = CONTRASEÑA_ROUTER
-
-shortname   = USUARIO_ROUTE
-</code></pre>
-
-<p>Finalmente entrar en router y colocar la ip del equipo donde hemos instalado el servidor. Reiniciar el servicio.</p>
-
-<blockquote><p># /etc/init.d/freeradius restart</p>
-
-<p># freeradius -X (Arrancar em modo debug)</p>
-
-<p># radtest USUARIO testing 127.0.0.1 1812 testing123 (Testear si la configuración de un usuario está correcta)</p></blockquote>
+  <div class="entry-content"><p>Refresca la imagen del servidor Xorg</p>
 </div>
   
   
@@ -386,7 +389,7 @@ shortname   = USUARIO_ROUTE
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/copy/">Copy</a></h1>
+      <h1 class="entry-title"><a href="/blog/xrandr/">Xrandr</a></h1>
     
     
       <p class="meta">
@@ -402,22 +405,94 @@ shortname   = USUARIO_ROUTE
   
 
 
-<time datetime="2013-11-17T12:48:00+01:00" pubdate data-updated="true">17-11-2013</time>
+<time datetime="2013-12-15T15:47:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Carpetas en la nuve tipo Dropbox. Entrar en http://www.copy.com despues de registrarse y logearse, clicar en la pestaña &#8220;Install App&#8221; con lo que se nos descargará la aplicacion de escritorio.</p>
+  <div class="entry-content"><p>Cambiar la resolución de pantalla.</p>
 
-<blockquote><p>$ tar -zvxf copy_agent-1.28.0657.tgz</p>
+<blockquote><p>$ xrandr  (muestra la resolución usada, la máxima, la mínima y todas las posibles. La marcada con un &#8220;*&#8221; es la usada y la “+” es la optima)</p>
 
-<p>$ cd copy/x86_64/</p>
+<p>$ xrandr | grep * | cut -d&#8217; &#8217; -f4 (otra forma de ver la resolución usada)</p>
 
-<p>$ ./CopyAgent &#8211;install (Donde pondremos nombre de usuario y contraseña del registro y carpeta a compartir. Por defecto Copy)</p>
+<p>$ xrandr -s 1280x1024    (modificar la resolución)</p>
 
-<p>$ ./CopyConsole (Forzar actualizaciones)</p></blockquote>
+<p>$ xrandr -r 76   (modificar la tasa de refresco)</p>
+
+<p>$ xrandr &#8211;auto (configurar proyectores externos)</p>
+
+<p>$ xrandr -q | awk -F&#8217;current&#8217; -F&#8217;,&#8217; &#8216;NR==1 {gsub(&#8220;( |current)&#8221;,&#8221;&#8220;);print $2}&#8217;  (solo muestra la resolución usada)</p>
+
+<p>$ xrandr -q | grep -w Screen (muestra la mínima, la usada y la máxima)</p></blockquote>
+
+<p>Ejemplo práctico:</p>
+
+<p>Conocer resoluciones y cual es la utilizada:</p>
+
+<blockquote><p>$ xrandr</p></blockquote>
+
+<p>crear/agregar nueva resolución:</p>
+
+<blockquote><p>$ cvt 1127 999 | grep Modeline | cut -d&#8221; &#8221; -f 2-</p></blockquote>
+
+<p>&#8220;1128x999_60.00&#8221;   93.00  1128 1200 1312 1496  999 1002 1012 1037 -hsync +vsync</p>
+
+<p>cargar la nueva resolución:</p>
+
+<blockquote><p>$ xrandr &#8211;newmode &#8220;1128x999_60.00&#8221;   93.00  1128 1200 1312 1496  999 1002 1012 1037 -hsync +vsync</p></blockquote>
+
+<p>Comprobar que se ha agregado la nueva resolución:</p>
+
+<blockquote><p>$ xrandr</p></blockquote>
+
+<p>añadir el modo creado a la tarjeta conectada (VGA-0, LVDS1&#8230;)</p>
+
+<blockquote><p>$ xrandr &#8211;addmode VGA-0 1128x999_60.00</p></blockquote>
+
+<p>Para eliminar este modo: xnest</p>
+
+<p>Herramienta que permite abrir un servidor X dentro de otro servidor X</p>
+
+<blockquote><p>$ Xnest :20 -ca &amp; (Sesion número 20)</p></blockquote>
+
+<p>Para mandar instancias al servidor xnest:</p>
+
+<blockquote><p>$ xterm -display :20 (Abrirá exterm en el interior de la sesión 20)</p>
+
+<p>$ Xnest :20 -geometry 800x600 &amp; (Especificando medidas de la ventana)</p>
+
+<p>$ xrandr &#8211;rmmode VGA-0 1128x999_60.00</p></blockquote>
+
+<p>Para predeterminar la nueva configuración:</p>
+
+<blockquote><p>$ xrandr &#8211;output VGA-0 &#8211;mode 1128x999_60.00</p></blockquote>
+
+<p>Si nos da un error “out of range” (fuera de rango) suele ser porque la tasa de refresco del monitor es diferente de la configurada por defecto. Para modificarla:</p>
+
+<blockquote><p>$ xrandr &#8211;output VGA-0 &#8211;mode 1128x999_60.00 &#8211;rate 60,3</p></blockquote>
+
+<p>Una vez comprobado que todo funciona para hacer permanentes los cambios:</p>
+
+<blockquote><h1>nano /etc/gdm/Init/Default</h1></blockquote>
+
+<p>A continuación de las lineas:</p>
+
+<p>PATH=”/usr/bin:$PATH”</p>
+
+<p>OLD_IFS=$IFS</p>
+
+<p>Añadir:</p>
+
+<p>xrandr &#8211;newmode &#8220;1128x999_60.00&#8221;   93.00  1128 1200 1312 1496  999 1002 1012 1037 -hsync +vsync</p>
+
+<p>xrandr &#8211;addmode VGA-0 1128x999_60.00</p>
+
+<p>xrandr &#8211;output VGA-0 &#8211;mode 1128x999_60.00 &#8211;rate 60,3</p>
+
+<p>Reiniciar.</p>
 </div>
   
   
@@ -430,7 +505,7 @@ shortname   = USUARIO_ROUTE
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/bzless/">Bzless</a></h1>
+      <h1 class="entry-title"><a href="/blog/xprop/">Xprop</a></h1>
     
     
       <p class="meta">
@@ -446,18 +521,16 @@ shortname   = USUARIO_ROUTE
   
 
 
-<time datetime="2013-11-17T10:30:00+01:00" pubdate data-updated="true">17-11-2013</time>
+<time datetime="2013-12-15T15:47:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[bzip2]</p>
+  <div class="entry-content"><p>Propiedades de una ventana. Si no se especifica ID de dicha ventana, el cursor se convierte en una cruz y mostrará la que se clique.</p>
 
-<p>Muestra el contenido de un archivo .bz2 comprimido con bzip2 de forma parecida al comando less [ver]</p>
-
-<blockquote><p>$ bzless archivo.txt.bz2</p></blockquote>
+<blockquote><p>$ xprop -display :0 -spy | grep &#8220;WM_NAME(STRING)&#8221;  (Sobre el navegador, mostrará las páginas visitadas)</p></blockquote>
 </div>
   
   
@@ -470,7 +543,7 @@ shortname   = USUARIO_ROUTE
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/bzexe/">Bzexe</a></h1>
+      <h1 class="entry-title"><a href="/blog/xprobe/">Xprobe</a></h1>
     
     
       <p class="meta">
@@ -486,20 +559,18 @@ shortname   = USUARIO_ROUTE
   
 
 
-<time datetime="2013-11-17T10:30:00+01:00" pubdate data-updated="true">17-11-2013</time>
+<time datetime="2013-12-15T15:47:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[bzip2]</p>
+  <div class="entry-content"><p>Intenta identificar sistemas operativos remotos enviando una serie de tests y determinando su tipo en base a las respuestas recibidas.</p>
 
-<p>Comprimir/descomprimir ejecutables.</p>
+<blockquote><h1>xprobe2 ip</h1></blockquote>
 
-<blockquote><p># bzexe ejecutable</p>
-
-<p># bzexe -d ejecutable (Descomprimir)</p></blockquote>
+<p>varios ejemplos de uso en su pagina man</p>
 </div>
   
   
@@ -512,7 +583,7 @@ shortname   = USUARIO_ROUTE
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/lzma/">Lzma</a></h1>
+      <h1 class="entry-title"><a href="/blog/xpra/">Xpra</a></h1>
     
     
       <p class="meta">
@@ -528,18 +599,32 @@ shortname   = USUARIO_ROUTE
   
 
 
-<time datetime="2013-11-17T08:12:00+01:00" pubdate data-updated="true">17-11-2013</time>
+<time datetime="2013-12-15T15:47:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Compresor/descompresor de archivos. Formato de salida .lzma</p>
+  <div class="entry-content"><p>Permite ejecutar en un equipo una aplicación remota desde un servidor X, manteniendo la conexión aunque esta se hay interrumpido. Posibilita la comunicación remota con aplicaciones individuales sin que sea obligatorio cargar todo el escritorio remoto.</p>
 
-<blockquote><p>$ lzma fichero.txt (Substituye fichero.txt por fichero.txt.lzma)</p>
+<p>@client:~$ ssh usuario@servidor.com (Establecer conexión con el servidor)</p>
 
-<p>$ lzma -d fichero.txt.lzma (Descomprimir)</p></blockquote>
+<p>@server:~$ xpra start :5 (Arrancar el Display 5)</p>
+
+<p>@server:~$ DISPLAY=:5 midori &amp; (Lanzar una aplicación [midori] en el display 5)</p>
+
+<p>@server:~$ logout (Cerrar la conexión con el servidor)</p>
+
+<p>Realizar una nueva conexión con el servidor esta vez con xpra y contra el display 5:</p>
+
+<p>@client:~$ xpra attach ssh:usuario@servidor.com:5 (Después de entrar la contraseña, se abrirá la aplicación midori del servidor en el cliente)</p>
+
+<p>@server:~$ xpra list (Lista las sesiones xpra abiertas)</p>
+
+<p>@server:~$ xpra stop :5 (Cierra el display 5)</p>
+
+<p>@server:~$ xpra attach :5 (Entra en el display 5)</p>
 </div>
   
   
@@ -570,43 +655,43 @@ shortname   = USUARIO_ROUTE
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/grub2/">grub2</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/printf/">printf</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdftotext/">pdftotext</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/avconv/">avconv</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ipmitool/">ipmitool</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tmux/">tmux</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/rkhunter/">rkhunter</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssconvert/">ssconvert</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/while/">while</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

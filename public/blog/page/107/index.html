@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Convertir/visualizar a formato ebook. $ ebook-convert texto.pdf texto.epub $ ebook-viewer texto.epub (Visualiza con la apliciación calibre)
-">
+  <meta name="description" content="Consultas DNS desde una ip o un host. dnstracer determina cuando un servidor de nombres de dominio [DNS] obtiene información de un nombre de &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -82,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ebook/">Ebook-</a></h1>
+      <h1 class="entry-title"><a href="/blog/dnstracer/">Dnstracer</a></h1>
     
     
       <p class="meta">
@@ -98,18 +97,16 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Convertir/visualizar a formato ebook.</p>
+  <div class="entry-content"><p>Consultas DNS desde una ip o un host. dnstracer determina cuando un servidor de nombres de dominio [DNS] obtiene información de un nombre de anfitrión dado, y a continuación el servidor DNS manda la respuesta de autorización.</p>
 
-<blockquote><p>$ ebook-convert texto.pdf texto.epub</p>
-
-<p>$ ebook-viewer texto.epub (Visualiza con la apliciación calibre)</p></blockquote>
+<blockquote><p>$ dnstracer host</p></blockquote>
 </div>
   
   
@@ -122,7 +119,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/e4defrag/">E4defrag</a></h1>
+      <h1 class="entry-title"><a href="/blog/dnstop/">Dnstop</a></h1>
     
     
       <p class="meta">
@@ -138,16 +135,48 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Desfragmentar particiones ext4.</p>
+  <div class="entry-content"><p>Monitorear el tráfico dns.</p>
 
-<blockquote><p># e4defrag /dev/sda2</p></blockquote>
+<blockquote><h1>dnstop -i 192.168.1.3 -p -r 2 eth0 (Excluir la propia máquina [i], en modo no promiscuo [p], actualizando cada 2 segundos [r] y la red objetivo)</h1></blockquote>
+
+<p>En la mayoria de los casos, lo normal en lanzar:</p>
+
+<blockquote><h1>dnstop eth0</h1></blockquote>
+
+<p>Y realizar las consultas de forma interactiva pulsando las siguientes teclas:</p>
+
+<p>s (visualizar las direcciones de origen)</p>
+
+<p>d (visualizar las direcciones de destino)</p>
+
+<p>t (desglosar por tipo)</p>
+
+<p>r (mostrar el desglose de los códigos de respuesta)</p>
+
+<p>1 (mostrar consulta de primer nivel [.com, .net, .info])</p>
+
+<p>2 (mostrar consulta de segundo nivel)</p>
+
+<p>3 (mostrar consulta de tercer nivel)</p>
+
+<p>! (mostrar fuente y consulta de primer nivel)</p>
+
+<p>@ (mostrar fuente y consulta de segundo nivel)</p>
+
+<h1>(mostrar fuente y consulta de tercer nivel)</h1>
+
+<p>Ctrl + r (Reinicia el contador)</p>
+
+<p>? (Muestra la ayuda)</p>
+
+<p>Ctrl + x (Salir)</p>
 </div>
   
   
@@ -160,7 +189,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/e2undo/">E2undo</a></h1>
+      <h1 class="entry-title"><a href="/blog/dnsmasq/">Dnsmasq</a></h1>
     
     
       <p class="meta">
@@ -176,14 +205,44 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Cuando la aplicación e2fsprogs falla, e2undo restablece el sistema de ficheros  ext2/ext3/ext4 anterior del dispositivo.</p>
+  <div class="entry-content"><p>Para que el ordenador guarde en cache las páginas visitadas y no vuelva a resolver las ips con el servidor DNS:</p>
+
+<blockquote><h1>gedit /etc/resolv.conf</h1></blockquote>
+
+<p>Independientemente de que existan más lineas indicando otras ips, añadir la siguiente:</p>
+
+<p>nameserver 127.0.0.1</p>
+
+<p>Y para distribuir la carga entre varios servidores, añadir la linea:</p>
+
+<p>options timeout:1 rotate attempts:1</p>
+
+<p>Comprobar el correcto funcionamiento:</p>
+
+<blockquote><p>$ dig tuxapuntes.com | grep Query</p></blockquote>
+
+<p>;; Query time: 369 msec</p>
+
+<p>Volver a lanzar dig:</p>
+
+<blockquote><p>$ dig tuxapuntes.com | grep Query</p></blockquote>
+
+<p>;; Query time: 0 msec</p>
+
+<p>Si nuestra IP es dinámica, NetworkManager nos modificará cada cierto tiempo el archivo /etc/resolv.conf, para substituir el creado automaticamente por el nuestro:</p>
+
+<blockquote><h1>cp /etc/resolv.conf /etc/resolv.conf.local (Asegurándonos que este último tiene la linea “nameserver 127.0.0.1”)</h1>
+
+<h1>crontab -e</h1></blockquote>
+
+<p>*/3 * * * * cp /etc/resolv.conf.local /etc/resolv.conf (actualizar cada 3 minutos)</p>
 </div>
   
   
@@ -196,7 +255,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/e2label/">E2label</a></h1>
+      <h1 class="entry-title"><a href="/blog/dnsmap/">Dnsmap</a></h1>
     
     
       <p class="meta">
@@ -212,18 +271,20 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Poner etiquetas a las particiones y dispositivos ext3</p>
+  <div class="entry-content"><p>Herramienta que, mediante fuerza bruta, permite obtener los subdominios de un dominio.</p>
 
-<blockquote><p># e2label /dev/dispositivo_usb mi_usb  (cuando se conecte, en el escritorio aparecerá el icono con el nombre “mi_usb”)</p>
+<blockquote><p>$ dnsmap url (forma básica)</p>
 
-<p># e2label /dev/sda5  (dirá si la partición sdb5 tiene nombre de etiqueta)</p></blockquote>
+<p>$ dnsmap url -w words.txt -r resultado.txt (Usando un diccionario [w] y derivando el resultado a un fichero [r])</p></blockquote>
+
+<p>Nota.- Descarga de diccionarios en <a href="http://packetstormsecurity.org/Crackers/wordlists/dictionaries/">http://packetstormsecurity.org/Crackers/wordlists/dictionaries/</a></p>
 </div>
   
   
@@ -236,7 +297,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/e2image/">E2image</a></h1>
+      <h1 class="entry-title"><a href="/blog/dnsdomainname/">Dnsdomainname</a></h1>
     
     
       <p class="meta">
@@ -252,16 +313,16 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Sscar una imagen de una partición.</p>
+  <div class="entry-content"><p>Muestra el nombre del dominio DNS del sistema.</p>
 
-<blockquote><p># e2image /dev/sda2 copia.img</p></blockquote>
+<blockquote><p>$ dnsdomainname</p></blockquote>
 </div>
   
   
@@ -274,7 +335,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/e2fsck/">E2fsck</a></h1>
+      <h1 class="entry-title"><a href="/blog/dnscrypt/">Dnscrypt</a></h1>
     
     
       <p class="meta">
@@ -290,20 +351,42 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Optimizar y reparar particones ext2 y ext3. Preciso desmontarla.</p>
+  <div class="entry-content"><p>Cifrar el tráfico DNS.</p>
 
-<blockquote><p># e2fsck -b 8193 /dev/hda2  (&#8220;-b 8193&#8221;que use la informacion de la primera copia del super bloque para reparar los daños.)</p>
+<blockquote><p>$ wget https://github.com/downloads/opendns/dnscrypt-proxy/dnscrypt-proxy-1.2.0.tar.gz</p>
 
-<p># e2fsck -fpDv /dev/sda1 (para optimizar la partición)</p></blockquote>
+<p>$ tar xvvf dnscrypt-proxy-1.2.0.tar.gz</p>
 
-<p>Nota.- &#8220;-c&#8221; buscar y marcar los bloques dañados, &#8220;-D&#8221; Optimiza, &#8220;-f&#8221; fuerza, &#8220;-p&#8221; repara y &#8220;-v&#8221; informa</p>
+<p>$ cd dnscrypt-proxy-1.2.0/</p>
+
+<p>$ ./configure</p>
+
+<p>$ make</p>
+
+<h1>make install</h1>
+
+<h1>dnscrypt-proxy &#8211;daemonize (Arrancar el demonio)</h1></blockquote>
+
+<p>Modificar las DNSs en:</p>
+
+<blockquote><h1>nano /etc/resolv.conf</h1></blockquote>
+
+<p>Colocar:</p>
+
+<p>nameserver 127.0.0.1</p>
+
+<p>Nota.- Comentar las existentes.</p>
+
+<p>Para evitar que network-manager sobreescriba el archivo resolv.conf, bloquear el fichero:</p>
+
+<blockquote><h1>chattr +i /etc/resolv.conf (Para desbloquearlo -i)</h1></blockquote>
 </div>
   
   
@@ -316,7 +399,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/dwb/">Dwb</a></h1>
+      <h1 class="entry-title"><a href="/blog/dns/">Dns</a></h1>
     
     
       <p class="meta">
@@ -332,54 +415,44 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Navegador minimalista con soporte para flash.</p>
+  <div class="entry-content"><p>El servidor DNS traduce los numeros ip a nombres inteligibles para los seres humanos. Estos servicios estan vinculados a los ISP, es decir, a nuestros proveedores de acceso a Internet. Sin embargo estas ips pueden ser modificadas para conseguir mejores rendimientos o por manias personales con algunas opciones mas libres o profesionales. La manera de saber si el servidor DNS responde correctamente es hacer un ping consistente en enviar una pequeña cantidad de información al servidor y medir la velocidad en milisegundos de la respuesta. Valores inferiores a 70 ms (Al final de la linea [time=62.9 ms]) son razonables:</p>
 
-<p>Atajos: dwb:keys</p>
+<blockquote><p>$ ping -c 3 8.8.8.8</p></blockquote>
 
-<p>Configuración: dwb:settings</p>
+<p>Algunas opciones a las ofrecidas por nuestras ISP:</p>
 
-<p>Las configuraciones en texto plano en .config/dwb/</p>
+<p>Google -> 8.8.8.8,  8.8.4.4</p>
 
-<p>Algunos atajos:</p>
+<p>OpenDNS -> 208.67.222.222, 208.67.220.220</p>
 
-<p>o (Para entrar una url)</p>
+<p>Level3 -> 4.2.2.1, 4.2.2.2, 4.2.2.3, 4.2.2.4, 4.2.2.5 y 4.2.2.6</p>
 
-<p>O (abrirla en una nueva pestaña)</p>
+<p>Dyn -> 216.146.35.35, 216.146.36.36</p>
 
-<p>J (Cambiar entre pestañas)</p>
+<p>DNSadvantage -> 156.154.70.1, 156.154.71.1</p>
 
-<p>j (bajar por la página)</p>
+<p>Ona vez escogidas las DNSs:</p>
 
-<p>k (subir)</p>
+<blockquote><h1>nano /etc/resolv.conf</h1></blockquote>
 
-<p>d (cerrar pestaña)</p>
+<p>Colocar:</p>
 
-<p>u (reabrir pestaña cerrada)</p>
+<p>nameserver 4.2.2.1</p>
 
-<p>go (Editar la url)</p>
+<p>nameserver 4.2.2.2</p>
 
-<p>r (Recargar la página)</p>
+<p>Nota.- Comentar o borrar las existentes.</p>
 
-<p>R (Recargar sin usar la caché)</p>
+<p>Para evitar que network-manager sobreescriba el archivo resolv.conf, bloquear el fichero:</p>
 
-<p>f (Marcar los enlaces para escoger el que proceda)</p>
-
-<p>F (Marcar los enlaces y abrir el escogido en nueva pestaña)</p>
-
-<p>i (Modo insert para insertar en algún cuadro de dialogo)</p>
-
-<p>Esc (Volver a modo normal)</p>
-
-<p>M (Entrar url en en laces de interés)</p>
-
-<p>ctrl q (Para salir del navegador)</p>
+<blockquote><h1>chattr +i /etc/resolv.conf (Para desbloquearlo -i)</h1></blockquote>
 </div>
   
   
@@ -392,7 +465,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/dvtm/">Dvtm</a></h1>
+      <h1 class="entry-title"><a href="/blog/dmrc/">Dmrc</a></h1>
     
     
       <p class="meta">
@@ -408,45 +481,22 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Terminal multiplexor</p>
+  <div class="entry-content"><p>En algunas ocasiones al iniciar ubuntu aparece la siguiente nota:</p>
 
-<blockquote><p>$ dvtm (Lanza la aplicacion)</p></blockquote>
+<p>su archivo $HOME/.dmrc no tiene los permisos adecuados y sera ignorado. Esto causara que la sesion e idioma predeterminado no se guarden. El archivo deberia pertener al usuario y tener los permisos 644</p>
 
-<p>Algunos atajos</p>
+<p>Para solucionarlo:</p>
 
-<pre><code>Ctrl+g c (Crear una nueva ventana)
+<blockquote><h1>chmod 700 /home/usuario</h1>
 
-Ctrl+g x (Cerrar la ventana enfocada)
-
-Ctrl+g l (Aumenta el ancho de la ventana enfocada)
-
-Ctrl+g h (Disminuye la anchura de la ventana enfocada)
-
-Ctrl+g j (Cambiar el foco a la siguiente ventana)
-
-Ctrl+g k (Cambiar a la ventana anterior)
-
-Ctrl+g 3 (Ir a la ventana 3 contando desde la esquina superior izquierda)
-
-Ctrl+g espacio (Redisea todas las ventanas)
-
-Ctrl+g t (Cambiar el diseño de mosaico a pila vertical)
-
-Ctrl+g b (Cambiar a diseño de mosaico)
-
-Ctrl+g g (Cambiiar a diseño de cuadrícula)
-
-Ctrl+g l (Redibujar toda la pantalla)
-
-Ctrl+g q (Salir)
-</code></pre>
+<h1>chmod 644 /home/usuario/.dmrc</h1></blockquote>
 </div>
   
   
@@ -459,7 +509,7 @@ Ctrl+g q (Salir)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/dvgrab/">Dvgrab</a></h1>
+      <h1 class="entry-title"><a href="/blog/dmidecode/">Dmidecode</a></h1>
     
     
       <p class="meta">
@@ -475,48 +525,36 @@ Ctrl+g q (Salir)
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Catura de videos desde una cámara digital DV.</p>
+  <div class="entry-content"><p>Muestra toda la información de la máquina directamente de la BIOS</p>
 
-<p>Previas:</p>
+<blockquote><h1>dmidecode -t (muestra los elementos sobre los que se puede solicitar)</h1>
 
-<blockquote><p># modprobe rw1394</p>
+<h1>dmidecode -s (Muestra el listado para afinar más la busqueda de datos)</h1>
 
-<p># chmod o+rw /dev/raw1394</p></blockquote>
+<h1>dmidecode -t memory | grep Size (muestra la memoria y los slots libres)</h1>
 
-<p>Uso:</p>
+<h1>dmidecode -t processor | grep &#8220;Core Count&#8221;  (número de “cores” reales)</h1>
 
-<blockquote><p>$ dvgrab &#8211;buffers 500 (Los videos se almacenarán de forma secuencial [001.avi, 002.avi&#8230;] y 500 frames. Por defecto 100)</p>
+<h1>dmidecode | grep &#8220;Current Speed&#8221;  (muestra la frecuencia de la RAM)</h1>
 
-<p>$ dvgrab -f avi -s 0 videos/archivo.avi (Especificando formato, sin perdida de calidad y destino)</p></blockquote>
+<h1>dmidecode -t 0  (información sobre la BIOS)</h1>
 
-<p>Algunas opciones:</p>
+<h1>dmidecode -t 1  (informacion del fabricante: núm serie, producto&#8230;)</h1>
 
-<p>-a 30 (crear nuevo archivo cada 30 segundos</p>
+<h1>dmidecode -t 2 (información sobre la placa base)</h1>
 
-<p>-csize 5 (divide el archivo de captura cuando llega a 5MB)</p>
+<h1>dmidecode -t 4  (información sobre la CPU)</h1>
 
-<p>-debug all (mostrar información de la captura.</p>
+<h1>dmidecode &#8211;type=processor | grep -i -A 1 charac (si el procesador es de 32 o 64 bit)</h1>
 
-<p>-d 10,20 (tiempo total a capturar en formato SMIL. Por defecto ilimitado</p>
-
-<p>-every 50 (grabar un cuadro cada 50)</p>
-
-<p>-f dif (formato de captura. Por defecto raw. Algunos formatos: dif [raw con extensión .dif], qt [formato QuickTime], mpeg2 [compresión MPEG-2], jpeg ]secuencia de imágenes]</p>
-
-<p>-F 20 (cantidad máxima de fotogramas por archivo. Por defecto ilimitado)</p>
-
-<p>-nostop (no detener la reproducción en el dispositivo al cerrar la captura)</p>
-
-<p>-rewind (rebobina el MiniDV al finalizar)</p>
-
-<p>-t (poner fecha y hora de registro como nombre del archivo)</p>
+<h1>dmidecode -t memory | grep Maxi | grep Capa (máximo  de memoria soportada)</h1></blockquote>
 </div>
   
   
@@ -529,7 +567,7 @@ Ctrl+g q (Salir)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/dvdbackup/">Dvdbackup</a></h1>
+      <h1 class="entry-title"><a href="/blog/dmesg/">Dmesg</a></h1>
     
     
       <p class="meta">
@@ -545,18 +583,20 @@ Ctrl+g q (Salir)
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Ripeo de dvds</p>
+  <div class="entry-content"><p>Imprimir en pantalla los mensajes del kernel</p>
 
-<blockquote><p>$ dvdbackup -i /dev/cdrom  (/información del dvd)</p>
+<blockquote><p>$ dmesg | grep -i &#8216;error&#8217;   (lista los errores del kernel)</p>
 
-<p>$ dvdbackup -M -i/dev/cdrom -o/home/usuario/carpeta_destino (lanzar la aplicación)</p></blockquote>
+<p>$ dmesg | grep hd           (inf sobre dispositivos IDE.)</p>
+
+<p>$ dmesg -c  (Limpiar el registro)</p></blockquote>
 </div>
   
   
@@ -587,43 +627,43 @@ Ctrl+g q (Salir)
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/grub2/">grub2</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/printf/">printf</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdftotext/">pdftotext</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/avconv/">avconv</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ipmitool/">ipmitool</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tmux/">tmux</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/rkhunter/">rkhunter</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssconvert/">ssconvert</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/while/">while</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

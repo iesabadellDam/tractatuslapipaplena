@@ -9,7 +9,8 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Visualizar paquetes huerfanos $ deborphan &#8211;guess-all (Los muestra todos) # apt-get remove $(deborphan &#8211;guess-all) (borra todos los &hellip;">
+  <meta name="description" content="Muestra el IP del proveedor, caracteristicas del procesador, información de caché, etc de procesadores Intel y AMD x86. No tiene opciones. $ cpuid
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +82,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/deborphan/">Deborphan</a></h1>
+      <h1 class="entry-title"><a href="/blog/cpuid/">Cpuid</a></h1>
     
     
       <p class="meta">
@@ -97,36 +98,16 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Visualizar paquetes huerfanos</p>
+  <div class="entry-content"><p>Muestra el IP del proveedor, caracteristicas del procesador, información de caché, etc de procesadores Intel y AMD x86. No tiene opciones.</p>
 
-<blockquote><p>$ deborphan &#8211;guess-all   (Los muestra todos)</p>
-
-<p># apt-get remove $(deborphan &#8211;guess-all)     (borra todos los mostrados)</p>
-
-<p># deborphan        (para ver las librerias huérfanas)</p>
-
-<p># dpkg -l $(deborphan)    (lo mismo que el anterior con más detalles)</p>
-
-<p># sudo dpkg &#8211;purge $(deborphan)   (eliminar los paquetes huérfanos)</p>
-
-<p># apt-get remove <code>deborphan</code> (Lo mismo)</p>
-
-<p># dpkg -l $(deborphan &#8211;find-config)  (para borrar configuraciones que no se han borrado tras la desinstalación de un paquete)</p>
-
-<p># dpkg &#8211;purge $(deborphan &#8211;ind-config)  (para eliminarlos)</p>
-
-<p># apt-get remove $(deborphan &#8211;guess-all)</p></blockquote>
-
-<p>Nota.- Normalmente estas aplicaciones han de repetirse varias veces hasta que al lanzar el comando no salga ninguna archivo huerfana.</p>
-
-<blockquote><p># deborphan | xargs sudo apt-get -y remove &#8211;purge (otra forma de eliminar paquetes huerfanos)</p></blockquote>
+<blockquote><p>$ cpuid</p></blockquote>
 </div>
   
   
@@ -139,7 +120,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/deb/">Deb</a></h1>
+      <h1 class="entry-title"><a href="/blog/cpufreq-set/">Cpufreq-set</a></h1>
     
     
       <p class="meta">
@@ -155,179 +136,24 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Extensión de los paquetes para distros Debian.</p>
+  <div class="entry-content"><p>Define el perfil de la CPU [powersave, performance, conservative, userspace, ondemand] así como la velocidad y otros parámetros</p>
 
-<p>1.-</p>
+<blockquote><h1>cpufreq-set &#8211;governor powersave (Define el perfil de velocidad de la CPU. Perfiles disponibles: conservative, powersave, performance, ondemand, userspace)</h1>
 
-<p>Crear un paquete para esta distro a partir de un script:</p>
+<h1>cpufreq-set -c 0 (Definimos que queremos aplicar el comando a la CPU 0. Si se omite, por defecto tomará este valor. El rango de este valor va de 0 a N-1 CPUs. Por ejemplo con 4 núcleos iria de 0 a 3)</h1>
 
-<pre><code>$ mkdir deb 
-</code></pre>
+<h1>cpufreq-set &#8211;min 1200000 –governor PERFIL (define la velocidad mínima del procesador en Hz para el perfil seleccionado, requiere el uso de la opción &#8211;governor. En caso de que el valor sea inferior al permitido, se utiliza la velocidad mínima soportada por la CPU. Si tenemos más de una CPU o núcleo, debemos repetir el comando para cada CPU con la opción -c e indicar el número de esta)</h1>
 
-<p>En ese directorio recrear la estructura destino que queremos utilizar. En nuestro caso /usr/bin, el directorio para el icono y permisos:</p>
+<h1>cpufreq-set &#8211;max 2101000 &#8211;governor ondemand (lo mismo que –min pero con la velocidad máxima de la CPU)</h1>
 
-<pre><code>$ mkdir -p deb/usr/bin
-
-$ mkdir -p deb/usr/share/applications
-</code></pre>
-
-<p>Copiar el script en el bin creado:</p>
-
-<pre><code>$ cp script deb/usr/bin 
-</code></pre>
-
-<p>Crear el subdirectorio DEBIAN:</p>
-
-<pre><code>$ mkdir deb/DEBIAN 
-</code></pre>
-
-<p>En su interior el fichero “control”:</p>
-
-<pre><code>$ nano deb/DEBIAN/control 
-</code></pre>
-
-<p>En el que pegamos datos del paquete:</p>
-
-<p>Package: nombre_que_queremos</p>
-
-<p>Priority: optional</p>
-
-<p>Section: misc</p>
-
-<p>Maintainer: el_mantenedor</p>
-
-<p>Architecture: all</p>
-
-<p>Version: 1.0</p>
-
-<p>Depends: Las_dependendias_del_paquete</p>
-
-<p>Description: Pequeña_descripción_de_la_maravilla</p>
-
-<p> Este script &#8230;. para &#8230;.. de &#8230;.. aquello&#8230;&#8230;.</p>
-
-<p>Notas: En el nombre del paquete (Package) no se admiten espacios ni barras bajas) y en la descripción (Description) el primer carácter de la segunda linea es un espacio y al final del texto, darle al intro para que ponga una linea vacia. Las dependencias que pongamos en “Depends” son las que se instalarán  con la instalación del .deb.</p>
-
-<p>Crear el paquete “menu” en el mismo directorio:</p>
-
-<pre><code>$ nano deb/DEBIAN/menu
-</code></pre>
-
-<p>Y en su interior pegar:</p>
-
-<pre><code>?package(nombre_script):needs="X11" \ 
-
-    section="Applications/Network/Monitoring" \ 
-
-    title="Suport VNC" command="gnome-terminal -e script_que_sea" \ 
-
-    icon="/usr/share/pixmaps/gnome-term-linux2.png"
-</code></pre>
-
-<p>Notas: Nombre del paquete, que precisa de las X (X11), donde se colocará en el menú “Aplicaciones” (otras opciones: section=”Apps/Multimedia”&#8230;), el comando que lo lanzará (gnome-terminal -e script) y el icono que hemos escogido. Crear el archivo nombre_script.desktop para los datos del icono:</p>
-
-<pre><code>$ gedit deb/usr/share/applications/nombre_script.desktop
-</code></pre>
-
-<p>Y pegar el siguiente contenido:</p>
-
-<pre><code>[Desktop Entry] 
-
-Version=1.0 
-
-Name=Nombre_script 
-
-GenericName=Nombre_script 
-
-Comment=Pequeño_comentario 
-
-Exec=Nombre_script_que_lo_lanzará 
-
-Terminal=true 
-
-Type=Application 
-
-Categories=Application;Network; 
-
-Icon=gnome-term-linux2.png 
-
-StartupNotify=true
-</code></pre>
-
-<p>Nota.- también varios modelos de iconos en:</p>
-
-<pre><code>$ ls /home/usuario/.local/share/applications/  
-</code></pre>
-
-<p>Cambiar el propietario del directorio:</p>
-
-<pre><code># chown -R root.root deb 
-</code></pre>
-
-<p>Finalmente crear el paquete .deb y que lo coloque en el escritorio:</p>
-
-<pre><code># dpkg -b deb /home/usuario/Escritorio/nombre.deb
-</code></pre>
-
-<p>2.-</p>
-
-<p>Crear un paquete a partir de un tar.gz:</p>
-
-<p>Para el ejemplo usaremos el paquete picpuz, un juego para crear puzles a partir de una fotografia, que aunque tenga versión .deb, para el caso nos sirve.</p>
-
-<p>Crear carpeta de trabajo y entrar en ella:</p>
-
-<pre><code>$ mkdir picpuz 
-
-$ cd picpuz 
-</code></pre>
-
-<p>Descargar y descomprimir el tar.gz y entrar en la carpeta descomprimida:</p>
-
-<blockquote><p>$ wget http://kornelix.squarespace.com/storage/downloads/picpuz-2.2.tar.gz</p>
-
-<p>$ tar xvzf picpuz-2.2.tar.gz</p>
-
-<p>$ cd picpuz-2.2</p></blockquote>
-
-<p>Crear el nuevo paquete .orig.tar.gz con los estandares de Debian, con licencia gpl3 y generando el paquete desde las fuentes:</p>
-
-<pre><code>$ dh_make --createorig  -c gpl3 -s
-</code></pre>
-
-<p>Construir el paquete .deb:</p>
-
-<pre><code>$ dpkg-buildpackage -rfakeroot 
-</code></pre>
-
-<p>Listar el contenido de un paquete .deb:</p>
-
-<pre><code>$ ar -tv picpuz_2.2-1_i386.deb
-</code></pre>
-
-<p>Información y perspectiva general de lo que ofrece el paquete:</p>
-
-<pre><code>$ dpkg-deb -I picpuz_2.2-1_i386.deb
-</code></pre>
-
-<p>Listar los ficheros que serán instalados:</p>
-
-<pre><code>$ dpkg-deb -c picpuz_2.2-1_i386.deb 
-</code></pre>
-
-<p>instalarlo:</p>
-
-<pre><code># dpkg -i picpuz_2.2-1_i386.deb
-</code></pre>
-
-<p>Lo encontraremos en aplicaciones/juegos</p>
+<h1>cpufreq-set -f 1600000 (Especificamos que queremos que la CPU trabaje a la velocidad deseada. Requiere que estemos usando el perfil userspace)</h1></blockquote>
 </div>
   
   
@@ -340,7 +166,7 @@ $ cd picpuz
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/deallocvt/">Deallocvt</a></h1>
+      <h1 class="entry-title"><a href="/blog/cpufreq-selector/">Cpufreq-selector</a></h1>
     
     
       <p class="meta">
@@ -356,24 +182,18 @@ $ cd picpuz
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Libera memoria y estructuras de datos del núcleo para todas las consolas virtuales que no se usen. Una consola virtual se considera en desuso si no es la consola en primer plano, ni  ningún  proceso  la  tiene  abierta  para  lectura  o escritura, ni se ha seleccionado ningún texto en su pantalla. Ver openvt</p>
+  <div class="entry-content"><p>Permite definir el perfil de la CPU powersave, performance, conservative, userspace, ondemand) así como la velocidad y otros parámetros</p>
 
-<blockquote><p># deallocvt (Las desasigna todas)</p>
+<blockquote><p>$ cpufreq-selector -g powersave -c 0 (Define perfil powersave para el nucleo 0)</p>
 
-<p># deallocvt 5 (Sólo desasigna la /dev/tty5)</p></blockquote>
-
-<p>Un ejemplo de uso:</p>
-
-<blockquote><p># openvt -s ls (lanzara el comando ls en la primera consola virtual libre. Normalmente la /dev/tty8)</p>
-
-<p># deallocvt 8</p></blockquote>
+<p>$ cpufreq-selector -f 1200000 (Define la velocidad exacta de la CPU, en Khz)</p></blockquote>
 </div>
   
   
@@ -386,7 +206,7 @@ $ cd picpuz
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ddrescue/">Ddrescue</a></h1>
+      <h1 class="entry-title"><a href="/blog/cpufreq-info/">Cpufreq-info</a></h1>
     
     
       <p class="meta">
@@ -402,42 +222,16 @@ $ cd picpuz
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Recuperación de discos dañados. Proceso:</p>
+  <div class="entry-content"><p>Obtiene información del estado del demonio cpufreqd así como información de la CPU.</p>
 
-<p>Descargar el paquete dd_rhelp (Comprobar si existe una versión posterior):</p>
-
-<blockquote><p>$ wget http://www.kalysto.org/pkg/dd_rhelp-0.1.2.tar.gz</p>
-
-<p>$ cd dd_rhelp-0.1.2</p>
-
-<p># ./dd_rhelp /dev/sdbx sdbx.img</p></blockquote>
-
-<p>Creará sdbx.img en el directorio actual, que podrá montarse:</p>
-
-<blockquote><p># mount -o loop sdbx.img /media/imagen</p></blockquote>
-
-<p>Comprobar posibles errores (para partición ext3):</p>
-
-<blockquote><p># fsck -y sdbx.img</p></blockquote>
-
-<p>Restaurar la imagen:</p>
-
-<blockquote><p># dd_rhelp sdbx.img /dev/sdax</p></blockquote>
-
-<p>Método de ejecutar ddrescue en dos pasadas, de forma que la primera sólo recupera los bloques que no contenga sectores defectuosos y el segundo se centre en recuperar el máximo de los defectuosos:</p>
-
-<blockquote><p># ddrescue -v -n /dev/sda /dev/sdb sda.txt</p>
-
-<p># ddrescue -v -r2 -d /dev/sda /dev/sdb sda.txt</p></blockquote>
-
-<p>Luego comprobar errores con fsck.</p>
+<blockquote><p>$ cpufreq-info</p></blockquote>
 </div>
   
   
@@ -450,7 +244,7 @@ $ cd picpuz
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ddclient/">Ddclient</a></h1>
+      <h1 class="entry-title"><a href="/blog/cpio/">Cpio</a></h1>
     
     
       <p class="meta">
@@ -466,30 +260,32 @@ $ cd picpuz
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Configurar pc con una ip fija. Requiere registro en dyndns.org. Durante la instalación  ya preguntará los datos del registro en pero si se prefiere puede editarse el archivo de configuración y colocarlos a mano</p>
+  <div class="entry-content"><p>Copiar archivos a un contenedor de manera más eficiente que tar. Los respaldos se pueden restaurar en cualquier sistema UNIX.</p>
 
-<blockquote><p># gedit /etc/ddclient.conf</p></blockquote>
+<blockquote><p>$ ls *.txt | cpio -ocv -O archivo.cpio (Creará [-o] &#8220;archivo.cpio&#8221; [-O] con todos los .txt del directorio, mostrando toda la salida [-v] y que escriba la información del encabezado en ASCII para facilitar el traspaso entre plataformas)</p></blockquote>
 
-<p>Completar los campos login y password con los datos correspondientes:</p>
+<p>cpio -icv &lt; archivo.cpio (Extraer el contenido)</p>
 
-<p>protocol=dyndns2</p>
+<blockquote><p>$ cpio -it &lt; file.cpio > indice (Crear un indice con el contenido de un archivo cpio)</p></blockquote>
 
-<p>use=web, web=checkip.dyndns.com, web-skip=&#8217;IP Address&#8217;</p>
+<p>Opciones:</p>
 
-<p>server=members.dyndns.org</p>
+<p>-u (Sobreescribiendo si al extraer ya existe el fichero ya que sin este parámetro no lo hace)</p>
 
-<p>login=Nombre_registrado_en_dyndns</p>
+<p>-i (extraer archivos de un fichero)</p>
 
-<p>password=&#8217;contraseña_de_dyndns&#8217;</p>
+<p>-t (Desplegar sin extraer)</p>
 
-<p>nombre_de_dominio.com</p>
+<p>-r (Dar nombre a los archivos que se están extrayendo de forma interactiva)</p>
+
+<p>-d (Extrae con la misma estructura de directorio, si así se creó el fichero)</p>
 </div>
   
   
@@ -502,7 +298,7 @@ $ cd picpuz
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ddate/">Ddate</a></h1>
+      <h1 class="entry-title"><a href="/blog/cpaldjvu/">Cpaldjvu</a></h1>
     
     
       <p class="meta">
@@ -518,16 +314,16 @@ $ cd picpuz
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Convierte fechas gregorianas en fechas subrealistas. Algunas opciones coinciden con las de &#8220;date&#8221; (ver)</p>
+  <div class="entry-content"><p>Convierte documentos pdf o imagenes a formato djvu</p>
 
-<blockquote><p>$ ddate +%d-%B-%Y</p></blockquote>
+<blockquote><p>$ cpaldjvu -colors 5 -dpi 50 -verbose entrada.jpg salida (especificando colores [por defecto 256] y resolución [entre 25 y 6000.Por defecto 300])</p></blockquote>
 </div>
   
   
@@ -540,7 +336,7 @@ $ cd picpuz
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/dd/">Dd</a></h1>
+      <h1 class="entry-title"><a href="/blog/cp/">Cp</a></h1>
     
     
       <p class="meta">
@@ -556,48 +352,28 @@ $ cd picpuz
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Crea imagenes de discos, particiones &#8230;</p>
+  <div class="entry-content"><p>Copiar archivos</p>
 
-<blockquote><p>$ dd if=/dev/zero of=/dev/hda  (escribe ceros en todo el disco)</p>
+<blockquote><p>$ cp -r  (Copia archivos y directorios de forma recursiva)</p>
 
-<p>$ dd if=/dev/urandom of=/dev/hda  (llena el disco de números aleatorios)</p>
+<p>$ cp -i   (Pide confirmacion antes de sobreescribir)</p>
 
-<p>$ dd if=/dev/hdx of=backup-mbr bs=512 count=1  (crea una copia de seguridad del mbr)</p>
+<p>$ cp -f   (Borra el archivo de destino sin preguntar)</p>
 
-<p>$ dd if=backup-mbr of=/dev/hda bs=512 count=1  (la restaura)</p>
+<p>$ cp -u  (copia sólo cuando el archivo de origen es más reciente que el archivo de destino o cuando el archivo destino falta)</p>
 
-<p>$ dd if=mbr of=/dev/hda (Restaurarla)</p>
+<p>$ cp -p  (Copiar conservando los permisos de usuario y grupo)</p>
 
-<p>$ dd if=/dev/hda1 of=/dev/hda3 (copiar una partición)</p>
+<p>$ cp archivo{,.back} (Hará una copia .back del archivo)</p>
 
-<p>$ dd if=/hda of=/hdb bs=1M (copiar un disco en bloques de 1 mega)</p>
-
-<p>$ dd conv=noerror if=/dev/cdrom of=imagen_con_errores.img (Evitar que los errores impidan copiar datos. ütil en la recuperación de CDs o discos dañados)</p>
-
-<p>$ dd if=/dev/sda of=/dev/sdb conv=noerror,sync (Realizar una copia exacta de una partición, evitando que los errores impidan copiarla)</p>
-
-<p>$ time dd if=/dev/zero of=TEST bs=4k count=512000  (Realizar un test de velocidad del disco duro)</p>
-
-<p>$ dd if=/dev/sda1 of=copia_seguridad.tar | pv  (copiar mostrando barra de progreso)</p>
-
-<p>$ dd if=/dev/sdc bs=4096 dd of=/home/usuario/copia_seguridad | pv -s 2G (Lo mismo que el anterior)</p>
-
-<p>$ dd if=/dev/hda of=/home/hda.iso (Crear una imagen iso de una partición)</p>
-
-<p>$ dd if=/dev/hda | gzip > /home/hda.bin.gz (Crear una imagen comprimida)</p>
-
-<p>$ dd bs=1M if=/dev/sda4 | ssh usuario@host &#8216;dd of=/home/usuario/sda4.img&#8217; (crear una imagen de una partición local en un pc remoto)</p>
-
-<p>$ dd if=/dev/cdrom of=~/cd_image.iso (Crear una ISO del cd)</p>
-
-<p># dd if=/dev/sda | pv | dd of=/dev/sdb bs=1M (Clonar partición viendo gráfico del proceso)</p></blockquote>
+<p>$ cp archivo archivo.$$ (“$$” es una variable del shell que contiene el pid )</p></blockquote>
 </div>
   
   
@@ -610,7 +386,7 @@ $ cd picpuz
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/dc/">Dc</a></h1>
+      <h1 class="entry-title"><a href="/blog/cowthink/">Cowthink</a></h1>
     
     
       <p class="meta">
@@ -626,20 +402,16 @@ $ cd picpuz
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>calculadora. Los operadores se colocan antes que sus operandos.</p>
+  <div class="entry-content"><p>Vaca pensando.</p>
 
-<blockquote><p>$ echo &#8220;5 2 + p&#8221; | dc (Se introducen dos números [5 y 2] se indica la operación a realizar [+] y que muestre el resultado [p])</p>
-
-<p>$ echo &#8220;4 6 + 2 * 4 / p&#8221; | dc</p>
-
-<p>$ echo &#8220;40034291 23 % p &#8221; | dc (Da el resto de la división)</p></blockquote>
+<blockquote><p>$ cowthink -p ¿¿Linux??</p></blockquote>
 </div>
   
   
@@ -652,7 +424,7 @@ $ cd picpuz
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/dav/">Dav</a></h1>
+      <h1 class="entry-title"><a href="/blog/cowsay/">Cowsay</a></h1>
     
     
       <p class="meta">
@@ -668,16 +440,20 @@ $ cd picpuz
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Editor minimalista para ncurses.</p>
+  <div class="entry-content"><p>Muestra figuras en consola</p>
 
-<blockquote><p>$ dav archivo.txt</p></blockquote>
+<blockquote><p>$ cowsay -l      (muestra todas las posibilidades de figuras)</p>
+
+<p>$ cowsay -f tux Esto es linux</p>
+
+<p>$ echo “linux” | cowsay -n | cowsay -n | cowsay -n (Anidando las figuras)</p></blockquote>
 </div>
   
   
@@ -690,7 +466,7 @@ $ cd picpuz
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/darkhttpd/">Darkhttpd</a></h1>
+      <h1 class="entry-title"><a href="/blog/copy/">Copy</a></h1>
     
     
       <p class="meta">
@@ -706,18 +482,22 @@ $ cd picpuz
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Servidor de archivos via web. Acceso por navegador con http://url_o_ip:puerto.</p>
+  <div class="entry-content"><p>Carpetas en la nuve tipo Dropbox. Entrar en http://www.copy.com despues de registrarse y logearse, clicar en la pestaña &#8220;Install App&#8221; con lo que se nos descargará la aplicacion de escritorio.</p>
 
-<blockquote><p>$ darkhttp /home/usuario/share &#8211;port 12001 &#8211;daemon (Directorio, puerto de escucha 12001 y dejando como demonio. Matar con killall darkhttpd)</p>
+<blockquote><p>$ tar -zvxf copy_agent-1.28.0657.tgz</p>
 
-<p>$ darkhttp /home/usuario/share &#8211;port 12001 &#8211;log  archivo  &#8211;chroot  (Sin dejar en background. Creando un archivo con las incidencias y bloqueando el servidor en el directorio especificado. Matar con ctrl+c)</p></blockquote>
+<p>$ cd copy/x86_64/</p>
+
+<p>$ ./CopyAgent &#8211;install (Donde pondremos nombre de usuario y contraseña del registro y carpeta a compartir. Por defecto Copy)</p>
+
+<p>$ ./CopyConsole (Forzar actualizaciones)</p></blockquote>
 </div>
   
   
@@ -748,43 +528,43 @@ $ cd picpuz
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/grub2/">grub2</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/printf/">printf</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdftotext/">pdftotext</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/avconv/">avconv</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ipmitool/">ipmitool</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tmux/">tmux</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/rkhunter/">rkhunter</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssconvert/">ssconvert</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/while/">while</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

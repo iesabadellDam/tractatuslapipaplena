@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Manipular documentos .djvu $ djvm -l fichero.djvm (Lista el contenido) $ djvm -c archivo.djvu file1.djvu file2.djvu (Crea un archivo juntando varios &hellip;">
+  <meta name="description" content="Recuperación de discos dañados. Proceso: Descargar el paquete dd_rhelp (Comprobar si existe una versión posterior): $ wget http://www.kalysto.org/pkg &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/djvm/">Djvm</a></h1>
+      <h1 class="entry-title"><a href="/blog/ddrescue/">Ddrescue</a></h1>
     
     
       <p class="meta">
@@ -97,20 +97,42 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Manipular documentos .djvu</p>
+  <div class="entry-content"><p>Recuperación de discos dañados. Proceso:</p>
 
-<blockquote><p>$ djvm -l fichero.djvm (Lista el contenido)</p>
+<p>Descargar el paquete dd_rhelp (Comprobar si existe una versión posterior):</p>
 
-<p>$ djvm -c archivo.djvu file1.djvu file2.djvu (Crea un archivo juntando varios archivos djvu)</p>
+<blockquote><p>$ wget http://www.kalysto.org/pkg/dd_rhelp-0.1.2.tar.gz</p>
 
-<p>$ djvm -d archivo.djvu 0022 (Eliminar la página 22 del archivo.djvu)</p></blockquote>
+<p>$ cd dd_rhelp-0.1.2</p>
+
+<h1>./dd_rhelp /dev/sdbx sdbx.img</h1></blockquote>
+
+<p>Creará sdbx.img en el directorio actual, que podrá montarse:</p>
+
+<blockquote><h1>mount -o loop sdbx.img /media/imagen</h1></blockquote>
+
+<p>Comprobar posibles errores (para partición ext3):</p>
+
+<blockquote><h1>fsck -y sdbx.img</h1></blockquote>
+
+<p>Restaurar la imagen:</p>
+
+<blockquote><h1>dd_rhelp sdbx.img /dev/sdax</h1></blockquote>
+
+<p>Método de ejecutar ddrescue en dos pasadas, de forma que la primera sólo recupera los bloques que no contenga sectores defectuosos y el segundo se centre en recuperar el máximo de los defectuosos:</p>
+
+<blockquote><h1>ddrescue -v -n /dev/sda /dev/sdb sda.txt</h1>
+
+<h1>ddrescue -v -r2 -d /dev/sda /dev/sdb sda.txt</h1></blockquote>
+
+<p>Luego comprobar errores con fsck.</p>
 </div>
   
   
@@ -123,7 +145,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/display/">Display</a></h1>
+      <h1 class="entry-title"><a href="/blog/ddclient/">Ddclient</a></h1>
     
     
       <p class="meta">
@@ -139,20 +161,30 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>visualizar imagenes en las X</p>
+  <div class="entry-content"><p>Configurar pc con una ip fija. Requiere registro en dyndns.org. Durante la instalación  ya preguntará los datos del registro en pero si se prefiere puede editarse el archivo de configuración y colocarlos a mano</p>
 
-<blockquote><p>$ display imagen.jpg</p>
+<blockquote><h1>gedit /etc/ddclient.conf</h1></blockquote>
 
-<p>$ DISPLAY=:0.0 gedit  (lanzado desde una tty, abre gedit en las X. Si solo tenemos una sesión X corriendo, puede suprimirse el “.0”)</p>
+<p>Completar los campos login y password con los datos correspondientes:</p>
 
-<p>$ gmessage “Cierra el firefox” -display :0 (Lanzado desde una tty mostrará el mensaje en las X)</p></blockquote>
+<p>protocol=dyndns2</p>
+
+<p>use=web, web=checkip.dyndns.com, web-skip=&#8217;IP Address&#8217;</p>
+
+<p>server=members.dyndns.org</p>
+
+<p>login=Nombre_registrado_en_dyndns</p>
+
+<p>password=&#8217;contraseña_de_dyndns&#8217;</p>
+
+<p>nombre_de_dominio.com</p>
 </div>
   
   
@@ -165,7 +197,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/disown/">Disown</a></h1>
+      <h1 class="entry-title"><a href="/blog/ddate/">Ddate</a></h1>
     
     
       <p class="meta">
@@ -181,62 +213,16 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Disociar un proceso de la terminal que lo lanzó. Cuando creamos un proceso desde una terminal, éste queda ligado a la terminal. Si se cierra la terminal, también se cierra el proceso. disown evita tal contingencia. Veamos el proceso:</p>
+  <div class="entry-content"><p>Convierte fechas gregorianas en fechas subrealistas. Algunas opciones coinciden con las de &#8220;date&#8221; (ver)</p>
 
-<p>Si se lanza:</p>
-
-<blockquote><p>$ yes > /dev/null</p></blockquote>
-
-<p>Cerramos y volvemos a abrir la terminal y ejecutamos:</p>
-
-<blockquote><p>$ ps aux | grep yes | grep -v grep</p></blockquote>
-
-<p>Veremos que el proceso no existe. Si volvemos a lanzar &#8220;yes&#8221;:</p>
-
-<blockquote><p>$ yes > /dev/null</p></blockquote>
-
-<p>Pulsamos Ctrl+z:</p>
-
-<p>[1]+  Detenido                  yes > /dev/null</p>
-
-<p>Lanzando:</p>
-
-<blockquote><p>$ jobs</p></blockquote>
-
-<p>Nos mostrará la misma salida. Ahora en el promt escribimos:</p>
-
-<blockquote><p>$ disown -h %1</p></blockquote>
-
-<p>Con lo que desligamos el proceso de la terminal. Hemos liberado la terminal pero si la cerramos, aún matamos el proceso &#8220;yes&#8221;. Para que esto no ocurra, lo mandamos a segundo plano con bg y número de proceso [1]:</p>
-
-<blockquote><p>$ bg 1</p></blockquote>
-
-<p>[1]+ yes > /dev/null &amp;</p>
-
-<p>Ahora podemos cerrar la terminal sin que el proceso &#8220;yes&#8221; se vea afectado. El proceso se simplifica si ya lanzamos el comando en background:</p>
-
-<blockquote><p>$ yes > /dev/null &amp;</p></blockquote>
-
-<p>[1] 13248</p>
-
-<p>Lo disociamos de la terminal:</p>
-
-<blockquote><p>$ disown -h %1</p></blockquote>
-
-<p>Y ya podemos cerrar la terminal sin afectar al proceso.</p>
-
-<p>Otras opciones:</p>
-
-<blockquote><p>$ disown -a (Desliga todos los procesos ejecutados desde la terminal)</p>
-
-<p>$ disown -r (Desliga los que esten en marcha [running])</p></blockquote>
+<blockquote><p>$ ddate +%d-%B-%Y</p></blockquote>
 </div>
   
   
@@ -249,7 +235,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/dirs/">Dirs</a></h1>
+      <h1 class="entry-title"><a href="/blog/dd/">Dd</a></h1>
     
     
       <p class="meta">
@@ -265,14 +251,48 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Ver pushd</p>
+  <div class="entry-content"><p>Crea imagenes de discos, particiones &#8230;</p>
+
+<blockquote><p>$ dd if=/dev/zero of=/dev/hda  (escribe ceros en todo el disco)</p>
+
+<p>$ dd if=/dev/urandom of=/dev/hda  (llena el disco de números aleatorios)</p>
+
+<p>$ dd if=/dev/hdx of=backup-mbr bs=512 count=1  (crea una copia de seguridad del mbr)</p>
+
+<p>$ dd if=backup-mbr of=/dev/hda bs=512 count=1  (la restaura)</p>
+
+<p>$ dd if=mbr of=/dev/hda (Restaurarla)</p>
+
+<p>$ dd if=/dev/hda1 of=/dev/hda3 (copiar una partición)</p>
+
+<p>$ dd if=/hda of=/hdb bs=1M (copiar un disco en bloques de 1 mega)</p>
+
+<p>$ dd conv=noerror if=/dev/cdrom of=imagen_con_errores.img (Evitar que los errores impidan copiar datos. ütil en la recuperación de CDs o discos dañados)</p>
+
+<p>$ dd if=/dev/sda of=/dev/sdb conv=noerror,sync (Realizar una copia exacta de una partición, evitando que los errores impidan copiarla)</p>
+
+<p>$ time dd if=/dev/zero of=TEST bs=4k count=512000  (Realizar un test de velocidad del disco duro)</p>
+
+<p>$ dd if=/dev/sda1 of=copia_seguridad.tar | pv  (copiar mostrando barra de progreso)</p>
+
+<p>$ dd if=/dev/sdc bs=4096 dd of=/home/usuario/copia_seguridad | pv -s 2G (Lo mismo que el anterior)</p>
+
+<p>$ dd if=/dev/hda of=/home/hda.iso (Crear una imagen iso de una partición)</p>
+
+<p>$ dd if=/dev/hda | gzip > /home/hda.bin.gz (Crear una imagen comprimida)</p>
+
+<p>$ dd bs=1M if=/dev/sda4 | ssh usuario@host &#8216;dd of=/home/usuario/sda4.img&#8217; (crear una imagen de una partición local en un pc remoto)</p>
+
+<p>$ dd if=/dev/cdrom of=~/cd_image.iso (Crear una ISO del cd)</p>
+
+<h1>dd if=/dev/sda | pv | dd of=/dev/sdb bs=1M (Clonar partición viendo gráfico del proceso)</h1></blockquote>
 </div>
   
   
@@ -285,7 +305,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/dig/">Dig</a></h1>
+      <h1 class="entry-title"><a href="/blog/dc/">Dc</a></h1>
     
     
       <p class="meta">
@@ -301,30 +321,20 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Realizar consultas a los servidores DNS</p>
+  <div class="entry-content"><p>calculadora. Los operadores se colocan antes que sus operandos.</p>
 
-<blockquote><p>$ dig tuxapuntes.com</p>
+<blockquote><p>$ echo &#8220;5 2 + p&#8221; | dc (Se introducen dos números [5 y 2] se indica la operación a realizar [+] y que muestre el resultado [p])</p>
 
-<p>$ dig telefonica.net NS  (Mostrando los servidores DNS del dominio)</p>
+<p>$ echo &#8220;4 6 + 2 * 4 / p&#8221; | dc</p>
 
-<p>$ dig -x 74.220.215.64 (Resolución inversa)</p></blockquote>
-
-<p>Nota.- Los datos importantes en la “ANSWER SECTION”</p>
-
-<blockquote><p>$ dig +short myip.opendns.com @resolver1.opendns.com (muestra IP externa)</p>
-
-<p>$ dig tuxapuntes.com somedomainname.net axfr   (mirar si un dominio es susceptible de ataques axfr)</p>
-
-<p>$ dig +trace tuxapuntes.com (Ver saltos de la petición hasta el servidor)</p>
-
-<p>$ dig ANY tuxapuntes.com (Consultar todos los registros de la zona DNS)</p></blockquote>
+<p>$ echo &#8220;40034291 23 % p &#8221; | dc (Da el resto de la división)</p></blockquote>
 </div>
   
   
@@ -337,7 +347,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/diffpdf/">Diffpdf</a></h1>
+      <h1 class="entry-title"><a href="/blog/dav/">Dav</a></h1>
     
     
       <p class="meta">
@@ -353,16 +363,16 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Compara dos archivos pdf.</p>
+  <div class="entry-content"><p>Editor minimalista para ncurses.</p>
 
-<blockquote><p>$ diffpdf archivo1.pdf archivo2.pdf</p></blockquote>
+<blockquote><p>$ dav archivo.txt</p></blockquote>
 </div>
   
   
@@ -375,7 +385,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/diff/">Diff</a></h1>
+      <h1 class="entry-title"><a href="/blog/date/">Date</a></h1>
     
     
       <p class="meta">
@@ -391,196 +401,66 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Mostrar diferencias entre dos directorios o ficheros</p>
+  <div class="entry-content"><p>Relacionado con fechas y calendarios.</p>
 
-<blockquote><p>$ diff archivo1 archivo2 (Compara diferencias entre dos ficheros)</p>
+<blockquote><p>$ date +%s  (en tiempo unix - desde el 1 de enero de 1970-)</p>
 
-<p>$ diff -r carpeta1 carpeta2 (Compara diferencias de forma recursiva en los directorios)</p>
+<p>$ date -s &#8220;2010-01-10 16:59&#8221;  (forma de establecer la fecha y hora actual)</p>
 
-<p>$ diff -w fichero1 fichero2  (Descarta espacios en blanco)</p>
+<p>$ date –u 0110170210  (Otra forma de establecer la fecha. mes 01, día 10, hora 17:02 y año 2010)</p>
 
-<p>$ diff -q fichero1 fichero2   (Informa si los ficheros difieren sin mostrar detalles)</p>
+<p>$ date +&#8221;%A,%d-%m-%Y&#8221;</p></blockquote>
 
-<p>$ diff -y fichero1 fichero2   (Muestra la salida a dos columnas)</p>
+<p>Algunas opciones:</p>
 
-<p>$ diff –urp dir1 dir2 (Compara recursivamente el contenido de 2 directorios.)</p>
+<p>%D  .- fecha (mm/dd/yy)</p>
 
-<p>$ diff -u &lt;(grep -vE &#8217;<sup>(#|$)&#8217;</sup> file1) &lt;(grep -vE &#8217;<sup>(#|$)&#8217;</sup> file2) (Los compara ignorando comentarios y lineas en blanco)</p></blockquote>
-</div>
-  
-  
+<p>%T   .- hora:minutos:segundos (formato 24h)</p>
 
+<p>%R   .- hora:minutos (formato 24h)</p>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/dialog/">Dialog</a></h1>
-    
-    
-      <p class="meta">
-        
+<p>%d   .- día del mes (2 dígitos)</p>
 
+<p>%m  .- mes (2 digitos)</p>
 
+<p>%y   .- año (2 dígitos)</p>
 
+<p>%Y   .- año (4 dígitos)</p>
 
+<p>%a   .- nombre abreviado del día.</p>
 
+<p>%A   .- nombre completo del día.</p>
 
+<p>%b   .- nombre abreviado del mes.</p>
 
+<p>%B   .- nombre completo del mes.</p>
 
-  
+<p>%H   .- hora (2 dígitos) (0-23h)</p>
 
+<p>%I    .- hora (2 digitos) (0-12h)</p>
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
-        
-      </p>
-    
-  </header>
+<p>%M  .- Solo los minutos</p>
 
+<p>%S   .- Solo los segundos</p>
 
-  <div class="entry-content"><p>Muestra cuadros de diálogo para scripts</p>
+<blockquote><p>$ date +&#8221;%A,%d-%m-%Y&#8221; &#8211;date &#8216;1966/4/20 20500 days&#8217; (Para saber cuando alguien cumplirá 20500 días desde su nacimiento)</p>
 
-<blockquote><p>$ dialog &#8211;calendar &#8220;mes de junio&#8221; 0 0 1 6 2010  (&#8220;0 0&#8221; indica que se autodimensiona el cuadro. El tamaño estándar de una terminal es un ancho de 80 por un largo de 25. &#8220;1 6 2010&#8221; fecha con formato dia/mes/año)</p>
-
-<p>$ dialog &#8211;checklist &#8220;Escoger servicios&#8221; 0 0 3 vnc &#8220;&#8221; &#8220;&#8221; ssh &#8220;&#8221; &#8220;&#8221; cups &#8220;&#8221; &#8220;&#8221; (&#8220;3&#8221; numero de entradas visibles, si hay más se usará el scroll. Las &#8220;&#8221; indican parámetros vacios que puedan sustituirse por palabras o números, el primero de los cuales aparecerá en el cuadro de diálogo [vnc 1 A ssh 2 B cups 3 C])</p>
-
-<p>$ dialog &#8211;dselect /home/usuario/ 0 0  (mostrará el contenido del directorio mencionado)</p>
-
-<p>$ dialog &#8211;editbox /etc/fstab 0 0   (mostrará el contenido del fichero seleccionado)</p>
-
-<p>$ dialog &#8211;fselect /home/usuario/ 0 0  (Mostrará dos ventanas una con los directorios y la otra con los ficheros)</p>
-
-<p>$ dialog &#8211;gauge &#8220;Uso del software libre&#8221; 0 0 0  (Muestra el progreso de un proceso)</p>
-
-<p>$ for var in 0 10 20 30 40 50 60 70 80 90 100; do sleep 1; echo $var; done | dialog &#8211;gauge &#8220;Total completado&#8221; 6 60 0 (concatenación de dialogs)</p>
-
-<p>$ dialog &#8211;infobox &#8220;Esto va a explotar&#8230;.&#8221; 3 26  (Un cuadro con un texto)</p>
-
-<p>$ dialog &#8211;sleep 3 &#8211;infobox &#8220;Esto va a explotar&#8230;.&#8221; 3 26 (Vuelve al prompt a los 3 segundos)</p>
-
-<p>$ dialog &#8211;sleep 3 &#8211;title &#8220;AVISO&#8221; &#8211;infobox &#8220;Esto va a explotar en 3 segundos&#8230;.&#8221; 3 40; dialog &#8211;infobox &#8220;BOOOOOOOMMMM&#8221; 0 0 (Concatenación de dialogs)</p>
-
-<p>$ dialog &#8211;inputbox &#8220;Ingrese su nombre&#8221; 0 0 (Solicitar una linea de texto al usuario)</p>
-
-<p>$ dialog &#8211;passwordbox &#8220;Ingrese contraseña&#8221; 0 0 (Igual que inputbox pero no se muestra nada de lo que se ingresa en pantalla)</p>
-
-<p>$ dialog &#8211;title &#8220;Aquí me las den&#8221; &#8211;no-cancel &#8211;inputbox &#8220;Dejame un mensaje cariño&#8221; 0 0 &#8220;&#8221;  (Especificando un título, sin el botón de &#8220;cancelar&#8221; y con cajón para dejar un mensaje)</p>
-
-<p>$ dialog &#8211;inputmenu &#8220;Nombre del usuario&#8221; 0 0 3 &#8221; juan Perez&#8221; &#8220;c/ del Pulgar num 5&#8221; &#8220;Jose Gonzalez&#8221; &#8220;c/ pez num 11&#8221;  (Permite modificar el segundo concepto [La calle])</p>
-
-<p>$ dialog &#8211;menu &#8220;Escoge una distro&#8230;&#8221; 0 0 3 1 &#8220;Arch&#8221; 2 &#8220;Red Had&#8221; 3 &#8220;Ubuntu&#8221; 4 &#8220;Debian&#8221;</p>
-
-<p>$ dialog &#8211;mixedgauge &#8220;errores&#8221; 0 0 30 ubuntu distros</p>
-
-<p>$ dialog &#8211;msgbox &#8220;\n Aquí puedes poner un texto&#8221; 0 0   (Avisar de una acción o comunicación y separando el texto de la parte superior [\n])</p>
-
-<p>$ dialog &#8211;timeout 10 &#8211;clear &#8211;passwordbox &#8220;Entra la contraseña&#8221; 0 0 &#8220;&#8221;  (Especificando un tiempo para entrarla y limpiando la pantalla)</p>
-
-<p>$ dialog &#8211;backtitle &#8220;Sobre timeout&#8230;&#8221; &#8211;timeout 5 &#8211;pause &#8220;Espera un rato&#8230;&#8221; 10 10 5   (Esperar 5 segundos antes de volver al prompt y con el título en la parte superior de la ventana [&#8211;backtitle])</p>
-
-<p>$ dialog &#8211;radiolist &#8220;Escoger servicios&#8221; 0 0 3 vnc &#8220;&#8221; &#8220;&#8221; ssh &#8220;&#8221; &#8220;&#8221; cups &#8220;&#8221; &#8220;&#8221;  (parecido a checklist)</p>
-
-<p>$ dialog &#8211;no-shadow &#8211;tailbox /etc/fstab 0 0   (Mostrar últimas lineas de un archivo sin sombreado de la ventana)</p>
-
-<p>$ dialog &#8211;timebox &#8220;Tiempo de espera&#8221; 0 0 22 55 33</p>
-
-<p>$ dialog &#8211;extra-button &#8211;timebox &#8220;Tiempo de espera&#8221; 0 0 22 55 33  (Incluir un boton extra)</p>
-
-<p>$ dialog &#8211;defaultno &#8211;timebox &#8220;Tiempo de espera&#8221; 0 0 22 55 33  (Seleccionando por defecto &#8220;cancelar&#8221;)</p>
-
-<p>$ dialog &#8211;yesno &#8220;Quieres pasar a la siguiente opción?&#8221; 0 0 (Retornara un valor cero, si se selecciona YES o distinto de cero si se selecciona NO. Este valor se almacena en la variable $? y puede ser evaluado mediante un if, while,&#8230;)</p>
-
-<p>$ dialog &#8211;tailbox /var/log/fail2ban.log 20 100 (muestra en tiempo real las incidencias en el fichero mencionado. Equivalente a tail -f)</p></blockquote>
-
-<p>Algunos ejemplos prácticos de su uso en scripts:</p>
+<p>$ watch -n1 &#8216;banner <code>date +%T</code>&#8217; (Rejoj digital en ascii)</p></blockquote>
 
 <p>1.-</p>
 
-<blockquote><p>#!/bin/bash</p></blockquote>
+<p>Saber la hora encualquier parte del mundo:</p>
 
-<p>dialog &#8211;menu &#8220;Opciones del script&#8221; 16 60 14 1 &#8220;Puertos abiertos&#8221; 2 &#8220;Intentos de acceso&#8221; 3 &#8220;las IPs externas e internas&#8221; 4 &#8220;Cantidad de intentos de ataques&#8221; 5 &#8220;Servicios activos&#8221; 6 &#8220;Salir&#8221;</p>
+<blockquote><p>$ TZ=&#8221;America/Guatemala&#8221; date (Muestra la hora actual de Guatemala)</p>
 
-<p>clear</p>
-
-<p>2.-</p>
-
-<blockquote><p>#!/bin/bash</p>
-
-<p># Escanear puertos abiertos</p></blockquote>
-
-<p>nmapResultat=$(sudo nmap -O localhost | grep &#8220;open&#8221; | awk &#8216;{print$1,$3}&#8217;)</p>
-
-<p>dialog &#8211;title &#8220;Resultado del escaneo de puertos&#8221; &#8211;msgbox &#8220;Los puertos abiertos son:</p>
-
-<blockquote><p>$nmapResultat&#8221; 0 0</p></blockquote>
-
-<p>clear</p>
-
-<p>3.-</p>
-
-<blockquote><p>#!/bin/bash</p>
-
-<p># Parar un servicio</p></blockquote>
-
-<p>dialog &#8211;title &#8220;samba&#8221; &#8211;yesno &#8220;Quieres detener samba?&#8221; 0 0</p>
-
-<p>case $? in</p>
-
-<p>0)</p>
-
-<p>sudo /etc/init.d/samba stop</p>
-
-<p>dialog &#8211;title &#8220;Info&#8221; &#8211;msgbox &#8220;samba detenido&#8221; 0 0;;</p>
-
-<p>1)</p>
-
-<p>dialog &#8211;title &#8220;Info&#8221; &#8211;msgbox &#8220;samba continua activo&#8221; 0 0 ;;</p>
-
-<p>255)</p>
-
-<p>dialog &#8211;title &#8220;Info&#8221; &#8211;msgbox &#8220;ESC presionado&#8230; samba activo&#8221; 0 0 ;;</p>
-
-<p>esac</p>
-
-<p>clear</p>
-
-<blockquote><p>$ dialog &#8211;title &#8220;Mensaje al mundo&#8221; &#8211;msgbox &#8220;\n      Hola a todos&#8221; 6 35</p>
-
-<p>$ dialog &#8211;yesno &#8220;¿Estás de acuerdo?&#8221; <code>tput lines</code> <code>tput cols</code></p>
-
-<p>$ dialog &#8211;menu &#8220;Escoger interfaz&#8221; 0 0 0 g &#8220;gnome&#8221; k &#8220;kde&#8221; x &#8220;xfce&#8221; 2>&amp;1</p></blockquote>
-
-<p>4.-</p>
-
-<blockquote><p>#!/bin/bash</p>
-
-<p># Respuestas  como variables</p></blockquote>
-
-<p>TMPFILE=&#8221;/tmp/scripttemp.$$&#8221;</p>
-
-<p>dialog &#8211;inputbox &#8220;Ingrese su nombre&#8221; 10 30 2> $TMPFILE</p>
-
-<p>N=<code>cat $TMPFILE</code></p>
-
-<p>dialog &#8211;inputbox &#8220;Ingrese su edad&#8221; 10 30 2> $TMPFILE</p>
-
-<p>E=<code>cat $TMPFILE</code></p>
-
-<blockquote><p># Borrar tmpfile</p></blockquote>
-
-<p>rm -f $TMPFILE</p>
-
-<p>dialog &#8211;infobox &#8220;$N tiene $E años&#8221; 3 50</p>
+<p>$ TZ=&#8221;Europe/Berlin&#8221; date (Muestra la de Berlin)</p></blockquote>
 </div>
   
   
@@ -593,7 +473,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/di/">Di</a></h1>
+      <h1 class="entry-title"><a href="/blog/darkstat/">Darkstat</a></h1>
     
     
       <p class="meta">
@@ -609,18 +489,18 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra información sobre las particiones [un “df” mejorado]. Ver mi.</p>
+  <div class="entry-content"><p>Analizar el tráfico de red via navegador. Una vez instalado arrancar el demonio:</p>
 
-<blockquote><p>$ di</p>
+<blockquote><h1>/etc/init.d/darkstat start</h1></blockquote>
 
-<p>$ di -c (Salida en CSV, para importar una hoja de cálculo)</p></blockquote>
+<p>Y pasado un tiempo visualizar los datos en: http://localhost:666</p>
 </div>
   
   
@@ -633,7 +513,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/dhcpcd/">Dhcpcd</a></h1>
+      <h1 class="entry-title"><a href="/blog/darkhttpd/">Darkhttpd</a></h1>
     
     
       <p class="meta">
@@ -649,16 +529,56 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Configuración automática de la red dhcp</p>
+  <div class="entry-content"><p>Servidor de archivos via web. Acceso por navegador con http://url_o_ip:puerto.</p>
 
-<blockquote><p>$ dhcpcd eth0</p></blockquote>
+<blockquote><p>$ darkhttp /home/usuario/share &#8211;port 12001 &#8211;daemon (Directorio, puerto de escucha 12001 y dejando como demonio. Matar con killall darkhttpd)</p>
+
+<p>$ darkhttp /home/usuario/share &#8211;port 12001 &#8211;log  archivo  &#8211;chroot  (Sin dejar en background. Creando un archivo con las incidencias y bloqueando el servidor en el directorio especificado. Matar con ctrl+c)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/dares/">Dares</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Rescatar contenido de cds y dvds dañados</p>
+
+<blockquote><p>$ dares -i image_cdrom -s /tmp (salvar en /tmp)</p></blockquote>
 </div>
   
   
@@ -689,43 +609,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/grub2/">grub2</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/printf/">printf</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdftotext/">pdftotext</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/avconv/">avconv</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ipmitool/">ipmitool</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tmux/">tmux</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/rkhunter/">rkhunter</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssconvert/">ssconvert</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/while/">while</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

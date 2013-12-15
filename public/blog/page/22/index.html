@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Mostrar tipo de fichero y uuid de una partición # vol_id &#8211;export /dev/sda2 # vol_id &#8211;uuid /dev/sda2 (solo muestra el uuid)
-">
+  <meta name="description" content="Captura señales del teclado. Permite ejecutar un comando especificado cuando se produce una señal con un determinado valor. $ trap -l (Lista todos &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -82,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/vol-id/">Vol_id</a></h1>
+      <h1 class="entry-title"><a href="/blog/trap/">Trap</a></h1>
     
     
       <p class="meta">
@@ -98,18 +97,42 @@
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Mostrar tipo de fichero y uuid de una partición</p>
+  <div class="entry-content"><p>Captura señales del teclado. Permite ejecutar un comando especificado cuando se produce una señal con un determinado valor.</p>
 
-<blockquote><p># vol_id &#8211;export /dev/sda2</p>
+<blockquote><p>$ trap -l (Lista todos los valores)</p>
 
-<p># vol_id &#8211;uuid /dev/sda2  (solo muestra el uuid)</p></blockquote>
+<p>$ trap &#8220;rm -f /tmp/$$ ; exit&#8221; 0 1 2 3 15 (ejecutará el rm si se produce una señal: 0 [Salida de la shell], 1 [SIGHUP, cuelgue], 2 [SIGINT, interrupción con ^C], 3 [SIGQUIT, quiet] o 15 [SIGTERM, terminate, señal por defecto de kill]</p></blockquote>
+
+<p>Ejemplo:</p>
+
+<blockquote><p>$ nano no_muero.sh</p></blockquote>
+
+<h1>!/bin/bash</h1>
+
+<p>trap &#8220;echo &#8217; Aunque pulses Ctrl+C!&#8217;&#8221; INT</p>
+
+<p>while true</p>
+
+<p>do</p>
+
+<p>sleep 60;</p>
+
+<p>echo &#8220;No puedes matarme&#8221;</p>
+
+<p>done</p>
+
+<p>El script se repetirá hasta pararlo con Ctrl+z. A continuación mirar el pid</p>
+
+<blockquote><p>$ jobs</p>
+
+<p>$ kill -9 %pid (Para matarlo definitivamente)</p></blockquote>
 </div>
   
   
@@ -122,7 +145,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/vobcopy/">Vobcopy</a></h1>
+      <h1 class="entry-title"><a href="/blog/traceroute/">Traceroute</a></h1>
     
     
       <p class="meta">
@@ -138,16 +161,16 @@
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Ripear dvds.</p>
+  <div class="entry-content"><p>Permite seguir la pista de un paquete desde un host a otro.</p>
 
-<blockquote><p>$ vobcopy -i /dev/dvdrom -o /home/usuario/musica</p></blockquote>
+<blockquote><h1>traceroute www.tuxapuntes.com</h1></blockquote>
 </div>
   
   
@@ -160,7 +183,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/vnstat/">Vnstat</a></h1>
+      <h1 class="entry-title"><a href="/blog/tr/">Tr</a></h1>
     
     
       <p class="meta">
@@ -176,24 +199,36 @@
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Herramienta que guarda un registro del tráfico de nuestras conexiones de red seleccionadas. Sobre este registro realiza estadisticas de uso. Tambien permite mostrar estos registros en distintos formatos: datos del día, de la semana, el total descargado y un top10 con los días de mayor uso de ancho de banda.</p>
+  <div class="entry-content"><p>Cambia caracteres de un archivo</p>
 
-<blockquote><p># vnstat -u -i eth0 (crear la base de datos)</p>
+<blockquote><p>$ tr JM ?$ &lt; archivo  (cambia las &#8220;J&#8221; y las &#8220;M&#8221; por &#8220;?&#8221; y &#8220;$&#8221; en todo el archivo)</p>
 
-<p># vnstat -d -i eth0  (consultar informes por días [-h -> horas, -m -> meses])</p>
+<p>$ cat archivo | tr ea ?% (Cambia las &#8220;e&#8221; y &#8220;a&#8221; por &#8220;?&#8221; y &#8220;%&#8221; respectivamente)</p>
 
-<p># vnstat -i eth0</p>
+<p>$ echo &#8216;la pipa plena&#8217; | tr &#8216;a-z&#8217; &#8216;A-Z&#8217;  (De minúsculas a mayúsculas)</p>
 
-<p># vnstat -l -i eth0  (monitorizar en tiempo real hasta pararlo con Ctrl+c Al finalizar mostrará un resumen del periodo monitorizado)</p>
+<p>$ echo &#8216;la pipa plena&#8217; | tr -d a (Borra las “a”)</p>
 
-<p># vnstat -tr  (por un periodo de 5 segundos)</p></blockquote>
+<p>$ tr -d [aeiou] archivo  (Borra las vocales de archivo)</p>
+
+<p>$ echo &#8216;la   pipa    plena&#8217; | tr -s &#8217; &#8217; (Borra espacios repetidos)</p>
+
+<p>$ echo &#8216;la pipa plena&#8217; | tr -c &#8216;pln&#8217; &#8216;?&#8217; (Substituye todos los caracteres  por “?” inclusive los espacios, menos los indicados [pln])</p>
+
+<p>$ ls |tr &#8216;t&#8217; &#8216;n&#8217; (Substituye la tabulación vertical [t] por salto de linea [n])</p>
+
+<p>$ tr -dc A-Za-z0-9_ &lt; /dev/urandom | head -c 8 | xargs   (contraseñas de 8 caracteres aleatorias)</p>
+
+<p>$ echo &#8220;El boxeador está OK.&#8221; | tr O m | tr K a | tr . l (varios tr)</p>
+
+<p>$ tr &#8221; &#8221; . &lt; archivo (substituir los espacios por puntos)</p></blockquote>
 </div>
   
   
@@ -206,7 +241,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/vncviewer/">Vncviewer</a></h1>
+      <h1 class="entry-title"><a href="/blog/tput/">Tput</a></h1>
     
     
       <p class="meta">
@@ -222,22 +257,28 @@
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Conexión remota</p>
+  <div class="entry-content"><p>formatación de la terminal [posicionar el cursor en la pantalla, borrar datos de la pantalla, saber la cantidad de líneas y columnas de la pantalla, posicionar correctamente un campo, borrar un campo..]</p>
 
-<blockquote><p>$ vncviewer host  (básica)</p>
+<blockquote><p>$ tput cols  (Cantidad de columnas de la terminal)</p>
 
-<p>$ vncviewer host -bgr233 (Para conexiones lentas. Reduce la calidad del color)</p>
+<p>$ tput lines (Cantidad de lineas)</p>
 
-<p>$ vncviewer host -geometry 800x600 (Para conexiones lentas. Reduce la ventana)</p>
+<p>$ tput civis (Hace invisible el cursor)</p>
 
-<p>$ vncviewer host -quality 0 (disminuir la calidad de la imagen y aumentar la compresión. El valor va de 0 a 9 siendo el 9 máxima calidad de imagen y menor compresión)</p></blockquote>
+<p>$ tput cnorm (Lo vuelve visible)</p>
+
+<p>$ tput sgr0 (vuelve la terminal a los parámetros por defecto)</p>
+
+<p>$ tput smcup (Borra el contenido de la terminal guardandolo)</p>
+
+<p>$ tput rmcup (Restablece el contenido de la terminal borrado con el comando anterior)</p></blockquote>
 </div>
   
   
@@ -250,7 +291,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/vncserver/">Vncserver</a></h1>
+      <h1 class="entry-title"><a href="/blog/tpp/">Tpp</a></h1>
     
     
       <p class="meta">
@@ -266,24 +307,124 @@
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Permitir acceso remoto</p>
+  <div class="entry-content"><p>Presentaciones en terminal.</p>
 
-<blockquote><p>$ vncserver :1   (arrancar el servicio con el número de sesión 1)</p>
+<p>&#8211;title Este_es_el_titulo   (titulo de la presentación)</p>
 
-<p>$ vncpasswd   (Entrar una contraseña)</p>
+<p>&#8211;author juanito            (Autor)</p>
 
-<p>$ vncserver -kill :1   (Matar la sesión 1)</p></blockquote>
+<p>&#8211;date today  %d %b %Y      (fecha actual en formato dia/mes/año)</p>
 
-<p>Conectarse desde el cliente:</p>
+<p>&#8211;bgcolor yellow           (color de fondo)</p>
 
-<blockquote><p>$ vncviewer IP_o_host:1</p></blockquote>
+<p>&#8211;fgcolor black            (color texto. Los colores válidos son: white, yellow, red, green, blue, cyan, magenta, black. Por defecto transparencia))</p>
+
+<p>&#8211;heading inicio           (nombre de la página, centrado)</p>
+
+<p>&#8211;horline                  (dibuja una linea en todo el ancho de pantalla)</p>
+
+<p>&#8211;withborder               (Marca un borde en los limites de la pantalla)</p>
+
+<p>&#8211;header texto             (Texto arriba del todo de la página)</p>
+
+<p>&#8211;footer texto             (Texto abajo del todo de la página)</p>
+
+<p>&#8211;color red            (Especifica un color de texto a partir de este punto)</p>
+
+<p>&#8211;center Se_pondra_en_el_centro   (El texto se centrará en la página)</p>
+
+<p>&#8211;right texto       (El texto se alineará a la derecha)</p>
+
+<p>&#8212;         (parar la presentación hasta que se clique en la barra de espacio)</p>
+
+<p>&#8211;newpage       (nueva página. Se accede pulsando cursor abajo o espacio)</p>
+
+<p>&#8211;##comentario          (comentario. No aparece en la presentación)</p>
+
+<p>&#8211;sleep 5           (Para la presentación 5 segundos. Por defecto son 3)</p>
+
+<p>&#8211;huge Fin_de_la_presentacion   (Figlet generará las letras del texto)</p>
+
+<p>&#8211;sethugefont big   (Los tipos de letra disponibles son los de figlet: banner, big, block, bubble, digital, ivrit, leas, mini, mnemonic, script, shadow, slant, small, smscript, smshadow, smslant, standard y term)</p>
+
+<p>&#8211;exec fbi -vt 01 imagen.png        (Ejecuta el comando)</p>
+
+<p>&#8211;beginoutput       (crea el inicio de un marco de texto)</p>
+
+<p>El_texto_que_proceda</p>
+
+<p>&#8211;endoutput         (Final del marco de texto)</p>
+
+<p>&#8211;beginshelloutput  (Inicio marco de texto. Con &#8220;$&#8221; saldrá letra a letra)</p>
+
+<blockquote><p>$ El_texto-que-proceda</p></blockquote>
+
+<p>&#8211;endshelloutput    (Final marco de texto)</p>
+
+<p>&#8211;bZoldon            (Inicio de escritura en negrita)</p>
+
+<p>El_texto_que_proceda</p>
+
+<p>&#8211;boldoff       (Final del uso de negrita)</p>
+
+<p>&#8211;revon             (Invierte los colores de letra y fondo)</p>
+
+<p>El_texto_que_proceda</p>
+
+<p>&#8211;revoff        (Termina la inversión)</p>
+
+<p>&#8211;ulon              (Inicio texto subrayado-??)</p>
+
+<p>El_texto_que_proceda</p>
+
+<p>&#8211;uloff             (Final texto subrayado)</p>
+
+<p>&#8211;beginslideleft    (El texto sale de izquierda a derecha)</p>
+
+<p>El_texto_que_proceda</p>
+
+<p>&#8211;endslideleft      (Final de salida de izquierda a derecha)</p>
+
+<p>&#8211;beginslideright   (El texto sale de derecha a izquierda)</p>
+
+<p>El_texto_que_proceda</p>
+
+<p>&#8211;endslideright     (Final de salida de derecha a izquierda)</p>
+
+<p>&#8211;beginslidetop     (Inicio de la salida del texto de arriba)</p>
+
+<p>El_texto_que_proceda</p>
+
+<p>&#8211;endslidetop       (Final de salida del texto de arriba)</p>
+
+<p>&#8211;beginslidebottom  (Inicio de salida del texto por abajo)</p>
+
+<p>El_texto_que_proceda</p>
+
+<p>&#8211;endslidebottom    (Final de salida por abajo)</p>
+
+<p>Teclas para desplazarse durante la presentación</p>
+
+<p>espacio (visualizar página siguiente)</p>
+
+<p>b (visualizar página anterior)</p>
+
+<p>q (salir de tpp)</p>
+
+<p>j (saltar a la página que se indique con el teclado numérico)</p>
+
+<p>s (saltar a la página de inicio)</p>
+
+<p>e (ir a la última página)</p>
+
+<p>c (inicio de línea de comandos)</p>
 </div>
   
   
@@ -296,7 +437,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/vncrec/">Vncrec</a></h1>
+      <h1 class="entry-title"><a href="/blog/touch/">Touch</a></h1>
     
     
       <p class="meta">
@@ -312,34 +453,32 @@
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Grabación de sesiones vnc. (https://wiki.ubuntu.com/ScreenCasts/VNCREC)</p>
+  <div class="entry-content"><p>Crea un fichero vacio</p>
 
-<blockquote><p>$ wget http://ronja.twibright.com/utils/vncrec-twibright.tgz</p>
+<blockquote><p>$ touch notas.txt</p>
 
-<p>$ tar xzvf vncrec-twibright.tgz</p>
+<h1>touch /forcefsck (crear un fichero vacío para forzar el chequeo del disco)</h1>
 
-<p>$ cd vncrec-twibright/</p>
+<p>$ touch -d &#8220;18-6-2011 17:09:24&#8221; archivo (modificar la fecha de creación)</p>
 
-<p>$ xmkmf</p>
+<p>$ touch -m archivo (Lo mismo a la fecha actual)</p>
 
-<p>$ make World</p>
+<p>$ touch file{1..9} (crear los archivo del file1 al file9</p>
 
-<p># cp -R vncrec-0.2 /usr/local/</p>
+<p>$ touch file{1..9}{a..z} (Crear los archivos del filea1 al filez9)</p>
 
-<p># ln -s /usr/local/vncrec-0.2/vncrec/vncrec-twibright/vncrec/vncrec /usr/bin/vncrec</p>
+<p>$ touch a b c d (Crear varios archivos)</p>
 
-<p>$ vncrec -record archivo IP_o_host:1  (iniciar conexión y grabación)</p>
+<p>$ touch -c archivo (Si “archivo” existe no lo creará)</p>
 
-<p>$ vncrec -play archivo   (reproducir la grabación)</p>
-
-<p>$ vncrec -movie archivo | ffmpeg2theora &#8211;no-audio -o archivo.ogv – (convertir la grabación a formato ogv)</p></blockquote>
+<p>$ touch -a archivo (modifica el último acceso al archivo. Comprobar con $ stat archivo)</p></blockquote>
 </div>
   
   
@@ -352,7 +491,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/vmstat/">Vmstat</a></h1>
+      <h1 class="entry-title"><a href="/blog/totem/">Totem</a></h1>
     
     
       <p class="meta">
@@ -368,16 +507,16 @@
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Herramienta de monitorización del rendimiento. Proporciona información acerca de procesos, actividad de la CPU, memoria, paginación, bloques de entrada salida e interrupciones.</p>
+  <div class="entry-content"><p>Reproductor de video</p>
 
-<blockquote><p># vmstat 2  (actualización cada dos segundo)</p></blockquote>
+<blockquote><p>$ totem-video-thumbnailer -pg 30 video.mpeg salida (Creación de una imagen formada por thumbnailes de un video)</p></blockquote>
 </div>
   
   
@@ -390,7 +529,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/vlock/">Vlock</a></h1>
+      <h1 class="entry-title"><a href="/blog/torsocks/">Torsocks</a></h1>
     
     
       <p class="meta">
@@ -406,18 +545,20 @@
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Aplicación para bloquear sesiones de consola.</p>
+  <div class="entry-content"><p>Permite lanzar aplicaciones a través de la red tor para enmascarar la ip. Puede usarse indistintamente los comandos torsocks o usewithtor. Ver proxychains. Precisa tor funcionando.</p>
 
-<blockquote><p>$ vlock -c    (La bloquea)</p></blockquote>
+<blockquote><h1>torsocks ssh usuario@host</h1>
 
-<p>Para desbloquearla, pulsar “enter” y la contraseña del usuario</p>
+<h1>torsocks w3m ifconfig.me</h1>
+
+<h1>usewithtor pidgin</h1></blockquote>
 </div>
   
   
@@ -430,7 +571,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/vlc/">Vlc</a></h1>
+      <h1 class="entry-title"><a href="/blog/torify/">Torify</a></h1>
     
     
       <p class="meta">
@@ -446,20 +587,16 @@
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Reproductor de video y audio</p>
+  <div class="entry-content"><p>Verificar si la navegación está torificada.</p>
 
-<blockquote><p>$ vlc -l  (listar opciones. La opción es “i” mayúscula)</p>
-
-<p>$ vlc -l | grep -i interface  (ver solo las interfaces)</p>
-
-<p>$ vlc -I ncurses (arrancar en modo ncurses)</p></blockquote>
+<blockquote><p>$ torify elinks checkip.dyndns.org</p></blockquote>
 </div>
   
   
@@ -472,7 +609,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/visitors/">Visitors</a></h1>
+      <h1 class="entry-title"><a href="/blog/tor-resolve/">Tor-resolve</a></h1>
     
     
       <p class="meta">
@@ -488,16 +625,16 @@
   
 
 
-<time datetime="2013-10-27T13:57:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:46:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra estadisticas del sitio web local.</p>
+  <div class="entry-content"><p>Resuelve direcciones IP o nombres de host via tor.</p>
 
-<blockquote><p># visitors -A /var/log/apache2/access.log -o html > report (Activar todas las opciones [-A] que guarde la salida en formato html [-o] y que base el informe en el archivo /var/log/apache2/access.log)</p></blockquote>
+<blockquote><p>$ tor-resolve lapipaplena.net</p></blockquote>
 </div>
   
   
@@ -528,43 +665,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/grub2/">grub2</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/printf/">printf</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdftotext/">pdftotext</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/avconv/">avconv</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ipmitool/">ipmitool</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tmux/">tmux</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/rkhunter/">rkhunter</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssconvert/">ssconvert</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/while/">while</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

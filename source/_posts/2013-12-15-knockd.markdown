@@ -1,0 +1,125 @@
+---
+layout: post
+title: "knockd"
+date: 2013-12-15 15:43
+comments: true
+categories: 
+---
+El port knocking o golpeo de puertos es un mecanismo mediante la cual el cortafuegos, que mantiene cerrado un determinado puerto, detecta una secuencia preestablecida que procede de una conexión externa y abre dicho puerto para que el servicio asignado sea accesible. Este mecanismo permite añadir una capa adicional de seguridad [por oscuridad], de manera que para cualquier conexión externa no autorizada los puertos donde se brindan los servicios se muestran como cerrados, eliminando así la posibilidad de intentar la conexión y no ofreciendo información sobre el servicio configurado. Por su parte, el usuario autorizado necesita disponer de un cliente de port-knocking que envíe una secuencia de paquetes dirigidos a dicho puerto, con el fin de que el cortafuegos detecte la secuencia correcta y abra el puerto dejando accesible el servicio. Una vez desactivada esta capa de seguridad, el servicio está accesible para realizar ls conexión [por ejemplo SSH]. La aplicación precisa estar instalada en el servidor y en el cliente.
+
+Habilitar el servicio y especificar la red:
+
+># nano /etc/default/knockd
+
+START_KNOCKD=1
+
+KNOCKD_OPTS="-i eth0"
+
+Configurar las opciones de loging y las secuencias que queremos usar:
+
+># nano /etc/knockd.conf
+
+[options]
+
+UseSyslog
+
+[openSSH]
+
+sequence    = 7000,8000,9000
+
+seq_timeout = 5
+
+command     = /sbin/iptables -A INPUT -s %IP% -p tcp --dport 22 -j ACCEPT
+
+tcpflags    = syn
+
+[closeSSH]
+
+sequence    = 9000,8000,7000
+
+seq_timeout = 5
+
+command     = /sbin/iptables -D INPUT -s %IP% -p tcp --dport 22 -j ACCEPT
+
+tcpflags    = syn
+
+* UseSyslog (que envía los logs a /var/log/syslog. Si se desea un fichero de log propio, se utiliza LogFile=/var/log/knockd.log)
+
+* sequence (especifica la secuencia de puertos y tipo de paquete a enviar para hacer el portknocking (por defecto TCP, pero se puede especificar una secuencia más compleja como sequence=2140:udp,4500:tcp,3025:udp)
+
+* seq_timeout (especifica el periodo máximo de tiempo en segundos en el que la secuencia completa es recibida como secuencia válida)
+
+* tcpflags (especifica los flags que deben ser tenidos en cuenta (fin|syn|rst|psh|ack|urg).
+
+* command (especifica el comando a ejecutar cuando se reconoce la secuencia definida)
+
+* %IP% (toma del valor de la ip cliente desde la que se envía la secuencia de puertos)
+
+Con esta configuración, el servidor knockd escucha permanentemente todos los puertos, esperando una secuencia válida. Si recibe paquetes TCP dirigidos a los puertos 7000, 8000 y 9000, en este mismo orden y dentro de un intervalo de 5 segundos, reconoce la directiva [openSSH] y ejecuta iptables para abrir el puerto 22 [donde escucha sshd] a la IP que solicita la conexión. Ahora el cliente SSH puede realizar la conexión, y podemos cerrar el puerto de nuevo con la directiva [closeSSH] manteniendo establecida dicha conexión.
+
+># service knockd start (Iniciar el servicio)
+
+Probar el servicio en local:
+
+Parar knockd si está activo y levantarlo manualmente:
+
+># service knockd stop
+
+># knockd -v -i lo
+
+En otra terminal:
+
+>$ knock -v localhost 7000 8000 9000
+
+Cuando queramos terminar la conexión:
+
+>$ knock -v localhost 9000 8000 7000
+
+En la terminal del servidor veremos algo como:
+
+># knockd -v -i lo
+
+listening on lo...
+
+127.0.0.1: openSSH: Stage 1
+
+127.0.0.1: openSSH: Stage 2
+
+127.0.0.1: openSSH: Stage 3
+
+127.0.0.1: openSSH: OPEN SESAME
+
+openSSH: running command: /sbin/iptables -A INPUT -s 127.0.0.1 -p tcp --dport 22 -j ACCEPT
+
+127.0.0.1: closeSSH: Stage 1
+
+127.0.0.1: closeSSH: Stage 2
+
+127.0.0.1: closeSSH: Stage 3
+
+127.0.0.1: closeSSH: OPEN SESAME
+
+closeSSH: running command: /sbin/iptables -D INPUT -s 127.0.0.1 -p tcp --dport 22 -j ACCEPT
+
+Si en la configuración de iptables tenemos acceso a conexiones ya establecidas:
+
+iptables -A INPUT -p tcp -m tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
+
+Podemos configurar la aplicación para que se cierre de forma automática:
+
+># nano /etc/knockd.conf
+
+[opencloseSSH]
+
+sequence = 7000,8000,9000
+
+seq_timeout = 5
+
+tcpflags = syn
+
+start_command = /sbin/iptables -I INPUT -s %IP% -p tcp --dport 22 -j ACCEPT
+
+cmd_timeout = 25
+
+stop_command = /sbin/iptables -D INPUT -s %IP% -p tcp  --dport 22 -j ACCEPT
+

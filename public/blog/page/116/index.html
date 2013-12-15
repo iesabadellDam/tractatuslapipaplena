@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="1.- Eliminar contraseña de root. Iniciar sesión con un live-cd y montar la partición del discon duro [suponemos /dev/sda2] # mount /dev/sda2 /media/ &hellip;">
+  <meta name="description" content="Colocar según proceda al inicio del documento la linea: ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/contrasenas/">Contraseñas</a></h1>
+      <h1 class="entry-title"><a href="/blog/codificacion/">Codificación</a></h1>
     
     
       <p class="meta">
@@ -97,88 +97,18 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:40:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>1.-</p>
+  <div class="entry-content"><p>Colocar según proceda al inicio del documento la linea:</p>
 
-<p>Eliminar contraseña de root. Iniciar sesión con un live-cd y montar la partición del discon duro [suponemos /dev/sda2]</p>
+<p><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /></p>
 
-<pre><code># mount /dev/sda2 /media/sda2
-
-# gedit /dev/sda2/etc/passwd 
-</code></pre>
-
-<p>Y en la linea: root:x:0:0:root/root:/bin/bash</p>
-
-<p>Borrar la “x”, dejandola asi: root::0:0:root/root:/bin/bash y repetir la operación con el usuario normal.</p>
-
-<p>Reiniciar</p>
-
-<p>Activar  root en gdm [parecido con otros selectores de sesión: lightdm, xdm&#8230;]</p>
-
-<pre><code># gedit /etc/gdm/gdm.conf 
-</code></pre>
-
-<p>Cambiar la linea:  AllowRoot=false   por AllowRoot=true</p>
-
-<pre><code># passwd root 
-</code></pre>
-
-<p>Entrar la contraseña</p>
-
-<p>2.-</p>
-
-<p>Cambiar el tiempo en que el sistema &#8220;olvidará&#8221; la contraseña después de un sudo:</p>
-
-<pre><code># nano /etc/sudoers 
-</code></pre>
-
-<p>Y añadir la línea: Defaults timestamp_timeout = 5</p>
-
-<p>Donde el 5 es el tiempo en minutos que la contraseña será guardada.</p>
-
-<p>3.-</p>
-
-<p>Otra forma para cuando se pierde la contraseña</p>
-
-<p>Entrar con un cd live y visualizar /etc/shadow del sistema instalado y buscar el  usuario. La estructura es parecida a:</p>
-
-<p>pepe:$1$YpVPtTE9$jNPGevJ8IjHyAqh0h04V4.:13277:0:99999:7:::</p>
-
-<p>Borrar lo que sigue al nombre del usuario para que quede:</p>
-
-<p>pepe::13277:0:99999:7:::</p>
-
-<p>de este modo el usuario no tendrá contraseña y cuando se pida, dar al intro.  Tras reiniciar, cuando aparezca el menu de grub, situarse con el cursor en la línea del kernel que se quiera usar. Pulsar &#8216;e&#8217; para editar la entrada y editar la línea kernel [pulsando &#8216;e&#8217; de nuevo]. Añadir al final de la línea lo siguiente:</p>
-
-<p>init=/bin/bash</p>
-
-<p>Esto hace que el sistema arranque una shell root sin pedir password. Es posible que el teclado esté en inglés. Pulsar &#8216;b&#8217; para comenzar el arranque del kernel. La partición raíz suele montarse como sólo lectura, asi que se deberá montar como lectura/escritura:</p>
-
-<blockquote><p># mount -o remount,rw /dev/hda2</p></blockquote>
-
-<p>Por último, cambiar la clave de root ejecutando:</p>
-
-<blockquote><p># passwd root</p></blockquote>
-
-<p>4.-</p>
-
-<p>Establecer norma en el sistema de que la contraseña tenga como nímino 8 caracteres:</p>
-
-<blockquote><p># nano /etc/pam.d/common-password</p></blockquote>
-
-<p>Y dejar la linea:</p>
-
-<p>password        [success=2 default=ignore]      pam_unix.so obscure sha512 min=8</p>
-
-<p>5.-</p>
-
-<p>Página donde comprobar la fortaleza de una contraseña: <a href="https://howsecureismypassword.net/">https://howsecureismypassword.net/</a></p>
+<p><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /></p>
 </div>
   
   
@@ -191,7 +121,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/conspy/">Conspy</a></h1>
+      <h1 class="entry-title"><a href="/blog/cnetworkmanager/">Cnetworkmanager</a></h1>
     
     
       <p class="meta">
@@ -207,18 +137,28 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:40:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Acceso a las tty1-6 en local o remoto.</p>
+  <div class="entry-content"><p>Información sobre conexiones de red</p>
 
-<blockquote><p># conspy 1 (entra en la tty1)</p></blockquote>
+<blockquote><p>$ cnetworkmanager -d (información sobre las tarjetas de red)</p>
 
-<p>Para salir pulsar tres veces seguidas la tecla “Esc”</p>
+<p>$ cnetworkmanager -c (conexión activa)</p>
+
+<p>$ cnetworkmanager -s (lista todas la conexiónes guardadas)</p>
+
+<p>$ cnetworkmanager -u (Lista configuración de usuario de la conexión)</p>
+
+<p>$ cnetworkmanager &#8211;state  (estado de la conexión)</p>
+
+<p>$ cnetworkmanager -a (Lista puntos de acceso)</p>
+
+<p>$ cnetworkmanager -w true/false  (activar/desactivar la conexión)</p></blockquote>
 </div>
   
   
@@ -231,7 +171,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/consolochars/">Consolochars</a></h1>
+      <h1 class="entry-title"><a href="/blog/cmus/">Cmus</a></h1>
     
     
       <p class="meta">
@@ -247,18 +187,60 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:40:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Modificar las fuentes en las consolas reales [tty1-6]</p>
+  <div class="entry-content"><p>Reproductor de música.</p>
 
-<blockquote><p># consolechars -f fuentes</p></blockquote>
+<blockquote><p>$ cmus &#8211;plugins (Listado de plugins disponibles)</p>
 
-<p>Nota.- Listado en /usr/share/consolefonts , /usr/lib/kbd/consolefonts, /usr/share/kbd/consolefonts según distro</p>
+<p>$ cmus</p></blockquote>
+
+<p>Algunas teclas de control:</p>
+
+<p>1 (Muestra la biblioteca)</p>
+
+<p>2 (Muestra la biblioteca ordenada según los criterios del usuario)</p>
+
+<p>4 (Muestra la cola de pistas que se reproducirá)</p>
+
+<p>5 (Navegar por los directorios)</p>
+
+<p>7 (Muestra todas las teclas de control)</p>
+
+<ul>
+<li><p>(Sube el volumen un 10%)</p></li>
+<li><p>(Baja el volumen un 10%)</p></li>
+</ul>
+
+
+<p>a (Añadir canción al listado)</p>
+
+<p>b (siguiente canción)</p>
+
+<p>c (Pausar la reproducción</p>
+
+<p>i (Estando con la opción 5, muestra los directorios ocultos)</p>
+
+<p>r (Repetir canción)</p>
+
+<p>q (salir)</p>
+
+<p>Listado de temas de colores disponibles en /usr/share/cmus. Para modificar el el esquema de colores:</p>
+
+<p>: colorscheme cyan</p>
+
+<p>Para que el cambio sea permanente:</p>
+
+<blockquote><p>$ nano .cmus/rc</p></blockquote>
+
+<p>Y colocar la linea:</p>
+
+<p>colorscheme cyan</p>
 </div>
   
   
@@ -271,7 +253,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/compton/">Compton</a></h1>
+      <h1 class="entry-title"><a href="/blog/cmp/">Cmp</a></h1>
     
     
       <p class="meta">
@@ -287,28 +269,16 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:40:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Agregar transparencias, sombras, marcos&#8230; a las ventanas . Todos los parámetros pueden establecerse creando el archivo .compton.conf</p>
+  <div class="entry-content"><p>Compara dos ficheros octeto a octeto.</p>
 
-<blockquote><p>$ compton &amp; (Empleará los parámetros por defecto)</p>
-
-<p>$ compton -c (Para aplicar sombras)</p>
-
-<p>$ compton -cC (Que las sombras no afecten a los paneles y docks)</p>
-
-<p>$ compton -cC -i 0.6 -e 0.6 (especificar la transparencia de las ventanas inactivas y los marcos)</p>
-
-<p>$ compton -cC -i 0.6 -e 0.6 -fF (habilitar efectos suaves de transición en ventanas y menús)</p>
-
-<p>$ compton -cC -i 0.6 -e 0.6 -fF -I 0.065 -O 0.065 -D 6 (Especificar tiempo de opacidad al desvanecerse las ventanas)</p>
-
-<p>$ compton -cC -i 0.6 -e 0.6 -fF -I 0.065 -O 0.065 -D 6 -m 0.8 (Especificar la opacidad de los menús)</p></blockquote>
+<blockquote><p>$ cmp fichero1 fichero2</p></blockquote>
 </div>
   
   
@@ -321,7 +291,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/composite/">Composite</a></h1>
+      <h1 class="entry-title"><a href="/blog/cmospwd/">Cmospwd</a></h1>
     
     
       <p class="meta">
@@ -337,34 +307,24 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:40:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Mezclar dos imágenes por consola</p>
+  <div class="entry-content"><p>Averiguar la contraseña de la BIOS. Arrancar con un cd-live [System rescue] y modificar la entrada del kernel del menú de opciones de grub para iniciar una shell [rw init=/bin/bash]</p>
 
-<blockquote><p>$ composite -geometry 96x96+250+70 delante.jpg fondo.jpg imagen.jpg</p>
+<blockquote><h1>cmospwd /d   (pasar la información por pantalla)</h1>
 
-<p>$ composite -dissolve 50 -gravity Center una.png  dos.png salida.png</p>
+<h1>cmospwd /k   (resetear)</h1>
 
-<p>$ composite -tile una.png dos.png salida.png (Cubre la dos.png con imagenes una.png</p>
+<h1>cmospwd /d /w bios.back  (copia de seguridad)</h1>
 
-<p>$ composite -dissolve 60% una.jpg dos.jpg output (transparencia del 60%)</p>
+<h1>cmospwd /l bios.back (Ver el contenido de la copia de seguridad)</h1>
 
-<p>$ composite -blend 0x0 -gravity south uno.png dos.png -alpha set salida.png (funde dos imagenes en una transparencia completa)</p>
-
-<p>$ composite -blend 0x80 imagen -size 70x46 xc:&#8217;#808080&#8217; -alpha on salida (controlar la transprencia de una imagen)</p>
-
-<p>$ composite -watermark 20% -gravity SouthWest marca.png imagen salida.png (Poner una marca de agua 20% difuminada abajo a la izquierda)</p></blockquote>
-
-<p>opciones:</p>
-
-<p>dissolve.- Indica el grado de fusión entre una y otra imagen.</p>
-
-<p>gravity .- Indica dónde se mezclan las imágenes. Valores: SorthWest, North, NorthEast, West, Center, East, SouthWest, South y SouthEast</p>
+<h1>cmospwd /r bios.back  (restablecer la copia de seguridad)</h1></blockquote>
 </div>
   
   
@@ -377,7 +337,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/compiz/">Compiz</a></h1>
+      <h1 class="entry-title"><a href="/blog/cmatrix/">Cmatrix</a></h1>
     
     
       <p class="meta">
@@ -393,18 +353,20 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:40:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>efectos escritorio.</p>
+  <div class="entry-content"><p>Salvapantallas estilo matrix</p>
 
-<blockquote><p>$ compiz &#8211;replace (activar los efectos)</p>
+<blockquote><p>$ cmatrix -u 9 -B -C blue  (A velocidad lenta [0-9], usando todos los caracteres y especificando color [green, red, blue, white, yellow, cyan, magenta y black]</p></blockquote>
 
-<p>$ metacity &#8211;replace (Desactivar los efectos)</p></blockquote>
+<p>Nota.- Si durante la ejecución se pulsan las teclas siguientes, se cambia al color indicado:</p>
+
+<p>! (rojo) @ (verde)# (amarillo) $ (azul) % (magenta) ^ (cyam) &amp; (blanco) ) (negro)</p>
 </div>
   
   
@@ -417,7 +379,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/compilar/">Compilar</a></h1>
+      <h1 class="entry-title"><a href="/blog/clive/">Clive</a></h1>
     
     
       <p class="meta">
@@ -433,47 +395,16 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:40:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Instalar aplicaciones a partir del codigo fuente . En general, los pasos a seguir son los siguientes:</p>
+  <div class="entry-content"><p>Descarga de videos de youtube.</p>
 
-<p>Descargar el código fuente.</p>
-
-<p>Descomprimir.</p>
-
-<p>cd al directorio creado.</p>
-
-<blockquote><p>$ ./configure (comprueba las características del sistema, las dependencias y crea el makefile).</p>
-
-<p>$ ./configure &#8211;prefix=/home/USUARIO/apps (instalar la aplicacion en $HOME)</p>
-
-<p>$ make (se encarga de la compilación).</p>
-
-<p># make install (instala la aplicación en el sistema)</p></blockquote>
-
-<p>o mejor aún:</p>
-
-<blockquote><p># checkinstall (crea un paquete .deb de forma que no haya que compilarlo la próxima vez).</p></blockquote>
-
-<p>Con checkinstall constarán en el sistema los programas instalados, facilitando su desinstalación.</p>
-
-<p>Para el configure existen varios opciones. Algunas son:</p>
-
-<pre><code>--prefix=/usr  (donde inslalar el programa) 
-
---syscinfdir=/etc  (donde colocar los archivos de configuración) 
-
---locatestatedir=/var/lib  (donde colocar las librerías) 
-</code></pre>
-
-<p>Uso:</p>
-
-<blockquote><p># ./configure &#8211;syscinfdir=/etc &#8211;prefix=/usr &#8211;locatestatedir=/var/lib</p></blockquote>
+<blockquote><p>$ clive http://video -O titulo (Dándole un titulo al vídeo)</p></blockquote>
 </div>
   
   
@@ -486,7 +417,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/compgen/">Compgen</a></h1>
+      <h1 class="entry-title"><a href="/blog/clex/">Clex</a></h1>
     
     
       <p class="meta">
@@ -502,26 +433,36 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:40:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Comando para listar comandos disponibles.</p>
+  <div class="entry-content"><p>Administrador de archivos.</p>
 
-<blockquote><p>$ compgen -c (Lista comando)</p>
+<p>Algunas teclas de control:</p>
 
-<p>$ compgen -a (Lista los alias)</p>
+<p>Ctrl-c (salir de cada una de las opciones siguientes)</p>
 
-<p>$ compgen -b (lista los comandos internos de bash)</p>
+<p>alt-m (menú principal)</p>
 
-<p>$ compgen -k (lista palabras reservadas)</p>
+<p>alt-w (Cambiar de directorio)</p>
 
-<p>$ compgen -A function (lista las funciones)</p>
+<p>alt-s (Cambiar el tipo de visualización)</p>
 
-<p>$ compgen -ac | grep ifconfig (Para conocer si un comando existe)</p></blockquote>
+<p>alt-/ (entrar en el directorio raiz)</p>
+
+<p>alt-~ o alt-` (Entrar en el directorio $HOME)</p>
+
+<p>ctrl-r (Actualizar panel)</p>
+
+<p>F4 (Editar archivo [vim])</p>
+
+<p>F5 (Copiar)</p>
+
+<p>F8 (Borrar)</p>
 </div>
   
   
@@ -534,7 +475,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/comparepdf/">Comparepdf</a></h1>
+      <h1 class="entry-title"><a href="/blog/clear/">Clear</a></h1>
     
     
       <p class="meta">
@@ -550,16 +491,14 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:40:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Comparar dos archivos pdf.</p>
-
-<blockquote><p>$ comparepdf archivo1.pdf archivo2.pdf</p></blockquote>
+  <div class="entry-content"><p>Limpiar la terminal.</p>
 </div>
   
   
@@ -572,7 +511,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/comodines/">Comodines</a></h1>
+      <h1 class="entry-title"><a href="/blog/clamav/">Clamav</a></h1>
     
     
       <p class="meta">
@@ -588,14 +527,50 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:40:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Ver “signos y comodines”</p>
+  <div class="entry-content"><p>Antivirus</p>
+
+<blockquote><h1>freshclam -v (actualizar la lista de virus)</h1>
+
+<h1>freshclam -d -c 24    (arranca el demonio que actualizará clamav 24 veces diarias- Maximo 50 veces diarias)</h1>
+
+<h1>clamscan -ri    (Sin especificar directorio, escanear el del usuario)</h1>
+
+<h1>clamscan -ri &#8211;remove /home/usuario  (escanea el directorio usuario y borra directamente los archivos infectados)</h1>
+
+<h1>clamscan -r -l test_clamav.txt  (manda el resultado a un archivo)</h1>
+
+<h1>sigtool &#8211;list-sigs > list (listado de virus y troyanos que detecta)</h1>
+
+<h1>clamscan -v -r &#8211;bell &#8211;move=/home/usuario/cuarentena &#8211;log=/var/log/clamav/clamav.log /media/win</h1></blockquote>
+
+<p>Opciones:</p>
+
+<p>-v (muestra la información)</p>
+
+<p>-r  (revisa directorios y subdirectorios)</p>
+
+<p>&#8211;bell  (aviso sonoro al detectar un virus)</p>
+
+<p>&#8211;move  (confina los virus en el directorio especificado)</p>
+
+<p>&#8211;log  (guarda los logs en el archivo especificado)</p>
+
+<p>-i  (solo mostrará los archivos infectados)</p>
+
+<p>-d  (arrancar en modo demonio)</p>
+
+<p>Archivo de logs: /var/log/clamav/clamav.log</p>
+
+<p>Configuración: /etc/clamav/clamd.conf</p>
+
+<p>Reconfigurar paquete: # dpkg-reconfigure clamav-base</p>
 </div>
   
   
@@ -626,43 +601,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/grub2/">grub2</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/printf/">printf</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdftotext/">pdftotext</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/avconv/">avconv</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ipmitool/">ipmitool</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tmux/">tmux</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/rkhunter/">rkhunter</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssconvert/">ssconvert</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/while/">while</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

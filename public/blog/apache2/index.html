@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Ajustes de apache2 # apache2ctl -M (Visualizar todos los modulos de apache) # apache2ctl -S (visualizar el estatus de apache) # apache2ctl -t ( &hellip;">
+  <meta name="description" content="Ajustes de apache2 apache2ctl -M (Visualizar todos los modulos de apache) apache2ctl -S (visualizar el estatus de apache) apache2ctl -t (Comprobar &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -94,7 +94,7 @@
   
 
 
-<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:40:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -103,21 +103,21 @@
 
 <div class="entry-content"><p>Ajustes de apache2</p>
 
-<blockquote><p># apache2ctl -M    (Visualizar todos los modulos de apache)</p>
+<blockquote><h1>apache2ctl -M    (Visualizar todos los modulos de apache)</h1>
 
-<p># apache2ctl -S (visualizar el estatus de apache)</p>
+<h1>apache2ctl -S (visualizar el estatus de apache)</h1>
 
-<p># apache2ctl -t  (Comprobar que la configuracion de apache va bien)</p>
+<h1>apache2ctl -t  (Comprobar que la configuracion de apache va bien)</h1>
 
-<p># apache2ctl -k graceful  (Reiniciar sin cortar las conexiones de los usuarios)</p>
+<h1>apache2ctl -k graceful  (Reiniciar sin cortar las conexiones de los usuarios)</h1>
 
-<p># apache2ctl -k start  (arrancar el servidor. Equivale a /etc/init.d/apache2 start. Tambien acepta las opciones: stop, restart)</p>
+<h1>apache2ctl -k start  (arrancar el servidor. Equivale a /etc/init.d/apache2 start. Tambien acepta las opciones: stop, restart)</h1>
 
-<p># apache2ctl configtest (Otra forma de comprobar la configuración de apache)</p>
+<h1>apache2ctl configtest (Otra forma de comprobar la configuración de apache)</h1>
 
-<p># tail -f /var/log/apache2/access.log  (muestra en tiempo real, accesos, ips&#8230;)</p>
+<h1>tail -f /var/log/apache2/access.log  (muestra en tiempo real, accesos, ips&#8230;)</h1>
 
-<p># tail -f /var/log/apache2/error.log  (muestra los errores de acceso)</p></blockquote>
+<h1>tail -f /var/log/apache2/error.log  (muestra los errores de acceso)</h1></blockquote>
 
 <p>Ajustes</p>
 
@@ -125,20 +125,19 @@
 
 <p>Ajustes mínimos:</p>
 
-<blockquote><p># nano /etc/apache2/apache2.conf</p></blockquote>
+<blockquote><h1>nano /etc/apache2/apache2.conf</h1></blockquote>
 
 <p>Epecificar la carpeta web y el nombre del servidor web:</p>
 
-<pre><code>DocumentRoot /var/www 
+<p>DocumentRoot /var/www</p>
 
-ServerName localhost 
-</code></pre>
+<p>ServerName localhost</p>
 
 <p>2.-</p>
 
 <p>Permisos de la carpeta web:</p>
 
-<blockquote><p># chmod -R 755 /var/www &amp;&amp; find /var/www -type d -exec chmod 711 {} \;</p></blockquote>
+<blockquote><h1>chmod -R 755 /var/www &amp;&amp; find /var/www -type d -exec chmod 711 {} ;</h1></blockquote>
 
 <p>3.-</p>
 
@@ -156,11 +155,11 @@ ServerName localhost
 
 <p>Puede que tengamos que instalar:</p>
 
-<blockquote><p># apt-get install apache2-prefork-dev</p></blockquote>
+<blockquote><h1>apt-get install apache2-prefork-dev</h1></blockquote>
 
 <p>Compilar el módulo:</p>
 
-<blockquote><p># apxs2 -i -a -c mod_evasive20.c</p></blockquote>
+<blockquote><h1>apxs2 -i -a -c mod_evasive20.c</h1></blockquote>
 
 <p>Para confirmar que se ha habilitado lo podemos buscar en:</p>
 
@@ -170,11 +169,11 @@ ServerName localhost
 
 <p>Reiniciar apache</p>
 
-<blockquote><p># /etc/init.d/apache2 restart</p></blockquote>
+<blockquote><h1>/etc/init.d/apache2 restart</h1></blockquote>
 
 <p>Para testear su efectividad:</p>
 
-<blockquote><p># perl test.pl</p></blockquote>
+<blockquote><h1>perl test.pl</h1></blockquote>
 
 <p>Que viene en el mismo paquete descargado. El resultado correcto:</p>
 
@@ -194,22 +193,21 @@ ServerName localhost
 
 <p>Los parámetros por defecto son suficientes en condiciones &#8220;normales&#8221;. Si se precisa afinar más su configuración, pueden añadirse las siguientes lineas al archivo /etc/apache2/httpd.conf:</p>
 
-<pre><code>&lt;IfModule mod_evasive20.c&gt; 
+<p><IfModule mod_evasive20.c></p>
 
-DOSHashTableSize    3097 
+<p>DOSHashTableSize    3097</p>
 
-DOSPageCount        1 
+<p>DOSPageCount        1</p>
 
-DOSSiteCount        50 
+<p>DOSSiteCount        50</p>
 
-DOSPageInterval     1 
+<p>DOSPageInterval     1</p>
 
-DOSSiteInterval     1 
+<p>DOSSiteInterval     1</p>
 
-DOSBlockingPeriod   600 
+<p>DOSBlockingPeriod   600</p>
 
-&lt;/IfModule&gt; 
-</code></pre>
+<p></IfModule></p>
 
 <p>Que significa que si una página o cualquier objeto de ella, recibe 50 peticiones por segundo cada segundo la IP será bloqueada durante 600 segundos.</p>
 
@@ -217,14 +215,13 @@ DOSBlockingPeriod   600
 
 <p>Para que apache no informe del sistema operativo y versión de apache</p>
 
-<blockquote><p># nano /etc/apache2/apache2.conf</p></blockquote>
+<blockquote><h1>nano /etc/apache2/apache2.conf</h1></blockquote>
 
 <p>Añadir las lineas:</p>
 
-<pre><code>ServerTokens ProductOnly 
+<p>ServerTokens ProductOnly</p>
 
-ServerSignature Off
-</code></pre>
+<p>ServerSignature Off</p>
 
 <p>5.-</p>
 
@@ -232,45 +229,43 @@ ServerSignature Off
 
 <p>Comando top [ver] especifico para servidores apache y lanzado al estilo de tail [ver]</p>
 
-<blockquote><p># apachetop -f /var/log/apache2/access.log (Monitorear en tiempo real)</p>
+<blockquote><h1>apachetop -f /var/log/apache2/access.log (Monitorear en tiempo real)</h1>
 
-<p># nano /etc/apache2/apache2.conf</p></blockquote>
+<h1>nano /etc/apache2/apache2.conf</h1></blockquote>
 
 <p>Y colocar en su interior:</p>
 
-<pre><code>&lt;Files archivo_a_ocultar&gt; 
+<p><Files archivo_a_ocultar></p>
 
-order allow,deny 
+<p>order allow,deny</p>
 
-deny from all 
+<p>deny from all</p>
 
-&lt;/Files&gt;
-</code></pre>
+<p></Files></p>
 
 <p>6.-</p>
 
 <p>Ver total de peticiones a nuestro servidor apache por dirección IP:</p>
 
-<blockquote><p># cat /var/log/apache2/access.log | awk &#8216;{print($1)}&#8217; | sort | uniq -c | sort</p></blockquote>
+<blockquote><h1>cat /var/log/apache2/access.log | awk &#8216;{print($1)}&#8217; | sort | uniq -c | sort</h1></blockquote>
 
 <p>7.-</p>
 
 <p>Crear un directorio web privado:</p>
 
-<blockquote><p># nano /etc/apache2/apache2.conf</p></blockquote>
+<blockquote><h1>nano /etc/apache2/apache2.conf</h1></blockquote>
 
 <p>Agregar el siguiente contenido:</p>
 
-<pre><code>&lt;Directory /var/www/privado&gt;
+<p><Directory /var/www/privado></p>
 
-AllowOverride AuthConfig
+<p>AllowOverride AuthConfig</p>
 
-&lt;/Directory&gt;
-</code></pre>
+<p></Directory></p>
 
 <p>Reiniciar apache:</p>
 
-<blockquote><p># /etc/init.d/apache2 restart</p></blockquote>
+<blockquote><h1>/etc/init.d/apache2 restart</h1></blockquote>
 
 <p>Crear el archivo .htaccess en el interior del directorio privado:</p>
 
@@ -278,14 +273,13 @@ AllowOverride AuthConfig
 
 <p>Agregar el contenido:</p>
 
-<pre><code>AuthName "Acceso restringido"
+<p>AuthName &#8220;Acceso restringido&#8221;</p>
 
-AuthUserFile /var/www/.htpasswd
+<p>AuthUserFile /var/www/.htpasswd</p>
 
-AuthType Basic
+<p>AuthType Basic</p>
 
-require valid-user
-</code></pre>
+<p>require valid-user</p>
 
 <p>Crear el archivo para el usuario con privilegios:</p>
 
@@ -301,14 +295,13 @@ require valid-user
 
 <p>Para que las aplicaciones no aparezcan con caracteres extraños y simbolos raros:</p>
 
-<blockquote><p># nano /etc/apache2/conf.d/carhset</p></blockquote>
+<blockquote><h1>nano /etc/apache2/conf.d/carhset</h1></blockquote>
 
 <p>Y añadir las siguientes lineas:</p>
 
-<pre><code>AddDefaultCharset UTF-8
+<p>AddDefaultCharset UTF-8</p>
 
-AddDefaultCharset latin1
-</code></pre>
+<p>AddDefaultCharset latin1</p>
 </div>
 
 
@@ -331,7 +324,7 @@ AddDefaultCharset latin1
   
 
 
-<time datetime="2013-10-27T13:51:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:40:00+01:00" pubdate data-updated="true">15-12-2013</time>
       
 
 
@@ -372,43 +365,43 @@ AddDefaultCharset latin1
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/grub2/">grub2</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/printf/">printf</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdftotext/">pdftotext</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/avconv/">avconv</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ipmitool/">ipmitool</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tmux/">tmux</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/rkhunter/">rkhunter</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssconvert/">ssconvert</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/while/">while</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

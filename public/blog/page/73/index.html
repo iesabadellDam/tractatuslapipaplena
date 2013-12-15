@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="# gedit /etc/modprobe.d/alsa-base.conf Añadir: options snd_hda_intel model=laptop options snd-hda-intel position_fix=1 enable=yes Reiniciar
-">
+  <meta name="description" content="Analiza los archivos de logs del sistema. El sistema está pensado para que toda la configuración sea especificada en /etc/logwatch y estas directivas &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -82,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/microfono/">Microfono</a></h1>
+      <h1 class="entry-title"><a href="/blog/logwatch/">Logwatch</a></h1>
     
     
       <p class="meta">
@@ -98,20 +97,64 @@
   
 
 
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:43:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><blockquote><p># gedit /etc/modprobe.d/alsa-base.conf</p></blockquote>
+  <div class="entry-content"><p>Analiza los archivos de logs del sistema. El sistema está pensado para que toda la configuración sea especificada en /etc/logwatch y estas directivas sobreescriban a las que están en /usr/share/logwatch. Copiamos la configuación básica:</p>
 
-<p>Añadir:</p>
+<blockquote><h1>cp /usr/share/logwatch/default.conf/logwatch.conf /etc/logwatch/conf</h1></blockquote>
 
-<p>options snd_hda_intel model=laptop options snd-hda-intel position_fix=1 enable=yes</p>
+<p>Los servicios y qué ficheros de log es capaz de procesar logwatch en /usr/share/logwatch/default.conf/logfiles y la configuración de logwatch para cada servicio en /usr/share/logwatch/default.conf/services.</p>
 
-<p>Reiniciar</p>
+<p>Configuración básica sin envio por email:</p>
+
+<blockquote><h1>nano /etc/logwatch/conf/logwatch.conf</h1>
+
+<h1>indica el directorio donde tomara los logs</h1></blockquote>
+
+<p>LogDir = /var/log</p>
+
+<blockquote><h1>Salida {mail|stdout|file}</h1></blockquote>
+
+<p>Output = file</p>
+
+<blockquote><h1>formato de la salida {html|text}</h1></blockquote>
+
+<p>Format = text</p>
+
+<blockquote><h1>Indicar que busque información en los archivos /var/log/message.1 o /var/log/messages.1.gz y no solo en /var/log/messages</h1></blockquote>
+
+<p>Archives = Yes</p>
+
+<blockquote><h1>Dia a analizar {Yestedary|Today|all}</h1></blockquote>
+
+<p>Range = All</p>
+
+<blockquote><h1>Detalles de los logs (0-10)|(Low,Mid,High)</h1></blockquote>
+
+<p>Detail = 8</p>
+
+<blockquote><h1>Servicios monitorizados {service_name|all}</h1>
+
+<h1>Service = fail2ban (Especificando servicio o todos):</h1></blockquote>
+
+<p>Service = All</p>
+
+<p>Notas.- Es posible poner todos los servicios y descartar algunos con Service = &#8211;fail2ban. Si el archivo de logs no está en el fichero especificado editar el servicio concreto de /usr/share/logwatch/default.conf/services y modificarlo.</p>
+
+<blockquote><h1>mkdir /var/cache/logwatch (Crear el directorio, si no existe, donde se guardarán las carpetas con los informes)</h1></blockquote>
+
+<p>Lanzar logwatch cada hora:</p>
+
+<blockquote><h1>crontab -e</h1></blockquote>
+
+<p>Y colocar la linea:</p>
+
+<p>0 1  * * *   root       /usr/sbin/logwatch</p>
 </div>
   
   
@@ -124,7 +167,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/mi/">Mi</a></h1>
+      <h1 class="entry-title"><a href="/blog/logsave/">Logsave</a></h1>
     
     
       <p class="meta">
@@ -140,16 +183,16 @@
   
 
 
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:43:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>muestra información sobre los dispositivos montados [dispositivo de bloques, punto de montaje, opciones de montaje y sistema de ficheros utilizado]. Ver di</p>
+  <div class="entry-content"><p>Guardar la salida de una orden en un archivo de registro.</p>
 
-<blockquote><p>$ mi</p></blockquote>
+<blockquote><p>$ logsave -a file.log ifconfig (Añadiendo la salida al contenido existente)</p></blockquote>
 </div>
   
   
@@ -162,7 +205,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/metapixel/">Metapixel</a></h1>
+      <h1 class="entry-title"><a href="/blog/logrotate/">Logrotate</a></h1>
     
     
       <p class="meta">
@@ -178,20 +221,18 @@
   
 
 
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:43:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Generar mosaicos de fotos [collage].</p>
+  <div class="entry-content"><p>Rotación, compresión y correos del sistema de logs.</p>
 
-<blockquote><p>$ mkdir collage (Crear el directorio)</p>
+<blockquote><h1>logrotate -d /etc/logrotate.conf (Verificación del correcto funcionamiento)</h1>
 
-<p>$ metapixel-prepare &#8211;width=10 &#8211;height=10 -r Imatges/ collage (Copiar con las medidas introducidas [width y height] desde el directorio de imágenes de forma recursiva [-r] al directorio creado)</p>
-
-<p>$ metapixel &#8211;metapixel Imagenes/imagen.jpeg destino.jpg &#8211;library collage/ (Que coja la imágen.jpg del directorio Imagenes y la convierta en destino.jpg usando el directorio &#8220;collage&#8221;)</p></blockquote>
+<h1>logrotate -f /etc/logrotate.conf  (forzar la verificación)</h1></blockquote>
 </div>
   
   
@@ -204,7 +245,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/metacity/">Metacity</a></h1>
+      <h1 class="entry-title"><a href="/blog/logout/">Logout</a></h1>
     
     
       <p class="meta">
@@ -220,16 +261,16 @@
   
 
 
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:43:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>gestor de ventanas</p>
+  <div class="entry-content"><p>Cerrar sesión de usuario. En las ttys, las cerrará para volver a entrar el login.</p>
 
-<blockquote><p>$ metacity &#8211;replace (activar metacity)</p></blockquote>
+<blockquote><p>$ logout</p></blockquote>
 </div>
   
   
@@ -242,7 +283,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/mesg/">Mesg</a></h1>
+      <h1 class="entry-title"><a href="/blog/logname/">Logname</a></h1>
     
     
       <p class="meta">
@@ -258,18 +299,14 @@
   
 
 
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:43:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Controla el acceso a la terminal por otros usuarios. Se utiliza para permitir o rechazar que otros usuarios escriban mensajes a la propia terminal</p>
-
-<blockquote><p>$ mesg y   (autoriza)</p>
-
-<p>$ mesg n   (desautoriza)</p></blockquote>
+  <div class="entry-content"><p>Devuelve el nombre del usuario actual</p>
 </div>
   
   
@@ -282,7 +319,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/mencoder/">Mencoder</a></h1>
+      <h1 class="entry-title"><a href="/blog/login/">Login</a></h1>
     
     
       <p class="meta">
@@ -298,28 +335,16 @@
   
 
 
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:43:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Procesador de video.</p>
+  <div class="entry-content"><p>Solicitar la contraseña de usuario.</p>
 
-<blockquote><p>$ mencoder mf://*.jpg -ovc lavc -o out.avi (Crear un video de las imágenes de un directorio)</p>
-
-<p>$ mencoder &#8220;mf://*.jpg&#8221; -mf fps=0.5 -vf scale=480:360 -o output.avi -ovc lavc -lavcopts vcodec=mpeg4  (Hacer video avi con imagenes jpg mostrando foto cada 2 segundos)</p></blockquote>
-
-<p>fps=0.5  (cada 2 segundos)</p>
-
-<p>fps=0.25  (cada 4 segundos)</p>
-
-<blockquote><p>$ mencoder video.avi -sub subtitulos.srt -oac copy -ovc lavc -o resultado_final.avi -subcp latin1 -font /usr/share/fonts/TTF/arial.ttf -subfont-text-scale 2.8  (pegar subtítulos- <em>.srt- a un video- </em>.avi- especificando la fuente de letras y la medida)</p>
-
-<p>$ mencoder input.flv -ovc lavc -oac mp3lame -o output.avi  (convertir flv a avi)</p>
-
-<p>$ mencoder -idx video_corrupto.avi -ovc copy -oac copy -o video_reparado.avi (Reconstruir un video dañado)</p></blockquote>
+<blockquote><p>$ login -f  usuario (Inicia nueva sesión dentro de la actual)</p></blockquote>
 </div>
   
   
@@ -332,7 +357,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/memoria/">Memória</a></h1>
+      <h1 class="entry-title"><a href="/blog/logger/">Logger</a></h1>
     
     
       <p class="meta">
@@ -348,16 +373,16 @@
   
 
 
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:43:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Liberar memória física</p>
+  <div class="entry-content"><p>Enviar mensajes al demonio syslogd</p>
 
-<blockquote><p># echo 3 > /proc/sys/vm/drop_caches</p></blockquote>
+<blockquote><p>$ logger -i -t gnome-terminal -f /var/log/messages inicio terminal (escribirá en el registro el mesaje “inicio terminal” como remitido por “gnome-terminal” y guardando el PID)</p></blockquote>
 </div>
   
   
@@ -370,7 +395,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/members/">Members</a></h1>
+      <h1 class="entry-title"><a href="/blog/locate/">Locate</a></h1>
     
     
       <p class="meta">
@@ -386,20 +411,18 @@
   
 
 
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:43:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra los miembros del grupo especificado.</p>
+  <div class="entry-content"><p>Buscar archivos</p>
 
-<blockquote><p>$ members -a grupo  (todos sus miembros)</p>
+<blockquote><p>$ locate parida.txt</p>
 
-<p>$ members -p grupo  (el usuario primario)</p>
-
-<p>$ members -s grupo  (los secundarios)</p></blockquote>
+<p>$ locate firefox/plugins</p></blockquote>
 </div>
   
   
@@ -412,7 +435,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/medusa/">Medusa</a></h1>
+      <h1 class="entry-title"><a href="/blog/localepurge/">Localepurge</a></h1>
     
     
       <p class="meta">
@@ -428,34 +451,40 @@
   
 
 
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:43:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Herramienta para ataques de fuerza bruta contra un variado conjunto de protocolos.</p>
+  <div class="entry-content"><p>Elimina e impide la instalacion de los paquetes de idiomas y páginas man que no hemos escogido.</p>
 
-<blockquote><p># medusa -d  (módulos disponibles)</p>
+<blockquote><h1>localepurge</h1></blockquote>
 
-<p># medusa -h 127.0.0.1 -u usuario -P wordlist -M ssh</p></blockquote>
+<p>En arch:</p>
 
-<p>opciones:</p>
+<blockquote><h1>nano /etc/locale.nopurge</h1></blockquote>
 
-<p>-h host (Especificar un host)</p>
+<p>Comentar la linea:</p>
 
-<p>-H file (Especificar un fichero con un listado de hosts)</p>
+<blockquote><h1>NEEDSCONFIGFIRST</h1></blockquote>
 
-<p>-u username (Especificar el usuario)</p>
+<p>Y al final del fichero, suprimir o comentar los exsitentes y colocar los de nuestra elección, por ejemplo:</p>
 
-<p>-U file  (Especificar un listado de usuarios)</p>
+<p>ca_ES.UTF-8</p>
 
-<p>-p password (especificar una contraseña a probar)</p>
+<p>ca_ES.ISO-8859-1</p>
 
-<p>-P file  (indicamos un diccionario de contraseñas)</p>
+<p>ca_ES.ISO-8859-15@euro</p>
 
-<p>-M module (Especificar un módulo de los disponibles)</p>
+<p>es_ES.UTF-8</p>
+
+<p>es_ES.ISO-8859-1</p>
+
+<p>es_ES.ISO-8859-15@euro</p>
+
+<p>Una vez realizados los ajustes, lanzar la aplicación.</p>
 </div>
   
   
@@ -468,7 +497,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/mdm/">Mdm</a></h1>
+      <h1 class="entry-title"><a href="/blog/locale-gen/">Locale-gen</a></h1>
     
     
       <p class="meta">
@@ -484,28 +513,16 @@
   
 
 
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:43:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Gestor de sesión del proyecto MATE. El archivo de configuración en:</p>
+  <div class="entry-content"><p>Reconfiguración automática de los locales</p>
 
-<blockquote><p># nano /etc/mdm/mdm.conf</p></blockquote>
-
-<p>Seleccionar un tema de los disponibles en /usr/share/mdm/themes/:</p>
-
-<p>GraphicalTheme= XXXXX</p>
-
-<p>Entrada automática:</p>
-
-<p>[daemon]</p>
-
-<p>AutomaticLoginEnable=true</p>
-
-<p>AutomaticLogin=USUARIO</p>
+<blockquote><p>$ locale-gen</p></blockquote>
 </div>
   
   
@@ -536,43 +553,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/grub2/">grub2</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/printf/">printf</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdftotext/">pdftotext</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/avconv/">avconv</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ipmitool/">ipmitool</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tmux/">tmux</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/rkhunter/">rkhunter</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssconvert/">ssconvert</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/while/">while</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

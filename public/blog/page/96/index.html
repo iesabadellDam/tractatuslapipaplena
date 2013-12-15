@@ -9,7 +9,8 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Procesador de imagenes. Carpetas donde colocar herramientas suplementarias: Brochas (.gbr) /usr/share/gimp/2.0/brushes/ Patrones (.pat) /usr/share/ &hellip;">
+  <meta name="description" content="Mostrar frases aleatorias al abrir la terminal añadir al final de /home/usuario/.bashrc: fortune -a date frases en /usr/share/games/fortune
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +82,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/gimp/">Gimp</a></h1>
+      <h1 class="entry-title"><a href="/blog/fortune/">Fortune</a></h1>
     
     
       <p class="meta">
@@ -97,24 +98,20 @@
   
 
 
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Procesador de imagenes.</p>
+  <div class="entry-content"><p>Mostrar frases aleatorias al abrir la terminal</p>
 
-<p>Carpetas donde colocar herramientas suplementarias:</p>
+<p>añadir al final de /home/usuario/.bashrc:</p>
 
-<p>Brochas (.gbr)  /usr/share/gimp/2.0/brushes/</p>
+<p>fortune -a date</p>
 
-<p>Patrones (.pat)     /usr/share/gimp/2.0/patterns</p>
-
-<p>Paletas (.gpl)  /usr/share/gimp/2.0/palettes</p>
-
-<p>Degradados(.ggr)/usr/share/gimp/2.0/gradients</p>
+<p>frases en /usr/share/games/fortune</p>
 </div>
   
   
@@ -127,7 +124,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/gftp-text/">Gftp-text</a></h1>
+      <h1 class="entry-title"><a href="/blog/foremost/">Foremost</a></h1>
     
     
       <p class="meta">
@@ -143,22 +140,32 @@
   
 
 
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Cliente ftp. Precisa que el servidor tenga corriendo ftp [vsftpd&#8230; ]</p>
+  <div class="entry-content"><p>Recuperación de datos</p>
 
-<blockquote><p>$ gftp-text ftp://usuario@host (Pedirá la contraseña y entrará en el promt del servidor)</p></blockquote>
+<blockquote><h1>foremost -i /dev/sda -o /recovery</h1>
 
-<p>Nota.- Una vez en el promt:</p>
+<h1>foremost -t jpg -i /dev/sda3 -o /home/usr/recuperado (Recuperar jdatepgs de una partición)</h1></blockquote>
 
-<p>ftp> help (Para saber los comando disponibles)</p>
+<p>proceso sobre una imagen:</p>
 
-<p>ftp> quit (Para salir)</p>
+<blockquote><h1>dd if=/dev/sda1 of=imagen.iso conv=noerror,sync (Crear la imagen iso del dispositivo a recuperar. “conv=noerror,sync” indica que ignore errores)</h1>
+
+<h1>foremost -v -t all -o /home/usuario/recuperado -i imagen.iso</h1></blockquote>
+
+<p>-v .- modo detallado</p>
+
+<p>-o .- lugar donde almacenar los archivos recuperados</p>
+
+<p>-t all .- tipo de archivo a buscar. Para recuperar solo jpg: -t jpg. Para una lista de extensiones: -t jpg,doc,png</p>
+
+<p>-i .- lugar donde esta la iso a escanear.</p>
 </div>
   
   
@@ -171,7 +178,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/gftp/">Gftp</a></h1>
+      <h1 class="entry-title"><a href="/blog/for/">For</a></h1>
     
     
       <p class="meta">
@@ -187,16 +194,80 @@
   
 
 
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Cliente para  la tranferencia de archivos. Logs y configuración en ~/.gftp/gftp.log y ~/.gftprc</p>
+  <div class="entry-content"><p>[bucle]</p>
 
-<blockquote><p>$ gftp ssh2://USER:PASS@HOST:22/home/USER_REMOTO (Abre la interfaz gráfica)</p></blockquote>
+<p>Ejecuta un trozo de códico si la expresión de control es verdadera y sólo se para cuando es falsa.</p>
+
+<p>Ejemplos:</p>
+
+<p>1.-</p>
+
+<h1>!/bin/bash</h1>
+
+<p>for i in $( ls ); do</p>
+
+<p>echo item &#8211;> $i</p>
+
+<p>done</p>
+
+<p>2.-</p>
+
+<h1>!/bin/bash</h1>
+
+<p>for i in <code>seq 1 10</code>;</p>
+
+<p>do</p>
+
+<p>echo $i</p>
+
+<p>done</p>
+
+<p>Nota.- Si los números los quisieramos en una misma linea, encerrar la variable entre comillas [&#8221;<code>seq 1 10</code>&#8221;]</p>
+
+<p>3.-</p>
+
+<h1>!/bin/bash</h1>
+
+<p>for i in 1 2 3 4 5</p>
+
+<p>do</p>
+
+<p>echo &#8220;Es el número $i &#8221;</p>
+
+<p>done</p>
+
+<p>4.-</p>
+
+<h1>!/bin/bash</h1>
+
+<p>for i in {1..5}</p>
+
+<p>do</p>
+
+<p>echo &#8220;Es el número $i &#8221;</p>
+
+<p>done</p>
+
+<p>5.-</p>
+
+<p>Del 1 al 10 de 2 en 2:</p>
+
+<h1>!/bin/bash</h1>
+
+<p>for i in {1..10..2}</p>
+
+<p>do</p>
+
+<p>echo &#8220;Es el número $i &#8221;</p>
+
+<p>done</p>
 </div>
   
   
@@ -209,7 +280,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/gflags2man/">Gflags2man</a></h1>
+      <h1 class="entry-title"><a href="/blog/fold/">Fold</a></h1>
     
     
       <p class="meta">
@@ -225,16 +296,16 @@
   
 
 
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Convierte páginas man en archivos de texto en /tmp.</p>
+  <div class="entry-content"><p>Formatea la salida de un archivo a una determinada longitud.</p>
 
-<blockquote><p>$ gflags2man ls (Creará el archivo ls.1 en /tmp)</p></blockquote>
+<blockquote><p>$ fold  -w50 -s archivo (50 caracteres de largo por linea y que corte por los espacios entre palabras y no por las palabras)</p></blockquote>
 </div>
   
   
@@ -247,7 +318,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/getsebool/">Getsebool</a></h1>
+      <h1 class="entry-title"><a href="/blog/fmt/">Fmt</a></h1>
     
     
       <p class="meta">
@@ -263,31 +334,16 @@
   
 
 
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Permite listar polí­ticas y determinar si estan activas o inactivas en SELinux, implementación de seguridad para GNU/Linux que provee una variedad de políticas de seguridad a través del uso de módulos de Seguridad en el nucleo de Linux. Ver setsebool</p>
+  <div class="entry-content"><p>Muestra en pantalla archivos de texto de forma optimizada (Ver diferencia con cat)</p>
 
-<blockquote><p># getsebool -a (Lista todas las políticas, activa o inactivas)</p>
-
-<p># getsebool -a | grep ftp (conocer que polí­ticas que incluyan la cadena ftp están activas)</p></blockquote>
-
-<pre><code>Para el servicio de FTP las políticas serían:
-
-    allow_ftpd_anon_write (Permite a usuarios anónimos escribir en el servidor)
-
-    allow_ftpd_full_access (Permite lectura y escritura sobre los archivos del servidor)
-
-    allow_ftpd_use_cifs (Permite transferencias de datos desde CIFS)
-
-    allow_ftpd_use_nfs (Permite transferencias de datos desde NFS)
-
-    ftp_home_dir (Permite a usuarios locales acceder a sus directorios de inicio)
-</code></pre>
+<blockquote><p>$ fmt fichero.txt</p></blockquote>
 </div>
   
   
@@ -300,7 +356,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/getenforce/">Getenforce</a></h1>
+      <h1 class="entry-title"><a href="/blog/flvstreamer/">Flvstreamer</a></h1>
     
     
       <p class="meta">
@@ -316,53 +372,24 @@
   
 
 
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Comprobar el estado de selinux.</p>
+  <div class="entry-content"><p>Descarga de videos con protocolo RTMP.</p>
 
-<blockquote><p># getenforce</p></blockquote>
+<p>Supongamos que el video a descargar tenga por ruta: http://www.tv3.cat/videos/1307049732092</p>
 
-<p>Estados posibles</p>
+<p>Abrir una pestaña del vavegador y pegar:</p>
 
-<p>enforcing [impositivo] (Política de seguridad activa)</p>
+<p>http://www.tv3.cat/su/tvc/tvcConditionalAccess.jsp?ID=1307049732092&amp;QUALITY=H&amp;FORMAT=MP4</p>
 
-<p>permissive [permisivo] (Registra los eventos pero no impone la política)</p>
+<p>Colocando en el número “ID=” el que corresponda y con la ruta rtmp que nos indique lanzar [en una sola linea]:</p>
 
-<p>disabled [inhabilitado] (Desactivado)</p>
-
-<blockquote><p># nano /etc/selinux/config</p></blockquote>
-
-<pre><code># This file controls the state of SELinux on the system.
-
-# SELINUX= can take one of these three values:
-
-# enforcing - SELinux security policy is enforced.
-
-# permissive - SELinux prints warnings instead of enforcing.
-
-# disabled - No SELinux policy is loaded.
-
-SELINUX=permissive
-
-# SELINUXTYPE= can take one of these two values:
-
-# default - equivalent to the old strict and targeted policies
-
-# mls     - Multi-Level Security (for military and educational use)
-
-# src     - Custom policy built from source
-
-SELINUXTYPE=default
-
-# SETLOCALDEFS= Check local definition changes
-
-SETLOCALDEFS=0
-</code></pre>
+<blockquote><p>$ flvstreamer -r rtmp://mp4-500-str.tv3.cat/ondemand/mp4:g/tvcatalunya/2/9/1307049732092.mp4 -o video.mp4</p></blockquote>
 </div>
   
   
@@ -375,7 +402,7 @@ SETLOCALDEFS=0
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/getconf/">Getconf</a></h1>
+      <h1 class="entry-title"><a href="/blog/fluxbox-generate-menu/">Fluxbox-generate_menu</a></h1>
     
     
       <p class="meta">
@@ -391,18 +418,18 @@ SETLOCALDEFS=0
   
 
 
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Consulta las variables de configuración del sistema.</p>
+  <div class="entry-content"><p>Generador de menús de fluxbox.</p>
 
-<blockquote><p>$ getconf -a (Muestra el listado)</p>
+<blockquote><p>$ fluxbox-generate_menu -g (Añade un menú tipo gnome)</p>
 
-<p>$ getconf LONG_BIT (Informa sobre si se trata de un equipo de 32 o 64 bits)</p></blockquote>
+<p>$ fluxbox-generate_menu -k -o ~/.fluxbox/menu1 (Añade menú tipo kde y lo coloca en menu1 para probarlo. Sin especificar, substituiría el .fluxbox/menu)</p></blockquote>
 </div>
   
   
@@ -415,7 +442,7 @@ SETLOCALDEFS=0
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/geoiplookup/">Geoiplookup</a></h1>
+      <h1 class="entry-title"><a href="/blog/flunym0us/">Flunym0us</a></h1>
     
     
       <p class="meta">
@@ -431,18 +458,34 @@ SETLOCALDEFS=0
   
 
 
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Localiación geográfica de una ip.</p>
+  <div class="entry-content"><p>Pruebas de vulnarabilidad de webs basadas en wordpress. Descarga http://code.google.com/p/flunym0us/downloads/list</p>
 
-<blockquote><p>$ geoiplookup IP</p>
+<blockquote><p>$ flunym0us -H http://host -w /home/usuario/wordlist -wp -t 60 -r 1 -p 2 -T 2</p></blockquote>
 
-<p># geoip-database-contrib_update (actualizar la BD [/usr/share/GeoIP/])</p></blockquote>
+<p>Opciones:</p>
+
+<p>-wp (Scanear un sitio wordpress)</p>
+
+<p>-mo (scanear un sitio Moodle)</p>
+
+<p>-H http://host (Nombre del host wordpress a scanear)</p>
+
+<p>-w /home/usuario/wordlist (Ruta al diccionario)</p>
+
+<p>-t 60 (Tiempo de espera)</p>
+
+<p>-r 1 (Reintentos de conexión)</p>
+
+<p>-p 2 (Numero de procesos)</p>
+
+<p>-T 2 (Número de subprocesos simultaneos por proceso)</p>
 </div>
   
   
@@ -455,7 +498,7 @@ SETLOCALDEFS=0
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/genius/">Genius</a></h1>
+      <h1 class="entry-title"><a href="/blog/flexget/">Flexget</a></h1>
     
     
       <p class="meta">
@@ -471,18 +514,65 @@ SETLOCALDEFS=0
   
 
 
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Calculadora.</p>
+  <div class="entry-content"><p>[python2.6 python-pip]</p>
 
-<blockquote><p>$ genius (Entra en el prompt. Su uso en el clásico: 60*2, 100/5&#8230; exit para salir)</p>
+<p>Descarga de series a partir de su direccion RSS. Archivo de configuración</p>
 
-<p>$ genius –exec=50/2</p></blockquote>
+<blockquote><p>$ nano .flexget/config.yml</p></blockquote>
+
+<p>Con un contenido parecido a:</p>
+
+<p>presets:</p>
+
+<p>tv:</p>
+
+<p>series:</p>
+
+<p>settings:</p>
+
+<p>hdtv:</p>
+
+<p>timeframe: 8 hours</p>
+
+<p>hdtv &lt;720p:</p>
+
+<ul>
+<li><p>serie 1</p></li>
+<li><p>serie 2</p></li>
+<li><p>serie 3</p></li>
+<li><p>etc</p></li>
+</ul>
+
+
+<p>content_filter:</p>
+
+<p>require:</p>
+
+<ul>
+<li>&#8217;*.avi&#8217;</li>
+</ul>
+
+
+<p>download: &#8220;/media/discoext/Descargas/Torrents&#8221;</p>
+
+<p>tasks:</p>
+
+<p>TvTorrent1:</p>
+
+<p>rss: http://showrss.karmorra.info/feeds/all.rss</p>
+
+<p>preset: tv</p>
+
+<blockquote><p>$ flexget &#8211;test (Comprobar si la configuración es correcta)</p>
+
+<p>$ flexget (Lanzar la aplicación)</p></blockquote>
 </div>
   
   
@@ -495,7 +585,7 @@ SETLOCALDEFS=0
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/gemsets/">Gemsets</a></h1>
+      <h1 class="entry-title"><a href="/blog/firefox/">Firefox</a></h1>
     
     
       <p class="meta">
@@ -511,14 +601,432 @@ SETLOCALDEFS=0
   
 
 
-<time datetime="2013-10-27T13:53:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:42:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Conjunto de gemas que definimos para una determinada versión de Ruby [ver] y que están aislados entre ellos. O sea, si tenemos dos proyectos y cada uno con una versión distinta, no tienen conflicto entre ellos. Por tanto, lo más recomendable es definir un gemset para cada proyecto en el que estemos trabajando. Ver rvm.</p>
+  <div class="entry-content"><p>Navegador.</p>
+
+<blockquote><p>$ firefox &#8211;private (Nota.- Son dos guiones. Arrancar en modo privado. Para incluir por defecto este modo en la propiedades: firefox &#8211;private %U)</p>
+
+<p>$ firefox &#8216;data:text/html, texto que queremos mostrar&#8217; (Visualizar un texto en una ventana del navegador)</p></blockquote>
+
+<p>Cambios para optimizar las conexiones y para aprovechar otros parámetros. Escribir en la barra de direcciones: &#8220;about:config&#8221; y pulsar enter. Cambiar los siguientes valores. Para ello, hacer doble click encima de la línea a modificar y en el cuadro de diálogo que aparece, escribir el valor nuevo:</p>
+
+<p>Ajustes generales [dependen de la versión instalada]:</p>
+
+<p>network.dns.disableIPv6 true</p>
+
+<p>network.http.max-connections 128</p>
+
+<p>network.http.max-connections-per-server 48</p>
+
+<p>network.http.max-persistent-connections-per-proxy 24</p>
+
+<p>network.http.max-persistent-connections-per-server 12</p>
+
+<p>network.http.pipelining true</p>
+
+<p>network.http.proxy.pipelining true</p>
+
+<p>network.http.pipelining.maxrequests 30</p>
+
+<p>browser.sessionstore.interval 300000</p>
+
+<p>Desactivar escaneo de virus.</p>
+
+<p>browser.download.manager.scanWhenDone false</p>
+
+<p>Guarda pestañas abiertas al cerrar:</p>
+
+<p>browser.showquitwarning true</p>
+
+<p>Deshabilitar la opción de recuperación de sesión.</p>
+
+<p>browser.sessionstore.enabled false</p>
+
+<p>Si tenemos problemas con hotmail, suprimir el nombre de la distro:</p>
+
+<p>general.useragent.vendor</p>
+
+<p>Instalar extensiones incompatibles (peligroso):</p>
+
+<p>extensions.checkCompatibility  False</p>
+
+<p>Si no queremos que pregunte por guardar contraseñas:</p>
+
+<p>signon.RememberSignons false</p>
+
+<p>Activar tecla backspace para ir a la página anterior</p>
+
+<p>browser.backspace_action 0</p>
+
+<p>Visualizar todas las pestañas:</p>
+
+<p>browser.allTabs.previews true</p>
+
+<p>Cambiar idioma:</p>
+
+<p>general.useragent.locale</p>
+
+<p>Deshabilitar o aumentar la cantidad de sugerencias de la barra de direcciones (por defecto 12. Dehabilitar -1).</p>
+
+<p>browser.urlbar.maxRichResults  15</p>
+
+<p>Modificar el intervalo de tiempo de recuperación de sesión (1 segundo=1000. Por defecto cada 10 segundos) El parámetro anterior tiene que estar en &#8220;true&#8221;.</p>
+
+<p>browser.sessionstore.interval 20000</p>
+
+<p>Mejorar la calidad de color (consume muchos recursos).</p>
+
+<p>gfx.color_management.enabled true</p>
+
+<p>Suprimir el scroll de pestañas aunque tengamos muchas abiertas (por defecto 100).</p>
+
+<p>browser.tabs.tabMinWidth 0</p>
+
+<p>Abrir las ventanas emergentes en una nueva pestaña (por defecto lo abre como ventana [2]. Para no abrir ninguno [1])</p>
+
+<p>browser.link.open_newwindow.restriction 0</p>
+
+<p>Habilitar diccionario para todos los campos de texto (por defecto solo multilinea [1]. Deshabilitar [0]).</p>
+
+<p>layout.spellcheckDefault 2</p>
+
+<p>Abrir resultados de búsqueda en otra pestaña.</p>
+
+<p>browser.search.openintab true</p>
+
+<p>Modificar la caché (por defecto 50000 kb)</p>
+
+<p>browser.cache.disk.enable true.</p>
+
+<p>browser.cache.disk.capacity 100000</p>
+
+<p>Habilitar sugerencias de autocompletado en la barra de direcciones.</p>
+
+<p>browser.urlbar.autofill  true</p>
+
+<p>Auto exportar Favoritos para sincronización con otro navegador</p>
+
+<p>browser.bookmarks.autoExportHTML true</p>
+
+<p>Aumentar el historial de &#8220;deshacer cerrar pestaña&#8221;. (por defecto 10)</p>
+
+<p>browser.sessionstore.max_tabs_undo 20</p>
+
+<p>Deshabilitar tiempo de espera al agregar complementos (por defecto 5 segundos)</p>
+
+<p>security.dialog_enable_delay 0</p>
+
+<p>Ver código fuente con el editor favorito.</p>
+
+<p>view_source.editor.external true</p>
+
+<p>view_source.editor.path /ruta/al/editor</p>
+
+<p>Mostrar siempre [incluso en modo &#8220;pantalla completa&#8221;] la barra superior.</p>
+
+<p>browser.fullscreen.autohide false</p>
+
+<p>Aumentar lista de búsqueda de complementos (por defecto 5).</p>
+
+<p>extensions.getAddons.maxResults 10</p>
+
+<p>Evitar que un sitio modifique el tamaño de ventanas.</p>
+
+<p>dom.disable_window_move_resize true</p>
+
+<p>Mostrar las pestañas abiertas como miniaturas. Crea un botón que muestra una vista previa de pestañas abiertas.</p>
+
+<p>browser.allTabs.previews  true</p>
+
+<p>No mostrar favicon en la barra de direcciones y en las pestañas.</p>
+
+<p>browser.chrome.site_icons  False</p>
+
+<p>Evitar cuelgues al abrir muchas pestañas (por defecto 256)</p>
+
+<p>network.http.max-connections 48</p>
+
+<p>Desactivar sitios más visitados en nueva página:</p>
+
+<p>browser.newtabpage.enabled  false</p>
+
+<p>Al abrir nueva pestaña que se abra con un URL concreta:</p>
+
+<p>browser.newtab.url</p>
+
+<p>Que las preferencias se abran en nueva pestaña y no en nueva ventana:</p>
+
+<p>browser.preferences.InContent true</p>
+
+<p>Habilitar lector nativo de pdf en javascript:</p>
+
+<p>pdfjs.disable false</p>
+
+<p>Habilitar dominios multilingües [idn] -Que continenen caracteres raros.</p>
+
+<p>network.enableIDN true</p>
+
+<p>Ver listado de todos los idn habilitados [todos en true]:</p>
+
+<p>network.IDN.whitelist</p>
+
+<p>Habilitar lector de pdfs:</p>
+
+<p>pdfjs.disabled true</p>
+
+<p>Habilitar soporte para H.264, AAC y mp3:</p>
+
+<p>media.gstreamer.enabled true</p>
+
+<p>Acceso a los diálogos de firefox:</p>
+
+<p>chrome://browser/content/bookmarks/bookmarksPanel.xul  (las direcciones de interés)</p>
+
+<p>chrome://browser/content/history/history-panel.xul  (historial)</p>
+
+<p>chrome://global/content/console.xul (Consola Javascript)</p>
+
+<p>chrome://passwordmgr/content/passwordManager.xul (Administrador de contraseñas)</p>
+
+<p>chrome://pippki/content/getpassword.xul (Establecer contraseña maestra)</p>
+
+<p>chrome://pippki/content/resetpassword.xul (Restablecer contraseña maestra)</p>
+
+<p>chrome://mozapps/content/downloads/downloads.xul (lista de descargas efectuadas)</p>
+
+<p>chrome://browser/content/browser.xul (abre un navegador completo en una pestaña)</p>
+
+<p>chrome://browser/content/preferences/preferences.xul (Abre las preferencias)</p>
+
+<p>Archivos de interés en los perfiles de firefox (.mozilla/firefox/*.default):</p>
+
+<p>bookmarks.html - Nuestros marcadores</p>
+
+<p>cert8.db - Certificados de seguridad</p>
+
+<p>formhistory.dat - Formularios memorizados</p>
+
+<p>key3.db - Contraseñas almacenadas</p>
+
+<p>&#8220;about:&#8221; (escrito en la barra de direcciones de firefox):</p>
+
+<p>about:  (Información sobre el navegador)</p>
+
+<p>about:blank  (Una página en blanco)</p>
+
+<p>about:buildconfig  (Detalles de la compilación para nuestra versión)</p>
+
+<p>about:cache  (información sobre la cache del navegador)</p>
+
+<p>about:cache?device=memory  (Muestra la caché en memoria)</p>
+
+<p>about:cache?device=disk  (Muestra la caché de disco)</p>
+
+<p>about:config  (Configuración del navegador)</p>
+
+<p>about:credits  (Lista de los que contribuyeron al desarrollo del navegador)</p>
+
+<p>about:logo  (El logo del navegador)</p>
+
+<p>about:mozilla  (Muestra un pasaje de “El Libro de Mozilla”)</p>
+
+<p>about:plugins  (lista detallada de los plugins que tenemos instalados)</p>
+
+<blockquote><p>$ grep -hIr :name ~/.mozilla/firefox/*.default/extensions | tr &#8216;&lt;>=&#8217; &#8216;&#8221;&#8220;&#8221;&#8217; | cut -f3 -d&#8217;&#8221;&#8217; | sort -u  (listar las extensiones de firefox)</p>
+
+<p>$ firefox -ProfileManager -no-remote (crear un perfil sin cerrar firefox)</p>
+
+<p>$ firefox http://www.google.com/search?q=BUSQUEDA (buscar algo por linea de comandos [abre el navegador])</p>
+
+<p>$ firefox http://images.google.com/images?q=BUSQUEDA (Lo mismo para imágenes)</p>
+
+<p>$ firefox http:/books.google.es/search?q=BUSQUEDA (lo mismo con libros)</p>
+
+<p>$ firefox http://news.google.es/news/search?q=BUSQUEDA (Con noticias)</p>
+
+<p>$ find ~/.mozilla -iname &#8216;*.sqlite&#8217; -execdir sqlite3 {} &#8216;vacuum;&#8217; ; (desfragmentar la base de datos de firefox. Tambien existe plugin[SQLite Manager])</p></blockquote>
+
+<p>1.-</p>
+
+<p>Mandar un email desde la barra de direcciones (Valido tambien para chromium):</p>
+
+<p>Tener configurado un gestor de correos [evolution, thunderbird..]. Escribir en la abarra de direcciones:</p>
+
+<p>mailto:usuario@gmail.com</p>
+
+<p>Del destinatario. Se abrira el gestor de correo listo para escribir.</p>
+
+<p>Atajos:</p>
+
+<p>Navegación:</p>
+
+<p>Alt + &lt;- (Ir a la página anterior)</p>
+
+<p>Atl + -> (Ir a la página siguiente)</p>
+
+<p>Alt + inicio (Inicio)</p>
+
+<p>^ + o (Abrir archivo)</p>
+
+<p>F5 (Recargar)</p>
+
+<p>^+ F5 (Recargar reemplazando caché)</p>
+
+<p>Esc (Detener)</p>
+
+<p>Página actual:</p>
+
+<p>Fin (Ir al final de la página)</p>
+
+<p>Inicio (Ir a principio de la página) date</p>
+
+<p>F6 (Ir a la siguiente pestaña)</p>
+
+<p>Mayús + F6 (Ir a la anterior pestaña)</p>
+
+<p>^+ p (Imprimir)</p>
+
+<p>^+ s (Guardar página como&#8230;)</p>
+
+<p>^+ + (Aumentar tamaño texto)</p>
+
+<p>^+ - (Reducir tamaño texto)</p>
+
+<p>^+ 0 (Restablecer tamaño texto)</p>
+
+<p>Editar:</p>
+
+<p>^+ c (Copiar)</p>
+
+<p>^+ x (Cortar)</p>
+
+<p>Supr (Eliminar)</p>
+
+<p>^+ v (Pegar)</p>
+
+<p>^ + Z (Rehacer)</p>
+
+<p>^+ a (Seleccionar todo)</p>
+
+<p>^+ z (Deshacer)</p>
+
+<p>Buscar:</p>
+
+<p>^ +f (Encontrar)</p>
+
+<p>F3 (Encontrar de nuevo)</p>
+
+<p>Mayús * F3 (Encontrar anterior)</p>
+
+<p>&#8217; (Búsqueda texto de enlaces)</p>
+
+<p>/ (Búsqueda rápida)</p>
+
+<p>Esc (Cerrar busquedas)</p>
+
+<p>^+ k (Barra de búsqueda)</p>
+
+<p>Alt + flecha arriba/abajo , con el foco en la barra (Seleccionar motor busqueda)</p>
+
+<p>Ventanas y pestañas:</p>
+
+<p>^ + w (Cerrar pestaña)</p>
+
+<p>Alt + F4 (Cerrar ventana)</p>
+
+<p>^ + &lt;- (Mover pestaña a la izq.)</p>
+
+<p>^+ -> (Mover pestaña a la dere.)</p>
+
+<p>^+ home (Mover pestaña al comienzo)</p>
+
+<p>^+ fin (Mover pestaña al final)</p>
+
+<p>^+ t (Nueva pestaña)</p>
+
+<p>^+ n (Nueva ventana)</p>
+
+<p>Alt + intro desde la barra direcciones o bus1uedas (Abrir en nueva pestaña)</p>
+
+<p>^+ tab (Pestaña siguiente)</p>
+
+<p>^+ Mayús + tab (Pestaña anterior)</p>
+
+<p>^+ Mayús + t (Deshacer cerrar pestaña)</p>
+
+<p>^+ Mayús + n (Deshacer cerrar ventana)</p>
+
+<p>^+ 1 &#8230;.8 (Seleccionar pestaña 1 a 8)</p>
+
+<p>^+ 9 (Seleccionar última pestaña)</p>
+
+<p>^+ Mayús + e (Vista grupos de pestañas)</p>
+
+<p>Esc (Cerrar vista de grupos pestañas)</p>
+
+<p>Historial:</p>
+
+<p>^+ h (Panel lateral de Historial)</p>
+
+<p>^+ H (Historial)</p>
+
+<p>Marcadores:</p>
+
+<p>^ + D (Agregar pestañas a marcadores)</p>
+
+<p>^+ d (Agregar página a marcadores)</p>
+
+<p>^+ b (Panel lateral de marcadores)</p>
+
+<p>^+ O (Marcadores)</p>
+
+<p>Herramientas: http://www.overlooksoft.com/</p>
+
+<p>^+ Y (Descargas)</p>
+
+<p>^+ A (Complementos)</p>
+
+<p>^+ K (Consola web)</p>
+
+<p>^+ I (Inspeccionar)</p>
+
+<p>Mayús + F4 (Borrador)</p>
+
+<p>^+ u (Código fuente de la página)</p>
+
+<p>^+ J (Consola de errores)</p>
+
+<p>^+ i (Información de la página)</p>
+
+<p>^+ P (Navegación privada)</p>
+
+<p>^+ S (Limpiar historial) http://www.overlooksoft.com/</p>
+
+<p>Otros atajos:</p>
+
+<p>^+ intro (Completar dirección .com)</p>
+
+<p>Mayús + intro (Completar dirección .net)</p>
+
+<p>^+ Mayús + intro (Completar dirección .org)</p>
+
+<p>Alt (Ver barra de menús en kde)</p>
+
+<p>F10 (Ver barra de menús en gnome)</p>
+
+<p>^+ / (Mostrar/Ocultar complementos)</p>
+
+<p>F7 (Navegación con cursor)</p>
+
+<p>F11 (Pantalla completa)</p>
+
+<p>^+ l (Barra de direcciones)</p>
 </div>
   
   
@@ -549,43 +1057,43 @@ SETLOCALDEFS=0
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/grub2/">grub2</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/printf/">printf</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdftotext/">pdftotext</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/avconv/">avconv</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ipmitool/">ipmitool</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tmux/">tmux</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/rkhunter/">rkhunter</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssconvert/">ssconvert</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/while/">while</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

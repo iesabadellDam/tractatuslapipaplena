@@ -1,0 +1,11 @@
+---
+layout: post
+title: "xbacklight"
+date: 2013-12-15 15:47
+comments: true
+categories: 
+---
+Ajustar el brillo de la pantalla
+
+>$ xbacklight -set 100  (la pone al máximo)
+

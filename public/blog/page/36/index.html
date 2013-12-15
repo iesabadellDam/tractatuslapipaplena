@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Muestra/modifica las características del terminal $ stty -a (muestra todas las teclas de control, algunas obsoletas. Las más útiles: ^c [para el &hellip;">
+  <meta name="description" content="desplegar todas las variables [y sus valores] que el shell controla y otorgar nuevas variables. $ set | more $ set -o vi (cambiar a las teclas del &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/stty/">Stty</a></h1>
+      <h1 class="entry-title"><a href="/blog/set/">Set</a></h1>
     
     
       <p class="meta">
@@ -97,20 +97,22 @@
   
 
 
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra/modifica las características del terminal</p>
+  <div class="entry-content"><p>desplegar todas las variables [y sus valores] que el shell controla y otorgar nuevas variables.</p>
 
-<blockquote><p>$ stty -a  (muestra todas las teclas de control, algunas obsoletas. Las más útiles: ^c [para el comando actual], ^d [final de flujo de entrada], ^u [borrar desde la posición actual al principio de linea] y ^w [borrar desde la posición actual al principio de la palabra])</p>
+<blockquote><p>$ set | more</p>
 
-<p>$ stty size   (muestra número de columnas y lineas)</p>
+<p>$ set -o vi (cambiar a las teclas del modo de edición de vi . Por defecto bash utiliza el modo emacs)</p>
 
-<p>$ stty speed  (velocidad en baudios)</p></blockquote>
+<p>$ set -o noclobber (activar la protección de sobreescritura en las tuberias si el archido ya existe [ls > lista] para saltarse esta protección puede hacerse con ls >|lista)</p>
+
+<p>$ set +o noclobber (Desactivar la protección. Opción por defecto)</p></blockquote>
 </div>
   
   
@@ -123,7 +125,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/strings/">Strings</a></h1>
+      <h1 class="entry-title"><a href="/blog/sestatus/">Sestatus</a></h1>
     
     
       <p class="meta">
@@ -139,18 +141,18 @@
   
 
 
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Analizar la memoria o una particion</p>
+  <div class="entry-content"><p>Devuelve el estado de SELinux y la política que se está usando. Ver selinux y getsenforce</p>
 
-<blockquote><p>$ strings /dev/mem</p>
+<blockquote><h1>sestatus</h1>
 
-<p>$ strings /dev/sda5</p></blockquote>
+<h1>sestatus -v (estado detallado de un sistema ejecutando SELinux)</h1></blockquote>
 </div>
   
   
@@ -163,7 +165,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/stressapptest/">Stressapptest</a></h1>
+      <h1 class="entry-title"><a href="/blog/service/">Service</a></h1>
     
     
       <p class="meta">
@@ -179,26 +181,20 @@
   
 
 
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Herramienta para realizar un test de carga del sistema.</p>
+  <div class="entry-content"><p>Inicia o para servicios.</p>
 
-<blockquote><p># stressapptest -s 20 -M 256 -m 8 -C 8 -W</p></blockquote>
+<blockquote><h1>service apache2 start (Arranca apache2)</h1>
 
-<p>Algunas opciones:</p>
+<h1>service apache2 stop (Para apache2)</h1>
 
-<p>-M mbytes  (Cantidad de megabytes de memoria RAM para realizar las pruebas. Por defecto toda la disponible)</p>
-
-<p>-s 20 (Tiempo que durará el proceso)</p>
-
-<p>-m 8 (Cantidad de procesos de copiado de memoria)</p>
-
-<p>-W (llevar al límite la cpu)</p>
+<h1>service apache2 restart (Reinicia el apache2)</h1></blockquote>
 </div>
   
   
@@ -211,7 +207,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/stress/">Stress</a></h1>
+      <h1 class="entry-title"><a href="/blog/seq/">Seq</a></h1>
     
     
       <p class="meta">
@@ -227,26 +223,24 @@
   
 
 
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Herramientas para realizar un test de carga del sistema.</p>
+  <div class="entry-content"><p>Crea secuencias de números</p>
 
-<blockquote><p># stress -c 8 -i 4 -m 2 &#8211;vm-bytes 128M -t 20S</p></blockquote>
+<blockquote><p>$ seq 7 12 (entre el 7 y el 12)</p>
 
-<p>Opciones:</p>
+<p>$ seq 7 2 12 (entre el 7 y el 12 con un incremento de 2 en 2)</p>
 
-<p>-c (8 multiples ciclos infinitos de raices cuadradas para la cpu)</p>
+<p>$ seq -w 7 12 (entre el 7 y el 12 con el mismo tamaño)</p>
 
-<p>-i (Introduce 4 ciclos infinitos que ejecutan la llamada al sistema sync())</p>
+<p>$ seq -s_ 7 12 (con un guión bajo entre cada número)</p>
 
-<p>&#8211;hdd-bytes 3G (carga de escritura en disco de 3G. Opciones: B,K,M,G)</p>
-
-<p>-t 20s (Tiempo que durará el proceso, 20 segundos. Opciones: s,m,h,d,y)</p>
+<p>$ seq -s&#8217;#&#8217; 0 $(tput cols) | tr -d &#8216;[:digit:]&#8217;  (Escribe una raya de “#” en toda la anchura de la terminal)</p></blockquote>
 </div>
   
   
@@ -259,7 +253,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/streamripper/">Streamripper</a></h1>
+      <h1 class="entry-title"><a href="/blog/sensors-detect/">Sensors-detect</a></h1>
     
     
       <p class="meta">
@@ -275,16 +269,14 @@
   
 
 
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Ripear a partir de emisoras icecast (www.icecast.com) y showcast (www.showtcast.com). Crea una carpeta en el presente directorio.</p>
-
-<blockquote><p>$ streamrippwer http://yp.shoutcast.com/sbin/tunein-station.pls?id=321414 -l 4000 (grabar durante 4000 segundos)</p></blockquote>
+  <div class="entry-content"><p>Detecta, instala y carga sensores y módulos necesarios.</p>
 </div>
   
   
@@ -297,7 +289,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/strace/">Strace</a></h1>
+      <h1 class="entry-title"><a href="/blog/selinux/">Selinux</a></h1>
     
     
       <p class="meta">
@@ -313,28 +305,50 @@
   
 
 
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra las llamadas al sistema originadas por un proceso.</p>
+  <div class="entry-content"><p>[selinux-basics selinux-policy-default]</p>
 
-<blockquote><p>$ strace comando</p>
+<p>SELinux proporciona una forma de acceso a recursos basada en políticas de control de acceso obligatorio [mandatory access control, MAC] incorporado en el kernel. Existen un conjunto de reglas de autorización [políticas] las cuales determinan si una operación sobre un objeto [Archivos, directorios, dispositivos&#8230;] realizada por un sujeto esta o no permitida basándose en los atributos de ambos. Linux utiliza por defecto el control de acceso a discreción [discretionary access control, DAC] basada en los propietarios y grupos a los que pertenece un objeto en los que un usuario normal puede cambiar los permisos de los archivos que posee con el comando chmod. Con selinux se limita el acceso que tienen las aplicaciones a otras aplicaciones y a los ficheros, impidiendo que un proceso pueda modificar cualquier fichero del usuario con el que se lanzó. En DAC el acceso esta descentralizado, siendo el propietario de cada objeto el encargado de asignar los permisos de los diversos grupos que accederán a ellas. En cambio con el MAC los objetos y los sujetos tan solo tienen atributos, pero son las políticas las que se encargan de autorizar o denegar una acción. Ver comandos getsebool y setsebool.</p>
 
-<p>$ strace -p PID (Por número de proceso)</p>
+<p>Los módulos SELinux disponibles se almacenan en el directorio /usr/share/selinux/default/.</p>
 
-<p>$ strace -c comando -o traza.txt (mostrar resumen de llamadas y errores durante la ejecución y redirigido a un archivo)</p></blockquote>
+<blockquote><h1>semodule -i módulo.pp (habilitar un módulos en la configuración actual. La extensión pp significa paquete de política [«policy package»]).</h1>
 
-<p>Algunas opciones:</p>
+<h1>semodule -r módulo (Elimina un módulo de la configuración actual)</h1>
 
-<p>-f (Incluir posibles forks que haga un programa, por ejemplo httpd)</p>
+<h1>semodule -l (Enumera los módulos habilitados actualmente)</h1>
 
-<p>-v (Muestra el máximo de información)</p>
+<h1>semanage login -a -s staff_u juan (mapear una cuenta a un usuario especifico de SELinux)</h1>
 
-<p>-s 8192 (Valor de 8192 como limite de longitud de las cadenas. Por defecto 32)</p>
+<h1>restorecon -R -F /home/juan (etiquetar los ficheros del usuario mapeado juan)</h1>
+
+<h1>semanage user -l (enumera las asociaciones entre las identidades de usuario de SELinux y los roles permitidos)</h1>
+
+<h1>semanage login -d juan (elimina la asociación asignada al usuario juan)</h1>
+
+<h1>semanage login -m juan (Modificar la asociación asignada al usuario)</h1>
+
+<h1>semanage login -l (enumera las correspondencias actuales entre identificadores de usuarios y entidades SELinux)</h1></blockquote>
+
+<p>tabla de los usuarios estándar SELinux disponibles:</p>
+
+<p>user_u  (Usuario normal que se utilizan para cuentas de usuario que no van a ser empleadas para administrar ningún servicio del sistema)</p>
+
+<p>staff_u (Para administradores con derechos para conmutar roles y ganar privilegios elevados)</p>
+
+<p>root (Cuenta root ligeramente diferente de la cuenta staff_u. Los ficheros protegidos por control de acceso basado en root no pueden ser gestionados por los staff_u)</p>
+
+<p>sysadm_u (Administración del sistema. Por defecto, esta cuenta no se utiliza inmediatamente ya que este usuario obtiene de forma inmediata el rol administrativo (por lo que staff_u y root todavía necesitarán conmutar roles).</p>
+
+<p>system_u (administrar servicios. Nunca se debe utilizar para usuarios finales ya que ofrece acceso directo al rol del sistema)</p>
+
+<p>unconfined_u    Usado cuando la directriz es targeted, este usuario SELinux tiene muchos privilegios (esencialmente no está limitado en sus acciones, aunque todavía se gestiona través de SELinux con una directriz &#8220;muy abierta&#8221;).</p>
 </div>
   
   
@@ -347,7 +361,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/stjerm/">Stjerm</a></h1>
+      <h1 class="entry-title"><a href="/blog/select/">Select</a></h1>
     
     
       <p class="meta">
@@ -363,30 +377,74 @@
   
 
 
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Consola tipo guake.</p>
+  <div class="entry-content"><p>Realiza menús de forma rápida y simple:</p>
 
-<blockquote><p>$ stjerm -k f12 -s left -o 70 -h 250 -w 1280 (Que aparezca pulsando F12, con barra de escroll a la izquierda, opacidad del 70% y especificando ancho y largo)</p></blockquote>
+<p>Algunos ejemplos:</p>
 
-<p>Algunas opciones:</p>
+<p>1.-</p>
 
-<p>-ah (Ocultar automáticamente la ventana cuando no está enfocada)</p>
+<h1>!/bin/bash</h1>
 
-<p>-bg red (Color de fondo)</p>
+<p>OPCIONES=&#8221;Uso_linux Todavía_estoy_con_windows&#8221;</p>
 
-<p>-bgimg imagen.png (Establecer una imagen de fondo)</p>
+<p>select opt in $OPCIONES; do</p>
 
-<p>-fn (Tipo y tamaño de fuente)</p>
+<p>if [ &#8220;$opt&#8221; = &#8220;Uso_linux&#8221; ]; then</p>
 
-<p>-fg blue (Color de la fuente)</p>
+<p>echo &#8220;Bravo, usas el mejor sistema&#8230;&#8221;</p>
 
-<p>-p (Posición de la ventana [valores: top, bottom, left, right])</p>
+<p>exit</p>
+
+<p>elif [ &#8220;$opt&#8221; = &#8220;Todavía_estoy_con_windows&#8221; ]; then</p>
+
+<p>echo &#8220;¡Evoluciona de una vez!&#8221;</p>
+
+<p>exit</p>
+
+<p>else</p>
+
+<p>echo opción errónea</p>
+
+<p>fi</p>
+
+<p>done</p>
+
+<p>2.-</p>
+
+<h1>!/bin/bash</h1>
+
+<p>OPCIONES=&#8221;hostname pwd exit&#8221;</p>
+
+<p>select opt in $OPCIONES; do</p>
+
+<p>if [ &#8220;$opt&#8221; = &#8220;hostname&#8221; ]; then</p>
+
+<p>echo $HOSTNAME</p>
+
+<p>elif [ &#8220;$opt&#8221; = &#8220;pwd&#8221; ]; then</p>
+
+<p>pwd</p>
+
+<p>elif [ &#8220;$opt&#8221; = &#8220;exit&#8221; ]; then</p>
+
+<p>echo &#8220;salir&#8221;</p>
+
+<p>exit</p>
+
+<p>else</p>
+
+<p>echo opción errónea</p>
+
+<p>fi</p>
+
+<p>done</p>
 </div>
   
   
@@ -399,7 +457,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/steghide/">Steghide</a></h1>
+      <h1 class="entry-title"><a href="/blog/seeker/">Seeker</a></h1>
     
     
       <p class="meta">
@@ -415,20 +473,16 @@
   
 
 
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Detectar y extraer mensajes incrustados dentro de una imagen o música</p>
+  <div class="entry-content"><p>Comprobar la velocidad del disco duro, pero no en el inicio que es la parte más rápida como hace hdparm, sino de forma aleatoria en todo el espacio del disco.</p>
 
-<blockquote><p>$ steghide embed -cf imagen.jpg -ef archivo_texto  (incrustar un texto en una imagen)</p>
-
-<p>$ steghide embed -cf archivo.wav -ef archivo_texto (incrustar un texto en un archivo de música)</p>
-
-<p>$ steghide extract -sf imagen.jpg  (extraer el archivo incrustado)</p></blockquote>
+<blockquote><h1>seeker /dev/sda</h1></blockquote>
 </div>
   
   
@@ -441,7 +495,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/status/">Status</a></h1>
+      <h1 class="entry-title"><a href="/blog/sed/">Sed</a></h1>
     
     
       <p class="meta">
@@ -457,16 +511,170 @@
   
 
 
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Verifica si un servicio está activo o no.</p>
+  <div class="entry-content"><p>Permite borrar líneas, registros o sustituir cadenas de caracteres dentro de las líneas.</p>
 
-<blockquote><p>$ status ssh</p></blockquote>
+<p>Archivo base para ejemplo (Empleado &#8211; Precio/hora &#8211; Horas trabajadas – Cómo las cobra):</p>
+
+<p>$ cat lista</p>
+
+<p>Juan Gomez 6 10 banco</p>
+
+<p>Clara Fuentes 7 12 banco</p>
+
+<p>Antonio Cano 6 13 metálico</p>
+
+<p>José Bueno 7 0 banco</p>
+
+<p>Matías Crespo 5 8 metálico</p>
+
+<p>Isabel Ruiz 7 0 metálico</p>
+
+<p>María Monzón 9 16 metálico</p>
+
+<p>Mostrar la linea 4 del fichero:</p>
+
+<p>$ sed -n 4p lista</p>
+
+<p>Mostrar la 4ª y la 5ª:</p>
+
+<p>$ sed -n 4,5p lista</p>
+
+<p>Mostrar de la 3ª al final del fichero:</p>
+
+<p>$ sed -n &#8216;4,$p&#8217; lista</p>
+
+<p>Mostrar desde la primera linea que empiece por “Ant” hasta el final:</p>
+
+<p>$ sed -n &#8216;/<sup>Ant/,$p&#8217;</sup> lista</p>
+
+<p>Mostrar sólo los parrafos desde “Clara” hasta “Bueno”:</p>
+
+<p>$ sed -n &#8216;/Clara/,/Bueno/p&#8217; lista</p>
+
+<p>Mostrar cada linea a doble espacio:</p>
+
+<p>$ sed G lista</p>
+
+<p>Mostrar las lineas que cumplen el patrón “Ju” en alguno de sus campos:</p>
+
+<p>$  sed -n &#8216;/Ju/p&#8217; lista</p>
+
+<p>Borrar la 4ª linea del fichero:</p>
+
+<p>$  sed &#8216;4d&#8217; lista</p>
+
+<p>Borrar la última linea del fichero:</p>
+
+<p>$  sed -e $d lista</p>
+
+<p>Lo mismo:</p>
+
+<p>$ sed &#8216;$d&#8217; lista</p>
+
+<p>Borrar las lineas que empiecen por &#8220;J&#8221;:</p>
+
+<p>$ sed -e &#8216;/J/d&#8217; lista</p>
+
+<p>Borrar la segunda linea</p>
+
+<p>$ sed &#8216;2d&#8217; lista</p>
+
+<p>Borrar la 1ª y la 2ª:</p>
+
+<p>$  sed &#8216;1,2d&#8217; lista</p>
+
+<p>Borrar desde la primera linea que empiece por &#8220;Ant&#8221; hasta el final:</p>
+
+<p>$ sed -e &#8216;/<sup>Ant/,$d&#8217;</sup> lista</p>
+
+<p>Borrar desde la 2 linea hasta la que tenga &#8220;Ruiz&#8221;:</p>
+
+<p>$ sed &#8216;2,/Ruiz/d&#8217; lista</p>
+
+<p>Borrar las lineas en blanco de un archivo (en &#8220;lista&#8221; no procede):</p>
+
+<p>$  sed &#8216;/<sup>$/d</sup> lista</p>
+
+<p>Cambiar &#8220;metálico&#8221; por &#8220;gratis&#8221; excepto en la 3 linea:</p>
+
+<p>$ sed &#8216;3!s/metálico/gratis/&#8217; lista</p>
+
+<p>Cambiar &#8220;met&#8221; por &#8220;tem&#8221; en las lineas que no tengan &#8220;Cano&#8221;:</p>
+
+<p>$ sed &#8216;/Cano/!s/met/tem/&#8217; lista</p>
+
+<p>Cambiar campos (banco por cheque):</p>
+
+<p>$ sed &#8216;s/banco/cheque/&#8217; lista</p>
+
+<p>Cambiar las &#8220;J&#8221; y la &#8220;C&#8221; mayúsculas por minúsculas:</p>
+
+<p>$ sed &#8216;y/J-C/j-c/&#8217; lista</p>
+
+<p>Substituye las vocales por &#8220;u&#8221;:</p>
+
+<p>$ sed -e &#8220;s/[aeio]/u/g&#8221; lista</p>
+
+<p>Substituir los espacios por tabulaciones:</p>
+
+<p>$ sed -e &#8216;s/ /t/g&#8217; lista</p>
+
+<p>Alinear al centro:</p>
+
+<p>$ sed -e :a -e &#8216;s/<sup>.{1,77}$/</sup> &amp;/;ta&#8217; -e &#8216;s/( *)1/1/&#8217; lista</p>
+
+<p>Todas las opciones pueden usarse como tubería substituyendo &#8220;lista&#8221; por “cat lista |”:</p>
+
+<p>$ cat lista | sed -n &#8216;4,$p&#8217;</p>
+
+<p>Otros ejemplos:</p>
+
+<p>Mostrar lineas no comentadas de un archivo:</p>
+
+<p>$ sed -e &#8216;/<sup>#/d&#8217;</sup> /etc/fstab</p>
+
+<p>Substituir &#8220;foto&#8221; por &#8220;FOTO&#8221; en todo los archivos del directorio:</p>
+
+<p>$ ls * | sed -e &#8216;p;s/foto/FOTO/&#8217; | xargs -n2 mv</p>
+
+<p>Cambiar “Juan” por “Pedro” en todos los archivos .txt del presente directorio:</p>
+
+<p>$ sed -i &#8216;s/Juan/Pedro/g&#8217; *.txt</p>
+
+<p>Mostrar sólo las lineas con 4 dígitos seguidos:</p>
+
+<p>$ sed &#8216;/[0-9]{4}/p&#8217; archivo</p>
+
+<p>Borrar todos los espacios delante de cada linea:</p>
+
+<p>$sed &#8216;s/<sup>[</sup> ^t]*//&#8217; archivo</p>
+
+<p>Borrar todos los espacios detras de cada linea:</p>
+
+<p>$ sed &#8216;s/[ ^t]*$//&#8217; archivo</p>
+
+<p>Borrar todos los espacios delante y detras de cada linea:</p>
+
+<p>$ sed &#8216;s/<sup>[</sup> ^t]<em>//;s/[ ^]</em>$//&#8217; archivo</p>
+
+<p>Cambiar los números 3333 por 3.333. El parámetro -r sirva para activar las expresiones regulares extendidas de sed:</p>
+
+<p>$ sed -r &#8220;s/&lt;(reg|exp)[a-z]+/U&amp;/g&#8221;</p>
+
+<p>Contar lineas de un archivo [emulador de wc -l]:</p>
+
+<p>sed -n &#8216;$=&#8217; lista</p>
+
+<p>Insertar 5 espacios en blanco delante de cada linea:</p>
+
+<p>$ sed &#8216;s/<sup>/</sup>     /&#8217; lista</p>
 </div>
   
   
@@ -479,7 +687,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/stat/">Stat</a></h1>
+      <h1 class="entry-title"><a href="/blog/sdiff/">Sdiff</a></h1>
     
     
       <p class="meta">
@@ -495,22 +703,16 @@
   
 
 
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Estadísticas de archivo, directorios y sistemas</p>
+  <div class="entry-content"><p>Muestra dos ficheros interactivamente.</p>
 
-<blockquote><p># stat /etc/passwd</p>
-
-<p># stat /usr</p>
-
-<p># stat -f /</p>
-
-<p>$ stat -c &#8220;%s&#8221; archivo (medida del archivo)</p></blockquote>
+<blockquote><p>$ sdiff -W -B file1 file2 (Ignorando espacios [W] y lineas en blanco [B])</p></blockquote>
 </div>
   
   
@@ -541,43 +743,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/grub2/">grub2</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/printf/">printf</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdftotext/">pdftotext</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/avconv/">avconv</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ipmitool/">ipmitool</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tmux/">tmux</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/rkhunter/">rkhunter</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssconvert/">ssconvert</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/while/">while</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

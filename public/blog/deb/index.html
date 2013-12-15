@@ -94,7 +94,7 @@
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
@@ -107,30 +107,25 @@
 
 <p>Crear un paquete para esta distro a partir de un script:</p>
 
-<pre><code>$ mkdir deb 
-</code></pre>
+<p>$ mkdir deb</p>
 
 <p>En ese directorio recrear la estructura destino que queremos utilizar. En nuestro caso /usr/bin, el directorio para el icono y permisos:</p>
 
-<pre><code>$ mkdir -p deb/usr/bin
+<p>$ mkdir -p deb/usr/bin</p>
 
-$ mkdir -p deb/usr/share/applications
-</code></pre>
+<p>$ mkdir -p deb/usr/share/applications</p>
 
 <p>Copiar el script en el bin creado:</p>
 
-<pre><code>$ cp script deb/usr/bin 
-</code></pre>
+<p>$ cp script deb/usr/bin</p>
 
 <p>Crear el subdirectorio DEBIAN:</p>
 
-<pre><code>$ mkdir deb/DEBIAN 
-</code></pre>
+<p>$ mkdir deb/DEBIAN</p>
 
 <p>En su interior el fichero “control”:</p>
 
-<pre><code>$ nano deb/DEBIAN/control 
-</code></pre>
+<p>$ nano deb/DEBIAN/control</p>
 
 <p>En el que pegamos datos del paquete:</p>
 
@@ -150,70 +145,63 @@ $ mkdir -p deb/usr/share/applications
 
 <p>Description: Pequeña_descripción_de_la_maravilla</p>
 
-<p> Este script &#8230;. para &#8230;.. de &#8230;.. aquello&#8230;&#8230;.</p>
+<p>Este script &#8230;. para &#8230;.. de &#8230;.. aquello&#8230;&#8230;.</p>
 
 <p>Notas: En el nombre del paquete (Package) no se admiten espacios ni barras bajas) y en la descripción (Description) el primer carácter de la segunda linea es un espacio y al final del texto, darle al intro para que ponga una linea vacia. Las dependencias que pongamos en “Depends” son las que se instalarán  con la instalación del .deb.</p>
 
 <p>Crear el paquete “menu” en el mismo directorio:</p>
 
-<pre><code>$ nano deb/DEBIAN/menu
-</code></pre>
+<p>$ nano deb/DEBIAN/menu</p>
 
 <p>Y en su interior pegar:</p>
 
-<pre><code>?package(nombre_script):needs="X11" \ 
+<p>?package(nombre_script):needs=&#8221;X11&#8221;</p>
 
-    section="Applications/Network/Monitoring" \ 
+<p>section=&#8221;Applications/Network/Monitoring&#8221;</p>
 
-    title="Suport VNC" command="gnome-terminal -e script_que_sea" \ 
+<p>title=&#8221;Suport VNC&#8221; command=&#8221;gnome-terminal -e script_que_sea&#8221;</p>
 
-    icon="/usr/share/pixmaps/gnome-term-linux2.png"
-</code></pre>
+<p>icon=&#8221;/usr/share/pixmaps/gnome-term-linux2.png&#8221;</p>
 
 <p>Notas: Nombre del paquete, que precisa de las X (X11), donde se colocará en el menú “Aplicaciones” (otras opciones: section=”Apps/Multimedia”&#8230;), el comando que lo lanzará (gnome-terminal -e script) y el icono que hemos escogido. Crear el archivo nombre_script.desktop para los datos del icono:</p>
 
-<pre><code>$ gedit deb/usr/share/applications/nombre_script.desktop
-</code></pre>
+<p>$ gedit deb/usr/share/applications/nombre_script.desktop</p>
 
 <p>Y pegar el siguiente contenido:</p>
 
-<pre><code>[Desktop Entry] 
+<p>[Desktop Entry]</p>
 
-Version=1.0 
+<p>Version=1.0</p>
 
-Name=Nombre_script 
+<p>Name=Nombre_script</p>
 
-GenericName=Nombre_script 
+<p>GenericName=Nombre_script</p>
 
-Comment=Pequeño_comentario 
+<p>Comment=Pequeño_comentario</p>
 
-Exec=Nombre_script_que_lo_lanzará 
+<p>Exec=Nombre_script_que_lo_lanzará</p>
 
-Terminal=true 
+<p>Terminal=true</p>
 
-Type=Application 
+<p>Type=Application</p>
 
-Categories=Application;Network; 
+<p>Categories=Application;Network;</p>
 
-Icon=gnome-term-linux2.png 
+<p>Icon=gnome-term-linux2.png</p>
 
-StartupNotify=true
-</code></pre>
+<p>StartupNotify=true</p>
 
 <p>Nota.- también varios modelos de iconos en:</p>
 
-<pre><code>$ ls /home/usuario/.local/share/applications/  
-</code></pre>
+<p>$ ls /home/usuario/.local/share/applications/</p>
 
 <p>Cambiar el propietario del directorio:</p>
 
-<pre><code># chown -R root.root deb 
-</code></pre>
+<h1>chown -R root.root deb</h1>
 
 <p>Finalmente crear el paquete .deb y que lo coloque en el escritorio:</p>
 
-<pre><code># dpkg -b deb /home/usuario/Escritorio/nombre.deb
-</code></pre>
+<h1>dpkg -b deb /home/usuario/Escritorio/nombre.deb</h1>
 
 <p>2.-</p>
 
@@ -223,10 +211,9 @@ StartupNotify=true
 
 <p>Crear carpeta de trabajo y entrar en ella:</p>
 
-<pre><code>$ mkdir picpuz 
+<p>$ mkdir picpuz</p>
 
-$ cd picpuz 
-</code></pre>
+<p>$ cd picpuz</p>
 
 <p>Descargar y descomprimir el tar.gz y entrar en la carpeta descomprimida:</p>
 
@@ -238,33 +225,27 @@ $ cd picpuz
 
 <p>Crear el nuevo paquete .orig.tar.gz con los estandares de Debian, con licencia gpl3 y generando el paquete desde las fuentes:</p>
 
-<pre><code>$ dh_make --createorig  -c gpl3 -s
-</code></pre>
+<p>$ dh_make &#8211;createorig  -c gpl3 -s</p>
 
 <p>Construir el paquete .deb:</p>
 
-<pre><code>$ dpkg-buildpackage -rfakeroot 
-</code></pre>
+<p>$ dpkg-buildpackage -rfakeroot</p>
 
 <p>Listar el contenido de un paquete .deb:</p>
 
-<pre><code>$ ar -tv picpuz_2.2-1_i386.deb
-</code></pre>
+<p>$ ar -tv picpuz_2.2-1_i386.deb</p>
 
 <p>Información y perspectiva general de lo que ofrece el paquete:</p>
 
-<pre><code>$ dpkg-deb -I picpuz_2.2-1_i386.deb
-</code></pre>
+<p>$ dpkg-deb -I picpuz_2.2-1_i386.deb</p>
 
 <p>Listar los ficheros que serán instalados:</p>
 
-<pre><code>$ dpkg-deb -c picpuz_2.2-1_i386.deb 
-</code></pre>
+<p>$ dpkg-deb -c picpuz_2.2-1_i386.deb</p>
 
 <p>instalarlo:</p>
 
-<pre><code># dpkg -i picpuz_2.2-1_i386.deb
-</code></pre>
+<h1>dpkg -i picpuz_2.2-1_i386.deb</h1>
 
 <p>Lo encontraremos en aplicaciones/juegos</p>
 </div>
@@ -289,7 +270,7 @@ $ cd picpuz
   
 
 
-<time datetime="2013-10-27T13:52:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:41:00+01:00" pubdate data-updated="true">15-12-2013</time>
       
 
 
@@ -309,7 +290,7 @@ $ cd picpuz
         <a class="basic-alignment left" href="/blog/deallocvt/" title="Previous Post: deallocvt">&laquo; deallocvt</a>
       
       
-        <a class="basic-alignment right" href="/blog/deborphan/" title="Next Post: deborphan">deborphan &raquo;</a>
+        <a class="basic-alignment right" href="/blog/debget/" title="Next Post: debget">debget &raquo;</a>
       
     </p>
   </footer>
@@ -330,43 +311,43 @@ $ cd picpuz
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/grub2/">grub2</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/printf/">printf</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdftotext/">pdftotext</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/avconv/">avconv</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ipmitool/">ipmitool</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tmux/">tmux</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/rkhunter/">rkhunter</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssconvert/">ssconvert</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/while/">while</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

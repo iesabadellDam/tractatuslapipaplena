@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Mostrar un listado de las particiones con sus características exactas. # sfdisk -d /dev/sda (Muestra la tabla de particiones de sda) # sfdisk -d /dev &hellip;">
+  <meta name="description" content="Backups incrementales locales o remotos. La aplicación ha de estar instalada en el cliente y en el servidor. $ rdiff-backup &#8211;force 192.168.1.20 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/sfdisk/">Sfdisk</a></h1>
+      <h1 class="entry-title"><a href="/blog/rdiff-backup/">Rdiff-backup</a></h1>
     
     
       <p class="meta">
@@ -97,22 +97,16 @@
   
 
 
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Mostrar un listado de las particiones con sus características exactas.</p>
+  <div class="entry-content"><p>Backups incrementales locales o remotos. La aplicación ha de estar instalada en el cliente y en el servidor.</p>
 
-<blockquote><p># sfdisk -d /dev/sda (Muestra la tabla de particiones de sda)</p>
-
-<p># sfdisk -d /dev/sda | sfdisk /dev/sdb (copia la tabla de sda a sdb)</p>
-
-<p># sfdisk -d /dev/sda > tabla.bak (Guardar tabla de particiones)</p>
-
-<p># sfdisk /dev/sda &lt; tabla.bak (Restaurar tabla de particiones)</p></blockquote>
+<blockquote><p>$ rdiff-backup &#8211;force 192.168.1.20::/home/USER/dir_remoto /home/USER/dir_local (Realiza un backup del dir_remota de la máquina 20 de la red y lo guarda en nuestro dir_local sin comprimir)</p></blockquote>
 </div>
   
   
@@ -125,7 +119,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/setxkbmap/">Setxkbmap</a></h1>
+      <h1 class="entry-title"><a href="/blog/rdesktop/">Rdesktop</a></h1>
     
     
       <p class="meta">
@@ -141,18 +135,16 @@
   
 
 
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Configurar teclado [para X.org] en la sesión actual.</p>
+  <div class="entry-content"><p>Conexión a escritorio remoto.</p>
 
-<blockquote><p>$ setxkbmap -layout es</p>
-
-<p>$ setxkbmap es (configurarlo en español)</p></blockquote>
+<blockquote><p>$ rdesktop -k es -g 1024×768 -u USER -p PASS -a 15 -T tux -D client (Especificando teclado español [k], medidas de la ventana [g], usuario [u] y contraseña [p], especificar un mobre para la ventana [T] y suprimiendo la decoración de la ventana [D])</p></blockquote>
 </div>
   
   
@@ -165,7 +157,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/setterm/">Setterm</a></h1>
+      <h1 class="entry-title"><a href="/blog/rcconf/">Rcconf</a></h1>
     
     
       <p class="meta">
@@ -181,26 +173,16 @@
   
 
 
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Modificación de los atributos de la terminal. Algunos flags solo son aplicables a las tty.</p>
+  <div class="entry-content"><p>Parar/arrancar procesos durante el inicio</p>
 
-<blockquote><p>$ setterm -r   (La resetea incluso si ha quedado colgada)</p>
-
-<p>$ setterm -cursor off (desaparece el cursor. Con &#8220;on&#8221; regresa de nuevo)</p></blockquote>
-
-<p>Opciones:</p>
-
-<p>-foreground green (Color de texto. [black|blue|green|cyan|red|magenta|yellow|white|default])</p>
-
-<p>-background red  (Color de fondo)</p>
-
-<p>-inversescreen on (Intercambia los colores del texto y el fondo)</p>
+<blockquote><p>$ rcconf -now</p></blockquote>
 </div>
   
   
@@ -213,7 +195,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/setsid/">Setsid</a></h1>
+      <h1 class="entry-title"><a href="/blog/rc-dot-d/">rc.d</a></h1>
     
     
       <p class="meta">
@@ -229,16 +211,20 @@
   
 
 
-<time datetime="2013-10-27T13:56:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Permite continuar ejecutando un comando aunque se cierre la terminal o la sesión ssh. Parecido a nohup [ver] o screen [ver] aunque a diferencia de estos, no permite volver para ver el estado de proceso.</p>
+  <div class="entry-content"><p>Inicia o para servicios en Arch Linux</p>
 
-<blockquote><p>$ setsid apt-get update</p></blockquote>
+<blockquote><h1>rc.d start servicio (inicia el demonio o servicio)</h1>
+
+<h1>rc.d restart servicio (Reinicia el demonio)</h1>
+
+<h1>rc.d stop servicio (Para el servicio)</h1></blockquote>
 </div>
   
   
@@ -251,7 +237,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/setserial/">Setserial</a></h1>
+      <h1 class="entry-title"><a href="/blog/rbash/">Rbash</a></h1>
     
     
       <p class="meta">
@@ -267,16 +253,44 @@
   
 
 
-<time datetime="2013-10-27T13:55:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra información sobre los puertos serial.</p>
+  <div class="entry-content"><p>shell restringido. Se usa para imponer a un usuario un entorno severamente limitado en el que, por ejemplo, no podrá cambiar de directorio [cd], especificar nombre que contengan la /, redirigir la salida usando operadores de redirección [>, &lt;, >>], reemplazar la shell, desactivar el modo restringido, etc. Equivalente a &#8220;bash -c&#8221;</p>
 
-<blockquote><p>$ setserial -G /dev/ttyS0</p></blockquote>
+<blockquote><h1>adduser -s /bin/rbash juan (Crear un usuario con shell restringido)</h1>
+
+<h1>usermod -s /bin/rbash juan (Modificar la shell de un usuario ya establecido)</h1></blockquote>
+
+<p>Si queremos ampliar la cantidad de comandos a disposición de un usuario limitado editamos de su directorio personal el archivo .bash_profile:</p>
+
+<blockquote><h1>nano .bash_profile</h1></blockquote>
+
+<p>Y añadimos o modificamos las siguientes lineas:</p>
+
+<p>PATH=$HOME/apps</p>
+
+<p>export PATH</p>
+
+<p>Creamos el directorio</p>
+
+<blockquote><h1>mkdir /home/juan/apps</h1></blockquote>
+
+<p>Y añadimos enlaces de los binarios que queramos permitir al usuario [en este caso ls, cp y cat]</p>
+
+<blockquote><h1>ln -s /bin/ls /home/juan/apps/</h1>
+
+<h1>ln -s /bin/cp /home/juan/apps/</h1>
+
+<h1>ln -s /bin/cat /home/juan/apps/</h1></blockquote>
+
+<p>Y bloqueamos el archivo:</p>
+
+<blockquote><h1>chattr +i /home/juan/.bash_profile</h1></blockquote>
 </div>
   
   
@@ -289,7 +303,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/setsebool/">Setsebool</a></h1>
+      <h1 class="entry-title"><a href="/blog/raspi-config/">Raspi-config</a></h1>
     
     
       <p class="meta">
@@ -305,20 +319,14 @@
   
 
 
-<time datetime="2013-10-27T13:55:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Permite activar/desactivar las políticas en selinux. Ver getsebool</p>
-
-<blockquote><p># setsebool httpd_can_network_connect on (Activamos el permitir a Apache realizar conexiones de red)</p>
-
-<p># setsebool -P httpd_can_network_connect on (Hacer el cambio persistente)</p>
-
-<p># setsebool httpd_disable_trans 1 (Otra forma de desactivar una politica. Con 0 se activa)</p></blockquote>
+  <div class="entry-content"><p>Acceso a los parámetros de configuración de la placa RaspberriPi</p>
 </div>
   
   
@@ -331,7 +339,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/setleds/">Setleds</a></h1>
+      <h1 class="entry-title"><a href="/blog/rarp/">Rarp</a></h1>
     
     
       <p class="meta">
@@ -347,20 +355,18 @@
   
 
 
-<time datetime="2013-10-27T13:55:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Controla los leds del teclado</p>
+  <div class="entry-content"><p>Manipula la tabla rarp del nucleo.</p>
 
-<blockquote><p>$ setleds -D +num >> /dev/tty1  (activa el teclado numérico)</p>
+<blockquote><p>$ rarp -a (Lista las entradas de la caché si el nucleo tiene soporte rarp)</p>
 
-<p>$ setleds -D -caps >> /dev/tty1 (desactiva las mayúsculas)</p>
-
-<p>$ setleds -D +scroll >> /dev/tty1 (activa el scroll)</p></blockquote>
+<p>$ rarp -d hostname (Elimina una entrada de la caché)</p></blockquote>
 </div>
   
   
@@ -373,7 +379,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/set/">Set</a></h1>
+      <h1 class="entry-title"><a href="/blog/rar/">Rar</a></h1>
     
     
       <p class="meta">
@@ -389,22 +395,24 @@
   
 
 
-<time datetime="2013-10-27T13:55:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>desplegar todas las variables [y sus valores] que el shell controla y otorgar nuevas variables.</p>
+  <div class="entry-content"><p>Empaqueta y comprime</p>
 
-<blockquote><p>$ set | more</p>
+<blockquote><p>$ rar a archivo.rar fichero1 fichero2  (Comprimir varios ficheros)</p>
 
-<p>$ set -o vi (cambiar a las teclas del modo de edición de vi . Por defecto bash utiliza el modo emacs)</p>
+<p>$ rar x archivo.rar  (Descomprimir)</p>
 
-<p>$ set -o noclobber (activar la protección de sobreescritura en las tuberias si el archido ya existe [ls > lista] para saltarse esta protección puede hacerse con ls >|lista)</p>
+<p>$ rar v archivo.rar (Ver contenido)</p>
 
-<p>$ set +o noclobber (Desactivar la protección. Opción por defecto)</p></blockquote>
+<p>$ rar a archivo.rar fichero -hp   (empaquetar un fichero con contraseña)</p>
+
+<p>$ rar a archivo.rar file1 file2 dir1 (comprimir varios ficheros y directorios simultáneamente)</p></blockquote>
 </div>
   
   
@@ -417,7 +425,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/sestatus/">Sestatus</a></h1>
+      <h1 class="entry-title"><a href="/blog/rankmirrors/">Rankmirrors</a></h1>
     
     
       <p class="meta">
@@ -433,18 +441,18 @@
   
 
 
-<time datetime="2013-10-27T13:55:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Devuelve el estado de SELinux y la política que se está usando. Ver selinux y getsenforce</p>
+  <div class="entry-content"><p>Optimiza los mirrors de pacman.</p>
 
-<blockquote><p># sestatus</p>
+<blockquote><h1>cp mirrorlist mirrorlist.backup</h1>
 
-<p># sestatus -v (estado detallado de un sistema ejecutando SELinux)</p></blockquote>
+<h1>rankmirrors mirrorlist.backup >> mirrorlist</h1></blockquote>
 </div>
   
   
@@ -457,7 +465,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/service/">Service</a></h1>
+      <h1 class="entry-title"><a href="/blog/randtype/">Randtype</a></h1>
     
     
       <p class="meta">
@@ -473,20 +481,20 @@
   
 
 
-<time datetime="2013-10-27T13:55:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:45:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Inicia o para servicios.</p>
+  <div class="entry-content"><p>Utilidad para leer un archivo y mostrar la salida carácter por carácter o línea por línea a intervalos aleatorios.</p>
 
-<blockquote><p># service apache2 start (Arranca apache2)</p>
+<blockquote><p>$ randtype archivo (forma básica con valores por defecto)</p>
 
-<p># service apache2 stop (Para apache2)</p>
+<p>$ randtype -t 10,100000 archivo (Retarda la salida de forma aleatoria entre 10 y 100000 microsegundos)</p>
 
-<p># service apache2 restart (Reinicia el apache2)</p></blockquote>
+<p>$ echo &#8220;Linux es un sistema genial&#8221; | randtype -m 4 (Simulando 4 errores en el tecleo de la frase)</p></blockquote>
 </div>
   
   
@@ -517,43 +525,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/grub2/">grub2</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/printf/">printf</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdftotext/">pdftotext</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/avconv/">avconv</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ipmitool/">ipmitool</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tmux/">tmux</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/rkhunter/">rkhunter</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssconvert/">ssconvert</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/while/">while</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

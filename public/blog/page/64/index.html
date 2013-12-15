@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Convertir imagen nrg a iso $ nrg2iso imagen.nrg imagen.iso
-">
+  <meta name="description" content="Crear una imagen con la unión de varias y modificar imágenes. $ montage *.png salida.jpg (Con todas las imagenes del directorio) $ montage -adjoin &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -82,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/nrg2iso/">Nrg2iso</a></h1>
+      <h1 class="entry-title"><a href="/blog/montage/">Montage</a></h1>
     
     
       <p class="meta">
@@ -98,16 +97,28 @@
   
 
 
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:44:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Convertir imagen nrg a iso</p>
+  <div class="entry-content"><p>Crear una imagen con la unión de varias y modificar imágenes.</p>
 
-<blockquote><p>$ nrg2iso imagen.nrg imagen.iso</p></blockquote>
+<blockquote><p>$ montage *.png salida.jpg (Con todas las imagenes del directorio)</p>
+
+<p>$ montage -adjoin imagen.png imagen.png resultado.png</p>
+
+<p>$ montage -monochrome entrada.png salida.png (convertir a blanco y negro)</p>
+
+<p>$ montage -title “En el lago” entrada.png salida.png (poner título)</p>
+
+<p>$ montage *.png -mode concatenate -tile 10x all.png (Imagen con todas las imágenes del directorio)</p>
+
+<p>$ montage -geometry +1+1 -tile 2x2 *.png salida.png</p>
+
+<p>$ montage *.png -tile 2x5 -geometry 227x147+1+1 salida.png (Colocará todos los png de la carpeta y los colocará en páginas de 10 con la geometria indicada y con una separación de 1 pixel entre ellos</p></blockquote>
 </div>
   
   
@@ -120,7 +131,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/notify/">Notify</a></h1>
+      <h1 class="entry-title"><a href="/blog/monit/">Monit</a></h1>
     
     
       <p class="meta">
@@ -136,44 +147,208 @@
   
 
 
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:44:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Aviso o notificación que lanza el sistema al producirse un evento o terminar una tarea.</p>
+  <div class="entry-content"><p>Monitorizador de procesos en ejecución, servicios, demonios, espacios de disco, PIDs, checksums, archivos&#8230;.</p>
 
-<blockquote><p>$ notify-send &#8220;Linus es un sistema genial&#8221; -t 5000</p></blockquote>
+<blockquote><h1>monit status (Acceder a los informes)</h1>
 
-<p>Un ejemplo de uso para algunas tareas:</p>
+<h1>monit -t (Comprobar errores de configuración [Control file syntax OK])</h1>
 
-<blockquote><p>$ nano .bashrc</p></blockquote>
+<h1>monit -h (Listado de comandos disponibles)</h1>
 
-<p>Añadir las siguientes dos lineas:</p>
+<h1>monit quit (Salir)</h1>
 
-<p>alias alert_helper=&#8217;history|tail -n1|sed -e &#8220;s/<sup>\s<em>[0-9]+\s</em>//&#8221;</sup> -e &#8220;s/;\s*alert$//&#8221;&#8217;</p>
+<h1>monit start all (Arrancar todos los monitoreos)</h1>
 
-<p>alias alert=&#8217;notify-send -i /usr/share/icons/gnome/32×32/apps/gnome-terminal.png &#8220;[$?] $(alert_helper)&#8221;&#8217;</p>
+<h1>monit sotp ssh (Parar un monitoreo de un servicio)</h1>
 
-<p>Guardar y recargar bashrc:</p>
+<h1>monit restart all (Reiniciar todos los monitoreos)</h1>
 
-<blockquote><p>$ source .bashrc</p></blockquote>
+<h1>monit summary (Mostrar resumen)</h1></blockquote>
 
-<p>Otros ejemplos:</p>
+<p>Configuración:</p>
 
-<blockquote><p>$ find /home/$USER -iname *.jpg; notify-send &#8220;El comando ha terminado su labor.&#8221;</p>
+<h1>nano /etc/monitrc</h1>
 
-<p>$ sleep 10; alert</p>
+<p>Las entradas globales empiezan por “set” y los servicios concretos por “check”</p>
 
-<p>$ find /home/$USER -iname *.jpg; notify-send -i gtk-dialog-warning -t 4000 &#8220;ATENCIÓN&#8221; &#8220;El comando find ha terminado&#8230;&#8221;</p></blockquote>
+<p>Tiempo de actualización de datos, por defecto:</p>
 
-<p>opciones:</p>
+<p>set daemon  60</p>
 
-<p>-i especifica el icono a usar</p>
+<p>Especificar el archivo de eventos (logs)</p>
 
-<p>-t tiempo en milisegundos que se mostrará la nota</p>
+<p>set logfile /var/log/monit.log</p>
+
+<p>Configurar para el envio de notificaciones:</p>
+
+<p>set mailserver localhost</p>
+
+<p>set alert usuario@localhost.localdomain</p>
+
+<p>set mail-format {</p>
+
+<p>from: monit@$HOST</p>
+
+<p>subject: $SERVICE $EVENT</p>
+
+<p>message: $ACTION $SERVICE at $DATE on $HOST: $DESCRIPTION.</p>
+
+<p>}</p>
+
+<p>set mailserver mail@mail.com (servidor smtp que envia los correos [localhost para notificación local]).</p>
+
+<p>set alert user@hots.com  (cuenta donde enviar los mensajes de alerta). Ejemplo para enviar notificaciones a correo gmail (en negrita los datos a modificar):</p>
+
+<p>set mailserver smtp.gmail.com port 587</p>
+
+<p>username usuario@gmail.com password Tfer7¿-6j</p>
+
+<p>using tlsv1</p>
+
+<p>with timeout 30 seconds</p>
+
+<p>set alert usuario@gmail.com</p>
+
+<p>Cambiar usuario y contraseña (por defecto: admin/monit)</p>
+
+<p>allow usuario:contraseña</p>
+
+<p>Especificar desde donde accederemos. Sólo acceso local [localhost:2812]:</p>
+
+<p>set httpd port 2812 and use address localhost</p>
+
+<p>allow localhost</p>
+
+<p>o si queremos acceso remoto [http://ip_o_host:2812] modificar por:</p>
+
+<p>set httpd port 2812</p>
+
+<p>allow localhost</p>
+
+<p>Tambien podemos especificar: ips, rangos, hosts concretos o usuarios para solo lectura:</p>
+
+<p>allow 192.168.1.14</p>
+
+<p>allow 192.168.1.1/24</p>
+
+<p>allow host.com</p>
+
+<p>allow usuario:contraseña read-only</p>
+
+<p>Modificar el nombre del equipo [tiene que estar en /etc/hosts] y adaptar los porcentajes de consumo de carga del sistema [loadvg] y cpu para que al superar ciertos índices o porcentajes, envie una alerta:</p>
+
+<p>check system tux</p>
+
+<p>if loadavg (1min) > 4 then alert</p>
+
+<p>if memory usage > 75% then alert</p>
+
+<p>if swap usage > 85% then alert</p>
+
+<p>if cpu usage (user) > 70% then alert</p>
+
+<p>if cpu usage (system) > 70% then alert</p>
+
+<p>if cpu usage (wait) > 70% then alert</p>
+
+<p>Configurar el monitoreo de apache (Las rutas a los ficheros pertenecen a una distro arch):</p>
+
+<p>check process apache with pidfile /run/httpd/httpd.pid</p>
+
+<p>start program = &#8220;/etc/rc.d/httpd start&#8221; with timeout 60 seconds</p>
+
+<p>stop program  = &#8220;/etc/rc.d/httpd stop&#8221;</p>
+
+<p>if cpu > 80% for 5 cycles then restart</p>
+
+<p>if totalmem > 1500.0 MB for 5 cycles then restart</p>
+
+<p>if children > 250 then restart</p>
+
+<p>if cpu usage > 95% for 3 cycles then restart</p>
+
+<p>if failed port 80 protocol http then restart</p>
+
+<p>Configurar monitoreo de ssh</p>
+
+<p>check process ssh with pidfile /run/sshd.pid</p>
+
+<p>start program = &#8220;/etc/rc.d/sshd start&#8221; with timeout 60 seconds</p>
+
+<p>stop program  = &#8220;/etc/rc.d/sshd stop&#8221;</p>
+
+<p>if cpu > 80% for 5 cycles then restart</p>
+
+<p>if totalmem > 1500.0 MB for 5 cycles then restart</p>
+
+<p>if children > 250 then restart</p>
+
+<p>if cpu usage > 95% for 3 cycles then restart</p>
+
+<p>if failed port 22 protocol ssh then restart</p>
+
+<p>Chequear determinados puertos:</p>
+
+<p>check host localhost with address localhost</p>
+
+<p>if failed icmp type echo count 10 with timeout 15 seconds</p>
+
+<p>then alert</p>
+
+<p>if failed port 22 proto ssh then alert</p>
+
+<p>if failed port 25 proto smtp then alert</p>
+
+<p>if failed port 80 proto http then alert</p>
+
+<p>Monitorear ciertos archivos de configuración [de apache y ssh] para que alerte si modifica el checksum:</p>
+
+<p>check file httpd.conf with path /etc/httpd/conf/httpd.conf</p>
+
+<p>if changed checksum then alert</p>
+
+<p>check file ssh_config with path /etc/ssh/ssh_config</p>
+
+<p>if changed checksum then alert</p>
+
+<p>Monitorizar directorios para que envie una alerta en caso de modificación:</p>
+
+<p>check directory sbin with path /sbin</p>
+
+<p>if changed timestamp then alert</p>
+
+<p>Monitorizar dispositivos /dev/ [discos duros, usb&#8230;] para que avise en caso de sobrepasar determinado espacio en disco o lo desmonte al llegar a cierto porcentaje:</p>
+
+<p>check device sda5 with path /dev/sda5</p>
+
+<p>start = “/bin/mount /dev/sda5”</p>
+
+<p>stop = “/bin/umount /dev/sda5”</p>
+
+<p>if space usage > 90% then alert</p>
+
+<p>if space usage > 98% then stop</p>
+
+<p>Si, al pasar algún evento queremos lanzar un script algunos ejemplos para hacerlo son:</p>
+
+<p>1.- Cuando la carga del sistema sobrepasa el indice 5 alertará y si supera el 20 ejecutará el script:</p>
+
+<p>check system dominio.com</p>
+
+<p>if loadavg (1min) > 5 then alert</p>
+
+<p>if loadavg (1min) > 20 then exec &#8220;/bin/bash /root/script.sh&#8221;</p>
+
+<p>2.- Si falla el servidor ftp [puerto 21], al pasar 20 segundos alertará  y ejecutará el script</p>
+
+<p>if failed port 21 protocol ftp with 20 seconds then alert and exec “/ftp/script.sh”</p>
 </div>
   
   
@@ -186,7 +361,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/normalize/">Normalize</a></h1>
+      <h1 class="entry-title"><a href="/blog/molly-guard/">Molly-guard</a></h1>
     
     
       <p class="meta">
@@ -202,18 +377,22 @@
   
 
 
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:44:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Ajustar volumen</p>
+  <div class="entry-content"><p>Evitar paradas o reinicios de servidores desde consola remota. Editar:</p>
 
-<blockquote><p>$ normalize-audio *.wav</p>
+<blockquote><h1>nano /etc/molly-guard/rc</h1></blockquote>
 
-<p>$ normalize-mp3 *.mp3</p></blockquote>
+<p>Y descomentar la linea:</p>
+
+<p>ALWAYS_QUERY_HOSTNAME=true</p>
+
+<p>Cuando se intente parar o reiniciar el equipo vía ssh, saldrá una nota pidiendo el nombre de la máquina. Una vez introducida, se ejecutará el shutdown o reboot.</p>
 </div>
   
   
@@ -226,7 +405,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/nohup/">Nohup</a></h1>
+      <h1 class="entry-title"><a href="/blog/mogrify/">Mogrify</a></h1>
     
     
       <p class="meta">
@@ -242,22 +421,40 @@
   
 
 
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:44:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>permite mantener activo un proceso, incluso después de haber cerrado la sesión de usuario.</p>
+  <div class="entry-content"><p>Cambiar formato y redimensionar imágenes de directorios</p>
 
-<blockquote><p>$ nohup sleep 10000 &amp;   (lanzar el proceso)</p></blockquote>
+<blockquote><p>$ mogrify -format jpg *.png   (Cambiar el formato de varias  imágenes)</p>
 
-<p>[1] 9215     (PID del proceso. Con CTROL-C liberamos el promt y cerramos terminal)</p>
+<p>$ mogrify -format png -sample 20%x20% *.jpg   (Reducir varias imágenes)</p>
 
-<blockquote><p>$ pidof sleep   (en otra terminal para verificar que el proceso sigue activo)</p>
+<p>$ mogrify -format png  -thumbnail 10% *jpg (Cambiar formato y crear miniaturas)</p>
 
-<p>$ kill -9 9215  (matar el proceso)</p></blockquote>
+<p>$ mogrify -resize 50% *.jpg (reducir todas las imágenes al 50%)</p>
+
+<p>$ mogrify -strip imagen.jpg (eliminar metadatos de una imagen)</p>
+
+<p>$ mogrify -geometry 120x120 *.jpg  (Crear miniaturas)</p>
+
+<p>$ mogrify -quality 60 *.jpg  (Reducir la calidad)</p>
+
+<p>$ mogrify &#8211;auto-orient * (Reorientar todo el directorio)</p>
+
+<p>$ mogrify -resize 800 *.jpg (modificar todos los jpg de la carpeta y reducirlos manteniendo la relación a 800 pixels)</p>
+
+<p>$ mogrify -comment &#8220;comentario para introducir&#8221; salida.jpg (Entrar un comentario en los metadatos)</p>
+
+<p>$ mogrify -label &#8220;Texto de la etiqueta&#8221; input.jpg (Entrar una etiqueta)</p>
+
+<p>$ mogrify -comment @firma.txt input (Entrar un comentario a partir de un archivo firma.txt)</p>
+
+<p>$ identify -format %c imagen.png (Visualizar los comentarios)</p></blockquote>
 </div>
   
   
@@ -270,7 +467,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/nmon/">Nmon</a></h1>
+      <h1 class="entry-title"><a href="/blog/modulos/">Modulos</a></h1>
     
     
       <p class="meta">
@@ -286,16 +483,32 @@
   
 
 
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:44:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Monitor del sistema</p>
+  <div class="entry-content"><p>Comandos relacionados con el manejo de los módulos del kernel</p>
 
-<blockquote><p># nmon   (arranca la aplicación y muestra las teclas de control para escoger lo que se monitorea. “q” para cerrar la aplicación)</p></blockquote>
+<blockquote><h1>ls -R /lib/modules/$(uname -r) (Lista todos los modulos disponibles)</h1>
+
+<h1>modinfo /ruta_al_modulo/modulo.ko  (Muestra la información de un módulo)</h1>
+
+<h1>insmod modulo.ko  (instalar un modulo sin resolver dependencias)</h1>
+
+<h1>modprobe modulo.ko  (instalar un modulo incluyendo dependencias)</h1>
+
+<h1>depmod -a  (Generar la base de datos de dependencias de los modulos)</h1>
+
+<h1>insmod &#8211;force modulo.ko (Fuerza la instalación de un módulo)</h1>
+
+<h1>modprobe -n -v modulo.ko (Muestra los modulos y sus dependencias)</h1>
+
+<h1>lsmod  (Muestra todos los modulos del kernel)</h1>
+
+<h1>rmmod modulo.ko  (Elimina un modulo)</h1></blockquote>
 </div>
   
   
@@ -308,7 +521,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/nmblookup/">Nmblookup</a></h1>
+      <h1 class="entry-title"><a href="/blog/module-assistant/">Module-assistant</a></h1>
     
     
       <p class="meta">
@@ -324,16 +537,20 @@
   
 
 
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:44:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Resolución de nombres netbios</p>
+  <div class="entry-content"><p>Paquete especifico de Debian para la instalación de controladores.</p>
 
-<blockquote><p>$ nmblookup -A 192.168.1.125</p></blockquote>
+<blockquote><h1>m-a (abre la interficie ncuses del programa)</h1>
+
+<h1>m-a a-i paquete (seleccionar un módulo)</h1>
+
+<h1>m-a list (ver lista de paquetes disponibles)</h1></blockquote>
 </div>
   
   
@@ -346,7 +563,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/nmap/">Nmap</a></h1>
+      <h1 class="entry-title"><a href="/blog/modinfo/">Modinfo</a></h1>
     
     
       <p class="meta">
@@ -362,258 +579,16 @@
   
 
 
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:44:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Rastrear puertos.</p>
+  <div class="entry-content"><p>Información sobre módulos.</p>
 
-<p>Estados de los puertos:</p>
-
-<pre><code>abierto (Una aplicación acepta conexiones TCP o paquetes UDP en este puerto indicando qué servicio está corriendo)
-
-cerrado (Recibe y responde a las sondas de Nmap, pero no tiene una aplicación escuchando en él)
-
-filtrado (No puede determinar si el puerto está abierto porque un filtrado de paquetes previene que sus sondas lo alcancen)
-
-no filtrado (Indica que el puerto es accesible pero que Nmap no puede determinar si se encuentra abierto o cerrado)
-
-abierto|filtrado (Nmap marca a los puertos en este estado cuando no puede determinar si el puerto se encuentra abierto o filtrado)
-</code></pre>
-
-<p>Entrada de los objetivos cuando no se realiza por la linea de ordenes:</p>
-
-<pre><code>-iL ips.txt (Desde una lista de ips colocadas una por linea en el archivo ips.txt)
-
--iR 100 (Scanear 100 ips aleatoria. Con -iR 0 el escaneo no termina nunca.)
-</code></pre>
-
-<p>Técnicas de sondeos de puertos que soporta Nmap:</p>
-
-<pre><code>-sA [sondeo TCP ACK] (Este sondeo no puede determinar puertos abiertos o abiertos|filtrados. Se utiliza para mapear reglas de cortafuegos, y para determinar si son cortafuegos con inspección de estados y qué puertos están filtrados.
-
--sL [Sondeo de lista] (lista los objetivos a analizar sin enviar paquetes de ningún tipo a los objetivos)
-
--sM [sondeo TCP Maimon] (El sondeo Maimon debe su nombre a la persona que lo descubrió: Uriel Maimon. Describió la técnica en la revista Phrack número 49 (noviembre de 1996). Nmap, que incluye esta técnica, se publicó dos números más tarde. Esta técnica es exactamente la misma a los sondeos Null, FIN, y Xmas, pero en los que se envía una sonda FIN/ACK. Según el RFC 793 (TCP), se debería generar un paquete RST cuando se responde a dicha sonda independientemente de si el puerto está cerrado o abierto. Uriel se dio cuenta, sin embargo, de que muchos sistemas derivados de BSD simplemente descartan el paquete si el puerto está abierto.
-
--sN, -sF, -sX [sondeos TCP Null, FIN, y Xmas] (Estos sondeos aprovechan una indefinición en la RFC de TCP que diferencia los puertos abiertos y cerrados. La ventaja fundamental de este tipo de sondeos es que pueden atravesar algunos cortafuegos que no hagan inspección de estados o encaminadores que hagan filtrado de paquetes. Otra ventaja es que este tipo de sondeos son algo más sigilosos que, incluso, un sondeo SYN. Un problema de estos sondeos es que no se puede distinguir los puertos abiertos de algunos puertos filtrados, lo que resulta en la respuesta abierto|filtrado.
-
--sO [sondeo de protocolo IP] (Este sondeo permite determinar qué protocolos [TCP, ICMP, IGMP, etc.] soportan los sistemas objetivo. Esto no es, técnicamente, un sondeo de puertos, dado que cambia los números de protocolo IP en lugar de los números de puerto TCP ó UDP. 
-
--sP [sondeo ping] (Sólo determina si el objetivo responde. Metodo intrusivo)
-
--sS [sondeo TCP SYN] (Es el utilizado por defecto. Puede sondear miles de puertos por segundo en una red rápida sin cortafuegos y es relativamente sigiloso y poco molesto, ya que no llega a completar las conexiones TCP)
-
--sT [sondeo TCP connect()] (Es el sondeo por omisión cuando no se puede utilizar el sondeo SYN. Al realizar conexiones completas para abrir los puertos objetivo en lugar de realizar el reseteo de la conexión medio abierta como hace el sondeo SYN implica que tarda más tiempo y son necesarios más paquetes para obtener la información y que muy probablemente el sistema objetivo va a registrar la conexión.)
-
--sU [sondeos UDP] (Los 3 servicios UDP más comunes son: DNS [53], SNMP [161/162], y DHCP [67/68].  Los sondeos UDP funcionan mediante el envío (sin datos) de una cabecera UDP para cada puerto objetivo. Si se obtiene un error ICMP indica que el puerto no es alcanzable y se marca como cerrado. Si se recibe cualquier error ICMP no alcanzable se marca el puerto como filtrado. Si se recibe una respuesta al paquete UDP el puerto está abierto. Si no se ha recibido ninguna respuesta después de algunas retransmisiones entonces se clasifica el puerto como abierto|filtrado. Esto significa que el puerto podría estar abierto o que hay un filtro de paquetes bloqueando la comunicación. Puede utilizarse el sondeo de versión (-sV) para diferenciar los puertos abiertos de los filtrados.
-
--sV [Sondear versiones] (Sondea puertos abiertos para obtener información de la versión del servicio.
-
--sW [sondeo de ventana TCP] (Aprovecha de un detalle de implementación de algunos sistemas que permite diferenciar puertos abiertos de los cerrados, en lugar de imprimir no filtrado cuando se devuelve un RST.)
-
---scanflags [Sondeo TCP a medida] (Esta opción permite diseñar su propio sondeo mediante la especificación de banderas TCP arbitrarias y puede ser un valor numérico como el 9 (PSH y FIN), aunque es más sencillo utilizar nombres simbólicos juntando la combinación de URG, ACK, PSH, RST, SYN, y FIN [--scanflags URGACKPSHRSTSYNFIN] donde se fijan todas las banderas, aunque no es muy útil para sondear. Este es un método de sondeo avanzado que permite hacer un sondeo de puertos TCP a ciegas de verdad lo que significa que no se envía ningún paquete al sistema objetivo desde su dirección IP real por lo que es extraordinariamente sigiloso)
-</code></pre>
-
-<p>Descubrimiento de sistemas:</p>
-
-<pre><code>-P0 [No realizar ping] (Nmap no realiza la etapa de descubrimiento y actua como si cada Ip objetivo se encontrara activa)
-
--PA22,445 [Ping TCP ACK] (Envía un paquete TCP vacío con la bandera ACK a una lista de puertos separados por comas para determinar si responden.
-
--PS21,22,25,80 [Ping TCP SYN] (Envía un paquete TCP vacío con la bandera SYN a una lista de puertos separados por comas para saber si el sistema responde.   
-
--PU445,5000 [Ping UDP] (Envía paquetes UDP vacios a los puertos indicados para indicar si el sistema responde. Atraviesan cortafuegos y filtros que sólo analizan TCP)
-
--PR [Ping ARP] (El sondeo ARP detecta máquinas en la red local)
-</code></pre>
-
-<p>Especificación de puertos:</p>
-
-<pre><code>-p 21,22 (Separados por comas)
-
--p- (Todos los puertos de 0 al 65535)
-
--p 1-1023 (Del 1 al 1023)
-
--F (escanear los 100 puertos más usados)
-
--r (Analizar los puertos de forma secuencial. Por defecto se analizan de forma aleatoria)
-</code></pre>
-
-<p>Formatos de salida:</p>
-
-<pre><code>-oN archivo (Redirigir la salida a un archivo especificado)
-
--oX archivo.xml (Redirigir a un archivo xml
-
--oS archivo (Redirigiendo a una salida humoristica sobre los script kiddies)
-</code></pre>
-
-<p>Otras opciones:</p>
-
-<pre><code>-A (Opciones de sondeos agresivos. Activa detección de sistema operativo [-O] y el análisis de versiones [-sV]).
-
--n (No realizar resolución DNS de las direcciones IP activas que encuentre)
-
--R (Realizar resolución DNS de todos los objetivos)
-
--O (Averiguar el sistema operativo)
-
--O --osscan-guess (Averiguar el sistema operativo fonzandolo a identificarse)
-
--D 192.168.1.12,192.168.1.13,192.168.1.14 IP_OBJETIVO (Especificando ips falsas separadas por comas para emmascarar la nuestra)
-
--T4 (Tiempo de sondeo desde muy lento y fiable [0] a muy rápido e impreciso [5])
-
--S IP (Especificando una IP falsa)
-
--v (Incrementar el nivel de detalle. -vv mayor incremento de detalle)
-</code></pre>
-
-<p>nmap scripts</p>
-
-<p>funcionalidad de nmap que permite la realización de diversas tareas de descubrimiento, detección, expotación de diversas vulnerabilidades, etc. Listado en http://nmap.org/nsedoc/index.html y en local: /usr/share/nmap/scripts/:</p>
-
-<p>Categorias:</p>
-
-<pre><code>auth (Identifican credenciales de autenticación en el sistema objetivo frecuentemente por fuerza bruta [ftp-anon, snmp-brute, http-auth...])
-
-broadcast (Realizan un escaneo broadcast en toda la red objetivo sin necesidad de indicar los host de forma manual. utilizando el argumento “newtargets” se indica a Nmap incluir los host descubiertos en la pila de escaneo.)
-
-default (Conjunto de scripts que tratan de capturar la mayor cantidad de información de un objetivo a costa de generar mucho ruido en el sistema remoto.)
-
-discovery (Tratan de mapear los host de la red [registros públicos, dispositivos SNMP, servicios de directorio...])
-
-dos (Intentan causar denegación de servicio sobre un servicio determinado.)
-
-exploit (Tratan de detectar y explotar algún tipo de vulnerabilidad sobre el objetivo.)
-
-external (Los que se comunican con otros hosts distintos del local. Pueden enviar a una fuente externa la IP del objetivo y del atacante.)
-
-fuzzer (Envían datos aleatorios, inesperados o incompletos, con el fin de detectar posibles vulnerabilidades en servicios)
-
-intrusive (Intentan utilizar grandes recursos del sistema objetivo que pueden incluso inutilizarlo)
-
-malware (Intentan determinar si el objetivo se encuentra infectado con maleware o backdoors [smtp-strangeport y auth-spoof])
-
-safe (Scripts poco intrusivos diseñados para no afectar ni dañar el objetivo [ssh-hostkey o html-title])
-
-version (Diseñados para identificar versiones concretas de servicios. Se ejecutan solo si el escaneo tiene la opción Scan Version [-sV])
-
-vuln (Dedicados a la detección de vulnerabilidades pero no su explotación [realvnc-auth-bypass y afp-path-vuln])
-</code></pre>
-
-<p>Opciones:</p>
-
-<blockquote><p># nmap &#8211;script-args <argumentos> (Se trata de un conjunto de argumentos que se suministran a los Scripts que admiten parámetros para configurar su ejecución.)</p>
-
-<p># nmap &#8211;script citrix-brute-xml &#8211;script-args=userdbd=usernames.lst,passdb=passwords.lst,ntdomain=domain -p 80,443,8080 IP</p>
-
-<p># nmap &#8211;script auth &#8211;script-args userdb=usernames.lst,passdb=passwords.lst IP</p></blockquote>
-
-<p>usernames.lst (base de datos de usuarios. Personalización en /usr/share/nmap/nselib/data/usernames.lst)</p>
-
-<p>passdb (base de datos de contraseñas. Personalización en /usr/share/nmap/nselib/data/passwords.lst)</p>
-
-<p>ntdomain (dominio nt del servidor- previamente ha de averiguarse)</p>
-
-<p>Nota.- En algunos scripts las bases de datos usuarios/paswwords .lst se usan por defecto.</p>
-
-<p>Mostrar información</p>
-
-<pre><code>--script-help vuln (De una categoria)
-
---script-help openlookup-info.nse (De un script)
-
---script-help all (De todo)
-
---script-trace (toda la comunicación entrante y saliente ejecutada por los scripts es impresa en pantalla)
-</code></pre>
-
-<p>Actualizaciones:</p>
-
-<pre><code>--script-db (Actualiza la base de datos localizada en scripts/script.db. Útil si se ha añadido o suprimido alguno
-
---script-updatedb (Actualiza los scripts de la base de datos)
-</code></pre>
-
-<p>Ejemplos:</p>
-
-<blockquote><p># nmap -iR 10000 -p 80 (Selecciona objetivos al azar por el puerto 80)</p>
-
-<p># nmap -sP IP  (Sondeo Ping. Para detectar equipos de una red)</p>
-
-<p># nmap -P0 IP  (Asume que todos los objetivos están vivos)</p>
-
-<p># nmap -PS -p 137-139 IP  (Análisis TCP de los puertos indicados)</p>
-
-<p># nmap -PE IP  (Análisis ICMP del tipo echo)</p>
-
-<p># nmap -PI IP     (Utiliza paquetes icmp para determinar que hosts están conectados y es especial si deseas hacer un scan a través de un firewall)</p>
-
-<p># nmap -sF IP     (Analisis sigiloso)</p>
-
-<p># nmap -sW IP    (especial para máquinas windous)</p>
-
-<p># nmap -sX IP     (Análisis Xmas)</p>
-
-<p># nmap -sS -A -p 1-65535 IP  (escanear todos los puertos [-p&#8230;] TCP [-sS] y detectar las versiones del software [-A] de forma silenciosa)</p>
-
-<p># nmap &#8211;version-all IP  (Utilizar todas las sondas con intensidad 9 -máxima)</p>
-
-<p># nmap -p 1-65535 &#8211;open localhost  (lista de puertos abiertos)</p>
-
-<p># nmap -p 80 hostname  (determina si el puerto 80 está abierto)</p>
-
-<p># nmap -sn 192.168.1.0/24 (descubrir máquinas conectadas de una red)</p>
-
-<p># nmap -v -sP 192.168.1.0/24 | grep down | wc -l (Ips disponibles en una red)</p>
-
-<p># nmap -p- localhost (rastrear todos los puertos)</p>
-
-<p># nmap &#8211;iflist (Muestra la lista de interfaces de red y rutas)</p></blockquote>
-
-<p>Con scripts</p>
-
-<blockquote><p># nmap &#8211;script=&#8221;http-* and not http-enum&#8221; IP (filtro AND y NOT. Para usar todos los scripts http pero no los de enumeración)</p>
-
-<p># nmap &#8211;script malware IP (Usará todos los scripts de la categoria &#8220;malware&#8221;)</p>
-
-<p># nmap -sC IP (Usar todos los de la categoria &#8220;default&#8221; [-sC])</p>
-
-<p># nmap -PN -p81 &#8211;script http-iis-webdav-vuln IP (Buscando vulnerabilidades Webdav)</p>
-
-<p># nmap &#8211;script-trace &#8211;script smb-check-vulns -p445 IP (Detectar Conficker, gusano informático que apareció en octubre de 2008, que ataca sistemas Windows)</p>
-
-<p># nmap -sU -script=citrix-enum-servers -p1604 IP (explorar si hay algún servidor o granja citrix y realizar una enumeración de las aplicaciones publicadas)</p>
-
-<p># nmap -P0 -n -sS -p445,139 &#8211;script=smb-security-mode IP</p>
-
-<p># nmap &#8211;script vnc-brute 127.0.0.1</p>
-
-<p># nmap -p 22 &#8211;script ssh-hostkey host  (especificando puerto)</p>
-
-<p># nmap -p 5900 &#8211;script vnc-brute &#8211;script-args passdb=/home/USER/wordlist host (usando un dicccionario)</p>
-
-<p># nmap &#8211;script mysql-brute 192.168.1.1-255 (escaneo de rangos)</p>
-
-<p># nmap &#8211;script vnc-brute localhost (contra un host con vnc a la escucha)</p>
-
-<p># nmap -sV &#8211;script=ftp-brute IP</p>
-
-<p># nmap &#8211;script ftp-brute &#8211;script-args userdb=/tmp/users IP</p>
-
-<p># nmap &#8211;script ftp-brute &#8211;script-args userdb=/tmp/users,passdb=/tmp/passwds IP</p>
-
-<p># nmap &#8211;script ssh-hostkey &#8211;script-args ssh_hostkey=full host</p>
-
-<p># nmap &#8211;script ssh-hostkey &#8211;script-args ssh_hostkey=all host</p>
-
-<p># nmap -sV -sC &#8211;script-args ftp-anon.maxlist=-1 IP (Comprueba si un servidor ftp permite conexiones anónimas. El &#8220;-1&#8221; para desactivar el límite de 20 archivos)</p></blockquote>
+<blockquote><p>$ modinfo sr_mod</p></blockquote>
 </div>
   
   
@@ -626,7 +601,7 @@ vuln (Dedicados a la detección de vulnerabilidades pero no su explotación [rea
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/nm/">Nm</a></h1>
+      <h1 class="entry-title"><a href="/blog/modem-3g/">Modem-3g</a></h1>
     
     
       <p class="meta">
@@ -642,16 +617,24 @@ vuln (Dedicados a la detección de vulnerabilidades pero no su explotación [rea
   
 
 
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:44:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Lista las funciones de una biblioteca o programa compilado</p>
+  <div class="entry-content"><p>Instalación de modems inalámbricos:</p>
 
-<blockquote><p>$nm fichero.o</p></blockquote>
+<blockquote><h1>apt-get install usb-modeswitch</h1>
+
+<p>$ wget http://www.sakis3g.org/versions/latest/i386/sakis3g.gz</p>
+
+<p>$ gzip -d sakis3g.gz</p>
+
+<p>$ chmod +x sakis3g</p>
+
+<p>$ ./sakis3g &#8211;interface</p></blockquote>
 </div>
   
   
@@ -664,7 +647,7 @@ vuln (Dedicados a la detección de vulnerabilidades pero no su explotación [rea
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/nload/">Nload</a></h1>
+      <h1 class="entry-title"><a href="/blog/moc/">Moc</a></h1>
     
     
       <p class="meta">
@@ -680,16 +663,186 @@ vuln (Dedicados a la detección de vulnerabilidades pero no su explotación [rea
   
 
 
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:44:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Monitor de tráfico de red</p>
+  <div class="entry-content"><p>Reproductor de música.</p>
 
-<blockquote><p># nload</p></blockquote>
+<p>Copiar el archivo de configuración al directorio personal:</p>
+
+<p>$ cp /usr/share/doc/moc/examples/config.example.gz ~/.moc/</p>
+
+<p>$ cd ~/.moc/</p>
+
+<p>$ gzip -d config.example.gz</p>
+
+<p>$ mv config.example config</p>
+
+<p>El listado de temas</p>
+
+<blockquote><p>$ ls /usr/share/moc/themes.</p></blockquote>
+
+<p>black_theme  darkdot_theme  example_theme  green_theme moca_theme  nightly_theme  red_theme  transparent-background yellow_red_theme</p>
+
+<p>Para hacer definitivo el cambio, el que se escoja se coloca en:</p>
+
+<blockquote><p>$ nano .moc/config:</p></blockquote>
+
+<h1>Theme file. This can be absolute path or relative to</h1>
+
+<h1>/usr/share/moc/themes/ (depends on installation prefix) or ~/.moc/themes/</h1>
+
+<p>Theme                   = moca_theme</p>
+
+<blockquote><p>$ mocp  (arrancar la aplicación)</p></blockquote>
+
+<p>Teclas de control:</p>
+
+<blockquote><p> (subir volumen 1%)</p></blockquote>
+
+<p>&lt;  (Bajar volumen 1%)</p>
+
+<p>,  (Bajar volumen 5%)</p>
+
+<p>.  (Subir volumen 5%)</p>
+
+<p>h  (Lista de teclas)</p>
+
+<p>T  (Para cambiar el tema. Sólo para la presente sesión)</p>
+
+<p>n  (Reproduce siguiente canción)</p>
+
+<p>b  (Reproduce la canción anterior)</p>
+
+<p>A  (Añade un directorio a la lista de reproducción)</p>
+
+<p>a  (Añade solo un archivo a la lista)</p>
+
+<p>c  (Quita un archivo de la lista de reproducción)</p>
+
+<p>C  (Borra toda la lista)</p>
+
+<p>q  (Pasar a segundo plano. Vuelve a primer plano, según la ditro con: ./moc, moc, ./mocp)</p>
+
+<p>Q  (Cierra totalmente el programa)</p>
+
+<p>l  (Cambia de doble ventana a ventana simple y viceversa)</p>
+
+<p>tabulador   (Cambiamos de pantalla, en caso de estar dividida)</p>
+
+<p>p o espacio (Pausar)</p>
+
+<p>enter       (Play)</p>
+
+<p>Crtl + u    (Para entrar una url. Pulsando intro la incluye en playlist)</p>
+
+<p>d  (Borrar una url del playlist)</p>
+
+<p>1.-</p>
+
+<p>error &#8220;Could not find codec parameters&#8221;</p>
+
+<p>En algunas ocasiones (Debian) puede que falte el paquete libav y tenga que lanzarse:</p>
+
+<blockquote><p>$ mocp -O &#8220;PreferredDecoders+=mp3(mp3,ffmpeg)&#8221;</p></blockquote>
+
+<p>Si funciona, colocar la linea en .moc/config:</p>
+
+<p>PreferredDecoders       += mp3(ffmpeg)</p>
+
+<p>2.-</p>
+
+<p>Una pequeña lista de url musicales (Tambien válidas para vlc u otros reproductores en streaming):</p>
+
+<h1>Ibiza</h1>
+
+<p>http://s6.viastreaming.net:7010</p>
+
+<h1>City Dance</h1>
+
+<p>http://streaming.radionomy.com:8000/City-Dance-Radio</p>
+
+<h1>Dance-Makina</h1>
+
+<p>http://uplink.duplexfx.com:8044</p>
+
+<h1>Progressive</h1>
+
+<p>http://85.25.86.69:8000/</p>
+
+<h1>De los 90</h1>
+
+<p>http://91.121.38.216:8018/</p>
+
+<h1>Hardcore</h1>
+
+<p>http://eilo.org:8000/happycore</p>
+
+<h1>Punk-Rock</h1>
+
+<p>http://broadcast.rantradio.com:9000</p>
+
+<h1>Heavy Metal</h1>
+
+<p>http://s5.voscast.com:7346/</p>
+
+<h1>Black-Metal</h1>
+
+<p>http://radio.hazzardofdarkness.com:6666/ (Black-Metal</p>
+
+<h1>Rock Alternativo</h1>
+
+<p>http://66.55.148.27:10054</p>
+
+<h1>Piano Jazz</h1>
+
+<p>http://80.94.69.106:6814/</p>
+
+<h1>Relax New Age</h1>
+
+<p>http://radio2.trancemission.fm:80/</p>
+
+<h1>Hip-Hop</h1>
+
+<p>http://sc4.spacialnet.com:26368/</p>
+
+<h1>Italiana</h1>
+
+<p>http://italia.lolliradio.net:8010/</p>
+
+<h1>Beattles</h1>
+
+<p>http://uplink.duplexfx.com:8062/</p>
+
+<h1>Pop</h1>
+
+<p>http://listen.radionomy.com/lonestar-radio</p>
+
+<h1>Rock-Pop, britpop</h1>
+
+<p>http://listen.radionomy.com/walesfm</p>
+
+<p>3.-</p>
+
+<p>Moc también puede ser usado en modo servidor lo que nos permite liberar la terminal.</p>
+
+<p>$ mocp -S  (Lanza el modo servidor)</p>
+
+<p>$ mocp -p  (Reproduce el playlist)</p>
+
+<p>$ mocp -f  (Avanza al suguiente track del playlist)</p>
+
+<p>$ mocp -r  (Retrocede al anterior track del playlist)</p>
+
+<p>$ mocp -s  (Para la reproducción)</p>
+
+<p>$ mocp -P  (Pausa la reproducción)</p>
+
+<p>$ mocp -x  (Mata el servidor)</p>
 </div>
   
   
@@ -702,7 +855,7 @@ vuln (Dedicados a la detección de vulnerabilidades pero no su explotación [rea
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/nl/">Nl</a></h1>
+      <h1 class="entry-title"><a href="/blog/mmv/">Mmv</a></h1>
     
     
       <p class="meta">
@@ -718,18 +871,22 @@ vuln (Dedicados a la detección de vulnerabilidades pero no su explotación [rea
   
 
 
-<time datetime="2013-10-27T13:54:00+01:00" pubdate data-updated="true">27-10-2013</time>
+<time datetime="2013-12-15T15:43:00+01:00" pubdate data-updated="true">15-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra en pantalla un archivo de texto con las lineas numeradas. No modifica el archivo.</p>
+  <div class="entry-content"><p>Cambiar el sufijo del nombre de los archivos.</p>
 
-<blockquote><p>$ nl fichero.txt</p>
+<blockquote><p>$ mmv &#8220;*.PNG&#8221; &#8220;#1.png&#8221;   (Renombrar todas las extensiones &#8220;PNG&#8221; a &#8220;png&#8221;, conservándose el nombre que las precede.)</p>
 
-<p>$ nl fichero.txt > fichero_numerado.txt</p></blockquote>
+<p>$ mmv &#8220;;*.abc&#8221; &#8220;#1#2.cba&#8221; (Renombrar todas las extensiones &#8220;PNG&#8221; a &#8220;png&#8221; del directorio actual y sus subdirectorios)</p>
+
+<h1>mmv “/;*.PNG” “#1#2.png” (Renombrar todos los ficheros del sistema)</h1>
+
+<p>$ mmv &#8220;*.flv.mpg&#8221; &#8220;#1.mpg&#8221; (Renombrar todos los archivos terminados en .flv.mpg a .mpg)</p></blockquote>
 </div>
   
   
@@ -760,43 +917,43 @@ vuln (Dedicados a la detección de vulnerabilidades pero no su explotación [rea
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/grub2/">grub2</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/printf/">printf</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdftotext/">pdftotext</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/avconv/">avconv</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ipmitool/">ipmitool</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tmux/">tmux</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/rkhunter/">rkhunter</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssconvert/">ssconvert</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/while/">while</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>
