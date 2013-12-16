@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Permite activar/desactivar las políticas en selinux. Ver getsebool # setsebool httpd_can_network_connect on (Activamos el permitir a Apache realizar &hellip;">
+  <meta name="description" content="Modificación de los atributos de la terminal. Algunos flags solo son aplicables a las tty. $ setterm -r (La resetea incluso si ha quedado colgada) $ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,130 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/setterm/">Setterm</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Modificación de los atributos de la terminal. Algunos flags solo son aplicables a las tty.</p>
+
+<blockquote><p>$ setterm -r   (La resetea incluso si ha quedado colgada)</p>
+
+<p>$ setterm -cursor off (desaparece el cursor. Con &#8220;on&#8221; regresa de nuevo)</p></blockquote>
+
+<p>Opciones:</p>
+
+<p>-foreground green (Color de texto. [black|blue|green|cyan|red|magenta|yellow|white|default])</p>
+
+<p>-background red  (Color de fondo)</p>
+
+<p>-inversescreen on (Intercambia los colores del texto y el fondo)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/setsid/">Setsid</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Permite continuar ejecutando un comando aunque se cierre la terminal o la sesión ssh. Parecido a nohup [ver] o screen [ver] aunque a diferencia de estos, no permite volver para ver el estado de proceso.</p>
+
+<blockquote><p>$ setsid apt-get update</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/setserial/">Setserial</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-15T18:56:00+01:00" pubdate data-updated="true">15-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Muestra información sobre los puertos serial.</p>
+
+<blockquote><p>$ setserial -G /dev/ttyS0</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -368,215 +492,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/selinux/">Selinux</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:56:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[selinux-basics selinux-policy-default]</p>
-
-<p>SELinux proporciona una forma de acceso a recursos basada en políticas de control de acceso obligatorio [mandatory access control, MAC] incorporado en el kernel. Existen un conjunto de reglas de autorización [políticas] las cuales determinan si una operación sobre un objeto [Archivos, directorios, dispositivos&#8230;] realizada por un sujeto esta o no permitida basándose en los atributos de ambos. Linux utiliza por defecto el control de acceso a discreción [discretionary access control, DAC] basada en los propietarios y grupos a los que pertenece un objeto en los que un usuario normal puede cambiar los permisos de los archivos que posee con el comando chmod. Con selinux se limita el acceso que tienen las aplicaciones a otras aplicaciones y a los ficheros, impidiendo que un proceso pueda modificar cualquier fichero del usuario con el que se lanzó. En DAC el acceso esta descentralizado, siendo el propietario de cada objeto el encargado de asignar los permisos de los diversos grupos que accederán a ellas. En cambio con el MAC los objetos y los sujetos tan solo tienen atributos, pero son las políticas las que se encargan de autorizar o denegar una acción. Ver comandos getsebool y setsebool.</p>
-
-<p>Los módulos SELinux disponibles se almacenan en el directorio /usr/share/selinux/default/.</p>
-
-<blockquote><p># semodule -i módulo.pp (habilitar un módulos en la configuración actual. La extensión pp significa paquete de política [«policy package»]).</p>
-
-<p># semodule -r módulo (Elimina un módulo de la configuración actual)</p>
-
-<p># semodule -l (Enumera los módulos habilitados actualmente)</p>
-
-<p># semanage login -a -s staff_u juan (mapear una cuenta a un usuario especifico de SELinux)</p>
-
-<p># restorecon -R -F /home/juan (etiquetar los ficheros del usuario mapeado juan)</p>
-
-<p># semanage user -l (enumera las asociaciones entre las identidades de usuario de SELinux y los roles permitidos)</p>
-
-<p># semanage login -d juan (elimina la asociación asignada al usuario juan)</p>
-
-<p># semanage login -m juan (Modificar la asociación asignada al usuario)</p>
-
-<p># semanage login -l (enumera las correspondencias actuales entre identificadores de usuarios y entidades SELinux)</p></blockquote>
-
-<p>tabla de los usuarios estándar SELinux disponibles:</p>
-
-<pre><code>user_u  (Usuario normal que se utilizan para cuentas de usuario que no van a ser empleadas para administrar ningún servicio del sistema)
-
-staff_u (Para administradores con derechos para conmutar roles y ganar privilegios elevados)
-
-root (Cuenta root ligeramente diferente de la cuenta staff_u. Los ficheros protegidos por control de acceso basado en root no pueden ser gestionados por los staff_u)
-
-sysadm_u (Administración del sistema. Por defecto, esta cuenta no se utiliza inmediatamente ya que este usuario obtiene de forma inmediata el rol administrativo (por lo que staff_u y root todavía necesitarán conmutar roles).
-
-system_u (administrar servicios. Nunca se debe utilizar para usuarios finales ya que ofrece acceso directo al rol del sistema)
-
-unconfined_u    Usado cuando la directriz es targeted, este usuario SELinux tiene muchos privilegios (esencialmente no está limitado en sus acciones, aunque todavía se gestiona través de SELinux con una directriz "muy abierta"). 
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/select/">Select</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:56:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Realiza menús de forma rápida y simple:</p>
-
-<p>Algunos ejemplos:</p>
-
-<p>1.-</p>
-
-<pre><code>#!/bin/bash
-
-OPCIONES="Uso_linux Todavía_estoy_con_windows"
-
-select opt in $OPCIONES; do
-
-    if [ "$opt" = "Uso_linux" ]; then
-
-        echo "Bravo, usas el mejor sistema..."
-
-        exit
-
-    elif [ "$opt" = "Todavía_estoy_con_windows" ]; then
-
-        echo "¡Evoluciona de una vez!"
-
-        exit
-
-    else
-
-        echo opción errónea
-
-    fi
-
-done
-</code></pre>
-
-<p>2.-</p>
-
-<pre><code>#!/bin/bash
-
-OPCIONES="hostname pwd exit"
-
-select opt in $OPCIONES; do
-
-    if [ "$opt" = "hostname" ]; then
-
-        echo $HOSTNAME
-
-    elif [ "$opt" = "pwd" ]; then
-
-        pwd
-
-    elif [ "$opt" = "exit" ]; then
-
-        echo "salir"
-
-        exit    
-
-    else
-
-        echo opción errónea
-
-    fi
-
-done
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/seeker/">Seeker</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:56:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Comprobar la velocidad del disco duro, pero no en el inicio que es la parte más rápida como hace hdparm, sino de forma aleatoria en todo el espacio del disco.</p>
-
-<blockquote><p># seeker /dev/sda</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/37/">&larr; Older</a>
@@ -592,12 +507,24 @@ done
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1354</li>
+	<li>1355</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/continue/">continue</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/awstats/">awstats</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/awk/">awk</a>
+      </li>
     
       <li class="post">
         <a href="/blog/dropbox/">dropbox</a>
@@ -625,18 +552,6 @@ done
     
       <li class="post">
         <a href="/blog/zip/">zip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zgrep/">zgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zfgrep/">zfgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zenity/">zenity</a>
       </li>
     
   </ul>

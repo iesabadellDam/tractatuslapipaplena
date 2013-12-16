@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="[openipmi] Obtener datos del estado de un servidor [que lo soporte] tanto en local desde el propio servidor cómo en remoto. Se trata de un chipset &hellip;">
+  <meta name="description" content="Monitor de tráfico IP. Mide el uso del ancho de banda. # iptotal eth0 -r 60 (Escuchará 60 segundos antes de informar) # iptotal eth0 -r 120 -d 3 -P ( &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,232 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/iptotal/">Iptotal</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-15T18:54:00+01:00" pubdate data-updated="true">15-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Monitor de tráfico IP. Mide el uso del ancho de banda.</p>
+
+<blockquote><p># iptotal eth0 -r 60 (Escuchará 60 segundos antes de informar)</p>
+
+<p># iptotal eth0 -r 120 -d 3 -P  (con alto nivel de depuarión[-d 3] y modo promiscuo [-P]</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/iptables/">Iptables</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-15T18:54:00+01:00" pubdate data-updated="true">15-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>herramienta de cortafuegos y trafico de red.</p>
+
+<p>Algunos ejemplos generales:</p>
+
+<pre><code># iptables -F (eliminar todas las reglas)
+
+# iptables -L (si está activo y con qué reglas)
+
+# iptables -L -vn (mostrando los puertos e información detallada)
+
+# iptables -L -t nat (Listar reglas de una tabla concreta)
+
+# iptables -L fail2ban-ssh (comprobar las ips bloqueadas por fail2ban)
+
+# iptables -D fail2ban-ssh 1 (Quitar la primera ip baneada de las ips bloqueadas)
+
+# iptables -nL --line-numbers (muestra el orden de ejecución de las reglas)
+
+# iptables -nL INPUT (Lista todas las reglas de entrada)
+
+# iptables -nL FORWARD (Lista todas las reglas de salida)
+
+# iptables -D INPUT 3 (borrar la regla número 3)
+
+# iptables -A INPUT -j LOG (Guardar logs de todos los bloqueos)
+</code></pre>
+
+<p>Bloquear (DROP)</p>
+
+<pre><code># iptables -P INPUT DROP (Bloquear todo lo que entra)
+
+# iptables -A INPUT -s IP -j DROP (una ip)
+
+# iptables -A INPUT -s IP -i eth0 -j DROP (una ip de una red)
+
+# iptables -A INPUT -s IP -p tcp -dport 22 -j DROP (un puerto de una ip) 
+
+# iptables -A INPUT -s 192.168.1.0/24 -j DROP (una red)
+
+# iptables -A INPUT -m mac --mac-source 00:11:22:33:44:55 -j DROP (una mac)
+
+# iptables -A INPUT -p tcp --destination-port 21 -j DROP (puerto 21 de entrada)
+
+# iptables -A INPUT -p tcp -s IP --destination-port 21 -j DROP (el puerto 21 de entrada sólo para una IP)
+
+# iptables -A INPUT -p tcp -i eth0 -m multiport --destination-port 22,80,443 -j ACCEPT (Varios puertos)
+
+# iptables -A INPUT p tcp -s 192.168.1.0/24 --destination-port 21 -j DROP (el  puerto 21 de entrada para todo un rango de IPs)
+
+# iptables -A FORWARD -p tcp --dport 25 -j DROP (la salida del puerto 25)
+
+# iptables -A INPUT -p tcp --dport 22 -j LOG --log-prefix "Puerto 22 bloqueado" iptables -A INPUT -p tcp --dport 22 -j DROP (haciendo aparecer una mensaje informando del bloqueo)
+</code></pre>
+
+<p>Permitir (ACCEPT)</p>
+
+<pre><code># iptables -I INPUT 3 -s 192.168.1.0/8 -j ACCEPT (a la red especificada y poner la regla en tercer lugar)
+
+# iptables -D INPUT -s 192.168.1.0/8 -j ACCEPT (Quitar la regla anterior) 
+
+# iptables -A INPUT -i lo -p all -j ACCEPT (todas las entradas a localhost)
+
+# iptables -A OUTPUT -o lo -p all -j ACCEPT (todas las salidas a localhost)
+
+# iptables -A INPUT -p tcp --dport ssh -j ACCEPT (Un servicio concreto)
+
+# iptables -A INPUT -p tcp -i eth0 -m multiport --destination-port 22,80,443 -j ACCEPT (Todas las entradas a varios puertos)
+
+# iptables -A OUTPUT -o eth0 -p tcp -d 192.168.101.0/24 --dport 22 -j ACCEPT  (Permitir trafico ssh saliente para la red especificada)  
+</code></pre>
+
+<p>1.-</p>
+
+<p>Salvar unas reglas de iptables y restablecerlas manualmente:</p>
+
+<blockquote><p># iptables-save -c > /etc/iptables.rules</p>
+
+<p># iptables-restore &lt; /etc/iptables.rules</p></blockquote>
+
+<p>2.-</p>
+
+<p>Salvar unas reglas de iptables para que se activen automaticamente tras un reinicio:</p>
+
+<p>Salvar las reglas:</p>
+
+<blockquote><p># iptables-save > /etc/iptables/rules.v4</p></blockquote>
+
+<p>Crear el archivo:</p>
+
+<blockquote><p># nano /etc/network/if-pre-up.d/iptables (Crear archivo)</p></blockquote>
+
+<p>Con el siguiente contenido:</p>
+
+<pre><code>#!/bin/bash
+
+/sbin/iptables-restore &lt; /etc/iptables/rules.v4
+</code></pre>
+
+<p>Otorgar permisos:</p>
+
+<blockquote><p># chmod +x /etc/network/if-pre-up.d/iptables</p></blockquote>
+
+<p>3.-</p>
+
+<p>Otra opción para salvar las reglas y que se activen tras un reinicio:</p>
+
+<blockquote><p># /etc/init.d/iptables-persistent save (Guardar las reglas existentes)</p>
+
+<p># /etc/init.d/iptables-persistent flush (Reseteará todas las reglas)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ipscan/">Ipscan</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-15T18:54:00+01:00" pubdate data-updated="true">15-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Escanea la red en busca de máquinas activas.</p>
+
+<blockquote><p>$ ipscan -s -f:range 192.168.1.1 192.168.1.255 (todo el rango de ips)</p>
+
+<p>$ ipscan -s -f:file ips.txt (Las especificadas en el archivo ips.txt [una por linea])</p>
+
+<p>$ ipscan -s -f:range 192.168.1.9 192.168.1.16 -o resultat.txt (Derivando el resultado a un archivo)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -465,174 +691,6 @@ gateway 192.168.x.1
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ip/">Ip</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:54:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Configuración de red. Muestra dispositivos, enrutamientos, tuneles.</p>
-
-<blockquote><p>$ ip addr (Revisar tarjetas)</p>
-
-<p>$ ip route show (Información)</p>
-
-<p>$ ip link show (Ver interfaces de red)</p>
-
-<p>$ ip link set dev eth0 down (bajar una red)</p>
-
-<p>$ ip route add default via 192.168.1.1 (establecer la ip del router)</p>
-
-<p>$ ip link set dev eth0 up (levantar una red)</p>
-
-<p>$ ip addr add 192.168.1.20 255.255.255.0 dev eth1 (establecer una ip estática)</p>
-
-<p>$ ip n  (MAC e IP del router)</p>
-
-<p>$ ip link set dev eth1 address 00:03:44:88:00:11 (Modificdar la MAC. Previamente bajar la red)</p>
-
-<p>$ ip route del default (Eliminar puerta de enlace para crear una nueva)</p>
-
-<p>$ ip route add default via 192.168.1.10 (Crear nueva puerta de enlace)</p>
-
-<p>$ ip -f inet addr show eth0 (información de la dirección ip)</p>
-
-<p>$ ip route add 192.168.2.0/24 via 192.168.1.10 (Añadir una red a una puerta de enlace)</p></blockquote>
-
-<p>Nota.- Verificar que /etc/resolv contenga una linea con el servidor DNS tipo: nameserver 8.8.8.8 [para las DNS de google]</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/iozone/">Iozone</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:54:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Realizar test de velocidad de sistemas de archivos (ext3, ext4&#8230;)</p>
-
-<blockquote><p>$ iozone -s 2g -r 64 -i 0 -i 1 -b test.xls</p>
-
-<p>$ iozone -a -g 2G -f /media/sda2</p></blockquote>
-
-<p>-a (automático)</p>
-
-<p>-g (Tamaño de los archivos generados)</p>
-
-<p>-f (el sistema de archivos a tratar)</p>
-
-<p>-i (0= escritura, 1= lectura, 2=lectura/escritura&#8230;.)</p>
-
-<p>-b (archivo que generará con los resultados)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/iotop/">Iotop</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:54:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>monitoriza el ratio de lectura/escritura en disco .</p>
-
-<blockquote><p>$ iotop -o -u usuario</p>
-
-<p>$ iotop -a -p $(sed &#8216;s, , -p ,g&#8217; &lt;&lt;&lt;<code>pgrep "_raid|_resync|jbd2"</code>) (un raid)</p></blockquote>
-
-<p>Alguns opciones:</p>
-
-<p>-d 2 (Actualización cada 2 segundos)</p>
-
-<p>-b (No interactivo)</p>
-
-<p>-o (Sólo mostrar procesos que hacen uso de entrada/salida)</p>
-
-<p>-t (Incluir una marca de tiempo)</p>
-
-<p>-p pid (Pid del proceso a monitorizar. Por defecto todos)</p>
-
-<p>-u usuario (especificando usuario)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/82/">&larr; Older</a>
@@ -648,12 +706,24 @@ gateway 192.168.x.1
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1354</li>
+	<li>1355</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/continue/">continue</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/awstats/">awstats</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/awk/">awk</a>
+      </li>
     
       <li class="post">
         <a href="/blog/dropbox/">dropbox</a>
@@ -681,18 +751,6 @@ gateway 192.168.x.1
     
       <li class="post">
         <a href="/blog/zip/">zip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zgrep/">zgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zfgrep/">zfgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zenity/">zenity</a>
       </li>
     
   </ul>

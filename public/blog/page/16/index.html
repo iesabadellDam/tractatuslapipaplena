@@ -9,7 +9,8 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Crear usuarios. # useradd -d /home/user -m user (Especifica la ruta a su $HOME) Otras opciones: -M usuario (sin directorio $HOME) -g users user ( &hellip;">
+  <meta name="description" content="Quien está conectado al sistema $ users | xargs -n1 echo | sort | uniq -c (número de sesiones abierta por los usuarios.
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +76,140 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/users/">Users</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-15T18:58:00+01:00" pubdate data-updated="true">15-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Quien está conectado al sistema</p>
+
+<blockquote><p>$ users | xargs -n1 echo | sort | uniq -c  (número de sesiones abierta por los usuarios.</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/usermod/">Usermod</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-15T18:58:00+01:00" pubdate data-updated="true">15-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>modifica propiedades de los usuarios [directorio base, el shell, grupos a los que pertenece, expiración, bloqueo/desbloqueo de la cuenta]</p>
+
+<blockquote><p># usermod -G grupo1,grupo2 usuario (añade usuario a grupos)</p>
+
+<p># usermod -a -G video usuario  (incluye usuario al grupo video. )</p>
+
+<p># usermod -e 2009-12-10 user  (la cuenta de user expira el 20-12-09)vsftpd</p>
+
+<p># usermod -L usuario  (Bloquea a usuario)</p>
+
+<p># usermod -U usuario  (Desbloquea a usuario)</p>
+
+<p># usermod -u 999 usuario (baja el ID del usuario, normalmente 1000, para ocultarlo de la pantalla de login [gdm])</p>
+
+<p># usermod -s /sbin/nologin apache (Otorga al usuario apache una shell que no permite la ejecución de ningún comando)</p>
+
+<p># usermod -l juan pedro (Cambiar el nombre de usuario “pedro” a “juan”)</p>
+
+<p># usermod -d /home/nuevo -m usuario (modificar el nombre del directorio  home de un usuario)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/userdel/">Userdel</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-15T18:58:00+01:00" pubdate data-updated="true">15-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Borrar usuarios</p>
+
+<blockquote><p># userdel usuario (Elimina al usuario pero no su directorio personal)</p>
+
+<p># userdel -r usuario (lo borra junto a su directorio $HOME)</p>
+
+<p># userdel -f usuario (Borra al usuario y su directorio personal incluso aunque esté logeado en el sistema)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -479,122 +614,6 @@ http://systemadmin.es
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/uptime/">Uptime</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:58:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Tiempo transcurrido desde que se arrancó el sistema</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/update-usbids/">Update-usbids</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:58:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Si al ejecutar lsusb nos muestra un mensaje &#8220;unknown device&#8221; es preciso actualizar la lista del archivo /usr/share/misc/usb.ids.</p>
-
-<blockquote><p># update-usbids</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/update-rc-dot-d/">update-rc.d</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:58:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Activar/desactivar aplicaciones o scripts en el arranque del sistema.</p>
-
-<blockquote><p>$ update-rc.d -f gdm remove (desactivarlo)</p>
-
-<p>$ update-rc.d gdm defaults  (activarlo)</p>
-
-<p>$ update-rc.d script defaults (coloca un script en el arranque)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/17/">&larr; Older</a>
@@ -610,12 +629,24 @@ http://systemadmin.es
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1354</li>
+	<li>1355</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/continue/">continue</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/awstats/">awstats</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/awk/">awk</a>
+      </li>
     
       <li class="post">
         <a href="/blog/dropbox/">dropbox</a>
@@ -643,18 +674,6 @@ http://systemadmin.es
     
       <li class="post">
         <a href="/blog/zip/">zip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zgrep/">zgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zfgrep/">zfgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zenity/">zenity</a>
       </li>
     
   </ul>

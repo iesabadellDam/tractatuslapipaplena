@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Puertos y conexiones. # netstat &#8211;inet &#8211;all Proto Recv-Q Send-Q Local Address Foreign Address State tcp 0 0 localhost:832 : LISTEN tcp 0 0 &hellip;">
+  <meta name="description" content="Servidor de archivos. En el Servidor: # nano /etc/exports (Para especificar carpetas que se van a compartir) Formato de las carpetas que se comparte &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,242 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/nfs/">Nfs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-15T18:55:00+01:00" pubdate data-updated="true">15-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Servidor de archivos.</p>
+
+<p>En el Servidor:</p>
+
+<blockquote><p># nano /etc/exports (Para especificar carpetas que se van a compartir)</p></blockquote>
+
+<p>Formato de las carpetas que se comparte:</p>
+
+<p>/home/usuario/datos 192.168.1.0/24(rw,no_root_squash,sync)</p>
+
+<p>opciones:</p>
+
+<p>192.168.1.0/24 (Compartida por un rango de ips)</p>
+
+<p>192.168.1.8 (Solo para una ip)</p>
+
+<p>rw (lectura y escritura)</p>
+
+<p>no_root_squash (permite a root del cliente accesos root en el servidor)</p>
+
+<p>async (No sincronizando los datos)</p>
+
+<p>sync (Sincronizando los datos)</p>
+
+<blockquote><p># /etc/init.d/nfs-kernel-server restart (reiniciar demonio)</p>
+
+<p># exportfs -a (Releer el archivo exports si se ha modificado)</p></blockquote>
+
+<p>En el Cliente</p>
+
+<blockquote><p># apt-get install nfs-common (Instalar cliente)</p>
+
+<p># mount -t nfs 192.168.1.8:/home/usuario/datos /media/servidor</p></blockquote>
+
+<p>Si se desea en el fstab, colocar la linea:</p>
+
+<blockquote><p># nano /etc/fstab</p></blockquote>
+
+<p>192.168.1.2:/home/usuario/datos /media/servidor nfs rw,user 0 0</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/newsbeuter/">Newsbeuter</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-15T18:55:00+01:00" pubdate data-updated="true">15-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Lector RSS en consola</p>
+
+<blockquote><p>$ newsbeuter -i archivo.opml  (cargar los feeds de otra aplicación)</p>
+
+<p>$ newsbeuter -r (arrancar la aplicación obteniendo todas las fuentes)</p>
+
+<p>$ newsbeuter -e (exportar las fuentes a un archivo)</p></blockquote>
+
+<p>Algunos atajos [newsbeuter -h]:</p>
+
+<pre><code>q (Subir pantalla/salir de la aplicación)
+
+Q (Salir de la aplicación)
+
+C (Marcarlos todos como leidos)
+
+A (Fuente leida)
+
+n (Pasar a siguiente fuente no leida)
+
+p (Pasar a la anterior fuente no leida)
+
+o (Abrir noticia en el navegador [lynx por defecto ])
+
+u (Ver listado de URLs de la noticia, Introduciendo el indice la abre)
+
+/ (Abrir busqueda)
+
+? (Abrir diálogo de ayuda)
+</code></pre>
+
+<p>1.-</p>
+
+<p>Para incorporar los feeds de google reader editar o crear si no existe:</p>
+
+<blockquote><p>$ nano .newsbeuter/config</p></blockquote>
+
+<p>texto que se tiene que agregar:</p>
+
+<pre><code>urls-source "googlereader" 
+
+googlereader-login "login_de_googlereader" 
+
+googlereader-password "contraseña"
+</code></pre>
+
+<p>2.-</p>
+
+<p>Otros ajustes que pueden hacerse en este archivo:</p>
+
+<pre><code>auto-reload yes 
+
+reload-time 15 
+
+keep-articles-days 15 
+
+browser "elinks %u"
+
+notify-beep yes
+</code></pre>
+
+<p>Que relea las fuentes al arrancar, las actualice cada 15 minutos, que guarde las noticias 15 dias, las abra con elinks y que avise con un beep las nuevas noticias. Si las noticias se leen en las X puede especificarse como navegador firefox o chromium [browser firefox]</p>
+
+<p>3.-</p>
+
+<p>Configurar colores:</p>
+
+<p>Los colores soportados: black, red, green, yellow, blue, magenta, cyan y white.</p>
+
+<p>Los elementos sobre los que se puede actuar: listnormal [lista de las fuentes], listfocus [Fuente o articulo donde está el foco], info (Linea superior y penúltima de la pantalla que muestra información], background [última linea de la pantalla] y article [articulo que se abre para su lectura]</p>
+
+<p>Los atributos: standout, underline, reverse, blink, dim, bold, protect e invis [pueden especificarse uno, varios o ninguno]</p>
+
+<p>Muestra de mi configuración de color:</p>
+
+<blockquote><p>$ nano .newsbeuter/config</p></blockquote>
+
+<pre><code>color listnormal yellow black
+
+color listfocus green blue bold
+
+color info yellow blue bold
+
+color background red black bold
+
+color article cyan black
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/nettlet-hash/">Nettlet-hash</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-15T18:55:00+01:00" pubdate data-updated="true">15-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Generar claves de ficheros</p>
+
+<blockquote><p>$ nettlet-hash &#8211;list  (lista los algoritmos que pueden usarse)</p>
+
+<p>$ nettlet-hash -a sha224 fichero</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -498,175 +734,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/nessus/">Nessus</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:55:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Scaner de vulneradilidades</p>
-
-<p>Descargar nessus de: http://www.nessus.org/download/</p>
-
-<p>Registrarnos en:  http://www.nessus.org/plugins/?view=register-info</p>
-
-<p>Entrar el código de activación recibido por correo:</p>
-
-<blockquote><p># /opt/nessus/bin/nessus-fetch &#8211;register 218B-76A4-CB0F-072B-AEEA</p>
-
-<p># /opt/nessus/sbin/nessus-adduser (Entrar usuario y contraseña)</p>
-
-<p># /opt/nessus/sbin/nessusd (Arrancar el servicio)</p></blockquote>
-
-<p>Abrir navegador y entrar en la pantalla de login con:</p>
-
-<p>https://127.0.0.1:8834</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ncmpcpp/">Ncmpcpp</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:55:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Reproductor de música. Al ser del tipo cliente-servidor, Precisa mpd [ver] arrancado.</p>
-
-<p>En el archivo de configuración, que tiene que crearse, sólo es necesario especificar el directorio de música:</p>
-
-<blockquote><p>$ nano .ncmpcpp/config</p></blockquote>
-
-<p>mpd_music_dir = &#8220;/home/usuario/Musica&#8221;</p>
-
-<p>Algunas teclas de control:</p>
-
-<pre><code>F1 (Ayuda)
-
-F2 (Lista de reproducción)
-
-F3 (Explorador)
-
-F4 (Busca en la base de datos)
-
-F5 (Libreria)
-
-F6 (Editor de listas de reproduccion)
-
-F7 (Editor de etiquetas)
-
-F8 (Outputs)
-
-F9 (Visualizador musical)
-
-F10 (Reloj)
-
-@ (Informacion del servidor mpd)
-
-s (Detiene la reproducción)
-
-p (Cambia la visualización)
-
-P (Pausa la reproducción)
-
-Backspace (Pone el tema desde inicio)
-
-&lt; (Tema anterior)
-
-&gt; (Tema siguiente)
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ncdu/">Ncdu</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:55:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra el espacio usado por los archivos y directorios del directorio actual. Como “du” pero basado en ncurses.</p>
-
-<blockquote><p>$ ncdu /home/usuario</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/61/">&larr; Older</a>
@@ -682,12 +749,24 @@ Backspace (Pone el tema desde inicio)
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1354</li>
+	<li>1355</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/continue/">continue</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/awstats/">awstats</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/awk/">awk</a>
+      </li>
     
       <li class="post">
         <a href="/blog/dropbox/">dropbox</a>
@@ -715,18 +794,6 @@ Backspace (Pone el tema desde inicio)
     
       <li class="post">
         <a href="/blog/zip/">zip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zgrep/">zgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zfgrep/">zfgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zenity/">zenity</a>
       </li>
     
   </ul>
