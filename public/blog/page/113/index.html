@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Gestión de impresoras. 1.- Montar una impresora en red: En la máquina servidor (la que tiene conectada la impresora) # nano /etc/cups/cupsd.conf &hellip;">
+  <meta name="description" content="Montar directorios remotos en local. # curlftpfs usuario:contraseña@192.168.1.10 /media/servidor Para automatizar el proceso, añadir al /etc/fstab la &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,157 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/curlftpfs/">Curlftpfs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Montar directorios remotos en local.</p>
+
+<blockquote><p># curlftpfs usuario:contraseña@192.168.1.10 /media/servidor</p></blockquote>
+
+<p>Para automatizar el proceso, añadir al /etc/fstab la linea:</p>
+
+<p>curlftpfs#usuario:contraseña@192.168.1.10 /media/servidor fuse defaults 0 0</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/curl/">Curl</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Herramienta para la transferencia de datos desde o hacia un servidor. Permite los protocolos ftp, https, sftp, scp, tftp &#8230;</p>
+
+<blockquote><p>$ curl ftp://host (Sin ninguna opción obtiene la páquina principal del host [http, ftp&#8230;)</p>
+
+<p>$ curl ftp://host/ http://host/ (Descargar dos host simultaneos)</p>
+
+<p>$ curl -o destino http://host (Guarda el host en destino)</p>
+
+<p>$ curl -i URL (información sobre una URL)</p>
+
+<p>$ curl -o portada.png http://www.lapipaplena.net/wp-content/uploads/2012/08/meditate1.png (descargar una imagen y guardarla)</p>
+
+<p>$ curl -u usuario:contraseña http://localhost/restringido/ (Acceder a una zona que requiera autentificación)</p>
+
+<p>$ curl ftp://usuario:contraseña@host:puerto/home/usuario/archivo (Otra forma de autentificación)</p>
+
+<p>$ curl -T archivo_local ftp://host/carpeta (Subir un archivo local a un host remoto)</p>
+
+<p>$ curl -T archivo_local -a ftp://host/ (Subir un archivo local a un host remoto con el parámetro -a)</p>
+
+<p>$ curl -x proxy:8889 ftp://host (Obtener un host utilizando un proxy)</p>
+
+<p>$ curl -u usuario:contraseña -x proxy:8888 http://host (Usando proxy y con autentificación)</p>
+
+<p>$ curl -U usuario:contraseña -x proxy:8888 http://host (Cuando el proxy requiere autentificación especial)</p>
+
+<p>$ curl -r 0-99 http://host (Obtener los primeros 100 bytes del documento)</p>
+
+<p>$ curl -r -500 http://host (Obtener los últimos 500 bytes del documento)</p>
+
+<p>$ curl &#8211;proxytunnel -x proxy:8888 -T archivo_local ftp ftp://host (Usando un tunel)</p>
+
+<p>$ curl -v ftp://host (Ver información que se envia y recibe pero no los datos reales)</p>
+
+<p>$ curl &#8211;trace trace.txt host (Obtener más información y guardar en trace.txt)</p>
+
+<p>$ curl &#8211;dump-header headers.txt host (Guardar las cabeceras [cookies] en headers.txt)</p>
+
+<p>$ curl -b headers.txt www.example.com (Pasar las cabeceras obtenidas a un host)</p>
+
+<p>$ curl -e www.bueno.com http://host/ (Intentar engañar un site con una dirección falsa)</p>
+
+<p>$ curl -A &#8216;Mozilla/3.0 (Win95; I)&#8217; http://host (Intentar engañar un site especificando otro navegador)</p>
+
+<p>$ curl &#8211;limit-rate 10K host (Limitar la velocidad de transferencia a 10 kilobytes)</p>
+
+<p>$ curl -P 192.168.0.10 ftp host (Acceder a un host a partir de una ip a la que si tenemos acceso)</p>
+
+<p>$ curl -C - -o descarga hots (Proseguir una descarga interrumpida)</p>
+
+<p>$ curl -z local.html hots/remote.html (Sólo se efectuará la descarga si remote.html es más reciente que local.html)</p></blockquote>
+
+<p>Otras opciones:</p>
+
+<pre><code>$ curl -Is google.com | grep Date (Conocer la fecha via web)
+
+$ curl ip.appspot.com (Conocer la IP externa) 
+
+$ curl icanhazip.com (lo mismo)
+
+$ curl ifconfig.me (lo mismo)
+
+$ curl whatismyip.org (Otra) 
+
+$ curl -u usuario:clave --silent "https://mail.google.com/mail/feed/atom" | perl -ne 'print "\t" if /&lt;name&gt;/; print "$2\n" if /&lt;(title|name)&gt;(.*)&lt;\/\1&gt;/;' (visualizar todos los mensajes no leidos de gmail)
+
+$ curl -s 'http://geoiplookup.wikimedia.org/' | sed 's/^.*=\s*//' | python3 -mjson.tool (muestra la situación geográfica)
+
+$ curl -s http://geoiplookup.wikimedia.org/ | python3 -c 'import sys, json, string, webbrowser; webbrowser.open(string.Template("http://maps.google.com/maps?q=$lat,$lon").substitute(json.loads(sys.stdin.read().split("=")[-1])))' (Lo mismo pero abriendo una pestaña en el navegador)
+
+$ curl -s http://www.census.gov/popclock/data/population/world | awk -F'[:,]' '{print $7}' (Muestra el número de habitantes de la tierra)
+
+$ curl -s https://help.github.com/articles/generating-ssh-keys | grep -Po  --color=never "RSA key fingerprint is (:?[A-z0-9]\:?){32}" (Imprime la clave RSA de github.com)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -512,98 +663,6 @@ $ 0 8 * * * env DISPLAY=:0.0 vlc /home/usuario/musica/archivo.mp3 (Programar que
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/cpufreq-info/">Cpufreq-info</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Obtiene información del estado del demonio cpufreqd así como información de la CPU.</p>
-
-<blockquote><p>$ cpufreq-info</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/cpio/">Cpio</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Copiar archivos a un contenedor de manera más eficiente que tar. Los respaldos se pueden restaurar en cualquier sistema UNIX.</p>
-
-<blockquote><p>$ ls *.txt | cpio -ocv -O archivo.cpio (Creará [-o] &#8220;archivo.cpio&#8221; [-O] con todos los .txt del directorio, mostrando toda la salida [-v] y que escriba la información del encabezado en ASCII para facilitar el traspaso entre plataformas)</p></blockquote>
-
-<p>cpio -icv &lt; archivo.cpio (Extraer el contenido)</p>
-
-<blockquote><p>$ cpio -it &lt; file.cpio > indice (Crear un indice con el contenido de un archivo cpio)</p></blockquote>
-
-<p>Opciones:</p>
-
-<p>-u (Sobreescribiendo si al extraer ya existe el fichero ya que sin este parámetro no lo hace)</p>
-
-<p>-i (extraer archivos de un fichero)</p>
-
-<p>-t (Desplegar sin extraer)</p>
-
-<p>-r (Dar nombre a los archivos que se están extrayendo de forma interactiva)</p>
-
-<p>-d (Extrae con la misma estructura de directorio, si así se creó el fichero)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/114/">&larr; Older</a>
@@ -619,12 +678,20 @@ $ 0 8 * * * env DISPLAY=:0.0 vlc /home/usuario/musica/archivo.mp3 (Programar que
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1356</li>
+	<li>1358</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/shell/">shell</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/help/">help</a>
+      </li>
     
       <li class="post">
         <a href="/blog/mupdf/">mupdf</a>
@@ -656,14 +723,6 @@ $ 0 8 * * * env DISPLAY=:0.0 vlc /home/usuario/musica/archivo.mp3 (Programar que
     
       <li class="post">
         <a href="/blog/zypper/">zypper</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zmore/">zmore</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zmap/">zmap</a>
       </li>
     
   </ul>
