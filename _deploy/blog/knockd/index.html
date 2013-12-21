@@ -1,0 +1,402 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>knockd - TRACTATUS ELEMENTALIS</title>
+  <meta name="author" content="templix">
+
+  
+  <meta name="description" content="El port knocking o golpeo de puertos es un mecanismo mediante la cual el cortafuegos, que mantiene cerrado un determinado puerto, detecta una &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="https://tractatuslapipaplena.herokuapp.com/blog/knockd">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="TRACTATUS ELEMENTALIS" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <script src="/javascripts/links.js"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <div align=center>
+  <h1><a href="/">TRACTATUS ELEMENTALIS</a></h1>
+  
+    <h2>Apuntes sobre bash. Orgasmos con la terminal.</h2>
+  </dev>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS"></a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search?q=site%3Atractatuslapipaplena.herokuapp.com&q=" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:tractatuslapipaplena.herokuapp.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/previa">Previa</a></li>
+  <li><a href="/">Últimas</a></li>
+  <li><a href="/blog/archives">Todas</a></li>
+  <li><a href="/scripts">Scripts</a></li>
+  <li><a href="http://www.lapipaplena.net">Web</a></li>
+  <li><a href="http://lapipaplena.no-ip.org/wiki/">Wiki</a></li>
+  <li><a href="http://anonops.es">Foro</a></li>
+  <li><a href="http://panellpipa.no-ip.org">Socios</a></li>
+
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Knockd</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-15T18:54:00+01:00" pubdate data-updated="true">15-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>El port knocking o golpeo de puertos es un mecanismo mediante la cual el cortafuegos, que mantiene cerrado un determinado puerto, detecta una secuencia preestablecida que procede de una conexión externa y abre dicho puerto para que el servicio asignado sea accesible. Este mecanismo permite añadir una capa adicional de seguridad [por oscuridad], de manera que para cualquier conexión externa no autorizada los puertos donde se brindan los servicios se muestran como cerrados, eliminando así la posibilidad de intentar la conexión y no ofreciendo información sobre el servicio configurado. Por su parte, el usuario autorizado necesita disponer de un cliente de port-knocking que envíe una secuencia de paquetes dirigidos a dicho puerto, con el fin de que el cortafuegos detecte la secuencia correcta y abra el puerto dejando accesible el servicio. Una vez desactivada esta capa de seguridad, el servicio está accesible para realizar ls conexión [por ejemplo SSH]. La aplicación precisa estar instalada en el servidor y en el cliente.</p>
+
+<p>Habilitar el servicio y especificar la red:</p>
+
+<blockquote><p># nano /etc/default/knockd</p></blockquote>
+
+<pre><code>START_KNOCKD=1
+
+KNOCKD_OPTS="-i eth0"
+</code></pre>
+
+<p>Configurar las opciones de loging y las secuencias que queremos usar:</p>
+
+<blockquote><p># nano /etc/knockd.conf</p></blockquote>
+
+<pre><code>[options]
+
+        UseSyslog
+
+[openSSH]
+
+        sequence    = 7000,8000,9000
+
+        seq_timeout = 5
+
+        command     = /sbin/iptables -A INPUT -s %IP% -p tcp --dport 22 -j ACCEPT
+
+        tcpflags    = syn
+
+[closeSSH]
+
+        sequence    = 9000,8000,7000
+
+        seq_timeout = 5
+
+        command     = /sbin/iptables -D INPUT -s %IP% -p tcp --dport 22 -j ACCEPT
+
+        tcpflags    = syn
+</code></pre>
+
+<ul>
+<li><p>UseSyslog (que envía los logs a /var/log/syslog. Si se desea un fichero de log propio, se utiliza LogFile=/var/log/knockd.log)</p></li>
+<li><p>sequence (especifica la secuencia de puertos y tipo de paquete a enviar para hacer el portknocking (por defecto TCP, pero se puede especificar una secuencia más compleja como sequence=2140:udp,4500:tcp,3025:udp)</p></li>
+<li><p>seq_timeout (especifica el periodo máximo de tiempo en segundos en el que la secuencia completa es recibida como secuencia válida)</p></li>
+<li><p>tcpflags (especifica los flags que deben ser tenidos en cuenta (fin|syn|rst|psh|ack|urg).</p></li>
+<li><p>command (especifica el comando a ejecutar cuando se reconoce la secuencia definida)</p></li>
+<li><p>%IP% (toma del valor de la ip cliente desde la que se envía la secuencia de puertos)</p></li>
+</ul>
+
+
+<p>Con esta configuración, el servidor knockd escucha permanentemente todos los puertos, esperando una secuencia válida. Si recibe paquetes TCP dirigidos a los puertos 7000, 8000 y 9000, en este mismo orden y dentro de un intervalo de 5 segundos, reconoce la directiva [openSSH] y ejecuta iptables para abrir el puerto 22 [donde escucha sshd] a la IP que solicita la conexión. Ahora el cliente SSH puede realizar la conexión, y podemos cerrar el puerto de nuevo con la directiva [closeSSH] manteniendo establecida dicha conexión.</p>
+
+<blockquote><p># service knockd start (Iniciar el servicio)</p></blockquote>
+
+<p>Probar el servicio en local:</p>
+
+<p>Parar knockd si está activo y levantarlo manualmente:</p>
+
+<blockquote><p># service knockd stop</p>
+
+<p># knockd -v -i lo</p></blockquote>
+
+<p>En otra terminal:</p>
+
+<blockquote><p>$ knock -v localhost 7000 8000 9000</p></blockquote>
+
+<p>Cuando queramos terminar la conexión:</p>
+
+<blockquote><p>$ knock -v localhost 9000 8000 7000</p></blockquote>
+
+<p>En la terminal del servidor veremos algo como:</p>
+
+<blockquote><p># knockd -v -i lo</p></blockquote>
+
+<pre><code>listening on lo...
+
+127.0.0.1: openSSH: Stage 1
+
+127.0.0.1: openSSH: Stage 2
+
+127.0.0.1: openSSH: Stage 3
+
+127.0.0.1: openSSH: OPEN SESAME
+
+openSSH: running command: /sbin/iptables -A INPUT -s 127.0.0.1 -p tcp --dport 22 -j ACCEPT
+
+127.0.0.1: closeSSH: Stage 1
+
+127.0.0.1: closeSSH: Stage 2
+
+127.0.0.1: closeSSH: Stage 3
+
+127.0.0.1: closeSSH: OPEN SESAME
+
+closeSSH: running command: /sbin/iptables -D INPUT -s 127.0.0.1 -p tcp --dport 22 -j ACCEPT
+</code></pre>
+
+<p>Si en la configuración de iptables tenemos acceso a conexiones ya establecidas:</p>
+
+<pre><code>iptables -A INPUT -p tcp -m tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
+</code></pre>
+
+<p>Podemos configurar la aplicación para que se cierre de forma automática:</p>
+
+<blockquote><p># nano /etc/knockd.conf</p></blockquote>
+
+<pre><code>[opencloseSSH]
+
+        sequence = 7000,8000,9000
+
+        seq_timeout = 5
+
+        tcpflags = syn
+
+        start_command = /sbin/iptables -I INPUT -s %IP% -p tcp --dport 22 -j ACCEPT
+
+        cmd_timeout = 25
+
+        stop_command = /sbin/iptables -D INPUT -s %IP% -p tcp  --dport 22 -j ACCEPT
+</code></pre>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Escrito por la Pipa Plena. Gestor del blog <span class="fn">templix</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-15T18:54:00+01:00" pubdate data-updated="true">15-12-2013</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="https://tractatuslapipaplena.herokuapp.com/blog/knockd/" data-via="" data-counturl="https://tractatuslapipaplena.herokuapp.com/blog/knockd/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/kismet/" title="Previous Post: kismet">&laquo; kismet</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/knocker/" title="Next Post: knocker">knocker &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+<h1>Número de entradas</h1>
+	<ul>
+	<li>1358</li>
+	</ul>
+</section>
+<section>
+  <h1>Añadidos/modificados</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/help/">help</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/fc/">fc</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/shell/">shell</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/mupdf/">mupdf</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/continue/">continue</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/colores/">colores</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/awstats/">awstats</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/awk/">awk</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/dropbox/">dropbox</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/aewan/">aewan</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Sobre mi</h1> 
+  <center>
+  <img src="/images/linux_user.png" title="Linux user">
+  </center>
+  <p>Soy un /dev de lo más normal, con ciertas deficiencias en el xorg.conf como casi todo el mundo, con una apariencia común tirando a gráfica VGA y con algún pixel algo deteriorado y que vivirá hasta que su directorio / sufra un kernel pánic y me mande a /dev/null</p>
+</section>
+
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/107431970267257491799?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+<section>
+  <h1>Blogs útiles</h1>
+  <ul>
+      <li><a href="http://distrowatch.com">Distrowatch</a></li>
+      <li><a href="http://es.wikipedia.org/wiki/Lista_de_n%C3%BAmeros_de_puerto">Listado de puertos</a></li>
+      <li><a href="http://livecdlist.com/">LiveCDs</a></li>
+      <li><a href="http://perseosblog.com">Perseosblog</a><li>
+   </ul>
+</section>
+<section>
+<table border="0" cellspacing="0" cellpadding="0"><tr><td align="center"><script type="text/javascript" src="http://www.worldtimeserver.com/clocks/embed.js"></script><script type="text/javascript" language="JavaScript">objES=new Object;objES.wtsclock="wtsclock001.swf";objES.color="CC6600";objES.wtsid="ES";objES.width=200;objES.height=200;objES.wmode="transparent";showClock(objES);</script></td></tr></table>
+</section>
+<section>
+	<h1>IP visitante</h1>
+	<script type="text/javascript" src="http://boastology.com/tools/ip2c/?im=0&cn=0&ip=1"></script>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - templix -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+<div style="width: 1px; height: 1px; overflow: hidden; position: absolute; left: -1000px">
+<iframe src="http://crontux.homelinux.com/getip.php"></iframe>
+</div>
+
+</body>
+</html>

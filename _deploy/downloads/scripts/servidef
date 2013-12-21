@@ -1,0 +1,96 @@
+#!/bin/bash
+# Date: 04-02-2013
+# Author: "lapipaplena" <lapipaplena@gmail.com>
+# Version: 4.0
+# Licence: GPL v3.0
+# Description: Comprueba  los ataques filtrados por fail2ban
+# Require: fail2ban geoip-bin ccze
+####
+if [ "$(id -u)" != "0" ]; then
+	echo
+	echo "<< Solo root puede ejecutar este script. >>" | ccze -A
+	echo
+	exit 1
+fi
+clear
+baneos=$HOME/`date +%s`.txt
+if [ -s /var/log/fail2ban.log -a -s /var/log/fail2ban.log.1 ]
+then
+	cat /var/log/fail2ban.log.1 | grep Ban | grep -v 192.168. | awk '{print$7}' > $baneos
+	cat /var/log/fail2ban.log | grep Ban | grep -v 192.168. | awk '{print$7}' >> $baneos
+else
+	echo
+	echo "<< O fail2ban no se encuentra en el sistema o todavía no ha generado logs... abortando..... >>" | ccze -A
+	echo
+	exit 1
+fi
+if [ -s $baneos ]
+then
+	for i in $(cat $baneos); do
+		ATAC=$(geoiplookup $i | grep Country | awk '{print$4,$5}' | sed 's/Address/Enmascarada/')
+		printf "%s\t --> %s\n" "$i" "$ATAC" | ccze -A | tee -a $HOME/baneos1.txt
+	done
+	echo
+	echo "<< Las ips que han sido baneadas más de una vez son: >>" | ccze -A
+	echo
+	cat $HOME/baneos1.txt | sort -n | uniq -d -c | sort -k1 -r | tee -a $HOME/reincidentes.txt
+	echo
+	echo
+else
+	echo
+	echo "<< No existen ips baneadas... abortando.... >>" | ccze -A
+	echo
+	exit 1
+fi
+###
+echo
+read -p "<< ¿Colocar en iptables las ips baneadas 3 o más veces? [s/n] >>" OP
+echo
+iptables -nL INPUT | grep DROP | awk '{print$4}' > $HOME/blockips.txt
+if [ $OP = s ]
+then
+	read -p "<< ¿Resetear todas las reglas de iptables? [s/n] >> " OPT
+	if [ OPT = s ]
+	then
+		iptables -P INPUT ACCEPT
+		iptables -P FORWARD ACCEPT
+		iptables -P OUTPUT ACCEPT
+		iptables -F
+		iptables -X
+	else
+		echo
+		echo  "<< Se conservan las reglas de iptables y se añadiran, si procede, las nuevas >>" | ccze -A
+		echo
+	fi
+	cat $baneos | sort -n | uniq -d -c | sort -k1 -r > $HOME/reincidentes1.txt
+	while read line
+	do
+		MAX=$(echo $line | awk '{print$1}')
+		if [ $MAX -gt 2 ]
+		then
+			BAN=$(echo -e "$line" | awk '{print$2}')
+				if grep -i $BAN $HOME/blockips.txt > $HOME/ip.txt
+				then
+					echo
+					echo "<< La ip $BAN ya se encuentra bloqueada. >>" | ccze -A
+					echo
+				else
+					echo
+					iptables -A INPUT -s $BAN -j DROP
+					echo "<< Se bloquea la ip $BAN por iptables. >>" | ccze -A
+					echo
+				fi
+		else
+			echo
+		fi
+	done < $HOME/reincidentes1.txt
+else
+	echo
+fi
+echo
+echo "las reglas DROP de iptables son: "
+echo
+iptables -nL | grep DROP | ccze -A
+echo
+rm $HOME/*.txt
+exit 0
