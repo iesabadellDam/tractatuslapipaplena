@@ -94,7 +94,7 @@
   
 
 
-<time datetime="2013-12-15T18:55:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-22T15:53:00+01:00" pubdate data-updated="true">22-12-2013</time>
         
       </p>
     
@@ -111,7 +111,7 @@
 
 <p>$ mysqldump -u root -p &#8211;all-databases > fichero.sql (Backup de todas las BDs)</p>
 
-<p>$ mysqldump -u root -p &#8211;databases clientes proveedores > fichero.sql (Backup de dos BDs)</p>
+<p>$ mysqldump -u root -p clientes proveedores > fichero.sql (Backup de dos BDs)</p>
 
 <p>$ mysqldump -u root -p proveedores &#8211;ignore-table=antiguos > fichero.sql (Backup ignorando una tabla)</p>
 
@@ -328,10 +328,9 @@ mysql&gt; SOURCE datos.sql;
 
 <p>mysql> SHOW GRANTS FOR pedro; (Ver los privilegios de un usuario)</p>
 
-<pre><code>mysql&gt; GRANT ALL ON *.* TO juan@localhost (Otorgar todos los privilegios a un usuario)
+<p>mysql> GRANT ALL ON <em>.</em> TO juan@localhost (Otorgar todos los privilegios a un usuario)</p>
 
-mysql&gt; REVOKE ALL ON *.* FROM juan@localhost; (Anular todos los privilegios de un usuario)
-</code></pre>
+<p>mysql> REVOKE ALL ON <em>.</em> FROM juan@localhost; (Anular todos los privilegios de un usuario)</p>
 
 <p>6.-</p>
 
@@ -360,6 +359,24 @@ mysql&gt; FLUSH PRIVILEGES;
 
 mysql&gt; exit
 </code></pre>
+
+<p>7.-</p>
+
+<p>Solucionar:ERROR 1045 (28000): Access denied for user &#8216;root&#8217;@&#8217;localhost&#8217; (using password: NO)</p>
+
+<blockquote><p># /etc/init.d/mysql stop (Detener el servicio)</p>
+
+<p># mysqld_safe &#8211;user=mysql &#8211;skip-grant-tables (Saltar privilegios de MySQL)</p>
+
+<p>$ mysql (En otra terminal entrar en MySQL)</p></blockquote>
+
+<p>mysql> use mysql (Enrar en la BDs mysql)</p>
+
+<p>mysql> UPDATE user SET Password=PASSWORD(&#8216;12345&#8217;) WHERE user=&#8217;root&#8217;;(Actualizar el campo Password del usuario root)</p>
+
+<p>mysql> exit (Salir)</p>
+
+<blockquote><p>$ mysql -u root -p (Entrar en MySQL)</p></blockquote>
 </div>
 
 
@@ -382,7 +399,7 @@ mysql&gt; exit
   
 
 
-<time datetime="2013-12-15T18:55:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-22T15:53:00+01:00" pubdate data-updated="true">22-12-2013</time>
       
 
 
@@ -399,10 +416,8 @@ mysql&gt; exit
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/mv/" title="Previous Post: mv">&laquo; mv</a>
+        <a class="basic-alignment left" href="/blog/help/" title="Previous Post: help">&laquo; help</a>
       
-      
-        <a class="basic-alignment right" href="/blog/namei/" title="Next Post: namei">namei &raquo;</a>
       
     </p>
   </footer>
@@ -421,6 +436,10 @@ mysql&gt; exit
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/mysql/">mysql</a>
+      </li>
     
       <li class="post">
         <a href="/blog/help/">help</a>
@@ -456,10 +475,6 @@ mysql&gt; exit
     
       <li class="post">
         <a href="/blog/dropbox/">dropbox</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/aewan/">aewan</a>
       </li>
     
   </ul>
