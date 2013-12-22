@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "mysql"
-date: 2013-12-22 17:12
+date: 2013-12-22 18:54
 comments: true
 categories: 
 ---
@@ -107,13 +107,11 @@ Para modificar un registro puede realizarse borrando toda la tabla de datos y en
 
 mysql> DELETE FROM usuarios; 
 
-mysql> LOAD DATA LOCAL INFILE "usuarios.txt" INTO TABLE usuarios; 
+mysql> LOAD DATA INFILE "usuarios.txt" INTO TABLE usuarios; 
 
-O modificando solo el registro: 
+O modificando solo el registro que corresponda: 
 
-mysql> UPDATE usuarios SET nacimiento="1959-04-12" 
-
-WHERE apellido="Gomez"; 
+mysql> UPDATE usuarios SET nacimiento="1959-04-12" WHERE apellido="Gomez"; (Modificar campo "nacimiento" del apellido "Gomez"  
 
 mysql> SELECT * FROM usuarios WHERE apellido="Gomez"; (Verificar si se ha realizado la modificación) 
 
@@ -133,11 +131,13 @@ mysql> SELECT antiguedad FROM usuarios; (Filtrar la columna "antiguedad")
 
 mysql> SELECT nombre, nacimiento FROM usuarios ORDER BY nacimiento; (Ordenar por fecha nacimiento)
 
-mysql> SELECT * FROM la_tabla ORDER BY la_columna; (Ordenar por el número de una columna) 
+mysql> SELECT * FROM la_tabla ORDER BY la_columna; (Ordenar por el número de una columna)
 
-mysql> drop table usuarios; (Eliminar una tabla)
+mysql> DELETE FROM usuarios WHERE nombre='Maria'; (Eliminar toda la entrada que contenga "Maria") 
 
-mysql> drop table if exists usuarios; (Eliminar tabla si existe)
+mysql> DROP TABLE usuarios; (Eliminar una tabla. El directorio /var/lib/mysql/usuarios/ tiene que estar vacio)
+
+mysql> DROP TABLE IS EXIST usuarios; (Eliminar tabla si existe)
 
 mysql> CHECK TABLE la_tabla EXTENDED; (Chequear la integridad de una tabla)
 
@@ -163,7 +163,7 @@ Otro sistema para importar una base de datos. Primero crearla, entrar en ella y 
 
 Exportar una tabla a txt con determinado formato:
 
-	mysql> SELECT * SELECT tabla INTO OUTFILE "tabla.txt"
+	mysql> SELECT * FROM tabla INTO OUTFILE "tabla.txt"
 
 	   --> FIELDS TERMINATED BY '   '
 

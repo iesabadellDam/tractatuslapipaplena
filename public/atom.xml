@@ -4,7 +4,7 @@
   <title><![CDATA[TRACTATUS ELEMENTALIS]]></title>
   <link href="https://tractatuslapipaplena.herokuapp.com/atom.xml" rel="self"/>
   <link href="https://tractatuslapipaplena.herokuapp.com/"/>
-  <updated>2013-12-22T17:12:30+01:00</updated>
+  <updated>2013-12-22T18:55:00+01:00</updated>
   <id>https://tractatuslapipaplena.herokuapp.com/</id>
   <author>
     <name><![CDATA[templix]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[mysql]]></title>
     <link href="https://tractatuslapipaplena.herokuapp.com/blog/mysql/"/>
-    <updated>2013-12-22T17:12:00+01:00</updated>
+    <updated>2013-12-22T18:54:00+01:00</updated>
     <id>https://tractatuslapipaplena.herokuapp.com/blog/mysql</id>
     <content type="html"><![CDATA[<p>Gestor de bases de datos [BDs]. Las BDs se guardan en el directorio /var/lib/mysql/</p>
 
@@ -124,13 +124,11 @@ Reinciar mysql.
 
 <p>mysql> DELETE FROM usuarios;</p>
 
-<p>mysql> LOAD DATA LOCAL INFILE &#8220;usuarios.txt&#8221; INTO TABLE usuarios;</p>
+<p>mysql> LOAD DATA INFILE &#8220;usuarios.txt&#8221; INTO TABLE usuarios;</p>
 
-<p>O modificando solo el registro:</p>
+<p>O modificando solo el registro que corresponda:</p>
 
-<p>mysql> UPDATE usuarios SET nacimiento=&#8221;1959-04-12&#8221;</p>
-
-<p>WHERE apellido=&#8221;Gomez&#8221;;</p>
+<p>mysql> UPDATE usuarios SET nacimiento=&#8221;1959-04-12&#8221; WHERE apellido=&#8221;Gomez&#8221;; (Modificar campo &#8220;nacimiento&#8221; del apellido &#8220;Gomez&#8221;</p>
 
 <p>mysql> SELECT * FROM usuarios WHERE apellido=&#8221;Gomez&#8221;; (Verificar si se ha realizado la modificación)</p>
 
@@ -153,9 +151,11 @@ Reinciar mysql.
 
 <p>mysql> SELECT * FROM la_tabla ORDER BY la_columna; (Ordenar por el número de una columna)</p>
 
-<p>mysql> drop table usuarios; (Eliminar una tabla)</p>
+<p>mysql> DELETE FROM usuarios WHERE nombre=&#8217;Maria&#8217;; (Eliminar toda la entrada que contenga &#8220;Maria&#8221;)</p>
 
-<p>mysql> drop table if exists usuarios; (Eliminar tabla si existe)</p>
+<p>mysql> DROP TABLE usuarios; (Eliminar una tabla. El directorio /var/lib/mysql/usuarios/ tiene que estar vacio)</p>
+
+<p>mysql> DROP TABLE IS EXIST usuarios; (Eliminar tabla si existe)</p>
 
 <p>mysql> CHECK TABLE la_tabla EXTENDED; (Chequear la integridad de una tabla)</p>
 
@@ -182,7 +182,7 @@ mysql&gt; SOURCE datos.sql;
 
 <p>Exportar una tabla a txt con determinado formato:</p>
 
-<pre><code>mysql&gt; SELECT * SELECT tabla INTO OUTFILE "tabla.txt"
+<pre><code>mysql&gt; SELECT * FROM tabla INTO OUTFILE "tabla.txt"
 
    --&gt; FIELDS TERMINATED BY '   '
 
