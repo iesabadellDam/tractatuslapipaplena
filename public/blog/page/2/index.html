@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Almacenamiento en la nube. Linea de comandos para el servicio Dropbox. $ dropbox status (Muestra el estado actual del demonio) $ dropbox help update &hellip;">
+  <meta name="description" content="Busca patrones y los procesa. Es practicamente un lenguaje de programación. Archivo base para ejemplo (Empleado &#8211; Precio/hora &#8211; Horas &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,404 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/awk/">Awk</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-16T20:26:00+01:00" pubdate data-updated="true">16-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Busca patrones y los procesa. Es practicamente un lenguaje de programación.</p>
+
+<p>Archivo base para ejemplo (Empleado &#8211; Precio/hora &#8211; Horas trabajadas – Cómo las cobra):</p>
+
+<blockquote><p>$ cat lista</p></blockquote>
+
+<pre><code>Juan Gomez 6 10 banco 
+
+Clara Fuentes 7 12 banco 
+
+Antonio Cano 6 13 metálico 
+
+José Bueno 7 0 banco 
+
+Matías Crespo 5 8 metálico 
+
+Isabel Ruiz 7 0 metálico 
+
+María Monzón 9 16 metálico
+</code></pre>
+
+<p>Imprimir la segunda columna (Apellidos):</p>
+
+<pre><code>$ awk ' { print $2 } ' lista
+</code></pre>
+
+<p>Imprimir la última columna:</p>
+
+<pre><code>$ awk ' { print $NF } ' lista
+</code></pre>
+
+<p>Imprimir la linea 3:</p>
+
+<pre><code>$ awk ' NR == 3 ' lista
+</code></pre>
+
+<p>Imprimir todo menos la primera columna:</p>
+
+<pre><code>$ awk ' { $1 = "" ; print } ' lista
+</code></pre>
+
+<p>Imprimir las columnas tabuladas:</p>
+
+<pre><code>$ awk ' { print $1 “\t” $2 “\t” $3 “\t” $4 } ' lista
+</code></pre>
+
+<p>Imprimir las lineas que tengan menos de 22 caracteres:</p>
+
+<pre><code>$ awk 'length($0) &lt; 22' lista
+</code></pre>
+
+<p>Calcular el sueldo de los empleados que han trabajado:</p>
+
+<pre><code>$ awk ' $4 &gt; 0 { print $1,$2, $3*$4} ' lista  
+</code></pre>
+
+<p>Personas que no han trabajado:</p>
+
+<pre><code>$ awk ' $3 == 0 { print $1}' lista 
+</code></pre>
+
+<p>Buscar una entrada concreta:</p>
+
+<pre><code>$ awk '/Fuentes/ { print $0 }' lista
+</code></pre>
+
+<p>Buscar los que cobran en metálico e impimir la 2ª columna:</p>
+
+<pre><code>$ awk ' /'metálico'/ {print$2}' lista 
+</code></pre>
+
+<p>Buscar dos entradas en una misma linea separándolas con punto y coma (;):</p>
+
+<pre><code>$ awk '/Fuentes/ { print $0 }; /Cano/ { print$0 } ' lista
+</code></pre>
+
+<p>Imprimir lineas que tengan alguno de los campos o los dos:</p>
+
+<pre><code>$ awk '/Bueno/ || /Cano/' lista
+</code></pre>
+
+<p>Imprimir lineas que tengan los dos campos:</p>
+
+<pre><code>$ awk '/Bueno/ &amp;&amp; /7/' lista
+</code></pre>
+
+<p>Imprimir las lineas que no tengan el cammpo:</p>
+
+<pre><code>$ awk '! /metálico/' lista
+</code></pre>
+
+<p>Buscar las entradas en las que el primer campo empiece por “J”, imprimir el 2º campo y, entre parentesis el último:</p>
+
+<pre><code>$ awk '$1 ~ /^J/ {print$2, "("$NF")"}' lista
+</code></pre>
+
+<p>Lo mismo con if:</p>
+
+<pre><code>$ awk ' { if ($1 ~ /^J/) print$2, “(“$NF”)” }' lista
+</code></pre>
+
+<p>Añadir 5 horas al 4º campo y comprobar como quedan con la modificación:</p>
+
+<pre><code>$ awk '{ $4 = ($4+5); print $0 }' lista
+</code></pre>
+
+<p>Añadir un nuevo campo ($6) con el producto del 3 y el 4:</p>
+
+<pre><code>$ awk '{ $6 = ($3*$4); print $0 }' lista
+</code></pre>
+
+<p>print permite colocar texto:</p>
+
+<pre><code>$ awk ' { print "El sueldo de ",$2," es de ",$3*$4," euros."} ' lista 
+</code></pre>
+
+<p>Mostar las veces que aparece &#8220;banco&#8221;:</p>
+
+<pre><code>awk 'BEGIN { print "Veces que aparece banco" }
+
+&gt;        /banco/ { ++banco }
+
+&gt;         END       { print "banco aparece " banco " veces." }' lista
+</code></pre>
+
+<p><strong>Variables internas:</strong></p>
+
+<p>Mostrar el número de campos de cada linea (NF):</p>
+
+<pre><code>$ awk ' { print NF } ' lista 
+</code></pre>
+
+<p>Mostrar el número de lineas (NR):</p>
+
+<pre><code>$ awk ' { print NR } ' lista
+</code></pre>
+
+<p>Mostrar todas las lineas completas ($0):</p>
+
+<pre><code>$ awk ' { print $0 } ' lista 
+</code></pre>
+
+<p>Mostrar las lineas que tengan al menos un campo</p>
+
+<pre><code>$ awk 'NF &gt; 0' lista
+</code></pre>
+
+<p>Lo mismo con if:</p>
+
+<pre><code>$ awk '{ if (NF &gt; 0) print }' lista
+</code></pre>
+
+<p>Dar formato a la salida de datos:</p>
+
+<pre><code>$ awk ' $4 &gt; 0 { printf "%-8s .... %8.1f euros\n",$2,($3*$4) } ' lista 
+
+$4 &gt; 0 (Que imprima los que la 4ª columna no sea cero.)
+
+%-8s (Que imprima una cadena (s) justificada a la izquierda (-) en un campo de 8 caracteres de ancho.)
+
+%8.1f (Que imprima un numero real (f), en un campo de ocho caracteres de ancho, con un decimal(.))
+</code></pre>
+
+<p>Imprimir cadena, justificada a la izquierda y en campos de 10 y 5 caracteres:</p>
+
+<pre><code>$ awk '{ printf "%-10s %-10s %-5s %-5s %-5s\n", $1, $2, $3, $4, $5 }' lista
+</code></pre>
+
+<p>Parecido con más florituras (todo en una sola linea)</p>
+
+<pre><code>$ awk 'BEGIN {print "nombre\tapellido\tprecio\thoras\tpago"; print  "------\t--------\t------\t-----\t----"}; {print $1"\t"$2"\t"$3"\t"$4"\t"$5 }' lista
+</code></pre>
+
+<p>Lo mismo más legible:</p>
+
+<pre><code>$ awk 'BEGIN {print "nombre\tapellido\tprecio\thoras\tpago" 
+
+&gt;             print "------\t--------\t------\t-----\t----"} 
+
+&gt;            {print  $1"\t"$2"\t"$3"\t"$4"\t"$5 }' lista
+</code></pre>
+
+<p>BEGIN y END son patrones especiales usados para suministrar al script awk qué hacer antes de empezar a procesar y después de haber procesado los registros de la entrada.:</p>
+
+<pre><code>$ awk 'BEGIN {print “Cuantas veces aparece la palabra banco” } 
+
+&gt;       /banco/ { ++i } 
+
+&gt;       END   {print “banco aparece “i” veces.”}' lista 
+</code></pre>
+
+<p>Los  patrones pueden combinarse mediante los operadores lógicos AND (&amp;&amp;), OR(||) y NOT(!).</p>
+
+<p>Imprimir los nombres de los empleados que ganan mas de 6.50 euros a la hora y que han trabajado mas de 14:</p>
+
+<pre><code>$ awk ' $3&gt;=6.50 &amp;&amp; $4&gt;=14 { print $1,$2 } ' lista 
+</code></pre>
+
+<p>Patrones</p>
+
+<p>buscar las lineas que contienen la cadena &#8220;banco&#8221; en el 5º campo:</p>
+
+<pre><code>$ awk ' $5 ~ /banco/ ' lista 
+</code></pre>
+
+<p>Buscar las lineas que no contengan la cadena &#8220;banco&#8221; en el 5º campo:</p>
+
+<pre><code>$ awk '  $5 !~ /banco/ ' lista
+</code></pre>
+
+<p>Mostrar los que el 4º campo no empiece por 0 o 1:</p>
+
+<pre><code>$ awk ' $4 ~ /^[^01]/' lista 
+</code></pre>
+
+<p>La salida también puede pasarse a un filtro para ordenarse:</p>
+
+<pre><code>$ awk ' { print $2 | "sort" } ' lista
+</code></pre>
+
+<p>Mostrar la linea cuyo 2º campo termina en “iz”:</p>
+
+<pre><code>$ awk '$2 ~ /iz$/' lista 
+</code></pre>
+
+<p>Mismo concepto sin especificar si la primera letra es mayúscula o minúscula y sin conocer la segunda:</p>
+
+<pre><code>$ awk '$1 ~ /^[Cc]./' lista
+</code></pre>
+
+<p>Mismo concepto incluyendo las que empiezan por “R”:</p>
+
+<pre><code>$ awk '$2 ~ /^[Cc].|^[R]/' lista 
+</code></pre>
+
+<p>“tolower” convierte el campo especificado a minúsculas:</p>
+
+<pre><code>$ awk 'tolower($1) ~ /^m/' lista     
+</code></pre>
+
+<p>Para mandar cada linea a un archivo con el nombre del 2er campo:</p>
+
+<pre><code>$ awk ' { print &gt; $2 } ' lista
+</code></pre>
+
+<p>Mandar el primer campo a un archivo y el segundo a otro:</p>
+
+<pre><code>$ awk '{ print $1 &gt; "nombres"; print $2 &gt; "apellidos" }' lista
+</code></pre>
+
+<p>Lo mismo pero mandándolo ordenado:</p>
+
+<pre><code>$ awk '{ print $1 | "sort &gt; nombres"; print $2 | "sort &gt; apellidos" }' lista 
+</code></pre>
+
+<p>Indicando caracter separador (un espacio y que imprima el 2º campo):</p>
+
+<pre><code>$ awk  -F " " ' { print $2 } ' lista 
+</code></pre>
+
+<p>Lo mismo usando BEGIN:</p>
+
+<pre><code>$ awk 'BEGIN { FS = " " } ; { print $2 }' lista
+</code></pre>
+
+<p>El siguiente  programa  muestra  como  puede usarse awk para validación de datos.</p>
+
+<blockquote><p>$ cat validar</p></blockquote>
+
+<pre><code>$3 &lt; 6.5   { print $1,$2 " ===&gt; precio por hora bajo", "("$3")" } 
+
+$3 &gt; 8     { print $1,$2 " ===&gt; precio por hora alto", "("$3")" } 
+
+$5 == "banco"    { print $1,$2 " ===&gt; Cobra por banco" } 
+
+$5 == "metálico" { print $1,$2 " ===&gt; Cobra en metálico" } 
+</code></pre>
+
+<p>Se ejecuta con:</p>
+
+<pre><code>$ awk -f validar lista 
+</code></pre>
+
+<p>Aunque también podríamos añadir que lo ordenara por orden alfabetico del segundo campo (-k2) separado del primero por un espacio(-t” “):</p>
+
+<pre><code>$ awk -f validar lista | sort -t” “ -k2
+</code></pre>
+
+<p>Otros ejemplos:</p>
+
+<pre><code>$ awk '/d.[0-9]/{print $4}' /proc/partitions  (listar todas las particiones)
+
+$ cat 1.txt | awk '{print$1”\t”$2}'  (tabulando la salida)
+
+$ cat 1.txt | awk '!/#/{print $0}' &gt; 2.txt  (Imprime todo menos las lineas comentadas y lo manda a un archivo)
+
+$ cat 1.txt | awk 'BEGIN { FS="\n"; RS="" } { print $1 }' &gt; lista.txt (Manda a un archivo las primeras lineas precedidas de una en blanco)
+
+$ who | awk '{print $1}'  (Mostrar todos los usuarios registrados)
+
+$ awk '$1~/^DocumentRoot/{print $2}' /etc/apache2/sites-available/default (conocer la carpeta del servidor)
+
+$ awk 'BEGIN { for (i = 1; i &lt;= 7; i++) print int(101 * rand()) }' (Escribir 7 números aleatorios del 0 al 100)
+
+Creación de scripts con awk:
+</code></pre>
+
+<p>1.-</p>
+
+<p>Imprimir el simple &#8220;Hola mundo cruel&#8221;</p>
+
+<pre><code>#!/usr/bin/awk -f 
+
+BEGIN { print "Hola mundo cruel" } 
+</code></pre>
+
+<p>Lo mismo pero incluido en un script de bash:</p>
+
+<pre><code>#!/bin/bash
+
+awk 'BEGIN { print "Hola mundo cruel" }'
+</code></pre>
+
+<p>2.-</p>
+
+<p>Mandar el segundo campo de listado.txt a un archivo y el sexto a otro:</p>
+
+<pre><code>#! /usr/bin/awk -f  
+
+awk '{ print$2 &gt; "lista_nombres"
+
+       print$6 &gt; "lista_telefonos" }' listado.txt 
+</code></pre>
+
+<p>3.-</p>
+
+<p>Pasar el comando date&#8230; a variable [getline dia_actual], cerrar el comando [close] e imprimirlo en pantalla:</p>
+
+<pre><code>#!/usr/bin/awk -f
+
+BEGIN {
+
+           "date +%d-%m-%Y" | getline dia_actual
+
+           close("date +%d-%m-%Y")
+
+           print "Hoy estamos a " dia_actual
+
+}
+</code></pre>
+
+<p>En bash:</p>
+
+<pre><code>awk 'BEGIN {
+
+           "date +%d-%m-%Y" | getline dia_actual
+
+           close("date +%d-%m-%Y")
+
+           print "Hoy estamos a " dia_actual
+
+}'
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -527,54 +925,6 @@ Ctrl c (Sale del programa)
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/zenity/">Zenity</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:59:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Creación de dialogos gráficos simples. Especialmente para scripts.</p>
-
-<blockquote><p>$ zenity -?   (muestra las opciones de la aplicación y de ayuda)</p>
-
-<p>$ zenity &#8211;title Archivo &#8211;width 800 &#8211;height 600 &#8211;text-info &#8211;filename /home/usuario/archivo.txt (mostrar un archivo)</p>
-
-<p>$ zenity &#8211;info &#8211;text=&#8221;Este PC va a explotar en 10 segundos. Date por muerto.&#8221;</p>
-
-<p>$ zenity &#8211;password &#8211;username (Muestra diálogo entrar usuario y contraseña)</p>
-
-<p>$ zenity &#8211;calendar (Muestra el calendario)</p>
-
-<p>$ zenity &#8211;scale (Muestra la escala)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -590,12 +940,16 @@ Ctrl c (Sale del programa)
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1359</li>
+	<li>1360</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/shasum/">shasum</a>
+      </li>
     
       <li class="post">
         <a href="/blog/pyroom/">pyroom</a>
@@ -631,10 +985,6 @@ Ctrl c (Sale del programa)
     
       <li class="post">
         <a href="/blog/awstats/">awstats</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/awk/">awk</a>
       </li>
     
   </ul>

@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Entorno para terminales de texto. Permite cambiar colores, tipo de letra, transparencias, imagen de fondo&#8230; Descarga de http://sourceforge.net/ &hellip;">
+  <meta name="description" content="Archivo de configuración de la terminal propia del usuario. 1.- Para que al escribir un comando que requiera permisos de root pueda autocompletarse &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,90 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/bashrc/">Bashrc</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-15T18:51:00+01:00" pubdate data-updated="true">15-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Archivo de configuración de la terminal propia del usuario.</p>
+
+<p>1.-</p>
+
+<p>Para que al escribir un comando que requiera permisos de root pueda autocompletarse presionando la tecla “Tab”.</p>
+
+<blockquote><p>$ gedit /home/usuario/.bashrc</p></blockquote>
+
+<p>Y añadir las líneas:</p>
+
+<p>if [ &#8220;$PS1&#8221; ]; then</p>
+
+<p>complete -cf sudo</p>
+
+<p>fi</p>
+
+<p>2.-</p>
+
+<p>Añadiendo o modificando las siguientes lineas se consigue que el history de bash se amplie al recuerdo a los últimos 3000 comandos usados, suprimiendo los repetidos y que ignore el espacio (Si se pone) de delante de un comando.</p>
+
+<p>export HISTFILESIZE=3000</p>
+
+<p>export HISTCONTROL=ignoredups:ignorespace</p>
+
+<p>3.-</p>
+
+<p>Establecer un proxy global a nuestro sistema</p>
+
+<blockquote><p>$ nano ~/.bashrc</p></blockquote>
+
+<p>Y añadir las siguientes líneas:</p>
+
+<p>export http_proxy=”http://ip_del_servidor:puerto”</p>
+
+<p>export https_proxy=”http://ip_del_servidor:puerto”</p>
+
+<p>export ftp_proxy=”http://ip_del_servidor:puerto”</p>
+
+<p>4.-</p>
+
+<p>Para que el history indique fecha y hora en la que se ha lanzado el comando:</p>
+
+<p>export HISTTIMEFORMAT=&#8217;- %F %T - &#8217;</p>
+
+<p>5.-</p>
+
+<p>Para guardar en /root un fichero de histórico por cada uno de los usuarios que se hayan pasado a root.</p>
+
+<p>export HISTFILE=/root/.bash_hist-$(who am i | awk &#8216;{print $1}&#8217;;exit)</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -492,63 +576,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/avconv/">Avconv</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:51:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Información sobre archivos multimedia y conversión de formatos.</p>
-
-<blockquote><p>$ avconv -i video.avi video.mpeg  (Pasar de avi a mpeg)</p>
-
-<p>$ avconv -i video.avi (Información sobre un archivo)</p>
-
-<p>$ avconv -i archivo.avi -an nuevo.avi (Sacar el sonido de un avi)</p></blockquote>
-
-<p>1.-</p>
-
-<p>Convertir varios archivos mp4 a mp3:</p>
-
-<pre><code>#!/bin/bash
-
-for i in *.mp4
-
-do
-
-        avconv -i "$i" -b 256k "${i%.mp4}.mp3"
-
-done
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/129/">&larr; Older</a>
@@ -564,12 +591,16 @@ done
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1359</li>
+	<li>1360</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/shasum/">shasum</a>
+      </li>
     
       <li class="post">
         <a href="/blog/pyroom/">pyroom</a>
@@ -605,10 +636,6 @@ done
     
       <li class="post">
         <a href="/blog/awstats/">awstats</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/awk/">awk</a>
       </li>
     
   </ul>
