@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "ssh-keygen"
-date: 2013-12-15 18:57
+date: 2013-12-26 07:25
 comments: true
 categories: 
 ---
@@ -12,6 +12,8 @@ Creación, gestión y conversión de claves utilizadas para la autenticación de
 >$ ssh-keygen -t rsa -C newserver -f .ssh/newkey (Generar el par de llaves publica y privada. Caso de exitir preguntará si se sobreescribe)
 
 >$ ssh-keygen -B -f .ssh/id_rsa.pub (Muestra la huella digital de la llave especificada en formato SHA-1)
+
+>$ ssh-keygen -f "/home/USER/.ssh/known_hosts" -R [La_URL.com]:22 (Suprimir un clave de un host por sufrir alguna modificación)
 
 1.-
 
