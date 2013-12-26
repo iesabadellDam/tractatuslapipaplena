@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Habilita o deshabilita variables opcionales del comportamiento del shell bash. $ shopt (visualiza las activas y las inactivas) $ shopt -s (visualiza &hellip;">
+  <meta name="description" content="Cortafuegos. # shorewall check (Chequea los archivos de configuración. Si finaliza con el mensaje &#8220;Shorewall configuration verified&#8221; todo &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,94 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/shorewall/">Shorewall</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Cortafuegos.</p>
+
+<blockquote><p># shorewall check (Chequea los archivos de configuración. Si finaliza con el mensaje &#8220;Shorewall configuration verified&#8221; todo está correcto)</p>
+
+<p># shorewall start (Arrancar el cortafuegos. &#8220;stop&#8221; para parar y &#8220;restart&#8221; para reiniciar)</p>
+
+<p># shorewall safe-start (Arrancar de forma segura. Aplicable tambien a safe-restart)</p>
+
+<p># shorewall clear (Desactivar todas las reglas de filtrado y enrutado)</p>
+
+<p># shorewall status (Ver el estado del firewall)</p></blockquote>
+
+<p>Configuración:</p>
+
+<blockquote><p># nano /etc/default/shorewall</p></blockquote>
+
+<p>startup=1 (Aplicar las reglas al iniciar el sistema)</p>
+
+<blockquote><p># nano /etc/shorewall/rules</p></blockquote>
+
+<p>Especificar los protocolos que se permitirán acceder a nuestra máquina des de el exterior:</p>
+
+<p>SSH/ACCEPT  net $FW</p>
+
+<p>Equivalente a:</p>
+
+<p>ACCEPT      net $FW tcp 22</p>
+
+<p>Otro ejemplo:</p>
+
+<p>Web/ACCEPT  net $FW</p>
+
+<p>Equivalente a:</p>
+
+<p>ACCEPT      net $FW tcp 80</p>
+
+<p>Otro para ftp:</p>
+
+<p>FTP/ACCEPT  net $FW</p>
+
+<p>Equivalente a:</p>
+
+<p>ACCEPT      net $FW tcp 21</p>
+
+<p>Las opciones pueden ser DROP, ACCEPT y REJECT</p>
+
+<p>Otros archivos de configuración:</p>
+
+<p>/etc/shorewall/policy</p>
+
+<p>/etc/shorewall/interfaces</p>
+
+<p>/etc/shorewall/zones</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -549,46 +637,6 @@ install -c -m 644 shc.1 /usr/local/man/man1/
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/setxkbmap/">Setxkbmap</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Configurar teclado [para X.org] en la sesión actual.</p>
-
-<blockquote><p>$ setxkbmap -layout es</p>
-
-<p>$ setxkbmap es (configurarlo en español)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/37/">&larr; Older</a>
@@ -610,6 +658,10 @@ install -c -m 644 shc.1 /usr/local/man/man1/
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/read/">read</a>
+      </li>
     
       <li class="post">
         <a href="/blog/ssh-keygen/">ssh-keygen</a>
@@ -645,10 +697,6 @@ install -c -m 644 shc.1 /usr/local/man/man1/
     
       <li class="post">
         <a href="/blog/fc/">fc</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/shell/">shell</a>
       </li>
     
   </ul>
