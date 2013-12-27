@@ -1,0 +1,11 @@
+---
+layout: post
+title: "gpe-taskmanager"
+date: 2013-12-27 19:41
+comments: true
+categories: 
+---
+Abre una ventana en las X informando de las aplicaciones abiertas permitiendo matar el proceso que interesa o ha quedado colgado.
+
+>$ gpe-taskmanager
+

@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Mostrar un listado de las particiones con sus características exactas. # sfdisk -d /dev/sda (Muestra la tabla de particiones de sda) # sfdisk -d /dev &hellip;">
+  <meta name="description" content="Permite borrar líneas, registros o sustituir cadenas de caracteres dentro de las líneas. Archivo base para ejemplo (Empleado &#8211; Precio/hora &# &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/sfdisk/">Sfdisk</a></h1>
+      <h1 class="entry-title"><a href="/blog/sed/">Sed</a></h1>
     
     
       <p class="meta">
@@ -97,22 +97,205 @@
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Mostrar un listado de las particiones con sus características exactas.</p>
+  <div class="entry-content"><p>Permite borrar líneas, registros o sustituir cadenas de caracteres dentro de las líneas.</p>
 
-<blockquote><p># sfdisk -d /dev/sda (Muestra la tabla de particiones de sda)</p>
+<p>Archivo base para ejemplo (Empleado &#8211; Precio/hora &#8211; Horas trabajadas – Cómo las cobra):</p>
 
-<p># sfdisk -d /dev/sda | sfdisk /dev/sdb (copia la tabla de sda a sdb)</p>
+<pre><code>$ cat lista 
 
-<p># sfdisk -d /dev/sda > tabla.bak (Guardar tabla de particiones)</p>
+Juan Gomez 6 10 banco 
 
-<p># sfdisk /dev/sda &lt; tabla.bak (Restaurar tabla de particiones)</p></blockquote>
+Clara Fuentes 7 12 banco 
+
+Antonio Cano 6 13 metálico 
+
+José Bueno 7 0 banco 
+
+Matías Crespo 5 8 metálico 
+
+Isabel Ruiz 7 0 metálico 
+
+María Monzón 9 16 metálico
+</code></pre>
+
+<p>Mostrar la linea 4 del fichero:</p>
+
+<pre><code>$ sed -n 4p lista
+</code></pre>
+
+<p>Mostrar la 4ª y la 5ª:</p>
+
+<pre><code>$ sed -n 4,5p lista
+</code></pre>
+
+<p>Mostrar de la 3ª al final del fichero:</p>
+
+<pre><code>$ sed -n '4,$p' lista
+</code></pre>
+
+<p>Mostrar desde la primera linea que empiece por “Ant” hasta el final:</p>
+
+<pre><code>$ sed -n '/^\Ant/,$p' lista
+</code></pre>
+
+<p>Mostrar sólo los parrafos desde “Clara” hasta “Bueno”:</p>
+
+<pre><code>$ sed -n '/Clara/,/Bueno/p' lista
+</code></pre>
+
+<p>Mostrar cada linea a doble espacio:</p>
+
+<pre><code>$ sed G lista
+</code></pre>
+
+<p>Mostrar las lineas que cumplen el patrón “Ju” en alguno de sus campos:</p>
+
+<pre><code>$  sed -n '/Ju/p' lista
+</code></pre>
+
+<p>Borrar la 4ª linea del fichero:</p>
+
+<pre><code>$  sed '4d' lista
+</code></pre>
+
+<p>Borrar la última linea del fichero:</p>
+
+<pre><code>$  sed -e \$d lista
+</code></pre>
+
+<p>Lo mismo:</p>
+
+<pre><code>$ sed '$d' lista
+</code></pre>
+
+<p>Borrar las lineas que empiecen por &#8220;J&#8221;:</p>
+
+<pre><code>$ sed -e '/J/d' lista
+</code></pre>
+
+<p>Borrar la segunda linea</p>
+
+<pre><code>$ sed '2d' lista
+</code></pre>
+
+<p>Borrar la 1ª y la 2ª:</p>
+
+<pre><code>$  sed '1,2d' lista
+</code></pre>
+
+<p>Borrar desde la primera linea que empiece por &#8220;Ant&#8221; hasta el final:</p>
+
+<pre><code>$ sed -e '/^\Ant/,$d' lista
+</code></pre>
+
+<p>Borrar desde la 2 linea hasta la que tenga &#8220;Ruiz&#8221;:</p>
+
+<pre><code>$ sed '2,/Ruiz/d' lista
+</code></pre>
+
+<p>Borrar las lineas en blanco de un archivo (en &#8220;lista&#8221; no procede):</p>
+
+<pre><code>$  sed '/^$/d lista
+</code></pre>
+
+<p>Cambiar &#8220;metálico&#8221; por &#8220;gratis&#8221; excepto en la 3 linea:</p>
+
+<pre><code>$ sed '3!s/metálico/gratis/' lista
+</code></pre>
+
+<p>Cambiar &#8220;met&#8221; por &#8220;tem&#8221; en las lineas que no tengan &#8220;Cano&#8221;:</p>
+
+<pre><code>$ sed '/Cano/!s/met/tem/' lista
+</code></pre>
+
+<p>Cambiar campos (banco por cheque):</p>
+
+<pre><code>$ sed 's/banco/cheque/' lista
+</code></pre>
+
+<p>Cambiar las &#8220;J&#8221; y la &#8220;C&#8221; mayúsculas por minúsculas:</p>
+
+<pre><code>$ sed 'y/J-C/j-c/' lista
+</code></pre>
+
+<p>Substituye las vocales por &#8220;u&#8221;:</p>
+
+<pre><code>$ sed -e "s/[aeio]/u/g" lista
+</code></pre>
+
+<p>Substituir los espacios por tabulaciones:</p>
+
+<pre><code>$ sed -e 's/ /\t/g' lista
+</code></pre>
+
+<p>Alinear al centro:</p>
+
+<pre><code>$ sed -e :a -e 's/^.\{1,77\}$/ &amp;/;ta' -e 's/\( *\)\1/\1/' lista
+</code></pre>
+
+<p>Todas las opciones pueden usarse como tubería substituyendo &#8220;lista&#8221; por “cat lista |”:</p>
+
+<pre><code>$ cat lista | sed -n '4,$p'
+</code></pre>
+
+<p>Otros ejemplos:</p>
+
+<p>Mostrar lineas no comentadas de un archivo:</p>
+
+<pre><code>$ sed -e '/^#/d' /etc/fstab
+</code></pre>
+
+<p>Substituir &#8220;foto&#8221; por &#8220;FOTO&#8221; en todo los archivos del directorio:</p>
+
+<pre><code>$ ls * | sed -e 'p;s/foto/FOTO/' | xargs -n2 mv
+</code></pre>
+
+<p>Cambiar “Juan” por “Pedro” en todos los archivos .txt del presente directorio:</p>
+
+<pre><code>$ sed -i 's/Juan/Pedro/g' *.txt
+</code></pre>
+
+<p>Mostrar sólo las lineas con 4 dígitos seguidos:</p>
+
+<pre><code>$ sed '/[0-9]\{4\}/p' archivo
+</code></pre>
+
+<p>Borrar todos los espacios delante de cada linea:</p>
+
+<pre><code>$sed 's/^[ ^t]*//' archivo
+</code></pre>
+
+<p>Borrar todos los espacios detras de cada linea:</p>
+
+<pre><code>$ sed 's/[ ^t]*$//' archivo
+</code></pre>
+
+<p>Borrar todos los espacios delante y detras de cada linea:</p>
+
+<pre><code>$ sed 's/^[ ^t]*//;s/[ ^]*$//' archivo
+</code></pre>
+
+<p>Cambiar los números 3333 por 3.333. El parámetro -r sirva para activar las expresiones regulares extendidas de sed:</p>
+
+<pre><code>$ sed -r "s/\&lt;(reg|exp)[a-z]+/\U&amp;/g"
+</code></pre>
+
+<p>Contar lineas de un archivo [emulador de wc -l]:</p>
+
+<pre><code>sed -n '$=' lista
+</code></pre>
+
+<p>Insertar 5 espacios en blanco delante de cada linea:</p>
+
+<pre><code>$ sed 's/^/     /' lista
+</code></pre>
 </div>
   
   
@@ -125,7 +308,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/setxkbmap/">Setxkbmap</a></h1>
+      <h1 class="entry-title"><a href="/blog/sdiff/">Sdiff</a></h1>
     
     
       <p class="meta">
@@ -141,18 +324,16 @@
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Configurar teclado [para X.org] en la sesión actual.</p>
+  <div class="entry-content"><p>Muestra dos ficheros interactivamente.</p>
 
-<blockquote><p>$ setxkbmap -layout es</p>
-
-<p>$ setxkbmap es (configurarlo en español)</p></blockquote>
+<blockquote><p>$ sdiff -W -B file1 file2 (Ignorando espacios [W] y lineas en blanco [B])</p></blockquote>
 </div>
   
   
@@ -165,7 +346,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/setterm/">Setterm</a></h1>
+      <h1 class="entry-title"><a href="/blog/scrounge-ntfs/">Scrounge-ntfs</a></h1>
     
     
       <p class="meta">
@@ -181,26 +362,28 @@
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Modificación de los atributos de la terminal. Algunos flags solo son aplicables a las tty.</p>
+  <div class="entry-content"><p>Permite recuperar datos de particiones ntfs incluso corruptas.</p>
 
-<blockquote><p>$ setterm -r   (La resetea incluso si ha quedado colgada)</p>
+<blockquote><p># scrounge-ntfs -l /dev/sda  (Para vusializar los datos del disco)</p></blockquote>
 
-<p>$ setterm -cursor off (desaparece el cursor. Con &#8220;on&#8221; regresa de nuevo)</p></blockquote>
+<p>La salida del comando puede ser paracida a:</p>
 
-<p>Opciones:</p>
+<p>Drive: /dev/sdc</p>
 
-<p>-foreground green (Color de texto. [black|blue|green|cyan|red|magenta|yellow|white|default])</p>
+<p>63              16787862        8               6291456</p>
 
-<p>-background red  (Color de fondo)</p>
+<p>16787925        471607195       8               6291456</p>
 
-<p>-inversescreen on (Intercambia los colores del texto y el fondo)</p>
+<p>Con estos datos lanzar:</p>
+
+<blockquote><p># scrounge-ntfs -m 6291456 -c 8 /dev/sdc 16787925 471607195</p></blockquote>
 </div>
   
   
@@ -213,7 +396,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/setsid/">Setsid</a></h1>
+      <h1 class="entry-title"><a href="/blog/scrot/">Scrot</a></h1>
     
     
       <p class="meta">
@@ -229,16 +412,26 @@
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Permite continuar ejecutando un comando aunque se cierre la terminal o la sesión ssh. Parecido a nohup [ver] o screen [ver] aunque a diferencia de estos, no permite volver para ver el estado de proceso.</p>
+  <div class="entry-content"><p>Captura de pantalla</p>
 
-<blockquote><p>$ setsid apt-get update</p></blockquote>
+<blockquote><p>$ scrot (Con los valores por defecto)</p>
+
+<p>$ scrot captura.png</p>
+
+<p>$ scrot -s captura.png (Para seleccionar un área en concreto)</p>
+
+<p>$ scrot -d 5 captura.png (retardar la captura 5 segundos)</p>
+
+<p>$ scrot -t 50 captura.png (para reducir la captura un 50%)</p>
+
+<p>$ scrot -ucd 5 (“u” captura la ventana que tiene el foco, “c” que muestre la cuenta regresiva y “d 5” los segundos de retardo)</p></blockquote>
 </div>
   
   
@@ -251,7 +444,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/setserial/">Setserial</a></h1>
+      <h1 class="entry-title"><a href="/blog/script/">Script</a></h1>
     
     
       <p class="meta">
@@ -267,16 +460,38 @@
   
 
 
-<time datetime="2013-12-15T18:56:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra información sobre los puertos serial.</p>
+  <div class="entry-content"><p>Copia en un fichero toda la actividad tecleada en consola hasta cesar con &#8220;exit&#8221;</p>
 
-<blockquote><p>$ setserial -G /dev/ttyS0</p></blockquote>
+<blockquote><p>$ script -a fichero.txt</p>
+
+<p>$ script -t 2> sesion.con -a sesion.vid  (grabará la sesion. Parar el proceso con crtl+d)</p>
+
+<p>$ scriptreplay sesion.con sesion.vid  (reproduce la sesión grabada)</p>
+
+<p>$ script -f /dev/pts/3   (redirigir hacia otra terminal)</p></blockquote>
+
+<p>1.-</p>
+
+<p>Varias formas de ejecutar un script:</p>
+
+<blockquote><p>$ bash miscript.sh</p>
+
+<p>$ sh miscript.sh</p>
+
+<p>$ source miscript.sh</p></blockquote>
+
+<p>O activando el bit de ejecución en los permisos del fichero:</p>
+
+<blockquote><p>$ chmod +x miscript.sh</p>
+
+<p>$ ./miscript.sh</p></blockquote>
 </div>
   
   
@@ -289,7 +504,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/setsebool/">Setsebool</a></h1>
+      <h1 class="entry-title"><a href="/blog/scribes/">Scribes</a></h1>
     
     
       <p class="meta">
@@ -305,20 +520,43 @@
   
 
 
-<time datetime="2013-12-15T18:56:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Permite activar/desactivar las políticas en selinux. Ver getsebool</p>
+  <div class="entry-content"><p>Editor minimalista especial para programadores.</p>
 
-<blockquote><p># setsebool httpd_can_network_connect on (Activamos el permitir a Apache realizar conexiones de red)</p>
+<pre><code>Algunos atajos:
 
-<p># setsebool -P httpd_can_network_connect on (Hacer el cambio persistente)</p>
+Ctrl + o (Abrir archivo)
 
-<p># setsebool httpd_disable_trans 1 (Otra forma de desactivar una politica. Con 0 se activa)</p></blockquote>
+Ctrl + s (Guardar)
+
+Ctrl + Mayus + s (Renombrar)
+
+Ctrl + p (Imprimir)
+
+Ctrl + t (Indentar lineas seleccionadas)
+
+Ctrl + Mayus + t (Suprimir indentación)
+
+Alt +t (Convertir espacios en tabulaciones)
+
+Alt + Mayus + t (Convertir tabulaciones a espacios)
+
+Alt + r (Suprimir espacios al final de linea)
+
+Alt + d (Suprimir linea)
+
+Alt + F4 (Cerrar el editor)
+
+F1 (Abrir la ayuda)
+
+F12 (Abrir preferencias)
+</code></pre>
 </div>
   
   
@@ -331,7 +569,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/setleds/">Setleds</a></h1>
+      <h1 class="entry-title"><a href="/blog/screenkey/">Screenkey</a></h1>
     
     
       <p class="meta">
@@ -347,20 +585,16 @@
   
 
 
-<time datetime="2013-12-15T18:56:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Controla los leds del teclado</p>
+  <div class="entry-content"><p>[python-xlib]</p>
 
-<blockquote><p>$ setleds -D +num >> /dev/tty1  (activa el teclado numérico)</p>
-
-<p>$ setleds -D -caps >> /dev/tty1 (desactiva las mayúsculas)</p>
-
-<p>$ setleds -D +scroll >> /dev/tty1 (activa el scroll)</p></blockquote>
+<p>Aplicacion que, durante una grabacion de escritorio en la que salen terminales y comandos, muestra por pantalla una franja negra en la que se puede apreciar las teclas que se pulsan para que las puedan ver mejor los televidentes. Iniciar la aplicacion (Se mostrara en el area del tray) y la grabacion del escritorio con alguna de las herramientas (gtk-recordMyDesktop, kazam, etc) y pararla con killall -9 screenkey cuando finalice la grabacion.</p>
 </div>
   
   
@@ -373,7 +607,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/set/">Set</a></h1>
+      <h1 class="entry-title"><a href="/blog/screenfetch/">Screenfetch</a></h1>
     
     
       <p class="meta">
@@ -389,22 +623,18 @@
   
 
 
-<time datetime="2013-12-15T18:56:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>desplegar todas las variables [y sus valores] que el shell controla y otorgar nuevas variables.</p>
+  <div class="entry-content"><p>Muestra información del equipo junto al logo de la distro.</p>
 
-<blockquote><p>$ set | more</p>
+<blockquote><p>$ wget -c https://raw.github.com/KittyKatt/screenFetch/master/screenfetch-dev -O screenfetch</p>
 
-<p>$ set -o vi (cambiar a las teclas del modo de edición de vi . Por defecto bash utiliza el modo emacs)</p>
-
-<p>$ set -o noclobber (activar la protección de sobreescritura en las tuberias si el archido ya existe [ls > lista] para saltarse esta protección puede hacerse con ls >|lista)</p>
-
-<p>$ set +o noclobber (Desactivar la protección. Opción por defecto)</p></blockquote>
+<p>$ ./screenfetch</p></blockquote>
 </div>
   
   
@@ -417,7 +647,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/sestatus/">Sestatus</a></h1>
+      <h1 class="entry-title"><a href="/blog/screen/">Screen</a></h1>
     
     
       <p class="meta">
@@ -433,18 +663,179 @@
   
 
 
-<time datetime="2013-12-15T18:56:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Devuelve el estado de SELinux y la política que se está usando. Ver selinux y getsenforce</p>
+  <div class="entry-content"><p>Compartir sesiones de consola locales o remotas.</p>
 
-<blockquote><p># sestatus</p>
+<blockquote><p>$ screen   (abre una terminal virtual genérica)</p>
 
-<p># sestatus -v (estado detallado de un sistema ejecutando SELinux)</p></blockquote>
+<p>$ screen -S tux  (nombrar la sesión del que comparte consola)</p></blockquote>
+
+<pre><code>$ screen -ls (conocer los screen abiertos y sus nombres)
+
+There are screens on: 
+
+    19680.tux       (Attached) 
+
+    19684.xut       (Attached) 
+</code></pre>
+
+<p>2 Sockets in /tmp/screens/S-juanito.</p>
+
+<blockquote><p>$ screen -x 19680.tux  (el que se conecta)</p>
+
+<p>$ screen -r    Retoma el proceso desacoplado con Ctrl+a Ctrl+d</p>
+
+<p>$ screen -r -S nombre  Retoma el proceso &#8220;nombre&#8221;</p>
+
+<p>$ screen -R -D Recupera screen despúes de un Ctrl+d</p></blockquote>
+
+<p>La gestión de screen siempre empieza pulsando las teclas Ctrl+a:</p>
+
+<p>Ctrl+a c (Crear nueva ventana)</p>
+
+<p>Ctrl+a k (Matar pantalla activa / sesion activa)</p>
+
+<p>Ctrl+a X (Matar pantalla activa)</p>
+
+<p>Ctrl+a x (Bloquear terminal)</p>
+
+<p>Ctrl+a w (Lista de ventanas)</p>
+
+<p>Ctrl+a 0-9 (Ir a la ventana numerada)</p>
+
+<p>Ctrl+a Ctrl+a (Cambiar a la última ventana)</p>
+
+<p>Ctrl+a Ctrl+p (Cambiar a la anterior ventana)</p>
+
+<p>Ctrl+a S (Dividir la terminal horizontal en regiones)</p>
+
+<p>Ctrl+a | (Dividir la terminal veticalmente)</p>
+
+<p>Ctrl+a Ctrl+n (Cambiar de región)</p>
+
+<p>Ctrl+a :resize (Redimensionar región)</p>
+
+<p>Ctrl+a F (Ajustar tamaño de la pantalla al tamaño de la nueva terminal)</p>
+
+<p>Ctrl+a K (Suprimir region)</p>
+
+<p>Ctrl+a Z (resetear screen)pi</p>
+
+<p>Ctrl+a tab (Moverse entre regiones)</p>
+
+<p>Ctrl+a d (Desacopla un proceso de una terminal, que continua en segundo plano)</p>
+
+<p>Ctrl+a ? (Mostrar pantalla de ayuda)</p>
+
+<p>Ctrl+a Backspace (Regresar a la ventana previa)</p>
+
+<p>Ctrl+q (Si se ha pulsado una combinación erronea, desbloquea la terminal)</p>
+
+<p>Ctrl+s (Lo mismo)</p>
+
+<p>Ctrl+a &#8221; (Muestra las shells activas)</p>
+
+<p>Ctrl+a A (Cambiar el título de la ventana)</p>
+
+<p>Ctrl+a Esc (Ver historial)</p>
+
+<p>Ctrl+a h (Guardar pantallazo en la carpeta actual con nombre hardcopy.número [0,1,2&#8230;])</p>
+
+<p>Ctrl+a H (Iniciar/parar registro de la ventana actual en la ventana con nombre screenlog.número [0,1,2&#8230;])</p>
+
+<p>Para compartir screen via ssh:</p>
+
+<pre><code>Activar el setuid de screen:
+
+# chmod +s /usr/bin/screen 
+
+Ejecutar:
+
+$ screen -S nombreSesion 
+
+Activar acceso multiusuario:
+
+Ctrl+a :multiuser on 
+
+Dar permisos al usuario:
+
+Ctrl+a :acladd usuario 
+
+El usuario remoto debera conectar por SSH con la máquina y ejecutar: 
+
+$ screen -x usuario/NombreSesion 
+</code></pre>
+
+<p>Si deseamos tener una barra inferior donde aparecerá el nombre de las diferentes ventanas y la hora actual, podemos modificar/crear el fichero de configuración ~/.screenrc con el siguiente contenido (http://www.marblestation.com/?p=915):</p>
+
+<pre><code># screen -t shell 0 
+
+# screen -t shell 0 motd+shell 
+
+# screen -t shell2    1
+
+# screen -t server    2 
+
+# screen -t Mail 9   tail -f /var/log/messages 
+
+select 0 
+
+shelltitle "shell" 
+
+# skip the startup message 
+
+startup_message off 
+
+# go to home dir 
+
+chdir 
+
+# Automatically detach on hangup. 
+
+autodetach on 
+
+# Change default scrollback value for new windows 
+
+defscrollback 1000 
+
+# Turns off alternate screen switching in xterms, 
+
+# so that text in screen will go into the xterm's scrollback buffer: 
+
+termcapinfo xterm* ti@:te@ 
+
+altscreen on 
+
+# start with visual bell as default 
+
+vbell on 
+
+vbell_msg "bell on %t (%n)" 
+
+activity "Activity in %t(%n)" 
+
+# Run a screensaver if there's nothing happening for a while. 
+
+#idle 600 eval "screen cmatrix -f -o -u 10" "idle 0" 
+
+idle 600 lockscreen 
+
+### White 
+
+#caption always "%{kW}%?%-Lw%?%{bw}%n*%f %t%?(%u)%?%{kW}%?%+Lw%? %= %{= Wk}%110`%109`%111` %H load: %l | %D %d-%m-%Y %0c:%s" 
+
+### Black 
+
+#caption always "%{wk}%?%-Lw%?%{bw}%n*%f %t%?(%u)%?%{wk}%?%+Lw%? %= %{= kw}%110`%109`%111` %H load: %l | %D %d-%m-%Y %0c:%s" 
+
+caption always "%{wk}%?%-Lw%?%{bw}%n*%f %t%?(%u)%?%{wk}%?%+Lw%? %= %{= kw}%110`%109`%111` %H | %D %d-%m-%Y %0c:%s" 
+</code></pre>
 </div>
   
   
@@ -457,7 +848,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/service/">Service</a></h1>
+      <h1 class="entry-title"><a href="/blog/scp/">Scp</a></h1>
     
     
       <p class="meta">
@@ -473,20 +864,26 @@
   
 
 
-<time datetime="2013-12-15T18:56:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Inicia o para servicios.</p>
+  <div class="entry-content"><p>Copiar o transferir archivos o directorios entre una máquina remota y una local</p>
 
-<blockquote><p># service apache2 start (Arranca apache2)</p>
+<blockquote><p>$ scp pepe@host_o_IP:/home/pepe/*.odt ./pendiente (Copiará todos los .odt del directorio /home/pepe del host remoto al directorio “pendiente” de la máquina local)</p>
 
-<p># service apache2 stop (Para apache2)</p>
+<p>$ scp *.odt pepe@host_o_IP:/home/pepe/pendiente (transferirá todos los odt del directorio actual al directorio especificado “pendiente” del host remoto.)</p>
 
-<p># service apache2 restart (Reinicia el apache2)</p></blockquote>
+<p>$ scp archivo usuario@host_o_IP:/home/usuario/Desktop (copiará “archivo” en local al escritorio remoto)</p>
+
+<p>$ scp -r directorio pepe@host_o_IP:/home/usuario/Desktop (copiará el directorio al host remoto)</p>
+
+<p>$ scp -P 12000 pep@chost_o_IP:/home/usuario/archivo . (especificando un puerto en el host remoto y copiar archivo al presente directorio)</p></blockquote>
+
+<p>Nota.- Si quiere transferirse al $HOME remoto puede suprimirse la ruta relativa, quedando: scp archivo pepe@host_o_IP:</p>
 </div>
   
   
@@ -517,43 +914,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/pwgen/">pwgen</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/read/">read</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssh-keygen/">ssh-keygen</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dhcping/">dhcping:</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/gem/">gem</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sha1sum/">sha1sum</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/shasum/">shasum</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pyroom/">pyroom</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/mysql/">mysql</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/help/">help</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

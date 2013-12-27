@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Visualizar imagenes usando framebuffer [sin X]. Precisa root. # fbi -t 3 * (visualizar 3 segundos todas las imágenes del directorio) Si sale una nota &hellip;">
+  <meta name="description" content="[e2fsprogs, e2fslibs, e2fslibs-dev, g++, build-essential] Recuperación de archivos o directorios borrados. La partición sobre la que se actua ha de &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,421 +81,6 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/fbi/">Fbi</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Visualizar imagenes usando framebuffer [sin X]. Precisa root.</p>
-
-<blockquote><p># fbi -t 3 *   (visualizar 3 segundos todas las imágenes del directorio)</p></blockquote>
-
-<p>Si sale una nota: ioctl VT_GETSTATE: Invalid argument [not a linux console?] :</p>
-
-<blockquote><p># fbi -vt 01 imagen</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/fbgs/">Fbgs</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Visualizar pdf usando framebuffer [sin X]</p>
-
-<blockquote><p>$ fbgs -c archivo.pdf  (visualizarlo en color)</p></blockquote>
-
-<p>Opciones:</p>
-
-<p>-l  (Ampliación a 100 dpi (75 dpi por defecto)</p>
-
-<p>-xl (a 12 dpi)</p>
-
-<p>-xxl (a 150 dpi)</p>
-
-<p>-p contraseña (Si el pdf requiera contraseña)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/fbgrab/">Fbgrab</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Realizar pantallazos desde las X y desde las tty1-6</p>
-
-<blockquote><p>$ fbgrab -s 2 pantallazo.png   (pantallazo despues de 2 segundos)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/false/">False</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Este comando no hace nada excepto devolver un estado de salida 1 (fail). Se utiliza como marcador de posición en scripts.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/faillog/">Faillog</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>(/var/log/faillog) almacena todos los intentos &#8220;login&#8221; fallidos realizados a una maquina.</p>
-
-<blockquote><p>$ faillog</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/fail2ban/">Fail2ban</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Cortafuegos. Habilitar los servicios en los que se quiera que actue el cortafuegos [ssh, apache2, ftp&#8230;.] editando /etc/fail2ban/jail.conf y substituyendo el “false” por “true”. Algunos parámetros de este archivo son:</p>
-
-<p>ignoreip  (lista de IPs separadas por un espacio en blanco que no serán bloqueadas)</p>
-
-<p>bantime (tiempo en segundos que un host permanecerá bloqueado)</p>
-
-<p>maxretry (número máximo de intentos de login fallidos antes de ser bloqueado)</p>
-
-<p>filter (filtro usado según el archivo /etc/fail2ban/filter.d)</p>
-
-<p>logpath (archivo que utiliza para revisar los intentos de login)</p>
-
-<p>Un ejemplo muestra de configuración para el servicio ssh:</p>
-
-<pre><code>[ssh]
-
-enabled  = true
-
-port     = ssh
-
-filter   = sshd
-
-logpath  = /var/log/auth.log
-
-maxretry = 3
-</code></pre>
-
-<blockquote><p># tail -f /var/log/fail2ban.log | grep Ban    (monitorizar las ip baneadas)</p>
-
-<p># awk &#8216;($(NF-1) = /Ban/){print $NF}&#8217; /var/log/fail2ban.log | sort | uniq -c | sort (Solo muestra las Ips.)</p>
-
-<p># awk &#8216;($(NF-1) = /Ban/){print $NF,&#8221;(&#8220;$NF&#8221;)&#8221;}&#8217; /var/log/fail2ban.log | sort | logresolve | uniq -c | sort  (Mostrando el nombre del host)</p></blockquote>
-
-<p>1.-</p>
-
-<p>Bloquear errores w00tw00t.at.ISC.SANS en los logs de apache. En realidad estas peticiones no acaban en ningún ataque concreto. Estan producidos por el escaner de puertos Dfind que al generar sus peticiones coloca &#8220;w00tw00t.at.ISC.SANS.DFind&#8221;.</p>
-
-<p>Crear el archivo:</p>
-
-<blockquote><p># nano /etc/fail2ban/filter.d/apache-w00tw00t.conf</p></blockquote>
-
-<p>Pegar el siguiente contenido:</p>
-
-<pre><code>[Definition]
-
-failregex = ^.*\[client &lt;HOST&gt;\].*w00tw00t\.at\.ISC\.SANS\.*.*
-
-ignoreregex =
-</code></pre>
-
-<p>Añadir la jaula:</p>
-
-<blockquote><p># nano /etc/fail2ban/jail.conf</p></blockquote>
-
-<p>Y pegar:</p>
-
-<pre><code>[apache-w00tw00t]
-
-enabled = true
-
-filter = apache-w00tw00t
-
-action = iptables-allports[name=w00tw00t]
-
-logpath = /var/log/apache*/error.*.log
-
-maxretry = 1
-
-bantime = -1
-</code></pre>
-
-<p>Nota.- el bantime = -1 indica bloquear permanentemente.</p>
-
-<p>2.-</p>
-
-<p>Algunos ajustes de jail.conf para el caso de usar nginx y no apache:</p>
-
-<blockquote><p># nano /etc/fail2ban/jail.conf</p></blockquote>
-
-<p>Prevenir ataques de inyeccion de codigo</p>
-
-<pre><code>[php-url-fopen]
-
-enabled = true
-
-port    = http,https
-
-filter  = php-url-fopen
-
-logpath = /var/log/nginx/access_log
-
-maxretry = 1
-</code></pre>
-
-<p>Bloquea por iptables un día a los hosts que se conectan haciendo  uso de un &#8220;User Agent&#8221; sospechoso</p>
-
-<pre><code>[nginx-badbots]
-
-enabled  = true
-
-filter = apache-badbots
-
-action = iptables-multiport[name=BadBots, port="http,https"]
-
-logpath = /var/log/nginx*/*access*.log
-
-bantime = 86400
-
-maxretry = 1
-</code></pre>
-
-<p>Solicitar 240 páginas en 1 minuto o 4 paginas segundo, bloqueo por dos dias</p>
-
-<pre><code>[nginx-dos]
-
-enabled = true
-
-port    = http,8090
-
-filter  = nginx-dos
-
-logpath = /var/log/nginx/access.log
-
-findtime = 60
-
-bantime  = 172800
-
-maxretry = 240
-</code></pre>
-
-<p>Fallar la autentificación en el servidor web, blloqueo por 10 minutos</p>
-
-<pre><code>[nginx-auth]
-
-enabled = true
-
-port = http
-
-filter = nginx-auth
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/factor/">Factor</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Sacar todos los factores de un número.</p>
-
-<blockquote><p>$ factor 100</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
       <h1 class="entry-title"><a href="/blog/extundelete/">Extundelete</a></h1>
     
     
@@ -512,7 +97,7 @@ filter = nginx-auth
   
 
 
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:40:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
@@ -558,7 +143,7 @@ filter = nginx-auth
   
 
 
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:40:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
@@ -600,7 +185,7 @@ filter = nginx-auth
   
 
 
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:40:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
@@ -844,6 +429,318 @@ $ grep -E '^[a-zA-Z._-]+@.[a-zA-Z.0-9]+\.[[:alpha:]]{2,3}$' lista (Sólo mostrar
 
     </article>
   
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/expr/">Expr</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-27T19:40:00+01:00" pubdate data-updated="true">27-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Permite realizar operaciones aritméticas.</p>
+
+<blockquote><p>$ expr 2 + 3</p>
+
+<p>$ expr 2 * 3 (Para la multiplicación ha de anteponerse al signo la barra )</p>
+
+<p>$ expr 12 / 2</p>
+
+<p>$ sum=<code>expr 5 + 3</code>; expr $sum * 2 (Enlazar operaciones)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/export/">Export</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-27T19:40:00+01:00" pubdate data-updated="true">27-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Exporta, almacena y lista variables. Para que los cambios sean permanentes, colocar la linea en .bashrc.</p>
+
+<blockquote><p># export PATH=${PATH}:/usr/local/bin   (incluir un dir en el path)</p>
+
+<p>$ export TMOUT=60 (Establece 60 segundos de inactividad antes de cerrar una sesión ssh)</p>
+
+<p>$ export HISTCONTROL=”ignoreboth:erasedups” (no escribir en el history ni los comandos que empiecen por espacio, ni los duplicados y que además los elimine, dejando siempre el último)</p></blockquote>
+
+<p>Opciones para HISTCONTROL:</p>
+
+<p>ignorespace: No guarda en history los comandos que empiecen por espacio.</p>
+
+<p>ignoredups: No guarda los comandos repetidos.</p>
+
+<p>ignoreboth: Alias para los dos parámetros anteriores.</p>
+
+<p>erasedups: Elimina los comandos duplicados dejando el último ejecutado.</p>
+
+<blockquote><p>$ export HISTFILE=/home/usuario/histfile.txt (redirigir los comandos ejecutados durante una sesión a un archivo)</p>
+
+<p>$ export HISTFILE=/dev/null (Para no guardar el history de la sesión)</p>
+
+<p>$ export HISTFILE=/dev/null bash (abrir otra sesión que no almacene los comandos sin perder los de la actual)</p>
+
+<p>$ export PS1=&#8221;[\u@<code>curl icanhazip.com</code> \W]$ &#8221;  (Excentricidad: que el promt diga la ip externa.)</p>
+
+<p>$ export LANG=C; gedit (Lanzar una aplicación con un locale concreto)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/expiry/">Expiry</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-27T19:40:00+01:00" pubdate data-updated="true">27-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Chequea cuando caducan las contraseñas de usuario [si son temporales]</p>
+
+<blockquote><p>$ expiry -c</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/expand/">Expand</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-27T19:40:00+01:00" pubdate data-updated="true">27-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Convierte los tabuladores a espacios. Elimina las tabulaciones y los remplaza por espacios en blanco. Por defecto las tabulaciones son de 8 espacios en blanco.</p>
+
+<blockquote><p>$ expand -t 5 texto.txt (Convierte las tabulaciones en 5 espacios en blanco)</p>
+
+<p>$ expand -i -t 5 texto.txt (Sólo afecta a las tabulaciones de principio de linea)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/exit/">Exit</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-27T19:40:00+01:00" pubdate data-updated="true">27-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Salir del interprete de comandos.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/exiftool/">Exiftool</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-27T19:40:00+01:00" pubdate data-updated="true">27-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Lee y extrae metadatos de imágenes</p>
+
+<blockquote><p>$ exiftool -a -u -g1 foto.png</p>
+
+<p>$ exiftool -GPSAltitude=&#8221;0/1&#8221; foto.jpg  (Añadir tags a una imagen)</p>
+
+<p>$ exiftool -GPSLatitude=&#8221;41.403339&#8221; foto.jpg</p>
+
+<p>$ exiftool -GPSLatitudeRef=&#8221;N&#8221; foto.jpg</p>
+
+<p>$ exiftool -GPSLongitude=&#8221;2.1740288&#8221; foto.jpg</p>
+
+<p>$ exiftool -GPSLongitudeRef=&#8221;E&#8221; foto.jpg</p>
+
+<p>$ exiftool -TagsFromFile imagen_datos.jpg imagenFinal.jpg (Copia los datos Exif de la foto &#8220;imagen_datos.jpg&#8221; a la foto &#8220;imagenFinal.jpg&#8221;)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/exif/">Exif</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-27T19:40:00+01:00" pubdate data-updated="true">27-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Extraer metadatos de imagenes</p>
+
+<blockquote><p>$ exif -d imagen  (mostrar todos los datos)</p>
+
+<p>$ exif -e imagen  (extraer la foto miniatura)</p>
+
+<p>$ exif -r imagen   (suprimir la foto miniatura)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/102/">&larr; Older</a>
@@ -867,43 +764,43 @@ $ grep -E '^[a-zA-Z._-]+@.[a-zA-Z.0-9]+\.[[:alpha:]]{2,3}$' lista (Sólo mostrar
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/pwgen/">pwgen</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/read/">read</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssh-keygen/">ssh-keygen</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dhcping/">dhcping:</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/gem/">gem</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sha1sum/">sha1sum</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/shasum/">shasum</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pyroom/">pyroom</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/mysql/">mysql</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/help/">help</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Problemas durante el arranque. Consiste en un fallo de lectura de los controladores ide de discos duros por parte del kernel del sistema operativo &hellip;">
+  <meta name="description" content="Internal Field Separator (separador de campos internos) sirve para indicar cual es el valor que se usa como separador. Si no se especifica ninguno es &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/initramfs/">Initramfs</a></h1>
+      <h1 class="entry-title"><a href="/blog/ifs/">Ifs</a></h1>
     
     
       <p class="meta">
@@ -97,24 +97,66 @@
   
 
 
-<time datetime="2013-12-15T18:54:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:41:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Problemas durante el arranque. Consiste en un fallo de lectura de los controladores ide de discos duros por parte del kernel del sistema operativo que no logra reconocer dichos drivers. Arrancar con un livecd o pulsando “e” para editar la opción cuando salga el menu en grub:</p>
+  <div class="entry-content"><p>Internal Field Separator (separador de campos internos) sirve para indicar cual es el valor que se usa como separador. Si no se especifica ninguno es el espacio.</p>
 
-<blockquote><p># gedit /boot/grub/menu.lst</p></blockquote>
+<p>Algunos ejemplos:</p>
 
-<p>Y al final de la linea del kernel poner: rootdelay=90</p>
+<p>1.-</p>
 
-<p>Otras soluciones propuestas (sustituir el rootdelay=90 por):</p>
+<pre><code>#!/bin/bash
 
-<p>pci=nomsi</p>
+# dividir una IP en 4 variables
 
-<p>all_generix_ide</p>
+# Guardar el separador de campos original
+
+OLDIFS=$IFS
+
+read -p "Dime la ip: " IP
+
+# Establecemos el separador de campos en el punto
+
+IFS=.
+
+read IP1 IP2 IP3 IP4 &lt;&lt;&lt; "$IP"
+
+echo "$IP1 $IP2 $IP3 $IP4"
+
+# Restablecemos el separador original (El espacio)
+
+IFS=$OLDIFS
+</code></pre>
+
+<p>2.-</p>
+
+<pre><code>#!/bin/bash
+
+#Almacenamos el valor original de la variable IFS
+
+OLDIFS=$IFS
+
+#Cambiamos el valor del IFS a final de linea [\n]
+
+IFS=$'\n'
+
+for line in $(cat file.txt)
+
+do
+
+    echo $line
+
+done
+
+#Restauramos el IFS
+
+IFS=$OLDIFS
+</code></pre>
 </div>
   
   
@@ -127,7 +169,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/init/">Init</a></h1>
+      <h1 class="entry-title"><a href="/blog/ifne/">Ifne</a></h1>
     
     
       <p class="meta">
@@ -143,20 +185,20 @@
   
 
 
-<time datetime="2013-12-15T18:54:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:41:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Para o reinicia el sistema</p>
+  <div class="entry-content"><p>[moreutils]</p>
 
-<blockquote><p>$ init 0    (para)</p>
+<p>Se ejecuta si la entrada estandar no está vacia.</p>
 
-<p>$ init 1    (reinicia en modo  uniusuario)</p>
+<blockquote><p>$ find . -name archivo | ifne echo &#8220;Existe&#8221; (Si &#8220;archivo&#8221; existe se ejecutará el echo. Si no existe, no)</p>
 
-<p>$ init 6    (reinicia)</p></blockquote>
+<p>$ find . -name archivo | ifne -n echo &#8220;No existe&#8221; (Si &#8220;archivo&#8221; no existe se ejecutará el echo. Si existe, no)</p></blockquote>
 </div>
   
   
@@ -169,7 +211,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/info/">Info</a></h1>
+      <h1 class="entry-title"><a href="/blog/ifdown/">Ifdown</a></h1>
     
     
       <p class="meta">
@@ -185,18 +227,18 @@
   
 
 
-<time datetime="2013-12-15T18:54:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:41:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Páginas de manual para la mayoria de programas del proyecto GNU con una estructura jerarquizada. Ligeramente más complejo que las clásicas páginas man  [ver]</p>
+  <div class="entry-content"><p>Deshabilita la interfase especificada:</p>
 
-<blockquote><p>$ info (MUestra la lista de los nodos disponibles en el primer nivel)</p>
+<blockquote><p># ifdown eth0</p>
 
-<p>$ info ifconfig</p></blockquote>
+<p># ifdown -a (Deshabilita todas las redes)</p></blockquote>
 </div>
   
   
@@ -209,7 +251,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/imsniff/">Imsniff</a></h1>
+      <h1 class="entry-title"><a href="/blog/ifdata/">Ifdata</a></h1>
     
     
       <p class="meta">
@@ -225,50 +267,30 @@
   
 
 
-<time datetime="2013-12-15T18:53:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:41:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Capturar paquetes relacionados con el protocolo MSN . Su uso pasa por el envenenamiento arp, situando nuestra máquina entre la victima y el router lanzando en varias terminales y sin cerrarlas:</p>
+  <div class="entry-content"><p>[moreutils]</p>
 
-<blockquote><p># arpspoof -i eth0 -t 192.168.1.15 192.168.1.1</p>
+<p>Muestra información de la red.</p>
 
-<p># arpspoof -i eth0 -t 192.168.1.1 192.168.1.15</p></blockquote>
+<blockquote><p>$ ifdata -p eth0 (Muestra la ip local, la mascara de red, la dirección broadcast y los MTU de la red)</p>
 
-<p>Activar forwarding para que los paquetes vayan a su verdadero dueño:</p>
+<p>$ ifdata -pa -pn eth0 (Muestra la ip local i la mascara de red)</p>
 
-<blockquote><p># echo 1 > /proc/sys/net/ipv4/ip_forward</p></blockquote>
+<p>$ ifdata -pe eth5 (Muestra &#8220;yes&#8221; o &#8220;no&#8221; sobre si existe o no la red especificada)</p></blockquote>
 
-<p>Crear una carpeta donde guardar los datos:</p>
+<p>Otras opciones:</p>
 
-<blockquote><p>$ mkdir snifadas</p></blockquote>
+<p>-pb (La dirección broadcast)</p>
 
-<p>Modificar el archivo de configuración a partir de la  propia documentación ::</p>
+<p>-ph (Muestra la MAC)</p>
 
-<blockquote><p># cp /usr/share/doc/imsniff/examples/imsniff.conf.sample /etc/imsniff.conf</p>
-
-<p># nano /etc/imsniff.conf</p></blockquote>
-
-<p>daemonize = 0</p>
-
-<p>promisc = 0</p>
-
-<p>verbose = 2</p>
-
-<p>chatdir = /home/USER/snifadas/chats</p>
-
-<p>debugdir = /home/USER/snifadas/debug</p>
-
-<p>interface eth0</p>
-
-<p>Los directorios &#8220;chats&#8221; y &#8220;debug&#8221; los crea la misma aplicación.</p>
-
-<p>Lanzar el sniffer de conversaciones msn:</p>
-
-<blockquote><p># imsniff</p></blockquote>
+<p>-pf (Muestra las caracteristicas de la red)</p>
 </div>
   
   
@@ -281,7 +303,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/impressive/">Impressive</a></h1>
+      <h1 class="entry-title"><a href="/blog/ifconfig/">Ifconfig</a></h1>
     
     
       <p class="meta">
@@ -297,32 +319,26 @@
   
 
 
-<time datetime="2013-12-15T18:53:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:41:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Visualizar documentos PDF e imágenes (jpg, tiff, png&#8230;)</p>
+  <div class="entry-content"><p>Define direcciones ip y dispositivos de red</p>
 
-<blockquote><p>$ impressive documento.pdf</p>
+<blockquote><p># ifconfig  (ver los datos de conexión)</p>
 
-<p>$ impressive -l    (lista efectos disponibles)</p>
+<p># ifconfig eth0 up 192.168.1.2 (Levanta la placa de red eth0 y le da la ip)</p>
 
-<p>$ impressive -t SqueezeLeft documento.pdf</p></blockquote>
+<p># ifconfig eth0 down (Cierra la red eth0)</p>
 
-<p>Algunas opciones:</p>
+<p># ifconfig eth0 promisc (Poner la placa en modo promiscuo)</p>
 
-<p>AvPág          Va a la página siguientes</p>
+<p># ifconfig wlan0 up (si se trata de redes inalámbricas)</p>
 
-<p>RePág          Va a la página anterior</p>
-
-<p>z                  zoom donde esté el cursor</p>
-
-<p>f                   Activa/Desactiva la pantalla completa</p>
-
-<p>q                  Salir de la aplicación</p>
+<p># ifconfig eth0 hw ether 00:01:02:03:04:05  (cambiar la dirección MAC)</p></blockquote>
 </div>
   
   
@@ -335,7 +351,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/import/">Import</a></h1>
+      <h1 class="entry-title"><a href="/blog/if/">If</a></h1>
     
     
       <p class="meta">
@@ -351,26 +367,158 @@
   
 
 
-<time datetime="2013-12-15T18:53:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:41:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Capturar la pantalla en cualquier formato</p>
+  <div class="entry-content"><p>Ejecuta uno o varios comandos dependiendo de si una condición se cumple o no. Algunos scripts de ejemplo para su uso [ver operadores]:</p>
 
-<blockquote><p>$ import -window root captura.png (captura de pantalla completa)</p>
+<p>1.-</p>
 
-<p>$ import -window <code>xwininfo | awk '/Window id/{print $4; exit}'</code> <code>uuidgen</code>.png (Lo mismo. El puntero se convierte en una cruz y captura el esritorio donde se clica)</p>
+<pre><code>#!/bin/bash
 
-<p>$ import captura.png (captura de un área concreta))</p>
+read -p "Ingrese nombre del usuario: " USUARIO
 
-<p>$ import 2 captura.png (realizar 2 capturas)</p>
+if grep -e ^$USUARIO: /etc/passwd
 
-<p>$ import -pause 5 captura.png (Para retardar la captura 5 segundos)</p>
+then
 
-<p>$ import -geometry 250×250! captura.png (indicando un tamaño respetando las proporciones)</p></blockquote>
+    echo "El usuario existe en el sistema"
+
+else
+
+    echo "Usuario desconocido"
+
+fi
+
+exit 0
+</code></pre>
+
+<p>2.-</p>
+
+<pre><code>#!/bin/bash
+
+if [ "$(id -u)" != "0" ]; then 
+
+    echo "Solo root puede ejecutar este script." 
+
+    exit 1 
+
+fi
+</code></pre>
+
+<p>3.-</p>
+
+<pre><code>#!/bin/bash 
+
+# Verificar si se ha entrado un argumento
+
+if [ -z "$1" ]
+
+then 
+
+          echo "Falta el argumento después del nombre del script" 
+
+exit 
+
+fi 
+</code></pre>
+
+<p>4.-</p>
+
+<pre><code>#!/bin/bash
+
+# Introducir dos números diferentes e indicar
+
+# cuál es el mayor 
+
+read -p "Introduce dos números: " A B
+
+if [ $A -gt $B ]
+
+then
+
+        echo $A "es el mayor"
+
+else
+
+        echo $B "es el mayor"
+
+fi
+</code></pre>
+
+<p>Con varias opciones [elif]</p>
+
+<p>5.-</p>
+
+<pre><code>#!/bin/bash
+
+ls
+
+echo
+
+read -p "Cual leer: " LEER
+
+echo
+
+if [ -f $LEER ]
+
+then
+
+    echo
+
+    cat $LEER
+
+    echo
+
+elif [ -d $LEER ]
+
+then
+
+    echo
+
+    echo "Es un directorio...."
+
+else
+
+    echo
+
+    f_echo "¡¡NO EXISTE!!"
+
+    echo
+
+fi
+</code></pre>
+
+<p>6.-</p>
+
+<pre><code>#!/bin/bash 
+
+echo "Diga si o no:"
+
+read RESPUESTA 
+
+if  [ "$RESPUESTA" = si ]; then 
+
+    echo "Has escrito si" 
+
+elif [ "$RESPUESTA" = no ]; then 
+
+    echo "Has escrito no" 
+
+elif [ "$RESPUESTA" = "" ]; then 
+
+    echo "No has escrito nada" 
+
+else 
+
+    echo "Has escrito una cosa no permitida" 
+
+fi 
+</code></pre>
 </div>
   
   
@@ -383,7 +531,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/img2txt/">Img2txt</a></h1>
+      <h1 class="entry-title"><a href="/blog/idesk/">Idesk</a></h1>
     
     
       <p class="meta">
@@ -399,18 +547,45 @@
   
 
 
-<time datetime="2013-12-15T18:53:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:41:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Pasar una imagen a ascii</p>
+  <div class="entry-content"><p>Herramienta para la creación de iconos en el escritorio. Los archivos con extensión .lnk se colocan en el directorio ~/.idesktop. Una muestra:</p>
 
-<blockquote><p>$ img2txt -f svg imagen.jpg > imagen.svg</p>
+<blockquote><p>$ nano .idesktop/home.lnk</p></blockquote>
 
-<p>$ img2txt -f html imagen.jpg > imagen.html (código html de la imagen)</p></blockquote>
+<pre><code>table Icon 
+
+  Caption: Home 
+
+  Command[0]: thunar /home/usuario 
+
+  Icon: /usr/share/idesk/folder_home.xpm 
+
+  Width: 48 
+
+  Height: 48 
+
+  X: 29 
+
+  Y: 39 
+
+end 
+</code></pre>
+
+<p>Nombre del icono [Caption], El comando que se lanzará [0] con doble click izquierdo del ratón. Con [1], doble click derecho, en este caso thunar abrirá la carpeta personal [Command], la ruta al icono que se empleará [Icon], las medidas ancho [Width] y alto [Height] y la colocación en pantalla, x: distancia en pixels del lateral, y: distancia en pixels de la parte superior.</p>
+
+<p>Otros parámetros [fuentes, colores, medidas, fondos, transparencias&#8230;] pueden configurarse en el archivo ~/.ideskrc. Cualquier modificación en idesktop o ideskrc precisa matar el proceso:</p>
+
+<blockquote><p>$ killall idesk</p></blockquote>
+
+<p>Y relanzarlo:</p>
+
+<blockquote><p>$ idesk</p></blockquote>
 </div>
   
   
@@ -423,7 +598,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ifup/">Ifup</a></h1>
+      <h1 class="entry-title"><a href="/blog/identify/">Identify</a></h1>
     
     
       <p class="meta">
@@ -439,16 +614,18 @@
   
 
 
-<time datetime="2013-12-15T18:53:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:41:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Habilita la interfase especificada:</p>
+  <div class="entry-content"><p>Ver las propiedades de una imagen</p>
 
-<blockquote><p>$ ifup eth0</p></blockquote>
+<blockquote><p>$ identify imagen.gif</p>
+
+<p>$ identify -verbose imagen.jpg   (Con mucha más información)</p></blockquote>
 </div>
   
   
@@ -461,7 +638,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/iftop/">Iftop</a></h1>
+      <h1 class="entry-title"><a href="/blog/id/">Id</a></h1>
     
     
       <p class="meta">
@@ -477,16 +654,22 @@
   
 
 
-<time datetime="2013-12-15T18:53:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:41:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra el ancho de banda que está usando una red.</p>
+  <div class="entry-content"><p>Conocer el uid y el gid del usuario especificado</p>
 
-<blockquote><p># iftop -nP -i eth0 (sin resolver las IPs[n], mostrando puerto[P] y especificando red)</p></blockquote>
+<blockquote><p>$ id root</p>
+
+<p>$ id -u (Del usuario no root)</p>
+
+<p>$ id -a (De todos los grupos a los que pertenece el usuario)</p>
+
+<p>$ id -un (Muestra el usuario con el que estamos)</p></blockquote>
 </div>
   
   
@@ -499,7 +682,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ifstat/">Ifstat</a></h1>
+      <h1 class="entry-title"><a href="/blog/iconv/">Iconv</a></h1>
     
     
       <p class="meta">
@@ -515,28 +698,20 @@
   
 
 
-<time datetime="2013-12-15T18:53:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:41:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Monitorización del trafico de red.</p>
+  <div class="entry-content"><p>Modificar la codificación de un archivo</p>
 
-<blockquote><p>$ ifstat -z (Descarta los interfaces sin actividad)</p>
+<blockquote><p>$ iconv -l   (Muestra todas las opciones posibles)</p>
 
-<p>$ ifstat -i eth1 (Especificando una red)</p></blockquote>
+<p>$ iconv -t us-ascii -f utf-8 archivo.txt > re_codificado.txt (Para saber la codificación de un archivo: $ file &#8211;mime-encoding archivo.txt)</p>
 
-<p>Algunas opciones:</p>
-
-<p>-a (Muestra todas las redes)</p>
-
-<p>-T (monitorizando varias redes, muestra el total)</p>
-
-<p>-S (Muestra los resultados en la misma linea, si es posible)</p>
-
-<p>-b (Reporta los informes en Kbits / seg en lugar de kbytes / seg.)</p>
+<p>$ iconv &#8211;from-code=ISO-8559-1 &#8211;to-code=UTF-8 viejo.txt -o nuevo.txt (Pasar viejo.txt de codificación ISO-8559-1 a UTF-8 en el nuevo.txt)</p></blockquote>
 </div>
   
   
@@ -567,43 +742,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/pwgen/">pwgen</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/read/">read</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssh-keygen/">ssh-keygen</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dhcping/">dhcping:</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/gem/">gem</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sha1sum/">sha1sum</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/shasum/">shasum</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pyroom/">pyroom</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/mysql/">mysql</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/help/">help</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

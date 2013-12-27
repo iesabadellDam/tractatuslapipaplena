@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Hacer particiones arrancables $ syslinux /dev/sda1
+  <meta name="description" content="Analizar la memoria o una particion $ strings /dev/mem $ strings /dev/sda5
 ">
   
 
@@ -82,7 +82,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/syslinux/">Syslinux</a></h1>
+      <h1 class="entry-title"><a href="/blog/strings/">Strings</a></h1>
     
     
       <p class="meta">
@@ -98,16 +98,18 @@
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Hacer particiones arrancables</p>
+  <div class="entry-content"><p>Analizar la memoria o una particion</p>
 
-<blockquote><p>$ syslinux /dev/sda1</p></blockquote>
+<blockquote><p>$ strings /dev/mem</p>
+
+<p>$ strings /dev/sda5</p></blockquote>
 </div>
   
   
@@ -120,7 +122,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/sysctl/">Sysctl</a></h1>
+      <h1 class="entry-title"><a href="/blog/stressapptest/">Stressapptest</a></h1>
     
     
       <p class="meta">
@@ -136,30 +138,26 @@
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra la configuración de los parámetros del kernel</p>
+  <div class="entry-content"><p>Herramienta para realizar un test de carga del sistema.</p>
 
-<blockquote><p># sysctl -a | more (Muestra todas las [muchisimas] variables)</p>
+<blockquote><p># stressapptest -s 20 -M 256 -m 8 -C 8 -W</p></blockquote>
 
-<p># sysctl fs.file-max     (máximo de ficheros que pueden abrirse en el sistema)</p>
+<p>Algunas opciones:</p>
 
-<p># sysctl fs.file-max=256000   (modificarlo a 256000)</p>
+<p>-M mbytes  (Cantidad de megabytes de memoria RAM para realizar las pruebas. Por defecto toda la disponible)</p>
 
-<p># sysctl -w vm.swappiness=10 (usar más memoria RAM y menos SWAP)</p>
+<p>-s 20 (Tiempo que durará el proceso)</p>
 
-<p># sysctl kernel.panic=5 (forzar reinicio a los 5 segundos despues de un kernel panic)</p></blockquote>
+<p>-m 8 (Cantidad de procesos de copiado de memoria)</p>
 
-<p>Para hacer los cambios permanentes añadir las lineas al archivo /etc/sysctl.conf:</p>
-
-<blockquote><p># echo &#8220;kernel.panic=5&#8221; >> /etc/sysctl.conf</p>
-
-<p># echo &#8220;vm.swappiness=10&#8221; >> /etc/sysctl.conf</p></blockquote>
+<p>-W (llevar al límite la cpu)</p>
 </div>
   
   
@@ -172,7 +170,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/synclient/">Synclient</a></h1>
+      <h1 class="entry-title"><a href="/blog/stress/">Stress</a></h1>
     
     
       <p class="meta">
@@ -188,18 +186,26 @@
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Consultar/modificar las opciones del touchpad</p>
+  <div class="entry-content"><p>Herramientas para realizar un test de carga del sistema.</p>
 
-<blockquote><p>$ synclient -l (Ver la configuración)</p>
+<blockquote><p># stress -c 8 -i 4 -m 2 &#8211;vm-bytes 128M -t 20S</p></blockquote>
 
-<p>$ synclient TapButton1=1 TapButton2=2 VertEdgeScroll=1 (Activar el click y el escroll. Para hacerlo permanente poner la linea en el inicio [en fluxbox sería en /.fluxbox/startup]</p></blockquote>
+<p>Opciones:</p>
+
+<p>-c (8 multiples ciclos infinitos de raices cuadradas para la cpu)</p>
+
+<p>-i (Introduce 4 ciclos infinitos que ejecutan la llamada al sistema sync())</p>
+
+<p>&#8211;hdd-bytes 3G (carga de escritura en disco de 3G. Opciones: B,K,M,G)</p>
+
+<p>-t 20s (Tiempo que durará el proceso, 20 segundos. Opciones: s,m,h,d,y)</p>
 </div>
   
   
@@ -212,7 +218,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/sync/">Sync</a></h1>
+      <h1 class="entry-title"><a href="/blog/streamripper/">Streamripper</a></h1>
     
     
       <p class="meta">
@@ -228,18 +234,16 @@
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Sincroniza memoria y disco [escribe el contenido de los buffers en disco]</p>
+  <div class="entry-content"><p>Ripear a partir de emisoras icecast (www.icecast.com) y showcast (www.showtcast.com). Crea una carpeta en el presente directorio.</p>
 
-<blockquote><p>$ sync</p>
-
-<p># sync; init 0 (Sincronizar y apagar el equipo)</p></blockquote>
+<blockquote><p>$ streamrippwer http://yp.shoutcast.com/sbin/tunein-station.pls?id=321414 -l 4000 (grabar durante 4000 segundos)</p></blockquote>
 </div>
   
   
@@ -252,7 +256,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/synaptic/">Synaptic</a></h1>
+      <h1 class="entry-title"><a href="/blog/strace/">Strace</a></h1>
     
     
       <p class="meta">
@@ -268,26 +272,28 @@
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Interfaz gráfica para apt, sistema de gestión de paquetes basadas en Debian.</p>
+  <div class="entry-content"><p>Muestra las llamadas al sistema originadas por un proceso.</p>
 
-<p>Atajos de teclado:</p>
+<blockquote><p>$ strace comando</p>
 
-<p>Ctrl + f (Buscar paquete)</p>
+<p>$ strace -p PID (Por número de proceso)</p>
 
-<p>Ctrl + r (Refrescar lista de paquetes)</p>
+<p>$ strace -c comando -o traza.txt (mostrar resumen de llamadas y errores durante la ejecución y redirigido a un archivo)</p></blockquote>
 
-<p>Ctrl + g (Marcar todas las actualizaciones)</p>
+<p>Algunas opciones:</p>
 
-<p>Ctrl + p (Aplicar los cambios)</p>
+<p>-f (Incluir posibles forks que haga un programa, por ejemplo httpd)</p>
 
-<p>Ctrl + q (Salir)</p>
+<p>-v (Muestra el máximo de información)</p>
+
+<p>-s 8192 (Valor de 8192 como limite de longitud de las cadenas. Por defecto 32)</p>
 </div>
   
   
@@ -300,7 +306,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/swappiness/">Swappiness</a></h1>
+      <h1 class="entry-title"><a href="/blog/stjerm/">Stjerm</a></h1>
     
     
       <p class="meta">
@@ -316,16 +322,30 @@
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Uso de la swap por parte del sistema. Ver sysctl.</p>
+  <div class="entry-content"><p>Consola tipo guake.</p>
 
-<blockquote><p>$  cat /proc/sys/vm/swappiness</p></blockquote>
+<blockquote><p>$ stjerm -k f12 -s left -o 70 -h 250 -w 1280 (Que aparezca pulsando F12, con barra de escroll a la izquierda, opacidad del 70% y especificando ancho y largo)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<p>-ah (Ocultar automáticamente la ventana cuando no está enfocada)</p>
+
+<p>-bg red (Color de fondo)</p>
+
+<p>-bgimg imagen.png (Establecer una imagen de fondo)</p>
+
+<p>-fn (Tipo y tamaño de fuente)</p>
+
+<p>-fg blue (Color de la fuente)</p>
+
+<p>-p (Posición de la ventana [valores: top, bottom, left, right])</p>
 </div>
   
   
@@ -338,7 +358,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/swapon/">Swapon</a></h1>
+      <h1 class="entry-title"><a href="/blog/steghide/">Steghide</a></h1>
     
     
       <p class="meta">
@@ -354,20 +374,20 @@
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Activar una partición swap.</p>
+  <div class="entry-content"><p>Detectar y extraer mensajes incrustados dentro de una imagen o música</p>
 
-<blockquote><p>$ swapon /dev/hda5</p>
+<blockquote><p>$ steghide embed -cf imagen.jpg -ef archivo_texto  (incrustar un texto en una imagen)</p>
 
-<p>$ swapon -a (Activar todas las particiones swap del /etc/fstab)</p>
+<p>$ steghide embed -cf archivo.wav -ef archivo_texto (incrustar un texto en un archivo de música)</p>
 
-<p>$ swapon -s (Comprobar estado actual de la memória swap)</p></blockquote>
+<p>$ steghide extract -sf imagen.jpg  (extraer el archivo incrustado)</p></blockquote>
 </div>
   
   
@@ -380,7 +400,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/swapoff/">Swapoff</a></h1>
+      <h1 class="entry-title"><a href="/blog/status/">Status</a></h1>
     
     
       <p class="meta">
@@ -396,16 +416,16 @@
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Desactivar una partición swap.</p>
+  <div class="entry-content"><p>Verifica si un servicio está activo o no.</p>
 
-<blockquote><p>$ swapoff -a (Desactivar todas las especificadas en /etc/fstab)</p></blockquote>
+<blockquote><p>$ status ssh</p></blockquote>
 </div>
   
   
@@ -418,7 +438,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/suspend/">Suspend</a></h1>
+      <h1 class="entry-title"><a href="/blog/stat/">Stat</a></h1>
     
     
       <p class="meta">
@@ -434,16 +454,22 @@
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Cuando es posible, suspender la shell actual.</p>
+  <div class="entry-content"><p>Estadísticas de archivo, directorios y sistemas</p>
 
-<blockquote><p># suspend -f (Pasará de root a nuestro usuario)</p></blockquote>
+<blockquote><p># stat /etc/passwd</p>
+
+<p># stat /usr</p>
+
+<p># stat -f /</p>
+
+<p>$ stat -c &#8220;%s&#8221; archivo (medida del archivo)</p></blockquote>
 </div>
   
   
@@ -456,7 +482,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/surfraw/">Surfraw</a></h1>
+      <h1 class="entry-title"><a href="/blog/startx/">Startx</a></h1>
     
     
       <p class="meta">
@@ -472,34 +498,16 @@
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Buscador de significados en la web. Antes de usar, especificar los navegadores que se usarán en teminal y en las X, mostrando la ruta absoluta a los ejecutables:</p>
+  <div class="entry-content"><p>Arrancar sistema gráfico</p>
 
-<blockquote><p># nano /etc/xdg/surfraw/conf</p></blockquote>
-
-<p>….</p>
-
-<blockquote><p># name/path of text browser executable</p>
-
-<p># e.g links, lynx, w3m</p></blockquote>
-
-<p>def   SURFRAW_text_browser /usr/bin/elinks</p>
-
-<blockquote><p># name/path of browser executable</p>
-
-<p># e.g mozilla, netscape etc</p></blockquote>
-
-<p>def   SURFRAW_graphical_browser /usr/bin/firefox</p>
-
-<blockquote><p>$ sr wikipedia -l=es Palabra_a_buscar (buscar en wikipedia y en español)</p>
-
-<p>$ sr -elvi | less  (listar los sitios disponibles donde buscar)</p></blockquote>
+<blockquote><p>$ startx &#8211; :1 (una segunda sesión gráfica accesible en ^Alt + F8)</p></blockquote>
 </div>
   
   
@@ -530,43 +538,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/pwgen/">pwgen</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/read/">read</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssh-keygen/">ssh-keygen</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dhcping/">dhcping:</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/gem/">gem</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sha1sum/">sha1sum</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/shasum/">shasum</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pyroom/">pyroom</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/mysql/">mysql</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/help/">help</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

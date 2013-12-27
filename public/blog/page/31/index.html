@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Terminal simple. $ st -t Reiniciar -e sudo init 6 (Abrir un terminal st con título para entrar la contraseña y reiniciar)
+  <meta name="description" content="Muestra una imagen del cielo en la tty. Con las teclas del cursor permite moverse por entre la constelación de estrellas. $ spacedream
 ">
   
 
@@ -82,7 +82,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/st/">St</a></h1>
+      <h1 class="entry-title"><a href="/blog/spacedream/">Spacedream</a></h1>
     
     
       <p class="meta">
@@ -98,16 +98,16 @@
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Terminal simple.</p>
+  <div class="entry-content"><p>Muestra una imagen del cielo en la tty. Con las teclas del cursor permite moverse por entre la constelación de estrellas.</p>
 
-<blockquote><p>$ st -t Reiniciar -e sudo init 6 (Abrir un terminal st con título para entrar la contraseña y reiniciar)</p></blockquote>
+<blockquote><p>$ spacedream</p></blockquote>
 </div>
   
   
@@ -120,7 +120,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/sswap/">Sswap</a></h1>
+      <h1 class="entry-title"><a href="/blog/sox/">Sox</a></h1>
     
     
       <p class="meta">
@@ -136,20 +136,22 @@
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[secure-delete]</p>
+  <div class="entry-content"><p>Unir ficheros de audio en uno. Soporta mp3, wav, ogg&#8230;</p>
 
-<p>Borrado seguro de swap. Previamente desactivar con swapoff /dev/sda7 y al finalizar el proceso volver a activarla con swapon /dev/sda7 [Si no sabemos donde se encuentra la swap: cat /proc/swaps. Argumentos paracidos a srm [ver] y sfill [ver]. El espacio se sobreescribe 38 veces.</p>
+<blockquote><p>$ soxmix 1.mp3 2.mp3 mezcla.mp3</p>
 
-<blockquote><p>$ sswap -f /dev/sda7 (Modo rápido e inseguro)</p>
+<p>$ sox file.mp3 file2.mp3 trim 0 5 (corta los primeros 5 segundos de file.mp3 y los guarda en file2.mp3)</p>
 
-<p>$ sswap -lv /dev/sda7 (Como lanzar dos veces sswap -f y mostrando el proceso)</p></blockquote>
+<p>$ sox file.mp3 file.wav (pasar de mp3a wav)</p>
+
+<p>$ sox 2.wav 3.wav speed 0.5 (3.wav irá a la mitad de velocitad que 2.wav)</p></blockquote>
 </div>
   
   
@@ -162,7 +164,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/sslstrip/">Sslstrip</a></h1>
+      <h1 class="entry-title"><a href="/blog/sources-dot-list/">sources.list</a></h1>
     
     
       <p class="meta">
@@ -178,40 +180,38 @@
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Herramienta para engañar al usuario haciéndole pensar que se encuentra en un sitio de Internet con cifrado SSL [HTTPS], cuando en realidad todos los datos están siendo transmitidos en abierto [HTTP].</p>
+  <div class="entry-content"><p>Archivo que contiene las fuentes o repositorios de los paquetes de software en las distros derivadas de Debian.</p>
 
-<p>Configuración de reenvío de paquetes IP:</p>
+<p>Generador de sources.list optimizado via web:</p>
 
-<blockquote><p># echo 1 > /proc/sys/net/ipv4/ip_forward</p></blockquote>
+<p><a href="http://debgen.simplylinux.ch/" title="sources.list a la carta">http://debgen.simplylinux.ch/</a></p>
 
-<p>Envenenamiento ARP (paquete dsniff):</p>
+<p>División del programario según Debian y Ubuntu:</p>
 
-<blockquote><p># arpspoof -i eth0 -t ip_victima ip_router</p></blockquote>
+<p>DEBIAN:</p>
 
-<p>En caso de querer atacar toda la red, solo especificar la ip router:</p>
+<p>main (Paquetes 100% libres según las directovas de Debian)</p>
 
-<blockquote><p># arpspoof -i eth0 ip_router</p></blockquote>
+<p>contrib (Paquetes que dependen de alguno que no es 100% libre según las directivas de Debian)</p>
 
-<p>Redirección de puertos usando Iptables:</p>
+<p>non-free (Paquetes que o bien no cumplen la directiva de Debian o no facilitan el código fuente)</p>
 
-<blockquote><p># iptables -t nat -A PREROUTING -p tcp &#8211;destination-port 80 -j REDIRECT &#8211;to-ports 31715</p></blockquote>
+<p>UBUNTU:</p>
 
-<p>Al reiniciar el ordenador se borrará la regla, si se quiere borrar al momento cambiar &#8220;-A&#8221; por un &#8220;-D&#8221; en el comando anterior.</p>
+<p>main (Paquetes que cumplen los requisitos de la licencia de Ubuntu)</p>
 
-<p>Arrancar sslstrip y ponerlo a la escucha:</p>
+<p>restricted (soportados por los desarrolladores de Ubuntu pero o bien no cumplen su licencia o no se tiene acceso al código fuente)</p>
 
-<blockquote><p># sslstrip -k -f -l 31715 -w archivo.log</p></blockquote>
+<p>Universe (Programas mantenidos por la comunidad)</p>
 
-<p>Visionar en tiempo real los paquetes capturados:</p>
-
-<blockquote><p>#  tail -f archivo.log</p></blockquote>
+<p>Multiverse (Programas comerciales o privativos de terceras empresas o fabricantes)</p>
 </div>
   
   
@@ -224,7 +224,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/sshpass/">Sshpass</a></h1>
+      <h1 class="entry-title"><a href="/blog/source/">Source</a></h1>
     
     
       <p class="meta">
@@ -240,18 +240,22 @@
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>La contraseña para acceder por ssh a un host remoto se realiza de forma interactiva (entrándola por teclado) en algunos casos esto no es posible ya sea por tratarse de un script en el que se entra en un host remoto, se realiza alguna acción y se regresa al local o por que se precisa entrar la contraseña de forma no interactiva. Para estos casos puede ser útil este comando aunque considerando lo debil para la seguridad que entraña su uso ya que puede quedar registrado en &#8220;history&#8221;.</p>
+  <div class="entry-content"><p>Recarga o ejecuta el archivo de configuración indicado para aplicar cambios o el script de bash correspondiente.</p>
 
-<blockquote><p>$ sshpass -f file_pas ssh -y usuario@host ifconfig (Ejecuta ifconfig en el remoto entrando como contraseña la primera palabra del archivo file_pas )</p>
+<blockquote><p>$ source .bashrc</p></blockquote>
 
-<p>$ sshpass -p 1234 ssh -t usuario@host &#8220;echo 1234 | sudo -S namp 192.168.1.0/24&#8221; (Ejecuta el comando &#8220;sudo nmap&#8221; en el host remoto que tiene por contraseña 1234.)</p></blockquote>
+<p>Este comando es equivalente a un punto [.]:</p>
+
+<blockquote><p>$ . .bashrc (lo mismo que el anterior)</p>
+
+<p>$ source script.sh</p></blockquote>
 </div>
   
   
@@ -264,7 +268,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/sshguard/">Sshguard</a></h1>
+      <h1 class="entry-title"><a href="/blog/sort/">Sort</a></h1>
     
     
       <p class="meta">
@@ -280,316 +284,190 @@
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Demonio que protege SSH y otros servicios contra ataques de fuerza bruta. Funciona observando los cambios en /var/log/auth.log, verificando si alguien esta fallando varias veces al autentificarse. Luego de varios errores de autentificacion (por defecto 14) el host ofensivo sera bloqueado por 7 minutos y se duplicará cada vez que el host ofensivo repita el ataque. Carece de archivo de configuración y puede complementarse con iptables:</p>
+  <div class="entry-content"><p>Muestra la entrada ordenada.</p>
 
-<blockquote><p># iptables -A INPUT -j sshguard (Para activarlo en todos los puertos)</p>
+<blockquote><p>$ sort archivo > archivo_ordenado  (por la primera columna)</p>
 
-<p># iptables -A INPUT -m multiport -p tcp &#8211;destination-ports 21,22 -j sshguard (Para puertos concretos [ftp y ssh])</p></blockquote>
+<p>$ sort  [intro] (va esperando palabras o números que ordena con Ctrl+d)</p>
 
-<p>El archivo para colocar las direcciones no afectadas por sshguard:</p>
+<p>$ sort &lt;&lt; fin (Lo mismo pero ordena después de introducir “fin”)</p>
 
-<blockquote><p># nano /etc/sshguard/whitelist</p></blockquote>
+<p>$ sort -o archivo1 archivo1 (escribe el resultado en el propio archivo)</p>
 
-<p>Con el siguiente formato:</p>
+<p>$ sort -u fichero  (ordenar eliminando lineas repetidas)</p>
 
-<pre><code>192.168.1.53 (Una ip)
+<p>$ sort -t , -k2n archivo  (ordenar por el segundo campo separado del primero por una “,” y por su valor numérico)</p>
 
-192.168.1.0/24 (Un rango)
+<p>$ sort -t , -k3 archivo   (ordenar por el tercer campo separados por comas)</p></blockquote>
 
-lapipaplena.net (Un host)
+<p>Opciones</p>
+
+<p>-f : Ordena alfabeticamente (diferencia Minúsculas y mayúsculas).</p>
+
+<p>-n : Para ordenar los campos numéricos por su valor numérico.</p>
+
+<p>-r : De mayor a menor.</p>
+
+<p>-R : desordenar, aleatoriamente</p>
+
+<p>-k numero : Especifica por qué columna o campo realizar la ordenación</p>
+
+<p>-t : indica que vamos a usar un delimitador de campo especificado</p>
+
+<p>-u : Suprime todas las líneas repetidas después de realizar la ordenación.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/sonido/">Sonido</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>1.-</p>
+
+<p>Para ver las tarjetas de sonido instaladas</p>
+
+<blockquote><p>$ cat /proc/asound/cards</p></blockquote>
+
+<p>0 [Intel ]: HDA-Intel - HDA Intel</p>
+
+<p>HDA Intel at 0xe4100000 irq 169</p>
+
+<p>1 [SAA7134 ]: SAA7134 - SAA7134</p>
+
+<p>saa7133[0] at 0xe4000000 irq 233</p>
+
+<p>2 [CMI8738MC6 ]: CMI8738-MC6 - C-Media PCI CMI8738-MC6</p>
+
+<p>C-Media PCI CMI8738-MC6 (model 55) at 0xa000, irq 225</p>
+
+<blockquote><p># asoundconf set-default-card 1 (para activar la 1)</p></blockquote>
+
+<p>Editar el fichero /etc/alsa/alsa.conf y poner estas líneas:</p>
+
+<pre><code>defaults.ctl.card 1 
+
+defaults.pcm.card 1 
+
+defaults.pcm.device 1 
 </code></pre>
-</div>
-  
-  
 
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sshfs/">Sshfs</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Montar un sistema de archivos remoto en local.</p>
-
-<blockquote><p># sshfs usuario@host_o_IP:/home/usuario /home/usuario/remoto</p>
-
-<p># fusermount -u /home/usuario/remoto  (Desmontarlo)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sshd/">Sshd</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Demonio ssh</p>
-
-<blockquote><p>$ sshd -t (Verificar si existen errores en el archivo de configuración)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ssh/">Ssh</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Comunicación cifrada entre dos máquinas.</p>
-
-<blockquote><p>$ ssh usuario@host (básica)</p>
-
-<p>$ ssh -v usuario@IP_o_host (comprobar errores en una conexión)</p>
-
-<p>$ ssh -p 4000 usuario@host (especificando un puerto)</p>
-
-<p>$ ssh -fND localhost:2080 usuario@host (Crear un servidor proxy en una máquina remota. La “N” es para que no se puedan ejecutar comandos)</p>
-
-<p>$ ssh -X -Y usuario@host akregator (Lanzar una aplicación remota en local. Ver punto 11 de esta entrada)</p>
-
-<p>$ ssh usuario@host ls (lanzar un comando remoto y visualizarlo en local)</p>
-
-<p>$ ssh -t usuario@host newsbeuter  (lo mismo si precisa consola)</p>
-
-<p>$ ssh -D 9999 usuario@host (abrir un puerto a partir del cual tunelar una conexión)</p>
-
-<p>$ ssh user@host_ip &#8216;DISPLAY=&#8221;:0.0&#8221; import -window root screenshot.png&#8217; (realizar pantallazo de una sesión remota. Se archiva en el remoto no en local)</p>
-
-<p>$ ssh usuario@host &#8220;tar -cf - /home/usuario/dir&#8221; | gzip dir.tar.gz (Comprimir un directorio remoto)</p>
-
-<p># gedit /var/run/motd   (modificar el mensaje de bienvenida de ssh)</p></blockquote>
-
-<p>1.-</p>
-
-<p>conexión remota. El servidor ha de tener el archivo /etc/ssh/sshd_config con los siguientes parámetros:</p>
-
-<p>AllowTcpForwarding yes</p>
-
-<p>GatewayPorts yes</p>
-
-<p>Luego configurar Firefox para usar un servidor proxy 127.0.0.1 puerto 9999.</p>
+<p>Los cambios son automáticos, no hay ni que reiniciar el servicio.</p>
 
 <p>2.-</p>
 
-<blockquote><p># gedit /etc/issue.net   (modificar el mensaje antes del login. Para activarlo, descomentar del archivo “/etc/ssh/sshd_config” la línea: Banner /etc/issue.net)</p></blockquote>
+<p>Cuando al reiniciar el sonido aparece silenciado:</p>
+
+<blockquote><p># gedit /etc/pulse/default.pa</p></blockquote>
+
+<p>Comentar la linea: # load-module module-device-restore</p>
 
 <p>3.-</p>
 
-<p>Tunel inverso:</p>
+<p>Sin sonido con flash</p>
 
-<blockquote><p>$ ssh -R 10000:localhost:22 usuario2@host2 (lanzado desde host1 hacia host2 crea un tunel por el puerto 10000)</p>
+<p>Si no existe, crear el archivo:</p>
 
-<p>$ ssh usuario2@host2 (Lanzado desde host3 hacia host2)</p></blockquote>
+<blockquote><p>$ sudo touch /etc/asound.conf</p>
 
-<p>Una vez entrado en host2, lanzar:</p>
+<p># nano /etc/asound.conf</p></blockquote>
 
-<blockquote><p>$ ssh usuario1@localhost -p 10000 (Para conectar el host3 con el host1)</p></blockquote>
+<p>Pegar:</p>
+
+<pre><code>pcm.pulse { 
+
+type pulse 
+
+} 
+
+ctl.pulse { 
+
+type pulse 
+
+} 
+
+pcm.!default { 
+
+type pulse 
+
+} 
+
+ctl.!default { 
+
+type pulse 
+
+} 
+</code></pre>
+
+<p>Reiniciar.</p>
 
 <p>4.-</p>
 
-<p>Crear clave publica para acceder a un remoto sin que pida identificación:</p>
+<p>Si Java bloquea el dispositivo de sonido en lugar de usar Pulseaudio</p>
 
-<blockquote><p>$ ssh-keygen -b 4096 -t rsa  (Crear la clave)</p>
+<blockquote><p># cd /usr/lib/jvm/java-6-sun/jre/bin/</p>
 
-<p>$ ssh-copy-id usuario@IP_o_HOST (enviar la clave al remoto)</p></blockquote>
+<p># mv java java.bin</p>
+
+<p># nano /usr/lib/jvm/java-6-sun/jre/bin/java</p></blockquote>
+
+<p>Y copiar en su interior:</p>
+
+<blockquote><p>#!/bin/bash</p></blockquote>
+
+<p>padsp /usr/lib/jvm/java-6-sun/jre/bin/java.bin &#8220;$@&#8221;</p>
+
+<blockquote><p># chmod +x java (darle permisos)</p></blockquote>
 
 <p>5.-</p>
 
-<p>Para deshabilitar el acceso a todos los usuarios excepto a root:</p>
+<p>Substituir pulseaudio por alsa:</p>
 
-<blockquote><p># touch /etc/nologin</p>
+<blockquote><p># apt-add-repository ppa:dtl131/ppa  (Añadir los repositorios gnome-media/applets/settings-daemon)</p>
 
-<p># chmod 644 /etc/nologin</p></blockquote>
+<p># apt-get update  (Actualizar el sistema)</p>
 
-<p>6.-</p>
+<p># apt-get upgrade</p>
 
-<p>Deshabilitar/personalizar los mensajes que aparecen cuando nos logueamos en algunas distros a un host remoto mediante SSH.</p>
+<p># apt-get install esound esound-clients esound-common libesd-alsa0 alsa-base alsa-tools alsa-utils alsa-oss linux-sound-base python-alsaaudio gnome-media libsdl1.2debian-alsa  (Instalar paquetes de alsa)</p>
 
-<blockquote><p>$ touch /home/usuario/.hushlogin (Creando este fichero vacio se deshabilitan los mensajes. Borrandolo vuelven a aparecer)</p>
+<p># apt-get purge libcanberra-pulse pulseaudio pulseaudio-esound-compat pulseaudio-module-bluetooth pulseaudio-module-gconf pulseaudio-module-udev pulseaudio-module-x11 gstreamer0.10-pulseaudio pulseaudio-utils pavucontrol  (Desinstalar los paquetes de pulseaudio)</p></blockquote>
 
-<p># nano /etc/motd (Archivo para personalizar los mensaje de bienvenida a quien se loguea en el sistema)</p></blockquote>
-
-<p>7.-</p>
-
-<p>Crear un atajo para la conexión a un servidor remoto:</p>
-
-<blockquote><p>$ nano .ssh/config</p></blockquote>
-
-<p>Y pegar el siguiente contenido debidamente modificado con nuestros datos:</p>
-
-<pre><code>host servidor
-
- hostname 192.168.1.10 
-
- user USUARIO_REMOTO
-</code></pre>
-
-<p>Nota.- Delante de la segunda y tercera linea existe un espacio.</p>
-
-<p>Al crear este archivo, la conexión se realizará con:</p>
-
-<blockquote><p>$ ssh servidor (Pedirá igualmente contraseña)</p></blockquote>
-
-<p>8.-</p>
-
-<p>Evitar desconexiones por inactividad:</p>
-
-<blockquote><p>$ nano .ssh/config</p></blockquote>
-
-<p>Y pegar el siguiente contenido:</p>
-
-<pre><code>Host *
-
-    ServerAliveInterval 120
-
-    ServerAliveCountMax 3
-</code></pre>
-
-<p>9.-</p>
-
-<p>Añadir un registro de las acciones realizadas dentro de cada sesión SFTP</p>
-
-<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
-
-<p>Y dejar la linea como se indica:</p>
-
-<p>Subsystem sftp /usr/lib/openssh/sftp-server -l INFO</p>
-
-<p>Tras reiniciar ssh, el registro se plasmará en /var/log/auth.log</p>
-
-<p>10.-</p>
-
-<p>Aumentando la seguridad del servidor ssh:</p>
-
-<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
-
-<p>Y añadir o modificar las siguientes lineas:</p>
-
-<pre><code>AllowUsers juan pedro andrés (Limitando a uno o varios los usuarios autorizados)
-
-AllowGroup oficina (Restringir acceso a solo un grupo)
-
-Port 372 (Modificando puerto. Aconsejable uno inferior al 1024)
-
-LoginGraceTime 40 (Mostrar la pantalla de login 40 segundos antes de cerrarse)
-
-MaxStartups 4 (Cantidad máxima de conexiones simultaneas)
-
-MaxAuthTries 3 (Limitar el número de intentos de logeo, tras los cuales se cierra la conexión)
-</code></pre>
-
-<p>11.-</p>
-
-<p>Ajustes para tunelar aplicaciones gráficas:</p>
-
-<p>En el servidor:</p>
-
-<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
-
-<pre><code>AllowTcpForwarding yes
-
-X11Forwarding yes
-
-X11DisplayOffset 10
-
-X11UseLocalhost yes
-</code></pre>
-
-<p>En la máquina cliente:</p>
-
-<blockquote><p># nano /etc/ssh/ssh_config</p></blockquote>
-
-<pre><code>ForwardX11 yes
-
-ForwardX11Trusted yes
-</code></pre>
-
-<p>Después de reiniciar ssh, con el parámetro -X se visualizará la gui remota que tambien tiene que estar instalada en local.</p>
-
-<blockquote><p>$ ssh -X usuario@host akregator</p></blockquote>
+<p>Reiniciar</p>
 </div>
   
   
@@ -602,7 +480,7 @@ ForwardX11Trusted yes
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ssconvert/">Ssconvert</a></h1>
+      <h1 class="entry-title"><a href="/blog/socklist/">Socklist</a></h1>
     
     
       <p class="meta">
@@ -618,26 +496,16 @@ ForwardX11Trusted yes
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[gnumeric]</p>
+  <div class="entry-content"><p>Lista conectores de red abiertos (sockets), mostrando tipo, número de puerto y otros datos específicos.</p>
 
-<p>Conversor de formatos de hoja de cálculo por línea de comandos.</p>
-
-<blockquote><p>$ ssconvert &#8211;list-exporters (Listado de conversiones de salida)</p>
-
-<p>$ ssconvert &#8211;list-importers (Litado de conversiones de entrada)</p>
-
-<p>$ ssconvert entrada.xls salida.csv (De formato excel a csv)</p>
-
-<p>$ ssconvert -E utf-8 entrada.xls salida.csv (Especificando una codificación para la salida)</p>
-
-<p>$ ssconvert &#8211;export-type=Gnumeric_stf:stf_assistant -O &#8216;separator=| format=preserve charset=unicode&#8217; entrada.xls salida.csv (Especificando opcionalmente un exportador [&#8211;export-type] que permite exportar a txt, especificando un separador de campos que no sea el por defecto [el espacio] sinó la barra vertical [|], preservando el formato de las celdas del original [format], otras opciones de format son &#8220;automatic&#8221; [por defecto] y &#8220;raw&#8221; [sin formato] y con codificación de salida en unicode [por defecto UTF-8])</p></blockquote>
+<blockquote><p>$ socklist</p></blockquote>
 </div>
   
   
@@ -650,7 +518,7 @@ ForwardX11Trusted yes
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ss/">Ss</a></h1>
+      <h1 class="entry-title"><a href="/blog/snort/">Snort</a></h1>
     
     
       <p class="meta">
@@ -666,30 +534,132 @@ ForwardX11Trusted yes
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Utilidad para investigar sockets. Sustituye a netstat.</p>
+  <div class="entry-content"><p>Sniffer de paquetes y detector de intrusos</p>
 
-<blockquote><p># ss -r  (resolviendo las IPs)</p>
+<blockquote><p># snort -v -i eth0 (Para inspeccionar el tráfico de una red)</p>
 
-<p># ss -n  (sin resolver)</p>
+<p># snort -vde -h 192.168.0.1/24 (Inspeccionar una dirección o rango)</p>
 
-<p># ss  (igual)</p>
+<p># snort -vde tcp (especificando protocolo)</p>
 
-<p># ss -l   (muestra los que estan esperando conexión)</p>
+<p># snort -v -X -i eth0 port 25 (Especificando un puerto y guardando la información)</p>
 
-<p># ss -o  (con conexión establecida)</p>
+<p># snort -v -X -i eth0 -n 5 port 25 (Capturando solo 5 paquetes)</p></blockquote>
 
-<p># ss -p  (con la aplicación que los motiva)</p>
+<p>La tarjeta de red tiene que estar en modo promiscuo</p>
 
-<p># ss -a | grep ssh  (De todas las conexiones, solo muestra las ssh)</p>
+<p>Opciones</p>
 
-<p># ss -tpan &#8216;sport = :22&#8217; (ver conexiones por el puerto 22)</p></blockquote>
+<p>-v          sniffer de TCP</p>
+
+<p>-d y -e    Para obtener las cabeceras</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/snoopy/">Snoopy</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>librería que se encarga de almacenar comandos y el usuario que los ejecuta.</p>
+
+<blockquote><p>$ git clone https://github.com/a2o/snoopy.git</p>
+
+<p>$ cd snoopy</p>
+
+<p>$ ./configure</p>
+
+<p>$ make</p>
+
+<p># make install</p>
+
+<p># make enable</p></blockquote>
+
+<p>Reiniciar los servicios que tengamos funcionando [apache2, ssh&#8230;]</p>
+
+<blockquote><p># /etc/init.d/ssh restart</p></blockquote>
+
+<p>Monitorizar el archivo log de registro com:</p>
+
+<blockquote><p># tail -f /var/log/auth.log</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/sniffit/">Sniffit</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Snifer de red. Dado que los informes los despliega en archivos de texto por cada dato, es preferible lanzar la aplicación desde dentro de una carpeta para no llenar todo el directorio de ficheros.</p>
+
+<blockquote><p># sniffit -s 192.168.1.2  (Captura todos los paquetes con origen en la IP)</p>
+
+<p># sniffit -t 192.168.1.2 (Captura todos los paquetes con destino en la IP)</p>
+
+<p># sniffit -b -s 192.168.1.2 (Captura los paquetes con origen y destino en la IP)</p>
+
+<p># sniffit -F eth1 -b -s 192.168.1.33 -p 9001 (de un puerto y forzando dispositivo)</p></blockquote>
 </div>
   
   
@@ -720,43 +690,43 @@ ForwardX11Trusted yes
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/pwgen/">pwgen</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/read/">read</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssh-keygen/">ssh-keygen</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dhcping/">dhcping:</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/gem/">gem</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sha1sum/">sha1sum</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/shasum/">shasum</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pyroom/">pyroom</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/mysql/">mysql</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/help/">help</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

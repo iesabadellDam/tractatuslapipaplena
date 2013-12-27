@@ -1,0 +1,39 @@
+---
+layout: post
+title: "dnsmasq"
+date: 2013-12-27 19:40
+comments: true
+categories: 
+---
+Para que el ordenador guarde en cache las páginas visitadas y no vuelva a resolver las ips con el servidor DNS: 
+
+>\# gedit /etc/resolv.conf 
+
+Independientemente de que existan más lineas indicando otras ips, añadir la siguiente: 
+
+nameserver 127.0.0.1
+
+Y para distribuir la carga entre varios servidores, añadir la linea:
+
+options timeout:1 rotate attempts:1
+
+Comprobar el correcto funcionamiento: 
+
+>$ dig tuxapuntes.com | grep Query 
+
+;; Query time: 369 msec 
+
+Volver a lanzar dig: 
+
+>$ dig tuxapuntes.com | grep Query 
+
+;; Query time: 0 msec 
+
+Si nuestra IP es dinámica, NetworkManager nos modificará cada cierto tiempo el archivo /etc/resolv.conf, para substituir el creado automaticamente por el nuestro:
+
+>\# cp /etc/resolv.conf /etc/resolv.conf.local (Asegurándonos que este último tiene la linea “nameserver 127.0.0.1”)
+
+>\# crontab -e 
+
+*/3 * * * * cp /etc/resolv.conf.local /etc/resolv.conf (actualizar cada 3 minutos)
+

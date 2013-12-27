@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Convertir imagenes png a html. Dado que la conversión asume 1 pixel por cada caracter, las imagenes resultantes se ven alargadas. Para una &hellip;">
+  <meta name="description" content="Compresión de ficheros. Permite lanzar varias instancias en paralelo para un único proceso de compresión. Sobrreescribe el fichero dándole extensión &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/png2html/">Png2html</a></h1>
+      <h1 class="entry-title"><a href="/blog/pigz/">Pigz</a></h1>
     
     
       <p class="meta">
@@ -97,24 +97,37 @@
   
 
 
-<time datetime="2013-12-15T18:56:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:43:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Convertir imagenes png a html. Dado que la conversión asume 1 pixel por cada caracter, las imagenes resultantes se ven alargadas. Para una visualización más decente han de achatarse. A modo de ejemplo una imagen de 115x115 no se ha visualizado correctamente hasta 155x115.</p>
+  <div class="entry-content"><p>Compresión de ficheros. Permite lanzar varias instancias en paralelo para un único proceso de compresión. Sobrreescribe el fichero dándole extensión gz a menos que lo usemos con el parámetro -k. Pigz es casi lo mismo que gzip solo que aprovecha los múltiples cores a diferencia de gzip que solo usa un core. Al comprimir sólo ficheros, si queremos comprimir un directorio, primero se ha de empaquetar con tar (ver). Descarga y compilación:</p>
 
-<blockquote><p>$ png2html imagen.png texto.txt salida.html 1</p></blockquote>
+<pre><code>wget http://zlib.net/pigz/pigz-2.3.1.tar.gz
 
-<p>El archivo texto.txt contiene una palabra, frase o párrafo con el que se confeccionará la imagen. El último número indica:</p>
+$ tar -xzvf pigz-2.3.1.tar.gz
 
-<p>0 = fuente pequeña incompatible en algunos navegadores.</p>
+$ make
+</code></pre>
 
-<p>1 = fuente mediana.</p>
+<p>Nota.- Si no se desea arrancar la aplicación con ./pigz crear un enlace directo en el path [ln -s pigz-2.3.1/pigz /usr/bin/]</p>
 
-<p>2 = fuente grande.</p>
+<blockquote><p>$ pigz -p 4 fichero (Especificando número de procesos a levantar. Por defecto utiliza todos los cores i procesadores de la máquina)</p>
+
+<p>$ pigz -k fichero (Sin sobreescrir el fichero)</p>
+
+<p>$ pigz -d fichero.gz (Descomprimir el fichero creado)</p>
+
+<p>$ pigz -r carpeta (Comprimir todos los archivos de la carpeta. No la carpeta)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<p>&#8211;fast (Nivel mínimo de compresión)</p>
+
+<p>&#8211;best (Nivel máximo de compresión)</p>
 </div>
   
   
@@ -127,7 +140,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pmap/">Pmap</a></h1>
+      <h1 class="entry-title"><a href="/blog/pig/">Pig</a></h1>
     
     
       <p class="meta">
@@ -143,18 +156,16 @@
   
 
 
-<time datetime="2013-12-15T18:56:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:43:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra la memoria consumida por todos los archivo que corren en determinado PID</p>
+  <div class="entry-content"><p>Reformatear palabras o frases entradas en el prompt a un lenguaje macarrónico.</p>
 
-<blockquote><p># pmap -x PID</p>
-
-<p># pmap -d PID</p></blockquote>
+<blockquote><p>$ pig (entra en el prompt. Entrar cualquier frase pulsar enter y comprobar el resultado)</p></blockquote>
 </div>
   
   
@@ -167,7 +178,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/plowshare/">Plowshare</a></h1>
+      <h1 class="entry-title"><a href="/blog/pidstat/">Pidstat</a></h1>
     
     
       <p class="meta">
@@ -183,20 +194,32 @@
   
 
 
-<time datetime="2013-12-15T18:56:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:43:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>herramienta que permite subir y descargar archivos alojados en megaupload, rapidshare&#8230; ]http://plowshare.googlecode.com/files/plowshare-SVN-r1575-snapshot.tar.gz]</p>
+  <div class="entry-content"><p>Muestra información relacionada con los procesos del sistema.</p>
 
-<blockquote><p>$ plowdown url (Descargar un archivo)</p>
+<blockquote><p>$ pidstat  (informa del uso de la CPU)</p>
 
-<p>$ plowdown lista_de_links.txt (descarga una lista de links)</p>
+<p>$ pidstat -u  (lo mismo)</p>
 
-<p>$ plowdown -a usuario:contraseña url (caso de precisar usuario y contraseña)</p></blockquote>
+<p>$ pidstat -d  (Muestra la tasa de lectura/escritura a los medios fisicos)</p>
+
+<p>$ pidstat -p 1234  (Especifica que solo deseas analizar el proceso 1234)</p>
+
+<p>$ pidstat -C comando  (Similar a -p pero indicando el nombre del proceso)</p>
+
+<p>$ pidstat -r  (Muestra el uso de memoria de los procesos y errores de  paginación en la memoria de los procesos -page faults-).</p>
+
+<p>$ pidstat -I  (En sistemas multicore, indica la CPU en la que se ejecuta el    comando)</p>
+
+<p>$ pidstat -d 5 2 (“5” es el intervalo de tiempo y “2” el número de veces que ejecutara el comando. Cuando haya llegado al número de  ejecuciones, pidstat se parará y mostrará una media con los valores obtenidos)</p>
+
+<p>$ pidstat -d 5  (omitiendo el numero de veces a ejecutar para producir un bucle infinito. Parar con ^C)</p></blockquote>
 </div>
   
   
@@ -209,7 +232,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/play/">Play</a></h1>
+      <h1 class="entry-title"><a href="/blog/pidof/">Pidof</a></h1>
     
     
       <p class="meta">
@@ -225,16 +248,16 @@
   
 
 
-<time datetime="2013-12-15T18:56:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:43:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Reproductor</p>
+  <div class="entry-content"><p>muestra el Pid del programa si está activo</p>
 
-<blockquote><p>$ play archivo.wav</p></blockquote>
+<blockquote><p>$ pidof firefox</p></blockquote>
 </div>
   
   
@@ -247,7 +270,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/planets/">Planets</a></h1>
+      <h1 class="entry-title"><a href="/blog/pi/">Pi</a></h1>
     
     
       <p class="meta">
@@ -263,34 +286,18 @@
   
 
 
-<time datetime="2013-12-15T18:56:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:43:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Simulador grabitacional del movimiento de los astros.</p>
+  <div class="entry-content"><p>Calcula la cantidad de decimales de pi que se le indique.</p>
 
-<blockquote><p>$ planets</p></blockquote>
+<blockquote><p>$ pi 100</p>
 
-<p>Algunas teclas de control:</p>
-
-<p>j (Crea planetas orbitales aleatorios)</p>
-
-<p>r (Crea planetas aleatorios)</p>
-
-<p>c (Centra el sistema planetario)</p>
-
-<p>t (Muestra las trayectorias)</p>
-
-<p>e (Resetear el universo)</p>
-
-<p>s (Guardar)</p>
-
-<p>l (Cargar un universo)</p>
-
-<p>Flechas (Desplazan el conjunto)</p>
+<p>$ pi 1000</p></blockquote>
 </div>
   
   
@@ -303,7 +310,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pktstat/">Pktstat</a></h1>
+      <h1 class="entry-title"><a href="/blog/php/">Php</a></h1>
     
     
       <p class="meta">
@@ -319,16 +326,48 @@
   
 
 
-<time datetime="2013-12-15T18:56:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:43:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Monitor de tráfico de red</p>
+  <div class="entry-content"><p>Lenguaje de programación diseñado originalmente para la creación de páginas web.</p>
 
-<blockquote><p># pktstat -i eth0 -n -w 3 (especificando red, sin resolver las ips y refresco cada 3 segundos [por defecto cada 5])</p></blockquote>
+<blockquote><p>$ php -v (Conocer la versión)</p>
+
+<p>$ php -m (Muestra módulos instalados)</p>
+
+<p>$ php -i (Información general de php)</p>
+
+<p>$ php -s archivo.php > archivo.html (Crea un archivo html de un php)</p>
+
+<p>$ php &#8211;ini (Informa donde esta el archivo php.ini)</p></blockquote>
+
+<p>1.-</p>
+
+<p>Configuración de php de forma segura (php.ini)</p>
+
+<pre><code># nano /etc/php5/apache2/php.ini
+
+expose_php Off (Ocultar la versión de php)
+
+session.use_trans_sid = Off (Que las URL no muestren los ID de sesiones)
+
+allow_url_fopen = Off (Desactivar acceso a URL remotas en funciones de manejo de ficheros)
+
+display_errors = Off (Evitar que los errores se muestren por pantalla)
+</code></pre>
+
+<p>2.-</p>
+
+<p>Arreglar el error: PHP Deprecated:  Comments starting with &#8216;#&#8217; are deprecated in /etc/php5/cli/conf.d/ming.ini on line 1 in Unknown on line 0</p>
+
+<pre><code># nano /etc/php5/cli/conf.d/ming.ini 
+
+Y cambiar el “#” de los comentarios por un “;”
+</code></pre>
 </div>
   
   
@@ -341,7 +380,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pkill/">Pkill</a></h1>
+      <h1 class="entry-title"><a href="/blog/photorec/">Photorec</a></h1>
     
     
       <p class="meta">
@@ -357,24 +396,16 @@
   
 
 
-<time datetime="2013-12-15T18:56:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:43:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>matar procesos.</p>
+  <div class="entry-content"><p>Recuperar datos de discos, tarjetas, cds deteriorados&#8230; Precisa pantalla maximizada.</p>
 
-<blockquote><p># pkill -x scribus (equivalente a: # killall scribus)</p>
-
-<p>$ pkill -9 -t pts/3 (Mata procesos no basados en el PID. La terminal 3 en este caso)</p>
-
-<p># pkill -9 -t tty1 (Mata la terminal tty1)</p>
-
-<p># pkill -u <code>whoami</code> (Mata todos los procesos del usuario)</p>
-
-<p># pkill -KILL -u usuario (lo mismo)</p></blockquote>
+<blockquote><p># photorec</p></blockquote>
 </div>
   
   
@@ -387,7 +418,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pkaction/">Pkaction</a></h1>
+      <h1 class="entry-title"><a href="/blog/photon/">Photon</a></h1>
     
     
       <p class="meta">
@@ -403,18 +434,18 @@
   
 
 
-<time datetime="2013-12-15T18:56:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:43:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Herramienta para manejar politicas que permitan a los procesos sin privilegios &#8220;hablar&#8221; con procesos privilegiados.</p>
+  <div class="entry-content"><p>Generar una galería web.</p>
 
-<blockquote><p>$ pkaction (Muestra todos los procesos a los que afecta esta politica)</p>
+<blockquote><p>$ photon directorio_con_las_imagenes  (Creará una nueva carpeta con todos los html)</p>
 
-<p># pkaction | grep power (Las que hacen referencia al proceso &#8220;power&#8221;)</p></blockquote>
+<p>$ photon -o /var/www/ /home/usuario/fotos (A partir de la carpeta fotos, lo creará en el directorio web)</p></blockquote>
 </div>
   
   
@@ -427,7 +458,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pitidos/">Pitidos</a></h1>
+      <h1 class="entry-title"><a href="/blog/phoronix/">Phoronix</a></h1>
     
     
       <p class="meta">
@@ -443,34 +474,38 @@
   
 
 
-<time datetime="2013-12-15T18:56:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:43:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Señales de alerta sonora cuando algo falla.</p>
+  <div class="entry-content"><p>[phoronix-test-suite]</p>
 
-<p>Sin pitidos.-  Sin suministro eléctrico</p>
+<p>suite de pruebas para medir el rendimiento de un sistema o componente del mismo [benchmarking]. Cuenta con un repositorio online con gran cantidad de pruebas y se ejecutan a través de un archivo de configuración XML.</p>
 
-<p>Pitido constante ininterrumpido.-  Falla en el suministro eléctrico</p>
+<blockquote><p># phoronix-test-suite list-available-tests (Lista los test disponibles y una pequeña descripción)</p>
 
-<p>Pitidos cortos y constantes.- Placa base defectuosa.</p>
+<p># phoronix-test-suite list-available-suites (Lista las suites disponibles y una pequeña descripción)</p>
 
-<p>1 pitido corto .- Lo normal.</p>
+<p># phoronix-test-suite install pts/encode-flac (Instalar con sus dependencias un test o suite. En este caso el test pts/encode-flac)</p>
 
-<p>1 pitido largo.- Fallo en memoria RAM.</p>
+<p># phoronix-test-suite benchmark pts/encode-flac (Realizar la prueba que mide el tiempo que el pc tarda en convertir un wav a flac)</p>
 
-<p>1 pitido largo + 1 corto.- Fallo general en la placa base</p>
+<p># phoronix-test-suite system-information (Muestra la configuración completa)</p>
 
-<p>1 pitido largo + 2 cortos.- Problema con la tarjeta de vídeo</p>
+<p># phoronix-test-suite list-saved-results (Ver los resultados guardados)</p>
 
-<p>1 pitido largo + 3 cortos.- Monitor no conectado a la tarjeta gráfica</p>
+<p># phoronix-test-suite result-file-to-pdf archivo.pdf (Exportar resultados a un archivo pdf)</p>
 
-<p>1 pitido largo + varios cortos.- Problema con la tarjeta de vídeo</p>
+<p># phoronix-test-suite result-file-to-cvs archivo.cvs (Exportar los resultados a un archivo cvs)</p>
 
-<p>2 pitidos largos + uno corto.- Error en la sincronización de imágenes</p>
+<p># phoronix-test-suite result-file-to-text archivo.txt (Exportar los resultados a un archivo txt)</p>
+
+<p># phoronix-test-suite merge-results resultado1 resultado2 resultado3 (Realizar tablas comparativas con los resultados)</p></blockquote>
+
+<p>Nota.- Al realizar un test se nos preguntará si deseamos guardar la prueba (Los resultados se guardan e $HOME/.phoronix-test-suite/test-results), luego el test comenzará y una vez terminado se nos preguntará si queremos ver los resultados en el navegador.</p>
 </div>
   
   
@@ -483,7 +518,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pip/">Pip</a></h1>
+      <h1 class="entry-title"><a href="/blog/pg/">Pg</a></h1>
     
     
       <p class="meta">
@@ -499,16 +534,16 @@
   
 
 
-<time datetime="2013-12-15T18:56:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2013-12-27T19:43:00+01:00" pubdate data-updated="true">27-12-2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Alternativa para la instalación de paquetes python.</p>
+  <div class="entry-content"><p>Muestra un texto tabulado a pantalla completa de la terminal. Con la tecla intro carga nuevo párrafo.</p>
 
-<blockquote><p># pip install paquete</p></blockquote>
+<blockquote><p>$ pg archivo</p></blockquote>
 </div>
   
   
@@ -539,43 +574,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/pwgen/">pwgen</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/read/">read</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssh-keygen/">ssh-keygen</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dhcping/">dhcping:</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/gem/">gem</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sha1sum/">sha1sum</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/shasum/">shasum</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pyroom/">pyroom</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/mysql/">mysql</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/help/">help</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>
