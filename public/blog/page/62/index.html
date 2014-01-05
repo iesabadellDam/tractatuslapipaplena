@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Mostrar la ruta desde el directorio raiz hasta donde especifiquemos. $ namei $(pwd) (hasta el presente directorio) $ namei -m $(pwd)/archivo ( &hellip;">
+  <meta name="description" content="Modificar la MAC de una tarjeta de red dañada. Imaginemos el caso de un pc con dos tarjetas (eth0 y eth1) en el que la eth0 se estropea, con nameif &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,68 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/nameif/">Nameif</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-27T19:43:00+01:00" pubdate data-updated="true">27-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Modificar la MAC de una tarjeta de red dañada. Imaginemos el caso de un pc con dos tarjetas (eth0 y eth1) en el que la eth0 se estropea, con nameif podemos cambiar de interfaz la eth1 para ser la eth0:</p>
+
+<blockquote><p># ifconfig eth1 (Averiguar la MAC de la eth1)</p></blockquote>
+
+<p>eth1      Link encap:Ethernet  HWaddr 00:23:54:57:fc:78</p>
+
+<blockquote><p># ifconfig eth1 down (bajar la red eth1)</p>
+
+<p># nano /etc/init.d/networking</p></blockquote>
+
+<p>Añadir a continuación de la linea del PATH:</p>
+
+<p>PATH=&#8221;/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin&#8221;</p>
+
+<p>nameif eth0 00:23:54:57:fc:78</p>
+
+<p>&#8230;.</p>
+
+<p>Reiniciar el servicio:</p>
+
+<blockquote><p># /etc/init.d/networking restart</p></blockquote>
+
+<p>Comprobar que eth1 se ha convertido en eth0:</p>
+
+<blockquote><p># ifconfig eth0</p></blockquote>
+
+<p>eth0      Link encap:Ethernet  HWaddr 00:23:54:57:fc:78</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1040,56 +1102,6 @@ msf exploit(vsftpd_234_backdoor) &gt; [+] Backdoor service has been spawned, han
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/mrxvt/">Mrxvt</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-27T19:43:00+01:00" pubdate data-updated="true">27-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Emulador de terminal</p>
-
-<p>Opciones:</p>
-
-<p>-geometry 100x15 (Especificando medidas)</p>
-
-<p>-title &#8220;Terminal linux&#8221; (Especificando título)</p>
-
-<p>-o 20  (Nivel de transparencia. De 0 a 100)</p>
-
-<p>-pixmap imagen (Con una imagen de fondo)</p>
-
-<p>-bg red  (color de fondo)</p>
-
-<p>-fg white (color de fuente)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/63/">&larr; Older</a>
@@ -1111,6 +1123,10 @@ msf exploit(vsftpd_234_backdoor) &gt; [+] Backdoor service has been spawned, han
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/git/">git</a>
+      </li>
     
       <li class="post">
         <a href="/blog/7zip/">7zip</a>
@@ -1146,10 +1162,6 @@ msf exploit(vsftpd_234_backdoor) &gt; [+] Backdoor service has been spawned, han
     
       <li class="post">
         <a href="/blog/zless/">zless</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zip/">zip</a>
       </li>
     
   </ul>
