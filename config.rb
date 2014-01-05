@@ -16,4 +16,4 @@ fonts_dir = "source/fonts"
 
 line_comments = false
 output_style = :compressed
-config.assets.initialize_on_precompile = false
+#config.assets.initialize_on_precompile = false
