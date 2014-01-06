@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Applet de wicd para el area de notificación (tray) $ wicd-gtk -a
-">
+  <meta name="description" content="1.- Redimensionar desde windows: Botón derecho en: Mi PC \ Administrar o Inicio \ Panel de control \ Herramientas administrativas \ Administracion De &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +74,156 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/windows/">Windows</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-27T19:46:00+01:00" pubdate data-updated="true">27-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>1.-</p>
+
+<p>Redimensionar desde windows:</p>
+
+<p>Botón derecho en: Mi PC \ Administrar o Inicio \ Panel de control \ Herramientas administrativas \ Administracion De Equipos. Clicar con el boton derecho sobre la particion que queremos modificar. Aparecen dos opciones:</p>
+
+<ul>
+<li><p>Extend Volume</p></li>
+<li><p>Shirnk Volume</p></li>
+</ul>
+
+
+<p>La opcion de Shrink Volume es la que nos permite liberar espacio de la partición. Windows moverá los archivos necesarios en su interior. Igualmente informá del tamaño maximo que puede liberar con garantias de integridad de datos. El espacio libre podremos particionarlo posteriormente usando herramientas clásicas como gparted.</p>
+
+<p>2.-</p>
+
+<p>Re-dimensionar desde Linux:</p>
+
+<p>Cuando a gparted le resulta imposible re-dimensionar particiones ntfs [con vista, por ejemplo] usaremos un Live con las herramientas ntfsprogs [puppy, entre otras]. Previamente habremos desfragmentado la partición win y, si procede, reparados posibles errores de disco desde la consola del sistema [cmd] lazando chkdsk /c</p>
+
+<p>Arrancado el Live, averiguamos el nombre de la partición:</p>
+
+<blockquote><p># fdisk -l | grep NTFS</p></blockquote>
+
+<p>Si no hemos lanzado chkdsk en win, con linux podemos reparar los posibles errores con:</p>
+
+<blockquote><p># ntfsfix /dev/sdax</p></blockquote>
+
+<p>Comprobar si detecta correctamente la partición win:</p>
+
+<blockquote><p># sudo ntfsresize -P -i -f -v /dev/hda1 &#8211;ad-sectors</p></blockquote>
+
+<p>ntfsresize v2.0.0 (libntfs 10:0:0)</p>
+
+<p>Device name : /dev/hda1</p>
+
+<p>NTFS volume version: 3.1</p>
+
+<p>&#8230;</p>
+
+<p>Ordinary : 55549 MB 49454</p>
+
+<p>You might resize at 25961267200 bytes or 25962 MB (freeing 32608 MB).</p>
+
+<p>Please make a test run using both the -n and -s options before real resizing!</p>
+
+<p>Indica cuánto podemos redimensionar (25962 MB) y cuánto espacio quedaría libre (32608 MB).Suponemos que deseamos dejar el sistema de ficheros en 29055000000 by (29055 MB). Primero lo simulamos (recomendable realizar la prueba varias veces):</p>
+
+<blockquote><p># ntfsresize -f -s 29055000000 -n /dev/hda1 &#8211;bad-sectors</p></blockquote>
+
+<p>ntfsresize v2.0.0 (libntfs 10:0:0)</p>
+
+<p>Device name : /dev/hda1</p>
+
+<p>NTFS volume version: 3.1</p>
+
+<p>&#8230;</p>
+
+<p>ERROR: Extended record needed (1096 > 1024), not yet supported!</p>
+
+<p>Please try to free less space.</p>
+
+<p>Indica que no se ha dejado suficiente espacio para desplazar los datos.</p>
+
+<p>dejamos más espacio:</p>
+
+<blockquote><p># ntfsresize -f -s 31055000000 -n /dev/hda1 &#8211;bad-sectors</p></blockquote>
+
+<p>ntfsresize v2.0.0 (libntfs 10:0:0)</p>
+
+<p>Device name : /dev/hda1</p>
+
+<p>&#8230;</p>
+
+<p>Updating Boot record …</p>
+
+<p>The read-only test run ended successfully.</p>
+
+<p>La simulación sale correcta, procedemos a aplicarla quitando el parámetro -n</p>
+
+<blockquote><p># ntfsresize -f -s 31055000000 /dev/hda1 &#8211;bad-sectors</p></blockquote>
+
+<p>ntfsresize v2.0.0 (libntfs 10:0:0)Device name : &#8230;</p>
+
+<p>&#8230;</p>
+
+<p>Syncing device …</p>
+
+<p>Successfully resized NTFS on device ‘/dev/hda1′.</p>
+
+<p>3.-</p>
+
+<p>Crear un usuario administrador en windows [7, server 2008&#8230;]</p>
+
+<p>Arrancar con un Live-cd y montar la partición win.</p>
+
+<p>Entrar en C:\Windows\System32</p>
+
+<p>Borrar el archivo Magnify.exe</p>
+
+<p>Copiar el fichero cmd.exe y renombrar como Magnify.exe</p>
+
+<p>Reiniciar para que arranque Windows.</p>
+
+<p>Ejecutar la herramienta de lupa y arrancará una ventana de comandos como usuario administrador</p>
+
+<p>Crear un usuario administrador:</p>
+
+<p>net user /add admin</p>
+
+<p>net localgroup administrators admin /add</p>
+
+<p>net user admin *</p>
+
+<p>Reiniciar win y entrar con el usuario creado.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -596,80 +745,6 @@ done &lt; $1
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/when/">When</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-27T19:45:00+01:00" pubdate data-updated="true">27-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Agenda personal.</p>
-
-<blockquote><p>$ wget http://www.lightandmatter.com/when/when.tar.gz</p>
-
-<p>$ tar -zxvf when.tar.gz</p>
-
-<p>$ cd when_dist</p>
-
-<p># make install</p></blockquote>
-
-<p>La primera vez que se lance preguntará donde queremos el directorio personal [por defecto en .when]: pulsar &#8220;y&#8221; y el editor que queremos [por defecto emacs] yo puse &#8220;nano&#8221;, siempre sin las comillas.</p>
-
-<p>Colocar en .bashrc un alias para que muestre la información en español:</p>
-
-<blockquote><p>$ nano .bashrc</p></blockquote>
-
-<p>Añadir la linea:</p>
-
-<p>alias when=&#8217;when &#8211;language=es&#8217;</p>
-
-<p>Si no tenemos ninguna entrada en .when/calendar al lanzar:</p>
-
-<blockquote><p>$ when (Mostrará fecha actual)</p></blockquote>
-
-<p>Para entrar datos:</p>
-
-<blockquote><p>$ nano .when/calendar</p></blockquote>
-
-<p>El formato de los datos es:</p>
-
-<p>2013 mar 19 , Gritar tres veces: Stallman es un genio&#8230;</p>
-
-<p>Una vez entrados los datos al lanzar:</p>
-
-<blockquote><p>$ when</p></blockquote>
-
-<p>Mostrará la fecha actual y los datos más proximos.</p>
-
-<p>Nota.- La abreviatura de los meses ha de ser en inglés: jan, feb, mar, apr, may,jun, jul, aug, sep, oct, nov, dec.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/11/">&larr; Older</a>
@@ -691,6 +766,10 @@ done &lt; $1
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/4g8/">4g8</a>
+      </li>
     
       <li class="post">
         <a href="/blog/gcp/">gcp</a>
@@ -726,10 +805,6 @@ done &lt; $1
     
       <li class="post">
         <a href="/blog/zmore/">zmore</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zmap/">zmap</a>
       </li>
     
   </ul>
