@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Muestra dos ficheros interactivamente. $ sdiff -W -B file1 file2 (Ignorando espacios [W] y lineas en blanco [B])
-">
+  <meta name="description" content="Permite borrar líneas, registros o sustituir cadenas de caracteres dentro de las líneas. Archivo base para ejemplo (Empleado &#8211; Precio/hora &# &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +74,233 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/sed/">Sed</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Permite borrar líneas, registros o sustituir cadenas de caracteres dentro de las líneas.</p>
+
+<p>Archivo base para ejemplo (Empleado &#8211; Precio/hora &#8211; Horas trabajadas – Cómo las cobra):</p>
+
+<pre><code>$ cat lista 
+
+Juan Gomez 6 10 banco 
+
+Clara Fuentes 7 12 banco 
+
+Antonio Cano 6 13 metálico 
+
+José Bueno 7 0 banco 
+
+Matías Crespo 5 8 metálico 
+
+Isabel Ruiz 7 0 metálico 
+
+María Monzón 9 16 metálico
+</code></pre>
+
+<p>Mostrar la linea 4 del fichero:</p>
+
+<pre><code>$ sed -n 4p lista
+</code></pre>
+
+<p>Mostrar la 4ª y la 5ª:</p>
+
+<pre><code>$ sed -n 4,5p lista
+</code></pre>
+
+<p>Mostrar de la 3ª al final del fichero:</p>
+
+<pre><code>$ sed -n '4,$p' lista
+</code></pre>
+
+<p>Mostrar desde la primera linea que empiece por “Ant” hasta el final:</p>
+
+<pre><code>$ sed -n '/^\Ant/,$p' lista
+</code></pre>
+
+<p>Mostrar sólo los parrafos desde “Clara” hasta “Bueno”:</p>
+
+<pre><code>$ sed -n '/Clara/,/Bueno/p' lista
+</code></pre>
+
+<p>Mostrar cada linea a doble espacio:</p>
+
+<pre><code>$ sed G lista
+</code></pre>
+
+<p>Mostrar las lineas que cumplen el patrón “Ju” en alguno de sus campos:</p>
+
+<pre><code>$  sed -n '/Ju/p' lista
+</code></pre>
+
+<p>Borrar la 4ª linea del fichero:</p>
+
+<pre><code>$  sed '4d' lista
+</code></pre>
+
+<p>Borrar la última linea del fichero:</p>
+
+<pre><code>$  sed -e \$d lista
+</code></pre>
+
+<p>Lo mismo:</p>
+
+<pre><code>$ sed '$d' lista
+</code></pre>
+
+<p>Borrar las lineas que empiecen por &#8220;J&#8221;:</p>
+
+<pre><code>$ sed -e '/J/d' lista
+</code></pre>
+
+<p>Borrar la segunda linea</p>
+
+<pre><code>$ sed '2d' lista
+</code></pre>
+
+<p>Borrar la 1ª y la 2ª:</p>
+
+<pre><code>$  sed '1,2d' lista
+</code></pre>
+
+<p>Borrar desde la primera linea que empiece por &#8220;Ant&#8221; hasta el final:</p>
+
+<pre><code>$ sed -e '/^\Ant/,$d' lista
+</code></pre>
+
+<p>Borrar desde la 2 linea hasta la que tenga &#8220;Ruiz&#8221;:</p>
+
+<pre><code>$ sed '2,/Ruiz/d' lista
+</code></pre>
+
+<p>Borrar las lineas en blanco de un archivo (en &#8220;lista&#8221; no procede):</p>
+
+<pre><code>$  sed '/^$/d lista
+</code></pre>
+
+<p>Cambiar &#8220;metálico&#8221; por &#8220;gratis&#8221; excepto en la 3 linea:</p>
+
+<pre><code>$ sed '3!s/metálico/gratis/' lista
+</code></pre>
+
+<p>Cambiar &#8220;met&#8221; por &#8220;tem&#8221; en las lineas que no tengan &#8220;Cano&#8221;:</p>
+
+<pre><code>$ sed '/Cano/!s/met/tem/' lista
+</code></pre>
+
+<p>Cambiar campos (banco por cheque):</p>
+
+<pre><code>$ sed 's/banco/cheque/' lista
+</code></pre>
+
+<p>Cambiar las &#8220;J&#8221; y la &#8220;C&#8221; mayúsculas por minúsculas:</p>
+
+<pre><code>$ sed 'y/J-C/j-c/' lista
+</code></pre>
+
+<p>Substituye las vocales por &#8220;u&#8221;:</p>
+
+<pre><code>$ sed -e "s/[aeio]/u/g" lista
+</code></pre>
+
+<p>Substituir los espacios por tabulaciones:</p>
+
+<pre><code>$ sed -e 's/ /\t/g' lista
+</code></pre>
+
+<p>Alinear al centro:</p>
+
+<pre><code>$ sed -e :a -e 's/^.\{1,77\}$/ &amp;/;ta' -e 's/\( *\)\1/\1/' lista
+</code></pre>
+
+<p>Todas las opciones pueden usarse como tubería substituyendo &#8220;lista&#8221; por “cat lista |”:</p>
+
+<pre><code>$ cat lista | sed -n '4,$p'
+</code></pre>
+
+<p>Otros ejemplos:</p>
+
+<p>Mostrar lineas no comentadas de un archivo:</p>
+
+<pre><code>$ sed -e '/^#/d' /etc/fstab
+</code></pre>
+
+<p>Substituir &#8220;foto&#8221; por &#8220;FOTO&#8221; en todo los archivos del directorio:</p>
+
+<pre><code>$ ls * | sed -e 'p;s/foto/FOTO/' | xargs -n2 mv
+</code></pre>
+
+<p>Cambiar “Juan” por “Pedro” en todos los archivos .txt del presente directorio:</p>
+
+<pre><code>$ sed -i 's/Juan/Pedro/g' *.txt
+</code></pre>
+
+<p>Mostrar sólo las lineas con 4 dígitos seguidos:</p>
+
+<pre><code>$ sed '/[0-9]\{4\}/p' archivo
+</code></pre>
+
+<p>Borrar todos los espacios delante de cada linea:</p>
+
+<pre><code>$sed 's/^[ ^t]*//' archivo
+</code></pre>
+
+<p>Borrar todos los espacios detras de cada linea:</p>
+
+<pre><code>$ sed 's/[ ^t]*$//' archivo
+</code></pre>
+
+<p>Borrar todos los espacios delante y detras de cada linea:</p>
+
+<pre><code>$ sed 's/^[ ^t]*//;s/[ ^]*$//' archivo
+</code></pre>
+
+<p>Cambiar los números 3333 por 3.333. El parámetro -r sirva para activar las expresiones regulares extendidas de sed:</p>
+
+<pre><code>$ sed -r "s/\&lt;(reg|exp)[a-z]+/\U&amp;/g"
+</code></pre>
+
+<p>Contar lineas de un archivo [emulador de wc -l]:</p>
+
+<pre><code>sed -n '$=' lista
+</code></pre>
+
+<p>Insertar 5 espacios en blanco delante de cada linea:</p>
+
+<pre><code>$ sed 's/^/     /' lista
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -664,57 +890,6 @@ caption always "%{wk}%?%-Lw%?%{bw}%n*%f %t%?(%u)%?%{wk}%?%+Lw%? %= %{= kw}%110`%
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/scanimage/">Scanimage</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Escanear. Solo genera archivos tiff y pnm.</p>
-
-<pre><code>$ scanimage -L (Para conocer los datos del escaner) 
-
-&lt; device `hpaio:/usb/psc_1100_series?serial=MY387F93QWB0' is a Hewlett-Packard psc_1100_series all-in-one 
-</code></pre>
-
-<blockquote><p>$ scanimage -d hpaio:/usb/psc_1100_series?serial=MY387F93QWB0 (Especificando el escaner. Si solo existe uno no es necesaria esta opción)</p>
-
-<p>$ scanimage -v -p > imagen.tiff (Ver la información que genera, el progreso y redirigido a un archivo)</p>
-
-<p>$ scanimage &#8211;help (A continuación de la ayuda estandar, muestra las características concretas de nuestro escaner)</p>
-
-<p>$ scanimage -p &#8211;mode Color &#8211;resolution 200 -l 0 -t 0 -x 190 -y 160  > imagen.pnm (Las opciones de &#8220;mode&#8221; y &#8220;resolution&#8221; los muestra el parámetro &#8220;help&#8221;. Las opciones &#8220;l&#8221; y &#8220;t&#8221; indican que comenzará a escanear desde la esquina superior izquierda. Los limites de estos parámetros tambien los muestra &#8220;help&#8221;. &#8220;x&#8221; e &#8220;y&#8221; indican la medida a escanear. En este caso 190X160 mm)</p>
-
-<p>$ scanimage -p | convert - imagen.png (Redirigiendo la salida a convert que pasa la imagen a png)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/39/">&larr; Older</a>
@@ -730,12 +905,16 @@ caption always "%{wk}%?%-Lw%?%{bw}%n*%f %t%?(%u)%?%{wk}%?%+Lw%? %= %{= kw}%110`%
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1364</li>
+	<li>1365</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/colrm/">colrm</a>
+      </li>
     
       <li class="post">
         <a href="/blog/speedtest-cli/">speedtest_cli</a>
@@ -771,10 +950,6 @@ caption always "%{wk}%?%-Lw%?%{bw}%n*%f %t%?(%u)%?%{wk}%?%+Lw%? %= %{= kw}%110`%
     
       <li class="post">
         <a href="/blog/7zip/">7zip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/bing-ip2hosts/">bing-ip2hosts</a>
       </li>
     
   </ul>
