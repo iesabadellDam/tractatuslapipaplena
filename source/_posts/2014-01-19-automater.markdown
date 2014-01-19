@@ -1,13 +1,13 @@
 ---
 layout: post
 title: "automater"
-date: 2013-12-27 19:39
+date: 2014-01-19 19:04
 comments: true
 categories: 
 ---
 (python3-httplib2 python2.6-argparse)
 
-Obtener información de ips y urls inclusive si estan bloqueadas en algún blocklist. Copiar el script en python de: https://raw.github.com/1aN0rmus/TekDefense/master/Automater.py
+Obtener información de ips y urls inclusive si estan bloqueadas en algún blocklist. Copiar el script en python de: <https://github.com/1aN0rmus/TekDefense-Automater.git> 
 
 >$ python automater.py -t IP (De una ip)
 

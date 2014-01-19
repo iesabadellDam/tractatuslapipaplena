@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Limitar el uso de la cpu para determinados procesos. # cpulimit -e yes -l 20 (el de “yes”a un 20% de la cpu. Valor entre 0 y 100) # cpulimit -p PID - &hellip;">
+  <meta name="description" content="configurar tareas para que se ejecuten automáticamente en el sistema # crontab -e (editar el archivo crontab, si no existe se crea) $ crontab -e ( &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,104 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/crontab/">Crontab</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-27T19:40:00+01:00" pubdate data-updated="true">27-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>configurar tareas para que se ejecuten automáticamente en el sistema</p>
+
+<blockquote><p># crontab -e      (editar el archivo crontab, si no existe se crea)</p>
+
+<p>$ crontab -e      (idem para el usuario no root)</p>
+
+<p># crontab -l       (Muestra el contenido para root)</p>
+
+<p># crontab -l -u usuario  (muestra el de usuario)</p>
+
+<p>$ crontab -l       (idem para el usuario no root)</p>
+
+<p># crontab -r       (Borra el contenido de crontab)</p></blockquote>
+
+<p>Crontab consta de 6 campos separados por un espacio que indican:</p>
+
+<p>minuto (0-59), hora (0-23), dia del mes (1-31), mes (1-12), dia de la semana (0-6, domingo=0), y comando a ejecutar. Un asterisco * como valor en los primeros cinco campos, indicará todos (todos los minutos, todas las horas &#8230;)</p>
+
+<pre><code>01 * * * *       (Se ejecuta el primer minuto de cada hora todos los dias)
+
+20 9 * * *       (a las 9:20 de la mañana todos los dias)
+
+20 21 * * *     (a las 9:20 (21:20) de la tarde todos los dias)
+
+01 6 * * 1      (a las 6:01 de todos los lunes)
+
+* * 1 1 *         (todos los minutos de todas las horas del 1 de enero) 
+
+00 12 * * 0     (a las doce en punto de todos los domingos)
+
+@reboot (Cada reinicio)
+</code></pre>
+
+<p>También es posible especificar listas en los campos:</p>
+
+<pre><code>01 15 * 1-4 1,2,3,4   (a las 3:01 de la tarde de lunes a viernes de enero a abril)
+
+*/15 * 1-15 *     (cada 15 minutos  entre el 1 y el 15 de todos los meses)
+
+*/5 * * * * cp /etc/resolv.conf.bak /etc/resolv.conf  (Ejecutar cada 5 minutos el comando especificado.)
+
+$ 0 8 * * * env DISPLAY=:0.0 vlc /home/usuario/musica/archivo.mp3 (Programar que cada dia a las 8 se abra un mp3 con el vlc) 
+</code></pre>
+
+<p>El archivo donde se guardan las tareas a realizar es:</p>
+
+<blockquote><p>$ nano /var/spool/cron/usuario</p></blockquote>
+
+<p>También pueden añadirse o modificarse en este archivo.</p>
+
+<p>1.-</p>
+
+<p>En ocasiones, y especialmente con Archlinux, crontab cambia la codificación de caracteres de los scripts. Ejecutados directamente funcionan correctamente pero al colocarlos en el cron se muestran con caracteres estraños. La causa son las variables de entorno asociadas a la máquina y al demonio del cron. Para solucionar el problema:</p>
+
+<blockquote><p># nano /etc/environment</p></blockquote>
+
+<p>Y añadir la linea:</p>
+
+<p>LANG=es_ES.UTF-8</p>
+
+<p>Reiniciar cron:</p>
+
+<blockquote><p># /etc/rc.d/crond restart</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -457,48 +555,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/cowsay/">Cowsay</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-27T19:40:00+01:00" pubdate data-updated="true">27-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra figuras en consola</p>
-
-<blockquote><p>$ cowsay -l      (muestra todas las posibilidades de figuras)</p>
-
-<p>$ cowsay -f tux Esto es linux</p>
-
-<p>$ echo “linux” | cowsay -n | cowsay -n | cowsay -n (Anidando las figuras)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/115/">&larr; Older</a>
@@ -520,6 +576,10 @@
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/automater/">automater</a>
+      </li>
     
       <li class="post">
         <a href="/blog/vim/">vim</a>
@@ -555,10 +615,6 @@
     
       <li class="post">
         <a href="/blog/git/">git</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/7zip/">7zip</a>
       </li>
     
   </ul>
