@@ -96,7 +96,7 @@
   
 
 
-<time datetime="2014-01-18T14:41:00+01:00" pubdate data-updated="true">18-01-2014</time>
+<time datetime="2014-01-19T11:31:00+01:00" pubdate data-updated="true">19-01-2014</time>
         
       </p>
     
@@ -113,14 +113,16 @@
 
 <p>Algunas teclas para no morir en el intento:</p>
 
-<p>Teclas de modo:</p>
+<p>modo:</p>
 
 <pre><code>i (Entrar en modo edición)
 
 esc (Salir modo edición y entrar en modo comando)
+
+u (Deshacer el último cambio)
 </code></pre>
 
-<p>Movimientos básicos con el cursor:</p>
+<p>Movimientos del cursor:</p>
 
 <pre><code>k (Arriba)
 
@@ -130,27 +132,80 @@ h (Derecha)
 
 l (Izquierda)
 
-b (Ir al principio de la palabra anterior)
-
 w (Ir al principio de la palabra posterior)
 
-e (Ir a la última letra de la palabra anterior)
+b (Ir al principio de la palabra anterior)
 
 $ (Ir al final de la linea)
 
 0 (Ir al principio de la linea)
 
-ge (Ir a la última letra de la palabra posterior)
+) (Ir a la frase siguiente)
 
-20G (Ir a la linea 20)
+( (Ir a la frase anterior)
+
+{ (Pasar al siguiente párrafo)
+
+} (Pasar al anterior párrafo)
+
+H (Ir a la parte superior de la pantalla)
+
+M (Ir a la parte media de la pantalla)
+
+L (Ir a la parte inferior de la pantalla)
+
+Crtl + d (Avanzar media pantalla)
+
+Crtl + u (Retroceder media pantalla)
 
 gg (Ir al principio del ficherol)
 
 G (Ir al final del fichero)
 
-{ (Pasar al siguiente párrafo)
+:20 (Ir a la linea 20)
+</code></pre>
 
-} (Pasar al anterior párrafo)
+<p>Borrar:</p>
+
+<pre><code>dw (palabra)
+
+d3w (3 palabras)
+
+dd (Linea)
+
+3dd (3 lineas)
+
+d$ (Del cursor al final de la linea)
+
+d0 (Del cursor al principio de la linea)
+</code></pre>
+
+<p>Copiar, pegar e insertar:</p>
+
+<pre><code>yy (copiar línea)
+
+p (pegar debajo del cursor)
+
+yw (copiar del cursor al final de la palabra)
+
+:r archivo (insertar "archivo")
+
+:r! comando (insertar salida de comando)
+
+o (Insertar linea en blanco y entrar en edición)
+</code></pre>
+
+<p>Búsqueda:</p>
+
+<pre><code>/palabra (buscar hacia adelante "palabra")
+
+/palabra\c (buscar "palabra" sin importar mayúsculas o minúsculas)
+
+n (Siguiente coincidencia hacia delante)
+
+N (Siguiente coincidencia hacia atras 
+
+:%s/texto1/texto2/g (Substituir "texto1" por "texto2" en todo el archivo)
 </code></pre>
 
 <p>Entrar y salir del vim:</p>
@@ -165,152 +220,92 @@ G (Ir al final del fichero)
 
 :e fichero2 (Cierra el fichero actual y abre fichero2)
 
-:e . (Abre un navegador de ficheros en el directorio actual)
+:e . (Abre un navegador de ficheros del directorio actual)
+
+:e (Recarga el fichero)
+
+ZZ (Guardar y salir)
 </code></pre>
 
-<p>Cortar, Copiar y Pegar.</p>
+<p>Modo visual:</p>
 
-<p>Con los cursores nos desplazamos por el fichero hasta llegar al inicio</p>
+<pre><code>v (Entra en modo visual para seleccionar texto)
 
-<p>de la zona que queremos copiar. Salimos del modo edición (si estamos en él)</p>
+c (Cortar)
 
-<p>pulsando esc y</p>
+y (Copiar)
 
-<pre><code>v (Entra en modo visual y con los cursores seleccionar lo que queremos copiar)
+p (Pegar)
 
-c (Para cortar)
+"add (Cortar linea y guardarla con el nombre "a")
 
-y (Para copiar)
+"ap (Pegar la linea guardada como "a")
 
-"add (Cortar linea y guardarla en el bufer "a".)
+"+3dd (Cortar 3 lineas y guardarlas en el portapapeles)
 
-"ap (Pegar la linea del bufer "a")
+"+p (Pegar las lineas guardadas en el portapapeles)
 </code></pre>
 
-<p>Aparecerá debajo un mensaje informando de las lineas copiadas. Nos desplazamos</p>
+<p>Dejar marcas en un texto:)</p>
 
-<p>donde queramos pegar el fragmento y en modo normal:</p>
+<pre><code>ma (Marca una linea con la "a". las siguientes: mb, mc, md..)
 
-<pre><code>p (Para pegar)
-</code></pre>
+'a (Ir a la linea marcada con la "a")
 
-<p>Para buscar una palabra, escribimos en modo normal:</p>
-
-<pre><code>/palabra
-</code></pre>
-
-<p>Bbuscar hacia adelante &#8220;palabra&#8221; sin importar mayúsculas o minúsculas</p>
-
-<pre><code>/palabra\c 
-</code></pre>
-
-<p>Resalta la palabra encontrada o avisa de que no existe</p>
-
-<pre><code>n (Buscarla hacia delante)
-
-N (Buscarla hacia atrás))
-
-Para sustituir un texto debemos escribir la secuencia:
-
-:%s/texto1/texto2/g
-</code></pre>
-
-<p>donde texto1 es el texto a buscar y texto2 el</p>
-
-<p>texto que será reemplazado. la g final sustituirá todas las coincidencias</p>
-
-<p>que encuentre en todo el fichero</p>
-
-<p>Más operaciones de texto:</p>
-
-<pre><code>dd (Suprimir línea actual gaurdarla en el buffer. "p" para pegar)
-
-5dd (Suprimir cinco lineas)
-
-u (Deshacer el último cambio en el fichero)
-
-Ctrl + r (Rehacer el último cambio en el fichero)
-
-:25 (Ir a la linea 25)
-
-o (Añadir linea en blanco despues de la linea y entrar en edición)
-
-O (Añadir linea en blanco antes de la linea y entrar en edición)
+'. (Ir a la última linea modificada)
 </code></pre>
 
 <p>Ejecución de comandos durante la edición:</p>
 
 <pre><code>:!ls (Muestra listado del directorio y con intro regresa al editor)
 
-:shell (Pausa la edición y entra en modo shell)
+:shell (Pausa la edición y entra en modo shell. Con "exit" vuelve a vim)
 
-:exit (Termina el modo shell y regresa a la edición)
-
-Ctrl z (Suspende vim y entra en la shell. Con fg vuelve a vim)
+Ctrl z (Suspende vim y entra en la shell. Con "fg" vuelve a vim)
 </code></pre>
 
-<p>Dividir la pantalla:</p>
+<p>Crear pestañas:</p>
+
+<pre><code>:tabnew fichero (Abrir un archivo en una nueva pestaña)
+
+gt (Moverse entre pestañas)
+
+:close (Cierra la ventana o la subdivision de la ventana)
+
+:only (Cierra todas las ventanas menos la actual)
+</code></pre>
+
+<p>Dividir la pantalla en distintos paneles:</p>
 
 <pre><code>:split fichero (Abrir un archivo en una division horizontal de la ventana)
 
 :vsplit fichero (Abrir un archivo en una division vertical de la ventana)
 
-Ctrl + w + flecha cursor (Moverse entre las distintas divisiones de una ventana)
+:new (Abre un nuevo panel vacio)
 
-:new (Crea una nueva ventana vacia)
+:close (Cerrar panel o ventana)
 
-:r archivo (Insertar "archivo" donde esté el cursor)
-</code></pre>
+Ctrl + w flecha (Moverse entre los distintos paneles de una ventana)
 
-<p>Opciones con las ventanas:</p>
+Ctrl + w n (crear nueva ventana)
 
-<p>Pulsar Ctrl + w y a continuacion alguna de las siguientes opciones:</p>
+Ctrl + w h (ir a la ventana de la izquierda)
 
-<pre><code>n (crear nueva ventana)
+Ctrl + w j (ir a la ventana de abajo)
 
-H (mover ventana hacia la izquierda)
+Ctrl + w k (ir a la ventana de arriba)
 
-J (mover ventana hacia abajo)
+Ctrl + w l (ir a la ventana de la derecha)
 
-K (mover ventana hacia arriba)
+Ctrl + w t (ir a la ventana de más arriba)
 
-L (mover ventana hacia la derecha)
+Ctrl + w b (ir a la ventana de más abajo)
 
-h (ir a la ventana de la izquierda)
+Ctrl + w w (pasar a la siguiente ventana)
 
-j (ir a la ventana de abajo)
+Ctrl + w + (aumentar el tamaño de la ventana en 1 linea)
 
-k (ir a la ventana de arriba)
-
-l (ir a la ventana de la derecha)
-
-t (ir a la ventana de más arriba)
-
-b (ir a la ventana de más abajo)
-
-w (pasar a la siguiente ventana)
-
-+ (aumentar el tamaño de la ventana en 1 linea)
-
-- (disminuir el tamaño de la ventana en 1 linea)
-</code></pre>
-
-<p>Para crear ventanas de anchura especifica:</p>
-
-<pre><code>10 Ctrl w _ (Crear nueva  de 10 lineas de ancho))
-
-5 Ctrl w + (Aumenta 5 lineas la ventana actual)
-</code></pre>
-
-<p>Crear pestañas:</p>
-
-<pre><code>:tabnew fichero      (Abrir un archivo en una nueva pestaña)
-
-gt           (Moverse entre pestañas)
-
-:close  (Cierra la ventana o la subdivision de la ventana)
-
-:only   (Cierra todas las ventanas menos la actual)
+Ctrl + w - (disminuir el tamaño de la ventana en 1 linea)
 </code></pre>
 
 <p>Imprimir:</p>
@@ -324,14 +319,44 @@ gt           (Moverse entre pestañas)
 
 <pre><code>:mksession! archivo (Guarda la sesión actual en "archivo")
 
-:source archivo (Restablece una sesión anterior)
+:source archivo (Una vez abierto el archivo, carga la sesión guardada)
+</code></pre>
+
+<p>Corrector ortográfico:</p>
+
+<pre><code>:set spell spelllang=es (Activar diccionario. spelllang=ca para catalan)
+
+z= (Con el cursor en el error, muestra las sugerencias)
+
+Ctrl + x s (Abre el menú de sugerencias sin salir del modo insertar)
+
+:spellrepall (Corrige en todo el texto la que acabamos de corregir
+
+zg (Añadir al corrector la palabra del cursor)
+
+zw (Surpimir del corrector la palabra del cursor)
+</code></pre>
+
+<p>Varios:</p>
+
+<pre><code>:buffers (Muestra buffers abiertos (actual [%], cerrado [#], activo [a], oculto [h]) 
+
+:buffer 2 (salta al buffer 2)
+
+:e /home/usuario (Abre vim en modo navegador de archivos)
+
+:Ex (Abre el navegador de archivos en un nuevo panel de la ventana activa)
+
+:ls (Lista los buffers)
 </code></pre>
 
 <p>algunos ajustes que pueden implementarse, bien durante la edición [en modo normal] o</p>
 
 <p>permanentemente en ~/.vimrc [en este caso quitar los dos puntos iniciales]:</p>
 
-<pre><code>:set ts=4 (Fija los tabulados a 4 espacios)
+<pre><code>:set showmode/noshowmode (mostrar/no mostrar modo actual de vi) 
+
+:set ts=4 (Fija los tabulados a 4 espacios)
 
 :set sw=4 (Fija los indentados a 4 espacios)
 
@@ -343,9 +368,23 @@ gt           (Moverse entre pestañas)
 
 :syntax on/off (Activa/desactiva el resaltado de sintaxis)
 
+:set hidden (Información sobre la columna y posición del cursor)
+
+:set ignorecase (Ignorar mayúsculas y minúsculas en las busquedas)
+
+:set showcmd (Mostrar la combinación de teclas que estamos entrando)
+
+:set nocompatible (Permite usar funcionalidades de vim que vi no soporta)
+
+:set hidden (Permite abandonar buffers sin guardarlos previamente)
+
 :color darkblue (Cambia el color del vim [evening, desert, elflord, koehler, morning..])
 
 :set cindent (Activa indentado automático)
+
+:set history=500 (Aumentar el historial de comandos a 500)
+
+:set undolevels=1000 (Aumentar pasos a deshacer a 1000)
 
 :set mouse=a/mouse= (Activa/desactiva el uso del ratón)
 
@@ -353,11 +392,9 @@ gt           (Moverse entre pestañas)
 
 :spell (Activa el corrector ortográfico)
 
-:setlocal spell spelllang=es (Activa el idioma español del corrector ortográfico)
-
 :set spellfile=~/.vimdic  (Fija diccionario de palabras desconocidas)
 
-:set ruler (mostrar fila y columna actual en la esquina inferior derecha de la pantalla)
+:set ruler (mostrar fila y columna del cursor y porcentaje del texto) 
 
 :set ignorecase (Que ignore mayúsculas y minúsculas en las busquedas)
 
@@ -425,6 +462,44 @@ colorscheme oceandeep
 <p>Nota- Para que todo lo copiado en Vim se asigne automáticamente al portapapeles del sistema operativo, añadir a .vimrc:</p>
 
 <pre><code>set clipboard=unnamedplus
+</code></pre>
+
+<p>4.-</p>
+
+<p>Algún ejemplo que mapeo de teclas para .vimrc:</p>
+
+<pre><code>" atajo para mostrar números de linea al pulsar F2:
+
+map &lt;F2&gt; &lt;Esc&gt;:set invnumber&lt;CR&gt;
+
+" atajo para mostrar caracteres no imprimibles al pulsar F3:
+
+map &lt;F3&gt; &lt;Esc&gt;:set invlist listchars=eol:$,tab:&gt;-,trail:-&lt;CR&gt;
+
+" Activar el corrector ortográfico al pulsar F4
+
+map &lt;F4&gt; &lt;Esc&gt;:set spell spelllang=es&lt;CR&gt;
+</code></pre>
+
+<p>Nombre de las teclas especiales para el mapeo:</p>
+
+<pre><code>&lt;up&gt;        Flecha arriba               &lt;down&gt;      Flecha abajo
+
+&lt;right&gt;     Flecha derecha              &lt;left&gt;      Flecha izquierda
+
+&lt;esc&gt;       Escape                      &lt;cr&gt;        Enter
+
+&lt;space&gt;     Espacio                     &lt;tab&gt;       Tabulador
+
+&lt;del&gt;       Suprimir                    &lt;bs&gt;        Backspace
+
+&lt;f1&gt;..&lt;f12&gt; Teclas de función          &lt;insert&gt;    Insert
+
+&lt;end&gt;       Fin                         &lt;c-tecla&gt;   Control + tecla
+
+&lt;RePag&gt;     Página anterior                &lt;AvPag&gt;     Página siguiente
+
+&lt;s-tecla&gt;   Shift + tecla               &lt;c-s-tecla&gt; Control + shift + tecla
 </code></pre>
 </div>
   
