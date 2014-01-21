@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Comprobar la velocidad del disco duro, pero no en el inicio que es la parte más rápida como hace hdparm, sino de forma aleatoria en todo el espacio &hellip;">
+  <meta name="description" content="[selinux-basics selinux-policy-default] SELinux proporciona una forma de acceso a recursos basada en políticas de control de acceso obligatorio [ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,79 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/selinux/">Selinux</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[selinux-basics selinux-policy-default]</p>
+
+<p>SELinux proporciona una forma de acceso a recursos basada en políticas de control de acceso obligatorio [mandatory access control, MAC] incorporado en el kernel. Existen un conjunto de reglas de autorización [políticas] las cuales determinan si una operación sobre un objeto [Archivos, directorios, dispositivos&#8230;] realizada por un sujeto esta o no permitida basándose en los atributos de ambos. Linux utiliza por defecto el control de acceso a discreción [discretionary access control, DAC] basada en los propietarios y grupos a los que pertenece un objeto en los que un usuario normal puede cambiar los permisos de los archivos que posee con el comando chmod. Con selinux se limita el acceso que tienen las aplicaciones a otras aplicaciones y a los ficheros, impidiendo que un proceso pueda modificar cualquier fichero del usuario con el que se lanzó. En DAC el acceso esta descentralizado, siendo el propietario de cada objeto el encargado de asignar los permisos de los diversos grupos que accederán a ellas. En cambio con el MAC los objetos y los sujetos tan solo tienen atributos, pero son las políticas las que se encargan de autorizar o denegar una acción. Ver comandos getsebool y setsebool.</p>
+
+<p>Los módulos SELinux disponibles se almacenan en el directorio /usr/share/selinux/default/.</p>
+
+<blockquote><p># semodule -i módulo.pp (habilitar un módulos en la configuración actual. La extensión pp significa paquete de política [«policy package»]).</p>
+
+<p># semodule -r módulo (Elimina un módulo de la configuración actual)</p>
+
+<p># semodule -l (Enumera los módulos habilitados actualmente)</p>
+
+<p># semanage login -a -s staff_u juan (mapear una cuenta a un usuario especifico de SELinux)</p>
+
+<p># restorecon -R -F /home/juan (etiquetar los ficheros del usuario mapeado juan)</p>
+
+<p># semanage user -l (enumera las asociaciones entre las identidades de usuario de SELinux y los roles permitidos)</p>
+
+<p># semanage login -d juan (elimina la asociación asignada al usuario juan)</p>
+
+<p># semanage login -m juan (Modificar la asociación asignada al usuario)</p>
+
+<p># semanage login -l (enumera las correspondencias actuales entre identificadores de usuarios y entidades SELinux)</p></blockquote>
+
+<p>tabla de los usuarios estándar SELinux disponibles:</p>
+
+<pre><code>user_u  (Usuario normal que se utilizan para cuentas de usuario que no van a ser empleadas para administrar ningún servicio del sistema)
+
+staff_u (Para administradores con derechos para conmutar roles y ganar privilegios elevados)
+
+root (Cuenta root ligeramente diferente de la cuenta staff_u. Los ficheros protegidos por control de acceso basado en root no pueden ser gestionados por los staff_u)
+
+sysadm_u (Administración del sistema. Por defecto, esta cuenta no se utiliza inmediatamente ya que este usuario obtiene de forma inmediata el rol administrativo (por lo que staff_u y root todavía necesitarán conmutar roles).
+
+system_u (administrar servicios. Nunca se debe utilizar para usuarios finales ya que ofrece acceso directo al rol del sistema)
+
+unconfined_u    Usado cuando la directriz es targeted, este usuario SELinux tiene muchos privilegios (esencialmente no está limitado en sus acciones, aunque todavía se gestiona través de SELinux con una directriz "muy abierta"). 
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -679,207 +752,6 @@ F12 (Abrir preferencias)
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/screen/">Screen</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Compartir sesiones de consola locales o remotas.</p>
-
-<blockquote><p>$ screen   (abre una terminal virtual genérica)</p>
-
-<p>$ screen -S tux  (nombrar la sesión del que comparte consola)</p></blockquote>
-
-<pre><code>$ screen -ls (conocer los screen abiertos y sus nombres)
-
-There are screens on: 
-
-    19680.tux       (Attached) 
-
-    19684.xut       (Attached) 
-</code></pre>
-
-<p>2 Sockets in /tmp/screens/S-juanito.</p>
-
-<blockquote><p>$ screen -x 19680.tux  (el que se conecta)</p>
-
-<p>$ screen -r    Retoma el proceso desacoplado con Ctrl+a Ctrl+d</p>
-
-<p>$ screen -r -S nombre  Retoma el proceso &#8220;nombre&#8221;</p>
-
-<p>$ screen -R -D Recupera screen despúes de un Ctrl+d</p></blockquote>
-
-<p>La gestión de screen siempre empieza pulsando las teclas Ctrl+a:</p>
-
-<p>Ctrl+a c (Crear nueva ventana)</p>
-
-<p>Ctrl+a k (Matar pantalla activa / sesion activa)</p>
-
-<p>Ctrl+a X (Matar pantalla activa)</p>
-
-<p>Ctrl+a x (Bloquear terminal)</p>
-
-<p>Ctrl+a w (Lista de ventanas)</p>
-
-<p>Ctrl+a 0-9 (Ir a la ventana numerada)</p>
-
-<p>Ctrl+a Ctrl+a (Cambiar a la última ventana)</p>
-
-<p>Ctrl+a Ctrl+p (Cambiar a la anterior ventana)</p>
-
-<p>Ctrl+a S (Dividir la terminal horizontal en regiones)</p>
-
-<p>Ctrl+a | (Dividir la terminal veticalmente)</p>
-
-<p>Ctrl+a Ctrl+n (Cambiar de región)</p>
-
-<p>Ctrl+a :resize (Redimensionar región)</p>
-
-<p>Ctrl+a F (Ajustar tamaño de la pantalla al tamaño de la nueva terminal)</p>
-
-<p>Ctrl+a K (Suprimir region)</p>
-
-<p>Ctrl+a Z (resetear screen)pi</p>
-
-<p>Ctrl+a tab (Moverse entre regiones)</p>
-
-<p>Ctrl+a d (Desacopla un proceso de una terminal, que continua en segundo plano)</p>
-
-<p>Ctrl+a ? (Mostrar pantalla de ayuda)</p>
-
-<p>Ctrl+a Backspace (Regresar a la ventana previa)</p>
-
-<p>Ctrl+q (Si se ha pulsado una combinación erronea, desbloquea la terminal)</p>
-
-<p>Ctrl+s (Lo mismo)</p>
-
-<p>Ctrl+a &#8221; (Muestra las shells activas)</p>
-
-<p>Ctrl+a A (Cambiar el título de la ventana)</p>
-
-<p>Ctrl+a Esc (Ver historial)</p>
-
-<p>Ctrl+a h (Guardar pantallazo en la carpeta actual con nombre hardcopy.número [0,1,2&#8230;])</p>
-
-<p>Ctrl+a H (Iniciar/parar registro de la ventana actual en la ventana con nombre screenlog.número [0,1,2&#8230;])</p>
-
-<p>Para compartir screen via ssh:</p>
-
-<pre><code>Activar el setuid de screen:
-
-# chmod +s /usr/bin/screen 
-
-Ejecutar:
-
-$ screen -S nombreSesion 
-
-Activar acceso multiusuario:
-
-Ctrl+a :multiuser on 
-
-Dar permisos al usuario:
-
-Ctrl+a :acladd usuario 
-
-El usuario remoto debera conectar por SSH con la máquina y ejecutar: 
-
-$ screen -x usuario/NombreSesion 
-</code></pre>
-
-<p>Si deseamos tener una barra inferior donde aparecerá el nombre de las diferentes ventanas y la hora actual, podemos modificar/crear el fichero de configuración ~/.screenrc con el siguiente contenido (http://www.marblestation.com/?p=915):</p>
-
-<pre><code># screen -t shell 0 
-
-# screen -t shell 0 motd+shell 
-
-# screen -t shell2    1
-
-# screen -t server    2 
-
-# screen -t Mail 9   tail -f /var/log/messages 
-
-select 0 
-
-shelltitle "shell" 
-
-# skip the startup message 
-
-startup_message off 
-
-# go to home dir 
-
-chdir 
-
-# Automatically detach on hangup. 
-
-autodetach on 
-
-# Change default scrollback value for new windows 
-
-defscrollback 1000 
-
-# Turns off alternate screen switching in xterms, 
-
-# so that text in screen will go into the xterm's scrollback buffer: 
-
-termcapinfo xterm* ti@:te@ 
-
-altscreen on 
-
-# start with visual bell as default 
-
-vbell on 
-
-vbell_msg "bell on %t (%n)" 
-
-activity "Activity in %t(%n)" 
-
-# Run a screensaver if there's nothing happening for a while. 
-
-#idle 600 eval "screen cmatrix -f -o -u 10" "idle 0" 
-
-idle 600 lockscreen 
-
-### White 
-
-#caption always "%{kW}%?%-Lw%?%{bw}%n*%f %t%?(%u)%?%{kW}%?%+Lw%? %= %{= Wk}%110`%109`%111` %H load: %l | %D %d-%m-%Y %0c:%s" 
-
-### Black 
-
-#caption always "%{wk}%?%-Lw%?%{bw}%n*%f %t%?(%u)%?%{wk}%?%+Lw%? %= %{= kw}%110`%109`%111` %H load: %l | %D %d-%m-%Y %0c:%s" 
-
-caption always "%{wk}%?%-Lw%?%{bw}%n*%f %t%?(%u)%?%{wk}%?%+Lw%? %= %{= kw}%110`%109`%111` %H | %D %d-%m-%Y %0c:%s" 
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/39/">&larr; Older</a>
@@ -895,12 +767,16 @@ caption always "%{wk}%?%-Lw%?%{bw}%n*%f %t%?(%u)%?%{wk}%?%+Lw%? %= %{= kw}%110`%
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1365</li>
+	<li>1366</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/tmuxinator/">tmuxinator</a>
+      </li>
     
       <li class="post">
         <a href="/blog/vim/">vim</a>
@@ -936,10 +812,6 @@ caption always "%{wk}%?%-Lw%?%{bw}%n*%f %t%?(%u)%?%{wk}%?%+Lw%? %= %{= kw}%110`%
     
       <li class="post">
         <a href="/blog/gcp/">gcp</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/git/">git</a>
       </li>
     
   </ul>
