@@ -1,11 +1,11 @@
 ---
 layout: post
 title: "tmuxinator"
-date: 2014-01-21 20:03
+date: 2014-01-21 20:13
 comments: true
 categories: 
 ---
-	gema de ruby que permite definir pestañas, páneles y comandos que correrán en cada uno de los paneles de una           sesión tmux. Cada proyecto guarda su configuración en un archivo .yml en el directorio ~/.tmuxinator. En el            archivo .bashrc ha de constar la variable $EDITOR [export EDITOR=/usr/bin/vim, nano o el que sea]
+gema de ruby que permite definir pestañas, páneles y comandos que correrán en cada uno de los paneles de una sesión tmux. Cada proyecto guarda su configuración en un archivo .yml en el directorio ~/.tmuxinator. En el archivo .bashrc ha de constar la variable $EDITOR [export EDITOR=/usr/bin/vim, nano o el que sea]
 
 	$ tmuxinator new proyecto1 (Crear un proyecto)
 
