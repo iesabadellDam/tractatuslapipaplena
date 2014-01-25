@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "update-alternatives"
-date: 2013-12-27 19:45
+date: 2014-01-25 06:54
 comments: true
 categories: 
 ---
@@ -16,4 +16,6 @@ Modificar las aplicaciones por defecto cuando existen otras posibilidades
 >$ update-alternatives --config x-www-browser (Para modificarla)
 
 >$ update-alternatives --config x-cursor-theme (Modificar el tema del cursor)
+
+>$ update-alternatives --install  /usr/bin/x-www-browser x-www-browser /usr/bin/firefox 100 (Incluir en el listado una aplicación que no está)
 
