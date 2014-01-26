@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Lenguaje orientado a la escritura de documentos de manera que sean fáciles de escribir y leer directamente en texto plano convirtiéndolos en &hellip;">
+  <meta name="description" content="Permite borrar líneas, registros o sustituir cadenas de caracteres dentro de las líneas. Archivo base para ejemplo (Empleado &#8211; Precio/hora &# &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +80,243 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/sed/">Sed</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-26T15:24:00+01:00" pubdate data-updated="true">26-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Permite borrar líneas, registros o sustituir cadenas de caracteres dentro de las líneas.</p>
+
+<p>Archivo base para ejemplo (Empleado &#8211; Precio/hora &#8211; Horas trabajadas – Cómo las cobra):</p>
+
+<pre><code>$ cat lista 
+
+Juan Gomez 6 10 banco 
+
+Clara Fuentes 7 12 banco 
+
+Antonio Cano 6 13 metálico 
+
+José Bueno 7 0 banco 
+
+Matías Crespo 5 8 metálico 
+
+Isabel Ruiz 7 0 metálico 
+
+María Monzón 9 16 metálico
+</code></pre>
+
+<p>Mostrar la linea 4 del fichero:</p>
+
+<pre><code>$ sed -n 4p lista
+</code></pre>
+
+<p>Mostrar la 4ª y la 5ª:</p>
+
+<pre><code>$ sed -n 4,5p lista
+</code></pre>
+
+<p>Mostrar de la 3ª al final del fichero:</p>
+
+<pre><code>$ sed -n '4,$p' lista
+</code></pre>
+
+<p>Mostrar desde la primera linea que empiece por “Ant” hasta el final:</p>
+
+<pre><code>$ sed -n '/^\Ant/,$p' lista
+</code></pre>
+
+<p>Mostrar sólo los parrafos desde “Clara” hasta “Bueno”:</p>
+
+<pre><code>$ sed -n '/Clara/,/Bueno/p' lista
+</code></pre>
+
+<p>Mostrar cada linea a doble espacio:</p>
+
+<pre><code>$ sed G lista
+</code></pre>
+
+<p>Mostrar las lineas que cumplen el patrón “Ju” en alguno de sus campos:</p>
+
+<pre><code>$  sed -n '/Ju/p' lista
+</code></pre>
+
+<p>Borrar la 4ª linea del fichero:</p>
+
+<pre><code>$  sed '4d' lista
+</code></pre>
+
+<p>Borrar la última linea del fichero:</p>
+
+<pre><code>$  sed -e \$d lista
+</code></pre>
+
+<p>Lo mismo:</p>
+
+<pre><code>$ sed '$d' lista
+</code></pre>
+
+<p>Borrar las lineas que empiecen por &#8220;J&#8221;:</p>
+
+<pre><code>$ sed -e '/J/d' lista
+</code></pre>
+
+<p>Borrar la segunda linea</p>
+
+<pre><code>$ sed '2d' lista
+</code></pre>
+
+<p>Borrar la 1ª y la 2ª:</p>
+
+<pre><code>$  sed '1,2d' lista
+</code></pre>
+
+<p>Borrar desde la primera linea que empiece por &#8220;Ant&#8221; hasta el final:</p>
+
+<pre><code>$ sed -e '/^\Ant/,$d' lista
+</code></pre>
+
+<p>Borrar desde la 2 linea hasta la que tenga &#8220;Ruiz&#8221;:</p>
+
+<pre><code>$ sed '2,/Ruiz/d' lista
+</code></pre>
+
+<p>Borrar las lineas en blanco de un archivo (en &#8220;lista&#8221; no procede):</p>
+
+<pre><code>$  sed '/^$/d lista
+</code></pre>
+
+<p>Cambiar &#8220;metálico&#8221; por &#8220;gratis&#8221; excepto en la 3 linea:</p>
+
+<pre><code>$ sed '3!s/metálico/gratis/' lista
+</code></pre>
+
+<p>Cambiar &#8220;met&#8221; por &#8220;tem&#8221; en las lineas que no tengan &#8220;Cano&#8221;:</p>
+
+<pre><code>$ sed '/Cano/!s/met/tem/' lista
+</code></pre>
+
+<p>Cambiar campos (banco por cheque):</p>
+
+<pre><code>$ sed 's/banco/cheque/' lista
+</code></pre>
+
+<p>Cambiar las &#8220;J&#8221; y la &#8220;C&#8221; mayúsculas por minúsculas:</p>
+
+<pre><code>$ sed 'y/J-C/j-c/' lista
+</code></pre>
+
+<p>Substituye las vocales por &#8220;u&#8221;:</p>
+
+<pre><code>$ sed -e "s/[aeio]/u/g" lista
+</code></pre>
+
+<p>Substituir los espacios por tabulaciones:</p>
+
+<pre><code>$ sed -e 's/ /\t/g' lista
+</code></pre>
+
+<p>Alinear al centro:</p>
+
+<pre><code>$ sed -e :a -e 's/^.\{1,77\}$/ &amp;/;ta' -e 's/\( *\)\1/\1/' lista
+</code></pre>
+
+<p>Todas las opciones pueden usarse como tubería substituyendo &#8220;lista&#8221; por “cat lista |”:</p>
+
+<pre><code>$ cat lista | sed -n '4,$p'
+</code></pre>
+
+<p>Otros ejemplos:</p>
+
+<p>Mostrar lineas no comentadas de un archivo:</p>
+
+<pre><code>$ sed -e '/^#/d' /etc/fstab
+</code></pre>
+
+<p>Substituir &#8220;foto&#8221; por &#8220;FOTO&#8221; en todo los archivos del directorio:</p>
+
+<pre><code>$ ls * | sed -e 'p;s/foto/FOTO/' | xargs -n2 mv
+</code></pre>
+
+<p>Cambiar “Juan” por “Pedro” en todos los archivos .txt del presente directorio:</p>
+
+<pre><code>$ sed -i 's/Juan/Pedro/g' *.txt
+</code></pre>
+
+<p>Mostrar sólo las lineas con 4 dígitos seguidos:</p>
+
+<pre><code>$ sed '/[0-9]\{4\}/p' archivo
+</code></pre>
+
+<p>Borrar todos los espacios delante de cada linea:</p>
+
+<pre><code>$sed 's/^[ ^t]*//' archivo
+</code></pre>
+
+<p>Borrar todos los espacios detras de cada linea:</p>
+
+<pre><code>$ sed 's/[ ^t]*$//' archivo
+</code></pre>
+
+<p>Borrar todos los espacios delante y detras de cada linea:</p>
+
+<pre><code>$ sed 's/^[ ^t]*//;s/[ ^]*$//' archivo
+</code></pre>
+
+<p>Cambiar los números 3333 por 3.333. El parámetro -r sirva para activar las expresiones regulares extendidas de sed:</p>
+
+<pre><code>$ sed -r "s/\&lt;(reg|exp)[a-z]+/\U&amp;/g"
+</code></pre>
+
+<p>Contar lineas de un archivo [emulador de wc -l]:</p>
+
+<pre><code>sed -n '$=' lista
+</code></pre>
+
+<p>Insertar 5 espacios en blanco delante de cada linea:</p>
+
+<pre><code>$ sed 's/^/     /' lista
+</code></pre>
+
+<p>Insertar 1 linea en blanco despues de la primera linea:</p>
+
+<pre><code>$ sed '2i\ \' lista
+</code></pre>
+
+<p>Insertar 1 linea en blanco despues de la primera linea y de la tercera:</p>
+
+<pre><code>$ sed '2i\ \' | sed '4i\ \' lista
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/markdown/">Markdown</a></h1>
     
     
@@ -96,7 +333,7 @@
   
 
 
-<time datetime="2014-01-25T19:47:00+01:00" pubdate data-updated="true">25-01-2014</time>
+<time datetime="2014-01-26T15:24:00+01:00" pubdate data-updated="true">26-01-2014</time>
         
       </p>
     
@@ -124,6 +361,8 @@
 *texto* (texto entre asteriscos: en cursiva)
 
 ***texto*** (Texto entre dos trios de asteriscos: negrita y cursiva)
+
+2 espacios al final de una linea fuera salto de linea
 
 &lt;URL&gt; (Modo de colocar un enlace. Igual para un email)
 
@@ -1100,162 +1339,6 @@ $ chmod +x speedtest_cli.py
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/mc/">Mc</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-12T17:58:00+01:00" pubdate data-updated="true">12-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Gestor de archivos. La pantalla de Midnight Commander está divida en cuatro partes. La mayor parte de la pantalla está ocupada por los dos paneles de directorio. Por defecto, la segunda línea inferior de la pantalla es la línea de órdenes del sistema y la línea inferior muestra las etiquetas de las teclas de función. La línea superior es la barra de menú que si no está visible puede verse pulsando F9. MC pone a la vista dos directorios al mismo tiempo. Uno de los paneles es el panel actual. Algunas operaciones con archivos como Renombrar y Copiar utilizan por defecto el directorio del panel no seleccionado como destino, pero siempre solicitan una confirmación previa y podemos cambiarlo. Podemos ejecutar comandos del sistema desde MC simplemente escribiéndolos. Todo lo que escribamos aparecerá en la línea de órdenes del sistema y cuando pulsemos Intro, Midnight Commander ejecutará estos comandos. Si tenemos el ratón activado [ver gpm] para seleccionar texto mantener pulsada la tecla Mayúsculas mientras se selecciona.</p>
-
-<blockquote><p>$ mc -S gotar.ini /media/servidor /home/usuario (Especificando un skin [Listado en /usr/share/mc/skins] y directorio de cada panel)</p></blockquote>
-
-<p>Colocando la linea como alias en .bashrc arancará siempre con esta configuración inicial:</p>
-
-<blockquote><p>$ nano .bashrc</p></blockquote>
-
-<p>alias mc=&#8217;mc -S gotar.ini /media/servidor /home/usuario&#8217;</p>
-
-<p>Algunas teclas de control:</p>
-
-<pre><code>F1 (Despliega el Menú de ayuda)
-
-F3 (Activa el Visor de archivos interno)
-
-F4 (Ejecuta el Editor interno)
-
-F5 (Copiar archivos)
-
-F6 (Mover archivos)
-
-F7 (Crear carpeta)
-
-F8 (Borrar archivos)
-
-F9 (Activa el menú principal desplegable)
-
-F10 (Salir de mc)
-
-Tab (Moverse entre los paneles)
-
-Insert (Marcar para operaciones con múltiples archivos)
-
-Supr (Eliminar archivo)
-
-Flechas de desplazamiento (Permiten moverse por menús y submenús)
-
-Alt-Enter (copiar el nombre de un archivo en la línea de comandos [cp o mv])
-
-Alt-Tab (misma función que la tecla TAB en el shell [completar comando o ruta tras haber escrito sus primeras letras]
-
-Alt-p (Retrocede por el historico de comandos)
-
-Alt-n (Avanza por el historico de comandos)
-
-Alt-h (Abre una ventana con el historico de comandos)
-</code></pre>
-
-<p>1.-</p>
-
-<p>Mas personalizaciones de los colores:</p>
-
-<p>Colores posibles: white, gray, blue, green, yellow, magenta, cyan, red, brown, birghtgreen, brightblue, brightmagenta, brightcyan, brightred, lightgray, default</p>
-
-<p>Se puede incidir en los siguientes aspectos de los grupos:</p>
-
-<pre><code>Base colors: normal, selected, marked, markselect, errors, input, reverse, gauge
-
-Menu colors: menu, menusel, menuhot, menuhotsel
-
-Dialog colors: dnormal, dfocus, dhotnormal, dhotfocus
-
-Help colors: helpnormal, helpitalic, helpbold, helplink, helpslink
-
-Viewer color: viewunderline
-
-Special highlighting colors: executable, directory, link, stalelink, device, special, core
-
-Editor colors: editnormal, editbold, editmarked
-</code></pre>
-
-<p>Nota.- No tienen que definirse obligatoriamente todos los subgrupos</p>
-
-<p>Para pruebas:</p>
-
-<pre><code>$ mc --colors normal=green,default:selected=brightmagenta,gray:marked=yellow,default:markselect=yellow,gray:directory=blue,default:executable=brightgreen,default:link=cyan,default:device=brightmagenta,default:special=lightgray,default:errors=red,default:reverse=green,default:gauge=green,default:input=white,gray:dnormal=green,gray:dfocus=brightgreen,gray:dhotnormal=cyan,gray:dhotfocus=brightcyan,gray:menu=green,default:menuhot=cyan,default:menusel=green,gray:menuhotsel=cyan,default:helpnormal=cyan,default:editnormal=green,default:editbold=blue,default:editmarked=gray,blue:stalelink=red,default 
-</code></pre>
-
-<p>Para dejar la seleccion permanente crear en el directorio (Si no existe se crea):</p>
-
-<blockquote><p>$ nano .moc/ini</p></blockquote>
-
-<p>Y pegar:</p>
-
-<pre><code>[colors]
-
-normal=green,default:selected=brightmagenta,gray:marked=yellow,default:markselect=yellow,gray:directory=blue,default:executable=brightgreen,default:link=cyan,default:device=brightmagenta,default:special=lightgray,default:errors=red,default:reverse=green,default:gauge=green,default:input=white,gray:dnormal=green,gray:dfocus=brightgreen,gray:dhotnormal=cyan,gray:dhotfocus=brightcyan,gray:menu=green,default:menuhot=cyan,default:menusel=green,gray:menuhotsel=cyan,default:helpnormal=cyan,default:editnormal=green,default:editbold=blue,default:editmarked=gray,blue:stalelink=red,default
-</code></pre>
-
-<p>Si lo queremos como alias:</p>
-
-<blockquote><p>$ nano .bashrc</p></blockquote>
-
-<p>Y pegamos:</p>
-
-<pre><code>alias mc="mc --colors normal=green,default:selected=brightmagenta,gray:marked=yellow,default:markselect=yellow,gray:directory=blue,default:executable=brightgreen,default:link=cyan,default:device=brightmagenta,default:special=lightgray,default:errors=red,default:reverse=green,default:gauge=green,default:input=white,gray:dnormal=green,gray:dfocus=brightgreen,gray:dhotnormal=cyan,gray:dhotfocus=brightcyan,gray:menu=green,default:menuhot=cyan,default:menusel=green,gray:menuhotsel=cyan,default:helpnormal=cyan,default:editnormal=green,default:editbold=blue,default:editmarked=gray,blue:stalelink=red,default"
-</code></pre>
-
-<p>2.-</p>
-
-<p>Para configurar las aplicaciones que se usarán por defecto:</p>
-
-<blockquote><p>$ cp /etc/mc/mc.ext .mc/bindings</p>
-
-<p>$ nano .moc/bindings</p></blockquote>
-
-<p>Y modificar las que procedan. Ejemplo:</p>
-
-<pre><code># Para abrir los txt com vi
-
-    shell/.txt
-
-        Open=%var{EDITOR:vi} %f
-
-# Que los videos los abra vlc   
-
-    include/video
-
-        Open=(vlc %f &gt;/dev/null 2&gt;&amp;1 &amp;)
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1275,6 +1358,10 @@ normal=green,default:selected=brightmagenta,gray:marked=yellow,default:markselec
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/sed/">sed</a>
+      </li>
     
       <li class="post">
         <a href="/blog/markdown/">markdown</a>
@@ -1310,10 +1397,6 @@ normal=green,default:selected=brightmagenta,gray:marked=yellow,default:markselec
     
       <li class="post">
         <a href="/blog/speedtest-cli/">speedtest_cli</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/mc/">mc</a>
       </li>
     
   </ul>
