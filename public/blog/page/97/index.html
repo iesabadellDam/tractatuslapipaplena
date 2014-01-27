@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Determina máquinas de una red activas # fping -g 192.168.2./24 2> /dev/null | grep alive
-">
+  <meta name="description" content="Editor. Según se lance desde las X o por consola se usará fte, xfte o sfte. F1 muestra todos los atajos y se accede a los menús de forma clásica con &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +74,481 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fte/">Fte</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Editor. Según se lance desde las X o por consola se usará fte, xfte o sfte. F1 muestra todos los atajos y se accede a los menús de forma clásica con Alt+f&#8230;</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fswebcam/">Fswebcam</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Capturas con la webcam.</p>
+
+<blockquote><p>$ fswebcam &#8211;crop 200x100 &#8211;save out (Especificando medidas y archivo de salida)</p>
+
+<p>$ fswebcam -r 600x500 out1.jpeg &#8211;greyscale out2.jpeg (Dos capturas, especificando resolución y la otra en escala de grises)</p>
+
+<p>$ fswebcam &#8211;banner-colour &#8220;#FF0000&#8221; &#8211;save out (Con el baner de color rojo)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<pre><code>-d  (Especificar el dispositivo de video. Por defecto /dev/video0)
+
+--no-banner (Que la captura no muestre el baner. Por defecto sale en la parte inferior)
+
+--top-banner (Que el baner salga en parte superior)
+
+--title "linux es genial" (Mostrando un texto en el baner)
+
+--timestamp "%d-%m-%Y" (Mostrando en el baner la fecha en formato dia-mes-año)
+
+--info "Linux es un sistema genial" (Añadir un texto que se muestra debajo de la fecha con letra más pequeña)
+
+--invert (Haciendo un negativo de la imagen)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fstab/">Fstab</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Lista todos los discos y particiones disponibles e indica cómo deben ser inicializados. Su estructura es:</p>
+
+<ul>
+<li>Particion punto_de_montaje sistema_de_archivos opciones respaldos orden</li>
+</ul>
+
+
+<p>Y un ejemplo seria:</p>
+
+<p>/dev/sda5 /media/datos ext4 rw,users,exec,auto 0 0 (especificando el número de partición)</p>
+
+<p>UUID=0e4d9ccb-93bb-4762-8b67-c23d181fc84a / ext4 errors=remount-ro 0 1 (especificando el UUID de la partición)</p>
+
+<ul>
+<li><p>El punto de montaje ha de existir en el sistema y normalmente se coloca en /media</p></li>
+<li><p>Algunos sitemas de archivos puede ser:</p></li>
+</ul>
+
+
+<p>auto (intenta descubrir automáticamente el sistema de archivos).</p>
+
+<p>ext2 (sistema de archivos común en Linux).</p>
+
+<p>ext3 (igual que ext2 pero además añade journaling).</p>
+
+<p>ext4 (introdujo significativas mejoras respecto a ext3)</p>
+
+<p>reiserfs (otro sistema muy común en Linux)</p>
+
+<p>msdos (para dispositivos que usen FAT16)</p>
+
+<p>vfat (para dispositivos que usen FAT32).</p>
+
+<p>ntfs (sistema de archivos NTFS de Windows)</p>
+
+<p>smbfs (sistema de archivos de Samba).</p>
+
+<p>nfs (sistema de archivos de red NFS)</p>
+
+<ul>
+<li>Algunas opciones:</li>
+</ul>
+
+
+<p>auto (el dispositivo será montado automáticamente durante el inicio. auto es el valor por defecto)</p>
+
+<p>noauto (Si no se desea que el dispositivo se monte automáticamente)</p>
+
+<p>exec (permite ejecutar binarios que están en la partición)</p>
+
+<p>noexec (lo impide. ütil en particiones windows)</p>
+
+<p>ro (Montar sólo lectura)</p>
+
+<p>rw (Montar para lectura/esctritura)</p>
+
+<p>user (Permite a cualquier usuario montar el sistema de archivos)</p>
+
+<p>nouser (Solo el usuario root podrá montar el sistema de archivos)</p>
+
+<p>defaults (Utiliza las opciones por defecto: rw,exec,auto,nouser)</p>
+
+<ul>
+<li><p>Respaldo. Es el comando que utiliza dump para hacer respaldos del sistema de archivos. Cero desactiva la opción.</p></li>
+<li><p>Orden. indica el orden en que la aplicación fsck revisará la partición en busca de errores durante el inicio, si es cero el dispositivo no se revisa.</p></li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fspy/">Fspy</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Herramienta de monitorización de la actividad de un sistema de archivos.</p>
+
+<blockquote><p># fspy /home/usuario</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fsck/">Fsck</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Reparar/chequear/formatear una partición no montada</p>
+
+<blockquote><p># fsck -fy /dev/hda1</p>
+
+<p># fsck.ext2 -vpf /dev/hda1 (Repara una partición ext2)</p>
+
+<p># fsck.ext3 -vpf /dev/hda1 (Repara una partición ext3)</p>
+
+<p># fsck -fpC 0 /dev/sda1</p>
+
+<p># fsck.ext4 -cDfty -C 0 /dev/sda1</p>
+
+<p># fsck.ext4 -vpf /dev/sda1 (Muestra información sobre una partición: fragmentación, inodos, bloques, archivos&#8230;)</p></blockquote>
+
+<p>Opciones:</p>
+
+<p>-A .- Permitira una navegación en toda la estructura de /etc/fstab.</p>
+
+<p>-V  .- información adicional sobre las acciones de fsck</p>
+
+<p>-t   .- Imprimir estadísticas de estado (-tt para más información)</p>
+
+<p>-a .- Repara cualquier problema que encuentra en el sistema de archivos sin preguntar (no recomendada)</p>
+
+<p>-l .- Lista todos los nombres de archivos</p>
+
+<p>-r .- Pide confirmación antes de reparar el sistema de archivos.</p>
+
+<p>-s .- Lista el superblock antes de chequear el sistema de archivos.</p>
+
+<p>sis_arch .- Especifica el sistema de archivos a verificar</p>
+
+<p>-c .- Buscar bloques dañados con badblocks (ver badblocks)</p>
+
+<p>-k .- Bloques dañados donde se almacenan con el comando anterior.</p>
+
+<p>-C 0 .- Muestra barra de progreso.</p>
+
+<p>-p .- forzar verificación y reparar automaticamente errores</p>
+
+<p>-D .- Obtimizar directorios si es posible</p>
+
+<p>-f   .- Forzar el chequeo incluso si el sistema de archivos parece correcto</p>
+
+<p>-Y   .- Asume respuesta &#8220;yes&#8221; a todas las preguntas</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fsarchiver/">Fsarchiver</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Es una herramienta similar a partimage para crear imágenes de una o varias particiones a la vez a un fichero asi como restaurar dichas imágenes más tarde.</p>
+
+<blockquote><p># fsarchiver savefs /data/imagen.fsa /dev/sda1 (creamos la imagen de la partición).</p>
+
+<p># fsarchiver savefs /data/imagen2.fsa /dev/sda1 /dev/sdb1 (creamos la imagen de dos particiones simultaneamente que seran almacenadas en el mismo fichero).</p>
+
+<p># fsarchiver restfs /data/imagen2.fsa id=0,dest=/dev/sda1 (restauramos la primera partición de la imagen).</p>
+
+<p># fsarchiver restfs /data/imagen2.fsa id=1,dest=/dev/sdb1 (restauramos la segunda partición).</p>
+
+<p># fsarchiver restfs /data/imagen2.fsa id=0,dest=/dev/sda1 id=1,dest=/dev/sdb1 (restauramos a la vez las dos particiones).</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/freeradius/">Freeradius</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[libssl-dev freeradius-mysql freeradius-utils]</p>
+
+<p>Servidor.</p>
+
+<p>Configurar la base de datos:</p>
+
+<blockquote><p># nano /etc/freeradius/sites-enabled/default</p></blockquote>
+
+<p>En los apartados &#8220;authorize&#8221; y &#8220;accouting&#8221; descomentar las lineas sql</p>
+
+<blockquote><p># nano /etc/freeradius/radius.conf</p></blockquote>
+
+<p>Descomentar la linea $INCLUDE sql.conf</p>
+
+<p>Configurar usuario, contraseña y mensaje de bienvenida:</p>
+
+<blockquote><p># nano /etc/freeradius/users</p></blockquote>
+
+<p>USUARIO Cleartext-Password := &#8220;CONTRASEÑA&#8221;</p>
+
+<pre><code>    Reply-Message "Entrando en el servidor el usuario %{User_Name}"
+</code></pre>
+
+<p>Configurar usuario y contraseña del router o punto de acceso:</p>
+
+<blockquote><p># nano /etc/freeradius/clients.conf</p></blockquote>
+
+<p>client 192.168.1.0/24 {</p>
+
+<pre><code>secret      = CONTRASEÑA_ROUTER
+
+shortname   = USUARIO_ROUTE
+</code></pre>
+
+<p>Finalmente entrar en router y colocar la ip del equipo donde hemos instalado el servidor. Reiniciar el servicio.</p>
+
+<blockquote><p># /etc/init.d/freeradius restart</p>
+
+<p># freeradius -X (Arrancar em modo debug)</p>
+
+<p># radtest USUARIO testing 127.0.0.1 1812 testing123 (Testear si la configuración de un usuario está correcta)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/free/">Free</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Listar la memoria RAM y swap utilizada y disponible</p>
+
+<blockquote><p>$ free -m (muestra los resultados en megabytes)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -156,470 +630,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/foremost/">Foremost</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Recuperación de datos</p>
-
-<blockquote><p># foremost -i /dev/sda -o /recovery</p>
-
-<p># foremost -t jpg -i /dev/sda3 -o /home/usr/recuperado (Recuperar jdatepgs de una partición)</p></blockquote>
-
-<p>proceso sobre una imagen:</p>
-
-<blockquote><p># dd if=/dev/sda1 of=imagen.iso conv=noerror,sync (Crear la imagen iso del dispositivo a recuperar. “conv=noerror,sync” indica que ignore errores)</p>
-
-<p># foremost -v -t all -o /home/usuario/recuperado -i imagen.iso</p></blockquote>
-
-<p>-v .- modo detallado</p>
-
-<p>-o .- lugar donde almacenar los archivos recuperados</p>
-
-<p>-t all .- tipo de archivo a buscar. Para recuperar solo jpg: -t jpg. Para una lista de extensiones: -t jpg,doc,png</p>
-
-<p>-i .- lugar donde esta la iso a escanear.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/for/">For</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[bucle]</p>
-
-<p>Ejecuta un trozo de códico si la expresión de control es verdadera y sólo se para cuando es falsa.</p>
-
-<p>Ejemplos:</p>
-
-<p>1.-</p>
-
-<pre><code>#!/bin/bash
-
-    for i in $( ls ); do
-
-        echo item --&gt; $i
-
-    done
-</code></pre>
-
-<p>2.-</p>
-
-<pre><code>#!/bin/bash
-
-for i in `seq 1 10`;
-
-do
-
-    echo $i
-
-done
-</code></pre>
-
-<p>Nota.- Si los números los quisieramos en una misma linea, encerrar la variable entre comillas [&#8221;<code>seq 1 10</code>&#8221;]</p>
-
-<p>3.-</p>
-
-<pre><code>#!/bin/bash
-
-for i in 1 2 3 4 5
-
-do
-
-   echo "Es el número $i "
-
-done
-</code></pre>
-
-<p>4.-</p>
-
-<pre><code>#!/bin/bash
-
-for i in {1..5}
-
-do
-
-   echo "Es el número $i "
-
-done
-</code></pre>
-
-<p>5.-</p>
-
-<p>Del 1 al 10 de 2 en 2:</p>
-
-<pre><code>#!/bin/bash
-
-for i in {1..10..2}
-
-do
-
-    echo "Es el número $i "
-
-done
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/fold/">Fold</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Formatea la salida de un archivo a una determinada longitud.</p>
-
-<blockquote><p>$ fold  -w50 -s archivo (50 caracteres de largo por linea y que corte por los espacios entre palabras y no por las palabras)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/fmt/">Fmt</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra en pantalla archivos de texto de forma optimizada (Ver diferencia con cat)</p>
-
-<blockquote><p>$ fmt fichero.txt</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/flvstreamer/">Flvstreamer</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Descarga de videos con protocolo RTMP.</p>
-
-<p>Supongamos que el video a descargar tenga por ruta: http://www.tv3.cat/videos/1307049732092</p>
-
-<p>Abrir una pestaña del vavegador y pegar:</p>
-
-<p>http://www.tv3.cat/su/tvc/tvcConditionalAccess.jsp?ID=1307049732092&amp;QUALITY=H&amp;FORMAT=MP4</p>
-
-<p>Colocando en el número “ID=” el que corresponda y con la ruta rtmp que nos indique lanzar [en una sola linea]:</p>
-
-<blockquote><p>$ flvstreamer -r rtmp://mp4-500-str.tv3.cat/ondemand/mp4:g/tvcatalunya/2/9/1307049732092.mp4 -o video.mp4</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/fluxbox-generate-menu/">Fluxbox-generate_menu</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Generador de menús de fluxbox.</p>
-
-<blockquote><p>$ fluxbox-generate_menu -g (Añade un menú tipo gnome)</p>
-
-<p>$ fluxbox-generate_menu -k -o ~/.fluxbox/menu1 (Añade menú tipo kde y lo coloca en menu1 para probarlo. Sin especificar, substituiría el .fluxbox/menu)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/flunym0us/">Flunym0us</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Pruebas de vulnarabilidad de webs basadas en wordpress. Descarga http://code.google.com/p/flunym0us/downloads/list</p>
-
-<blockquote><p>$ flunym0us -H http://host -w /home/usuario/wordlist -wp -t 60 -r 1 -p 2 -T 2</p></blockquote>
-
-<p>Opciones:</p>
-
-<p>-wp (Scanear un sitio wordpress)</p>
-
-<p>-mo (scanear un sitio Moodle)</p>
-
-<p>-H http://host (Nombre del host wordpress a scanear)</p>
-
-<p>-w /home/usuario/wordlist (Ruta al diccionario)</p>
-
-<p>-t 60 (Tiempo de espera)</p>
-
-<p>-r 1 (Reintentos de conexión)</p>
-
-<p>-p 2 (Numero de procesos)</p>
-
-<p>-T 2 (Número de subprocesos simultaneos por proceso)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/flexget/">Flexget</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[python2.6 python-pip]</p>
-
-<p>Descarga de series a partir de su direccion RSS. Archivo de configuración</p>
-
-<blockquote><p>$ nano .flexget/config.yml</p></blockquote>
-
-<p>Con un contenido parecido a:</p>
-
-<pre><code>presets:
-
-  tv:
-
-    series:
-
-      settings:
-
-    hdtv:
-
-      timeframe: 8 hours
-
-      hdtv &lt;720p:
-
-    - serie 1
-
-    - serie 2
-
-    - serie 3
-
-    - etc
-
-    content_filter:
-
-      require:
-
-    - '*.avi'
-
-    download: "/media/discoext/Descargas/Torrents"
-
-tasks:
-
-  TvTorrent1:
-
-    rss: http://showrss.karmorra.info/feeds/all.rss
-
-    preset: tv
-</code></pre>
-
-<blockquote><p>$ flexget &#8211;test (Comprobar si la configuración es correcta)</p>
-
-<p>$ flexget (Lanzar la aplicación)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/98/">&larr; Older</a>
@@ -643,43 +653,43 @@ tasks:
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/dig/">dig</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/denyhosts/">denyhosts</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/debget/">debget</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/ddrescue/">ddrescue</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/ddclient/">ddclient</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/dav/">dav</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/date/">date</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/dansguardian/">dansguardian</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/cups/">cups</a>
       </li>
     
       <li class="post">
         <a href="/blog/csscapture/">csscapture</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zypper/">zypper</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zmore/">zmore</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zmap/">zmap</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zless/">zless</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zip/">zip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zgrep/">zgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zfgrep/">zfgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zenity/">zenity</a>
       </li>
     
   </ul>

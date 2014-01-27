@@ -9,7 +9,8 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Mostrar diferencias entre dos directorios o ficheros $ diff archivo1 archivo2 (Compara diferencias entre dos ficheros) $ diff -r carpeta1 carpeta2 ( &hellip;">
+  <meta name="description" content="Mostrar la estructura interna de los archivos DjVu. $ djvudump archivo.djvu
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +75,328 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/djvudump/">Djvudump</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:06:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Mostrar la estructura interna de los archivos DjVu.</p>
+
+<blockquote><p>$ djvudump archivo.djvu</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/djvm/">Djvm</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:06:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Manipular documentos .djvu</p>
+
+<blockquote><p>$ djvm -l fichero.djvm (Lista el contenido)</p>
+
+<p>$ djvm -c archivo.djvu file1.djvu file2.djvu (Crea un archivo juntando varios archivos djvu)</p>
+
+<p>$ djvm -d archivo.djvu 0022 (Eliminar la página 22 del archivo.djvu)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/display/">Display</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:06:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>visualizar imagenes en las X</p>
+
+<blockquote><p>$ display imagen.jpg</p>
+
+<p>$ DISPLAY=:0.0 gedit  (lanzado desde una tty, abre gedit en las X. Si solo tenemos una sesión X corriendo, puede suprimirse el “.0”)</p>
+
+<p>$ gmessage “Cierra el firefox” -display :0 (Lanzado desde una tty mostrará el mensaje en las X)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/disown/">Disown</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:06:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Disociar un proceso de la terminal que lo lanzó. Cuando creamos un proceso desde una terminal, éste queda ligado a la terminal. Si se cierra la terminal, también se cierra el proceso. disown evita tal contingencia. Veamos el proceso:</p>
+
+<p>Si se lanza:</p>
+
+<blockquote><p>$ yes > /dev/null</p></blockquote>
+
+<p>Cerramos y volvemos a abrir la terminal y ejecutamos:</p>
+
+<blockquote><p>$ ps aux | grep yes | grep -v grep</p></blockquote>
+
+<p>Veremos que el proceso no existe. Si volvemos a lanzar &#8220;yes&#8221;:</p>
+
+<blockquote><p>$ yes > /dev/null</p></blockquote>
+
+<p>Pulsamos Ctrl+z:</p>
+
+<p>[1]+  Detenido                  yes > /dev/null</p>
+
+<p>Lanzando:</p>
+
+<blockquote><p>$ jobs</p></blockquote>
+
+<p>Nos mostrará la misma salida. Ahora en el promt escribimos:</p>
+
+<blockquote><p>$ disown -h %1</p></blockquote>
+
+<p>Con lo que desligamos el proceso de la terminal. Hemos liberado la terminal pero si la cerramos, aún matamos el proceso &#8220;yes&#8221;. Para que esto no ocurra, lo mandamos a segundo plano con bg y número de proceso [1]:</p>
+
+<blockquote><p>$ bg 1</p></blockquote>
+
+<p>[1]+ yes > /dev/null &amp;</p>
+
+<p>Ahora podemos cerrar la terminal sin que el proceso &#8220;yes&#8221; se vea afectado. El proceso se simplifica si ya lanzamos el comando en background:</p>
+
+<blockquote><p>$ yes > /dev/null &amp;</p></blockquote>
+
+<p>[1] 13248</p>
+
+<p>Lo disociamos de la terminal:</p>
+
+<blockquote><p>$ disown -h %1</p></blockquote>
+
+<p>Y ya podemos cerrar la terminal sin afectar al proceso.</p>
+
+<p>Otras opciones:</p>
+
+<blockquote><p>$ disown -a (Desliga todos los procesos ejecutados desde la terminal)</p>
+
+<p>$ disown -r (Desliga los que esten en marcha [running])</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/disktype/">Disktype</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:06:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Detección de formatos de disco [sistemas de archivo, particiones, volumenes, imagenes, archivos comprimidos&#8230;]</p>
+
+<blockquote><p># disktype /dev/sda2</p>
+
+<p>$ disktype imagen.iso</p>
+
+<p>$ disktype archivo</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/dirs/">Dirs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:06:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ver pushd</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/diffpdf/">Diffpdf</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:06:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Compara dos archivos pdf.</p>
+
+<blockquote><p>$ diffpdf archivo1.pdf archivo2.pdf</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -333,316 +656,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/dhomepage/">Dhomepage</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:06:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[debian-goodies]</p>
-
-<p>Abre, si existe, en el navegador la página de información de un paquete debian.</p>
-
-<blockquote><p>$ dhomepage debian-history</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/dhcping/">Dhcping:</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:06:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Enviar una solicitud DHCP a un servidor DHCP para ver si está activo.</p>
-
-<blockquote><p># dhcping -v -h 00:23:54:57:FC:78 -s 192.168.1.10 -c 192.168.1.15 (Mostrando la máxima información [v], la MAC del servidor DHCP [h] y su ip [s] y nuestra máquina [c])</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/dhcpcd/">Dhcpcd</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:06:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Configuración automática de la red dhcp</p>
-
-<blockquote><p>$ dhcpcd eth0</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/dhclient/">Dhclient</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:06:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Cliente DHCP</p>
-
-<blockquote><p># dhclient eth0  (modifica la ip de la máquina)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/df/">Df</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:06:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Mostrar información de las particiones</p>
-
-<blockquote><p>$ df -h (los resultados en M y G, por defecto son en bytes)</p>
-
-<p>$ df -a (de todas las particiones incluso las de 0 bloques)</p>
-
-<p>$ df -t vfat (de las particiones especificadas, en el caso las vfat)</p>
-
-<p>$ df  -T (de todas las particiones y el tipo)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/devilspie/">Devilspie</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:06:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Permite especificar el comportamiento de las ventanas para que determinadas aplicaciones se abran en un escritorio concreto. Ha de colocarse en las aplicaciones de inicio.</p>
-
-<blockquote><p>$ mkdir .devilspie (Crear el directorio)</p></blockquote>
-
-<p>Crear por cada aplicación un archivo .ds en el directorio:</p>
-
-<blockquote><p>$ nano .devilspie/firefox.ds</p></blockquote>
-
-<p>Con el siguiente contenido a modo de ejemplo:</p>
-
-<pre><code>(if
-
-  (is (application_name) "firefox")
-
-  (set_workspace 3)
-
-)
-</code></pre>
-
-<p>Cada vez que arranquemos firefox, se abrirá en el escritorio número 3.</p>
-
-<p>Para saber el nombre de las aplicaciones que corren en cada escritorio:</p>
-
-<blockquote><p>$ nano .devilspie/debug.ds</p></blockquote>
-
-<p>Con el siguiente contenido:</p>
-
-<pre><code>(debug)
-</code></pre>
-
-<p>Cuando arranquemos devilspie por consola, nos las mostrará.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/descriptor/">Descriptor</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:06:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Toda aplicación tiene siempre tres descriptores de fichero abiertos, el 0 para la entrada estándar [stdin], el 1 para la salida estándar [stdout], y el 2 para la salida de errores estándar [stderr]. Del 3 al 9 son descriptores adicionales [ver tuberias]. En el ejemplo:</p>
-
-<blockquote><p>$ ls -a >> listado.txt</p></blockquote>
-
-<p>La salida estándart [descriptor 1] se envia al fichero listado.txt, consecuentemente en pantalla no veremos nada. En el caso:</p>
-
-<blockquote><p>$ ls -zy >> listado.txt</p></blockquote>
-
-<p>El error [descriptor 2] se mostrará por pantalla y listado.txt permanecerá vacio. Para redirigir el error [descriptor 2 ]al fichero listado.txt [descriptor 1]:</p>
-
-<blockquote><p>$ ls -zy >> listado.txt 2>&amp;1</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/111/">&larr; Older</a>
@@ -666,43 +679,43 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/dig/">dig</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/denyhosts/">denyhosts</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/debget/">debget</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/ddrescue/">ddrescue</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/ddclient/">ddclient</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/dav/">dav</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/date/">date</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/dansguardian/">dansguardian</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/cups/">cups</a>
       </li>
     
       <li class="post">
         <a href="/blog/csscapture/">csscapture</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zypper/">zypper</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zmore/">zmore</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zmap/">zmap</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zless/">zless</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zip/">zip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zgrep/">zgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zfgrep/">zfgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zenity/">zenity</a>
       </li>
     
   </ul>

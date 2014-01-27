@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Gestión de impresoras. 1.- Montar una impresora en red: En la máquina servidor (la que tiene conectada la impresora) # nano /etc/cups/cupsd.conf &hellip;">
+  <meta name="description" content="[dnsutils]. Realizar consultas a los servidores DNS $ dig tuxapuntes.com $ dig telefonica.net NS (Mostrando los servidores DNS del dominio) $ dig -x &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,479 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/dig/">Dig</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:47:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[dnsutils]. Realizar consultas a los servidores DNS</p>
+
+<blockquote><p>$ dig tuxapuntes.com</p>
+
+<p>$ dig telefonica.net NS  (Mostrando los servidores DNS del dominio)</p>
+
+<p>$ dig -x 74.220.215.64 (Resolución inversa)</p></blockquote>
+
+<p>Nota.- Los datos importantes en la “ANSWER SECTION”</p>
+
+<blockquote><p>$ dig +short myip.opendns.com @resolver1.opendns.com (muestra IP externa)</p>
+
+<p>$ dig tuxapuntes.com somedomainname.net axfr   (mirar si un dominio es susceptible de ataques axfr)</p>
+
+<p>$ dig +trace tuxapuntes.com (Ver saltos de la petición hasta el servidor)</p>
+
+<p>$ dig ANY tuxapuntes.com (Consultar todos los registros de la zona DNS)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/denyhosts/">Denyhosts</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:47:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Protege contra ataques.</p>
+
+<p>Configuración:</p>
+
+<blockquote><p># nano /etc/denyhosts.conf</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<pre><code>SECURE_LOG = /var/log/auth.log (Ruta a los logs) 
+
+DENY_THRESHOLD_INVALID = 5 (Intentos fallidos permitidos con una cuenta que no existe) 
+
+DENY_THRESHOLD_VALID = 5 (Intentos falllidos con usuarios validos) 
+
+PURGE_DENY =5d (Tiempo de baneo de una IP. 5 dias en este caso) 
+
+BLOCK_SERVICE = sshd (Servicios que queremos proteger [ sshd, ALL...) 
+</code></pre>
+
+<p>Nota.- Tambien es posible arrancar el servicio con la opción &#8220;purge&#8221;  [/etc/init.d/denyhosts start &#8211;purge] para eliminar las ips bloqueadas y que se muestran en /etc/hosts.deny</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/debget/">Debget</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:47:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[debian-goodies]. Descarga un paquete del repositorio o, caso de estar instalado, muestra la versión.</p>
+
+<blockquote><p>$ debget debian-goodies</p>
+
+<p>$ debget 0ad</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ddrescue/">Ddrescue</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:47:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[make gcc g++]. Recuperación de discos dañados. Proceso:</p>
+
+<p>Descargar el paquete dd_rhelp (Comprobar si existe una versión posterior):</p>
+
+<blockquote><p>$ wget http://www.kalysto.org/pkg/dd_rhelp-0.1.2.tar.gz</p>
+
+<p>$ cd dd_rhelp-0.1.2</p>
+
+<p># ./dd_rhelp /dev/sdbx sdbx.img</p></blockquote>
+
+<p>Creará sdbx.img en el directorio actual, que podrá montarse:</p>
+
+<blockquote><p># mount -o loop sdbx.img /media/imagen</p></blockquote>
+
+<p>Comprobar posibles errores (para partición ext3):</p>
+
+<blockquote><p># fsck -y sdbx.img</p></blockquote>
+
+<p>Restaurar la imagen:</p>
+
+<blockquote><p># dd_rhelp sdbx.img /dev/sdax</p></blockquote>
+
+<p>Método de ejecutar ddrescue en dos pasadas, de forma que la primera sólo recupera los bloques que no contenga sectores defectuosos y el segundo se centre en recuperar el máximo de los defectuosos:</p>
+
+<blockquote><p># ddrescue -v -n /dev/sda /dev/sdb sda.txt</p>
+
+<p># ddrescue -v -r2 -d /dev/sda /dev/sdb sda.txt</p></blockquote>
+
+<p>Luego comprobar errores con fsck.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ddclient/">Ddclient</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:47:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Configurar pc con una ip fija. Requiere registro en dyndns.org. Durante la instalación preguntará los datos del registro pero si se prefiere puede editarse el archivo de configuración y colocarlos a mano</p>
+
+<blockquote><p># gedit /etc/ddclient.conf</p></blockquote>
+
+<p>Completar los campos login y password con los datos correspondientes:</p>
+
+<p>protocol=dyndns2</p>
+
+<p>use=web, web=checkip.dyndns.com, web-skip=&#8217;IP Address&#8217;</p>
+
+<p>server=members.dyndns.org</p>
+
+<p>login=Nombre_registrado_en_dyndns</p>
+
+<p>password=&#8217;contraseña_de_dyndns&#8217;</p>
+
+<p>nombre_de_dominio.com</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/dav/">Dav</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:47:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[dav-text]. Editor minimalista para ncurses.</p>
+
+<blockquote><p>$ dav archivo.txt</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/date/">Date</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:47:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Relacionado con fechas y calendarios.</p>
+
+<blockquote><p>$ date +%s  (en tiempo unix - desde el 1 de enero de 1970-)</p>
+
+<p>$ date -s &#8220;2010-01-10 16:59&#8221;  (forma de establecer la fecha y hora actual)</p>
+
+<p>$ date –u 0110170210  (Otra forma de establecer la fecha. mes 01, día 10, hora 17:02 y año 2010)</p>
+
+<p>$ date +&#8221;%A,%d-%m-%Y&#8221;</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<pre><code>%D (fecha en formato mm/dd/yy)
+
+%T (hora:minutos:segundos en formato 24h)
+
+%R (hora:minutos en formato 24h)
+
+%d (día del mes con 2 dígitos)
+
+%m (mes con 2 digitos)
+
+%y (año con 2 dígitos)
+
+%Y (año con 4 dígitos)
+
+%a (nombre abreviado del día)
+
+%A (nombre completo del día)
+
+%b (nombre abreviado del mes)
+
+%B (nombre completo del mes)
+
+%H (hora con 2 dígitos en formato 0-24h)
+
+%I (hora con 2 digitos en formato 0-12h)
+
+%M (Solo los minutos)
+
+%S (Solo los segundos)
+</code></pre>
+
+<blockquote><p>$ date +&#8221;%A,%d-%m-%Y&#8221; &#8211;date &#8216;1966/4/20 20500 days&#8217; (Para saber cuando alguien cumplirá 20500 días desde su nacimiento)</p>
+
+<p>$ watch -n1 &#8216;banner <code>date +%T</code>&#8217; (Rejoj digital en ascii)</p></blockquote>
+
+<p>1.-</p>
+
+<p>Saber la hora encualquier parte del mundo:</p>
+
+<blockquote><p>$ TZ=&#8221;America/Guatemala&#8221; date (Muestra la hora actual de Guatemala)</p>
+
+<p>$ TZ=&#8221;Europe/Berlin&#8221; date (Muestra la de Berlin)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/dansguardian/">Dansguardian</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:47:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[squid]. Filtro de contenidos web [cliente] que trabaja conjuntamente con el servidor proxy squid [servidor].</p>
+
+<p>Adaptar el archivo de configuración:</p>
+
+<blockquote><p># nano /etc/dansguardian/dansguardian.conf</p></blockquote>
+
+<p>Algunos parámetros a especificar [caso de no estarlo]:</p>
+
+<pre><code>language = 'spanish'
+
+reportinglevel = 3 #valores de 1, 2 y 3
+
+filterport = 8080
+
+proxyip = 127.0.0.1 #La misma ip del proxy squid
+
+proxyport = 3128
+</code></pre>
+
+<p>Guardar el archivo.</p>
+
+<p>El listado de conceptos [ip, nombre de dominio, frases&#8230; ] por los que se puede banear y conceptos excluidos en:</p>
+
+<blockquote><p># ls /etc/dansguardian/lists/</p></blockquote>
+
+<p>Algunos de los más usuales:</p>
+
+<p>bannedextensionlist (extensiones no permitidas)</p>
+
+<p>banneriplist (listado de ips no permitidas)</p>
+
+<p>bannedmimetypelist (Tipos MIME no permitidos)</p>
+
+<p>bannedregexpurllist  (Listado de expresiones a bloquear)</p>
+
+<p>bannedurllist (Bloquear partes especificas de un sitio)</p>
+
+<p>bannedsitelist (Bloquear sitios)</p>
+
+<p>bannedphraselist (Listado de frases prohibidas encerradas entre &lt; ></p>
+
+<p>exceptionsitelist (Lista de excepciones de sitios)</p>
+
+<p>exceptioniplist (lista de excepciones de direcciones IP)</p>
+
+<p>exceptionuserlist (Lista de excepciones de nombres de usuarios que no serán filtrado)</p>
+
+<blockquote><p># /etc/init.d/dansguardian restart</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -204,362 +677,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/zypper/">Zypper</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Gestor de paquetes de opensuse (rpm)</p>
-
-<blockquote><p># zypper (Generar una lista de paquetes instalados)</p>
-
-<p># zypper repos (Listar repositorios)</p>
-
-<p># zypper install paquete  (Instalar paquete)</p>
-
-<p># zypper install rutadelpaquete (Instalar paquetes que no está en los repositorios)</p>
-
-<p># zypper install &#8211;force paquete (Reinstalar)</p>
-
-<p># zypper remove paquete (Desinstalar paquete)</p>
-
-<p># zypper remove &#8211;clean-deps paquete (Desinstalar con dependencias)</p>
-
-<p># zypper search paquete (Buscar paquete)</p>
-
-<p># zypper help comando (ayuda para un comando)</p>
-
-<p># zypper update (Actualizar base de datos y el sistema)</p>
-
-<p># zypper info paquete (Buscar información de paquete)</p>
-
-<p># zypper clean (Limpiar caché e información obsoleta)</p>
-
-<p># zypper refresh (Actualizar información)</p>
-
-<p># zypper dist-upgrade (Actualizar distro)</p>
-
-<p># zypper al &#8216;paquete&#8217; (Descartar paquete para actualizaciones)</p>
-
-<p># zypper rl &#8216;paquete&#8217; (Desbloquear paquete del bloqueo anterior)</p>
-
-<p># zypper verify (Verificar dependencias)</p>
-
-<p># zypper intall-new-recommends (Instalar paquetes recomendados)</p>
-
-<p># zypper list-updates (Listar Actualizaciones disponibles)</p>
-
-<p># zypper list-patches (Listar parches disponibles)</p>
-
-<p># zypper patches (Instalar parches disponibles)</p>
-
-<p># zypper addrepo rutadelrepositorio (Añadir repositorio)</p>
-
-<p># zypper addrepo -f repositorio rutadelrepositorio (Añadir con actualización automática)</p>
-
-<p># zypper modifyrepo &#8211;disable repositorio (Desactivar repositorio)</p>
-
-<p># zypper removerepo nombredelrepositorio (Suprimir repositorio)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/zmore/">Zmore</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Pagina la visualización de un fichero comprimido (Ver more)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/zmap/">Zmap</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Herramienta que permite escanear las direcciones IP de todo Internet en menos de 1 hora. Para incrementar la velocidad, el escaneo no se realiza por orden de número de IPs sinó a saltos. Desgarga:</p>
-
-<blockquote><p>$ git clone https://github.com/zmap/zmap.git</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/zless/">Zless</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Pagina la visualización de un fichero comprimido (Ver less).</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/zip/">Zip</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>comprime y empaqueta</p>
-
-<blockquote><p>$ zip archivo.zip fichero1 fichero2 (Comprimir varios ficheros)</p>
-
-<p>$ zip -r archivo.zip file1 file2 dir1 (comprimir varios files y directorios)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/zgrep/">Zgrep</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>imprime las líneas que cumplan la expresión regula sobre ficheros comprimidos (Ver grep)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/zfgrep/">Zfgrep</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Busca cadenas de texto fijas sobre archivos comprimidos (ver fgrep)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/zenity/">Zenity</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Creación de dialogos gráficos simples. Especialmente para scripts.</p>
-
-<blockquote><p>$ zenity -?   (muestra las opciones de la aplicación y de ayuda)</p>
-
-<p>$ zenity &#8211;title Archivo &#8211;width 800 &#8211;height 600 &#8211;text-info &#8211;filename /home/usuario/archivo.txt (mostrar un archivo)</p>
-
-<p>$ zenity &#8211;info &#8211;text=&#8221;Este PC va a explotar en 10 segundos. Date por muerto.&#8221;</p>
-
-<p>$ zenity &#8211;password &#8211;username (Muestra diálogo entrar usuario y contraseña)</p>
-
-<p>$ zenity &#8211;calendar (Muestra el calendario)</p>
-
-<p>$ zenity &#8211;scale (Muestra la escala)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -581,43 +698,43 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/dig/">dig</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/denyhosts/">denyhosts</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/debget/">debget</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/ddrescue/">ddrescue</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/ddclient/">ddclient</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/dav/">dav</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/date/">date</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/dansguardian/">dansguardian</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/cups/">cups</a>
       </li>
     
       <li class="post">
         <a href="/blog/csscapture/">csscapture</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zypper/">zypper</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zmore/">zmore</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zmap/">zmap</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zless/">zless</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zip/">zip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zgrep/">zgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zfgrep/">zfgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zenity/">zenity</a>
       </li>
     
   </ul>

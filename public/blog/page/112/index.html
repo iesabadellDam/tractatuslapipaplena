@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Extensión de los paquetes para distros Debian. 1.- Crear un paquete para esta distro a partir de un script: $ mkdir deb En ese directorio recrear la &hellip;">
+  <meta name="description" content="Depurador de sistemas ext. Permite consultar datos del sistema en tiempo real. # debugfs (Entra en el promt de la aplicación. Pulsar letra &#8220;q&# &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,232 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/debugfs/">Debugfs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:06:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Depurador de sistemas ext. Permite consultar datos del sistema en tiempo real.</p>
+
+<blockquote><p># debugfs (Entra en el promt de la aplicación. Pulsar letra &#8220;q&#8221; para salir del promt)</p></blockquote>
+
+<p>debugfs 1.42 (29-Nov-2011)</p>
+
+<p>debugfs: help (Muestra un listado de todas las opciones)</p>
+
+<p>debugfs: open /dev/sda2 (Abre un sistema de archivos)</p>
+
+<p>debugfs: stats (información de los superbloques)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/debsums/">Debsums</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:06:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Verificar la integridad de los ficheros.</p>
+
+<blockquote><p># debsums -s &amp;> log.txt  (Modo silencioso [-s] y redirigiendo el resultado a un archivo para posterior análisis)</p>
+
+<p># cat log.txt | grep &#8220;mismatch&#8221; | cut -d &#8221; &#8221; -f4 | uniq > reinstall.txt (A partir del archivo anterior, listar los que se han de reinstalar)</p>
+
+<p># debsums -s | grep &#8220;mismatch&#8221; | cut -d &#8221; &#8221; -f4 | uniq > reinstall.txt (Lo mismo)</p>
+
+<p># apt-get install &#8211;reinstall <code>(cat reinstall.txt)</code>  (para instalarlos a partir del listado)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/deborphan/">Deborphan</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:06:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Visualizar paquetes huerfanos</p>
+
+<blockquote><p>$ deborphan &#8211;guess-all   (Los muestra todos)</p>
+
+<p># apt-get remove $(deborphan &#8211;guess-all)     (borra todos los mostrados)</p>
+
+<p># deborphan        (para ver las librerias huérfanas)</p>
+
+<p># dpkg -l $(deborphan)    (lo mismo que el anterior con más detalles)</p>
+
+<p># sudo dpkg &#8211;purge $(deborphan)   (eliminar los paquetes huérfanos)</p>
+
+<p># apt-get remove <code>deborphan</code> (Lo mismo)</p>
+
+<p># dpkg -l $(deborphan &#8211;find-config)  (para borrar configuraciones que no se han borrado tras la desinstalación de un paquete)</p>
+
+<p># dpkg &#8211;purge $(deborphan &#8211;ind-config)  (para eliminarlos)</p>
+
+<p># apt-get remove $(deborphan &#8211;guess-all)</p></blockquote>
+
+<p>Nota.- Normalmente estas aplicaciones han de repetirse varias veces hasta que al lanzar el comando no salga ninguna archivo huerfana.</p>
+
+<blockquote><p># deborphan | xargs sudo apt-get -y remove &#8211;purge (otra forma de eliminar paquetes huerfanos)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/debian-timeline/">Debian-timeline</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:06:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Línea de tiempo del proyecto Debian basado en Javascript y HTML: Versiones, bugs, lanzamientos importantes&#8230; Colocar en la barra de navegación:</p>
+
+<pre><code>http://usr/share/debian-timeline/index.html
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/debian-history/">Debian-history</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:06:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Historia de la distro Debian. Los idiomas disponibles son: Inglés, francés, alemán, italiano, japonés, coreano, portugués, ruso y lituano. Colocar en la barra de navegación [para el idioma francés]:</p>
+
+<pre><code>http://usr/share/doc/debian-history/fr/index.fr.html
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -327,122 +553,6 @@ $ cd picpuz
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ddrescue/">Ddrescue</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:06:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Recuperación de discos dañados. Proceso:</p>
-
-<p>Descargar el paquete dd_rhelp (Comprobar si existe una versión posterior):</p>
-
-<blockquote><p>$ wget http://www.kalysto.org/pkg/dd_rhelp-0.1.2.tar.gz</p>
-
-<p>$ cd dd_rhelp-0.1.2</p>
-
-<p># ./dd_rhelp /dev/sdbx sdbx.img</p></blockquote>
-
-<p>Creará sdbx.img en el directorio actual, que podrá montarse:</p>
-
-<blockquote><p># mount -o loop sdbx.img /media/imagen</p></blockquote>
-
-<p>Comprobar posibles errores (para partición ext3):</p>
-
-<blockquote><p># fsck -y sdbx.img</p></blockquote>
-
-<p>Restaurar la imagen:</p>
-
-<blockquote><p># dd_rhelp sdbx.img /dev/sdax</p></blockquote>
-
-<p>Método de ejecutar ddrescue en dos pasadas, de forma que la primera sólo recupera los bloques que no contenga sectores defectuosos y el segundo se centre en recuperar el máximo de los defectuosos:</p>
-
-<blockquote><p># ddrescue -v -n /dev/sda /dev/sdb sda.txt</p>
-
-<p># ddrescue -v -r2 -d /dev/sda /dev/sdb sda.txt</p></blockquote>
-
-<p>Luego comprobar errores con fsck.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ddclient/">Ddclient</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:06:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Configurar pc con una ip fija. Requiere registro en dyndns.org. Durante la instalación  ya preguntará los datos del registro en pero si se prefiere puede editarse el archivo de configuración y colocarlos a mano</p>
-
-<blockquote><p># gedit /etc/ddclient.conf</p></blockquote>
-
-<p>Completar los campos login y password con los datos correspondientes:</p>
-
-<p>protocol=dyndns2</p>
-
-<p>use=web, web=checkip.dyndns.com, web-skip=&#8217;IP Address&#8217;</p>
-
-<p>server=members.dyndns.org</p>
-
-<p>login=Nombre_registrado_en_dyndns</p>
-
-<p>password=&#8217;contraseña_de_dyndns&#8217;</p>
-
-<p>nombre_de_dominio.com</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
       <h1 class="entry-title"><a href="/blog/ddate/">Ddate</a></h1>
     
     
@@ -588,172 +698,6 @@ $ cd picpuz
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/dav/">Dav</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:06:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Editor minimalista para ncurses.</p>
-
-<blockquote><p>$ dav archivo.txt</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/date/">Date</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:06:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Relacionado con fechas y calendarios.</p>
-
-<blockquote><p>$ date +%s  (en tiempo unix - desde el 1 de enero de 1970-)</p>
-
-<p>$ date -s &#8220;2010-01-10 16:59&#8221;  (forma de establecer la fecha y hora actual)</p>
-
-<p>$ date –u 0110170210  (Otra forma de establecer la fecha. mes 01, día 10, hora 17:02 y año 2010)</p>
-
-<p>$ date +&#8221;%A,%d-%m-%Y&#8221;</p></blockquote>
-
-<p>Algunas opciones:</p>
-
-<p>%D  .- fecha (mm/dd/yy)</p>
-
-<p>%T   .- hora:minutos:segundos (formato 24h)</p>
-
-<p>%R   .- hora:minutos (formato 24h)</p>
-
-<p>%d   .- día del mes (2 dígitos)</p>
-
-<p>%m  .- mes (2 digitos)</p>
-
-<p>%y   .- año (2 dígitos)</p>
-
-<p>%Y   .- año (4 dígitos)</p>
-
-<p>%a   .- nombre abreviado del día.</p>
-
-<p>%A   .- nombre completo del día.</p>
-
-<p>%b   .- nombre abreviado del mes.</p>
-
-<p>%B   .- nombre completo del mes.</p>
-
-<p>%H   .- hora (2 dígitos) (0-23h)</p>
-
-<p>%I    .- hora (2 digitos) (0-12h)</p>
-
-<p>%M  .- Solo los minutos</p>
-
-<p>%S   .- Solo los segundos</p>
-
-<blockquote><p>$ date +&#8221;%A,%d-%m-%Y&#8221; &#8211;date &#8216;1966/4/20 20500 days&#8217; (Para saber cuando alguien cumplirá 20500 días desde su nacimiento)</p>
-
-<p>$ watch -n1 &#8216;banner <code>date +%T</code>&#8217; (Rejoj digital en ascii)</p></blockquote>
-
-<p>1.-</p>
-
-<p>Saber la hora encualquier parte del mundo:</p>
-
-<blockquote><p>$ TZ=&#8221;America/Guatemala&#8221; date (Muestra la hora actual de Guatemala)</p>
-
-<p>$ TZ=&#8221;Europe/Berlin&#8221; date (Muestra la de Berlin)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/darkstat/">Darkstat</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:06:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Analizar el tráfico de red via navegador. Una vez instalado arrancar el demonio:</p>
-
-<blockquote><p># /etc/init.d/darkstat start</p></blockquote>
-
-<p>Y pasado un tiempo visualizar los datos en: http://localhost:666</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/113/">&larr; Older</a>
@@ -777,43 +721,43 @@ $ cd picpuz
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/dig/">dig</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/denyhosts/">denyhosts</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/debget/">debget</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/ddrescue/">ddrescue</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/ddclient/">ddclient</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/dav/">dav</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/date/">date</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/dansguardian/">dansguardian</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/cups/">cups</a>
       </li>
     
       <li class="post">
         <a href="/blog/csscapture/">csscapture</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zypper/">zypper</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zmore/">zmore</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zmap/">zmap</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zless/">zless</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zip/">zip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zgrep/">zgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zfgrep/">zfgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zenity/">zenity</a>
       </li>
     
   </ul>

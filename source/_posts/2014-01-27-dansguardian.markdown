@@ -1,31 +1,31 @@
 ---
 layout: post
 title: "dansguardian"
-date: 2014-01-27 20:06
+date: 2014-01-27 20:47
 comments: true
 categories: 
 ---
-Filtro de contenidos web (cliente) que trabaja conjuntamente con el servidor proxy squid (servidor).
+[squid]. Filtro de contenidos web [cliente] que trabaja conjuntamente con el servidor proxy squid [servidor].
 
 Adaptar el archivo de configuración:
 
 >\# nano /etc/dansguardian/dansguardian.conf
 
-Algunos parámetros a especificar (caso de no estarlo):
+Algunos parámetros a especificar [caso de no estarlo]:
 
-language = 'spanish'
+	language = 'spanish'
 
-reportinglevel = 3 #valores de 1, 2 y 3
+	reportinglevel = 3 #valores de 1, 2 y 3
 
-filterport = 8080
+	filterport = 8080
 
-proxyip = 127.0.0.1 #La misma ip del proxy squid
+	proxyip = 127.0.0.1 #La misma ip del proxy squid
 
-proxyport = 3128
+	proxyport = 3128
 
 Guardar el archivo.
 
-El listado de conceptos (ip, nombre de dominio, frases... ) por los que se puede banear y conceptos excluidos en:
+El listado de conceptos [ip, nombre de dominio, frases... ] por los que se puede banear y conceptos excluidos en:
 
 >\# ls /etc/dansguardian/lists/
 

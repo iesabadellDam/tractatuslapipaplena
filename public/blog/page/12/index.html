@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="[python, python-utidylib, tidy y python-ctypes] Permite auditar la seguridad de las aplicaciones web buscando secuencias de comandos y formas en las &hellip;">
+  <meta name="description" content="Descargar la portada de una página web y pasarla a pdf. $ webkit2pdf -f test.%02d.pdf -o web http://lapipaplena.net (Que la descargue y la guarde [f &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,362 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/webkit2pdf/">Webkit2pdf</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Descargar la portada de una página web y pasarla a pdf.</p>
+
+<blockquote><p>$ webkit2pdf -f test.%02d.pdf -o web http://lapipaplena.net (Que la descargue y la guarde [f] en formato &#8220;test.00.pdf&#8221; y en el directorio web [o])</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/webfsd/">Webfsd</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Sencillo servidor HTTP para contenido estático. Carece de archivos de configuración por lo que todas sus funcionalidades se pueden controlar por parámetro. Acceso por navegador con http://url_o_ip:puerto.</p>
+
+<blockquote><p>$ webfsd -r /home/usuario/videos -p 12001 (Compartir el directorio &#8220;videos&#8221; por el puerto 12001 y actuando como demonio. Matar el proceso con killall webfsd)</p>
+
+<p>$ webfsd -F -r /home/usuario/videos -p 12001 -b pepe:1234 (Solicitando nombre de usuario y contraseña y sin actuar como demonio [-F]. Matar el proceso con Ctrl+c)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/webcheck/">Webcheck</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Revisa una URL, siguiendo sus enlaces y genera un informe index.html en el presente directorio.</p>
+
+<blockquote><p># webcheck http://lapipaplena.net</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/webalizer/">Webalizer</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Genera reportes en formato html de los accesos a una página web instalada en la misma máquina.</p>
+
+<p>Configuración mínima:</p>
+
+<blockquote><p># nano /etc/webalizer/webalizer.conf</p></blockquote>
+
+<p>Verificando que el siguiente contenido esté descomentado:</p>
+
+<pre><code>LogFile         /var/log/apache2/access.log
+
+OutputDir       /var/www/webalizer
+
+Incremental     yes
+
+ReportTitle     Estidísticas de PAGINAWEB_NOMBRE
+
+Hostname URL_PAGINA
+
+IgnoreSite      localhost
+</code></pre>
+
+<p>Especificamos los logs a analizar [logfile], el directorio de salida de los resultados [outputdir], que analice todo por separado [incremental], título de la página de reporte [reporttitle], nombre de la página a analizar [hostname] y que innore los accesos desde la propia máquina [ignoresite]</p>
+
+<blockquote><p># webalizer -c /etc/webalizer.conf -d (que se base en el archivo especificado [-c] y que haga debugging de los reportes por si todo salió sin errores [-d])</p></blockquote>
+
+<p>Dado que los reportes solo se realizan cuando se ejecuta el comando, es preferible colocar la linea en crontab:</p>
+
+<blockquote><p>$ crontab -e</p></blockquote>
+
+<p>Y añadir:</p>
+
+<pre><code>0 0 * * * /usr/bin/webalizer -c /etc/webalizer.conf -d
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/weather/">Weather</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Estado del tiempo. Buscar el código de la ciudad en:</p>
+
+<p>http://www.nws.noaa.gov/tg/siteloc.shtml</p>
+
+<blockquote><p>$ weather -m -v LEGE  (En decimal con la maxima información y para Gerona [España])</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/wc/">Wc</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Cuenta caracteres, lineas, palabras&#8230;</p>
+
+<blockquote><p>$ wc /etc/hosts /etc/fstab (Muestra lineas, palabras y caracteres de los dos archivos)</p>
+
+<p>$ wc -c /etc/fstab (bytes)</p></blockquote>
+
+<p>opciones:</p>
+
+<p>-l (cantidad de líneas)</p>
+
+<p>-w (cantidad de palabras)</p>
+
+<p>-m (total de caracteres.)</p>
+
+<p>-L (la longitud de la línea más larga del texto)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/watch/">Watch</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>permite ejecutar repetidamente una sentencia u otro comando</p>
+
+<blockquote><p>$ watch -n 5 date (mostrará la fecha cada cinco segundos)</p>
+
+<p>$ watch -tn1 &#8216;date +%r | figlet&#8217; (muestra la hora en un digital en consola)</p>
+
+<p>$ watch -tn1 &#8216;date &#8220;+%r %F %A&#8221;&#8217;  (Muestra la fecha completa)</p>
+
+<p>$ watch -n3 free -m (monitor de ram)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/wapua/">Wapua</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Navegador que muestra el código WML de la páginas visitadas.</p>
+
+<blockquote><p>$ wapua lapipaplena.org</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -174,338 +530,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/wait/">Wait</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Indica el estado de un proceso que se está ejecutando o se ha ejecutado en background o espera a que se realice determinado proceso o trabajo para continuar.</p>
-
-<blockquote><p>$ wait</p>
-
-<p>$ wait PID  (Indicando el PID)</p>
-
-<p>$ wait %2  (Indicando el número de proceso)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/w3m/">W3m</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Navegador</p>
-
-<blockquote><p>$ w3m -v URL (Para visualizar las url con imágenes en las tty)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/w/">W</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[who]</p>
-
-<p>Muestra quien está conectado y las sesiones que tiene abiertas.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/vte/">Vte</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Terminal</p>
-
-<blockquote><p>$ vte -T (Lanza terminal semitransparente)</p>
-
-<p>$ vte -g 60x10 -r red (Especificando medidas y color del cursor)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/vtclock/">Vtclock</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Reloj digital.</p>
-
-<blockquote><p>$ vtclock -2 -d 1 (Usando la fuente 2 [de 1 a 5] y desplazandose por la terminal cada segundo)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/vsftpd/">Vsftpd</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Servidor de archivos ftp. Toda la configuración de encuentra en el archivo:</p>
-
-<blockquote><p># nano /etc/vsftpd.conf</p></blockquote>
-
-<p>Algunos de los parámetros:</p>
-
-<p>anonymous_enable=NO # si no queremos accesos anonimos</p>
-
-<p>local_enable=YES # Permitir accesos locales autentificados</p>
-
-<p>write_enable=YES # Permite escritura en el servidor</p>
-
-<p>ftpd_banner=Entrando en el servidor ftp&#8230;</p>
-
-<p>chroot_local_user=YES # Enjaular la conexión a su propio directorio personal</p>
-
-<p>max_clients=5 # limitar a 5 los accesos simultaneos</p>
-
-<p>Nota.- Han de redigirirse los puertos 20 y 21 y el rango especificado en el archivo de configuración:</p>
-
-<p>pasv_min_port=44000</p>
-
-<p>pasv_max_port=44100</p>
-
-<p>El cliente podrá conectarse al servidor via filezilla, gftp&#8230;</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/vrms/">Vrms</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Para saber los paquetes contrib y non-free instalados y su porcentaje en el sistema en Debian.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/vol-id/">Vol_id</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Mostrar tipo de fichero y uuid de una partición</p>
-
-<blockquote><p># vol_id &#8211;export /dev/sda2</p>
-
-<p># vol_id &#8211;uuid /dev/sda2  (solo muestra el uuid)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/13/">&larr; Older</a>
@@ -529,43 +553,43 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/dig/">dig</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/denyhosts/">denyhosts</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/debget/">debget</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/ddrescue/">ddrescue</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/ddclient/">ddclient</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/dav/">dav</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/date/">date</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/dansguardian/">dansguardian</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/cups/">cups</a>
       </li>
     
       <li class="post">
         <a href="/blog/csscapture/">csscapture</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zypper/">zypper</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zmore/">zmore</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zmap/">zmap</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zless/">zless</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zip/">zip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zgrep/">zgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zfgrep/">zfgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zenity/">zenity</a>
       </li>
     
   </ul>

@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="configurar nuevamente la zona horaria
-">
+  <meta name="description" content="Fija los permisos de un fichero o directorio. $ umask (muestra permisos actuales. Normalmente 0022 o 0002) $ umask 0002 (activa los permisos 775 para &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +74,442 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/umask/">Umask</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Fija los permisos de un fichero o directorio.</p>
+
+<blockquote><p>$ umask (muestra permisos actuales. Normalmente 0022 o 0002)</p>
+
+<p>$ umask 0002 (activa los permisos 775 para el presente directorio. Elprimer cero, indica que los datos serán dados en octal. Los otros tres números [002] han de restarse de 777 para tener los permisos del fichero o directorio)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ulimit/">Ulimit</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Permite  visualizar o limitar los recursos del sistema.</p>
+
+<blockquote><p># ulimit -f 512000 (limita a los usuarios para que no puedan crear archivos de mayor tamaño que 512000 Kb [500 #Mb])</p>
+
+<p>$ ulimit -a   (ver todos los parámetros)</p></blockquote>
+
+<p>Parámetros:</p>
+
+<pre><code>core (Tamaño máximo de los ficheros core [KB])
+
+data (Tamaño máximo para el segmento de datos [KB])
+
+fsize (Tamaño máximo para los ficheros [KB])
+
+memlock (Tamaño máximo para el espacio de direcciones bloqueado en memoria [KB])
+
+nofile (Número máximo de ficheros abiertos)
+
+rss (Tamaño máximo del conjunto residente en memoria [KB])
+
+stack (Tamaño máximo para la pila [KB])
+
+cpu (Tiempo máximo de CPU [minutos])
+
+nproc (Número máximo de procesos)
+
+as (Límite en el espacio de direcciones)
+
+maxlogins (Número máximo de logins)
+
+priority (Prioridad de base para los procesos del usuario)
+
+locks (Número máximo de ficheros bloqueados que el usuario puede mantener)
+</code></pre>
+
+<p>Nota.- El ámbito de aplicación del límite puede ser un nombre de usuario, un grupo (@grupo) o todos (*)</p>
+
+<p>Un ejemplo de limit.conf:</p>
+
+<pre><code>*               soft    nproc           10000
+
+*               hard    nproc           4096
+
+*               soft    core            unlimited
+
+*               hard    core            unlimited
+
+*               soft    memlock         131072
+
+*               hard    memlock         131072
+
+*               soft    nofile          102400
+
+*               hard    nofile          102400
+</code></pre>
+
+<p>1.-</p>
+
+<p>Evitar Forkboms [programas que consumen la totalidad de los recursos del sistema]</p>
+
+<p>Si al lanzar el comando:</p>
+
+<blockquote><p>$ ulimit -u</p></blockquote>
+
+<p>El resultado es “ilimitado” o un valor extremadamente alto, podemos ser victimas de los forkbombs. Para resolverlo podemos limitar el número de procesos abiertos a 1000 para que estos no puedan llegar a colapsar el sistema:</p>
+
+<blockquote><p># gedit /etc/security/limits.conf</p></blockquote>
+
+<p>Añadir antes de “End of file”:   * hard nproc 1000</p>
+
+<p>Reiniciar</p>
+
+<p>2.-</p>
+
+<p>En ciertas ocasiones, al procesar muchos archivos, se produce un error &#8220;for output (Too many open files)&#8221; porque se desborda el limite de 1024 k. Para solucionarlo:</p>
+
+<blockquote><p># nano /etc/security/limits.conf</p></blockquote>
+
+<p>Y añadir las siguientes lineas:</p>
+
+<pre><code>*    soft    nofile    9000
+
+*    hard    nofile    65000
+</code></pre>
+
+<p>3.-</p>
+
+<p>Limitar la cantidad de usuarios conectados al sistema:</p>
+
+<blockquote><p># nano /etc/security/limits.conf</p></blockquote>
+
+<p>Y en el parámetro maxlogins modificamos el número que deseemos:</p>
+
+<pre><code>*    -       maxlogins 3
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ul/">Ul</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Subrayado de palabras en la terminal.</p>
+
+<pre><code>$ echo $'linux es g\b_e\b_n\b_i\b_a\b_l\b_ ' | ul (Cada letra a subrayar ha de ir seguida de \b_)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ufw/">Ufw</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Cortafuegos</p>
+
+<blockquote><p># ufw enable (activar el cortafuegos. “disable” para desactivarlo)</p>
+
+<p># ufw deny 4662 (bloquea el puerto)</p>
+
+<p># ufw delete deny 4662 (Elimina una regla)</p>
+
+<p># ufw allow smtp (permitir servicios concretos)</p>
+
+<p># ufw status (visualizar las normas definidas)</p>
+
+<p># ufw status verbose (Información de estado con mayor detalle)</p>
+
+<p># ufw default allow (permitir todo por defecto)</p>
+
+<p># ufw default deny (bloquear todo por defecto)</p>
+
+<p># ufw deny from ip (bloquear dirección ip)</p>
+
+<p># ufw logging on (activar los logs. “off” para desactivarlos. Herramienta de registro: fwanalog, fwlogwatch, o lire.)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/udisks/">Udisks</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Comando para montar y desmontar volumenes usando el demonio que llaman programas como Nautilus o Thunar. Con este método conseguimos que desde estos programas se pueda desmontar cómodamente la partición y además sin necesidad de permisos.</p>
+
+<blockquote><p>$ udisks &#8211;mount /dev/sda1 (montará esta partición).</p>
+
+<p>$ udisks &#8211;unmount /dev/sda1 (desmontará esta partición).</p>
+
+<p>$ udisks &#8211;monitor (Monitoriza la actividad del demonio. Muy útil para verificar si una partición es montada o no)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/udiskie/">Udiskie</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Herramienta  para montar automaticamente unidades en Archlinux. Debe arrancarse el servicio antes de ejecutarse el gestor de ventanas en el archivo .xinitrc. Un ejemplo:</p>
+
+<blockquote><p># nano .xinitrc</p></blockquote>
+
+<p>udiskie &amp;</p>
+
+<p>exec openbox-session</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/tzwatch/">Tzwatch</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Muestra las zonas horarias especificadas por el usuario y las guarda en el archivo ~/.tzlist.</p>
+
+<blockquote><p>$ tzwatch -c (Lanzar tantas veces como de zonas horarias se quiere disponer de información y seguir las instrucciones: Add Zone, Americas, 26 [Guatemala], mostrará la información y preguntará si es correcta, 1 [yes] y Done [salir])</p>
+
+<p>$ tzwatch (Mostrará hora local de cada una de las zonas elegidas)</p></blockquote>
+
+<pre><code>[~]$ tzwatch
+
+Mon Oct  7 02:39:39 CST 2013   Australia/Adelaide
+
+Sun Oct  6 18:09:39 CEST 2013   Europe/Madrid
+
+Sun Oct  6 10:09:39 CST 2013   America/Guatemala
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/tzselect/">Tzselect</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Pregunta al usuario información sobre la localización actual y muestra la descripción de la zona horaria correspondiente.</p>
+
+<blockquote><p>$ tzselect</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -148,396 +583,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/type/">Type</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Buscar la ubicación del ejecutable e informar si el comando es un alias.</p>
-
-<blockquote><p>$ type mplayer</p>
-
-<p>$ type -a algo (Conocer todas las definiciones de “algo”, teniendo en cuenta que si “algo” es una alias, una función y un script prevalece este orden)</p>
-
-<p>$ type -t cp (Conocer el tipo de un símbolo)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/txt2tags/">Txt2tags</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Convertir archivos de texto a distintos formatos.</p>
-
-<blockquote><p>$ txt2tags -t html fichero.txt   (convierte .txt en .html)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/txt2html/">Txt2html</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Convertir texto a html.</p>
-
-<blockquote><p>$ txt2html archivo.txt &#8211;outfile archivo.html</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/twistd/">Twistd</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Crear un servidor en el directorio especificado</p>
-
-<blockquote><p>$ twistd -n web &#8211;path .   (Servidor web en el actual)</p>
-
-<p>$ twistd -n web &#8211;path /home/usuario/Desktop (en el escritorio)</p></blockquote>
-
-<p>Para acceder a él desde la red local en el navegador http://IP_local:8080</p>
-
-<blockquote><p>$ twistd ftp -p 2131 -r /home/usuario/Desktop &#8211;userAnonymous=juanito (crear un servidor ftp en el escritorio con el usuario juanito sin contraseña y el puerto 2131)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/twidge/">Twidge</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Twittear desde la linea de consola.</p>
-
-<p>twidge setup (Configuración inicial)</p>
-
-<p>twidge lsrecent (Leer los últimos mensajes)</p>
-
-<p>twidge update &#8220;Texto&#8221; (Escribir nuevo mensaje)</p>
-
-<p>twidge lsfollowers (ver listado de seguidores)</p>
-
-<p>twidge following ((ver listado de los que seguimos)</p>
-
-<p>twidge follow &#8220;usuario&#8221; (seguir al usuario especificado)</p>
-
-<p>twidge unfollow &#8220;usuario&#8221; (Dejar de seguir a un usuario)</p>
-
-<p>twidge lscommands (Listado de acciones)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/tvenlinux-dot-sh/">TVenLinux.sh</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[mplayer, zenity, rtmpdump y curl]</p>
-
-<p>Script para poder ver prácticamente todos los canales de la TDT a través de Internet. Descarga: http://www.tvenlinux.com/TVenLinux.sh. Despues de otorgar permisos [chmod +x TVenLinux.sh) ejecutar con ./TVenLinux.sh.</p>
-
-<p>Atajos</p>
-
-<p>q (Salir para cambiar de programa o finalizar)</p>
-
-<p>cursor izquierdo (Si el video y el audio están descompasados, podemos volver 10 segundos atrás y suele solucionar el problema)</p>
-
-<p>cursor derecho (Avanza 10 segundos)</p>
-
-<p>m (Silencia)</p>
-
-<p>p (Pausa / inicia la reproducción. En casos de desconexiones frecuentes, pausar la reproducción permite aumentar la caché)</p>
-
-<p>f (Pantalla completa)</p>
-
-<p>Mays + t (Siempre encima)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/tv3/">Tv3</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Descarga de videos de tv3.cat.</p>
-
-<blockquote><p>$ wget http://www.gnulinux.cat/dev/tv3.tar.gz</p>
-
-<p>$ tar -xvzf tv3.tar.gz</p>
-
-<p>$ cd tv3</p>
-
-<p>$ bash install</p></blockquote>
-
-<p>Una vez tengamos la URL del video [por ejemplo: http://www.tv3.cat/videos/4226490/Especial-diada-de-Sant-Felix-a-Vilafranca]</p>
-
-<p>Arrancar la aplicación con el número que muestra:</p>
-
-<blockquote><p>$ tv3 4226490</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/tune2fs/">Tune2fs</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Chequeo de la tabla de particiones</p>
-
-<blockquote><p># tune2fs -c 80 /dev/sda1 (cada 80 reinicios)</p>
-
-<p># tune2fs -i 2m /dev/sda1 (cada 2 meses)</p>
-
-<p># tune2fs -i 2w /dev/hda3 (cada 2 semanas)</p>
-
-<p># tune2fs -i 2d /dev/sda1 (cada 2 dias)</p>
-
-<p># tune2fs -l /dev/sdb1 (ver registro completo de la partición)</p>
-
-<p># tune2fs -l /dev/hda3 | grep ‘Last checked’ (ver fecha del último escaneo)</p>
-
-<p># tune2fs -l /dev/hda3 | grep -i check (veces que se fuerza el chequeo)</p>
-
-<p># tune2fs -i 0 /dev/hda3 (desactivar chequeo)</p>
-
-<p># showfsck (saber cuantas reiniciadas faltan hasta el proximo chequeo)</p>
-
-<p># tune2fs -l /dev/hda3 | grep -i ‘mount count’ (lo mismo que el anterior)</p>
-
-<p># tune2fs -m 1 /dev/sda1 (modificar el espacio reservado para root al 1%. Por defecto es del 5%. Ver dumpe2fs)</p>
-
-<p># tune2fs -O ^has_journal /dev/sda1 (Desactivar journaling en una partición)</p>
-
-<p># tune2fs -O has_journal /dev/sda1 (Activar journaling)</p></blockquote>
-
-<p>1.-</p>
-
-<p>Convertir sistema de archivos de ext3 a ext4. Desde un livecd o una partición no montada :</p>
-
-<blockquote><p># tune2fs -O extents,uninit_bg,dir_index /dev/sdax (convertir)</p>
-
-<p># fsck -pf /dev/sdax  (Para dar consistencia al nuevo sistema)</p>
-
-<p># mount -t ext4 /dev/sdax /media/punto_de_montaje (montar la unidad)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/21/">&larr; Older</a>
@@ -561,43 +606,43 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/dig/">dig</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/denyhosts/">denyhosts</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/debget/">debget</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/ddrescue/">ddrescue</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/ddclient/">ddclient</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/dav/">dav</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/date/">date</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/dansguardian/">dansguardian</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/cups/">cups</a>
       </li>
     
       <li class="post">
         <a href="/blog/csscapture/">csscapture</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zypper/">zypper</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zmore/">zmore</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zmap/">zmap</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zless/">zless</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zip/">zip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zgrep/">zgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zfgrep/">zfgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zenity/">zenity</a>
       </li>
     
   </ul>

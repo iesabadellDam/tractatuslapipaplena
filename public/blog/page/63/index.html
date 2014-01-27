@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="[metasploit] Consola centralizada con acceso a todo las opciones disponibles de Metasploit Framework, única soportada y estable con soporte para de &hellip;">
+  <meta name="description" content="Mostrar la ruta desde el directorio raiz hasta donde especifiquemos. $ namei $(pwd) (hasta el presente directorio) $ namei -m $(pwd)/archivo ( &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,690 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/namei/">Namei</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Mostrar la ruta desde el directorio raiz hasta donde especifiquemos.</p>
+
+<blockquote><p>$ namei $(pwd) (hasta el presente directorio)</p>
+
+<p>$ namei -m $(pwd)/archivo (mostrando permisos y propietarios)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/mysql/">Mysql</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Gestor de bases de datos [BDs]. Las BDs se guardan en el directorio /var/lib/mysql/</p>
+
+<blockquote><p>$ mysqldump -u root -p proveedores > fichero.sql (Crear un backup de la BD &#8220;proveedores&#8221;.)</p>
+
+<p>$ mysql proveedores &lt; fichero.sql (Restaurar la BD &#8220;proveedores&#8221; de un archivo)</p>
+
+<p>$ mysqlimport -u root -p clientes fichero.sql (Otra forma de restaurar una BD si esta ya existe)</p>
+
+<p>$ mysqldump -u root -p &#8211;all-databases > fichero.sql (Backup de todas las BDs)</p>
+
+<p>$ mysqldump -u root -p clientes proveedores > fichero.sql (Backup de dos BDs)</p>
+
+<p>$ mysqldump -u root -p proveedores &#8211;ignore-table=antiguos > fichero.sql (Backup ignorando una tabla)</p>
+
+<p>$ mysqldump -u root -p base_de_datos tabla1 tabla2 > tabla1_y_tabla2.sql (Exportar solo unas tablas de una BDs)</p>
+
+<p>$ mysql -u root -p1234 (Acceder a la BD con el usuario &#8220;root&#8221; y contraseña &#8220;1234&#8221;[nótese que la contraseña está junto a la &#8220;p&#8221;)</p>
+
+<p>$ mysql -u root -p (Pedirá contraseña para acceder a la BD con el usuario &#8220;root&#8221;)</p>
+
+<p>$ mysql -u root -p datos (Entrar en mysql y directamente en la BD &#8220;datos&#8221; [notese que la BDs está separada de la &#8220;p&#8221; por un espacio, sinó se tomaría como la contraseña])</p></blockquote>
+
+<p>Una vez en el prompt de mysql [Todas las sentencias han de terminar con un punto y coma [;] menos la sentencia &#8220;USE&#8221;]:</p>
+
+<p>mysql> SHOW VARIABLES LIKE &#8216;datadir&#8217;; (muestra el directorio donde se almacenan las BDs)</p>
+
+<p>mysql> show databases; (Mostrar las BDs existentes)</p>
+
+<p>mysql> create database datos; (Crear la BD &#8220;datos&#8221;)</p>
+
+<p>mysql> DROP DATABASE datos; (Borrar toda una base de datos. El directorio /var/lib/mysql/datos/ tiene que estar vacio)</p>
+
+<p>mysql> USE datos (Entrar en la BD &#8220;datos&#8221;. Sin punto y coma final)</p>
+
+<p>mysql> show tables; (Mostrar las tablas de la BD en la que se ha entrado)</p>
+
+<p>mysql> DESCRIBE una_tabla (Mostrar los campos de una tabla concreta)</p>
+
+<p>mysql> exit (Salir de mysql. Tambien con &#8220;quid&#8221; o Ctrl+d)</p>
+
+<p>mysql> select version(), current_date; (Mostrar versión de mysql y fecha)</p>
+
+<p>Modelo de creación de una tabla dentro de una BD mysql:</p>
+
+<pre><code>mysql&gt; CREATE TABLE usuarios( 
+
+-&gt; nombre VARCHAR(20), apellido VARCHAR(20), 
+
+-&gt; profesión VARCHAR(20), sexo CHAR(1), nacimiento DATE, 
+
+-&gt; antiguedad DATE); 
+</code></pre>
+
+<p>VARCHAR(20) (Que los valores que se almacenarán son de longitud variable de hasta 20 caracteres)</p>
+
+<p>CHAR(1) (Que el valor será fijo y solo tendrá un caracter)</p>
+
+<p>DATE (En formato YYYY-MM-DD)</p>
+
+<p>Para entrar datos en la tabla anterior, podemos crear un archivo de texto &#8220;usuarios.txt&#8221; que contenga un registro por línea con valores separados por tabuladores, cuidando que el orden de las columnas sea el mismo que utilizamos en la sentencia CREATE TABLE. Para valores que no conozcamos podemos usar valores nulos usando \N. Ejemplo:</p>
+
+<blockquote><p>$ nano usuarios.txt</p></blockquote>
+
+<pre><code>Juan    Borras  contable    m   1964-05-12  1988-03-27 
+
+Maria   Gil administrativo  f   1983-10-03  2004-08-05 
+
+Antonio Gomez   portero     m   \N      2006-11-01 
+</code></pre>
+
+<p>Nota.- El final del archivo no ha de contener ninguna linea en blanco. El archivo tiene que estar en /var/lib/mysql/datos (En el directorio de la misma base de datos donde se carga)</p>
+
+<p>Para cargarlo en la BD:</p>
+
+<p>mysql> LOAD DATA INFILE &#8220;usuarios.txt&#8221; INTO TABLE datos;</p>
+
+<pre><code>Nota.- En caso de que salga el error: The used command is not allowed with this MySQL version:
+
+# nano /etc/mysql/my.cnf
+
+Y en la sección [mysql] añadir la linea "local-infile": 
+
+    [mysql]
+
+    local-infile
+
+Reinciar mysql. 
+</code></pre>
+
+<p>LOAD DATA (Permite especificar cuál es el separador de columnas y el separador de registros. Por defecto el tabulador es el separador de columnas (campos) y el salto de línea es el separador de registros)</p>
+
+<p>Para añadir un nuevo registro a la BD anterior:</p>
+
+<pre><code>mysql&gt; INSERT INTO usuarios 
+
+    -&gt; VALUES('Jose','Robles','administrativo','m',NULL,'2012-12-01'); 
+</code></pre>
+
+<p>Valores y fechas entre comillas simples y valores desconocidos NULL y no \N como entrando un archivo.</p>
+
+<p>mysql> SELECT * FROM usuarios; (Ver toda la tabla para comprobar si se ha añadido el último registro)</p>
+
+<p>Para modificar un registro puede realizarse borrando toda la tabla de datos y entrando nuevamente el archivo usuarios.txt si este está actualizado:</p>
+
+<p>mysql> DELETE FROM usuarios;</p>
+
+<p>mysql> LOAD DATA INFILE &#8220;usuarios.txt&#8221; INTO TABLE usuarios;</p>
+
+<p>O modificando solo el registro que corresponda:</p>
+
+<p>mysql> UPDATE usuarios SET nacimiento=&#8221;1959-04-12&#8221; WHERE apellido=&#8221;Gomez&#8221;; (Modificar campo &#8220;nacimiento&#8221; del apellido &#8220;Gomez&#8221;</p>
+
+<p>mysql> SELECT * FROM usuarios WHERE apellido=&#8221;Gomez&#8221;; (Verificar si se ha realizado la modificación)</p>
+
+<p>mysql> SELECT * FROM usuarios WHERE nacimiento >= &#8220;1990-1-1&#8221;; (filtrar los que han nacido antes de la fecha indicada)</p>
+
+<p>mysql> SELECT * FROM usuarios WHERE profesion=&#8221;administrativo&#8221; AND sexo=&#8221;f&#8221;; (filtrar los administrativos de sexo femenino)</p>
+
+<p>mysql> SELECT * FROM usuarios WHERE profesion=&#8221;portero&#8221; OR profesion=&#8221;contable&#8221;; (filtrar porteros y contables)</p>
+
+<pre><code>mysql&gt; SELECT * FROM usuarios WHERE (profesion="portero" AND sexo="f") 
+
+    -&gt; OR (nombre = "juan" AND sexo = "m"); (Filtrar distintas opciones encerradas entre parentesis) 
+</code></pre>
+
+<p>mysql> SELECT apellido, nacimiento FROM usuarios;</p>
+
+<p>mysql> SELECT antiguedad FROM usuarios; (Filtrar la columna &#8220;antiguedad&#8221;)</p>
+
+<p>mysql> SELECT nombre, nacimiento FROM usuarios ORDER BY nacimiento; (Ordenar por fecha nacimiento)</p>
+
+<p>mysql> SELECT * FROM la_tabla ORDER BY la_columna; (Ordenar por el número de una columna)</p>
+
+<p>mysql> DELETE FROM usuarios WHERE nombre=&#8217;Maria&#8217;; (Eliminar toda la entrada que contenga &#8220;Maria&#8221;)</p>
+
+<p>mysql> DROP TABLE usuarios; (Eliminar una tabla)</p>
+
+<p>mysql> DROP TABLE IS EXIST usuarios; (Eliminar tabla si existe)</p>
+
+<p>mysql> CHECK TABLE la_tabla EXTENDED; (Chequear la integridad de una tabla)</p>
+
+<p>mysql> REPAIR TABLE la_tabla; (Reparar una tabla)</p>
+
+<p>1.-</p>
+
+<p>En ciertos casos, para resolver el error: mysqldump: Got error: xxxx: Table &#8216;xxxxxxxxx&#8217; doesn&#8217;t exist when using LOCK TABLES:</p>
+
+<blockquote><p>$ mysqldump -u root -p BDs &#8211;single-transaction > dump.sql</p></blockquote>
+
+<p>2.-</p>
+
+<p>Otro sistema para importar una base de datos. Primero crearla, entrar en ella y ejecutar el source sobre el fichero sql:</p>
+
+<pre><code>mysql&gt; CREATE DATABASE datos;
+
+mysql&gt; USE datos;
+
+mysql&gt; SOURCE datos.sql;
+</code></pre>
+
+<p>3.-</p>
+
+<p>Exportar una tabla a txt con determinado formato:</p>
+
+<pre><code>mysql&gt; SELECT * FROM tabla INTO OUTFILE "tabla.txt"
+
+   --&gt; FIELDS TERMINATED BY '   '
+
+   --&gt; LINES TERMINATED BY '\n\n\r';
+</code></pre>
+
+<p>FIELDS TERMINATED BY &#8217;  &#8217; (indica que los campos de cada línea terminarán con dos espacios.</p>
+
+<p>LINES TERMINATED BY &#8216;\n\n\r &#8216;(indica el carácter como acaba cada linea, en este caso dos saltos de línea y retorno de carro</p>
+
+<p>otras instrucciones de formato:</p>
+
+<p>ENCLOSED BY &#8216;&#8221;&#8217; (Que los campos de tipo char, text, binary y enum de cada línea se entrecomillan)</p>
+
+<p>IGNORE 1 LINES (No cargar la primera línea del fichero de texto)</p>
+
+<p>LINES STARTING BY &#8216;&#8212;&#8217; (Que todas las líneas empiezen con &#8220;&#8212;&#8221;.</p>
+
+<p>4.-</p>
+
+<p>Ejemplo parecido al anterior pero ordenando el fichero por el segundo campo:</p>
+
+<pre><code>mysql&gt; SELECTC campo1,campo2,campo3 FROM tabla ORDER BY campo2 INTO OUTFILE "campos.txt"
+
+--&gt; FIELDS TERMINATED BY ' '
+
+--&gt; LINES TERMINATED BY '\n\r';
+</code></pre>
+
+<p>5.-</p>
+
+<p>Gestion de usuarios.</p>
+
+<p>Cuando creamos un nuevo usuario en MySQL, éste queda identificado por su nombre de usuario más el nombre o IP del ordenador desde el cual hemos dicho que accederá (el carácter comodín &#8216;%&#8217; representa varios ordenadores).</p>
+
+<p>Ejemplos:</p>
+
+<pre><code> juan
+
+ juan@'%'
+
+ juan@localhost
+
+ juan@'192.168.1.%'
+
+ juan@'%.dominio.org'
+</code></pre>
+
+<p>mysql> SELECT User,Host,Password FROM mysql.user; (Ver los usuarios)</p>
+
+<p>mysql> CREATE USER juan@&#8217;%&#8217; IDENTIFIED BY &#8216;1234&#8217;; (Crear un usuario con la contraseña 1234)</p>
+
+<p>mysql> CREATE USER john IDENTIFIED BY &#8216;1234&#8217;, peter IDENTIFIED BY &#8216;4321&#8217;; (Crear dos usuarios)</p>
+
+<p>mysql> RENAME USER john TO juan, peter TO pedro;</p>
+
+<p>mysql> DROP USER juan, pedro; (Borrar dos usuarios)</p>
+
+<p>mysql> SET PASSWORD FOR juan = PASSWORD(&#8216;abcde&#8217;) (Cambiar la contraseña de un usuario)</p>
+
+<p>mysql> SHOW GRANTS FOR pedro; (Ver los privilegios de un usuario)</p>
+
+<p>mysql> GRANT ALL ON <em>.</em> TO juan@localhost (Otorgar todos los privilegios a un usuario)</p>
+
+<p>mysql> REVOKE ALL ON <em>.</em> FROM juan@localhost; (Anular todos los privilegios de un usuario)</p>
+
+<p>6.-</p>
+
+<p>Acceso remoto a mysql con el usuario root:</p>
+
+<blockquote><p># nano /etc/mysql/my.cnf</p></blockquote>
+
+<p>Comentar la linea:</p>
+
+<pre><code>#bind-address           = 127.0.0.1
+</code></pre>
+
+<p>Reiniciar el servicio:</p>
+
+<blockquote><p># /etc/init.d/mysql restart</p></blockquote>
+
+<p>Entrar en el prompt de mysql y otorgar privilegios:</p>
+
+<blockquote><p># mysql -u root -p</p></blockquote>
+
+<p>Entrar la contraseña y:</p>
+
+<pre><code>mysql&gt; GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'la_contraseña' WITH GRANT OPTION;
+
+mysql&gt; FLUSH PRIVILEGES;
+
+mysql&gt; exit
+</code></pre>
+
+<p>7.-</p>
+
+<p>Solucionar:ERROR 1045 (28000): Access denied for user &#8216;root&#8217;@&#8217;localhost&#8217; (using password: NO)</p>
+
+<blockquote><p># /etc/init.d/mysql stop (Detener el servicio)</p>
+
+<p># mysqld_safe &#8211;user=mysql &#8211;skip-grant-tables (Saltar privilegios de MySQL)</p>
+
+<p>$ mysql (En otra terminal entrar en MySQL)</p></blockquote>
+
+<p>mysql> use mysql (Enrar en la BDs mysql)</p>
+
+<p>mysql> UPDATE user SET Password=PASSWORD(&#8216;12345&#8217;) WHERE user=&#8217;root&#8217;;(Actualizar el campo Password del usuario root)</p>
+
+<p>mysql> exit (Salir)</p>
+
+<blockquote><p>$ mysql -u root -p (Entrar en MySQL)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/mv/">Mv</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Mover o renombrar archivos o directorios</p>
+
+<blockquote><p>$ mv archivo archivo2 (renombrar &#8220;archivo&#8221; a &#8220;archivo2&#8221;)</p>
+
+<p>$ mv /home/usuario/index.html /var/www/  (mover archivo a otro directorio)</p>
+
+<p>$ mv -i (Pide confirmación de sobreescritura si existe el archivo o directorio)</p>
+
+<p>$ mv -f (Sobreescribe sin preguntar)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/mutt/">Mutt</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Gestión del correo por consola</p>
+
+<p>Editar /home/usuario/.muttrc y añadir:</p>
+
+<p>set imap_user = &#8216;tu-correo@gmail.com&#8217;</p>
+
+<p>set imap_pass = &#8216;contraseña&#8217;</p>
+
+<p>set spoolfile = imaps://imap.gmail.com:993/INBOX</p>
+
+<p>set folder = imaps://imap.gmail.com:993</p>
+
+<p>set record=”imaps://imap.gmail.com/[Gmail]/Sent Mail”</p>
+
+<p>set postponed=”imaps://imap.gmail.com/[Gmail]/Drafts”</p>
+
+<p>set header_cache=”~/.mutt/cache/headers”</p>
+
+<p>set message_cachedir=”~/.mutt/cache/bodies”</p>
+
+<p>set certificate_file=~/.mutt/certificates</p>
+
+<p>Guardar.</p>
+
+<pre><code># mutt  (Para arrancar la aplicación en ncurses)
+
+$ echo | mutt -a paquete.tar.gz -s 'el paquete' -c juanito@gmail.com -b     pedrito@gmail.com  (enviar un paquete[-a], asunto[-s], carbon copy[cc] y    Blind Carbon Copy[bcc]
+
+$ mutt -s “asunto” destinatario@correo.com &lt;&lt;&lt; “mensaje a enviar”
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/music123/">Music123</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Reproductor de música.</p>
+
+<blockquote><p>$ music123 tema.mp3</p>
+
+<p>$ music123 tema1.mp3 tema2.wav tema3.ogg (Reproducir varios títulos)</p>
+
+<p>$ music123 -z -r . (Reproducir todos los temas del presente directorio [r .] de forma aleatoria [z])</p>
+
+<p>$ music123 -Z -q -r /rock (Reproducir sin fin [Z] el directorio especificado y sin mostrar salida en la consola [q])</p>
+
+<p>$ music123 -d 2 -r . (esperar 2 segundos entre tema y tema)</p>
+
+<p>$ music123 -r /rock tema1.mp3 /folk tema2.wav (Reproducir dos temas de dos directorios distintos)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/mupdf/">Mupdf</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Visor de archivos pdf</p>
+
+<blockquote><p>$ mupdf -b 8 -r 150 archivo.pdf (con la máxima calidad [de 0 a 8] y a 150 dpi de resolución [por defecto 72] si el pdf requiriese contraseña se añadiría con “-p contraseña”)</p></blockquote>
+
+<p>Arrancada la aplicación, algunas teclas de control son:</p>
+
+<pre><code>L M (Voltea el pdf)
+
+h j k l (scroll arriba/abajo y derecha/izquierda)
+
++ - (Aumentar/diminuir medida del texto)
+
+15g (Ir a la página 15)
+
+/ (Abre diálogo “buscar texto”)
+
+n N (Ir a la siguiente/anterior busqueda)
+
+. , (Página siguiente, página anterior)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/multitail/">Multitail</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Abrir en una ventana varios procesos tail.</p>
+
+<blockquote><p>$ multitail /var/log/messagess /var/log/apache2/access.log</p>
+
+<p>$ multitail -R 2 -l &#8220;netstat -t&#8221; -ci green /var/log/apache2/access.log -ci yellow /var/log/apache2/error.log</p>
+
+<p>$ multitail -a netstat.log -R 2 -l &#8220;netstat -t tcp&#8221; /var/log/apache/access.log</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<p>-ci red (muestra los log en rojo)</p>
+
+<p>-R 2     (actualiza cada 2 segundo)</p>
+
+<p>-l &#8220;comando&#8221;  (incluir un comando)</p>
+
+<p>-a archivo.log  (crear un archivo con los resultados del comando)</p>
+
+<p>-I  (muestra el log precedido de la &#8220;i&#8221; mayuscula en la misma ventana que el anterior)</p>
+
+<p>-s 2   (Mostrar el resultado en dos columnas)</p>
+
+<p>-sn 2,3  (Mostrar 2 resultados en la 1ª columna y 3 en la 2ª)</p>
+
+<p>Notas:</p>
+
+<pre><code>F1 (abrir la ayuda)
+
+^g (cerrar ventana ayuda)
+
+b   (selecionar proceso)
+
+q   (cerrar ventana proceso)
+
+v   (Cambiar la orientación horizontal/vertical)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/mtr/">Mtr</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Aplicación que combina las funcionalidades de traceroute y ping, probando cada uno de los saltos que hay desde que un paquete se envía hasta que llega a su destino.</p>
+
+<blockquote><p>$ mtr tuxapuntes.com</p></blockquote>
+
+<p>Atajos mientras está la aplicación ejecutándose:</p>
+
+<p>h ayuda</p>
+
+<p>d modo de visualización</p>
+
+<p>r reiniciar</p>
+
+<p>o orden de los campos</p>
+
+<p>q salir</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -406,398 +1090,6 @@ msf exploit(vsftpd_234_backdoor) &gt; [+] Backdoor service has been spawned, han
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/mrename/">Mrename</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Añade un prefijo al nombre del archivo</p>
-
-<blockquote><p>$ mrename &#8216;*.mp3&#8217; vacaciones -m  (sustituye los originales)</p>
-
-<p>$ mrename &#8216;*.mp3&#8217; vacaciones -c  (los copia con el prefijo)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/mpstat/">Mpstat</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>muestra estadísticas relacionadas con la CPU.</p>
-
-<blockquote><p># mpstat 2 -P ALL (actualiza cada 2 segundos)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/mplayer/">Mplayer</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Reproductor de video</p>
-
-<blockquote><p>$ mplayer -vo aa movie.avi   (en ascii)</p>
-
-<p>$ mplayer -vo aa:extended:driver=curses:contrast=50 movie.avi</p>
-
-<p>$ mplayer -vo caca movie.avi  (en color)</p>
-
-<p>$ mplayer -vo fbdev file.mpeg  (reproduce en blanco y negro)</p>
-
-<p>$ mplayer -vo fbdev2 file.mpeg (reproduce en color)</p>
-
-<p>$ mplayer -vo fbdev2 -fs -zoom -double file.avi</p></blockquote>
-
-<p>-vo -help (ver opciones del driver)</p>
-
-<blockquote><p>$ mplayer -cache 128 -tv driver=v4l2:width=176:height=177 -vo xv tv:// -noborder -geometry &#8220;95%:93%&#8221; -ontop  (Abre una ventana en la esquina inferior izquierda con imagenes de la webcam)</p>
-
-<p>$ mplayer mms://flux.cxnlive.com/oldiesfm  (Escuchar una emisora)</p>
-
-<p>$ mplayer -nolirc http://5253.live.streamtheworld.com/VIRGINRADIO_DUBAIAAC (Otra forma de escuvhar una emisora)</p>
-
-<p>$ mplayer http://192.168.1.115/img/video.asf -frames 1 -vo jpeg:quality=100:maxfiles=1  (Tomar una imagen [frames 1] de una ubicación en la red)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/mpgtx/">Mpgtx</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[comandos derivados: mpgsplit, mpgcat, mpgjoin, mpginfo, mpgdemux]</p>
-
-<p>manipulación de archivos mpeg.</p>
-
-<p>mpgtx -i equivalente a mpginfo</p>
-
-<p>mpgtx -s equivalente a mpgsplit</p>
-
-<p>mpgtx -j equivalente a mpgjoin</p>
-
-<p>mpgtx -j -o equivalente a mpgcat</p>
-
-<p>mpgtx -d equivalente a mpgdemux</p>
-
-<blockquote><p>$ mpgtx -s archivo.mpg [3:15-] -b cortado.mpg (Dejar de un mpg del minuto 3,15 al final y guardarlo en cortado.mpg)</p>
-
-<p>$ mpgtx -s archivo.mpg [3:15-10:30] -b cortado.mpg (Lo mismo pero dejando del minuto 3,15 al 10,30)</p>
-
-<p>$ mpgtx -100 arhivo.mpg -b cortado (creará 100 trozos del archivo.mpg con los nombres cortado-001, cortado-002&#8230;)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/mpg123/">Mpg123</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Reproducir mp3</p>
-
-<blockquote><p>$ mpg123 archivo.mp3</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/mpd/">Mpd</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Reproductor de audio con arquitectura servidor-cliente que gestiona listas de reproducción y bases de datos. Para hacer uso de una interfaz gráfica, es necesario un cliente tipo: sonata, ario, ncmpcpp o pms.Ajustes en la configuración:</p>
-
-<blockquote><p># nano /etc/mpd.conf</p></blockquote>
-
-<p>music_directory &#8220;/home/usuario/Musica&#8221;</p>
-
-<p>playlist_directory &#8220;/home/usuario/.mpd/playlists&#8221;</p>
-
-<p>db_file &#8220;/home/usuario/.mpd/mpd.db&#8221;</p>
-
-<p>log_file &#8220;/home/usuario/.mpd/mpd.log&#8221;</p>
-
-<p>pid_file &#8220;/home/usuario/.mpd/mpd.pid&#8221;</p>
-
-<p>state_file &#8220;/home/usuario/.mpd/mpdstate&#8221;</p>
-
-<p>user &#8220;usuario&#8221;</p>
-
-<p>group &#8220;usuario&#8221;</p>
-
-<p>bind_to_address &#8220;localhost&#8221;</p>
-
-<p>port &#8220;6600&#8221;</p>
-
-<p>Crear los archivos mencionados en la configuración:</p>
-
-<blockquote><p>$ touch /home/usuario/.mpd/playlists</p>
-
-<p>$ touch /home/usuario/.mpd/mpd.db</p>
-
-<p>$ touch /home/usuario/.mpd/mpd.log</p>
-
-<p>$ touch /home/usuario/.mpd/mpd.pid</p>
-
-<p>$ touch /home/usuario/.mpd/mpdstate</p></blockquote>
-
-<p>Arrancar el demonio:</p>
-
-<blockquote><p>$ mpd</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/mp3rename/">Mp3rename</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Renombra ficheros mp3 según sus propias etiquetas [id3 tag]</p>
-
-<blockquote><p>$ mp3rename -s &#8216;&amp;a_&amp;t&#8217; (establecer las opciones predeterminadas las cuales quedan anotadas en ~/.mp3rename)</p></blockquote>
-
-<p>Opciones:</p>
-
-<p>&amp;a  (artista), &amp;b (album), &amp;k (pista), &amp;t (título), &amp;y (año)</p>
-
-<blockquote><p>$ mp3rename *.mp3  (renombrará segun las opciones predeterminadas)</p>
-
-<p>$ mp3rename -i *.mp3 (muestra los id3 tag de todos los mp3)</p></blockquote>
-
-<p>Nota.- No siempre los id3tag estan disponibles o están completos</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/mp3info/">Mp3info</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Información sobre las etiquetas ID3 de archivos mp3blaster</p>
-
-<blockquote><p>$ mp3info archivo.mp3 (Ver la información ID3)</p>
-
-<p>$ mp3info -t titulo -a artista -l album -y año -c comentario -n pista -g genero archivo.mp3</p></blockquote>
-
-<p>(Entrar información ID3 para un archivo mp3)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/64/">&larr; Older</a>
@@ -821,43 +1113,43 @@ msf exploit(vsftpd_234_backdoor) &gt; [+] Backdoor service has been spawned, han
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/dig/">dig</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/denyhosts/">denyhosts</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/debget/">debget</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/ddrescue/">ddrescue</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/ddclient/">ddclient</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/dav/">dav</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/date/">date</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/dansguardian/">dansguardian</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/cups/">cups</a>
       </li>
     
       <li class="post">
         <a href="/blog/csscapture/">csscapture</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zypper/">zypper</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zmore/">zmore</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zmap/">zmap</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zless/">zless</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zip/">zip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zgrep/">zgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zfgrep/">zfgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zenity/">zenity</a>
       </li>
     
   </ul>

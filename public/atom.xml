@@ -4,7 +4,7 @@
   <title><![CDATA[TRACTATUS ELEMENTALIS]]></title>
   <link href="https://tractatuslapipaplena.herokuapp.com/atom.xml" rel="self"/>
   <link href="https://tractatuslapipaplena.herokuapp.com/"/>
-  <updated>2014-01-27T20:21:04+01:00</updated>
+  <updated>2014-01-27T20:47:37+01:00</updated>
   <id>https://tractatuslapipaplena.herokuapp.com/</id>
   <author>
     <name><![CDATA[templix]]></name>
@@ -12,6 +12,263 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[dig]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/dig/"/>
+    <updated>2014-01-27T20:47:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/dig</id>
+    <content type="html"><![CDATA[<p>[dnsutils]. Realizar consultas a los servidores DNS</p>
+
+<blockquote><p>$ dig tuxapuntes.com</p>
+
+<p>$ dig telefonica.net NS  (Mostrando los servidores DNS del dominio)</p>
+
+<p>$ dig -x 74.220.215.64 (Resolución inversa)</p></blockquote>
+
+<p>Nota.- Los datos importantes en la “ANSWER SECTION”</p>
+
+<blockquote><p>$ dig +short myip.opendns.com @resolver1.opendns.com (muestra IP externa)</p>
+
+<p>$ dig tuxapuntes.com somedomainname.net axfr   (mirar si un dominio es susceptible de ataques axfr)</p>
+
+<p>$ dig +trace tuxapuntes.com (Ver saltos de la petición hasta el servidor)</p>
+
+<p>$ dig ANY tuxapuntes.com (Consultar todos los registros de la zona DNS)</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[denyhosts]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/denyhosts/"/>
+    <updated>2014-01-27T20:47:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/denyhosts</id>
+    <content type="html"><![CDATA[<p>Protege contra ataques.</p>
+
+<p>Configuración:</p>
+
+<blockquote><p># nano /etc/denyhosts.conf</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<pre><code>SECURE_LOG = /var/log/auth.log (Ruta a los logs) 
+
+DENY_THRESHOLD_INVALID = 5 (Intentos fallidos permitidos con una cuenta que no existe) 
+
+DENY_THRESHOLD_VALID = 5 (Intentos falllidos con usuarios validos) 
+
+PURGE_DENY =5d (Tiempo de baneo de una IP. 5 dias en este caso) 
+
+BLOCK_SERVICE = sshd (Servicios que queremos proteger [ sshd, ALL...) 
+</code></pre>
+
+<p>Nota.- Tambien es posible arrancar el servicio con la opción &#8220;purge&#8221;  [/etc/init.d/denyhosts start &#8211;purge] para eliminar las ips bloqueadas y que se muestran en /etc/hosts.deny</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[debget]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/debget/"/>
+    <updated>2014-01-27T20:47:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/debget</id>
+    <content type="html"><![CDATA[<p>[debian-goodies]. Descarga un paquete del repositorio o, caso de estar instalado, muestra la versión.</p>
+
+<blockquote><p>$ debget debian-goodies</p>
+
+<p>$ debget 0ad</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[ddrescue]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/ddrescue/"/>
+    <updated>2014-01-27T20:47:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/ddrescue</id>
+    <content type="html"><![CDATA[<p>[make gcc g++]. Recuperación de discos dañados. Proceso:</p>
+
+<p>Descargar el paquete dd_rhelp (Comprobar si existe una versión posterior):</p>
+
+<blockquote><p>$ wget http://www.kalysto.org/pkg/dd_rhelp-0.1.2.tar.gz</p>
+
+<p>$ cd dd_rhelp-0.1.2</p>
+
+<p># ./dd_rhelp /dev/sdbx sdbx.img</p></blockquote>
+
+<p>Creará sdbx.img en el directorio actual, que podrá montarse:</p>
+
+<blockquote><p># mount -o loop sdbx.img /media/imagen</p></blockquote>
+
+<p>Comprobar posibles errores (para partición ext3):</p>
+
+<blockquote><p># fsck -y sdbx.img</p></blockquote>
+
+<p>Restaurar la imagen:</p>
+
+<blockquote><p># dd_rhelp sdbx.img /dev/sdax</p></blockquote>
+
+<p>Método de ejecutar ddrescue en dos pasadas, de forma que la primera sólo recupera los bloques que no contenga sectores defectuosos y el segundo se centre en recuperar el máximo de los defectuosos:</p>
+
+<blockquote><p># ddrescue -v -n /dev/sda /dev/sdb sda.txt</p>
+
+<p># ddrescue -v -r2 -d /dev/sda /dev/sdb sda.txt</p></blockquote>
+
+<p>Luego comprobar errores con fsck.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[ddclient]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/ddclient/"/>
+    <updated>2014-01-27T20:47:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/ddclient</id>
+    <content type="html"><![CDATA[<p>Configurar pc con una ip fija. Requiere registro en dyndns.org. Durante la instalación preguntará los datos del registro pero si se prefiere puede editarse el archivo de configuración y colocarlos a mano</p>
+
+<blockquote><p># gedit /etc/ddclient.conf</p></blockquote>
+
+<p>Completar los campos login y password con los datos correspondientes:</p>
+
+<p>protocol=dyndns2</p>
+
+<p>use=web, web=checkip.dyndns.com, web-skip=&#8217;IP Address&#8217;</p>
+
+<p>server=members.dyndns.org</p>
+
+<p>login=Nombre_registrado_en_dyndns</p>
+
+<p>password=&#8217;contraseña_de_dyndns&#8217;</p>
+
+<p>nombre_de_dominio.com</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[dav]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/dav/"/>
+    <updated>2014-01-27T20:47:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/dav</id>
+    <content type="html"><![CDATA[<p>[dav-text]. Editor minimalista para ncurses.</p>
+
+<blockquote><p>$ dav archivo.txt</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[date]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/date/"/>
+    <updated>2014-01-27T20:47:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/date</id>
+    <content type="html"><![CDATA[<p>Relacionado con fechas y calendarios.</p>
+
+<blockquote><p>$ date +%s  (en tiempo unix - desde el 1 de enero de 1970-)</p>
+
+<p>$ date -s &#8220;2010-01-10 16:59&#8221;  (forma de establecer la fecha y hora actual)</p>
+
+<p>$ date –u 0110170210  (Otra forma de establecer la fecha. mes 01, día 10, hora 17:02 y año 2010)</p>
+
+<p>$ date +&#8221;%A,%d-%m-%Y&#8221;</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<pre><code>%D (fecha en formato mm/dd/yy)
+
+%T (hora:minutos:segundos en formato 24h)
+
+%R (hora:minutos en formato 24h)
+
+%d (día del mes con 2 dígitos)
+
+%m (mes con 2 digitos)
+
+%y (año con 2 dígitos)
+
+%Y (año con 4 dígitos)
+
+%a (nombre abreviado del día)
+
+%A (nombre completo del día)
+
+%b (nombre abreviado del mes)
+
+%B (nombre completo del mes)
+
+%H (hora con 2 dígitos en formato 0-24h)
+
+%I (hora con 2 digitos en formato 0-12h)
+
+%M (Solo los minutos)
+
+%S (Solo los segundos)
+</code></pre>
+
+<blockquote><p>$ date +&#8221;%A,%d-%m-%Y&#8221; &#8211;date &#8216;1966/4/20 20500 days&#8217; (Para saber cuando alguien cumplirá 20500 días desde su nacimiento)</p>
+
+<p>$ watch -n1 &#8216;banner <code>date +%T</code>&#8217; (Rejoj digital en ascii)</p></blockquote>
+
+<p>1.-</p>
+
+<p>Saber la hora encualquier parte del mundo:</p>
+
+<blockquote><p>$ TZ=&#8221;America/Guatemala&#8221; date (Muestra la hora actual de Guatemala)</p>
+
+<p>$ TZ=&#8221;Europe/Berlin&#8221; date (Muestra la de Berlin)</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[dansguardian]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/dansguardian/"/>
+    <updated>2014-01-27T20:47:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/dansguardian</id>
+    <content type="html"><![CDATA[<p>[squid]. Filtro de contenidos web [cliente] que trabaja conjuntamente con el servidor proxy squid [servidor].</p>
+
+<p>Adaptar el archivo de configuración:</p>
+
+<blockquote><p># nano /etc/dansguardian/dansguardian.conf</p></blockquote>
+
+<p>Algunos parámetros a especificar [caso de no estarlo]:</p>
+
+<pre><code>language = 'spanish'
+
+reportinglevel = 3 #valores de 1, 2 y 3
+
+filterport = 8080
+
+proxyip = 127.0.0.1 #La misma ip del proxy squid
+
+proxyport = 3128
+</code></pre>
+
+<p>Guardar el archivo.</p>
+
+<p>El listado de conceptos [ip, nombre de dominio, frases&#8230; ] por los que se puede banear y conceptos excluidos en:</p>
+
+<blockquote><p># ls /etc/dansguardian/lists/</p></blockquote>
+
+<p>Algunos de los más usuales:</p>
+
+<p>bannedextensionlist (extensiones no permitidas)</p>
+
+<p>banneriplist (listado de ips no permitidas)</p>
+
+<p>bannedmimetypelist (Tipos MIME no permitidos)</p>
+
+<p>bannedregexpurllist  (Listado de expresiones a bloquear)</p>
+
+<p>bannedurllist (Bloquear partes especificas de un sitio)</p>
+
+<p>bannedsitelist (Bloquear sitios)</p>
+
+<p>bannedphraselist (Listado de frases prohibidas encerradas entre &lt; ></p>
+
+<p>exceptionsitelist (Lista de excepciones de sitios)</p>
+
+<p>exceptioniplist (lista de excepciones de direcciones IP)</p>
+
+<p>exceptionuserlist (Lista de excepciones de nombres de usuarios que no serán filtrado)</p>
+
+<blockquote><p># /etc/init.d/dansguardian restart</p></blockquote>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[cups]]></title>
@@ -245,170 +502,6 @@
     <content type="html"><![CDATA[<p>Visualiza la zona horaria especificada.</p>
 
 <blockquote><p>$ zdump Madrid</p></blockquote>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[zdiff]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/zdiff/"/>
-    <updated>2014-01-27T20:11:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/zdiff</id>
-    <content type="html"><![CDATA[<p>Muestra diferencias entre dos archivos o directorios comprimidos (Ver diff)</p>
-
-<blockquote><p>$ zdiff archivo1 archivo2</p></blockquote>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[zcmp]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/zcmp/"/>
-    <updated>2014-01-27T20:11:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/zcmp</id>
-    <content type="html"><![CDATA[<p>Compara dos archivos comprimidos (Ver cmp)</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[zcat]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/zcat/"/>
-    <updated>2014-01-27T20:11:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/zcat</id>
-    <content type="html"><![CDATA[<p>Ver contenido de archivos comprimidos con gzip.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[yum]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/yum/"/>
-    <updated>2014-01-27T20:11:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/yum</id>
-    <content type="html"><![CDATA[<p>Gestor de programario de distros basadas Redhat</p>
-
-<blockquote><p># yum install paquete  (instala paquete)</p>
-
-<p># yum -y install paquete1 paquete2 (instala los paquetes mencionados)</p>
-
-<p># yum -y install paquete.arch (instala paquete con la arquitectura mencionada: firefox.i386)</p>
-
-<p># yum -y update   (actualiza todos los paquetes del sistema)</p>
-
-<p># yum -y update &#8211;exclude=mysql (actualiza todos menos mysql)</p>
-
-<p># yum -y update gftp  (actualiza solo el paquete mencionado)</p>
-
-<p># yum check-update   (Muestra la lista de paquetes que se han de actualizar)</p>
-
-<p># yum info paquete    (Muestra información de paquete)</p>
-
-<p># yum info available   (Muestra información de los paquetes actualizables)</p>
-
-<p># yum list     (lista los paquetes disponibles)</p>
-
-<p># yum list installed  (lista los paquetes instalados en el sistema)</p>
-
-<p># yum list available (lista los paquetes disponibles)</p>
-
-<p># yum list updates   (lista los paquetes actualizables)</p>
-
-<p># yum remove paquete (suprime paquete)</p>
-
-<p># yum -y remove paquete1 paquete2  (suprime los paquetes mencionados)</p>
-
-<p># yum search paquete  (busca paquete en la base de datos)</p>
-
-<p># yum clean packages  (limpia la caché)</p>
-
-<p># yum repolist   (Lista los repositorios)</p></blockquote>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[ytree]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/ytree/"/>
-    <updated>2014-01-27T20:11:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/ytree</id>
-    <content type="html"><![CDATA[<p>Navegador de archivos minimalista. Puede usarse para administrar permisos en directorios, ver distintos tipos de archivos [gif, jpg, txt., html] con los visores favoritos de cada uno y revisar archivos comprimidos [tar, arc, lha, zip, zoo].</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[youtube-dl]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/youtube-dl/"/>
-    <updated>2014-01-27T20:11:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/youtube-dl</id>
-    <content type="html"><![CDATA[<p>Descargar videos de youtube</p>
-
-<blockquote><p>$ youtube-dl url</p>
-
-<p>$ youtube-dl -b url (Bajarlo a la calida más alta posible)</p>
-
-<p>$ youtube-dl -o nombre.flv url  (Guardar con nombre especificado)</p>
-
-<p>$ youtube-dl -a archivo_de_urls_de_youtube (bajar multiples videos)</p>
-
-<p>$ youtube -upepe -pcontraseña url (especificando usuario y contraseña)</p>
-
-<p>$ youtube-dl -t &#8211;extract-audio &#8211;audio-format mp3 url (Sacar el audio en formato mp3 a un video de youtube)</p></blockquote>
-
-<p>Nota.- En algunas ocasiones muestra un error (ERROR: format not available for video) se soluciona bajando directamente el ejecutable de internet y suprimiendo el de los repositorios.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[yetris]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/yetris/"/>
-    <updated>2014-01-27T20:11:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/yetris</id>
-    <content type="html"><![CDATA[<p>[libncurses5-dev]</p>
-
-<p>Juego tetris para ncurses.</p>
-
-<pre><code>$ git clone https://github.com/alexdantas/.git
-
-$ cd yetris
-
-$ make
-
-$ make install
-</code></pre>
-
-<blockquote><p>$ yetris -c -g -n (En el centro de la pantalla, sin pistas de donde caen los bloques y sin color)</p>
-
-<p>$ yetris -u (Mostrar el modo de uso)</p>
-
-<p>$ yetris -r (Resetear las reglas)</p></blockquote>
-
-<p>Algunas teclas de control:</p>
-
-<pre><code>Flechas derecha izquierda (Desplazamiento horizontal)
-
-espacio o flecha abajo (Desplazamiento vertical rápido)
-
-z, x (Rotar los bloques)
-
-p (Pausa. Pulsar otra vez "p" para salir de pausa)
-
-h (Mostrar teclas de control. Intro para salir)
-
-r (Reiniciar el juego)
-
-q (salir)
-</code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[yes]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/yes/"/>
-    <updated>2014-01-27T20:11:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/yes</id>
-    <content type="html"><![CDATA[<p>Repetición indefinida, hasta matar el proceso con Ctrl + c,  de una palabra o frase.</p>
-
-<blockquote><p>$ yes linux es genial</p>
-
-<p>$ yes &#8220;$(figlet Linux)&#8221; (En combinación con el comando figlet)</p>
-
-<p>$ yes | rm -i * (Pasado como entrada para que conteste &#8220;si&#8221; a todo)</p></blockquote>
 ]]></content>
   </entry>
   
