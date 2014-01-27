@@ -1,0 +1,49 @@
+---
+layout: post
+title: "integrit"
+date: 2014-01-27 18:33
+comments: true
+categories: 
+---
+Detectar cuando algún archivo del sistema ha sido alterado mediante la creación, la primera vez que se lanza, de una base de datos con la que confrontar los nuevos escaneos.
+
+Configuración:
+
+>\# /etc/integrit/integrit.con
+
+Descomentar las lineas:
+
+	root=/  
+
+	known=/var/lib/integrit/known.cdb       
+
+	current=/var/lib/integrit/current.cdb
+
+Y descartar los directorios que no se deseen incluir en el escaneo, descomentandolos ["cdrom" se descarta, "/dev" se escane, "/usr/src" no se escaneará de forma recursiva ]:
+
+	!/cdrom
+
+	# !/dev
+
+	=/usr/src
+
+Crear la base de datos inicial:
+
+>\# integrit -u -C /etc/integrit/integrit.conf
+
+Mover la base de datos a know.cdb:
+
+>\# mv /var/lib/integrit/current.cdb /var/lib/integrit/known.cdb
+
+Lanzar la comprobación:
+
+>\# integrit -C /etc/integrit/integrit.conf -c
+
+Si queremos colocar la orden en el cron para ser lanzada cada hora y que envie un correo al administrador:
+
+>\# crontab -e  
+
+Y colocamos la linea:
+
+	* 1 * * * integrit -C /etc/integrit/integrit.conf -c | mail root
+

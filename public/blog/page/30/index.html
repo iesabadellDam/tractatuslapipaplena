@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Muestra las llamadas al sistema originadas por un proceso. $ strace comando $ strace -p PID (Por número de proceso) $ strace -c comando -o traza.txt &hellip;">
+  <meta name="description" content="Creación, gestión y conversión de claves utilizadas para la autenticación de cliente y servidor. Cuando no se especifica ninguna opción, ssh-keygen &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/strace/">Strace</a></h1>
+      <h1 class="entry-title"><a href="/blog/ssh-keygen/">Ssh-keygen</a></h1>
     
     
       <p class="meta">
@@ -96,28 +96,32 @@
   
 
 
-<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
+<time datetime="2014-01-27T18:35:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra las llamadas al sistema originadas por un proceso.</p>
+  <div class="entry-content"><p>Creación, gestión y conversión de claves utilizadas para la autenticación de cliente y servidor. Cuando no se especifica ninguna opción, ssh-keygen genera un par de claves RSA de 2048 bits y solicita un nombre de clave y una frase de paso para proteger la clave privada. Las claves públicas se crean usando el mismo nombre base que la clave privada con una extensión .pub añadida. La ubicación de la clave se muestra cuando se completa la generación de claves. Ver ssh</p>
 
-<blockquote><p>$ strace comando</p>
+<blockquote><p>$ ssh-keygen -lvf ~/.ssh/known_hosts (Ver todas las huellas digitales y las imágenes randomart)</p>
 
-<p>$ strace -p PID (Por número de proceso)</p>
+<p>$ ssh-keygen -t rsa -C newserver -f .ssh/newkey (Generar el par de llaves publica y privada. Caso de exitir preguntará si se sobreescribe)</p>
 
-<p>$ strace -c comando -o traza.txt (mostrar resumen de llamadas y errores durante la ejecución y redirigido a un archivo)</p></blockquote>
+<p>$ ssh-keygen -B -f .ssh/id_rsa.pub (Muestra la huella digital de la llave especificada en formato SHA-1)</p>
 
-<p>Algunas opciones:</p>
+<p>$ ssh-keygen -f &#8220;$HOME/.ssh/known_hosts&#8221; -R [La_URL.com_entre_corchetes]:22 (Suprimir un clave de un host por sufrir alguna modificación y el puerto)</p></blockquote>
 
-<p>-f (Incluir posibles forks que haga un programa, por ejemplo httpd)</p>
+<p>1.-</p>
 
-<p>-v (Muestra el máximo de información)</p>
+<p>Para ver la huella digital cada vez que se ingresa en un host remoto:</p>
 
-<p>-s 8192 (Valor de 8192 como limite de longitud de las cadenas. Por defecto 32)</p>
+<blockquote><p># nano /etc/ssh/ssh_config</p></blockquote>
+
+<p>Descomentar la linea y dejarla:</p>
+
+<p>VisualHostKey yes</p>
 </div>
   
   
@@ -130,7 +134,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/stjerm/">Stjerm</a></h1>
+      <h1 class="entry-title"><a href="/blog/ssh/">Ssh</a></h1>
     
     
       <p class="meta">
@@ -146,30 +150,185 @@
   
 
 
-<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
+<time datetime="2014-01-27T18:35:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Consola tipo guake.</p>
+  <div class="entry-content"><p>Comunicación cifrada entre dos máquinas.</p>
 
-<blockquote><p>$ stjerm -k f12 -s left -o 70 -h 250 -w 1280 (Que aparezca pulsando F12, con barra de escroll a la izquierda, opacidad del 70% y especificando ancho y largo)</p></blockquote>
+<blockquote><p>$ ssh usuario@host (básica)</p>
 
-<p>Algunas opciones:</p>
+<p>$ ssh -v usuario@IP_o_host (comprobar errores en una conexión)</p>
 
-<p>-ah (Ocultar automáticamente la ventana cuando no está enfocada)</p>
+<p>$ ssh -p 4000 usuario@host (especificando un puerto)</p>
 
-<p>-bg red (Color de fondo)</p>
+<p>$ ssh -fND localhost:2080 usuario@host (Crear un servidor proxy en una máquina remota. La “N” es para que no se puedan ejecutar comandos)</p>
 
-<p>-bgimg imagen.png (Establecer una imagen de fondo)</p>
+<p>$ ssh -X -Y usuario@host akregator (Lanzar una aplicación remota en local. Ver punto 11 de esta entrada)</p>
 
-<p>-fn (Tipo y tamaño de fuente)</p>
+<p>$ ssh usuario@host ls (lanzar un comando remoto y visualizarlo en local)</p>
 
-<p>-fg blue (Color de la fuente)</p>
+<p>$ ssh -t usuario@host newsbeuter  (lo mismo si precisa consola)</p>
 
-<p>-p (Posición de la ventana [valores: top, bottom, left, right])</p>
+<p>$ ssh -D 9999 usuario@host (abrir un puerto a partir del cual tunelar una conexión)</p>
+
+<p>$ ssh user@host_ip &#8216;DISPLAY=&#8221;:0.0&#8221; import -window root screenshot.png&#8217; (realizar pantallazo de una sesión remota. Se archiva en el remoto no en local)</p>
+
+<p>$ ssh usuario@host &#8220;tar -cf - /home/usuario/dir&#8221; | gzip dir.tar.gz (Comprimir un directorio remoto)</p>
+
+<p># gedit /var/run/motd   (modificar el mensaje de bienvenida de ssh)</p></blockquote>
+
+<p>1.-</p>
+
+<p>conexión remota. El servidor ha de tener el archivo /etc/ssh/sshd_config con los siguientes parámetros:</p>
+
+<p>AllowTcpForwarding yes</p>
+
+<p>GatewayPorts yes</p>
+
+<p>Luego configurar Firefox para usar un servidor proxy 127.0.0.1 puerto 9999.</p>
+
+<p>2.-</p>
+
+<blockquote><p># gedit /etc/issue.net   (modificar el mensaje antes del login. Para activarlo, descomentar del archivo “/etc/ssh/sshd_config” la línea: Banner /etc/issue.net)</p></blockquote>
+
+<p>3.-</p>
+
+<p>Tunel inverso:</p>
+
+<blockquote><p>$ ssh -R 10000:localhost:22 usuario2@host2 (lanzado desde host1 hacia host2 crea un tunel por el puerto 10000)</p>
+
+<p>$ ssh usuario2@host2 (Lanzado desde host3 hacia host2)</p></blockquote>
+
+<p>Una vez entrado en host2, lanzar:</p>
+
+<blockquote><p>$ ssh usuario1@localhost -p 10000 (Para conectar el host3 con el host1)</p></blockquote>
+
+<p>4.-</p>
+
+<p>Crear clave publica para acceder a un remoto sin que pida identificación:</p>
+
+<blockquote><p>$ ssh-keygen -b 4096 -t rsa  (Crear la clave)</p>
+
+<p>$ ssh-copy-id usuario@IP_o_HOST (enviar la clave al remoto)</p></blockquote>
+
+<p>5.-</p>
+
+<p>Para deshabilitar el acceso a todos los usuarios excepto a root:</p>
+
+<blockquote><p># touch /etc/nologin</p>
+
+<p># chmod 644 /etc/nologin</p></blockquote>
+
+<p>6.-</p>
+
+<p>Deshabilitar/personalizar los mensajes que aparecen cuando nos logueamos en algunas distros a un host remoto mediante SSH.</p>
+
+<blockquote><p>$ touch /home/usuario/.hushlogin (Creando este fichero vacio se deshabilitan los mensajes. Borrandolo vuelven a aparecer)</p>
+
+<p># nano /etc/motd (Archivo para personalizar los mensaje de bienvenida a quien se loguea en el sistema)</p></blockquote>
+
+<p>7.-</p>
+
+<p>Crear un atajo para la conexión a un servidor remoto:</p>
+
+<blockquote><p>$ nano .ssh/config</p></blockquote>
+
+<p>Y pegar el siguiente contenido debidamente modificado con nuestros datos:</p>
+
+<pre><code>host servidor
+
+ hostname 192.168.1.10 
+
+ user USUARIO_REMOTO
+</code></pre>
+
+<p>Nota.- Delante de la segunda y tercera linea existe un espacio.</p>
+
+<p>Al crear este archivo, la conexión se realizará con:</p>
+
+<blockquote><p>$ ssh servidor (Pedirá igualmente contraseña)</p></blockquote>
+
+<p>8.-</p>
+
+<p>Evitar desconexiones por inactividad:</p>
+
+<blockquote><p>$ nano .ssh/config</p></blockquote>
+
+<p>Y pegar el siguiente contenido:</p>
+
+<pre><code>Host *
+
+    ServerAliveInterval 120
+
+    ServerAliveCountMax 3
+</code></pre>
+
+<p>9.-</p>
+
+<p>Añadir un registro de las acciones realizadas dentro de cada sesión SFTP</p>
+
+<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
+
+<p>Y dejar la linea como se indica:</p>
+
+<p>Subsystem sftp /usr/lib/openssh/sftp-server -l INFO</p>
+
+<p>Tras reiniciar ssh, el registro se plasmará en /var/log/auth.log</p>
+
+<p>10.-</p>
+
+<p>Aumentando la seguridad del servidor ssh:</p>
+
+<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
+
+<p>Y añadir o modificar las siguientes lineas:</p>
+
+<pre><code>AllowUsers juan pedro andrés (Limitando a uno o varios los usuarios autorizados)
+
+AllowGroup oficina (Restringir acceso a solo un grupo)
+
+Port 372 (Modificando puerto. Aconsejable uno inferior al 1024)
+
+LoginGraceTime 40 (Mostrar la pantalla de login 40 segundos antes de cerrarse)
+
+MaxStartups 4 (Cantidad máxima de conexiones simultaneas)
+
+MaxAuthTries 3 (Limitar el número de intentos de logeo, tras los cuales se cierra la conexión)
+</code></pre>
+
+<p>11.-</p>
+
+<p>Ajustes para tunelar aplicaciones gráficas:</p>
+
+<p>En el servidor:</p>
+
+<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
+
+<pre><code>AllowTcpForwarding yes
+
+X11Forwarding yes
+
+X11DisplayOffset 10
+
+X11UseLocalhost yes
+</code></pre>
+
+<p>En la máquina cliente:</p>
+
+<blockquote><p># nano /etc/ssh/ssh_config</p></blockquote>
+
+<pre><code>ForwardX11 yes
+
+ForwardX11Trusted yes
+</code></pre>
+
+<p>Después de reiniciar ssh, con el parámetro -X se visualizará la gui remota que tambien tiene que estar instalada en local.</p>
+
+<blockquote><p>$ ssh -X usuario@host akregator</p></blockquote>
 </div>
   
   
@@ -182,7 +341,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/steghide/">Steghide</a></h1>
+      <h1 class="entry-title"><a href="/blog/ssconvert/">Ssconvert</a></h1>
     
     
       <p class="meta">
@@ -198,20 +357,26 @@
   
 
 
-<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
+<time datetime="2014-01-27T18:35:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Detectar y extraer mensajes incrustados dentro de una imagen o música</p>
+  <div class="entry-content"><p>[gnumeric]</p>
 
-<blockquote><p>$ steghide embed -cf imagen.jpg -ef archivo_texto  (incrustar un texto en una imagen)</p>
+<p>Conversor de formatos de hoja de cálculo por línea de comandos.</p>
 
-<p>$ steghide embed -cf archivo.wav -ef archivo_texto (incrustar un texto en un archivo de música)</p>
+<blockquote><p>$ ssconvert &#8211;list-exporters (Listado de conversiones de salida)</p>
 
-<p>$ steghide extract -sf imagen.jpg  (extraer el archivo incrustado)</p></blockquote>
+<p>$ ssconvert &#8211;list-importers (Litado de conversiones de entrada)</p>
+
+<p>$ ssconvert entrada.xls salida.csv (De formato excel a csv)</p>
+
+<p>$ ssconvert -E utf-8 entrada.xls salida.csv (Especificando una codificación para la salida)</p>
+
+<p>$ ssconvert &#8211;export-type=Gnumeric_stf:stf_assistant -O &#8216;separator=| format=preserve charset=unicode&#8217; entrada.xls salida.csv (Especificando opcionalmente un exportador [&#8211;export-type] que permite exportar a txt, especificando un separador de campos que no sea el por defecto [el espacio] sinó la barra vertical [|], preservando el formato de las celdas del original [format], otras opciones de format son &#8220;automatic&#8221; [por defecto] y &#8220;raw&#8221; [sin formato] y con codificación de salida en unicode [por defecto UTF-8])</p></blockquote>
 </div>
   
   
@@ -224,7 +389,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/status/">Status</a></h1>
+      <h1 class="entry-title"><a href="/blog/ss/">Ss</a></h1>
     
     
       <p class="meta">
@@ -240,16 +405,30 @@
   
 
 
-<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
+<time datetime="2014-01-27T18:35:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Verifica si un servicio está activo o no.</p>
+  <div class="entry-content"><p>Utilidad para investigar sockets. Sustituye a netstat.</p>
 
-<blockquote><p>$ status ssh</p></blockquote>
+<blockquote><p># ss -r  (resolviendo las IPs)</p>
+
+<p># ss -n  (sin resolver)</p>
+
+<p># ss  (igual)</p>
+
+<p># ss -l   (muestra los que estan esperando conexión)</p>
+
+<p># ss -o  (con conexión establecida)</p>
+
+<p># ss -p  (con la aplicación que los motiva)</p>
+
+<p># ss -a | grep ssh  (De todas las conexiones, solo muestra las ssh)</p>
+
+<p># ss -tpan &#8216;sport = :22&#8217; (ver conexiones por el puerto 22)</p></blockquote>
 </div>
   
   
@@ -262,7 +441,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/stat/">Stat</a></h1>
+      <h1 class="entry-title"><a href="/blog/srm/">Srm</a></h1>
     
     
       <p class="meta">
@@ -278,189 +457,7 @@
   
 
 
-<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Estadísticas de archivo, directorios y sistemas</p>
-
-<blockquote><p># stat /etc/passwd</p>
-
-<p># stat /usr</p>
-
-<p># stat -f /</p>
-
-<p>$ stat -c &#8220;%s&#8221; archivo (medida del archivo)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/startx/">Startx</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Arrancar sistema gráfico</p>
-
-<blockquote><p>$ startx &#8211; :1 (una segunda sesión gráfica accesible en ^Alt + F8)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/stalonetray/">Stalonetray</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Applet para albergar el area de notificación.</p>
-
-<blockquote><p>$ stalonetray -bg #A78B5C -d title -geometry 6x1-0+0 -i 30 (con el color especificado [-bg], decoración de ventana [-d], las medidas [6x1] y la situación en pantalla [-0+0, abajo, derecha])</p></blockquote>
-
-<p>Algunas opciones:</p>
-
-<p>-d  (none, title, border, all)</p>
-
-<p>situación:</p>
-
-<p>Abajo a la izquierda    5x1+0-0</p>
-
-<p>Abajo en el centro (1024x768) + 20 píxeles elevado 5x1-450-20</p>
-
-<p>Abajo a la derecha  5x1-0-0</p>
-
-<p>Arriba a la izquierda   5x1+0+0</p>
-
-<p>Arriba a la izquierda + 20 píxeles descendido  5x1+0+20</p>
-
-<p>Arriba en el centro (1024x768)  5x1+450+0</p>
-
-<p>Arriba a la derecha 5x1-0+0</p>
-
-<p>Arriba a la derecha + 20 píxeles descendido    5x1-0+20</p>
-
-<p>Abajo a la izquierda + 20 píxeles elevado  5x1+0-20</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/st/">St</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Terminal simple.</p>
-
-<blockquote><p>$ st -t Reiniciar -e sudo init 6 (Abrir un terminal st con título para entrar la contraseña y reiniciar)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sswap/">Sswap</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
+<time datetime="2014-01-27T18:35:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
@@ -469,11 +466,15 @@
 
   <div class="entry-content"><p>[secure-delete]</p>
 
-<p>Borrado seguro de swap. Previamente desactivar con swapoff /dev/sda7 y al finalizar el proceso volver a activarla con swapon /dev/sda7 [Si no sabemos donde se encuentra la swap: cat /proc/swaps. Argumentos paracidos a srm [ver] y sfill [ver]. El espacio se sobreescribe 38 veces.</p>
+<p>Aplicación para eliminar de forma segura datos de disco sobreescribiendo su espacio. Es de funcionamiento lento, pero por eso se le considera el más efectivo</p>
 
-<blockquote><p>$ sswap -f /dev/sda7 (Modo rápido e inseguro)</p>
+<blockquote><p>$ srm -f dir (Modo rápido i el más inseguro)</p>
 
-<p>$ sswap -lv /dev/sda7 (Como lanzar dos veces sswap -f y mostrando el proceso)</p></blockquote>
+<p>$ srm -l dir (Como realizar dos veces srm -f)</p>
+
+<p>$ srm archivo.txt (Se sobreescribe 38 veces)</p>
+
+<p>$ srm -rzv dir (se sobreescriben 38 veces los archivos y subdirectorios incluidos [r], sobreescribnedo ceros en el último borrado [z] y mostrando el proceso [v])</p></blockquote>
 </div>
   
   
@@ -486,7 +487,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/sslstrip/">Sslstrip</a></h1>
+      <h1 class="entry-title"><a href="/blog/squid/">Squid</a></h1>
     
     
       <p class="meta">
@@ -502,40 +503,233 @@
   
 
 
-<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
+<time datetime="2014-01-27T18:35:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Herramienta para engañar al usuario haciéndole pensar que se encuentra en un sitio de Internet con cifrado SSL [HTTPS], cuando en realidad todos los datos están siendo transmitidos en abierto [HTTP].</p>
+  <div class="entry-content"><p>Proxy caché (intermediario para nuestra conexion a internet, guardando las paginas visualizadas en una caché)</p>
 
-<p>Configuración de reenvío de paquetes IP:</p>
+<blockquote><p># cp /etc/squid3/squid.conf{,.defaults} (Realizar copia de seguridad de la configuración)</p>
 
-<blockquote><p># echo 1 > /proc/sys/net/ipv4/ip_forward</p></blockquote>
+<p># nano /etc/squid3/squid.conf</p></blockquote>
 
-<p>Envenenamiento ARP (paquete dsniff):</p>
+<p>Modificamos/adaptamos los siguientes ajustes basicos:</p>
 
-<blockquote><p># arpspoof -i eth0 -t ip_victima ip_router</p></blockquote>
+<p>http_port 3128 #puerto de escucha</p>
 
-<p>En caso de querer atacar toda la red, solo especificar la ip router:</p>
+<p>cache_mem 100 MB #Tamaño memoria caché</p>
 
-<blockquote><p># arpspoof -i eth0 ip_router</p></blockquote>
+<p>cache_dir ufs /var/spool/squid 700 16 256 #directorio y tamaño</p>
 
-<p>Redirección de puertos usando Iptables:</p>
+<p>acl NuestraRed src 192.168.1.0/24 #Nombre y red a la que afecta</p>
 
-<blockquote><p># iptables -t nat -A PREROUTING -p tcp &#8211;destination-port 80 -j REDIRECT &#8211;to-ports 31715</p></blockquote>
+<p>http_access allow NuestraRed #permitir acceso a toda la red</p>
 
-<p>Al reiniciar el ordenador se borrará la regla, si se quiere borrar al momento cambiar &#8220;-A&#8221; por un &#8220;-D&#8221; en el comando anterior.</p>
+<p>http_access allow deny all #Denegamos a los de fuera de la red</p>
 
-<p>Arrancar sslstrip y ponerlo a la escucha:</p>
+<p>auth_param basic /usr/lib/squid/ncsa_auth /etc/squid/passwd #ruta a usuarios</p>
 
-<blockquote><p># sslstrip -k -f -l 31715 -w archivo.log</p></blockquote>
+<p>auth_param basic realm “Mensaje de acceso” #mensaje al logearse</p>
 
-<p>Visionar en tiempo real los paquetes capturados:</p>
+<p>auth_param basic children 5 #Procesos de autentificación</p>
 
-<blockquote><p>#  tail -f archivo.log</p></blockquote>
+<p>auth_param basic basic credentialsttl 1 hours #tiempo</p>
+
+<blockquote><p># squid3 -k parse (Revisión de la sintaxis del archivo squid.conf)</p></blockquote>
+
+<p>Después de las modificaciones reiniciar servicio:</p>
+
+<blockquote><p># /etc/init.d/squid3 restart</p></blockquote>
+
+<p>Configuración de usuarios (/etc/squid/passwd):</p>
+
+<blockquote><p># htpasswd -c /etc/squid3/passwd user1 (Crear archivo [-c] nombre de usuario y pedirá contraseña)</p>
+
+<p># htpasswd /etc/squid3/passwd usuario2 (Sin parámetro -c porque el archivo ya está creado. Otro usuario y contraseña)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/spumux/">Spumux</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T18:35:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Generar subtítulos en un video mpeg.</p>
+
+<blockquote><p>$ spumux -s0 subt.xml &lt; video.mpeg > video_subtitulado.mpeg</p></blockquote>
+
+<p>Nota.- El archivo subt.xml con un contenido:</p>
+
+<pre><code>&lt;subpictures&gt;
+
+   &lt;stream&gt;
+
+        &lt;textsub filename="SUBTITULOS.srt" characterset="ISO8859-1"
+
+                 fontsize="24.0" font="Arial.ttf" horizontal-alignment="center"
+
+                 vertical-alignment="bottom" left-margin="60" right-margin="60"
+
+                 top-margin="20" bottom-margin="30" subtitle-fps="25"
+
+                 movie-fps="29.97" movie-width="720" movie-height="478"/&gt;
+
+   &lt;/stream&gt;
+
+&lt;/subpictures&gt;
+</code></pre>
+
+<p>La fuente Arial.ttf ha de estar [o tener un enlace] en el directorio ~/.spumux</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/sponge/">Sponge</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T18:35:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[moreutils]</p>
+
+<p>herramienta que guarda todo el contenido a escribir hasta que recibe el EOF y luego lo escribe por lo que permite procesar un fichero y reescribirlo en el propio fichero sin perdida de datos.</p>
+
+<blockquote><p>$ tac archivo | sponge archivo (Lee al reves un archivo y lo guarda en el mismo archivo)</p>
+
+<p>$ column -t datos | sponge datos</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/splitvt/">Splitvt</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T18:35:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Lanzar dos shells simultaneas partiendo en dos ventanas una terminal.</p>
+
+<blockquote><p>$ splitvt -t &#8220;linux es genial&#8221; -upper ls -lower top (Con un título [-t] lanzando un ls en la ventana superior y top en la inferior)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/split/">Split</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T18:35:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Cortar archivos</p>
+
+<blockquote><p>$ split -d -b 100m archivo otro_archivo. (Que tengan extensión con números: .00, .01, .02. Trozos de 200 MB, archivo de entrada y de salida terminado con un punto donde se añade la extension. En este ejemplo daría salidas tipo otro_archivo.00, otro_archivo.01&#8230;.)</p>
+
+<p>$ cat prefijo* > archivo  (volver a unirlos)</p></blockquote>
 </div>
   
   
@@ -566,43 +760,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/phpshell/">phpshell</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/4g8/">4g8</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sed/">sed</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/markdown/">markdown</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/update-alternatives/">update-alternatives</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/vim/">vim</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tmux/">tmux</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/units/">units</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tmuxinator/">tmuxinator</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/automater/">automater</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

@@ -1,0 +1,23 @@
+---
+layout: post
+title: "tomb"
+date: 2014-01-27 18:36
+comments: true
+categories: 
+---
+Encriptar directorios. Por seguridad ha de desactivarse la partición swap (intercambio) antes de crear la tumba o al acceder a ella a menos que tengamos la swap encriptada. 
+
+>\# swapoff -a (“swapon” para activarla nuevamente) 
+
+En algunas distros es necesario activar el demonio: 
+
+>\# /etc/init.d/cryptdisks start 
+
+>\# tomb create -s 1024 --ignore-swap cripta (Crear el directorio encriptado .tomb y el de la clave .key, especificando medida. Pedirá contraseña y confirmación. ) 
+
+>\# tomb-open cripta.tomb (Abrir el directorio encriptado cuando .tomb y .key estan en el mismo directorio. Lo montará en /media/tumba.tomb) 
+
+>\# tomb -k /root/cripta.tomb.key open cripta.tomb (Montar el directorio encriptado cuando .key está en otro directorio [/root] 
+
+>\# tomb close cripta (Cerrar el directorio. En realidad desmontarlo)
+

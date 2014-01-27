@@ -9,7 +9,8 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Realizar test de velocidad de sistemas de archivos (ext3, ext4&#8230;) $ iozone -s 2g -r 64 -i 0 -i 1 -b test.xls $ iozone -a -g 2G -f /media/sda2 -a &hellip;">
+  <meta name="description" content="Instala un nuevo código MBR al inicio del disco duro. # install-mbr /dev/sda (instala) # install-mbr -l /dev/sda (muestra información del código mbr)
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,456 +81,6 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/iozone/">Iozone</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-27T19:41:00+01:00" pubdate data-updated="true">27-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Realizar test de velocidad de sistemas de archivos (ext3, ext4&#8230;)</p>
-
-<blockquote><p>$ iozone -s 2g -r 64 -i 0 -i 1 -b test.xls</p>
-
-<p>$ iozone -a -g 2G -f /media/sda2</p></blockquote>
-
-<p>-a (automático)</p>
-
-<p>-g (Tamaño de los archivos generados)</p>
-
-<p>-f (el sistema de archivos a tratar)</p>
-
-<p>-i (0= escritura, 1= lectura, 2=lectura/escritura&#8230;.)</p>
-
-<p>-b (archivo que generará con los resultados)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/iotop/">Iotop</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-27T19:41:00+01:00" pubdate data-updated="true">27-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>monitoriza el ratio de lectura/escritura en disco .</p>
-
-<blockquote><p>$ iotop -o -u usuario</p>
-
-<p>$ iotop -a -p $(sed &#8216;s, , -p ,g&#8217; &lt;&lt;&lt;<code>pgrep "_raid|_resync|jbd2"</code>) (un raid)</p></blockquote>
-
-<p>Alguns opciones:</p>
-
-<p>-d 2 (Actualización cada 2 segundos)</p>
-
-<p>-b (No interactivo)</p>
-
-<p>-o (Sólo mostrar procesos que hacen uso de entrada/salida)</p>
-
-<p>-t (Incluir una marca de tiempo)</p>
-
-<p>-p pid (Pid del proceso a monitorizar. Por defecto todos)</p>
-
-<p>-u usuario (especificando usuario)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/iostat/">Iostat</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-27T19:41:00+01:00" pubdate data-updated="true">27-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>muestra estadísticas de la CPU y de la entrada y salida de los dispositivos y particiones.</p>
-
-<blockquote><p>$ iostat -x sda -d 1 6 (6 reportes con 1 segundo de intervalo sobre el disco sda. Suprimiendo la última cifra [6] continuará reportando datos hasta finalizar con Ctrl+c)</p>
-
-<p>$ iostat -d 3 (actualizará resultados cada 3 segundos)</p>
-
-<p>$ iostat -p sda (Ver estadisticas de un disco concreto con sus particiones)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/inxi/">Inxi</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-27T19:41:00+01:00" pubdate data-updated="true">27-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra información del equipo (http://inxi.googlecode.com/svn/trunk/inxi).</p>
-
-<blockquote><p>$ inxi -Fpur -c 4</p></blockquote>
-
-<p>Algunas opciones (con inxi -h la lista completa):</p>
-
-<p>-A (Audio y tarjetas de sonido)</p>
-
-<p>-b (informacio básica)</p>
-
-<p>-c (formato de color de 0 a 32 para la salida de datos)</p>
-
-<p>-C (CPUs)</p>
-
-<p>-d (drivers opticos)</p>
-
-<p>-D (disco duro)</p>
-
-<p>-F (salida extendida)</p>
-
-<p>-G (tarjeta gráfica)</p>
-
-<p>-i (Información de red)</p>
-
-<p>-I (Procesos, uptime, memoria&#8230;)</p>
-
-<p>-M (Datos de la máquina)</p>
-
-<p>-N (tarjetas de red)</p>
-
-<p>-o (particiones no montadas)</p>
-
-<p>-p (particiones montadas)</p>
-
-<p>-r (repositorios)</p>
-
-<p>-s (sensors[temperaturas cpu])</p>
-
-<p>-S (Host, Kernel,Escritorio y Distro)</p>
-
-<p>-t cm (Procesos que consumen más cpu [c] y memoria [m])</p>
-
-<p>-u (UUID de las particiones. -uo las no montadas, -up las montadas)</p>
-
-<p>-v 6 (Distintas etiquetas de información. Del 1 al 6)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/interfaces/">Interfaces</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-27T19:41:00+01:00" pubdate data-updated="true">27-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Archivo de configuración de la red en distros debian.</p>
-
-<p>1.-</p>
-
-<p>Con IP dinámica:</p>
-
-<p>Colocar en el archivo las lineas:</p>
-
-<pre><code>auto eth0
-
-iface eth0 inet dhcp
-</code></pre>
-
-<p>2.-</p>
-
-<p>Con IP fija</p>
-
-<p>Colocar en el archivo las lineas:</p>
-
-<pre><code>auto eth0
-
-iface eth0 inet static
-
-address 192.168.1.10
-
-gateway 192.168.1.1
-
-netmask 255.255.255.0
-
-broadcast 192.168.1.255
-</code></pre>
-
-<p>Reiniciar el servicio:</p>
-
-<blockquote><p># ifdown eth0</p>
-
-<p># ifup eth0</p></blockquote>
-
-<p>Nota.- Solo modificandolo en network-manager no funciona.</p>
-
-<p>3.-</p>
-
-<p>Creación de una segunda dirección IP virtual.</p>
-
-<p>Añadir las siguientes lineas a las de la IP fija:</p>
-
-<pre><code>auto eth0:1
-
-iface eth0:1 inet static
-
-address 192.168.0.15
-
-netmask 255.255.255.0
-
-broadcast 192.168.0.255
-
-gateway 192.168.0.1
-</code></pre>
-
-<p>Nota.- La instalación de nerwork-manager o wicd para la gestión de redes implica comentar las modificaciones de este archivo o en, en el caso de network-manager, editar:</p>
-
-<blockquote><p># nano  /etc/NetworkManager/NetworkManager.conf</p></blockquote>
-
-<p>Y modificar la linea:</p>
-
-<p>[ifupdown]</p>
-
-<p>managed=true</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/integrit/">Integrit</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-27T19:41:00+01:00" pubdate data-updated="true">27-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Detectar cuando algún archivo del sistema ha sido alterado mediante la creación, la primera vez que se lanza, de una base de datos con la que confrontar los nuevos escaneos.</p>
-
-<p>Configuración:</p>
-
-<blockquote><p># /etc/integrit/integrit.con</p></blockquote>
-
-<p>Descomentar las lineas:</p>
-
-<pre><code>root=/  
-
-known=/var/lib/integrit/known.cdb       
-
-current=/var/lib/integrit/current.cdb
-</code></pre>
-
-<p>Y descartar los directorios que no se deseen incluir en el escaneo, descomentandolos [&#8220;cdrom&#8221; se descarta, &#8220;/dev&#8221; se escane, &#8220;/usr/src&#8221; no se escaneará de forma recursiva ]:</p>
-
-<pre><code>!/cdrom
-
-# !/dev
-
-=/usr/src
-</code></pre>
-
-<p>Crear la base de datos inicial:</p>
-
-<blockquote><p># integrit -u -C /etc/integrit/integrit.conf</p></blockquote>
-
-<p>Mover la base de datos a know.cdb:</p>
-
-<blockquote><p># mv /var/lib/integrit/current.cdb /var/lib/integrit/known.cdb</p></blockquote>
-
-<p>Lanzar la comprobación:</p>
-
-<blockquote><p># integrit -C /etc/integrit/integrit.conf -c</p></blockquote>
-
-<p>Si queremos colocar la orden en el cron para ser lanzada cada hora y que envie un correo al administrador:</p>
-
-<blockquote><p># crontab -e</p></blockquote>
-
-<p>Y colocamos la linea:</p>
-
-<pre><code>* 1 * * * integrit -C /etc/integrit/integrit.conf -c | mail root
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/instmodsh/">Instmodsh</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-27T19:41:00+01:00" pubdate data-updated="true">27-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Para conocer los módulos perl instalados. Entra en el prompt (cmd?) con 3 preguntas:</p>
-
-<p>l (List all installed modules)</p>
-
-<p>m <module> (Select a module)</p>
-
-<p>q (Quit the program)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
       <h1 class="entry-title"><a href="/blog/install-mbr/">Install-mbr</a></h1>
     
     
@@ -546,7 +97,7 @@ current=/var/lib/integrit/current.cdb
   
 
 
-<time datetime="2013-12-27T19:41:00+01:00" pubdate data-updated="true">27-12-2013</time>
+<time datetime="2014-01-27T18:33:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
@@ -586,7 +137,7 @@ current=/var/lib/integrit/current.cdb
   
 
 
-<time datetime="2013-12-27T19:41:00+01:00" pubdate data-updated="true">27-12-2013</time>
+<time datetime="2014-01-27T18:33:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
@@ -624,7 +175,7 @@ current=/var/lib/integrit/current.cdb
   
 
 
-<time datetime="2013-12-27T19:41:00+01:00" pubdate data-updated="true">27-12-2013</time>
+<time datetime="2014-01-27T18:33:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
@@ -663,6 +214,403 @@ current=/var/lib/integrit/current.cdb
 
     </article>
   
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/inittab/">Inittab</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T18:33:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Fichero que gestiona el inicio del sistema o un cambio de estado (runlevel) con el comando init (ver).</p>
+
+<blockquote><p># nano /etc/inittab</p></blockquote>
+
+<p>Especificación de si el sistema arranca en modo monousuario (1) o multiusuario (2-5). Por defecto 2 o 3:</p>
+
+<pre><code>id:2:initdefault:
+</code></pre>
+
+<p>Scripts que se ejecutarán en el inicio y en el orden que lo harán independientemente del runlevel:</p>
+
+<pre><code>si::sysinit:/etc/init.d/rcS (En algunas distros si::sysinit:/etc/rc.d/rc.sysinit)
+</code></pre>
+
+<p>Este script llama a los scripts del directorio /etc/rcS.d. Por cada runlevel se ejecutan los scripts del directorio correpondiente: rc0.d/, rc1.d/, rc2.d/, rc3.d/, rc4.d/, rc5.d/, rc6.d/, rc.local y rcS.d/. El directorio /etc/rc.local se usa para ejecutar servicios porpios del usuario. En estos directorios los scripts que empiezan por una &#8220;K&#8221; paran servicios y los que empiezan por una &#8220;S&#8221; los arrancan.</p>
+
+<p>Qué hacer si se presiona CTRL-ALT-DEL:</p>
+
+<pre><code>ca:12345:ctrlaltdel:/sbin/shutdown -t1 -a -r now
+</code></pre>
+
+<p>Qué hacer si la corriente se va/vuelve</p>
+
+<pre><code>pf::powerwait:/etc/init.d/powerfail start
+
+pn::powerfailnow:/etc/init.d/powerfail now
+
+po::powerokwait:/etc/init.d/powerfail stop
+</code></pre>
+
+<p>Despues de ejecutar los scripts de inicio, init crea un conjunto de terminales virtuales:</p>
+
+<pre><code>1:2345:respawn:/sbin/getty 38400 tty1
+
+2:23:respawn:/sbin/getty 38400 tty2
+
+3:23:respawn:/sbin/getty 38400 tty3
+
+4:23:respawn:/sbin/getty 38400 tty4
+
+5:23:respawn:/sbin/getty 38400 tty5
+
+6:23:respawn:/sbin/getty 38400 tty6
+</code></pre>
+
+<p>Utilizando la opción respawn, si alguien trata de finalizar uno de estos procesos, el proceso simplemente será regenerado (respawned).</p>
+
+<p>1.-</p>
+
+<p>Entrar de forma automática:</p>
+
+<p>Comentar la siguiente línea</p>
+
+<blockquote><p>#1:2345:respawn:/sbin/getty 38400 tty1</p></blockquote>
+
+<p>Y Agrega la siguiente linea:</p>
+
+<p>1:2345:respawn:/bin/login -f USUARIO tty1 </dev/tty1 >/dev/tty1 2>&amp;1</p>
+
+<p>Siendo USUARIO el nombre de usuario que hará login automático.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/initramfs/">Initramfs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T18:33:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Problemas durante el arranque. Consiste en un fallo de lectura de los controladores ide de discos duros por parte del kernel del sistema operativo que no logra reconocer dichos drivers. Arrancar con un livecd o pulsando “e” para editar la opción cuando salga el menu en grub:</p>
+
+<blockquote><p># gedit /boot/grub/menu.lst</p></blockquote>
+
+<p>Y al final de la linea del kernel poner: rootdelay=90</p>
+
+<p>Otras soluciones propuestas (sustituir el rootdelay=90 por):</p>
+
+<p>pci=nomsi</p>
+
+<p>all_generix_ide</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/init/">Init</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T18:33:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Para o reinicia el sistema</p>
+
+<blockquote><p>$ init 0    (para)</p>
+
+<p>$ init 1    (reinicia en modo  uniusuario)</p>
+
+<p>$ init 6    (reinicia)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/info/">Info</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T18:33:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Páginas de manual para la mayoria de programas del proyecto GNU con una estructura jerarquizada. Ligeramente más complejo que las clásicas páginas man  [ver]</p>
+
+<blockquote><p>$ info (MUestra la lista de los nodos disponibles en el primer nivel)</p>
+
+<p>$ info ifconfig</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/imsniff/">Imsniff</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T18:33:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Capturar paquetes relacionados con el protocolo MSN . Su uso pasa por el envenenamiento arp, situando nuestra máquina entre la victima y el router lanzando en varias terminales y sin cerrarlas:</p>
+
+<blockquote><p># arpspoof -i eth0 -t 192.168.1.15 192.168.1.1</p>
+
+<p># arpspoof -i eth0 -t 192.168.1.1 192.168.1.15</p></blockquote>
+
+<p>Activar forwarding para que los paquetes vayan a su verdadero dueño:</p>
+
+<blockquote><p># echo 1 > /proc/sys/net/ipv4/ip_forward</p></blockquote>
+
+<p>Crear una carpeta donde guardar los datos:</p>
+
+<blockquote><p>$ mkdir snifadas</p></blockquote>
+
+<p>Modificar el archivo de configuración a partir de la  propia documentación ::</p>
+
+<blockquote><p># cp /usr/share/doc/imsniff/examples/imsniff.conf.sample /etc/imsniff.conf</p>
+
+<p># nano /etc/imsniff.conf</p></blockquote>
+
+<p>daemonize = 0</p>
+
+<p>promisc = 0</p>
+
+<p>verbose = 2</p>
+
+<p>chatdir = /home/USER/snifadas/chats</p>
+
+<p>debugdir = /home/USER/snifadas/debug</p>
+
+<p>interface eth0</p>
+
+<p>Los directorios &#8220;chats&#8221; y &#8220;debug&#8221; los crea la misma aplicación.</p>
+
+<p>Lanzar el sniffer de conversaciones msn:</p>
+
+<blockquote><p># imsniff</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/impressive/">Impressive</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T18:33:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Visualizar documentos PDF e imágenes (jpg, tiff, png&#8230;)</p>
+
+<blockquote><p>$ impressive documento.pdf</p>
+
+<p>$ impressive -l    (lista efectos disponibles)</p>
+
+<p>$ impressive -t SqueezeLeft documento.pdf</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<p>AvPág          Va a la página siguientes</p>
+
+<p>RePág          Va a la página anterior</p>
+
+<p>z                  zoom donde esté el cursor</p>
+
+<p>f                   Activa/Desactiva la pantalla completa</p>
+
+<p>q                  Salir de la aplicación</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/import/">Import</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T18:33:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Capturar la pantalla en cualquier formato</p>
+
+<blockquote><p>$ import -window root captura.png (captura de pantalla completa)</p>
+
+<p>$ import -window <code>xwininfo | awk '/Window id/{print $4; exit}'</code> <code>uuidgen</code>.png (Lo mismo. El puntero se convierte en una cruz y captura el esritorio donde se clica)</p>
+
+<p>$ import captura.png (captura de un área concreta))</p>
+
+<p>$ import 2 captura.png (realizar 2 capturas)</p>
+
+<p>$ import -pause 5 captura.png (Para retardar la captura 5 segundos)</p>
+
+<p>$ import -geometry 250×250! captura.png (indicando un tamaño respetando las proporciones)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/84/">&larr; Older</a>
@@ -686,43 +634,43 @@ current=/var/lib/integrit/current.cdb
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/phpshell/">phpshell</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/4g8/">4g8</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sed/">sed</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/markdown/">markdown</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/update-alternatives/">update-alternatives</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/vim/">vim</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tmux/">tmux</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/units/">units</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tmuxinator/">tmuxinator</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/automater/">automater</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

@@ -1,0 +1,59 @@
+---
+layout: post
+title: "eval"
+date: 2014-01-27 18:32
+comments: true
+categories: 
+---
+Toma los argumentos de la línea de comandos y los ejecuta como comandos. 
+
+* Tenemos un texto con variables:
+
+>$ nano entrada_web.txt
+
+	Hola $NOMBRE, felices de verte por la web $BLOG
+
+Y un script con el siguiente contenido:
+
+	#!/bin/bash
+
+	echo "¿Como te llamas? " 
+
+	read NOMBRE
+
+	BLOG="lapipaplena.net"
+
+	eval "echo "$(cat ./entrada_web.txt)""
+
+* Substituiendo las variables del script en el texto.
+
+Otro ejemplo de uso de eval:
+
+>$ nano ejemplo.sh
+
+	#!/bin/bash
+
+	pipe="/ |"
+
+	#ls $pipe wc -l
+
+	eval ls $pipe wc -l
+
+Descomentar la linea del "ls" y comentar la de "eval" y observar la diferencia entre ambas salidas.
+
+* Otro ejemplo:
+
+>$ nano ejemplo.sh
+
+	#!/bin/bash
+
+	X=10
+
+	Y=X
+
+	#echo '$'$Y
+
+	eval echo '$'$Y
+
+Descomentar la linea del "echo" y comentar la de "eval" y observar la diferencia entre ambas salidas.
+

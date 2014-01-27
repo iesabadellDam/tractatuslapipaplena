@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Comando para montar y desmontar volumenes usando el demonio que llaman programas como Nautilus o Thunar. Con este método conseguimos que desde estos &hellip;">
+  <meta name="description" content="Grabación de una sesión tty $ ttyrec archivo (A partir de cuando vuelva a salir el prompt se grabará todo en “archivo”. Finalizar con “killall ttyrec &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/udisks/">Udisks</a></h1>
+      <h1 class="entry-title"><a href="/blog/ttyrec/">Ttyrec</a></h1>
     
     
       <p class="meta">
@@ -96,20 +96,24 @@
   
 
 
-<time datetime="2013-12-27T19:45:00+01:00" pubdate data-updated="true">27-12-2013</time>
+<time datetime="2014-01-27T18:36:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Comando para montar y desmontar volumenes usando el demonio que llaman programas como Nautilus o Thunar. Con este método conseguimos que desde estos programas se pueda desmontar cómodamente la partición y además sin necesidad de permisos.</p>
+  <div class="entry-content"><p>Grabación de una sesión tty</p>
 
-<blockquote><p>$ udisks &#8211;mount /dev/sda1 (montará esta partición).</p>
+<blockquote><p>$ ttyrec archivo  (A partir de cuando vuelva a salir el prompt se grabará todo en “archivo”. Finalizar con “killall ttyrec”)</p>
 
-<p>$ udisks &#8211;unmount /dev/sda1 (desmontará esta partición).</p>
+<p>$ ttyplay -s2 archivo (reproducir lo grabado a doble velocidad. Pulsando las telcas “-” y “+”, baja o sube la velocidad de reproducción)</p>
 
-<p>$ udisks &#8211;monitor (Monitoriza la actividad del demonio. Muy útil para verificar si una partición es montada o no)</p></blockquote>
+<p>$ ttyrec -a archivo  (Añadir nueva grabación a continuación de archivo. No sobreescribe archivo)</p>
+
+<p>$ ttytime archivo  (Dirá los segundos que dura la grabación)</p></blockquote>
+
+<p>Nota.- Para compartir el archivo puede subirse a http://playterm.org/</p>
 </div>
   
   
@@ -122,7 +126,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/udiskie/">Udiskie</a></h1>
+      <h1 class="entry-title"><a href="/blog/tty-clock/">Tty-clock</a></h1>
     
     
       <p class="meta">
@@ -138,20 +142,22 @@
   
 
 
-<time datetime="2013-12-27T19:45:00+01:00" pubdate data-updated="true">27-12-2013</time>
+<time datetime="2014-01-27T18:36:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Herramienta  para montar automaticamente unidades en Archlinux. Debe arrancarse el servicio antes de ejecutarse el gestor de ventanas en el archivo .xinitrc. Un ejemplo:</p>
+  <div class="entry-content"><p>Reloj digital por consola</p>
 
-<blockquote><p># nano .xinitrc</p></blockquote>
+<blockquote><p>$ tty-clock -s -c -C 1 (marcando los segundo [s] en el centro de la consola [c] y en color rojo [1]</p></blockquote>
 
-<p>udiskie &amp;</p>
+<p>Algunas opciones:</p>
 
-<p>exec openbox-session</p>
+<p>-r  Que rebote por los lados de la terminal.</p>
+
+<p>Colores: 2: verde, 3: amarillo, 4: azul, 5: rosa, 6:turquesa, 7: blanco</p>
 </div>
   
   
@@ -164,7 +170,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/tzwatch/">Tzwatch</a></h1>
+      <h1 class="entry-title"><a href="/blog/tty/">Tty</a></h1>
     
     
       <p class="meta">
@@ -180,27 +186,24 @@
   
 
 
-<time datetime="2013-12-27T19:45:00+01:00" pubdate data-updated="true">27-12-2013</time>
+<time datetime="2014-01-27T18:36:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra las zonas horarias especificadas por el usuario y las guarda en el archivo ~/.tzlist.</p>
+  <div class="entry-content"><p>Muestra el número de terminal</p>
 
-<blockquote><p>$ tzwatch -c (Lanzar tantas veces como de zonas horarias se quiere disponer de información y seguir las instrucciones: Add Zone, Americas, 26 [Guatemala], mostrará la información y preguntará si es correcta, 1 [yes] y Done [salir])</p>
+<blockquote><p>$ tty</p></blockquote>
 
-<p>$ tzwatch (Mostrará hora local de cada una de las zonas elegidas)</p></blockquote>
+<p>1.-</p>
 
-<pre><code>[~]$ tzwatch
+<p>Invertir una consola. No sirve para las terminales virtuales de las X.</p>
 
-Mon Oct  7 02:39:39 CST 2013   Australia/Adelaide
+<blockquote><p>$ /sys/class/graphics/fbcon/rotate</p></blockquote>
 
-Sun Oct  6 18:09:39 CEST 2013   Europe/Madrid
-
-Sun Oct  6 10:09:39 CST 2013   America/Guatemala
-</code></pre>
+<p>Borrar el 0 y poner un 2 (180º). Con un 1 la invertimos 90º a la derecha y con un 3 90º a la izquierda.</p>
 </div>
   
   
@@ -213,7 +216,7 @@ Sun Oct  6 10:09:39 CST 2013   America/Guatemala
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/tzselect/">Tzselect</a></h1>
+      <h1 class="entry-title"><a href="/blog/ttv/">Ttv</a></h1>
     
     
       <p class="meta">
@@ -229,16 +232,14 @@ Sun Oct  6 10:09:39 CST 2013   America/Guatemala
   
 
 
-<time datetime="2013-12-27T19:45:00+01:00" pubdate data-updated="true">27-12-2013</time>
+<time datetime="2014-01-27T18:36:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Pregunta al usuario información sobre la localización actual y muestra la descripción de la zona horaria correspondiente.</p>
-
-<blockquote><p>$ tzselect</p></blockquote>
+  <div class="entry-content"><p>Webcam en consola y ascii</p>
 </div>
   
   
@@ -251,7 +252,7 @@ Sun Oct  6 10:09:39 CST 2013   America/Guatemala
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/tzconfig/">Tzconfig</a></h1>
+      <h1 class="entry-title"><a href="/blog/tshark/">Tshark</a></h1>
     
     
       <p class="meta">
@@ -267,14 +268,34 @@ Sun Oct  6 10:09:39 CST 2013   America/Guatemala
   
 
 
-<time datetime="2013-12-27T19:45:00+01:00" pubdate data-updated="true">27-12-2013</time>
+<time datetime="2014-01-27T18:36:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>configurar nuevamente la zona horaria</p>
+  <div class="entry-content"><p>Capturar paquetes y visualizarlos por pantalla:</p>
+
+<blockquote><p># tshark -n -i eth0 -s 1515</p>
+
+<p># tshark -D (Ver las interfaces de red disponibles)</p>
+
+<p># tshark -n -i eth0 -s 1515 -w archivo (Capturar información y pasarla a un archivo)</p>
+
+<p># tshark -n -i eth0 -s 1515 -w -filesize:10000 -b 10 -w archivo (Lo mismo especificando medida máxima del archivo (-filesize:10000) y cuantidad de ficheros a crear (-b 10) en Mb</p>
+
+<p># tshark -n -i eth0 -s 1515 -a duration:3600 -w archivo (Especificando el tiempo que durará - 1 hora)</p>
+
+<p># tshark -n -t ad -r fitxer.lpc tcp (mostrar los mensajes del protocolo tcp)</p>
+
+<p># tshark -ni eth0 &#8216;tcp port tuxapuntes.com/drupal/80&#8217; -R &#8216;http.request.method == &#8220;GET&#8221;&#8217;  (ver todas las peticiones HTTP GET)</p></blockquote>
+
+<p>Opciones:</p>
+
+<p>-t   Para que salgan las marcas de tiempo real</p>
+
+<p>-n  Inhabilita la resolución de nombres</p>
 </div>
   
   
@@ -287,7 +308,7 @@ Sun Oct  6 10:09:39 CST 2013   America/Guatemala
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/typeset/">Typeset</a></h1>
+      <h1 class="entry-title"><a href="/blog/tset/">Tset</a></h1>
     
     
       <p class="meta">
@@ -303,14 +324,14 @@ Sun Oct  6 10:09:39 CST 2013   America/Guatemala
   
 
 
-<time datetime="2013-12-27T19:45:00+01:00" pubdate data-updated="true">27-12-2013</time>
+<time datetime="2014-01-27T18:36:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Define variables y les da atributos. Ver &#8220;declare&#8221;</p>
+  <div class="entry-content"><p>Inicializa los valores de la terminal. Ver reset.</p>
 </div>
   
   
@@ -323,7 +344,7 @@ Sun Oct  6 10:09:39 CST 2013   America/Guatemala
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/type/">Type</a></h1>
+      <h1 class="entry-title"><a href="/blog/ts/">Ts</a></h1>
     
     
       <p class="meta">
@@ -339,20 +360,18 @@ Sun Oct  6 10:09:39 CST 2013   America/Guatemala
   
 
 
-<time datetime="2013-12-27T19:45:00+01:00" pubdate data-updated="true">27-12-2013</time>
+<time datetime="2014-01-27T18:36:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Buscar la ubicación del ejecutable e informar si el comando es un alias.</p>
+  <div class="entry-content"><p>[moreutils]</p>
 
-<blockquote><p>$ type mplayer</p>
+<p>Añade una marca de tiempo al principio de cada línea de entrada.</p>
 
-<p>$ type -a algo (Conocer todas las definiciones de “algo”, teniendo en cuenta que si “algo” es una alias, una función y un script prevalece este orden)</p>
-
-<p>$ type -t cp (Conocer el tipo de un símbolo)</p></blockquote>
+<blockquote><p>$ ts (Escribir cualquier cosa y al darle al intro mostrará la marca del tiempo y lo escrito)</p></blockquote>
 </div>
   
   
@@ -365,7 +384,7 @@ Sun Oct  6 10:09:39 CST 2013   America/Guatemala
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/txt2tags/">Txt2tags</a></h1>
+      <h1 class="entry-title"><a href="/blog/trickle/">Trickle</a></h1>
     
     
       <p class="meta">
@@ -381,16 +400,22 @@ Sun Oct  6 10:09:39 CST 2013   America/Guatemala
   
 
 
-<time datetime="2013-12-27T19:45:00+01:00" pubdate data-updated="true">27-12-2013</time>
+<time datetime="2014-01-27T18:36:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Convertir archivos de texto a distintos formatos.</p>
+  <div class="entry-content"><p>Limitar la velocidad de subida/bajada</p>
 
-<blockquote><p>$ txt2tags -t html fichero.txt   (convierte .txt en .html)</p></blockquote>
+<p>Nota.- &#8220;-d&#8221; subida y &#8220;-u&#8221; bajada</p>
+
+<blockquote><p>$ trickle -d 50 -u 30 wget http://www.genbeta.com (limitación para un solo host)</p>
+
+<p>$ trickled -d 50 -u 30 (Lanzar la limitación como demonio con lo que todas las aplicaciones que se lancen con trickle tendran la limitación especificada)</p>
+
+<p>$ trickle wget http://www.genbeta.com</p></blockquote>
 </div>
   
   
@@ -403,7 +428,7 @@ Sun Oct  6 10:09:39 CST 2013   America/Guatemala
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/txt2html/">Txt2html</a></h1>
+      <h1 class="entry-title"><a href="/blog/treil/">Treil</a></h1>
     
     
       <p class="meta">
@@ -419,16 +444,16 @@ Sun Oct  6 10:09:39 CST 2013   America/Guatemala
   
 
 
-<time datetime="2013-12-27T19:45:00+01:00" pubdate data-updated="true">27-12-2013</time>
+<time datetime="2014-01-27T18:36:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Convertir texto a html.</p>
+  <div class="entry-content"><p>Generador de una imagen en azulejo a partir de los archivos de un directorio.</p>
 
-<blockquote><p>$ txt2html archivo.txt &#8211;outfile archivo.html</p></blockquote>
+<blockquote><p>$ treil -g 800x600 -o imagen.png /usr/share (Con una geometria determinada [g], que la imagen se guarde como imagen.png [o] y el directorio del cual crear la imagen)</p></blockquote>
 </div>
   
   
@@ -441,7 +466,7 @@ Sun Oct  6 10:09:39 CST 2013   America/Guatemala
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/twistd/">Twistd</a></h1>
+      <h1 class="entry-title"><a href="/blog/tree/">Tree</a></h1>
     
     
       <p class="meta">
@@ -457,22 +482,18 @@ Sun Oct  6 10:09:39 CST 2013   America/Guatemala
   
 
 
-<time datetime="2013-12-27T19:45:00+01:00" pubdate data-updated="true">27-12-2013</time>
+<time datetime="2014-01-27T18:36:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Crear un servidor en el directorio especificado</p>
+  <div class="entry-content"><p>Lista archivos y directorios en forma de arbol.</p>
 
-<blockquote><p>$ twistd -n web &#8211;path .   (Servidor web en el actual)</p>
+<blockquote><p>$ tree -d (Sólo los directorios de la presente carpeta)</p>
 
-<p>$ twistd -n web &#8211;path /home/usuario/Desktop (en el escritorio)</p></blockquote>
-
-<p>Para acceder a él desde la red local en el navegador http://IP_local:8080</p>
-
-<blockquote><p>$ twistd ftp -p 2131 -r /home/usuario/Desktop &#8211;userAnonymous=juanito (crear un servidor ftp en el escritorio con el usuario juanito sin contraseña y el puerto 2131)</p></blockquote>
+<p>$ tree -o archivo (Enviar el resultado a un archivo)</p></blockquote>
 </div>
   
   
@@ -503,43 +524,43 @@ Sun Oct  6 10:09:39 CST 2013   America/Guatemala
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/phpshell/">phpshell</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/4g8/">4g8</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sed/">sed</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/markdown/">markdown</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/update-alternatives/">update-alternatives</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/vim/">vim</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tmux/">tmux</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/units/">units</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tmuxinator/">tmuxinator</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/automater/">automater</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

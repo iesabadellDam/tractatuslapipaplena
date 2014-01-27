@@ -9,7 +9,8 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="El servidor DNS traduce los numeros ip a nombres inteligibles para los seres humanos. Estos servicios estan vinculados a los ISP, es decir, a &hellip;">
+  <meta name="description" content="Mostrar la estructura interna de los archivos DjVu. $ djvudump archivo.djvu
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,256 +81,6 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/dns/">Dns</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-27T19:40:00+01:00" pubdate data-updated="true">27-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>El servidor DNS traduce los numeros ip a nombres inteligibles para los seres humanos. Estos servicios estan vinculados a los ISP, es decir, a nuestros proveedores de acceso a Internet. Sin embargo estas ips pueden ser modificadas para conseguir mejores rendimientos o por manias personales con algunas opciones mas libres o profesionales. La manera de saber si el servidor DNS responde correctamente es hacer un ping consistente en enviar una pequeña cantidad de información al servidor y medir la velocidad en milisegundos de la respuesta. Valores inferiores a 70 ms (Al final de la linea [time=62.9 ms]) son razonables:</p>
-
-<blockquote><p>$ ping -c 3 8.8.8.8</p></blockquote>
-
-<p>Algunas opciones a las ofrecidas por nuestras ISP:</p>
-
-<pre><code>Google -&gt; 8.8.8.8,  8.8.4.4
-
-OpenDNS -&gt; 208.67.222.222, 208.67.220.220
-
-Level3 -&gt; 4.2.2.1, 4.2.2.2, 4.2.2.3, 4.2.2.4, 4.2.2.5 y 4.2.2.6
-
-Dyn -&gt; 216.146.35.35, 216.146.36.36
-
-DNSadvantage -&gt; 156.154.70.1, 156.154.71.1
-</code></pre>
-
-<p>Ona vez escogidas las DNSs:</p>
-
-<blockquote><p># nano /etc/resolv.conf</p></blockquote>
-
-<p>Colocar:</p>
-
-<pre><code>nameserver 4.2.2.1
-
-nameserver 4.2.2.2
-</code></pre>
-
-<p>Nota.- Comentar o borrar las existentes.</p>
-
-<p>Para evitar que network-manager sobreescriba el archivo resolv.conf, bloquear el fichero:</p>
-
-<blockquote><p># chattr +i /etc/resolv.conf (Para desbloquearlo -i)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/dmrc/">Dmrc</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-27T19:40:00+01:00" pubdate data-updated="true">27-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>En algunas ocasiones al iniciar ubuntu aparece la siguiente nota:</p>
-
-<p>su archivo $HOME/.dmrc no tiene los permisos adecuados y sera ignorado. Esto causara que la sesion e idioma predeterminado no se guarden. El archivo deberia pertener al usuario y tener los permisos 644</p>
-
-<p>Para solucionarlo:</p>
-
-<blockquote><p># chmod 700 /home/usuario</p>
-
-<p># chmod 644 /home/usuario/.dmrc</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/dmidecode/">Dmidecode</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-27T19:40:00+01:00" pubdate data-updated="true">27-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra toda la información de la máquina directamente de la BIOS</p>
-
-<blockquote><p># dmidecode -t (muestra los elementos sobre los que se puede solicitar)</p>
-
-<p># dmidecode -s (Muestra el listado para afinar más la busqueda de datos)</p>
-
-<p># dmidecode -t memory | grep Size (muestra la memoria y los slots libres)</p>
-
-<p># dmidecode -t processor | grep &#8220;Core Count&#8221;  (número de “cores” reales)</p>
-
-<p># dmidecode | grep &#8220;Current Speed&#8221;  (muestra la frecuencia de la RAM)</p>
-
-<p># dmidecode -t 0  (información sobre la BIOS)</p>
-
-<p># dmidecode -t 1  (informacion del fabricante: núm serie, producto&#8230;)</p>
-
-<p># dmidecode -t 2 (información sobre la placa base)</p>
-
-<p># dmidecode -t 4  (información sobre la CPU)</p>
-
-<p># dmidecode &#8211;type=processor | grep -i -A 1 charac (si el procesador es de 32 o 64 bit)</p>
-
-<p># dmidecode -t memory | grep Maxi | grep Capa (máximo  de memoria soportada)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/dmesg/">Dmesg</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-27T19:40:00+01:00" pubdate data-updated="true">27-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Imprimir en pantalla los mensajes del kernel</p>
-
-<blockquote><p>$ dmesg | grep -i &#8216;error&#8217;   (lista los errores del kernel)</p>
-
-<p>$ dmesg | grep hd           (inf sobre dispositivos IDE.)</p>
-
-<p>$ dmesg -c  (Limpiar el registro)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/djvusmooth/">Djvusmooth</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-27T19:40:00+01:00" pubdate data-updated="true">27-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Visor y manipulador gráfico de documentos djvu.</p>
-
-<blockquote><p>$ djvusmooth archivo.djvu</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
       <h1 class="entry-title"><a href="/blog/djvudump/">Djvudump</a></h1>
     
     
@@ -346,7 +97,7 @@ nameserver 4.2.2.2
   
 
 
-<time datetime="2013-12-27T19:40:00+01:00" pubdate data-updated="true">27-12-2013</time>
+<time datetime="2014-01-27T18:32:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
@@ -384,7 +135,7 @@ nameserver 4.2.2.2
   
 
 
-<time datetime="2013-12-27T19:40:00+01:00" pubdate data-updated="true">27-12-2013</time>
+<time datetime="2014-01-27T18:32:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
@@ -426,7 +177,7 @@ nameserver 4.2.2.2
   
 
 
-<time datetime="2013-12-27T19:40:00+01:00" pubdate data-updated="true">27-12-2013</time>
+<time datetime="2014-01-27T18:32:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
@@ -468,7 +219,7 @@ nameserver 4.2.2.2
   
 
 
-<time datetime="2013-12-27T19:40:00+01:00" pubdate data-updated="true">27-12-2013</time>
+<time datetime="2014-01-27T18:32:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
@@ -552,7 +303,7 @@ nameserver 4.2.2.2
   
 
 
-<time datetime="2013-12-27T19:40:00+01:00" pubdate data-updated="true">27-12-2013</time>
+<time datetime="2014-01-27T18:32:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
@@ -566,6 +317,350 @@ nameserver 4.2.2.2
 <p>$ disktype imagen.iso</p>
 
 <p>$ disktype archivo</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/dirs/">Dirs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T18:32:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ver pushd</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/dig/">Dig</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T18:32:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Realizar consultas a los servidores DNS</p>
+
+<blockquote><p>$ dig tuxapuntes.com</p>
+
+<p>$ dig telefonica.net NS  (Mostrando los servidores DNS del dominio)</p>
+
+<p>$ dig -x 74.220.215.64 (Resolución inversa)</p></blockquote>
+
+<p>Nota.- Los datos importantes en la “ANSWER SECTION”</p>
+
+<blockquote><p>$ dig +short myip.opendns.com @resolver1.opendns.com (muestra IP externa)</p>
+
+<p>$ dig tuxapuntes.com somedomainname.net axfr   (mirar si un dominio es susceptible de ataques axfr)</p>
+
+<p>$ dig +trace tuxapuntes.com (Ver saltos de la petición hasta el servidor)</p>
+
+<p>$ dig ANY tuxapuntes.com (Consultar todos los registros de la zona DNS)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/diffpdf/">Diffpdf</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T18:32:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Compara dos archivos pdf.</p>
+
+<blockquote><p>$ diffpdf archivo1.pdf archivo2.pdf</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/diff/">Diff</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T18:32:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Mostrar diferencias entre dos directorios o ficheros</p>
+
+<blockquote><p>$ diff archivo1 archivo2 (Compara diferencias entre dos ficheros)</p>
+
+<p>$ diff -r carpeta1 carpeta2 (Compara diferencias de forma recursiva en los directorios)</p>
+
+<p>$ diff -w fichero1 fichero2  (Descarta espacios en blanco)</p>
+
+<p>$ diff -q fichero1 fichero2   (Informa si los ficheros difieren sin mostrar detalles)</p>
+
+<p>$ diff -y fichero1 fichero2   (Muestra la salida a dos columnas)</p>
+
+<p>$ diff –urp dir1 dir2 (Compara recursivamente el contenido de 2 directorios.)</p>
+
+<p>$ diff -u &lt;(grep -vE &#8217;<sup>(#|$)&#8217;</sup> file1) &lt;(grep -vE &#8217;<sup>(#|$)&#8217;</sup> file2) (Los compara ignorando comentarios y lineas en blanco)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/dialog/">Dialog</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T18:32:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Muestra cuadros de diálogo para scripts</p>
+
+<blockquote><p>$ dialog &#8211;calendar &#8220;mes de junio&#8221; 0 0 1 6 2010  (&#8220;0 0&#8221; indica que se autodimensiona el cuadro. El tamaño estándar de una terminal es un ancho de 80 por un largo de 25. &#8220;1 6 2010&#8221; fecha con formato dia/mes/año)</p>
+
+<p>$ dialog &#8211;checklist &#8220;Escoger servicios&#8221; 0 0 3 vnc &#8220;&#8221; &#8220;&#8221; ssh &#8220;&#8221; &#8220;&#8221; cups &#8220;&#8221; &#8220;&#8221; (&#8220;3&#8221; numero de entradas visibles, si hay más se usará el scroll. Las &#8220;&#8221; indican parámetros vacios que puedan sustituirse por palabras o números, el primero de los cuales aparecerá en el cuadro de diálogo [vnc 1 A ssh 2 B cups 3 C])</p>
+
+<p>$ dialog &#8211;dselect /home/usuario/ 0 0  (mostrará el contenido del directorio mencionado)</p>
+
+<p>$ dialog &#8211;editbox /etc/fstab 0 0   (mostrará el contenido del fichero seleccionado)</p>
+
+<p>$ dialog &#8211;fselect /home/usuario/ 0 0  (Mostrará dos ventanas una con los directorios y la otra con los ficheros)</p>
+
+<p>$ dialog &#8211;gauge &#8220;Uso del software libre&#8221; 0 0 0  (Muestra el progreso de un proceso)</p>
+
+<p>$ for var in 0 10 20 30 40 50 60 70 80 90 100; do sleep 1; echo $var; done | dialog &#8211;gauge &#8220;Total completado&#8221; 6 60 0 (concatenación de dialogs)</p>
+
+<p>$ dialog &#8211;infobox &#8220;Esto va a explotar&#8230;.&#8221; 3 26  (Un cuadro con un texto)</p>
+
+<p>$ dialog &#8211;sleep 3 &#8211;infobox &#8220;Esto va a explotar&#8230;.&#8221; 3 26 (Vuelve al prompt a los 3 segundos)</p>
+
+<p>$ dialog &#8211;sleep 3 &#8211;title &#8220;AVISO&#8221; &#8211;infobox &#8220;Esto va a explotar en 3 segundos&#8230;.&#8221; 3 40; dialog &#8211;infobox &#8220;BOOOOOOOMMMM&#8221; 0 0 (Concatenación de dialogs)</p>
+
+<p>$ dialog &#8211;inputbox &#8220;Ingrese su nombre&#8221; 0 0 (Solicitar una linea de texto al usuario)</p>
+
+<p>$ dialog &#8211;passwordbox &#8220;Ingrese contraseña&#8221; 0 0 (Igual que inputbox pero no se muestra nada de lo que se ingresa en pantalla)</p>
+
+<p>$ dialog &#8211;title &#8220;Aquí me las den&#8221; &#8211;no-cancel &#8211;inputbox &#8220;Dejame un mensaje cariño&#8221; 0 0 &#8220;&#8221;  (Especificando un título, sin el botón de &#8220;cancelar&#8221; y con cajón para dejar un mensaje)</p>
+
+<p>$ dialog &#8211;inputmenu &#8220;Nombre del usuario&#8221; 0 0 3 &#8221; juan Perez&#8221; &#8220;c/ del Pulgar num 5&#8221; &#8220;Jose Gonzalez&#8221; &#8220;c/ pez num 11&#8221;  (Permite modificar el segundo concepto [La calle])</p>
+
+<p>$ dialog &#8211;menu &#8220;Escoge una distro&#8230;&#8221; 0 0 3 1 &#8220;Arch&#8221; 2 &#8220;Red Had&#8221; 3 &#8220;Ubuntu&#8221; 4 &#8220;Debian&#8221;</p>
+
+<p>$ dialog &#8211;mixedgauge &#8220;errores&#8221; 0 0 30 ubuntu distros</p>
+
+<p>$ dialog &#8211;msgbox &#8220;\n Aquí puedes poner un texto&#8221; 0 0   (Avisar de una acción o comunicación y separando el texto de la parte superior [\n])</p>
+
+<p>$ dialog &#8211;timeout 10 &#8211;clear &#8211;passwordbox &#8220;Entra la contraseña&#8221; 0 0 &#8220;&#8221;  (Especificando un tiempo para entrarla y limpiando la pantalla)</p>
+
+<p>$ dialog &#8211;backtitle &#8220;Sobre timeout&#8230;&#8221; &#8211;timeout 5 &#8211;pause &#8220;Espera un rato&#8230;&#8221; 10 10 5   (Esperar 5 segundos antes de volver al prompt y con el título en la parte superior de la ventana [&#8211;backtitle])</p>
+
+<p>$ dialog &#8211;radiolist &#8220;Escoger servicios&#8221; 0 0 3 vnc &#8220;&#8221; &#8220;&#8221; ssh &#8220;&#8221; &#8220;&#8221; cups &#8220;&#8221; &#8220;&#8221;  (parecido a checklist)</p>
+
+<p>$ dialog &#8211;no-shadow &#8211;tailbox /etc/fstab 0 0   (Mostrar últimas lineas de un archivo sin sombreado de la ventana)</p>
+
+<p>$ dialog &#8211;timebox &#8220;Tiempo de espera&#8221; 0 0 22 55 33</p>
+
+<p>$ dialog &#8211;extra-button &#8211;timebox &#8220;Tiempo de espera&#8221; 0 0 22 55 33  (Incluir un boton extra)</p>
+
+<p>$ dialog &#8211;defaultno &#8211;timebox &#8220;Tiempo de espera&#8221; 0 0 22 55 33  (Seleccionando por defecto &#8220;cancelar&#8221;)</p>
+
+<p>$ dialog &#8211;yesno &#8220;Quieres pasar a la siguiente opción?&#8221; 0 0 (Retornara un valor cero, si se selecciona YES o distinto de cero si se selecciona NO. Este valor se almacena en la variable $? y puede ser evaluado mediante un if, while,&#8230;)</p>
+
+<p>$ dialog &#8211;tailbox /var/log/fail2ban.log 20 100 (muestra en tiempo real las incidencias en el fichero mencionado. Equivalente a tail -f)</p></blockquote>
+
+<p>Algunos ejemplos prácticos de su uso en scripts:</p>
+
+<p>1.-</p>
+
+<blockquote><p>#!/bin/bash</p></blockquote>
+
+<p>dialog &#8211;menu &#8220;Opciones del script&#8221; 16 60 14 1 &#8220;Puertos abiertos&#8221; 2 &#8220;Intentos de acceso&#8221; 3 &#8220;las IPs externas e internas&#8221; 4 &#8220;Cantidad de intentos de ataques&#8221; 5 &#8220;Servicios activos&#8221; 6 &#8220;Salir&#8221;</p>
+
+<p>clear</p>
+
+<p>2.-</p>
+
+<blockquote><p>#!/bin/bash</p>
+
+<p># Escanear puertos abiertos</p></blockquote>
+
+<p>nmapResultat=$(sudo nmap -O localhost | grep &#8220;open&#8221; | awk &#8216;{print$1,$3}&#8217;)</p>
+
+<p>dialog &#8211;title &#8220;Resultado del escaneo de puertos&#8221; &#8211;msgbox &#8220;Los puertos abiertos son:</p>
+
+<blockquote><p>$nmapResultat&#8221; 0 0</p></blockquote>
+
+<p>clear</p>
+
+<p>3.-</p>
+
+<blockquote><p>#!/bin/bash</p>
+
+<p># Parar un servicio</p></blockquote>
+
+<p>dialog &#8211;title &#8220;samba&#8221; &#8211;yesno &#8220;Quieres detener samba?&#8221; 0 0</p>
+
+<p>case $? in</p>
+
+<p>0)</p>
+
+<p>sudo /etc/init.d/samba stop</p>
+
+<p>dialog &#8211;title &#8220;Info&#8221; &#8211;msgbox &#8220;samba detenido&#8221; 0 0;;</p>
+
+<p>1)</p>
+
+<p>dialog &#8211;title &#8220;Info&#8221; &#8211;msgbox &#8220;samba continua activo&#8221; 0 0 ;;</p>
+
+<p>255)</p>
+
+<p>dialog &#8211;title &#8220;Info&#8221; &#8211;msgbox &#8220;ESC presionado&#8230; samba activo&#8221; 0 0 ;;</p>
+
+<p>esac</p>
+
+<p>clear</p>
+
+<blockquote><p>$ dialog &#8211;title &#8220;Mensaje al mundo&#8221; &#8211;msgbox &#8220;\n      Hola a todos&#8221; 6 35</p>
+
+<p>$ dialog &#8211;yesno &#8220;¿Estás de acuerdo?&#8221; <code>tput lines</code> <code>tput cols</code></p>
+
+<p>$ dialog &#8211;menu &#8220;Escoger interfaz&#8221; 0 0 0 g &#8220;gnome&#8221; k &#8220;kde&#8221; x &#8220;xfce&#8221; 2>&amp;1</p></blockquote>
+
+<p>4.-</p>
+
+<blockquote><p>#!/bin/bash</p>
+
+<p># Respuestas  como variables</p></blockquote>
+
+<p>TMPFILE=&#8221;/tmp/scripttemp.$$&#8221;</p>
+
+<p>dialog &#8211;inputbox &#8220;Ingrese su nombre&#8221; 10 30 2> $TMPFILE</p>
+
+<p>N=<code>cat $TMPFILE</code></p>
+
+<p>dialog &#8211;inputbox &#8220;Ingrese su edad&#8221; 10 30 2> $TMPFILE</p>
+
+<p>E=<code>cat $TMPFILE</code></p>
+
+<blockquote><p># Borrar tmpfile</p></blockquote>
+
+<p>rm -f $TMPFILE</p>
+
+<p>dialog &#8211;infobox &#8220;$N tiene $E años&#8221; 3 50</p>
 </div>
   
   
@@ -596,43 +691,43 @@ nameserver 4.2.2.2
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/phpshell/">phpshell</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/4g8/">4g8</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sed/">sed</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/markdown/">markdown</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/update-alternatives/">update-alternatives</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/vim/">vim</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tmux/">tmux</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/units/">units</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tmuxinator/">tmuxinator</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/automater/">automater</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>
