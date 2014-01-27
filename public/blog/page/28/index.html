@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Cambiar de usuario $ su -m (Cambia de root [#] a usuario normal [$]) Nota.- Tambien puede hacerse tecleando “exit o con Ctrl + d” $ su - (cambia a &hellip;">
+  <meta name="description" content="Utilidad que permite a un usuario ejecutar programas con privilegios de root. En algunas distros sólo el usuario creado durante la instalación puede &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,142 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/sudo/">Sudo</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Utilidad que permite a un usuario ejecutar programas con privilegios de root. En algunas distros sólo el usuario creado durante la instalación puede ejecutar sudo con privilegios de root, los demás han de ser agregados al grupo admin.</p>
+
+<blockquote><p>$ sudo -k   (limpia la clave sudo introducida)</p>
+
+<p>$ sudo -u usuario comando   (ejecutar el comando como un usuario privilegiado distinto de root)</p>
+
+<p>$ sudo -l    (ver los permisos de sudo que tiene un usuario)</p>
+
+<p>$ sudo !! (Ejecutar el último comando con sudo)</p></blockquote>
+
+<p>Pueden añadirse las siguientes lineas en /etc/sudoers:</p>
+
+<p>Defaults passprompt=”mi frase solicitando la contraseña&#8230;”</p>
+
+<p>Defaults badpass_message=”mi frase si se entra erronea&#8230;”</p>
+
+<p>usuario    ALL=(ALL) ALL  (Añadir el usuario a sudo)</p>
+
+<p>Defaults:usuario !authenticate  (si no queremos que nos pida la contraseña)</p>
+
+<p>usuario ALL=NOPASSWD: /usr/sbin/firestarter (Para que no pida contraseña al arrancar una aplicación concreta)</p>
+
+<p>O añadir a la linea Defaults, algunos parámetros separados por comas:</p>
+
+<p>timestamp_timeout=5   (La contraseña se guardará 5 minutos.)</p>
+
+<p>insults    (Te mostrará insultos si fallas la contraseña)</p>
+
+<p>passwd_tries=2   (Permitir 2 errores al entrar la contraseña. Por defecto 3)</p>
+
+<p>rootpw (Para que nos pida la contraseña de root y no la de usuario)</p>
+
+<p>Ejemplos:</p>
+
+<p>Defaults     !lecture,tty_tickets,!fqdn,timestamp_timeout=0,insults</p>
+
+<p>Defaults@192.168.1.2 !lecture,tty&#8230;. (Permitir ejecución sólo desde nuestra máquina)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/sublime-text/">Sublime-text</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Editor. Descargar según arquitectura de http://www.sublimetext.com/2 o via ppa (Debian):</p>
+
+<blockquote><p>$ wget http://blog.anantshri.info/content/uploads/2010/09/add-apt-repository.sh.txt</p>
+
+<p># mv add-apt-repository.sh.txt /usr/sbin/add-apt-repository</p>
+
+<p># chmod o+x /usr/sbin/add-apt-repository</p>
+
+<p># chown root:root /usr/sbin/add-apt-repository</p>
+
+<p># add-apt-repository ppa:webupd8team/sublime-text-2</p>
+
+<p># apt-get update</p>
+
+<p># apt-get install sublime-text-2</p></blockquote>
+
+<p>Teclas de control:</p>
+
+<p>Ctrl + p (abrir cuadro de diálogo [goto anything] donde se entran las consultas)</p>
+
+<p>:palabra (Buscar &#8220;palabra&#8221; en el archivo abierto)</p>
+
+<p>:157 (Ir a la linea 157)</p>
+
+<p>Ctrl + ` (Ir a la consola de sublime text)</p>
+
+<p>Ctrl + Mayu + p (Acceder al control de paquetes. Entrando &#8220;Install package&#8221; se instalan nuevos plugins y con &#8220;Remove package&#8221; se desinstalan)</p>
+
+<p>Ctrl + n (Abrir nuevo documento)</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -441,86 +577,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/steghide/">Steghide</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Detectar y extraer mensajes incrustados dentro de una imagen o música</p>
-
-<blockquote><p>$ steghide embed -cf imagen.jpg -ef archivo_texto  (incrustar un texto en una imagen)</p>
-
-<p>$ steghide embed -cf archivo.wav -ef archivo_texto (incrustar un texto en un archivo de música)</p>
-
-<p>$ steghide extract -sf imagen.jpg  (extraer el archivo incrustado)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/status/">Status</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Verifica si un servicio está activo o no.</p>
-
-<blockquote><p>$ status ssh</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/29/">&larr; Older</a>
@@ -542,6 +598,14 @@
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/cups/">cups</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/csscapture/">csscapture</a>
+      </li>
     
       <li class="post">
         <a href="/blog/zypper/">zypper</a>
@@ -573,14 +637,6 @@
     
       <li class="post">
         <a href="/blog/zenity/">zenity</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zegrep/">zegrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

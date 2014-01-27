@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Sniffer de paquetes y detector de intrusos # snort -v -i eth0 (Para inspeccionar el tráfico de una red) # snort -vde -h 192.168.0.1/24 (Inspeccionar &hellip;">
+  <meta name="description" content="1.- Para ver las tarjetas de sonido instaladas $ cat /proc/asound/cards 0 [Intel ]: HDA-Intel - HDA Intel HDA Intel at 0xe4100000 irq 169 1 [SAA7134 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,190 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/sonido/">Sonido</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>1.-</p>
+
+<p>Para ver las tarjetas de sonido instaladas</p>
+
+<blockquote><p>$ cat /proc/asound/cards</p></blockquote>
+
+<p>0 [Intel ]: HDA-Intel - HDA Intel</p>
+
+<p>HDA Intel at 0xe4100000 irq 169</p>
+
+<p>1 [SAA7134 ]: SAA7134 - SAA7134</p>
+
+<p>saa7133[0] at 0xe4000000 irq 233</p>
+
+<p>2 [CMI8738MC6 ]: CMI8738-MC6 - C-Media PCI CMI8738-MC6</p>
+
+<p>C-Media PCI CMI8738-MC6 (model 55) at 0xa000, irq 225</p>
+
+<blockquote><p># asoundconf set-default-card 1 (para activar la 1)</p></blockquote>
+
+<p>Editar el fichero /etc/alsa/alsa.conf y poner estas líneas:</p>
+
+<pre><code>defaults.ctl.card 1 
+
+defaults.pcm.card 1 
+
+defaults.pcm.device 1 
+</code></pre>
+
+<p>Los cambios son automáticos, no hay ni que reiniciar el servicio.</p>
+
+<p>2.-</p>
+
+<p>Cuando al reiniciar el sonido aparece silenciado:</p>
+
+<blockquote><p># gedit /etc/pulse/default.pa</p></blockquote>
+
+<p>Comentar la linea: # load-module module-device-restore</p>
+
+<p>3.-</p>
+
+<p>Sin sonido con flash</p>
+
+<p>Si no existe, crear el archivo:</p>
+
+<blockquote><p>$ sudo touch /etc/asound.conf</p>
+
+<p># nano /etc/asound.conf</p></blockquote>
+
+<p>Pegar:</p>
+
+<pre><code>pcm.pulse { 
+
+type pulse 
+
+} 
+
+ctl.pulse { 
+
+type pulse 
+
+} 
+
+pcm.!default { 
+
+type pulse 
+
+} 
+
+ctl.!default { 
+
+type pulse 
+
+} 
+</code></pre>
+
+<p>Reiniciar.</p>
+
+<p>4.-</p>
+
+<p>Si Java bloquea el dispositivo de sonido en lugar de usar Pulseaudio</p>
+
+<blockquote><p># cd /usr/lib/jvm/java-6-sun/jre/bin/</p>
+
+<p># mv java java.bin</p>
+
+<p># nano /usr/lib/jvm/java-6-sun/jre/bin/java</p></blockquote>
+
+<p>Y copiar en su interior:</p>
+
+<blockquote><p>#!/bin/bash</p></blockquote>
+
+<p>padsp /usr/lib/jvm/java-6-sun/jre/bin/java.bin &#8220;$@&#8221;</p>
+
+<blockquote><p># chmod +x java (darle permisos)</p></blockquote>
+
+<p>5.-</p>
+
+<p>Substituir pulseaudio por alsa:</p>
+
+<blockquote><p># apt-add-repository ppa:dtl131/ppa  (Añadir los repositorios gnome-media/applets/settings-daemon)</p>
+
+<p># apt-get update  (Actualizar el sistema)</p>
+
+<p># apt-get upgrade</p>
+
+<p># apt-get install esound esound-clients esound-common libesd-alsa0 alsa-base alsa-tools alsa-utils alsa-oss linux-sound-base python-alsaaudio gnome-media libsdl1.2debian-alsa  (Instalar paquetes de alsa)</p>
+
+<p># apt-get purge libcanberra-pulse pulseaudio pulseaudio-esound-compat pulseaudio-module-bluetooth pulseaudio-module-gconf pulseaudio-module-udev pulseaudio-module-x11 gstreamer0.10-pulseaudio pulseaudio-utils pavucontrol  (Desinstalar los paquetes de pulseaudio)</p></blockquote>
+
+<p>Reiniciar</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/socklist/">Socklist</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Lista conectores de red abiertos (sockets), mostrando tipo, número de puerto y otros datos específicos.</p>
+
+<blockquote><p>$ socklist</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -493,106 +677,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/slurm/">Slurm</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Monitoriza la interfaz de red</p>
-
-<blockquote><p># slurm -i eth0</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/slowhttptest/">Slowhttptest</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Efectuar ataques Slow Http Dos</p>
-
-<blockquote><p>$ slowhttptest -c 1000 -H -g -o ataque -i 10 -r 200 -t GET -u http://192.168.1.154 -x 30 -p 3</p></blockquote>
-
-<p>c (Número de conexiones con límite en 65539)</p>
-
-<p>H (ataque modo SlowLoris enviando paquetes sin completar)</p>
-
-<p>B (ataque modo Slow POST sin terminar de enviar el cuerpo del mensaje)</p>
-
-<p>X (ataque modo Slow Read de lectura de las respuestas http lentas)</p>
-
-<p>g (Generr estadistica en formato html)</p>
-
-<p>o (Archivo de salida)</p>
-
-<p>i (Intervalo de datos por segundo por conexión)</p>
-
-<p>r (Conexiones por segundo)</p>
-
-<p>t (Cabecera a utilizar)</p>
-
-<p>u (URL de destino)</p>
-
-<p>x (Longitud máxima de los datos)</p>
-
-<p>p (Tiempo de espera de respuesta http una vez el servidor se considera inaccesible)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/33/">&larr; Older</a>
@@ -614,6 +698,14 @@
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/cups/">cups</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/csscapture/">csscapture</a>
+      </li>
     
       <li class="post">
         <a href="/blog/zypper/">zypper</a>
@@ -645,14 +737,6 @@
     
       <li class="post">
         <a href="/blog/zenity/">zenity</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zegrep/">zegrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

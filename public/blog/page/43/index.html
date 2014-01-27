@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Reiniciar el sistema. $ reboot -f (Fonzandolo)
-">
+  <meta name="description" content="1.- Configurar IP fija # nano /etc/network/interfaces Borrar todo el contenido y susbtituirlo por: auto lo iface lo inet loopback auto eth0 iface &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +74,113 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/red/">Red</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>1.- Configurar IP fija</p>
+
+<blockquote><p># nano /etc/network/interfaces</p></blockquote>
+
+<p>Borrar todo el contenido y susbtituirlo por:</p>
+
+<pre><code>auto lo
+
+iface lo inet loopback
+
+auto eth0
+
+iface eth0 inet static
+
+address 192.168.1.10 # IP estática
+
+netmask 255.255.255.0 # Mascara
+
+gateway 192.168.1.1 # IP del router
+</code></pre>
+
+<p>Reiniciar red:</p>
+
+<blockquote><p># /etc/init.d/networking restart</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/recode/">Recode</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Convierte archivos a distintos formatos de caracteres</p>
+
+<blockquote><p>$ recode -l | less (listado de conversiones disponibles)</p>
+
+<p>$ recode iso8859-15..utf8 file.txt (cambiar caracteres iso&#8230; a utf.. de file.txt</p>
+
+<p>$ recode iso8859-15../b64 file.txt (de caracteres iso.. a codificacion base64)</p>
+
+<p>$ recode -lf iso8859-15 | grep euro  (buscar tabla de caracteres)</p>
+
+<p>$ cat file.txt | recode ISO_8859-1..UTF8 > nuevo.txt (De iso8859-1 a utf-8 )</p>
+
+<p>$ recode ..HTML &lt; file.txt > file.html  (pasar un texto a html)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -412,115 +518,6 @@ declare -a frase='([0]="Hola" [1]="que" [2]="tal")'
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/rc-dot-d/">rc.d</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Inicia o para servicios en Arch Linux</p>
-
-<blockquote><p># rc.d start servicio (inicia el demonio o servicio)</p>
-
-<p># rc.d restart servicio (Reinicia el demonio)</p>
-
-<p># rc.d stop servicio (Para el servicio)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/rbash/">Rbash</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>shell restringido. Se usa para imponer a un usuario un entorno severamente limitado en el que, por ejemplo, no podrá cambiar de directorio [cd], especificar nombre que contengan la /, redirigir la salida usando operadores de redirección [>, &lt;, >>], reemplazar la shell, desactivar el modo restringido, etc. Equivalente a &#8220;bash -c&#8221;</p>
-
-<blockquote><p># adduser -s /bin/rbash juan (Crear un usuario con shell restringido)</p>
-
-<p># usermod -s /bin/rbash juan (Modificar la shell de un usuario ya establecido)</p></blockquote>
-
-<p>Si queremos ampliar la cantidad de comandos a disposición de un usuario limitado editamos de su directorio personal el archivo .bash_profile:</p>
-
-<blockquote><p># nano .bash_profile</p></blockquote>
-
-<p>Y añadimos o modificamos las siguientes lineas:</p>
-
-<pre><code>PATH=$HOME/apps    
-
-export PATH
-</code></pre>
-
-<p>Creamos el directorio</p>
-
-<blockquote><p># mkdir /home/juan/apps</p></blockquote>
-
-<p>Y añadimos enlaces de los binarios que queramos permitir al usuario [en este caso ls, cp y cat]</p>
-
-<blockquote><p># ln -s /bin/ls /home/juan/apps/</p>
-
-<p># ln -s /bin/cp /home/juan/apps/</p>
-
-<p># ln -s /bin/cat /home/juan/apps/</p></blockquote>
-
-<p>Y bloqueamos el archivo:</p>
-
-<blockquote><p># chattr +i /home/juan/.bash_profile</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/44/">&larr; Older</a>
@@ -542,6 +539,14 @@ export PATH
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/cups/">cups</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/csscapture/">csscapture</a>
+      </li>
     
       <li class="post">
         <a href="/blog/zypper/">zypper</a>
@@ -573,14 +578,6 @@ export PATH
     
       <li class="post">
         <a href="/blog/zenity/">zenity</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zegrep/">zegrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>
