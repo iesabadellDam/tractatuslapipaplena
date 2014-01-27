@@ -1,11 +1,11 @@
 ---
 layout: post
 title: "consolochars"
-date: 2014-01-27 18:31
+date: 2014-01-27 18:50
 comments: true
 categories: 
 ---
-Modificar las fuentes en las consolas reales [tty1-6]
+Modificar las fuentes en las consolas [tty1-6]
 
 >\# consolechars -f fuentes
 

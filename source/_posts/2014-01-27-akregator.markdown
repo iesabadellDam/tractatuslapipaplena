@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "akregator"
-date: 2014-01-27 18:30
+date: 2014-01-27 18:49
 comments: true
 categories: 
 ---

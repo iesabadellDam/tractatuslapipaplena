@@ -1,11 +1,11 @@
 ---
 layout: post
 title: "codificación"
-date: 2014-01-27 18:31
+date: 2014-01-27 18:50
 comments: true
 categories: 
 ---
-Colocar según proceda al inicio del documento la linea:
+[de caracteres]. En documentos html, colocar según proceda al inicio del documento la linea:
 
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 

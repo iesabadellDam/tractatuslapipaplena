@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "gnome-terminal"
-date: 2014-01-27 18:32
+date: 2014-01-27 18:51
 comments: true
 categories: 
 ---

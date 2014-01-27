@@ -1,11 +1,11 @@
 ---
 layout: post
 title: "composite"
-date: 2014-01-27 18:31
+date: 2014-01-27 18:50
 comments: true
 categories: 
 ---
-Mezclar dos imágenes por consola
+[imagemagick]. Mezclar dos imágenes por consola
 
 >$ composite -geometry 96x96+250+70 delante.jpg fondo.jpg imagen.jpg 
 

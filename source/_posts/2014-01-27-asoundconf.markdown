@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "asoundconf"
-date: 2014-01-27 18:31
+date: 2014-01-27 18:49
 comments: true
 categories: 
 ---
