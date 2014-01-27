@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Monitoriza la interfaz de red # slurm -i eth0
-">
+  <meta name="description" content="Comprobar el estado de los discos duros. Si el disco es IDE, suprimir en todos los comandos el &#8220;-d ata&#8221; # smartctl -i -d ata /dev/sda ( &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +74,94 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/smartctl/">Smartctl</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Comprobar el estado de los discos duros. Si el disco es IDE, suprimir en todos los comandos el &#8220;-d ata&#8221;</p>
+
+<blockquote><p># smartctl -i -d ata /dev/sda (Verificar si un disco ATA suporta smart)</p>
+
+<p># smartctl -s on -d ata /dev/hda (activar el soporte smart)</p>
+
+<p># smartctl -d ata -t short /dev/sda (lanzar el test corto)</p>
+
+<p># smartctl -d ata -t long /dev/sda  (lanzar el test largo)</p>
+
+<p># smartctl -d ata -l selftest -i /dev/sda (analizar la información de los comandos anteriores)</p></blockquote>
+
+<p>LifeTime indica las horas que el disco ha estado encendido. LBA_of_First_error indica los errores.</p>
+
+<blockquote><p># smartctl -d ata -Hc /dev/sda (Si al final se lee PASSED, correcto, si FAILED cambiar disco)</p>
+
+<p># smartctl -d ata -l error /dev/sda (Listar los errores)</p>
+
+<p># smartctl -d ara -A /dev/sda (Listar atributos internos)</p></blockquote>
+
+<p>Listado de algunos atributos smart</p>
+
+<p>Power_Cycle_Count (RAW_Value).- Veces que le ha llegado   corriente.</p>
+
+<p>Temperature Celsius. (RAW_Value) .- Temperatura del disco</p>
+
+<p>Reallocated_Sector_Ct (RAW_Value).-  número de sectores de repuesto que ha usado el disco para sustituir sectores dañados</p>
+
+<p>Raw_Read_Error_Rate (RAW_Value).- Frequencia de errores en la lectura del disco.</p>
+
+<p>Start_Stop_Count: Cantidad de veces que se ha parado y arrancado el disco</p>
+
+<p>Seek_Error_Rate: Tasa de errores de colocación de la aguja</p>
+
+<p>Power_On_Seconds: Tiempo funcionando</p>
+
+<p>Spin_Retry_Count: Numero de reintentos de arrancada</p>
+
+<p>El campo VALUE [valor] va del número 1 al 253, siendo 1 el peor. Los valores normales son los que estan entre 100 y 200. El campo WHEN_FAILED indica cuando se produjo una falla de algún atributo.</p>
+
+<p>1.-</p>
+
+<p>Para activar el demonio que nos avisa si se produce un error en disco:</p>
+
+<blockquote><p># apt-get install smart-notifier</p></blockquote>
+
+<p>Editar el archivo de configuración:</p>
+
+<blockquote><p># nano /etc/default/smartmontools</p></blockquote>
+
+<p>Y descomentar la linea:</p>
+
+<p>start_smartd=yes</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -480,118 +567,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/signos/">Signos</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-27T19:44:00+01:00" pubdate data-updated="true">27-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>1</p>
-
-<pre><code>Tecla barra inclinada (\) 
-
-Delante de un comando indica que este se ejecuta tal cual, sin hacer uso de algún alias que pudiera tener.
-
-$ \ls
-</code></pre>
-
-<p>2</p>
-
-<pre><code>Tecla asterisco (*)
-
-cualquier caracter o cadena de caracteres
-
-$ find /home/usuario -iname text*
-</code></pre>
-
-<p>3</p>
-
-<pre><code>Interrogante cerrado (?)
-
-Substituye un solo caracter
-
-$ find /home/usuario -iname text?.txt
-</code></pre>
-
-<p>4</p>
-
-<pre><code>Corchetes ([ ])
-
-Cualquier caracter que este dentro de los corchetes [a-g] ,  [12-32]
-
-$ find /home/usuario iname text[m-t].txt
-</code></pre>
-
-<p>5</p>
-
-<pre><code>Dos admiraciones cerradas (!!)
-
-Repite el último comando.
-
-$ tail -f /var/log/fail2ban.log 
-
-Permiso denegado
-
-$ sudo !! 
-
-sudo tail -f /var/log/fail2ban.log 
-
-Dime la contraseña.... 
-</code></pre>
-
-<p>6</p>
-
-<pre><code>Signo mayor que (&gt;)
-
-Antepuesto a un archivo, borra todo su contenido.
-
-$ &gt; archivo
-</code></pre>
-
-<p>7</p>
-
-<pre><code>Tecla espacio
-
-Anteponiendo un espacio delante de un comando este no se almacena en el historial.
-</code></pre>
-
-<p>8</p>
-
-<pre><code>Acento circunflejo (^)
-
-Si al ejecutar un comando tecleamos mal una ruta, por ejemplo, confundiendo /home por /hmoe, podemos enmendar el error con:
-
-$ ^hmoe^home
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/35/">&larr; Older</a>
@@ -607,12 +582,16 @@ $ ^hmoe^home
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1367</li>
+	<li>1368</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/phpshell/">phpshell</a>
+      </li>
     
       <li class="post">
         <a href="/blog/4g8/">4g8</a>
@@ -648,10 +627,6 @@ $ ^hmoe^home
     
       <li class="post">
         <a href="/blog/automater/">automater</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/colrm/">colrm</a>
       </li>
     
   </ul>

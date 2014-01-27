@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Enviar mensajes a la terminal de usuarios conectados remotamente a nuestra máquina. $ write usuario /dev/pts/15 (Iniciar el promt para la &hellip;">
+  <meta name="description" content="Conexion remota. Comparte la misma ventana abierta. En el cliente: xvncviewer o xtightvnc En el servidor: $ x11vnc -storepasswd (Preguntará &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,105 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/x11vnc/">X11vnc</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-27T19:46:00+01:00" pubdate data-updated="true">27-12-2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Conexion remota. Comparte la misma ventana abierta. En el cliente: xvncviewer o xtightvnc</p>
+
+<p>En el servidor:</p>
+
+<blockquote><p>$ x11vnc -storepasswd (Preguntará contraseña y donde guardarla; por defecto en /home/USER/.vnc/passwd)</p>
+
+<p>$ vncpasswd  (otra forma de entrar la contraseña)</p>
+
+<p>$ x11vnc -create  (Abrir nueva sesión)</p>
+
+<p>$ x11vnc -rfbauth /home/USER/.vnc/passwd (Arrancar el server)</p>
+
+<p>$ x11vnc -usepw -display :0  (lo mismo especificando la sesión X a visualizar)</p></blockquote>
+
+<p>En el cliente:</p>
+
+<blockquote><p># xvncviewer IP_servidor</p>
+
+<p>$ killall x11vnc (Matar el servidor)</p></blockquote>
+
+<p>Otra forma de arrancar el server  y que se ejecute en segundo plano (-bg), contraseña de acceso (-passwd) e interfaz gráfico (-gui):</p>
+
+<blockquote><p>$ x11vnc -bg -gui -passwd la_que_sea</p></blockquote>
+
+<p>Se abrirá una pantalla de configuración, en la que podremos configurar las opciones del servidor. Algunas de la pestaña Permissions:</p>
+
+<pre><code>allow: Lista de IPs (separadas por comas) a las que se permite acceso.
+
+forever: Que el servidor no cierre al desconectar el cliente 
+
+viewonly: No permitir cambios en el servidor.
+</code></pre>
+
+<p>1.-</p>
+
+<p>Conexión inversa abriendo vnc desde ssh de forma remota:</p>
+
+<blockquote><p>$ vncviewer -listen   (en el Pc al cual nos conectaremos)</p>
+
+<p># x11vnc -connect IP_o_HOST:puerto -display :0 -auth guess</p></blockquote>
+
+<p>Desde terminal en las X:</p>
+
+<blockquote><p>$ vncviewer -listen   (en el pc del que nos conectaremos)</p></blockquote>
+
+<p>Entramos por ssh al remoto de la forma normal [ssh usuario@host] y una vez dentro, lanzamos:</p>
+
+<blockquote><p>$ x11vnc -connect IP_o_HOST:puerto</p></blockquote>
+
+<p>Donde la IP_o_HOST es la máquina donde hemos lanzado el vncviewer -listen</p>
+
+<p>2.-</p>
+
+<p>Otra forma de conexión inversa:</p>
+
+<p>Abrir vinagre y en remota/conexiones inversas, clicar las dos casillas (Habilitar conexiones inversas y siempre habilitado) y luego abrir terminal y lanzar:</p>
+
+<blockquote><p>$ ssh usuario@host_remoto (Realizar la conexión ssh normal)</p></blockquote>
+
+<p>Y cuando se está en el host_remoto:</p>
+
+<blockquote><p>$ (DISPLAY=:0 x11vnc -connect host_actual:5500 &amp;)</p></blockquote>
+
+<p>Nota: los paréntesis son porque al ejecutar una sub-shell interprete todos los comandos como un único comando.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -449,58 +548,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/wine/">Wine</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-27T19:46:00+01:00" pubdate data-updated="true">27-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Ejecuta programas de Windows en Linux</p>
-
-<blockquote><p>$ wine programa.exe</p>
-
-<p>$ winecfg (Abre la ventana de configuración)</p></blockquote>
-
-<p>1.-</p>
-
-<p>En distros de 64 bits, ejecutar wine en modo 32 bits</p>
-
-<p>Se debe eliminar o mover la carpeta ~/.wine y recrearla de nuevo. Primero se realiza un export de la variable WINEARCH en la terminal</p>
-
-<blockquote><p>$ export WINEARCH=win32</p></blockquote>
-
-<p>Y luego se ejecuta wine de nuevo</p>
-
-<blockquote><p>$ wine programa32bits.exe</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/11/">&larr; Older</a>
@@ -516,12 +563,16 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1367</li>
+	<li>1368</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/phpshell/">phpshell</a>
+      </li>
     
       <li class="post">
         <a href="/blog/4g8/">4g8</a>
@@ -557,10 +608,6 @@
     
       <li class="post">
         <a href="/blog/automater/">automater</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/colrm/">colrm</a>
       </li>
     
   </ul>
