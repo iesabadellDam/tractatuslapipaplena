@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "uzbl-browser"
-date: 2014-01-27 18:55
+date: 2014-01-27 20:10
 comments: true
 categories: 
 ---

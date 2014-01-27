@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "hal-device"
-date: 2014-01-27 18:51
+date: 2014-01-27 20:07
 comments: true
 categories: 
 ---

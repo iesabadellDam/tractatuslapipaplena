@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "contraseñas"
-date: 2014-01-27 18:50
+date: 2014-01-27 20:06
 comments: true
 categories: 
 ---
@@ -71,7 +71,7 @@ Establecer norma en el sistema de que la contraseña tenga como nímino 8 caract
 
 Y dejar la linea:
 
-password        [success=2 default=ignore]      pam_unix.so obscure sha512 min=8
+	password        [success=2 default=ignore]      pam_unix.so obscure sha512 min=8
 
 5.-
 
