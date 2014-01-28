@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="script en python que se conecta a un servidor y realiza un test de velocidad de nuestra conexió. Descarga y permisos: $ wget https://raw.github.com/ &hellip;">
+  <meta name="description" content="[selinux-basics selinux-policy-default]. SELinux proporciona una forma de acceso a recursos basada en políticas de control de acceso obligatorio [ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/speedtest-cli/">Speedtest_cli</a></h1>
+      <h1 class="entry-title"><a href="/blog/selinux/">Selinux</a></h1>
     
     
       <p class="meta">
@@ -96,29 +96,49 @@
   
 
 
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>script en python que se conecta a un servidor y realiza un test de velocidad de nuestra conexió.</p>
+  <div class="entry-content"><p>[selinux-basics selinux-policy-default]. SELinux proporciona una forma de acceso a recursos basada en políticas de control de acceso obligatorio [mandatory access control, MAC] incorporado en el kernel. Existen un conjunto de reglas de autorización [políticas] las cuales determinan si una operación sobre un objeto [Archivos, directorios, dispositivos&#8230;] realizada por un sujeto esta o no permitida basándose en los atributos de ambos. Linux utiliza por defecto el control de acceso a discreción [discretionary access control, DAC] basada en los propietarios y grupos a los que pertenece un objeto en los que un usuario normal puede cambiar los permisos de los archivos que posee con el comando chmod. Con selinux se limita el acceso que tienen las aplicaciones a otras aplicaciones y a los ficheros, impidiendo que un proceso pueda modificar cualquier fichero del usuario con el que se lanzó. En DAC el acceso esta descentralizado, siendo el propietario de cada objeto el encargado de asignar los permisos de los diversos grupos que accederán a ellas. En cambio con el MAC los objetos y los sujetos tan solo tienen atributos, pero son las políticas las que se encargan de autorizar o denegar una acción. Ver comandos getsebool y setsebool.</p>
 
-<p>Descarga y permisos:</p>
+<p>Los módulos SELinux disponibles se almacenan en el directorio /usr/share/selinux/default/.</p>
 
-<pre><code>$ wget https://raw.github.com/sivel/speedtest-cli/master/speedtest_cli.py
+<blockquote><p># semodule -i módulo.pp (habilitar un módulos en la configuración actual. La extensión pp significa paquete de política [«policy package»]).</p>
 
-$ chmod +x speedtest_cli.py
+<p># semodule -r módulo (Elimina un módulo de la configuración actual)</p>
+
+<p># semodule -l (Enumera los módulos habilitados actualmente)</p>
+
+<p># semanage login -a -s staff_u juan (mapear una cuenta a un usuario especifico de SELinux)</p>
+
+<p># restorecon -R -F /home/juan (etiquetar los ficheros del usuario mapeado juan)</p>
+
+<p># semanage user -l (enumera las asociaciones entre las identidades de usuario de SELinux y los roles permitidos)</p>
+
+<p># semanage login -d juan (elimina la asociación asignada al usuario juan)</p>
+
+<p># semanage login -m juan (Modificar la asociación asignada al usuario)</p>
+
+<p># semanage login -l (enumera las correspondencias actuales entre identificadores de usuarios y entidades SELinux)</p></blockquote>
+
+<p>tabla de los usuarios estándar SELinux disponibles:</p>
+
+<pre><code>user_u  (Usuario normal que se utilizan para cuentas de usuario que no van a ser empleadas para administrar ningún servicio del sistema)
+
+staff_u (Para administradores con derechos para conmutar roles y ganar privilegios elevados)
+
+root (Cuenta root ligeramente diferente de la cuenta staff_u. Los ficheros protegidos por control de acceso basado en root no pueden ser gestionados por los staff_u)
+
+sysadm_u (Administración del sistema. Por defecto, esta cuenta no se utiliza inmediatamente ya que este usuario obtiene de forma inmediata el rol administrativo (por lo que staff_u y root todavía necesitarán conmutar roles).
+
+system_u (administrar servicios. Nunca se debe utilizar para usuarios finales ya que ofrece acceso directo al rol del sistema)
+
+unconfined_u    Usado cuando la directriz es targeted, este usuario SELinux tiene muchos privilegios (esencialmente no está limitado en sus acciones, aunque todavía se gestiona través de SELinux con una directriz "muy abierta"). 
 </code></pre>
-
-<blockquote><p>$ ./speedtest_cli.py (Forma básica)</p>
-
-<p>$ ./speedtest_cli.py &#8211;sahre (Nos da una URL con la imagen en png de la conexión)</p>
-
-<p>$ ./speedtest_cli.py &#8211;list (Mostrará una lista ordenada de los servidores de Speedtest.net con los más cercanos en primer lugar.)</p>
-
-<p>$ ./speedtest_cli.py &#8211;server 804 (Especificar un servidor distinto al más cercano,     tomado del listado anterior)</p></blockquote>
 </div>
   
   
@@ -131,7 +151,7 @@ $ chmod +x speedtest_cli.py
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/speedometer/">Speedometer</a></h1>
+      <h1 class="entry-title"><a href="/blog/select/">Select</a></h1>
     
     
       <p class="meta">
@@ -147,460 +167,109 @@ $ chmod +x speedtest_cli.py
   
 
 
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Monitor de transferencia de ficheros [velocímetro].</p>
+  <div class="entry-content"><p>Realiza menús de forma rápida y simple:</p>
 
-<blockquote><p># speedometer -p -rx eth0  (tráfico recibido y el resultado en consola [-p])</p>
+<p>Algunos ejemplos:</p>
 
-<p># speedometer -tx eth0  (tráfico transmitido y el resultado en modo gráfico)</p>
+<p>1.-</p>
 
-<p># speedometer -i 0.25 -rx eth0 (t. recibido, en modo gráfico y muestreo cada 0.25 segundos.)</p></blockquote>
+<pre><code>#!/bin/bash
 
-<p>pulsar “q” para cerrar</p>
-</div>
-  
-  
+OPCIONES="Uso_linux Todavía_estoy_con_windows"
 
+select opt in $OPCIONES; do
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/speaker/">Speaker</a></h1>
-    
-    
-      <p class="meta">
-        
+    if [ "$opt" = "Uso_linux" ]; then
 
+        echo "Bravo, usas el mejor sistema..."
 
+        exit
 
+    elif [ "$opt" = "Todavía_estoy_con_windows" ]; then
 
+        echo "¡Evoluciona de una vez!"
 
+        exit
 
+    else
 
+        echo opción errónea
 
-  
+    fi
 
-
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[ver aoss espeak]</p>
-
-<p>Pruebas de sonido.</p>
-
-<blockquote><p># speaker-test -c 6 -t wav (probar altavoces usando voz [t])</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/spacedream/">Spacedream</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra una imagen del cielo en la tty. Con las teclas del cursor permite moverse por entre la constelación de estrellas.</p>
-
-<blockquote><p>$ spacedream</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sox/">Sox</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Unir ficheros de audio en uno. Soporta mp3, wav, ogg&#8230;</p>
-
-<blockquote><p>$ soxmix 1.mp3 2.mp3 mezcla.mp3</p>
-
-<p>$ sox file.mp3 file2.mp3 trim 0 5 (corta los primeros 5 segundos de file.mp3 y los guarda en file2.mp3)</p>
-
-<p>$ sox file.mp3 file.wav (pasar de mp3a wav)</p>
-
-<p>$ sox 2.wav 3.wav speed 0.5 (3.wav irá a la mitad de velocitad que 2.wav)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sources-dot-list/">sources.list</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Archivo que contiene las fuentes o repositorios de los paquetes de software en las distros derivadas de Debian.</p>
-
-<p>Generador de sources.list optimizado via web:</p>
-
-<p><a href="http://debgen.simplylinux.ch/" title="sources.list a la carta">http://debgen.simplylinux.ch/</a></p>
-
-<p>División del programario según Debian y Ubuntu:</p>
-
-<p>DEBIAN:</p>
-
-<p>main (Paquetes 100% libres según las directovas de Debian)</p>
-
-<p>contrib (Paquetes que dependen de alguno que no es 100% libre según las directivas de Debian)</p>
-
-<p>non-free (Paquetes que o bien no cumplen la directiva de Debian o no facilitan el código fuente)</p>
-
-<p>UBUNTU:</p>
-
-<p>main (Paquetes que cumplen los requisitos de la licencia de Ubuntu)</p>
-
-<p>restricted (soportados por los desarrolladores de Ubuntu pero o bien no cumplen su licencia o no se tiene acceso al código fuente)</p>
-
-<p>Universe (Programas mantenidos por la comunidad)</p>
-
-<p>Multiverse (Programas comerciales o privativos de terceras empresas o fabricantes)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/source/">Source</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Recarga o ejecuta el archivo de configuración indicado para aplicar cambios o el script de bash correspondiente.</p>
-
-<blockquote><p>$ source .bashrc</p></blockquote>
-
-<p>Este comando es equivalente a un punto [.]:</p>
-
-<blockquote><p>$ . .bashrc (lo mismo que el anterior)</p>
-
-<p>$ source script.sh</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sort/">Sort</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra la entrada ordenada.</p>
-
-<blockquote><p>$ sort archivo > archivo_ordenado  (por la primera columna)</p>
-
-<p>$ sort  [intro] (va esperando palabras o números que ordena con Ctrl+d)</p>
-
-<p>$ sort &lt;&lt; fin (Lo mismo pero ordena después de introducir “fin”)</p>
-
-<p>$ sort -o archivo1 archivo1 (escribe el resultado en el propio archivo)</p>
-
-<p>$ sort -u fichero  (ordenar eliminando lineas repetidas)</p>
-
-<p>$ sort -t , -k2n archivo  (ordenar por el segundo campo separado del primero por una “,” y por su valor numérico)</p>
-
-<p>$ sort -t , -k3 archivo   (ordenar por el tercer campo separados por comas)</p></blockquote>
-
-<p>Opciones</p>
-
-<p>-f : Ordena alfabeticamente (diferencia Minúsculas y mayúsculas).</p>
-
-<p>-n : Para ordenar los campos numéricos por su valor numérico.</p>
-
-<p>-r : De mayor a menor.</p>
-
-<p>-R : desordenar, aleatoriamente</p>
-
-<p>-k numero : Especifica por qué columna o campo realizar la ordenación</p>
-
-<p>-t : indica que vamos a usar un delimitador de campo especificado</p>
-
-<p>-u : Suprime todas las líneas repetidas después de realizar la ordenación.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sonido/">Sonido</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>1.-</p>
-
-<p>Para ver las tarjetas de sonido instaladas</p>
-
-<blockquote><p>$ cat /proc/asound/cards</p></blockquote>
-
-<p>0 [Intel ]: HDA-Intel - HDA Intel</p>
-
-<p>HDA Intel at 0xe4100000 irq 169</p>
-
-<p>1 [SAA7134 ]: SAA7134 - SAA7134</p>
-
-<p>saa7133[0] at 0xe4000000 irq 233</p>
-
-<p>2 [CMI8738MC6 ]: CMI8738-MC6 - C-Media PCI CMI8738-MC6</p>
-
-<p>C-Media PCI CMI8738-MC6 (model 55) at 0xa000, irq 225</p>
-
-<blockquote><p># asoundconf set-default-card 1 (para activar la 1)</p></blockquote>
-
-<p>Editar el fichero /etc/alsa/alsa.conf y poner estas líneas:</p>
-
-<pre><code>defaults.ctl.card 1 
-
-defaults.pcm.card 1 
-
-defaults.pcm.device 1 
+done
 </code></pre>
-
-<p>Los cambios son automáticos, no hay ni que reiniciar el servicio.</p>
 
 <p>2.-</p>
 
-<p>Cuando al reiniciar el sonido aparece silenciado:</p>
+<pre><code>#!/bin/bash
 
-<blockquote><p># gedit /etc/pulse/default.pa</p></blockquote>
+OPCIONES="hostname pwd exit"
 
-<p>Comentar la linea: # load-module module-device-restore</p>
+select opt in $OPCIONES; do
+
+    if [ "$opt" = "hostname" ]; then
+
+        echo $HOSTNAME
+
+    elif [ "$opt" = "pwd" ]; then
+
+        pwd
+
+    elif [ "$opt" = "exit" ]; then
+
+        echo "salir"
+
+        exit    
+
+    else
+
+        echo opción errónea
+
+    fi
+
+done
+</code></pre>
 
 <p>3.-</p>
 
-<p>Sin sonido con flash</p>
+<pre><code>#!/bin/bash
 
-<p>Si no existe, crear el archivo:</p>
+PS3='Elija una opción : '
 
-<blockquote><p>$ sudo touch /etc/asound.conf</p>
+options="linux win salir"
 
-<p># nano /etc/asound.conf</p></blockquote>
+echo opciones : $options
 
-<p>Pegar:</p>
+select opt in $options
 
-<pre><code>pcm.pulse { 
+do
 
-type pulse 
+    if [ "$opt" = "salir" ]; then
 
-} 
+        echo "Salgo..."
 
-ctl.pulse { 
+        exit
 
-type pulse 
+    elif [ "$opt" = "linux" ]; then 
 
-} 
+        echo "Muy bien..."
 
-pcm.!default { 
+    else
 
-type pulse 
+        echo "Terriblemente mal..." 
 
-} 
+    fi
 
-ctl.!default { 
-
-type pulse 
-
-} 
+done
 </code></pre>
-
-<p>Reiniciar.</p>
-
-<p>4.-</p>
-
-<p>Si Java bloquea el dispositivo de sonido en lugar de usar Pulseaudio</p>
-
-<blockquote><p># cd /usr/lib/jvm/java-6-sun/jre/bin/</p>
-
-<p># mv java java.bin</p>
-
-<p># nano /usr/lib/jvm/java-6-sun/jre/bin/java</p></blockquote>
-
-<p>Y copiar en su interior:</p>
-
-<blockquote><p>#!/bin/bash</p></blockquote>
-
-<p>padsp /usr/lib/jvm/java-6-sun/jre/bin/java.bin &#8220;$@&#8221;</p>
-
-<blockquote><p># chmod +x java (darle permisos)</p></blockquote>
-
-<p>5.-</p>
-
-<p>Substituir pulseaudio por alsa:</p>
-
-<blockquote><p># apt-add-repository ppa:dtl131/ppa  (Añadir los repositorios gnome-media/applets/settings-daemon)</p>
-
-<p># apt-get update  (Actualizar el sistema)</p>
-
-<p># apt-get upgrade</p>
-
-<p># apt-get install esound esound-clients esound-common libesd-alsa0 alsa-base alsa-tools alsa-utils alsa-oss linux-sound-base python-alsaaudio gnome-media libsdl1.2debian-alsa  (Instalar paquetes de alsa)</p>
-
-<p># apt-get purge libcanberra-pulse pulseaudio pulseaudio-esound-compat pulseaudio-module-bluetooth pulseaudio-module-gconf pulseaudio-module-udev pulseaudio-module-x11 gstreamer0.10-pulseaudio pulseaudio-utils pavucontrol  (Desinstalar los paquetes de pulseaudio)</p></blockquote>
-
-<p>Reiniciar</p>
 </div>
   
   
@@ -613,7 +282,7 @@ type pulse
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/socklist/">Socklist</a></h1>
+      <h1 class="entry-title"><a href="/blog/seeker/">Seeker</a></h1>
     
     
       <p class="meta">
@@ -629,16 +298,550 @@ type pulse
   
 
 
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Lista conectores de red abiertos (sockets), mostrando tipo, número de puerto y otros datos específicos.</p>
+  <div class="entry-content"><p>Comprobar la velocidad del disco duro, pero no en el inicio que es la parte más rápida como hace hdparm, sino de forma aleatoria en todo el espacio del disco.</p>
 
-<blockquote><p>$ socklist</p></blockquote>
+<blockquote><p># seeker /dev/sda</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/sed/">Sed</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Permite borrar líneas, registros o sustituir cadenas de caracteres dentro de las líneas.</p>
+
+<p>Archivo base para ejemplo (Empleado &#8211; Precio/hora &#8211; Horas trabajadas – Cómo las cobra):</p>
+
+<pre><code>$ cat lista 
+
+Juan Gomez 6 10 banco 
+
+Clara Fuentes 7 12 banco 
+
+Antonio Cano 6 13 metálico 
+
+José Bueno 7 0 banco 
+
+Matías Crespo 5 8 metálico 
+
+Isabel Ruiz 7 0 metálico 
+
+María Monzón 9 16 metálico
+</code></pre>
+
+<p>Mostrar la linea 4 del fichero:</p>
+
+<pre><code>$ sed -n 4p lista
+</code></pre>
+
+<p>Mostrar la 4ª y la 5ª:</p>
+
+<pre><code>$ sed -n 4,5p lista
+</code></pre>
+
+<p>Mostrar de la 3ª al final del fichero:</p>
+
+<pre><code>$ sed -n '4,$p' lista
+</code></pre>
+
+<p>Mostrar desde la primera linea que empiece por “Ant” hasta el final:</p>
+
+<pre><code>$ sed -n '/^\Ant/,$p' lista
+</code></pre>
+
+<p>Mostrar sólo los parrafos desde “Clara” hasta “Bueno”:</p>
+
+<pre><code>$ sed -n '/Clara/,/Bueno/p' lista
+</code></pre>
+
+<p>Mostrar cada linea a doble espacio:</p>
+
+<pre><code>$ sed G lista
+</code></pre>
+
+<p>Mostrar las lineas que cumplen el patrón “Ju” en alguno de sus campos:</p>
+
+<pre><code>$  sed -n '/Ju/p' lista
+</code></pre>
+
+<p>Borrar la 4ª linea del fichero:</p>
+
+<pre><code>$  sed '4d' lista
+</code></pre>
+
+<p>Borrar la última linea del fichero:</p>
+
+<pre><code>$  sed -e \$d lista
+</code></pre>
+
+<p>Lo mismo:</p>
+
+<pre><code>$ sed '$d' lista
+</code></pre>
+
+<p>Borrar las lineas que empiecen por &#8220;J&#8221;:</p>
+
+<pre><code>$ sed -e '/J/d' lista
+</code></pre>
+
+<p>Borrar la segunda linea</p>
+
+<pre><code>$ sed '2d' lista
+</code></pre>
+
+<p>Borrar la 1ª y la 2ª:</p>
+
+<pre><code>$  sed '1,2d' lista
+</code></pre>
+
+<p>Borrar desde la primera linea que empiece por &#8220;Ant&#8221; hasta el final:</p>
+
+<pre><code>$ sed -e '/^\Ant/,$d' lista
+</code></pre>
+
+<p>Borrar desde la 2 linea hasta la que tenga &#8220;Ruiz&#8221;:</p>
+
+<pre><code>$ sed '2,/Ruiz/d' lista
+</code></pre>
+
+<p>Borrar las lineas en blanco de un archivo (en &#8220;lista&#8221; no procede):</p>
+
+<pre><code>$  sed '/^$/d lista
+</code></pre>
+
+<p>Cambiar &#8220;metálico&#8221; por &#8220;gratis&#8221; excepto en la 3 linea:</p>
+
+<pre><code>$ sed '3!s/metálico/gratis/' lista
+</code></pre>
+
+<p>Cambiar &#8220;met&#8221; por &#8220;tem&#8221; en las lineas que no tengan &#8220;Cano&#8221;:</p>
+
+<pre><code>$ sed '/Cano/!s/met/tem/' lista
+</code></pre>
+
+<p>Cambiar campos (banco por cheque):</p>
+
+<pre><code>$ sed 's/banco/cheque/' lista
+</code></pre>
+
+<p>Cambiar las &#8220;J&#8221; y la &#8220;C&#8221; mayúsculas por minúsculas:</p>
+
+<pre><code>$ sed 'y/J-C/j-c/' lista
+</code></pre>
+
+<p>Substituye las vocales por &#8220;u&#8221;:</p>
+
+<pre><code>$ sed -e "s/[aeio]/u/g" lista
+</code></pre>
+
+<p>Substituir los espacios por tabulaciones:</p>
+
+<pre><code>$ sed -e 's/ /\t/g' lista
+</code></pre>
+
+<p>Alinear al centro:</p>
+
+<pre><code>$ sed -e :a -e 's/^.\{1,77\}$/ &amp;/;ta' -e 's/\( *\)\1/\1/' lista
+</code></pre>
+
+<p>Todas las opciones pueden usarse como tubería substituyendo &#8220;lista&#8221; por “cat lista |”:</p>
+
+<pre><code>$ cat lista | sed -n '4,$p'
+</code></pre>
+
+<p>Otros ejemplos:</p>
+
+<p>Mostrar lineas no comentadas de un archivo:</p>
+
+<pre><code>$ sed -e '/^#/d' /etc/fstab
+</code></pre>
+
+<p>Substituir &#8220;foto&#8221; por &#8220;FOTO&#8221; en todo los archivos del directorio:</p>
+
+<pre><code>$ ls * | sed -e 'p;s/foto/FOTO/' | xargs -n2 mv
+</code></pre>
+
+<p>Cambiar “Juan” por “Pedro” en todos los archivos .txt del presente directorio:</p>
+
+<pre><code>$ sed -i 's/Juan/Pedro/g' *.txt
+</code></pre>
+
+<p>Mostrar sólo las lineas con 4 dígitos seguidos:</p>
+
+<pre><code>$ sed '/[0-9]\{4\}/p' archivo
+</code></pre>
+
+<p>Borrar todos los espacios delante de cada linea:</p>
+
+<pre><code>$sed 's/^[ ^t]*//' archivo
+</code></pre>
+
+<p>Borrar todos los espacios detras de cada linea:</p>
+
+<pre><code>$ sed 's/[ ^t]*$//' archivo
+</code></pre>
+
+<p>Borrar todos los espacios delante y detras de cada linea:</p>
+
+<pre><code>$ sed 's/^[ ^t]*//;s/[ ^]*$//' archivo
+</code></pre>
+
+<p>Cambiar los números 3333 por 3.333. El parámetro -r sirva para activar las expresiones regulares extendidas de sed:</p>
+
+<pre><code>$ sed -r "s/\&lt;(reg|exp)[a-z]+/\U&amp;/g"
+</code></pre>
+
+<p>Contar lineas de un archivo [emulador de wc -l]:</p>
+
+<pre><code>sed -n '$=' lista
+</code></pre>
+
+<p>Insertar 5 espacios en blanco delante de cada linea:</p>
+
+<pre><code>$ sed 's/^/     /' lista
+</code></pre>
+
+<p>Insertar 1 linea en blanco despues de la primera linea:</p>
+
+<pre><code>$ sed '2i\ \' lista
+</code></pre>
+
+<p>Insertar 1 linea en blanco despues de la primera linea y de la tercera:</p>
+
+<pre><code>$ sed '2i\ \' | sed '4i\ \' lista
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/sdiff/">Sdiff</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Muestra dos ficheros interactivamente.</p>
+
+<blockquote><p>$ sdiff -W -B file1 file2 (Ignorando espacios [W] y lineas en blanco [B])</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/scrounge-ntfs/">Scrounge-ntfs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Permite recuperar datos de particiones ntfs incluso corruptas.</p>
+
+<blockquote><p># scrounge-ntfs -l /dev/sda  (Para vusializar los datos del disco)</p></blockquote>
+
+<p>La salida del comando puede ser paracida a:</p>
+
+<p>Drive: /dev/sdc</p>
+
+<p>63              16787862        8               6291456</p>
+
+<p>16787925        471607195       8               6291456</p>
+
+<p>Con estos datos lanzar:</p>
+
+<blockquote><p># scrounge-ntfs -m 6291456 -c 8 /dev/sdc 16787925 471607195</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/scrot/">Scrot</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Captura de pantalla</p>
+
+<blockquote><p>$ scrot (Con los valores por defecto)</p>
+
+<p>$ scrot captura.png</p>
+
+<p>$ scrot -s captura.png (Para seleccionar un área en concreto)</p>
+
+<p>$ scrot -d 5 captura.png (retardar la captura 5 segundos)</p>
+
+<p>$ scrot -t 50 captura.png (para reducir la captura un 50%)</p>
+
+<p>$ scrot -ucd 5 (“u” captura la ventana que tiene el foco, “c” que muestre la cuenta regresiva y “d 5” los segundos de retardo)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/script/">Script</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[scriptreplay]. Copia en un fichero toda la actividad tecleada en consola hasta cesar con &#8220;exit&#8221;</p>
+
+<blockquote><p>$ script -a fichero.txt</p>
+
+<p>$ script -t 2> sesion.con -a sesion.vid  (grabará la sesion. Parar el proceso con crtl+d)</p>
+
+<p>$ scriptreplay sesion.con sesion.vid  (reproduce la sesión grabada)</p>
+
+<p>$ script -f /dev/pts/3   (redirigir hacia otra terminal)</p></blockquote>
+
+<p>1.-</p>
+
+<p>Varias formas de ejecutar un script:</p>
+
+<blockquote><p>$ bash miscript.sh</p>
+
+<p>$ sh miscript.sh</p>
+
+<p>$ source miscript.sh</p></blockquote>
+
+<p>O activando el bit de ejecución en los permisos del fichero:</p>
+
+<blockquote><p>$ chmod +x miscript.sh</p>
+
+<p>$ ./miscript.sh</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/scribes/">Scribes</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Editor minimalista especial para programadores.</p>
+
+<pre><code>Algunos atajos:
+
+Ctrl + o (Abrir archivo)
+
+Ctrl + s (Guardar)
+
+Ctrl + Mayus + s (Renombrar)
+
+Ctrl + p (Imprimir)
+
+Ctrl + t (Indentar lineas seleccionadas)
+
+Ctrl + Mayus + t (Suprimir indentación)
+
+Alt +t (Convertir espacios en tabulaciones)
+
+Alt + Mayus + t (Convertir tabulaciones a espacios)
+
+Alt + r (Suprimir espacios al final de linea)
+
+Alt + d (Suprimir linea)
+
+Alt + F4 (Cerrar el editor)
+
+F1 (Abrir la ayuda)
+
+F12 (Abrir preferencias)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/screenkey/">Screenkey</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[python-xlib]. Aplicacion que, durante una grabacion de escritorio en la que salen terminales y comandos, muestra por pantalla una franja negra en la que se puede apreciar las teclas que se pulsan para que las puedan ver mejor los televidentes. Iniciar la aplicacion (Se mostrara en el area del tray) y la grabacion del escritorio con alguna de las herramientas (gtk-recordMyDesktop, kazam, etc) y pararla con killall -9 screenkey cuando finalice la grabacion.</p>
 </div>
   
   
@@ -669,43 +872,43 @@ type pulse
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/ifne/">ifne</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ifdata/">ifdata</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ifconfig/">ifconfig</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/identify/">identify</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/html/">html</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hosts/">hosts</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/host-dot-conf/">host.conf</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/honeyproxy/">honeyproxy</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hg/">hg</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hexdump/">hexdump</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Herramienta para instalar librerias y complementos para wine $ winetricks (ejecuta la interfaz gráfica del programa) $ winetricks corefonts (Instala &hellip;">
+  <meta name="description" content="Existen dos tipos de variables: Variables locales (tiene valor únicamente dentro de nuestra shell) Variables globales (disponibles para todos los &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/winetricks/">Winetricks</a></h1>
+      <h1 class="entry-title"><a href="/blog/variables/">Variables</a></h1>
     
     
       <p class="meta">
@@ -96,20 +96,141 @@
   
 
 
-<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:53:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Herramienta para instalar librerias y complementos para wine</p>
+  <div class="entry-content"><p>Existen dos tipos de variables:</p>
 
-<blockquote><p>$ winetricks (ejecuta la interfaz gráfica del programa)</p>
+<p>Variables locales (tiene valor únicamente dentro de nuestra shell)</p>
 
-<p>$ winetricks corefonts (Instala fuentes como Arial y Verdana)</p></blockquote>
+<p>Variables globales (disponibles para todos los procesos invocados por la shell)</p>
 
-<p>Más referencias de winetricks aqui: <a href="http://wiki.winehq.org/winetricks">http://wiki.winehq.org/winetricks</a></p>
+<p>Al ejecutar un script la línea de comandos introducida se guarda en unas variables especiales que podemos referenciar:</p>
+
+<blockquote><p>$0 (Nombre del comando)</p>
+
+<p>$1 (Primer argumento)</p>
+
+<p>$2 (Segundo&#8230;)</p>
+
+<p>$@ (Todos los argumentos introducidos, separados por espacios)</p>
+
+<p>$# (Número de argumentos)</p>
+
+<p>$$ (identificador del proceso)</p>
+
+<p>$? (Cuando finaliza la ejecución de un proceso, $? será cero (0) si se ejecuta correctamente y distinto de cero si se ha producido algún error. Es muy usual guardar su valor en una variable (VAR=$?) para su posterior uso.)</p></blockquote>
+
+<p>Para declarar una variable sólo se precisa asignarle un valor. Nunca el valor puede preceder a la variable. No se ponen espacios ni antes ni después del signo igual. El nombre puede contener caracteres alfabéticos (A-Z, a-z), numéricos (0-9) o el guión bajo ‘_’. El primer carácter no puede ser un número o contener otros signos (2DIR, .DIR, -VAR&#8230;)</p>
+
+<pre><code>DIR="/var/www" 
+</code></pre>
+
+<p>También puede asignarse a partir del contenido de un fichero:</p>
+
+<pre><code>$ firma=$(&lt;firma.txt)  
+</code></pre>
+
+<p>Puede asignarse a la salida de un comando encerrado entrecomillas graves:</p>
+
+<pre><code>WHO=`who | awk '{print$2}'` 
+</code></pre>
+
+<p>O entra parentesis antecedido por el signo dolars ($):</p>
+
+<pre><code>WHO=$(who | awk '{print$2}') 
+</code></pre>
+
+<p>Variables introducidas por el teclado:</p>
+
+<pre><code>echo "Como te llamas" 
+
+read NOMBRE 
+</code></pre>
+
+<p>Puede especificarse un tiempo (en segundos) de espera para entrar lo solicitado (-t):</p>
+
+<pre><code>read -t 10 -p "¿Nombre y apellido? " NOMBRE APELLIDO
+</code></pre>
+
+<p>Para definir variables numéricas se utiliza el comando let:</p>
+
+<pre><code>let A=100
+
+let B=200 
+
+let C=$A+$B 
+</code></pre>
+
+<p>Si al llamar a una variable, esta va seguida de un carácter que sea otra letra, numero o el guión normal o bajo, La encerraremos entre llaves &#8216;{}&#8217;:</p>
+
+<pre><code>ARCHIVO="registro" 
+
+echo "${ARCHIVO}_2011.txt"
+
+registro_2011.txt
+</code></pre>
+
+<p>Cuando bash encuentra en una palabra el signo &#8220;$&#8221; todo lo que va a continuación se considera el nombre de una variable y todos los caracteres desde el &#8220;$&#8221; hasta el final de la palabra son sustituidos por dicha variable:</p>
+
+<pre><code>COSA="mastro" 
+
+echo "ca$COSA"
+
+camastro
+</code></pre>
+
+<p>Otra forma de entrar variables es mostrando un promt:</p>
+
+<pre><code>$ read -p "palabra&gt; " PALABRA
+</code></pre>
+
+<p>Si no indicamos nombre de variable, lo ingresado se guarda en la variable REPLY:</p>
+
+<pre><code>read
+
+juan jose pedro
+
+$ echo $REPLY
+
+juan jose pedro
+</code></pre>
+
+<p>Modificar parte de una variable:</p>
+
+<pre><code>a="Linux es un sistema genial" 
+
+echo ${a/geni/brut}
+
+Linux es un sistema brutal
+</code></pre>
+
+<p>Algunas de la variables globales:</p>
+
+<pre><code>$HOME  (ruta del directorio home del usuario) 
+
+$PATH    (directorios donde se encuentran los ejecutables) 
+
+$TERM    (nombre de la terminal) 
+
+$BASH    (ruta del interprete bash )
+
+$PWD      (directorio actual)
+
+$USER     (Usuario)
+
+$HOSTNAME  (Nombre del equipo)
+
+$HISTFILE (ruta para el histórico de comandos ejecutados)
+
+$UID     (Número de usuario para el sistema)
+
+$RANDOM (números aleatorios entre 0 y 32767)
+</code></pre>
 </div>
   
   
@@ -122,7 +243,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/wine/">Wine</a></h1>
+      <h1 class="entry-title"><a href="/blog/uzbl-browser/">Uzbl-browser</a></h1>
     
     
       <p class="meta">
@@ -138,624 +259,515 @@
   
 
 
-<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:53:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Ejecuta programas de Windows en Linux</p>
+  <div class="entry-content"><p>[uzbl-tabbed)]. Navegador estilo vi. Arrancarlo con uzbl-tabbed para permitir pestañas.</p>
 
-<blockquote><p>$ wine programa.exe</p>
+<blockquote><p>$ nano .config/uzbl/config (archivos de configuración)</p></blockquote>
 
-<p>$ winecfg (Abre la ventana de configuración)</p></blockquote>
+<p>Atajos:</p>
+
+<pre><code>j (descendeer en la página)
+
+k (subir en la página)
+
+h (ir a la izquierda de la página)
+
+l (ir a la derecha de la página) 
+
+&lt;&lt; (ir al final de la página)
+
+&gt;&gt; (ir al principio de la página) 
+
+o (abrir guión para entrar una url) 
+
+gg (abrir guión para entrar una busqueda en google) 
+
+gh (página de inicio) 
+
+gn (abrir nueva pestaña en blanco) 
+
+go (abrir dirección en una nueva pestaña)
+
+gt (ir a la siguiente pestaña)
+
+gT (ir a la pestaña anterior)
+
+gi+2 (ir a la pestaña 2)
+
+w (abrir nueva ventana)
+
+b (volver a la página anterior)
+
+u (favoritos) 
+
+U (historial) 
+
+Esc (anular) 
+
+S (stop)
+
+ZZ (Cerrar pestaña /cerrar ventaña / salir de uzbl)
+
+r (actualizar página)
+
+R (actualizar página desde la caché)
+
+/ (Guión para entrar una busqueda en la página) 
+
+n (ir a la busqueda siguiente) 
+
+N (ir a la busqueda anterior)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/uuidgen/">Uuidgen</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:53:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Crear nuevo valor uuid</p>
+
+<blockquote><p>$ uuidgen -r (Aleatorio)</p>
+
+<p>$ uuidgen -t (Crea un UUID basado en el reloj del sistema)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/uuencode/">Uuencode</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:53:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[sharutils]. Algoritmo utilizado para convertir datos binarios de 8 bits a formato de 7 bits. La codificación uuencoding se creó originalmente para enviar archivos binarios mediante el protocolo de correo electrónico uucp. Si no se especifica salida se muestra por pantalla (/dev/stdout)</p>
+
+<blockquote><p>$ uuencode file1 file2 > file.uue (&#8220;file1&#8221;: nombre del binario a codificar, &#8220;file2&#8221;: Nombre que tendrá el binario una vez descodificado [puede ser el mismo que el binario original] y &#8220;file.uue&#8221; el nombre que se verá en el directorio.)</p>
+
+<p>$ uudecode file.uue (Descodificar el binario. Se verá con el nombre puesto en &#8220;file2&#8221;)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/utorrent/">Utorrent</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:53:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Descarga de torrents. Previamente crear los directorios de descargas:</p>
+
+<blockquote><p>$ mkdir rtorrent</p>
+
+<p>$ mkdir rtorrent/descargas</p>
+
+<p>$ mkdir rtorrent/sesion vsftpd</p>
+
+<p>$ mkdir rtorrent/torrents</p></blockquote>
+
+<p>Los torrents se colocan en la carpeta rtorrent/torrents para que al abrir la aplicación los coja directo. Crear un archivo de configuración:</p>
+
+<blockquote><p>$ touch .rtorrent.rc</p></blockquote>
+
+<p>Editarlo y pegar las siguientes entradas:</p>
+
+<blockquote><p>$ nano .rtorrent.rc</p>
+
+<p># Session directory</p></blockquote>
+
+<p>session = /home/USER/rtorrent/sesion</p>
+
+<p>directory = /home/USER/rtorrent/descargas</p>
+
+<p>schedule = watch_directory,5,5,load_start=/home/USER/rtorrent/torrents/*.torrent</p>
+
+<blockquote><p># Port range to use for listening.</p></blockquote>
+
+<p>port_range = 55556-55560</p>
+
+<blockquote><p># Maximum number of simultanious uploads per torrent.</p></blockquote>
+
+<p>max_uploads = 5</p>
+
+<blockquote><p># Global upload and download rate in KiB. &#8220;0&#8221; for unlimited.</p>
+
+<p>#download_rate = 0</p></blockquote>
+
+<p>upload_rate = 50</p>
+
+<blockquote><p># Maximum and minimum number of peers to connect to per torrent.</p>
+
+<p>#min_peers = 40</p></blockquote>
+
+<p>max_peers = 80</p>
+
+<blockquote><p># Same as above but for seeding completed torrents (-1 = same as downloading)</p></blockquote>
+
+<p>min_peers_seed = 10</p>
+
+<p>max_peers_seed = 30</p>
+
+<p>Algunos atajos:</p>
+
+<pre><code>^ q (cierra la aplicación)
+
+Flechas arriba y abajo (Selecciona torrents)
+
+flecha derecha (Muestra información sobre el torrent seleccionado)
+
+^ s (Inicia la descarga el torrent seleccionado)
+
+^ d (para la descarga o, si está parada, suprime el torrent)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/users/">Users</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:53:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Quien está conectado al sistema</p>
+
+<blockquote><p>$ users | xargs -n1 echo | sort | uniq -c  (número de sesiones abierta por los usuarios.</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/usermod/">Usermod</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:53:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>modifica propiedades de los usuarios [directorio base, el shell, grupos a los que pertenece, expiración, bloqueo/desbloqueo de la cuenta]</p>
+
+<blockquote><p># usermod -G grupo1,grupo2 usuario (añade usuario a grupos)</p>
+
+<p># usermod -a -G video usuario  (incluye usuario al grupo video. )</p>
+
+<p># usermod -e 2009-12-10 user  (la cuenta de user expira el 20-12-09)vsftpd</p>
+
+<p># usermod -L usuario  (Bloquea a usuario)</p>
+
+<p># usermod -U usuario  (Desbloquea a usuario)</p>
+
+<p># usermod -u 999 usuario (baja el ID del usuario, normalmente 1000, para ocultarlo de la pantalla de login [gdm])</p>
+
+<p># usermod -s /sbin/nologin apache (Otorga al usuario apache una shell que no permite la ejecución de ningún comando)</p>
+
+<p># usermod -l juan pedro (Cambiar el nombre de usuario “pedro” a “juan”)</p>
+
+<p># usermod -d /home/nuevo -m usuario (modificar el nombre del directorio  home de un usuario)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/userdel/">Userdel</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:53:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Borrar usuarios</p>
+
+<blockquote><p># userdel usuario (Elimina al usuario pero no su directorio personal)</p>
+
+<p># userdel -r usuario (lo borra junto a su directorio $HOME)</p>
+
+<p># userdel -f usuario (Borra al usuario y su directorio personal incluso aunque esté logeado en el sistema)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/useradd/">Useradd</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:53:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Crear usuarios.</p>
+
+<blockquote><p># useradd -d /home/user -m user (Especifica la ruta a su $HOME)</p></blockquote>
+
+<p>Otras opciones:</p>
+
+<p>-M usuario  (sin directorio $HOME)</p>
+
+<p>-g users user (grupo principal al que pertenece el usuario)</p>
+
+<p>-e 20111231 user (fecha de expiración de un usuario: 2011-12-31)</p>
+
+<p>-G video,audio user (grupos adicionales a los que pertenece)</p>
+
+<p>-s /bin/bash (especifica la shell del usuario)</p>
+
+<p>-s /sbin/nologin (El usuario no podra logearse en el sistema. Ideal para usuarios con acceso a Samba o FTP sin acceso al interprete de comandos)</p>
+
+<p>-u 503 (Identificador que sera asignado al usuario. Por defecto la UID será a partir del numero 500. Si no se especifica, automáticamente se establece el siguiente número disponible a partir del último usuario creado.)</p>
+
+<p>Un ejemplo completo:</p>
+
+<blockquote><p># useradd -d /home/paco -g users -s /bin/bash -m paco</p></blockquote>
 
 <p>1.-</p>
 
-<p>En distros de 64 bits, ejecutar wine en modo 32 bits</p>
+<p>/etc/default/useradd</p>
 
-<p>Se debe eliminar o mover la carpeta ~/.wine y recrearla de nuevo. Primero se realiza un export de la variable WINEARCH en la terminal</p>
+<p>Archivo donde se definen los valores [shell, directorio del directorio personal, ID del grupo, expiración de la contraseña&#8230;] por defecto para la creación de nuevos usuarios [ver useradd y skel]</p>
 
-<blockquote><p>$ export WINEARCH=win32</p></blockquote>
+<p>Algunos parámetros:</p>
 
-<p>Y luego se ejecuta wine de nuevo</p>
+<pre><code>GROUP=100
 
-<blockquote><p>$ wine programa32bits.exe</p></blockquote>
-</div>
-  
-  
+HOME=/home
 
+INACTIVE=-1
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/windows/">Windows</a></h1>
-    
-    
-      <p class="meta">
-        
+EXPIRE=
 
+SHELL=/bin/sh
 
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>1.-</p>
-
-<p>Redimensionar desde windows:</p>
-
-<p>Botón derecho en: Mi PC \ Administrar o Inicio \ Panel de control \ Herramientas administrativas \ Administracion De Equipos. Clicar con el boton derecho sobre la particion que queremos modificar. Aparecen dos opciones:</p>
-
-<ul>
-<li><p>Extend Volume</p></li>
-<li><p>Shirnk Volume</p></li>
-</ul>
-
-
-<p>La opcion de Shrink Volume es la que nos permite liberar espacio de la partición. Windows moverá los archivos necesarios en su interior. Igualmente informá del tamaño maximo que puede liberar con garantias de integridad de datos. El espacio libre podremos particionarlo posteriormente usando herramientas clásicas como gparted.</p>
-
-<p>2.-</p>
-
-<p>Re-dimensionar desde Linux:</p>
-
-<p>Cuando a gparted le resulta imposible re-dimensionar particiones ntfs [con vista, por ejemplo] usaremos un Live con las herramientas ntfsprogs [puppy, entre otras]. Previamente habremos desfragmentado la partición win y, si procede, reparados posibles errores de disco desde la consola del sistema [cmd] lazando chkdsk /c</p>
-
-<p>Arrancado el Live, averiguamos el nombre de la partición:</p>
-
-<blockquote><p># fdisk -l | grep NTFS</p></blockquote>
-
-<p>Si no hemos lanzado chkdsk en win, con linux podemos reparar los posibles errores con:</p>
-
-<blockquote><p># ntfsfix /dev/sdax</p></blockquote>
-
-<p>Comprobar si detecta correctamente la partición win:</p>
-
-<blockquote><p># sudo ntfsresize -P -i -f -v /dev/hda1 &#8211;ad-sectors</p></blockquote>
-
-<p>ntfsresize v2.0.0 (libntfs 10:0:0)</p>
-
-<p>Device name : /dev/hda1</p>
-
-<p>NTFS volume version: 3.1</p>
-
-<p>&#8230;</p>
-
-<p>Ordinary : 55549 MB 49454</p>
-
-<p>You might resize at 25961267200 bytes or 25962 MB (freeing 32608 MB).</p>
-
-<p>Please make a test run using both the -n and -s options before real resizing!</p>
-
-<p>Indica cuánto podemos redimensionar (25962 MB) y cuánto espacio quedaría libre (32608 MB).Suponemos que deseamos dejar el sistema de ficheros en 29055000000 by (29055 MB). Primero lo simulamos (recomendable realizar la prueba varias veces):</p>
-
-<blockquote><p># ntfsresize -f -s 29055000000 -n /dev/hda1 &#8211;bad-sectors</p></blockquote>
-
-<p>ntfsresize v2.0.0 (libntfs 10:0:0)</p>
-
-<p>Device name : /dev/hda1</p>
-
-<p>NTFS volume version: 3.1</p>
-
-<p>&#8230;</p>
-
-<p>ERROR: Extended record needed (1096 > 1024), not yet supported!</p>
-
-<p>Please try to free less space.</p>
-
-<p>Indica que no se ha dejado suficiente espacio para desplazar los datos.</p>
-
-<p>dejamos más espacio:</p>
-
-<blockquote><p># ntfsresize -f -s 31055000000 -n /dev/hda1 &#8211;bad-sectors</p></blockquote>
-
-<p>ntfsresize v2.0.0 (libntfs 10:0:0)</p>
-
-<p>Device name : /dev/hda1</p>
-
-<p>&#8230;</p>
-
-<p>Updating Boot record …</p>
-
-<p>The read-only test run ended successfully.</p>
-
-<p>La simulación sale correcta, procedemos a aplicarla quitando el parámetro -n</p>
-
-<blockquote><p># ntfsresize -f -s 31055000000 /dev/hda1 &#8211;bad-sectors</p></blockquote>
-
-<p>ntfsresize v2.0.0 (libntfs 10:0:0)Device name : &#8230;</p>
-
-<p>&#8230;</p>
-
-<p>Syncing device …</p>
-
-<p>Successfully resized NTFS on device ‘/dev/hda1′.</p>
-
-<p>3.-</p>
-
-<p>Crear un usuario administrador en windows [7, server 2008&#8230;]</p>
-
-<p>Arrancar con un Live-cd y montar la partición win.</p>
-
-<p>Entrar en C:\Windows\System32</p>
-
-<p>Borrar el archivo Magnify.exe</p>
-
-<p>Copiar el fichero cmd.exe y renombrar como Magnify.exe</p>
-
-<p>Reiniciar para que arranque Windows.</p>
-
-<p>Ejecutar la herramienta de lupa y arrancará una ventana de comandos como usuario administrador</p>
-
-<p>Crear un usuario administrador:</p>
-
-<p>net user /add admin</p>
-
-<p>net localgroup administrators admin /add</p>
-
-<p>net user admin *</p>
-
-<p>Reiniciar win y entrar con el usuario creado.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/wicd-gtk/">Wicd-gtk</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Applet de wicd para el area de notificación (tray)</p>
-
-<blockquote><p>$ wicd-gtk -a</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/wicd-curses/">Wicd-curses</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>conexiones a una red inalambrica.</p>
-
-<blockquote><p>$ wicd-curses</p></blockquote>
-
-<p>Si hay redes libres seleccionar la red y presionar la tecla C. Si existen redes  con seguridad habilitada, situarnos en la red con la que deseemos conectar, y presionar la tecla -> [la flecha derecha]. Mostrará otro menu donde ingresar  protocolo de seguridad y clave.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/whois/">Whois</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Conocer los datos del registro de un dominio. Especificar sin las www</p>
-
-<blockquote><p>$ whois todo-linux.com</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/whoami/">Whoami</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra el usuario con el que estamos. Misma salida que id -un [ver]</p>
-
-<blockquote><p>$ whoami</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/who/">Who</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[whowatch]</p>
-
-<p>Muestra información sobre los usuarios que están conectados al equipo.</p>
-
-<blockquote><p>$ who -b (Tiempo desde el último arranque del sistema)</p>
-
-<p>$ who -d (Procesos truncados)</p>
-
-<p>$ who -r (Informa del runlevel activo)</p>
-
-<p>$ who am i (usuario, número de terminal y fecha de entrada en dicha terminal)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/whiptail/">Whiptail</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra ventanas en consola. Parecido a dialog con menos opciones.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/while/">While</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Ejecuta una seria de comandos mientras que una determinada condicion sea cumpla. Algunos scripts ilustrativos:</p>
-
-<p>1.-</p>
-
-<pre><code>#!/bin/bash
-
-RESPUESTA=s
-
-while [ $RESPUESTA = s ]
-
-do
-
-    echo "Introducir nombre: "
-
-    read NOMBRE
-
-    echo "Hola $NOMBRE"
-
-    echo
-
-    echo "¿Desea continuar? (s/n)"
-
-    read RESPUESTA
-
-done
+SKEL=/etc/skel
 </code></pre>
+</div>
+  
+  
 
-<p>2.-</p>
 
-<pre><code>#!/bin/bash
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/user-dirs-dot-dirs/">user-dirs.dirs</a></h1>
+    
+    
+      <p class="meta">
+        
 
-while [ "$OPCION" != 5 ]
 
-do
 
-    echo
 
-    echo "[1] Listar directorio"
 
-    echo "[2] Directorio donde te encuentras"
 
-    echo "[3] fecha de hoy"
 
-    echo "[4] Usuarios conectados"
 
-    echo "[5] Salir"
+  
 
-    echo
 
-    read -p "Ingrese una opción: " OPCION
+<time datetime="2014-01-28T17:53:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
 
-    echo
 
-    case $OPCION in
+  <div class="entry-content"><p>Archivo donde se especifican los directorios que saldran por defecto en el $HOME:</p>
 
-        1) ls;;
+<p>XDG_DESKTOP_DIR=”$HOME/Escritorio”</p>
 
-        2) pwd;;
+<p>XDG_DOWNLOAD_DIR=”$HOME/Descargas”</p>
 
-        3) date +%D ;;
+<p>XDG_TEMPLATES_DIR=”$HOME/Plantillas”</p>
 
-        4) who;;
+<p>XDG_PUBLICSHARE_DIR=”$HOME/Público”</p>
 
-        5);;
+<p>XDG_DOCUMENTS_DIR=”$HOME/Documentos”</p>
 
-        *) echo "Opción ingresada no valida, intentelo de nuevo";;
+<p>XDG_MUSIC_DIR=”$HOME/Música”</p>
 
-    esac
+<p>XDG_PICTURES_DIR=”$HOME/Imágenes”</p>
 
-done
-
-exit 0
-</code></pre>
-
-<p>3.-</p>
-
-<pre><code>#!/bin/bash
-
-# imprimir números del 1 al 10
-
-LIMITE=10
-
-a=1
-
-while [ "$a" -le $LIMITE ]
-
-do
-
-  echo "$a "
-
-  let "a+=1"
-
-done
-</code></pre>
-
-<p>4.-</p>
-
-<p>Leer un archivo linea a linea:</p>
-
-<pre><code>#!/bin/bash
-
-while read linea
-
-do
-
-   echo "---&gt; $linea "
-
-done &lt; archivo.txt
-</code></pre>
-
-<p>5.-</p>
-
-<p>Especificando un separador [:]</p>
-
-<pre><code>#!/bin/bash
-
-while IFS=: read user pass uid gid full home shell
-
-do
-
-echo -e "$full :\n\
-
-        Pseudo : $user\n\
-
-        UID :\t $uid\n\
-
-        GID :\t $gid\n\
-
-        Home :\t $home\n\
-
-        Shell :\t $shell\n\n"
-
-done &lt; /etc/passwd
-</code></pre>
-
-<p>6.-</p>
-
-<p>Leer un archivo pasado como parámetro, descartar las lineas en blanco y colorear alternativamente las siguientes en amarillo y rojo.</p>
-
-<pre><code>#!/bin/bash
-
-COLOR=1
-
-while read linia
-
-do
-
-    if [ -z "${linia}" ] 
-
-    then
-
-        continue
-
-    fi
-
-    if [ $COLOR -eq 0 ]
-
-    then
-
-        echo -e "\e[1;30;41m$linia\033[0m" #VERMELL - 0
-
-        COLOR=1
-
-    else
-
-        echo -e "\e[1;30;43m$linia\033[0m" #GROC - 1
-
-        COLOR=0
-
-    fi
-
-done &lt; $1
-</code></pre>
+<p>XDG_VIDEOS_DIR=”$HOME/Vídeos”</p>
 </div>
   
   
@@ -786,43 +798,43 @@ done &lt; $1
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/ifne/">ifne</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ifdata/">ifdata</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ifconfig/">ifconfig</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/identify/">identify</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/html/">html</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hosts/">hosts</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/host-dot-conf/">host.conf</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/honeyproxy/">honeyproxy</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hg/">hg</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hexdump/">hexdump</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

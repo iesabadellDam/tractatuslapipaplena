@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Acceso a los parámetros de configuración de la placa RaspberriPi
+  <meta name="description" content="[python-pip python-dev build-essential]. Alternativa para la instalación de paquetes python. # pip install paquete
 ">
   
 
@@ -81,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/raspi-config/">Raspi-config</a></h1>
+      <h1 class="entry-title"><a href="/blog/pip/">Pip</a></h1>
     
     
       <p class="meta">
@@ -97,14 +97,16 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Acceso a los parámetros de configuración de la placa RaspberriPi</p>
+  <div class="entry-content"><p>[python-pip python-dev build-essential]. Alternativa para la instalación de paquetes python.</p>
+
+<blockquote><p># pip install paquete</p></blockquote>
 </div>
   
   
@@ -117,7 +119,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rarp/">Rarp</a></h1>
+      <h1 class="entry-title"><a href="/blog/pinky/">Pinky</a></h1>
     
     
       <p class="meta">
@@ -133,18 +135,18 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Manipula la tabla rarp del nucleo.</p>
+  <div class="entry-content"><p>Información sobre los usuarios del sistema.</p>
 
-<blockquote><p>$ rarp -a (Lista las entradas de la caché si el nucleo tiene soporte rarp)</p>
+<blockquote><p>$ pinky -l usuario</p>
 
-<p>$ rarp -d hostname (Elimina una entrada de la caché)</p></blockquote>
+<p>$ pinky -b usuario root (shells abiertas por los usuarios especificados)</p></blockquote>
 </div>
   
   
@@ -157,7 +159,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rar/">Rar</a></h1>
+      <h1 class="entry-title"><a href="/blog/ping/">Ping</a></h1>
     
     
       <p class="meta">
@@ -173,24 +175,28 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Empaqueta y comprime</p>
+  <div class="entry-content"><p>Para saber si existe conexión con un host</p>
 
-<blockquote><p>$ rar a archivo.rar fichero1 fichero2  (Comprimir varios ficheros)</p>
+<blockquote><p>$ ping ip (Uso básico)</p>
 
-<p>$ rar x archivo.rar  (Descomprimir)</p>
+<p>$ ping -c 2 google.com (mandar solo dos paquetes)</p>
 
-<p>$ rar v archivo.rar (Ver contenido)</p>
+<p>$ ping -n google.com  (Muestra las direcciones ip por su número y no por su nombre de host)</p>
 
-<p>$ rar a archivo.rar fichero -hp   (empaquetar un fichero con contraseña)</p>
+<p>$ ping -i 2 google.es (Establece un intérvalo de 2 segundos entre cada transmisión. Por defecto 1&#8221;)</p>
 
-<p>$ rar a archivo.rar file1 file2 dir1 (comprimir varios ficheros y directorios simultáneamente)</p></blockquote>
+<p>$ ping -w 3 google.es (Salir de ping a los 3 segundos)</p>
+
+<p># ping -f google.es (Envio masivo de pings. Por cada ECHO_REQUEST enviado se escribe un punto [.] y por cada ECO_REPLY recibido un baskspace [retroceso]. Puede colgar la red o la máquina objetivo mientras dura el ping)</p>
+
+<p># ping -s 200 google.es (Especificando número de bytes de datos que se envian. Por defecto 56. Combinado con el parámetro -f puede ser letal para la máquina objetivo)</p></blockquote>
 </div>
   
   
@@ -203,7 +209,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rankmirrors/">Rankmirrors</a></h1>
+      <h1 class="entry-title"><a href="/blog/pigz/">Pigz</a></h1>
     
     
       <p class="meta">
@@ -219,18 +225,37 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Optimiza los mirrors de pacman.</p>
+  <div class="entry-content"><p>Compresión de ficheros. Permite lanzar varias instancias en paralelo para un único proceso de compresión. Sobrreescribe el fichero dándole extensión gz a menos que lo usemos con el parámetro -k. Pigz es casi lo mismo que gzip solo que aprovecha los múltiples cores a diferencia de gzip que solo usa un core. Al comprimir sólo ficheros, si queremos comprimir un directorio, primero se ha de empaquetar con tar (ver). Descarga y compilación:</p>
 
-<blockquote><p># cp mirrorlist mirrorlist.backup</p>
+<pre><code>wget http://zlib.net/pigz/pigz-2.3.1.tar.gz
 
-<p># rankmirrors mirrorlist.backup >> mirrorlist</p></blockquote>
+$ tar -xzvf pigz-2.3.1.tar.gz
+
+$ make
+</code></pre>
+
+<p>Nota.- Si no se desea arrancar la aplicación con ./pigz crear un enlace directo en el path [ln -s pigz-2.3.1/pigz /usr/bin/]</p>
+
+<blockquote><p>$ pigz -p 4 fichero (Especificando número de procesos a levantar. Por defecto utiliza todos los cores i procesadores de la máquina)</p>
+
+<p>$ pigz -k fichero (Sin sobreescrir el fichero)</p>
+
+<p>$ pigz -d fichero.gz (Descomprimir el fichero creado)</p>
+
+<p>$ pigz -r carpeta (Comprimir todos los archivos de la carpeta. No la carpeta)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<p>&#8211;fast (Nivel mínimo de compresión)</p>
+
+<p>&#8211;best (Nivel máximo de compresión)</p>
 </div>
   
   
@@ -243,7 +268,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/randtype/">Randtype</a></h1>
+      <h1 class="entry-title"><a href="/blog/pig/">Pig</a></h1>
     
     
       <p class="meta">
@@ -259,20 +284,16 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Utilidad para leer un archivo y mostrar la salida carácter por carácter o línea por línea a intervalos aleatorios.</p>
+  <div class="entry-content"><p>[bsd-games]. Reformatear palabras o frases entradas en el prompt a un lenguaje macarrónico.</p>
 
-<blockquote><p>$ randtype archivo (forma básica con valores por defecto)</p>
-
-<p>$ randtype -t 10,100000 archivo (Retarda la salida de forma aleatoria entre 10 y 100000 microsegundos)</p>
-
-<p>$ echo &#8220;Linux es un sistema genial&#8221; | randtype -m 4 (Simulando 4 errores en el tecleo de la frase)</p></blockquote>
+<blockquote><p>$ pig (entra en el prompt. Entrar cualquier frase pulsar enter y comprobar el resultado)</p></blockquote>
 </div>
   
   
@@ -285,7 +306,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/random/">Random</a></h1>
+      <h1 class="entry-title"><a href="/blog/pidstat/">Pidstat</a></h1>
     
     
       <p class="meta">
@@ -301,22 +322,32 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Función interna de Bash que devuelve un número entero pseudoaleatorio en el rango: 0 - 32767. Para establecer un límite superior se utiliza la función módulo [%] y para un número inferior se le suma el propio número inferior.</p>
+  <div class="entry-content"><p>[sysstat]. Muestra información relacionada con los procesos del sistema.</p>
 
-<blockquote><p>$ echo $RANDOM (Cualquier número aleatorio dentro del rango)</p>
+<blockquote><p>$ pidstat  (informa del uso de la CPU)</p>
 
-<p>$ echo $((RANDOM%20)) (Obtener un número de 0 a 20)</p>
+<p>$ pidstat -u  (lo mismo)</p>
 
-<p>$ echo $((5+RANDOM%15)) (Obtener un número de 5 a 15)</p>
+<p>$ pidstat -d  (Muestra la tasa de lectura/escritura a los medios fisicos)</p>
 
-<p>$ VARIABLE=<code>echo $(($RANDOM))</code></p></blockquote>
+<p>$ pidstat -p 1234  (Especifica que solo deseas analizar el proceso 1234)</p>
+
+<p>$ pidstat -C comando  (Similar a -p pero indicando el nombre del proceso)</p>
+
+<p>$ pidstat -r  (Muestra el uso de memoria de los procesos y errores de  paginación en la memoria de los procesos -page faults-).</p>
+
+<p>$ pidstat -I  (En sistemas multicore, indica la CPU en la que se ejecuta el    comando)</p>
+
+<p>$ pidstat -d 5 2 (“5” es el intervalo de tiempo y “2” el número de veces que ejecutara el comando. Cuando haya llegado al número de  ejecuciones, pidstat se parará y mostrará una media con los valores obtenidos)</p>
+
+<p>$ pidstat -d 5  (omitiendo el numero de veces a ejecutar para producir un bucle infinito. Parar con ^C)</p></blockquote>
 </div>
   
   
@@ -329,7 +360,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ramfs/">Ramfs</a></h1>
+      <h1 class="entry-title"><a href="/blog/pidof/">Pidof</a></h1>
     
     
       <p class="meta">
@@ -345,20 +376,16 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Permite asignar parte de la memoria física para ser utilizada como una partición lo que permite una vez montada, leer o escribir archivos de la RAM como si de una partición de disco se tratara. Dado que se está escribiendo en la memoria RAM del sistema, esta se borra en un reinicio o en un cuelgue. Relacionado con tmpfs [ver], se diferencia de este en que ramfs no usa swap y que si se supera la RAM del sistema, se bloquea. El proceso:</p>
+  <div class="entry-content"><p>muestra el Pid del programa si está activo</p>
 
-<blockquote><p># mkdir /media/ram</p>
-
-<p># mount -t ramfs -o size=20m ramfs /media/ram</p></blockquote>
-
-<p>Comprobar con df -k [ver] o mount [ver]su correcto montaje</p>
+<blockquote><p>$ pidof firefox</p></blockquote>
 </div>
   
   
@@ -371,7 +398,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rain/">Rain</a></h1>
+      <h1 class="entry-title"><a href="/blog/pi/">Pi</a></h1>
     
     
       <p class="meta">
@@ -387,16 +414,18 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra chapoteo de agua en la terminal.</p>
+  <div class="entry-content"><p>Calcula la cantidad de decimales de pi que se le indique.</p>
 
-<blockquote><p>$ rain -d 120 (El máximo de lento. Por defecto 0 [rápido])</p></blockquote>
+<blockquote><p>$ pi 100</p>
+
+<p>$ pi 1000</p></blockquote>
 </div>
   
   
@@ -409,7 +438,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/quiz/">Quiz</a></h1>
+      <h1 class="entry-title"><a href="/blog/phpshell/">Phpshell</a></h1>
     
     
       <p class="meta">
@@ -425,18 +454,39 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Pruebas de conocimiento al azar [en inglés]</p>
+  <div class="entry-content"><p>[apache2 php5 libapache2-mod-auth-mysql php5-mysql]. Script en php que proporciona una terminal en el navegador. Descarga de http://sourceforge.net/projects/phpshell/?source=dlp. Para la versión 2.4:</p>
 
-<blockquote><p>$ quiz (Listara los temas posibles)</p>
+<blockquote><p>$ wget http://sourceforge.net/projects/phpshell/files/phpshell/2.4/phpshell-2.4.zip</p>
 
-<p>$ quiz Europe capital (Preguntará capitales de Europa. Si no se sabe la respuesta pulsar intro en blanco y mostrará la respuesta)</p></blockquote>
+<p>$ unzip phpshell-2.4.zip</p></blockquote>
+
+<p>Mover la carpeta al directorio web y darle un nombre:</p>
+
+<blockquote><p>$ mv phpshell-2.4/ /var/www/shell</p></blockquote>
+
+<p>Renombrar:</p>
+
+<blockquote><p>$ cd /var/www/shell</p>
+
+<p>$ mv phpshell.php index.php</p></blockquote>
+
+<p>Entrar en el navegador y acceder en la dirección: http://localhost/shell/pwhash.php para entrar un nombre de usuario y una contraseña. Completado el registro, pulsar &#8220;update&#8221;. Copiar el hash  que muestra y pegarlo en el archivo de configuración:</p>
+
+<blockquote><p>$ nano /var/www/shell/config.php</p></blockquote>
+
+<p>Pegar el hash en el apartado [users]</p>
+
+<pre><code>templix = "sha1:2ud9a08b:27w6806b770f9716a9ec3f9b72a402e3b0a8b6e5"
+</code></pre>
+
+<p>Entrar en phpshell colocando en el navegador: http://localhost/shell</p>
 </div>
   
   
@@ -449,7 +499,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/qrencode/">Qrencode</a></h1>
+      <h1 class="entry-title"><a href="/blog/php/">Php</a></h1>
     
     
       <p class="meta">
@@ -465,16 +515,48 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Codifica datos de entrada en código QR y los guarda en una imatgen png.</p>
+  <div class="entry-content"><p>Lenguaje de programación diseñado originalmente para la creación de páginas web.</p>
 
-<blockquote><p>$ qrencode -o output.png &#8216;linux es genial&#8217;</p></blockquote>
+<blockquote><p>$ php -v (Conocer la versión)</p>
+
+<p>$ php -m (Muestra módulos instalados)</p>
+
+<p>$ php -i (Información general de php)</p>
+
+<p>$ php -s archivo.php > archivo.html (Crea un archivo html de un php)</p>
+
+<p>$ php &#8211;ini (Informa donde esta el archivo php.ini)</p></blockquote>
+
+<p>1.-</p>
+
+<p>Configuración de php de forma segura (php.ini)</p>
+
+<pre><code># nano /etc/php5/apache2/php.ini
+
+expose_php Off (Ocultar la versión de php)
+
+session.use_trans_sid = Off (Que las URL no muestren los ID de sesiones)
+
+allow_url_fopen = Off (Desactivar acceso a URL remotas en funciones de manejo de ficheros)
+
+display_errors = Off (Evitar que los errores se muestren por pantalla)
+</code></pre>
+
+<p>2.-</p>
+
+<p>Arreglar el error: PHP Deprecated:  Comments starting with &#8216;#&#8217; are deprecated in /etc/php5/cli/conf.d/ming.ini on line 1 in Unknown on line 0</p>
+
+<pre><code># nano /etc/php5/cli/conf.d/ming.ini 
+
+Y cambiar el “#” de los comentarios por un “;”
+</code></pre>
 </div>
   
   
@@ -505,43 +587,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/ifne/">ifne</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ifdata/">ifdata</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ifconfig/">ifconfig</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/identify/">identify</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/html/">html</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hosts/">hosts</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/host-dot-conf/">host.conf</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/honeyproxy/">honeyproxy</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hg/">hg</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hexdump/">hexdump</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Gestor rápido de paquetes pacman y aur con funcionalidades básicas [-Ss , -S, -Syu y -Si]. Para evitar conflictos entre rutas de pacman y aur, &hellip;">
+  <meta name="description" content="utilidad que se puede utilizar para practicamente cualquier cosa relacionada con el protocolo TCP/IP [navaja suiza] Nota.- En algunas distros está &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/packer/">Packer</a></h1>
+      <h1 class="entry-title"><a href="/blog/netcat/">Netcat</a></h1>
     
     
       <p class="meta">
@@ -96,22 +96,66 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Gestor rápido de paquetes pacman y aur con funcionalidades básicas [-Ss , -S, -Syu y -Si]. Para evitar conflictos entre rutas de pacman y aur, instalar diffpac.</p>
+  <div class="entry-content"><p>utilidad que se puede utilizar para practicamente cualquier cosa relacionada con el protocolo TCP/IP [navaja suiza]</p>
 
-<blockquote><p>$ packer -S &#8211;noconfirm paquete  (Instalar sin pedir confirmación)</p>
+<p>Nota.- En algunas distros está ligeramente capado. Preferible bajarlo de http://netcat.sourceforge.net/download.php y compilarlo:</p>
 
-<p>$ packer -Syu &#8211;auronly (Actualizar y sincronizar sólo los paquetes de aur)</p>
+<blockquote><p>$ ./configure</p>
 
-<p>$ packer -Si paquete (información sobre paquete)</p>
+<p>$ make DFLAGS=&#8221; -DTELNET -DGAPING_SECURITY_HOLE&#8221;</p>
 
-<p>$ packer -G paquete (descargar sin instalar un tarbal de aur)</p></blockquote>
+<p># make install</p>
+
+<p>$ nc -v -v -z 192.168.2.5 21 22 25 110 5900 (que se conecte a la IP, envie más información [-v por duplicado], que no envie ningún dato [-z] y que lo haga por los puertos mencionados [21,22,25,110,5900])</p>
+
+<p>$ nc -l -p 3001 -e /bin/bash  (Que esté a la escucha [-l] en el puerto 3001 [-p] y que, cuando haya conexión, ejecute nuestra shell bash [-e &#8230;.])</p>
+
+<p>$ nc IP_servidor 3001  (desde el cliente, conectamos con el servidor y todo lo que escribamos se enviará al bash del servidor y lo que nos responda aparecerá en nuestra pantallla. Para terminar la conexión CTROL-C)</p>
+
+<p>$ telnet -l usuario IP_o_nombre_host 3001 (Otra forma de establecer la conexión.)</p>
+
+<p>$ nc -l -p 3000 > archivo (Dejar el servidor listo para recibir un archivo)</p>
+
+<p>$ nc IP_servidor 3000 &lt; archivo  (enviar desde el cliente el archivo)</p>
+
+<p>$ nc -zw2 www.nombre.com 80 &amp;&amp; echo open  (comprobar si está abierto el puerto 80 de un host)</p>
+
+<p>$ nc -l -p 10000 &lt; pelicula.avi  (streaming de video-servidor)</p>
+
+<p>$ nc IP_o_host 10000 | mplayer – (streaming de video-cliente)</p>
+
+<p>$ nc -l -p 10000 &lt; fichero.mp3  (streaming de  audio-servidor)</p>
+
+<p>$ nc IP_o_host 10000 | madplay –  (streaming de audio-cliente)</p>
+
+<p>$ nc -l -p http -c &#8220;cat index.html&#8221;  (servidor http)</p>
+
+<p>$ echo “GET /” | nc www.google.com 80 > index.html  (copiar una página web)</p>
+
+<p>$ nc -l -p 10000 -c &#8220;nc host 22&#8221; (Proxy. El trafico recibido en el puerto 10000 se redirige al 22 del host especificado)</p>
+
+<p>$ nc towel.blinkenlights.nl 23  (visionar la guerra de las galaxias)</p>
+
+<p>$ dd if=/dev/sda5 | nc -l -p 10000  (clonar un disco por red. En el servidor)</p>
+
+<p>$ nc IP_o_host 10000 | dd of=sda5.img  (En el cliente)</p>
+
+<p>$ nc -l -p 7777 > /dev/null  (Prueba de rendimiento entre dos máquinas. En el Servidor)</p>
+
+<p>$ pv -r /dev/zero | nc IP_servidor 7777  (En el cliente)</p></blockquote>
+
+<p>opciones</p>
+
+<p>-v -v   .-  mostrar máxima información</p>
+
+<p>-z  .-  mostrar puertos a la escucha</p>
 </div>
   
   
@@ -124,7 +168,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pacdiffviewer/">Pacdiffviewer</a></h1>
+      <h1 class="entry-title"><a href="/blog/net-acct/">Net-acct</a></h1>
     
     
       <p class="meta">
@@ -140,14 +184,16 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>En Arch, busca archivos de configuración nuevos y obsoletos [pacnew, pacsave] para gestionarlos [eliminarlos, reemplazarlos..]</p>
+  <div class="entry-content"><p>Demonio que crea logs del uso de la red.</p>
+
+<blockquote><p># cat /var/log/net-acct/net-acct.log</p></blockquote>
 </div>
   
   
@@ -160,7 +206,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/p0f/">P0f</a></h1>
+      <h1 class="entry-title"><a href="/blog/nessus/">Nessus</a></h1>
     
     
       <p class="meta">
@@ -176,22 +222,30 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>identifica huellas de sistemas operativos de forma pasiva (solo escuchando)</p>
+  <div class="entry-content"><p>Scaner de vulneradilidades</p>
 
-<blockquote><p># p0f -i eth0</p>
+<p>Descargar nessus de: http://www.nessus.org/download/</p>
 
-<p># p0f -A -i eth0  (averiguar conexiones que nos realizan o pasan por nuestra máquina)</p>
+<p>Registrarnos en:  http://www.nessus.org/plugins/?view=register-info</p>
 
-<p># p0f -R -i eth0  (con conexiones que nos rechazan el tráfico)</p></blockquote>
+<p>Entrar el código de activación recibido por correo:</p>
 
-<p>Nota.- Lanzar la aplicación, visitar distintas páginas con el navegador y mirar en la consola lo que aparece.</p>
+<blockquote><p># /opt/nessus/bin/nessus-fetch &#8211;register 218B-76A4-CB0F-072B-AEEA</p>
+
+<p># /opt/nessus/sbin/nessus-adduser (Entrar usuario y contraseña)</p>
+
+<p># /opt/nessus/sbin/nessusd (Arrancar el servicio)</p></blockquote>
+
+<p>Abrir navegador y entrar en la pantalla de login con:</p>
+
+<p>https://127.0.0.1:8834</p>
 </div>
   
   
@@ -204,7 +258,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/owncloud/">Owncloud</a></h1>
+      <h1 class="entry-title"><a href="/blog/ncmpcpp/">Ncmpcpp</a></h1>
     
     
       <p class="meta">
@@ -220,30 +274,57 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[apache2 php5 php-pear php-xml-parser php5-sqlite php5-json sqlite php5-mysql mp3info curl libcurl3 libcurl3-dev php5-curl zip php5-gd]</p>
+  <div class="entry-content"><p>Reproductor de música. Al ser del tipo cliente-servidor, Precisa mpd [ver] arrancado.</p>
 
-<p>Nube de almacenamiento tipo dropbox, minux, google-drive &#8230; pero no comercial y libre, gestionado totalmente via web. Descargar de http://owncloud.org/ la última versión. Una vez bajado el paquete tar.bz2:</p>
+<p>En el archivo de configuración, que tiene que crearse, sólo es necesario especificar el directorio de música:</p>
 
-<blockquote><p>$ tar -xvf owncloud*.tar.bz2 (Descomprimir)</p>
+<blockquote><p>$ nano .ncmpcpp/config</p></blockquote>
 
-<p>$ mv owncloud /var/www/ (mover la carpeta al directorio web)</p>
+<p>mpd_music_dir = &#8220;/home/usuario/Musica&#8221;</p>
 
-<p># chown -R www-data:www-data /var/www/owncloud (Crear usuario y grupo)</p>
+<p>Algunas teclas de control:</p>
 
-<p># /etc/init.d/apache2 restart (reiniciar apache2)</p></blockquote>
+<pre><code>F1 (Ayuda)
 
-<p>Terminar la configuración [administrador, contraseña, base de datos..) abriendo en el navegador la dirección:</p>
+F2 (Lista de reproducción)
 
-<p>http://localhost/owncloud</p>
+F3 (Explorador)
 
-<p>Todo lo que se arrastra a la ventana del navegador se incluye en la nube.</p>
+F4 (Busca en la base de datos)
+
+F5 (Libreria)
+
+F6 (Editor de listas de reproduccion)
+
+F7 (Editor de etiquetas)
+
+F8 (Outputs)
+
+F9 (Visualizador musical)
+
+F10 (Reloj)
+
+@ (Informacion del servidor mpd)
+
+s (Detiene la reproducción)
+
+p (Cambia la visualización)
+
+P (Pausa la reproducción)
+
+Backspace (Pone el tema desde inicio)
+
+&lt; (Tema anterior)
+
+&gt; (Tema siguiente)
+</code></pre>
 </div>
   
   
@@ -256,7 +337,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/owl/">Owl</a></h1>
+      <h1 class="entry-title"><a href="/blog/ncdu/">Ncdu</a></h1>
     
     
       <p class="meta">
@@ -272,46 +353,16 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Instalador de paquetes para archlinux.</p>
+  <div class="entry-content"><p>Muestra el espacio usado por los archivos y directorios del directorio actual. Como “du” pero basado en ncurses.</p>
 
-<blockquote><p>$ owl refresh  (Refrescar la lista de paquetes)</p>
-
-<p>$ owl update (Refrescar la lista y actualizarlos [-Syu])</p>
-
-<p>$ owl pull (Actualizar AUR)</p>
-
-<p>$ owl install paquete (Instalar un paquete [-S]</p>
-
-<p>$ owl upgrade paquete (Actualizar el paquete)</p>
-
-<p>$ owl downgrade paquete (Desactualizar paquete)</p>
-
-<p>$ owl remove paquete (Eliminar paquete)</p>
-
-<p>$ owl download paquete (Descargar el paquete de AUR)</p>
-
-<p>$ owl search palabra (Buscar palabras relacionadas)</p>
-
-<p>$ owl query palabra (Buscar palabra relacionada en local)</p>
-
-<p>$ owl info paquete (Buscar información de paquete)</p>
-
-<p>$ owl deps paquete (Mirar dependencias)</p>
-
-<p>$ owl version paquete (Ver la versión del paquete)</p>
-
-<p>$ owl description paquete (Ver descrición del paquete)</p>
-
-<p>$ owl list paquete (listar los paquetes que se instalan con paquete)</p>
-
-<p>$ owl orphans (Listar poquetes de AUR instalados y desatendidos)</p></blockquote>
+<blockquote><p>$ ncdu /home/usuario</p></blockquote>
 </div>
   
   
@@ -324,7 +375,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/outguess/">Outguess</a></h1>
+      <h1 class="entry-title"><a href="/blog/nbtscan/">Nbtscan</a></h1>
     
     
       <p class="meta">
@@ -340,18 +391,51 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Herramienta de encriptación</p>
+  <div class="entry-content"><p>Para ver máquinas que compartan información en una red por medio del protocolo NetBIOS [windows utiliza este protocolo para sus comunicaciones] GNU/Linux, BSD, Solaris y Mac utiliza el servicio samba por lo cual también serán detectados sus recursos compartidos.</p>
 
-<blockquote><p>$ outguess -k password -d mensaje.txt imagen.jpg resultado.jpg (Embebe el mensaje en una imagen con la contraseña especificada)</p>
+<blockquote><p># nbtscan 192.168.0.0/24  (Obtener nombres de los PCs de nuestra red)</p>
 
-<p>$ outguess -k password -r resultado.jpg mensaje.txt  (saca el mensaje de la imagen)</p></blockquote>
+<p># nbtscan -v 192.168.0.0/24  (Obtener la tabla NetBIOS de cada uno de los PCs que encuentre)</p>
+
+<p># nbtscan -r 192.168.2.0/24  (Para escanear completamente toda la red)</p>
+
+<p># nbtscan -v -s : 192.168.2.0/24  (Lo mismo con información por columnas)</p>
+
+<p># nbtscan -r 192.168.2.1-64  (Escanear por un rango de ips)</p>
+
+<p># nbtscan -f listado   (Escanear a partir de un archivo de ips)</p></blockquote>
+
+<p>El archivo listado tendrá un formato:</p>
+
+<p>192.168.2.3</p>
+
+<p>192.168.2.6</p>
+
+<p>192.168.2.11</p>
+
+<p>&#8230;</p>
+
+<blockquote><p># nbtstat -A Ip_victima  (si hay algun pc al que se pueda entrar)</p></blockquote>
+
+<p>Si muestra la entrada <20> será susceptible de intrusion.</p>
+
+<pre><code>LOKO &lt;00&gt; UNIQUE Registered
+
+CHEPUDO &lt;00&gt; GROUP Registered
+
+LOKO &lt;03&gt; UNIQUE Registered
+
+LOKO &lt;20&gt; UNIQUE Registered 
+
+CHEPUDO &lt;1E&gt; GROUP Registered
+</code></pre>
 </div>
   
   
@@ -364,7 +448,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/otp/">Otp</a></h1>
+      <h1 class="entry-title"><a href="/blog/nautilus/">Nautilus</a></h1>
     
     
       <p class="meta">
@@ -380,22 +464,88 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Generador de contraseñas.</p>
+  <div class="entry-content"><p>Navegador de archivos de gnome</p>
 
-<blockquote><p>$ otp -c6 -S3 -n5 (Creará 5 contraseñas [-n] por defecto son 50, de 6 letras mayúsculas [-c] separadas por un guión de 3 en 3 [-S] por defecto son de 4 en 4)</p></blockquote>
+<blockquote><p>$ nautilus -q  (salir de nautilus)</p>
 
-<p>Algunas opciones:</p>
+<p>$ nautilus -c  (Realizar una serie rápida de pruebas de autoevaluación)</p>
 
-<p>-d8 (Empleando sólo 8 números)</p>
+<p>$ nautilus -g 1200x400 (arrancarlo con determinadas medidas)</p></blockquote>
 
-<p>-l6 (6 letras en minúscula)</p>
+<p>Para abrir lugares especiales en nautilus, colocarse sobre el escritorio GNOME y pulsar Mayúscula+7. Se abrirá una ventana “abrir lugar” y, en ella, escribiremos:</p>
+
+<pre><code>computer:///  (Mostrar unidades y SO)
+
+network:///   (los sitios de la Red.)
+
+fonts:///   (ver las tipografías instaladas.)
+
+burn:///   (abre ventana grabar CD/DVD.)
+
+themes:///   (temas disponibles de GNOME.)
+</code></pre>
+
+<p>nautilus terminal</p>
+
+<pre><code># add-apt-repository ppa:flozz/flozz
+
+# apt-get update &amp;&amp; sudo apt-get install nautilus-terminal
+
+$ nautilus -q
+</code></pre>
+
+<p>Extensión de Nautilus que permite tener una consola incrustada, sincronizada con el explorador.</p>
+
+<p>Ctrl + Shift + t   (mostrar)</p>
+
+<p>Ctrl + Shift + h  (ocultar)</p>
+
+<p>Añadir “NUEVA PESTAÑA” en la barra de nautilus</p>
+
+<blockquote><p># nano /usr/share/nautilus/ui/nautilus-navigation-window-ui.xml</p></blockquote>
+
+<p>Y pegar en la sección toolbar:</p>
+
+<pre><code>&lt;toolitem name="New Tab" action="New Tab"/&gt; 
+</code></pre>
+
+<p>Reiniciar</p>
+
+<p>Atajos</p>
+
+<pre><code>Ctrl+A (Seleccionar todo)
+
+Ctrl+C (Copiar)
+
+Ctrl+H (Muestra archivos ocultos)
+
+Ctrl+N (Abre nueva pantalla)
+
+Ctrl+T (Abre una nueva pestaña)
+
+Ctrl+Alt+D (Mostrar escritorio)
+
+Ctrl+Shft+N (Crear nueva carpeta)
+
+Shft+F10 (Activa el menú contextual para el elemento activo)
+
+Alt+Enter (Mostrar propiedades del elemento activo)
+
+Alt+Flechas (Desplazarse entre carpetas)
+
+Alt+tab (Navegar entre ventanas/documentos activos)
+
+Alt+espacio (Abre el menú de la ventana actual)
+
+F2 (Renombrar carpeta)
+</code></pre>
 </div>
   
   
@@ -408,7 +558,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ossec/">Ossec</a></h1>
+      <h1 class="entry-title"><a href="/blog/nast/">Nast</a></h1>
     
     
       <p class="meta">
@@ -424,20 +574,24 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[wget http://www.ossec.net/files/ossec-hids-2.6.tar.gz]</p>
+  <div class="entry-content"><p>Conocer usuarios (inalámbricos o no) de una red local</p>
 
-<p>Sistema de detección de intrusos. Durante la instalación, una vez escogido el idioma, se realizan una serie de preguntas sobre si se desea recibir por correo las notificaciones [en este caso precisa postfix], lugar de instalación [/var/ossec], si la instalación va a ser local, servidor&#8230; y otras cuyos parámetros por defecto son suficientes.</p>
+<blockquote><p># nast -m  (conocer las máquinas que estan en la LAN)</p>
 
-<blockquote><p># /var/ossec/etc/ossec.conf (Archivo de configuración:)</p>
+<p># nast -g   (muestra los candidatos a gateway con un “Yep”)</p></blockquote>
 
-<p># /var/ossec/bin/ossec-control start (Arrancar el demonio caso de no colocarlo en /etc/init.d/ossec)</p></blockquote>
+<p>opciones:</p>
+
+<p>-p   (modo promiscuo)</p>
+
+<p>-i  eth0 (especificando red)</p>
 </div>
   
   
@@ -450,7 +604,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/optipng/">Optipng</a></h1>
+      <h1 class="entry-title"><a href="/blog/nano/">Nano</a></h1>
     
     
       <p class="meta">
@@ -466,20 +620,77 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Optimizacion de imagenes .png. La reduccion de tamaño es poca pero no pierde calidad. Como modo indicativo, un directorio con 5 imagenes con un peso de 27,5 MB pasa a 25,8 MB.</p>
+  <div class="entry-content"><p>editor de texto.</p>
 
-<blockquote><p>$ optipng imagen.png (Sobreescribe las imagenes)</p>
+<blockquote><p>$ nano -wx texto (Abrir &#8220;texto&#8221; inhabilitando &#8220;final de linea&#8221; [wrap] y la ayuda [x])</p></blockquote>
 
-<p>$ optipne imagen.png -out nueva_imagen.png (Guardar la salida con otro nombre)</p>
+<p>Nota.- &#8220;wrap&#8221; es la cantidad de caracteres de una linea y puede especificarse en los parámetros de nano.</p>
 
-<p>$ optipng -dir imagenes (De todas las imagenes de un directorio)</p></blockquote>
+<p>Archivo de configuración. Crear:</p>
+
+<blockquote><p>$ touch .nanorc</p></blockquote>
+
+<p>Algunos parámetros a incluir:</p>
+
+<p>set backup (Guarde copias con la extensión ~)</p>
+
+<p>set const  (Muestra el número de lineas)</p>
+
+<p>set casesensitive (distinguir mayúsculas y minúsculas en las búsquedas)</p>
+
+<p>set smooth (Desplazamiento suave. Sin salto de media página)</p>
+
+<p>set mouse (Habilita el uso del mouse. Precisa paquete gpm)</p>
+
+<p>set tabsize 4 (Número de espacios en la tabulación. Por defecto 8)</p>
+
+<p>set tabstospaces (convierte tabulaciones en espacios)</p>
+
+<p>set nohelp (inhabilitar la ayuda de forma permanente)</p>
+
+<p>set fill 60 (Número se caracteres por linea[wrap])</p>
+
+<p>Atajos</p>
+
+<pre><code>Ctrl + g (Menú ayuda) 
+
+Ctrl + j (Justificar el párrafo actual) 
+
+Ctrl + k (Cortar y guardar la línea actual) 
+
+Ctrl + m (Insertar un retorno de carro) 
+
+Ctrl + o (Escribir el fichero actual a disco) 
+
+Ctrl + u (Pegar la linea cortada) 
+
+Ctrl + v (Moverse hacia el final del documento) 
+
+Ctrl + w (Buscar una palabra en el texto) 
+
+[Ctrl + w] + [Ctrl + r] (Buscar palabra y reemplazarla por otra) 
+
+Ctrl + y (Moverse hacia el principio del documento) 
+
+Ctrl + x (Salir de nano) 
+
+Ctrl + d (Muestra número de palabras, lineas y caracteres) 
+
+Mayu + Insert (Insertar del portapapeles) 
+
+Alt + m (Soporte para ratón habilitar/deshabilitar. Precisa paquete gpm) 
+
+Alt + y (Coloreado de sintaxis habilitar/deshabilitar) 
+
+Alt + x (Suprimir/añadir la ayuda del final de página)
+</code></pre>
 </div>
   
   
@@ -492,7 +703,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/opkg/">Opkg</a></h1>
+      <h1 class="entry-title"><a href="/blog/nameif/">Nameif</a></h1>
     
     
       <p class="meta">
@@ -508,34 +719,40 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Gestor de paquetes de OpenWRT, firmware linux para routers.</p>
+  <div class="entry-content"><p>Modificar la MAC de una tarjeta de red dañada. Imaginemos el caso de un pc con dos tarjetas (eth0 y eth1) en el que la eth0 se estropea, con nameif podemos cambiar de interfaz la eth1 para ser la eth0:</p>
 
-<blockquote><p># opkg update (actualiza la lista de paquetes)</p>
+<blockquote><p># ifconfig eth1 (Averiguar la MAC de la eth1)</p></blockquote>
 
-<p># opkg install paquete (instalar un paquete)</p>
+<p>eth1      Link encap:Ethernet  HWaddr 00:23:54:57:fc:78</p>
 
-<p># opkg upgrade paquete (actualiza un paquete)</p>
+<blockquote><p># ifconfig eth1 down (bajar la red eth1)</p>
 
-<p># opkg remove paquete (elimina un paquete)</p>
+<p># nano /etc/init.d/networking</p></blockquote>
 
-<p># opkg list (ver paquetes disponibles)</p>
+<p>Añadir a continuación de la linea del PATH:</p>
 
-<p># opkg list-installed (ver paquetes instalados)</p>
+<p>PATH=&#8221;/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin&#8221;</p>
 
-<p># opkg list-upgradable (ver paquetes actualizables)</p>
+<p>nameif eth0 00:23:54:57:fc:78</p>
 
-<p># opkg files paquete (Ver ficheros instalados de un paquete y la versión del mismo)</p>
+<p>&#8230;.</p>
 
-<p># opkg info paquete (ver información de un paquete)</p>
+<p>Reiniciar el servicio:</p>
 
-<p># opkg find palabra (buscar paquetes por nombre y descripción)</p></blockquote>
+<blockquote><p># /etc/init.d/networking restart</p></blockquote>
+
+<p>Comprobar que eth1 se ha convertido en eth0:</p>
+
+<blockquote><p># ifconfig eth0</p></blockquote>
+
+<p>eth0      Link encap:Ethernet  HWaddr 00:23:54:57:fc:78</p>
 </div>
   
   
@@ -566,43 +783,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/ifne/">ifne</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ifdata/">ifdata</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ifconfig/">ifconfig</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/identify/">identify</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/html/">html</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hosts/">hosts</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/host-dot-conf/">host.conf</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/honeyproxy/">honeyproxy</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hg/">hg</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hexdump/">hexdump</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

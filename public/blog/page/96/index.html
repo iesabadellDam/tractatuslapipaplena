@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Muestra la tabla periódica de los elementos quimicos.
-">
+  <meta name="description" content="Editor. Según se lance desde las X o por consola se usará fte, xfte o sfte. F1 muestra todos los atajos y se accede a los menús de forma clásica con &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/gperiodic/">Gperiodic</a></h1>
+      <h1 class="entry-title"><a href="/blog/fte/">Fte</a></h1>
     
     
       <p class="meta">
@@ -97,14 +96,14 @@
   
 
 
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:50:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra la tabla periódica de los elementos quimicos.</p>
+  <div class="entry-content"><p>Editor. Según se lance desde las X o por consola se usará fte, xfte o sfte. F1 muestra todos los atajos y se accede a los menús de forma clásica con Alt+f&#8230;</p>
 </div>
   
   
@@ -117,7 +116,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/gpe-taskmanager/">Gpe-taskmanager</a></h1>
+      <h1 class="entry-title"><a href="/blog/fswebcam/">Fswebcam</a></h1>
     
     
       <p class="meta">
@@ -133,16 +132,37 @@
   
 
 
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:50:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Abre una ventana en las X informando de las aplicaciones abiertas permitiendo matar el proceso que interesa o ha quedado colgado.</p>
+  <div class="entry-content"><p>Capturas con la webcam.</p>
 
-<blockquote><p>$ gpe-taskmanager</p></blockquote>
+<blockquote><p>$ fswebcam &#8211;crop 200x100 &#8211;save out (Especificando medidas y archivo de salida)</p>
+
+<p>$ fswebcam -r 600x500 out1.jpeg &#8211;greyscale out2.jpeg (Dos capturas, especificando resolución y la otra en escala de grises)</p>
+
+<p>$ fswebcam &#8211;banner-colour &#8220;#FF0000&#8221; &#8211;save out (Con el baner de color rojo)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<pre><code>-d  (Especificar el dispositivo de video. Por defecto /dev/video0)
+
+--no-banner (Que la captura no muestre el baner. Por defecto sale en la parte inferior)
+
+--top-banner (Que el baner salga en parte superior)
+
+--title "linux es genial" (Mostrando un texto en el baner)
+
+--timestamp "%d-%m-%Y" (Mostrando en el baner la fecha en formato dia-mes-año)
+
+--info "Linux es un sistema genial" (Añadir un texto que se muestra debajo de la fecha con letra más pequeña)
+
+--invert (Haciendo un negativo de la imagen)
+</code></pre>
 </div>
   
   
@@ -155,7 +175,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/gpasswd/">Gpasswd</a></h1>
+      <h1 class="entry-title"><a href="/blog/fstab/">Fstab</a></h1>
     
     
       <p class="meta">
@@ -171,20 +191,76 @@
   
 
 
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:50:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Añadir usuarios a grupos.</p>
+  <div class="entry-content"><p>(/etc/fstab). Lista todos los discos y particiones disponibles e indica cómo deben ser inicializados. Su estructura es:</p>
 
-<blockquote><p># gpasswd -d usuario video (Para eliminar &#8220;usuario&#8221; del grupo &#8220;video&#8221;)</p>
+<ul>
+<li>Particion punto_de_montaje sistema_de_archivos opciones respaldos orden</li>
+</ul>
 
-<p># gpasswd -a usuario video (Añadir &#8220;usuario&#8221; al grupo &#8220;video&#8221;)</p>
 
-<p># gpasswd -A usuario video (Define a &#8220;usuario&#8221; como administrador del grupo &#8220;video&#8221;)</p></blockquote>
+<p>Y un ejemplo seria:</p>
+
+<pre><code>/dev/sda5 /media/datos ext4 rw,users,exec,auto 0 0 (especificando el número de partición) 
+
+UUID=0e4d9ccb-93bb-4762-8b67-c23d181fc84a / ext4 errors=remount-ro 0 1 (especificando el UUID de la partición) 
+</code></pre>
+
+<p>Los puntos de montaje han de existir en el sistema y normalmente se colocan en /media</p>
+
+<p>Algunos sitemas de archivos puede ser:</p>
+
+<pre><code>auto (intenta descubrir automáticamente el sistema de archivos). 
+
+ext2 (sistema de archivos común en Linux). 
+
+ext3 (igual que ext2 pero además añade journaling). 
+
+ext4 (introdujo significativas mejoras respecto a ext3) 
+
+reiserfs (otro sistema muy común en Linux) 
+
+msdos (para dispositivos que usen FAT16) 
+
+vfat (para dispositivos que usen FAT32).
+
+ntfs (sistema de archivos NTFS de Windows) 
+
+smbfs (sistema de archivos de Samba).
+
+nfs (sistema de archivos de red NFS)
+</code></pre>
+
+<p>Algunas opciones:</p>
+
+<pre><code>auto (el dispositivo será montado automáticamente durante el inicio. auto es el valor por defecto) 
+
+noauto (Si no se desea que el dispositivo se monte automáticamente) 
+
+exec (permite ejecutar binarios que están en la partición) 
+
+noexec (lo impide. ütil en particiones windows) 
+
+ro (Montar sólo lectura) 
+
+rw (Montar para lectura/esctritura) 
+
+user (Permite a cualquier usuario montar el sistema de archivos) 
+
+nouser (Solo el usuario root podrá montar el sistema de archivos) 
+
+defaults (Utiliza las opciones por defecto: rw,exec,auto,nouser) 
+</code></pre>
+
+<p>Respaldo. Es el comando que utiliza dump para hacer respaldos del sistema de archivos. Cero desactiva la opción.</p>
+
+<p>Orden. indica el orden en que la aplicación fsck revisará la partición en busca de errores durante el inicio, si es cero el dispositivo no se revisa.</p>
 </div>
   
   
@@ -197,7 +273,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/gpart/">Gpart</a></h1>
+      <h1 class="entry-title"><a href="/blog/fspy/">Fspy</a></h1>
     
     
       <p class="meta">
@@ -213,20 +289,16 @@
   
 
 
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:50:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Reparar la tabla de particiones.</p>
+  <div class="entry-content"><p>Herramienta de monitorización de la actividad de un sistema de archivos.</p>
 
-<blockquote><p># gpart /dev/sda (escanear el disco)</p>
-
-<p># gpart -W /dev/sda /dev/sda (reparar)</p>
-
-<p># gpart -f -i /dev/sda (escaneo completo [-f] y preguntando si quieres o no activar la partición encontrada [-i])</p></blockquote>
+<blockquote><p># fspy /home/usuario</p></blockquote>
 </div>
   
   
@@ -239,7 +311,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/google/">Google</a></h1>
+      <h1 class="entry-title"><a href="/blog/fsck/">Fsck</a></h1>
     
     
       <p class="meta">
@@ -255,330 +327,59 @@
   
 
 
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:50:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Buscador.</p>
+  <div class="entry-content"><p>[recomendado dosfstools]. Reparar/chequear/formatear una partición no montada.</p>
 
-<p>1.-</p>
+<blockquote><p># fsck -fy /dev/hda1</p>
 
-<p>Mejorar busquedas :</p>
+<p># fsck.ext2 -vpf /dev/hda1 (Repara una partición ext2)</p>
 
-<p>. No reconoce caracteres como el punto [.], el guión [-] o el circunflejo [<sup>]</sup></p>
+<p># fsck.ext3 -vpf /dev/hda1 (Repara una partición ext3)</p>
 
-<p>. Suprimir articulos [campo de futbol -> campo futbol]</p>
+<p># fsck -fpC 0 /dev/sda1</p>
 
-<p>. Google no distingue mayúsculas ni minúsculas.</p>
+<p># fsck.ext4 -cDfty -C 0 /dev/sda1</p>
 
-<p>. Comillas. Busquedas textuales [&#8220;ludwig van beethoven&#8221;]</p>
-
-<p>. Operador lógico &#8220;OR&#8221; [mayúsculas] buscar dos conceptos [bach OR wagner]</p>
-
-<p>. Barra vertical. Lo mismo [beethoven|wagner]</p>
-
-<p>. ~ - Buscar palabras parecidas [~palabra]</p>
-
-<p>. related – parecido al anterior [related:www.site.com]</p>
-
-<p>. link - Buscar páginas que apuntan a otra [link:wwww.host.com]</p>
-
-<p>. info - Recabar información sobre un dominio [info:www.host.com]</p>
-
-<p>. Asterisco - Si se desconoce algún dato [&#8220;ludwig * beethoven&#8221;]</p>
-
-<p>. filetype - Buscar extensiones concretas [“comandos linux” filetype:pdf]</p>
-
-<p>. site - Restringir resultados por localización geografica [site:.es arroz, armas site:onion.to …]</p>
-
-<p>. cache - Cuando la página ya no está accesible [cache:www.host.com]</p>
-
-<p>. intitle – las que contengan la palabra o frase en el título [intitle:beethoven]</p>
-
-<p>. allintitle - Las que contengan varias palabras sin necesidad de comillas [allintitle:bach,beethoben]</p>
-
-<p>. intext - Buscar la palabra solo en el texto [intext:bach]</p>
-
-<p>. define – Buscar la definición de una palabra [define:palabra]</p>
-
-<p>. inurl - Buscar por algun detalle en la url [inurl:pipa]</p>
-
-<p>. all inurl - Las que contengan varias palabras en su url</p>
-
-<p>. linux 2012..2013 - Buscar una palabra en artículos entre un rango de años.</p>
-
-<p>. 58*13 - Usar google como calculadora</p>
-
-<p>. 100USD a EUR - Conversor de divisas [EUR = Euro, USD = Dólar, JPY = Yen, GBP = Libra esterlina, CHF = Franco suizo &#8230;]</p>
-
-<p>. 42km/h a m/s - Convertir km/hora a metros/segundo</p>
-
-<p>. 1024 GB to  kb - Convertir gigabytes a kilobytes</p>
-
-<p>. 26hr to sec - Convertir horas a segundos</p>
-
-<p>. Usar el menos [-] y el más [+] para excluir o incluir de una busqueda determinado concepto [comandos -militares, comandos +militares]</p>
-
-<p>. do a barrel roll – La página da una vuelta completa en la pantalla.</p>
-
-<p>2.-</p>
-
-<p>Gdrive (google-docs-fs)</p>
-
-<blockquote><p># mkdir /media/gdrive</p>
-
-<p># gmount /media/gdrive cuenta@gmail.com -d (Pedirá contraseña de la cuenta y mostrando la salida del comando. Para desmontar: gumount /media/gdrive)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/golismero/">Golismero</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Framework para auditorías de seguridad y pentesting.</p>
-
-<blockquote><p>$ git clone https://github.com/golismero/golismero.git (Descargar la última versión)</p>
-
-<p>$ cd golismero</p>
-
-<p># python golismero.py localhost -o prueba.html -o prueba.txt &#8211;audit-name prueba_localhost (Iniciar la uditoria, que guarde el resultado en .html y .txt y dándole un nombre)</p>
-
-<p># python golismero.py URL -i nikto_output.csv -o report.html -d all (Importar el resultado de un scaneo con nikto [-i] y desactivando todos los plugins [-d])</p>
-
-<p># python golismero.py URL -nd (Sin guardar los resultados en la base de datos. Por defecto lo hace automáticamente)</p>
-
-<p># python golismero.py URL -db database.db -no (Realizar el scaneo y guardarlo en la basa de datos)</p>
-
-<p># python golismero.py -db database.db -d all -o report.html (Generar un informe a partir de un scaneo guardado en la base de datos)</p>
-
-<p># python golismero.py &#8211;plugin-list (Ver listado de plugins disponibles)</p>
-
-<p># python golismero.py &#8211;plugin-info dns_analyzer (Ver detalles de un plugin concreto)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/gocr/">Gocr</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>programa que imprime en la salida estándar todo el texto que puede leer de cualquier fichero gráfico de entrada. Usado especialmente para el descifrado de kapchas. El programa necesita cierto aprendizaje.</p>
-
-<blockquote><p>$ mkdir ocrdb</p>
-
-<p>$ gocr -d 2 -p ./ocrdb/ -m 256 -m 130 kapcha.jpg (El aprendizaje. Lanzar varias veces)</p>
-
-<p>$ gocr -p ocrdb/ -m 2 kapcha.jpg (Comprobar si el programa lo resuelve solo)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/goaccess/">Goaccess</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Analiza el registro del servervidor web Apache</p>
-
-<blockquote><p># goaccess -f /var/log/apache2/access.log (forma básica, especificando el fichero)</p>
-
-<p># goaccess -f /var/log/apache2/access.log -a -s -b (Habilitar lista de usuarios para el servidor seleccionado [a], activar respuesta de estado HTTP [s] y habilitar el consumo de ancho de banda total [b])</p>
-
-<p># goaccess -f /var/log/apache2/access.log -a > reporte.html (Mandar resultado a un archivo html)</p></blockquote>
-
-<p>Nota.- Con la aplicación en marxa, con F1 aparecen las teclas interactivas.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/gnome-terminal/">Gnome-terminal</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Emulador de terminal de gnome.</p>
-
-<blockquote><p>$ gnome-terminal &#8211;hide-menubar &#8211;geometry=200x70+0+0 -e &#8220;sh -c &#8216;links2 http://google.es&#8217;&#8221;&amp; (arrancar una terminal, sin menús, con unas medidas concretas y en ella, arrancar el navegador)</p></blockquote>
+<p># fsck.ext4 -vpf /dev/sda1 (Muestra información sobre una partición: fragmentación, inodos, bloques, archivos&#8230;)</p></blockquote>
 
 <p>Opciones:</p>
 
-<pre><code>--window-with-profile=perfil2  (especificar un perfil para arrancar)
+<pre><code>-A .- Permitira una navegación en toda la estructura de /etc/fstab.
 
---show-menubar  (Mostrar los menús)
+-V  .- información adicional sobre las acciones de fsck
 
---maximize (maximizada)
+-t   .- Imprimir estadísticas de estado (-tt para más información)
 
---full-screen (a pantalla completa)
+-a .- Repara cualquier problema que encuentra en el sistema de archivos sin preguntar (no recomendada)
 
---zoom=x.x (factor de ampliación de la terminal [--zoom=1.0 medida normal])
+-l .- Lista todos los nombres de archivos
+
+-r .- Pide confirmación antes de reparar el sistema de archivos.
+
+-s .- Lista el superblock antes de chequear el sistema de archivos.
+
+sis_arch .- Especifica el sistema de archivos a verificar 
+
+-c .- Buscar bloques dañados con badblocks (ver badblocks)
+
+-k .- Bloques dañados donde se almacenan con el comando anterior. 
+
+-C 0 .- Muestra barra de progreso.
+
+-p .- forzar verificación y reparar automaticamente errores
+
+-D .- Obtimizar directorios si es posible
+
+-f   .- Forzar el chequeo incluso si el sistema de archivos parece correcto
+
+-Y   .- Asume respuesta "yes" a todas las preguntas
 </code></pre>
-
-<p>atajos:</p>
-
-<pre><code>Ctrl + a (lleva el cursor al principio de la línea)
-
-Ctrl + b (Retrocede un carácter)
-
-Ctrl + c (mata lo que se está escribiendo y devuelve el prompt)
-
-Ctrl + d (Sale de root y si está como usuario, cierra la terminal)
-
-Ctrl + e (lleva el cursor al final de la línea)
-
-Ctrl + f (adelanta un caracter)
-
-Ctrl + k (Borra de la posición actual al final de la linea)
-
-Ctrl + l (limpia la pantalla)
-
-Ctrl + r (Buscar en el historial de comandos. “Esc” editar. “Ctrl +g” abortar “Intro” ejecutar)
-
-Ctrl + t (Intercambiar las dos letras anteriores al cursor [pieran → pierna])
-
-Ctrl + u (Borra de la posición actual al principio de la linea)
-
-Ctrl + w (borra del cursor al primer espacio hacia el principio de la linea)
-
-Ctrl + y (Deshace la última acción)
-
-Ctrl + Mayu + t (Abrir nueva pestaña)
-
-Ctrl + Mayu + w (Cerrar pestaña)
-
-Esc + d (Borra de la posición actual al final de la palabra)
-
-Esc + b (Ir una palabra hacia atras)
-
-Esc + f (Ir una palabra hacia adelante)
-
-Esc + t (Intercambiar las dos palabras anteriores al cursor [sin tos → tos sin])
-
-Mayús+RePág (Hace scroll de la terminal hacia arriba)
-
-Mayús+AvPág (Hace scroll de la terminal hacia abajo)
-</code></pre>
-
-<p>1.-</p>
-
-<p>Cambiar las medidas por defecto de la terminal:</p>
-
-<blockquote><p># nano /usr/share/vte/termcap/xterm</p></blockquote>
-
-<p>Buscar la linea:</p>
-
-<p>co#80:it#8:li#24:\</p>
-
-<p>Y modificar los parámetros co (columnas) y li (lineas) con las nuevas medidas: co#100:it#8:li#10:\</p>
 </div>
   
   
@@ -591,7 +392,7 @@ Mayús+AvPág (Hace scroll de la terminal hacia abajo)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/gnome-keyring/">Gnome-keyring</a></h1>
+      <h1 class="entry-title"><a href="/blog/fsarchiver/">Fsarchiver</a></h1>
     
     
       <p class="meta">
@@ -607,30 +408,216 @@ Mayús+AvPág (Hace scroll de la terminal hacia abajo)
   
 
 
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:50:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Demonio para gestionar de manera segura las credenciales de acceso del usuario, como los nombre de usuario y las contraseñas. Usando algunos escritorios la consola puede mostrar el error:</p>
+  <div class="entry-content"><p>Es una herramienta similar a partimage para crear imágenes de una o varias particiones a la vez a un fichero asi como restaurar dichas imágenes más tarde.</p>
 
-<p>WARNING: gnome-keyring:: couldn&#8217;t connect to: /home/USER/.cache/keyring-s1KHzb/pkcs11: El fichero o directorio no existe</p>
+<blockquote><p># fsarchiver savefs /data/imagen.fsa /dev/sda1 (creamos la imagen de la partición).</p>
 
-<p>Para resolverlo:</p>
+<p># fsarchiver savefs /data/imagen2.fsa /dev/sda1 /dev/sdb1 (creamos la imagen de dos particiones simultaneamente que seran almacenadas en el mismo fichero).</p>
 
-<blockquote><p># nano /etc/xdg/autostart/gnome-keyring-pkcs11.desktop</p></blockquote>
+<p># fsarchiver restfs /data/imagen2.fsa id=0,dest=/dev/sda1 (restauramos la primera partición de la imagen).</p>
 
-<p>Buscar la linea:</p>
+<p># fsarchiver restfs /data/imagen2.fsa id=1,dest=/dev/sdb1 (restauramos la segunda partición).</p>
 
-<p>OnlyShowIn=GNOME;Unity;</p>
+<p># fsarchiver restfs /data/imagen2.fsa id=0,dest=/dev/sda1 id=1,dest=/dev/sdb1 (restauramos a la vez las dos particiones).</p></blockquote>
+</div>
+  
+  
 
-<p>Y añadir el escritorio usado:</p>
 
-<p>OnlyShowIn=GNOME;Unity;LXDE;Xfce</p>
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/freeradius/">Freeradius</a></h1>
+    
+    
+      <p class="meta">
+        
 
-<p>Reiniciar</p>
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:50:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[libssl-dev freeradius-mysql freeradius-utils]. Servidor.</p>
+
+<p>Configurar la base de datos:</p>
+
+<blockquote><p># nano /etc/freeradius/sites-enabled/default</p></blockquote>
+
+<p>En los apartados &#8220;authorize&#8221; y &#8220;accouting&#8221; descomentar las lineas sql</p>
+
+<blockquote><p># nano /etc/freeradius/radius.conf</p></blockquote>
+
+<p>Descomentar la linea $INCLUDE sql.conf</p>
+
+<p>Configurar usuario, contraseña y mensaje de bienvenida:</p>
+
+<blockquote><p># nano /etc/freeradius/users</p></blockquote>
+
+<p>USUARIO Cleartext-Password := &#8220;CONTRASEÑA&#8221;</p>
+
+<pre><code>    Reply-Message "Entrando en el servidor el usuario %{User_Name}"
+</code></pre>
+
+<p>Configurar usuario y contraseña del router o punto de acceso:</p>
+
+<blockquote><p># nano /etc/freeradius/clients.conf</p></blockquote>
+
+<p>client 192.168.1.0/24 {</p>
+
+<pre><code>secret      = CONTRASEÑA_ROUTER
+
+shortname   = USUARIO_ROUTE
+</code></pre>
+
+<p>Finalmente entrar en router y colocar la ip del equipo donde hemos instalado el servidor. Reiniciar el servicio.</p>
+
+<blockquote><p># /etc/init.d/freeradius restart</p>
+
+<p># freeradius -X (Arrancar em modo debug)</p>
+
+<p># radtest USUARIO testing 127.0.0.1 1812 testing123 (Testear si la configuración de un usuario está correcta)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/free/">Free</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:50:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Listar la memoria RAM y swap utilizada y disponible</p>
+
+<blockquote><p>$ free -m (muestra los resultados en megabytes)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fping/">Fping</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:50:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Determina máquinas de una red activas</p>
+
+<blockquote><p># fping -g 192.168.2./24 2> /dev/null | grep alive</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fortune/">Fortune</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:50:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Mostrar frases aleatorias al abrir la terminal</p>
+
+<p>añadir al final de /home/usuario/.bashrc:</p>
+
+<p>fortune -a date</p>
+
+<p>frases en /usr/share/games/fortune</p>
 </div>
   
   
@@ -661,43 +648,43 @@ Mayús+AvPág (Hace scroll de la terminal hacia abajo)
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/ifne/">ifne</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ifdata/">ifdata</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ifconfig/">ifconfig</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/identify/">identify</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/html/">html</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hosts/">hosts</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/host-dot-conf/">host.conf</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/honeyproxy/">honeyproxy</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hg/">hg</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hexdump/">hexdump</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

@@ -1,0 +1,117 @@
+---
+layout: post
+title: "sonido"
+date: 2014-01-28 17:53
+comments: true
+categories: 
+---
+1.-
+
+Para ver las tarjetas de sonido instaladas 
+
+>$ cat /proc/asound/cards 
+
+0 [Intel ]: HDA-Intel - HDA Intel 
+
+HDA Intel at 0xe4100000 irq 169 
+
+1 [SAA7134 ]: SAA7134 - SAA7134 
+
+saa7133[0] at 0xe4000000 irq 233 
+
+2 [CMI8738MC6 ]: CMI8738-MC6 - C-Media PCI CMI8738-MC6 
+
+C-Media PCI CMI8738-MC6 (model 55) at 0xa000, irq 225 
+
+>\# asoundconf set-default-card 1 (para activar la 1) 
+
+Editar el fichero /etc/alsa/alsa.conf y poner estas líneas: 
+
+	defaults.ctl.card 1 
+
+	defaults.pcm.card 1 
+
+	defaults.pcm.device 1 
+
+Los cambios son automáticos, no hay ni que reiniciar el servicio. 
+
+2.- 
+
+Cuando al reiniciar el sonido aparece silenciado: 
+
+>\# gedit /etc/pulse/default.pa 
+
+Comentar la linea: # load-module module-device-restore
+
+3.-
+
+Sin sonido con flash
+
+Si no existe, crear el archivo:
+
+>$ sudo touch /etc/asound.conf 
+
+>\# nano /etc/asound.conf 
+
+Pegar:
+
+	pcm.pulse { 
+
+	type pulse 
+
+	} 
+
+	ctl.pulse { 
+
+	type pulse 
+
+	} 
+
+	pcm.!default { 
+
+	type pulse 
+
+	} 
+
+	ctl.!default { 
+
+	type pulse 
+
+	} 
+
+Reiniciar.   
+
+4.-
+
+Si Java bloquea el dispositivo de sonido en lugar de usar Pulseaudio
+
+>\# cd /usr/lib/jvm/java-6-sun/jre/bin/
+
+>\# mv java java.bin
+
+>\# nano /usr/lib/jvm/java-6-sun/jre/bin/java
+
+Y copiar en su interior:
+
+>\#!/bin/bash
+
+padsp /usr/lib/jvm/java-6-sun/jre/bin/java.bin "$@"
+
+>\# chmod +x java (darle permisos)
+
+5.-
+
+Substituir pulseaudio por alsa: 
+
+>\# apt-add-repository ppa:dtl131/ppa  (Añadir los repositorios gnome-media/applets/settings-daemon) 
+
+>\# apt-get update  (Actualizar el sistema) 
+
+>\# apt-get upgrade 
+
+>\# apt-get install esound esound-clients esound-common libesd-alsa0 alsa-base alsa-tools alsa-utils alsa-oss linux-sound-base python-alsaaudio gnome-media libsdl1.2debian-alsa  (Instalar paquetes de alsa) 
+
+>\# apt-get purge libcanberra-pulse pulseaudio pulseaudio-esound-compat pulseaudio-module-bluetooth pulseaudio-module-gconf pulseaudio-module-udev pulseaudio-module-x11 gstreamer0.10-pulseaudio pulseaudio-utils pavucontrol  (Desinstalar los paquetes de pulseaudio) 
+
+Reiniciar
+

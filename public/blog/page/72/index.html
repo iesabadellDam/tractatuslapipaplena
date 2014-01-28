@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Poner etiquetas a las particiones y dispositivos vfat # mlabel -i /dev/sda2 ::vfat
+  <meta name="description" content="Muestra los dispositivos pcmci.
 ">
   
 
@@ -81,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/mlabel/">Mlabel</a></h1>
+      <h1 class="entry-title"><a href="/blog/lspcmci/">Lspcmci</a></h1>
     
     
       <p class="meta">
@@ -97,16 +97,14 @@
   
 
 
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Poner etiquetas a las particiones y dispositivos vfat</p>
-
-<blockquote><p># mlabel -i /dev/sda2 ::vfat</p></blockquote>
+  <div class="entry-content"><p>Muestra los dispositivos pcmci.</p>
 </div>
   
   
@@ -119,7 +117,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/mktemp/">Mktemp</a></h1>
+      <h1 class="entry-title"><a href="/blog/lspci/">Lspci</a></h1>
     
     
       <p class="meta">
@@ -135,22 +133,18 @@
   
 
 
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[coreutils]</p>
+  <div class="entry-content"><p>Para averiguar todos los dispositivos pci</p>
 
-<p>Crear archivos o directorios temporales.</p>
+<blockquote><p>$ lspci | grep Ethernet  (listar dispositivos pci relacionados con la red)</p>
 
-<blockquote><p>$ mktemp (Crea un fichero temporal en /tmp)</p>
-
-<p>$ mktemp -d (Crea un directorio en tmp y en su interior un archivo)</p>
-
-<p>$ mktemp &#8211;tmpdir=documentos (crea un archivo temporal en el interior del directorio &#8220;documentos&#8221;)</p></blockquote>
+<p>$ lspci | grep VGA   (conocer la tarjeta gráfica)</p></blockquote>
 </div>
   
   
@@ -163,7 +157,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/mkswap/">Mkswap</a></h1>
+      <h1 class="entry-title"><a href="/blog/lsof/">Lsof</a></h1>
     
     
       <p class="meta">
@@ -179,16 +173,63 @@
   
 
 
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Crear un espacio de intercambio.</p>
+  <div class="entry-content"><p>Listar ficheros o procesos abiertos</p>
 
-<blockquote><p># mkswap /dev/sda5 (Luego añadir la entrada en /etc/fstab: /dev/sda4 none swap sw 0 0)</p></blockquote>
+<blockquote><p># lsof -i :4662  (servicios usados por el puerto 4662 aunque esten a la escucha)</p>
+
+<p># lsof -i@lapipaplena.homelinux.com  (verificar conexiones con una máquina)</p>
+
+<p># lsof -i@88.25.114.11   (lo mismo pero especificando la ip)</p>
+
+<p># lsof -i | grep ssh  (Para que muestre solo los que usan el protocolo ssh)</p>
+
+<p># lsof +D /var/log  (Mostrar los servicios que tiene abierto un directorio)</p>
+
+<p># lsof fichero  (Muestra los servicios que tiene abiertos fichero)</p>
+
+<p># lsof -nPi TCP   (Muestra los eventos de red de las conexiones TCP)</p>
+
+<p># lsof -p PID  (Ficheros que tiene abierto determinado proceso)</p>
+
+<p># lsof -N      (Muestra los archivos NFS abiertos)</p>
+
+<p># lsof -c firefox   (Muestra los ficheros abiertos por firefox)</p>
+
+<p># lsof -P -i -n -sTCP:LISTEN (listado de puertos en LISTEN)</p>
+
+<p># lsof -i -P | grep -i &#8220;listen&#8221; (otra forma de listarlos)</p>
+
+<p># lsof -i tcp -i udp  (lista puertos tcp y udp abiertos)</p>
+
+<p># lsof -Pni | grep LISTEN   (chequear puertos abiertos)</p>
+
+<p># lsof -c bash -r  (Monitorizar un proceso)</p>
+
+<p># lsof -i :631 | awk &#8216;{print $1,$2}&#8217; | sort -u  (muestra pid y demonio del puerto especificado)</p>
+
+<p># lsof -t -i :22 (Muestra el pid del puerto especificado)</p>
+
+<p># lsof -nPi | txt2html  > lsof.html (Mandar la salida a un html para visualizarlo por el navegador)</p></blockquote>
+
+<p>Opciones:</p>
+
+<pre><code>-P (Muestra los números de puerto en vez de la aplicación que corre en ellos)
+
+-n (Para que no resuelva las IP de las conexiones)
+
+-i (Hace referencia a los eventos utilizados por procesos de red)
+
+-u usuario (Muestra los procesos abiertos por “usuario”)
+
+-x (Sigue links y puntos de montaje)
+</code></pre>
 </div>
   
   
@@ -201,7 +242,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/mkpasswd/">Mkpasswd</a></h1>
+      <h1 class="entry-title"><a href="/blog/lsmod/">Lsmod</a></h1>
     
     
       <p class="meta">
@@ -217,22 +258,14 @@
   
 
 
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Encriptar contraseñas. Si la contraseña no se especifica, la pedirá por pantalla</p>
-
-<blockquote><p>$ mkpasswd (Uso básico)</p>
-
-<p>$ mkpasswd password (Encripta &#8220;passwrd&#8221;. Si no se especifica &#8220;method&#8221; [-m] se usa md5 por defecto)</p>
-
-<p>$ mkpasswd -m help (Muestra las opciones de encriptación)</p>
-
-<p>$ mkpasswd -m sha-512 password (Usando sha-512 para la contraseña &#8220;password&#8221;)</p></blockquote>
+  <div class="entry-content"><p>Listar todos los módulos cargados del kernel, y alguna información adicional de ellos.</p>
 </div>
   
   
@@ -245,7 +278,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/mkntfs/">Mkntfs</a></h1>
+      <h1 class="entry-title"><a href="/blog/lshw/">Lshw</a></h1>
     
     
       <p class="meta">
@@ -261,16 +294,18 @@
   
 
 
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Crear particiones ntfs.</p>
+  <div class="entry-content"><p>Muestra información de toda la máquina</p>
 
-<blockquote><p>$ mkntfs -L win -F /dev/sdb2 (con etiqueta “win” y forzando)</p></blockquote>
+<blockquote><p>$ lshw -html > hardware.html (Mandar la información a un archivo html)</p>
+
+<p># lshw -C network (Ver los dispositivos de red instalados)</p></blockquote>
 </div>
   
   
@@ -283,7 +318,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/mknod/">Mknod</a></h1>
+      <h1 class="entry-title"><a href="/blog/lshal/">Lshal</a></h1>
     
     
       <p class="meta">
@@ -299,26 +334,26 @@
   
 
 
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Crear archivos de dispositivos que no se encuentran en el sistema.</p>
+  <div class="entry-content"><p>Muestra información del firmware, serial server, Bios, kernel, procesador, discos, puntos de montaje, particiones, usb, pci&#8230;</p>
 
-<blockquote><p># mknod -m 644  /dev/ttyS4 c 4 64 (con permisos 644, crear el dispositivo de carácter [c] ttyS0 e intervalo entre el máximo y el mínimo)</p></blockquote>
+<blockquote><p>$ lshal  (Información de los dispositivos de HAL en formato largo y detallado))</p>
 
-<p>Una vez creado precisa otorgar propietarios:</p>
+<p>$ lshal -l (Lo mismo que el anterior)</p>
 
-<blockquote><p># chown root:dialout /dev/ttyS4</p></blockquote>
+<p>$ lshal -s (Muestra el UDI [Dispositivo identificador único])</p>
 
-<p>Otro ejemplo</p>
+<p>$ lshal -st (Lo mismo pero en forma de arbol)</p>
 
-<blockquote><p># mknod -m 640 /dev/loop8 b 7 8 (con permisos 640, especificando que es un dispositivo de bloques [b] e intervalo entre el máximo y el mínimo)</p>
+<p>$ lshal -m (Monitor de los dispositivos de HAL mostrando cambios de estado en tiempo real al conectar un dispositivo)</p>
 
-<p># chown root:disk /dev/loop8 (Otorgar propiedad)</p></blockquote>
+<p>$ lshal -u UDI (Muestra información de un dispositivo específico)</p></blockquote>
 </div>
   
   
@@ -331,7 +366,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/mkisofs/">Mkisofs</a></h1>
+      <h1 class="entry-title"><a href="/blog/lsdev/">Lsdev</a></h1>
     
     
       <p class="meta">
@@ -347,18 +382,16 @@
   
 
 
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Crear imágenes de ficheros</p>
+  <div class="entry-content"><p>[procinfo]. Lista los dispositivos presentes en el sistema y que IRQs y puertos IO (entrada/salida) usan.</p>
 
-<blockquote><p>$ mkisofs -r -l -o imagen.iso fichero</p>
-
-<p>$ mkisofs /dev/cdrom > cd.iso (crear una imagen iso del cdrom en disco)</p></blockquote>
+<blockquote><p>$ lsdev</p></blockquote>
 </div>
   
   
@@ -371,7 +404,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/mkinitcpio/">Mkinitcpio</a></h1>
+      <h1 class="entry-title"><a href="/blog/lscpu/">Lscpu</a></h1>
     
     
       <p class="meta">
@@ -387,22 +420,14 @@
   
 
 
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Herramienta de creación de imagenes de arranque del kernel en ArchLinux</p>
-
-<blockquote><p># mkinitcpio -L (Ver lista de hooks)</p>
-
-<p># mkinitcpio -p linux (Cremencoder mf://*.jpg -ovc lavc -o out.avi</p></blockquote>
-
-<p>a la imagen con el preset seleccionado)</p>
-
-<blockquote><p># mkinitcpio -c /etc/mkinitcpio.conf -g /boot/linux.img (crea manualmente la imagen de inicio, especificando el archivo de configuración y el destino)</p></blockquote>
+  <div class="entry-content"><p>Muestra información sobre la cpu</p>
 </div>
   
   
@@ -415,7 +440,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/mkfs/">Mkfs</a></h1>
+      <h1 class="entry-title"><a href="/blog/lsblk/">Lsblk</a></h1>
     
     
       <p class="meta">
@@ -431,30 +456,20 @@
   
 
 
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Formatear dispositivos a sistemas de archivo ext2,3,4, vfat&#8230;.</p>
+  <div class="entry-content"><p>Muestra información del dispositivo especificado.</p>
 
-<blockquote><p># mkfs -t ext3 /dev/sda4  (Formatea a ext3 la particion indicada)</p>
+<blockquote><p>$ lsblk -a /dev/sda</p>
 
-<p># mkfs.ext3 /dev/sda7 (otrmencoder mf://*.jpg -ovc lavc -o out.avi</p></blockquote>
+<p>$ lsblk -f /dev/sda (Mostrando etiquetas, uuids y puntos de montaje)</p>
 
-<p>o modo)</p>
-
-<blockquote><p># mkfs.ext2 -c /dev/sda1 (a ext3)</p>
-
-<p># mkfs.ext4 -c /dev/sda2 (a ext4)</p>
-
-<p># mkfs.msdos -c /dev/fd0  (formatea a msdos)</p>
-
-<p># mkfs.vfat /dev/sda1 (formatear en fat 32)</p>
-
-<p># mkfs.vfat -n datos /dev/sdd1 (formatear en fat32 y con etiqueta “datos”)</p></blockquote>
+<p>$ lsblk -m /dev/sda (Mostrando propietarios, grupos y permisos)</p></blockquote>
 </div>
   
   
@@ -467,7 +482,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/mkfifo/">Mkfifo</a></h1>
+      <h1 class="entry-title"><a href="/blog/lsb-release/">Lsb_release</a></h1>
     
     
       <p class="meta">
@@ -483,20 +498,18 @@
   
 
 
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Crear una tuberia que tanto sirve para permitir que la salida de una aplicación sea la entrada de otra como redirección de cualquier dato de salida que pueda ser grabado a disco.</p>
+  <div class="entry-content"><p>Muestra nombre y código del sistema operativo</p>
 
-<blockquote><p>$ mkfifo pipe (crear la tuberia. Lanzando “ls -l pipe” la primera letra que mostrará será una “p” de pipe [tuberia])</p>
+<blockquote><p>$ lsb_release -a</p>
 
-<p>$ ifconfig > pipe  (La consola se bloqueará esperando soltar la tuberia)</p>
-
-<p>$ cat pipe  (Ejecutado desde otra terminal pst o tty ejecutará la tuberia)</p></blockquote>
+<p>$ cat /etc/*-release (lo mismo)</p></blockquote>
 </div>
   
   
@@ -527,43 +540,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/ifne/">ifne</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ifdata/">ifdata</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ifconfig/">ifconfig</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/identify/">identify</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/html/">html</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hosts/">hosts</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/host-dot-conf/">host.conf</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/honeyproxy/">honeyproxy</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hg/">hg</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hexdump/">hexdump</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

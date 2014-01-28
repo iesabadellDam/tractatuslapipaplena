@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Sniffer de paquetes y detector de intrusos # snort -v -i eth0 (Para inspeccionar el tráfico de una red) # snort -vde -h 192.168.0.1/24 (Inspeccionar &hellip;">
+  <meta name="description" content="Muestra información del equipo junto al logo de la distro. $ wget -c https://raw.github.com/KittyKatt/screenFetch/master/screenfetch-dev -O &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/snort/">Snort</a></h1>
+      <h1 class="entry-title"><a href="/blog/screenfetch/">Screenfetch</a></h1>
     
     
       <p class="meta">
@@ -96,32 +96,18 @@
   
 
 
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Sniffer de paquetes y detector de intrusos</p>
+  <div class="entry-content"><p>Muestra información del equipo junto al logo de la distro.</p>
 
-<blockquote><p># snort -v -i eth0 (Para inspeccionar el tráfico de una red)</p>
+<blockquote><p>$ wget -c https://raw.github.com/KittyKatt/screenFetch/master/screenfetch-dev -O screenfetch</p>
 
-<p># snort -vde -h 192.168.0.1/24 (Inspeccionar una dirección o rango)</p>
-
-<p># snort -vde tcp (especificando protocolo)</p>
-
-<p># snort -v -X -i eth0 port 25 (Especificando un puerto y guardando la información)</p>
-
-<p># snort -v -X -i eth0 -n 5 port 25 (Capturando solo 5 paquetes)</p></blockquote>
-
-<p>La tarjeta de red tiene que estar en modo promiscuo</p>
-
-<p>Opciones</p>
-
-<p>-v          sniffer de TCP</p>
-
-<p>-d y -e    Para obtener las cabeceras</p>
+<p>$ ./screenfetch</p></blockquote>
 </div>
   
   
@@ -134,7 +120,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/snoopy/">Snoopy</a></h1>
+      <h1 class="entry-title"><a href="/blog/screen/">Screen</a></h1>
     
     
       <p class="meta">
@@ -150,34 +136,180 @@
   
 
 
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>librería que se encarga de almacenar comandos y el usuario que los ejecuta.</p>
+  <div class="entry-content"><p>Compartir sesiones de consola locales o remotas.</p>
 
-<blockquote><p>$ git clone https://github.com/a2o/snoopy.git</p>
+<blockquote><p>$ screen   (abre una terminal virtual genérica)</p>
 
-<p>$ cd snoopy</p>
+<p>$ screen -S tux  (nombrar la sesión del que comparte consola)</p></blockquote>
 
-<p>$ ./configure</p>
+<pre><code>$ screen -ls (conocer los screen abiertos y sus nombres)
 
-<p>$ make</p>
+There are screens on: 
 
-<p># make install</p>
+    19680.tux       (Attached) 
 
-<p># make enable</p></blockquote>
+    19684.xut       (Attached) 
+</code></pre>
 
-<p>Reiniciar los servicios que tengamos funcionando [apache2, ssh&#8230;]</p>
+<p>2 Sockets in /tmp/screens/S-juanito.</p>
 
-<blockquote><p># /etc/init.d/ssh restart</p></blockquote>
+<blockquote><p>$ screen -x 19680.tux  (el que se conecta)</p>
 
-<p>Monitorizar el archivo log de registro com:</p>
+<p>$ screen -r    Retoma el proceso desacoplado con Ctrl+a Ctrl+d</p>
 
-<blockquote><p># tail -f /var/log/auth.log</p></blockquote>
+<p>$ screen -r -S nombre  Retoma el proceso &#8220;nombre&#8221;</p>
+
+<p>$ screen -R -D Recupera screen despúes de un Ctrl+d</p></blockquote>
+
+<p>La gestión de screen siempre empieza pulsando las teclas Ctrl+a:</p>
+
+<pre><code>Ctrl+a c (Crear nueva ventana)
+
+Ctrl+a k (Matar pantalla activa / sesion activa)
+
+Ctrl+a X (Matar pantalla activa)
+
+Ctrl+a x (Bloquear terminal) 
+
+Ctrl+a w (Lista de ventanas)
+
+Ctrl+a 0-9 (Ir a la ventana numerada)
+
+Ctrl+a Ctrl+a (Cambiar a la última ventana)
+
+Ctrl+a Ctrl+p (Cambiar a la anterior ventana)
+
+Ctrl+a S (Dividir la terminal horizontal en regiones)
+
+Ctrl+a | (Dividir la terminal veticalmente)
+
+Ctrl+a Ctrl+n (Cambiar de región)
+
+Ctrl+a :resize (Redimensionar región)
+
+Ctrl+a F (Ajustar tamaño de la pantalla al tamaño de la nueva terminal)
+
+Ctrl+a K (Suprimir region)
+
+Ctrl+a Z (resetear screen)pi
+
+Ctrl+a tab (Moverse entre regiones)
+
+Ctrl+a d (Desacopla un proceso de una terminal, que continua en segundo plano) 
+
+Ctrl+a ? (Mostrar pantalla de ayuda)
+
+Ctrl+a Backspace (Regresar a la ventana previa)
+
+Ctrl+q (Si se ha pulsado una combinación erronea, desbloquea la terminal) 
+
+Ctrl+s (Lo mismo)
+
+Ctrl+a " (Muestra las shells activas)
+
+Ctrl+a A (Cambiar el título de la ventana)
+
+Ctrl+a Esc (Ver historial)
+
+Ctrl+a h (Guardar pantallazo en la carpeta actual con nombre hardcopy.número [0,1,2...]) 
+
+Ctrl+a H (Iniciar/parar registro de la ventana actual en la ventana con nombre screenlog.número [0,1,2...])
+</code></pre>
+
+<p>Para compartir screen via ssh:</p>
+
+<pre><code>Activar el setuid de screen:
+
+# chmod +s /usr/bin/screen 
+
+Ejecutar:
+
+$ screen -S nombreSesion 
+
+Activar acceso multiusuario:
+
+Ctrl+a :multiuser on 
+
+Dar permisos al usuario:
+
+Ctrl+a :acladd usuario 
+
+El usuario remoto debera conectar por SSH con la máquina y ejecutar: 
+
+$ screen -x usuario/NombreSesion 
+</code></pre>
+
+<p>Si deseamos tener una barra inferior donde aparecerá el nombre de las diferentes ventanas y la hora actual, podemos modificar/crear el fichero de configuración ~/.screenrc con el siguiente contenido (http://www.marblestation.com/?p=915):</p>
+
+<pre><code># screen -t shell 0 
+
+# screen -t shell 0 motd+shell 
+
+# screen -t shell2    1
+
+# screen -t server    2 
+
+# screen -t Mail 9   tail -f /var/log/messages 
+
+select 0 
+
+shelltitle "shell" 
+
+# skip the startup message 
+
+startup_message off 
+
+# go to home dir 
+
+chdir 
+
+# Automatically detach on hangup. 
+
+autodetach on 
+
+# Change default scrollback value for new windows 
+
+defscrollback 1000 
+
+# Turns off alternate screen switching in xterms, 
+
+# so that text in screen will go into the xterm's scrollback buffer: 
+
+termcapinfo xterm* ti@:te@ 
+
+altscreen on 
+
+# start with visual bell as default 
+
+vbell on 
+
+vbell_msg "bell on %t (%n)" 
+
+activity "Activity in %t(%n)" 
+
+# Run a screensaver if there's nothing happening for a while. 
+
+#idle 600 eval "screen cmatrix -f -o -u 10" "idle 0" 
+
+idle 600 lockscreen 
+
+### White 
+
+#caption always "%{kW}%?%-Lw%?%{bw}%n*%f %t%?(%u)%?%{kW}%?%+Lw%? %= %{= Wk}%110`%109`%111` %H load: %l | %D %d-%m-%Y %0c:%s" 
+
+### Black 
+
+#caption always "%{wk}%?%-Lw%?%{bw}%n*%f %t%?(%u)%?%{wk}%?%+Lw%? %= %{= kw}%110`%109`%111` %H load: %l | %D %d-%m-%Y %0c:%s" 
+
+caption always "%{wk}%?%-Lw%?%{bw}%n*%f %t%?(%u)%?%{wk}%?%+Lw%? %= %{= kw}%110`%109`%111` %H | %D %d-%m-%Y %0c:%s" 
+</code></pre>
 </div>
   
   
@@ -190,7 +322,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/sniffit/">Sniffit</a></h1>
+      <h1 class="entry-title"><a href="/blog/scp/">Scp</a></h1>
     
     
       <p class="meta">
@@ -206,22 +338,26 @@
   
 
 
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Snifer de red. Dado que los informes los despliega en archivos de texto por cada dato, es preferible lanzar la aplicación desde dentro de una carpeta para no llenar todo el directorio de ficheros.</p>
+  <div class="entry-content"><p>Copiar o transferir archivos o directorios entre una máquina remota y una local</p>
 
-<blockquote><p># sniffit -s 192.168.1.2  (Captura todos los paquetes con origen en la IP)</p>
+<blockquote><p>$ scp pepe@host_o_IP:/home/pepe/*.odt ./pendiente (Copiará todos los .odt del directorio /home/pepe del host remoto al directorio “pendiente” de la máquina local)</p>
 
-<p># sniffit -t 192.168.1.2 (Captura todos los paquetes con destino en la IP)</p>
+<p>$ scp *.odt pepe@host_o_IP:/home/pepe/pendiente (transferirá todos los odt del directorio actual al directorio especificado “pendiente” del host remoto.)</p>
 
-<p># sniffit -b -s 192.168.1.2 (Captura los paquetes con origen y destino en la IP)</p>
+<p>$ scp archivo usuario@host_o_IP:/home/usuario/Desktop (copiará “archivo” en local al escritorio remoto)</p>
 
-<p># sniffit -F eth1 -b -s 192.168.1.33 -p 9001 (de un puerto y forzando dispositivo)</p></blockquote>
+<p>$ scp -r directorio pepe@host_o_IP:/home/usuario/Desktop (copiará el directorio al host remoto)</p>
+
+<p>$ scp -P 12000 pep@chost_o_IP:/home/usuario/archivo . (especificando un puerto en el host remoto y copiar archivo al presente directorio)</p></blockquote>
+
+<p>Nota.- Si quiere transferirse al $HOME remoto puede suprimirse la ruta relativa, quedando: scp archivo pepe@host_o_IP:</p>
 </div>
   
   
@@ -234,7 +370,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/snarf/">Snarf</a></h1>
+      <h1 class="entry-title"><a href="/blog/scanimage/">Scanimage</a></h1>
     
     
       <p class="meta">
@@ -250,18 +386,29 @@
   
 
 
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Descarga páginas web o listado de archivos compartidos por ftp.</p>
+  <div class="entry-content"><p>[sane, sane-utils]. Escanear. Solo genera archivos tiff y pnm.</p>
 
-<blockquote><p>$ snarf lapipaplena.net (Creará un archivo index.html)</p>
+<pre><code>$ scanimage -L (Para conocer los datos del escaner) 
 
-<p>$ snarf ftp://usuario:contraseña@servidor (Creará un archivo ftpindex.txt)</p></blockquote>
+&lt; device `hpaio:/usb/psc_1100_series?serial=MY387F93QWB0' is a Hewlett-Packard psc_1100_series all-in-one 
+</code></pre>
+
+<blockquote><p>$ scanimage -d hpaio:/usb/psc_1100_series?serial=MY387F93QWB0 (Especificando el escaner. Si solo existe uno no es necesaria esta opción)</p>
+
+<p>$ scanimage -v -p > imagen.tiff (Ver la información que genera, el progreso y redirigido a un archivo)</p>
+
+<p>$ scanimage &#8211;help (A continuación de la ayuda estandar, muestra las características concretas de nuestro escaner)</p>
+
+<p>$ scanimage -p &#8211;mode Color &#8211;resolution 200 -l 0 -t 0 -x 190 -y 160  > imagen.pnm (Las opciones de &#8220;mode&#8221; y &#8220;resolution&#8221; los muestra el parámetro &#8220;help&#8221;. Las opciones &#8220;l&#8221; y &#8220;t&#8221; indican que comenzará a escanear desde la esquina superior izquierda. Los limites de estos parámetros tambien los muestra &#8220;help&#8221;. &#8220;x&#8221; e &#8220;y&#8221; indican la medida a escanear. En este caso 190X160 mm)</p>
+
+<p>$ scanimage -p | convert - imagen.png (Redirigiendo la salida a convert que pasa la imagen a png)</p></blockquote>
 </div>
   
   
@@ -274,7 +421,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/smem/">Smem</a></h1>
+      <h1 class="entry-title"><a href="/blog/scan/">Scan</a></h1>
     
     
       <p class="meta">
@@ -290,22 +437,20 @@
   
 
 
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Informa del uso de la memoria.</p>
+  <div class="entry-content"><p>[linuxtv-dvb-apps]. Sintonizar canales de TV. El directorio /usr/share/dvb/dvb-t/ contiene las zonas de cobertura de la televisión digital terrestre.</p>
 
-<blockquote><p># smem -u (Por parte de los usuarios)</p>
+<blockquote><p>$ scan /usr/share/dvb/dvb-t/es-Rocacorba > channels.conf</p></blockquote>
 
-<p># smem -w (por parte del sistema)</p>
+<p>Copiar el archivo creado en el directorio .vlc/ [si no existe se crea] Abrir vlc con el siguiente comando:</p>
 
-<p># smem -m (de todos los procesos)</p>
-
-<p># smem -p (resultado en porcentaje</p></blockquote>
+<blockquote><p>$ vlc .vlc/channels.conf (Bucar los canales en View/Play list)</p></blockquote>
 </div>
   
   
@@ -318,7 +463,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/smbstatus/">Smbstatus</a></h1>
+      <h1 class="entry-title"><a href="/blog/scalpel/">Scalpel</a></h1>
     
     
       <p class="meta">
@@ -334,22 +479,18 @@
   
 
 
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Monitorizar el estado de las conexiones del servidor samba.</p>
+  <div class="entry-content"><p>Recureprar archivos borrados</p>
 
-<blockquote><p># smbstatus (Listado de equipos conectados a recursos compartidos y ficheros abiertos)</p>
+<p>Editar el archivo /etc/scalpel/scalpel.conf y descomentamos la linea de la extensión que se quiere recuperar. P.e. para un .avi seria la linea 110. Guardar y arrancar la aplicación:</p>
 
-<p># smbstatus -p (Solo el listado de los equipos conectados a samba)</p>
-
-<p># smbstatus -S (Listado de recursos y equipos conectados a ellos)</p>
-
-<p># smbstatus -L  (Listado de ficheros abiertos)</p></blockquote>
+<blockquote><p># scalpel /dev/sda2 -o carpeta_recup (Se recuperará los avi de sda2 y se guardaran en carpeta_recup)</p></blockquote>
 </div>
   
   
@@ -362,7 +503,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/smbclient/">Smbclient</a></h1>
+      <h1 class="entry-title"><a href="/blog/sc/">Sc</a></h1>
     
     
       <p class="meta">
@@ -378,26 +519,59 @@
   
 
 
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Conectar recursos compartidos de windows desde linux.</p>
+  <div class="entry-content"><p>Hoja de cálculo</p>
 
-<blockquote><p>$ smbclient //192.168.1.155/compartido -U usuario (Después de ingresar usuario y contraseña entra en el prompt del recurso compartido)</p>
+<blockquote><p>$ sc</p></blockquote>
 
-<p>$ smbclient -L //192.168.1.155 (Ver los recursos compartidos de la IP especificada.</p></blockquote>
+<p>Teclas básicas:</p>
 
-<p>1.-</p>
+<pre><code>Cursores (moverse entre las celdas) 
 
-<p>Para montarlo automaticamente:</p>
+= (añadir valor numérico o formula) 
 
-<p>Entrar en el /etc/fstab la siguiente linea:</p>
+&lt; (texto alineado a la izquierda) 
 
-<p>//192.168.1.155/compartido /media/compartido cifs username=NOMBRE, password=CONTRASEÑA,user</p>
+&gt; (texto alineado a la derecha) 
+
+\ (texto Centrado) 
+
+e (modificar una celda de tipo numérico) 
+
+E (modificar una celda de texto) 
+
+x (Borrar contenido de una celda) 
+
+P (Guardar el trabajo. Usa extensión .sc) 
+
+Q (Salir) 
+
+Formulas: 
+
+= @sum(A2:C2) (Suma de las casillas A2,B2 y C2) 
+
+= @prod(A2:B2) (Producto de A2 por B2) 
+
+= @avg(A2:A3) (Media entre A2 y A3) 
+
+= @count(A1:A5) (Contar las entradas no en blanco)
+
+Operaciones básicas:
+
+e A1+A4 (Sumar A1 y A4)
+
+e A1-A3 (Restar A3 de A1)
+
+e A1*A2 (Multiplicar A1 por A2) 
+
+e A5/A2 (Dividir A5 por A2) 
+</code></pre>
 </div>
   
   
@@ -410,7 +584,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/smartctl/">Smartctl</a></h1>
+      <h1 class="entry-title"><a href="/blog/sar/">Sar</a></h1>
     
     
       <p class="meta">
@@ -426,66 +600,18 @@
   
 
 
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Comprobar el estado de los discos duros. Si el disco es IDE, suprimir en todos los comandos el &#8220;-d ata&#8221;</p>
+  <div class="entry-content"><p>[sysstat]. Controlando logs. Herramienta de monitorización del rendimiento. Cubre la mayoría de las áreas del sistema:  Uso de la CPU [opción -u, por defecto],  Colas de procesos y carga del sistema [opción -q],  Estadísticas por proceso [-x [PID | ALL]],  Creación de procesos [-c] y cambios de contexto [-w],  Actividad de los dispositivos de bloque [-d] y TTY [-y],  Uso de memoria y espacio de swap [-r],  Estadísticas de memoria [-R], de paginación [-B] y de swapping [-W],  Estadísticas de interrupciones [-I]. [/var/log/sysstat/sadd .-”dd” indica el dia]</p>
 
-<blockquote><p># smartctl -i -d ata /dev/sda (Verificar si un disco ATA suporta smart)</p>
+<blockquote><p>$ sar -q 10 3 (3 muestras cada 10&#8217;)</p>
 
-<p># smartctl -s on -d ata /dev/hda (activar el soporte smart)</p>
-
-<p># smartctl -d ata -t short /dev/sda (lanzar el test corto)</p>
-
-<p># smartctl -d ata -t long /dev/sda  (lanzar el test largo)</p>
-
-<p># smartctl -d ata -l selftest -i /dev/sda (analizar la información de los comandos anteriores)</p></blockquote>
-
-<p>LifeTime indica las horas que el disco ha estado encendido. LBA_of_First_error indica los errores.</p>
-
-<blockquote><p># smartctl -d ata -Hc /dev/sda (Si al final se lee PASSED, correcto, si FAILED cambiar disco)</p>
-
-<p># smartctl -d ata -l error /dev/sda (Listar los errores)</p>
-
-<p># smartctl -d ara -A /dev/sda (Listar atributos internos)</p></blockquote>
-
-<p>Listado de algunos atributos smart</p>
-
-<p>Power_Cycle_Count (RAW_Value).- Veces que le ha llegado   corriente.</p>
-
-<p>Temperature Celsius. (RAW_Value) .- Temperatura del disco</p>
-
-<p>Reallocated_Sector_Ct (RAW_Value).-  número de sectores de repuesto que ha usado el disco para sustituir sectores dañados</p>
-
-<p>Raw_Read_Error_Rate (RAW_Value).- Frequencia de errores en la lectura del disco.</p>
-
-<p>Start_Stop_Count: Cantidad de veces que se ha parado y arrancado el disco</p>
-
-<p>Seek_Error_Rate: Tasa de errores de colocación de la aguja</p>
-
-<p>Power_On_Seconds: Tiempo funcionando</p>
-
-<p>Spin_Retry_Count: Numero de reintentos de arrancada</p>
-
-<p>El campo VALUE [valor] va del número 1 al 253, siendo 1 el peor. Los valores normales son los que estan entre 100 y 200. El campo WHEN_FAILED indica cuando se produjo una falla de algún atributo.</p>
-
-<p>1.-</p>
-
-<p>Para activar el demonio que nos avisa si se produce un error en disco:</p>
-
-<blockquote><p># apt-get install smart-notifier</p></blockquote>
-
-<p>Editar el archivo de configuración:</p>
-
-<blockquote><p># nano /etc/default/smartmontools</p></blockquote>
-
-<p>Y descomentar la linea:</p>
-
-<p>start_smartd=yes</p>
+<p>$ sar -Ruy 5 2 (2 muestras cada 5&#8217;)</p></blockquote>
 </div>
   
   
@@ -498,7 +624,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/slurm/">Slurm</a></h1>
+      <h1 class="entry-title"><a href="/blog/sakura/">Sakura</a></h1>
     
     
       <p class="meta">
@@ -514,16 +640,41 @@
   
 
 
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Monitoriza la interfaz de red</p>
+  <div class="entry-content"><p>Terminal</p>
 
-<blockquote><p># slurm -i eth0</p></blockquote>
+<blockquote><p># sakura -e tail -f /var/log/fail2ban (Lanzar una aplicación)</p>
+
+<p>$ sakura -n 3 -c 50 -r 30 (Lanzar la terminal con 3 pestañas y 50 columnas por 30 lineas)</p></blockquote>
+
+<p>Algunos atajos:</p>
+
+<pre><code>Ctrl + Shift + T (Nueva pestaña)
+
+Ctrl + Shift + W (Cerrar pestaña)                  
+
+Alt  + Flechas (Moverse entre las pestañas)
+
+Alt  + [1-9] (Ir a la pestaña numero ..)
+
+Ctrl + Shift + S (Mostrar barra de scroll)
+
+Ctrl + Shift + RePag (Scroll arriba) 
+
+Ctrl + Shift + AvPag (Scroll abajo)
+
+F11 (Maximizar/minimizar la pantalla)                              
+
+Ctrl + '+' (Aumentar la medida de la letra)
+
+Ctrl + '-' (Disminuir la medida de la letra)     
+</code></pre>
 </div>
   
   
@@ -536,7 +687,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/slowhttptest/">Slowhttptest</a></h1>
+      <h1 class="entry-title"><a href="/blog/saidar/">Saidar</a></h1>
     
     
       <p class="meta">
@@ -552,40 +703,18 @@
   
 
 
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Efectuar ataques Slow Http Dos</p>
+  <div class="entry-content"><p>Visualizar estadisticas del sistema</p>
 
-<blockquote><p>$ slowhttptest -c 1000 -H -g -o ataque -i 10 -r 200 -t GET -u http://192.168.1.154 -x 30 -p 3</p></blockquote>
+<blockquote><p>$ saidar -c (en color)</p>
 
-<p>c (Número de conexiones con límite en 65539)</p>
-
-<p>H (ataque modo SlowLoris enviando paquetes sin completar)</p>
-
-<p>B (ataque modo Slow POST sin terminar de enviar el cuerpo del mensaje)</p>
-
-<p>X (ataque modo Slow Read de lectura de las respuestas http lentas)</p>
-
-<p>g (Generr estadistica en formato html)</p>
-
-<p>o (Archivo de salida)</p>
-
-<p>i (Intervalo de datos por segundo por conexión)</p>
-
-<p>r (Conexiones por segundo)</p>
-
-<p>t (Cabecera a utilizar)</p>
-
-<p>u (URL de destino)</p>
-
-<p>x (Longitud máxima de los datos)</p>
-
-<p>p (Tiempo de espera de respuesta http una vez el servidor se considera inaccesible)</p>
+<p>$ saidar -d 2 (actualizar datos cada 2 segundos. Por defecto cada 3)</p></blockquote>
 </div>
   
   
@@ -616,43 +745,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/ifne/">ifne</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ifdata/">ifdata</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ifconfig/">ifconfig</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/identify/">identify</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/html/">html</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hosts/">hosts</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/host-dot-conf/">host.conf</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/honeyproxy/">honeyproxy</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hg/">hg</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hexdump/">hexdump</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

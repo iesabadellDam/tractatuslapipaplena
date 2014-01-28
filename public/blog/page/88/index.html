@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Mostrar datos de la conexión. Copiar el arxivo de configuración: # cp /usr/share/doc/ipband/examples/ipband.conf-simple /etc/ipband.conf Y &hellip;">
+  <meta name="description" content="Configuración de disposivos bluetooth $ hcitool scan (Busca dispositivos activos) $ hcitool info (Muestra información de los dispositivos encontrados &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ipband/">Ipband</a></h1>
+      <h1 class="entry-title"><a href="/blog/hcitool/">Hcitool</a></h1>
     
     
       <p class="meta">
@@ -96,47 +96,18 @@
   
 
 
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:50:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Mostrar datos de la conexión. Copiar el arxivo de configuración:</p>
+  <div class="entry-content"><p>Configuración de disposivos bluetooth</p>
 
-<blockquote><p># cp /usr/share/doc/ipband/examples/ipband.conf-simple /etc/ipband.conf</p></blockquote>
+<blockquote><p>$ hcitool scan (Busca dispositivos activos)</p>
 
-<p>Y descomentar o modificar los siguientes parámetros:</p>
-
-<pre><code>debug 0
-
-interface eth1
-
-fork yes
-
-htmlfile /srv/www/htdocs/ipbandwidth/index.html
-
-htmltitle Consumo de banda
-
-average 10
-
-accumulate no
-
-maskbits 32
-
-localrange 192.168.1.0/24
-</code></pre>
-
-<p>Reiniciar el servicio:</p>
-
-<blockquote><p># /etc/init.d/ipband restart</p></blockquote>
-
-<p>Arrancar la aplicación:</p>
-
-<blockquote><p># ipband</p></blockquote>
-
-<p>Los informes se muestran poniendo en la barra del navegador: http://localhost/html/ipbandwidth/index.html</p>
+<p>$ hcitool info   (Muestra información de los dispositivos encontrados)</p></blockquote>
 </div>
   
   
@@ -149,7 +120,7 @@ localrange 192.168.1.0/24
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ip-ajustes/">Ip-ajustes</a></h1>
+      <h1 class="entry-title"><a href="/blog/hciconfig/">Hciconfig</a></h1>
     
     
       <p class="meta">
@@ -165,35 +136,28 @@ localrange 192.168.1.0/24
   
 
 
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:50:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>1.- Estática</p>
+  <div class="entry-content"><p>Configuración de dispositivos bluetooth.</p>
 
-<blockquote><p># gedit /etc/network/interfaces</p></blockquote>
+<blockquote><p># hciconfig -a (Para saber cual es el dispositivo)</p>
 
-<pre><code>auto eth0 
+<p># hciconfig hci0 up (Levantar el dispositivo)</p>
 
-iface eth0 inet static 
+<p># hciconfig hci0 down (Parar el dispositivo)</p>
 
-address 192.168.x.x 
+<p># hciconfig hci0 revision (Información completa del dispositivo)</p>
 
-netmask 255.255.255.0 
+<p># hciconfig hci0 piscan  (activar visivilidad de la exploración)</p>
 
-network 192.168.x.0 
+<p># hciconfig hci0 noscan   (Desactivarla)</p>
 
-boadcast 192.168.2.255 
-
-gateway 192.168.x.1 
-</code></pre>
-
-<blockquote><p># /etc/init.d/networking restart (reiniciar el servicio)</p>
-
-<p>$ ifconfig (verificar la nueva ip)</p></blockquote>
+<p># hciconfig -h (Listado completo de comandos disponibles)</p></blockquote>
 </div>
   
   
@@ -206,7 +170,7 @@ gateway 192.168.x.1
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ip/">Ip</a></h1>
+      <h1 class="entry-title"><a href="/blog/hashtag/">Hashtag</a></h1>
     
     
       <p class="meta">
@@ -222,42 +186,20 @@ gateway 192.168.x.1
   
 
 
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:50:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Configuración de red. Muestra dispositivos, enrutamientos, tuneles.</p>
+  <div class="entry-content"><p>Analiza e identifica varios hashes de contraseñas en función de su tipo. Descarga de <a href="https://github.com/SmeegeSec/HashTag">https://github.com/SmeegeSec/HashTag</a></p>
 
-<blockquote><p>$ ip addr (Revisar tarjetas)</p>
+<blockquote><p># hashtag -sh $1$MtCReiOj$zvOdxVzPtrQ.PXNW3hTHI0 (Analizar uno sólo)</p>
 
-<p>$ ip route show (Información)</p>
+<p># hashtag -f archivo (Analizar todos los hash contenidos en un archivo)</p>
 
-<p>$ ip link show (Ver interfaces de red)</p>
-
-<p>$ ip link set dev eth0 down (bajar una red)</p>
-
-<p>$ ip route add default via 192.168.1.1 (establecer la ip del router)</p>
-
-<p>$ ip link set dev eth0 up (levantar una red)</p>
-
-<p>$ ip addr add 192.168.1.20 255.255.255.0 dev eth1 (establecer una ip estática)</p>
-
-<p>$ ip n  (MAC e IP del router)</p>
-
-<p>$ ip link set dev eth1 address 00:03:44:88:00:11 (Modificdar la MAC. Previamente bajar la red)</p>
-
-<p>$ ip route del default (Eliminar puerta de enlace para crear una nueva)</p>
-
-<p>$ ip route add default via 192.168.1.10 (Crear nueva puerta de enlace)</p>
-
-<p>$ ip -f inet addr show eth0 (información de la dirección ip)</p>
-
-<p>$ ip route add 192.168.2.0/24 via 192.168.1.10 (Añadir una red a una puerta de enlace)</p></blockquote>
-
-<p>Nota.- Verificar que /etc/resolv contenga una linea con el servidor DNS tipo: nameserver 8.8.8.8 [para las DNS de google]</p>
+<p># hashtag -d dir -o archivo (recorrer un directorio y todos los subdirectorios intentando identificar todos los hash potenciales y mandando el resultado a un archivo. Si no se especifica, la salida es HashTag_Output_File.txt)</p></blockquote>
 </div>
   
   
@@ -270,7 +212,7 @@ gateway 192.168.x.1
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/iozone/">Iozone</a></h1>
+      <h1 class="entry-title"><a href="/blog/hash-identifier/">Hash-identifier</a></h1>
     
     
       <p class="meta">
@@ -286,385 +228,46 @@ gateway 192.168.x.1
   
 
 
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:50:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Realizar test de velocidad de sistemas de archivos (ext3, ext4&#8230;)</p>
+  <div class="entry-content"><p>Identifica la encriptación de un hash. Descarga: <a href="https://code.google.com/p/hash-identifier/">https://code.google.com/p/hash-identifier/</a></p>
 
-<blockquote><p>$ iozone -s 2g -r 64 -i 0 -i 1 -b test.xls</p>
+<blockquote><p>$ python Hash_ID_v1.1.py</p></blockquote>
 
-<p>$ iozone -a -g 2G -f /media/sda2</p></blockquote>
+<p>Cuando sale el promt pastear el hash:</p>
 
-<p>-a (automático)</p>
+<p>HASH: caf90169eefa5f807d577486b9f795ab86ae2983c5c20806cff959117e90af18</p>
 
-<p>-g (Tamaño de los archivos generados)</p>
+<pre><code>Possible Hashs:
 
-<p>-f (el sistema de archivos a tratar)</p>
+[+]  SHA-256
 
-<p>-i (0= escritura, 1= lectura, 2=lectura/escritura&#8230;.)</p>
+[+]  Haval-256
 
-<p>-b (archivo que generará con los resultados)</p>
-</div>
-  
-  
+Least Possible Hashs:
 
+[+]  GOST R 34.11-94
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/iotop/">Iotop</a></h1>
-    
-    
-      <p class="meta">
-        
+[+]  RipeMD-256
 
+[+]  SNEFRU-256
 
+[+]  SHA-256(HMAC)
 
+[+]  Haval-256(HMAC)
 
+[+]  RipeMD-256(HMAC)
 
+[+]  SNEFRU-256(HMAC)
 
+[+]  SHA-256(md5($pass))
 
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>monitoriza el ratio de lectura/escritura en disco .</p>
-
-<blockquote><p>$ iotop -o -u usuario</p>
-
-<p>$ iotop -a -p $(sed &#8216;s, , -p ,g&#8217; &lt;&lt;&lt;<code>pgrep "_raid|_resync|jbd2"</code>) (un raid)</p></blockquote>
-
-<p>Alguns opciones:</p>
-
-<p>-d 2 (Actualización cada 2 segundos)</p>
-
-<p>-b (No interactivo)</p>
-
-<p>-o (Sólo mostrar procesos que hacen uso de entrada/salida)</p>
-
-<p>-t (Incluir una marca de tiempo)</p>
-
-<p>-p pid (Pid del proceso a monitorizar. Por defecto todos)</p>
-
-<p>-u usuario (especificando usuario)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/iostat/">Iostat</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>muestra estadísticas de la CPU y de la entrada y salida de los dispositivos y particiones.</p>
-
-<blockquote><p>$ iostat -x sda -d 1 6 (6 reportes con 1 segundo de intervalo sobre el disco sda. Suprimiendo la última cifra [6] continuará reportando datos hasta finalizar con Ctrl+c)</p>
-
-<p>$ iostat -d 3 (actualizará resultados cada 3 segundos)</p>
-
-<p>$ iostat -p sda (Ver estadisticas de un disco concreto con sus particiones)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/inxi/">Inxi</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra información del equipo (http://inxi.googlecode.com/svn/trunk/inxi).</p>
-
-<blockquote><p>$ inxi -Fpur -c 4</p></blockquote>
-
-<p>Algunas opciones (con inxi -h la lista completa):</p>
-
-<p>-A (Audio y tarjetas de sonido)</p>
-
-<p>-b (informacio básica)</p>
-
-<p>-c (formato de color de 0 a 32 para la salida de datos)</p>
-
-<p>-C (CPUs)</p>
-
-<p>-d (drivers opticos)</p>
-
-<p>-D (disco duro)</p>
-
-<p>-F (salida extendida)</p>
-
-<p>-G (tarjeta gráfica)</p>
-
-<p>-i (Información de red)</p>
-
-<p>-I (Procesos, uptime, memoria&#8230;)</p>
-
-<p>-M (Datos de la máquina)</p>
-
-<p>-N (tarjetas de red)</p>
-
-<p>-o (particiones no montadas)</p>
-
-<p>-p (particiones montadas)</p>
-
-<p>-r (repositorios)</p>
-
-<p>-s (sensors[temperaturas cpu])</p>
-
-<p>-S (Host, Kernel,Escritorio y Distro)</p>
-
-<p>-t cm (Procesos que consumen más cpu [c] y memoria [m])</p>
-
-<p>-u (UUID de las particiones. -uo las no montadas, -up las montadas)</p>
-
-<p>-v 6 (Distintas etiquetas de información. Del 1 al 6)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/interfaces/">Interfaces</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Archivo de configuración de la red en distros debian.</p>
-
-<p>1.-</p>
-
-<p>Con IP dinámica:</p>
-
-<p>Colocar en el archivo las lineas:</p>
-
-<pre><code>auto eth0
-
-iface eth0 inet dhcp
-</code></pre>
-
-<p>2.-</p>
-
-<p>Con IP fija</p>
-
-<p>Colocar en el archivo las lineas:</p>
-
-<pre><code>auto eth0
-
-iface eth0 inet static
-
-address 192.168.1.10
-
-gateway 192.168.1.1
-
-netmask 255.255.255.0
-
-broadcast 192.168.1.255
-</code></pre>
-
-<p>Reiniciar el servicio:</p>
-
-<blockquote><p># ifdown eth0</p>
-
-<p># ifup eth0</p></blockquote>
-
-<p>Nota.- Solo modificandolo en network-manager no funciona.</p>
-
-<p>3.-</p>
-
-<p>Creación de una segunda dirección IP virtual.</p>
-
-<p>Añadir las siguientes lineas a las de la IP fija:</p>
-
-<pre><code>auto eth0:1
-
-iface eth0:1 inet static
-
-address 192.168.0.15
-
-netmask 255.255.255.0
-
-broadcast 192.168.0.255
-
-gateway 192.168.0.1
-</code></pre>
-
-<p>Nota.- La instalación de nerwork-manager o wicd para la gestión de redes implica comentar las modificaciones de este archivo o en, en el caso de network-manager, editar:</p>
-
-<blockquote><p># nano  /etc/NetworkManager/NetworkManager.conf</p></blockquote>
-
-<p>Y modificar la linea:</p>
-
-<p>[ifupdown]</p>
-
-<p>managed=true</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/integrit/">Integrit</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Detectar cuando algún archivo del sistema ha sido alterado mediante la creación, la primera vez que se lanza, de una base de datos con la que confrontar los nuevos escaneos.</p>
-
-<p>Configuración:</p>
-
-<blockquote><p># /etc/integrit/integrit.con</p></blockquote>
-
-<p>Descomentar las lineas:</p>
-
-<pre><code>root=/  
-
-known=/var/lib/integrit/known.cdb       
-
-current=/var/lib/integrit/current.cdb
-</code></pre>
-
-<p>Y descartar los directorios que no se deseen incluir en el escaneo, descomentandolos [&#8220;cdrom&#8221; se descarta, &#8220;/dev&#8221; se escane, &#8220;/usr/src&#8221; no se escaneará de forma recursiva ]:</p>
-
-<pre><code>!/cdrom
-
-# !/dev
-
-=/usr/src
-</code></pre>
-
-<p>Crear la base de datos inicial:</p>
-
-<blockquote><p># integrit -u -C /etc/integrit/integrit.conf</p></blockquote>
-
-<p>Mover la base de datos a know.cdb:</p>
-
-<blockquote><p># mv /var/lib/integrit/current.cdb /var/lib/integrit/known.cdb</p></blockquote>
-
-<p>Lanzar la comprobación:</p>
-
-<blockquote><p># integrit -C /etc/integrit/integrit.conf -c</p></blockquote>
-
-<p>Si queremos colocar la orden en el cron para ser lanzada cada hora y que envie un correo al administrador:</p>
-
-<blockquote><p># crontab -e</p></blockquote>
-
-<p>Y colocamos la linea:</p>
-
-<pre><code>* 1 * * * integrit -C /etc/integrit/integrit.conf -c | mail root
+[+]  SHA-256(sha1($pass))
 </code></pre>
 </div>
   
@@ -678,7 +281,7 @@ current=/var/lib/integrit/current.cdb
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/instmodsh/">Instmodsh</a></h1>
+      <h1 class="entry-title"><a href="/blog/hasciicam/">Hasciicam</a></h1>
     
     
       <p class="meta">
@@ -694,20 +297,236 @@ current=/var/lib/integrit/current.cdb
   
 
 
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:50:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Para conocer los módulos perl instalados. Entra en el prompt (cmd?) con 3 preguntas:</p>
+  <div class="entry-content"><p>Visualizar la webcam via ascii.</p>
 
-<p>l (List all installed modules)</p>
+<blockquote><p>$ hasciicam -m html -c 50 -o (En modo html, contraste 50 [de 0 a 100. Por defecto 4] y guardar el archivo)</p></blockquote>
 
-<p>m <module> (Select a module)</p>
+<p>Otras opciones:</p>
 
-<p>q (Quit the program)</p>
+<p>-i /dev/xxxx (Especificando dispositivo.Por defecto /dev/video)</p>
+
+<p>-o archivo (Guardar imagen en archivo. Se reescribe según el parámetro -r. Si no se especifica salida, por defecto es hasciicam.html [para html] y hasciicam.txt [para txt])</p>
+
+<p>-r 1 (Refrescar imagen cada 1 segundo. Por defecto 2. No afecta al modo live)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/hal-device/">Hal-device</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:50:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Crea, suprime y muestra dispositivos</p>
+
+<blockquote><p>$ hal-device -a dispositivo  (añadir)</p>
+
+<p>$ hal-device -r dispositivo   (borrar)</p>
+
+<p>$ hal-device | grep volume.label  (mostrar etiquetas de todos los volumenes)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/hachoir-metadata/">Hachoir-metadata</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:50:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ver entrada python-hachoir-metadata</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/gzip/">Gzip</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:50:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>(gz). Comprime un fichero (ni empaqueta ni comprime directorios)</p>
+
+<blockquote><p>$ gzip -r fichero (Comprimir)</p>
+
+<p>$ gzip -9 archivo (Con compresión máxima)</p>
+
+<p>$ gzip -d fichero.gz (Descomprimir)</p>
+
+<p>$ gzip -c fichero.gz (Ver contenido)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/gzexe/">Gzexe</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:50:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Comprime ficheros ejecutables que al ser invocados se autodescomprimen para ejecutarse. Esta utilidad sólo se aplica en equipos con discos muy pequeños.</p>
+
+<blockquote><p># gzexe /bin/ls</p></blockquote>
+
+<p>Creará dos archivos: &#8220;/bin/ls&#8221; y &#8220;/bin/ls~&#8221;. El original es el ls~ que podrá borrarse una vez comprobado que lanzando &#8220;ls&#8221; en consola, funciona correctamente.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/gxmessage/">Gxmessage</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:50:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Dejar mensajes en la pantalla</p>
+
+<blockquote><p>$ gxmessage -center -fg red -bg black &#8220;No cierren la terminal&#8221;</p></blockquote>
+
+<p>-fg (Color de fuente)</p>
+
+<p>-bg (Color de fondo)</p>
+
+<p>-center (En el centro de la pantalla)</p>
+
+<p>-iconic (Minimizado en el panel)</p>
+
+<p>-nearmouse (Se abre donde está el cursor)</p>
+
+<p>-entry (Con un cuadro de dialogo pera entrar una respuesta)</p>
 </div>
   
   
@@ -738,43 +557,43 @@ current=/var/lib/integrit/current.cdb
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/ifne/">ifne</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ifdata/">ifdata</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ifconfig/">ifconfig</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/identify/">identify</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/html/">html</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hosts/">hosts</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/host-dot-conf/">host.conf</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/honeyproxy/">honeyproxy</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hg/">hg</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hexdump/">hexdump</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

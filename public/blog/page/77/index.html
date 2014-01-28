@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Recuperar archivos borrados $ magicrescue -d /home/usuario/rescue -r /usr/share/magicrescue/recipes/avi /dev/sda3 Notas.- -d .- Destino de los &hellip;">
+  <meta name="description" content="[texlive texlive-lang-spanish]. Sistema de composición de textos, orientado especialmente a la creación de libros, documentos científicos y técnicos &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/magicrescue/">Magicrescue</a></h1>
+      <h1 class="entry-title"><a href="/blog/latex/">Latex</a></h1>
     
     
       <p class="meta">
@@ -96,24 +96,105 @@
   
 
 
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Recuperar archivos borrados</p>
+  <div class="entry-content"><p>[texlive texlive-lang-spanish]. Sistema de composición de textos, orientado especialmente a la creación de libros, documentos científicos y técnicos que contengan fórmulas matemáticas. La elaboración del documento requiere normalmente de dos etapas: en la primera hay que crear mediante cualquier editor de texto llano un fichero fuente que, con las órdenes y comandos adecuados, contenga el texto que queramos imprimir. La segunda consiste en procesar este fichero; el procesador de textos interpreta las órdenes escritas en él y compila el documento, dejándolo preparado para que pueda ser enviado a la salida correspondiente. LaTeX ofrece siempre la misma salida, con independencia del dispositivo (impresora, pantalla, etc.) o el sistema operativo (MS Windows, MacOS, Unix, GNU/Linux, etc.) y puede ser exportado a partir de una misma fuente a numerosos formatos [Ps, PDF, SGML, HTML, RTF, etc.]. Otra ventaja de LaTeX es que calcula la cantidad óptima de caracteres por línea para optimizar la lectura, 66 por defecto. Existen miles de instrucciones. Aquí una pequeña muestra para no morir en el intento.</p>
 
-<blockquote><p>$ magicrescue -d /home/usuario/rescue -r /usr/share/magicrescue/recipes/avi /dev/sda3</p></blockquote>
+<p>A continuación una estructura elemental de un documento:</p>
 
-<p>Notas.-</p>
+<p>Los comentarios van precedidos por el signo de porcentaje [%]</p>
 
-<p>-d .- Destino de los archivos recuperados</p>
+<p>La primera linea puede especificar el papel [A4], tamaño de la letra [10pt, 11pt, 12pt], tipo de texto [article, report, book, letter, slides&#8230;], cantidad de columnas [twocolumn]:</p>
 
-<p>-r  .- Tipo de archivo a recuperar (formatos en /usr/share/magicrescue/recipes)</p>
+<pre><code>\documentclass[a4paper, 12pt]{article} 
 
-<p>El último parametro indica el disco a analizar</p>
+\documentclass[12pt,twocolumn]{report}
+</code></pre>
+
+<p>Activar el soporte Unicode [para  dieresis, eñes&#8230;]</p>
+
+<pre><code>\usepackage[utf8]{inputenc}
+
+\usepackage[spanish]{babel}
+</code></pre>
+
+<p>Especificar título, autor, fecha. &#8220;date&#8221;, si no se especifica, pone la fecha actual:</p>
+
+<pre><code>\title{Lorem Ipsum} 
+
+\author{La Pipa Plena} 
+
+\date{ }
+</code></pre>
+
+<p>El cuerpo del documento se inicia con \maketitle</p>
+
+<p>Inicio y final de texto. Entre párrafos ha de dejarse una linea en blanco. El primer párrafo de una subsección, sección o capítulo no está sangrado, pero los restantes sí.:</p>
+
+<pre><code>\begin{document}
+
+Est et quia non voluptatum. Aspernatur facilis excepturi aut. Voluptatem perspiciatis id cum ab nostrum. Qui rerum nisi vitae quae. Quam consequatur eaque minima ipsum distinctio. Est dolorem tempore perspiciatis quisquam accusantium exercitationem consequatur.
+
+\end{document}
+</code></pre>
+
+<p>Secciones y subsecciones del texto:</p>
+
+<pre><code>\section{Introducción}
+
+\section{Historia}
+
+\subsection{Historia inicios}
+
+\subsection{Historia continuación}
+</code></pre>
+
+<p>Formatos de texto:</p>
+
+<pre><code>\texbf{texto en negrita}
+
+\emph{destaca el texto}
+
+\texit{texto en cursiva}
+
+\underline{texto subrayado}
+
+\texsc{texto en versalita}
+</code></pre>
+
+<p>Tamaño de la letra. Estos comandos afectan a todo el texto que les sigue mientras no se modifique nuevamente y sin necesidad de encerrarlo entre llaves. De más pequeña a más grande: \tiny, \scriptsize, \footnotesize, \small, \normalsize (la normal), \large, \Large, \LARGE, \huge, \Huge</p>
+
+<pre><code>\normalsize Ipsam \tiny iusto odio commodi \scriptsize inventore rem. \footnotesize Qui maiores minima \small dignissimos aut mollitia et. \normalsize Voluptates \large magnam autem similique quas. \LARGE nihil aspernatur nisi blanditiis. \huge Ad repudiandae fuga blanditiis. \Huge Est voluptate in ipsam sint \ normalsize optio.
+</code></pre>
+
+<p>Centrar un párrafo:</p>
+
+<pre><code>\begin{center}
+
+Est et quia non voluptatum. Aspernatur facilis excepturi aut. Voluptatem perspiciatis id cum ab nostrum. Qui rerum nisi vitae quae. Quam consequatur eaque minima ipsum distinctio. Est dolorem tempore perspiciatis quisquam accusantium exercitationem consequatur.
+
+\end{center}    
+</code></pre>
+
+<p>alinear texto:</p>
+
+<pre><code>\centering {Texto a centrar}
+
+\raggedleft {Texto a la derecha}
+
+\raggedright {Texto a la izquierda}
+</code></pre>
+
+<p>Para confeccionar un documento en latex puede usarse cualquier editor [vim, nano, gedit&#8230;] y para convertirlo a pdf compilarlo con:</p>
+
+<blockquote><p>$ pdflatex texto.tex</p></blockquote>
+
+<p>Tambien podemos visualizar directamente el .dvi con la aplicación evince o usar gummi que, al tener la pantalla dividida en dos partes, permite crear el documento y visualizarlo en tiempo real.</p>
 </div>
   
   
@@ -126,7 +207,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/macchanger/">Macchanger</a></h1>
+      <h1 class="entry-title"><a href="/blog/lastlog/">Lastlog</a></h1>
     
     
       <p class="meta">
@@ -142,26 +223,16 @@
   
 
 
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Modificar la MAC</p>
+  <div class="entry-content"><p>Ver el momento exacto que los usuarios han entrado por última vez</p>
 
-<blockquote><p># macchanger -s eth0 (Muestra la MAC)</p>
-
-<p># macchanger -m 00:01:02:03:04:05 eth0  (poner la tarjeta de red a la escucha por la interfaz eth0 con la MAC especificada)</p>
-
-<p># macchanger -A eth0 (Establece proveedor MAC aleatorio)</p>
-
-<p># macchanger -r eth0  (MAC completamente aleatoria)</p>
-
-<p># macchanger -l  (Listar los comienzos de las MAC de los principales fabricantes)</p>
-
-<p># macchanger –-list=Sony   (Muestra los comienzos de las MAC de Sony)</p></blockquote>
+<blockquote><p>$ lastlog -u usuario  (solo ver a &#8220;usuario&#8221;)</p></blockquote>
 </div>
   
   
@@ -174,7 +245,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/lzma/">Lzma</a></h1>
+      <h1 class="entry-title"><a href="/blog/lastcomm/">Lastcomm</a></h1>
     
     
       <p class="meta">
@@ -190,18 +261,16 @@
   
 
 
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Compresor/descompresor de archivos. Formato de salida .lzma</p>
+  <div class="entry-content"><p>[acct)]. Muestra información acerca de comandos ejecutados y terminales abiertas.</p>
 
-<blockquote><p>$ lzma fichero.txt (Substituye fichero.txt por fichero.txt.lzma)</p>
-
-<p>$ lzma -d fichero.txt.lzma (Descomprimir)</p></blockquote>
+<blockquote><p>$ lastcomm tmux tty1 (sólo muestra los epecificados)</p></blockquote>
 </div>
   
   
@@ -214,7 +283,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/lzip/">Lzip</a></h1>
+      <h1 class="entry-title"><a href="/blog/lastb/">Lastb</a></h1>
     
     
       <p class="meta">
@@ -230,18 +299,16 @@
   
 
 
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>compresor/descompresor de archivos. Formato de salida .lz</p>
+  <div class="entry-content"><p>Muestra los intentos de conexión fallidos (/var/log/btmp)</p>
 
-<blockquote><p>$ lzip archivo.txt (Lo substituye por archivo.txt.lz)</p>
-
-<p>$ lzip -d archivo.txt.lz (descomprimir)</p></blockquote>
+<blockquote><p># lastb   -20 (Muestra los últimos 20 intentos fallidos en logearse)</p></blockquote>
 </div>
   
   
@@ -254,7 +321,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/lynx/">Lynx</a></h1>
+      <h1 class="entry-title"><a href="/blog/last/">Last</a></h1>
     
     
       <p class="meta">
@@ -270,26 +337,26 @@
   
 
 
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Navegador web por consola.</p>
+  <div class="entry-content"><p>Muestra la ultima vez que se conecto un usuario [/var/log/wtmp].</p>
 
-<blockquote><p>$ lynx -dump http://www.tuxapuntes.com | grep Enviado  (Ver las últimas entradas en la web especificada)</p>
+<blockquote><p>$ last -n 10 (Muestra los últimos 10 eventos. )</p>
 
-<p>$ lynx -dump http://www.tuxapuntes.com | grep Enviado | grep templix (Ver si entre las últimas entradas hay alguna del usuario templix)</p>
+<p>$ last reboot (la útima vez que se reinició)</p>
 
-<p>$ lynx -source http://www.tuxapuntes.com (ver el codigo fuente)</p>
+<p>$ last -i (Mostrando la ip)</p>
 
-<p>$ lynx -dump http://checkip.dyndns.com | cut -d &#8217; &#8217; -f7 (mostrar IP externa)</p>
+<p>$ last tty1 (que lo hizo a la tty1)</p>
 
-<p>$ lynx -dump http://www.tuxapuntes.com | awk &#8216;/http/{print $2}&#8217; | egrep &#8221;<sup>https{0,1}&#8221;</sup>   (ver todos los enlaces de una web)</p>
+<p>$ last usuario (que se conectó “usuario”)</p>
 
-<p>$ lynx -dump http://www.lapipaplena.com/ | awk &#8216;/http/{print $2}&#8217; | sort -  (Lo mismo)</p></blockquote>
+<p>$ last -f /media/sda2/var/log/wtmp (Analizar el acceso de otro sistema)</p></blockquote>
 </div>
   
   
@@ -302,7 +369,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/lynis/">Lynis</a></h1>
+      <h1 class="entry-title"><a href="/blog/lame/">Lame</a></h1>
     
     
       <p class="meta">
@@ -318,26 +385,26 @@
   
 
 
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Busca en el sistema posibles debilidades de configuración sin realizar ninguna modificación.</p>
+  <div class="entry-content"><p>Cambiar formatos de audio</p>
 
-<blockquote><p># lynis      (Visualizar las opciones)</p>
+<blockquote><p>$ lame -h -m j tema.wav tema.mp3  (Pasar de wav a mp3)</p>
 
-<p># lynis &#8211;check-update    (descargar actualizaciones)</p>
+<p>$ lame -h -m j &#8211;nogap *.wav (Pasar lote de wav a mp3)</p>
 
-<p># lynis -c      (lanzar el escaneo)</p>
+<p>$ lame -h &#8211;decode tema.mp3 tema.wav     (Pasar de mp3 a wav)</p>
 
-<p># lynis &#8211;cronjob (Lanzar el escaneo sin pedir confirmaciones en cada apartado)</p>
+<p>$ for i in *.mp3; do lame -q 0 -b 160 -m j &#8220;$i&#8221; &#8220;directorio/$i&#8221;; done (Modificar el bitrate (-b 160) de todos los mp3 de “directorio”)</p></blockquote>
 
-<p># cat /var/log/lynis.log | grep Warning (ver las vulnerabilidades)</p>
+<p>-q 0    Opciones de 0 a 9. A menor calidad, mayor velocidad de conversión.</p>
 
-<p># cat /var/log/lynis.log | grep Suggestion (ver sugerencias que nos realiza lynis)</p></blockquote>
+<p>-m j    Activar joint stereo.</p>
 </div>
   
   
@@ -350,7 +417,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/lxpanelctl/">Lxpanelctl</a></h1>
+      <h1 class="entry-title"><a href="/blog/kwin/">Kwin</a></h1>
     
     
       <p class="meta">
@@ -366,26 +433,16 @@
   
 
 
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Controla lxpanel.</p>
+  <div class="entry-content"><p>[kde-window-manager]. Gestor de ventanas</p>
 
-<blockquote><p>$ lxpanelctl menu (abre el menú de lxpanel)</p>
-
-<p>$ lxpanelctl config (Su configuración)</p>
-
-<p>$ lxpanelctl run (Cuadro para entrar una aplicación para ejecutarla)</p></blockquote>
-
-<p>Otras opciones:</p>
-
-<p>restart (Reiniciarlo)</p>
-
-<p>exit (Matarlo)</p>
+<blockquote><p>$ kwin &#8211;replace (Activar kwin)</p></blockquote>
 </div>
   
   
@@ -398,7 +455,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/lxde/">Lxde</a></h1>
+      <h1 class="entry-title"><a href="/blog/kvm-ok/">Kvm-ok</a></h1>
     
     
       <p class="meta">
@@ -414,111 +471,20 @@
   
 
 
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Escritorio ligero.</p>
+  <div class="entry-content"><p>[check-bios-nx]. Comprobar si la CPU  tiene soporte para extensiones KVM.</p>
 
-<p>Archivos de configuración de los elementos del escritorio lxde:</p>
+<blockquote><p># kvm-ok</p></blockquote>
 
-<p>~/.config/gtkrc-2.0 (Temas de escritorio GTK+ e iconos)</p>
+<p>INFO: Your CPU does not support KVM extensions</p>
 
-<p>~/.config/leafpad/leafpadrc (Editor de textos Leafpad)</p>
-
-<p>~/.config/lxpanel/LXDE/panels/panel (Paneles)</p>
-
-<p>~/.config/lxpanel/LXDE/config (Lanzadores de aplicaciones del panel)</p>
-
-<p>~/.config/lxsession/LXDE/config (Administrador de ventanas)</p>
-
-<p>~/.config/lxterminal/lxterminal.conf (Terminal)</p>
-
-<p>~/.config/openbox/lxde-rc.xml (Openbox)</p>
-
-<p>~/.config/openbox/menu.xml (Menu de Openbox)</p>
-
-<p>~/.config/pcmanfm/main.lxde (Pcmanfm)</p>
-
-<p>1.-</p>
-
-<p>Arrancar aplicaciones al inicio:</p>
-
-<blockquote><p># /etc/xdg/lxsession/LXDE/autostart</p></blockquote>
-
-<p>Colocar las aplicaciones precedidas de una @:</p>
-
-<pre><code>@liferea
-
-@gdesklets 
-</code></pre>
-
-<p>2.-</p>
-
-<p>Crear iconos en el escritorio:</p>
-
-<p>Colocar los archivos en la carpeta Desktop o Escritorio si se tiene en español:</p>
-
-<blockquote><p>$ nano Desktop/home.lnk</p></blockquote>
-
-<p>Y colocamos el siguiente contenido de ejemplo:</p>
-
-<pre><code>[Desktop Entry]
-
-Name=Personal
-
-Type=Application
-
-Comment=Carpeta personal
-
-Terminal=false
-
-Exec=pcmanfm ~
-
-Icon=folder_home.png
-
-Encoding=UTF-8
-</code></pre>
-
-<p>Para colocar la papelera:</p>
-
-<pre><code>$ nano Desktop/papelera.lnk
-
-Y pegar el contenido:
-
-[Desktop Entry]
-
-Name=Papelera
-
-Type=Application
-
-Comment=Papelera
-
-Terminal=false
-
-Exec=pcmanfm trash:///
-
-Icon=emptytrash.png
-
-Encoding=UTF-8
-</code></pre>
-
-<p>3.-</p>
-
-<p>Modificar iconos:</p>
-
-<blockquote><p>$ ls /usr/share/icons/ (Ver el listado de los disponibles)</p>
-
-<p># nano  /usr/share/icons/default/index.theme</p></blockquote>
-
-<p>Y en apartado Inherits colocar el deseado:</p>
-
-<p>Inherits = ComixCursors-Red-Large</p>
-
-<p>Reiniciar.</p>
+<p>KVM acceleration can NOT be used</p>
 </div>
   
   
@@ -531,7 +497,7 @@ Encoding=UTF-8
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/luakit/">Luakit</a></h1>
+      <h1 class="entry-title"><a href="/blog/komichi/">Komichi</a></h1>
     
     
       <p class="meta">
@@ -547,135 +513,54 @@ Encoding=UTF-8
   
 
 
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Navegador web</p>
+  <div class="entry-content"><p>Navegador minimalista escrito en python y pyqt4 con soporte para pestañas, flash y atajos de teclado. Descarga de http://es.sourceforge.jp/projects/sfnet_komichi/releases/</p>
 
-<p>Copiar los archivos de configuración:</p>
+<p>Algunos atajos:</p>
 
-<pre><code>$ cp -r /etc/xdg/luakit .config/
-</code></pre>
+<p>Ctrl + t (Nueva pestaña)</p>
 
-<p>El archivo de configuración de los parámetros generales (página de inicio, motor de busqueda, …):</p>
+<p>Ctrl + b (Marcadores)</p>
 
-<pre><code>$ nano .config/luakit/globals.lua
-</code></pre>
+<p>Alt + p (Configuracion [pagina de inicio, javascript, plugins&#8230;])</p>
 
-<p>Atajos de teclado en:</p>
+<p>F1 (Abrir archivo README)</p>
 
-<pre><code>$ nano .config/luakit/binds.lua
-</code></pre>
+<p>Ctrl + Mayus + t (Abrir ultima pestaña cerrada)</p>
 
-<p>Algunos de los mismos son:</p>
+<p>F5 (Recargar pagina)</p>
 
-<p>Desplazamiento y visialización:</p>
+<p>Ctrl + o (Abrir)</p>
 
-<pre><code>j (bajar por la página) 
+<p>Ctrl + k (Buscar)</p>
 
-k (Subir) 
+<p>Ctrl + l (Entrar url)</p>
 
-h (Hacia la izquierda) 
+<p>Ctrl + s (Guardar la pagina)</p>
 
-l (Hacia la derecha) 
+<p>Ctrl + f (Buscar en la pagina)</p>
 
-Page_Up (Ir al principio de la página) 
+<p>Ctrl + g (siguiente entrada de la busqueda)</p>
 
-Page_Down (Ir a final de la página del todo) 
+<p>Ctrl + + (Aumentar zoom)</p>
 
-^d (Desplazamiento rápido hacia el final de la página) 
+<p>Ctrl + - (Disminuir zoom)</p>
 
-^u (Desplazamiento rápito hacia el principio de la página) 
+<p>Ctrl+ 0 (Visualizacion por defecto)</p>
 
-+ (Aumentar medida de la fuente) 
+<p>Ctrl + h (History)</p>
 
-- (Disminuir la medida de la fuente) 
+<p>Ctrl + Mayus + del (Borrar history)</p>
 
-= (Restablecer los parámetros por defecto) 
+<p>Ctrl + Mayus + n (Entrar en modo privado)</p>
 
-F11 (Pantalla complet)
-</code></pre>
-
-<p>Abrir/ cerrar páginas y pestañas</p>
-
-<pre><code>o (Abrir url [:open....]) 
-
-O (Edita la barra de direcciones para modificar la url) 
-
-t (Abrir url en una nueva pestaña [:tabopen....]) 
-
-^t (Abrir nueva pestaña con la página de inicio) 
-
-T (Edita la barra de direcciones y la abre en una nueva pestaña) 
-
-d (Cierra la pestaña activa) 
-
-D (Cierra la ventana activa) 
-
-u (reabre la última pestaña cerrada) 
-
-w (Nueva ventana)
-</code></pre>
-
-<p>Moverse por la página</p>
-
-<pre><code>^o (página anterior) 
-
-^i (página siguiente) 
-
-gt (ir a la pestaña anterior) 
-
-gT (ir a la pestaña siguiente) 
-
-gh (ir a la página de inicio) 
-
-b (Volver a la página anterior) 
-
-:f (Ir a la página siguiente) 
-
-f (Marca todos los enlaces con un número y si se teclea se entra en el enlace) 
-
-F (Lo mismo pero en una nueva pestaña) 
-
-r (Recargar la página) 
-
-R (Recargar ignorando la caché) 
-</code></pre>
-
-<p>Direcciones de interés</p>
-
-<pre><code>B (Escribe la página actual en los enlaces de interés) 
-
-gb (Abrir los enlaces de interés en la pestaña actual) 
-
-gB (Lo mismo en una nueva pestaña) 
-
-ZZ (Cerrar guardando las pestañas abiertas)
-</code></pre>
-
-<p>Descargas</p>
-
-<pre><code>;s (Marcará todas las descargas con un número que si se tecla se procederá a descargar) 
-
-gd (Abrir la página que muestra todas las descargas activas en la pestaña activa) 
-
-gD (Lo mismo en una nueva pestaña)
-</code></pre>
-
-<p>Si una vez abierta la barra de navegación [con “o”, “t”..] colocamos:</p>
-
-<pre><code>gg palabra (Buscará palabra en googl) 
-
-ddg palabra (lo hará en el buscador duckduckgo) 
-
-wp palabra (La buscará en la wikipedia) 
-
-yu palabra (En youtube)
-</code></pre>
+<p>Ctrl + d (Entrar pagina en los marcadores)</p>
 </div>
   
   
@@ -688,7 +573,7 @@ yu palabra (En youtube)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/lsusb/">Lsusb</a></h1>
+      <h1 class="entry-title"><a href="/blog/knocker/">Knocker</a></h1>
     
     
       <p class="meta">
@@ -704,14 +589,20 @@ yu palabra (En youtube)
   
 
 
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Ver los puertos USB y los dispositivos conectados a ellos</p>
+  <div class="entry-content"><p>Para detectar sistemas operativos y revisar puertos de servidores remotos.</p>
+
+<blockquote><p># knocker -H IP_o_host -SP 1 -EP 1024</p></blockquote>
+
+<p>-SP (Indica el puerto de inicio del escaneo)</p>
+
+<p>-EP (Indica el puerto final)</p>
 </div>
   
   
@@ -742,43 +633,43 @@ yu palabra (En youtube)
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/ifne/">ifne</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ifdata/">ifdata</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ifconfig/">ifconfig</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/identify/">identify</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/html/">html</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hosts/">hosts</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/host-dot-conf/">host.conf</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/honeyproxy/">honeyproxy</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hg/">hg</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hexdump/">hexdump</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

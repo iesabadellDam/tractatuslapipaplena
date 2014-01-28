@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="[pslist] Herramienta similar a kill [ver] $ rkill -9 scribus (Matará la aplicación especificada. Igual que killall [ver]) $ rkill -9 17424 (Matará la &hellip;">
+  <meta name="description" content="Servidor ftp local. # nano /etc/proftp/proftpd.conf DefaultRoot /home/usuario users, !otros DefaultRoot /home/usuario/servidor otros Indicamos que el &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rkill/">Rkill</a></h1>
+      <h1 class="entry-title"><a href="/blog/proftpd/">Proftpd</a></h1>
     
     
       <p class="meta">
@@ -96,20 +96,24 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[pslist]</p>
+  <div class="entry-content"><p>Servidor ftp local.</p>
 
-<p>Herramienta similar a kill [ver]</p>
+<blockquote><p># nano /etc/proftp/proftpd.conf</p></blockquote>
 
-<blockquote><p>$ rkill -9 scribus (Matará la aplicación especificada. Igual que killall [ver])</p>
+<p>DefaultRoot     /home/usuario                    users, !otros</p>
 
-<p>$ rkill -9 17424 (Matará la aplicación que corra en el PID especificado. Igual que kill)</p></blockquote>
+<p>DefaultRoot     /home/usuario/servidor      otros</p>
+
+<p>Indicamos que el directorio raiz de los usuarios del grupo “users” es /home/usuario  pero los del grupo “otros” solo pueden acceder al directorio servidor.</p>
+
+<blockquote><p>$ tail -f /var/log/proftpd  (monitorizar los logs)</p></blockquote>
 </div>
   
   
@@ -122,7 +126,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rkhunter/">Rkhunter</a></h1>
+      <h1 class="entry-title"><a href="/blog/procinfo/">Procinfo</a></h1>
     
     
       <p class="meta">
@@ -138,70 +142,16 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Buscador de rootkits instalados en el sistema</p>
+  <div class="entry-content"><p>Estadisticas del sistema de ficheros virtual /proc</p>
 
-<blockquote><p># rkhunter &#8211;update  (Recargar la base de datos)</p>
-
-<p># rkhunter -c  (iniciar la aplicación)</p>
-
-<p># rkhunter -c -sk (iniciar la aplicación sin pedir confirmación para proseguir)</p>
-
-<p># rkhunter -c -sk &#8211;propupd (Lanzar con la opción &#8220;propupd&#8221; si se ha modificado la función Hash o para reconstruir la base de datos y evitar &#8220;Warnings&#8221; tipo: Warning: The file properties have changed)</p>
-
-<p># rkhunter &#8211;list (Ver las opciones)</p>
-
-<p># rkhunter &#8211;enable group_accounts,system_commands  (Solo chequear estas dos opciones)</p>
-
-<p># rkhunter &#8211;disable shared_libs  (Descartar esta opción del chequeo)</p>
-
-<p># cat /var/log/rkhunter.log | grep Warning (Visualizar los &#8220;Warnings&#8221;)</p></blockquote>
-
-<p>1.-</p>
-
-<p>Para solucionar el error: Warning: Hidden directory found: /etc/.java</p>
-
-<blockquote><p># nano /etc/rkhunter.conf</p></blockquote>
-
-<p>Y descomentar la linea:</p>
-
-<p>ALLOWHIDDENDIR=&#8221;/etc/.java&#8221;</p>
-
-<p>Nota.- para errores similares con archivos ocultos [/dev/.udev, /dev/.initramfs&#8230; ], descomentar la linea correspondiente.</p>
-
-<p>2.-</p>
-
-<p>Para errores de versión de ciertas aplicaciones [Warning: Application &#8216;gpg&#8217;, version &#8230;.]</p>
-
-<blockquote><p># nano /etc/rkhunter.conf</p></blockquote>
-
-<p>Añadir apps a la linea:</p>
-
-<p>DISABLE_TESTS=&#8221;suspscan hidden_procs deleted_files packet_cap_apps apps&#8221;</p>
-
-<p>3.-</p>
-
-<p>Para suprimir falsa advertencias sobre posibles interfaces promiscuos [P.ejemplo de un servidor virtual], añadir &#8220;promisc&#8221; a la opción DISABLE_TESTS:</p>
-
-<p>DISABLE_TESTS=&#8221;suspscan hidden_procs deleted_files packet_cap_apps apps promisc&#8221;</p>
-
-<p>4.-</p>
-
-<p>Para que los valores se obtengan del gestor de paquetes correspondiente:</p>
-
-<blockquote><p># nano /etc/rkhunter.conf</p></blockquote>
-
-<p>Y descomentar y modificar la linea PKGMGR:</p>
-
-<p>PKGMGR=DPKG</p>
-
-<p>Nota.- Otras opciones para distros no debian o para desactivar la opción: RPM, BSD,SOLARIS y NONE</p>
+<blockquote><p>$ procinfo -n2 (actualización cada 2 segundos)</p></blockquote>
 </div>
   
   
@@ -214,7 +164,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rig/">Rig</a></h1>
+      <h1 class="entry-title"><a href="/blog/privoxy/">Privoxy</a></h1>
     
     
       <p class="meta">
@@ -230,16 +180,22 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Crear nuevas identidades.</p>
+  <div class="entry-content"><p>filtrar datos que se utilizan en la navegación web (cookies, encabezados&#8230;). Es importante usarlo con Tor ya que a veces el navegador ejecuta por sí mismo las resoluciones DNS y las agrega a las cabeceras de la petición http.</p>
 
-<blockquote><p>$ rig -f -c 5 (De mujer [-f] y 5 opciones [-c]. Para hombre -m)</p></blockquote>
+<blockquote><p># nano /etc/privoxy/config</p></blockquote>
+
+<p>Añadir la linea:</p>
+
+<p>forward-socks5 / 127.0.0.1:5060 .</p>
+
+<p>Nota.- No olvidar el punto final.</p>
 </div>
   
   
@@ -252,7 +208,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rfkill/">Rfkill</a></h1>
+      <h1 class="entry-title"><a href="/blog/prips/">Prips</a></h1>
     
     
       <p class="meta">
@@ -268,22 +224,18 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Herramienta para activar/desactivar dispositivos inalámbricos.</p>
+  <div class="entry-content"><p>imprimir las direcciones IP de un rango determinado.</p>
 
-<blockquote><p># rfkill list (Muestra listado y su estado)</p>
+<blockquote><p>$ prips 192.168.1.0/24</p>
 
-<p># rfkill block all (bloquear todos [“all”], otras opciones: ”wifi”, “wlan”, “wimax” ….)</p>
-
-<p># rfkill unblock all (Desbloquear todos los dispositivos)</p>
-
-<p># rfkill unblock 0 (Desbloquear la 0 según resultado de “list”)</p></blockquote>
+<p>$ prips -i 4 192.168.1.5 192.168.1.150  (solo una de cada cuatro)</p></blockquote>
 </div>
   
   
@@ -296,7 +248,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rev/">Rev</a></h1>
+      <h1 class="entry-title"><a href="/blog/printf/">Printf</a></h1>
     
     
       <p class="meta">
@@ -312,18 +264,44 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>invierte una cadena de texto o un archivo</p>
+  <div class="entry-content"><p>Escribe y formatea datos</p>
 
-<blockquote><p>$ echo &#8220;perico de los palotes&#8221; | rev</p>
+<blockquote><p>$ printf &#8220;%50s\n&#8221; | tr &#8217; &#8217; -  (Generar una linea discontinua)</p>
 
-<p>$ rev archivo.txt</p></blockquote>
+<p>$ printf &#8220;%s\n&#8221; ${PATH//:/\/* }  (listar aplicaciones y comandos del PATH)</p>
+
+<p>$ printf &#8220;%s\n&#8221; .*  (listar archivos y directorios ocultos de la carpeta actual)</p>
+
+<p>$ printf &#8220;\e[8;10;100;t&#8221; (Cambiar la medida de la  terminal)</p>
+
+<p>$ printf &#8220;%s\t &#8211;> %s\n&#8221; &#8220;$A&#8221; &#8220;$B&#8221; (Dos variables en columnas tabuladas)</p>
+
+<p>$ printf &#8220;%s\n&#8221; Escribir cada palabra en una &#8220;nueva linea&#8221; (Pues eso, excepto las dos últimas entrecomilladas)</p>
+
+<p>$ printf &#8220;%06d\n&#8221; &#8220;$RANDOM&#8221; &#8220;$RANDOM&#8221; &#8220;$RANDOM&#8221; &#8220;$RANDOM&#8221; (Iguala las cuatro salidas de $RANDOM a 6 cifras con ceros delante[%06d])</p>
+
+<p>$ printf &#8220;%-10s %-10s %s\n&#8221;, $1, $2, $3 (3 variables justificadas a la izquierda, las dos primeras con 10 caracteres)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<p>%c (Imprime el primer carácter de una variable cadena)</p>
+
+<p>%d (Imprime un número decimal)</p>
+
+<p>%s (Cadena)</p>
+
+<p>%b (Interpreta las secuencias de escape del argumento cadena)</p>
+
+<p>%q (Escribe el argumento cadena de forma que pueda ser usado como entrada a otro comando)</p>
+
+<p>%% (Escribe % literal)</p>
 </div>
   
   
@@ -336,7 +314,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/retty/">Retty</a></h1>
+      <h1 class="entry-title"><a href="/blog/printenv/">Printenv</a></h1>
     
     
       <p class="meta">
@@ -352,30 +330,18 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Capturar el proceso que se está ejecutando en otra consola.</p>
+  <div class="entry-content"><p>Para saber los valores de todas las variables de entorno predefinidas por  la shell (TERM, SHELL, PWD, LC_ALL, USER, USERNAME, HOME, LOGNAME, BROWSER, DISPLAY&#8230;).</p>
 
-<blockquote><p>$ retty PID</p></blockquote>
+<blockquote><p>$ echo $SHELL (Ver el valor de una variable)</p>
 
-<p>Ejemplo.</p>
-
-<p>En una consola lanzamos el proceso:</p>
-
-<blockquote><p>$ watch -tn1 &#8216;date &#8220;+%r %F %A&#8221;&#8217;</p></blockquote>
-
-<p>En otra averiguamos el PID:</p>
-
-<blockquote><p>$ ps aux | grep watch</p></blockquote>
-
-<p>Y capturamos el proceso:</p>
-
-<blockquote><p>$ retty PID</p></blockquote>
+<p>$ export SHELL=/bin/sh (Modificar el valor de una variable sólo en la presente sesión. Para hacer el cambio permanente colocar la linea en .bashrc)</p></blockquote>
 </div>
   
   
@@ -388,7 +354,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/restore/">Restore</a></h1>
+      <h1 class="entry-title"><a href="/blog/primes/">Primes</a></h1>
     
     
       <p class="meta">
@@ -404,18 +370,18 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Restaurar una copia de seguridad realizada con dump.</p>
+  <div class="entry-content"><p>Generar números primos.</p>
 
-<blockquote><p>$  restore -rf home.bak (restaurar la copia completa [r] del archivo especificado [f])</p>
+<blockquote><p>$ primes 1 100 (del 1 al 100)</p>
 
-<p>$ restore -xaf fichero.bak fichero (restaurar solo la copia del fichero indicado [x], sin preguntar de qué volumen extraer los ficheros y especificando  archivo  [f])</p></blockquote>
+<p>$ primes 100 150 (del 100 al 150)</p></blockquote>
 </div>
   
   
@@ -428,7 +394,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/resolveip/">Resolveip</a></h1>
+      <h1 class="entry-title"><a href="/blog/preload/">Preload</a></h1>
     
     
       <p class="meta">
@@ -444,16 +410,14 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Buscar el host de una ip o la ip de un host</p>
-
-<blockquote><p>$ resolveip -s www.google.com</p></blockquote>
+  <div class="entry-content"><p>Demonio que se encarga de recoger información de las aplicaciones más usadas para que en el siguiente inicio estos estén cargados en memoria acelerando el tiempo de arranque de los mismos.</p>
 </div>
   
   
@@ -466,7 +430,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/resize2fs/">Resize2fs</a></h1>
+      <h1 class="entry-title"><a href="/blog/prelink/">Prelink</a></h1>
     
     
       <p class="meta">
@@ -482,16 +446,28 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Cambiar la medida de una partición.</p>
+  <div class="entry-content"><p>Preenlazar binarios y bibliotecas ELF compartidas para acelerar su tiempo de inicio. Precisa lanzar prelink despues de cada nueva instalación de paquetes o configurarlo en el cron.</p>
 
-<blockquote><p># resize2fs /dev/sda3 600M</p></blockquote>
+<blockquote><p># prelink -amR (Para equipos x86)</p>
+
+<p># prelink -aR (Para equipos x86_64)</p></blockquote>
+
+<p>Modificar las opciones de prelink:</p>
+
+<blockquote><p># nano /etc/default/prelink</p></blockquote>
+
+<p>Y modificamos la línea que pone: PRELINKING=unknown por:</p>
+
+<p>PRELINKING=yes</p>
+
+<blockquote><p># prelink -au (Devolver el sistema a su punto de partida)</p></blockquote>
 </div>
   
   
@@ -504,7 +480,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/resize/">Resize</a></h1>
+      <h1 class="entry-title"><a href="/blog/pr/">Pr</a></h1>
     
     
       <p class="meta">
@@ -520,16 +496,16 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Ver las columnas y líneas de la consola.</p>
+  <div class="entry-content"><p>Muestra en pantalla un archivo de texto en modo “Previsualización de impresión”</p>
 
-<blockquote><p>$ resize</p></blockquote>
+<blockquote><p>$ pr fichero.txt</p></blockquote>
 </div>
   
   
@@ -560,43 +536,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/ifne/">ifne</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ifdata/">ifdata</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ifconfig/">ifconfig</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/identify/">identify</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/html/">html</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hosts/">hosts</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/host-dot-conf/">host.conf</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/honeyproxy/">honeyproxy</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hg/">hg</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hexdump/">hexdump</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

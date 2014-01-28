@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Automontar dispositivos de almacenamiento externo. Editar: # nano /etc/usbmount/usbmount.conf Y verificar/modificar según necesidades, las lineas: &hellip;">
+  <meta name="description" content="[trash-cli]. Enviar a la papelera un archivo o directorio $ trash-put archivo (elimina archivo) $ trash-list (Lista los archivos eliminados) $ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/usbmount/">Usbmount</a></h1>
+      <h1 class="entry-title"><a href="/blog/trash/">Trash</a></h1>
     
     
       <p class="meta">
@@ -96,24 +96,22 @@
   
 
 
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:53:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Automontar dispositivos de almacenamiento externo. Editar:</p>
+  <div class="entry-content"><p>[trash-cli]. Enviar a la papelera un archivo o directorio</p>
 
-<blockquote><p># nano /etc/usbmount/usbmount.conf</p></blockquote>
+<blockquote><p>$ trash-put archivo (elimina archivo)</p>
 
-<p>Y verificar/modificar según necesidades, las lineas:</p>
+<p>$ trash-list (Lista los archivos eliminados)</p>
 
-<p>MOUNTPOINTS=&#8221;/media/usb0 /media/usb1 /media/usb2 /media/usb3 /media/usb4 /media/usb5 /media/usb6 /media/usb7&#8221;</p>
+<p>$ restore-trash (Pregunta el número del archivo a restaurar)</p>
 
-<p>FILESYSTEMS=&#8221;vfat ext2 ext3 ext4 hfsplus&#8221;</p>
-
-<p>MOUNTOPTIONS=&#8221;sync,noexec,nodev,noatime,users,umask=000&#8221;</p>
+<p>$ trash-empty (Vacia la papelera)</p></blockquote>
 </div>
   
   
@@ -126,7 +124,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/usb-modeswitch/">Usb_modeswitch</a></h1>
+      <h1 class="entry-title"><a href="/blog/trap/">Trap</a></h1>
     
     
       <p class="meta">
@@ -142,69 +140,43 @@
   
 
 
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:53:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Configuración del modem Huawei. Editar:</p>
+  <div class="entry-content"><p>Captura señales del teclado. Permite ejecutar un comando especificado cuando se produce una señal con un determinado valor.</p>
 
-<blockquote><p># gedit /etc/usb_modeswitch.conf</p></blockquote>
+<blockquote><p>$ trap -l (Lista todos los valores)</p>
 
-<pre><code>EnableLogging=0
+<p>$ trap &#8220;rm -f /tmp/$$ ; exit&#8221; 0 1 2 3 15 (ejecutará el rm si se produce una señal: 0 [Salida de la shell], 1 [SIGHUP, cuelgue], 2 [SIGINT, interrupción con ^C], 3 [SIGQUIT, quiet] o 15 [SIGTERM, terminate, señal por defecto de kill]</p></blockquote>
+
+<p>Ejemplo:</p>
+
+<blockquote><p>$ nano no_muero.sh</p></blockquote>
+
+<pre><code>#!/bin/bash
+
+trap "echo ' Aunque pulses Ctrl+C!'" INT
+
+while true
+
+do
+
+sleep 60;
+
+echo "No puedes matarme"
+
+done
 </code></pre>
 
-<p>Y pegar el siguiente contenido:</p>
+<p>El script se repetirá hasta pararlo con Ctrl+z. A continuación mirar el pid</p>
 
-<pre><code># Huawei E1752
+<blockquote><p>$ jobs</p>
 
-# 
-
-# Contributor:
-
-DefaultVendor=0x12d1
-
-DefaultProduct=0x1446
-
-TargetVendor=0x12d1
-
-TargetProduct=0x1417
-
-MessageEndpoint=0x01
-
-MessageContent="55534243000000000000000000000011060000000000000000000000000000"
-</code></pre>
-
-<p>Verificar que el número de TargetProduc coincida con la salida de:</p>
-
-<blockquote><p># lsusb</p></blockquote>
-
-<pre><code>Bus 006 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
-
-Bus 005 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
-
-Bus 004 Device 002: ID 0461:4d03 Primax Electronics, Ltd Kensington Mouse-in-a-box
-
-Bus 004 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
-
-Bus 003 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
-
-Bus 002 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
-
-Bus 001 Device 006: ID 12d1:1417 Huawei Technologies Co., Ltd. 
-
-Bus 001 Device 003: ID 0402:5602 ALi Corp. Video Camera Controller
-
-Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
-</code></pre>
-
-<p>Arrancarlo con alguno de los siguientes comandos:</p>
-
-<blockquote><p># usb_modeswitch -v 12d1 -p 1417 -d 1</p>
-
-<p># usb_modeswitch -c /etc/usb_modeswitch.conf</p></blockquote>
+<p>$ kill -9 %pid (Para matarlo definitivamente)</p></blockquote>
 </div>
   
   
@@ -217,7 +189,7 @@ Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/urlwatch/">Urlwatch</a></h1>
+      <h1 class="entry-title"><a href="/blog/traceroute/">Traceroute</a></h1>
     
     
       <p class="meta">
@@ -233,27 +205,16 @@ Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
   
 
 
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:53:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Comprueba si una página web ha sufrido cambios desde la última vez que se lanzó la aplicación. Configurar las URLs, una por linea en el archivo:</p>
+  <div class="entry-content"><p>Permite seguir la pista de un paquete desde un host a otro.</p>
 
-<blockquote><p>$ mkdir .urlwatch</p>
-
-<p>$ nano .urlwatch/urls.txt</p></blockquote>
-
-<pre><code>http://www.tuxapuntes.com
-
-http://crontux.homelinux.com/wiki
-
-http://systemadmin.es
-</code></pre>
-
-<blockquote><p>$ urlwatch (Lanzar la aplicación)</p></blockquote>
+<blockquote><p># traceroute www.tuxapuntes.com</p></blockquote>
 </div>
   
   
@@ -266,7 +227,7 @@ http://systemadmin.es
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/urlview/">Urlview</a></h1>
+      <h1 class="entry-title"><a href="/blog/tr/">Tr</a></h1>
     
     
       <p class="meta">
@@ -282,16 +243,36 @@ http://systemadmin.es
   
 
 
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:53:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Extraer las direcciones URL de archivos de texto.</p>
+  <div class="entry-content"><p>Cambia caracteres de un archivo</p>
 
-<blockquote><p>$ urlview archivo.txt</p></blockquote>
+<blockquote><p>$ tr JM ?$ &lt; archivo  (cambia las &#8220;J&#8221; y las &#8220;M&#8221; por &#8220;?&#8221; y &#8220;$&#8221; en todo el archivo)</p>
+
+<p>$ cat archivo | tr ea ?% (Cambia las &#8220;e&#8221; y &#8220;a&#8221; por &#8220;?&#8221; y &#8220;%&#8221; respectivamente)</p>
+
+<p>$ echo &#8216;la pipa plena&#8217; | tr &#8216;a-z&#8217; &#8216;A-Z&#8217;  (De minúsculas a mayúsculas)</p>
+
+<p>$ echo &#8216;la pipa plena&#8217; | tr -d a (Borra las “a”)</p>
+
+<p>$ tr -d [aeiou] archivo  (Borra las vocales de archivo)</p>
+
+<p>$ echo &#8216;la   pipa    plena&#8217; | tr -s &#8217; &#8217; (Borra espacios repetidos)</p>
+
+<p>$ echo &#8216;la pipa plena&#8217; | tr -c &#8216;pln&#8217; &#8216;?&#8217; (Substituye todos los caracteres  por “?” inclusive los espacios, menos los indicados [pln])</p>
+
+<p>$ ls |tr &#8216;\t&#8217; &#8216;\n&#8217; (Substituye la tabulación vertical [\t] por salto de linea [\n])</p>
+
+<p>$ tr -dc A-Za-z0-9_ &lt; /dev/urandom | head -c 8 | xargs   (contraseñas de 8 caracteres aleatorias)</p>
+
+<p>$ echo &#8220;El boxeador está OK.&#8221; | tr O m | tr K a | tr . l (varios tr)</p>
+
+<p>$ tr &#8221; &#8221; . &lt; archivo (substituir los espacios por puntos)</p></blockquote>
 </div>
   
   
@@ -304,7 +285,7 @@ http://systemadmin.es
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/urlcrazy/">Urlcrazy</a></h1>
+      <h1 class="entry-title"><a href="/blog/tput/">Tput</a></h1>
     
     
       <p class="meta">
@@ -320,26 +301,28 @@ http://systemadmin.es
   
 
 
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:53:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>http://www.morningstarsecurity.com/research/urlcrazy</p>
+  <div class="entry-content"><p>formatación de la terminal [posicionar el cursor en la pantalla, borrar datos de la pantalla, saber la cantidad de líneas y columnas de la pantalla, posicionar correctamente un campo, borrar un campo..]</p>
 
-<p>Herramienta que genera posibles URLs de un dominio que podrian ser usados para ataques de phising, malversing o fraudes varios.</p>
+<blockquote><p>$ tput cols  (Cantidad de columnas de la terminal)</p>
 
-<blockquote><p>$ ./urlcrazy (Muestra las opciones)</p>
+<p>$ tput lines (Cantidad de lineas)</p>
 
-<p>$ ./urlcrazy -o paypal.txt paypal.com (Redirigiendo el resultado a un archivo)</p></blockquote>
+<p>$ tput civis (Hace invisible el cursor)</p>
 
-<p>Otras opciones:</p>
+<p>$ tput cnorm (Lo vuelve visible)</p>
 
-<p>-p (Mostrar URL parecidas más populares según google)</p>
+<p>$ tput sgr0 (vuelve la terminal a los parámetros por defecto)</p>
 
-<p>-r (No resolviendo los nombre de dominio)</p>
+<p>$ tput smcup (Borra el contenido de la terminal guardandolo)</p>
+
+<p>$ tput rmcup (Restablece el contenido de la terminal borrado con el comando anterior)</p></blockquote>
 </div>
   
   
@@ -352,7 +335,7 @@ http://systemadmin.es
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/uptime/">Uptime</a></h1>
+      <h1 class="entry-title"><a href="/blog/tpp/">Tpp</a></h1>
     
     
       <p class="meta">
@@ -368,14 +351,124 @@ http://systemadmin.es
   
 
 
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:53:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Tiempo transcurrido desde que se arrancó el sistema</p>
+  <div class="entry-content"><p>Presentaciones en terminal.</p>
+
+<p>&#8211;title Este_es_el_titulo   (titulo de la presentación)</p>
+
+<p>&#8211;author juanito            (Autor)</p>
+
+<p>&#8211;date today  %d %b %Y      (fecha actual en formato dia/mes/año)</p>
+
+<p>&#8211;bgcolor yellow           (color de fondo)</p>
+
+<p>&#8211;fgcolor black            (color texto. Los colores válidos son: white, yellow, red, green, blue, cyan, magenta, black. Por defecto transparencia))</p>
+
+<p>&#8211;heading inicio           (nombre de la página, centrado)</p>
+
+<p>&#8211;horline                  (dibuja una linea en todo el ancho de pantalla)</p>
+
+<p>&#8211;withborder               (Marca un borde en los limites de la pantalla)</p>
+
+<p>&#8211;header texto             (Texto arriba del todo de la página)</p>
+
+<p>&#8211;footer texto             (Texto abajo del todo de la página)</p>
+
+<p>&#8211;color red            (Especifica un color de texto a partir de este punto)</p>
+
+<p>&#8211;center Se_pondra_en_el_centro   (El texto se centrará en la página)</p>
+
+<p>&#8211;right texto       (El texto se alineará a la derecha)</p>
+
+<p>&#8212;         (parar la presentación hasta que se clique en la barra de espacio)</p>
+
+<p>&#8211;newpage       (nueva página. Se accede pulsando cursor abajo o espacio)</p>
+
+<p>&#8211;##comentario          (comentario. No aparece en la presentación)</p>
+
+<p>&#8211;sleep 5           (Para la presentación 5 segundos. Por defecto son 3)</p>
+
+<p>&#8211;huge Fin_de_la_presentacion   (Figlet generará las letras del texto)</p>
+
+<p>&#8211;sethugefont big   (Los tipos de letra disponibles son los de figlet: banner, big, block, bubble, digital, ivrit, leas, mini, mnemonic, script, shadow, slant, small, smscript, smshadow, smslant, standard y term)</p>
+
+<p>&#8211;exec fbi -vt 01 imagen.png        (Ejecuta el comando)</p>
+
+<p>&#8211;beginoutput       (crea el inicio de un marco de texto)</p>
+
+<p>El_texto_que_proceda</p>
+
+<p>&#8211;endoutput         (Final del marco de texto)</p>
+
+<p>&#8211;beginshelloutput  (Inicio marco de texto. Con &#8220;$&#8221; saldrá letra a letra)</p>
+
+<blockquote><p>$ El_texto-que-proceda</p></blockquote>
+
+<p>&#8211;endshelloutput    (Final marco de texto)</p>
+
+<p>&#8211;bZoldon            (Inicio de escritura en negrita)</p>
+
+<p>El_texto_que_proceda</p>
+
+<p>&#8211;boldoff       (Final del uso de negrita)</p>
+
+<p>&#8211;revon             (Invierte los colores de letra y fondo)</p>
+
+<p>El_texto_que_proceda</p>
+
+<p>&#8211;revoff        (Termina la inversión)</p>
+
+<p>&#8211;ulon              (Inicio texto subrayado-??)</p>
+
+<p>El_texto_que_proceda</p>
+
+<p>&#8211;uloff             (Final texto subrayado)</p>
+
+<p>&#8211;beginslideleft    (El texto sale de izquierda a derecha)</p>
+
+<p>El_texto_que_proceda</p>
+
+<p>&#8211;endslideleft      (Final de salida de izquierda a derecha)</p>
+
+<p>&#8211;beginslideright   (El texto sale de derecha a izquierda)</p>
+
+<p>El_texto_que_proceda</p>
+
+<p>&#8211;endslideright     (Final de salida de derecha a izquierda)</p>
+
+<p>&#8211;beginslidetop     (Inicio de la salida del texto de arriba)</p>
+
+<p>El_texto_que_proceda</p>
+
+<p>&#8211;endslidetop       (Final de salida del texto de arriba)</p>
+
+<p>&#8211;beginslidebottom  (Inicio de salida del texto por abajo)</p>
+
+<p>El_texto_que_proceda</p>
+
+<p>&#8211;endslidebottom    (Final de salida por abajo)</p>
+
+<p>Teclas para desplazarse durante la presentación</p>
+
+<p>espacio (visualizar página siguiente)</p>
+
+<p>b (visualizar página anterior)</p>
+
+<p>q (salir de tpp)</p>
+
+<p>j (saltar a la página que se indique con el teclado numérico)</p>
+
+<p>s (saltar a la página de inicio)</p>
+
+<p>e (ir a la última página)</p>
+
+<p>c (inicio de línea de comandos)</p>
 </div>
   
   
@@ -388,7 +481,7 @@ http://systemadmin.es
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/update-usbids/">Update-usbids</a></h1>
+      <h1 class="entry-title"><a href="/blog/touch/">Touch</a></h1>
     
     
       <p class="meta">
@@ -404,16 +497,32 @@ http://systemadmin.es
   
 
 
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:53:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Si al ejecutar lsusb nos muestra un mensaje &#8220;unknown device&#8221; es preciso actualizar la lista del archivo /usr/share/misc/usb.ids.</p>
+  <div class="entry-content"><p>Crea un fichero vacio</p>
 
-<blockquote><p># update-usbids</p></blockquote>
+<blockquote><p>$ touch notas.txt</p>
+
+<p># touch /forcefsck (crear un fichero vacío para forzar el chequeo del disco)</p>
+
+<p>$ touch -d &#8220;18-6-2011 17:09:24&#8221; archivo (modificar la fecha de creación)</p>
+
+<p>$ touch -m archivo (Lo mismo a la fecha actual)</p>
+
+<p>$ touch file{1..9} (crear los archivo del file1 al file9</p>
+
+<p>$ touch file{1..9}{a..z} (Crear los archivos del filea1 al filez9)</p>
+
+<p>$ touch a b c d (Crear varios archivos)</p>
+
+<p>$ touch -c archivo (Si “archivo” existe no lo creará)</p>
+
+<p>$ touch -a archivo (modifica el último acceso al archivo. Comprobar con $ stat archivo)</p></blockquote>
 </div>
   
   
@@ -426,7 +535,7 @@ http://systemadmin.es
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/update-rc-dot-d/">update-rc.d</a></h1>
+      <h1 class="entry-title"><a href="/blog/totem/">Totem</a></h1>
     
     
       <p class="meta">
@@ -442,20 +551,16 @@ http://systemadmin.es
   
 
 
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:53:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Activar/desactivar aplicaciones o scripts en el arranque del sistema.</p>
+  <div class="entry-content"><p>Reproductor de video</p>
 
-<blockquote><p>$ update-rc.d -f gdm remove (desactivarlo)</p>
-
-<p>$ update-rc.d gdm defaults  (activarlo)</p>
-
-<p>$ update-rc.d script defaults (coloca un script en el arranque)</p></blockquote>
+<blockquote><p>$ totem-video-thumbnailer -pg 30 video.mpeg salida (Creación de una imagen formada por thumbnailes de un video)</p></blockquote>
 </div>
   
   
@@ -468,7 +573,7 @@ http://systemadmin.es
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/update-pciids/">Update-pciids</a></h1>
+      <h1 class="entry-title"><a href="/blog/torsocks/">Torsocks</a></h1>
     
     
       <p class="meta">
@@ -484,16 +589,20 @@ http://systemadmin.es
   
 
 
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:53:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Si al ejecutar lspci nos muestra un mensaje &#8220;unknown device&#8221; es preciso actualizar la lista del archivo pci.ids [/usr/share/misc].</p>
+  <div class="entry-content"><p>Permite lanzar aplicaciones a través de la red tor para enmascarar la ip. Puede usarse indistintamente los comandos torsocks o usewithtor. Ver proxychains. Precisa tor funcionando.</p>
 
-<blockquote><p># update-pciids</p></blockquote>
+<blockquote><p># torsocks ssh usuario@host</p>
+
+<p># torsocks w3m ifconfig.me</p>
+
+<p># usewithtor pidgin</p></blockquote>
 </div>
   
   
@@ -506,7 +615,7 @@ http://systemadmin.es
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/update-menus/">Update-menus</a></h1>
+      <h1 class="entry-title"><a href="/blog/torify/">Torify</a></h1>
     
     
       <p class="meta">
@@ -522,14 +631,16 @@ http://systemadmin.es
   
 
 
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:53:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Regenerar los menus de gnome.</p>
+  <div class="entry-content"><p>Verificar si la navegación está torificada.</p>
+
+<blockquote><p>$ torify elinks checkip.dyndns.org</p></blockquote>
 </div>
   
   
@@ -560,43 +671,43 @@ http://systemadmin.es
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/ifne/">ifne</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ifdata/">ifdata</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ifconfig/">ifconfig</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/identify/">identify</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/html/">html</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hosts/">hosts</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/host-dot-conf/">host.conf</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/honeyproxy/">honeyproxy</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hg/">hg</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hexdump/">hexdump</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

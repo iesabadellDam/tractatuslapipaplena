@@ -1,0 +1,69 @@
+---
+layout: post
+title: "motion"
+date: 2014-01-28 17:51
+comments: true
+categories: 
+---
+Video vigilancia por acceso remoto. La configuración que viene por defecto es  suficiente, aunque siempre puede pulirse. Aquí se tratará solo de los mínimos parámetros a modificar para tener motion funcional en local y en remoto . 
+
+Abrir los puertos 8080 y 8081 del router y del firewal (Si no se modifican los por defecto) 
+
+En debian y derivados 
+
+	# nano /etc/motion/motion.conf 
+
+	daemon on    (Permitir actuar como demonio) 
+
+	webcam_localhost off   (permitir acceso remoto) 
+
+	# nano /etc/default/motion 
+
+	start_motion_daemon=yes 
+
+	# /etc/init.d/motion start 
+
+En arch 
+
+	# nano /etc/motion/motion.conf 
+
+	daemon on 
+
+	webcam_localhost off 
+
+	Y, si no se va a usar base de datos, comentar los parámetros del 	apartado mysql: 
+
+	#sql_log_image on 
+
+	#sql_log_snapshot on 
+
+	#sql_log_mpeg off 
+
+	#sql_log_timelapse off 
+
+	#sql_query insert .... 
+
+	# mkdir /var/run/motion  (Crear directorio para el PID) 
+
+	No existe el /etc/default/motion 
+
+	# /etc/rc.d/motion start 
+
+Para acceder a la cámara desde el navegador: 
+
+http://ip_o_host:8081 
+
+Para acceder a la configuración: 
+
+http://ip_o_host:8080 
+
+En este caso descomentar/modificar en /etc/motion/motion.conf
+
+control_localhost off    (para acceder a la configuración remotamente)
+
+control_authentication username:password (Pide identificación)
+
+substituir por los datos correctos, por ejemplo:
+
+control_authentication juanito:password
+

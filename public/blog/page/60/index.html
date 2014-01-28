@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Conversor de formatos de documentos. La entrada puede ser cualquier documento en haskell, markdown, rst, html, txt o latex y la salida, txt, haskell &hellip;">
+  <meta name="description" content="Herramienta para monitorear el tráfico de red. Grep para tráfico de red. # ngrep port 80 (captura todo lo que use el puerto 80) # ngrep -d eth0 port &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pandoc/">Pandoc</a></h1>
+      <h1 class="entry-title"><a href="/blog/ngrep/">Ngrep</a></h1>
     
     
       <p class="meta">
@@ -96,24 +96,34 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Conversor de formatos de documentos. La entrada puede ser cualquier documento en haskell, markdown, rst, html, txt o latex y la salida, txt, haskell, markdown, rst, html, latex,man, context, texinfo, docbook, opendocument, odt, s5 o rtf.</p>
+  <div class="entry-content"><p>Herramienta para monitorear el tráfico de red. Grep para tráfico de red.</p>
 
-<blockquote><p>$ pandoc -o salida.html entrada.md (Convertir markdown a html)</p>
+<blockquote><p># ngrep port 80  (captura todo lo que use el puerto 80)</p>
 
-<p>$ pandoc entrada.txt -o salida.pdf (Convertir txt a pdf)</p>
+<p># ngrep -d eth0 port 80 (especificando una interfaz de red)</p>
 
-<p>$ pandoc texto.txt -o libro.epub (Convertir a epub)</p>
+<p># ngrep -d eth0 &#8220;Host:&#8221; port 80 (Buscar una expresión en el tráfico)</p>
 
-<p>$ pandoc -f html -t markdown -o pagina.md pagina.html (Convertir de html a markdown)</p>
+<p># ngrep -d eth0 -W byline &#8220;Host:&#8221; port 80 (mostrar la salida por linea)</p>
 
-<p>$ pandoc -f markdown -t latex -o texto_latex.tex texto_markdown.md (Convertir texto en markdown a latex)</p></blockquote>
+<p># ngrep -e -x PASS (introduciendo una cadena en la busqueda y mostrando lo que no coincida con ella)</p>
+
+<p># ngrep b    (captura todo usando el filtro por defecto)</p>
+
+<p># ngrep port 80 -O archivo (redirige la salida a un archivo)</p></blockquote>
+
+<p>Nota.- Las almoadillas (#) son paquetes que no cumplen la expresión regular.</p>
+
+<p>Otras usos:</p>
+
+<blockquote><p># ngrep -d1 -w -i “user|pass” port 21</p></blockquote>
 </div>
   
   
@@ -126,7 +136,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pal/">Pal</a></h1>
+      <h1 class="entry-title"><a href="/blog/nfsstat/">Nfsstat</a></h1>
     
     
       <p class="meta">
@@ -142,22 +152,16 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Calendario con eventos [para us, australia, austria, musicales &#8230;]. Al ejecutar por primera vez la aplicación, se crea el archivo ~/pal/pal.conf donde podrán deshabilitarse los eventos que no interesan. Para activar que las semanas empiecen por lunes:</p>
+  <div class="entry-content"><p>Consulta datos sobre el servidor NFS</p>
 
-<blockquote><p>$ nano .pal/pal.conf</p></blockquote>
-
-<p>week_start_monday</p>
-
-<blockquote><p>$ pal -c 10 (Muestra el calendario con 10 lineas. Por defecto 5)</p>
-
-<p>$ pal &#8211;color (Lo muestra a color. &#8211;nocolor para blanco y negro)</p></blockquote>
+<blockquote><p># nfsstat -m (Muestra datos de los puntos de montaje sólamente)</p></blockquote>
 </div>
   
   
@@ -170,7 +174,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pads/">Pads</a></h1>
+      <h1 class="entry-title"><a href="/blog/nfs/">Nfs</a></h1>
     
     
       <p class="meta">
@@ -186,16 +190,52 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Monitor de tráfico de red</p>
+  <div class="entry-content"><p>[nfs-kernel-server]. Servidor de archivos.</p>
 
-<blockquote><p># pads -i eth0</p></blockquote>
+<p>En el Servidor:</p>
+
+<blockquote><p># nano /etc/exports (Para especificar carpetas que se van a compartir)</p></blockquote>
+
+<p>Formato de las carpetas que se comparte:</p>
+
+<p>/home/usuario/datos 192.168.1.0/24(rw,no_root_squash,sync)</p>
+
+<p>opciones:</p>
+
+<p>192.168.1.0/24 (Compartida por un rango de ips)</p>
+
+<p>192.168.1.8 (Solo para una ip)</p>
+
+<p>rw (lectura y escritura)</p>
+
+<p>no_root_squash (permite a root del cliente accesos root en el servidor)</p>
+
+<p>async (No sincronizando los datos)</p>
+
+<p>sync (Sincronizando los datos)</p>
+
+<blockquote><p># /etc/init.d/nfs-kernel-server restart (reiniciar demonio)</p>
+
+<p># exportfs -a (Releer el archivo exports si se ha modificado)</p></blockquote>
+
+<p>En el Cliente</p>
+
+<blockquote><p># apt-get install nfs-common (Instalar cliente)</p>
+
+<p># mount -t nfs 192.168.1.8:/home/usuario/datos /media/servidor</p></blockquote>
+
+<p>Si se desea en el fstab, colocar la linea:</p>
+
+<blockquote><p># nano /etc/fstab</p></blockquote>
+
+<p>192.168.1.2:/home/usuario/datos /media/servidor nfs rw,user 0 0</p>
 </div>
   
   
@@ -208,7 +248,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pacworld/">Pacworld</a></h1>
+      <h1 class="entry-title"><a href="/blog/newsbeuter/">Newsbeuter</a></h1>
     
     
       <p class="meta">
@@ -224,16 +264,100 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Herramienta para comprobar la consistencia de la base de datos y arreglar paquetes rotos.</p>
+  <div class="entry-content"><p>Lector RSS en consola</p>
 
-<blockquote><p># pacworld -v &#8211;exec</p></blockquote>
+<blockquote><p>$ newsbeuter -i archivo.opml  (cargar los feeds de otra aplicación)</p>
+
+<p>$ newsbeuter -r (arrancar la aplicación obteniendo todas las fuentes)</p>
+
+<p>$ newsbeuter -e (exportar las fuentes a un archivo)</p></blockquote>
+
+<p>Algunos atajos [newsbeuter -h]:</p>
+
+<pre><code>q (Subir pantalla/salir de la aplicación)
+
+Q (Salir de la aplicación)
+
+C (Marcarlos todos como leidos)
+
+A (Fuente leida)
+
+n (Pasar a siguiente fuente no leida)
+
+p (Pasar a la anterior fuente no leida)
+
+o (Abrir noticia en el navegador [lynx por defecto ])
+
+u (Ver listado de URLs de la noticia, Introduciendo el indice la abre)
+
+/ (Abrir busqueda)
+
+? (Abrir diálogo de ayuda)
+</code></pre>
+
+<p>1.-</p>
+
+<p>Para incorporar los feeds de google reader editar o crear si no existe:</p>
+
+<blockquote><p>$ nano .newsbeuter/config</p></blockquote>
+
+<p>texto que se tiene que agregar:</p>
+
+<pre><code>urls-source "googlereader" 
+
+googlereader-login "login_de_googlereader" 
+
+googlereader-password "contraseña"
+</code></pre>
+
+<p>2.-</p>
+
+<p>Otros ajustes que pueden hacerse en este archivo:</p>
+
+<pre><code>auto-reload yes 
+
+reload-time 15 
+
+keep-articles-days 15 
+
+browser "elinks %u"
+
+notify-beep yes
+</code></pre>
+
+<p>Que relea las fuentes al arrancar, las actualice cada 15 minutos, que guarde las noticias 15 dias, las abra con elinks y que avise con un beep las nuevas noticias. Si las noticias se leen en las X puede especificarse como navegador firefox o chromium [browser firefox]</p>
+
+<p>3.-</p>
+
+<p>Configurar colores:</p>
+
+<p>Los colores soportados: black, red, green, yellow, blue, magenta, cyan y white.</p>
+
+<p>Los elementos sobre los que se puede actuar: listnormal [lista de las fuentes], listfocus [Fuente o articulo donde está el foco], info (Linea superior y penúltima de la pantalla que muestra información], background [última linea de la pantalla] y article [articulo que se abre para su lectura]</p>
+
+<p>Los atributos: standout, underline, reverse, blink, dim, bold, protect e invis [pueden especificarse uno, varios o ninguno]</p>
+
+<p>Muestra de mi configuración de color:</p>
+
+<blockquote><p>$ nano .newsbeuter/config</p></blockquote>
+
+<pre><code>color listnormal yellow black
+
+color listfocus green blue bold
+
+color info yellow blue bold
+
+color background red black bold
+
+color article cyan black
+</code></pre>
 </div>
   
   
@@ -246,7 +370,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pactree/">Pactree</a></h1>
+      <h1 class="entry-title"><a href="/blog/nettlet-hash/">Nettlet-hash</a></h1>
     
     
       <p class="meta">
@@ -262,20 +386,18 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra dependencias de un paquete.</p>
+  <div class="entry-content"><p>Generar claves de ficheros</p>
 
-<blockquote><p>$ pactree -c opera (muestra el arbol coloreado)</p>
+<blockquote><p>$ nettlet-hash &#8211;list  (lista los algoritmos que pueden usarse)</p>
 
-<p>$ pactree -u opera (lo muestra de forma lineal y sin duplicados)</p>
-
-<p>$ pactree -g htop > archivo (envia la salida a un archivo que puede ser interpretado por la aplicación de graficos graphviz [ver])</p></blockquote>
+<p>$ nettlet-hash -a sha224 fichero</p></blockquote>
 </div>
   
   
@@ -288,7 +410,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pacsearch/">Pacsearch</a></h1>
+      <h1 class="entry-title"><a href="/blog/netstat/">Netstat</a></h1>
     
     
       <p class="meta">
@@ -304,16 +426,108 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Buscar paquetes arch (Equivalente a pacman -Ss )</p>
+  <div class="entry-content"><p>Puertos y conexiones.</p>
 
-<blockquote><p>$ pacsearch mail</p></blockquote>
+<blockquote><p># netstat &#8211;inet &#8211;all</p></blockquote>
+
+<p>Proto Recv-Q Send-Q Local Address           Foreign Address         State</p>
+
+<p>tcp        0        0          localhost:832                 <em>:</em>                     LISTEN</p>
+
+<p>tcp        0        0          localhost:2208               <em>:</em>                     LISTEN</p>
+
+<p>&#8230;</p>
+
+<p>Proto.- protocolo, Recv-Q.- paquetes recibidos, Send-Q.- paquetes enviados, Local Address.- direccion local, Foreign Address.- direccion remota, State.- estado de la conexión (listen = a la escucha).</p>
+
+<blockquote><p># netstat -ac   (puertos abiertos,donde se dirigen y de donde  vienen)</p>
+
+<p># netstat -atu | grep &#8217;<em>.</em>&#8217;   (Ver todos los servicios que ofrece la máquina)</p>
+
+<p># netstat -ta  (Lista los servidores que estén corriendo en el sistema)</p>
+
+<p># netstat -rn  (Muestra la tabla de enrutamiento)</p>
+
+<p># netstat  -an (Máxima información de nuestra conexión)</p>
+
+<p># netstat  -i (Tablas de Interfaces de red)</p>
+
+<p># netstat -e (información extendida)</p>
+
+<p># netstat -p (numero de PID y servicio que está corriendo)</p>
+
+<p># netstat -c (Lista continua)</p>
+
+<p># netstat -l (Sockets a la espera)</p>
+
+<p># netstat -napt (puertos abiertos y servicios que corren)</p>
+
+<p># netstat -pan | grep ESTABLISHED</p>
+
+<p># netstat -luntp | grep LISTEN | awk &#8216;{print $7}&#8217;</p>
+
+<p># netstat -l | grep tcp</p>
+
+<p># netstat -antp | grep 22  (preguntar como está el puerto 22)</p>
+
+<p># netstat | awk &#8216;/EST/{print $5}&#8217; | sort  (lista de conexiones establecidas)</p>
+
+<p># netstat -an | grep -Ec &#8217;<sup>tcp.+ESTABLISHED$&#8217;</sup>  (Muestra conexiones tcp)</p>
+
+<p># netstat -tpee    (información sobre las conexiones a internet)</p>
+
+<p># netstat -tunlp  (Muestra servicios activos y a la escucha, pid y puertos)</p>
+
+<p># if (nc -zw2 lapipaplena.homelinux.com 80); then echo open; fi (Preguntar si el puerto de un host está abierto)</p>
+
+<p># netstat -nt | awk &#8216;{print $6}&#8217; | sort | uniq -c | sort -n -k 1 -r (Cantidad y estado de los puertos abiertos)</p>
+
+<p># netstat -luntp | grep LISTEN | awk &#8216;{print $7}&#8217;  (pid de los servicios en LISTEN y demonio que corre en ellos)</p>
+
+<p># netstat -n -p|grep SYN_REC | wc -l  (Muestra si estamos sufriendo un ataque ddos)</p>
+
+<p># netstat -lantp | grep ESTABLISHED |awk &#8216;{print $5}&#8217; | awk -F: &#8216;{print $1}&#8217; | sort -u (Todas las ip conectadas a nuestro host)</p>
+
+<p># netstat -plan | grep :80 |  grep ESTABLISHED | awk {&#8216;print $5&#8217;} | cut -d: -f 1 | sort | uniq -c | sort -n (Otra forma de mostralas)</p>
+
+<p># netstat -plan | grep :80 | awk {&#8216;print $5&#8217;} | cut -d: -f 1 | sort | uniq -c | sort -n</p></blockquote>
+
+<p>(Muestra el número de peticiones al puerto 80 por cada IP)</p>
+
+<blockquote><p># netstat -plutn</p></blockquote>
+
+<p>Explicación de los Flags:</p>
+
+<p>G (La ruta utiliza una pasarela)</p>
+
+<p>U (La interfaz está activa)</p>
+
+<p>H (Esta interfaz permite el acceso a una sola máquina)</p>
+
+<p>D (Esta ruta es creada dinámicamente)</p>
+
+<p>M (estee registro ha sido modificado por un mensaje de redirección ICMP)</p>
+
+<p>! (La ruta es una ruta de rechazo y los datagramas serán descartados)</p>
+
+<p>Nota.- la dirección externa si no es 0.0.0.0.* significa que alguien le está hablando activamente.</p>
+
+<p>Otras opciones:</p>
+
+<p>-o (indica el número del proceso asignado a la conexión)</p>
+
+<p>-s (muestra las estadísticas detalladas para cada protocolo)</p>
+
+<p>-t (muestra solo las conexiones activas por TCP)</p>
+
+<p>-u (muestra solo las conexiones activas por UDC)</p>
 </div>
   
   
@@ -326,7 +540,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pacman-optimize/">Pacman-optimize</a></h1>
+      <h1 class="entry-title"><a href="/blog/netperf/">Netperf</a></h1>
     
     
       <p class="meta">
@@ -342,16 +556,24 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Reagrupa archivos fragmentados de la base de datos de pacman</p>
+  <div class="entry-content"><p>Medir el rendimiento de la red. Ha de instalarse en el cliente y en el servidor. Utiliza el puerto 12865.</p>
 
-<blockquote><p># pacman-optimize</p></blockquote>
+<blockquote><p># nmap -O -p 12865 localhost | grep tcp (comprobar si el puerto esta abierto)</p></blockquote>
+
+<p>12965/tcp closed unknown</p>
+
+<blockquote><p># nmap localhost -p 12865 | grep tcp   (abrir el puerto)</p></blockquote>
+
+<p>2865/tcp open  unknown</p>
+
+<blockquote><p># netperf -H localhost</p></blockquote>
 </div>
   
   
@@ -364,7 +586,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pacman-color/">Pacman-color</a></h1>
+      <h1 class="entry-title"><a href="/blog/netpbm/">Netpbm</a></h1>
     
     
       <p class="meta">
@@ -380,14 +602,16 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Igual que pacman pero coloreando algunas partes de la salida (repositorio, versión, si está instalado&#8230;)</p>
+  <div class="entry-content"><p>Conjunto de herramientas para manipulación de imágenes que permiten convertir entre muchos formatos gráficos conocidos [gif, bmp, jpg&#8230;] a un formato interno, o bien del formato interno a los formatos conocidos. Los formatos internos que utiliza son .ppm [Portable Pixel Map] para imágenes en color, .pgm [Portable Gray Map] para imágenes en escala de grises, y .pbm [Portable Bit Map] para imágenes formadas por bits de blanco y negro. A veces estos formatos aparecen bajo la extensión general .pnm, que abarca a todos ellos. Incluye más de 200  aplicaciones, tales como: jpegtopnm , pnmtojpeg , bmptoppm [man netpbm para un listado detallado],  muchos de estos formatos estan practicamente en desuso.</p>
+
+<blockquote><p>$ pbmtoascii -2x4 imagen.pbm  (convertir .pbm a ascii. Para mayor resolución -1x2)</p></blockquote>
 </div>
   
   
@@ -400,7 +624,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pacman/">Pacman</a></h1>
+      <h1 class="entry-title"><a href="/blog/nethogs/">Nethogs</a></h1>
     
     
       <p class="meta">
@@ -416,62 +640,20 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Gestor de programario de distros archlinux. Ver tambien yaourt.</p>
+  <div class="entry-content"><p>Visualiza procesos que están consumiendo más ancho de banda en el sistema</p>
 
-<blockquote><p># pacman -S prog1 prog2 (intalar/actualizar paquetes y dependencias)</p>
+<blockquote><p># nethogs   (uso básico. Por defecto el dispositivo es eth0)</p>
 
-<p># pacman -S extra/paquete (especificando versión- extra o testing-)</p>
+<p># nethogs eth0 eth1 (especificando dos dispositivos)</p>
 
-<p># pacman -Sc (Borrar paquetes de versiones viejas)</p>
-
-<p># pacman -Scc (Borrar caché de pacman - /var/cache/pacman/pkg -)</p>
-
-<p># pacman -Si paquete (buscar información de paquete)</p>
-
-<p># pacman -Ss paquete (buscar por nombre o descricion paquete)</p>
-
-<p># pacman -Sw paquete (Bajar un paquete sin instalarlo)</p>
-
-<p># pacman -Sy paquete  (Sincronizar e instalar)</p>
-
-<p># pacman -Syu (sincronizar y actualizar todo el sistema)</p>
-
-<p># pacman -Sh (Ver las opciones de sincronización de la base de datos)</p>
-
-<p># pacman -R paquete (borrar dejando las dependencias instaladas)</p>
-
-<p># pacman -Rs paquete  (borrar con dependencias no usadas por otros)</p>
-
-<p># pacman -Rsn $(pacman -Qdtq) (Borra paquetes huerfanos)</p>
-
-<p># pacman -R &#8211;nosave paquete (Borra el paquete y toda la configuración).</p>
-
-<p># pacman -Qh (Ver opciones de consultas locales de la base de datos)</p>
-
-<p># pacman -Qi paquete (información de un paquete local)</p>
-
-<p># pacman -Qs paquete (buscar en los paquetes instalados)</p>
-
-<p># pacman -Qm (Buscar paquetes que no estan en los repos)</p>
-
-<p># pacman -Ql paquete (Listar los archivos contenidos en un paquete)</p>
-
-<p># pacman -Qo /ruta/a/archivo (a qué paquete pertenece un archivo)</p>
-
-<p># pacman -Qdt (Busca paquetes huerfanos, sin borrarlos)</p>
-
-<p># pacman -U /ruta/al/paquete/paquete-version.pkg.tar.gz (Ins. local)</p>
-
-<p># pacman-optimize &amp;&amp; sync (agrupar información)</p>
-
-<p># pacman-db-upgrade (Recargar la base de datos)</p></blockquote>
+<p># nethogs -t eth1  (rastreando conexiones y especificando dispositivo)</p></blockquote>
 </div>
   
   
@@ -484,7 +666,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/paclist/">Paclist</a></h1>
+      <h1 class="entry-title"><a href="/blog/netdiscover/">Netdiscover</a></h1>
     
     
       <p class="meta">
@@ -500,16 +682,18 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:51:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Lista los paquetes instalados del repositorio especificado.</p>
+  <div class="entry-content"><p>Buscar máquinas [activas o pasivas] conectados  a una red.</p>
 
-<blockquote><p>$ paclist community (otras opciones: core, archlinuxfr, extra)</p></blockquote>
+<blockquote><p># netdiscover -i eth0</p>
+
+<p># netdiscover -r 192.168.1.0/24 -i eth1 (especificando rango de ips)</p></blockquote>
 </div>
   
   
@@ -540,43 +724,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/ifne/">ifne</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ifdata/">ifdata</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ifconfig/">ifconfig</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/identify/">identify</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/html/">html</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hosts/">hosts</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/host-dot-conf/">host.conf</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/honeyproxy/">honeyproxy</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hg/">hg</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hexdump/">hexdump</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

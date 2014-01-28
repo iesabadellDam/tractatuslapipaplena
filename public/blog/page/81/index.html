@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Cear enlaces de archivos o carpetas $ ln -s /home/ct/videos /home/Desktop/videos (Crea un enlace a videos en Desktop) $ ln -f (Borra los ficheros de &hellip;">
+  <meta name="description" content="Interprete de comandos interactivo de ruby. Para entrar en la shell: $ irb irb(main):001:0&gt; print "Hola mundo" Hola mundo=&gt; nil irb(main):002:0 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ln/">Ln</a></h1>
+      <h1 class="entry-title"><a href="/blog/irb/">Irb</a></h1>
     
     
       <p class="meta">
@@ -96,24 +96,42 @@
   
 
 
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:50:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Cear enlaces de archivos o carpetas</p>
+  <div class="entry-content"><p>Interprete de comandos interactivo de ruby. Para entrar en la shell:</p>
 
-<blockquote><p>$ ln -s /home/ct/videos /home/Desktop/videos (Crea un enlace a videos en Desktop)</p>
+<pre><code>$ irb
 
-<p>$ ln -f       (Borra los ficheros de destino si ya existen)</p>
+irb(main):001:0&gt; print "Hola mundo"
 
-<p>$ ln -i       (Pregunta antes de borrar ficheros de destino existentes)</p>
+Hola mundo=&gt; nil
 
-<p>$ ln -s /dev/null ~/.bash_history  (vincular historial a /dev/null)</p>
+irb(main):002:0&gt; exit
 
-<p>$ ln -sf /opt/metasploit/msf* /usr/bin (Crear un enlace a /usr/bin de todos los ejecutables que empizan por msf del directorio /opt/metasploit)</p></blockquote>
+$
+</code></pre>
+
+<p>Explicación de la salida:</p>
+
+<pre><code>irb(main) (que estás en la consola de irb y en el contexto de un programa)
+
+:001 (La linea en la que te encuentras)
+
+:0 (Profundidad. Por ejemplo en Ruby los IF terminan con END. Si ponemos un IF sin el END, el ":0" cambia a ":1" al ponerlo retorna al valor ":0". Si colocamos varios IFS anidados, entonces el nivel de profundidad dirá :1 nivel de profundidad, :2 niveles de profundidad, :3 niveles de profundidad y así sucesivamente)
+
+print ... (Comando a ejecutar)
+
+Hola ... (Ejecución)
+
+==&gt; nil (Final del proceso)
+
+exit (Salir del interprete)
+</code></pre>
 </div>
   
   
@@ -126,7 +144,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/lmbench/">Lmbench</a></h1>
+      <h1 class="entry-title"><a href="/blog/iptraf/">Iptraf</a></h1>
     
     
       <p class="meta">
@@ -142,16 +160,24 @@
   
 
 
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:50:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Herramienta para probar el rendimiento de un sistema. La primera vez que se ejecute hará varias preguntas [las opciones por defecto son suficientes] y algunos chequeos. Su ejecución lleva bastante tiempo.</p>
+  <div class="entry-content"><p>Muestra información en tiempo real sobre el tráfico de red.</p>
 
-<blockquote><p># lmbench-run</p></blockquote>
+<blockquote><p># iptraf -i eth0 (Analiza todo el trafico de la red eth0)</p>
+
+<p># iptraf -i all (Analiza el de todas las redes)</p>
+
+<p># iptraf -s eth0 (Analiza el tráfico agrupandolo por protocolo y puerto)</p>
+
+<p># iptraf -z eth0 (Contabiliza paquetes y agrupa por tamaño)</p></blockquote>
+
+<p>Una vez lanzada la aplicación, para salir pulsar X</p>
 </div>
   
   
@@ -164,7 +190,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/linuxlogo/">Linuxlogo</a></h1>
+      <h1 class="entry-title"><a href="/blog/iptotal/">Iptotal</a></h1>
     
     
       <p class="meta">
@@ -180,26 +206,18 @@
   
 
 
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:50:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra datos de la cpu junto al logo de distintas distros. Listado en /etc/linux_logo.conf</p>
+  <div class="entry-content"><p>Monitor de tráfico IP. Mide el uso del ancho de banda.</p>
 
-<blockquote><p>$ linuxlogo -a (En monocromo ascii)</p>
+<blockquote><p># iptotal eth0 -r 60 (Escuchará 60 segundos antes de informar)</p>
 
-<p>$ linuxlogo -b (tipo banner)</p>
-
-<p>$ linuxlogo -L ubuntu (De una distro concreta)</p>
-
-<p>$ linuxlogo -L randon_xy (logo aleatorio dentro de los disponibles en /etc/linux_logo.conf)</p>
-
-<p>$ linuxlogo -L random_ba (aleatorio y en ascii)</p>
-
-<p>$ linuxlogo -L redhat -F &#8220;Redhat linux 5.2\nkernel version 3.2.0-4-amd64&#8221; (Especificando logo y texto)</p></blockquote>
+<p># iptotal eth0 -r 120 -d 3 -P  (con alto nivel de depuarión[-d 3] y modo promiscuo [-P]</p></blockquote>
 </div>
   
   
@@ -212,7 +230,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/linuxinfo/">Linuxinfo</a></h1>
+      <h1 class="entry-title"><a href="/blog/iptables/">Iptables</a></h1>
     
     
       <p class="meta">
@@ -228,274 +246,122 @@
   
 
 
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:50:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra información del sistema: versión del kernel, número y tipo de procesadores, versión de la biblioteca del sistema (libc o glibc).</p>
+  <div class="entry-content"><p>herramienta de cortafuegos y trafico de red.</p>
 
-<blockquote><p>$ linuxinfo</p></blockquote>
-</div>
-  
-  
+<p>Algunos ejemplos generales:</p>
 
+<pre><code># iptables -F (eliminar todas las reglas)
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/lintian/">Lintian</a></h1>
-    
-    
-      <p class="meta">
-        
+# iptables -L (si está activo y con qué reglas)
 
+# iptables -L -vn (mostrando los puertos e información detallada)
 
+# iptables -L -t nat (Listar reglas de una tabla concreta)
 
+# iptables -L fail2ban-ssh (comprobar las ips bloqueadas por fail2ban)
 
+# iptables -D fail2ban-ssh 1 (Quitar la primera ip baneada de las ips bloqueadas)
 
+# iptables -nL --line-numbers (muestra el orden de ejecución de las reglas)
 
+# iptables -nL INPUT (Lista todas las reglas de entrada)
 
+# iptables -nL FORWARD (Lista todas las reglas de salida)
 
-  
+# iptables -D INPUT 3 (borrar la regla número 3)
 
+# iptables -A INPUT -j LOG (Guardar logs de todos los bloqueos)
+</code></pre>
 
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
+<p>Bloquear (DROP)</p>
 
+<pre><code># iptables -P INPUT DROP (Bloquear todo lo que entra)
 
-  <div class="entry-content"><p>Muestra fallos en construcción de paquetes .deb [según la política de Debian]. Puede que algunos “warnings” [W] y “errores” [E] solo significan que el paquete no sigue los estandares marcados pero no afectan a su ejecución:</p>
+# iptables -A INPUT -s IP -j DROP (una ip)
 
-<blockquote><p>$ lintian paquete.deb</p></blockquote>
-</div>
-  
-  
+# iptables -A INPUT -s IP -i eth0 -j DROP (una ip de una red)
 
+# iptables -A INPUT -s IP -p tcp -dport 22 -j DROP (un puerto de una ip) 
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/links2/">Links2</a></h1>
-    
-    
-      <p class="meta">
-        
+# iptables -A INPUT -s 192.168.1.0/24 -j DROP (una red)
 
+# iptables -A INPUT -m mac --mac-source 00:11:22:33:44:55 -j DROP (una mac)
 
+# iptables -A INPUT -p tcp --destination-port 21 -j DROP (puerto 21 de entrada)
 
+# iptables -A INPUT -p tcp -s IP --destination-port 21 -j DROP (el puerto 21 de entrada sólo para una IP)
 
+# iptables -A INPUT -p tcp -i eth0 -m multiport --destination-port 22,80,443 -j ACCEPT (Varios puertos)
 
+# iptables -A INPUT p tcp -s 192.168.1.0/24 --destination-port 21 -j DROP (el  puerto 21 de entrada para todo un rango de IPs)
 
+# iptables -A FORWARD -p tcp --dport 25 -j DROP (la salida del puerto 25)
 
+# iptables -A INPUT -p tcp --dport 22 -j LOG --log-prefix "Puerto 22 bloqueado" iptables -A INPUT -p tcp --dport 22 -j DROP (haciendo aparecer una mensaje informando del bloqueo)
+</code></pre>
 
-  
+<p>Permitir (ACCEPT)</p>
 
+<pre><code># iptables -I INPUT 3 -s 192.168.1.0/8 -j ACCEPT (a la red especificada y poner la regla en tercer lugar)
 
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
+# iptables -D INPUT -s 192.168.1.0/8 -j ACCEPT (Quitar la regla anterior) 
 
+# iptables -A INPUT -i lo -p all -j ACCEPT (todas las entradas a localhost)
 
-  <div class="entry-content"><p>Navegador.</p>
+# iptables -A OUTPUT -o lo -p all -j ACCEPT (todas las salidas a localhost)
 
-<blockquote><p># links2 -driver fb -g web.com (modo gráfico en el las tty con framebuffer)</p></blockquote>
+# iptables -A INPUT -p tcp --dport ssh -j ACCEPT (Un servicio concreto)
 
-<p>Atajos</p>
+# iptables -A INPUT -p tcp -i eth0 -m multiport --destination-port 22,80,443 -j ACCEPT (Todas las entradas a varios puertos)
 
-<p>g (Especificar dirección URL a cargar)</p>
-
-<p>z (Retroceder en el historial, ir a la página anterior)</p>
-
-<p>Ctrl + r (Recargar la página)</p>
-
-<p>s (Administrar marcadores)</p>
-
-<p>Ctrl + s (Detener todas las conexiones)</p>
-
-<p>q (Salir del programa)</p>
-
-<p>/ (Buscar un texto en la página, a partir de la posición actual)</p>
-
-<p>? (Buscar un texto en la página, desde la posición actual)</p>
-
-<p>n (Ir a la coincidencia de búsqueda siguiente)</p>
-
-<p>N (Ir a la coincidencia de búsqueda anterior)</p>
-
-<p>\ (Alternar entre texto sin formato y HTML)</p>
-
-<p>= (Ver información de la página)</p>
-
-<p>| (Ver información de cabecera. Etiquetas META del HTML))</p>
-
-<p>f (Ver marco (frame) actual en pantalla completa)</p>
-
-<p>c (Copiar dirección URL del enlace actual)</p>
-
-<p>d (Descargar contenido del enlace actual)</p>
-
-<p>i (Ver imagen del enlace actual si el enlace apunta a una imagen)</p>
-
-<p>I (Descargar imagen del enlace actual si el enlace apunta a una imagen)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/link/">Link</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Crear enlaces entre ficheros.</p>
-
-<blockquote><p>$ link fichero1 fichero2 (crea un enllace fichero2 que apunta a fichero 2)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/lilyterm/">Lilyterm</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Emulador de terminal.</p>
-
-<blockquote><p>$ lilyterm -g 90x10 -T terminal -t 3 -d /home/usuario (Con determinadas medidas, título, 3 pestañas y abriendo en las tres un directorio)</p></blockquote>
-
-<p>Algunos atajos:</p>
-
-<p>Ctrl + t (Abrir nueva pestaña)</p>
-
-<p>Ctrl + d (Cerrar pestaña)</p>
-
-<p>Ctrl + RePag (Ir a pestaña anterior)</p>
-
-<p>Ctrl + AvPag (Ir a pestañas siguiente)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/lightdm/">Lightdm</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Gestor de sesiones.</p>
+# iptables -A OUTPUT -o eth0 -p tcp -d 192.168.101.0/24 --dport 22 -j ACCEPT  (Permitir trafico ssh saliente para la red especificada)  
+</code></pre>
 
 <p>1.-</p>
 
-<p>Suprimir la cuenta de invitado:</p>
+<p>Salvar unas reglas de iptables y restablecerlas manualmente:</p>
 
-<blockquote><p># nano /etc/lightdm/lightdm.conf</p></blockquote>
+<blockquote><p># iptables-save -c > /etc/iptables.rules</p>
 
-<p>Añadir la linea:</p>
-
-<p>allow-guest=false</p>
-
-<blockquote><p># restart lightdm (Reiniciar servicio)</p></blockquote>
+<p># iptables-restore &lt; /etc/iptables.rules</p></blockquote>
 
 <p>2.-</p>
 
-<p>Entrar de forma automática:</p>
+<p>Salvar unas reglas de iptables para que se activen automaticamente tras un reinicio:</p>
 
-<blockquote><p># nano /etc/lightdm/lightdm.conf</p></blockquote>
+<p>Salvar las reglas:</p>
 
-<p>autologin-user=USUARIO</p>
+<blockquote><p># iptables-save > /etc/iptables/rules.v4</p></blockquote>
 
-<p>autologin-user-timeout=0</p>
+<p>Crear el archivo:</p>
+
+<blockquote><p># nano /etc/network/if-pre-up.d/iptables (Crear archivo)</p></blockquote>
+
+<p>Con el siguiente contenido:</p>
+
+<pre><code>#!/bin/bash
+
+/sbin/iptables-restore &lt; /etc/iptables/rules.v4
+</code></pre>
+
+<p>Otorgar permisos:</p>
+
+<blockquote><p># chmod +x /etc/network/if-pre-up.d/iptables</p></blockquote>
+
+<p>3.-</p>
+
+<p>Otra opción para salvar las reglas y que se activen tras un reinicio:</p>
+
+<blockquote><p># /etc/init.d/iptables-persistent save (Guardar las reglas existentes)</p>
+
+<p># /etc/init.d/iptables-persistent flush (Reseteará todas las reglas)</p></blockquote>
 </div>
   
   
@@ -508,7 +374,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/liferea/">Liferea</a></h1>
+      <h1 class="entry-title"><a href="/blog/ipscan/">Ipscan</a></h1>
     
     
       <p class="meta">
@@ -524,32 +390,281 @@
   
 
 
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:50:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Lector RSS.</p>
+  <div class="entry-content"><p>Escanea la red en busca de máquinas activas.</p>
 
-<p>Atajos:</p>
+<blockquote><p>$ ipscan -s -f:range 192.168.1.1 192.168.1.255 (todo el rango de ips)</p>
 
-<p>Ctrl + u (Actualizar todos los feeds)</p>
+<p>$ ipscan -s -f:file ips.txt (Las especificadas en el archivo ips.txt [una por linea])</p>
 
-<p>Ctrl + r (Marcar feed como leído)</p>
+<p>$ ipscan -s -f:range 192.168.1.9 192.168.1.16 -o resultat.txt (Derivando el resultado a un archivo)</p></blockquote>
+</div>
+  
+  
 
-<p>Ctrl + n (Ir al siguiente feed no leído)</p>
 
-<p>u (Subir por los feeds)</p>
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ipmitool/">Ipmitool</a></h1>
+    
+    
+      <p class="meta">
+        
 
-<p>d (Bajar por los feeds)</p>
 
-<p>b (Moverse del feed a la noticias)</p>
 
-<p>f (Bajar por las noticias)</p>
 
-<p>Espacio (Abrir la noticia en el navegador)</p>
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:50:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[openipmi]. Obtener datos del estado de un servidor [que lo soporte] tanto en local desde el propio servidor cómo en remoto. Se trata de un chipset que permite obtener información del estado de diferentes componentes hardware, temperaturas, voltajes, etc&#8230; Primero habilitar el demon ipmievd:</p>
+
+<blockquote><p># nano /etc/default/ipmievd</p></blockquote>
+
+<p>Y modificar la linea:</p>
+
+<p>ENABLED=true</p>
+
+<p>En algunas distros es preciso cargar los módulos:</p>
+
+<pre><code># ipmi_msghandler
+
+# ipmi_si
+
+# ipmi_devintf
+
+# ipmi_watchdog
+
+# ipmi_poweroff
+</code></pre>
+
+<blockquote><p># /etc/init.d/ipmi start (Arrancar el servicio)</p>
+
+<p># ipmitool sensor get &#8220;Ambient Temp&#8221; (Consulta de la temperatura ambiente)</p>
+
+<p># ipmitool user list (Listado de usuarios configurados)</p>
+
+<p># ipmitool -I lan -H 192.168.1.5 -U usuario sel elist (Litar los logs del sistema)</p>
+
+<p># ipmitool -H 192.168.1.10 -U usuario -P contraseña chassis status (Estado de chasis remoto)</p>
+
+<p># ipmitool sdr type Temperature (Obtener la temperatura)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/iperf/">Iperf</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:50:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Para poder verificar el ancho de banda entre los clientes de una red local. Se instala en todas las máquinas de la red.</p>
+
+<blockquote><p># iperf -s (Poner el servidor a la escucha por el puerto 5001)</p>
+
+<p># iperf -c 192.168.1.10 (Conectar los clientes con el servidor)</p></blockquote>
+
+<p>Alguna sopciones que pueden añadirse:</p>
+
+<p>-f B (Mostrar el resultado en Bytes por segundo [b: bytes/s, k:kilobits/s, m:megabytes/s, B:Bytes/s, K:KiloBytes/s, M:MegaBytes/s] esta opción sirva igual para el cliente que para el servidor)</p>
+
+<p>-t 120 (Tiempo en segundos de duración de la transmisión. Sólo para el cliente)</p>
+
+<p>-D (Lanzarlo como servicio. Sólo en el servidor)</p>
+
+<p>-i 10 (Tempo en segundos entre mediciones. Sólo cliente)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ipcs/">Ipcs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:50:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Informa sobre la comunicación entre procesos [espacios de memoria, buffers, semaforos..] listando los recursos compartidos que están creados en ese momento. Ver ipcrm. La columna &#8220;shmid&#8221; muestra el ID, la &#8220;owner&#8221; el propietario, &#8220;perms&#8221; los permisos y &#8220;bytes&#8221; el tamaño en bytes</p>
+
+<blockquote><p># ipcs -s | grep postgres  (Muestra los recursos compartidos de postgres)</p>
+
+<p># ipcs -lm (determinar los limites de memoria compartida del sistema)</p>
+
+<p># ipcs -ls (Límites actuales del contador que se utiliza para acceder a los recursos compartidos del sistema)</p>
+
+<p># ipcs -u  (Proporciona información sobre la comunicación entre procesos)</p>
+
+<p># ipcs -m (despliega los segmentos de memoria compartida)</p>
+
+<p># ipcs -mu (muestra un breve resumen)</p>
+
+<p># ipcs -ml (muestra los límites en contraposición a los valores actuales)</p>
+
+<p># ipcs -m -i 950288 (obtener detalle de un segmento de memoria compartida [valor shmid])</p>
+
+<p># ipcs -s (Muestra los semforos en el sistema)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<p>-m  (segmentos de memoria compartida )</p>
+
+<p>-q   (colas de mensajes )</p>
+
+<p>-s   (matrices de semáforos )</p>
+
+<p>-a   (todos. Opción por defecto)</p>
+
+<p>-p   (pid)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ipcrm/">Ipcrm</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:50:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Permite eliminar la comunicación entre procesos [ver ipcs]. Si paramos el programa con un Ctrl-C o simplemente sale de forma anormal, el recurso [la memoria compartida] no se libera y queda en el sistema. Con este comando es posible borrarla.</p>
+
+<blockquote><p># ipcrm -m 950288 (eliminar un segmento de memoria compartida)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ipcalc/">Ipcalc</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:50:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Calcular las ips y mascaras de una red a partir de una ip dada o un rango.</p>
+
+<blockquote><p># ipcalc 192.168.0.1/24</p>
+
+<p># ipcalc 192.168.0.1/255.255.128.0</p></blockquote>
 </div>
   
   
@@ -580,43 +695,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/ifne/">ifne</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ifdata/">ifdata</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ifconfig/">ifconfig</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/identify/">identify</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/html/">html</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hosts/">hosts</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/host-dot-conf/">host.conf</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/honeyproxy/">honeyproxy</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hg/">hg</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hexdump/">hexdump</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

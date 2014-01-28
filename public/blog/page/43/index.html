@@ -9,7 +9,8 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="[selinux-basics selinux-policy-default] SELinux proporciona una forma de acceso a recursos basada en políticas de control de acceso obligatorio [ &hellip;">
+  <meta name="description" content="Reiniciar el sistema. $ reboot -f (Fonzandolo)
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/selinux/">Selinux</a></h1>
+      <h1 class="entry-title"><a href="/blog/reboot/">Reboot</a></h1>
     
     
       <p class="meta">
@@ -96,51 +97,16 @@
   
 
 
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[selinux-basics selinux-policy-default]</p>
+  <div class="entry-content"><p>Reiniciar el sistema.</p>
 
-<p>SELinux proporciona una forma de acceso a recursos basada en políticas de control de acceso obligatorio [mandatory access control, MAC] incorporado en el kernel. Existen un conjunto de reglas de autorización [políticas] las cuales determinan si una operación sobre un objeto [Archivos, directorios, dispositivos&#8230;] realizada por un sujeto esta o no permitida basándose en los atributos de ambos. Linux utiliza por defecto el control de acceso a discreción [discretionary access control, DAC] basada en los propietarios y grupos a los que pertenece un objeto en los que un usuario normal puede cambiar los permisos de los archivos que posee con el comando chmod. Con selinux se limita el acceso que tienen las aplicaciones a otras aplicaciones y a los ficheros, impidiendo que un proceso pueda modificar cualquier fichero del usuario con el que se lanzó. En DAC el acceso esta descentralizado, siendo el propietario de cada objeto el encargado de asignar los permisos de los diversos grupos que accederán a ellas. En cambio con el MAC los objetos y los sujetos tan solo tienen atributos, pero son las políticas las que se encargan de autorizar o denegar una acción. Ver comandos getsebool y setsebool.</p>
-
-<p>Los módulos SELinux disponibles se almacenan en el directorio /usr/share/selinux/default/.</p>
-
-<blockquote><p># semodule -i módulo.pp (habilitar un módulos en la configuración actual. La extensión pp significa paquete de política [«policy package»]).</p>
-
-<p># semodule -r módulo (Elimina un módulo de la configuración actual)</p>
-
-<p># semodule -l (Enumera los módulos habilitados actualmente)</p>
-
-<p># semanage login -a -s staff_u juan (mapear una cuenta a un usuario especifico de SELinux)</p>
-
-<p># restorecon -R -F /home/juan (etiquetar los ficheros del usuario mapeado juan)</p>
-
-<p># semanage user -l (enumera las asociaciones entre las identidades de usuario de SELinux y los roles permitidos)</p>
-
-<p># semanage login -d juan (elimina la asociación asignada al usuario juan)</p>
-
-<p># semanage login -m juan (Modificar la asociación asignada al usuario)</p>
-
-<p># semanage login -l (enumera las correspondencias actuales entre identificadores de usuarios y entidades SELinux)</p></blockquote>
-
-<p>tabla de los usuarios estándar SELinux disponibles:</p>
-
-<pre><code>user_u  (Usuario normal que se utilizan para cuentas de usuario que no van a ser empleadas para administrar ningún servicio del sistema)
-
-staff_u (Para administradores con derechos para conmutar roles y ganar privilegios elevados)
-
-root (Cuenta root ligeramente diferente de la cuenta staff_u. Los ficheros protegidos por control de acceso basado en root no pueden ser gestionados por los staff_u)
-
-sysadm_u (Administración del sistema. Por defecto, esta cuenta no se utiliza inmediatamente ya que este usuario obtiene de forma inmediata el rol administrativo (por lo que staff_u y root todavía necesitarán conmutar roles).
-
-system_u (administrar servicios. Nunca se debe utilizar para usuarios finales ya que ofrece acceso directo al rol del sistema)
-
-unconfined_u    Usado cuando la directriz es targeted, este usuario SELinux tiene muchos privilegios (esencialmente no está limitado en sus acciones, aunque todavía se gestiona través de SELinux con una directriz "muy abierta"). 
-</code></pre>
+<blockquote><p>$ reboot -f (Fonzandolo)</p></blockquote>
 </div>
   
   
@@ -153,7 +119,7 @@ unconfined_u    Usado cuando la directriz es targeted, este usuario SELinux tien
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/select/">Select</a></h1>
+      <h1 class="entry-title"><a href="/blog/readpst/">Readpst</a></h1>
     
     
       <p class="meta">
@@ -169,109 +135,18 @@ unconfined_u    Usado cuando la directriz es targeted, este usuario SELinux tien
   
 
 
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Realiza menús de forma rápida y simple:</p>
+  <div class="entry-content"><p>Herramienta para convertir base de datos de Outlook en PST a eml para su posterior exportación a Thunderbird</p>
 
-<p>Algunos ejemplos:</p>
+<blockquote><p>$ readpst -o  -r miarchivo.pst</p>
 
-<p>1.-</p>
-
-<pre><code>#!/bin/bash
-
-OPCIONES="Uso_linux Todavía_estoy_con_windows"
-
-select opt in $OPCIONES; do
-
-    if [ "$opt" = "Uso_linux" ]; then
-
-        echo "Bravo, usas el mejor sistema..."
-
-        exit
-
-    elif [ "$opt" = "Todavía_estoy_con_windows" ]; then
-
-        echo "¡Evoluciona de una vez!"
-
-        exit
-
-    else
-
-        echo opción errónea
-
-    fi
-
-done
-</code></pre>
-
-<p>2.-</p>
-
-<pre><code>#!/bin/bash
-
-OPCIONES="hostname pwd exit"
-
-select opt in $OPCIONES; do
-
-    if [ "$opt" = "hostname" ]; then
-
-        echo $HOSTNAME
-
-    elif [ "$opt" = "pwd" ]; then
-
-        pwd
-
-    elif [ "$opt" = "exit" ]; then
-
-        echo "salir"
-
-        exit    
-
-    else
-
-        echo opción errónea
-
-    fi
-
-done
-</code></pre>
-
-<p>3.-</p>
-
-<pre><code>#!/bin/bash
-
-PS3='Elija una opción : '
-
-options="linux win salir"
-
-echo opciones : $options
-
-select opt in $options
-
-do
-
-    if [ "$opt" = "salir" ]; then
-
-        echo "Salgo..."
-
-        exit
-
-    elif [ "$opt" = "linux" ]; then 
-
-        echo "Muy bien..."
-
-    else
-
-        echo "Terriblemente mal..." 
-
-    fi
-
-done
-</code></pre>
+<p>$ readpst -M -b -e -o carpeta-destino miarchivo.pst (Generará los archivos EML en la carpeta-destino)</p></blockquote>
 </div>
   
   
@@ -284,7 +159,7 @@ done
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/seeker/">Seeker</a></h1>
+      <h1 class="entry-title"><a href="/blog/readonly/">Readonly</a></h1>
     
     
       <p class="meta">
@@ -300,16 +175,20 @@ done
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Comprobar la velocidad del disco duro, pero no en el inicio que es la parte más rápida como hace hdparm, sino de forma aleatoria en todo el espacio del disco.</p>
+  <div class="entry-content"><p>Permite declarar variables de solo lectura [No modificables].</p>
 
-<blockquote><p># seeker /dev/sda</p></blockquote>
+<blockquote><p>$ readonly -p (Las muestra todas)</p>
+
+<p>$ readonly -f var (Crear la funcion &#8220;var&#8221; de solo lectura)</p>
+
+<p>$ readonly -r var (Quita el atributo de &#8220;solo lectura&#8221; pero no permite redefinirla)</p></blockquote>
 </div>
   
   
@@ -322,7 +201,7 @@ done
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/sed/">Sed</a></h1>
+      <h1 class="entry-title"><a href="/blog/readlink/">Readlink</a></h1>
     
     
       <p class="meta">
@@ -338,215 +217,18 @@ done
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Permite borrar líneas, registros o sustituir cadenas de caracteres dentro de las líneas.</p>
+  <div class="entry-content"><p>Muestra donde apunta un enlace simbólico.</p>
 
-<p>Archivo base para ejemplo (Empleado &#8211; Precio/hora &#8211; Horas trabajadas – Cómo las cobra):</p>
+<blockquote><p>$ readlink enlace</p>
 
-<pre><code>$ cat lista 
-
-Juan Gomez 6 10 banco 
-
-Clara Fuentes 7 12 banco 
-
-Antonio Cano 6 13 metálico 
-
-José Bueno 7 0 banco 
-
-Matías Crespo 5 8 metálico 
-
-Isabel Ruiz 7 0 metálico 
-
-María Monzón 9 16 metálico
-</code></pre>
-
-<p>Mostrar la linea 4 del fichero:</p>
-
-<pre><code>$ sed -n 4p lista
-</code></pre>
-
-<p>Mostrar la 4ª y la 5ª:</p>
-
-<pre><code>$ sed -n 4,5p lista
-</code></pre>
-
-<p>Mostrar de la 3ª al final del fichero:</p>
-
-<pre><code>$ sed -n '4,$p' lista
-</code></pre>
-
-<p>Mostrar desde la primera linea que empiece por “Ant” hasta el final:</p>
-
-<pre><code>$ sed -n '/^\Ant/,$p' lista
-</code></pre>
-
-<p>Mostrar sólo los parrafos desde “Clara” hasta “Bueno”:</p>
-
-<pre><code>$ sed -n '/Clara/,/Bueno/p' lista
-</code></pre>
-
-<p>Mostrar cada linea a doble espacio:</p>
-
-<pre><code>$ sed G lista
-</code></pre>
-
-<p>Mostrar las lineas que cumplen el patrón “Ju” en alguno de sus campos:</p>
-
-<pre><code>$  sed -n '/Ju/p' lista
-</code></pre>
-
-<p>Borrar la 4ª linea del fichero:</p>
-
-<pre><code>$  sed '4d' lista
-</code></pre>
-
-<p>Borrar la última linea del fichero:</p>
-
-<pre><code>$  sed -e \$d lista
-</code></pre>
-
-<p>Lo mismo:</p>
-
-<pre><code>$ sed '$d' lista
-</code></pre>
-
-<p>Borrar las lineas que empiecen por &#8220;J&#8221;:</p>
-
-<pre><code>$ sed -e '/J/d' lista
-</code></pre>
-
-<p>Borrar la segunda linea</p>
-
-<pre><code>$ sed '2d' lista
-</code></pre>
-
-<p>Borrar la 1ª y la 2ª:</p>
-
-<pre><code>$  sed '1,2d' lista
-</code></pre>
-
-<p>Borrar desde la primera linea que empiece por &#8220;Ant&#8221; hasta el final:</p>
-
-<pre><code>$ sed -e '/^\Ant/,$d' lista
-</code></pre>
-
-<p>Borrar desde la 2 linea hasta la que tenga &#8220;Ruiz&#8221;:</p>
-
-<pre><code>$ sed '2,/Ruiz/d' lista
-</code></pre>
-
-<p>Borrar las lineas en blanco de un archivo (en &#8220;lista&#8221; no procede):</p>
-
-<pre><code>$  sed '/^$/d lista
-</code></pre>
-
-<p>Cambiar &#8220;metálico&#8221; por &#8220;gratis&#8221; excepto en la 3 linea:</p>
-
-<pre><code>$ sed '3!s/metálico/gratis/' lista
-</code></pre>
-
-<p>Cambiar &#8220;met&#8221; por &#8220;tem&#8221; en las lineas que no tengan &#8220;Cano&#8221;:</p>
-
-<pre><code>$ sed '/Cano/!s/met/tem/' lista
-</code></pre>
-
-<p>Cambiar campos (banco por cheque):</p>
-
-<pre><code>$ sed 's/banco/cheque/' lista
-</code></pre>
-
-<p>Cambiar las &#8220;J&#8221; y la &#8220;C&#8221; mayúsculas por minúsculas:</p>
-
-<pre><code>$ sed 'y/J-C/j-c/' lista
-</code></pre>
-
-<p>Substituye las vocales por &#8220;u&#8221;:</p>
-
-<pre><code>$ sed -e "s/[aeio]/u/g" lista
-</code></pre>
-
-<p>Substituir los espacios por tabulaciones:</p>
-
-<pre><code>$ sed -e 's/ /\t/g' lista
-</code></pre>
-
-<p>Alinear al centro:</p>
-
-<pre><code>$ sed -e :a -e 's/^.\{1,77\}$/ &amp;/;ta' -e 's/\( *\)\1/\1/' lista
-</code></pre>
-
-<p>Todas las opciones pueden usarse como tubería substituyendo &#8220;lista&#8221; por “cat lista |”:</p>
-
-<pre><code>$ cat lista | sed -n '4,$p'
-</code></pre>
-
-<p>Otros ejemplos:</p>
-
-<p>Mostrar lineas no comentadas de un archivo:</p>
-
-<pre><code>$ sed -e '/^#/d' /etc/fstab
-</code></pre>
-
-<p>Substituir &#8220;foto&#8221; por &#8220;FOTO&#8221; en todo los archivos del directorio:</p>
-
-<pre><code>$ ls * | sed -e 'p;s/foto/FOTO/' | xargs -n2 mv
-</code></pre>
-
-<p>Cambiar “Juan” por “Pedro” en todos los archivos .txt del presente directorio:</p>
-
-<pre><code>$ sed -i 's/Juan/Pedro/g' *.txt
-</code></pre>
-
-<p>Mostrar sólo las lineas con 4 dígitos seguidos:</p>
-
-<pre><code>$ sed '/[0-9]\{4\}/p' archivo
-</code></pre>
-
-<p>Borrar todos los espacios delante de cada linea:</p>
-
-<pre><code>$sed 's/^[ ^t]*//' archivo
-</code></pre>
-
-<p>Borrar todos los espacios detras de cada linea:</p>
-
-<pre><code>$ sed 's/[ ^t]*$//' archivo
-</code></pre>
-
-<p>Borrar todos los espacios delante y detras de cada linea:</p>
-
-<pre><code>$ sed 's/^[ ^t]*//;s/[ ^]*$//' archivo
-</code></pre>
-
-<p>Cambiar los números 3333 por 3.333. El parámetro -r sirva para activar las expresiones regulares extendidas de sed:</p>
-
-<pre><code>$ sed -r "s/\&lt;(reg|exp)[a-z]+/\U&amp;/g"
-</code></pre>
-
-<p>Contar lineas de un archivo [emulador de wc -l]:</p>
-
-<pre><code>sed -n '$=' lista
-</code></pre>
-
-<p>Insertar 5 espacios en blanco delante de cada linea:</p>
-
-<pre><code>$ sed 's/^/     /' lista
-</code></pre>
-
-<p>Insertar 1 linea en blanco despues de la primera linea:</p>
-
-<pre><code>$ sed '2i\ \' lista
-</code></pre>
-
-<p>Insertar 1 linea en blanco despues de la primera linea y de la tercera:</p>
-
-<pre><code>$ sed '2i\ \' | sed '4i\ \' lista
-</code></pre>
+<p>$ readlink -f enlace (Muestra el path absoluto)</p></blockquote>
 </div>
   
   
@@ -559,7 +241,7 @@ María Monzón 9 16 metálico
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/sdiff/">Sdiff</a></h1>
+      <h1 class="entry-title"><a href="/blog/read/">Read</a></h1>
     
     
       <p class="meta">
@@ -575,239 +257,40 @@ María Monzón 9 16 metálico
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra dos ficheros interactivamente.</p>
+  <div class="entry-content"><p>Espera una entrada por teclado y le asigna una variable, aunque contenga espacios.</p>
 
-<blockquote><p>$ sdiff -W -B file1 file2 (Ignorando espacios [W] y lineas en blanco [B])</p></blockquote>
-</div>
-  
-  
+<pre><code>$ read -p "dime tu nombre " NOMBRE
 
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/scrounge-ntfs/">Scrounge-ntfs</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Permite recuperar datos de particiones ntfs incluso corruptas.</p>
-
-<blockquote><p># scrounge-ntfs -l /dev/sda  (Para vusializar los datos del disco)</p></blockquote>
-
-<p>La salida del comando puede ser paracida a:</p>
-
-<p>Drive: /dev/sdc</p>
-
-<p>63              16787862        8               6291456</p>
-
-<p>16787925        471607195       8               6291456</p>
-
-<p>Con estos datos lanzar:</p>
-
-<blockquote><p># scrounge-ntfs -m 6291456 -c 8 /dev/sdc 16787925 471607195</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/scrot/">Scrot</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Captura de pantalla</p>
-
-<blockquote><p>$ scrot (Con los valores por defecto)</p>
-
-<p>$ scrot captura.png</p>
-
-<p>$ scrot -s captura.png (Para seleccionar un área en concreto)</p>
-
-<p>$ scrot -d 5 captura.png (retardar la captura 5 segundos)</p>
-
-<p>$ scrot -t 50 captura.png (para reducir la captura un 50%)</p>
-
-<p>$ scrot -ucd 5 (“u” captura la ventana que tiene el foco, “c” que muestre la cuenta regresiva y “d 5” los segundos de retardo)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/script/">Script</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Copia en un fichero toda la actividad tecleada en consola hasta cesar con &#8220;exit&#8221;</p>
-
-<blockquote><p>$ script -a fichero.txt</p>
-
-<p>$ script -t 2> sesion.con -a sesion.vid  (grabará la sesion. Parar el proceso con crtl+d)</p>
-
-<p>$ scriptreplay sesion.con sesion.vid  (reproduce la sesión grabada)</p>
-
-<p>$ script -f /dev/pts/3   (redirigir hacia otra terminal)</p></blockquote>
-
-<p>1.-</p>
-
-<p>Varias formas de ejecutar un script:</p>
-
-<blockquote><p>$ bash miscript.sh</p>
-
-<p>$ sh miscript.sh</p>
-
-<p>$ source miscript.sh</p></blockquote>
-
-<p>O activando el bit de ejecución en los permisos del fichero:</p>
-
-<blockquote><p>$ chmod +x miscript.sh</p>
-
-<p>$ ./miscript.sh</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/scribes/">Scribes</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Editor minimalista especial para programadores.</p>
-
-<pre><code>Algunos atajos:
-
-Ctrl + o (Abrir archivo)
-
-Ctrl + s (Guardar)
-
-Ctrl + Mayus + s (Renombrar)
-
-Ctrl + p (Imprimir)
-
-Ctrl + t (Indentar lineas seleccionadas)
-
-Ctrl + Mayus + t (Suprimir indentación)
-
-Alt +t (Convertir espacios en tabulaciones)
-
-Alt + Mayus + t (Convertir tabulaciones a espacios)
-
-Alt + r (Suprimir espacios al final de linea)
-
-Alt + d (Suprimir linea)
-
-Alt + F4 (Cerrar el editor)
-
-F1 (Abrir la ayuda)
-
-F12 (Abrir preferencias)
+$ echo $NOMBRE
 </code></pre>
+
+<p>La opción -a permite leer las palabras como elementos de un array:</p>
+
+<pre><code>$ read -a frase
+
+Hola que tal
+
+$ declare -p frase
+
+declare -a frase='([0]="Hola" [1]="que" [2]="tal")'
+</code></pre>
+
+<p>Algunas opciones:</p>
+
+<p>-d (permite indicar un delimitador de fin de línea de forma que la línea se lee hasta encontrar este delimitador)</p>
+
+<p>-e (permite que se puedan usar todas las combinaciones de teclas de readline)</p>
+
+<p>-t 3 (Especificar un tiempo de espera en la entrada de datos antes de volver al prompt)</p>
+
+<p>-n 1 (Efectuará la acción al pulsar una tecla sin necesidad de pulsar Intro)</p>
 </div>
   
   
@@ -820,7 +303,7 @@ F12 (Abrir preferencias)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/screenkey/">Screenkey</a></h1>
+      <h1 class="entry-title"><a href="/blog/rdiff-backup/">Rdiff-backup</a></h1>
     
     
       <p class="meta">
@@ -836,16 +319,201 @@ F12 (Abrir preferencias)
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[python-xlib]</p>
+  <div class="entry-content"><p>Backups incrementales locales o remotos. La aplicación ha de estar instalada en el cliente y en el servidor.</p>
 
-<p>Aplicacion que, durante una grabacion de escritorio en la que salen terminales y comandos, muestra por pantalla una franja negra en la que se puede apreciar las teclas que se pulsan para que las puedan ver mejor los televidentes. Iniciar la aplicacion (Se mostrara en el area del tray) y la grabacion del escritorio con alguna de las herramientas (gtk-recordMyDesktop, kazam, etc) y pararla con killall -9 screenkey cuando finalice la grabacion.</p>
+<blockquote><p>$ rdiff-backup &#8211;force 192.168.1.20::/home/USER/dir_remoto /home/USER/dir_local (Realiza un backup del dir_remota de la máquina 20 de la red y lo guarda en nuestro dir_local sin comprimir)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/rdesktop/">Rdesktop</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Conexión a escritorio remoto.</p>
+
+<blockquote><p>$ rdesktop -k es -g 1024×768 -u USER -p PASS -a 15 -T tux -D client (Especificando teclado español [k], medidas de la ventana [g], usuario [u] y contraseña [p], especificar un mobre para la ventana [T] y suprimiendo la decoración de la ventana [D])</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/rcconf/">Rcconf</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Parar/arrancar procesos durante el inicio</p>
+
+<blockquote><p>$ rcconf -now</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/rc-dot-d/">rc.d</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Inicia o para servicios en Arch Linux</p>
+
+<blockquote><p># rc.d start servicio (inicia el demonio o servicio)</p>
+
+<p># rc.d restart servicio (Reinicia el demonio)</p>
+
+<p># rc.d stop servicio (Para el servicio)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/rbash/">Rbash</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T17:52:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>shell restringido. Se usa para imponer a un usuario un entorno severamente limitado en el que, por ejemplo, no podrá cambiar de directorio [cd], especificar nombre que contengan la /, redirigir la salida usando operadores de redirección [>, &lt;, >>], reemplazar la shell, desactivar el modo restringido, etc. Equivalente a &#8220;bash -c&#8221;</p>
+
+<blockquote><p># adduser -s /bin/rbash juan (Crear un usuario con shell restringido)</p>
+
+<p># usermod -s /bin/rbash juan (Modificar la shell de un usuario ya establecido)</p></blockquote>
+
+<p>Si queremos ampliar la cantidad de comandos a disposición de un usuario limitado editamos de su directorio personal el archivo .bash_profile:</p>
+
+<blockquote><p># nano .bash_profile</p></blockquote>
+
+<p>Y añadimos o modificamos las siguientes lineas:</p>
+
+<pre><code>PATH=$HOME/apps    
+
+export PATH
+</code></pre>
+
+<p>Creamos el directorio</p>
+
+<blockquote><p># mkdir /home/juan/apps</p></blockquote>
+
+<p>Y añadimos enlaces de los binarios que queramos permitir al usuario [en este caso ls, cp y cat]</p>
+
+<blockquote><p># ln -s /bin/ls /home/juan/apps/</p>
+
+<p># ln -s /bin/cp /home/juan/apps/</p>
+
+<p># ln -s /bin/cat /home/juan/apps/</p></blockquote>
+
+<p>Y bloqueamos el archivo:</p>
+
+<blockquote><p># chattr +i /home/juan/.bash_profile</p></blockquote>
 </div>
   
   
@@ -876,43 +544,43 @@ F12 (Abrir preferencias)
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/ifne/">ifne</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ifdata/">ifdata</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ifconfig/">ifconfig</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/identify/">identify</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/html/">html</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hosts/">hosts</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/host-dot-conf/">host.conf</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/honeyproxy/">honeyproxy</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hg/">hg</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/hexdump/">hexdump</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>
