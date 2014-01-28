@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Cambiar la prioridad de un proceso en marcha. # renice -10 PID
+  <meta name="description" content="Crear nuevas identidades. $ rig -f -c 5 (De mujer [-f] y 5 opciones [-c]. Para hombre -m)
 ">
   
 
@@ -81,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/renice/">Renice</a></h1>
+      <h1 class="entry-title"><a href="/blog/rig/">Rig</a></h1>
     
     
       <p class="meta">
@@ -104,9 +104,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Cambiar la prioridad de un proceso en marcha.</p>
+  <div class="entry-content"><p>Crear nuevas identidades.</p>
 
-<blockquote><p># renice -10 PID</p></blockquote>
+<blockquote><p>$ rig -f -c 5 (De mujer [-f] y 5 opciones [-c]. Para hombre -m)</p></blockquote>
 </div>
   
   
@@ -119,7 +119,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rename/">Rename</a></h1>
+      <h1 class="entry-title"><a href="/blog/rfkill/">Rfkill</a></h1>
     
     
       <p class="meta">
@@ -142,9 +142,15 @@
   </header>
 
 
-  <div class="entry-content"><p>renombrar archivos</p>
+  <div class="entry-content"><p>Herramienta para activar/desactivar dispositivos inalámbricos.</p>
 
-<blockquote><p>$ rename JPG jpg *.JPG (Renombrará todos los xxxx.JPG a xxxx.jpg)</p></blockquote>
+<blockquote><p># rfkill list (Muestra listado y su estado)</p>
+
+<p># rfkill block all (bloquear todos [“all”], otras opciones: ”wifi”, “wlan”, “wimax” ….)</p>
+
+<p># rfkill unblock all (Desbloquear todos los dispositivos)</p>
+
+<p># rfkill unblock 0 (Desbloquear la 0 según resultado de “list”)</p></blockquote>
 </div>
   
   
@@ -157,7 +163,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/reisub/">Reisub</a></h1>
+      <h1 class="entry-title"><a href="/blog/rev/">Rev</a></h1>
     
     
       <p class="meta">
@@ -180,19 +186,11 @@
   </header>
 
 
-  <div class="entry-content"><p>Combinación de teclas a usar cuando el sistema se cuelga. Pulsar las teclas  Alt+ImprPant [PetSis] y mientras mantenemos las dos teclas pulsadas teclear la combinación de teclas REISUB. Su significado:</p>
+  <div class="entry-content"><p>invierte una cadena de texto o un archivo</p>
 
-<p>R: Retorna el control al teclado y ratón.</p>
+<blockquote><p>$ echo &#8220;perico de los palotes&#8221; | rev</p>
 
-<p>E: Envia a todos los procesos la señal TERM.</p>
-
-<p>I: Envia a todos los procesos la señal KILL.</p>
-
-<p>S: Sincroniza sistemas y unidades montadas.</p>
-
-<p>U: Desmonta todos los sistemas de archivos.</p>
-
-<p>B: Reinicia la máquina.</p>
+<p>$ rev archivo.txt</p></blockquote>
 </div>
   
   
@@ -205,7 +203,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/reiserfsck/">Reiserfsck</a></h1>
+      <h1 class="entry-title"><a href="/blog/retty/">Retty</a></h1>
     
     
       <p class="meta">
@@ -228,9 +226,23 @@
   </header>
 
 
-  <div class="entry-content"><p>Reparación de particiones reiserfs. Equivalente al fsck -f /dev/sdX de las particiones ext3.</p>
+  <div class="entry-content"><p>Capturar el proceso que se está ejecutando en otra consola.</p>
 
-<blockquote><p># reiserfsck &#8211;rebuild-tree /dev/sda</p></blockquote>
+<blockquote><p>$ retty PID</p></blockquote>
+
+<p>Ejemplo.</p>
+
+<p>En una consola lanzamos el proceso:</p>
+
+<blockquote><p>$ watch -tn1 &#8216;date &#8220;+%r %F %A&#8221;&#8217;</p></blockquote>
+
+<p>En otra averiguamos el PID:</p>
+
+<blockquote><p>$ ps aux | grep watch</p></blockquote>
+
+<p>Y capturamos el proceso:</p>
+
+<blockquote><p>$ retty PID</p></blockquote>
 </div>
   
   
@@ -243,7 +255,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/regionset/">Regionset</a></h1>
+      <h1 class="entry-title"><a href="/blog/restore/">Restore</a></h1>
     
     
       <p class="meta">
@@ -266,45 +278,11 @@
   </header>
 
 
-  <div class="entry-content"><p>Los discos dvd contienen un código que indica la región geográfica donde el dvd fue publicado imposibilitando que los comprados en unas regiones, puedan reproducirse en otras:</p>
+  <div class="entry-content"><p>Restaurar una copia de seguridad realizada con dump.</p>
 
-<p>Códigos de región:</p>
+<blockquote><p>$  restore -rf home.bak (restaurar la copia completa [r] del archivo especificado [f])</p>
 
-<pre><code>1 Norte América (USA y Canadá)
-
-2 Europa, Medio-oriente, Sudáfrica y Japón
-
-3 Sudeste Asiático, Taiwan, Corea
-
-4 Hispano América, Brasil, Australia, Nueva Zelanda
-
-5 Antigua URSS (Rusia, Ucrania, etc.), resto de África, India
-
-6 China
-</code></pre>
-
-<p>Esta aplicación permite cambiar dicho código del reproductor, no en el disco dvd y en la mayoría de los casos sólo permite hacer 5 cambios y en algunos casos, sólo 2.</p>
-
-<blockquote><p># regionset</p></blockquote>
-
-<pre><code>regionset version 0.1 -- reads/sets region code on DVD drives
-
-Current Region Code settings:
-
-RPC Phase: II
-
-type: NONE
-
-vendor resets available: 4
-
-user controlled changes resets available: 5
-
-drive plays discs from region(s):, mask=0xFF
-
-Would you like to change the region setting of your drive? [y/n]:
-</code></pre>
-
-<p>vendor resets available: 4 (indica el número de cambios disponibles)</p>
+<p>$ restore -xaf fichero.bak fichero (restaurar solo la copia del fichero indicado [x], sin preguntar de qué volumen extraer los ficheros y especificando  archivo  [f])</p></blockquote>
 </div>
   
   
@@ -317,7 +295,7 @@ Would you like to change the region setting of your drive? [y/n]:
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/reflector/">Reflector</a></h1>
+      <h1 class="entry-title"><a href="/blog/resolveip/">Resolveip</a></h1>
     
     
       <p class="meta">
@@ -340,11 +318,9 @@ Would you like to change the region setting of your drive? [y/n]:
   </header>
 
 
-  <div class="entry-content"><p>Optimizador del mirrorlist de pacman.</p>
+  <div class="entry-content"><p>Buscar el host de una ip o la ip de un host</p>
 
-<blockquote><p># reflector (Mostrará todos los mirrors de archlinux.org/mirrors/status/json/)</p>
-
-<p># reflector &#8211;sort rate -l 10 -f 5 &#8211;save /etc/pacman.d/mirrorlist (Que tome los 5 mejores [f] de los 10 más actualizados [l], los ordene por velocidad de descarga [sort] y que sobreescriba el archivo mirrorlist [save])</p></blockquote>
+<blockquote><p>$ resolveip -s www.google.com</p></blockquote>
 </div>
   
   
@@ -357,7 +333,7 @@ Would you like to change the region setting of your drive? [y/n]:
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/red/">Red</a></h1>
+      <h1 class="entry-title"><a href="/blog/resize2fs/">Resize2fs</a></h1>
     
     
       <p class="meta">
@@ -380,30 +356,9 @@ Would you like to change the region setting of your drive? [y/n]:
   </header>
 
 
-  <div class="entry-content"><p>1.- Configurar IP fija</p>
+  <div class="entry-content"><p>Cambiar la medida de una partición.</p>
 
-<blockquote><p># nano /etc/network/interfaces</p></blockquote>
-
-<p>Borrar todo el contenido y susbtituirlo por:</p>
-
-<pre><code>auto lo
-
-iface lo inet loopback
-
-auto eth0
-
-iface eth0 inet static
-
-address 192.168.1.10 # IP estática
-
-netmask 255.255.255.0 # Mascara
-
-gateway 192.168.1.1 # IP del router
-</code></pre>
-
-<p>Reiniciar red:</p>
-
-<blockquote><p># /etc/init.d/networking restart</p></blockquote>
+<blockquote><p># resize2fs /dev/sda3 600M</p></blockquote>
 </div>
   
   
@@ -416,7 +371,7 @@ gateway 192.168.1.1 # IP del router
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/recode/">Recode</a></h1>
+      <h1 class="entry-title"><a href="/blog/resize/">Resize</a></h1>
     
     
       <p class="meta">
@@ -439,19 +394,9 @@ gateway 192.168.1.1 # IP del router
   </header>
 
 
-  <div class="entry-content"><p>Convierte archivos a distintos formatos de caracteres</p>
+  <div class="entry-content"><p>Ver las columnas y líneas de la consola.</p>
 
-<blockquote><p>$ recode -l | less (listado de conversiones disponibles)</p>
-
-<p>$ recode iso8859-15..utf8 file.txt (cambiar caracteres iso&#8230; a utf.. de file.txt</p>
-
-<p>$ recode iso8859-15../b64 file.txt (de caracteres iso.. a codificacion base64)</p>
-
-<p>$ recode -lf iso8859-15 | grep euro  (buscar tabla de caracteres)</p>
-
-<p>$ cat file.txt | recode ISO_8859-1..UTF8 > nuevo.txt (De iso8859-1 a utf-8 )</p>
-
-<p>$ recode ..HTML &lt; file.txt > file.html  (pasar un texto a html)</p></blockquote>
+<blockquote><p>$ resize</p></blockquote>
 </div>
   
   
@@ -464,7 +409,7 @@ gateway 192.168.1.1 # IP del router
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/reboot/">Reboot</a></h1>
+      <h1 class="entry-title"><a href="/blog/reset/">Reset</a></h1>
     
     
       <p class="meta">
@@ -487,9 +432,7 @@ gateway 192.168.1.1 # IP del router
   </header>
 
 
-  <div class="entry-content"><p>Reiniciar el sistema.</p>
-
-<blockquote><p>$ reboot -f (Fonzandolo)</p></blockquote>
+  <div class="entry-content"><p>Restablece la configuración de la terminal cuando al intentar abrir algún fichero se nos ha llenado de caracteres raros. Aunque no veamos el cursor o el prompt, tecleando &#8220;reset&#8221; y clicar &#8220;intro&#8221;, se restablece la terminal.</p>
 </div>
   
   
@@ -502,7 +445,7 @@ gateway 192.168.1.1 # IP del router
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/readpst/">Readpst</a></h1>
+      <h1 class="entry-title"><a href="/blog/replace/">Replace</a></h1>
     
     
       <p class="meta">
@@ -525,11 +468,13 @@ gateway 192.168.1.1 # IP del router
   </header>
 
 
-  <div class="entry-content"><p>Herramienta para convertir base de datos de Outlook en PST a eml para su posterior exportación a Thunderbird</p>
+  <div class="entry-content"><p>Reemplazar letras o palabras de ficheros.</p>
 
-<blockquote><p>$ readpst -o  -r miarchivo.pst</p>
+<blockquote><p>$ replace a A &#8211; archivo1 archivo2 (“a” por “A” en los dos ficheros)</p>
 
-<p>$ readpst -M -b -e -o carpeta-destino miarchivo.pst (Generará los archivos EML en la carpeta-destino)</p></blockquote>
+<p>$ replace files DIRS  &#8211;  archivo (“files” por “DIRS” en archivo)</p>
+
+<p>$ replace DIRS dirs files FILES &#8211; archivo (“DIRS” por ”dirs” y “files” por “FILES”)</p></blockquote>
 </div>
   
   
@@ -560,43 +505,43 @@ gateway 192.168.1.1 # IP del router
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/figlet/">figlet</a>
+        <a href="/blog/gedit/">gedit</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fgrep/">fgrep</a>
+        <a href="/blog/gconftool-2/">gconftool-2</a>
       </li>
     
       <li class="post">
-        <a href="/blog/festival/">festival</a>
+        <a href="/blog/ftff/">ftff</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fbgs/">fbgs</a>
+        <a href="/blog/fstab/">fstab</a>
       </li>
     
       <li class="post">
-        <a href="/blog/faillog/">faillog</a>
+        <a href="/blog/fsck/">fsck</a>
       </li>
     
       <li class="post">
-        <a href="/blog/extundelete/">extundelete</a>
+        <a href="/blog/freeradius/">freeradius</a>
       </li>
     
       <li class="post">
-        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
+        <a href="/blog/foremost/">foremost</a>
       </li>
     
       <li class="post">
-        <a href="/blog/eterm/">eterm</a>
+        <a href="/blog/for/">for</a>
       </li>
     
       <li class="post">
-        <a href="/blog/errno/">errno</a>
+        <a href="/blog/flunym0us/">flunym0us</a>
       </li>
     
       <li class="post">
-        <a href="/blog/egrep/">egrep</a>
+        <a href="/blog/flexget/">flexget</a>
       </li>
     
   </ul>

@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="[debian-goodies]. Descarga un paquete del repositorio o, caso de estar instalado, muestra la versión. $ debget debian-goodies $ debget 0ad
-">
+  <meta name="description" content="[ecryptfs-utils cryptsetup]. Sistema de ficheros que permite encriptar la informacion. Puede ser montado en un sistema de ficheros convencional [ext4 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/debget/">Debget</a></h1>
+      <h1 class="entry-title"><a href="/blog/ecryptfs/">Ecryptfs</a></h1>
     
     
       <p class="meta">
@@ -97,18 +96,62 @@
   
 
 
-<time datetime="2014-01-27T20:47:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T16:08:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[debian-goodies]. Descarga un paquete del repositorio o, caso de estar instalado, muestra la versión.</p>
+  <div class="entry-content"><p>[ecryptfs-utils cryptsetup]. Sistema de ficheros que permite encriptar la informacion. Puede ser montado en un sistema de ficheros convencional [ext4, ext3&#8230;] lo cual siginifica que no tenemos que preocuparnos por asignarle espacio: conforme añadimos o eliminamos archivos, el espacio crece o decrece. Se podría coger un solo fichero encriptado, enviarse a otro PC y acceder a la información de ese fichero usando la misma contraseña.</p>
 
-<blockquote><p>$ debget debian-goodies</p>
+<p>1.-</p>
 
-<p>$ debget 0ad</p></blockquote>
+<p>Encriptar un directorio:</p>
+
+<blockquote><p>$ mkdir cripta (Crear directorio)</p>
+
+<p># chmod 700 cripta (Otorgarle permisos)</p>
+
+<p># mount -t ecryptfs cripta /media/tumba (Montar el directorio. Pregunta contraseña [la firma de la clave en el fichero /root/.ecryptfs/sig-cache.txt]. Las demás preguntas [método de cifrado, longitud de la contraseña&#8230;] pueden dejarse con las opciones por defecto)</p>
+
+<p># umount /media/tumba (Desmontar directorio)</p></blockquote>
+
+<p>Nota.- Es bastante usual, montar el directorio consigo mismo:</p>
+
+<blockquote><p># mount -t ecryptfs cripta cripta</p></blockquote>
+
+<p>2.-</p>
+
+<p>Ejecutar el asistente de creación de directorio cifrado:</p>
+
+<blockquote><p># ecryptfs-setup-private</p>
+
+<p># ecryptfs-umount-private (Desmontar el directorio)</p>
+
+<p># ecryptfs-mount-private (Montar el directorio)</p></blockquote>
+
+<p>Nota.- Para impedir que el directorio creado se monte automáticamente al inicio de sesión, borrar el archivo ~/.ecryptfs/auto-mount. Para revertir el proceso crear en el mismo directorio un archivo vacio:</p>
+
+<blockquote><p>$ touch ~/.ecryptfs/auto-mount</p></blockquote>
+
+<p>3.-</p>
+
+<p>Encriptar el directorio personal [$HOME]</p>
+
+<p>Salir de la cuenta de usuario y entrar en la de root.</p>
+
+<blockquote><p># modprobe ecryptfs (activar el módulo del kernel)</p>
+
+<p># ecryptfs-migrate-home -u USUARIO (Encriptar la $HOME del USUARIO)</p></blockquote>
+
+<p>Cerrar la cuenta de administrador y, sin reiniciar, entrar en la de USUARIO</p>
+
+<blockquote><p>$ ecryptfs-unwrap-passphrase (Pedirá la contraseña. Como medida de precaución es preciso anotar la cadena de texto que muestre)</p>
+
+<p># ecryptfs-setup-swap (Como media de seguridad es necesario encriptar la partición de intercambio [Swap])</p>
+
+<p># ecryptfs-rewrap-passphrase .ecryptfs/sig-cache.txt (Modificar la contraseña)</p></blockquote>
 </div>
   
   
@@ -121,7 +164,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ddrescue/">Ddrescue</a></h1>
+      <h1 class="entry-title"><a href="/blog/e4defrag/">E4defrag</a></h1>
     
     
       <p class="meta">
@@ -137,42 +180,16 @@
   
 
 
-<time datetime="2014-01-27T20:47:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T16:08:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[make gcc g++]. Recuperación de discos dañados. Proceso:</p>
+  <div class="entry-content"><p>[e2fsprogs]. Desfragmentar particiones ext4.</p>
 
-<p>Descargar el paquete dd_rhelp (Comprobar si existe una versión posterior):</p>
-
-<blockquote><p>$ wget http://www.kalysto.org/pkg/dd_rhelp-0.1.2.tar.gz</p>
-
-<p>$ cd dd_rhelp-0.1.2</p>
-
-<p># ./dd_rhelp /dev/sdbx sdbx.img</p></blockquote>
-
-<p>Creará sdbx.img en el directorio actual, que podrá montarse:</p>
-
-<blockquote><p># mount -o loop sdbx.img /media/imagen</p></blockquote>
-
-<p>Comprobar posibles errores (para partición ext3):</p>
-
-<blockquote><p># fsck -y sdbx.img</p></blockquote>
-
-<p>Restaurar la imagen:</p>
-
-<blockquote><p># dd_rhelp sdbx.img /dev/sdax</p></blockquote>
-
-<p>Método de ejecutar ddrescue en dos pasadas, de forma que la primera sólo recupera los bloques que no contenga sectores defectuosos y el segundo se centre en recuperar el máximo de los defectuosos:</p>
-
-<blockquote><p># ddrescue -v -n /dev/sda /dev/sdb sda.txt</p>
-
-<p># ddrescue -v -r2 -d /dev/sda /dev/sdb sda.txt</p></blockquote>
-
-<p>Luego comprobar errores con fsck.</p>
+<blockquote><p># e4defrag /dev/sda2</p></blockquote>
 </div>
   
   
@@ -185,7 +202,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ddclient/">Ddclient</a></h1>
+      <h1 class="entry-title"><a href="/blog/e2label/">E2label</a></h1>
     
     
       <p class="meta">
@@ -201,30 +218,18 @@
   
 
 
-<time datetime="2014-01-27T20:47:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T16:08:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Configurar pc con una ip fija. Requiere registro en dyndns.org. Durante la instalación preguntará los datos del registro pero si se prefiere puede editarse el archivo de configuración y colocarlos a mano</p>
+  <div class="entry-content"><p>[ntfsprogs]. Poner etiquetas a las particiones y dispositivos ext3</p>
 
-<blockquote><p># gedit /etc/ddclient.conf</p></blockquote>
+<blockquote><p># e2label /dev/dispositivo_usb mi_usb  (cuando se conecte, en el escritorio aparecerá el icono con el nombre “mi_usb”)</p>
 
-<p>Completar los campos login y password con los datos correspondientes:</p>
-
-<p>protocol=dyndns2</p>
-
-<p>use=web, web=checkip.dyndns.com, web-skip=&#8217;IP Address&#8217;</p>
-
-<p>server=members.dyndns.org</p>
-
-<p>login=Nombre_registrado_en_dyndns</p>
-
-<p>password=&#8217;contraseña_de_dyndns&#8217;</p>
-
-<p>nombre_de_dominio.com</p>
+<p># e2label /dev/sda5  (dirá si la partición sdb5 tiene nombre de etiqueta)</p></blockquote>
 </div>
   
   
@@ -237,7 +242,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/dav/">Dav</a></h1>
+      <h1 class="entry-title"><a href="/blog/dwb/">Dwb</a></h1>
     
     
       <p class="meta">
@@ -253,16 +258,55 @@
   
 
 
-<time datetime="2014-01-27T20:47:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T16:08:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[dav-text]. Editor minimalista para ncurses.</p>
+  <div class="entry-content"><p>Navegador minimalista con soporte para flash.</p>
 
-<blockquote><p>$ dav archivo.txt</p></blockquote>
+<p>Atajos: dwb:keys</p>
+
+<p>Configuración: dwb:settings</p>
+
+<p>Las configuraciones en texto plano en .config/dwb/</p>
+
+<p>Algunos atajos:</p>
+
+<pre><code>o (Para entrar una url) 
+
+O (abrirla en una nueva pestaña) 
+
+J (Cambiar entre pestañas)
+
+j (bajar por la página)
+
+k (subir)
+
+d (cerrar pestaña)
+
+u (reabrir pestaña cerrada) 
+
+go (Editar la url) 
+
+r (Recargar la página) 
+
+R (Recargar sin usar la caché) 
+
+f (Marcar los enlaces para escoger el que proceda) 
+
+F (Marcar los enlaces y abrir el escogido en nueva pestaña) 
+
+i (Modo insert para insertar en algún cuadro de dialogo) 
+
+Esc (Volver a modo normal) 
+
+M (Entrar url en en laces de interés) 
+
+ctrl q (Para salir del navegador) 
+</code></pre>
 </div>
   
   
@@ -275,7 +319,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/date/">Date</a></h1>
+      <h1 class="entry-title"><a href="/blog/dvgrab/">Dvgrab</a></h1>
     
     
       <p class="meta">
@@ -291,67 +335,49 @@
   
 
 
-<time datetime="2014-01-27T20:47:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T16:08:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Relacionado con fechas y calendarios.</p>
+  <div class="entry-content"><p>Catura de videos desde una cámara digital DV.</p>
 
-<blockquote><p>$ date +%s  (en tiempo unix - desde el 1 de enero de 1970-)</p>
+<p>Previas:</p>
 
-<p>$ date -s &#8220;2010-01-10 16:59&#8221;  (forma de establecer la fecha y hora actual)</p>
+<blockquote><p># modprobe rw1394</p>
 
-<p>$ date –u 0110170210  (Otra forma de establecer la fecha. mes 01, día 10, hora 17:02 y año 2010)</p>
+<p># chmod o+rw /dev/raw1394</p></blockquote>
 
-<p>$ date +&#8221;%A,%d-%m-%Y&#8221;</p></blockquote>
+<p>Uso:</p>
+
+<blockquote><p>$ dvgrab &#8211;buffers 500 (Los videos se almacenarán de forma secuencial [001.avi, 002.avi&#8230;] y 500 frames. Por defecto 100)</p>
+
+<p>$ dvgrab -f avi -s 0 videos/archivo.avi (Especificando formato, sin perdida de calidad y destino)</p></blockquote>
 
 <p>Algunas opciones:</p>
 
-<pre><code>%D (fecha en formato mm/dd/yy)
+<pre><code>-a 30 (crear nuevo archivo cada 30 segundos
 
-%T (hora:minutos:segundos en formato 24h)
+-csize 5 (divide el archivo de captura cuando llega a 5MB)
 
-%R (hora:minutos en formato 24h)
+-debug all (mostrar información de la captura.
 
-%d (día del mes con 2 dígitos)
+-d 10,20 (tiempo total a capturar en formato SMIL. Por defecto ilimitado
 
-%m (mes con 2 digitos)
+-every 50 (grabar un cuadro cada 50)
 
-%y (año con 2 dígitos)
+-f dif (formato de captura. Por defecto raw. Algunos formatos: dif [raw con extensión .dif], qt [formato QuickTime], mpeg2 [compresión MPEG-2], jpeg [secuencia de imágenes]
 
-%Y (año con 4 dígitos)
+-F 20 (cantidad máxima de fotogramas por archivo. Por defecto ilimitado)
 
-%a (nombre abreviado del día)
+-nostop (no detener la reproducción en el dispositivo al cerrar la captura)
 
-%A (nombre completo del día)
+-rewind (rebobina el MiniDV al finalizar)
 
-%b (nombre abreviado del mes)
-
-%B (nombre completo del mes)
-
-%H (hora con 2 dígitos en formato 0-24h)
-
-%I (hora con 2 digitos en formato 0-12h)
-
-%M (Solo los minutos)
-
-%S (Solo los segundos)
+-t (poner fecha y hora de registro como nombre del archivo)
 </code></pre>
-
-<blockquote><p>$ date +&#8221;%A,%d-%m-%Y&#8221; &#8211;date &#8216;1966/4/20 20500 days&#8217; (Para saber cuando alguien cumplirá 20500 días desde su nacimiento)</p>
-
-<p>$ watch -n1 &#8216;banner <code>date +%T</code>&#8217; (Rejoj digital en ascii)</p></blockquote>
-
-<p>1.-</p>
-
-<p>Saber la hora encualquier parte del mundo:</p>
-
-<blockquote><p>$ TZ=&#8221;America/Guatemala&#8221; date (Muestra la hora actual de Guatemala)</p>
-
-<p>$ TZ=&#8221;Europe/Berlin&#8221; date (Muestra la de Berlin)</p></blockquote>
 </div>
   
   
@@ -364,7 +390,131 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/dansguardian/">Dansguardian</a></h1>
+      <h1 class="entry-title"><a href="/blog/dvdbackup/">Dvdbackup</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T16:08:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[dependencias: libdvdread, libdvdcss]. Ripeo de dvds.</p>
+
+<blockquote><p>$ dvdbackup -i /dev/cdrom  (/información del dvd)</p>
+
+<p>$ dvdbackup -M -i/dev/cdrom -o/home/usuario/carpeta_destino (lanzar la aplicación)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/dpigs/">Dpigs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T16:08:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[debian-goodies]. Muestra los paquetes que ocupan más espacio.</p>
+
+<blockquote><p>$ dpigs (Los primeros diez 10. Opción por defecto)</p>
+
+<p>$ dpigs -n 20 (Los primeros 20)</p>
+
+<p>$ dpigs -S (Muestra los paquetes fuente más grandes instalados en el sistema)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/display/">Display</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T16:08:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[imagemagick]. Visualizar imagenes en las X.</p>
+
+<blockquote><p>$ display imagen.jpg</p>
+
+<p>$ DISPLAY=:0.0 gedit  (lanzado desde una tty, abre gedit en las X. Si solo tenemos una sesión X corriendo, puede suprimirse el “.0”)</p>
+
+<p>$ gmessage “Cierra el firefox” -display :0 (Lanzado desde una tty mostrará el mensaje en las X)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/dig/">Dig</a></h1>
     
     
       <p class="meta">
@@ -387,54 +537,23 @@
   </header>
 
 
-  <div class="entry-content"><p>[squid]. Filtro de contenidos web [cliente] que trabaja conjuntamente con el servidor proxy squid [servidor].</p>
+  <div class="entry-content"><p>[dnsutils]. Realizar consultas a los servidores DNS</p>
 
-<p>Adaptar el archivo de configuración:</p>
+<blockquote><p>$ dig tuxapuntes.com</p>
 
-<blockquote><p># nano /etc/dansguardian/dansguardian.conf</p></blockquote>
+<p>$ dig telefonica.net NS  (Mostrando los servidores DNS del dominio)</p>
 
-<p>Algunos parámetros a especificar [caso de no estarlo]:</p>
+<p>$ dig -x 74.220.215.64 (Resolución inversa)</p></blockquote>
 
-<pre><code>language = 'spanish'
+<p>Nota.- Los datos importantes en la “ANSWER SECTION”</p>
 
-reportinglevel = 3 #valores de 1, 2 y 3
+<blockquote><p>$ dig +short myip.opendns.com @resolver1.opendns.com (muestra IP externa)</p>
 
-filterport = 8080
+<p>$ dig tuxapuntes.com somedomainname.net axfr   (mirar si un dominio es susceptible de ataques axfr)</p>
 
-proxyip = 127.0.0.1 #La misma ip del proxy squid
+<p>$ dig +trace tuxapuntes.com (Ver saltos de la petición hasta el servidor)</p>
 
-proxyport = 3128
-</code></pre>
-
-<p>Guardar el archivo.</p>
-
-<p>El listado de conceptos [ip, nombre de dominio, frases&#8230; ] por los que se puede banear y conceptos excluidos en:</p>
-
-<blockquote><p># ls /etc/dansguardian/lists/</p></blockquote>
-
-<p>Algunos de los más usuales:</p>
-
-<p>bannedextensionlist (extensiones no permitidas)</p>
-
-<p>banneriplist (listado de ips no permitidas)</p>
-
-<p>bannedmimetypelist (Tipos MIME no permitidos)</p>
-
-<p>bannedregexpurllist  (Listado de expresiones a bloquear)</p>
-
-<p>bannedurllist (Bloquear partes especificas de un sitio)</p>
-
-<p>bannedsitelist (Bloquear sitios)</p>
-
-<p>bannedphraselist (Listado de frases prohibidas encerradas entre &lt; ></p>
-
-<p>exceptionsitelist (Lista de excepciones de sitios)</p>
-
-<p>exceptioniplist (lista de excepciones de direcciones IP)</p>
-
-<p>exceptionuserlist (Lista de excepciones de nombres de usuarios que no serán filtrado)</p>
-
-<blockquote><p># /etc/init.d/dansguardian restart</p></blockquote>
+<p>$ dig ANY tuxapuntes.com (Consultar todos los registros de la zona DNS)</p></blockquote>
 </div>
   
   
@@ -447,7 +566,7 @@ proxyport = 3128
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/cups/">Cups</a></h1>
+      <h1 class="entry-title"><a href="/blog/denyhosts/">Denyhosts</a></h1>
     
     
       <p class="meta">
@@ -463,229 +582,33 @@ proxyport = 3128
   
 
 
-<time datetime="2014-01-27T20:21:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-27T20:47:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Gestión de impresoras.</p>
+  <div class="entry-content"><p>Protege contra ataques.</p>
 
-<p>1.-</p>
+<p>Configuración:</p>
 
-<p>Montar una impresora en red:</p>
+<blockquote><p># nano /etc/denyhosts.conf</p></blockquote>
 
-<p>En la máquina servidor (la que tiene conectada la impresora)</p>
+<p>Algunas opciones:</p>
 
-<pre><code># nano /etc/cups/cupsd.conf
+<pre><code>SECURE_LOG = /var/log/auth.log (Ruta a los logs) 
+
+DENY_THRESHOLD_INVALID = 5 (Intentos fallidos permitidos con una cuenta que no existe) 
+
+DENY_THRESHOLD_VALID = 5 (Intentos falllidos con usuarios validos) 
+
+PURGE_DENY =5d (Tiempo de baneo de una IP. 5 dias en este caso) 
+
+BLOCK_SERVICE = sshd (Servicios que queremos proteger [ sshd, ALL...) 
 </code></pre>
 
-<p>Comentar la linea “Listen localhost:631” y añadir la ip de la máquina: “Listen 192.168.2.3:631” y en el siguiente apartado añadir los parámetros de la red:</p>
-
-<pre><code># Restrict access to the server…
-
-&lt;Location /&gt;
-
-    Order allow,deny
-
-    Allow localhost
-
-    Allow @LOCAL
-
-    # permisos a la red local
-
-    Allow from 192.168.2.0/24
-
-&lt;/Location&gt;
-</code></pre>
-
-<p>Para activar la compartición de impresoras:</p>
-
-<p>Browsing on</p>
-
-<pre><code># /etc/init.d/cupsd restart (reiniciar cups)
-</code></pre>
-
-<p>Abrir el navegador y escribir http://localhost:631 después del logeo ir a la pestaña printers y seleccionar la impresora, con lo que nos quedará en la barra de navegación algo parecido a: http://localhost:631/printers/PSC-1100</p>
-
-<p>Que sustituyendo “localhost” por la dirección ip de la máquina nos dará la dirección de la impresora:</p>
-
-<p>http://192.168.2.3:631/printers/PSC-1100</p>
-
-<p>En las máquinas cliente</p>
-
-<pre><code># nano /etc/cups/cupsd.conf
-</code></pre>
-
-<p>Browsing on</p>
-
-<p>BrowseAllow 192.168.2.0/24</p>
-
-<pre><code># /etc/init.d/cupsys restart
-</code></pre>
-
-<p>Y configurar la impresora de la forma habitual ya sea en Sistema -> administración -> impresoras pestaña Configuración -> URI del dispositivo y poner la dirección de la impresora o via http://localhost:631</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/csscapture/">Csscapture</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:21:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[python-cssutils]. Capturar el css de una web.</p>
-
-<blockquote><p>$ csscapture -s web http://www.tuxapuntes.com (guarda en la carpeta “web”)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/zypper/">Zypper</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Gestor de paquetes de opensuse (rpm)</p>
-
-<blockquote><p># zypper (Generar una lista de paquetes instalados)</p>
-
-<p># zypper repos (Listar repositorios)</p>
-
-<p># zypper install paquete  (Instalar paquete)</p>
-
-<p># zypper install rutadelpaquete (Instalar paquetes que no está en los repositorios)</p>
-
-<p># zypper install &#8211;force paquete (Reinstalar)</p>
-
-<p># zypper remove paquete (Desinstalar paquete)</p>
-
-<p># zypper remove &#8211;clean-deps paquete (Desinstalar con dependencias)</p>
-
-<p># zypper search paquete (Buscar paquete)</p>
-
-<p># zypper help comando (ayuda para un comando)</p>
-
-<p># zypper update (Actualizar base de datos y el sistema)</p>
-
-<p># zypper info paquete (Buscar información de paquete)</p>
-
-<p># zypper clean (Limpiar caché e información obsoleta)</p>
-
-<p># zypper refresh (Actualizar información)</p>
-
-<p># zypper dist-upgrade (Actualizar distro)</p>
-
-<p># zypper al &#8216;paquete&#8217; (Descartar paquete para actualizaciones)</p>
-
-<p># zypper rl &#8216;paquete&#8217; (Desbloquear paquete del bloqueo anterior)</p>
-
-<p># zypper verify (Verificar dependencias)</p>
-
-<p># zypper intall-new-recommends (Instalar paquetes recomendados)</p>
-
-<p># zypper list-updates (Listar Actualizaciones disponibles)</p>
-
-<p># zypper list-patches (Listar parches disponibles)</p>
-
-<p># zypper patches (Instalar parches disponibles)</p>
-
-<p># zypper addrepo rutadelrepositorio (Añadir repositorio)</p>
-
-<p># zypper addrepo -f repositorio rutadelrepositorio (Añadir con actualización automática)</p>
-
-<p># zypper modifyrepo &#8211;disable repositorio (Desactivar repositorio)</p>
-
-<p># zypper removerepo nombredelrepositorio (Suprimir repositorio)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/zmore/">Zmore</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Pagina la visualización de un fichero comprimido (Ver more)</p>
+<p>Nota.- Tambien es posible arrancar el servicio con la opción &#8220;purge&#8221;  [/etc/init.d/denyhosts start &#8211;purge] para eliminar las ips bloqueadas y que se muestran en /etc/hosts.deny</p>
 </div>
   
   
@@ -716,43 +639,43 @@ proxyport = 3128
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/figlet/">figlet</a>
+        <a href="/blog/gedit/">gedit</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fgrep/">fgrep</a>
+        <a href="/blog/gconftool-2/">gconftool-2</a>
       </li>
     
       <li class="post">
-        <a href="/blog/festival/">festival</a>
+        <a href="/blog/ftff/">ftff</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fbgs/">fbgs</a>
+        <a href="/blog/fstab/">fstab</a>
       </li>
     
       <li class="post">
-        <a href="/blog/faillog/">faillog</a>
+        <a href="/blog/fsck/">fsck</a>
       </li>
     
       <li class="post">
-        <a href="/blog/extundelete/">extundelete</a>
+        <a href="/blog/freeradius/">freeradius</a>
       </li>
     
       <li class="post">
-        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
+        <a href="/blog/foremost/">foremost</a>
       </li>
     
       <li class="post">
-        <a href="/blog/eterm/">eterm</a>
+        <a href="/blog/for/">for</a>
       </li>
     
       <li class="post">
-        <a href="/blog/errno/">errno</a>
+        <a href="/blog/flunym0us/">flunym0us</a>
       </li>
     
       <li class="post">
-        <a href="/blog/egrep/">egrep</a>
+        <a href="/blog/flexget/">flexget</a>
       </li>
     
   </ul>

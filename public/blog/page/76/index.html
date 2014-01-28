@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Listar archivos de un directorio. $ ls -i (Muestra todos los archivos no ocultos) $ ls -a (Muestra todos los archivos, incluso los ocultos) $ ls -l ( &hellip;">
+  <meta name="description" content="Listar ficheros o procesos abiertos # lsof -i :4662 (servicios usados por el puerto 4662 aunque esten a la escucha) # lsof -i@lapipaplena.homelinux. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ls/">Ls</a></h1>
+      <h1 class="entry-title"><a href="/blog/lsof/">Lsof</a></h1>
     
     
       <p class="meta">
@@ -103,51 +103,55 @@
   </header>
 
 
-  <div class="entry-content"><p>Listar archivos de un directorio.</p>
+  <div class="entry-content"><p>Listar ficheros o procesos abiertos</p>
 
-<blockquote><p>$ ls -i (Muestra todos los archivos no ocultos)</p>
+<blockquote><p># lsof -i :4662  (servicios usados por el puerto 4662 aunque esten a la escucha)</p>
 
-<p>$ ls -a (Muestra todos los archivos, incluso los ocultos)</p>
+<p># lsof -i@lapipaplena.homelinux.com  (verificar conexiones con una máquina)</p>
 
-<p>$ ls -l (Muestra permisos, último acceso i propietarios)</p>
+<p># lsof -i@88.25.114.11   (lo mismo pero especificando la ip)</p>
 
-<p>$ ls -1 (muestra en un listado)</p>
+<p># lsof -i | grep ssh  (Para que muestre solo los que usan el protocolo ssh)</p>
 
-<p>$ ls -F (Muestra a continuación de cada elemento si se trata de un directorio [/], un ejecutable [*] o un enlace [@])</p>
+<p># lsof +D /var/log  (Mostrar los servicios que tiene abierto un directorio)</p>
 
-<p>$ ls -L (En los enlaces, se muestra el archivo al que apuntan)</p>
+<p># lsof fichero  (Muestra los servicios que tiene abiertos fichero)</p>
 
-<p>$ ls -l PID (Muestra qué está corriendo con el PID especificado)</p>
+<p># lsof -nPi TCP   (Muestra los eventos de red de las conexiones TCP)</p>
 
-<p>$ ls -R    (recursivamente)</p>
+<p># lsof -p PID  (Ficheros que tiene abierto determinado proceso)</p>
 
-<p>$ ls -Z (listar visualizando los contextos en selinux [ver])</p>
+<p># lsof -N      (Muestra los archivos NFS abiertos)</p>
 
-<p>$ ls -s    (Muestra el tamaño)</p>
+<p># lsof -c firefox   (Muestra los ficheros abiertos por firefox)</p>
 
-<p>$ ls -S (Lista por tamaño)</p>
+<p># lsof -P -i -n -sTCP:LISTEN (listado de puertos en LISTEN)</p>
 
-<p>$ ls ../ (Listar los archivos del directorio anterior)</p>
+<p># lsof -i -P | grep -i &#8220;listen&#8221; (otra forma de listarlos)</p>
 
-<p>$ ls -t    (lista por fecha de modificación de más nuevo a más viejo)</p>
+<p># lsof -i tcp -i udp  (lista puertos tcp y udp abiertos)</p>
 
-<p>$ ls /boot /usr (Lista los dos directorios especificados)</p>
+<p># lsof -Pni | grep LISTEN   (chequear puertos abiertos)</p>
 
-<p>$ ls -ad *.sh (lista los terminados en .sh)</p>
+<p># lsof -c bash -r  (Monitorizar un proceso)</p>
 
-<p>$ ls *.{odt,txt} (Lista los de las extensiones mencionadas)</p>
+<p># lsof -i :631 | awk &#8216;{print $1,$2}&#8217; | sort -u  (muestra pid y demonio del puerto especificado)</p>
 
-<p>$ ls -ad */ (Lista sólo los directorios)</p>
+<p># lsof -t -i :22 (Muestra el pid del puerto especificado)</p>
 
-<p>$ ls -alL /home/usuario/videos</p>
+<p># lsof -nPi | txt2html  > lsof.html (Mandar la salida a un html para visualizarlo por el navegador)</p></blockquote>
 
-<p>$ ls -l /lib/modules (muestra los kernels instalados)</p>
+<p>Opciones:</p>
 
-<p>$ ls | xargs rm (Eliminar todos los archivos)</p>
+<p>-P (Muestra los números de puerto en vez de la aplicación que corre en ellos)</p>
 
-<p>$ ls @(<em>.sh|</em>.txt) (Sólo mostrará las extensiones especificadas. Precisa activación de los comodines extendidos de bash con: shopt -s extglob)</p>
+<p>-n (Para que no resuelva las IP de las conexiones)</p>
 
-<p>$ ls !(<em>.sh|</em>.txt) | xargs rm (Elimina todos menos los mencionados)</p></blockquote>
+<p>-i (Hace referencia a los eventos utilizados por procesos de red)</p>
+
+<p>-u usuario (Muestra los procesos abiertos por “usuario”)</p>
+
+<p>-x (Sigue links y puntos de montaje)</p>
 </div>
   
   
@@ -160,7 +164,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/lp/">Lp</a></h1>
+      <h1 class="entry-title"><a href="/blog/lsmod/">Lsmod</a></h1>
     
     
       <p class="meta">
@@ -183,55 +187,7 @@
   </header>
 
 
-  <div class="entry-content"><p>Gestión de impresoras y trabajos de impresión.</p>
-
-<blockquote><p>$ lp fichero (imprime fichero con la impresora predeterminada)</p>
-
-<p>$ lp -d otra_impresora fichero (Imprime con una impresora especificada)</p>
-
-<p>$ lpq           (muestra los trabajos pendientes y les asigna un número)</p>
-
-<p>$ lprm 5      (borra el trabajo pendiente de impresión especificado [5])</p>
-
-<p>$ lpstat -p -d (muestra la impresora predeterminada)</p>
-
-<p>$ lpstat -a           (muestra todas las impresoras)</p>
-
-<p>$ lpstat -v           (indicando ubicación)</p>
-
-<p>$ lp -n 10 fichero   (imprimirá 10 copias [opciones de 1 a 100])</p>
-
-<p>$ lp -P 7,9,12-15 fichero (imprime las páginas indicadas y de la 12 a la 15)</p>
-
-<p>$ lp -o media=A4 fichero (especificando tipo de papel o sobre)</p></blockquote>
-
-<p>Opciones “media”:</p>
-
-<p>Letter – US Letter (216x279mm).</p>
-
-<p>Legal – US Legal (216x356mm).</p>
-
-<p>A4 – ISO A4 (210x297mm).</p>
-
-<p>COM10 – US 10 Envelope (241x105mm).</p>
-
-<p>DL – ISO DL Envelope (220x110mm).</p>
-
-<blockquote><p>$ lp -o media=Custom.ANCHOxLARGOmm fichero (con un papel de medida indicada)</p>
-
-<p>$ lp -o landscape fichero (rotar 90º la impresión. Imprimir apaisado)</p>
-
-<p>$ lp -o orientation-requested=4 fichero (lo mismo que el anterior)</p></blockquote>
-
-<p>1.-</p>
-
-<p>Cuando al intentar imprimir sale el mensaje: Error - Scheduler Not Responding:</p>
-
-<blockquote><p>$ nano .bashrc</p></blockquote>
-
-<p>Y añadir la linea:</p>
-
-<p>export CUPS_SERVER=localhost</p>
+  <div class="entry-content"><p>Listar todos los módulos cargados del kernel, y alguna información adicional de ellos.</p>
 </div>
   
   
@@ -244,7 +200,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/lost-plus-found/">Lost+found</a></h1>
+      <h1 class="entry-title"><a href="/blog/lshw/">Lshw</a></h1>
     
     
       <p class="meta">
@@ -267,7 +223,11 @@
   </header>
 
 
-  <div class="entry-content"><p>Carpeta donde el sistema almacena archivos marcados como dañados después de una comprobación de disco realizada con el comando fsck.</p>
+  <div class="entry-content"><p>Muestra información de toda la máquina</p>
+
+<blockquote><p>$ lshw -html > hardware.html (Mandar la información a un archivo html)</p>
+
+<p># lshw -C network (Ver los dispositivos de red instalados)</p></blockquote>
 </div>
   
   
@@ -280,7 +240,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/lorem/">Lorem</a></h1>
+      <h1 class="entry-title"><a href="/blog/lshal/">Lshal</a></h1>
     
     
       <p class="meta">
@@ -303,15 +263,19 @@
   </header>
 
 
-  <div class="entry-content"><p>[libtext-lorem-perl]</p>
+  <div class="entry-content"><p>Muestra información del firmware, serial server, Bios, kernel, procesador, discos, puntos de montaje, particiones, usb, pci&#8230;</p>
 
-<p>Crear textos aleatorios a partir del famoso lorem ipsum.</p>
+<blockquote><p>$ lshal  (Información de los dispositivos de HAL en formato largo y detallado))</p>
 
-<blockquote><p>$ lorem -p 4 (Generar 4 párrafos)</p>
+<p>$ lshal -l (Lo mismo que el anterior)</p>
 
-<p>$ lorem -w 10 (Generar 10 palabras)</p>
+<p>$ lshal -s (Muestra el UDI [Dispositivo identificador único])</p>
 
-<p>$ lorem -s 2 (Generar 2 sentencias)</p></blockquote>
+<p>$ lshal -st (Lo mismo pero en forma de arbol)</p>
+
+<p>$ lshal -m (Monitor de los dispositivos de HAL mostrando cambios de estado en tiempo real al conectar un dispositivo)</p>
+
+<p>$ lshal -u UDI (Muestra información de un dispositivo específico)</p></blockquote>
 </div>
   
   
@@ -324,7 +288,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/look/">Look</a></h1>
+      <h1 class="entry-title"><a href="/blog/lsdev/">Lsdev</a></h1>
     
     
       <p class="meta">
@@ -347,9 +311,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Muestra entradas del diccionario que comienzan por esa palabra [/usr/share/dict/words]</p>
+  <div class="entry-content"><p>Lista los dispositivos presentes en el sistema y que IRQs y puertos IO (entrada/salida) usan.</p>
 
-<blockquote><p>$ look palabra</p></blockquote>
+<blockquote><p>$ lsdev</p></blockquote>
 </div>
   
   
@@ -362,7 +326,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/logwatch/">Logwatch</a></h1>
+      <h1 class="entry-title"><a href="/blog/lscpu/">Lscpu</a></h1>
     
     
       <p class="meta">
@@ -385,57 +349,7 @@
   </header>
 
 
-  <div class="entry-content"><p>Analiza los archivos de logs del sistema. El sistema está pensado para que toda la configuración sea especificada en /etc/logwatch y estas directivas sobreescriban a las que están en /usr/share/logwatch. Copiamos la configuación básica:</p>
-
-<blockquote><p># cp /usr/share/logwatch/default.conf/logwatch.conf /etc/logwatch/conf</p></blockquote>
-
-<p>Los servicios y qué ficheros de log es capaz de procesar logwatch en /usr/share/logwatch/default.conf/logfiles y la configuración de logwatch para cada servicio en /usr/share/logwatch/default.conf/services.</p>
-
-<p>Configuración básica sin envio por email:</p>
-
-<blockquote><p># nano /etc/logwatch/conf/logwatch.conf</p>
-
-<p># indica el directorio donde tomara los logs</p></blockquote>
-
-<p>LogDir = /var/log</p>
-
-<blockquote><p># Salida {mail|stdout|file}</p></blockquote>
-
-<p>Output = file</p>
-
-<blockquote><p># formato de la salida {html|text}</p></blockquote>
-
-<p>Format = text</p>
-
-<blockquote><p># Indicar que busque información en los archivos /var/log/message.1 o /var/log/messages.1.gz y no solo en /var/log/messages</p></blockquote>
-
-<p>Archives = Yes</p>
-
-<blockquote><p># Dia a analizar {Yestedary|Today|all}</p></blockquote>
-
-<p>Range = All</p>
-
-<blockquote><p># Detalles de los logs (0-10)|(Low,Mid,High)</p></blockquote>
-
-<p>Detail = 8</p>
-
-<blockquote><p># Servicios monitorizados {service_name|all}</p>
-
-<p># Service = fail2ban (Especificando servicio o todos):</p></blockquote>
-
-<p>Service = All</p>
-
-<p>Notas.- Es posible poner todos los servicios y descartar algunos con Service = &#8211;fail2ban. Si el archivo de logs no está en el fichero especificado editar el servicio concreto de /usr/share/logwatch/default.conf/services y modificarlo.</p>
-
-<blockquote><p># mkdir /var/cache/logwatch (Crear el directorio, si no existe, donde se guardarán las carpetas con los informes)</p></blockquote>
-
-<p>Lanzar logwatch cada hora:</p>
-
-<blockquote><p># crontab -e</p></blockquote>
-
-<p>Y colocar la linea:</p>
-
-<p>0 1  * * *   root       /usr/sbin/logwatch</p>
+  <div class="entry-content"><p>Muestra información sobre la cpu</p>
 </div>
   
   
@@ -448,7 +362,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/logsave/">Logsave</a></h1>
+      <h1 class="entry-title"><a href="/blog/lsblk/">Lsblk</a></h1>
     
     
       <p class="meta">
@@ -471,9 +385,13 @@
   </header>
 
 
-  <div class="entry-content"><p>Guardar la salida de una orden en un archivo de registro.</p>
+  <div class="entry-content"><p>Muestra información del dispositivo especificado.</p>
 
-<blockquote><p>$ logsave -a file.log ifconfig (Añadiendo la salida al contenido existente)</p></blockquote>
+<blockquote><p>$ lsblk -a /dev/sda</p>
+
+<p>$ lsblk -f /dev/sda (Mostrando etiquetas, uuids y puntos de montaje)</p>
+
+<p>$ lsblk -m /dev/sda (Mostrando propietarios, grupos y permisos)</p></blockquote>
 </div>
   
   
@@ -486,7 +404,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/logrotate/">Logrotate</a></h1>
+      <h1 class="entry-title"><a href="/blog/lsb-release/">Lsb_release</a></h1>
     
     
       <p class="meta">
@@ -509,11 +427,11 @@
   </header>
 
 
-  <div class="entry-content"><p>Rotación, compresión y correos del sistema de logs.</p>
+  <div class="entry-content"><p>Muestra nombre y código del sistema operativo</p>
 
-<blockquote><p># logrotate -d /etc/logrotate.conf (Verificación del correcto funcionamiento)</p>
+<blockquote><p>$ lsb_release -a</p>
 
-<p># logrotate -f /etc/logrotate.conf  (forzar la verificación)</p></blockquote>
+<p>$ cat /etc/*-release (lo mismo)</p></blockquote>
 </div>
   
   
@@ -526,7 +444,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/logout/">Logout</a></h1>
+      <h1 class="entry-title"><a href="/blog/lsattr/">Lsattr</a></h1>
     
     
       <p class="meta">
@@ -549,9 +467,11 @@
   </header>
 
 
-  <div class="entry-content"><p>Cerrar sesión de usuario. En las ttys, las cerrará para volver a entrar el login.</p>
+  <div class="entry-content"><p>Muestra los atributos de los ficheros [no los permisos].</p>
 
-<blockquote><p>$ logout</p></blockquote>
+<blockquote><p>$ lsattr -R /home/usuario   (recursivamente)</p>
+
+<p>$ lsattr -a /home/usuario   (incluye a todos los archivos de los directorios)</p></blockquote>
 </div>
   
   
@@ -564,7 +484,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/logname/">Logname</a></h1>
+      <h1 class="entry-title"><a href="/blog/lsat/">Lsat</a></h1>
     
     
       <p class="meta">
@@ -587,7 +507,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Devuelve el nombre del usuario actual</p>
+  <div class="entry-content"><p>Herramienta de auditoria de seguridad. Emplea mucho tiempo y crea un fichero de varias megas (lsat.out)</p>
+
+<blockquote><p>$ lsat</p></blockquote>
 </div>
   
   
@@ -618,43 +540,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/figlet/">figlet</a>
+        <a href="/blog/gedit/">gedit</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fgrep/">fgrep</a>
+        <a href="/blog/gconftool-2/">gconftool-2</a>
       </li>
     
       <li class="post">
-        <a href="/blog/festival/">festival</a>
+        <a href="/blog/ftff/">ftff</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fbgs/">fbgs</a>
+        <a href="/blog/fstab/">fstab</a>
       </li>
     
       <li class="post">
-        <a href="/blog/faillog/">faillog</a>
+        <a href="/blog/fsck/">fsck</a>
       </li>
     
       <li class="post">
-        <a href="/blog/extundelete/">extundelete</a>
+        <a href="/blog/freeradius/">freeradius</a>
       </li>
     
       <li class="post">
-        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
+        <a href="/blog/foremost/">foremost</a>
       </li>
     
       <li class="post">
-        <a href="/blog/eterm/">eterm</a>
+        <a href="/blog/for/">for</a>
       </li>
     
       <li class="post">
-        <a href="/blog/errno/">errno</a>
+        <a href="/blog/flunym0us/">flunym0us</a>
       </li>
     
       <li class="post">
-        <a href="/blog/egrep/">egrep</a>
+        <a href="/blog/flexget/">flexget</a>
       </li>
     
   </ul>

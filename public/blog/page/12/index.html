@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="1.- Redimensionar desde windows: Botón derecho en: Mi PC \ Administrar o Inicio \ Panel de control \ Herramientas administrativas \ Administracion De &hellip;">
+  <meta name="description" content="Enviar mensajes a la terminal de usuarios conectados remotamente a nuestra máquina. $ write usuario /dev/pts/15 (Iniciar el promt para la &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/windows/">Windows</a></h1>
+      <h1 class="entry-title"><a href="/blog/write/">Write</a></h1>
     
     
       <p class="meta">
@@ -103,121 +103,11 @@
   </header>
 
 
-  <div class="entry-content"><p>1.-</p>
+  <div class="entry-content"><p>Enviar mensajes a la terminal de usuarios conectados remotamente a nuestra máquina.</p>
 
-<p>Redimensionar desde windows:</p>
+<blockquote><p>$ write usuario /dev/pts/15  (Iniciar el promt para la comunicación con el usuario de la terminal número 15. Este a su vez, para responder, debe lanzar write hacia la consola del otro usuario)</p></blockquote>
 
-<p>Botón derecho en: Mi PC \ Administrar o Inicio \ Panel de control \ Herramientas administrativas \ Administracion De Equipos. Clicar con el boton derecho sobre la particion que queremos modificar. Aparecen dos opciones:</p>
-
-<ul>
-<li><p>Extend Volume</p></li>
-<li><p>Shirnk Volume</p></li>
-</ul>
-
-
-<p>La opcion de Shrink Volume es la que nos permite liberar espacio de la partición. Windows moverá los archivos necesarios en su interior. Igualmente informá del tamaño maximo que puede liberar con garantias de integridad de datos. El espacio libre podremos particionarlo posteriormente usando herramientas clásicas como gparted.</p>
-
-<p>2.-</p>
-
-<p>Re-dimensionar desde Linux:</p>
-
-<p>Cuando a gparted le resulta imposible re-dimensionar particiones ntfs [con vista, por ejemplo] usaremos un Live con las herramientas ntfsprogs [puppy, entre otras]. Previamente habremos desfragmentado la partición win y, si procede, reparados posibles errores de disco desde la consola del sistema [cmd] lazando chkdsk /c</p>
-
-<p>Arrancado el Live, averiguamos el nombre de la partición:</p>
-
-<blockquote><p># fdisk -l | grep NTFS</p></blockquote>
-
-<p>Si no hemos lanzado chkdsk en win, con linux podemos reparar los posibles errores con:</p>
-
-<blockquote><p># ntfsfix /dev/sdax</p></blockquote>
-
-<p>Comprobar si detecta correctamente la partición win:</p>
-
-<blockquote><p># sudo ntfsresize -P -i -f -v /dev/hda1 &#8211;ad-sectors</p></blockquote>
-
-<p>ntfsresize v2.0.0 (libntfs 10:0:0)</p>
-
-<p>Device name : /dev/hda1</p>
-
-<p>NTFS volume version: 3.1</p>
-
-<p>&#8230;</p>
-
-<p>Ordinary : 55549 MB 49454</p>
-
-<p>You might resize at 25961267200 bytes or 25962 MB (freeing 32608 MB).</p>
-
-<p>Please make a test run using both the -n and -s options before real resizing!</p>
-
-<p>Indica cuánto podemos redimensionar (25962 MB) y cuánto espacio quedaría libre (32608 MB).Suponemos que deseamos dejar el sistema de ficheros en 29055000000 by (29055 MB). Primero lo simulamos (recomendable realizar la prueba varias veces):</p>
-
-<blockquote><p># ntfsresize -f -s 29055000000 -n /dev/hda1 &#8211;bad-sectors</p></blockquote>
-
-<p>ntfsresize v2.0.0 (libntfs 10:0:0)</p>
-
-<p>Device name : /dev/hda1</p>
-
-<p>NTFS volume version: 3.1</p>
-
-<p>&#8230;</p>
-
-<p>ERROR: Extended record needed (1096 > 1024), not yet supported!</p>
-
-<p>Please try to free less space.</p>
-
-<p>Indica que no se ha dejado suficiente espacio para desplazar los datos.</p>
-
-<p>dejamos más espacio:</p>
-
-<blockquote><p># ntfsresize -f -s 31055000000 -n /dev/hda1 &#8211;bad-sectors</p></blockquote>
-
-<p>ntfsresize v2.0.0 (libntfs 10:0:0)</p>
-
-<p>Device name : /dev/hda1</p>
-
-<p>&#8230;</p>
-
-<p>Updating Boot record …</p>
-
-<p>The read-only test run ended successfully.</p>
-
-<p>La simulación sale correcta, procedemos a aplicarla quitando el parámetro -n</p>
-
-<blockquote><p># ntfsresize -f -s 31055000000 /dev/hda1 &#8211;bad-sectors</p></blockquote>
-
-<p>ntfsresize v2.0.0 (libntfs 10:0:0)Device name : &#8230;</p>
-
-<p>&#8230;</p>
-
-<p>Syncing device …</p>
-
-<p>Successfully resized NTFS on device ‘/dev/hda1′.</p>
-
-<p>3.-</p>
-
-<p>Crear un usuario administrador en windows [7, server 2008&#8230;]</p>
-
-<p>Arrancar con un Live-cd y montar la partición win.</p>
-
-<p>Entrar en C:\Windows\System32</p>
-
-<p>Borrar el archivo Magnify.exe</p>
-
-<p>Copiar el fichero cmd.exe y renombrar como Magnify.exe</p>
-
-<p>Reiniciar para que arranque Windows.</p>
-
-<p>Ejecutar la herramienta de lupa y arrancará una ventana de comandos como usuario administrador</p>
-
-<p>Crear un usuario administrador:</p>
-
-<p>net user /add admin</p>
-
-<p>net localgroup administrators admin /add</p>
-
-<p>net user admin *</p>
-
-<p>Reiniciar win y entrar con el usuario creado.</p>
+<p>xdaliclock -cycle -24 -title hora -noseconds -builtin1</p>
 </div>
   
   
@@ -230,7 +120,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/wicd-gtk/">Wicd-gtk</a></h1>
+      <h1 class="entry-title"><a href="/blog/wput/">Wput</a></h1>
     
     
       <p class="meta">
@@ -253,9 +143,11 @@
   </header>
 
 
-  <div class="entry-content"><p>Applet de wicd para el area de notificación (tray)</p>
+  <div class="entry-content"><p>Subir ficheros a un servidor ftp.</p>
 
-<blockquote><p>$ wicd-gtk -a</p></blockquote>
+<blockquote><p>$ wput file ftp://USER:PASS@192.168.1.10/home/usuario/dir/</p>
+
+<p>$ wput *.txt ftp://USER:PASS@host.com/home/usuario/ (Subir todos los .txt del directorio local al host remoto)</p></blockquote>
 </div>
   
   
@@ -268,7 +160,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/wicd-curses/">Wicd-curses</a></h1>
+      <h1 class="entry-title"><a href="/blog/worms/">Worms</a></h1>
     
     
       <p class="meta">
@@ -291,11 +183,9 @@
   </header>
 
 
-  <div class="entry-content"><p>conexiones a una red inalambrica.</p>
+  <div class="entry-content"><p>Muestra gusanos en la terminal.</p>
 
-<blockquote><p>$ wicd-curses</p></blockquote>
-
-<p>Si hay redes libres seleccionar la red y presionar la tecla C. Si existen redes  con seguridad habilitada, situarnos en la red con la que deseemos conectar, y presionar la tecla -> [la flecha derecha]. Mostrará otro menu donde ingresar  protocolo de seguridad y clave.</p>
+<blockquote><p>$ worms -d 200 -n 4 -l 4 (lento [-d] por defecto 0. 200 máximo, mostrando 4 gusanos [-n] Por defecto 3 y con longitud de 4 caracteres [-l]. Por defecto 16.</p></blockquote>
 </div>
   
   
@@ -308,7 +198,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/whois/">Whois</a></h1>
+      <h1 class="entry-title"><a href="/blog/wondershaper/">Wondershaper</a></h1>
     
     
       <p class="meta">
@@ -331,9 +221,13 @@
   </header>
 
 
-  <div class="entry-content"><p>Conocer los datos del registro de un dominio. Especificar sin las www</p>
+  <div class="entry-content"><p>Limitar el ancho de banda de la conexion de una red. Prioriza telnet y ssh sobre tráfico web, y este sobre las descargas de datos. Para limitar aplicaciones ver trickle.</p>
 
-<blockquote><p>$ whois todo-linux.com</p></blockquote>
+<blockquote><p># wondershaper eth0 (Muestra el estado de la red eth0)</p>
+
+<p># wondershaper eth0 1024 512 (limita la conexión a 1024 kbps de bajada y 512 kbps de subida)</p>
+
+<p># wondershaper clear eth0  (Elimina los ajustes realizados en la red especificada)</p></blockquote>
 </div>
   
   
@@ -346,7 +240,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/whoami/">Whoami</a></h1>
+      <h1 class="entry-title"><a href="/blog/wodim/">Wodim</a></h1>
     
     
       <p class="meta">
@@ -369,9 +263,13 @@
   </header>
 
 
-  <div class="entry-content"><p>Muestra el usuario con el que estamos. Misma salida que id -un [ver]</p>
+  <div class="entry-content"><p>Grabación de cds i dvds</p>
 
-<blockquote><p>$ whoami</p></blockquote>
+<blockquote><p>$ wodim -v -eject dev=/dev/cdrw -data imagen.iso  (Grabar una iso)</p>
+
+<p>$ wodim -v -eject dev=/dev/dvd -data imagen.iso  (Grabar imagen en un DVD)</p>
+
+<p>$ wodim -v -eject blank=fast dev=/dev/cdrw  (Borrar un CD)</p></blockquote>
 </div>
   
   
@@ -384,7 +282,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/who/">Who</a></h1>
+      <h1 class="entry-title"><a href="/blog/wmctrl/">Wmctrl</a></h1>
     
     
       <p class="meta">
@@ -407,17 +305,13 @@
   </header>
 
 
-  <div class="entry-content"><p>[whowatch]</p>
+  <div class="entry-content"><p>Interactuar con las ventanas</p>
 
-<p>Muestra información sobre los usuarios que están conectados al equipo.</p>
+<blockquote><p>$ wmctrl -l (Muestra el ID de todas las ventanas)</p>
 
-<blockquote><p>$ who -b (Tiempo desde el último arranque del sistema)</p>
+<p>$ wmctrl -s 2  (Ir al escritorio 3 [la primera es la 0])</p></blockquote>
 
-<p>$ who -d (Procesos truncados)</p>
-
-<p>$ who -r (Informa del runlevel activo)</p>
-
-<p>$ who am i (usuario, número de terminal y fecha de entrada en dicha terminal)</p></blockquote>
+<p>xdaliclock -cycle -24 -title hora -noseconds -builtin1</p>
 </div>
   
   
@@ -430,7 +324,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/whiptail/">Whiptail</a></h1>
+      <h1 class="entry-title"><a href="/blog/wkhtmltopdf/">Wkhtmltopdf</a></h1>
     
     
       <p class="meta">
@@ -453,7 +347,17 @@
   </header>
 
 
-  <div class="entry-content"><p>Muestra ventanas en consola. Parecido a dialog con menos opciones.</p>
+  <div class="entry-content"><p>Pasar una página web o un archivo html a pdf</p>
+
+<blockquote><p>$ wkhtmltopdf tuxapuntes.com tuxapuntes.pdf</p>
+
+<p>$ wkhtmltopdf -O Landscape -s A4 file.html file.pdf (Apaisado y A4)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<p>-O Portrait (Vertical)</p>
+
+<p>-s A3</p>
 </div>
   
   
@@ -466,7 +370,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/while/">While</a></h1>
+      <h1 class="entry-title"><a href="/blog/wipe/">Wipe</a></h1>
     
     
       <p class="meta">
@@ -489,255 +393,107 @@
   </header>
 
 
-  <div class="entry-content"><p>Ejecuta una seria de comandos mientras que una determinada condicion sea cumpla. Algunos scripts ilustrativos:</p>
+  <div class="entry-content"><p>Borrado de archivos, directorios, particiones o discos de forma segura.</p>
+
+<blockquote><p>$ wipe archivo (Sobreescribiendo 34 veces el espacio)</p>
+
+<p>$ wipe -fq (Sin pedir confirmación y sólo reescribiendo 4 veces)</p>
+
+<p>$ wipe -rq -Q 10 -i -c DIR/ (Que suprima los subdirectorios [r], que haga 10 pasadas y no sólo 4 [-q -Q 10], que muestre detalles [-i] y por si tienen permisos que chmod entre en acción [c]</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/winetricks/">Winetricks</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Herramienta para instalar librerias y complementos para wine</p>
+
+<blockquote><p>$ winetricks (ejecuta la interfaz gráfica del programa)</p>
+
+<p>$ winetricks corefonts (Instala fuentes como Arial y Verdana)</p></blockquote>
+
+<p>Más referencias de winetricks aqui: <a href="http://wiki.winehq.org/winetricks">http://wiki.winehq.org/winetricks</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/wine/">Wine</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ejecuta programas de Windows en Linux</p>
+
+<blockquote><p>$ wine programa.exe</p>
+
+<p>$ winecfg (Abre la ventana de configuración)</p></blockquote>
 
 <p>1.-</p>
 
-<pre><code>#!/bin/bash
+<p>En distros de 64 bits, ejecutar wine en modo 32 bits</p>
 
-RESPUESTA=s
+<p>Se debe eliminar o mover la carpeta ~/.wine y recrearla de nuevo. Primero se realiza un export de la variable WINEARCH en la terminal</p>
 
-while [ $RESPUESTA = s ]
+<blockquote><p>$ export WINEARCH=win32</p></blockquote>
 
-do
+<p>Y luego se ejecuta wine de nuevo</p>
 
-    echo "Introducir nombre: "
-
-    read NOMBRE
-
-    echo "Hola $NOMBRE"
-
-    echo
-
-    echo "¿Desea continuar? (s/n)"
-
-    read RESPUESTA
-
-done
-</code></pre>
-
-<p>2.-</p>
-
-<pre><code>#!/bin/bash
-
-while [ "$OPCION" != 5 ]
-
-do
-
-    echo
-
-    echo "[1] Listar directorio"
-
-    echo "[2] Directorio donde te encuentras"
-
-    echo "[3] fecha de hoy"
-
-    echo "[4] Usuarios conectados"
-
-    echo "[5] Salir"
-
-    echo
-
-    read -p "Ingrese una opción: " OPCION
-
-    echo
-
-    case $OPCION in
-
-        1) ls;;
-
-        2) pwd;;
-
-        3) date +%D ;;
-
-        4) who;;
-
-        5);;
-
-        *) echo "Opción ingresada no valida, intentelo de nuevo";;
-
-    esac
-
-done
-
-exit 0
-</code></pre>
-
-<p>3.-</p>
-
-<pre><code>#!/bin/bash
-
-# imprimir números del 1 al 10
-
-LIMITE=10
-
-a=1
-
-while [ "$a" -le $LIMITE ]
-
-do
-
-  echo "$a "
-
-  let "a+=1"
-
-done
-</code></pre>
-
-<p>4.-</p>
-
-<p>Leer un archivo linea a linea:</p>
-
-<pre><code>#!/bin/bash
-
-while read linea
-
-do
-
-   echo "---&gt; $linea "
-
-done &lt; archivo.txt
-</code></pre>
-
-<p>5.-</p>
-
-<p>Especificando un separador [:]</p>
-
-<pre><code>#!/bin/bash
-
-while IFS=: read user pass uid gid full home shell
-
-do
-
-echo -e "$full :\n\
-
-        Pseudo : $user\n\
-
-        UID :\t $uid\n\
-
-        GID :\t $gid\n\
-
-        Home :\t $home\n\
-
-        Shell :\t $shell\n\n"
-
-done &lt; /etc/passwd
-</code></pre>
-
-<p>6.-</p>
-
-<p>Leer un archivo pasado como parámetro, descartar las lineas en blanco y colorear alternativamente las siguientes en amarillo y rojo.</p>
-
-<pre><code>#!/bin/bash
-
-COLOR=1
-
-while read linia
-
-do
-
-    if [ -z "${linia}" ] 
-
-    then
-
-        continue
-
-    fi
-
-    if [ $COLOR -eq 0 ]
-
-    then
-
-        echo -e "\e[1;30;41m$linia\033[0m" #VERMELL - 0
-
-        COLOR=1
-
-    else
-
-        echo -e "\e[1;30;43m$linia\033[0m" #GROC - 1
-
-        COLOR=0
-
-    fi
-
-done &lt; $1
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/which/">Which</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Para encontrar el ejecutable si está en el path</p>
-
-<blockquote><p>$ which firefox</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/whereis/">Whereis</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Para encontrar donde se ha instalado un programa, su manual, &#8230;</p>
-
-<blockquote><p>$ whereis firefox</p></blockquote>
+<blockquote><p>$ wine programa32bits.exe</p></blockquote>
 </div>
   
   
@@ -768,43 +524,43 @@ done &lt; $1
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/figlet/">figlet</a>
+        <a href="/blog/gedit/">gedit</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fgrep/">fgrep</a>
+        <a href="/blog/gconftool-2/">gconftool-2</a>
       </li>
     
       <li class="post">
-        <a href="/blog/festival/">festival</a>
+        <a href="/blog/ftff/">ftff</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fbgs/">fbgs</a>
+        <a href="/blog/fstab/">fstab</a>
       </li>
     
       <li class="post">
-        <a href="/blog/faillog/">faillog</a>
+        <a href="/blog/fsck/">fsck</a>
       </li>
     
       <li class="post">
-        <a href="/blog/extundelete/">extundelete</a>
+        <a href="/blog/freeradius/">freeradius</a>
       </li>
     
       <li class="post">
-        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
+        <a href="/blog/foremost/">foremost</a>
       </li>
     
       <li class="post">
-        <a href="/blog/eterm/">eterm</a>
+        <a href="/blog/for/">for</a>
       </li>
     
       <li class="post">
-        <a href="/blog/errno/">errno</a>
+        <a href="/blog/flunym0us/">flunym0us</a>
       </li>
     
       <li class="post">
-        <a href="/blog/egrep/">egrep</a>
+        <a href="/blog/flexget/">flexget</a>
       </li>
     
   </ul>

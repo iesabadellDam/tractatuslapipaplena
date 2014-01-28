@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="[who] Muestra quien está conectado y las sesiones que tiene abiertas.
+  <meta name="description" content="Revisa una URL, siguiendo sus enlaces y genera un informe index.html en el presente directorio. # webcheck http://lapipaplena.net
 ">
   
 
@@ -81,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/w/">W</a></h1>
+      <h1 class="entry-title"><a href="/blog/webcheck/">Webcheck</a></h1>
     
     
       <p class="meta">
@@ -104,9 +104,9 @@
   </header>
 
 
-  <div class="entry-content"><p>[who]</p>
+  <div class="entry-content"><p>Revisa una URL, siguiendo sus enlaces y genera un informe index.html en el presente directorio.</p>
 
-<p>Muestra quien está conectado y las sesiones que tiene abiertas.</p>
+<blockquote><p># webcheck http://lapipaplena.net</p></blockquote>
 </div>
   
   
@@ -119,7 +119,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/vte/">Vte</a></h1>
+      <h1 class="entry-title"><a href="/blog/webalizer/">Webalizer</a></h1>
     
     
       <p class="meta">
@@ -142,11 +142,39 @@
   </header>
 
 
-  <div class="entry-content"><p>Terminal</p>
+  <div class="entry-content"><p>Genera reportes en formato html de los accesos a una página web instalada en la misma máquina.</p>
 
-<blockquote><p>$ vte -T (Lanza terminal semitransparente)</p>
+<p>Configuración mínima:</p>
 
-<p>$ vte -g 60x10 -r red (Especificando medidas y color del cursor)</p></blockquote>
+<blockquote><p># nano /etc/webalizer/webalizer.conf</p></blockquote>
+
+<p>Verificando que el siguiente contenido esté descomentado:</p>
+
+<pre><code>LogFile         /var/log/apache2/access.log
+
+OutputDir       /var/www/webalizer
+
+Incremental     yes
+
+ReportTitle     Estidísticas de PAGINAWEB_NOMBRE
+
+Hostname URL_PAGINA
+
+IgnoreSite      localhost
+</code></pre>
+
+<p>Especificamos los logs a analizar [logfile], el directorio de salida de los resultados [outputdir], que analice todo por separado [incremental], título de la página de reporte [reporttitle], nombre de la página a analizar [hostname] y que innore los accesos desde la propia máquina [ignoresite]</p>
+
+<blockquote><p># webalizer -c /etc/webalizer.conf -d (que se base en el archivo especificado [-c] y que haga debugging de los reportes por si todo salió sin errores [-d])</p></blockquote>
+
+<p>Dado que los reportes solo se realizan cuando se ejecuta el comando, es preferible colocar la linea en crontab:</p>
+
+<blockquote><p>$ crontab -e</p></blockquote>
+
+<p>Y añadir:</p>
+
+<pre><code>0 0 * * * /usr/bin/webalizer -c /etc/webalizer.conf -d
+</code></pre>
 </div>
   
   
@@ -159,7 +187,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/vtclock/">Vtclock</a></h1>
+      <h1 class="entry-title"><a href="/blog/weather/">Weather</a></h1>
     
     
       <p class="meta">
@@ -182,9 +210,11 @@
   </header>
 
 
-  <div class="entry-content"><p>Reloj digital.</p>
+  <div class="entry-content"><p>Estado del tiempo. Buscar el código de la ciudad en:</p>
 
-<blockquote><p>$ vtclock -2 -d 1 (Usando la fuente 2 [de 1 a 5] y desplazandose por la terminal cada segundo)</p></blockquote>
+<p>http://www.nws.noaa.gov/tg/siteloc.shtml</p>
+
+<blockquote><p>$ weather -m -v LEGE  (En decimal con la maxima información y para Gerona [España])</p></blockquote>
 </div>
   
   
@@ -197,7 +227,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/vsftpd/">Vsftpd</a></h1>
+      <h1 class="entry-title"><a href="/blog/wc/">Wc</a></h1>
     
     
       <p class="meta">
@@ -220,31 +250,21 @@
   </header>
 
 
-  <div class="entry-content"><p>Servidor de archivos ftp. Toda la configuración de encuentra en el archivo:</p>
+  <div class="entry-content"><p>Cuenta caracteres, lineas, palabras&#8230;</p>
 
-<blockquote><p># nano /etc/vsftpd.conf</p></blockquote>
+<blockquote><p>$ wc /etc/hosts /etc/fstab (Muestra lineas, palabras y caracteres de los dos archivos)</p>
 
-<p>Algunos de los parámetros:</p>
+<p>$ wc -c /etc/fstab (bytes)</p></blockquote>
 
-<p>anonymous_enable=NO # si no queremos accesos anonimos</p>
+<p>opciones:</p>
 
-<p>local_enable=YES # Permitir accesos locales autentificados</p>
+<p>-l (cantidad de líneas)</p>
 
-<p>write_enable=YES # Permite escritura en el servidor</p>
+<p>-w (cantidad de palabras)</p>
 
-<p>ftpd_banner=Entrando en el servidor ftp&#8230;</p>
+<p>-m (total de caracteres.)</p>
 
-<p>chroot_local_user=YES # Enjaular la conexión a su propio directorio personal</p>
-
-<p>max_clients=5 # limitar a 5 los accesos simultaneos</p>
-
-<p>Nota.- Han de redigirirse los puertos 20 y 21 y el rango especificado en el archivo de configuración:</p>
-
-<p>pasv_min_port=44000</p>
-
-<p>pasv_max_port=44100</p>
-
-<p>El cliente podrá conectarse al servidor via filezilla, gftp&#8230;</p>
+<p>-L (la longitud de la línea más larga del texto)</p>
 </div>
   
   
@@ -257,7 +277,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/vrms/">Vrms</a></h1>
+      <h1 class="entry-title"><a href="/blog/watch/">Watch</a></h1>
     
     
       <p class="meta">
@@ -280,7 +300,15 @@
   </header>
 
 
-  <div class="entry-content"><p>Para saber los paquetes contrib y non-free instalados y su porcentaje en el sistema en Debian.</p>
+  <div class="entry-content"><p>permite ejecutar repetidamente una sentencia u otro comando</p>
+
+<blockquote><p>$ watch -n 5 date (mostrará la fecha cada cinco segundos)</p>
+
+<p>$ watch -tn1 &#8216;date +%r | figlet&#8217; (muestra la hora en un digital en consola)</p>
+
+<p>$ watch -tn1 &#8216;date &#8220;+%r %F %A&#8221;&#8217;  (Muestra la fecha completa)</p>
+
+<p>$ watch -n3 free -m (monitor de ram)</p></blockquote>
 </div>
   
   
@@ -293,7 +321,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/vol-id/">Vol_id</a></h1>
+      <h1 class="entry-title"><a href="/blog/wapua/">Wapua</a></h1>
     
     
       <p class="meta">
@@ -316,11 +344,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Mostrar tipo de fichero y uuid de una partición</p>
+  <div class="entry-content"><p>Navegador que muestra el código WML de la páginas visitadas.</p>
 
-<blockquote><p># vol_id &#8211;export /dev/sda2</p>
-
-<p># vol_id &#8211;uuid /dev/sda2  (solo muestra el uuid)</p></blockquote>
+<blockquote><p>$ wapua lapipaplena.org</p></blockquote>
 </div>
   
   
@@ -333,7 +359,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/vobcopy/">Vobcopy</a></h1>
+      <h1 class="entry-title"><a href="/blog/wapiti/">Wapiti</a></h1>
     
     
       <p class="meta">
@@ -356,9 +382,17 @@
   </header>
 
 
-  <div class="entry-content"><p>Ripear dvds.</p>
+  <div class="entry-content"><p>[python, python-utidylib, tidy y python-ctypes]</p>
 
-<blockquote><p>$ vobcopy -i /dev/dvdrom -o /home/usuario/musica</p></blockquote>
+<p>Permite auditar la seguridad de las aplicaciones web buscando secuencias de comandos y formas en las que se pueda inyectar datos.</p>
+
+<blockquote><p># wapiti http://URL -u -f html -o informe (Creará un archivo, index.html [f], mostrando las anomalias en color [u] en la carpeta &#8220;informe&#8221; [o])</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<p>-f (otros formatos: json, txt, openvas y xml)</p>
+
+<p>-a user:pass (Modo de especificar usuario y contraseña si se precisa)</p>
 </div>
   
   
@@ -371,7 +405,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/vnstati/">Vnstati</a></h1>
+      <h1 class="entry-title"><a href="/blog/wall/">Wall</a></h1>
     
     
       <p class="meta">
@@ -394,13 +428,24 @@
   </header>
 
 
-  <div class="entry-content"><p>[vnstat]</p>
+  <div class="entry-content"><p>Enviar mensajes a todas las terminales</p>
 
-<p>Crea un png de la salida del comando vnstat.</p>
+<blockquote><p>$ wall (al darle al enter, podrá escribirse un texto. Una vez finalizado se le da otra vez al enter y se pulsa Ctrl+d para enviarlo a todas las terminales, incluidas las tty abiertas)</p>
 
-<blockquote><p>$ vnstati -s -vs -i eth1 -o vnstat.png (Mostrando resumen del tráfico de salida [s], incluyendo datos por hora en gráfica vertical [vs], especificando la red y guardando en vnstat.png [o])</p>
+<p>$ wall [intro]</p></blockquote>
 
-<p>$ vnstati -h -c 15 -o vnstat2.png (por horas [h] y actualizando si han pasado 15 minutos del último reporte)</p></blockquote>
+<p>No quiero morir!!!!!!!!!!!! [intro]</p>
+
+<p>[Ctrl+d]</p>
+
+<p>Broadcast Message from lb@tux</p>
+
+<pre><code>(/dev/pts/9) at 17:39 ...                                                                         
+</code></pre>
+
+<p>No quiero morir!!!!!!!!!!!!</p>
+
+<blockquote><p>$ wall &lt;&lt; finmensaje (lo mismo pero lo envia al introducir “finmensaje”)</p></blockquote>
 </div>
   
   
@@ -413,7 +458,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/vnstat/">Vnstat</a></h1>
+      <h1 class="entry-title"><a href="/blog/wait/">Wait</a></h1>
     
     
       <p class="meta">
@@ -436,17 +481,13 @@
   </header>
 
 
-  <div class="entry-content"><p>Herramienta que guarda un registro del tráfico de nuestras conexiones de red seleccionadas. Sobre este registro realiza estadisticas de uso. Tambien permite mostrar estos registros en distintos formatos: datos del día, de la semana, el total descargado y un top10 con los días de mayor uso de ancho de banda.</p>
+  <div class="entry-content"><p>Indica el estado de un proceso que se está ejecutando o se ha ejecutado en background o espera a que se realice determinado proceso o trabajo para continuar.</p>
 
-<blockquote><p># vnstat -u -i eth0 (crear la base de datos)</p>
+<blockquote><p>$ wait</p>
 
-<p># vnstat -d -i eth0  (consultar informes por días [-h -> horas, -m -> meses])</p>
+<p>$ wait PID  (Indicando el PID)</p>
 
-<p># vnstat -i eth0</p>
-
-<p># vnstat -l -i eth0  (monitorizar en tiempo real hasta pararlo con Ctrl+c Al finalizar mostrará un resumen del periodo monitorizado)</p>
-
-<p># vnstat -tr  (por un periodo de 5 segundos)</p></blockquote>
+<p>$ wait %2  (Indicando el número de proceso)</p></blockquote>
 </div>
   
   
@@ -459,7 +500,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/vncviewer/">Vncviewer</a></h1>
+      <h1 class="entry-title"><a href="/blog/w3m/">W3m</a></h1>
     
     
       <p class="meta">
@@ -482,15 +523,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Conexión remota</p>
+  <div class="entry-content"><p>Navegador</p>
 
-<blockquote><p>$ vncviewer host  (básica)</p>
-
-<p>$ vncviewer host -bgr233 (Para conexiones lentas. Reduce la calidad del color)</p>
-
-<p>$ vncviewer host -geometry 800x600 (Para conexiones lentas. Reduce la ventana)</p>
-
-<p>$ vncviewer host -quality 0 (disminuir la calidad de la imagen y aumentar la compresión. El valor va de 0 a 9 siendo el 9 máxima calidad de imagen y menor compresión)</p></blockquote>
+<blockquote><p>$ w3m -v URL (Para visualizar las url con imágenes en las tty)</p></blockquote>
 </div>
   
   
@@ -521,43 +556,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/figlet/">figlet</a>
+        <a href="/blog/gedit/">gedit</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fgrep/">fgrep</a>
+        <a href="/blog/gconftool-2/">gconftool-2</a>
       </li>
     
       <li class="post">
-        <a href="/blog/festival/">festival</a>
+        <a href="/blog/ftff/">ftff</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fbgs/">fbgs</a>
+        <a href="/blog/fstab/">fstab</a>
       </li>
     
       <li class="post">
-        <a href="/blog/faillog/">faillog</a>
+        <a href="/blog/fsck/">fsck</a>
       </li>
     
       <li class="post">
-        <a href="/blog/extundelete/">extundelete</a>
+        <a href="/blog/freeradius/">freeradius</a>
       </li>
     
       <li class="post">
-        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
+        <a href="/blog/foremost/">foremost</a>
       </li>
     
       <li class="post">
-        <a href="/blog/eterm/">eterm</a>
+        <a href="/blog/for/">for</a>
       </li>
     
       <li class="post">
-        <a href="/blog/errno/">errno</a>
+        <a href="/blog/flunym0us/">flunym0us</a>
       </li>
     
       <li class="post">
-        <a href="/blog/egrep/">egrep</a>
+        <a href="/blog/flexget/">flexget</a>
       </li>
     
   </ul>

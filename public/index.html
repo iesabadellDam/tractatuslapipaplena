@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Baners $ figlet texto (forma básica) $ showfigfonts (visualizar las tipografias del comando) $ figlet -f banner texto (especificando tipografía) &hellip;">
+  <meta name="description" content="Editor de texto $ gedit &#8211;list-encodings (Lista la codificación de caracteres) $ gedit &#8211;encoding UTF-8 archivo.txt (Abre el archivo &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/figlet/">Figlet</a></h1>
+      <h1 class="entry-title"><a href="/blog/gedit/">Gedit</a></h1>
     
     
       <p class="meta">
@@ -96,32 +96,32 @@
   
 
 
-<time datetime="2014-01-28T16:08:00+01:00" pubdate data-updated="true">28-01-2014</time>
+<time datetime="2014-01-28T16:26:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Baners</p>
+  <div class="entry-content"><p>Editor de texto</p>
 
-<blockquote><p>$ figlet texto (forma básica)</p>
+<blockquote><p>$ gedit &#8211;list-encodings  (Lista la codificación de caracteres)</p>
 
-<p>$ showfigfonts    (visualizar las tipografias del comando)</p>
+<p>$ gedit &#8211;encoding UTF-8 archivo.txt  (Abre el archivo mencionado con la cofificación especificada)</p></blockquote>
 
-<p>$ figlet -f banner texto  (especificando tipografía)</p></blockquote>
+<p>Atajos</p>
 
-<p>Opciones</p>
+<pre><code>Ctrl+c (Copiar)
 
-<pre><code>-c (centra el texto de salida) 
+Ctrl+s (Guarda documento)
 
--l (alinea el texto a la izquierda) 
+Ctrl+v (Pegar)
 
--r (alinea el texto a la derecha) 
+Ctrl+x (Cortar)
 
--w (establece un tamaño máximo)
+Ctrl+w (Cerrar ventana activa)
 
--t (Con la anchura máxima que permite la terminal)
+Ctrl+Mayús+flecha  (seleccionar texto a derecha o izquierda)
 </code></pre>
 </div>
   
@@ -135,7 +135,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/fgrep/">Fgrep</a></h1>
+      <h1 class="entry-title"><a href="/blog/gconftool-2/">Gconftool-2</a></h1>
     
     
       <p class="meta">
@@ -151,61 +151,57 @@
   
 
 
-<time datetime="2014-01-28T16:08:00+01:00" pubdate data-updated="true">28-01-2014</time>
+<time datetime="2014-01-28T16:26:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>(fast grep). Busca cadenas de texto fijas. Ignora el significado especial de los metacaracteres.</p>
-</div>
-  
-  
+  <div class="entry-content"><p>[gconf-editor]. Configurador de todos los parámetros de gnome</p>
 
+<blockquote><p>$ gconftool-2 &#8211;dump / > gconf_backup.xml  (realizar copia de seguridad de la configuración)</p>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/festival/">Festival</a></h1>
-    
-    
-      <p class="meta">
-        
+<p>$ gconftool-2 &#8211;load gconf_backup.xml /  (restablecer la copia de seguridad)</p>
 
+<p>$ gconftool-2 &#8211;recursive-unset /apps/panel (recuperar los paneles originales)</p></blockquote>
 
+<p>nota.- sustituiendo el “/apps/panel” por cualquier ruta del árbol de directorios [por ejemplo “/”] de gconf-editor pueden restaurarse sus valores originales</p>
 
+<blockquote><p>$ rm -rf .gconf/apps/panel (borra toda la configuración extra de los paneles)</p>
 
+<p>$ gconftool-2 –shutdown &amp;&amp; rm -rf ~/.gconf/apps/panel &amp;&amp; pkill gnome-panel (velver a una configuración anterior de los paneles)</p></blockquote>
 
+<p>Notas:</p>
 
+<pre><code>-t (tipo de datos a utilizar. Los valores son {int|bool|float|string|list|pair}) 
 
-
-  
-
-
-<time datetime="2014-01-28T16:08:00+01:00" pubdate data-updated="true">28-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[festival festvox-ellpc11k]. Sintetizador de voz.</p>
-
-<blockquote><p>$ echo “Linux es genial” | festival &#8211;tts &#8211;language spanish</p>
-
-<p>$ festival &#8211;tts &#8211;language spanish archivo.txt</p></blockquote>
-
-<p>Nota.- Si al lanzar la aplicación nos muestra una salida: “Linux: can&#8217;t open /dev/dsp”, crear el fichero .festivalrc en nuestra $HOME pegando el siguiente contenido:</p>
-
-<pre><code>(Parameter.set 'Audio_Command "aplay -q -c 1 -t raw -f s16 -r $SR $FILE")
-
-(Parameter.set 'Audio_Method 'Audio_Command) 
+-s (entrada a modificar)
 </code></pre>
+
+<p>Los valores de –type pueden ser:</p>
+
+<p>lógicos [bool]. Cuando el parámetro puede ser verdadero [true] o falso [false]. P.e quitar papelera del escritorio:</p>
+
+<blockquote><p>$ gconftool-2 -t bool -s /apps/nautilus/desktop/trash_icon_visible false</p></blockquote>
+
+<p>Enteros (int). Cuando ha de especificarse un número. P.e. aumentar el numero de escritorios a 5:</p>
+
+<blockquote><p>$ gconftool-2 -t int -s /apps/metacity/general/num_workspaces 5</p></blockquote>
+
+<p>reales (float). Cuando el valor tiene el punto como separador decimal. p.e el contraste de cheese:</p>
+
+<blockquote><p>$ gconftool-2 -t float -s /apps/cheese/contrast 1.2</p></blockquote>
+
+<p>Cadenas (string). Cuando ha de especificarse un texto. P.e. cambiar el nombre de la carpeta de usuario:</p>
+
+<blockquote><p>$ gconftool-2 -t string -s /apps/nautilus/desktop/home_icon_name &#8220;Mi carpeta&#8221;</p></blockquote>
+
+<p>Lista de valores (list). En muchos casos va complementado con otra lista (&#8211;list-type) que admite los valores {int|bool|float|string}. p.e detectar codificación en gedit con determinadas opciones:</p>
+
+<blockquote><p>$ gconftool-2 -t list &#8211;list-type string -s /apps/gedit-2/preferences/encodings/auto_detected [UTF-8,CURRENT,ISO-8859-15,UTF-16]</p></blockquote>
+
+<p>Parejas de valores [pairs]. Indica parejas de valores de los tipos anteriores. No he encontrado ningún ejemplo</p>
 </div>
   
   
@@ -218,7 +214,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/fbgs/">Fbgs</a></h1>
+      <h1 class="entry-title"><a href="/blog/ftff/">Ftff</a></h1>
     
     
       <p class="meta">
@@ -234,26 +230,194 @@
   
 
 
-<time datetime="2014-01-28T16:08:00+01:00" pubdate data-updated="true">28-01-2014</time>
+<time datetime="2014-01-28T16:26:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Visualizar pdf usando framebuffer [sin X]</p>
+  <div class="entry-content"><p>[whichman]. Busca archivos o directorios</p>
 
-<blockquote><p>$ fbgs -c archivo.pdf  (visualizarlo en color)</p></blockquote>
+<blockquote><p>$ ftff -t2 logfile.txt (busca  logfile con dos errores en el nombre. permite *)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fstab/">Fstab</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T16:26:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>(/etc/fstab). Lista todos los discos y particiones disponibles e indica cómo deben ser inicializados. Su estructura es:</p>
+
+<ul>
+<li>Particion punto_de_montaje sistema_de_archivos opciones respaldos orden</li>
+</ul>
+
+
+<p>Y un ejemplo seria:</p>
+
+<pre><code>/dev/sda5 /media/datos ext4 rw,users,exec,auto 0 0 (especificando el número de partición) 
+
+UUID=0e4d9ccb-93bb-4762-8b67-c23d181fc84a / ext4 errors=remount-ro 0 1 (especificando el UUID de la partición) 
+</code></pre>
+
+<p>Los puntos de montaje han de existir en el sistema y normalmente se colocan en /media</p>
+
+<p>Algunos sitemas de archivos puede ser:</p>
+
+<pre><code>auto (intenta descubrir automáticamente el sistema de archivos). 
+
+ext2 (sistema de archivos común en Linux). 
+
+ext3 (igual que ext2 pero además añade journaling). 
+
+ext4 (introdujo significativas mejoras respecto a ext3) 
+
+reiserfs (otro sistema muy común en Linux) 
+
+msdos (para dispositivos que usen FAT16) 
+
+vfat (para dispositivos que usen FAT32).
+
+ntfs (sistema de archivos NTFS de Windows) 
+
+smbfs (sistema de archivos de Samba).
+
+nfs (sistema de archivos de red NFS)
+</code></pre>
+
+<p>Algunas opciones:</p>
+
+<pre><code>auto (el dispositivo será montado automáticamente durante el inicio. auto es el valor por defecto) 
+
+noauto (Si no se desea que el dispositivo se monte automáticamente) 
+
+exec (permite ejecutar binarios que están en la partición) 
+
+noexec (lo impide. ütil en particiones windows) 
+
+ro (Montar sólo lectura) 
+
+rw (Montar para lectura/esctritura) 
+
+user (Permite a cualquier usuario montar el sistema de archivos) 
+
+nouser (Solo el usuario root podrá montar el sistema de archivos) 
+
+defaults (Utiliza las opciones por defecto: rw,exec,auto,nouser) 
+</code></pre>
+
+<p>Respaldo. Es el comando que utiliza dump para hacer respaldos del sistema de archivos. Cero desactiva la opción.</p>
+
+<p>Orden. indica el orden en que la aplicación fsck revisará la partición en busca de errores durante el inicio, si es cero el dispositivo no se revisa.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fsck/">Fsck</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T16:26:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[recomendado dosfstools]. Reparar/chequear/formatear una partición no montada.</p>
+
+<blockquote><p># fsck -fy /dev/hda1</p>
+
+<p># fsck.ext2 -vpf /dev/hda1 (Repara una partición ext2)</p>
+
+<p># fsck.ext3 -vpf /dev/hda1 (Repara una partición ext3)</p>
+
+<p># fsck -fpC 0 /dev/sda1</p>
+
+<p># fsck.ext4 -cDfty -C 0 /dev/sda1</p>
+
+<p># fsck.ext4 -vpf /dev/sda1 (Muestra información sobre una partición: fragmentación, inodos, bloques, archivos&#8230;)</p></blockquote>
 
 <p>Opciones:</p>
 
-<pre><code>-l  (Ampliación a 100 dpi (75 dpi por defecto)
+<pre><code>-A .- Permitira una navegación en toda la estructura de /etc/fstab.
 
--xl (a 12 dpi)
+-V  .- información adicional sobre las acciones de fsck
 
--xxl (a 150 dpi)
+-t   .- Imprimir estadísticas de estado (-tt para más información)
 
--p contraseña (Si el pdf requiera contraseña)
+-a .- Repara cualquier problema que encuentra en el sistema de archivos sin preguntar (no recomendada)
+
+-l .- Lista todos los nombres de archivos
+
+-r .- Pide confirmación antes de reparar el sistema de archivos.
+
+-s .- Lista el superblock antes de chequear el sistema de archivos.
+
+sis_arch .- Especifica el sistema de archivos a verificar 
+
+-c .- Buscar bloques dañados con badblocks (ver badblocks)
+
+-k .- Bloques dañados donde se almacenan con el comando anterior. 
+
+-C 0 .- Muestra barra de progreso.
+
+-p .- forzar verificación y reparar automaticamente errores
+
+-D .- Obtimizar directorios si es posible
+
+-f   .- Forzar el chequeo incluso si el sistema de archivos parece correcto
+
+-Y   .- Asume respuesta "yes" a todas las preguntas
 </code></pre>
 </div>
   
@@ -267,7 +431,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/faillog/">Faillog</a></h1>
+      <h1 class="entry-title"><a href="/blog/freeradius/">Freeradius</a></h1>
     
     
       <p class="meta">
@@ -283,16 +447,52 @@
   
 
 
-<time datetime="2014-01-28T16:08:00+01:00" pubdate data-updated="true">28-01-2014</time>
+<time datetime="2014-01-28T16:26:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>(/var/log/faillog). Almacena todos los intentos &#8220;login&#8221; fallidos realizados a una maquina.</p>
+  <div class="entry-content"><p>[libssl-dev freeradius-mysql freeradius-utils]. Servidor.</p>
 
-<blockquote><p>$ faillog</p></blockquote>
+<p>Configurar la base de datos:</p>
+
+<blockquote><p># nano /etc/freeradius/sites-enabled/default</p></blockquote>
+
+<p>En los apartados &#8220;authorize&#8221; y &#8220;accouting&#8221; descomentar las lineas sql</p>
+
+<blockquote><p># nano /etc/freeradius/radius.conf</p></blockquote>
+
+<p>Descomentar la linea $INCLUDE sql.conf</p>
+
+<p>Configurar usuario, contraseña y mensaje de bienvenida:</p>
+
+<blockquote><p># nano /etc/freeradius/users</p></blockquote>
+
+<p>USUARIO Cleartext-Password := &#8220;CONTRASEÑA&#8221;</p>
+
+<pre><code>    Reply-Message "Entrando en el servidor el usuario %{User_Name}"
+</code></pre>
+
+<p>Configurar usuario y contraseña del router o punto de acceso:</p>
+
+<blockquote><p># nano /etc/freeradius/clients.conf</p></blockquote>
+
+<p>client 192.168.1.0/24 {</p>
+
+<pre><code>secret      = CONTRASEÑA_ROUTER
+
+shortname   = USUARIO_ROUTE
+</code></pre>
+
+<p>Finalmente entrar en router y colocar la ip del equipo donde hemos instalado el servidor. Reiniciar el servicio.</p>
+
+<blockquote><p># /etc/init.d/freeradius restart</p>
+
+<p># freeradius -X (Arrancar em modo debug)</p>
+
+<p># radtest USUARIO testing 127.0.0.1 1812 testing123 (Testear si la configuración de un usuario está correcta)</p></blockquote>
 </div>
   
   
@@ -305,7 +505,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/extundelete/">Extundelete</a></h1>
+      <h1 class="entry-title"><a href="/blog/foremost/">Foremost</a></h1>
     
     
       <p class="meta">
@@ -321,22 +521,33 @@
   
 
 
-<time datetime="2014-01-28T16:08:00+01:00" pubdate data-updated="true">28-01-2014</time>
+<time datetime="2014-01-28T16:26:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[e2fsprogs, e2fslibs, e2fslibs-dev, g++, build-essential]. Recuperación de archivos o directorios borrados. La partición sobre la que se actua ha de estar desmontada. Descargar la aplicación de <a href="http://extundelete.sourceforge.net/">http://extundelete.sourceforge.net/</a> e instalarla con el clasico ./configure, make, sudo make install.</p>
+  <div class="entry-content"><p>Recuperación de datos</p>
 
-<blockquote><p># extundelete  /dev/sda11 &#8211;restore-directory /datos/dir_borrado (recuperar el directorio dir_borrado de la partición /dev/sda11. Lo guardará en el directorio RECOVERED_FILES)</p>
+<blockquote><p># foremost -i /dev/sda -o /recovery</p>
 
-<p># extundelete  /dev/sda11 &#8211;restore-file /datos/imagenes/foto.png -o fotos/ (recuperar un archivo y guardarlo en el directorio fotos)</p>
+<p># foremost -t jpg -i /dev/sda3 -o /home/usr/recuperado (Recuperar jdatepgs de una partición)</p></blockquote>
 
-<p># extundelete /dev/sda11 &#8211;restore-all (recuperar toda una partición)</p>
+<p>proceso sobre una imagen:</p>
 
-<p># extundelete /dev/sda11 &#8211;restore-files files (recuperar de la partición /dev/sda11 los archivos enumerados en &#8220;files&#8221; a razón de uno por linea)</p></blockquote>
+<blockquote><p># dd if=/dev/sda1 of=imagen.iso conv=noerror,sync (Crear la imagen iso del dispositivo a recuperar. “conv=noerror,sync” indica que ignore errores)</p>
+
+<p># foremost -v -t all -o /home/usuario/recuperado -i imagen.iso</p></blockquote>
+
+<pre><code>-v .- modo detallado
+
+-o .- lugar donde almacenar los archivos recuperados
+
+-t all .- tipo de archivo a buscar. Para recuperar solo jpg: -t jpg. Para una lista de extensiones: -t jpg,doc,png
+
+-i .- lugar donde esta la iso a escanear.
+</code></pre>
 </div>
   
   
@@ -349,7 +560,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/expresiones-regulares/">Expresiones-regulares</a></h1>
+      <h1 class="entry-title"><a href="/blog/for/">For</a></h1>
     
     
       <p class="meta">
@@ -365,240 +576,82 @@
   
 
 
-<time datetime="2014-01-28T16:08:00+01:00" pubdate data-updated="true">28-01-2014</time>
+<time datetime="2014-01-28T16:26:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[regex o patrones]. Buscar cadenas de texto que coinciden con un patrón. Los comandos más usuales que las emplean son grep, find, sed y awk y cada uno con sus pecualiaridades. Para ilustrar dichas expresiones se usa un archivo de texto al que llamo file.</p>
+  <div class="entry-content"><p>(ucle)]. Ejecuta un trozo de códico si la expresión de control es verdadera y sólo se para cuando es falsa.</p>
 
-<blockquote><p>$ cat file</p></blockquote>
-
-<pre><code># /etc/fstab: static file system information.
-
-UUID=de1d7793-c3d2-4e03-b79d-1a76905619e6 /               ext4    errors=remount-ro 0       1
-
-UUID=ccc71238-d89d-435b-a4e2-c2d836f800bb none            swap    sw              0       0
-
-/dev/sr0        /media/cdrom0   udf,iso9660 user,noauto     0       0
-
-/dev/sda5       /media/datos    ext4    defaults        0       0
-
-/dev/sda7       /media/fotos    ext3    defaults        0       0
-
-servidor:/home/templix /media/servidor  nfs4 defaults   0       0
-
-### Otras cosas
-
-7592 esto es un número....
-
-la letra z es la última
-
-aminora
-
-mediaplayer es un reproductor
-
-tres cincos hace 555
-
-salta la rana
-
-aRmARIO
-</code></pre>
-
-<p>Nota.- Los siguientes ejemplos se basarán en el comando grep. En algunos casos, al corresponder a expresiones regulares extendidas, se usará con el argumento -E. Las expresiones regulares han de ir siempre encerradas con comillas simples.</p>
-
-<pre><code>Literales (Sólo encajan con ellos mismos)
-
-    $ grep 'media' file (mostrara las lineas que contengan "media" incluso "mediaplayer")
-
-    $ grep '\&lt;media\&gt;' file (Sólo mostrará las que contengan exactamente "media")
-
-. [punto] (Cualquier caracter)
-
-    $ grep 'me.ia' file (Misma salida que el anterior)
-
-    $ grep '\&lt;m...a\&gt;' file (Mostrar las de cinco letras que empiecen por "m" y terminen en "a")
-
-    $ grep 'm...a\&gt;' file (Mostrar las lineas que contengan una palabra de cinco letras que empiece por "m" y termine con "a" sin nada a continuación)
-
-[] [Corchetes] (Cualquier caracter de los encerrados entre corchetes)
-
-    $ grep '[wz]' file (Mostras las que contengan "w" o "z")
-
-    $ grep 'sda[0-9]' file (Mostrar las lineas con palabras que empiecen por sda seguidas de un número del 0 al 9)
-
-    $ grep '[0-9]-' file (Buscar lineas que tengan un número seguido de un -)
-
-| [Tuberia] (Especificar varias opciones)
-
-    $ grep -E 'e(xt|rvi)(3|dor)' file (Mostrar las que contengan ext3 y ervidor [servidor])
-
-    $ grep -E 'datos|servidor' file (Mostrar las que tengan las palabras "datos" y "servidor")
-
-- [Guión] (Siempre que no siga a un corchete, especifica un rango)
-
-    $ grep '[0-2]$' file (Lineas que contengan los números 0,1 y 2)
-
-^ [Circunflejo] (Si va precedido de un corchete significa "todo lo que no sea lo que sigue". En los demás casos significa "que la linea empiece por lo que sigue)
-
-    $ grep '^UUID' file (Mostrar las que empiecen por UUID)
-
-    $ grep ':[^/]' file (Las que tengan ":" y no vayan seguidos de una "/")
-
-    $ grep -e '^UUID' -e '^\/' file (Mostrar las que empiecen por UUID y por / . La barra de escape [\] convierte al siguiente caracter en literal)
-
-$ [Dolar] (Indica que el carácter precedente aparece al final de la linea)
-
-    $ grep '0$' file (Muestra las que terminen en 0)
-
-    grep '\.$' file (Muestra las lineas que terminan con un punto)
-
-+ [Signo más] (Una o más veces).
-
-    $ grep -E '\-[0-9]+' file (Buscar las lineas con varios números precedidos por un guión [que ha de escaparse con una barra])
-
-* (Asterisco) (Ninguna o más veces)
-
-    $ grep -E '(fot).*' file (Mostrar las que tengan "fot" y puedan estar o no seguidas de otros caracteres)
-
-? (Interrogante) (Un caracter impreciso)
-
-    $ grep -E 'ext4?' file (indica que el caracter anterior [el 4] puede ser distinto de 4 o puede no existir, o sea que mostrará lineas que contengan ext4, ext3, ext...)
-
-{n,m} [Llaves] (Que el caracter anterior a la llave se muestre las veces que indica entre el número n y el m. Si omitimos m significa como mínimo n veces.
-
-    $ grep '5\{2,5\}.*' file (Que se muestre las lineas que tengan un 5 entre dos y cinco veces. Las llaves se escapan)
-
-    $ grep '5\{3\}.*' file (Muestra las lineas en las que el 5 sale tres veces)
-
-    $ grep '5\{3,\}.*' file (Muestra las lineas en las que el 5 sale como mínimo tres veces)
-
-b (Que lo precedente sea el final de una palabra. Siempre ha de escaparse.)
-
-    $ grep 's\b' file (Muestra las lineas que contienen alguna palabra acabada en "s")
-</code></pre>
-
-<p>Otros ejemplos:</p>
-
-<p>Buscar las lineas que no empiecen por #:</p>
-
-<pre><code>$ grep -v '^#' file
-</code></pre>
-
-<p>Mostrar lineas que empiecen por # y las que terminen en 0:</p>
-
-<pre><code>$ grep -E '^#|0$' file
-</code></pre>
-
-<p>Buscar lineas que tengan : seguidos de una barra que ha de escaparse:</p>
-
-<pre><code>$ grep ':\/' file
-</code></pre>
-
-<p>Buscar las lineas que tengan una &#8220;o&#8221; seguida de al menos 3 dígitos:</p>
-
-<pre><code>$ grep 'o[0-9]\{3\}' file
-</code></pre>
-
-<p>Buscar lineas que tengan algún dígito:</p>
-
-<pre><code>$ grep '[[:digit:]]' file
-</code></pre>
-
-<p>Buscar lineas que empiecen por un caracter alfabético:</p>
-
-<pre><code>$ grep '^[[:alpha:]]' file
-</code></pre>
-
-<p>Buscar lineas que tengan &#8220;ext&#8221; usando parentesis:</p>
-
-<pre><code>$ grep '\(ext\)' file
-</code></pre>
-
-<p>Buscar lineas que que tengan un número entre 2 y 9 al menos una vez y esten precedidos de espacio, tabulación o salto de linea:</p>
-
-<pre><code>$grep -E '\s[2-9]+' file
-</code></pre>
-
-<p>Mostrar lineas con entre 3 y 6 letras mayúsculas:</p>
-
-<pre><code>$ grep '[A-Z]\{3,6\}' file
-</code></pre>
-
-<p>Algunos casos comentados:</p>
+<p>Ejemplos:</p>
 
 <p>1.-</p>
 
-<blockquote><p>$ touch nada.8.sh.5</p></blockquote>
+<pre><code>#!/bin/bash
 
-<pre><code>$ ls | grep '.*.[6-8].*.[1-6]'
-</code></pre>
+    for i in $( ls ); do
 
-<p>Nota.- Cuando se usen con el comando grep han de ir siempre encerradas con comillas simples.</p>
+        echo item --&gt; $i
 
-<pre><code>.* (Cero o más caracteres. El punto inicial es imprescindible)
-
-.[6-8] (Seguidos de un punto y un número que contenga entre el 6 y el 8)
-
-.* (seguido un punto y cero o más caracteres)
-
-.[1-6] (y terminado con un punto seguido de un número que contenga del 1 al 6)
-</code></pre>
-
-<p>Nota.- Los corchetes NO indican UN número de un dígito sinó un número que contenga el margen especificado [6,7,8 para el primer corchete y 1,2,3,4,5,6 para el segundo, por tanto también listaría el archivo nada.0357.sh.389 pero no nada.0352.sh.389 porque el número 0352 no contiene ninguno del margen especificado.</p>
-
-<p>Nótese la diferencia en la expresión regular usando el comando mv [sin comillas simples y sin el punto delante del primer asterisco]:</p>
-
-<pre><code>$ mv *.[6-8].*.[1-6] prueba
+    done
 </code></pre>
 
 <p>2.-</p>
 
-<p>Buscar en el directorio scripts, todos los que sean de bash:</p>
+<pre><code>#!/bin/bash
 
-<pre><code>$ grep -i '^#.*bash' scripts/*
+for i in `seq 1 10`;
 
-    ^#.*bash (Que el primer caracter de la primera linea sea # y que despues de cero o más caracteres aparezca la palabra bash)
+do
 
-    $ grep -i '$.*bash' scripts
+    echo $i
 
-    '$.*bash' (En todos los ficheros del directorio, que al final de la primera linea y despues de cero o más caracteres apararezca la palabra bash)
+done
 </code></pre>
+
+<p>Nota.- Si los números los quisieramos en una misma linea, encerrar la variable entre comillas [&#8221;<code>seq 1 10</code>&#8221;]</p>
 
 <p>3.-</p>
 
-<p>Ver los correos electrónicos completos de una lista en la que los hay incompletos:</p>
+<pre><code>#!/bin/bash
 
-<blockquote><p>$ cat lista</p></blockquote>
+for i in 1 2 3 4 5
 
-<pre><code>juangomez@gmail.com
+do
 
-clarafuentes@
+   echo "Es el número $i "
 
-@yahoo.es
-
-ant.rodri-perez@hotmail.nadadenada
-
-pedro@blog.empresa.travel
+done
 </code></pre>
 
-<hr />
+<p>4.-</p>
 
-<pre><code>$ grep -E '^[a-zA-Z._-]+@[a-zA-Z0-9.]+\.[a-z]+$' lista
+<pre><code>#!/bin/bash
 
-    ^[a-zA-Z._-]+ (Que empiece con una palabra que pueda contener mayúsculas, minúsculas, puntos, guiones o guiones bajos)
+for i in {1..5}
 
-    @ (Seguida de una @ literal)
+do
 
-    [a-zA-Z0-9.]+ (A continuación varios caracteres que pueden ser mayúsculas, minúsculas, puntos o números)
+   echo "Es el número $i "
 
-    \. (Después un punto literal)
+done
+</code></pre>
 
-    [a-z]+$ (Para terminar, uno o varios caracteres en minúscula)
+<p>5.-</p>
 
-$ grep -E '^[a-zA-Z._-]+@.[a-zA-Z.0-9]+\.[[:alpha:]]{2,3}$' lista (Sólo mostrará las que terrminen con 2 o 3 letras)
+<p>Del 1 al 10 de 2 en 2:</p>
+
+<pre><code>#!/bin/bash
+
+for i in {1..10..2}
+
+do
+
+    echo "Es el número $i "
+
+done
 </code></pre>
 </div>
   
@@ -612,7 +665,7 @@ $ grep -E '^[a-zA-Z._-]+@.[a-zA-Z.0-9]+\.[[:alpha:]]{2,3}$' lista (Sólo mostrar
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/eterm/">Eterm</a></h1>
+      <h1 class="entry-title"><a href="/blog/flunym0us/">Flunym0us</a></h1>
     
     
       <p class="meta">
@@ -628,32 +681,34 @@ $ grep -E '^[a-zA-Z._-]+@.[a-zA-Z.0-9]+\.[[:alpha:]]{2,3}$' lista (Sólo mostrar
   
 
 
-<time datetime="2014-01-28T16:08:00+01:00" pubdate data-updated="true">28-01-2014</time>
+<time datetime="2014-01-28T16:26:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Terminal.</p>
+  <div class="entry-content"><p>Pruebas de vulnarabilidad de webs basadas en wordpress. Descarga http://code.google.com/p/flunym0us/downloads/list</p>
 
-<blockquote><p>$ Eterm -D 1 -f green -O (En el segundo escritorio [-D 1] con las fuentes en verde  [-f]  y transparente [-O]</p></blockquote>
+<blockquote><p>$ flunym0us -H http://host -w /home/usuario/wordlist -wp -t 60 -r 1 -p 2 -T 2</p></blockquote>
 
-<p>Algunas opciones:</p>
+<p>Opciones:</p>
 
-<pre><code>--buttonbar false (Sin la barra del menú)
+<pre><code>-wp (Scanear un sitio wordpress)
 
--T “titulo de la terminal” 
+-mo (scanear un sitio Moodle)
 
--b yellow (color de fondo)
+-H http://host (Nombre del host wordpress a scanear)
 
--c red (Color del cursor)
+-w /home/usuario/wordlist (Ruta al diccionario)
 
--g 50x10 (Medidas. 50 de largo por 10 de ancho)
+-t 60 (Tiempo de espera)
 
--S (Abrir en todos los escritorios)
+-r 1 (Reintentos de conexión)
 
--e comando (Cuando termine de ejecutar el comando se cierra)
+-p 2 (Numero de procesos)
+
+-T 2 (Número de subprocesos simultaneos por proceso)
 </code></pre>
 </div>
   
@@ -667,7 +722,7 @@ $ grep -E '^[a-zA-Z._-]+@.[a-zA-Z.0-9]+\.[[:alpha:]]{2,3}$' lista (Sólo mostrar
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/errno/">Errno</a></h1>
+      <h1 class="entry-title"><a href="/blog/flexget/">Flexget</a></h1>
     
     
       <p class="meta">
@@ -683,80 +738,61 @@ $ grep -E '^[a-zA-Z._-]+@.[a-zA-Z.0-9]+\.[[:alpha:]]{2,3}$' lista (Sólo mostrar
   
 
 
-<time datetime="2014-01-28T16:08:00+01:00" pubdate data-updated="true">28-01-2014</time>
+<time datetime="2014-01-28T16:26:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[moreutils]. Muestra los errores de código y sus descripciones.</p>
+  <div class="entry-content"><p>[python2.6 python-pip]. Descarga de series a partir de su direccion RSS. Archivo de configuración:</p>
 
-<blockquote><p>$ errno -l (Todo el listado)</p>
+<blockquote><p>$ nano .flexget/config.yml</p></blockquote>
 
-<p>$ errno -s desconocido (Busca del listado el que contenga la descripción &#8220;desconocido&#8221;)</p></blockquote>
-</div>
-  
-  
+<p>Con un contenido parecido a:</p>
 
+<pre><code>presets:
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/egrep/">Egrep</a></h1>
-    
-    
-      <p class="meta">
-        
+  tv:
 
+    series:
 
+      settings:
 
+    hdtv:
 
+      timeframe: 8 hours
 
+      hdtv &lt;720p:
 
+    - serie 1
 
+    - serie 2
 
-  
+    - serie 3
 
+    - etc
 
-<time datetime="2014-01-28T16:08:00+01:00" pubdate data-updated="true">28-01-2014</time>
-        
-      </p>
-    
-  </header>
+    content_filter:
 
+      require:
 
-  <div class="entry-content"><p>[extended grep]. Busca expresiones regulares.</p>
+    - '*.avi'
 
-<pre><code>$ egrep -v '^$|^#' archivo (suprimir lineas en blanco y comentadas)
+    download: "/media/discoext/Descargas/Torrents"
 
-$ egrep -c '^#' /etc/fstab (Muestra el número de lineas comentadas)
+tasks:
+
+  TvTorrent1:
+
+    rss: http://showrss.karmorra.info/feeds/all.rss
+
+    preset: tv
 </code></pre>
 
-<blockquote><p>$ egrep -in &#8220;palabra&#8221; *.txt (busca “palabra” en todos los .txt del directorio)</p>
+<blockquote><p>$ flexget &#8211;test (Comprobar si la configuración es correcta)</p>
 
-<p>$ egrep &#8216;UUID|proc&#8217; /etc/fstab (Muestra las lineas con las coincidencias)</p>
-
-<p>$ egrep &#8211;color &#8216;(vmx|svm)&#8217; /proc/cpuinfo (Averiguar si el equipo  admite la virtualización por hardware. Si el comando no devuelve nada es porque no lo soporta)</p></blockquote>
-
-<p>Otras opciones:</p>
-
-<pre><code>-h  Muestra las líneas coincidentes pero no los nombres de archivo. 
-
--i  Ignora los cambios mayúsculas y minúsculas. 
-
--n  Muestra la línea y el número de línea. 
-
--r  Lee en todos los archivos de los directorios y subdirectorios. 
-
--v  Muestra todas las lineas que no coinciden. 
-
--w      Sólo coincidencia en palabras completas. 
-</code></pre>
+<p>$ flexget (Lanzar la aplicación)</p></blockquote>
 </div>
   
   
@@ -785,43 +821,43 @@ $ egrep -c '^#' /etc/fstab (Muestra el número de lineas comentadas)
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/figlet/">figlet</a>
+        <a href="/blog/gedit/">gedit</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fgrep/">fgrep</a>
+        <a href="/blog/gconftool-2/">gconftool-2</a>
       </li>
     
       <li class="post">
-        <a href="/blog/festival/">festival</a>
+        <a href="/blog/ftff/">ftff</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fbgs/">fbgs</a>
+        <a href="/blog/fstab/">fstab</a>
       </li>
     
       <li class="post">
-        <a href="/blog/faillog/">faillog</a>
+        <a href="/blog/fsck/">fsck</a>
       </li>
     
       <li class="post">
-        <a href="/blog/extundelete/">extundelete</a>
+        <a href="/blog/freeradius/">freeradius</a>
       </li>
     
       <li class="post">
-        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
+        <a href="/blog/foremost/">foremost</a>
       </li>
     
       <li class="post">
-        <a href="/blog/eterm/">eterm</a>
+        <a href="/blog/for/">for</a>
       </li>
     
       <li class="post">
-        <a href="/blog/errno/">errno</a>
+        <a href="/blog/flunym0us/">flunym0us</a>
       </li>
     
       <li class="post">
-        <a href="/blog/egrep/">egrep</a>
+        <a href="/blog/flexget/">flexget</a>
       </li>
     
   </ul>

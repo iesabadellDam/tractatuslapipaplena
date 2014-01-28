@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Apagar el ordenador.
-">
+  <meta name="description" content="filtrar datos que se utilizan en la navegación web (cookies, encabezados&#8230;). Es importante usarlo con Tor ya que a veces el navegador ejecuta &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/poweroff/">Poweroff</a></h1>
+      <h1 class="entry-title"><a href="/blog/privoxy/">Privoxy</a></h1>
     
     
       <p class="meta">
@@ -104,7 +103,15 @@
   </header>
 
 
-  <div class="entry-content"><p>Apagar el ordenador.</p>
+  <div class="entry-content"><p>filtrar datos que se utilizan en la navegación web (cookies, encabezados&#8230;). Es importante usarlo con Tor ya que a veces el navegador ejecuta por sí mismo las resoluciones DNS y las agrega a las cabeceras de la petición http.</p>
+
+<blockquote><p># nano /etc/privoxy/config</p></blockquote>
+
+<p>Añadir la linea:</p>
+
+<p>forward-socks5 / 127.0.0.1:5060 .</p>
+
+<p>Nota.- No olvidar el punto final.</p>
 </div>
   
   
@@ -117,7 +124,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/postgres/">Postgres</a></h1>
+      <h1 class="entry-title"><a href="/blog/prips/">Prips</a></h1>
     
     
       <p class="meta">
@@ -140,109 +147,11 @@
   </header>
 
 
-  <div class="entry-content"><p>[postgresql php5-pgsql]</p>
+  <div class="entry-content"><p>imprimir las direcciones IP de un rango determinado.</p>
 
-<p>Gestión de base de datos. En caso de querer aceptar conexiones externas:</p>
+<blockquote><p>$ prips 192.168.1.0/24</p>
 
-<blockquote><p># nano /etc/postgresql/9.1/main/postgresql.conf</p></blockquote>
-
-<p>Substituir la linea:</p>
-
-<pre><code>listen_addresses = 'localhost'
-</code></pre>
-
-<p>por:</p>
-
-<pre><code>listen_addresses = '*'
-</code></pre>
-
-<p>1.-</p>
-
-<p>Pasos previos para la creación del usuario y la base de datos:</p>
-
-<pre><code>$ sudo -s
-
-# su postgres (Cambiar a la cuenta del usuario por defecto)
-
-$ createuser NOMBRE_DEL_USUARIO (Crear un usuario. Pregunta si con privilegios o sin [Shall the new role be a superuser? (y/n)])
-
-$ createdb NOMBRE_BASE_DE_DATOS -E utf8 -O NOMBRE_DEL_USUARIO (Crear una base de datos especificando propietario y codificación)
-
-$ psql
-
-postgres=# alter user NOMBRE_DEL_USUARIO with passwrd 'LA_CONTRASEÑA'; (Establecer contraseña de un usuario)
-</code></pre>
-
-<p>2.-</p>
-
-<p>Para crear un usuario que sea el mismo que el sistema operativo y con privilegios de administrador:</p>
-
-<pre><code>$ sudo -u postgres createuser --superuser $USER
-
-$ sudo -u postgres psql
-
-$ postgres=# \password USUARIO
-</code></pre>
-
-<p>3.-</p>
-
-<p>Creación de un base de datos [la llamaremos &#8220;misdatos&#8221;]:</p>
-
-<pre><code>$ createdb misdatos (Si se ha creado el mismo usuario que el sistema operativo)
-
-$ sudo -u postgres createdb misdatos (En caso de sólo existir el usuario por defecto [postgres])
-
-$ createdb (Crea una base de datos con el mismo nombre que el usuario)
-
-$ createdb misdatos (Crea una base de datos con un nombre concreto)
-
-$ dropdb misdatos (Eliminar una base de datos)
-</code></pre>
-
-<p>4.-</p>
-
-<p>Acceso a una base de datos:</p>
-
-<pre><code>$ sudo -u usuario psql base_de_datos (Cuando el usuario no es el mismo del sistema)
-
-$ psql misdatos (Entrar en el prompt de la base de datos especificada)
-
-misdatos=# (Prompt de la base de datos de administrador)
-
-misdatos=&gt; (Prompt de la base de datos sin privilegios)
-</code></pre>
-
-<p>5.-</p>
-
-<p>Creación de una tabla (igual que para mysql [ver]):</p>
-
-<pre><code>CREATE TABLE usuario(
-
-nombre VARCHAR(20), apellido VARCHAR(20),
-
-profesión VARCHAR(20), sexo CHAR(1), nacimiento DATE,
-
-antiguedad DATE);
-</code></pre>
-
-<p>misdatos=# DROP TABLE nombre_de_la_tabla; (Borrar una tabla)</p>
-
-<p>misdatos=# INSERT INTO usuario VALUES (&#8216;juan antonio&#8217;, &#8216;gomez&#8217;, &#8216;admin&#8217;, &#8216;h&#8217;, &#8216;1985-10-06&#8217;, &#8216;2008-03-11&#8217;); (Entrar datos en el mismo orden en el que se ha creado la tabla)</p>
-
-<p>misdatos=# SELECT * FROM usuario; (Ver el contenido de una tabla)</p>
-
-<p>misdatos=# SELECT nombre FROM usuario; (Seleccionar una columna de una tabla)</p>
-
-<p>misdatos=# SELECT * FROM usuario ORDER BY nombre; (Mostrar una tabla ordenado segun una columna)</p>
-
-<p>Las metaordenes de psql son un conjunto de órdenes internas, no propiamente órdenes SQL. Todas empiezan con la barra invertida [].</p>
-
-<pre><code>\h (Muestra la ayuda. Pulsando "q" salimos de la ayuda)
-
-\? (Ver todas las ordenes internas)
-
-\q (Salir de psql)
-</code></pre>
+<p>$ prips -i 4 192.168.1.5 192.168.1.150  (solo una de cada cuatro)</p></blockquote>
 </div>
   
   
@@ -255,7 +164,7 @@ antiguedad DATE);
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/popularity-contest/">Popularity-contest</a></h1>
+      <h1 class="entry-title"><a href="/blog/printf/">Printf</a></h1>
     
     
       <p class="meta">
@@ -278,9 +187,37 @@ antiguedad DATE);
   </header>
 
 
-  <div class="entry-content"><p>Informa a Debian de los paquetes más populares. Normalmente esta aplicación es lanzada por cron (/etc/cron.daily/popularity-contest). El archivo de configuración se encuentra en /etc/popularity-contest.conf. Si queremos ver el listado de lo que manda a Debian:</p>
+  <div class="entry-content"><p>Escribe y formatea datos</p>
 
-<blockquote><p># popularity-contest > listado</p></blockquote>
+<blockquote><p>$ printf &#8220;%50s\n&#8221; | tr &#8217; &#8217; -  (Generar una linea discontinua)</p>
+
+<p>$ printf &#8220;%s\n&#8221; ${PATH//:/\/* }  (listar aplicaciones y comandos del PATH)</p>
+
+<p>$ printf &#8220;%s\n&#8221; .*  (listar archivos y directorios ocultos de la carpeta actual)</p>
+
+<p>$ printf &#8220;\e[8;10;100;t&#8221; (Cambiar la medida de la  terminal)</p>
+
+<p>$ printf &#8220;%s\t &#8211;> %s\n&#8221; &#8220;$A&#8221; &#8220;$B&#8221; (Dos variables en columnas tabuladas)</p>
+
+<p>$ printf &#8220;%s\n&#8221; Escribir cada palabra en una &#8220;nueva linea&#8221; (Pues eso, excepto las dos últimas entrecomilladas)</p>
+
+<p>$ printf &#8220;%06d\n&#8221; &#8220;$RANDOM&#8221; &#8220;$RANDOM&#8221; &#8220;$RANDOM&#8221; &#8220;$RANDOM&#8221; (Iguala las cuatro salidas de $RANDOM a 6 cifras con ceros delante[%06d])</p>
+
+<p>$ printf &#8220;%-10s %-10s %s\n&#8221;, $1, $2, $3 (3 variables justificadas a la izquierda, las dos primeras con 10 caracteres)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<p>%c (Imprime el primer carácter de una variable cadena)</p>
+
+<p>%d (Imprime un número decimal)</p>
+
+<p>%s (Cadena)</p>
+
+<p>%b (Interpreta las secuencias de escape del argumento cadena)</p>
+
+<p>%q (Escribe el argumento cadena de forma que pueda ser usado como entrada a otro comando)</p>
+
+<p>%% (Escribe % literal)</p>
 </div>
   
   
@@ -293,7 +230,7 @@ antiguedad DATE);
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/popd/">Popd</a></h1>
+      <h1 class="entry-title"><a href="/blog/printenv/">Printenv</a></h1>
     
     
       <p class="meta">
@@ -316,7 +253,11 @@ antiguedad DATE);
   </header>
 
 
-  <div class="entry-content"><p>Ver pushd.</p>
+  <div class="entry-content"><p>Para saber los valores de todas las variables de entorno predefinidas por  la shell (TERM, SHELL, PWD, LC_ALL, USER, USERNAME, HOME, LOGNAME, BROWSER, DISPLAY&#8230;).</p>
+
+<blockquote><p>$ echo $SHELL (Ver el valor de una variable)</p>
+
+<p>$ export SHELL=/bin/sh (Modificar el valor de una variable sólo en la presente sesión. Para hacer el cambio permanente colocar la linea en .bashrc)</p></blockquote>
 </div>
   
   
@@ -329,7 +270,7 @@ antiguedad DATE);
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pom/">Pom</a></h1>
+      <h1 class="entry-title"><a href="/blog/primes/">Primes</a></h1>
     
     
       <p class="meta">
@@ -352,9 +293,11 @@ antiguedad DATE);
   </header>
 
 
-  <div class="entry-content"><p>Informa de las fases de la luna.</p>
+  <div class="entry-content"><p>Generar números primos.</p>
 
-<blockquote><p>$ pom</p></blockquote>
+<blockquote><p>$ primes 1 100 (del 1 al 100)</p>
+
+<p>$ primes 100 150 (del 100 al 150)</p></blockquote>
 </div>
   
   
@@ -367,7 +310,7 @@ antiguedad DATE);
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pngquant/">Pngquant</a></h1>
+      <h1 class="entry-title"><a href="/blog/preload/">Preload</a></h1>
     
     
       <p class="meta">
@@ -390,9 +333,7 @@ antiguedad DATE);
   </header>
 
 
-  <div class="entry-content"><p>Optimizacion de imagenes .png. Comprime reduciendo el número de colores disponible. El tamaño del archivo resultante es mucho menor, pero hay una perdida de calidad.</p>
-
-<blockquote><p>$ pngquant 256 imagen.png</p></blockquote>
+  <div class="entry-content"><p>Demonio que se encarga de recoger información de las aplicaciones más usadas para que en el siguiente inicio estos estén cargados en memoria acelerando el tiempo de arranque de los mismos.</p>
 </div>
   
   
@@ -405,7 +346,7 @@ antiguedad DATE);
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pngphoon/">Pngphoon</a></h1>
+      <h1 class="entry-title"><a href="/blog/prelink/">Prelink</a></h1>
     
     
       <p class="meta">
@@ -428,11 +369,21 @@ antiguedad DATE);
   </header>
 
 
-  <div class="entry-content"><p>Crea una imagen png de la fase actual de la luna.</p>
+  <div class="entry-content"><p>Preenlazar binarios y bibliotecas ELF compartidas para acelerar su tiempo de inicio. Precisa lanzar prelink despues de cada nueva instalación de paquetes o configurarlo en el cron.</p>
 
-<blockquote><p>$ pngphoon -h 1060px -w 1060px -f lluna.png -s 50 (Los parámetros h [altura de la imagen], w [anchura] y f [archivo de salida] son obligatorios. &#8220;s&#8221; es la densidad de puntos)</p>
+<blockquote><p># prelink -amR (Para equipos x86)</p>
 
-<p>$ pngphoon -h 1060px -w 1060px -f lluna.png -b (En negro la superficie de la luna no iluminada)</p></blockquote>
+<p># prelink -aR (Para equipos x86_64)</p></blockquote>
+
+<p>Modificar las opciones de prelink:</p>
+
+<blockquote><p># nano /etc/default/prelink</p></blockquote>
+
+<p>Y modificamos la línea que pone: PRELINKING=unknown por:</p>
+
+<p>PRELINKING=yes</p>
+
+<blockquote><p># prelink -au (Devolver el sistema a su punto de partida)</p></blockquote>
 </div>
   
   
@@ -445,7 +396,7 @@ antiguedad DATE);
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pngnq/">Pngnq</a></h1>
+      <h1 class="entry-title"><a href="/blog/pr/">Pr</a></h1>
     
     
       <p class="meta">
@@ -468,13 +419,9 @@ antiguedad DATE);
   </header>
 
 
-  <div class="entry-content"><p>Optimizacion de imagenes .png. Comprime reduciendo el número de colores disponible. El tamaño del archivo resultante es mucho menor, pero hay perdida de calidad.</p>
+  <div class="entry-content"><p>Muestra en pantalla un archivo de texto en modo “Previsualización de impresión”</p>
 
-<blockquote><p>$ pngnq imagen.png (No sobreescribe la imagen. Añade al nombre una extension para distinguirla [-nq8])</p>
-
-<p>$ pngnq -n 256 imagen.png (Pasando de ARGB de 32 bits por píxel a formato de paleta de 256 colores, con 8 bits por píxel)</p>
-
-<p>$ pngnq -n 64 imagen.png (Indicando numero de colores)</p></blockquote>
+<blockquote><p>$ pr fichero.txt</p></blockquote>
 </div>
   
   
@@ -487,7 +434,7 @@ antiguedad DATE);
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pngcrush/">Pngcrush</a></h1>
+      <h1 class="entry-title"><a href="/blog/ppt/">Ppt</a></h1>
     
     
       <p class="meta">
@@ -510,13 +457,9 @@ antiguedad DATE);
   </header>
 
 
-  <div class="entry-content"><p>Optimizar imagenes png.</p>
+  <div class="entry-content"><p>Formatea un texto a cintas de papel.</p>
 
-<blockquote><p>$ pngcrush imagen.png nueva_imagen.png (Uso basico)</p>
-
-<p>$ pngcrush -rem allb -brute -reduce original.png modificada.png (Quitando información adicional [-rem allb], utilizando método de fuerza bruta que prueba 114 filtros y métodos compresión y selecciona el que mejor comprima la imagen [-brute] y reduciendo el tamaño de la imagen [-reduce])</p>
-
-<p>$ optipng -o7 *.png (Todos las imagenes del directorio a su nivel mas alto posible)</p></blockquote>
+<blockquote><p>$ ppt linux es un sistema genial</p></blockquote>
 </div>
   
   
@@ -529,7 +472,7 @@ antiguedad DATE);
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/png2html/">Png2html</a></h1>
+      <h1 class="entry-title"><a href="/blog/powertop/">Powertop</a></h1>
     
     
       <p class="meta">
@@ -552,17 +495,7 @@ antiguedad DATE);
   </header>
 
 
-  <div class="entry-content"><p>Convertir imagenes png a html. Dado que la conversión asume 1 pixel por cada caracter, las imagenes resultantes se ven alargadas. Para una visualización más decente han de achatarse. A modo de ejemplo una imagen de 115x115 no se ha visualizado correctamente hasta 155x115.</p>
-
-<blockquote><p>$ png2html imagen.png texto.txt salida.html 1</p></blockquote>
-
-<p>El archivo texto.txt contiene una palabra, frase o párrafo con el que se confeccionará la imagen. El último número indica:</p>
-
-<p>0 = fuente pequeña incompatible en algunos navegadores.</p>
-
-<p>1 = fuente mediana.</p>
-
-<p>2 = fuente grande.</p>
+  <div class="entry-content"><p>visualiza las aplicaciones que más energía consumen. Abre varias pestañas a las que se accede con las teclas del cursor.</p>
 </div>
   
   
@@ -593,43 +526,43 @@ antiguedad DATE);
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/figlet/">figlet</a>
+        <a href="/blog/gedit/">gedit</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fgrep/">fgrep</a>
+        <a href="/blog/gconftool-2/">gconftool-2</a>
       </li>
     
       <li class="post">
-        <a href="/blog/festival/">festival</a>
+        <a href="/blog/ftff/">ftff</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fbgs/">fbgs</a>
+        <a href="/blog/fstab/">fstab</a>
       </li>
     
       <li class="post">
-        <a href="/blog/faillog/">faillog</a>
+        <a href="/blog/fsck/">fsck</a>
       </li>
     
       <li class="post">
-        <a href="/blog/extundelete/">extundelete</a>
+        <a href="/blog/freeradius/">freeradius</a>
       </li>
     
       <li class="post">
-        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
+        <a href="/blog/foremost/">foremost</a>
       </li>
     
       <li class="post">
-        <a href="/blog/eterm/">eterm</a>
+        <a href="/blog/for/">for</a>
       </li>
     
       <li class="post">
-        <a href="/blog/errno/">errno</a>
+        <a href="/blog/flunym0us/">flunym0us</a>
       </li>
     
       <li class="post">
-        <a href="/blog/egrep/">egrep</a>
+        <a href="/blog/flexget/">flexget</a>
       </li>
     
   </ul>

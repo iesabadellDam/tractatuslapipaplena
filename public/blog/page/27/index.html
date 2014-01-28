@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Conexión remota. En el Servidor: # tightvncserver -depth 16 -geometry 640x480 En el Cliente: $ xtightvncviewer Nota.- Sale una caja de texto donde &hellip;">
+  <meta name="description" content="Encriptar directorios. Por seguridad ha de desactivarse la partición swap (intercambio) antes de crear la tumba o al acceder a ella a menos que &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/tightvncserver/">Tightvncserver</a></h1>
+      <h1 class="entry-title"><a href="/blog/tomb/">Tomb</a></h1>
     
     
       <p class="meta">
@@ -103,17 +103,21 @@
   </header>
 
 
-  <div class="entry-content"><p>Conexión remota.</p>
+  <div class="entry-content"><p>Encriptar directorios. Por seguridad ha de desactivarse la partición swap (intercambio) antes de crear la tumba o al acceder a ella a menos que tengamos la swap encriptada.</p>
 
-<p>En el Servidor:</p>
+<blockquote><p># swapoff -a (“swapon” para activarla nuevamente)</p></blockquote>
 
-<blockquote><p># tightvncserver -depth 16 -geometry 640x480</p></blockquote>
+<p>En algunas distros es necesario activar el demonio:</p>
 
-<p>En el Cliente:</p>
+<blockquote><p># /etc/init.d/cryptdisks start</p>
 
-<blockquote><p>$ xtightvncviewer</p></blockquote>
+<p># tomb create -s 1024 &#8211;ignore-swap cripta (Crear el directorio encriptado .tomb y el de la clave .key, especificando medida. Pedirá contraseña y confirmación. )</p>
 
-<p>Nota.- Sale una caja de texto donde entrar la ip o nombre del host y otra para ingresar la clave.</p>
+<p># tomb-open cripta.tomb (Abrir el directorio encriptado cuando .tomb y .key estan en el mismo directorio. Lo montará en /media/tumba.tomb)</p>
+
+<p># tomb -k /root/cripta.tomb.key open cripta.tomb (Montar el directorio encriptado cuando .key está en otro directorio [/root]</p>
+
+<p># tomb close cripta (Cerrar el directorio. En realidad desmontarlo)</p></blockquote>
 </div>
   
   
@@ -126,7 +130,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/tiger/">Tiger</a></h1>
+      <h1 class="entry-title"><a href="/blog/toilet/">Toilet</a></h1>
     
     
       <p class="meta">
@@ -149,11 +153,25 @@
   </header>
 
 
-  <div class="entry-content"><p>Chequear vulnerabilidades del sistema. Informe en /var/log/tiger</p>
+  <div class="entry-content"><p>Edición de banners</p>
 
-<blockquote><p># tiger  (Sin parámetros, escanea todo el sistema)</p>
+<blockquote><p>$ toilet -f future -F gay texto</p>
 
-<p># tiger -H -l /home/user/logs (crear un html con los resultados y guardarlo en el directorio “logs”)</p></blockquote>
+<p>$ toilet -t -f smblock -F metal -E html texto</p></blockquote>
+
+<p>Opciones</p>
+
+<p>-f bigmono12 (Otras fuentes: bigmono9, circle, emboss, emboss2, future, mono12, mono9, smblock, smbraille, smmono12, smmono9)</p>
+
+<p>-F gay (filtro &#8220;gay&#8221; o &#8220;metal&#8221;)</p>
+
+<p>-E html (Saca en formato en html para su inclusión en una web)</p>
+
+<p>-t (se adapta al ancho de la terminal)</p>
+
+<p>-S (letras más juntas. Por defecto es -s)</p>
+
+<p>-o (más juntas)</p>
 </div>
   
   
@@ -166,7 +184,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/tidy/">Tidy</a></h1>
+      <h1 class="entry-title"><a href="/blog/tmuxinator/">Tmuxinator</a></h1>
     
     
       <p class="meta">
@@ -189,17 +207,41 @@
   </header>
 
 
-  <div class="entry-content"><p>Validación y corrección de archivos html</p>
+  <div class="entry-content"><p>gema de ruby que permite definir pestañas, páneles y comandos que correrán en cada uno de los paneles de una sesión tmux. Cada proyecto guarda su configuración en un archivo .yml en el directorio ~/.tmuxinator. En el archivo .bashrc ha de constar la variable $EDITOR [export EDITOR=/usr/bin/vim, nano o el que sea]</p>
 
-<blockquote><p>$ tidy fichero.html  (Analiza el código del fichero)</p>
+<pre><code>$ tmuxinator new proyecto1 (Crear un proyecto)
 
-<p>$ tidy -m fichero.html  (Corrige,modificándolo, el código del fichero)</p>
+$ tmuxinator proyecto1 (Abrir un proyecto)
 
-<p>$ tidy -m -asxml fichero.html  (Convierte un html a xml)</p>
+$ tmuxinator open proyecto1 (Editar un proyecto)
 
-<p>$ tidy -m -asxhtml fichero.html ( Convierte un html a xhtml )</p>
+$ tmuxinator list (Listar todos los proyectos)
 
-<p>$ tidy -m -ashtml fichero.xhtml  ( Convierte un xhtml a html)</p></blockquote>
+$ tmuxinator delete proyecto1 (Suprimir un proyecto)
+
+$ tmuxinator doctor (Ver problemas en la configuración)
+
+$ tmuxinator implode (Suprimir todos los proyectos)
+</code></pre>
+
+<p>Muestra de un archivo.yml:</p>
+
+<pre><code>name: proyecto1
+
+root: ~/
+
+    windows:
+
+            - editor:
+
+            layout: main-vertical
+
+            panes:
+
+                - top
+
+                - who; pwd
+</code></pre>
 </div>
   
   
@@ -212,7 +254,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/thunar/">Thunar</a></h1>
+      <h1 class="entry-title"><a href="/blog/tmux/">Tmux</a></h1>
     
     
       <p class="meta">
@@ -235,53 +277,135 @@
   </header>
 
 
-  <div class="entry-content"><p>Escritorio.</p>
+  <div class="entry-content"><p>Terminal multiplexor</p>
 
-<blockquote><p>$ thunar -B (Con varios ficheros seleccionados, al pulsar F2 se abre la ventana para renombrarlos)</p>
+<blockquote><p>$ tmux (Lanzar la aplicación)</p>
 
-<p>$ thunar-volman-settings (Abre el gestor de medios extraíbles)</p></blockquote>
+<p>$ tmux ls (Listar las sesiones tmux abiertas)</p>
+
+<p>$ tmux attach -t 0 (Sincronizarse con la sesión 0 [attach] en local o en remoto via ssh)</p>
+
+<p>$ tmux rename-session -t 0 tty1 (Renombrar la sesion 0 a tty1)</p>
+
+<p>$ tmux kill-window -t 2 (Matar la sesión tmux número 2)</p>
+
+<p>$ tmux new-session -s hack_wifi (Abrir sesión con un nombre)</p>
+
+<p>$ tmux list-commands (Listar la sintaxis de todos los comandos soportados)</p>
+
+<p>$ tmux list-keys (Listado de todas las teclas de control)</p>
+
+<p>$ tmux new-session -d &#8216;vi /etc/apt/sources.list&#8217; \; split-window -d &#8216;newsbeuter&#8217; \; attach (Arrancar una sesión tmux con el sources.list en el panel superior y con el lector RSS newsbeuter en el inferior)</p>
+
+<p>$ tmux new-session \; split-window \; split-window -h \; split-window -v \; attach (Arrancar la aplicación con varios panels horizontales y verticales)</p></blockquote>
+
+<p>Un completo tutorial en: <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=tmux&amp;sektion=1">http://www.openbsd.org/cgi-bin/man.cgi?query=tmux&amp;sektion=1</a></p>
+
+<p>Atajos:</p>
+
+<pre><code>Ctrl+b c (Crear una nueva ventana)
+
+Ctrl+b d (Salir de tmux actual (detach) sin cerrar sesión)
+
+Ctrl+b n (Ir a la ventana siguiente)
+
+Ctrl+b p (Ir a la ventana anterior)
+
+Ctrl+b &amp; (Matar la ventana actual, incluye todos los paneles)
+
+Ctrl+b x (Matar panel actual)
+
+Ctrl+b , (cambiar el nombre de la ventana actual )
+
+Ctrl+b % (Dividir verticalmente la ventana actual en dos paneles)
+
+Ctrl+b " (Dividir horizontalmente la ventana actual en dos paneles)
+
+Ctrl+b q (Mostrar brevemente los números de cada panel)
+
+Ctrl+b o (Cambiar al siguiente panel)
+
+Ctrl+b ? (Lista todas las combinaciones de teclas de control)
+
+Ctrl+b w (Lista todas las ventanas)
+
+Ctrl+b núm (Moverse a la ventana seleccionada (0-9). No al panel)
+
+Ctrl+b up (Ir al panel de encima)
+
+Ctrl+b down (Ir al panel de abajo)
+
+Ctrl+b left (Ir al panel de la izquierda)
+
+Ctrl+b right (Ir al panel de la derecha)
+
+Ctrl+b t (Muestra en el panel un reloj digital)
+
+Ctrl+b s (Elegir sesión)
+
+Ctrl+b [ (Entra en modo scroll con la teclas del cursor. Termina pulsando q)
+</code></pre>
 
 <p>1.-</p>
 
-<p>Modificar el tema de iconos por defecto:</p>
+<p>Muestra para colorear los paneles:</p>
 
-<p>Descomprimir la carpeta de iconos y moverla:</p>
+<p>Crear en el directorio personal el archivo oculto:</p>
 
-<blockquote><p># mv GartoonRedux /usr/share/icons</p></blockquote>
+<blockquote><p>$ touch .tmux.conf</p></blockquote>
 
-<p>Editar o crear el archivo:</p>
+<p>Con el siguiente contenido [modificar al gusto]</p>
 
-<blockquote><p>$ nano .gtkrc-2.0</p></blockquote>
+<pre><code># default statusbar colors
 
-<p>Y modificar o añadir la linea:</p>
+set -g status-fg colour136
 
-<p>gtk-icon-theme-name = &#8220;GartoonRedux&#8221;</p>
+set -g status-bg colour235
 
-<p>Al abrir nuevamente thunar, se muestran los cambios.</p>
+set -g status-attr default
 
-<p>2.-</p>
+# default window title colors
 
-<p>Para habilitar el automontado de dispositivos, además de configurarlo en las propiedades, en algunas distros se precisan los paquetes gvfs gvfs-afc</p>
+setw -g window-status-fg colour244
 
-<p>3.-</p>
+setw -g window-status-bg default
 
-<p>Para incluir en el menú contextual la opción &#8220;Abrir como root&#8221;, en &#8220;editar/Configurar acciones personalizadas&#8221;, &#8220;añadir&#8221; [+] y en la pestaña &#8220;Basico&#8221; colocar en el cuadro de diálogo:</p>
+setw -g window-status-attr dim
 
-<pre><code>nombre: Abrir directorio como root
+# active window title colors
 
-descripcion: Abrir directorio con privilegios de root
+setw -g window-status-current-fg colour166
 
-comando: gksu thunar %f
+setw -g window-status-current-bg default
 
-icono: opcional 
+#setw -g window-status-current-attr bright
+
+setw -g window-status-current-attr underscore
+
+# panel border
+
+set-option -g pane-border-fg white #base02
+
+set-option -g pane-active-border-fg colour46 #base01
+
+# command/message line colors
+
+set -g message-fg white
+
+set -g message-bg black
+
+set -g message-attr bright
+
+# pane number display
+
+set-option -g display-panes-active-colour colour33 #blue
+
+set-option -g display-panes-colour colour166 #orange
+
+# clock
+
+set-window-option -g clock-mode-colour colour64 #green
 </code></pre>
-
-<p>Y en la pestaña &#8220;condiciones generales&#8221;:</p>
-
-<pre><code>Patrón de archivos: *
-
-Aparece si la selección contiene:  Macamos la casilla de directorio y la de archivo 
-</code></pre>
 </div>
   
   
@@ -294,7 +418,7 @@ Aparece si la selección contiene:  Macamos la casilla de directorio y la de arc
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/testdisk/">Testdisk</a></h1>
+      <h1 class="entry-title"><a href="/blog/tmpfs/">Tmpfs</a></h1>
     
     
       <p class="meta">
@@ -317,9 +441,13 @@ Aparece si la selección contiene:  Macamos la casilla de directorio y la de arc
   </header>
 
 
-  <div class="entry-content"><p>Escaneo y reparación de particiones.</p>
+  <div class="entry-content"><p>Permite asignar parte de la memoria física para ser utilizada como una partición lo que permite una vez montada, leer o escribir archivos de la RAM como si de una partición de disco se tratara. Dado que se está escribiendo en la memoria RAM del sistema, esta se borra en un reinicio o en un cuelgue. Relacionado con ramfs [ver], se diferencia de este en que tmpfs usa swap y que no permite escribir más que el tamaño que se ha especificado en el montaje. El proceso:</p>
 
-<blockquote><p>$ testdisk /list (Muestra todas las particiones incluso las no montadas)</p></blockquote>
+<blockquote><p># mkdir /media/tmp</p>
+
+<p># mount -t tmpfs -o size=20m tmpfs /media/tmp</p></blockquote>
+
+<p>Comprobar con df -k [ver] o mount [ver] su correcto montaje</p>
 </div>
   
   
@@ -332,7 +460,7 @@ Aparece si la selección contiene:  Macamos la casilla de directorio y la de arc
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/termsaver/">Termsaver</a></h1>
+      <h1 class="entry-title"><a href="/blog/tload/">Tload</a></h1>
     
     
       <p class="meta">
@@ -355,30 +483,9 @@ Aparece si la selección contiene:  Macamos la casilla de directorio y la de arc
   </header>
 
 
-  <div class="entry-content"><p>Salvapantallas para la terminal.</p>
+  <div class="entry-content"><p>Muestra el promedio de carga en el terminal en forma de dibujos de caracteres.</p>
 
-<blockquote><p>$ termsaver quotes4all (Irá mostrando citas extraidas de quotes4all.net)</p></blockquote>
-
-<p>Otras opciones:</p>
-
-<pre><code>asciiartfarts (Imagenes en ascii)
-
-clock (Un reloj digital)
-
-dot (Un punto)
-
-rfc (Contenido RTC [conjunto de documentos que sirven de referencia para la comunidad de Internet])
-
-matrix (Código matrix)
-</code></pre>
-
-<blockquote><p>$ termsaver programmer &#8211;help (Muestra ejemplos de como usar la opción indicada)</p>
-
-<p>$ termsaver randtxt &#8211;word linux_es_un_sistema_genial &#8211;delay 1 (Mostrará la frase cada segundo en un lugar distinto de la pantalla)</p>
-
-<p>$ termsaver urlfetcher -u lapipaplena.org (Mostrará el código de la página indicada)</p>
-
-<p>$ termsaver programmer -p script.sh (Mostrará el código indicado linea a linea)</p></blockquote>
+<blockquote><p>$ tload -d 2 (Con actualizacion cada 2 segundos)</p></blockquote>
 </div>
   
   
@@ -391,7 +498,7 @@ matrix (Código matrix)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/termite/">Termite</a></h1>
+      <h1 class="entry-title"><a href="/blog/timidity/">Timidity</a></h1>
     
     
       <p class="meta">
@@ -414,11 +521,11 @@ matrix (Código matrix)
   </header>
 
 
-  <div class="entry-content"><p>Emulador de terminal.</p>
+  <div class="entry-content"><p>Convertir formatos de audio de midi a wav  o a ogg</p>
 
-<blockquote><p>$ termite &#8211;geometry=900x150 (Especificando medidas)</p>
+<blockquote><p>$ timidity -Ow -s 44100 -o output.wav input.mid  (MIDI -> WAV)</p>
 
-<p>$ termite -e htop (Ejecutar una aplicación)</p></blockquote>
+<p>$ timidity -Og -s 44100 -o output.ogg input.mid  ( MIDI -> OGG)</p></blockquote>
 </div>
   
   
@@ -431,7 +538,7 @@ matrix (Código matrix)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/terminator/">Terminator</a></h1>
+      <h1 class="entry-title"><a href="/blog/times/">Times</a></h1>
     
     
       <p class="meta">
@@ -454,27 +561,7 @@ matrix (Código matrix)
   </header>
 
 
-  <div class="entry-content"><p>Terminal que puede dividirse horizontalmente y verticalmente.</p>
-
-<blockquote><p>$ terminal -T linux –giometry 1150x250 (Especificando un titulo y medidas)</p></blockquote>
-
-<p>Algunos atajos:</p>
-
-<p>Ctrl + Mayus + o (División horizontal)</p>
-
-<p>Ctrl + Mayus + e (División vertical)</p>
-
-<p>Ctrl + Mayus + w (Cerrar ventana)</p>
-
-<p>Ctrl + Mayus + cursores (Redimensionar ventana)</p>
-
-<p>Alt + cursores (Moverse por las ventanas)</p>
-
-<p>Ctrl + Mayus + t (Abrir nueva pestaña)</p>
-
-<p>Ctrl + RePag / AvPag (Moverse entre pestañas)</p>
-
-<p>Ctrl + Mayus + q (Cerrar terminator)</p>
+  <div class="entry-content"><p>Muestra los tiempos de usuario y sistema acumulados para procesos ejecutados desde el interprete de comandos</p>
 </div>
   
   
@@ -487,7 +574,7 @@ matrix (Código matrix)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/terminal/">Terminal</a></h1>
+      <h1 class="entry-title"><a href="/blog/timeout/">Timeout</a></h1>
     
     
       <p class="meta">
@@ -510,9 +597,9 @@ matrix (Código matrix)
   </header>
 
 
-  <div class="entry-content"><p>Nombre de la consola propia de xfce. El archivo de configuración se encuentra en:</p>
+  <div class="entry-content"><p>Limita el tiempo de funcionamiento de un comando o aplicación.</p>
 
-<blockquote><p>$ nano .config/Terminal/terminalrc</p></blockquote>
+<blockquote><p>$ timeout 60 firefox (arrancará firefox y se cerrará a los 60 segundo)</p></blockquote>
 </div>
   
   
@@ -525,7 +612,7 @@ matrix (Código matrix)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/telinit/">Telinit</a></h1>
+      <h1 class="entry-title"><a href="/blog/time/">Time</a></h1>
     
     
       <p class="meta">
@@ -548,11 +635,13 @@ matrix (Código matrix)
   </header>
 
 
-  <div class="entry-content"><p>Modifica o cambia el runlevel [inittab].</p>
+  <div class="entry-content"><p>Devuelve el tiempo de ejecución de un comando o aplicación.</p>
 
-<blockquote><p># telinit -t 10 6 (que reinicie [6] en 10 segundo [-t 10])</p>
+<blockquote><p>$ time netstat -anpt</p>
 
-<p># telinit q (releer archivo de configuración si se ha modificado)</p></blockquote>
+<p># time nmap -sS www.tuxapuntes.com</p>
+
+<p>$ time echo &#8220;scale=5000; 4*a(1)&#8221; | bc -l -q (Calcula 5000 decimales de pi para comprobar velocidad del procesador)</p></blockquote>
 </div>
   
   
@@ -583,43 +672,43 @@ matrix (Código matrix)
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/figlet/">figlet</a>
+        <a href="/blog/gedit/">gedit</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fgrep/">fgrep</a>
+        <a href="/blog/gconftool-2/">gconftool-2</a>
       </li>
     
       <li class="post">
-        <a href="/blog/festival/">festival</a>
+        <a href="/blog/ftff/">ftff</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fbgs/">fbgs</a>
+        <a href="/blog/fstab/">fstab</a>
       </li>
     
       <li class="post">
-        <a href="/blog/faillog/">faillog</a>
+        <a href="/blog/fsck/">fsck</a>
       </li>
     
       <li class="post">
-        <a href="/blog/extundelete/">extundelete</a>
+        <a href="/blog/freeradius/">freeradius</a>
       </li>
     
       <li class="post">
-        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
+        <a href="/blog/foremost/">foremost</a>
       </li>
     
       <li class="post">
-        <a href="/blog/eterm/">eterm</a>
+        <a href="/blog/for/">for</a>
       </li>
     
       <li class="post">
-        <a href="/blog/errno/">errno</a>
+        <a href="/blog/flunym0us/">flunym0us</a>
       </li>
     
       <li class="post">
-        <a href="/blog/egrep/">egrep</a>
+        <a href="/blog/flexget/">flexget</a>
       </li>
     
   </ul>

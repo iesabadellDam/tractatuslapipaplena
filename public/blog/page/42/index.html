@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Paquete de gestión para entornos ruby y las gemas de cada proycto. $ rvm install 1.9.2 (Instalar una versión de ruby) $ rvm requirements (Instalar &hellip;">
+  <meta name="description" content="Copiar o transferir archivos o directorios entre una máquina remota y una local $ scp pepe@host_o_IP:/home/pepe/*.odt ./pendiente (Copiará todos los &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rvm/">Rvm</a></h1>
+      <h1 class="entry-title"><a href="/blog/scp/">Scp</a></h1>
     
     
       <p class="meta">
@@ -103,23 +103,19 @@
   </header>
 
 
-  <div class="entry-content"><p>Paquete de gestión para entornos ruby y las gemas de cada proycto.</p>
+  <div class="entry-content"><p>Copiar o transferir archivos o directorios entre una máquina remota y una local</p>
 
-<blockquote><p>$ rvm install 1.9.2 (Instalar una versión de ruby)</p>
+<blockquote><p>$ scp pepe@host_o_IP:/home/pepe/*.odt ./pendiente (Copiará todos los .odt del directorio /home/pepe del host remoto al directorio “pendiente” de la máquina local)</p>
 
-<p>$ rvm requirements (Instalar dependencias)</p>
+<p>$ scp *.odt pepe@host_o_IP:/home/pepe/pendiente (transferirá todos los odt del directorio actual al directorio especificado “pendiente” del host remoto.)</p>
 
-<p>$ rvm upgrade 1.8.7 ruby-1.8.7-p299 (Actualizar de la versión de ruby 1.8.7-p299 a la siguiente)</p>
+<p>$ scp archivo usuario@host_o_IP:/home/usuario/Desktop (copiará “archivo” en local al escritorio remoto)</p>
 
-<p>$ rvm &#8211;default ruby-1.9.2 (Establecer la versión de ruby por defecto)</p>
+<p>$ scp -r directorio pepe@host_o_IP:/home/usuario/Desktop (copiará el directorio al host remoto)</p>
 
-<p>$ rvm gemset list (Lista gemsets [ver] creados, mostrando el que está por defecto y versión)</p>
+<p>$ scp -P 12000 pep@chost_o_IP:/home/usuario/archivo . (especificando un puerto en el host remoto y copiar archivo al presente directorio)</p></blockquote>
 
-<p>$ rvm gemset create NOMBRE_GEMSET (Crear un gemset)</p>
-
-<p>$ rvm gemset use NOMBRE_GEMSET (Utilizar un gemset)</p>
-
-<p>$ rvm gemset use VERSION@NOMBRE_GEMSET (Especificar versión de ruby y el gemset a cambiar)</p></blockquote>
+<p>Nota.- Si quiere transferirse al $HOME remoto puede suprimirse la ruta relativa, quedando: scp archivo pepe@host_o_IP:</p>
 </div>
   
   
@@ -132,7 +128,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/runlevel/">Runlevel</a></h1>
+      <h1 class="entry-title"><a href="/blog/scanimage/">Scanimage</a></h1>
     
     
       <p class="meta">
@@ -155,71 +151,22 @@
   </header>
 
 
-  <div class="entry-content"><p>conocer el nivel de ejecución actual del sistema [gráfico, monousuario&#8230;]</p>
+  <div class="entry-content"><p>Escanear. Solo genera archivos tiff y pnm.</p>
 
-<blockquote><p>$ runlevel</p></blockquote>
-</div>
-  
-  
+<pre><code>$ scanimage -L (Para conocer los datos del escaner) 
 
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ruby/">Ruby</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Lenguaje de programación orientado a objetos. Ver irb.</p>
-
-<p>Instalación:</p>
-
-<pre><code>$ curl -L https://get.rvm.io | bash -s stable --ruby
-
-$ source ~/.rvm/scripts/rvm
-
-$ rvm install 1.9.3
-
-$ rvm --default ruby-1.9.3
+&lt; device `hpaio:/usb/psc_1100_series?serial=MY387F93QWB0' is a Hewlett-Packard psc_1100_series all-in-one 
 </code></pre>
 
-<p>Y comprobar o añadir:</p>
+<blockquote><p>$ scanimage -d hpaio:/usb/psc_1100_series?serial=MY387F93QWB0 (Especificando el escaner. Si solo existe uno no es necesaria esta opción)</p>
 
-<blockquote><p>$ nano .bashrc</p></blockquote>
+<p>$ scanimage -v -p > imagen.tiff (Ver la información que genera, el progreso y redirigido a un archivo)</p>
 
-<p>La linea:</p>
+<p>$ scanimage &#8211;help (A continuación de la ayuda estandar, muestra las características concretas de nuestro escaner)</p>
 
-<pre><code> [[ -s "$HOME/.rvm/scripts/rvm" ]] &amp;&amp; source "$HOME/.rvm/scripts/rvm"
-</code></pre>
+<p>$ scanimage -p &#8211;mode Color &#8211;resolution 200 -l 0 -t 0 -x 190 -y 160  > imagen.pnm (Las opciones de &#8220;mode&#8221; y &#8220;resolution&#8221; los muestra el parámetro &#8220;help&#8221;. Las opciones &#8220;l&#8221; y &#8220;t&#8221; indican que comenzará a escanear desde la esquina superior izquierda. Los limites de estos parámetros tambien los muestra &#8220;help&#8221;. &#8220;x&#8221; e &#8220;y&#8221; indican la medida a escanear. En este caso 190X160 mm)</p>
 
-<blockquote><p>$ ruby script.rb (ejecutar un script de ruby)</p>
-
-<p>$ ruby -e &#8220;puts Dir.glob(&#8216;*&#8217;).count&#8221; (la opción -e permite introducir directamente código en la linea de comando. Mostrar la cantidad de archivos del presente directorio en este caso)</p>
-
-<p>$ ruby -v (Versión de ruby)</p></blockquote>
+<p>$ scanimage -p | convert - imagen.png (Redirigiendo la salida a convert que pasa la imagen a png)</p></blockquote>
 </div>
   
   
@@ -232,7 +179,7 @@ $ rvm --default ruby-1.9.3
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rtorrent/">Rtorrent</a></h1>
+      <h1 class="entry-title"><a href="/blog/scan/">Scan</a></h1>
     
     
       <p class="meta">
@@ -255,9 +202,13 @@ $ rvm --default ruby-1.9.3
   </header>
 
 
-  <div class="entry-content"><p>Descarga de archivos a partir de torrents</p>
+  <div class="entry-content"><p>Sintonizar canales de TV. El directorio /usr/share/dvb/dvb-t/ contiene las zonas de cobertura de la televisión digital terrestre.</p>
 
-<blockquote><p>$ rtorrent url.torrent</p></blockquote>
+<blockquote><p>$ scan /usr/share/dvb/dvb-t/es-Rocacorba > channels.conf</p></blockquote>
+
+<p>Copiar el archivo creado en el directorio .vlc/ [si no existe se crea] Abrir vlc con el siguiente comando:</p>
+
+<blockquote><p>$ vlc .vlc/channels.conf (Bucar los canales en View/Play list)</p></blockquote>
 </div>
   
   
@@ -270,7 +221,7 @@ $ rvm --default ruby-1.9.3
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rtcwake/">Rtcwake</a></h1>
+      <h1 class="entry-title"><a href="/blog/scalpel/">Scalpel</a></h1>
     
     
       <p class="meta">
@@ -293,19 +244,11 @@ $ rvm --default ruby-1.9.3
   </header>
 
 
-  <div class="entry-content"><p>Suspender/hibernar el pc e iniciarlo a una hora determinada.</p>
+  <div class="entry-content"><p>Recureprar archivos borrados</p>
 
-<blockquote><p># rtcwake -u -m disk -s 150 &amp;&amp; deluge (Asume el tiempo UTC, suspende a disco y vuelve a activarse dentro de 150 minutos arrancando la aplicación deluge)</p></blockquote>
+<p>Editar el archivo /etc/scalpel/scalpel.conf y descomentamos la linea de la extensión que se quiere recuperar. P.e. para un .avi seria la linea 110. Guardar y arrancar la aplicación:</p>
 
-<p>Otros modos [m]:</p>
-
-<p>standby (Modo por defecto y el que menos energia ahorra)</p>
-
-<p>mem (Suspende a RAM. Más ahorrativo)</p>
-
-<p>off (Apaga el ordenador completamente)</p>
-
-<p>no (No suspende inmediatamente, unicamente establece la hora en que despierta el sistema)</p>
+<blockquote><p># scalpel /dev/sda2 -o carpeta_recup (Se recuperará los avi de sda2 y se guardaran en carpeta_recup)</p></blockquote>
 </div>
   
   
@@ -318,7 +261,7 @@ $ rvm --default ruby-1.9.3
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rsync/">Rsync</a></h1>
+      <h1 class="entry-title"><a href="/blog/sc/">Sc</a></h1>
     
     
       <p class="meta">
@@ -341,46 +284,51 @@ $ rvm --default ruby-1.9.3
   </header>
 
 
-  <div class="entry-content"><p>Sincronizar archivos o directorios. Trabasjar con el directorio montado.</p>
+  <div class="entry-content"><p>Hoja de cálculo</p>
 
-<blockquote><p>$ rsync -av /home/usuario/Dropbox /home/usuario/Copias_seguridad/ (Copiar todo el directorio “Dropbox” en el directorio “Copias_seguridad”)</p>
+<blockquote><p>$ sc</p></blockquote>
 
-<p>$ rsync -av &#8211;exclude=Dropbox /media/servidor /home/usuario/servidor/ (Sincronizar un servidor con un directorio local excluyendo el dir Dropbox)</p></blockquote>
+<p>Teclas básicas:</p>
 
-<p>Nota.- Pueden excluirse varios directorios [&#8211;exclude=Dropbox &#8211;exclude=isos &#8211;exclcude=public &#8230;]</p>
+<pre><code>Cursores (moverse entre las celdas) 
 
-<blockquote><p>$ rsync -arvuz Documentos usuario@192.168.1.5:/home/usuario/ (Copiar el directorio en otra máquina)</p>
+= (añadir valor numérico o formula) 
 
-<p>$ rsync -arvuz -e &#8216;ssh -p 30567&#8217; Documentos usuario@192.168.1.5:/home/usuario/ (Copiar el directorio en otra máquina pero especificando otro puerto SSH)</p></blockquote>
+&lt; (texto alineado a la izquierda) 
 
-<p>Algunas opciones:</p>
+&gt; (texto alineado a la derecha) 
 
-<pre><code>-a (respaldar recursivamente directorios y subdirectorios) 
+\ (texto Centrado) 
 
--g (conserva el atributo “group” de los archivos originales) 
+e (modificar una celda de tipo numérico) 
 
--E (conserva el atributo “executable” del archivo originales) 
+E (modificar una celda de texto) 
 
--v (aumentar el nivel de información desplegado 
+x (Borrar contenido de una celda) 
 
--z (comprime los datos que serán transferidos) 
+P (Guardar el trabajo. Usa extensión .sc) 
 
---exclude=tmp  (Excluir archivos o directorios. /tmp en este caso)
+Q (Salir) 
 
---delete-during  (Borrar los archivos de origen a medida que son transferidos) 
-</code></pre>
+Formulas: 
 
-<blockquote><p>$ rsync -aHxv root@dirección_IP:/* /carpeta_destino &#8211;exclude=/dev &#8211;exclude=/proc &#8211;exclude=/sys &#8211;exclude=/tmp (copia/clonación en vivo de todo un sistema remoto a un directorio local. Se recomienda parar todos los servicios en ejecución de la máquina remota y repetir el comando varias veces hasta que no haya ningún fichero copiado, para evitar ficheros corrompidos. Se deben crear las carpetas &#8220;/dev&#8221;, &#8220;/proc&#8221;, &#8220;/sys&#8221; y &#8220;/tmp&#8221; en la carpeta de destino).</p>
+= @sum(A2:C2) (Suma de las casillas A2,B2 y C2) 
 
-<p>$ rsync -avz &#8211;exclude-from &#8216;rsync_exclude&#8217; /home/usuario/ /media/sda11/copa_seguridad (Copia de seguridad del /home/usuario a otra partición excluyendo los archivos especificados en el archivo rsync_exclude)</p></blockquote>
+= @prod(A2:B2) (Producto de A2 por B2) 
 
-<p>Nota.- El formato del archivo rsync_exclude para excluir los ficheros ocultos [.*] todos los de la carpeta Dropbox y el video alien de la carpeta Videos será:</p>
+= @avg(A2:A3) (Media entre A2 y A3) 
 
-<pre><code>.*
+= @count(A1:A5) (Contar las entradas no en blanco)
 
-Dropbox/*
+Operaciones básicas:
 
-Videos/alien
+e A1+A4 (Sumar A1 y A4)
+
+e A1-A3 (Restar A3 de A1)
+
+e A1*A2 (Multiplicar A1 por A2) 
+
+e A5/A2 (Dividir A5 por A2) 
 </code></pre>
 </div>
   
@@ -394,7 +342,7 @@ Videos/alien
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rsstail/">Rsstail</a></h1>
+      <h1 class="entry-title"><a href="/blog/sar/">Sar</a></h1>
     
     
       <p class="meta">
@@ -417,21 +365,11 @@ Videos/alien
   </header>
 
 
-  <div class="entry-content"><p>Mostrar noticias rss en estilo multitail</p>
+  <div class="entry-content"><p>Controlando logs. Herramienta de monitorización del rendimiento. Cubre la mayoría de las áreas del sistema:  Uso de la CPU [opción -u, por defecto],  Colas de procesos y carga del sistema [opción -q],  Estadísticas por proceso [-x [PID | ALL]],  Creación de procesos [-c] y cambios de contexto [-w],  Actividad de los dispositivos de bloque [-d] y TTY [-y],  Uso de memoria y espacio de swap [-r],  Estadísticas de memoria [-R], de paginación [-B] y de swapping [-W],  Estadísticas de interrupciones [-I]. [/var/log/sysstat/sadd .-”dd” indica el dia]</p>
 
-<blockquote><p>$ rsstail -n 1 -d -u http://web.com -u http://web1.com -u http://web3.com</p></blockquote>
+<blockquote><p>$ sar -q 10 3 (3 muestras cada 10&#8217;)</p>
 
-<p>Algunas opciones:</p>
-
-<p>-n 1  (Actualizar cada segundo)</p>
-
-<p>-d     (Mostrar descripción)</p>
-
-<p>-z      (Continuar incluso con errores xml)</p>
-
-<p>-l      (Mostrar enlaces)</p>
-
-<p>-u URL (Host del feed)</p>
+<p>$ sar -Ruy 5 2 (2 muestras cada 5&#8217;)</p></blockquote>
 </div>
   
   
@@ -444,7 +382,7 @@ Videos/alien
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rrenice/">Rrenice</a></h1>
+      <h1 class="entry-title"><a href="/blog/sakura/">Sakura</a></h1>
     
     
       <p class="meta">
@@ -467,9 +405,34 @@ Videos/alien
   </header>
 
 
-  <div class="entry-content"><p>[pslist]</p>
+  <div class="entry-content"><p>Terminal</p>
 
-<p>Herramienta con uso igual que renice [ver]</p>
+<blockquote><p># sakura -e tail -f /var/log/fail2ban (Lanzar una aplicación)</p>
+
+<p>$ sakura -n 3 -c 50 -r 30 (Lanzar la terminal con 3 pestañas y 50 columnas por 30 lineas)</p></blockquote>
+
+<p>Algunos atajos:</p>
+
+<pre><code>Ctrl + Shift + T (Nueva pestaña)
+
+Ctrl + Shift + W (Cerrar pestaña)                  
+
+Alt  + Flechas (Moverse entre las pestañas)
+
+Alt  + [1-9] (Ir a la pestaña numero ..)
+
+Ctrl + Shift + S (Mostrar barra de scroll)
+
+Ctrl + Shift + RePag (Scroll arriba) 
+
+Ctrl + Shift + AvPag (Scroll abajo)
+
+F11 (Maximizar/minimizar la pantalla)                              
+
+Ctrl + '+' (Aumentar la medida de la letra)
+
+Ctrl + '-' (Disminuir la medida de la letra)     
+</code></pre>
 </div>
   
   
@@ -482,7 +445,7 @@ Videos/alien
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rpm/">Rpm</a></h1>
+      <h1 class="entry-title"><a href="/blog/saidar/">Saidar</a></h1>
     
     
       <p class="meta">
@@ -505,25 +468,11 @@ Videos/alien
   </header>
 
 
-  <div class="entry-content"><p>Gestor de paqueteria de distros basadas en Red Hat.</p>
+  <div class="entry-content"><p>Visualizar estadisticas del sistema</p>
 
-<blockquote><p># rpm -ivh paquete (instalar un paquete)</p>
+<blockquote><p>$ saidar -c (en color)</p>
 
-<p># rpm -ivh –nodeeps paquete (instalar paquete rpm ignorando dependencias)</p>
-
-<p># rpm -e paquete (eliminar paquete)</p>
-
-<p># rpm -qa (Listar todos los paquetes instalados)</p>
-
-<p># rpm -qi paquete (información de un paquete)</p>
-
-<p># rpm -q paquete &#8211;whatrequires (listar dependencias de un paquete)</p>
-
-<p># rpm -qf /etc/httpd/conf/httpd.conf (A qué paquete pertenece un archivo)</p>
-
-<p># rpm &#8211;checksig paquete (verificar integridad de un paquete)</p>
-
-<p># rpm -qa gpg-pubkey (verificar la integridad de todos los paquetes)</p></blockquote>
+<p>$ saidar -d 2 (actualizar datos cada 2 segundos. Por defecto cada 3)</p></blockquote>
 </div>
   
   
@@ -536,7 +485,7 @@ Videos/alien
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rpcinfo/">Rpcinfo</a></h1>
+      <h1 class="entry-title"><a href="/blog/rzip/">Rzip</a></h1>
     
     
       <p class="meta">
@@ -559,9 +508,61 @@ Videos/alien
   </header>
 
 
-  <div class="entry-content"><p>Para saber los servicios que estan en marcha</p>
+  <div class="entry-content"><p>Compresor/descompresor. Crea los comprimidos con extensión .rz</p>
 
-<blockquote><p>$ rpcinfo -p</p></blockquote>
+<blockquote><p>$ rzip archivo.txt (Substituye archivo.txt por archivo.txt.rz)</p>
+
+<p>$ rzip -o archivo.txt -d archivo.txt.rz (Descomprimir. Imprescindible dar el nombre del archivo de salida [-o])</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/rxvt/">Rxvt</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Emulador de terminal</p>
+
+<blockquote><p>$ rxvt -geometry 100x40 -e links2 http://google.es</p></blockquote>
+
+<p>Opciones:</p>
+
+<p>-geometry 100x12  (especificar medidas)</p>
+
+<p>-bg red (color de fondo)</p>
+
+<p>-fg white (Color de fuente)</p>
+
+<p>-cr blue  (Color del cursor)</p>
+
+<p>-title &#8220;Consola linux&#8221; (especificar un título)</p>
 </div>
   
   
@@ -592,43 +593,43 @@ Videos/alien
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/figlet/">figlet</a>
+        <a href="/blog/gedit/">gedit</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fgrep/">fgrep</a>
+        <a href="/blog/gconftool-2/">gconftool-2</a>
       </li>
     
       <li class="post">
-        <a href="/blog/festival/">festival</a>
+        <a href="/blog/ftff/">ftff</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fbgs/">fbgs</a>
+        <a href="/blog/fstab/">fstab</a>
       </li>
     
       <li class="post">
-        <a href="/blog/faillog/">faillog</a>
+        <a href="/blog/fsck/">fsck</a>
       </li>
     
       <li class="post">
-        <a href="/blog/extundelete/">extundelete</a>
+        <a href="/blog/freeradius/">freeradius</a>
       </li>
     
       <li class="post">
-        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
+        <a href="/blog/foremost/">foremost</a>
       </li>
     
       <li class="post">
-        <a href="/blog/eterm/">eterm</a>
+        <a href="/blog/for/">for</a>
       </li>
     
       <li class="post">
-        <a href="/blog/errno/">errno</a>
+        <a href="/blog/flunym0us/">flunym0us</a>
       </li>
     
       <li class="post">
-        <a href="/blog/egrep/">egrep</a>
+        <a href="/blog/flexget/">flexget</a>
       </li>
     
   </ul>

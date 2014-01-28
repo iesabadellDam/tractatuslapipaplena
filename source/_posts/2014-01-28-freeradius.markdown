@@ -1,13 +1,11 @@
 ---
 layout: post
 title: "freeradius"
-date: 2014-01-27 20:07
+date: 2014-01-28 16:26
 comments: true
 categories: 
 ---
-[libssl-dev freeradius-mysql freeradius-utils]
-
-Servidor.
+[libssl-dev freeradius-mysql freeradius-utils]. Servidor.
 
 Configurar la base de datos:
 

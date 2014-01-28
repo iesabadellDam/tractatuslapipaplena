@@ -9,7 +9,8 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Permite declarar variables de solo lectura [No modificables]. $ readonly -p (Las muestra todas) $ readonly -f var (Crear la funcion &#8220;var&#8221 &hellip;">
+  <meta name="description" content="Cambiar la prioridad de un proceso en marcha. # renice -10 PID
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/readonly/">Readonly</a></h1>
+      <h1 class="entry-title"><a href="/blog/renice/">Renice</a></h1>
     
     
       <p class="meta">
@@ -103,13 +104,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Permite declarar variables de solo lectura [No modificables].</p>
+  <div class="entry-content"><p>Cambiar la prioridad de un proceso en marcha.</p>
 
-<blockquote><p>$ readonly -p (Las muestra todas)</p>
-
-<p>$ readonly -f var (Crear la funcion &#8220;var&#8221; de solo lectura)</p>
-
-<p>$ readonly -r var (Quita el atributo de &#8220;solo lectura&#8221; pero no permite redefinirla)</p></blockquote>
+<blockquote><p># renice -10 PID</p></blockquote>
 </div>
   
   
@@ -122,7 +119,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/readlink/">Readlink</a></h1>
+      <h1 class="entry-title"><a href="/blog/rename/">Rename</a></h1>
     
     
       <p class="meta">
@@ -145,11 +142,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Muestra donde apunta un enlace simbólico.</p>
+  <div class="entry-content"><p>renombrar archivos</p>
 
-<blockquote><p>$ readlink enlace</p>
-
-<p>$ readlink -f enlace (Muestra el path absoluto)</p></blockquote>
+<blockquote><p>$ rename JPG jpg *.JPG (Renombrará todos los xxxx.JPG a xxxx.jpg)</p></blockquote>
 </div>
   
   
@@ -162,7 +157,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/read/">Read</a></h1>
+      <h1 class="entry-title"><a href="/blog/reisub/">Reisub</a></h1>
     
     
       <p class="meta">
@@ -185,33 +180,131 @@
   </header>
 
 
-  <div class="entry-content"><p>Espera una entrada por teclado y le asigna una variable, aunque contenga espacios.</p>
+  <div class="entry-content"><p>Combinación de teclas a usar cuando el sistema se cuelga. Pulsar las teclas  Alt+ImprPant [PetSis] y mientras mantenemos las dos teclas pulsadas teclear la combinación de teclas REISUB. Su significado:</p>
 
-<pre><code>$ read -p "dime tu nombre " NOMBRE
+<p>R: Retorna el control al teclado y ratón.</p>
 
-$ echo $NOMBRE
+<p>E: Envia a todos los procesos la señal TERM.</p>
+
+<p>I: Envia a todos los procesos la señal KILL.</p>
+
+<p>S: Sincroniza sistemas y unidades montadas.</p>
+
+<p>U: Desmonta todos los sistemas de archivos.</p>
+
+<p>B: Reinicia la máquina.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/reiserfsck/">Reiserfsck</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Reparación de particiones reiserfs. Equivalente al fsck -f /dev/sdX de las particiones ext3.</p>
+
+<blockquote><p># reiserfsck &#8211;rebuild-tree /dev/sda</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/regionset/">Regionset</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Los discos dvd contienen un código que indica la región geográfica donde el dvd fue publicado imposibilitando que los comprados en unas regiones, puedan reproducirse en otras:</p>
+
+<p>Códigos de región:</p>
+
+<pre><code>1 Norte América (USA y Canadá)
+
+2 Europa, Medio-oriente, Sudáfrica y Japón
+
+3 Sudeste Asiático, Taiwan, Corea
+
+4 Hispano América, Brasil, Australia, Nueva Zelanda
+
+5 Antigua URSS (Rusia, Ucrania, etc.), resto de África, India
+
+6 China
 </code></pre>
 
-<p>La opción -a permite leer las palabras como elementos de un array:</p>
+<p>Esta aplicación permite cambiar dicho código del reproductor, no en el disco dvd y en la mayoría de los casos sólo permite hacer 5 cambios y en algunos casos, sólo 2.</p>
 
-<pre><code>$ read -a frase
+<blockquote><p># regionset</p></blockquote>
 
-Hola que tal
+<pre><code>regionset version 0.1 -- reads/sets region code on DVD drives
 
-$ declare -p frase
+Current Region Code settings:
 
-declare -a frase='([0]="Hola" [1]="que" [2]="tal")'
+RPC Phase: II
+
+type: NONE
+
+vendor resets available: 4
+
+user controlled changes resets available: 5
+
+drive plays discs from region(s):, mask=0xFF
+
+Would you like to change the region setting of your drive? [y/n]:
 </code></pre>
 
-<p>Algunas opciones:</p>
-
-<p>-d (permite indicar un delimitador de fin de línea de forma que la línea se lee hasta encontrar este delimitador)</p>
-
-<p>-e (permite que se puedan usar todas las combinaciones de teclas de readline)</p>
-
-<p>-t 3 (Especificar un tiempo de espera en la entrada de datos antes de volver al prompt)</p>
-
-<p>-n 1 (Efectuará la acción al pulsar una tecla sin necesidad de pulsar Intro)</p>
+<p>vendor resets available: 4 (indica el número de cambios disponibles)</p>
 </div>
   
   
@@ -224,7 +317,7 @@ declare -a frase='([0]="Hola" [1]="que" [2]="tal")'
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rdiff-backup/">Rdiff-backup</a></h1>
+      <h1 class="entry-title"><a href="/blog/reflector/">Reflector</a></h1>
     
     
       <p class="meta">
@@ -247,9 +340,11 @@ declare -a frase='([0]="Hola" [1]="que" [2]="tal")'
   </header>
 
 
-  <div class="entry-content"><p>Backups incrementales locales o remotos. La aplicación ha de estar instalada en el cliente y en el servidor.</p>
+  <div class="entry-content"><p>Optimizador del mirrorlist de pacman.</p>
 
-<blockquote><p>$ rdiff-backup &#8211;force 192.168.1.20::/home/USER/dir_remoto /home/USER/dir_local (Realiza un backup del dir_remota de la máquina 20 de la red y lo guarda en nuestro dir_local sin comprimir)</p></blockquote>
+<blockquote><p># reflector (Mostrará todos los mirrors de archlinux.org/mirrors/status/json/)</p>
+
+<p># reflector &#8211;sort rate -l 10 -f 5 &#8211;save /etc/pacman.d/mirrorlist (Que tome los 5 mejores [f] de los 10 más actualizados [l], los ordene por velocidad de descarga [sort] y que sobreescriba el archivo mirrorlist [save])</p></blockquote>
 </div>
   
   
@@ -262,7 +357,7 @@ declare -a frase='([0]="Hola" [1]="que" [2]="tal")'
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rdesktop/">Rdesktop</a></h1>
+      <h1 class="entry-title"><a href="/blog/red/">Red</a></h1>
     
     
       <p class="meta">
@@ -285,156 +380,30 @@ declare -a frase='([0]="Hola" [1]="que" [2]="tal")'
   </header>
 
 
-  <div class="entry-content"><p>Conexión a escritorio remoto.</p>
+  <div class="entry-content"><p>1.- Configurar IP fija</p>
 
-<blockquote><p>$ rdesktop -k es -g 1024×768 -u USER -p PASS -a 15 -T tux -D client (Especificando teclado español [k], medidas de la ventana [g], usuario [u] y contraseña [p], especificar un mobre para la ventana [T] y suprimiendo la decoración de la ventana [D])</p></blockquote>
-</div>
-  
-  
+<blockquote><p># nano /etc/network/interfaces</p></blockquote>
 
+<p>Borrar todo el contenido y susbtituirlo por:</p>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/rcconf/">Rcconf</a></h1>
-    
-    
-      <p class="meta">
-        
+<pre><code>auto lo
 
+iface lo inet loopback
 
+auto eth0
 
+iface eth0 inet static
 
+address 192.168.1.10 # IP estática
 
+netmask 255.255.255.0 # Mascara
 
-
-
-  
-
-
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Parar/arrancar procesos durante el inicio</p>
-
-<blockquote><p>$ rcconf -now</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/rc-dot-d/">rc.d</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Inicia o para servicios en Arch Linux</p>
-
-<blockquote><p># rc.d start servicio (inicia el demonio o servicio)</p>
-
-<p># rc.d restart servicio (Reinicia el demonio)</p>
-
-<p># rc.d stop servicio (Para el servicio)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/rbash/">Rbash</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>shell restringido. Se usa para imponer a un usuario un entorno severamente limitado en el que, por ejemplo, no podrá cambiar de directorio [cd], especificar nombre que contengan la /, redirigir la salida usando operadores de redirección [>, &lt;, >>], reemplazar la shell, desactivar el modo restringido, etc. Equivalente a &#8220;bash -c&#8221;</p>
-
-<blockquote><p># adduser -s /bin/rbash juan (Crear un usuario con shell restringido)</p>
-
-<p># usermod -s /bin/rbash juan (Modificar la shell de un usuario ya establecido)</p></blockquote>
-
-<p>Si queremos ampliar la cantidad de comandos a disposición de un usuario limitado editamos de su directorio personal el archivo .bash_profile:</p>
-
-<blockquote><p># nano .bash_profile</p></blockquote>
-
-<p>Y añadimos o modificamos las siguientes lineas:</p>
-
-<pre><code>PATH=$HOME/apps    
-
-export PATH
+gateway 192.168.1.1 # IP del router
 </code></pre>
 
-<p>Creamos el directorio</p>
+<p>Reiniciar red:</p>
 
-<blockquote><p># mkdir /home/juan/apps</p></blockquote>
-
-<p>Y añadimos enlaces de los binarios que queramos permitir al usuario [en este caso ls, cp y cat]</p>
-
-<blockquote><p># ln -s /bin/ls /home/juan/apps/</p>
-
-<p># ln -s /bin/cp /home/juan/apps/</p>
-
-<p># ln -s /bin/cat /home/juan/apps/</p></blockquote>
-
-<p>Y bloqueamos el archivo:</p>
-
-<blockquote><p># chattr +i /home/juan/.bash_profile</p></blockquote>
+<blockquote><p># /etc/init.d/networking restart</p></blockquote>
 </div>
   
   
@@ -447,7 +416,7 @@ export PATH
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/raspi-config/">Raspi-config</a></h1>
+      <h1 class="entry-title"><a href="/blog/recode/">Recode</a></h1>
     
     
       <p class="meta">
@@ -470,7 +439,19 @@ export PATH
   </header>
 
 
-  <div class="entry-content"><p>Acceso a los parámetros de configuración de la placa RaspberriPi</p>
+  <div class="entry-content"><p>Convierte archivos a distintos formatos de caracteres</p>
+
+<blockquote><p>$ recode -l | less (listado de conversiones disponibles)</p>
+
+<p>$ recode iso8859-15..utf8 file.txt (cambiar caracteres iso&#8230; a utf.. de file.txt</p>
+
+<p>$ recode iso8859-15../b64 file.txt (de caracteres iso.. a codificacion base64)</p>
+
+<p>$ recode -lf iso8859-15 | grep euro  (buscar tabla de caracteres)</p>
+
+<p>$ cat file.txt | recode ISO_8859-1..UTF8 > nuevo.txt (De iso8859-1 a utf-8 )</p>
+
+<p>$ recode ..HTML &lt; file.txt > file.html  (pasar un texto a html)</p></blockquote>
 </div>
   
   
@@ -483,7 +464,7 @@ export PATH
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rarp/">Rarp</a></h1>
+      <h1 class="entry-title"><a href="/blog/reboot/">Reboot</a></h1>
     
     
       <p class="meta">
@@ -506,11 +487,49 @@ export PATH
   </header>
 
 
-  <div class="entry-content"><p>Manipula la tabla rarp del nucleo.</p>
+  <div class="entry-content"><p>Reiniciar el sistema.</p>
 
-<blockquote><p>$ rarp -a (Lista las entradas de la caché si el nucleo tiene soporte rarp)</p>
+<blockquote><p>$ reboot -f (Fonzandolo)</p></blockquote>
+</div>
+  
+  
 
-<p>$ rarp -d hostname (Elimina una entrada de la caché)</p></blockquote>
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/readpst/">Readpst</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Herramienta para convertir base de datos de Outlook en PST a eml para su posterior exportación a Thunderbird</p>
+
+<blockquote><p>$ readpst -o  -r miarchivo.pst</p>
+
+<p>$ readpst -M -b -e -o carpeta-destino miarchivo.pst (Generará los archivos EML en la carpeta-destino)</p></blockquote>
 </div>
   
   
@@ -541,43 +560,43 @@ export PATH
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/figlet/">figlet</a>
+        <a href="/blog/gedit/">gedit</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fgrep/">fgrep</a>
+        <a href="/blog/gconftool-2/">gconftool-2</a>
       </li>
     
       <li class="post">
-        <a href="/blog/festival/">festival</a>
+        <a href="/blog/ftff/">ftff</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fbgs/">fbgs</a>
+        <a href="/blog/fstab/">fstab</a>
       </li>
     
       <li class="post">
-        <a href="/blog/faillog/">faillog</a>
+        <a href="/blog/fsck/">fsck</a>
       </li>
     
       <li class="post">
-        <a href="/blog/extundelete/">extundelete</a>
+        <a href="/blog/freeradius/">freeradius</a>
       </li>
     
       <li class="post">
-        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
+        <a href="/blog/foremost/">foremost</a>
       </li>
     
       <li class="post">
-        <a href="/blog/eterm/">eterm</a>
+        <a href="/blog/for/">for</a>
       </li>
     
       <li class="post">
-        <a href="/blog/errno/">errno</a>
+        <a href="/blog/flunym0us/">flunym0us</a>
       </li>
     
       <li class="post">
-        <a href="/blog/egrep/">egrep</a>
+        <a href="/blog/flexget/">flexget</a>
       </li>
     
   </ul>

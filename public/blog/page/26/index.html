@@ -9,7 +9,8 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Encriptar directorios. Por seguridad ha de desactivarse la partición swap (intercambio) antes de crear la tumba o al acceder a ella a menos que &hellip;">
+  <meta name="description" content="Permite seguir la pista de un paquete desde un host a otro. # traceroute www.tuxapuntes.com
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/tomb/">Tomb</a></h1>
+      <h1 class="entry-title"><a href="/blog/traceroute/">Traceroute</a></h1>
     
     
       <p class="meta">
@@ -103,21 +104,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Encriptar directorios. Por seguridad ha de desactivarse la partición swap (intercambio) antes de crear la tumba o al acceder a ella a menos que tengamos la swap encriptada.</p>
+  <div class="entry-content"><p>Permite seguir la pista de un paquete desde un host a otro.</p>
 
-<blockquote><p># swapoff -a (“swapon” para activarla nuevamente)</p></blockquote>
-
-<p>En algunas distros es necesario activar el demonio:</p>
-
-<blockquote><p># /etc/init.d/cryptdisks start</p>
-
-<p># tomb create -s 1024 &#8211;ignore-swap cripta (Crear el directorio encriptado .tomb y el de la clave .key, especificando medida. Pedirá contraseña y confirmación. )</p>
-
-<p># tomb-open cripta.tomb (Abrir el directorio encriptado cuando .tomb y .key estan en el mismo directorio. Lo montará en /media/tumba.tomb)</p>
-
-<p># tomb -k /root/cripta.tomb.key open cripta.tomb (Montar el directorio encriptado cuando .key está en otro directorio [/root]</p>
-
-<p># tomb close cripta (Cerrar el directorio. En realidad desmontarlo)</p></blockquote>
+<blockquote><p># traceroute www.tuxapuntes.com</p></blockquote>
 </div>
   
   
@@ -130,7 +119,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/toilet/">Toilet</a></h1>
+      <h1 class="entry-title"><a href="/blog/tr/">Tr</a></h1>
     
     
       <p class="meta">
@@ -153,25 +142,29 @@
   </header>
 
 
-  <div class="entry-content"><p>Edición de banners</p>
+  <div class="entry-content"><p>Cambia caracteres de un archivo</p>
 
-<blockquote><p>$ toilet -f future -F gay texto</p>
+<blockquote><p>$ tr JM ?$ &lt; archivo  (cambia las &#8220;J&#8221; y las &#8220;M&#8221; por &#8220;?&#8221; y &#8220;$&#8221; en todo el archivo)</p>
 
-<p>$ toilet -t -f smblock -F metal -E html texto</p></blockquote>
+<p>$ cat archivo | tr ea ?% (Cambia las &#8220;e&#8221; y &#8220;a&#8221; por &#8220;?&#8221; y &#8220;%&#8221; respectivamente)</p>
 
-<p>Opciones</p>
+<p>$ echo &#8216;la pipa plena&#8217; | tr &#8216;a-z&#8217; &#8216;A-Z&#8217;  (De minúsculas a mayúsculas)</p>
 
-<p>-f bigmono12 (Otras fuentes: bigmono9, circle, emboss, emboss2, future, mono12, mono9, smblock, smbraille, smmono12, smmono9)</p>
+<p>$ echo &#8216;la pipa plena&#8217; | tr -d a (Borra las “a”)</p>
 
-<p>-F gay (filtro &#8220;gay&#8221; o &#8220;metal&#8221;)</p>
+<p>$ tr -d [aeiou] archivo  (Borra las vocales de archivo)</p>
 
-<p>-E html (Saca en formato en html para su inclusión en una web)</p>
+<p>$ echo &#8216;la   pipa    plena&#8217; | tr -s &#8217; &#8217; (Borra espacios repetidos)</p>
 
-<p>-t (se adapta al ancho de la terminal)</p>
+<p>$ echo &#8216;la pipa plena&#8217; | tr -c &#8216;pln&#8217; &#8216;?&#8217; (Substituye todos los caracteres  por “?” inclusive los espacios, menos los indicados [pln])</p>
 
-<p>-S (letras más juntas. Por defecto es -s)</p>
+<p>$ ls |tr &#8216;\t&#8217; &#8216;\n&#8217; (Substituye la tabulación vertical [\t] por salto de linea [\n])</p>
 
-<p>-o (más juntas)</p>
+<p>$ tr -dc A-Za-z0-9_ &lt; /dev/urandom | head -c 8 | xargs   (contraseñas de 8 caracteres aleatorias)</p>
+
+<p>$ echo &#8220;El boxeador está OK.&#8221; | tr O m | tr K a | tr . l (varios tr)</p>
+
+<p>$ tr &#8221; &#8221; . &lt; archivo (substituir los espacios por puntos)</p></blockquote>
 </div>
   
   
@@ -184,7 +177,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/tmuxinator/">Tmuxinator</a></h1>
+      <h1 class="entry-title"><a href="/blog/tput/">Tput</a></h1>
     
     
       <p class="meta">
@@ -207,41 +200,21 @@
   </header>
 
 
-  <div class="entry-content"><p>gema de ruby que permite definir pestañas, páneles y comandos que correrán en cada uno de los paneles de una sesión tmux. Cada proyecto guarda su configuración en un archivo .yml en el directorio ~/.tmuxinator. En el archivo .bashrc ha de constar la variable $EDITOR [export EDITOR=/usr/bin/vim, nano o el que sea]</p>
+  <div class="entry-content"><p>formatación de la terminal [posicionar el cursor en la pantalla, borrar datos de la pantalla, saber la cantidad de líneas y columnas de la pantalla, posicionar correctamente un campo, borrar un campo..]</p>
 
-<pre><code>$ tmuxinator new proyecto1 (Crear un proyecto)
+<blockquote><p>$ tput cols  (Cantidad de columnas de la terminal)</p>
 
-$ tmuxinator proyecto1 (Abrir un proyecto)
+<p>$ tput lines (Cantidad de lineas)</p>
 
-$ tmuxinator open proyecto1 (Editar un proyecto)
+<p>$ tput civis (Hace invisible el cursor)</p>
 
-$ tmuxinator list (Listar todos los proyectos)
+<p>$ tput cnorm (Lo vuelve visible)</p>
 
-$ tmuxinator delete proyecto1 (Suprimir un proyecto)
+<p>$ tput sgr0 (vuelve la terminal a los parámetros por defecto)</p>
 
-$ tmuxinator doctor (Ver problemas en la configuración)
+<p>$ tput smcup (Borra el contenido de la terminal guardandolo)</p>
 
-$ tmuxinator implode (Suprimir todos los proyectos)
-</code></pre>
-
-<p>Muestra de un archivo.yml:</p>
-
-<pre><code>name: proyecto1
-
-root: ~/
-
-    windows:
-
-            - editor:
-
-            layout: main-vertical
-
-            panes:
-
-                - top
-
-                - who; pwd
-</code></pre>
+<p>$ tput rmcup (Restablece el contenido de la terminal borrado con el comando anterior)</p></blockquote>
 </div>
   
   
@@ -254,7 +227,7 @@ root: ~/
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/tmux/">Tmux</a></h1>
+      <h1 class="entry-title"><a href="/blog/tpp/">Tpp</a></h1>
     
     
       <p class="meta">
@@ -277,135 +250,117 @@ root: ~/
   </header>
 
 
-  <div class="entry-content"><p>Terminal multiplexor</p>
+  <div class="entry-content"><p>Presentaciones en terminal.</p>
 
-<blockquote><p>$ tmux (Lanzar la aplicación)</p>
+<p>&#8211;title Este_es_el_titulo   (titulo de la presentación)</p>
 
-<p>$ tmux ls (Listar las sesiones tmux abiertas)</p>
+<p>&#8211;author juanito            (Autor)</p>
 
-<p>$ tmux attach -t 0 (Sincronizarse con la sesión 0 [attach] en local o en remoto via ssh)</p>
+<p>&#8211;date today  %d %b %Y      (fecha actual en formato dia/mes/año)</p>
 
-<p>$ tmux rename-session -t 0 tty1 (Renombrar la sesion 0 a tty1)</p>
+<p>&#8211;bgcolor yellow           (color de fondo)</p>
 
-<p>$ tmux kill-window -t 2 (Matar la sesión tmux número 2)</p>
+<p>&#8211;fgcolor black            (color texto. Los colores válidos son: white, yellow, red, green, blue, cyan, magenta, black. Por defecto transparencia))</p>
 
-<p>$ tmux new-session -s hack_wifi (Abrir sesión con un nombre)</p>
+<p>&#8211;heading inicio           (nombre de la página, centrado)</p>
 
-<p>$ tmux list-commands (Listar la sintaxis de todos los comandos soportados)</p>
+<p>&#8211;horline                  (dibuja una linea en todo el ancho de pantalla)</p>
 
-<p>$ tmux list-keys (Listado de todas las teclas de control)</p>
+<p>&#8211;withborder               (Marca un borde en los limites de la pantalla)</p>
 
-<p>$ tmux new-session -d &#8216;vi /etc/apt/sources.list&#8217; \; split-window -d &#8216;newsbeuter&#8217; \; attach (Arrancar una sesión tmux con el sources.list en el panel superior y con el lector RSS newsbeuter en el inferior)</p>
+<p>&#8211;header texto             (Texto arriba del todo de la página)</p>
 
-<p>$ tmux new-session \; split-window \; split-window -h \; split-window -v \; attach (Arrancar la aplicación con varios panels horizontales y verticales)</p></blockquote>
+<p>&#8211;footer texto             (Texto abajo del todo de la página)</p>
 
-<p>Un completo tutorial en: <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=tmux&amp;sektion=1">http://www.openbsd.org/cgi-bin/man.cgi?query=tmux&amp;sektion=1</a></p>
+<p>&#8211;color red            (Especifica un color de texto a partir de este punto)</p>
 
-<p>Atajos:</p>
+<p>&#8211;center Se_pondra_en_el_centro   (El texto se centrará en la página)</p>
 
-<pre><code>Ctrl+b c (Crear una nueva ventana)
+<p>&#8211;right texto       (El texto se alineará a la derecha)</p>
 
-Ctrl+b d (Salir de tmux actual (detach) sin cerrar sesión)
+<p>&#8212;         (parar la presentación hasta que se clique en la barra de espacio)</p>
 
-Ctrl+b n (Ir a la ventana siguiente)
+<p>&#8211;newpage       (nueva página. Se accede pulsando cursor abajo o espacio)</p>
 
-Ctrl+b p (Ir a la ventana anterior)
+<p>&#8211;##comentario          (comentario. No aparece en la presentación)</p>
 
-Ctrl+b &amp; (Matar la ventana actual, incluye todos los paneles)
+<p>&#8211;sleep 5           (Para la presentación 5 segundos. Por defecto son 3)</p>
 
-Ctrl+b x (Matar panel actual)
+<p>&#8211;huge Fin_de_la_presentacion   (Figlet generará las letras del texto)</p>
 
-Ctrl+b , (cambiar el nombre de la ventana actual )
+<p>&#8211;sethugefont big   (Los tipos de letra disponibles son los de figlet: banner, big, block, bubble, digital, ivrit, leas, mini, mnemonic, script, shadow, slant, small, smscript, smshadow, smslant, standard y term)</p>
 
-Ctrl+b % (Dividir verticalmente la ventana actual en dos paneles)
+<p>&#8211;exec fbi -vt 01 imagen.png        (Ejecuta el comando)</p>
 
-Ctrl+b " (Dividir horizontalmente la ventana actual en dos paneles)
+<p>&#8211;beginoutput       (crea el inicio de un marco de texto)</p>
 
-Ctrl+b q (Mostrar brevemente los números de cada panel)
+<p>El_texto_que_proceda</p>
 
-Ctrl+b o (Cambiar al siguiente panel)
+<p>&#8211;endoutput         (Final del marco de texto)</p>
 
-Ctrl+b ? (Lista todas las combinaciones de teclas de control)
+<p>&#8211;beginshelloutput  (Inicio marco de texto. Con &#8220;$&#8221; saldrá letra a letra)</p>
 
-Ctrl+b w (Lista todas las ventanas)
+<blockquote><p>$ El_texto-que-proceda</p></blockquote>
 
-Ctrl+b núm (Moverse a la ventana seleccionada (0-9). No al panel)
+<p>&#8211;endshelloutput    (Final marco de texto)</p>
 
-Ctrl+b up (Ir al panel de encima)
+<p>&#8211;bZoldon            (Inicio de escritura en negrita)</p>
 
-Ctrl+b down (Ir al panel de abajo)
+<p>El_texto_que_proceda</p>
 
-Ctrl+b left (Ir al panel de la izquierda)
+<p>&#8211;boldoff       (Final del uso de negrita)</p>
 
-Ctrl+b right (Ir al panel de la derecha)
+<p>&#8211;revon             (Invierte los colores de letra y fondo)</p>
 
-Ctrl+b t (Muestra en el panel un reloj digital)
+<p>El_texto_que_proceda</p>
 
-Ctrl+b s (Elegir sesión)
+<p>&#8211;revoff        (Termina la inversión)</p>
 
-Ctrl+b [ (Entra en modo scroll con la teclas del cursor. Termina pulsando q)
-</code></pre>
+<p>&#8211;ulon              (Inicio texto subrayado-??)</p>
 
-<p>1.-</p>
+<p>El_texto_que_proceda</p>
 
-<p>Muestra para colorear los paneles:</p>
+<p>&#8211;uloff             (Final texto subrayado)</p>
 
-<p>Crear en el directorio personal el archivo oculto:</p>
+<p>&#8211;beginslideleft    (El texto sale de izquierda a derecha)</p>
 
-<blockquote><p>$ touch .tmux.conf</p></blockquote>
+<p>El_texto_que_proceda</p>
 
-<p>Con el siguiente contenido [modificar al gusto]</p>
+<p>&#8211;endslideleft      (Final de salida de izquierda a derecha)</p>
 
-<pre><code># default statusbar colors
+<p>&#8211;beginslideright   (El texto sale de derecha a izquierda)</p>
 
-set -g status-fg colour136
+<p>El_texto_que_proceda</p>
 
-set -g status-bg colour235
+<p>&#8211;endslideright     (Final de salida de derecha a izquierda)</p>
 
-set -g status-attr default
+<p>&#8211;beginslidetop     (Inicio de la salida del texto de arriba)</p>
 
-# default window title colors
+<p>El_texto_que_proceda</p>
 
-setw -g window-status-fg colour244
+<p>&#8211;endslidetop       (Final de salida del texto de arriba)</p>
 
-setw -g window-status-bg default
+<p>&#8211;beginslidebottom  (Inicio de salida del texto por abajo)</p>
 
-setw -g window-status-attr dim
+<p>El_texto_que_proceda</p>
 
-# active window title colors
+<p>&#8211;endslidebottom    (Final de salida por abajo)</p>
 
-setw -g window-status-current-fg colour166
+<p>Teclas para desplazarse durante la presentación</p>
 
-setw -g window-status-current-bg default
+<p>espacio (visualizar página siguiente)</p>
 
-#setw -g window-status-current-attr bright
+<p>b (visualizar página anterior)</p>
 
-setw -g window-status-current-attr underscore
+<p>q (salir de tpp)</p>
 
-# panel border
+<p>j (saltar a la página que se indique con el teclado numérico)</p>
 
-set-option -g pane-border-fg white #base02
+<p>s (saltar a la página de inicio)</p>
 
-set-option -g pane-active-border-fg colour46 #base01
+<p>e (ir a la última página)</p>
 
-# command/message line colors
-
-set -g message-fg white
-
-set -g message-bg black
-
-set -g message-attr bright
-
-# pane number display
-
-set-option -g display-panes-active-colour colour33 #blue
-
-set-option -g display-panes-colour colour166 #orange
-
-# clock
-
-set-window-option -g clock-mode-colour colour64 #green
-</code></pre>
+<p>c (inicio de línea de comandos)</p>
 </div>
   
   
@@ -418,7 +373,7 @@ set-window-option -g clock-mode-colour colour64 #green
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/tmpfs/">Tmpfs</a></h1>
+      <h1 class="entry-title"><a href="/blog/touch/">Touch</a></h1>
     
     
       <p class="meta">
@@ -441,13 +396,25 @@ set-window-option -g clock-mode-colour colour64 #green
   </header>
 
 
-  <div class="entry-content"><p>Permite asignar parte de la memoria física para ser utilizada como una partición lo que permite una vez montada, leer o escribir archivos de la RAM como si de una partición de disco se tratara. Dado que se está escribiendo en la memoria RAM del sistema, esta se borra en un reinicio o en un cuelgue. Relacionado con ramfs [ver], se diferencia de este en que tmpfs usa swap y que no permite escribir más que el tamaño que se ha especificado en el montaje. El proceso:</p>
+  <div class="entry-content"><p>Crea un fichero vacio</p>
 
-<blockquote><p># mkdir /media/tmp</p>
+<blockquote><p>$ touch notas.txt</p>
 
-<p># mount -t tmpfs -o size=20m tmpfs /media/tmp</p></blockquote>
+<p># touch /forcefsck (crear un fichero vacío para forzar el chequeo del disco)</p>
 
-<p>Comprobar con df -k [ver] o mount [ver] su correcto montaje</p>
+<p>$ touch -d &#8220;18-6-2011 17:09:24&#8221; archivo (modificar la fecha de creación)</p>
+
+<p>$ touch -m archivo (Lo mismo a la fecha actual)</p>
+
+<p>$ touch file{1..9} (crear los archivo del file1 al file9</p>
+
+<p>$ touch file{1..9}{a..z} (Crear los archivos del filea1 al filez9)</p>
+
+<p>$ touch a b c d (Crear varios archivos)</p>
+
+<p>$ touch -c archivo (Si “archivo” existe no lo creará)</p>
+
+<p>$ touch -a archivo (modifica el último acceso al archivo. Comprobar con $ stat archivo)</p></blockquote>
 </div>
   
   
@@ -460,7 +427,7 @@ set-window-option -g clock-mode-colour colour64 #green
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/tload/">Tload</a></h1>
+      <h1 class="entry-title"><a href="/blog/totem/">Totem</a></h1>
     
     
       <p class="meta">
@@ -483,9 +450,9 @@ set-window-option -g clock-mode-colour colour64 #green
   </header>
 
 
-  <div class="entry-content"><p>Muestra el promedio de carga en el terminal en forma de dibujos de caracteres.</p>
+  <div class="entry-content"><p>Reproductor de video</p>
 
-<blockquote><p>$ tload -d 2 (Con actualizacion cada 2 segundos)</p></blockquote>
+<blockquote><p>$ totem-video-thumbnailer -pg 30 video.mpeg salida (Creación de una imagen formada por thumbnailes de un video)</p></blockquote>
 </div>
   
   
@@ -498,7 +465,7 @@ set-window-option -g clock-mode-colour colour64 #green
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/timidity/">Timidity</a></h1>
+      <h1 class="entry-title"><a href="/blog/torsocks/">Torsocks</a></h1>
     
     
       <p class="meta">
@@ -521,11 +488,13 @@ set-window-option -g clock-mode-colour colour64 #green
   </header>
 
 
-  <div class="entry-content"><p>Convertir formatos de audio de midi a wav  o a ogg</p>
+  <div class="entry-content"><p>Permite lanzar aplicaciones a través de la red tor para enmascarar la ip. Puede usarse indistintamente los comandos torsocks o usewithtor. Ver proxychains. Precisa tor funcionando.</p>
 
-<blockquote><p>$ timidity -Ow -s 44100 -o output.wav input.mid  (MIDI -> WAV)</p>
+<blockquote><p># torsocks ssh usuario@host</p>
 
-<p>$ timidity -Og -s 44100 -o output.ogg input.mid  ( MIDI -> OGG)</p></blockquote>
+<p># torsocks w3m ifconfig.me</p>
+
+<p># usewithtor pidgin</p></blockquote>
 </div>
   
   
@@ -538,7 +507,7 @@ set-window-option -g clock-mode-colour colour64 #green
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/times/">Times</a></h1>
+      <h1 class="entry-title"><a href="/blog/torify/">Torify</a></h1>
     
     
       <p class="meta">
@@ -561,7 +530,9 @@ set-window-option -g clock-mode-colour colour64 #green
   </header>
 
 
-  <div class="entry-content"><p>Muestra los tiempos de usuario y sistema acumulados para procesos ejecutados desde el interprete de comandos</p>
+  <div class="entry-content"><p>Verificar si la navegación está torificada.</p>
+
+<blockquote><p>$ torify elinks checkip.dyndns.org</p></blockquote>
 </div>
   
   
@@ -574,7 +545,7 @@ set-window-option -g clock-mode-colour colour64 #green
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/timeout/">Timeout</a></h1>
+      <h1 class="entry-title"><a href="/blog/tor-resolve/">Tor-resolve</a></h1>
     
     
       <p class="meta">
@@ -597,9 +568,9 @@ set-window-option -g clock-mode-colour colour64 #green
   </header>
 
 
-  <div class="entry-content"><p>Limita el tiempo de funcionamiento de un comando o aplicación.</p>
+  <div class="entry-content"><p>Resuelve direcciones IP o nombres de host via tor.</p>
 
-<blockquote><p>$ timeout 60 firefox (arrancará firefox y se cerrará a los 60 segundo)</p></blockquote>
+<blockquote><p>$ tor-resolve lapipaplena.net</p></blockquote>
 </div>
   
   
@@ -612,7 +583,7 @@ set-window-option -g clock-mode-colour colour64 #green
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/time/">Time</a></h1>
+      <h1 class="entry-title"><a href="/blog/top/">Top</a></h1>
     
     
       <p class="meta">
@@ -635,13 +606,61 @@ set-window-option -g clock-mode-colour colour64 #green
   </header>
 
 
-  <div class="entry-content"><p>Devuelve el tiempo de ejecución de un comando o aplicación.</p>
+  <div class="entry-content"><p>información sobre el estado del sistema, procesos, uso del procesador, memoria etc&#8230; en ejecucion</p>
 
-<blockquote><p>$ time netstat -anpt</p>
+<blockquote><p>$ top | grep Tasks (Visualizar procesos abiertos incluidos los zombies)</p>
 
-<p># time nmap -sS www.tuxapuntes.com</p>
+<p>$ top -u usuario  (procesos abiertos por el usuario indicado)</p>
 
-<p>$ time echo &#8220;scale=5000; 4*a(1)&#8221; | bc -l -q (Calcula 5000 decimales de pi para comprobar velocidad del procesador)</p></blockquote>
+<p>$ top -p $(pgrep -d, yaourt) (Monitorizar un proceso)</p>
+
+<p>$ top -p <code>pgrep pidgin</code> (Monitorear un proceso)</p>
+
+<p>$ top -b -n 2 -d 2 (En modo batch [b] que termine el comando despues de mostrar 2 procesos top [n] con un intervalo de 2 segundos [d])</p></blockquote>
+
+<p>Teclas de control</p>
+
+<p>Ctrl + m (los ordenamos por uso de memoria)</p>
+
+<p>Ctrl + c  (Salir)</p>
+
+<p>k  (y colocar el PID correspondiente mataremos el proceso)</p>
+
+<p>Z  (para modificar el color. Con “z” se escoge el color)</p>
+
+<p>n  ( y colocar el número de procesos que queremos visualizar)</p>
+
+<p>A  (abre multiples ventanas “top”)</p>
+
+<p>f   (activa/desactiva columnas a visualizar)</p>
+
+<p>o  (Modifica el orden de las columnas)</p>
+
+<p>G + num (del 1 al 4 cambia el modo de presentación)</p>
+
+<p>W (Graba el tipo de visualización. A partir de la siguiente vez que se lance la aplicación se mostrará con los parámetros grabados)</p>
+
+<p>Columnas:</p>
+
+<p>PID .-       Identificador</p>
+
+<p>USER.-   Usuario que ha ejecutado el proceso.</p>
+
+<p>PR.-         Prioridad</p>
+
+<p>NI.-         Valor nice del proceso (negativos-> mayor prioridad)</p>
+
+<p>RES.-        Memoria RAM ocupada por el proceso.</p>
+
+<p>%CPU.-   Porcentaje ocupado de la CPU</p>
+
+<p>TIME+.-  Cuanto tiempo lleva el proceso en el sistema.</p>
+
+<p>COMMAND.- Nombre del procesos y sus parametros.</p>
+
+<p>PPID.-       PID del proceso padre.</p>
+
+<p>UID.-        ID del usuario que ha ejecutado el proceso.</p>
 </div>
   
   
@@ -672,43 +691,43 @@ set-window-option -g clock-mode-colour colour64 #green
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/figlet/">figlet</a>
+        <a href="/blog/gedit/">gedit</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fgrep/">fgrep</a>
+        <a href="/blog/gconftool-2/">gconftool-2</a>
       </li>
     
       <li class="post">
-        <a href="/blog/festival/">festival</a>
+        <a href="/blog/ftff/">ftff</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fbgs/">fbgs</a>
+        <a href="/blog/fstab/">fstab</a>
       </li>
     
       <li class="post">
-        <a href="/blog/faillog/">faillog</a>
+        <a href="/blog/fsck/">fsck</a>
       </li>
     
       <li class="post">
-        <a href="/blog/extundelete/">extundelete</a>
+        <a href="/blog/freeradius/">freeradius</a>
       </li>
     
       <li class="post">
-        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
+        <a href="/blog/foremost/">foremost</a>
       </li>
     
       <li class="post">
-        <a href="/blog/eterm/">eterm</a>
+        <a href="/blog/for/">for</a>
       </li>
     
       <li class="post">
-        <a href="/blog/errno/">errno</a>
+        <a href="/blog/flunym0us/">flunym0us</a>
       </li>
     
       <li class="post">
-        <a href="/blog/egrep/">egrep</a>
+        <a href="/blog/flexget/">flexget</a>
       </li>
     
   </ul>
