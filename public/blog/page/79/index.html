@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="El port knocking o golpeo de puertos es un mecanismo mediante la cual el cortafuegos, que mantiene cerrado un determinado puerto, detecta una &hellip;">
+  <meta name="description" content="Administrador de archivos $ lfm -1 (arrancar con un solo panel) $ lfm -2 (arrancar con dos [por defecto]) $ lfm /home/usuario/Documentos /media/sda2 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/knockd/">Knockd</a></h1>
+      <h1 class="entry-title"><a href="/blog/lfm/">Lfm</a></h1>
     
     
       <p class="meta">
@@ -103,125 +103,91 @@
   </header>
 
 
-  <div class="entry-content"><p>El port knocking o golpeo de puertos es un mecanismo mediante la cual el cortafuegos, que mantiene cerrado un determinado puerto, detecta una secuencia preestablecida que procede de una conexión externa y abre dicho puerto para que el servicio asignado sea accesible. Este mecanismo permite añadir una capa adicional de seguridad [por oscuridad], de manera que para cualquier conexión externa no autorizada los puertos donde se brindan los servicios se muestran como cerrados, eliminando así la posibilidad de intentar la conexión y no ofreciendo información sobre el servicio configurado. Por su parte, el usuario autorizado necesita disponer de un cliente de port-knocking que envíe una secuencia de paquetes dirigidos a dicho puerto, con el fin de que el cortafuegos detecte la secuencia correcta y abra el puerto dejando accesible el servicio. Una vez desactivada esta capa de seguridad, el servicio está accesible para realizar ls conexión [por ejemplo SSH]. La aplicación precisa estar instalada en el servidor y en el cliente.</p>
+  <div class="entry-content"><p>Administrador de archivos</p>
 
-<p>Habilitar el servicio y especificar la red:</p>
+<blockquote><p>$ lfm -1 (arrancar con un solo panel)</p>
 
-<blockquote><p># nano /etc/default/knockd</p></blockquote>
+<p>$ lfm -2 (arrancar con dos [por defecto])</p>
 
-<pre><code>START_KNOCKD=1
+<p>$ lfm /home/usuario/Documentos /media/sda2 (Abrir en cada panel un directorio)</p></blockquote>
 
-KNOCKD_OPTS="-i eth0"
+<p>Nota.- Pulsar “q” para cerrar</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/let/">Let</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Permite asignar el resultado de una expresión aritmética a una variable.</p>
+
+<blockquote><p>$ let a=4*3; echo $a</p></blockquote>
+
+<p>Ejemplo en un script:</p>
+
+<pre><code>#!/bin/bash 
+
+read -p "Dime dos número del 1 al 100: " NUM1 NUM2 
+
+let SUMA=$NUM1+$NUM2 
+
+echo "La suma de $NUM1 + $NUM2 es $SUMA"
 </code></pre>
 
-<p>Configurar las opciones de loging y las secuencias que queremos usar:</p>
+<p>let permite utilizar asignaciones:</p>
 
-<blockquote><p># nano /etc/knockd.conf</p></blockquote>
+<pre><code>incremento += 
 
-<pre><code>[options]
+decremento -= 
 
-        UseSyslog
+mutiplicar por *= 
 
-[openSSH]
+dividir por /= 
 
-        sequence    = 7000,8000,9000
+modulo por %= 
 
-        seq_timeout = 5
+incremento en 1 ++ 
 
-        command     = /sbin/iptables -A INPUT -s %IP% -p tcp --dport 22 -j ACCEPT
-
-        tcpflags    = syn
-
-[closeSSH]
-
-        sequence    = 9000,8000,7000
-
-        seq_timeout = 5
-
-        command     = /sbin/iptables -D INPUT -s %IP% -p tcp --dport 22 -j ACCEPT
-
-        tcpflags    = syn
+decremento en 1 -- 
 </code></pre>
 
-<ul>
-<li><p>UseSyslog (que envía los logs a /var/log/syslog. Si se desea un fichero de log propio, se utiliza LogFile=/var/log/knockd.log)</p></li>
-<li><p>sequence (especifica la secuencia de puertos y tipo de paquete a enviar para hacer el portknocking (por defecto TCP, pero se puede especificar una secuencia más compleja como sequence=2140:udp,4500:tcp,3025:udp)</p></li>
-<li><p>seq_timeout (especifica el periodo máximo de tiempo en segundos en el que la secuencia completa es recibida como secuencia válida)</p></li>
-<li><p>tcpflags (especifica los flags que deben ser tenidos en cuenta (fin|syn|rst|psh|ack|urg).</p></li>
-<li><p>command (especifica el comando a ejecutar cuando se reconoce la secuencia definida)</p></li>
-<li><p>%IP% (toma del valor de la ip cliente desde la que se envía la secuencia de puertos)</p></li>
-</ul>
+<p>Ejemplo:</p>
 
+<pre><code>#!/bin/bash
 
-<p>Con esta configuración, el servidor knockd escucha permanentemente todos los puertos, esperando una secuencia válida. Si recibe paquetes TCP dirigidos a los puertos 7000, 8000 y 9000, en este mismo orden y dentro de un intervalo de 5 segundos, reconoce la directiva [openSSH] y ejecuta iptables para abrir el puerto 22 [donde escucha sshd] a la IP que solicita la conexión. Ahora el cliente SSH puede realizar la conexión, y podemos cerrar el puerto de nuevo con la directiva [closeSSH] manteniendo establecida dicha conexión.</p>
+let x=1
 
-<blockquote><p># service knockd start (Iniciar el servicio)</p></blockquote>
+let x+=1
 
-<p>Probar el servicio en local:</p>
-
-<p>Parar knockd si está activo y levantarlo manualmente:</p>
-
-<blockquote><p># service knockd stop</p>
-
-<p># knockd -v -i lo</p></blockquote>
-
-<p>En otra terminal:</p>
-
-<blockquote><p>$ knock -v localhost 7000 8000 9000</p></blockquote>
-
-<p>Cuando queramos terminar la conexión:</p>
-
-<blockquote><p>$ knock -v localhost 9000 8000 7000</p></blockquote>
-
-<p>En la terminal del servidor veremos algo como:</p>
-
-<blockquote><p># knockd -v -i lo</p></blockquote>
-
-<pre><code>listening on lo...
-
-127.0.0.1: openSSH: Stage 1
-
-127.0.0.1: openSSH: Stage 2
-
-127.0.0.1: openSSH: Stage 3
-
-127.0.0.1: openSSH: OPEN SESAME
-
-openSSH: running command: /sbin/iptables -A INPUT -s 127.0.0.1 -p tcp --dport 22 -j ACCEPT
-
-127.0.0.1: closeSSH: Stage 1
-
-127.0.0.1: closeSSH: Stage 2
-
-127.0.0.1: closeSSH: Stage 3
-
-127.0.0.1: closeSSH: OPEN SESAME
-
-closeSSH: running command: /sbin/iptables -D INPUT -s 127.0.0.1 -p tcp --dport 22 -j ACCEPT
-</code></pre>
-
-<p>Si en la configuración de iptables tenemos acceso a conexiones ya establecidas:</p>
-
-<pre><code>iptables -A INPUT -p tcp -m tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
-</code></pre>
-
-<p>Podemos configurar la aplicación para que se cierre de forma automática:</p>
-
-<blockquote><p># nano /etc/knockd.conf</p></blockquote>
-
-<pre><code>[opencloseSSH]
-
-        sequence = 7000,8000,9000
-
-        seq_timeout = 5
-
-        tcpflags = syn
-
-        start_command = /sbin/iptables -I INPUT -s %IP% -p tcp --dport 22 -j ACCEPT
-
-        cmd_timeout = 25
-
-        stop_command = /sbin/iptables -D INPUT -s %IP% -p tcp  --dport 22 -j ACCEPT
+echo $x
 </code></pre>
 </div>
   
@@ -235,7 +201,7 @@ closeSSH: running command: /sbin/iptables -D INPUT -s 127.0.0.1 -p tcp --dport 2
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/kismet/">Kismet</a></h1>
+      <h1 class="entry-title"><a href="/blog/less/">Less</a></h1>
     
     
       <p class="meta">
@@ -258,469 +224,39 @@ closeSSH: running command: /sbin/iptables -D INPUT -s 127.0.0.1 -p tcp --dport 2
   </header>
 
 
-  <div class="entry-content"><p>Identifica redes inalambricas de forma pasiva recolectando paquetes, detecta redes ocultas, clientes asociados y es capaz de sniffar el tráfico de las redes no encriptadas.</p>
+  <div class="entry-content"><p>Pagina la visualización de un fichero.</p>
 
-<blockquote><p># nano /etc/kismet/kismet.conf</p></blockquote>
+<blockquote><p>$ cat /etc/apt/sources.list | less</p>
 
-<p>Buscar la linea:  source=none,none,addme</p>
-
-<p>Y sustituirla por:  source=ath5k,eth1,wifi</p>
-
-<p>en la que “ath5k” es el driver que usamos, “eth1” la interfaz de red y “wifi” cualquier nombre.</p>
-
-<p>También en este archivo pueden configurarse otros parámetros (Puerto, host permitido, máximo de clientes, logs&#8230;) :</p>
-
-<pre><code>tcpport=2501
-
-allowedhosts=127.0.0.1
-
-maxclients=5
-
-logtemplate=/var/log/kismet/
-</code></pre>
-
-<p>En el directorio de logs, los archivos que interesan son los .pcap que pueden visionarse con wireshark.</p>
-
-<blockquote><p># kismet   (lanzar la aplicación)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/kippo/">Kippo</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Construir un honeypot por ssh.</p>
-
-<p>Descargar y desenpaquetar kippo:</p>
-
-<blockquote><p>$ wget https://kippo.googlecode.com/files/kippo-0.5.tar.gz</p>
-
-<p>$ tar xzf kippo-0.5.tar.gz</p>
-
-<p>$ cd kippo-0.5</p>
-
-<p>$ ./start.sh</p></blockquote>
-
-<p>Configuración de iptables:</p>
-
-<blockquote><p># iptables -A INPUT -i eth0 -p tcp &#8211;dport 22 -j ACCEPT</p>
-
-<p># iptables -A INPUT -i eth0 -p tcp &#8211;dport 2222 -j ACCEPT</p>
-
-<p># iptables -A PREROUTING -t nat -i eth0 -p tcp &#8211;dport 22 -j REDIRECT &#8211;to-port 2222</p></blockquote>
-
-<p>Los intentos de acceso ssh quedan registrados en el subdirectorio log:</p>
-
-<blockquote><p>$ cd kippo-0.5/log</p>
-
-<p>$ tail -f kippo.log</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/killall/">Killall</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Mata el proceso de la aplicación especificada</p>
-
-<blockquote><p>$ killall -9 scribus</p>
-
-<p>$ killall gnome-panel (reiniciar los paneles)</p>
-
-<p>$ killall -INFO dd  (chequear el estado de un proceso dd)</p>
-
-<p>$ killall -u usuario (Matar los procesos de un  usuario)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/kill/">Kill</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Enviar señales a los procesos.</p>
-
-<blockquote><p>$ kill -l      (lista todas las señales que pueden mandarse a un proceso)</p>
-
-<p>$ kill -0             (mata todos los procesos de la shell)</p>
-
-<p>$ kill -9  pid      (mata el proceso indicado con el número PID)</p>
-
-<p># kill -9 <code>lsof -t -i :22</code> (Mata el proceso que corre en el puerto 22)</p>
-
-<p>$ kill -1 pid  (reinicia el servicio indicado en PID)</p>
-
-<p>$ kill %2 (mata el proceso número 2)</p>
-
-<p>$ kill -19 pid  (Parar un proceso de forma temporal. Con -18 se reanuda)</p></blockquote>
-
-<p>Algunas muestras del número y su equivalencia:</p>
-
-<p>2 SIGINT (Interrumpido desde el teclado [igual que Ctrl+c])</p>
-
-<p>3 SIGQUIT (Cerrado desde el teclado [igual que Ctrl+])</p>
-
-<p>9 SIGKILL (forzar que uno o varios procesos terminen de forma inmediata)</p>
-
-<p>18 SIGCONT (Reanudar un proceso parado)</p>
-
-<p>19 SIGSTOP (suspender un proceso)</p>
-
-<p>20 SIGTSTP (Parar un proceso desde terminal [igual que Ctrl+z])</p>
-
-<p>Nota.- Si en vez de usar los números [kill -9 pid] usamos el nombre de la señal [kill -KILL pid] podemos omitir las letras SIG de la señal [SIGKILL]</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/kernel/">Kernel</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>1.-</p>
-
-<p>Suprimir kernels antiguos</p>
-
-<blockquote><p># uname -r   (para conocer el último)</p>
-
-<p># dpkg &#8211;get-selections | egrep linux-image</p></blockquote>
-
-<p>linux-image-2.6.17-11-generic install</p>
-
-<p>linux-image-2.6.20-15-generic install</p>
-
-<p>linux-image-2.6.20-16-generic install</p>
-
-<p>Dejar el actual y suprimir los otros:</p>
-
-<blockquote><p># apt-get remove &#8211;purge linux-image-2.6.17-11-generic</p></blockquote>
-
-<p>2.-</p>
-
-<p>Instalar nuevo kernel:</p>
-
-<p>Para el ejemplo descargaremos el kernel 3.3.6 para la versión de ubuntu 12.04 [http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.3.6-precise/] para la arquitectura amd64. De los varios archivos que encontramos en la página, para lo que nos ocupa, solo interesan los linux-headers y linux-image.</p>
-
-<blockquote><p>$ wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.3.6-precise/linux-headers-3.3.6-030306_3.3.6-030306.201205121335_all.deb</p>
-
-<p>$ wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.3.6-precise/linux-headers-3.3.6-030306-generic_3.3.6-030306.201205121335_amd64.deb</p>
-
-<p>$ wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.3.6-precise/linux-image-3.3.6-030306-generic_3.3.6-030306.201205121335_amd64.deb</p></blockquote>
-
-<p>La instalación se realiza en el mismo orden de descarga:</p>
-
-<blockquote><p># gdebi linux-headers-3.3.6-030306_3.3.6-030306.201205121335_all.deb</p>
-
-<p># gedbi linux-headers-3.3.6-030306-generic_3.3.6-030306.201205121335_amd64.deb</p>
-
-<p># gedbi linux-image-3.3.6-030306-generic_3.3.6-030306.201205121335_amd64.deb</p></blockquote>
-
-<p>Después de la instalación del kernel, instalar los drivers privativos tipo nvidia o ati. Y actualizar grub:</p>
-
-<blockquote><p># update-grub</p></blockquote>
-
-<p>3.-</p>
-
-<p>[libncurses5 libncurses5-dev]</p>
-
-<p>Compilar el kernel desde el codigo fuente. Puede ser util para habilitar soporte para algun nuevo periferico no soportado por el kernel por defecto. Escoger la ultima version del nucleo estable de kernel.org. Para el ejemplo usaremos la 3.9.11.</p>
-
-<blockquote><p># cd /usr/src</p>
-
-<p># wget https://www.kernel.org/pub/linux/kernel/v3.x/linux-3.9.11.tar.gz</p>
-
-<p># tar -zxvf linux-3.9.11.tar.gz</p>
-
-<p># cd linux-3.9.11</p>
-
-<p># make menuconfig/</p></blockquote>
-
-<p>Mostrara las opciones de configuracion por defecto que podran ser modificadas para nuestra maquina especifica. Una vez terminado, &#8220;guardar&#8221; como .config</p>
-
-<blockquote><p># make (Compilar)</p>
-
-<p># make modules_install (Instalar los modulos)</p>
-
-<p># make install (Instalar el nuevo kernel en el sistema)</p></blockquote>
-
-<p>La instalacion ya modifica el grub.cfg para que el sistema arranque con el nuevo kernel. Si este da problemas puede escogerse para el arranque el antiguo que constara en el menu de Grub. Puede verificarse el nuevo kernel con:</p>
-
-<blockquote><p>$ uname -r</p></blockquote>
-
-<p>4.-</p>
-
-<p>Borrar kernels antiguos de forma automática:</p>
-
-<pre><code># apt-get purge $(dpkg -l 'linux-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/\(.*\)-\([^0-9]\+\)/\1/")"'/d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/;/[0-9]/!d' | head -n -1) --assume-yes 
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/kbdrate/">Kbdrate</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Establece la tasa de repetición del teclado y el tiempo de retardo en las tty.</p>
-
-<blockquote><p># kbdrate -d 200 -r 10 (establece retardo de 200 milisegundos y velocidad de repetición de 10 por segundo)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/jumanji/">Jumanji</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Navegador estilo vi con soporte flash.</p>
-
-<p>Configuración:</p>
-
-<blockquote><p>$ nano .config/jumanji/jumanjirc</p>
-
-<p># jumanji configuration</p>
-
-<p># search engines</p></blockquote>
-
-<p>searchengine gg http://google.es</p>
-
-<p>searchengine yo http://www.youtube.com/results?search_query=%s&amp;aq=f</p>
-
-<blockquote><p># browser settings</p></blockquote>
-
-<p>set homepage http://www.lapipaplena.com</p>
-
-<p>set auto_save 60</p>
-
-<p>set single_instance false</p>
-
-<blockquote><p># downloads</p></blockquote>
-
-<p>set download_dir ~/downloads/</p>
-
-<p>set download_command urxvt -e  wget &#8211;load-cookies ~/.config/jumanji/cookies &#8216;%s&#8217; -O &#8216;%s&#8217;;</p>
-
-<blockquote><p># look</p></blockquote>
-
-<p>set font droid sans mono medium 8</p>
-
-<blockquote><p># key bindings</p></blockquote>
-
-<p>map <C-q> quit</p>
-
-<blockquote><p># session</p></blockquote>
-
-<p>set default_session_name start</p>
-
-<p>set session_restored true</p>
-
-<blockquote><p># Enable plugins</p></blockquote>
-
-<p>plugin application/x-shockwave-flash</p>
+<p>$ less fichero</p></blockquote>
 
 <p>Atajos:</p>
 
-<pre><code>o (entrar URL)
+<pre><code>espacio (Avanzar un número de líneas igual al número de líneas de la pantalla) 
 
-t (entrar URL en nueva ventana)
+enter (Avanzar de línea en línea) 
 
-j (bajar por la página)
+y (Retroceder una línea) 
 
-k (subir)
+G (Ir al final del texto) 
 
-h (ir a la izquierda)
+g (Ir al inicio del texto) 
 
-k (ir a la derecha) 
+/ (Ingresar palabra a ser buscada de la página actual al final del texto) 
 
-^f (Descenso al final de la página) 
+? (Ingresar palabra a ser buscada de la página actual al inicio del texto) 
 
-^b (Regreso al inicio de la página) 
+n (Ir a la siguiente coincidencia de búsqueda) 
 
-w (abrir una dirección en una nueva ventana) 
+AvPág (Avanzar una pantalla de texto) 
 
-^w (Cerrar ventana)
+RePág (Retroceder una pantalla de texto) 
 
-^Tab (Cambiar de pestaña)
+v (Abrir lo que se visualiza con el editor. Por defecto vi) 
 
-^I (página anterior)
+h (Ayuda) 
 
-^o (página siguiente) 
-
-? (Buscar palabra)
-
-r (Recargar la página)
-
-R (Recargar ignorando la caché) 
-
-y (Copiar la dirección de la página al portapapeles)
-
-^s (Mostrar código fuente)
-
-^q (Salir)
+q (Salir del programa) 
 </code></pre>
 </div>
   
@@ -734,7 +270,7 @@ y (Copiar la dirección de la página al portapapeles)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/jpegtran/">Jpegtran</a></h1>
+      <h1 class="entry-title"><a href="/blog/leafpad/">Leafpad</a></h1>
     
     
       <p class="meta">
@@ -757,19 +293,67 @@ y (Copiar la dirección de la página al portapapeles)
   </header>
 
 
-  <div class="entry-content"><p>Eliminar información y reducir, modificar o recortar tamaño de imagenes jpeg.</p>
+  <div class="entry-content"><p>Editor tipo gedit.</p>
 
-<blockquote><p>$ jpegtran -copy none optimize original.jpg resultado.jpg (Eliminando información oculta [-copy none] y reduciendo la imagen [-optimize])</p></blockquote>
+<p>Configuración de parámetros:</p>
 
-<p>Algunas opciones:</p>
+<blockquote><p>$ nano .config/leafpad/leafpadrc</p></blockquote>
 
-<p>-grayscale (Forzar salida a escala de grises)</p>
+<pre><code>0.8.18.1 
 
-<p>-rotate 90 (Rotar 90º)</p>
+1215 (Ancho) 
 
-<p>-flip horizontal (Imagen espejo horizontal [izquierda-derecha])</p>
+363 (Alto) 
 
-<p>-flip vertical (Imagen espejo vertical [arriba-abajo])</p>
+Monospace 12 (Fuente y medida) 
+
+1 (Ajustar / desajustar lineas al ancho de la ventana [0 o 1]) 
+
+0 (Mostrar / esconder número de linea [0 o 1]) 
+
+0 
+</code></pre>
+
+<p>Atajos:</p>
+
+<pre><code>Ctrl-n (Documento nuevo) 
+
+Ctrl-o (Abrir) 
+
+Ctrl-s (Guardar) 
+
+Shift-Ctrl-s (Guardar como) 
+
+Ctrl-w (Cerrar documento) 
+
+Ctrl-p (Imprimir) 
+
+Ctrl-q (Salir) 
+
+Ctrl-z (Borrar última palabra escrita) 
+
+Ctrl-y (Deshacer "borrar última palabra") 
+
+Ctrl-x (Cortar) 
+
+Ctrl-c (Copiar) 
+
+Ctrl-v (Pegar) 
+
+Ctrl-a (Seleccionar todo el texto) 
+
+Ctrl-f (Buscar en el texto) 
+
+Ctrl-g [F3] (Siguiente busqueda) 
+
+Shift-Ctrl-g [Shift-F3] (Busqueda anterior) 
+
+Ctrl-h [Ctrl-R] (Reemplazar palabras del texto por otras) 
+
+Ctrl-j (Saltar a la linea...) 
+
+Ctrl-t (Siempre en primer plano) 
+</code></pre>
 </div>
   
   
@@ -782,7 +366,7 @@ y (Copiar la dirección de la página al portapapeles)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/jpegjudge/">Jpegjudge</a></h1>
+      <h1 class="entry-title"><a href="/blog/ldd/">Ldd</a></h1>
     
     
       <p class="meta">
@@ -805,11 +389,294 @@ y (Copiar la dirección de la página al portapapeles)
   </header>
 
 
-  <div class="entry-content"><p>Determina la calidad de un jpeg en una escala de 0 [menor] a 1000 [mayor calidad]</p>
+  <div class="entry-content"><p>Para conocer las librerias compartidas que usa una aplicación.</p>
 
-<blockquote><p>$ jpegjudga -b imagen.jpeg (Mostrar solo el número)</p></blockquote>
+<blockquote><p>$ ldd /usr/bin/amarok</p></blockquote>
+</div>
+  
+  
 
-<p>Nota.- Puede observarse el deterioro pasando un jpeg a png y volver a pasarlo a jpeg y comparar los resultados del primer jpeg y el último.</p>
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/lckdo/">Lckdo</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[moreutils]</p>
+
+<p>Bloquea la ejecución de un programa con el fin de evitar que otros procesos se ejecuten en paralelo. Se utiliza como nice [ver] y nohup [ver]</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/lazygal/">Lazygal</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Generar una galería web.</p>
+
+<blockquote><p>$ lazygal directorio_con_las_imagenes  (Creará todos los archivos en el presente directorio por lo que es preferible estar en un directorio vacio)</p>
+
+<p>$ lazygal -o /var/www/ /home/usuario/fotos (Lo creará en la carpeta web a partir del directorio fotos)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/latex2html/">Latex2html</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Covierte un archivo latex a formato html. Crea un directorio con el mismo nombre del archivo.</p>
+
+<blockquote><p>$ latex2html archivo.tex</p>
+
+<p>$ latex2html -dir DIR archivo.tex (Creará los archivos html en el directorio especificado [tiene que existir])</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/latex/">Latex</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[texlive texlive-lang-spanish]</p>
+
+<p>Sistema de composición de textos, orientado especialmente a la creación de libros, documentos científicos y técnicos que contengan fórmulas matemáticas. La elaboración del documento requiere normalmente de dos etapas: en la primera hay que crear mediante cualquier editor de texto llano un fichero fuente que, con las órdenes y comandos adecuados, contenga el texto que queramos imprimir. La segunda consiste en procesar este fichero; el procesador de textos interpreta las órdenes escritas en él y compila el documento, dejándolo preparado para que pueda ser enviado a la salida correspondiente. LaTeX ofrece siempre la misma salida, con independencia del dispositivo (impresora, pantalla, etc.) o el sistema operativo (MS Windows, MacOS, Unix, GNU/Linux, etc.) y puede ser exportado a partir de una misma fuente a numerosos formatos [Ps, PDF, SGML, HTML, RTF, etc.]. Otra ventaja de LaTeX es que calcula la cantidad óptima de caracteres por línea para optimizar la lectura, 66 por defecto. Existen miles de instrucciones. Aquí una pequeña muestra para no morir en el intento.</p>
+
+<p>A continuación una estructura elemental de un documento:</p>
+
+<p>Los comentarios van precedidos por el signo de porcentaje [%]</p>
+
+<p>La primera linea puede especificar el papel [A4], tamaño de la letra [10pt, 11pt, 12pt], tipo de texto [article, report, book, letter, slides&#8230;], cantidad de columnas [twocolumn]:</p>
+
+<pre><code>\documentclass[a4paper, 12pt]{article} 
+
+\documentclass[12pt,twocolumn]{report}
+</code></pre>
+
+<p>Activar el soporte Unicode [para  dieresis, eñes&#8230;]</p>
+
+<pre><code>\usepackage[utf8]{inputenc}
+
+\usepackage[spanish]{babel}
+</code></pre>
+
+<p>Especificar título, autor, fecha. &#8220;date&#8221;, si no se especifica, pone la fecha actual:</p>
+
+<pre><code>\title{Lorem Ipsum} 
+
+\author{La Pipa Plena} 
+
+\date{ }
+</code></pre>
+
+<p>El cuerpo del documento se inicia con \maketitle</p>
+
+<p>Inicio y final de texto. Entre párrafos ha de dejarse una linea en blanco. El primer párrafo de una subsección, sección o capítulo no está sangrado, pero los restantes sí.:</p>
+
+<pre><code>\begin{document}
+
+Est et quia non voluptatum. Aspernatur facilis excepturi aut. Voluptatem perspiciatis id cum ab nostrum. Qui rerum nisi vitae quae. Quam consequatur eaque minima ipsum distinctio. Est dolorem tempore perspiciatis quisquam accusantium exercitationem consequatur.
+
+\end{document}
+</code></pre>
+
+<p>Secciones y subsecciones del texto:</p>
+
+<pre><code>\section{Introducción}
+
+\section{Historia}
+
+\subsection{Historia inicios}
+
+\subsection{Historia continuación}
+</code></pre>
+
+<p>Formatos de texto:</p>
+
+<pre><code>\texbf{texto en negrita}
+
+\emph{destaca el texto}
+
+\texit{texto en cursiva}
+
+\underline{texto subrayado}
+
+\texsc{texto en versalita}
+</code></pre>
+
+<p>Tamaño de la letra. Estos comandos afectan a todo el texto que les sigue mientras no se modifique nuevamente y sin necesidad de encerrarlo entre llaves. De más pequeña a más grande: \tiny, \scriptsize, \footnotesize, \small, \normalsize (la normal), \large, \Large, \LARGE, \huge, \Huge</p>
+
+<pre><code>\normalsize Ipsam \tiny iusto odio commodi \scriptsize inventore rem. \footnotesize Qui maiores minima \small dignissimos aut mollitia et. \normalsize Voluptates \large magnam autem similique quas. \LARGE nihil aspernatur nisi blanditiis. \huge Ad repudiandae fuga blanditiis. \Huge Est voluptate in ipsam sint \ normalsize optio.
+</code></pre>
+
+<p>Centrar un párrafo:</p>
+
+<pre><code>\begin{center}
+
+Est et quia non voluptatum. Aspernatur facilis excepturi aut. Voluptatem perspiciatis id cum ab nostrum. Qui rerum nisi vitae quae. Quam consequatur eaque minima ipsum distinctio. Est dolorem tempore perspiciatis quisquam accusantium exercitationem consequatur.
+
+\end{center}    
+</code></pre>
+
+<p>alinear texto:</p>
+
+<pre><code>\centering {Texto a centrar}
+
+\raggedleft {Texto a la derecha}
+
+\raggedright {Texto a la izquierda}
+</code></pre>
+
+<p>Para confeccionar un documento en latex puede usarse cualquier editor [vim, nano, gedit&#8230;] y para convertirlo a pdf compilarlo con:</p>
+
+<blockquote><p>$ pdflatex texto.tex</p></blockquote>
+
+<p>Tambien podemos visualizar directamente el .dvi con la aplicación evince o usar gummi que, al tener la pantalla dividida en dos partes, permite crear el documento y visualizarlo en tiempo real.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/lastlog/">Lastlog</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ver el momento exacto que los usuarios han entrado por última vez</p>
+
+<blockquote><p>$ lastlog -u usuario  (solo ver a &#8220;usuario&#8221;)</p></blockquote>
 </div>
   
   
@@ -840,43 +707,43 @@ y (Copiar la dirección de la página al portapapeles)
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/dig/">dig</a>
+        <a href="/blog/figlet/">figlet</a>
       </li>
     
       <li class="post">
-        <a href="/blog/denyhosts/">denyhosts</a>
+        <a href="/blog/fgrep/">fgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/debget/">debget</a>
+        <a href="/blog/festival/">festival</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ddrescue/">ddrescue</a>
+        <a href="/blog/fbgs/">fbgs</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ddclient/">ddclient</a>
+        <a href="/blog/faillog/">faillog</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dav/">dav</a>
+        <a href="/blog/extundelete/">extundelete</a>
       </li>
     
       <li class="post">
-        <a href="/blog/date/">date</a>
+        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dansguardian/">dansguardian</a>
+        <a href="/blog/eterm/">eterm</a>
       </li>
     
       <li class="post">
-        <a href="/blog/cups/">cups</a>
+        <a href="/blog/errno/">errno</a>
       </li>
     
       <li class="post">
-        <a href="/blog/csscapture/">csscapture</a>
+        <a href="/blog/egrep/">egrep</a>
       </li>
     
   </ul>

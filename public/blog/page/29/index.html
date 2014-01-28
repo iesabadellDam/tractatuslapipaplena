@@ -9,7 +9,8 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Cambiar de usuario $ su -m (Cambia de root [#] a usuario normal [$]) Nota.- Tambien puede hacerse tecleando “exit o con Ctrl + d” $ su - (cambia a &hellip;">
+  <meta name="description" content="Gestión de impresoras. Lanza la gui. $ system-config-printer
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/su/">Su</a></h1>
+      <h1 class="entry-title"><a href="/blog/system-config-printer/">System-config-printer</a></h1>
     
     
       <p class="meta">
@@ -103,19 +104,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Cambiar de usuario</p>
+  <div class="entry-content"><p>Gestión de impresoras. Lanza la gui.</p>
 
-<blockquote><p>$ su -m           (Cambia de root [#] a usuario normal [$])</p></blockquote>
-
-<p>Nota.-  Tambien puede hacerse tecleando “exit o con Ctrl + d”</p>
-
-<blockquote><p>$ su -  (cambia a root)</p>
-
-<p>$ su -c htop (Pedirá contraseña para lanzar htop, pero cuando se salga el prompt será de usuario, no de root)</p>
-
-<p>$ su -c &#8220;!!&#8221; root (Ejecutar el último comando ejecutado como root)</p>
-
-<p>$ su - usuario (recarga todos los archivos del perfil del usuario y se reseteen todos los paths y alias. Si no se especifica usuario, por defecto es root)</p></blockquote>
+<blockquote><p>$ system-config-printer</p></blockquote>
 </div>
   
   
@@ -128,7 +119,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/stty/">Stty</a></h1>
+      <h1 class="entry-title"><a href="/blog/syslinux/">Syslinux</a></h1>
     
     
       <p class="meta">
@@ -151,13 +142,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Muestra/modifica las características del terminal</p>
+  <div class="entry-content"><p>Hacer particiones arrancables</p>
 
-<blockquote><p>$ stty -a  (muestra todas las teclas de control, algunas obsoletas. Las más útiles: ^c [para el comando actual], ^d [final de flujo de entrada], ^u [borrar desde la posición actual al principio de linea] y ^w [borrar desde la posición actual al principio de la palabra])</p>
-
-<p>$ stty size   (muestra número de columnas y lineas)</p>
-
-<p>$ stty speed  (velocidad en baudios)</p></blockquote>
+<blockquote><p>$ syslinux /dev/sda1</p></blockquote>
 </div>
   
   
@@ -170,7 +157,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/strings/">Strings</a></h1>
+      <h1 class="entry-title"><a href="/blog/sysctl/">Sysctl</a></h1>
     
     
       <p class="meta">
@@ -193,11 +180,23 @@
   </header>
 
 
-  <div class="entry-content"><p>Analizar la memoria o una particion</p>
+  <div class="entry-content"><p>Muestra la configuración de los parámetros del kernel</p>
 
-<blockquote><p>$ strings /dev/mem</p>
+<blockquote><p># sysctl -a | more (Muestra todas las [muchisimas] variables)</p>
 
-<p>$ strings /dev/sda5</p></blockquote>
+<p># sysctl fs.file-max     (máximo de ficheros que pueden abrirse en el sistema)</p>
+
+<p># sysctl fs.file-max=256000   (modificarlo a 256000)</p>
+
+<p># sysctl -w vm.swappiness=10 (usar más memoria RAM y menos SWAP)</p>
+
+<p># sysctl kernel.panic=5 (forzar reinicio a los 5 segundos despues de un kernel panic)</p></blockquote>
+
+<p>Para hacer los cambios permanentes añadir las lineas al archivo /etc/sysctl.conf:</p>
+
+<blockquote><p># echo &#8220;kernel.panic=5&#8221; >> /etc/sysctl.conf</p>
+
+<p># echo &#8220;vm.swappiness=10&#8221; >> /etc/sysctl.conf</p></blockquote>
 </div>
   
   
@@ -210,7 +209,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/stressapptest/">Stressapptest</a></h1>
+      <h1 class="entry-title"><a href="/blog/synclient/">Synclient</a></h1>
     
     
       <p class="meta">
@@ -233,19 +232,11 @@
   </header>
 
 
-  <div class="entry-content"><p>Herramienta para realizar un test de carga del sistema.</p>
+  <div class="entry-content"><p>Consultar/modificar las opciones del touchpad</p>
 
-<blockquote><p># stressapptest -s 20 -M 256 -m 8 -C 8 -W</p></blockquote>
+<blockquote><p>$ synclient -l (Ver la configuración)</p>
 
-<p>Algunas opciones:</p>
-
-<p>-M mbytes  (Cantidad de megabytes de memoria RAM para realizar las pruebas. Por defecto toda la disponible)</p>
-
-<p>-s 20 (Tiempo que durará el proceso)</p>
-
-<p>-m 8 (Cantidad de procesos de copiado de memoria)</p>
-
-<p>-W (llevar al límite la cpu)</p>
+<p>$ synclient TapButton1=1 TapButton2=2 VertEdgeScroll=1 (Activar el click y el escroll. Para hacerlo permanente poner la linea en el inicio [en fluxbox sería en /.fluxbox/startup]</p></blockquote>
 </div>
   
   
@@ -258,7 +249,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/stress/">Stress</a></h1>
+      <h1 class="entry-title"><a href="/blog/sync/">Sync</a></h1>
     
     
       <p class="meta">
@@ -281,19 +272,11 @@
   </header>
 
 
-  <div class="entry-content"><p>Herramientas para realizar un test de carga del sistema.</p>
+  <div class="entry-content"><p>Sincroniza memoria y disco [escribe el contenido de los buffers en disco]</p>
 
-<blockquote><p># stress -c 8 -i 4 -m 2 &#8211;vm-bytes 128M -t 20S</p></blockquote>
+<blockquote><p>$ sync</p>
 
-<p>Opciones:</p>
-
-<p>-c (8 multiples ciclos infinitos de raices cuadradas para la cpu)</p>
-
-<p>-i (Introduce 4 ciclos infinitos que ejecutan la llamada al sistema sync())</p>
-
-<p>&#8211;hdd-bytes 3G (carga de escritura en disco de 3G. Opciones: B,K,M,G)</p>
-
-<p>-t 20s (Tiempo que durará el proceso, 20 segundos. Opciones: s,m,h,d,y)</p>
+<p># sync; init 0 (Sincronizar y apagar el equipo)</p></blockquote>
 </div>
   
   
@@ -306,7 +289,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/streamripper/">Streamripper</a></h1>
+      <h1 class="entry-title"><a href="/blog/synaptic/">Synaptic</a></h1>
     
     
       <p class="meta">
@@ -329,9 +312,19 @@
   </header>
 
 
-  <div class="entry-content"><p>Ripear a partir de emisoras icecast (www.icecast.com) y showcast (www.showtcast.com). Crea una carpeta en el presente directorio.</p>
+  <div class="entry-content"><p>Interfaz gráfica para apt, sistema de gestión de paquetes basadas en Debian.</p>
 
-<blockquote><p>$ streamrippwer http://yp.shoutcast.com/sbin/tunein-station.pls?id=321414 -l 4000 (grabar durante 4000 segundos)</p></blockquote>
+<p>Atajos de teclado:</p>
+
+<p>Ctrl + f (Buscar paquete)</p>
+
+<p>Ctrl + r (Refrescar lista de paquetes)</p>
+
+<p>Ctrl + g (Marcar todas las actualizaciones)</p>
+
+<p>Ctrl + p (Aplicar los cambios)</p>
+
+<p>Ctrl + q (Salir)</p>
 </div>
   
   
@@ -344,7 +337,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/strace/">Strace</a></h1>
+      <h1 class="entry-title"><a href="/blog/swappiness/">Swappiness</a></h1>
     
     
       <p class="meta">
@@ -367,21 +360,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Muestra las llamadas al sistema originadas por un proceso.</p>
+  <div class="entry-content"><p>Uso de la swap por parte del sistema. Ver sysctl.</p>
 
-<blockquote><p>$ strace comando</p>
-
-<p>$ strace -p PID (Por número de proceso)</p>
-
-<p>$ strace -c comando -o traza.txt (mostrar resumen de llamadas y errores durante la ejecución y redirigido a un archivo)</p></blockquote>
-
-<p>Algunas opciones:</p>
-
-<p>-f (Incluir posibles forks que haga un programa, por ejemplo httpd)</p>
-
-<p>-v (Muestra el máximo de información)</p>
-
-<p>-s 8192 (Valor de 8192 como limite de longitud de las cadenas. Por defecto 32)</p>
+<blockquote><p>$  cat /proc/sys/vm/swappiness</p></blockquote>
 </div>
   
   
@@ -394,7 +375,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/stjerm/">Stjerm</a></h1>
+      <h1 class="entry-title"><a href="/blog/swapon/">Swapon</a></h1>
     
     
       <p class="meta">
@@ -417,23 +398,13 @@
   </header>
 
 
-  <div class="entry-content"><p>Consola tipo guake.</p>
+  <div class="entry-content"><p>Activar una partición swap.</p>
 
-<blockquote><p>$ stjerm -k f12 -s left -o 70 -h 250 -w 1280 (Que aparezca pulsando F12, con barra de escroll a la izquierda, opacidad del 70% y especificando ancho y largo)</p></blockquote>
+<blockquote><p>$ swapon /dev/hda5</p>
 
-<p>Algunas opciones:</p>
+<p>$ swapon -a (Activar todas las particiones swap del /etc/fstab)</p>
 
-<p>-ah (Ocultar automáticamente la ventana cuando no está enfocada)</p>
-
-<p>-bg red (Color de fondo)</p>
-
-<p>-bgimg imagen.png (Establecer una imagen de fondo)</p>
-
-<p>-fn (Tipo y tamaño de fuente)</p>
-
-<p>-fg blue (Color de la fuente)</p>
-
-<p>-p (Posición de la ventana [valores: top, bottom, left, right])</p>
+<p>$ swapon -s (Comprobar estado actual de la memória swap)</p></blockquote>
 </div>
   
   
@@ -446,7 +417,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/steghide/">Steghide</a></h1>
+      <h1 class="entry-title"><a href="/blog/swapoff/">Swapoff</a></h1>
     
     
       <p class="meta">
@@ -469,13 +440,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Detectar y extraer mensajes incrustados dentro de una imagen o música</p>
+  <div class="entry-content"><p>Desactivar una partición swap.</p>
 
-<blockquote><p>$ steghide embed -cf imagen.jpg -ef archivo_texto  (incrustar un texto en una imagen)</p>
-
-<p>$ steghide embed -cf archivo.wav -ef archivo_texto (incrustar un texto en un archivo de música)</p>
-
-<p>$ steghide extract -sf imagen.jpg  (extraer el archivo incrustado)</p></blockquote>
+<blockquote><p>$ swapoff -a (Desactivar todas las especificadas en /etc/fstab)</p></blockquote>
 </div>
   
   
@@ -488,7 +455,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/status/">Status</a></h1>
+      <h1 class="entry-title"><a href="/blog/suspend/">Suspend</a></h1>
     
     
       <p class="meta">
@@ -511,9 +478,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Verifica si un servicio está activo o no.</p>
+  <div class="entry-content"><p>Cuando es posible, suspender la shell actual.</p>
 
-<blockquote><p>$ status ssh</p></blockquote>
+<blockquote><p># suspend -f (Pasará de root a nuestro usuario)</p></blockquote>
 </div>
   
   
@@ -544,43 +511,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/dig/">dig</a>
+        <a href="/blog/figlet/">figlet</a>
       </li>
     
       <li class="post">
-        <a href="/blog/denyhosts/">denyhosts</a>
+        <a href="/blog/fgrep/">fgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/debget/">debget</a>
+        <a href="/blog/festival/">festival</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ddrescue/">ddrescue</a>
+        <a href="/blog/fbgs/">fbgs</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ddclient/">ddclient</a>
+        <a href="/blog/faillog/">faillog</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dav/">dav</a>
+        <a href="/blog/extundelete/">extundelete</a>
       </li>
     
       <li class="post">
-        <a href="/blog/date/">date</a>
+        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dansguardian/">dansguardian</a>
+        <a href="/blog/eterm/">eterm</a>
       </li>
     
       <li class="post">
-        <a href="/blog/cups/">cups</a>
+        <a href="/blog/errno/">errno</a>
       </li>
     
       <li class="post">
-        <a href="/blog/csscapture/">csscapture</a>
+        <a href="/blog/egrep/">egrep</a>
       </li>
     
   </ul>

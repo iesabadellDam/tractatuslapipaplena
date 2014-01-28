@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Pasar un pdf a html $ pdftohtml -i -stdout archivo.pdf | w3m -T text/html (leerlo por consola con w3m sin mostrar imagenes [-i])
-">
+  <meta name="description" content="Para saber si existe conexión con un host $ ping ip (Uso básico) $ ping -c 2 google.com (mandar solo dos paquetes) $ ping -n google.com (Muestra las &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pdftohtml/">Pdftohtml</a></h1>
+      <h1 class="entry-title"><a href="/blog/ping/">Ping</a></h1>
     
     
       <p class="meta">
@@ -104,9 +103,21 @@
   </header>
 
 
-  <div class="entry-content"><p>Pasar un pdf a html</p>
+  <div class="entry-content"><p>Para saber si existe conexión con un host</p>
 
-<blockquote><p>$ pdftohtml -i -stdout archivo.pdf | w3m -T text/html (leerlo por consola con w3m sin mostrar imagenes [-i])</p></blockquote>
+<blockquote><p>$ ping ip (Uso básico)</p>
+
+<p>$ ping -c 2 google.com (mandar solo dos paquetes)</p>
+
+<p>$ ping -n google.com  (Muestra las direcciones ip por su número y no por su nombre de host)</p>
+
+<p>$ ping -i 2 google.es (Establece un intérvalo de 2 segundos entre cada transmisión. Por defecto 1&#8221;)</p>
+
+<p>$ ping -w 3 google.es (Salir de ping a los 3 segundos)</p>
+
+<p># ping -f google.es (Envio masivo de pings. Por cada ECHO_REQUEST enviado se escribe un punto [.] y por cada ECO_REPLY recibido un baskspace [retroceso]. Puede colgar la red o la máquina objetivo mientras dura el ping)</p>
+
+<p># ping -s 200 google.es (Especificando número de bytes de datos que se envian. Por defecto 56. Combinado con el parámetro -f puede ser letal para la máquina objetivo)</p></blockquote>
 </div>
   
   
@@ -119,7 +130,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pdftk/">Pdftk</a></h1>
+      <h1 class="entry-title"><a href="/blog/pigz/">Pigz</a></h1>
     
     
       <p class="meta">
@@ -142,65 +153,30 @@
   </header>
 
 
-  <div class="entry-content"><p>Manipulación de pdfs</p>
+  <div class="entry-content"><p>Compresión de ficheros. Permite lanzar varias instancias en paralelo para un único proceso de compresión. Sobrreescribe el fichero dándole extensión gz a menos que lo usemos con el parámetro -k. Pigz es casi lo mismo que gzip solo que aprovecha los múltiples cores a diferencia de gzip que solo usa un core. Al comprimir sólo ficheros, si queremos comprimir un directorio, primero se ha de empaquetar con tar (ver). Descarga y compilación:</p>
 
-<blockquote><p>$ pdftk 1.pdf 2.pdf 3.pdf cat output 123.pdf (Unir PDFs y crear un pdf nuevo)</p>
+<pre><code>wget http://zlib.net/pigz/pigz-2.3.1.tar.gz
 
-<p>$ pdftk A=1.pdf B=2.pdf cat A B output 12.pdf (lo mismo utilitzando etiquetas)</p>
+$ tar -xzvf pigz-2.3.1.tar.gz
 
-<p>$ pdftk *.pdf cat output todos.pdf (o utilitzando comodines)</p>
+$ make
+</code></pre>
 
-<p>$ pdftk A=one.pdf B=two.pdf cat A1-7 B1-5 A8 output combined.pdf (Separar páginas seleccionadas de distintos PDFs y crear uno nuevo)</p>
+<p>Nota.- Si no se desea arrancar la aplicación con ./pigz crear un enlace directo en el path [ln -s pigz-2.3.1/pigz /usr/bin/]</p>
 
-<p>$ pdftk revista.pdf cat 37-39 output 37_39.pdf (Separar páginas de un pdf)</p>
+<blockquote><p>$ pigz -p 4 fichero (Especificando número de procesos a levantar. Por defecto utiliza todos los cores i procesadores de la máquina)</p>
 
-<p>$ pdftk revista.pdf cat 4 output 4.pdf (separar la 4 pagina)</p>
+<p>$ pigz -k fichero (Sin sobreescrir el fichero)</p>
 
-<p>$ pdftk texto.pdf output texto.128.pdf owner_pw foopass (Encriptar un PDF restringiendo todos los permisos)</p>
+<p>$ pigz -d fichero.gz (Descomprimir el fichero creado)</p>
 
-<p>$ pdftk mydoc.pdf output mydoc.128.pdf owner_pw foo user_pw baz (Lo mismo pero con contraseña para abrir el PDF)</p>
+<p>$ pigz -r carpeta (Comprimir todos los archivos de la carpeta. No la carpeta)</p></blockquote>
 
-<p>$ pdftk mydoc.pdf output mydoc.128.pdf owner_pw foo user_pw baz allow printing (Lo mismo con permiso para imprimir una vez abierto)</p>
+<p>Algunas opciones:</p>
 
-<p>$ pdftk secured.pdf input_pw foopass output unsecured.pdf (Desencriptar pdf)</p>
+<p>&#8211;fast (Nivel mínimo de compresión)</p>
 
-<p>$ pdftk A=secured.pdf mydoc.pdf input_pw A=foopass cat output combined.pdf (Unir dos PDFs uno de ellos encriptado. La salida no queda encriptada))</p>
-
-<p>$ pdftk mydoc.pdf output mydoc.clear.pdf uncompress (Descomprimir cadenas de paginas PDF para editar el codigo PDF en un editor de texto)</p>
-
-<p>$ pdftk broken.pdf output fixed.pdf (Reparar una tabla XREF de PDF y las longitudes de cadena, cuando es posible))</p>
-
-<p>$ pdftk archivo.pdf output comprimido.pdf compress (Comprimir pdf)</p>
-
-<p>$ pdftk archivo.pdf output descomprimido.pdf uncompress (Descomprimir pdf)</p>
-
-<p>$ pdftk input.pdf cat 1-endE output output.pdf (rotar 90 grados el pdf)</p>
-
-<p>$ pdftk archivo.pdf dump_data_fields (obtener campos de cualquier formulario pdf)</p>
-
-<p>$ pdftk archivo.pdf dump_data_fields output campos.lst (Lo mismo derivado a un archivo)</p>
-
-<p>$ pdfcrack archivo.pdf [opciones] (Si se trata de archivos pdf con contraseña)</p>
-
-<p>$ pdfcrack archivo.pdf -n 6 -c abcdefghijklmnopqrstuvxyz -s</p></blockquote>
-
-<p>Opciones:</p>
-
-<p>-B: Realizar evaluación comparativa y salir</p>
-
-<p>-C [CADENA]: Utiliza los caracteres indicados para la busqueda de la contraseña</p>
-
-<p>-m [numero]: Se buscará hasta llegar a la longitud de caracteres de “numero”</p>
-
-<p>-n [numero]: Se empezará a probar contraseñas de “numero” caracteres</p>
-
-<p>-l [FILE]: Continuará desde el punto guardado en el archivo FILE.</p>
-
-<p>-q: Ejecutar silenciosamente</p>
-
-<p>-s: Realiza el crack permutando contraseñas</p>
-
-<p>-u: Trabajar con el “userpassword”</p>
+<p>&#8211;best (Nivel máximo de compresión)</p>
 </div>
   
   
@@ -213,7 +189,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pdfresurrect/">Pdfresurrect</a></h1>
+      <h1 class="entry-title"><a href="/blog/pig/">Pig</a></h1>
     
     
       <p class="meta">
@@ -236,15 +212,9 @@
   </header>
 
 
-  <div class="entry-content"><p>herramienta para la extracción/limpieza de metadatos de documentos pdf.</p>
+  <div class="entry-content"><p>Reformatear palabras o frases entradas en el prompt a un lenguaje macarrónico.</p>
 
-<blockquote><p>$ pdfresurrect -i archivo.pdf   (Información del creador del pdf)</p>
-
-<p>$ pdfresurrect -w archivo.pdf  (Escribe las versiones y resumen del pdf al disco)</p>
-
-<p>$ pdfresurrect -q archivo.pdf   (Muestra el número de versiones del pdf)</p>
-
-<p>$ pdfresurrect -s  archivo.pdf  (Limpia todos los datos del pdf)</p></blockquote>
+<blockquote><p>$ pig (entra en el prompt. Entrar cualquier frase pulsar enter y comprobar el resultado)</p></blockquote>
 </div>
   
   
@@ -257,7 +227,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pdfnup/">Pdfnup</a></h1>
+      <h1 class="entry-title"><a href="/blog/pidstat/">Pidstat</a></h1>
     
     
       <p class="meta">
@@ -280,13 +250,25 @@
   </header>
 
 
-  <div class="entry-content"><p>Compactar varias páginas de un pdf en una y viceversa.</p>
+  <div class="entry-content"><p>Muestra información relacionada con los procesos del sistema.</p>
 
-<blockquote><p>$ pdfnup &#8211;nup 2×4 archivo.pdf (8 páginas)</p>
+<blockquote><p>$ pidstat  (informa del uso de la CPU)</p>
 
-<p>$ pdfnup &#8211;nup 2x1 &#8211;outfile output.pdf input.pdf (dos pàgines en una)</p>
+<p>$ pidstat -u  (lo mismo)</p>
 
-<p>$ pdfnup &#8211;nup 2x2 &#8211;outfile output.pdf input.pdf  (4 páginas)</p></blockquote>
+<p>$ pidstat -d  (Muestra la tasa de lectura/escritura a los medios fisicos)</p>
+
+<p>$ pidstat -p 1234  (Especifica que solo deseas analizar el proceso 1234)</p>
+
+<p>$ pidstat -C comando  (Similar a -p pero indicando el nombre del proceso)</p>
+
+<p>$ pidstat -r  (Muestra el uso de memoria de los procesos y errores de  paginación en la memoria de los procesos -page faults-).</p>
+
+<p>$ pidstat -I  (En sistemas multicore, indica la CPU en la que se ejecuta el    comando)</p>
+
+<p>$ pidstat -d 5 2 (“5” es el intervalo de tiempo y “2” el número de veces que ejecutara el comando. Cuando haya llegado al número de  ejecuciones, pidstat se parará y mostrará una media con los valores obtenidos)</p>
+
+<p>$ pidstat -d 5  (omitiendo el numero de veces a ejecutar para producir un bucle infinito. Parar con ^C)</p></blockquote>
 </div>
   
   
@@ -299,7 +281,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pdfjoin/">Pdfjoin</a></h1>
+      <h1 class="entry-title"><a href="/blog/pidof/">Pidof</a></h1>
     
     
       <p class="meta">
@@ -322,9 +304,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Unir varios pdf con el mismo formato de página en uno</p>
+  <div class="entry-content"><p>muestra el Pid del programa si está activo</p>
 
-<blockquote><p>$ pdfjoin &#8211;fitpaper true 1.pdf 2.pdf &#8211;outfile 12.pdf</p></blockquote>
+<blockquote><p>$ pidof firefox</p></blockquote>
 </div>
   
   
@@ -337,7 +319,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pdfimages/">Pdfimages</a></h1>
+      <h1 class="entry-title"><a href="/blog/pi/">Pi</a></h1>
     
     
       <p class="meta">
@@ -360,11 +342,11 @@
   </header>
 
 
-  <div class="entry-content"><p>Extraer las imágenes de un pdf</p>
+  <div class="entry-content"><p>Calcula la cantidad de decimales de pi que se le indique.</p>
 
-<blockquote><p>$ pdfimages fichero.pdf fichero</p>
+<blockquote><p>$ pi 100</p>
 
-<p>$ pdfimages -j fichero.pdf fichero (guardarlas en formato jpeg)</p></blockquote>
+<p>$ pi 1000</p></blockquote>
 </div>
   
   
@@ -377,7 +359,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pdfcrack/">Pdfcrack</a></h1>
+      <h1 class="entry-title"><a href="/blog/phpshell/">Phpshell</a></h1>
     
     
       <p class="meta">
@@ -400,19 +382,32 @@
   </header>
 
 
-  <div class="entry-content"><p>Craqueador de pdfs</p>
+  <div class="entry-content"><p>[apache2 php5 libapache2-mod-auth-mysql php5-mysql]. Script en php que proporciona una terminal en el navegador. Descarga de http://sourceforge.net/projects/phpshell/?source=dlp. Para la versión 2.4:</p>
 
-<blockquote><p>$ pdfcrack -f archivo.pdf   (Sin especificaciones)</p>
+<blockquote><p>$ wget http://sourceforge.net/projects/phpshell/files/phpshell/2.4/phpshell-2.4.zip</p>
 
-<p>$ pdfcrack -f archivo.pdf -w /home/usuario/diccionario (con un diccionario)</p>
+<p>$ unzip phpshell-2.4.zip</p></blockquote>
 
-<p>$ pdfcrack archivo.pdf -n 6 -c abcdefghijklmnopqrstuvxyz -s</p></blockquote>
+<p>Mover la carpeta al directorio web y darle un nombre:</p>
 
-<p>-n 6  (Hasta 6 caracteres)</p>
+<blockquote><p>$ mv phpshell-2.4/ /var/www/shell</p></blockquote>
 
-<p>-c &#8230;.(enumerar todas las opciones a probar)</p>
+<p>Renombrar:</p>
 
-<p>-s     (Prueba el primer caracter en mayúscula)</p>
+<blockquote><p>$ cd /var/www/shell</p>
+
+<p>$ mv phpshell.php index.php</p></blockquote>
+
+<p>Entrar en el navegador y acceder en la dirección: http://localhost/shell/pwhash.php para entrar un nombre de usuario y una contraseña. Completado el registro, pulsar &#8220;update&#8221;. Copiar el hash  que muestra y pegarlo en el archivo de configuración:</p>
+
+<blockquote><p>$ nano /var/www/shell/config.php</p></blockquote>
+
+<p>Pegar el hash en el apartado [users]</p>
+
+<pre><code>templix = "sha1:2ud9a08b:27w6806b770f9716a9ec3f9b72a402e3b0a8b6e5"
+</code></pre>
+
+<p>Entrar en phpshell colocando en el navegador: http://localhost/shell</p>
 </div>
   
   
@@ -425,7 +420,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pdf2ps/">Pdf2ps</a></h1>
+      <h1 class="entry-title"><a href="/blog/php/">Php</a></h1>
     
     
       <p class="meta">
@@ -448,114 +443,119 @@
   </header>
 
 
-  <div class="entry-content"><p>Convertir pdf a postscript. Ver ps2pdf</p>
+  <div class="entry-content"><p>Lenguaje de programación diseñado originalmente para la creación de páginas web.</p>
 
-<blockquote><p>$ pdf2ps fichero.pdf</p></blockquote>
-</div>
-  
-  
+<blockquote><p>$ php -v (Conocer la versión)</p>
 
+<p>$ php -m (Muestra módulos instalados)</p>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/pdf2djvu/">Pdf2djvu</a></h1>
-    
-    
-      <p class="meta">
-        
+<p>$ php -i (Información general de php)</p>
 
+<p>$ php -s archivo.php > archivo.html (Crea un archivo html de un php)</p>
 
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Convertir pdfs en djvu.</p>
-
-<blockquote><p>$ pdf2djvu -o salida.djvu archivo.pdf</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/pcmanfm/">Pcmanfm</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Gestor de archivos</p>
-
-<blockquote><p>$ pcmanfm &#8211;set-wallpaper /home/USER/images/limagen.jpg (colocar fondo)</p></blockquote>
+<p>$ php &#8211;ini (Informa donde esta el archivo php.ini)</p></blockquote>
 
 <p>1.-</p>
 
-<p>Creacion de un icono en el escritorio:</p>
+<p>Configuración de php de forma segura (php.ini)</p>
 
-<blockquote><p>$ mkdir Desktop</p>
+<pre><code># nano /etc/php5/apache2/php.ini
 
-<p>$ touch Desktop/home.desktop</p></blockquote>
+expose_php Off (Ocultar la versión de php)
 
-<p>Y para lanzar thunar, pegar el contenido:</p>
+session.use_trans_sid = Off (Que las URL no muestren los ID de sesiones)
 
-<pre><code>[Desktop Entry] 
+allow_url_fopen = Off (Desactivar acceso a URL remotas en funciones de manejo de ficheros)
 
-Encoding=UTF-8 
-
-Version=1.0 
-
-Type=Application 
-
-Terminal=false 
-
-Exec=thunar 
-
-Name=Personal 
-
-Icon=/usr/share/icons/gnome/32x32/places/user-home.png
+display_errors = Off (Evitar que los errores se muestren por pantalla)
 </code></pre>
 
-<p>Nota.- Revisar la ruta del icono.</p>
+<p>2.-</p>
+
+<p>Arreglar el error: PHP Deprecated:  Comments starting with &#8216;#&#8217; are deprecated in /etc/php5/cli/conf.d/ming.ini on line 1 in Unknown on line 0</p>
+
+<pre><code># nano /etc/php5/cli/conf.d/ming.ini 
+
+Y cambiar el “#” de los comentarios por un “;”
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/photorec/">Photorec</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Recuperar datos de discos, tarjetas, cds deteriorados&#8230; Precisa pantalla maximizada.</p>
+
+<blockquote><p># photorec</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/photon/">Photon</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Generar una galería web.</p>
+
+<blockquote><p>$ photon directorio_con_las_imagenes  (Creará una nueva carpeta con todos los html)</p>
+
+<p>$ photon -o /var/www/ /home/usuario/fotos (A partir de la carpeta fotos, lo creará en el directorio web)</p></blockquote>
 </div>
   
   
@@ -586,43 +586,43 @@ Icon=/usr/share/icons/gnome/32x32/places/user-home.png
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/dig/">dig</a>
+        <a href="/blog/figlet/">figlet</a>
       </li>
     
       <li class="post">
-        <a href="/blog/denyhosts/">denyhosts</a>
+        <a href="/blog/fgrep/">fgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/debget/">debget</a>
+        <a href="/blog/festival/">festival</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ddrescue/">ddrescue</a>
+        <a href="/blog/fbgs/">fbgs</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ddclient/">ddclient</a>
+        <a href="/blog/faillog/">faillog</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dav/">dav</a>
+        <a href="/blog/extundelete/">extundelete</a>
       </li>
     
       <li class="post">
-        <a href="/blog/date/">date</a>
+        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dansguardian/">dansguardian</a>
+        <a href="/blog/eterm/">eterm</a>
       </li>
     
       <li class="post">
-        <a href="/blog/cups/">cups</a>
+        <a href="/blog/errno/">errno</a>
       </li>
     
       <li class="post">
-        <a href="/blog/csscapture/">csscapture</a>
+        <a href="/blog/egrep/">egrep</a>
       </li>
     
   </ul>

@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Cerrar sesión de usuario. En las ttys, las cerrará para volver a entrar el login. $ logout
-">
+  <meta name="description" content="Listar ficheros o procesos abiertos # lsof -i :4662 (servicios usados por el puerto 4662 aunque esten a la escucha) # lsof -i@lapipaplena.homelinux. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/logout/">Logout</a></h1>
+      <h1 class="entry-title"><a href="/blog/lsof/">Lsof</a></h1>
     
     
       <p class="meta">
@@ -104,9 +103,55 @@
   </header>
 
 
-  <div class="entry-content"><p>Cerrar sesión de usuario. En las ttys, las cerrará para volver a entrar el login.</p>
+  <div class="entry-content"><p>Listar ficheros o procesos abiertos</p>
 
-<blockquote><p>$ logout</p></blockquote>
+<blockquote><p># lsof -i :4662  (servicios usados por el puerto 4662 aunque esten a la escucha)</p>
+
+<p># lsof -i@lapipaplena.homelinux.com  (verificar conexiones con una máquina)</p>
+
+<p># lsof -i@88.25.114.11   (lo mismo pero especificando la ip)</p>
+
+<p># lsof -i | grep ssh  (Para que muestre solo los que usan el protocolo ssh)</p>
+
+<p># lsof +D /var/log  (Mostrar los servicios que tiene abierto un directorio)</p>
+
+<p># lsof fichero  (Muestra los servicios que tiene abiertos fichero)</p>
+
+<p># lsof -nPi TCP   (Muestra los eventos de red de las conexiones TCP)</p>
+
+<p># lsof -p PID  (Ficheros que tiene abierto determinado proceso)</p>
+
+<p># lsof -N      (Muestra los archivos NFS abiertos)</p>
+
+<p># lsof -c firefox   (Muestra los ficheros abiertos por firefox)</p>
+
+<p># lsof -P -i -n -sTCP:LISTEN (listado de puertos en LISTEN)</p>
+
+<p># lsof -i -P | grep -i &#8220;listen&#8221; (otra forma de listarlos)</p>
+
+<p># lsof -i tcp -i udp  (lista puertos tcp y udp abiertos)</p>
+
+<p># lsof -Pni | grep LISTEN   (chequear puertos abiertos)</p>
+
+<p># lsof -c bash -r  (Monitorizar un proceso)</p>
+
+<p># lsof -i :631 | awk &#8216;{print $1,$2}&#8217; | sort -u  (muestra pid y demonio del puerto especificado)</p>
+
+<p># lsof -t -i :22 (Muestra el pid del puerto especificado)</p>
+
+<p># lsof -nPi | txt2html  > lsof.html (Mandar la salida a un html para visualizarlo por el navegador)</p></blockquote>
+
+<p>Opciones:</p>
+
+<p>-P (Muestra los números de puerto en vez de la aplicación que corre en ellos)</p>
+
+<p>-n (Para que no resuelva las IP de las conexiones)</p>
+
+<p>-i (Hace referencia a los eventos utilizados por procesos de red)</p>
+
+<p>-u usuario (Muestra los procesos abiertos por “usuario”)</p>
+
+<p>-x (Sigue links y puntos de montaje)</p>
 </div>
   
   
@@ -119,7 +164,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/logname/">Logname</a></h1>
+      <h1 class="entry-title"><a href="/blog/lsmod/">Lsmod</a></h1>
     
     
       <p class="meta">
@@ -142,7 +187,7 @@
   </header>
 
 
-  <div class="entry-content"><p>Devuelve el nombre del usuario actual</p>
+  <div class="entry-content"><p>Listar todos los módulos cargados del kernel, y alguna información adicional de ellos.</p>
 </div>
   
   
@@ -155,7 +200,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/login/">Login</a></h1>
+      <h1 class="entry-title"><a href="/blog/lshw/">Lshw</a></h1>
     
     
       <p class="meta">
@@ -178,9 +223,11 @@
   </header>
 
 
-  <div class="entry-content"><p>Solicitar la contraseña de usuario.</p>
+  <div class="entry-content"><p>Muestra información de toda la máquina</p>
 
-<blockquote><p>$ login -f  usuario (Inicia nueva sesión dentro de la actual)</p></blockquote>
+<blockquote><p>$ lshw -html > hardware.html (Mandar la información a un archivo html)</p>
+
+<p># lshw -C network (Ver los dispositivos de red instalados)</p></blockquote>
 </div>
   
   
@@ -193,7 +240,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/logger/">Logger</a></h1>
+      <h1 class="entry-title"><a href="/blog/lshal/">Lshal</a></h1>
     
     
       <p class="meta">
@@ -216,9 +263,19 @@
   </header>
 
 
-  <div class="entry-content"><p>Enviar mensajes al demonio syslogd</p>
+  <div class="entry-content"><p>Muestra información del firmware, serial server, Bios, kernel, procesador, discos, puntos de montaje, particiones, usb, pci&#8230;</p>
 
-<blockquote><p>$ logger -i -t gnome-terminal -f /var/log/messages inicio terminal (escribirá en el registro el mesaje “inicio terminal” como remitido por “gnome-terminal” y guardando el PID)</p></blockquote>
+<blockquote><p>$ lshal  (Información de los dispositivos de HAL en formato largo y detallado))</p>
+
+<p>$ lshal -l (Lo mismo que el anterior)</p>
+
+<p>$ lshal -s (Muestra el UDI [Dispositivo identificador único])</p>
+
+<p>$ lshal -st (Lo mismo pero en forma de arbol)</p>
+
+<p>$ lshal -m (Monitor de los dispositivos de HAL mostrando cambios de estado en tiempo real al conectar un dispositivo)</p>
+
+<p>$ lshal -u UDI (Muestra información de un dispositivo específico)</p></blockquote>
 </div>
   
   
@@ -231,7 +288,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/locate/">Locate</a></h1>
+      <h1 class="entry-title"><a href="/blog/lsdev/">Lsdev</a></h1>
     
     
       <p class="meta">
@@ -254,11 +311,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Buscar archivos</p>
+  <div class="entry-content"><p>Lista los dispositivos presentes en el sistema y que IRQs y puertos IO (entrada/salida) usan.</p>
 
-<blockquote><p>$ locate parida.txt</p>
-
-<p>$ locate firefox/plugins</p></blockquote>
+<blockquote><p>$ lsdev</p></blockquote>
 </div>
   
   
@@ -271,7 +326,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/localepurge/">Localepurge</a></h1>
+      <h1 class="entry-title"><a href="/blog/lscpu/">Lscpu</a></h1>
     
     
       <p class="meta">
@@ -294,33 +349,7 @@
   </header>
 
 
-  <div class="entry-content"><p>Elimina e impide la instalacion de los paquetes de idiomas y páginas man que no hemos escogido.</p>
-
-<blockquote><p># localepurge</p></blockquote>
-
-<p>En arch:</p>
-
-<blockquote><p># nano /etc/locale.nopurge</p></blockquote>
-
-<p>Comentar la linea:</p>
-
-<blockquote><p>#NEEDSCONFIGFIRST</p></blockquote>
-
-<p>Y al final del fichero, suprimir o comentar los exsitentes y colocar los de nuestra elección, por ejemplo:</p>
-
-<p>ca_ES.UTF-8</p>
-
-<p>ca_ES.ISO-8859-1</p>
-
-<p>ca_ES.ISO-8859-15@euro</p>
-
-<p>es_ES.UTF-8</p>
-
-<p>es_ES.ISO-8859-1</p>
-
-<p>es_ES.ISO-8859-15@euro</p>
-
-<p>Una vez realizados los ajustes, lanzar la aplicación.</p>
+  <div class="entry-content"><p>Muestra información sobre la cpu</p>
 </div>
   
   
@@ -333,7 +362,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/locale-gen/">Locale-gen</a></h1>
+      <h1 class="entry-title"><a href="/blog/lsblk/">Lsblk</a></h1>
     
     
       <p class="meta">
@@ -356,9 +385,13 @@
   </header>
 
 
-  <div class="entry-content"><p>Reconfiguración automática de los locales</p>
+  <div class="entry-content"><p>Muestra información del dispositivo especificado.</p>
 
-<blockquote><p>$ locale-gen</p></blockquote>
+<blockquote><p>$ lsblk -a /dev/sda</p>
+
+<p>$ lsblk -f /dev/sda (Mostrando etiquetas, uuids y puntos de montaje)</p>
+
+<p>$ lsblk -m /dev/sda (Mostrando propietarios, grupos y permisos)</p></blockquote>
 </div>
   
   
@@ -371,7 +404,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/locale/">Locale</a></h1>
+      <h1 class="entry-title"><a href="/blog/lsb-release/">Lsb_release</a></h1>
     
     
       <p class="meta">
@@ -394,25 +427,11 @@
   </header>
 
 
-  <div class="entry-content"><p>Información sobre los idiomas del sistema</p>
+  <div class="entry-content"><p>Muestra nombre y código del sistema operativo</p>
 
-<blockquote><p>$ locale -a  (muestra los idiomas disponibles)</p>
+<blockquote><p>$ lsb_release -a</p>
 
-<p>$ locale -m (mapas de caracteres que tenemos en el sistema)</p>
-
-<p>$ locale | grep LANG=  (muestra el idioma por defecto)</p>
-
-<p>$ locale (Muestra los idiomas actualmente en uso)</p></blockquote>
-
-<p>En  algunas distros [Arch] es preciso crear el archivo:</p>
-
-<blockquote><p># nano /etc/locale.conf</p></blockquote>
-
-<p>Y añadir el idioma escogido:</p>
-
-<p>LANG=&#8221;es_ES.UTF-8&#8221;</p>
-
-<p>El idioma tiene que estar descomentado en /etc/locale.gen y luego generado por locale-gen</p>
+<p>$ cat /etc/*-release (lo mismo)</p></blockquote>
 </div>
   
   
@@ -425,7 +444,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/loadkeys/">Loadkeys</a></h1>
+      <h1 class="entry-title"><a href="/blog/lsattr/">Lsattr</a></h1>
     
     
       <p class="meta">
@@ -448,15 +467,11 @@
   </header>
 
 
-  <div class="entry-content"><p>Modificar la distribución del teclado. Afecta a las tty. Para las X el comando es setxkbmap.</p>
+  <div class="entry-content"><p>Muestra los atributos de los ficheros [no los permisos].</p>
 
-<blockquote><p># loadkeys es</p>
+<blockquote><p>$ lsattr -R /home/usuario   (recursivamente)</p>
 
-<p># loadkeys /usr/share/kbd/keymaps/i386/qwerty/es.map.gz</p></blockquote>
-
-<p>Nota.- Para encontrar la ruta al mapa de teclado:</p>
-
-<blockquote><p># find / -iname es.map*</p></blockquote>
+<p>$ lsattr -a /home/usuario   (incluye a todos los archivos de los directorios)</p></blockquote>
 </div>
   
   
@@ -469,7 +484,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/lo/">Lo</a></h1>
+      <h1 class="entry-title"><a href="/blog/lsat/">Lsat</a></h1>
     
     
       <p class="meta">
@@ -492,23 +507,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Abrir documentos o herramientas de libreoffice</p>
+  <div class="entry-content"><p>Herramienta de auditoria de seguridad. Emplea mucho tiempo y crea un fichero de varias megas (lsat.out)</p>
 
-<blockquote><p>$ lowriter -o archivo.odt</p>
-
-<p>$ office &#8211;headless &#8211;convert-to odt:&#8221;writer8&#8221; archivo.docx (Convertir un docx a odt)</p>
-
-<p>$ localc &#8211;headless &#8211;convert-to txt:&#8221;Text - txt - csv (StarCalc)&#8221; archivo.xlsx (Convertir un xls a txt)</p>
-
-<p>$ localc -o archivo.ods</p>
-
-<p>$ lomath -o archivo.odf</p>
-
-<p>$ lodraw -o archivo.odg</p>
-
-<p>$ loimpress -o archivo.odp</p>
-
-<p>$ loweb -o archivo.html</p></blockquote>
+<blockquote><p>$ lsat</p></blockquote>
 </div>
   
   
@@ -539,43 +540,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/dig/">dig</a>
+        <a href="/blog/figlet/">figlet</a>
       </li>
     
       <li class="post">
-        <a href="/blog/denyhosts/">denyhosts</a>
+        <a href="/blog/fgrep/">fgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/debget/">debget</a>
+        <a href="/blog/festival/">festival</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ddrescue/">ddrescue</a>
+        <a href="/blog/fbgs/">fbgs</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ddclient/">ddclient</a>
+        <a href="/blog/faillog/">faillog</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dav/">dav</a>
+        <a href="/blog/extundelete/">extundelete</a>
       </li>
     
       <li class="post">
-        <a href="/blog/date/">date</a>
+        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dansguardian/">dansguardian</a>
+        <a href="/blog/eterm/">eterm</a>
       </li>
     
       <li class="post">
-        <a href="/blog/cups/">cups</a>
+        <a href="/blog/errno/">errno</a>
       </li>
     
       <li class="post">
-        <a href="/blog/csscapture/">csscapture</a>
+        <a href="/blog/egrep/">egrep</a>
       </li>
     
   </ul>

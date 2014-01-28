@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Recuperación de datos # foremost -i /dev/sda -o /recovery # foremost -t jpg -i /dev/sda3 -o /home/usr/recuperado (Recuperar jdatepgs de una partición &hellip;">
+  <meta name="description" content="Configurador de todos los parámetros de gnome $ gconftool-2 &#8211;dump / > gconf_backup.xml (realizar copia de seguridad de la configuración) $ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/foremost/">Foremost</a></h1>
+      <h1 class="entry-title"><a href="/blog/gconftool-2/">Gconftool-2</a></h1>
     
     
       <p class="meta">
@@ -103,25 +103,49 @@
   </header>
 
 
-  <div class="entry-content"><p>Recuperación de datos</p>
+  <div class="entry-content"><p>Configurador de todos los parámetros de gnome</p>
 
-<blockquote><p># foremost -i /dev/sda -o /recovery</p>
+<blockquote><p>$ gconftool-2 &#8211;dump / > gconf_backup.xml  (realizar copia de seguridad de la configuración)</p>
 
-<p># foremost -t jpg -i /dev/sda3 -o /home/usr/recuperado (Recuperar jdatepgs de una partición)</p></blockquote>
+<p>$ gconftool-2 &#8211;load gconf_backup.xml /  (restablecer la copia de seguridad)</p>
 
-<p>proceso sobre una imagen:</p>
+<p>$ gconftool-2 &#8211;recursive-unset /apps/panel (recuperar los paneles originales)</p></blockquote>
 
-<blockquote><p># dd if=/dev/sda1 of=imagen.iso conv=noerror,sync (Crear la imagen iso del dispositivo a recuperar. “conv=noerror,sync” indica que ignore errores)</p>
+<p>nota.- sustituiendo el “/apps/panel” por cualquier ruta del árbol de directorios [por ejemplo “/”] de gconf-editor pueden restaurarse sus valores originales</p>
 
-<p># foremost -v -t all -o /home/usuario/recuperado -i imagen.iso</p></blockquote>
+<blockquote><p>$ rm -rf .gconf/apps/panel (borra toda la configuración extra de los paneles)</p>
 
-<p>-v .- modo detallado</p>
+<p>$ gconftool-2 –shutdown &amp;&amp; rm -rf ~/.gconf/apps/panel &amp;&amp; pkill gnome-panel (velver a una configuración anterior de los paneles)</p></blockquote>
 
-<p>-o .- lugar donde almacenar los archivos recuperados</p>
+<p>Notas:</p>
 
-<p>-t all .- tipo de archivo a buscar. Para recuperar solo jpg: -t jpg. Para una lista de extensiones: -t jpg,doc,png</p>
+<p>-t (tipo de datos a utilizar. Los valores son {int|bool|float|string|list|pair})</p>
 
-<p>-i .- lugar donde esta la iso a escanear.</p>
+<p>-s (entrada a modificar)</p>
+
+<p>Los valores de –type pueden ser:</p>
+
+<p>lógicos [bool]. Cuando el parámetro puede ser verdadero [true] o falso [false]. P.e quitar papelera del escritorio:</p>
+
+<blockquote><p>$ gconftool-2 -t bool -s /apps/nautilus/desktop/trash_icon_visible false</p></blockquote>
+
+<p>Enteros (int). Cuando ha de especificarse un número. P.e. aumentar el numero de escritorios a 5:</p>
+
+<blockquote><p>$ gconftool-2 -t int -s /apps/metacity/general/num_workspaces 5</p></blockquote>
+
+<p>reales (float). Cuando el valor tiene el punto como separador decimal. p.e el contraste de cheese:</p>
+
+<blockquote><p>$ gconftool-2 -t float -s /apps/cheese/contrast 1.2</p></blockquote>
+
+<p>Cadenas (string). Cuando ha de especificarse un texto. P.e. cambiar el nombre de la carpeta de usuario:</p>
+
+<blockquote><p>$ gconftool-2 -t string -s /apps/nautilus/desktop/home_icon_name &#8220;Mi carpeta&#8221;</p></blockquote>
+
+<p>Lista de valores (list). En muchos casos va complementado con otra lista (&#8211;list-type) que admite los valores {int|bool|float|string}. p.e detectar codificación en gedit con determinadas opciones:</p>
+
+<blockquote><p>$ gconftool-2 -t list &#8211;list-type string -s /apps/gedit-2/preferences/encodings/auto_detected [UTF-8,CURRENT,ISO-8859-15,UTF-16]</p></blockquote>
+
+<p>Parejas de valores [pairs]. Indica parejas de valores de los tipos anteriores. No he encontrado ningún ejemplo</p>
 </div>
   
   
@@ -134,7 +158,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/for/">For</a></h1>
+      <h1 class="entry-title"><a href="/blog/gcc/">Gcc</a></h1>
     
     
       <p class="meta">
@@ -157,78 +181,11 @@
   </header>
 
 
-  <div class="entry-content"><p>[bucle]</p>
+  <div class="entry-content"><p>Compilador de programas de C*</p>
 
-<p>Ejecuta un trozo de códico si la expresión de control es verdadera y sólo se para cuando es falsa.</p>
+<blockquote><p>$ gcc -c bill.c (genera una biblioteca)</p>
 
-<p>Ejemplos:</p>
-
-<p>1.-</p>
-
-<pre><code>#!/bin/bash
-
-    for i in $( ls ); do
-
-        echo item --&gt; $i
-
-    done
-</code></pre>
-
-<p>2.-</p>
-
-<pre><code>#!/bin/bash
-
-for i in `seq 1 10`;
-
-do
-
-    echo $i
-
-done
-</code></pre>
-
-<p>Nota.- Si los números los quisieramos en una misma linea, encerrar la variable entre comillas [&#8221;<code>seq 1 10</code>&#8221;]</p>
-
-<p>3.-</p>
-
-<pre><code>#!/bin/bash
-
-for i in 1 2 3 4 5
-
-do
-
-   echo "Es el número $i "
-
-done
-</code></pre>
-
-<p>4.-</p>
-
-<pre><code>#!/bin/bash
-
-for i in {1..5}
-
-do
-
-   echo "Es el número $i "
-
-done
-</code></pre>
-
-<p>5.-</p>
-
-<p>Del 1 al 10 de 2 en 2:</p>
-
-<pre><code>#!/bin/bash
-
-for i in {1..10..2}
-
-do
-
-    echo "Es el número $i "
-
-done
-</code></pre>
+<p>$ gcc programa.c -o programa_compilado (crea el ejecutable)</p></blockquote>
 </div>
   
   
@@ -241,7 +198,7 @@ done
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/fold/">Fold</a></h1>
+      <h1 class="entry-title"><a href="/blog/gcalctool/">Gcalctool</a></h1>
     
     
       <p class="meta">
@@ -264,9 +221,9 @@ done
   </header>
 
 
-  <div class="entry-content"><p>Formatea la salida de un archivo a una determinada longitud.</p>
+  <div class="entry-content"><p>Calculadora.</p>
 
-<blockquote><p>$ fold  -w50 -s archivo (50 caracteres de largo por linea y que corte por los espacios entre palabras y no por las palabras)</p></blockquote>
+<blockquote><p>$ gcalctool -s 5*4/2+5</p></blockquote>
 </div>
   
   
@@ -279,7 +236,7 @@ done
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/fmt/">Fmt</a></h1>
+      <h1 class="entry-title"><a href="/blog/gcalccmd/">Gcalccmd</a></h1>
     
     
       <p class="meta">
@@ -302,9 +259,9 @@ done
   </header>
 
 
-  <div class="entry-content"><p>Muestra en pantalla archivos de texto de forma optimizada (Ver diferencia con cat)</p>
+  <div class="entry-content"><p>Calculadora.</p>
 
-<blockquote><p>$ fmt fichero.txt</p></blockquote>
+<blockquote><p>$ gcalccmd (Entra en el prompt y se teclea por ejemplo 5*4 y dará el resultado)</p></blockquote>
 </div>
   
   
@@ -317,7 +274,7 @@ done
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/flvstreamer/">Flvstreamer</a></h1>
+      <h1 class="entry-title"><a href="/blog/fuser/">Fuser</a></h1>
     
     
       <p class="meta">
@@ -340,17 +297,17 @@ done
   </header>
 
 
-  <div class="entry-content"><p>Descarga de videos con protocolo RTMP.</p>
+  <div class="entry-content"><p>Cerrar particiones rebeldes, saber aplicaciones que corren en un puerto&#8230;</p>
 
-<p>Supongamos que el video a descargar tenga por ruta: http://www.tv3.cat/videos/1307049732092</p>
+<blockquote><p>$ fuser -km /media/sda6     (Mata todos los procesos de la partición especificada. Luego desmontarla normal con umount)</p>
 
-<p>Abrir una pestaña del vavegador y pegar:</p>
+<p>$ fuser -n tcp 3389  (indica PID que corre en el puerto 3389)</p>
 
-<p>http://www.tv3.cat/su/tvc/tvcConditionalAccess.jsp?ID=1307049732092&amp;QUALITY=H&amp;FORMAT=MP4</p>
+<p>$ fuser -k 80/tcp   (cerrar todo el tráfico tcp del puerto 80)</p>
 
-<p>Colocando en el número “ID=” el que corresponda y con la ruta rtmp que nos indique lanzar [en una sola linea]:</p>
+<p>$ fuser -v archivo  (Muestra los procesos usados por un fichero o directorio)</p>
 
-<blockquote><p>$ flvstreamer -r rtmp://mp4-500-str.tv3.cat/ondemand/mp4:g/tvcatalunya/2/9/1307049732092.mp4 -o video.mp4</p></blockquote>
+<p># fuser -n tcp -s 22 &amp;&amp; echo &#8220;abierto&#8221; (Indica si un puerto está abierto)</p></blockquote>
 </div>
   
   
@@ -363,7 +320,7 @@ done
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/fluxbox-generate-menu/">Fluxbox-generate_menu</a></h1>
+      <h1 class="entry-title"><a href="/blog/funcoeszz/">Funcoeszz</a></h1>
     
     
       <p class="meta">
@@ -386,11 +343,28 @@ done
   </header>
 
 
-  <div class="entry-content"><p>Generador de menús de fluxbox.</p>
+  <div class="entry-content"><p>Conjunto de 65 funciones y utilidades varias. Una vez instalado:</p>
 
-<blockquote><p>$ fluxbox-generate_menu -g (Añade un menú tipo gnome)</p>
+<blockquote><p>$ funcoeszz zzzz &#8211;bashrc (Para colocar las lineas en .bashrc)</p></blockquote>
 
-<p>$ fluxbox-generate_menu -k -o ~/.fluxbox/menu1 (Añade menú tipo kde y lo coloca en menu1 para probarlo. Sin especificar, substituiría el .fluxbox/menu)</p></blockquote>
+<pre><code># Instalacao das Funcoes ZZ (www.funcoeszz.net)
+
+source /usr/bin/funcoeszz
+
+export ZZPATH=/usr/bin/funcoeszz
+</code></pre>
+
+<blockquote><p>$ source .bashrc (Releer el fichero)</p>
+
+<p>$ funcoeszz zzzz (listado de los 65 funciones)</p>
+
+<p>$ funcoeszz zzzz &#8211;teste (Comprobar que todos los ejecutables que necesita la aplicación estan instalados)</p>
+
+<p>$ funcoeszz zzzz &#8211;atualiza (Baja las últimas versiones de las funciones)</p>
+
+<p>$ funcoeszz ajuda (Ayuda muy util sobre como usar cada un de las funciones)</p>
+
+<p>$ funcoeszz ascii (Lanzar una de las funciones del listado)</p></blockquote>
 </div>
   
   
@@ -403,7 +377,7 @@ done
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/flunym0us/">Flunym0us</a></h1>
+      <h1 class="entry-title"><a href="/blog/ftp/">Ftp</a></h1>
     
     
       <p class="meta">
@@ -426,27 +400,27 @@ done
   </header>
 
 
-  <div class="entry-content"><p>Pruebas de vulnarabilidad de webs basadas en wordpress. Descarga http://code.google.com/p/flunym0us/downloads/list</p>
+  <div class="entry-content"><p>Conexión remota por linea de comandos</p>
 
-<blockquote><p>$ flunym0us -H http://host -w /home/usuario/wordlist -wp -t 60 -r 1 -p 2 -T 2</p></blockquote>
+<blockquote><p># lftp -help (Para obtener ayuda)</p>
 
-<p>Opciones:</p>
+<p># lftp -u usuario,clave ftp.dominio.com (Para conectarnos con un servidor)</p></blockquote>
 
-<p>-wp (Scanear un sitio wordpress)</p>
+<p>Al entrar en el directorio raiz del servidor ftp remoto con un prompt al estilo de:</p>
 
-<p>-mo (scanear un sitio Moodle)</p>
+<p>lftp usuario@ftp.dominio.com:~></p>
 
-<p>-H http://host (Nombre del host wordpress a scanear)</p>
+<p>Algunas opciones:</p>
 
-<p>-w /home/usuario/wordlist (Ruta al diccionario)</p>
+<p>lftp usuario@ftp.dominio.com:~> ls -l (listar el directorio)</p>
 
-<p>-t 60 (Tiempo de espera)</p>
+<p>lftp usuario@ftp.dominio.com:~> mirror htdocs html (copiará todo el contenido de htdocs a la carpeta html del home. Si no existe la crea)</p>
 
-<p>-r 1 (Reintentos de conexión)</p>
+<p>lftp usuario@ftp.dominio.com:~> help mirror (opciones de mirror)</p>
 
-<p>-p 2 (Numero de procesos)</p>
+<p>lftp usuario@ftp.dominio.com:~> cd htdocs</p>
 
-<p>-T 2 (Número de subprocesos simultaneos por proceso)</p>
+<p>lftp usuario@ftp.dominio.con/htdocs:~> exit (salir del remoto)</p>
 </div>
   
   
@@ -459,7 +433,7 @@ done
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/flexget/">Flexget</a></h1>
+      <h1 class="entry-title"><a href="/blog/ftff/">Ftff</a></h1>
     
     
       <p class="meta">
@@ -482,56 +456,9 @@ done
   </header>
 
 
-  <div class="entry-content"><p>[python2.6 python-pip]</p>
+  <div class="entry-content"><p>Busca archivos o directorios</p>
 
-<p>Descarga de series a partir de su direccion RSS. Archivo de configuración</p>
-
-<blockquote><p>$ nano .flexget/config.yml</p></blockquote>
-
-<p>Con un contenido parecido a:</p>
-
-<pre><code>presets:
-
-  tv:
-
-    series:
-
-      settings:
-
-    hdtv:
-
-      timeframe: 8 hours
-
-      hdtv &lt;720p:
-
-    - serie 1
-
-    - serie 2
-
-    - serie 3
-
-    - etc
-
-    content_filter:
-
-      require:
-
-    - '*.avi'
-
-    download: "/media/discoext/Descargas/Torrents"
-
-tasks:
-
-  TvTorrent1:
-
-    rss: http://showrss.karmorra.info/feeds/all.rss
-
-    preset: tv
-</code></pre>
-
-<blockquote><p>$ flexget &#8211;test (Comprobar si la configuración es correcta)</p>
-
-<p>$ flexget (Lanzar la aplicación)</p></blockquote>
+<blockquote><p>$ ftff -t2 logfile.txt    (busca  logfile con dos errores en el nombre. permite *)</p></blockquote>
 </div>
   
   
@@ -544,7 +471,7 @@ tasks:
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/firefox/">Firefox</a></h1>
+      <h1 class="entry-title"><a href="/blog/fte/">Fte</a></h1>
     
     
       <p class="meta">
@@ -567,474 +494,7 @@ tasks:
   </header>
 
 
-  <div class="entry-content"><p>Navegador.</p>
-
-<blockquote><p>$ firefox &#8211;private (Nota.- Son dos guiones. Arrancar en modo privado. Para incluir por defecto este modo en la propiedades: firefox &#8211;private %U)</p>
-
-<p>$ firefox &#8216;data:text/html, texto que queremos mostrar&#8217; (Visualizar un texto en una ventana del navegador)</p></blockquote>
-
-<p>Cambios para optimizar las conexiones y para aprovechar otros parámetros. Escribir en la barra de direcciones: &#8220;about:config&#8221; y pulsar enter. Cambiar los siguientes valores. Para ello, hacer doble click encima de la línea a modificar y en el cuadro de diálogo que aparece, escribir el valor nuevo:</p>
-
-<p>Ajustes generales [dependen de la versión instalada]:</p>
-
-<p>network.dns.disableIPv6 true</p>
-
-<p>network.http.max-connections 128</p>
-
-<p>network.http.max-connections-per-server 48</p>
-
-<p>network.http.max-persistent-connections-per-proxy 24</p>
-
-<p>network.http.max-persistent-connections-per-server 12</p>
-
-<p>network.http.pipelining true</p>
-
-<p>network.http.proxy.pipelining true</p>
-
-<p>network.http.pipelining.maxrequests 30</p>
-
-<p>browser.sessionstore.interval 300000</p>
-
-<p>Desactivar escaneo de virus.</p>
-
-<pre><code>browser.download.manager.scanWhenDone false 
-</code></pre>
-
-<p>Guarda pestañas abiertas al cerrar:</p>
-
-<pre><code>browser.showquitwarning true 
-</code></pre>
-
-<p>Deshabilitar la opción de recuperación de sesión.</p>
-
-<pre><code>browser.sessionstore.enabled false 
-</code></pre>
-
-<p>Si tenemos problemas con hotmail, suprimir el nombre de la distro:</p>
-
-<pre><code>general.useragent.vendor 
-</code></pre>
-
-<p>Instalar extensiones incompatibles (peligroso):</p>
-
-<pre><code>extensions.checkCompatibility  False 
-</code></pre>
-
-<p>Si no queremos que pregunte por guardar contraseñas:</p>
-
-<pre><code>signon.RememberSignons false 
-</code></pre>
-
-<p>Activar tecla backspace para ir a la página anterior</p>
-
-<pre><code>browser.backspace_action 0 
-</code></pre>
-
-<p>Visualizar todas las pestañas:</p>
-
-<pre><code>browser.allTabs.previews true 
-</code></pre>
-
-<p>Cambiar idioma:</p>
-
-<pre><code>general.useragent.locale 
-</code></pre>
-
-<p>Deshabilitar o aumentar la cantidad de sugerencias de la barra de direcciones (por defecto 12. Dehabilitar -1).</p>
-
-<pre><code>browser.urlbar.maxRichResults  15 
-</code></pre>
-
-<p>Modificar el intervalo de tiempo de recuperación de sesión (1 segundo=1000. Por defecto cada 10 segundos) El parámetro anterior tiene que estar en &#8220;true&#8221;.</p>
-
-<pre><code>browser.sessionstore.interval 20000 
-</code></pre>
-
-<p>Mejorar la calidad de color (consume muchos recursos).</p>
-
-<pre><code>gfx.color_management.enabled true 
-</code></pre>
-
-<p>Suprimir el scroll de pestañas aunque tengamos muchas abiertas (por defecto 100).</p>
-
-<pre><code>browser.tabs.tabMinWidth 0 
-</code></pre>
-
-<p>Abrir las ventanas emergentes en una nueva pestaña (por defecto lo abre como ventana [2]. Para no abrir ninguno [1])</p>
-
-<pre><code>browser.link.open_newwindow.restriction 0 
-</code></pre>
-
-<p>Habilitar diccionario para todos los campos de texto (por defecto solo multilinea [1]. Deshabilitar [0]).</p>
-
-<pre><code>layout.spellcheckDefault 2 
-</code></pre>
-
-<p>Abrir resultados de búsqueda en otra pestaña.</p>
-
-<pre><code>browser.search.openintab true 
-</code></pre>
-
-<p>Modificar la caché (por defecto 50000 kb)</p>
-
-<pre><code>browser.cache.disk.enable true. 
-
-browser.cache.disk.capacity 100000 
-</code></pre>
-
-<p>Habilitar sugerencias de autocompletado en la barra de direcciones.</p>
-
-<pre><code>browser.urlbar.autofill  true 
-</code></pre>
-
-<p>Auto exportar Favoritos para sincronización con otro navegador</p>
-
-<pre><code>browser.bookmarks.autoExportHTML true 
-</code></pre>
-
-<p>Aumentar el historial de &#8220;deshacer cerrar pestaña&#8221;. (por defecto 10)</p>
-
-<pre><code>browser.sessionstore.max_tabs_undo 20 
-</code></pre>
-
-<p>Deshabilitar tiempo de espera al agregar complementos (por defecto 5 segundos)</p>
-
-<pre><code>security.dialog_enable_delay 0 
-</code></pre>
-
-<p>Ver código fuente con el editor favorito.</p>
-
-<pre><code>view_source.editor.external true 
-
-view_source.editor.path /ruta/al/editor 
-</code></pre>
-
-<p>Mostrar siempre [incluso en modo &#8220;pantalla completa&#8221;] la barra superior.</p>
-
-<pre><code>browser.fullscreen.autohide false 
-</code></pre>
-
-<p>Aumentar lista de búsqueda de complementos (por defecto 5).</p>
-
-<pre><code>extensions.getAddons.maxResults 10 
-</code></pre>
-
-<p>Evitar que un sitio modifique el tamaño de ventanas.</p>
-
-<pre><code>dom.disable_window_move_resize true 
-</code></pre>
-
-<p>Mostrar las pestañas abiertas como miniaturas. Crea un botón que muestra una vista previa de pestañas abiertas.</p>
-
-<pre><code>browser.allTabs.previews  true 
-</code></pre>
-
-<p>No mostrar favicon en la barra de direcciones y en las pestañas.</p>
-
-<pre><code>browser.chrome.site_icons  False
-</code></pre>
-
-<p>Evitar cuelgues al abrir muchas pestañas (por defecto 256)</p>
-
-<pre><code>network.http.max-connections 48
-</code></pre>
-
-<p>Desactivar sitios más visitados en nueva página:</p>
-
-<pre><code>browser.newtabpage.enabled  false
-</code></pre>
-
-<p>Al abrir nueva pestaña que se abra con un URL concreta:</p>
-
-<pre><code>browser.newtab.url
-</code></pre>
-
-<p>Que las preferencias se abran en nueva pestaña y no en nueva ventana:</p>
-
-<pre><code>browser.preferences.InContent true
-</code></pre>
-
-<p>Habilitar lector nativo de pdf en javascript:</p>
-
-<pre><code>pdfjs.disable false
-</code></pre>
-
-<p>Habilitar dominios multilingües [idn] -Que continenen caracteres raros.</p>
-
-<pre><code>network.enableIDN true
-</code></pre>
-
-<p>Ver listado de todos los idn habilitados [todos en true]:</p>
-
-<pre><code>network.IDN.whitelist
-</code></pre>
-
-<p>Habilitar lector de pdfs:</p>
-
-<pre><code>pdfjs.disabled true 
-</code></pre>
-
-<p>Habilitar soporte para H.264, AAC y mp3:</p>
-
-<pre><code>media.gstreamer.enabled true
-</code></pre>
-
-<p>Acceso a los diálogos de firefox:</p>
-
-<pre><code>chrome://browser/content/bookmarks/bookmarksPanel.xul  (las direcciones de interés)
-
-chrome://browser/content/history/history-panel.xul  (historial)
-
-chrome://global/content/console.xul (Consola Javascript)
-
-chrome://passwordmgr/content/passwordManager.xul (Administrador de contraseñas)
-
-chrome://pippki/content/getpassword.xul (Establecer contraseña maestra)
-
-chrome://pippki/content/resetpassword.xul (Restablecer contraseña maestra)
-
-chrome://mozapps/content/downloads/downloads.xul (lista de descargas efectuadas)
-
-chrome://browser/content/browser.xul (abre un navegador completo en una pestaña)
-
-chrome://browser/content/preferences/preferences.xul (Abre las preferencias)
-</code></pre>
-
-<p>Archivos de interés en los perfiles de firefox (.mozilla/firefox/*.default):</p>
-
-<pre><code>bookmarks.html - Nuestros marcadores
-
-cert8.db - Certificados de seguridad
-
-formhistory.dat - Formularios memorizados
-
-key3.db - Contraseñas almacenadas
-</code></pre>
-
-<p>&#8220;about:&#8221; (escrito en la barra de direcciones de firefox):</p>
-
-<pre><code>about:  (Información sobre el navegador)
-
-about:blank  (Una página en blanco)
-
-about:buildconfig  (Detalles de la compilación para nuestra versión)
-
-about:cache  (información sobre la cache del navegador)
-
-about:cache?device=memory  (Muestra la caché en memoria)
-
-about:cache?device=disk  (Muestra la caché de disco)
-
-about:config  (Configuración del navegador)
-
-about:credits  (Lista de los que contribuyeron al desarrollo del navegador)
-
-about:logo  (El logo del navegador)
-
-about:mozilla  (Muestra un pasaje de “El Libro de Mozilla”)
-
-about:plugins  (lista detallada de los plugins que tenemos instalados)
-</code></pre>
-
-<blockquote><p>$ grep -hIr :name ~/.mozilla/firefox/*.default/extensions | tr &#8216;&lt;>=&#8217; &#8216;&#8221;&#8220;&#8221;&#8217; | cut -f3 -d&#8217;&#8221;&#8217; | sort -u  (listar las extensiones de firefox)</p>
-
-<p>$ firefox -ProfileManager -no-remote (crear un perfil sin cerrar firefox)</p>
-
-<p>$ firefox http://www.google.com/search?q=BUSQUEDA (buscar algo por linea de comandos [abre el navegador])</p>
-
-<p>$ firefox http://images.google.com/images?q=BUSQUEDA (Lo mismo para imágenes)</p>
-
-<p>$ firefox http:/books.google.es/search?q=BUSQUEDA (lo mismo con libros)</p>
-
-<p>$ firefox http://news.google.es/news/search?q=BUSQUEDA (Con noticias)</p>
-
-<p>$ find ~/.mozilla -iname &#8216;*.sqlite&#8217; -execdir sqlite3 {} &#8216;vacuum;&#8217; \; (desfragmentar la base de datos de firefox. Tambien existe plugin[SQLite Manager])</p></blockquote>
-
-<p>1.-</p>
-
-<p>Mandar un email desde la barra de direcciones (Valido tambien para chromium):</p>
-
-<p>Tener configurado un gestor de correos [evolution, thunderbird..]. Escribir en la abarra de direcciones:</p>
-
-<pre><code>mailto:usuario@gmail.com
-</code></pre>
-
-<p>Del destinatario. Se abrira el gestor de correo listo para escribir.</p>
-
-<p>Atajos:</p>
-
-<p>Navegación:</p>
-
-<pre><code>Alt + &lt;- (Ir a la página anterior) 
-
-Atl + -&gt; (Ir a la página siguiente) 
-
-Alt + inicio (Inicio) 
-
-^ + o (Abrir archivo) 
-
-F5 (Recargar)  
-
-^+ F5 (Recargar reemplazando caché) 
-
-Esc (Detener) 
-</code></pre>
-
-<p>Página actual:</p>
-
-<pre><code>Fin (Ir al final de la página) 
-
-Inicio (Ir a principio de la página) date
-
-F6 (Ir a la siguiente pestaña) 
-
-Mayús + F6 (Ir a la anterior pestaña) 
-
-^+ p (Imprimir) 
-
-^+ s (Guardar página como...) 
-
-^+ + (Aumentar tamaño texto) 
-
-^+ - (Reducir tamaño texto) 
-
-^+ 0 (Restablecer tamaño texto) 
-</code></pre>
-
-<p>Editar:</p>
-
-<pre><code>^+ c (Copiar) 
-
-^+ x (Cortar) 
-
-Supr (Eliminar) 
-
-^+ v (Pegar) 
-
-^ + Z (Rehacer) 
-
-^+ a (Seleccionar todo) 
-
-^+ z (Deshacer) 
-</code></pre>
-
-<p>Buscar:</p>
-
-<pre><code>^ +f (Encontrar) 
-
-F3 (Encontrar de nuevo) 
-
-Mayús * F3 (Encontrar anterior) 
-
-' (Búsqueda texto de enlaces) 
-
-/ (Búsqueda rápida) 
-
-Esc (Cerrar busquedas) 
-
-^+ k (Barra de búsqueda) 
-
-Alt + flecha arriba/abajo , con el foco en la barra (Seleccionar motor busqueda) 
-</code></pre>
-
-<p>Ventanas y pestañas:</p>
-
-<pre><code>^ + w (Cerrar pestaña) 
-
-Alt + F4 (Cerrar ventana) 
-
-^ + &lt;- (Mover pestaña a la izq.) 
-
-^+ -&gt; (Mover pestaña a la dere.) 
-
-^+ home (Mover pestaña al comienzo) 
-
-^+ fin (Mover pestaña al final) 
-
-^+ t (Nueva pestaña) 
-
-^+ n (Nueva ventana) 
-
-Alt + intro desde la barra direcciones o bus1uedas (Abrir en nueva pestaña) 
-
-^+ tab (Pestaña siguiente) 
-
-^+ Mayús + tab (Pestaña anterior) 
-
-^+ Mayús + t (Deshacer cerrar pestaña) 
-
-^+ Mayús + n (Deshacer cerrar ventana) 
-
-^+ 1 ....8 (Seleccionar pestaña 1 a 8) 
-
-^+ 9 (Seleccionar última pestaña) 
-
-^+ Mayús + e (Vista grupos de pestañas) 
-
-Esc (Cerrar vista de grupos pestañas) 
-</code></pre>
-
-<p>Historial:</p>
-
-<pre><code>^+ h (Panel lateral de Historial) 
-
-^+ H (Historial) 
-</code></pre>
-
-<p>Marcadores:</p>
-
-<pre><code>^ + D (Agregar pestañas a marcadores) 
-
-^+ d (Agregar página a marcadores) 
-
-^+ b (Panel lateral de marcadores) 
-
-^+ O (Marcadores) 
-</code></pre>
-
-<p>Herramientas: http://www.overlooksoft.com/</p>
-
-<pre><code>^+ Y (Descargas) 
-
-^+ A (Complementos) 
-
-^+ K (Consola web) 
-
-^+ I (Inspeccionar) 
-
-Mayús + F4 (Borrador) 
-
-^+ u (Código fuente de la página) 
-
-^+ J (Consola de errores) 
-
-^+ i (Información de la página) 
-
-^+ P (Navegación privada) 
-
-^+ S (Limpiar historial) http://www.overlooksoft.com/
-</code></pre>
-
-<p>Otros atajos:</p>
-
-<pre><code>^+ intro (Completar dirección .com) 
-
-Mayús + intro (Completar dirección .net) 
-
-^+ Mayús + intro (Completar dirección .org) 
-
-Alt (Ver barra de menús en kde) 
-
-F10 (Ver barra de menús en gnome) 
-
-^+ / (Mostrar/Ocultar complementos) 
-
-F7 (Navegación con cursor) 
-
-F11 (Pantalla completa) 
-
-^+ l (Barra de direcciones) 
-</code></pre>
+  <div class="entry-content"><p>Editor. Según se lance desde las X o por consola se usará fte, xfte o sfte. F1 muestra todos los atajos y se accede a los menús de forma clásica con Alt+f&#8230;</p>
 </div>
   
   
@@ -1047,7 +507,7 @@ F11 (Pantalla completa)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/finger/">Finger</a></h1>
+      <h1 class="entry-title"><a href="/blog/fswebcam/">Fswebcam</a></h1>
     
     
       <p class="meta">
@@ -1070,11 +530,30 @@ F11 (Pantalla completa)
   </header>
 
 
-  <div class="entry-content"><p>Quien está conectado al sistema, tiempo, consola&#8230;</p>
+  <div class="entry-content"><p>Capturas con la webcam.</p>
 
-<blockquote><p>$ finger -s</p>
+<blockquote><p>$ fswebcam &#8211;crop 200x100 &#8211;save out (Especificando medidas y archivo de salida)</p>
 
-<p>$ finger -l</p></blockquote>
+<p>$ fswebcam -r 600x500 out1.jpeg &#8211;greyscale out2.jpeg (Dos capturas, especificando resolución y la otra en escala de grises)</p>
+
+<p>$ fswebcam &#8211;banner-colour &#8220;#FF0000&#8221; &#8211;save out (Con el baner de color rojo)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<pre><code>-d  (Especificar el dispositivo de video. Por defecto /dev/video0)
+
+--no-banner (Que la captura no muestre el baner. Por defecto sale en la parte inferior)
+
+--top-banner (Que el baner salga en parte superior)
+
+--title "linux es genial" (Mostrando un texto en el baner)
+
+--timestamp "%d-%m-%Y" (Mostrando en el baner la fecha en formato dia-mes-año)
+
+--info "Linux es un sistema genial" (Añadir un texto que se muestra debajo de la fecha con letra más pequeña)
+
+--invert (Haciendo un negativo de la imagen)
+</code></pre>
 </div>
   
   
@@ -1105,43 +584,43 @@ F11 (Pantalla completa)
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/dig/">dig</a>
+        <a href="/blog/figlet/">figlet</a>
       </li>
     
       <li class="post">
-        <a href="/blog/denyhosts/">denyhosts</a>
+        <a href="/blog/fgrep/">fgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/debget/">debget</a>
+        <a href="/blog/festival/">festival</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ddrescue/">ddrescue</a>
+        <a href="/blog/fbgs/">fbgs</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ddclient/">ddclient</a>
+        <a href="/blog/faillog/">faillog</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dav/">dav</a>
+        <a href="/blog/extundelete/">extundelete</a>
       </li>
     
       <li class="post">
-        <a href="/blog/date/">date</a>
+        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dansguardian/">dansguardian</a>
+        <a href="/blog/eterm/">eterm</a>
       </li>
     
       <li class="post">
-        <a href="/blog/cups/">cups</a>
+        <a href="/blog/errno/">errno</a>
       </li>
     
       <li class="post">
-        <a href="/blog/csscapture/">csscapture</a>
+        <a href="/blog/egrep/">egrep</a>
       </li>
     
   </ul>

@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Instala un nuevo código MBR al inicio del disco duro. # install-mbr /dev/sda (instala) # install-mbr -l /dev/sda (muestra información del código mbr)
-">
+  <meta name="description" content="Monitor de tráfico IP. Mide el uso del ancho de banda. # iptotal eth0 -r 60 (Escuchará 60 segundos antes de informar) # iptotal eth0 -r 120 -d 3 -P ( &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/install-mbr/">Install-mbr</a></h1>
+      <h1 class="entry-title"><a href="/blog/iptotal/">Iptotal</a></h1>
     
     
       <p class="meta">
@@ -97,18 +96,18 @@
   
 
 
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Instala un nuevo código MBR al inicio del disco duro.</p>
+  <div class="entry-content"><p>Monitor de tráfico IP. Mide el uso del ancho de banda.</p>
 
-<blockquote><p># install-mbr /dev/sda (instala)</p>
+<blockquote><p># iptotal eth0 -r 60 (Escuchará 60 segundos antes de informar)</p>
 
-<p># install-mbr -l /dev/sda (muestra información del código mbr)</p></blockquote>
+<p># iptotal eth0 -r 120 -d 3 -P  (con alto nivel de depuarión[-d 3] y modo promiscuo [-P]</p></blockquote>
 </div>
   
   
@@ -121,7 +120,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/insmod/">Insmod</a></h1>
+      <h1 class="entry-title"><a href="/blog/iptables/">Iptables</a></h1>
     
     
       <p class="meta">
@@ -144,164 +143,226 @@
   </header>
 
 
-  <div class="entry-content"><p>Carga modulos.</p>
+  <div class="entry-content"><p>herramienta de cortafuegos y trafico de red.</p>
 
-<blockquote><p># insmod mudulo</p></blockquote>
-</div>
-  
-  
+<p>Algunos ejemplos generales:</p>
 
+<pre><code># iptables -F (eliminar todas las reglas)
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/inputrc/">Inputrc</a></h1>
-    
-    
-      <p class="meta">
-        
+# iptables -L (si está activo y con qué reglas)
 
+# iptables -L -vn (mostrando los puertos e información detallada)
 
+# iptables -L -t nat (Listar reglas de una tabla concreta)
 
+# iptables -L fail2ban-ssh (comprobar las ips bloqueadas por fail2ban)
 
+# iptables -D fail2ban-ssh 1 (Quitar la primera ip baneada de las ips bloqueadas)
 
+# iptables -nL --line-numbers (muestra el orden de ejecución de las reglas)
 
+# iptables -nL INPUT (Lista todas las reglas de entrada)
 
+# iptables -nL FORWARD (Lista todas las reglas de salida)
 
-  
+# iptables -D INPUT 3 (borrar la regla número 3)
 
+# iptables -A INPUT -j LOG (Guardar logs de todos los bloqueos)
+</code></pre>
 
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
+<p>Bloquear (DROP)</p>
 
+<pre><code># iptables -P INPUT DROP (Bloquear todo lo que entra)
 
-  <div class="entry-content"><p>Librería readline que permite editar líneas de texto usando los modos de emacs y vi. Esto permite estandarizar las combinaciones de teclas entre muchos comandos.</p>
+# iptables -A INPUT -s IP -j DROP (una ip)
 
-<blockquote><p>$ nano .inputrc</p></blockquote>
+# iptables -A INPUT -s IP -i eth0 -j DROP (una ip de una red)
 
-<p>Ajustes que pueden añadirse al archivo personal.</p>
+# iptables -A INPUT -s IP -p tcp -dport 22 -j DROP (un puerto de una ip) 
+
+# iptables -A INPUT -s 192.168.1.0/24 -j DROP (una red)
+
+# iptables -A INPUT -m mac --mac-source 00:11:22:33:44:55 -j DROP (una mac)
+
+# iptables -A INPUT -p tcp --destination-port 21 -j DROP (puerto 21 de entrada)
+
+# iptables -A INPUT -p tcp -s IP --destination-port 21 -j DROP (el puerto 21 de entrada sólo para una IP)
+
+# iptables -A INPUT -p tcp -i eth0 -m multiport --destination-port 22,80,443 -j ACCEPT (Varios puertos)
+
+# iptables -A INPUT p tcp -s 192.168.1.0/24 --destination-port 21 -j DROP (el  puerto 21 de entrada para todo un rango de IPs)
+
+# iptables -A FORWARD -p tcp --dport 25 -j DROP (la salida del puerto 25)
+
+# iptables -A INPUT -p tcp --dport 22 -j LOG --log-prefix "Puerto 22 bloqueado" iptables -A INPUT -p tcp --dport 22 -j DROP (haciendo aparecer una mensaje informando del bloqueo)
+</code></pre>
+
+<p>Permitir (ACCEPT)</p>
+
+<pre><code># iptables -I INPUT 3 -s 192.168.1.0/8 -j ACCEPT (a la red especificada y poner la regla en tercer lugar)
+
+# iptables -D INPUT -s 192.168.1.0/8 -j ACCEPT (Quitar la regla anterior) 
+
+# iptables -A INPUT -i lo -p all -j ACCEPT (todas las entradas a localhost)
+
+# iptables -A OUTPUT -o lo -p all -j ACCEPT (todas las salidas a localhost)
+
+# iptables -A INPUT -p tcp --dport ssh -j ACCEPT (Un servicio concreto)
+
+# iptables -A INPUT -p tcp -i eth0 -m multiport --destination-port 22,80,443 -j ACCEPT (Todas las entradas a varios puertos)
+
+# iptables -A OUTPUT -o eth0 -p tcp -d 192.168.101.0/24 --dport 22 -j ACCEPT  (Permitir trafico ssh saliente para la red especificada)  
+</code></pre>
 
 <p>1.-</p>
 
-<p>Que al pulsar Ctrl+x Ctrl+f liste las funciones y con Ctrl+x Ctrl+v las variables:</p>
+<p>Salvar unas reglas de iptables y restablecerlas manualmente:</p>
 
-<blockquote><p># Lista las funciones y variables de readline</p></blockquote>
+<blockquote><p># iptables-save -c > /etc/iptables.rules</p>
 
-<p>&#8220;\C-x\C-f&#8221;: dump-functions</p>
-
-<p>&#8220;\C-x\C-v&#8221;: dump-variables</p>
+<p># iptables-restore &lt; /etc/iptables.rules</p></blockquote>
 
 <p>2.-</p>
 
-<p>Que el autocompletado con la tecla &#8220;tab&#8221; no distinga mayúsculas y minúsculas:</p>
+<p>Salvar unas reglas de iptables para que se activen automaticamente tras un reinicio:</p>
 
-<blockquote><p># Ignora diferencias de mayusculas/minusculas al</p>
+<p>Salvar las reglas:</p>
 
-<p># completar con tabulador</p></blockquote>
+<blockquote><p># iptables-save > /etc/iptables/rules.v4</p></blockquote>
 
-<p>set completion-ignore-case on</p>
-</div>
-  
-  
+<p>Crear el archivo:</p>
 
+<blockquote><p># nano /etc/network/if-pre-up.d/iptables (Crear archivo)</p></blockquote>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/inittab/">Inittab</a></h1>
-    
-    
-      <p class="meta">
-        
+<p>Con el siguiente contenido:</p>
 
+<pre><code>#!/bin/bash
 
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Fichero que gestiona el inicio del sistema o un cambio de estado (runlevel) con el comando init (ver).</p>
-
-<blockquote><p># nano /etc/inittab</p></blockquote>
-
-<p>Especificación de si el sistema arranca en modo monousuario (1) o multiusuario (2-5). Por defecto 2 o 3:</p>
-
-<pre><code>id:2:initdefault:
+/sbin/iptables-restore &lt; /etc/iptables/rules.v4
 </code></pre>
 
-<p>Scripts que se ejecutarán en el inicio y en el orden que lo harán independientemente del runlevel:</p>
+<p>Otorgar permisos:</p>
 
-<pre><code>si::sysinit:/etc/init.d/rcS (En algunas distros si::sysinit:/etc/rc.d/rc.sysinit)
+<blockquote><p># chmod +x /etc/network/if-pre-up.d/iptables</p></blockquote>
+
+<p>3.-</p>
+
+<p>Otra opción para salvar las reglas y que se activen tras un reinicio:</p>
+
+<blockquote><p># /etc/init.d/iptables-persistent save (Guardar las reglas existentes)</p>
+
+<p># /etc/init.d/iptables-persistent flush (Reseteará todas las reglas)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ipscan/">Ipscan</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Escanea la red en busca de máquinas activas.</p>
+
+<blockquote><p>$ ipscan -s -f:range 192.168.1.1 192.168.1.255 (todo el rango de ips)</p>
+
+<p>$ ipscan -s -f:file ips.txt (Las especificadas en el archivo ips.txt [una por linea])</p>
+
+<p>$ ipscan -s -f:range 192.168.1.9 192.168.1.16 -o resultat.txt (Derivando el resultado a un archivo)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ipmitool/">Ipmitool</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[openipmi]</p>
+
+<p>Obtener datos del estado de un servidor [que lo soporte] tanto en local desde el propio servidor cómo en remoto. Se trata de un chipset que permite obtener información del estado de diferentes componentes hardware, temperaturas, voltajes, etc&#8230; Primero habilitar el demon ipmievd:</p>
+
+<blockquote><p># nano /etc/default/ipmievd</p></blockquote>
+
+<p>Y modificar la linea:</p>
+
+<p>ENABLED=true</p>
+
+<p>En algunas distros es preciso cargar los módulos:</p>
+
+<pre><code># ipmi_msghandler
+
+# ipmi_si
+
+# ipmi_devintf
+
+# ipmi_watchdog
+
+# ipmi_poweroff
 </code></pre>
 
-<p>Este script llama a los scripts del directorio /etc/rcS.d. Por cada runlevel se ejecutan los scripts del directorio correpondiente: rc0.d/, rc1.d/, rc2.d/, rc3.d/, rc4.d/, rc5.d/, rc6.d/, rc.local y rcS.d/. El directorio /etc/rc.local se usa para ejecutar servicios porpios del usuario. En estos directorios los scripts que empiezan por una &#8220;K&#8221; paran servicios y los que empiezan por una &#8220;S&#8221; los arrancan.</p>
+<blockquote><p># /etc/init.d/ipmi start (Arrancar el servicio)</p>
 
-<p>Qué hacer si se presiona CTRL-ALT-DEL:</p>
+<p># ipmitool sensor get &#8220;Ambient Temp&#8221; (Consulta de la temperatura ambiente)</p>
 
-<pre><code>ca:12345:ctrlaltdel:/sbin/shutdown -t1 -a -r now
-</code></pre>
+<p># ipmitool user list (Listado de usuarios configurados)</p>
 
-<p>Qué hacer si la corriente se va/vuelve</p>
+<p># ipmitool -I lan -H 192.168.1.5 -U usuario sel elist (Litar los logs del sistema)</p>
 
-<pre><code>pf::powerwait:/etc/init.d/powerfail start
+<p># ipmitool -H 192.168.1.10 -U usuario -P contraseña chassis status (Estado de chasis remoto)</p>
 
-pn::powerfailnow:/etc/init.d/powerfail now
-
-po::powerokwait:/etc/init.d/powerfail stop
-</code></pre>
-
-<p>Despues de ejecutar los scripts de inicio, init crea un conjunto de terminales virtuales:</p>
-
-<pre><code>1:2345:respawn:/sbin/getty 38400 tty1
-
-2:23:respawn:/sbin/getty 38400 tty2
-
-3:23:respawn:/sbin/getty 38400 tty3
-
-4:23:respawn:/sbin/getty 38400 tty4
-
-5:23:respawn:/sbin/getty 38400 tty5
-
-6:23:respawn:/sbin/getty 38400 tty6
-</code></pre>
-
-<p>Utilizando la opción respawn, si alguien trata de finalizar uno de estos procesos, el proceso simplemente será regenerado (respawned).</p>
-
-<p>1.-</p>
-
-<p>Entrar de forma automática:</p>
-
-<p>Comentar la siguiente línea</p>
-
-<blockquote><p>#1:2345:respawn:/sbin/getty 38400 tty1</p></blockquote>
-
-<p>Y Agrega la siguiente linea:</p>
-
-<p>1:2345:respawn:/bin/login -f USUARIO tty1 </dev/tty1 >/dev/tty1 2>&amp;1</p>
-
-<p>Siendo USUARIO el nombre de usuario que hará login automático.</p>
+<p># ipmitool sdr type Temperature (Obtener la temperatura)</p></blockquote>
 </div>
   
   
@@ -314,7 +375,7 @@ po::powerokwait:/etc/init.d/powerfail stop
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/initramfs/">Initramfs</a></h1>
+      <h1 class="entry-title"><a href="/blog/iperf/">Iperf</a></h1>
     
     
       <p class="meta">
@@ -337,17 +398,21 @@ po::powerokwait:/etc/init.d/powerfail stop
   </header>
 
 
-  <div class="entry-content"><p>Problemas durante el arranque. Consiste en un fallo de lectura de los controladores ide de discos duros por parte del kernel del sistema operativo que no logra reconocer dichos drivers. Arrancar con un livecd o pulsando “e” para editar la opción cuando salga el menu en grub:</p>
+  <div class="entry-content"><p>Para poder verificar el ancho de banda entre los clientes de una red local. Se instala en todas las máquinas de la red.</p>
 
-<blockquote><p># gedit /boot/grub/menu.lst</p></blockquote>
+<blockquote><p># iperf -s (Poner el servidor a la escucha por el puerto 5001)</p>
 
-<p>Y al final de la linea del kernel poner: rootdelay=90</p>
+<p># iperf -c 192.168.1.10 (Conectar los clientes con el servidor)</p></blockquote>
 
-<p>Otras soluciones propuestas (sustituir el rootdelay=90 por):</p>
+<p>Alguna sopciones que pueden añadirse:</p>
 
-<p>pci=nomsi</p>
+<p>-f B (Mostrar el resultado en Bytes por segundo [b: bytes/s, k:kilobits/s, m:megabytes/s, B:Bytes/s, K:KiloBytes/s, M:MegaBytes/s] esta opción sirva igual para el cliente que para el servidor)</p>
 
-<p>all_generix_ide</p>
+<p>-t 120 (Tiempo en segundos de duración de la transmisión. Sólo para el cliente)</p>
+
+<p>-D (Lanzarlo como servicio. Sólo en el servidor)</p>
+
+<p>-i 10 (Tempo en segundos entre mediciones. Sólo cliente)</p>
 </div>
   
   
@@ -360,7 +425,7 @@ po::powerokwait:/etc/init.d/powerfail stop
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/init/">Init</a></h1>
+      <h1 class="entry-title"><a href="/blog/ipcs/">Ipcs</a></h1>
     
     
       <p class="meta">
@@ -383,179 +448,37 @@ po::powerokwait:/etc/init.d/powerfail stop
   </header>
 
 
-  <div class="entry-content"><p>Para o reinicia el sistema</p>
+  <div class="entry-content"><p>Informa sobre la comunicación entre procesos [espacios de memoria, buffers, semaforos..] listando los recursos compartidos que están creados en ese momento. Ver ipcrm. La columna &#8220;shmid&#8221; muestra el ID, la &#8220;owner&#8221; el propietario, &#8220;perms&#8221; los permisos y &#8220;bytes&#8221; el tamaño en bytes</p>
 
-<blockquote><p>$ init 0    (para)</p>
+<blockquote><p># ipcs -s | grep postgres  (Muestra los recursos compartidos de postgres)</p>
 
-<p>$ init 1    (reinicia en modo  uniusuario)</p>
+<p># ipcs -lm (determinar los limites de memoria compartida del sistema)</p>
 
-<p>$ init 6    (reinicia)</p></blockquote>
-</div>
-  
-  
+<p># ipcs -ls (Límites actuales del contador que se utiliza para acceder a los recursos compartidos del sistema)</p>
 
+<p># ipcs -u  (Proporciona información sobre la comunicación entre procesos)</p>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/info/">Info</a></h1>
-    
-    
-      <p class="meta">
-        
+<p># ipcs -m (despliega los segmentos de memoria compartida)</p>
 
+<p># ipcs -mu (muestra un breve resumen)</p>
 
+<p># ipcs -ml (muestra los límites en contraposición a los valores actuales)</p>
 
+<p># ipcs -m -i 950288 (obtener detalle de un segmento de memoria compartida [valor shmid])</p>
 
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Páginas de manual para la mayoria de programas del proyecto GNU con una estructura jerarquizada. Ligeramente más complejo que las clásicas páginas man  [ver]</p>
-
-<blockquote><p>$ info (MUestra la lista de los nodos disponibles en el primer nivel)</p>
-
-<p>$ info ifconfig</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/imsniff/">Imsniff</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Capturar paquetes relacionados con el protocolo MSN . Su uso pasa por el envenenamiento arp, situando nuestra máquina entre la victima y el router lanzando en varias terminales y sin cerrarlas:</p>
-
-<blockquote><p># arpspoof -i eth0 -t 192.168.1.15 192.168.1.1</p>
-
-<p># arpspoof -i eth0 -t 192.168.1.1 192.168.1.15</p></blockquote>
-
-<p>Activar forwarding para que los paquetes vayan a su verdadero dueño:</p>
-
-<blockquote><p># echo 1 > /proc/sys/net/ipv4/ip_forward</p></blockquote>
-
-<p>Crear una carpeta donde guardar los datos:</p>
-
-<blockquote><p>$ mkdir snifadas</p></blockquote>
-
-<p>Modificar el archivo de configuración a partir de la  propia documentación ::</p>
-
-<blockquote><p># cp /usr/share/doc/imsniff/examples/imsniff.conf.sample /etc/imsniff.conf</p>
-
-<p># nano /etc/imsniff.conf</p></blockquote>
-
-<p>daemonize = 0</p>
-
-<p>promisc = 0</p>
-
-<p>verbose = 2</p>
-
-<p>chatdir = /home/USER/snifadas/chats</p>
-
-<p>debugdir = /home/USER/snifadas/debug</p>
-
-<p>interface eth0</p>
-
-<p>Los directorios &#8220;chats&#8221; y &#8220;debug&#8221; los crea la misma aplicación.</p>
-
-<p>Lanzar el sniffer de conversaciones msn:</p>
-
-<blockquote><p># imsniff</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/impressive/">Impressive</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Visualizar documentos PDF e imágenes (jpg, tiff, png&#8230;)</p>
-
-<blockquote><p>$ impressive documento.pdf</p>
-
-<p>$ impressive -l    (lista efectos disponibles)</p>
-
-<p>$ impressive -t SqueezeLeft documento.pdf</p></blockquote>
+<p># ipcs -s (Muestra los semforos en el sistema)</p></blockquote>
 
 <p>Algunas opciones:</p>
 
-<p>AvPág          Va a la página siguientes</p>
+<p>-m  (segmentos de memoria compartida )</p>
 
-<p>RePág          Va a la página anterior</p>
+<p>-q   (colas de mensajes )</p>
 
-<p>z                  zoom donde esté el cursor</p>
+<p>-s   (matrices de semáforos )</p>
 
-<p>f                   Activa/Desactiva la pantalla completa</p>
+<p>-a   (todos. Opción por defecto)</p>
 
-<p>q                  Salir de la aplicación</p>
+<p>-p   (pid)</p>
 </div>
   
   
@@ -568,7 +491,7 @@ po::powerokwait:/etc/init.d/powerfail stop
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/import/">Import</a></h1>
+      <h1 class="entry-title"><a href="/blog/ipcrm/">Ipcrm</a></h1>
     
     
       <p class="meta">
@@ -591,19 +514,175 @@ po::powerokwait:/etc/init.d/powerfail stop
   </header>
 
 
-  <div class="entry-content"><p>Capturar la pantalla en cualquier formato</p>
+  <div class="entry-content"><p>Permite eliminar la comunicación entre procesos [ver ipcs]. Si paramos el programa con un Ctrl-C o simplemente sale de forma anormal, el recurso [la memoria compartida] no se libera y queda en el sistema. Con este comando es posible borrarla.</p>
 
-<blockquote><p>$ import -window root captura.png (captura de pantalla completa)</p>
+<blockquote><p># ipcrm -m 950288 (eliminar un segmento de memoria compartida)</p></blockquote>
+</div>
+  
+  
 
-<p>$ import -window <code>xwininfo | awk '/Window id/{print $4; exit}'</code> <code>uuidgen</code>.png (Lo mismo. El puntero se convierte en una cruz y captura el esritorio donde se clica)</p>
 
-<p>$ import captura.png (captura de un área concreta))</p>
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ipcalc/">Ipcalc</a></h1>
+    
+    
+      <p class="meta">
+        
 
-<p>$ import 2 captura.png (realizar 2 capturas)</p>
 
-<p>$ import -pause 5 captura.png (Para retardar la captura 5 segundos)</p>
 
-<p>$ import -geometry 250×250! captura.png (indicando un tamaño respetando las proporciones)</p></blockquote>
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Calcular las ips y mascaras de una red a partir de una ip dada o un rango.</p>
+
+<blockquote><p># ipcalc 192.168.0.1/24</p>
+
+<p># ipcalc 192.168.0.1/255.255.128.0</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ipband/">Ipband</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Mostrar datos de la conexión. Copiar el arxivo de configuración:</p>
+
+<blockquote><p># cp /usr/share/doc/ipband/examples/ipband.conf-simple /etc/ipband.conf</p></blockquote>
+
+<p>Y descomentar o modificar los siguientes parámetros:</p>
+
+<pre><code>debug 0
+
+interface eth1
+
+fork yes
+
+htmlfile /srv/www/htdocs/ipbandwidth/index.html
+
+htmltitle Consumo de banda
+
+average 10
+
+accumulate no
+
+maskbits 32
+
+localrange 192.168.1.0/24
+</code></pre>
+
+<p>Reiniciar el servicio:</p>
+
+<blockquote><p># /etc/init.d/ipband restart</p></blockquote>
+
+<p>Arrancar la aplicación:</p>
+
+<blockquote><p># ipband</p></blockquote>
+
+<p>Los informes se muestran poniendo en la barra del navegador: http://localhost/html/ipbandwidth/index.html</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ip-ajustes/">Ip-ajustes</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>1.- Estática</p>
+
+<blockquote><p># gedit /etc/network/interfaces</p></blockquote>
+
+<pre><code>auto eth0 
+
+iface eth0 inet static 
+
+address 192.168.x.x 
+
+netmask 255.255.255.0 
+
+network 192.168.x.0 
+
+boadcast 192.168.2.255 
+
+gateway 192.168.x.1 
+</code></pre>
+
+<blockquote><p># /etc/init.d/networking restart (reiniciar el servicio)</p>
+
+<p>$ ifconfig (verificar la nueva ip)</p></blockquote>
 </div>
   
   
@@ -634,43 +713,43 @@ po::powerokwait:/etc/init.d/powerfail stop
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/dig/">dig</a>
+        <a href="/blog/figlet/">figlet</a>
       </li>
     
       <li class="post">
-        <a href="/blog/denyhosts/">denyhosts</a>
+        <a href="/blog/fgrep/">fgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/debget/">debget</a>
+        <a href="/blog/festival/">festival</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ddrescue/">ddrescue</a>
+        <a href="/blog/fbgs/">fbgs</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ddclient/">ddclient</a>
+        <a href="/blog/faillog/">faillog</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dav/">dav</a>
+        <a href="/blog/extundelete/">extundelete</a>
       </li>
     
       <li class="post">
-        <a href="/blog/date/">date</a>
+        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dansguardian/">dansguardian</a>
+        <a href="/blog/eterm/">eterm</a>
       </li>
     
       <li class="post">
-        <a href="/blog/cups/">cups</a>
+        <a href="/blog/errno/">errno</a>
       </li>
     
       <li class="post">
-        <a href="/blog/csscapture/">csscapture</a>
+        <a href="/blog/egrep/">egrep</a>
       </li>
     
   </ul>

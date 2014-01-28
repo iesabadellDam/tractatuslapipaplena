@@ -9,7 +9,8 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="permite mantener activo un proceso, incluso después de haber cerrado la sesión de usuario. $ nohup sleep 10000 &amp; (lanzar el proceso) [1] 9215 ( &hellip;">
+  <meta name="description" content="Herramienta para la configuración gráfica de entornos de escritorio ligeros (lxde, openbox&#8230;)
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/nohup/">Nohup</a></h1>
+      <h1 class="entry-title"><a href="/blog/obconf/">Obconf</a></h1>
     
     
       <p class="meta">
@@ -103,15 +104,7 @@
   </header>
 
 
-  <div class="entry-content"><p>permite mantener activo un proceso, incluso después de haber cerrado la sesión de usuario.</p>
-
-<blockquote><p>$ nohup sleep 10000 &amp;   (lanzar el proceso)</p></blockquote>
-
-<p>[1] 9215     (PID del proceso. Con CTROL-C liberamos el promt y cerramos terminal)</p>
-
-<blockquote><p>$ pidof sleep   (en otra terminal para verificar que el proceso sigue activo)</p>
-
-<p>$ kill -9 9215  (matar el proceso)</p></blockquote>
+  <div class="entry-content"><p>Herramienta para la configuración gráfica de entornos de escritorio ligeros (lxde, openbox&#8230;)</p>
 </div>
   
   
@@ -124,7 +117,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/nmon/">Nmon</a></h1>
+      <h1 class="entry-title"><a href="/blog/o3read/">O3read</a></h1>
     
     
       <p class="meta">
@@ -147,9 +140,13 @@
   </header>
 
 
-  <div class="entry-content"><p>Monitor del sistema</p>
+  <div class="entry-content"><p>wget http://siag.nu/pub/o3read/o3read-0.0.4.tar.gz</p>
 
-<blockquote><p># nmon   (arranca la aplicación y muestra las teclas de control para escoger lo que se monitorea. “q” para cerrar la aplicación)</p></blockquote>
+<p>Paquete que contiene herramientas [o3tohtml, o3totxt] para convertir archivos en formato openoffice o libreoffice a html o txt. Los ficheros de openoffice/libreoffice son formatos comprimidos. El que contiene el texto es el archivo “content.xml” que es el que se ha de descomprimir con unzip antes de tunelarlo a la aplicación.</p>
+
+<blockquote><p>$ unzip -p archivo.odt content.xml | o3totxt > archivo.txt</p>
+
+<p>$ unzip -p archivo.sxw content.xml | o3tohtml > archivo.html</p></blockquote>
 </div>
   
   
@@ -162,7 +159,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/nmblookup/">Nmblookup</a></h1>
+      <h1 class="entry-title"><a href="/blog/nwrite/">Nwrite</a></h1>
     
     
       <p class="meta">
@@ -178,16 +175,16 @@
   
 
 
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Resolución de nombres netbios</p>
+  <div class="entry-content"><p>Enviar mensajes entre terminales</p>
 
-<blockquote><p>$ nmblookup -A 192.168.1.125</p></blockquote>
+<blockquote><p>$ nwrite usuario /dev/pts/numero_consola</p></blockquote>
 </div>
   
   
@@ -200,7 +197,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/nmap/">Nmap</a></h1>
+      <h1 class="entry-title"><a href="/blog/numlockx/">Numlockx</a></h1>
     
     
       <p class="meta">
@@ -216,258 +213,16 @@
   
 
 
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Rastrear puertos.</p>
+  <div class="entry-content"><p>Activar el bloqueo numerico al inicio:</p>
 
-<p>Estados de los puertos:</p>
-
-<pre><code>abierto (Una aplicación acepta conexiones TCP o paquetes UDP en este puerto indicando qué servicio está corriendo)
-
-cerrado (Recibe y responde a las sondas de Nmap, pero no tiene una aplicación escuchando en él)
-
-filtrado (No puede determinar si el puerto está abierto porque un filtrado de paquetes previene que sus sondas lo alcancen)
-
-no filtrado (Indica que el puerto es accesible pero que Nmap no puede determinar si se encuentra abierto o cerrado)
-
-abierto|filtrado (Nmap marca a los puertos en este estado cuando no puede determinar si el puerto se encuentra abierto o filtrado)
-</code></pre>
-
-<p>Entrada de los objetivos cuando no se realiza por la linea de ordenes:</p>
-
-<pre><code>-iL ips.txt (Desde una lista de ips colocadas una por linea en el archivo ips.txt)
-
--iR 100 (Scanear 100 ips aleatoria. Con -iR 0 el escaneo no termina nunca.)
-</code></pre>
-
-<p>Técnicas de sondeos de puertos que soporta Nmap:</p>
-
-<pre><code>-sA [sondeo TCP ACK] (Este sondeo no puede determinar puertos abiertos o abiertos|filtrados. Se utiliza para mapear reglas de cortafuegos, y para determinar si son cortafuegos con inspección de estados y qué puertos están filtrados.
-
--sL [Sondeo de lista] (lista los objetivos a analizar sin enviar paquetes de ningún tipo a los objetivos)
-
--sM [sondeo TCP Maimon] (El sondeo Maimon debe su nombre a la persona que lo descubrió: Uriel Maimon. Describió la técnica en la revista Phrack número 49 (noviembre de 1996). Nmap, que incluye esta técnica, se publicó dos números más tarde. Esta técnica es exactamente la misma a los sondeos Null, FIN, y Xmas, pero en los que se envía una sonda FIN/ACK. Según el RFC 793 (TCP), se debería generar un paquete RST cuando se responde a dicha sonda independientemente de si el puerto está cerrado o abierto. Uriel se dio cuenta, sin embargo, de que muchos sistemas derivados de BSD simplemente descartan el paquete si el puerto está abierto.
-
--sN, -sF, -sX [sondeos TCP Null, FIN, y Xmas] (Estos sondeos aprovechan una indefinición en la RFC de TCP que diferencia los puertos abiertos y cerrados. La ventaja fundamental de este tipo de sondeos es que pueden atravesar algunos cortafuegos que no hagan inspección de estados o encaminadores que hagan filtrado de paquetes. Otra ventaja es que este tipo de sondeos son algo más sigilosos que, incluso, un sondeo SYN. Un problema de estos sondeos es que no se puede distinguir los puertos abiertos de algunos puertos filtrados, lo que resulta en la respuesta abierto|filtrado.
-
--sO [sondeo de protocolo IP] (Este sondeo permite determinar qué protocolos [TCP, ICMP, IGMP, etc.] soportan los sistemas objetivo. Esto no es, técnicamente, un sondeo de puertos, dado que cambia los números de protocolo IP en lugar de los números de puerto TCP ó UDP. 
-
--sP [sondeo ping] (Sólo determina si el objetivo responde. Metodo intrusivo)
-
--sS [sondeo TCP SYN] (Es el utilizado por defecto. Puede sondear miles de puertos por segundo en una red rápida sin cortafuegos y es relativamente sigiloso y poco molesto, ya que no llega a completar las conexiones TCP)
-
--sT [sondeo TCP connect()] (Es el sondeo por omisión cuando no se puede utilizar el sondeo SYN. Al realizar conexiones completas para abrir los puertos objetivo en lugar de realizar el reseteo de la conexión medio abierta como hace el sondeo SYN implica que tarda más tiempo y son necesarios más paquetes para obtener la información y que muy probablemente el sistema objetivo va a registrar la conexión.)
-
--sU [sondeos UDP] (Los 3 servicios UDP más comunes son: DNS [53], SNMP [161/162], y DHCP [67/68].  Los sondeos UDP funcionan mediante el envío (sin datos) de una cabecera UDP para cada puerto objetivo. Si se obtiene un error ICMP indica que el puerto no es alcanzable y se marca como cerrado. Si se recibe cualquier error ICMP no alcanzable se marca el puerto como filtrado. Si se recibe una respuesta al paquete UDP el puerto está abierto. Si no se ha recibido ninguna respuesta después de algunas retransmisiones entonces se clasifica el puerto como abierto|filtrado. Esto significa que el puerto podría estar abierto o que hay un filtro de paquetes bloqueando la comunicación. Puede utilizarse el sondeo de versión (-sV) para diferenciar los puertos abiertos de los filtrados.
-
--sV [Sondear versiones] (Sondea puertos abiertos para obtener información de la versión del servicio.
-
--sW [sondeo de ventana TCP] (Aprovecha de un detalle de implementación de algunos sistemas que permite diferenciar puertos abiertos de los cerrados, en lugar de imprimir no filtrado cuando se devuelve un RST.)
-
---scanflags [Sondeo TCP a medida] (Esta opción permite diseñar su propio sondeo mediante la especificación de banderas TCP arbitrarias y puede ser un valor numérico como el 9 (PSH y FIN), aunque es más sencillo utilizar nombres simbólicos juntando la combinación de URG, ACK, PSH, RST, SYN, y FIN [--scanflags URGACKPSHRSTSYNFIN] donde se fijan todas las banderas, aunque no es muy útil para sondear. Este es un método de sondeo avanzado que permite hacer un sondeo de puertos TCP a ciegas de verdad lo que significa que no se envía ningún paquete al sistema objetivo desde su dirección IP real por lo que es extraordinariamente sigiloso)
-</code></pre>
-
-<p>Descubrimiento de sistemas:</p>
-
-<pre><code>-P0 [No realizar ping] (Nmap no realiza la etapa de descubrimiento y actua como si cada Ip objetivo se encontrara activa)
-
--PA22,445 [Ping TCP ACK] (Envía un paquete TCP vacío con la bandera ACK a una lista de puertos separados por comas para determinar si responden.
-
--PS21,22,25,80 [Ping TCP SYN] (Envía un paquete TCP vacío con la bandera SYN a una lista de puertos separados por comas para saber si el sistema responde.   
-
--PU445,5000 [Ping UDP] (Envía paquetes UDP vacios a los puertos indicados para indicar si el sistema responde. Atraviesan cortafuegos y filtros que sólo analizan TCP)
-
--PR [Ping ARP] (El sondeo ARP detecta máquinas en la red local)
-</code></pre>
-
-<p>Especificación de puertos:</p>
-
-<pre><code>-p 21,22 (Separados por comas)
-
--p- (Todos los puertos de 0 al 65535)
-
--p 1-1023 (Del 1 al 1023)
-
--F (escanear los 100 puertos más usados)
-
--r (Analizar los puertos de forma secuencial. Por defecto se analizan de forma aleatoria)
-</code></pre>
-
-<p>Formatos de salida:</p>
-
-<pre><code>-oN archivo (Redirigir la salida a un archivo especificado)
-
--oX archivo.xml (Redirigir a un archivo xml
-
--oS archivo (Redirigiendo a una salida humoristica sobre los script kiddies)
-</code></pre>
-
-<p>Otras opciones:</p>
-
-<pre><code>-A (Opciones de sondeos agresivos. Activa detección de sistema operativo [-O] y el análisis de versiones [-sV]).
-
--n (No realizar resolución DNS de las direcciones IP activas que encuentre)
-
--R (Realizar resolución DNS de todos los objetivos)
-
--O (Averiguar el sistema operativo)
-
--O --osscan-guess (Averiguar el sistema operativo fonzandolo a identificarse)
-
--D 192.168.1.12,192.168.1.13,192.168.1.14 IP_OBJETIVO (Especificando ips falsas separadas por comas para emmascarar la nuestra)
-
--T4 (Tiempo de sondeo desde muy lento y fiable [0] a muy rápido e impreciso [5])
-
--S IP (Especificando una IP falsa)
-
--v (Incrementar el nivel de detalle. -vv mayor incremento de detalle)
-</code></pre>
-
-<p>nmap scripts</p>
-
-<p>funcionalidad de nmap que permite la realización de diversas tareas de descubrimiento, detección, expotación de diversas vulnerabilidades, etc. Listado en http://nmap.org/nsedoc/index.html y en local: /usr/share/nmap/scripts/:</p>
-
-<p>Categorias:</p>
-
-<pre><code>auth (Identifican credenciales de autenticación en el sistema objetivo frecuentemente por fuerza bruta [ftp-anon, snmp-brute, http-auth...])
-
-broadcast (Realizan un escaneo broadcast en toda la red objetivo sin necesidad de indicar los host de forma manual. utilizando el argumento “newtargets” se indica a Nmap incluir los host descubiertos en la pila de escaneo.)
-
-default (Conjunto de scripts que tratan de capturar la mayor cantidad de información de un objetivo a costa de generar mucho ruido en el sistema remoto.)
-
-discovery (Tratan de mapear los host de la red [registros públicos, dispositivos SNMP, servicios de directorio...])
-
-dos (Intentan causar denegación de servicio sobre un servicio determinado.)
-
-exploit (Tratan de detectar y explotar algún tipo de vulnerabilidad sobre el objetivo.)
-
-external (Los que se comunican con otros hosts distintos del local. Pueden enviar a una fuente externa la IP del objetivo y del atacante.)
-
-fuzzer (Envían datos aleatorios, inesperados o incompletos, con el fin de detectar posibles vulnerabilidades en servicios)
-
-intrusive (Intentan utilizar grandes recursos del sistema objetivo que pueden incluso inutilizarlo)
-
-malware (Intentan determinar si el objetivo se encuentra infectado con maleware o backdoors [smtp-strangeport y auth-spoof])
-
-safe (Scripts poco intrusivos diseñados para no afectar ni dañar el objetivo [ssh-hostkey o html-title])
-
-version (Diseñados para identificar versiones concretas de servicios. Se ejecutan solo si el escaneo tiene la opción Scan Version [-sV])
-
-vuln (Dedicados a la detección de vulnerabilidades pero no su explotación [realvnc-auth-bypass y afp-path-vuln])
-</code></pre>
-
-<p>Opciones:</p>
-
-<blockquote><p># nmap &#8211;script-args <argumentos> (Se trata de un conjunto de argumentos que se suministran a los Scripts que admiten parámetros para configurar su ejecución.)</p>
-
-<p># nmap &#8211;script citrix-brute-xml &#8211;script-args=userdbd=usernames.lst,passdb=passwords.lst,ntdomain=domain -p 80,443,8080 IP</p>
-
-<p># nmap &#8211;script auth &#8211;script-args userdb=usernames.lst,passdb=passwords.lst IP</p></blockquote>
-
-<p>usernames.lst (base de datos de usuarios. Personalización en /usr/share/nmap/nselib/data/usernames.lst)</p>
-
-<p>passdb (base de datos de contraseñas. Personalización en /usr/share/nmap/nselib/data/passwords.lst)</p>
-
-<p>ntdomain (dominio nt del servidor- previamente ha de averiguarse)</p>
-
-<p>Nota.- En algunos scripts las bases de datos usuarios/paswwords .lst se usan por defecto.</p>
-
-<p>Mostrar información</p>
-
-<pre><code>--script-help vuln (De una categoria)
-
---script-help openlookup-info.nse (De un script)
-
---script-help all (De todo)
-
---script-trace (toda la comunicación entrante y saliente ejecutada por los scripts es impresa en pantalla)
-</code></pre>
-
-<p>Actualizaciones:</p>
-
-<pre><code>--script-db (Actualiza la base de datos localizada en scripts/script.db. Útil si se ha añadido o suprimido alguno
-
---script-updatedb (Actualiza los scripts de la base de datos)
-</code></pre>
-
-<p>Ejemplos:</p>
-
-<blockquote><p># nmap -iR 10000 -p 80 (Selecciona objetivos al azar por el puerto 80)</p>
-
-<p># nmap -sP IP  (Sondeo Ping. Para detectar equipos de una red)</p>
-
-<p># nmap -P0 IP  (Asume que todos los objetivos están vivos)</p>
-
-<p># nmap -PS -p 137-139 IP  (Análisis TCP de los puertos indicados)</p>
-
-<p># nmap -PE IP  (Análisis ICMP del tipo echo)</p>
-
-<p># nmap -PI IP     (Utiliza paquetes icmp para determinar que hosts están conectados y es especial si deseas hacer un scan a través de un firewall)</p>
-
-<p># nmap -sF IP     (Analisis sigiloso)</p>
-
-<p># nmap -sW IP    (especial para máquinas windous)</p>
-
-<p># nmap -sX IP     (Análisis Xmas)</p>
-
-<p># nmap -sS -A -p 1-65535 IP  (escanear todos los puertos [-p&#8230;] TCP [-sS] y detectar las versiones del software [-A] de forma silenciosa)</p>
-
-<p># nmap &#8211;version-all IP  (Utilizar todas las sondas con intensidad 9 -máxima)</p>
-
-<p># nmap -p 1-65535 &#8211;open localhost  (lista de puertos abiertos)</p>
-
-<p># nmap -p 80 hostname  (determina si el puerto 80 está abierto)</p>
-
-<p># nmap -sn 192.168.1.0/24 (descubrir máquinas conectadas de una red)</p>
-
-<p># nmap -v -sP 192.168.1.0/24 | grep down | wc -l (Ips disponibles en una red)</p>
-
-<p># nmap -p- localhost (rastrear todos los puertos)</p>
-
-<p># nmap &#8211;iflist (Muestra la lista de interfaces de red y rutas)</p></blockquote>
-
-<p>Con scripts</p>
-
-<blockquote><p># nmap &#8211;script=&#8221;http-* and not http-enum&#8221; IP (filtro AND y NOT. Para usar todos los scripts http pero no los de enumeración)</p>
-
-<p># nmap &#8211;script malware IP (Usará todos los scripts de la categoria &#8220;malware&#8221;)</p>
-
-<p># nmap -sC IP (Usar todos los de la categoria &#8220;default&#8221; [-sC])</p>
-
-<p># nmap -PN -p81 &#8211;script http-iis-webdav-vuln IP (Buscando vulnerabilidades Webdav)</p>
-
-<p># nmap &#8211;script-trace &#8211;script smb-check-vulns -p445 IP (Detectar Conficker, gusano informático que apareció en octubre de 2008, que ataca sistemas Windows)</p>
-
-<p># nmap -sU -script=citrix-enum-servers -p1604 IP (explorar si hay algún servidor o granja citrix y realizar una enumeración de las aplicaciones publicadas)</p>
-
-<p># nmap -P0 -n -sS -p445,139 &#8211;script=smb-security-mode IP</p>
-
-<p># nmap &#8211;script vnc-brute 127.0.0.1</p>
-
-<p># nmap -p 22 &#8211;script ssh-hostkey host  (especificando puerto)</p>
-
-<p># nmap -p 5900 &#8211;script vnc-brute &#8211;script-args passdb=/home/USER/wordlist host (usando un dicccionario)</p>
-
-<p># nmap &#8211;script mysql-brute 192.168.1.1-255 (escaneo de rangos)</p>
-
-<p># nmap &#8211;script vnc-brute localhost (contra un host con vnc a la escucha)</p>
-
-<p># nmap -sV &#8211;script=ftp-brute IP</p>
-
-<p># nmap &#8211;script ftp-brute &#8211;script-args userdb=/tmp/users IP</p>
-
-<p># nmap &#8211;script ftp-brute &#8211;script-args userdb=/tmp/users,passdb=/tmp/passwds IP</p>
-
-<p># nmap &#8211;script ssh-hostkey &#8211;script-args ssh_hostkey=full host</p>
-
-<p># nmap &#8211;script ssh-hostkey &#8211;script-args ssh_hostkey=all host</p>
-
-<p># nmap -sV -sC &#8211;script-args ftp-anon.maxlist=-1 IP (Comprueba si un servidor ftp permite conexiones anónimas. El &#8220;-1&#8221; para desactivar el límite de 20 archivos)</p></blockquote>
+<blockquote><p>$ numlockx on/off  (activarlo/desactivarlo)</p></blockquote>
 </div>
   
   
@@ -480,7 +235,7 @@ vuln (Dedicados a la detección de vulnerabilidades pero no su explotación [rea
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/nm/">Nm</a></h1>
+      <h1 class="entry-title"><a href="/blog/number/">Number</a></h1>
     
     
       <p class="meta">
@@ -496,16 +251,18 @@ vuln (Dedicados a la detección de vulnerabilidades pero no su explotación [rea
   
 
 
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Lista las funciones de una biblioteca o programa compilado</p>
+  <div class="entry-content"><p>Muestra como se muestran los números en inglés.</p>
 
-<blockquote><p>$nm fichero.o</p></blockquote>
+<blockquote><p>$ number -l 55</p>
+
+<p>$ number (Entra en el promt para ir entrando números. “q” [enter] para salir)</p></blockquote>
 </div>
   
   
@@ -518,7 +275,7 @@ vuln (Dedicados a la detección de vulnerabilidades pero no su explotación [rea
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/nload/">Nload</a></h1>
+      <h1 class="entry-title"><a href="/blog/ntpdate/">Ntpdate</a></h1>
     
     
       <p class="meta">
@@ -534,16 +291,16 @@ vuln (Dedicados a la detección de vulnerabilidades pero no su explotación [rea
   
 
 
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Monitor de tráfico de red</p>
+  <div class="entry-content"><p>Actualiza la hora del sistema via NTP (Network Time Protocol)</p>
 
-<blockquote><p># nload</p></blockquote>
+<blockquote><p># ntpdate -u cl.pool.ntp.org</p></blockquote>
 </div>
   
   
@@ -556,7 +313,7 @@ vuln (Dedicados a la detección de vulnerabilidades pero no su explotación [rea
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/nl/">Nl</a></h1>
+      <h1 class="entry-title"><a href="/blog/ntop/">Ntop</a></h1>
     
     
       <p class="meta">
@@ -572,18 +329,22 @@ vuln (Dedicados a la detección de vulnerabilidades pero no su explotación [rea
   
 
 
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra en pantalla un archivo de texto con las lineas numeradas. No modifica el archivo.</p>
+  <div class="entry-content"><p>Monitor de red via navegador.</p>
 
-<blockquote><p>$ nl fichero.txt</p>
+<blockquote><p># ntop &#8211;set-admin-password   (contraseña para el usuario &#8220;admin&#8221;)</p>
 
-<p>$ nl fichero.txt > fichero_numerado.txt</p></blockquote>
+<p># gedit /var/lib/ntop/init.cfg (Comprobar interfaz de red. Por defecto eth0)</p>
+
+<p># /etc/init.d/ntop restart (reiniciar)</p></blockquote>
+
+<p>http://localhost:3000 (Visualizar los informes)</p>
 </div>
   
   
@@ -596,7 +357,7 @@ vuln (Dedicados a la detección de vulnerabilidades pero no su explotación [rea
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/nitrogen/">Nitrogen</a></h1>
+      <h1 class="entry-title"><a href="/blog/ntfslabel/">Ntfslabel</a></h1>
     
     
       <p class="meta">
@@ -612,18 +373,16 @@ vuln (Dedicados a la detección de vulnerabilidades pero no su explotación [rea
   
 
 
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Gestión de fondos de pantalla para escritorios ligeros.</p>
+  <div class="entry-content"><p>Poner etiquetas a las particiones y dispositivos ntfs</p>
 
-<blockquote><p>$ nitrogen /home/usuario/imagenes/linux.png (Poner una imagen)</p>
-
-<p>$ nitrogen &#8211;restore (Restablecer la imagen despues de un reinicio. Normalmente se coloca en las opciones de inicio, por ejemplo en openbox, se colocaría en .config/openbox/autostart con la sintaxis: nitrogen &#8211;restore &amp;)</p></blockquote>
+<blockquote><p># ntfslabel -f -v /dev/sda1 win</p></blockquote>
 </div>
   
   
@@ -636,7 +395,7 @@ vuln (Dedicados a la detección de vulnerabilidades pero no su explotación [rea
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/nikto/">Nikto</a></h1>
+      <h1 class="entry-title"><a href="/blog/ntfsfix/">Ntfsfix</a></h1>
     
     
       <p class="meta">
@@ -652,16 +411,20 @@ vuln (Dedicados a la detección de vulnerabilidades pero no su explotación [rea
   
 
 
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Escáner de servidores Web.</p>
+  <div class="entry-content"><p>Reparación de inconsistencias en sistemas de archivos ntfs.</p>
 
-<blockquote><p># nikto -h host_a_analizar -p 80 (Especificando puerto)</p></blockquote>
+<blockquote><p># ntfsfix /dev/sdb1</p></blockquote>
+
+<p>Finalizado el proceso, montarla:</p>
+
+<blockquote><p># mount -t ntfs-3g /dev/sdb1 /media/win -o force</p></blockquote>
 </div>
   
   
@@ -674,7 +437,7 @@ vuln (Dedicados a la detección de vulnerabilidades pero no su explotación [rea
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/nice/">Nice</a></h1>
+      <h1 class="entry-title"><a href="/blog/ntfsclone/">Ntfsclone</a></h1>
     
     
       <p class="meta">
@@ -690,18 +453,18 @@ vuln (Dedicados a la detección de vulnerabilidades pero no su explotación [rea
   
 
 
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Prioridad de un comando o aplicación. Por defecto 10</p>
+  <div class="entry-content"><p>Permite la creación de particiones NTFS de Windows y su posterior restauración</p>
 
-<blockquote><p># nice -n -10 cdrecord</p></blockquote>
+<blockquote><p># ntfsclone -s -o imagen.img /dev/sda1 (crea el fichero imagen.img de la partición /dev/sda1)</p>
 
-<p>Nota.- Valores, de mayor (-20) a menor (19). Sólo root puede establecer valores negativos.</p>
+<p># ntfsclone -r -O /dev/sda1 imagen.img (Restaura la imagen en la partición que queramos)</p></blockquote>
 </div>
   
   
@@ -732,43 +495,43 @@ vuln (Dedicados a la detección de vulnerabilidades pero no su explotación [rea
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/dig/">dig</a>
+        <a href="/blog/figlet/">figlet</a>
       </li>
     
       <li class="post">
-        <a href="/blog/denyhosts/">denyhosts</a>
+        <a href="/blog/fgrep/">fgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/debget/">debget</a>
+        <a href="/blog/festival/">festival</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ddrescue/">ddrescue</a>
+        <a href="/blog/fbgs/">fbgs</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ddclient/">ddclient</a>
+        <a href="/blog/faillog/">faillog</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dav/">dav</a>
+        <a href="/blog/extundelete/">extundelete</a>
       </li>
     
       <li class="post">
-        <a href="/blog/date/">date</a>
+        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dansguardian/">dansguardian</a>
+        <a href="/blog/eterm/">eterm</a>
       </li>
     
       <li class="post">
-        <a href="/blog/cups/">cups</a>
+        <a href="/blog/errno/">errno</a>
       </li>
     
       <li class="post">
-        <a href="/blog/csscapture/">csscapture</a>
+        <a href="/blog/egrep/">egrep</a>
       </li>
     
   </ul>

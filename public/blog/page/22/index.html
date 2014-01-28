@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Grabación de una sesión tty $ ttyrec archivo (A partir de cuando vuelva a salir el prompt se grabará todo en “archivo”. Finalizar con “killall ttyrec &hellip;">
+  <meta name="description" content="Subrayado de palabras en la terminal. $ echo $'linux es g\b_e\b_n\b_i\b_a\b_l\b_ ' | ul (Cada letra a subrayar ha de ir seguida de \b_) ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ttyrec/">Ttyrec</a></h1>
+      <h1 class="entry-title"><a href="/blog/ul/">Ul</a></h1>
     
     
       <p class="meta">
@@ -103,17 +103,10 @@
   </header>
 
 
-  <div class="entry-content"><p>Grabación de una sesión tty</p>
+  <div class="entry-content"><p>Subrayado de palabras en la terminal.</p>
 
-<blockquote><p>$ ttyrec archivo  (A partir de cuando vuelva a salir el prompt se grabará todo en “archivo”. Finalizar con “killall ttyrec”)</p>
-
-<p>$ ttyplay -s2 archivo (reproducir lo grabado a doble velocidad. Pulsando las telcas “-” y “+”, baja o sube la velocidad de reproducción)</p>
-
-<p>$ ttyrec -a archivo  (Añadir nueva grabación a continuación de archivo. No sobreescribe archivo)</p>
-
-<p>$ ttytime archivo  (Dirá los segundos que dura la grabación)</p></blockquote>
-
-<p>Nota.- Para compartir el archivo puede subirse a http://playterm.org/</p>
+<pre><code>$ echo $'linux es g\b_e\b_n\b_i\b_a\b_l\b_ ' | ul (Cada letra a subrayar ha de ir seguida de \b_)
+</code></pre>
 </div>
   
   
@@ -126,7 +119,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/tty-clock/">Tty-clock</a></h1>
+      <h1 class="entry-title"><a href="/blog/ufw/">Ufw</a></h1>
     
     
       <p class="meta">
@@ -149,15 +142,27 @@
   </header>
 
 
-  <div class="entry-content"><p>Reloj digital por consola</p>
+  <div class="entry-content"><p>Cortafuegos</p>
 
-<blockquote><p>$ tty-clock -s -c -C 1 (marcando los segundo [s] en el centro de la consola [c] y en color rojo [1]</p></blockquote>
+<blockquote><p># ufw enable (activar el cortafuegos. “disable” para desactivarlo)</p>
 
-<p>Algunas opciones:</p>
+<p># ufw deny 4662 (bloquea el puerto)</p>
 
-<p>-r  Que rebote por los lados de la terminal.</p>
+<p># ufw delete deny 4662 (Elimina una regla)</p>
 
-<p>Colores: 2: verde, 3: amarillo, 4: azul, 5: rosa, 6:turquesa, 7: blanco</p>
+<p># ufw allow smtp (permitir servicios concretos)</p>
+
+<p># ufw status (visualizar las normas definidas)</p>
+
+<p># ufw status verbose (Información de estado con mayor detalle)</p>
+
+<p># ufw default allow (permitir todo por defecto)</p>
+
+<p># ufw default deny (bloquear todo por defecto)</p>
+
+<p># ufw deny from ip (bloquear dirección ip)</p>
+
+<p># ufw logging on (activar los logs. “off” para desactivarlos. Herramienta de registro: fwanalog, fwlogwatch, o lire.)</p></blockquote>
 </div>
   
   
@@ -170,7 +175,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/tty/">Tty</a></h1>
+      <h1 class="entry-title"><a href="/blog/udisks/">Udisks</a></h1>
     
     
       <p class="meta">
@@ -193,17 +198,13 @@
   </header>
 
 
-  <div class="entry-content"><p>Muestra el número de terminal</p>
+  <div class="entry-content"><p>Comando para montar y desmontar volumenes usando el demonio que llaman programas como Nautilus o Thunar. Con este método conseguimos que desde estos programas se pueda desmontar cómodamente la partición y además sin necesidad de permisos.</p>
 
-<blockquote><p>$ tty</p></blockquote>
+<blockquote><p>$ udisks &#8211;mount /dev/sda1 (montará esta partición).</p>
 
-<p>1.-</p>
+<p>$ udisks &#8211;unmount /dev/sda1 (desmontará esta partición).</p>
 
-<p>Invertir una consola. No sirve para las terminales virtuales de las X.</p>
-
-<blockquote><p>$ /sys/class/graphics/fbcon/rotate</p></blockquote>
-
-<p>Borrar el 0 y poner un 2 (180º). Con un 1 la invertimos 90º a la derecha y con un 3 90º a la izquierda.</p>
+<p>$ udisks &#8211;monitor (Monitoriza la actividad del demonio. Muy útil para verificar si una partición es montada o no)</p></blockquote>
 </div>
   
   
@@ -216,7 +217,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ttv/">Ttv</a></h1>
+      <h1 class="entry-title"><a href="/blog/udiskie/">Udiskie</a></h1>
     
     
       <p class="meta">
@@ -239,7 +240,13 @@
   </header>
 
 
-  <div class="entry-content"><p>Webcam en consola y ascii</p>
+  <div class="entry-content"><p>Herramienta  para montar automaticamente unidades en Archlinux. Debe arrancarse el servicio antes de ejecutarse el gestor de ventanas en el archivo .xinitrc. Un ejemplo:</p>
+
+<blockquote><p># nano .xinitrc</p></blockquote>
+
+<p>udiskie &amp;</p>
+
+<p>exec openbox-session</p>
 </div>
   
   
@@ -252,7 +259,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/tshark/">Tshark</a></h1>
+      <h1 class="entry-title"><a href="/blog/tzwatch/">Tzwatch</a></h1>
     
     
       <p class="meta">
@@ -275,27 +282,20 @@
   </header>
 
 
-  <div class="entry-content"><p>Capturar paquetes y visualizarlos por pantalla:</p>
+  <div class="entry-content"><p>Muestra las zonas horarias especificadas por el usuario y las guarda en el archivo ~/.tzlist.</p>
 
-<blockquote><p># tshark -n -i eth0 -s 1515</p>
+<blockquote><p>$ tzwatch -c (Lanzar tantas veces como de zonas horarias se quiere disponer de información y seguir las instrucciones: Add Zone, Americas, 26 [Guatemala], mostrará la información y preguntará si es correcta, 1 [yes] y Done [salir])</p>
 
-<p># tshark -D (Ver las interfaces de red disponibles)</p>
+<p>$ tzwatch (Mostrará hora local de cada una de las zonas elegidas)</p></blockquote>
 
-<p># tshark -n -i eth0 -s 1515 -w archivo (Capturar información y pasarla a un archivo)</p>
+<pre><code>[~]$ tzwatch
 
-<p># tshark -n -i eth0 -s 1515 -w -filesize:10000 -b 10 -w archivo (Lo mismo especificando medida máxima del archivo (-filesize:10000) y cuantidad de ficheros a crear (-b 10) en Mb</p>
+Mon Oct  7 02:39:39 CST 2013   Australia/Adelaide
 
-<p># tshark -n -i eth0 -s 1515 -a duration:3600 -w archivo (Especificando el tiempo que durará - 1 hora)</p>
+Sun Oct  6 18:09:39 CEST 2013   Europe/Madrid
 
-<p># tshark -n -t ad -r fitxer.lpc tcp (mostrar los mensajes del protocolo tcp)</p>
-
-<p># tshark -ni eth0 &#8216;tcp port tuxapuntes.com/drupal/80&#8217; -R &#8216;http.request.method == &#8220;GET&#8221;&#8217;  (ver todas las peticiones HTTP GET)</p></blockquote>
-
-<p>Opciones:</p>
-
-<p>-t   Para que salgan las marcas de tiempo real</p>
-
-<p>-n  Inhabilita la resolución de nombres</p>
+Sun Oct  6 10:09:39 CST 2013   America/Guatemala
+</code></pre>
 </div>
   
   
@@ -308,7 +308,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/tset/">Tset</a></h1>
+      <h1 class="entry-title"><a href="/blog/tzselect/">Tzselect</a></h1>
     
     
       <p class="meta">
@@ -331,7 +331,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Inicializa los valores de la terminal. Ver reset.</p>
+  <div class="entry-content"><p>Pregunta al usuario información sobre la localización actual y muestra la descripción de la zona horaria correspondiente.</p>
+
+<blockquote><p>$ tzselect</p></blockquote>
 </div>
   
   
@@ -344,7 +346,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ts/">Ts</a></h1>
+      <h1 class="entry-title"><a href="/blog/tzconfig/">Tzconfig</a></h1>
     
     
       <p class="meta">
@@ -367,11 +369,7 @@
   </header>
 
 
-  <div class="entry-content"><p>[moreutils]</p>
-
-<p>Añade una marca de tiempo al principio de cada línea de entrada.</p>
-
-<blockquote><p>$ ts (Escribir cualquier cosa y al darle al intro mostrará la marca del tiempo y lo escrito)</p></blockquote>
+  <div class="entry-content"><p>configurar nuevamente la zona horaria</p>
 </div>
   
   
@@ -384,7 +382,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/trickle/">Trickle</a></h1>
+      <h1 class="entry-title"><a href="/blog/typeset/">Typeset</a></h1>
     
     
       <p class="meta">
@@ -407,15 +405,7 @@
   </header>
 
 
-  <div class="entry-content"><p>Limitar la velocidad de subida/bajada</p>
-
-<p>Nota.- &#8220;-d&#8221; subida y &#8220;-u&#8221; bajada</p>
-
-<blockquote><p>$ trickle -d 50 -u 30 wget http://www.genbeta.com (limitación para un solo host)</p>
-
-<p>$ trickled -d 50 -u 30 (Lanzar la limitación como demonio con lo que todas las aplicaciones que se lancen con trickle tendran la limitación especificada)</p>
-
-<p>$ trickle wget http://www.genbeta.com</p></blockquote>
+  <div class="entry-content"><p>Define variables y les da atributos. Ver &#8220;declare&#8221;</p>
 </div>
   
   
@@ -428,7 +418,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/treil/">Treil</a></h1>
+      <h1 class="entry-title"><a href="/blog/type/">Type</a></h1>
     
     
       <p class="meta">
@@ -451,9 +441,13 @@
   </header>
 
 
-  <div class="entry-content"><p>Generador de una imagen en azulejo a partir de los archivos de un directorio.</p>
+  <div class="entry-content"><p>Buscar la ubicación del ejecutable e informar si el comando es un alias.</p>
 
-<blockquote><p>$ treil -g 800x600 -o imagen.png /usr/share (Con una geometria determinada [g], que la imagen se guarde como imagen.png [o] y el directorio del cual crear la imagen)</p></blockquote>
+<blockquote><p>$ type mplayer</p>
+
+<p>$ type -a algo (Conocer todas las definiciones de “algo”, teniendo en cuenta que si “algo” es una alias, una función y un script prevalece este orden)</p>
+
+<p>$ type -t cp (Conocer el tipo de un símbolo)</p></blockquote>
 </div>
   
   
@@ -466,7 +460,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/tree/">Tree</a></h1>
+      <h1 class="entry-title"><a href="/blog/txt2tags/">Txt2tags</a></h1>
     
     
       <p class="meta">
@@ -489,11 +483,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Lista archivos y directorios en forma de arbol.</p>
+  <div class="entry-content"><p>Convertir archivos de texto a distintos formatos.</p>
 
-<blockquote><p>$ tree -d (Sólo los directorios de la presente carpeta)</p>
-
-<p>$ tree -o archivo (Enviar el resultado a un archivo)</p></blockquote>
+<blockquote><p>$ txt2tags -t html fichero.txt   (convierte .txt en .html)</p></blockquote>
 </div>
   
   
@@ -524,43 +516,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/dig/">dig</a>
+        <a href="/blog/figlet/">figlet</a>
       </li>
     
       <li class="post">
-        <a href="/blog/denyhosts/">denyhosts</a>
+        <a href="/blog/fgrep/">fgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/debget/">debget</a>
+        <a href="/blog/festival/">festival</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ddrescue/">ddrescue</a>
+        <a href="/blog/fbgs/">fbgs</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ddclient/">ddclient</a>
+        <a href="/blog/faillog/">faillog</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dav/">dav</a>
+        <a href="/blog/extundelete/">extundelete</a>
       </li>
     
       <li class="post">
-        <a href="/blog/date/">date</a>
+        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dansguardian/">dansguardian</a>
+        <a href="/blog/eterm/">eterm</a>
       </li>
     
       <li class="post">
-        <a href="/blog/cups/">cups</a>
+        <a href="/blog/errno/">errno</a>
       </li>
     
       <li class="post">
-        <a href="/blog/csscapture/">csscapture</a>
+        <a href="/blog/egrep/">egrep</a>
       </li>
     
   </ul>

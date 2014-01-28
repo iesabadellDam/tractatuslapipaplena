@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Limita el tiempo de funcionamiento de un comando o aplicación. $ timeout 60 firefox (arrancará firefox y se cerrará a los 60 segundo)
+  <meta name="description" content="Permite seguir la pista de un paquete desde un host a otro. # traceroute www.tuxapuntes.com
 ">
   
 
@@ -81,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/timeout/">Timeout</a></h1>
+      <h1 class="entry-title"><a href="/blog/traceroute/">Traceroute</a></h1>
     
     
       <p class="meta">
@@ -104,9 +104,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Limita el tiempo de funcionamiento de un comando o aplicación.</p>
+  <div class="entry-content"><p>Permite seguir la pista de un paquete desde un host a otro.</p>
 
-<blockquote><p>$ timeout 60 firefox (arrancará firefox y se cerrará a los 60 segundo)</p></blockquote>
+<blockquote><p># traceroute www.tuxapuntes.com</p></blockquote>
 </div>
   
   
@@ -119,7 +119,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/time/">Time</a></h1>
+      <h1 class="entry-title"><a href="/blog/tr/">Tr</a></h1>
     
     
       <p class="meta">
@@ -142,13 +142,29 @@
   </header>
 
 
-  <div class="entry-content"><p>Devuelve el tiempo de ejecución de un comando o aplicación.</p>
+  <div class="entry-content"><p>Cambia caracteres de un archivo</p>
 
-<blockquote><p>$ time netstat -anpt</p>
+<blockquote><p>$ tr JM ?$ &lt; archivo  (cambia las &#8220;J&#8221; y las &#8220;M&#8221; por &#8220;?&#8221; y &#8220;$&#8221; en todo el archivo)</p>
 
-<p># time nmap -sS www.tuxapuntes.com</p>
+<p>$ cat archivo | tr ea ?% (Cambia las &#8220;e&#8221; y &#8220;a&#8221; por &#8220;?&#8221; y &#8220;%&#8221; respectivamente)</p>
 
-<p>$ time echo &#8220;scale=5000; 4*a(1)&#8221; | bc -l -q (Calcula 5000 decimales de pi para comprobar velocidad del procesador)</p></blockquote>
+<p>$ echo &#8216;la pipa plena&#8217; | tr &#8216;a-z&#8217; &#8216;A-Z&#8217;  (De minúsculas a mayúsculas)</p>
+
+<p>$ echo &#8216;la pipa plena&#8217; | tr -d a (Borra las “a”)</p>
+
+<p>$ tr -d [aeiou] archivo  (Borra las vocales de archivo)</p>
+
+<p>$ echo &#8216;la   pipa    plena&#8217; | tr -s &#8217; &#8217; (Borra espacios repetidos)</p>
+
+<p>$ echo &#8216;la pipa plena&#8217; | tr -c &#8216;pln&#8217; &#8216;?&#8217; (Substituye todos los caracteres  por “?” inclusive los espacios, menos los indicados [pln])</p>
+
+<p>$ ls |tr &#8216;\t&#8217; &#8216;\n&#8217; (Substituye la tabulación vertical [\t] por salto de linea [\n])</p>
+
+<p>$ tr -dc A-Za-z0-9_ &lt; /dev/urandom | head -c 8 | xargs   (contraseñas de 8 caracteres aleatorias)</p>
+
+<p>$ echo &#8220;El boxeador está OK.&#8221; | tr O m | tr K a | tr . l (varios tr)</p>
+
+<p>$ tr &#8221; &#8221; . &lt; archivo (substituir los espacios por puntos)</p></blockquote>
 </div>
   
   
@@ -161,7 +177,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/tightvncserver/">Tightvncserver</a></h1>
+      <h1 class="entry-title"><a href="/blog/tput/">Tput</a></h1>
     
     
       <p class="meta">
@@ -184,17 +200,21 @@
   </header>
 
 
-  <div class="entry-content"><p>Conexión remota.</p>
+  <div class="entry-content"><p>formatación de la terminal [posicionar el cursor en la pantalla, borrar datos de la pantalla, saber la cantidad de líneas y columnas de la pantalla, posicionar correctamente un campo, borrar un campo..]</p>
 
-<p>En el Servidor:</p>
+<blockquote><p>$ tput cols  (Cantidad de columnas de la terminal)</p>
 
-<blockquote><p># tightvncserver -depth 16 -geometry 640x480</p></blockquote>
+<p>$ tput lines (Cantidad de lineas)</p>
 
-<p>En el Cliente:</p>
+<p>$ tput civis (Hace invisible el cursor)</p>
 
-<blockquote><p>$ xtightvncviewer</p></blockquote>
+<p>$ tput cnorm (Lo vuelve visible)</p>
 
-<p>Nota.- Sale una caja de texto donde entrar la ip o nombre del host y otra para ingresar la clave.</p>
+<p>$ tput sgr0 (vuelve la terminal a los parámetros por defecto)</p>
+
+<p>$ tput smcup (Borra el contenido de la terminal guardandolo)</p>
+
+<p>$ tput rmcup (Restablece el contenido de la terminal borrado con el comando anterior)</p></blockquote>
 </div>
   
   
@@ -207,7 +227,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/tiger/">Tiger</a></h1>
+      <h1 class="entry-title"><a href="/blog/tpp/">Tpp</a></h1>
     
     
       <p class="meta">
@@ -230,11 +250,117 @@
   </header>
 
 
-  <div class="entry-content"><p>Chequear vulnerabilidades del sistema. Informe en /var/log/tiger</p>
+  <div class="entry-content"><p>Presentaciones en terminal.</p>
 
-<blockquote><p># tiger  (Sin parámetros, escanea todo el sistema)</p>
+<p>&#8211;title Este_es_el_titulo   (titulo de la presentación)</p>
 
-<p># tiger -H -l /home/user/logs (crear un html con los resultados y guardarlo en el directorio “logs”)</p></blockquote>
+<p>&#8211;author juanito            (Autor)</p>
+
+<p>&#8211;date today  %d %b %Y      (fecha actual en formato dia/mes/año)</p>
+
+<p>&#8211;bgcolor yellow           (color de fondo)</p>
+
+<p>&#8211;fgcolor black            (color texto. Los colores válidos son: white, yellow, red, green, blue, cyan, magenta, black. Por defecto transparencia))</p>
+
+<p>&#8211;heading inicio           (nombre de la página, centrado)</p>
+
+<p>&#8211;horline                  (dibuja una linea en todo el ancho de pantalla)</p>
+
+<p>&#8211;withborder               (Marca un borde en los limites de la pantalla)</p>
+
+<p>&#8211;header texto             (Texto arriba del todo de la página)</p>
+
+<p>&#8211;footer texto             (Texto abajo del todo de la página)</p>
+
+<p>&#8211;color red            (Especifica un color de texto a partir de este punto)</p>
+
+<p>&#8211;center Se_pondra_en_el_centro   (El texto se centrará en la página)</p>
+
+<p>&#8211;right texto       (El texto se alineará a la derecha)</p>
+
+<p>&#8212;         (parar la presentación hasta que se clique en la barra de espacio)</p>
+
+<p>&#8211;newpage       (nueva página. Se accede pulsando cursor abajo o espacio)</p>
+
+<p>&#8211;##comentario          (comentario. No aparece en la presentación)</p>
+
+<p>&#8211;sleep 5           (Para la presentación 5 segundos. Por defecto son 3)</p>
+
+<p>&#8211;huge Fin_de_la_presentacion   (Figlet generará las letras del texto)</p>
+
+<p>&#8211;sethugefont big   (Los tipos de letra disponibles son los de figlet: banner, big, block, bubble, digital, ivrit, leas, mini, mnemonic, script, shadow, slant, small, smscript, smshadow, smslant, standard y term)</p>
+
+<p>&#8211;exec fbi -vt 01 imagen.png        (Ejecuta el comando)</p>
+
+<p>&#8211;beginoutput       (crea el inicio de un marco de texto)</p>
+
+<p>El_texto_que_proceda</p>
+
+<p>&#8211;endoutput         (Final del marco de texto)</p>
+
+<p>&#8211;beginshelloutput  (Inicio marco de texto. Con &#8220;$&#8221; saldrá letra a letra)</p>
+
+<blockquote><p>$ El_texto-que-proceda</p></blockquote>
+
+<p>&#8211;endshelloutput    (Final marco de texto)</p>
+
+<p>&#8211;bZoldon            (Inicio de escritura en negrita)</p>
+
+<p>El_texto_que_proceda</p>
+
+<p>&#8211;boldoff       (Final del uso de negrita)</p>
+
+<p>&#8211;revon             (Invierte los colores de letra y fondo)</p>
+
+<p>El_texto_que_proceda</p>
+
+<p>&#8211;revoff        (Termina la inversión)</p>
+
+<p>&#8211;ulon              (Inicio texto subrayado-??)</p>
+
+<p>El_texto_que_proceda</p>
+
+<p>&#8211;uloff             (Final texto subrayado)</p>
+
+<p>&#8211;beginslideleft    (El texto sale de izquierda a derecha)</p>
+
+<p>El_texto_que_proceda</p>
+
+<p>&#8211;endslideleft      (Final de salida de izquierda a derecha)</p>
+
+<p>&#8211;beginslideright   (El texto sale de derecha a izquierda)</p>
+
+<p>El_texto_que_proceda</p>
+
+<p>&#8211;endslideright     (Final de salida de derecha a izquierda)</p>
+
+<p>&#8211;beginslidetop     (Inicio de la salida del texto de arriba)</p>
+
+<p>El_texto_que_proceda</p>
+
+<p>&#8211;endslidetop       (Final de salida del texto de arriba)</p>
+
+<p>&#8211;beginslidebottom  (Inicio de salida del texto por abajo)</p>
+
+<p>El_texto_que_proceda</p>
+
+<p>&#8211;endslidebottom    (Final de salida por abajo)</p>
+
+<p>Teclas para desplazarse durante la presentación</p>
+
+<p>espacio (visualizar página siguiente)</p>
+
+<p>b (visualizar página anterior)</p>
+
+<p>q (salir de tpp)</p>
+
+<p>j (saltar a la página que se indique con el teclado numérico)</p>
+
+<p>s (saltar a la página de inicio)</p>
+
+<p>e (ir a la última página)</p>
+
+<p>c (inicio de línea de comandos)</p>
 </div>
   
   
@@ -247,7 +373,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/tidy/">Tidy</a></h1>
+      <h1 class="entry-title"><a href="/blog/touch/">Touch</a></h1>
     
     
       <p class="meta">
@@ -270,17 +396,25 @@
   </header>
 
 
-  <div class="entry-content"><p>Validación y corrección de archivos html</p>
+  <div class="entry-content"><p>Crea un fichero vacio</p>
 
-<blockquote><p>$ tidy fichero.html  (Analiza el código del fichero)</p>
+<blockquote><p>$ touch notas.txt</p>
 
-<p>$ tidy -m fichero.html  (Corrige,modificándolo, el código del fichero)</p>
+<p># touch /forcefsck (crear un fichero vacío para forzar el chequeo del disco)</p>
 
-<p>$ tidy -m -asxml fichero.html  (Convierte un html a xml)</p>
+<p>$ touch -d &#8220;18-6-2011 17:09:24&#8221; archivo (modificar la fecha de creación)</p>
 
-<p>$ tidy -m -asxhtml fichero.html ( Convierte un html a xhtml )</p>
+<p>$ touch -m archivo (Lo mismo a la fecha actual)</p>
 
-<p>$ tidy -m -ashtml fichero.xhtml  ( Convierte un xhtml a html)</p></blockquote>
+<p>$ touch file{1..9} (crear los archivo del file1 al file9</p>
+
+<p>$ touch file{1..9}{a..z} (Crear los archivos del filea1 al filez9)</p>
+
+<p>$ touch a b c d (Crear varios archivos)</p>
+
+<p>$ touch -c archivo (Si “archivo” existe no lo creará)</p>
+
+<p>$ touch -a archivo (modifica el último acceso al archivo. Comprobar con $ stat archivo)</p></blockquote>
 </div>
   
   
@@ -293,7 +427,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/thunar/">Thunar</a></h1>
+      <h1 class="entry-title"><a href="/blog/totem/">Totem</a></h1>
     
     
       <p class="meta">
@@ -316,53 +450,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Escritorio.</p>
+  <div class="entry-content"><p>Reproductor de video</p>
 
-<blockquote><p>$ thunar -B (Con varios ficheros seleccionados, al pulsar F2 se abre la ventana para renombrarlos)</p>
-
-<p>$ thunar-volman-settings (Abre el gestor de medios extraíbles)</p></blockquote>
-
-<p>1.-</p>
-
-<p>Modificar el tema de iconos por defecto:</p>
-
-<p>Descomprimir la carpeta de iconos y moverla:</p>
-
-<blockquote><p># mv GartoonRedux /usr/share/icons</p></blockquote>
-
-<p>Editar o crear el archivo:</p>
-
-<blockquote><p>$ nano .gtkrc-2.0</p></blockquote>
-
-<p>Y modificar o añadir la linea:</p>
-
-<p>gtk-icon-theme-name = &#8220;GartoonRedux&#8221;</p>
-
-<p>Al abrir nuevamente thunar, se muestran los cambios.</p>
-
-<p>2.-</p>
-
-<p>Para habilitar el automontado de dispositivos, además de configurarlo en las propiedades, en algunas distros se precisan los paquetes gvfs gvfs-afc</p>
-
-<p>3.-</p>
-
-<p>Para incluir en el menú contextual la opción &#8220;Abrir como root&#8221;, en &#8220;editar/Configurar acciones personalizadas&#8221;, &#8220;añadir&#8221; [+] y en la pestaña &#8220;Basico&#8221; colocar en el cuadro de diálogo:</p>
-
-<pre><code>nombre: Abrir directorio como root
-
-descripcion: Abrir directorio con privilegios de root
-
-comando: gksu thunar %f
-
-icono: opcional 
-</code></pre>
-
-<p>Y en la pestaña &#8220;condiciones generales&#8221;:</p>
-
-<pre><code>Patrón de archivos: *
-
-Aparece si la selección contiene:  Macamos la casilla de directorio y la de archivo 
-</code></pre>
+<blockquote><p>$ totem-video-thumbnailer -pg 30 video.mpeg salida (Creación de una imagen formada por thumbnailes de un video)</p></blockquote>
 </div>
   
   
@@ -375,7 +465,7 @@ Aparece si la selección contiene:  Macamos la casilla de directorio y la de arc
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/testdisk/">Testdisk</a></h1>
+      <h1 class="entry-title"><a href="/blog/torsocks/">Torsocks</a></h1>
     
     
       <p class="meta">
@@ -398,9 +488,13 @@ Aparece si la selección contiene:  Macamos la casilla de directorio y la de arc
   </header>
 
 
-  <div class="entry-content"><p>Escaneo y reparación de particiones.</p>
+  <div class="entry-content"><p>Permite lanzar aplicaciones a través de la red tor para enmascarar la ip. Puede usarse indistintamente los comandos torsocks o usewithtor. Ver proxychains. Precisa tor funcionando.</p>
 
-<blockquote><p>$ testdisk /list (Muestra todas las particiones incluso las no montadas)</p></blockquote>
+<blockquote><p># torsocks ssh usuario@host</p>
+
+<p># torsocks w3m ifconfig.me</p>
+
+<p># usewithtor pidgin</p></blockquote>
 </div>
   
   
@@ -413,7 +507,7 @@ Aparece si la selección contiene:  Macamos la casilla de directorio y la de arc
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/termsaver/">Termsaver</a></h1>
+      <h1 class="entry-title"><a href="/blog/torify/">Torify</a></h1>
     
     
       <p class="meta">
@@ -436,30 +530,9 @@ Aparece si la selección contiene:  Macamos la casilla de directorio y la de arc
   </header>
 
 
-  <div class="entry-content"><p>Salvapantallas para la terminal.</p>
+  <div class="entry-content"><p>Verificar si la navegación está torificada.</p>
 
-<blockquote><p>$ termsaver quotes4all (Irá mostrando citas extraidas de quotes4all.net)</p></blockquote>
-
-<p>Otras opciones:</p>
-
-<pre><code>asciiartfarts (Imagenes en ascii)
-
-clock (Un reloj digital)
-
-dot (Un punto)
-
-rfc (Contenido RTC [conjunto de documentos que sirven de referencia para la comunidad de Internet])
-
-matrix (Código matrix)
-</code></pre>
-
-<blockquote><p>$ termsaver programmer &#8211;help (Muestra ejemplos de como usar la opción indicada)</p>
-
-<p>$ termsaver randtxt &#8211;word linux_es_un_sistema_genial &#8211;delay 1 (Mostrará la frase cada segundo en un lugar distinto de la pantalla)</p>
-
-<p>$ termsaver urlfetcher -u lapipaplena.org (Mostrará el código de la página indicada)</p>
-
-<p>$ termsaver programmer -p script.sh (Mostrará el código indicado linea a linea)</p></blockquote>
+<blockquote><p>$ torify elinks checkip.dyndns.org</p></blockquote>
 </div>
   
   
@@ -472,7 +545,7 @@ matrix (Código matrix)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/termite/">Termite</a></h1>
+      <h1 class="entry-title"><a href="/blog/tor-resolve/">Tor-resolve</a></h1>
     
     
       <p class="meta">
@@ -495,11 +568,9 @@ matrix (Código matrix)
   </header>
 
 
-  <div class="entry-content"><p>Emulador de terminal.</p>
+  <div class="entry-content"><p>Resuelve direcciones IP o nombres de host via tor.</p>
 
-<blockquote><p>$ termite &#8211;geometry=900x150 (Especificando medidas)</p>
-
-<p>$ termite -e htop (Ejecutar una aplicación)</p></blockquote>
+<blockquote><p>$ tor-resolve lapipaplena.net</p></blockquote>
 </div>
   
   
@@ -512,7 +583,7 @@ matrix (Código matrix)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/terminator/">Terminator</a></h1>
+      <h1 class="entry-title"><a href="/blog/top/">Top</a></h1>
     
     
       <p class="meta">
@@ -535,27 +606,61 @@ matrix (Código matrix)
   </header>
 
 
-  <div class="entry-content"><p>Terminal que puede dividirse horizontalmente y verticalmente.</p>
+  <div class="entry-content"><p>información sobre el estado del sistema, procesos, uso del procesador, memoria etc&#8230; en ejecucion</p>
 
-<blockquote><p>$ terminal -T linux –giometry 1150x250 (Especificando un titulo y medidas)</p></blockquote>
+<blockquote><p>$ top | grep Tasks (Visualizar procesos abiertos incluidos los zombies)</p>
 
-<p>Algunos atajos:</p>
+<p>$ top -u usuario  (procesos abiertos por el usuario indicado)</p>
 
-<p>Ctrl + Mayus + o (División horizontal)</p>
+<p>$ top -p $(pgrep -d, yaourt) (Monitorizar un proceso)</p>
 
-<p>Ctrl + Mayus + e (División vertical)</p>
+<p>$ top -p <code>pgrep pidgin</code> (Monitorear un proceso)</p>
 
-<p>Ctrl + Mayus + w (Cerrar ventana)</p>
+<p>$ top -b -n 2 -d 2 (En modo batch [b] que termine el comando despues de mostrar 2 procesos top [n] con un intervalo de 2 segundos [d])</p></blockquote>
 
-<p>Ctrl + Mayus + cursores (Redimensionar ventana)</p>
+<p>Teclas de control</p>
 
-<p>Alt + cursores (Moverse por las ventanas)</p>
+<p>Ctrl + m (los ordenamos por uso de memoria)</p>
 
-<p>Ctrl + Mayus + t (Abrir nueva pestaña)</p>
+<p>Ctrl + c  (Salir)</p>
 
-<p>Ctrl + RePag / AvPag (Moverse entre pestañas)</p>
+<p>k  (y colocar el PID correspondiente mataremos el proceso)</p>
 
-<p>Ctrl + Mayus + q (Cerrar terminator)</p>
+<p>Z  (para modificar el color. Con “z” se escoge el color)</p>
+
+<p>n  ( y colocar el número de procesos que queremos visualizar)</p>
+
+<p>A  (abre multiples ventanas “top”)</p>
+
+<p>f   (activa/desactiva columnas a visualizar)</p>
+
+<p>o  (Modifica el orden de las columnas)</p>
+
+<p>G + num (del 1 al 4 cambia el modo de presentación)</p>
+
+<p>W (Graba el tipo de visualización. A partir de la siguiente vez que se lance la aplicación se mostrará con los parámetros grabados)</p>
+
+<p>Columnas:</p>
+
+<p>PID .-       Identificador</p>
+
+<p>USER.-   Usuario que ha ejecutado el proceso.</p>
+
+<p>PR.-         Prioridad</p>
+
+<p>NI.-         Valor nice del proceso (negativos-> mayor prioridad)</p>
+
+<p>RES.-        Memoria RAM ocupada por el proceso.</p>
+
+<p>%CPU.-   Porcentaje ocupado de la CPU</p>
+
+<p>TIME+.-  Cuanto tiempo lleva el proceso en el sistema.</p>
+
+<p>COMMAND.- Nombre del procesos y sus parametros.</p>
+
+<p>PPID.-       PID del proceso padre.</p>
+
+<p>UID.-        ID del usuario que ha ejecutado el proceso.</p>
 </div>
   
   
@@ -586,43 +691,43 @@ matrix (Código matrix)
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/dig/">dig</a>
+        <a href="/blog/figlet/">figlet</a>
       </li>
     
       <li class="post">
-        <a href="/blog/denyhosts/">denyhosts</a>
+        <a href="/blog/fgrep/">fgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/debget/">debget</a>
+        <a href="/blog/festival/">festival</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ddrescue/">ddrescue</a>
+        <a href="/blog/fbgs/">fbgs</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ddclient/">ddclient</a>
+        <a href="/blog/faillog/">faillog</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dav/">dav</a>
+        <a href="/blog/extundelete/">extundelete</a>
       </li>
     
       <li class="post">
-        <a href="/blog/date/">date</a>
+        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dansguardian/">dansguardian</a>
+        <a href="/blog/eterm/">eterm</a>
       </li>
     
       <li class="post">
-        <a href="/blog/cups/">cups</a>
+        <a href="/blog/errno/">errno</a>
       </li>
     
       <li class="post">
-        <a href="/blog/csscapture/">csscapture</a>
+        <a href="/blog/egrep/">egrep</a>
       </li>
     
   </ul>

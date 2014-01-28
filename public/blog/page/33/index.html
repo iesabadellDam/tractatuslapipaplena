@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Sniffer de paquetes y detector de intrusos # snort -v -i eth0 (Para inspeccionar el tráfico de una red) # snort -vde -h 192.168.0.1/24 (Inspeccionar &hellip;">
+  <meta name="description" content="[gnumeric] Conversor de formatos de hoja de cálculo por línea de comandos. $ ssconvert &#8211;list-exporters (Listado de conversiones de salida) $ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/snort/">Snort</a></h1>
+      <h1 class="entry-title"><a href="/blog/ssconvert/">Ssconvert</a></h1>
     
     
       <p class="meta">
@@ -103,25 +103,19 @@
   </header>
 
 
-  <div class="entry-content"><p>Sniffer de paquetes y detector de intrusos</p>
+  <div class="entry-content"><p>[gnumeric]</p>
 
-<blockquote><p># snort -v -i eth0 (Para inspeccionar el tráfico de una red)</p>
+<p>Conversor de formatos de hoja de cálculo por línea de comandos.</p>
 
-<p># snort -vde -h 192.168.0.1/24 (Inspeccionar una dirección o rango)</p>
+<blockquote><p>$ ssconvert &#8211;list-exporters (Listado de conversiones de salida)</p>
 
-<p># snort -vde tcp (especificando protocolo)</p>
+<p>$ ssconvert &#8211;list-importers (Litado de conversiones de entrada)</p>
 
-<p># snort -v -X -i eth0 port 25 (Especificando un puerto y guardando la información)</p>
+<p>$ ssconvert entrada.xls salida.csv (De formato excel a csv)</p>
 
-<p># snort -v -X -i eth0 -n 5 port 25 (Capturando solo 5 paquetes)</p></blockquote>
+<p>$ ssconvert -E utf-8 entrada.xls salida.csv (Especificando una codificación para la salida)</p>
 
-<p>La tarjeta de red tiene que estar en modo promiscuo</p>
-
-<p>Opciones</p>
-
-<p>-v          sniffer de TCP</p>
-
-<p>-d y -e    Para obtener las cabeceras</p>
+<p>$ ssconvert &#8211;export-type=Gnumeric_stf:stf_assistant -O &#8216;separator=| format=preserve charset=unicode&#8217; entrada.xls salida.csv (Especificando opcionalmente un exportador [&#8211;export-type] que permite exportar a txt, especificando un separador de campos que no sea el por defecto [el espacio] sinó la barra vertical [|], preservando el formato de las celdas del original [format], otras opciones de format son &#8220;automatic&#8221; [por defecto] y &#8220;raw&#8221; [sin formato] y con codificación de salida en unicode [por defecto UTF-8])</p></blockquote>
 </div>
   
   
@@ -134,7 +128,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/snoopy/">Snoopy</a></h1>
+      <h1 class="entry-title"><a href="/blog/ss/">Ss</a></h1>
     
     
       <p class="meta">
@@ -157,27 +151,23 @@
   </header>
 
 
-  <div class="entry-content"><p>librería que se encarga de almacenar comandos y el usuario que los ejecuta.</p>
+  <div class="entry-content"><p>Utilidad para investigar sockets. Sustituye a netstat.</p>
 
-<blockquote><p>$ git clone https://github.com/a2o/snoopy.git</p>
+<blockquote><p># ss -r  (resolviendo las IPs)</p>
 
-<p>$ cd snoopy</p>
+<p># ss -n  (sin resolver)</p>
 
-<p>$ ./configure</p>
+<p># ss  (igual)</p>
 
-<p>$ make</p>
+<p># ss -l   (muestra los que estan esperando conexión)</p>
 
-<p># make install</p>
+<p># ss -o  (con conexión establecida)</p>
 
-<p># make enable</p></blockquote>
+<p># ss -p  (con la aplicación que los motiva)</p>
 
-<p>Reiniciar los servicios que tengamos funcionando [apache2, ssh&#8230;]</p>
+<p># ss -a | grep ssh  (De todas las conexiones, solo muestra las ssh)</p>
 
-<blockquote><p># /etc/init.d/ssh restart</p></blockquote>
-
-<p>Monitorizar el archivo log de registro com:</p>
-
-<blockquote><p># tail -f /var/log/auth.log</p></blockquote>
+<p># ss -tpan &#8216;sport = :22&#8217; (ver conexiones por el puerto 22)</p></blockquote>
 </div>
   
   
@@ -190,7 +180,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/sniffit/">Sniffit</a></h1>
+      <h1 class="entry-title"><a href="/blog/srm/">Srm</a></h1>
     
     
       <p class="meta">
@@ -213,15 +203,17 @@
   </header>
 
 
-  <div class="entry-content"><p>Snifer de red. Dado que los informes los despliega en archivos de texto por cada dato, es preferible lanzar la aplicación desde dentro de una carpeta para no llenar todo el directorio de ficheros.</p>
+  <div class="entry-content"><p>[secure-delete]</p>
 
-<blockquote><p># sniffit -s 192.168.1.2  (Captura todos los paquetes con origen en la IP)</p>
+<p>Aplicación para eliminar de forma segura datos de disco sobreescribiendo su espacio. Es de funcionamiento lento, pero por eso se le considera el más efectivo</p>
 
-<p># sniffit -t 192.168.1.2 (Captura todos los paquetes con destino en la IP)</p>
+<blockquote><p>$ srm -f dir (Modo rápido i el más inseguro)</p>
 
-<p># sniffit -b -s 192.168.1.2 (Captura los paquetes con origen y destino en la IP)</p>
+<p>$ srm -l dir (Como realizar dos veces srm -f)</p>
 
-<p># sniffit -F eth1 -b -s 192.168.1.33 -p 9001 (de un puerto y forzando dispositivo)</p></blockquote>
+<p>$ srm archivo.txt (Se sobreescribe 38 veces)</p>
+
+<p>$ srm -rzv dir (se sobreescriben 38 veces los archivos y subdirectorios incluidos [r], sobreescribnedo ceros en el último borrado [z] y mostrando el proceso [v])</p></blockquote>
 </div>
   
   
@@ -234,7 +226,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/snarf/">Snarf</a></h1>
+      <h1 class="entry-title"><a href="/blog/squid/">Squid</a></h1>
     
     
       <p class="meta">
@@ -257,11 +249,45 @@
   </header>
 
 
-  <div class="entry-content"><p>Descarga páginas web o listado de archivos compartidos por ftp.</p>
+  <div class="entry-content"><p>Proxy caché (intermediario para nuestra conexion a internet, guardando las paginas visualizadas en una caché)</p>
 
-<blockquote><p>$ snarf lapipaplena.net (Creará un archivo index.html)</p>
+<blockquote><p># cp /etc/squid3/squid.conf{,.defaults} (Realizar copia de seguridad de la configuración)</p>
 
-<p>$ snarf ftp://usuario:contraseña@servidor (Creará un archivo ftpindex.txt)</p></blockquote>
+<p># nano /etc/squid3/squid.conf</p></blockquote>
+
+<p>Modificamos/adaptamos los siguientes ajustes basicos:</p>
+
+<p>http_port 3128 #puerto de escucha</p>
+
+<p>cache_mem 100 MB #Tamaño memoria caché</p>
+
+<p>cache_dir ufs /var/spool/squid 700 16 256 #directorio y tamaño</p>
+
+<p>acl NuestraRed src 192.168.1.0/24 #Nombre y red a la que afecta</p>
+
+<p>http_access allow NuestraRed #permitir acceso a toda la red</p>
+
+<p>http_access allow deny all #Denegamos a los de fuera de la red</p>
+
+<p>auth_param basic /usr/lib/squid/ncsa_auth /etc/squid/passwd #ruta a usuarios</p>
+
+<p>auth_param basic realm “Mensaje de acceso” #mensaje al logearse</p>
+
+<p>auth_param basic children 5 #Procesos de autentificación</p>
+
+<p>auth_param basic basic credentialsttl 1 hours #tiempo</p>
+
+<blockquote><p># squid3 -k parse (Revisión de la sintaxis del archivo squid.conf)</p></blockquote>
+
+<p>Después de las modificaciones reiniciar servicio:</p>
+
+<blockquote><p># /etc/init.d/squid3 restart</p></blockquote>
+
+<p>Configuración de usuarios (/etc/squid/passwd):</p>
+
+<blockquote><p># htpasswd -c /etc/squid3/passwd user1 (Crear archivo [-c] nombre de usuario y pedirá contraseña)</p>
+
+<p># htpasswd /etc/squid3/passwd usuario2 (Sin parámetro -c porque el archivo ya está creado. Otro usuario y contraseña)</p></blockquote>
 </div>
   
   
@@ -274,7 +300,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/smem/">Smem</a></h1>
+      <h1 class="entry-title"><a href="/blog/spumux/">Spumux</a></h1>
     
     
       <p class="meta">
@@ -297,15 +323,32 @@
   </header>
 
 
-  <div class="entry-content"><p>Informa del uso de la memoria.</p>
+  <div class="entry-content"><p>Generar subtítulos en un video mpeg.</p>
 
-<blockquote><p># smem -u (Por parte de los usuarios)</p>
+<blockquote><p>$ spumux -s0 subt.xml &lt; video.mpeg > video_subtitulado.mpeg</p></blockquote>
 
-<p># smem -w (por parte del sistema)</p>
+<p>Nota.- El archivo subt.xml con un contenido:</p>
 
-<p># smem -m (de todos los procesos)</p>
+<pre><code>&lt;subpictures&gt;
 
-<p># smem -p (resultado en porcentaje</p></blockquote>
+   &lt;stream&gt;
+
+        &lt;textsub filename="SUBTITULOS.srt" characterset="ISO8859-1"
+
+                 fontsize="24.0" font="Arial.ttf" horizontal-alignment="center"
+
+                 vertical-alignment="bottom" left-margin="60" right-margin="60"
+
+                 top-margin="20" bottom-margin="30" subtitle-fps="25"
+
+                 movie-fps="29.97" movie-width="720" movie-height="478"/&gt;
+
+   &lt;/stream&gt;
+
+&lt;/subpictures&gt;
+</code></pre>
+
+<p>La fuente Arial.ttf ha de estar [o tener un enlace] en el directorio ~/.spumux</p>
 </div>
   
   
@@ -318,7 +361,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/smbstatus/">Smbstatus</a></h1>
+      <h1 class="entry-title"><a href="/blog/sponge/">Sponge</a></h1>
     
     
       <p class="meta">
@@ -341,15 +384,13 @@
   </header>
 
 
-  <div class="entry-content"><p>Monitorizar el estado de las conexiones del servidor samba.</p>
+  <div class="entry-content"><p>[moreutils]</p>
 
-<blockquote><p># smbstatus (Listado de equipos conectados a recursos compartidos y ficheros abiertos)</p>
+<p>herramienta que guarda todo el contenido a escribir hasta que recibe el EOF y luego lo escribe por lo que permite procesar un fichero y reescribirlo en el propio fichero sin perdida de datos.</p>
 
-<p># smbstatus -p (Solo el listado de los equipos conectados a samba)</p>
+<blockquote><p>$ tac archivo | sponge archivo (Lee al reves un archivo y lo guarda en el mismo archivo)</p>
 
-<p># smbstatus -S (Listado de recursos y equipos conectados a ellos)</p>
-
-<p># smbstatus -L  (Listado de ficheros abiertos)</p></blockquote>
+<p>$ column -t datos | sponge datos</p></blockquote>
 </div>
   
   
@@ -362,7 +403,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/smbclient/">Smbclient</a></h1>
+      <h1 class="entry-title"><a href="/blog/splitvt/">Splitvt</a></h1>
     
     
       <p class="meta">
@@ -385,19 +426,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Conectar recursos compartidos de windows desde linux.</p>
+  <div class="entry-content"><p>Lanzar dos shells simultaneas partiendo en dos ventanas una terminal.</p>
 
-<blockquote><p>$ smbclient //192.168.1.155/compartido -U usuario (Después de ingresar usuario y contraseña entra en el prompt del recurso compartido)</p>
-
-<p>$ smbclient -L //192.168.1.155 (Ver los recursos compartidos de la IP especificada.</p></blockquote>
-
-<p>1.-</p>
-
-<p>Para montarlo automaticamente:</p>
-
-<p>Entrar en el /etc/fstab la siguiente linea:</p>
-
-<p>//192.168.1.155/compartido /media/compartido cifs username=NOMBRE, password=CONTRASEÑA,user</p>
+<blockquote><p>$ splitvt -t &#8220;linux es genial&#8221; -upper ls -lower top (Con un título [-t] lanzando un ls en la ventana superior y top en la inferior)</p></blockquote>
 </div>
   
   
@@ -410,7 +441,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/smartctl/">Smartctl</a></h1>
+      <h1 class="entry-title"><a href="/blog/split/">Split</a></h1>
     
     
       <p class="meta">
@@ -433,59 +464,11 @@
   </header>
 
 
-  <div class="entry-content"><p>Comprobar el estado de los discos duros. Si el disco es IDE, suprimir en todos los comandos el &#8220;-d ata&#8221;</p>
+  <div class="entry-content"><p>Cortar archivos</p>
 
-<blockquote><p># smartctl -i -d ata /dev/sda (Verificar si un disco ATA suporta smart)</p>
+<blockquote><p>$ split -d -b 100m archivo otro_archivo. (Que tengan extensión con números: .00, .01, .02. Trozos de 200 MB, archivo de entrada y de salida terminado con un punto donde se añade la extension. En este ejemplo daría salidas tipo otro_archivo.00, otro_archivo.01&#8230;.)</p>
 
-<p># smartctl -s on -d ata /dev/hda (activar el soporte smart)</p>
-
-<p># smartctl -d ata -t short /dev/sda (lanzar el test corto)</p>
-
-<p># smartctl -d ata -t long /dev/sda  (lanzar el test largo)</p>
-
-<p># smartctl -d ata -l selftest -i /dev/sda (analizar la información de los comandos anteriores)</p></blockquote>
-
-<p>LifeTime indica las horas que el disco ha estado encendido. LBA_of_First_error indica los errores.</p>
-
-<blockquote><p># smartctl -d ata -Hc /dev/sda (Si al final se lee PASSED, correcto, si FAILED cambiar disco)</p>
-
-<p># smartctl -d ata -l error /dev/sda (Listar los errores)</p>
-
-<p># smartctl -d ara -A /dev/sda (Listar atributos internos)</p></blockquote>
-
-<p>Listado de algunos atributos smart</p>
-
-<p>Power_Cycle_Count (RAW_Value).- Veces que le ha llegado   corriente.</p>
-
-<p>Temperature Celsius. (RAW_Value) .- Temperatura del disco</p>
-
-<p>Reallocated_Sector_Ct (RAW_Value).-  número de sectores de repuesto que ha usado el disco para sustituir sectores dañados</p>
-
-<p>Raw_Read_Error_Rate (RAW_Value).- Frequencia de errores en la lectura del disco.</p>
-
-<p>Start_Stop_Count: Cantidad de veces que se ha parado y arrancado el disco</p>
-
-<p>Seek_Error_Rate: Tasa de errores de colocación de la aguja</p>
-
-<p>Power_On_Seconds: Tiempo funcionando</p>
-
-<p>Spin_Retry_Count: Numero de reintentos de arrancada</p>
-
-<p>El campo VALUE [valor] va del número 1 al 253, siendo 1 el peor. Los valores normales son los que estan entre 100 y 200. El campo WHEN_FAILED indica cuando se produjo una falla de algún atributo.</p>
-
-<p>1.-</p>
-
-<p>Para activar el demonio que nos avisa si se produce un error en disco:</p>
-
-<blockquote><p># apt-get install smart-notifier</p></blockquote>
-
-<p>Editar el archivo de configuración:</p>
-
-<blockquote><p># nano /etc/default/smartmontools</p></blockquote>
-
-<p>Y descomentar la linea:</p>
-
-<p>start_smartd=yes</p>
+<p>$ cat prefijo* > archivo  (volver a unirlos)</p></blockquote>
 </div>
   
   
@@ -498,7 +481,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/slurm/">Slurm</a></h1>
+      <h1 class="entry-title"><a href="/blog/speedtest-cli/">Speedtest_cli</a></h1>
     
     
       <p class="meta">
@@ -521,9 +504,22 @@
   </header>
 
 
-  <div class="entry-content"><p>Monitoriza la interfaz de red</p>
+  <div class="entry-content"><p>script en python que se conecta a un servidor y realiza un test de velocidad de nuestra conexió.</p>
 
-<blockquote><p># slurm -i eth0</p></blockquote>
+<p>Descarga y permisos:</p>
+
+<pre><code>$ wget https://raw.github.com/sivel/speedtest-cli/master/speedtest_cli.py
+
+$ chmod +x speedtest_cli.py
+</code></pre>
+
+<blockquote><p>$ ./speedtest_cli.py (Forma básica)</p>
+
+<p>$ ./speedtest_cli.py &#8211;sahre (Nos da una URL con la imagen en png de la conexión)</p>
+
+<p>$ ./speedtest_cli.py &#8211;list (Mostrará una lista ordenada de los servidores de Speedtest.net con los más cercanos en primer lugar.)</p>
+
+<p>$ ./speedtest_cli.py &#8211;server 804 (Especificar un servidor distinto al más cercano,     tomado del listado anterior)</p></blockquote>
 </div>
   
   
@@ -536,7 +532,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/slowhttptest/">Slowhttptest</a></h1>
+      <h1 class="entry-title"><a href="/blog/speedometer/">Speedometer</a></h1>
     
     
       <p class="meta">
@@ -559,33 +555,15 @@
   </header>
 
 
-  <div class="entry-content"><p>Efectuar ataques Slow Http Dos</p>
+  <div class="entry-content"><p>Monitor de transferencia de ficheros [velocímetro].</p>
 
-<blockquote><p>$ slowhttptest -c 1000 -H -g -o ataque -i 10 -r 200 -t GET -u http://192.168.1.154 -x 30 -p 3</p></blockquote>
+<blockquote><p># speedometer -p -rx eth0  (tráfico recibido y el resultado en consola [-p])</p>
 
-<p>c (Número de conexiones con límite en 65539)</p>
+<p># speedometer -tx eth0  (tráfico transmitido y el resultado en modo gráfico)</p>
 
-<p>H (ataque modo SlowLoris enviando paquetes sin completar)</p>
+<p># speedometer -i 0.25 -rx eth0 (t. recibido, en modo gráfico y muestreo cada 0.25 segundos.)</p></blockquote>
 
-<p>B (ataque modo Slow POST sin terminar de enviar el cuerpo del mensaje)</p>
-
-<p>X (ataque modo Slow Read de lectura de las respuestas http lentas)</p>
-
-<p>g (Generr estadistica en formato html)</p>
-
-<p>o (Archivo de salida)</p>
-
-<p>i (Intervalo de datos por segundo por conexión)</p>
-
-<p>r (Conexiones por segundo)</p>
-
-<p>t (Cabecera a utilizar)</p>
-
-<p>u (URL de destino)</p>
-
-<p>x (Longitud máxima de los datos)</p>
-
-<p>p (Tiempo de espera de respuesta http una vez el servidor se considera inaccesible)</p>
+<p>pulsar “q” para cerrar</p>
 </div>
   
   
@@ -616,43 +594,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/dig/">dig</a>
+        <a href="/blog/figlet/">figlet</a>
       </li>
     
       <li class="post">
-        <a href="/blog/denyhosts/">denyhosts</a>
+        <a href="/blog/fgrep/">fgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/debget/">debget</a>
+        <a href="/blog/festival/">festival</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ddrescue/">ddrescue</a>
+        <a href="/blog/fbgs/">fbgs</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ddclient/">ddclient</a>
+        <a href="/blog/faillog/">faillog</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dav/">dav</a>
+        <a href="/blog/extundelete/">extundelete</a>
       </li>
     
       <li class="post">
-        <a href="/blog/date/">date</a>
+        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dansguardian/">dansguardian</a>
+        <a href="/blog/eterm/">eterm</a>
       </li>
     
       <li class="post">
-        <a href="/blog/cups/">cups</a>
+        <a href="/blog/errno/">errno</a>
       </li>
     
       <li class="post">
-        <a href="/blog/csscapture/">csscapture</a>
+        <a href="/blog/egrep/">egrep</a>
       </li>
     
   </ul>

@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Recuperar archivos borrados $ magicrescue -d /home/usuario/rescue -r /usr/share/magicrescue/recipes/avi /dev/sda3 Notas.- -d .- Destino de los &hellip;">
+  <meta name="description" content="Gestión de raids. # mdadm &#8211;create &#8211;verbose /dev/md0 &#8211;level=1 &#8211;raid-devices=2 /dev/sdb1 /dev/sdc1 &#8211;create (Para crear el &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/magicrescue/">Magicrescue</a></h1>
+      <h1 class="entry-title"><a href="/blog/mdadm/">Mdadm</a></h1>
     
     
       <p class="meta">
@@ -103,17 +103,21 @@
   </header>
 
 
-  <div class="entry-content"><p>Recuperar archivos borrados</p>
+  <div class="entry-content"><p>Gestión de raids.</p>
 
-<blockquote><p>$ magicrescue -d /home/usuario/rescue -r /usr/share/magicrescue/recipes/avi /dev/sda3</p></blockquote>
+<blockquote><p># mdadm &#8211;create &#8211;verbose /dev/md0 &#8211;level=1 &#8211;raid-devices=2 /dev/sdb1 /dev/sdc1</p></blockquote>
 
-<p>Notas.-</p>
+<p>&#8211;create (Para crear el raid)</p>
 
-<p>-d .- Destino de los archivos recuperados</p>
+<p>&#8211;verbose (No pregunte)</p>
 
-<p>-r  .- Tipo de archivo a recuperar (formatos en /usr/share/magicrescue/recipes)</p>
+<p>/dev/md0 (Dispositivo dónde vamos a crear el raid)</p>
 
-<p>El último parametro indica el disco a analizar</p>
+<p>&#8211;level=1 (Nivel 1 del RAID [dos discos uno espejo del otro)</p>
+
+<p>&#8211;raid-devices=2 (Número de dispositivos)</p>
+
+<p>/dev/sdb1 /dev/sdc1 (los dispositivos que vamos a usar)</p>
 </div>
   
   
@@ -126,7 +130,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/macchanger/">Macchanger</a></h1>
+      <h1 class="entry-title"><a href="/blog/md5sum/">Md5sum</a></h1>
     
     
       <p class="meta">
@@ -149,19 +153,13 @@
   </header>
 
 
-  <div class="entry-content"><p>Modificar la MAC</p>
+  <div class="entry-content"><p>Escribe o comprueba sumas de verificación md5</p>
 
-<blockquote><p># macchanger -s eth0 (Muestra la MAC)</p>
+<blockquote><p>$ md5sum archivo</p>
 
-<p># macchanger -m 00:01:02:03:04:05 eth0  (poner la tarjeta de red a la escucha por la interfaz eth0 con la MAC especificada)</p>
+<p>$ md5sum -  (Entra en el prompt. Teclear la palabra o frase y pulsar dos veces Ctrl+d)</p>
 
-<p># macchanger -A eth0 (Establece proveedor MAC aleatorio)</p>
-
-<p># macchanger -r eth0  (MAC completamente aleatoria)</p>
-
-<p># macchanger -l  (Listar los comienzos de las MAC de los principales fabricantes)</p>
-
-<p># macchanger –-list=Sony   (Muestra los comienzos de las MAC de Sony)</p></blockquote>
+<p>$ echo -n palabra | md5sum | awk &#8216;{print $1}&#8217; (md5sum de una palabra)</p></blockquote>
 </div>
   
   
@@ -174,7 +172,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/lzma/">Lzma</a></h1>
+      <h1 class="entry-title"><a href="/blog/mcrypt/">Mcrypt</a></h1>
     
     
       <p class="meta">
@@ -197,11 +195,23 @@
   </header>
 
 
-  <div class="entry-content"><p>Compresor/descompresor de archivos. Formato de salida .lzma</p>
+  <div class="entry-content"><p>Cifrar achivos</p>
 
-<blockquote><p>$ lzma fichero.txt (Substituye fichero.txt por fichero.txt.lzma)</p>
+<blockquote><p>$ mcrypt archivo   (cifrar)</p>
 
-<p>$ lzma -d fichero.txt.lzma (Descomprimir)</p></blockquote>
+<p>$ mcrypt -u archivo  (elimina el archivo inicial despues del cifrado)</p>
+
+<p>$ mdecrypt archivo.nc  (descifrar)</p>
+
+<p>$ mcrypt &#8211;d archivo.nc   (descifrar)</p>
+
+<p>$ mcrypt &#8211;list   (ver lista de algoritmos usables)</p>
+
+<p>$ mcrypt -a rijndael-256 ecb archivo  (cifrar especificando un algoritmo)</p>
+
+<p>$ mcrypt -p archivo    (usando compresión bzip2 antes de la encriptación)</p>
+
+<p>$ mcrypt -b archivo   (No mantener información del algoritmo usado en el cifrado)</p></blockquote>
 </div>
   
   
@@ -214,7 +224,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/lzip/">Lzip</a></h1>
+      <h1 class="entry-title"><a href="/blog/mcp/">Mcp</a></h1>
     
     
       <p class="meta">
@@ -237,11 +247,9 @@
   </header>
 
 
-  <div class="entry-content"><p>compresor/descompresor de archivos. Formato de salida .lz</p>
+  <div class="entry-content"><p>Permite hacer copias de varios ficheros.</p>
 
-<blockquote><p>$ lzip archivo.txt (Lo substituye por archivo.txt.lz)</p>
-
-<p>$ lzip -d archivo.txt.lz (descomprimir)</p></blockquote>
+<blockquote><p>$ mcp &#8220;;*.png&#8221; &#8220;#1#2.png.bak&#8221; (Realizará un .png.bak de todos los .png que encuentre en el presente directorio y sus subdirectorios)</p></blockquote>
 </div>
   
   
@@ -254,7 +262,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/lynx/">Lynx</a></h1>
+      <h1 class="entry-title"><a href="/blog/mcookie/">Mcookie</a></h1>
     
     
       <p class="meta">
@@ -277,19 +285,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Navegador web por consola.</p>
+  <div class="entry-content"><p>Genera números hexadecimales de 128 bits aleatorios.</p>
 
-<blockquote><p>$ lynx -dump http://www.tuxapuntes.com | grep Enviado  (Ver las últimas entradas en la web especificada)</p>
-
-<p>$ lynx -dump http://www.tuxapuntes.com | grep Enviado | grep templix (Ver si entre las últimas entradas hay alguna del usuario templix)</p>
-
-<p>$ lynx -source http://www.tuxapuntes.com (ver el codigo fuente)</p>
-
-<p>$ lynx -dump http://checkip.dyndns.com | cut -d &#8217; &#8217; -f7 (mostrar IP externa)</p>
-
-<p>$ lynx -dump http://www.tuxapuntes.com | awk &#8216;/http/{print $2}&#8217; | egrep &#8221;<sup>https{0,1}&#8221;</sup>   (ver todos los enlaces de una web)</p>
-
-<p>$ lynx -dump http://www.lapipaplena.com/ | awk &#8216;/http/{print $2}&#8217; | sort -  (Lo mismo)</p></blockquote>
+<blockquote><p>$ mcookie</p></blockquote>
 </div>
   
   
@@ -302,7 +300,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/lynis/">Lynis</a></h1>
+      <h1 class="entry-title"><a href="/blog/mc/">Mc</a></h1>
     
     
       <p class="meta">
@@ -325,200 +323,127 @@
   </header>
 
 
-  <div class="entry-content"><p>Busca en el sistema posibles debilidades de configuración sin realizar ninguna modificación.</p>
+  <div class="entry-content"><p>Gestor de archivos. La pantalla de Midnight Commander está divida en cuatro partes. La mayor parte de la pantalla está ocupada por los dos paneles de directorio. Por defecto, la segunda línea inferior de la pantalla es la línea de órdenes del sistema y la línea inferior muestra las etiquetas de las teclas de función. La línea superior es la barra de menú que si no está visible puede verse pulsando F9. MC pone a la vista dos directorios al mismo tiempo. Uno de los paneles es el panel actual. Algunas operaciones con archivos como Renombrar y Copiar utilizan por defecto el directorio del panel no seleccionado como destino, pero siempre solicitan una confirmación previa y podemos cambiarlo. Podemos ejecutar comandos del sistema desde MC simplemente escribiéndolos. Todo lo que escribamos aparecerá en la línea de órdenes del sistema y cuando pulsemos Intro, Midnight Commander ejecutará estos comandos. Si tenemos el ratón activado [ver gpm] para seleccionar texto mantener pulsada la tecla Mayúsculas mientras se selecciona.</p>
 
-<blockquote><p># lynis      (Visualizar las opciones)</p>
+<blockquote><p>$ mc -S gotar.ini /media/servidor /home/usuario (Especificando un skin [Listado en /usr/share/mc/skins] y directorio de cada panel)</p></blockquote>
 
-<p># lynis &#8211;check-update    (descargar actualizaciones)</p>
+<p>Colocando la linea como alias en .bashrc arancará siempre con esta configuración inicial:</p>
 
-<p># lynis -c      (lanzar el escaneo)</p>
+<blockquote><p>$ nano .bashrc</p></blockquote>
 
-<p># lynis &#8211;cronjob (Lanzar el escaneo sin pedir confirmaciones en cada apartado)</p>
+<p>alias mc=&#8217;mc -S gotar.ini /media/servidor /home/usuario&#8217;</p>
 
-<p># cat /var/log/lynis.log | grep Warning (ver las vulnerabilidades)</p>
+<p>Algunas teclas de control:</p>
 
-<p># cat /var/log/lynis.log | grep Suggestion (ver sugerencias que nos realiza lynis)</p></blockquote>
-</div>
-  
-  
+<pre><code>F1 (Despliega el Menú de ayuda)
 
+F3 (Activa el Visor de archivos interno)
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/lxpanelctl/">Lxpanelctl</a></h1>
-    
-    
-      <p class="meta">
-        
+F4 (Ejecuta el Editor interno)
 
+F5 (Copiar archivos)
 
+F6 (Mover archivos)
 
+F7 (Crear carpeta)
 
+F8 (Borrar archivos)
 
+F9 (Activa el menú principal desplegable)
 
+F10 (Salir de mc)
 
+Tab (Moverse entre los paneles)
 
-  
+Insert (Marcar para operaciones con múltiples archivos)
 
+Supr (Eliminar archivo)
 
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
+Flechas de desplazamiento (Permiten moverse por menús y submenús)
 
+Alt-Enter (copiar el nombre de un archivo en la línea de comandos [cp o mv])
 
-  <div class="entry-content"><p>Controla lxpanel.</p>
+Alt-Tab (misma función que la tecla TAB en el shell [completar comando o ruta tras haber escrito sus primeras letras]
 
-<blockquote><p>$ lxpanelctl menu (abre el menú de lxpanel)</p>
+Alt-p (Retrocede por el historico de comandos)
 
-<p>$ lxpanelctl config (Su configuración)</p>
+Alt-n (Avanza por el historico de comandos)
 
-<p>$ lxpanelctl run (Cuadro para entrar una aplicación para ejecutarla)</p></blockquote>
-
-<p>Otras opciones:</p>
-
-<p>restart (Reiniciarlo)</p>
-
-<p>exit (Matarlo)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/lxde/">Lxde</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Escritorio ligero.</p>
-
-<p>Archivos de configuración de los elementos del escritorio lxde:</p>
-
-<p>~/.config/gtkrc-2.0 (Temas de escritorio GTK+ e iconos)</p>
-
-<p>~/.config/leafpad/leafpadrc (Editor de textos Leafpad)</p>
-
-<p>~/.config/lxpanel/LXDE/panels/panel (Paneles)</p>
-
-<p>~/.config/lxpanel/LXDE/config (Lanzadores de aplicaciones del panel)</p>
-
-<p>~/.config/lxsession/LXDE/config (Administrador de ventanas)</p>
-
-<p>~/.config/lxterminal/lxterminal.conf (Terminal)</p>
-
-<p>~/.config/openbox/lxde-rc.xml (Openbox)</p>
-
-<p>~/.config/openbox/menu.xml (Menu de Openbox)</p>
-
-<p>~/.config/pcmanfm/main.lxde (Pcmanfm)</p>
+Alt-h (Abre una ventana con el historico de comandos)
+</code></pre>
 
 <p>1.-</p>
 
-<p>Arrancar aplicaciones al inicio:</p>
+<p>Mas personalizaciones de los colores:</p>
 
-<blockquote><p># /etc/xdg/lxsession/LXDE/autostart</p></blockquote>
+<p>Colores posibles: white, gray, blue, green, yellow, magenta, cyan, red, brown, birghtgreen, brightblue, brightmagenta, brightcyan, brightred, lightgray, default</p>
 
-<p>Colocar las aplicaciones precedidas de una @:</p>
+<p>Se puede incidir en los siguientes aspectos de los grupos:</p>
 
-<pre><code>@liferea
+<pre><code>Base colors: normal, selected, marked, markselect, errors, input, reverse, gauge
 
-@gdesklets 
+Menu colors: menu, menusel, menuhot, menuhotsel
+
+Dialog colors: dnormal, dfocus, dhotnormal, dhotfocus
+
+Help colors: helpnormal, helpitalic, helpbold, helplink, helpslink
+
+Viewer color: viewunderline
+
+Special highlighting colors: executable, directory, link, stalelink, device, special, core
+
+Editor colors: editnormal, editbold, editmarked
+</code></pre>
+
+<p>Nota.- No tienen que definirse obligatoriamente todos los subgrupos</p>
+
+<p>Para pruebas:</p>
+
+<pre><code>$ mc --colors normal=green,default:selected=brightmagenta,gray:marked=yellow,default:markselect=yellow,gray:directory=blue,default:executable=brightgreen,default:link=cyan,default:device=brightmagenta,default:special=lightgray,default:errors=red,default:reverse=green,default:gauge=green,default:input=white,gray:dnormal=green,gray:dfocus=brightgreen,gray:dhotnormal=cyan,gray:dhotfocus=brightcyan,gray:menu=green,default:menuhot=cyan,default:menusel=green,gray:menuhotsel=cyan,default:helpnormal=cyan,default:editnormal=green,default:editbold=blue,default:editmarked=gray,blue:stalelink=red,default 
+</code></pre>
+
+<p>Para dejar la seleccion permanente crear en el directorio (Si no existe se crea):</p>
+
+<blockquote><p>$ nano .moc/ini</p></blockquote>
+
+<p>Y pegar:</p>
+
+<pre><code>[colors]
+
+normal=green,default:selected=brightmagenta,gray:marked=yellow,default:markselect=yellow,gray:directory=blue,default:executable=brightgreen,default:link=cyan,default:device=brightmagenta,default:special=lightgray,default:errors=red,default:reverse=green,default:gauge=green,default:input=white,gray:dnormal=green,gray:dfocus=brightgreen,gray:dhotnormal=cyan,gray:dhotfocus=brightcyan,gray:menu=green,default:menuhot=cyan,default:menusel=green,gray:menuhotsel=cyan,default:helpnormal=cyan,default:editnormal=green,default:editbold=blue,default:editmarked=gray,blue:stalelink=red,default
+</code></pre>
+
+<p>Si lo queremos como alias:</p>
+
+<blockquote><p>$ nano .bashrc</p></blockquote>
+
+<p>Y pegamos:</p>
+
+<pre><code>alias mc="mc --colors normal=green,default:selected=brightmagenta,gray:marked=yellow,default:markselect=yellow,gray:directory=blue,default:executable=brightgreen,default:link=cyan,default:device=brightmagenta,default:special=lightgray,default:errors=red,default:reverse=green,default:gauge=green,default:input=white,gray:dnormal=green,gray:dfocus=brightgreen,gray:dhotnormal=cyan,gray:dhotfocus=brightcyan,gray:menu=green,default:menuhot=cyan,default:menusel=green,gray:menuhotsel=cyan,default:helpnormal=cyan,default:editnormal=green,default:editbold=blue,default:editmarked=gray,blue:stalelink=red,default"
 </code></pre>
 
 <p>2.-</p>
 
-<p>Crear iconos en el escritorio:</p>
+<p>Para configurar las aplicaciones que se usarán por defecto:</p>
 
-<p>Colocar los archivos en la carpeta Desktop o Escritorio si se tiene en español:</p>
+<blockquote><p>$ cp /etc/mc/mc.ext .mc/bindings</p>
 
-<blockquote><p>$ nano Desktop/home.lnk</p></blockquote>
+<p>$ nano .moc/bindings</p></blockquote>
 
-<p>Y colocamos el siguiente contenido de ejemplo:</p>
+<p>Y modificar las que procedan. Ejemplo:</p>
 
-<pre><code>[Desktop Entry]
+<pre><code># Para abrir los txt com vi
 
-Name=Personal
+    shell/.txt
 
-Type=Application
+        Open=%var{EDITOR:vi} %f
 
-Comment=Carpeta personal
+# Que los videos los abra vlc   
 
-Terminal=false
+    include/video
 
-Exec=pcmanfm ~
-
-Icon=folder_home.png
-
-Encoding=UTF-8
+        Open=(vlc %f &gt;/dev/null 2&gt;&amp;1 &amp;)
 </code></pre>
-
-<p>Para colocar la papelera:</p>
-
-<pre><code>$ nano Desktop/papelera.lnk
-
-Y pegar el contenido:
-
-[Desktop Entry]
-
-Name=Papelera
-
-Type=Application
-
-Comment=Papelera
-
-Terminal=false
-
-Exec=pcmanfm trash:///
-
-Icon=emptytrash.png
-
-Encoding=UTF-8
-</code></pre>
-
-<p>3.-</p>
-
-<p>Modificar iconos:</p>
-
-<blockquote><p>$ ls /usr/share/icons/ (Ver el listado de los disponibles)</p>
-
-<p># nano  /usr/share/icons/default/index.theme</p></blockquote>
-
-<p>Y en apartado Inherits colocar el deseado:</p>
-
-<p>Inherits = ComixCursors-Red-Large</p>
-
-<p>Reiniciar.</p>
 </div>
   
   
@@ -531,7 +456,7 @@ Encoding=UTF-8
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/luakit/">Luakit</a></h1>
+      <h1 class="entry-title"><a href="/blog/mate-screensaver-command/">Mate-screensaver-command</a></h1>
     
     
       <p class="meta">
@@ -554,128 +479,7 @@ Encoding=UTF-8
   </header>
 
 
-  <div class="entry-content"><p>Navegador web</p>
-
-<p>Copiar los archivos de configuración:</p>
-
-<pre><code>$ cp -r /etc/xdg/luakit .config/
-</code></pre>
-
-<p>El archivo de configuración de los parámetros generales (página de inicio, motor de busqueda, …):</p>
-
-<pre><code>$ nano .config/luakit/globals.lua
-</code></pre>
-
-<p>Atajos de teclado en:</p>
-
-<pre><code>$ nano .config/luakit/binds.lua
-</code></pre>
-
-<p>Algunos de los mismos son:</p>
-
-<p>Desplazamiento y visialización:</p>
-
-<pre><code>j (bajar por la página) 
-
-k (Subir) 
-
-h (Hacia la izquierda) 
-
-l (Hacia la derecha) 
-
-Page_Up (Ir al principio de la página) 
-
-Page_Down (Ir a final de la página del todo) 
-
-^d (Desplazamiento rápido hacia el final de la página) 
-
-^u (Desplazamiento rápito hacia el principio de la página) 
-
-+ (Aumentar medida de la fuente) 
-
-- (Disminuir la medida de la fuente) 
-
-= (Restablecer los parámetros por defecto) 
-
-F11 (Pantalla complet)
-</code></pre>
-
-<p>Abrir/ cerrar páginas y pestañas</p>
-
-<pre><code>o (Abrir url [:open....]) 
-
-O (Edita la barra de direcciones para modificar la url) 
-
-t (Abrir url en una nueva pestaña [:tabopen....]) 
-
-^t (Abrir nueva pestaña con la página de inicio) 
-
-T (Edita la barra de direcciones y la abre en una nueva pestaña) 
-
-d (Cierra la pestaña activa) 
-
-D (Cierra la ventana activa) 
-
-u (reabre la última pestaña cerrada) 
-
-w (Nueva ventana)
-</code></pre>
-
-<p>Moverse por la página</p>
-
-<pre><code>^o (página anterior) 
-
-^i (página siguiente) 
-
-gt (ir a la pestaña anterior) 
-
-gT (ir a la pestaña siguiente) 
-
-gh (ir a la página de inicio) 
-
-b (Volver a la página anterior) 
-
-:f (Ir a la página siguiente) 
-
-f (Marca todos los enlaces con un número y si se teclea se entra en el enlace) 
-
-F (Lo mismo pero en una nueva pestaña) 
-
-r (Recargar la página) 
-
-R (Recargar ignorando la caché) 
-</code></pre>
-
-<p>Direcciones de interés</p>
-
-<pre><code>B (Escribe la página actual en los enlaces de interés) 
-
-gb (Abrir los enlaces de interés en la pestaña actual) 
-
-gB (Lo mismo en una nueva pestaña) 
-
-ZZ (Cerrar guardando las pestañas abiertas)
-</code></pre>
-
-<p>Descargas</p>
-
-<pre><code>;s (Marcará todas las descargas con un número que si se tecla se procederá a descargar) 
-
-gd (Abrir la página que muestra todas las descargas activas en la pestaña activa) 
-
-gD (Lo mismo en una nueva pestaña)
-</code></pre>
-
-<p>Si una vez abierta la barra de navegación [con “o”, “t”..] colocamos:</p>
-
-<pre><code>gg palabra (Buscará palabra en googl) 
-
-ddg palabra (lo hará en el buscador duckduckgo) 
-
-wp palabra (La buscará en la wikipedia) 
-
-yu palabra (En youtube)
-</code></pre>
+  <div class="entry-content"><p>Mismas opciones que gnome-screensaver-command (ver)</p>
 </div>
   
   
@@ -688,7 +492,7 @@ yu palabra (En youtube)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/lsusb/">Lsusb</a></h1>
+      <h1 class="entry-title"><a href="/blog/markdown/">Markdown</a></h1>
     
     
       <p class="meta">
@@ -711,7 +515,122 @@ yu palabra (En youtube)
   </header>
 
 
-  <div class="entry-content"><p>Ver los puertos USB y los dispositivos conectados a ellos</p>
+  <div class="entry-content"><p>Lenguaje orientado a la escritura de documentos de manera que sean fáciles de escribir y leer directamente en texto plano convirtiéndolos en documentos XHTML bien formados. La aplicación retext permite eleborar textos en markdown y visualizarlos en tiempo real.</p>
+
+<p>Sintaxis elemental [las referencias son respecto de html]:</p>
+
+<p>Notas: Cada signo afecta hasta el primer salto de linea. Un bloque HTML ha de estar precedido por una linea en blanco y con una sangría de 4 espacios y en su interior no actúa la sintaxis markdown. Para escapar un carácter se precede barra [\] . Los párrafos se delimitan con lineas en blanco.</p>
+
+<pre><code># (equivalente a H1. Mismo resultado subrayando el texto con el signo = en la linea inmediata inferior) 
+
+## (equivalente a H2. Mismo resultado que subrayando el texto con el signo - en la linea inmediata inferior) 
+
+&gt; (muestra el texto que sigue como una cita) 
+
+* (Mostrará como una lista no ordenada)
+
+1. (Mostrará como una lista ordenada)  
+
+**texto** (texto entre dos pares de asteriscos: en negrita)
+
+*texto* (texto entre asteriscos: en cursiva)
+
+***texto*** (Texto entre dos trios de asteriscos: negrita y cursiva)
+
+2 espacios al final de una linea fuera salto de linea
+
+&lt;URL&gt; (Modo de colocar un enlace. Igual para un email)
+
+--- (3 guiones muestran una linea) 
+
+[nombre del enlace](http://url "nombre que aparece al colocar el cursor") (Enlace a una URL. El entrecomillado es opcional) 
+
+Ejemplo: Puedes buscar en \[google](http://google.es "google") o en \[yahoo](http://es.yahoo.com "yahoo") 
+
+![imagen](http://url "nombre que aparece al colocar el cursor") 
+
+Ejemplo: !\[Herramientas](http://www.linux-mag.com/s/i/topics/toolbox.jpg "Caja de herramientas")
+
+&lt;img class="[clases asignadas]" src="/ruta/a/la/imagen" title="[ancho] [alto] [el title [alt de la imagen]]" &gt; (Colocar una imagen)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/manswitch/">Manswitch</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Busca un flag concreto en las páginas man.</p>
+
+<blockquote><p>$ manswitch ps -a</p>
+
+<p>$ manswitch uname -r</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/manpath/">Manpath</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Busca la ruta a las páginas man.</p>
+
+<blockquote><p>$ manpath -g</p></blockquote>
 </div>
   
   
@@ -742,43 +661,43 @@ yu palabra (En youtube)
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/dig/">dig</a>
+        <a href="/blog/figlet/">figlet</a>
       </li>
     
       <li class="post">
-        <a href="/blog/denyhosts/">denyhosts</a>
+        <a href="/blog/fgrep/">fgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/debget/">debget</a>
+        <a href="/blog/festival/">festival</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ddrescue/">ddrescue</a>
+        <a href="/blog/fbgs/">fbgs</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ddclient/">ddclient</a>
+        <a href="/blog/faillog/">faillog</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dav/">dav</a>
+        <a href="/blog/extundelete/">extundelete</a>
       </li>
     
       <li class="post">
-        <a href="/blog/date/">date</a>
+        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dansguardian/">dansguardian</a>
+        <a href="/blog/eterm/">eterm</a>
       </li>
     
       <li class="post">
-        <a href="/blog/cups/">cups</a>
+        <a href="/blog/errno/">errno</a>
       </li>
     
       <li class="post">
-        <a href="/blog/csscapture/">csscapture</a>
+        <a href="/blog/egrep/">egrep</a>
       </li>
     
   </ul>

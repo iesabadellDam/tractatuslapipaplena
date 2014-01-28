@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Desactivar una partición swap. $ swapoff -a (Desactivar todas las especificadas en /etc/fstab)
-">
+  <meta name="description" content="Muestra la salida de un comando en pantalla y al mismo tiempo la graba en un archivo $ rkhunter -c -sk | tee rkhunter.txt $ rkhunter -c -sk | tee -a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/swapoff/">Swapoff</a></h1>
+      <h1 class="entry-title"><a href="/blog/tee/">Tee</a></h1>
     
     
       <p class="meta">
@@ -104,9 +103,11 @@
   </header>
 
 
-  <div class="entry-content"><p>Desactivar una partición swap.</p>
+  <div class="entry-content"><p>Muestra la salida de un comando en pantalla y al mismo tiempo la graba en un archivo</p>
 
-<blockquote><p>$ swapoff -a (Desactivar todas las especificadas en /etc/fstab)</p></blockquote>
+<blockquote><p>$ rkhunter -c -sk | tee rkhunter.txt</p>
+
+<p>$ rkhunter -c -sk | tee -a rkhunter.txt (Añadirá la entrada al final del fichero)</p></blockquote>
 </div>
   
   
@@ -119,7 +120,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/suspend/">Suspend</a></h1>
+      <h1 class="entry-title"><a href="/blog/teclado/">Teclado</a></h1>
     
     
       <p class="meta">
@@ -142,9 +143,44 @@
   </header>
 
 
-  <div class="entry-content"><p>Cuando es posible, suspender la shell actual.</p>
+  <div class="entry-content"><p>Ver sexkbmap.</p>
 
-<blockquote><p># suspend -f (Pasará de root a nuestro usuario)</p></blockquote>
+<p>Achivo de configuración:</p>
+
+<blockquote><p># nano /etc/default/keyboard</p></blockquote>
+
+<pre><code>XKBMODEL="pc105"
+
+XKBLAYOUT="es,de,fr,us"
+
+XKBVARIANT="cat"
+
+XKBOPTIONS=""
+
+BACKSPACE="guess"
+</code></pre>
+
+<blockquote><p># dpkg-reconfigure keyboard-configuration</p></blockquote>
+
+<p>Reiniciar.</p>
+
+<p>1.-</p>
+
+<p>Con el paquete console-data</p>
+
+<p>Al instalar el paquete, solicita la informacion del teclado, para modificarla:</p>
+
+<blockquote><p># dpkg-reconfigure console-data</p></blockquote>
+
+<p>2.-</p>
+
+<p>En ciertas ocasiones es necesario modificar del archivo:</p>
+
+<blockquote><p># nano /etc/initramfs-tools/initramfs.conf</p></blockquote>
+
+<p>El parametro:</p>
+
+<p>KEYMAP=y</p>
 </div>
   
   
@@ -157,7 +193,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/surfraw/">Surfraw</a></h1>
+      <h1 class="entry-title"><a href="/blog/tcptrack/">Tcptrack</a></h1>
     
     
       <p class="meta">
@@ -180,27 +216,25 @@
   </header>
 
 
-  <div class="entry-content"><p>Buscador de significados en la web. Antes de usar, especificar los navegadores que se usarán en teminal y en las X, mostrando la ruta absoluta a los ejecutables:</p>
+  <div class="entry-content"><p>aplicación que muestra el consumo de la conexión.</p>
 
-<blockquote><p># nano /etc/xdg/surfraw/conf</p></blockquote>
+<blockquote><p># tcptrack -i eth1 port 22 -f (Especificando conexión, puerto y habilitar el algoritmo de velocidad media rápida [-f])</p>
 
-<p>….</p>
+<p># tcptrack -i eth1 port 21 or 80 (Especificando dos puertos)</p>
 
-<blockquote><p># name/path of text browser executable</p>
+<p># tcptrack -i eth0 &#8220;dst port 80&#8221; (Sólo mostrar las conexiones destinadas al puerto 80)</p>
 
-<p># e.g links, lynx, w3m</p></blockquote>
+<p># tcptrack -i eth1 -r 10 -d (Mostrar las conexiones 10 segundos más de cuando se cierren, por defecto son 2 segundo [r] y sin rastrear las conexiones existentes [d])</p>
 
-<p>def   SURFRAW_text_browser /usr/bin/elinks</p>
+<p># tcptrack -T network.pcap > network.txt (Mandando el resultado a un archivo [-T])</p></blockquote>
 
-<blockquote><p># name/path of browser executable</p>
+<p>Algunas teclas de control:</p>
 
-<p># e.g mozilla, netscape etc</p></blockquote>
+<p>p (Pausar)</p>
 
-<p>def   SURFRAW_graphical_browser /usr/bin/firefox</p>
+<p>q (salir)</p>
 
-<blockquote><p>$ sr wikipedia -l=es Palabra_a_buscar (buscar en wikipedia y en español)</p>
-
-<p>$ sr -elvi | less  (listar los sitios disponibles donde buscar)</p></blockquote>
+<p>s (Cada vez que se pulsa la letra cambia a alguna de las 3 opciones de ordenación: sin ordenar (por defecto), por categoría y por bytes)</p>
 </div>
   
   
@@ -213,7 +247,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/surf/">Surf</a></h1>
+      <h1 class="entry-title"><a href="/blog/tcpkill/">Tcpkill</a></h1>
     
     
       <p class="meta">
@@ -236,45 +270,13 @@
   </header>
 
 
-  <div class="entry-content"><p>Navegador</p>
+  <div class="entry-content"><p>Matar o impedir conexiones tcp.</p>
 
-<blockquote><p>$ surf -i URL (Deshabilitar imagenes)</p>
+<blockquote><p># tcpkill -i eth1 host www.facebook.com (imposibilitará entrar en facebook)</p>
 
-<p>$ surf -p URL (Deshabilitar plugins)</p>
+<p># tcpkill -i eth0 host www.facebook twitter.com (especificar varias urls separadas por un espacio)</p>
 
-<p>$ surf -s URL (Deshabilitar Javascript)</p></blockquote>
-
-<p>Atajos</p>
-
-<p>Esc (Stop )</p>
-
-<p>^h (Historial)</p>
-
-<p>^l (Hacia delante en el historial)</p>
-
-<p>^k (ir hacia arriba de la página)</p>
-
-<p>^j (ir hacia abajo de la página)</p>
-
-<p>^K (Incrementar el zoom)shopt –s extglob</p>
-
-<p>^J (Disminuir el zoom)</p>
-
-<p>^I (Resetear el zoom)</p>
-
-<p>^n (ir al siguiente resultado de la busqueda)</p>
-
-<p>^N (ir al anterior resultado)</p>
-
-<p>^g (Abrir la barra de direcciones [demenu])</p>
-
-<p>^P (Abre dialogo de impresión)</p>
-
-<p>^r (Recargar página)</p>
-
-<p>^R (Recargar sin usar la caché)</p>
-
-<p>^o (Ver código fuente)</p>
+<p># tcpkill -i eth0 port 22 (especificando un puerto)</p></blockquote>
 </div>
   
   
@@ -287,7 +289,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/summain/">Summain</a></h1>
+      <h1 class="entry-title"><a href="/blog/tcpdump/">Tcpdump</a></h1>
     
     
       <p class="meta">
@@ -310,11 +312,91 @@
   </header>
 
 
-  <div class="entry-content"><p>Realiza sumas de comprobación de archivos y busca sus metadatos.</p>
+  <div class="entry-content"><p>Capturar el trafico de la red.</p>
 
-<blockquote><p>$ summain &#8211;output=summain.txt -c MD5 archivo (Lo guardará en summain.txt y suma de verifación en MD5. Por defecto es SHA1. Otras opciones: SHA224, SHA256, SHA384, SHA512)</p>
+<blockquote><p># tcpdump -D (Ver las distintas redes disponibles)</p>
 
-<p>$ summain &#8211;output=Comprobación_dir -c SHA512 /home/usuario/ (De todos los archivos del directorio del usuario)</p></blockquote>
+<p># tcpdump -nni any (Capturar todas las interfaces de red del equipo)</p>
+
+<p># tcpdump -n -i eth0 -s 1515 -w archivo (que la información se guarde en archivo)</p>
+
+<p># tcpdump -n -i eth0 -s 1515 -l | tee archivo (verlo en pantalla y que se guarde en archivo)</p>
+
+<p># tcpdump -n -r archivo -c 4 (analizar ficheros)</p>
+
+<p># tcpdump -n -r archivo udp (filtrar por protocolos - udp, tcp, icmp, arp &#8230;)</p>
+
+<p># tcpdump -n -r archivo -c 2 not tcp (con operadores booleanos [not, and]. Ver las 2 primeras capturas que no sean tcp)</p>
+
+<p># tcpdump -n -r archivo -c 2 not tcp and not udp (Ver las 2 primeras capturas que no sean tcp ni udp)</p>
+
+<p># tcpdump -n -r archivo -c 2 tpc and dst port 25 (Ver las 2 primeras capturas tcp y dst con destino al puerto 25)</p>
+
+<p># tcpdump -enni eth0 (info de la capa de enlace y MACs origen y destino)</p>
+
+<p># tcpdump host 192.168.1.3 (Capturar todo el tráfico del host especificado)</p>
+
+<p># tcpdump src net 192.168.1.0/28 (Especificando una red)</p>
+
+<p># tcpdump src host 192.168.1.3 (Solo lo que salga de la IP especificada)</p>
+
+<p># tcpdump dst port 23 (Todo el trafico que vaya dirigido al puerto 23)</p>
+
+<p># tcpdump udp and dst port 53 (Capturar tráfico de comunicación con las DNS)</p>
+
+<p># tcpdump tcp and not port 80 (Capturar todo el tráfico excepto el web)</p>
+
+<p># tcpdump tcp and port 80 (Capturar solo el web)</p>
+
+<p># tcpdump -i eth0 port not 80 and host www.google.com (Para saber si google manda “cosas” por otros puertos que no sean el 80)</p>
+
+<p># tcpdump -n -i eth1 -X tcp (Ver información del contenido de los paquetes)</p>
+
+<p># tcpdump ether src 01:20:21:00:00:B2 (Captura tráfico de la mac)</p>
+
+<p># tcpdump udp and dst port 53 (Capturar peticiones DNS)</p>
+
+<p># tcpdump tcp and (port 22 or port 23) (Capturar el tráfico telnet y ssh)</p>
+
+<p># tcpdump portrange 21-23 (tráfico origen/destino de los puertos 21, 22 o 23)</p>
+
+<p># tcpdump -n -i eth1 -X -s 200 port 9001 (de un puerto concreto)</p>
+
+<p># tcpdump -v -i eth1 port 9001 | awk &#8216;{print$1,$2,$3}&#8217;</p>
+
+<p># tcpdump port 9001 (Capturar todo el tráfico del puerto especificado)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<p>-n (Para no resolver las direcciones IP)</p>
+
+<p>-i (Indica la interfaz de red)</p>
+
+<p>-s (volumen de la parte del paquete que queremos capturar [1515 es suficiente])</p>
+
+<p>-c (cantidad de mensajes a visualizar)</p>
+
+<p>-p (no cambia la interfaz a modo promiscuo)</p>
+
+<p>-x (ver los contenidos de los paquetes)</p>
+
+<p>-r archivo (Para leer los datos de un archivo guardado con la opción -w)</p>
+
+<p>src (Dirección y puerto origen)</p>
+
+<p>dst (Dirección y puerto destino)</p>
+
+<p>1.-</p>
+
+<p>Ejemplo de un proceso:</p>
+
+<blockquote><p># tcpdump -nni eth0 &#8216;port 80&#8217; -w /tmp/port.80 (Capturar el tráfico por el puerto 80 y mandarlo a un archivo)</p>
+
+<p># tcpdump -r /tmp/port.80 -nn (Análisis básico de los datos)</p>
+
+<p># tcpdump -r /tmp/port.80 -nn &#8216;host !216.158.240.43&#8217; (Filtrar los datos descartando un host)</p>
+
+<p># tcpdump -r /tmp/port.80 -nn &#8216;host !216.158.240.43&#8217; -w /tmp/port.80.b (Lo mismo enviando los nuevos datos a otro fichero)</p></blockquote>
 </div>
   
   
@@ -327,7 +409,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/sum/">Sum</a></h1>
+      <h1 class="entry-title"><a href="/blog/tar/">Tar</a></h1>
     
     
       <p class="meta">
@@ -350,11 +432,47 @@
   </header>
 
 
-  <div class="entry-content"><p>Muestra la suma de verificación y el número de bloques del fichero.</p>
+  <div class="entry-content"><p>Empaquetar y comprimir</p>
 
-<blockquote><p>$ sum -s archivo  (Emplea el algoritmo de suma BSD con bloques de 1 kB)</p>
+<blockquote><p>$ tar -jvcf archivo.tbz directorio (Empaquetar y comprimir)</p>
 
-<p>$ sum -r archivo  (Emplea el de System V, con bloques de 512 octetos)</p></blockquote>
+<p>$ tar -zvcf archivo.tgz directorio (Empaquetar dir y comprimir)</p>
+
+<p>$ tar -zvxf archivo.tgz (Desempaquetar y descomprimr)</p>
+
+<p>$ tar -jvxf archivo.tbz (Desempaquetar y descomprimir)</p>
+
+<p>$ tar -jvtf archivo.tbz (Ver contenido)</p>
+
+<p>$ tar -zvtf archivo.tgz (Ver contenido)</p>
+
+<p>$ tar -cf  - file/ | gpg -c > file.cript  (empaquetar y encriptar un archivo)</p>
+
+<p>$ tar -c ficheros | bzip2 > archivo.tar.bz2 (Empaquetar ficheros y comprimir)</p>
+
+<p>$ tar -cvzf archivo.tar.gz /home/usuario &#8211;exclude=videos (Empaquetar el directorio del usuario exluyendo el directorio videos)</p>
+
+<p>$ tar cvfz archivo.tgz &#8211;exclude=&#8221;home/usuario/Descargas&#8221; /home/usuario/* (Lo mismo de otra forma)</p>
+
+<p>$ tar -cvzf archivo.tar.gz –exclude={*.iso,videos} /home/usuario (Otra forma de empaquetar el direcotorio del usuario excluyendo todas las iso y la carpeta videos)</p>
+
+<p>$ tar jxf archivo.tbz -C /tmp (Descomprimir en otra carpeta)</p>
+
+<p>$ tar cvfz archivo.tgz &#8211;exclude=&#8221;home/usuario/Descargas&#8221; &#8211;exclude=”home/usuario/videos  /home/usuario/* (Otra forma de especificar las carpetas excluidas)</p>
+
+<p>$ tar -cjvf archivo.tar.bz2 dir1 (crear un paquete comprimido en bzip2.)</p>
+
+<p>$ tar -xjvf archivo.tar.bz2 (descomprimir un archivo comprimido en bzip2)</p>
+
+<p>$ tar -cJvf archive.tar.xz dir1 (crear un paquete comprimido en xz)</p>
+
+<p>$ tar -xJvf archive.tar.xz (descomprimir un paquete comprimido en xz)</p>
+
+<p>$ tar -czvf archive.tar.gz dir (crear un paquete comprimido en gzip)</p>
+
+<p>$ tar -xzvf archive.tar.gz (descomprimir un paquete comprimido en gzip)</p>
+
+<p>$ tar czf - Images | ssh 192.168.1.15 &#8216;cat > ~/Images.tar.tgz&#8217; (Crear un tar de un directorio y mandarlo a un host remoto por ssh donde creará en el directorio personal el paquete Images.tar.gz)</p></blockquote>
 </div>
   
   
@@ -367,7 +485,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/sulogin/">Sulogin</a></h1>
+      <h1 class="entry-title"><a href="/blog/talk/">Talk</a></h1>
     
     
       <p class="meta">
@@ -390,7 +508,11 @@
   </header>
 
 
-  <div class="entry-content"><p>permite el ingreso del superusuario al sistema. Suele ser invocado por init cuando el sistema entra en el modo monousuario.</p>
+  <div class="entry-content"><p>Entablar conversaciones con usuarios conectados a nuestro sistema o remotos</p>
+
+<blockquote><p>$ talk usuario ttyx  (Conectar con usuarios locales)</p>
+
+<p>$ talk usuario@IP_o_Host (Con un usuario remoto [UNIX])</p></blockquote>
 </div>
   
   
@@ -403,7 +525,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/sudosh/">Sudosh</a></h1>
+      <h1 class="entry-title"><a href="/blog/tail/">Tail</a></h1>
     
     
       <p class="meta">
@@ -426,15 +548,17 @@
   </header>
 
 
-  <div class="entry-content"><p>Registra lo que hace un usuario en el sistema cuando requiere privilegios de administrador y lo almacena en dos ficheros de log, uno para los comandos y otro para los tiempos.</p>
+  <div class="entry-content"><p>muestra las últimas 10 lineas de un fichero (si no se especifica otra cantidad)</p>
 
-<p>[http://sourceforge.net/projects/sudosh2/]</p>
+<blockquote><p># tail /var/log/apache2/access.log</p>
 
-<blockquote><p># sudosh (Inicia la grabación de todo lo que ocurre en la consola)</p>
+<p># tail -f /var/log/apache2/access.log (Actualiza los logs cada segundo)</p>
 
-<p># sudosh-replay (Muestra las grabaciones archivadas en /var/log/sudosh/)</p>
+<p># tail -50 /var/log/apache2/access.log  (muestra las últimas 50)</p>
 
-<p># sudosh-replay templix-root-script-1353428989-Eji70wlZOAuIE4HM (Reproduce la escogida)</p></blockquote>
+<p># tail -f /var/log/httpd/access_log /var/log/fail2ban.log (Abrir dos archivos)</p>
+
+<p># tail -s 5 archivo.log (Actualiza cada 5 segundos)</p></blockquote>
 </div>
   
   
@@ -447,7 +571,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/sudo/">Sudo</a></h1>
+      <h1 class="entry-title"><a href="/blog/tac/">Tac</a></h1>
     
     
       <p class="meta">
@@ -470,43 +594,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Utilidad que permite a un usuario ejecutar programas con privilegios de root. En algunas distros sólo el usuario creado durante la instalación puede ejecutar sudo con privilegios de root, los demás han de ser agregados al grupo admin.</p>
+  <div class="entry-content"><p>Muestra el fichero por consola, al revés. De la última linea a la primera</p>
 
-<blockquote><p>$ sudo -k   (limpia la clave sudo introducida)</p>
-
-<p>$ sudo -u usuario comando   (ejecutar el comando como un usuario privilegiado distinto de root)</p>
-
-<p>$ sudo -l    (ver los permisos de sudo que tiene un usuario)</p>
-
-<p>$ sudo !! (Ejecutar el último comando con sudo)</p></blockquote>
-
-<p>Pueden añadirse las siguientes lineas en /etc/sudoers:</p>
-
-<p>Defaults passprompt=”mi frase solicitando la contraseña&#8230;”</p>
-
-<p>Defaults badpass_message=”mi frase si se entra erronea&#8230;”</p>
-
-<p>usuario    ALL=(ALL) ALL  (Añadir el usuario a sudo)</p>
-
-<p>Defaults:usuario !authenticate  (si no queremos que nos pida la contraseña)</p>
-
-<p>usuario ALL=NOPASSWD: /usr/sbin/firestarter (Para que no pida contraseña al arrancar una aplicación concreta)</p>
-
-<p>O añadir a la linea Defaults, algunos parámetros separados por comas:</p>
-
-<p>timestamp_timeout=5   (La contraseña se guardará 5 minutos.)</p>
-
-<p>insults    (Te mostrará insultos si fallas la contraseña)</p>
-
-<p>passwd_tries=2   (Permitir 2 errores al entrar la contraseña. Por defecto 3)</p>
-
-<p>rootpw (Para que nos pida la contraseña de root y no la de usuario)</p>
-
-<p>Ejemplos:</p>
-
-<p>Defaults     !lecture,tty_tickets,!fqdn,timestamp_timeout=0,insults</p>
-
-<p>Defaults@192.168.1.2 !lecture,tty&#8230;. (Permitir ejecución sólo desde nuestra máquina)</p>
+<blockquote><p>$ tac archivo.txt</p></blockquote>
 </div>
   
   
@@ -519,7 +609,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/sublime-text/">Sublime-text</a></h1>
+      <h1 class="entry-title"><a href="/blog/sysv-rc-conf/">Sysv-rc-conf</a></h1>
     
     
       <p class="meta">
@@ -542,35 +632,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Editor. Descargar según arquitectura de http://www.sublimetext.com/2 o via ppa (Debian):</p>
+  <div class="entry-content"><p>Gestionar el arranque de las aplicaciones al inicio.</p>
 
-<blockquote><p>$ wget http://blog.anantshri.info/content/uploads/2010/09/add-apt-repository.sh.txt</p>
-
-<p># mv add-apt-repository.sh.txt /usr/sbin/add-apt-repository</p>
-
-<p># chmod o+x /usr/sbin/add-apt-repository</p>
-
-<p># chown root:root /usr/sbin/add-apt-repository</p>
-
-<p># add-apt-repository ppa:webupd8team/sublime-text-2</p>
-
-<p># apt-get update</p>
-
-<p># apt-get install sublime-text-2</p></blockquote>
-
-<p>Teclas de control:</p>
-
-<p>Ctrl + p (abrir cuadro de diálogo [goto anything] donde se entran las consultas)</p>
-
-<p>:palabra (Buscar &#8220;palabra&#8221; en el archivo abierto)</p>
-
-<p>:157 (Ir a la linea 157)</p>
-
-<p>Ctrl + ` (Ir a la consola de sublime text)</p>
-
-<p>Ctrl + Mayu + p (Acceder al control de paquetes. Entrando &#8220;Install package&#8221; se instalan nuevos plugins y con &#8220;Remove package&#8221; se desinstalan)</p>
-
-<p>Ctrl + n (Abrir nuevo documento)</p>
+<blockquote><p># sysv-rc-conf</p></blockquote>
 </div>
   
   
@@ -601,43 +665,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/dig/">dig</a>
+        <a href="/blog/figlet/">figlet</a>
       </li>
     
       <li class="post">
-        <a href="/blog/denyhosts/">denyhosts</a>
+        <a href="/blog/fgrep/">fgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/debget/">debget</a>
+        <a href="/blog/festival/">festival</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ddrescue/">ddrescue</a>
+        <a href="/blog/fbgs/">fbgs</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ddclient/">ddclient</a>
+        <a href="/blog/faillog/">faillog</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dav/">dav</a>
+        <a href="/blog/extundelete/">extundelete</a>
       </li>
     
       <li class="post">
-        <a href="/blog/date/">date</a>
+        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dansguardian/">dansguardian</a>
+        <a href="/blog/eterm/">eterm</a>
       </li>
     
       <li class="post">
-        <a href="/blog/cups/">cups</a>
+        <a href="/blog/errno/">errno</a>
       </li>
     
       <li class="post">
-        <a href="/blog/csscapture/">csscapture</a>
+        <a href="/blog/egrep/">egrep</a>
       </li>
     
   </ul>

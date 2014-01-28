@@ -1,11 +1,11 @@
 ---
 layout: post
 title: "dvdbackup"
-date: 2014-01-27 20:06
+date: 2014-01-28 16:08
 comments: true
 categories: 
 ---
-Ripeo de dvds
+[dependencias: libdvdread, libdvdcss]. Ripeo de dvds.
 
 >$ dvdbackup -i /dev/cdrom  (/información del dvd)
 

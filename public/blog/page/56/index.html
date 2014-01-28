@@ -9,7 +9,8 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Gestor rápido de paquetes pacman y aur con funcionalidades básicas [-Ss , -S, -Syu y -Si]. Para evitar conflictos entre rutas de pacman y aur, &hellip;">
+  <meta name="description" content="Ruta para acceder a los datos contenidos en una unidad de almacenamiento. # echo $PATH | tr : \n (mostrará los dirs de los ejecutables)
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/packer/">Packer</a></h1>
+      <h1 class="entry-title"><a href="/blog/path/">Path</a></h1>
     
     
       <p class="meta">
@@ -103,15 +104,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Gestor rápido de paquetes pacman y aur con funcionalidades básicas [-Ss , -S, -Syu y -Si]. Para evitar conflictos entre rutas de pacman y aur, instalar diffpac.</p>
+  <div class="entry-content"><p>Ruta para acceder a los datos contenidos en una unidad de almacenamiento.</p>
 
-<blockquote><p>$ packer -S &#8211;noconfirm paquete  (Instalar sin pedir confirmación)</p>
-
-<p>$ packer -Syu &#8211;auronly (Actualizar y sincronizar sólo los paquetes de aur)</p>
-
-<p>$ packer -Si paquete (información sobre paquete)</p>
-
-<p>$ packer -G paquete (descargar sin instalar un tarbal de aur)</p></blockquote>
+<blockquote><p># echo $PATH | tr : \n   (mostrará los dirs de los ejecutables)</p></blockquote>
 </div>
   
   
@@ -124,7 +119,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pacdiffviewer/">Pacdiffviewer</a></h1>
+      <h1 class="entry-title"><a href="/blog/patch/">Patch</a></h1>
     
     
       <p class="meta">
@@ -147,7 +142,80 @@
   </header>
 
 
-  <div class="entry-content"><p>En Arch, busca archivos de configuración nuevos y obsoletos [pacnew, pacsave] para gestionarlos [eliminarlos, reemplazarlos..]</p>
+  <div class="entry-content"><p>Herramienta que permite aplicar un parche a un determinado fichero o directorio. Toma un fichero que contiene un listado de diferencias producidas por el programa diff y esas diferencias se aplica a uno o más archivos. Los nombres de los archivos para ser parcheado por lo general se toman del fichero del parche, pero si hay un solo archivo para ser parcheado puede ser especificado en la línea de comandos como originalfile.</p>
+
+<p>1.-</p>
+
+<p>Aplicar un parche a una aplicación instalada.</p>
+
+<blockquote><p>$ wget http://host/parche.patch  (Descargar el parche)</p>
+
+<p># patch &#8211;backup /usr/bin/aplicacion_a_parchear ~/parche.patch</p></blockquote>
+
+<p>Un ejemplo completo en archivos de texto:</p>
+
+<p>Tenemos dos ficheros, file1 (archivo original) y file2 (archivo modificado) con el siguiente contenido:</p>
+
+<pre><code>$ cat file1
+
+Me gusta linux
+
+$ cat file2
+
+Me gusta la libertad
+</code></pre>
+
+<p>Generar el parche parche con el comando diff:</p>
+
+<pre><code>$ diff -u file1 file2 &gt; file.patch
+
+$ cat file.patch 
+
+--- file1   2013-11-02 03:14:28.466555864 +0100
+
++++ file2   2013-11-02 03:14:46.230555684 +0100
+
+@@ -1 +1 @@
+
+-Me gusta linux
+
++Me gusta la libertad
+</code></pre>
+
+<p>Tenemos un tercer fichero con el siguiente contenido:</p>
+
+<pre><code>$ cat file3
+
+Me gusta linux
+
+No uso programario privativo
+</code></pre>
+
+<p>Y queremos parchearlo con el archivo que hemos creado previamente. El resultado sería el siguiente:</p>
+
+<pre><code>$ patch file3 &lt; file.patch
+
+patching file file3
+
+$ cat file3
+
+Me gusta la libertad
+
+No uso programario privativo
+</code></pre>
+
+<p>Para anular un parche previamente aplicado:</p>
+
+<pre><code>$ patch -R file3 &lt; file.patch
+
+patching file file3
+
+$ cat file3
+
+Me gusta la libertad
+
+No uso programario privativo
+</code></pre>
 </div>
   
   
@@ -160,7 +228,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/p0f/">P0f</a></h1>
+      <h1 class="entry-title"><a href="/blog/paste/">Paste</a></h1>
     
     
       <p class="meta">
@@ -183,15 +251,9 @@
   </header>
 
 
-  <div class="entry-content"><p>identifica huellas de sistemas operativos de forma pasiva (solo escuchando)</p>
+  <div class="entry-content"><p>Combina archivos, juntando las primeras lineas con las primeras, las segundas con las segundas&#8230;</p>
 
-<blockquote><p># p0f -i eth0</p>
-
-<p># p0f -A -i eth0  (averiguar conexiones que nos realizan o pasan por nuestra máquina)</p>
-
-<p># p0f -R -i eth0  (con conexiones que nos rechazan el tráfico)</p></blockquote>
-
-<p>Nota.- Lanzar la aplicación, visitar distintas páginas con el navegador y mirar en la consola lo que aparece.</p>
+<blockquote><p>$ paste 1.txt 2.txt > 3.txt</p></blockquote>
 </div>
   
   
@@ -204,7 +266,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/owncloud/">Owncloud</a></h1>
+      <h1 class="entry-title"><a href="/blog/passwd/">Passwd</a></h1>
     
     
       <p class="meta">
@@ -227,23 +289,13 @@
   </header>
 
 
-  <div class="entry-content"><p>[apache2 php5 php-pear php-xml-parser php5-sqlite php5-json sqlite php5-mysql mp3info curl libcurl3 libcurl3-dev php5-curl zip php5-gd]</p>
+  <div class="entry-content"><p>Cambiar contraseñas</p>
 
-<p>Nube de almacenamiento tipo dropbox, minux, google-drive &#8230; pero no comercial y libre, gestionado totalmente via web. Descargar de http://owncloud.org/ la última versión. Una vez bajado el paquete tar.bz2:</p>
+<blockquote><p># passwd -f usuario        (Cambia por completo los datos del usuario)</p>
 
-<blockquote><p>$ tar -xvf owncloud*.tar.bz2 (Descomprimir)</p>
+<p># passwd -l root              (Desactiva la contraseña root)</p>
 
-<p>$ mv owncloud /var/www/ (mover la carpeta al directorio web)</p>
-
-<p># chown -R www-data:www-data /var/www/owncloud (Crear usuario y grupo)</p>
-
-<p># /etc/init.d/apache2 restart (reiniciar apache2)</p></blockquote>
-
-<p>Terminar la configuración [administrador, contraseña, base de datos..) abriendo en el navegador la dirección:</p>
-
-<p>http://localhost/owncloud</p>
-
-<p>Todo lo que se arrastra a la ventana del navegador se incluye en la nube.</p>
+<p># passwd usuario            (Solicita la contraseña de usuario y la restablece)</p></blockquote>
 </div>
   
   
@@ -256,7 +308,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/owl/">Owl</a></h1>
+      <h1 class="entry-title"><a href="/blog/partx/">Partx</a></h1>
     
     
       <p class="meta">
@@ -279,39 +331,13 @@
   </header>
 
 
-  <div class="entry-content"><p>Instalador de paquetes para archlinux.</p>
+  <div class="entry-content"><p>Informa sobre particiones y discos.</p>
 
-<blockquote><p>$ owl refresh  (Refrescar la lista de paquetes)</p>
+<blockquote><p># partx -s /dev/sda (Lista particiones)</p>
 
-<p>$ owl update (Refrescar la lista y actualizarlos [-Syu])</p>
+<p># partx -b /dev/sda (Muestra las medidas de las particones)</p>
 
-<p>$ owl pull (Actualizar AUR)</p>
-
-<p>$ owl install paquete (Instalar un paquete [-S]</p>
-
-<p>$ owl upgrade paquete (Actualizar el paquete)</p>
-
-<p>$ owl downgrade paquete (Desactualizar paquete)</p>
-
-<p>$ owl remove paquete (Eliminar paquete)</p>
-
-<p>$ owl download paquete (Descargar el paquete de AUR)</p>
-
-<p>$ owl search palabra (Buscar palabras relacionadas)</p>
-
-<p>$ owl query palabra (Buscar palabra relacionada en local)</p>
-
-<p>$ owl info paquete (Buscar información de paquete)</p>
-
-<p>$ owl deps paquete (Mirar dependencias)</p>
-
-<p>$ owl version paquete (Ver la versión del paquete)</p>
-
-<p>$ owl description paquete (Ver descrición del paquete)</p>
-
-<p>$ owl list paquete (listar los paquetes que se instalan con paquete)</p>
-
-<p>$ owl orphans (Listar poquetes de AUR instalados y desatendidos)</p></blockquote>
+<p># partx -s /dev/sda4 /dev/sda (Información sobre las partición núm 4 de sda)</p></blockquote>
 </div>
   
   
@@ -324,7 +350,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/outguess/">Outguess</a></h1>
+      <h1 class="entry-title"><a href="/blog/partprobe/">Partprobe</a></h1>
     
     
       <p class="meta">
@@ -347,11 +373,13 @@
   </header>
 
 
-  <div class="entry-content"><p>Herramienta de encriptación</p>
+  <div class="entry-content"><p>Releer la tabla de particiones después de alguna modificación en ella, sin necesidad de reiniciar.</p>
 
-<blockquote><p>$ outguess -k password -d mensaje.txt imagen.jpg resultado.jpg (Embebe el mensaje en una imagen con la contraseña especificada)</p>
+<blockquote><p># partprobe</p>
 
-<p>$ outguess -k password -r resultado.jpg mensaje.txt  (saca el mensaje de la imagen)</p></blockquote>
+<p># partprobe /dev/sda (especificando un disco)</p>
+
+<p># partprobe -s (resumen de las particiones)</p></blockquote>
 </div>
   
   
@@ -364,7 +392,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/otp/">Otp</a></h1>
+      <h1 class="entry-title"><a href="/blog/parallel/">Parallel</a></h1>
     
     
       <p class="meta">
@@ -387,15 +415,11 @@
   </header>
 
 
-  <div class="entry-content"><p>Generador de contraseñas.</p>
+  <div class="entry-content"><p>Ejecutar varias aplicaciones en paralelo.</p>
 
-<blockquote><p>$ otp -c6 -S3 -n5 (Creará 5 contraseñas [-n] por defecto son 50, de 6 letras mayúsculas [-c] separadas por un guión de 3 en 3 [-S] por defecto son de 4 en 4)</p></blockquote>
+<blockquote><p>$ parallel &#8211; who pwd &#8220;echo ++++++++++++++++++&#8221;</p>
 
-<p>Algunas opciones:</p>
-
-<p>-d8 (Empleando sólo 8 números)</p>
-
-<p>-l6 (6 letras en minúscula)</p>
+<p>$ parallel sh -c &#8220;echo linux es genial; sleep 2; echo &#8230; o no&#8221; &#8211; n 2 (dos veces)</p></blockquote>
 </div>
   
   
@@ -408,7 +432,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ossec/">Ossec</a></h1>
+      <h1 class="entry-title"><a href="/blog/paplay/">Paplay</a></h1>
     
     
       <p class="meta">
@@ -431,13 +455,9 @@
   </header>
 
 
-  <div class="entry-content"><p>[wget http://www.ossec.net/files/ossec-hids-2.6.tar.gz]</p>
+  <div class="entry-content"><p>Reproducción de audio en formatos pulseaudio (flac)</p>
 
-<p>Sistema de detección de intrusos. Durante la instalación, una vez escogido el idioma, se realizan una serie de preguntas sobre si se desea recibir por correo las notificaciones [en este caso precisa postfix], lugar de instalación [/var/ossec], si la instalación va a ser local, servidor&#8230; y otras cuyos parámetros por defecto son suficientes.</p>
-
-<blockquote><p># /var/ossec/etc/ossec.conf (Archivo de configuración:)</p>
-
-<p># /var/ossec/bin/ossec-control start (Arrancar el demonio caso de no colocarlo en /etc/init.d/ossec)</p></blockquote>
+<blockquote><p>$ paplay archivo.flac</p></blockquote>
 </div>
   
   
@@ -450,7 +470,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/optipng/">Optipng</a></h1>
+      <h1 class="entry-title"><a href="/blog/pandoc/">Pandoc</a></h1>
     
     
       <p class="meta">
@@ -473,13 +493,17 @@
   </header>
 
 
-  <div class="entry-content"><p>Optimizacion de imagenes .png. La reduccion de tamaño es poca pero no pierde calidad. Como modo indicativo, un directorio con 5 imagenes con un peso de 27,5 MB pasa a 25,8 MB.</p>
+  <div class="entry-content"><p>Conversor de formatos de documentos. La entrada puede ser cualquier documento en haskell, markdown, rst, html, txt o latex y la salida, txt, haskell, markdown, rst, html, latex,man, context, texinfo, docbook, opendocument, odt, s5 o rtf.</p>
 
-<blockquote><p>$ optipng imagen.png (Sobreescribe las imagenes)</p>
+<blockquote><p>$ pandoc -o salida.html entrada.md (Convertir markdown a html)</p>
 
-<p>$ optipne imagen.png -out nueva_imagen.png (Guardar la salida con otro nombre)</p>
+<p>$ pandoc entrada.txt -o salida.pdf (Convertir txt a pdf)</p>
 
-<p>$ optipng -dir imagenes (De todas las imagenes de un directorio)</p></blockquote>
+<p>$ pandoc texto.txt -o libro.epub (Convertir a epub)</p>
+
+<p>$ pandoc -f html -t markdown -o pagina.md pagina.html (Convertir de html a markdown)</p>
+
+<p>$ pandoc -f markdown -t latex -o texto_latex.tex texto_markdown.md (Convertir texto en markdown a latex)</p></blockquote>
 </div>
   
   
@@ -492,7 +516,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/opkg/">Opkg</a></h1>
+      <h1 class="entry-title"><a href="/blog/pal/">Pal</a></h1>
     
     
       <p class="meta">
@@ -515,27 +539,15 @@
   </header>
 
 
-  <div class="entry-content"><p>Gestor de paquetes de OpenWRT, firmware linux para routers.</p>
+  <div class="entry-content"><p>Calendario con eventos [para us, australia, austria, musicales &#8230;]. Al ejecutar por primera vez la aplicación, se crea el archivo ~/pal/pal.conf donde podrán deshabilitarse los eventos que no interesan. Para activar que las semanas empiecen por lunes:</p>
 
-<blockquote><p># opkg update (actualiza la lista de paquetes)</p>
+<blockquote><p>$ nano .pal/pal.conf</p></blockquote>
 
-<p># opkg install paquete (instalar un paquete)</p>
+<p>week_start_monday</p>
 
-<p># opkg upgrade paquete (actualiza un paquete)</p>
+<blockquote><p>$ pal -c 10 (Muestra el calendario con 10 lineas. Por defecto 5)</p>
 
-<p># opkg remove paquete (elimina un paquete)</p>
-
-<p># opkg list (ver paquetes disponibles)</p>
-
-<p># opkg list-installed (ver paquetes instalados)</p>
-
-<p># opkg list-upgradable (ver paquetes actualizables)</p>
-
-<p># opkg files paquete (Ver ficheros instalados de un paquete y la versión del mismo)</p>
-
-<p># opkg info paquete (ver información de un paquete)</p>
-
-<p># opkg find palabra (buscar paquetes por nombre y descripción)</p></blockquote>
+<p>$ pal &#8211;color (Lo muestra a color. &#8211;nocolor para blanco y negro)</p></blockquote>
 </div>
   
   
@@ -566,43 +578,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/dig/">dig</a>
+        <a href="/blog/figlet/">figlet</a>
       </li>
     
       <li class="post">
-        <a href="/blog/denyhosts/">denyhosts</a>
+        <a href="/blog/fgrep/">fgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/debget/">debget</a>
+        <a href="/blog/festival/">festival</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ddrescue/">ddrescue</a>
+        <a href="/blog/fbgs/">fbgs</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ddclient/">ddclient</a>
+        <a href="/blog/faillog/">faillog</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dav/">dav</a>
+        <a href="/blog/extundelete/">extundelete</a>
       </li>
     
       <li class="post">
-        <a href="/blog/date/">date</a>
+        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dansguardian/">dansguardian</a>
+        <a href="/blog/eterm/">eterm</a>
       </li>
     
       <li class="post">
-        <a href="/blog/cups/">cups</a>
+        <a href="/blog/errno/">errno</a>
       </li>
     
       <li class="post">
-        <a href="/blog/csscapture/">csscapture</a>
+        <a href="/blog/egrep/">egrep</a>
       </li>
     
   </ul>

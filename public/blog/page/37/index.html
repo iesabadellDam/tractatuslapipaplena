@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Modificación de los atributos de la terminal. Algunos flags solo son aplicables a las tty. $ setterm -r (La resetea incluso si ha quedado colgada) $ &hellip;">
+  <meta name="description" content="Muestra el código de la tecla pulsada. $ showkey -a (arranca el prompt y mostrarà el código ascii de cada tecla que se pulse hasta finalizar con ctrl &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/setterm/">Setterm</a></h1>
+      <h1 class="entry-title"><a href="/blog/showkey/">Showkey</a></h1>
     
     
       <p class="meta">
@@ -103,19 +103,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Modificación de los atributos de la terminal. Algunos flags solo son aplicables a las tty.</p>
+  <div class="entry-content"><p>Muestra el código de la tecla pulsada.</p>
 
-<blockquote><p>$ setterm -r   (La resetea incluso si ha quedado colgada)</p>
-
-<p>$ setterm -cursor off (desaparece el cursor. Con &#8220;on&#8221; regresa de nuevo)</p></blockquote>
-
-<p>Opciones:</p>
-
-<p>-foreground green (Color de texto. [black|blue|green|cyan|red|magenta|yellow|white|default])</p>
-
-<p>-background red  (Color de fondo)</p>
-
-<p>-inversescreen on (Intercambia los colores del texto y el fondo)</p>
+<blockquote><p>$ showkey -a (arranca el prompt y mostrarà el código ascii de cada tecla que se pulse hasta finalizar con ctrl+d)</p></blockquote>
 </div>
   
   
@@ -128,7 +118,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/setsid/">Setsid</a></h1>
+      <h1 class="entry-title"><a href="/blog/showfigfonts/">Showfigfonts</a></h1>
     
     
       <p class="meta">
@@ -151,9 +141,7 @@
   </header>
 
 
-  <div class="entry-content"><p>Permite continuar ejecutando un comando aunque se cierre la terminal o la sesión ssh. Parecido a nohup [ver] o screen [ver] aunque a diferencia de estos, no permite volver para ver el estado de proceso.</p>
-
-<blockquote><p>$ setsid apt-get update</p></blockquote>
+  <div class="entry-content"><p>Muestra las fuentes disponibles para el comando figlet.</p>
 </div>
   
   
@@ -166,7 +154,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/setserial/">Setserial</a></h1>
+      <h1 class="entry-title"><a href="/blog/showconsolefonts/">Showconsolefonts</a></h1>
     
     
       <p class="meta">
@@ -189,9 +177,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Muestra información sobre los puertos serial.</p>
+  <div class="entry-content"><p>Muestra las fuentes de las ttys</p>
 
-<blockquote><p>$ setserial -G /dev/ttyS0</p></blockquote>
+<blockquote><p>$ showconsolefonts -v -C /dev/tty2 (Con información adicional y especificando la tty)</p></blockquote>
 </div>
   
   
@@ -204,7 +192,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/setsebool/">Setsebool</a></h1>
+      <h1 class="entry-title"><a href="/blog/show-all-colors/">Show_all_colors</a></h1>
     
     
       <p class="meta">
@@ -227,13 +215,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Permite activar/desactivar las políticas en selinux. Ver getsebool</p>
+  <div class="entry-content"><p>Muestra un listado de todos los colores disposibles.</p>
 
-<blockquote><p># setsebool httpd_can_network_connect on (Activamos el permitir a Apache realizar conexiones de red)</p>
-
-<p># setsebool -P httpd_can_network_connect on (Hacer el cambio persistente)</p>
-
-<p># setsebool httpd_disable_trans 1 (Otra forma de desactivar una politica. Con 0 se activa)</p></blockquote>
+<blockquote><p>$ show_all_colors</p></blockquote>
 </div>
   
   
@@ -246,7 +230,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/setleds/">Setleds</a></h1>
+      <h1 class="entry-title"><a href="/blog/shorewall/">Shorewall</a></h1>
     
     
       <p class="meta">
@@ -269,13 +253,59 @@
   </header>
 
 
-  <div class="entry-content"><p>Controla los leds del teclado</p>
+  <div class="entry-content"><p>Cortafuegos.</p>
 
-<blockquote><p>$ setleds -D +num >> /dev/tty1  (activa el teclado numérico)</p>
+<blockquote><p># shorewall check (Chequea los archivos de configuración. Si finaliza con el mensaje &#8220;Shorewall configuration verified&#8221; todo está correcto)</p>
 
-<p>$ setleds -D -caps >> /dev/tty1 (desactiva las mayúsculas)</p>
+<p># shorewall start (Arrancar el cortafuegos. &#8220;stop&#8221; para parar y &#8220;restart&#8221; para reiniciar)</p>
 
-<p>$ setleds -D +scroll >> /dev/tty1 (activa el scroll)</p></blockquote>
+<p># shorewall safe-start (Arrancar de forma segura. Aplicable tambien a safe-restart)</p>
+
+<p># shorewall clear (Desactivar todas las reglas de filtrado y enrutado)</p>
+
+<p># shorewall status (Ver el estado del firewall)</p></blockquote>
+
+<p>Configuración:</p>
+
+<blockquote><p># nano /etc/default/shorewall</p></blockquote>
+
+<p>startup=1 (Aplicar las reglas al iniciar el sistema)</p>
+
+<blockquote><p># nano /etc/shorewall/rules</p></blockquote>
+
+<p>Especificar los protocolos que se permitirán acceder a nuestra máquina des de el exterior:</p>
+
+<p>SSH/ACCEPT  net $FW</p>
+
+<p>Equivalente a:</p>
+
+<p>ACCEPT      net $FW tcp 22</p>
+
+<p>Otro ejemplo:</p>
+
+<p>Web/ACCEPT  net $FW</p>
+
+<p>Equivalente a:</p>
+
+<p>ACCEPT      net $FW tcp 80</p>
+
+<p>Otro para ftp:</p>
+
+<p>FTP/ACCEPT  net $FW</p>
+
+<p>Equivalente a:</p>
+
+<p>ACCEPT      net $FW tcp 21</p>
+
+<p>Las opciones pueden ser DROP, ACCEPT y REJECT</p>
+
+<p>Otros archivos de configuración:</p>
+
+<p>/etc/shorewall/policy</p>
+
+<p>/etc/shorewall/interfaces</p>
+
+<p>/etc/shorewall/zones</p>
 </div>
   
   
@@ -288,7 +318,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/set/">Set</a></h1>
+      <h1 class="entry-title"><a href="/blog/shopt/">Shopt</a></h1>
     
     
       <p class="meta">
@@ -311,15 +341,45 @@
   </header>
 
 
-  <div class="entry-content"><p>desplegar todas las variables [y sus valores] que el shell controla y otorgar nuevas variables.</p>
+  <div class="entry-content"><p>Habilita o deshabilita variables opcionales del comportamiento del shell bash.</p>
 
-<blockquote><p>$ set | more</p>
+<blockquote><p>$ shopt  (visualiza las activas y las inactivas)</p>
 
-<p>$ set -o vi (cambiar a las teclas del modo de edición de vi . Por defecto bash utiliza el modo emacs)</p>
+<p>$ shopt -s (visualiza las que estan activas)</p>
 
-<p>$ set -o noclobber (activar la protección de sobreescritura en las tuberias si el archido ya existe [ls > lista] para saltarse esta protección puede hacerse con ls >|lista)</p>
+<p>$ shopt -s hostcomplete (activa una opción)</p>
 
-<p>$ set +o noclobber (Desactivar la protección. Opción por defecto)</p></blockquote>
+<p>$ shopt -u hostcomplete (la desactiva)</p></blockquote>
+
+<p>Variables opcionales:</p>
+
+<p>cdable_vars (Permite que cd use los valores de las variables como nombres de directorios)</p>
+
+<p>cdspell (Ignora pequeños errores en los cambios de directorio con cd. Sólo en la ejecución interactiva)</p>
+
+<p>cmdhist (Guarda los comandos que hemos escrito en varias líneas en una sola línea del historial)</p>
+
+<p>dotglob (Incluye en la expansión de comodines los ficheros que empiezan por punto (.))</p>
+
+<p>expand_aliases (Expande un alias cuando lo ejecuta)</p>
+
+<p>extglob (Utiliza extensiones de los comodines)</p>
+
+<p>failglob (Si falla la expansión de un comodín porque no encuentra nada falla el comando (como hace el C Shell))</p>
+
+<p>force_fignore (Los sufijos especificados en la variable de entorno FIGNORE no se usan para completar palabras con tabulador)</p>
+
+<p>hostcomplete (Se intenta completar nombres de host al pulsar tabulador cuando la palabra contiene una @)</p>
+
+<p>interactive_comments (Permite que dentro de un comando de sesión interactiva haya comentarios (precedidos por #))</p>
+
+<p>login_shell (Variable de sólo lectura que indica si Bash ha sido lanzado como un shell de login)</p>
+
+<p>nocaseglob (Indica si los comodines expanden sin sensibilidad a mayúsculas/minúsculas. No confundir con la variable completion-ignore-case de inputrc que lo que hacía era expandir con tabulador.)</p>
+
+<p>nullglob (Hace que cuando un patrón no encuentra ficheros, se expandan por la cadena vacía en vez de por el patrón sin expandir)</p>
+
+<p>sourcepath (Hace que el comando interno source busque el argumento en los directorios que indique PATH)</p>
 </div>
   
   
@@ -332,7 +392,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/sestatus/">Sestatus</a></h1>
+      <h1 class="entry-title"><a href="/blog/shodan/">Shodan</a></h1>
     
     
       <p class="meta">
@@ -355,11 +415,27 @@
   </header>
 
 
-  <div class="entry-content"><p>Devuelve el estado de SELinux y la política que se está usando. Ver selinux y getsenforce</p>
+  <div class="entry-content"><p>Buscador no de sitios web como google, yahoo o bing, sinó de dispositivos conectados a la red [routers, impresoras, camaras ip&#8230;]. Precisa registro con lo que aumenta la cantidad de salidas de las busquedas de 10 [sin registro] a 50.</p>
 
-<blockquote><p># sestatus</p>
+<p>Opciones generales en la barra de busquedas para usuarios sin cuaenta pro:</p>
 
-<p># sestatus -v (estado detallado de un sistema ejecutando SELinux)</p></blockquote>
+<p>apache country:ES (Buscar servidores apache en España)</p>
+
+<p>apache city:Madrid country:ES (Buscar servidores apache en Madrid - España)</p>
+
+<p>nginx hostname:.es (Buscar servidores nginx con .es en su hostname)</p>
+
+<p>proftpd port:21 os:linux (Buscar servidores proftpd especificando puerto y sistema operativo)</p>
+
+<p>net:18.7.7.0/24 (Buscar en un rango de ips)</p>
+
+<p>Algunos ejemplos concretos:</p>
+
+<p>dvr port:8080 (Buscar cámaras web. Una vez clicada la seleccionada de la busqueda, añadir a la ip /DVR.cfg, quedando la url: http://xx.xxx.xx.xx:8080/DVR.cfg, saldrá un archivo DVR.cfg para descargar. Descargarlo y editarlo. Buscar usuario y contraseña en USER1_USERNAME=XXXX y USER1_PASSWORD=XXXX)</p>
+
+<p>Server:SQ-WEBCAM country:es (Buscar webcams en España)</p>
+
+<p>netcam country:es (Cámaras ip en España)</p>
 </div>
   
   
@@ -372,7 +448,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/service/">Service</a></h1>
+      <h1 class="entry-title"><a href="/blog/shelr/">Shelr</a></h1>
     
     
       <p class="meta">
@@ -395,13 +471,35 @@
   </header>
 
 
-  <div class="entry-content"><p>Inicia o para servicios.</p>
+  <div class="entry-content"><p>Realizar una grabación de la consola con la posibilidad de subirla a http://shelr.tv. Una vez registrados conseguimos el ID personal. La grabación termina al pulsar Ctrl + d y se almacena en .local/share/shelr/ del usuario o de root. Las medidas de la terminal optimas son 132x43 [lanzar, por ejemplo: lxterminal &#8211;geometry=132x43]</p>
 
-<blockquote><p># service apache2 start (Arranca apache2)</p>
+<blockquote><p>$ shelr record (Inicia la grabación despues de solicitar el título)</p>
 
-<p># service apache2 stop (Para apache2)</p>
+<p>$ shelr record &#8211;sound (Grabar con sonido)</p>
 
-<p># service apache2 restart (Reinicia el apache2)</p></blockquote>
+<p>$ shelr list (muestra todos los shellcasts [grabaciones])</p>
+
+<p>$ shelr play ID (Reproduce el especificado en el número ID)</p>
+
+<p>$ shelr dump ID (Volcará la grabación en el directorio actual con extensión .json. Solicita nombre y etiqueta del shellcast)</p>
+
+<p>$ shelr play last (eproduce la última grabación)</p>
+
+<p>$ shelr play archivo.json (Reproduce el archivo volcado)</p>
+
+<p>$ shelr play URL (Reproduce un remoto alojado en shelr.tv)</p></blockquote>
+
+<p>1.-</p>
+
+<p>Proceso para subir la grabación a shelr.tv:</p>
+
+<blockquote><p>$ shelr setup 4dbde740509f4591bab88ca2361a269 (Especificar el ID de usuario. Este es ficticio)</p>
+
+<p>$ shelr record (Empezar la grabación)</p>
+
+<p>$ shelr push last (Subirla a shelr.tv)</p>
+
+<p>$ shelr push last &#8211;private (Subirla a shelr.tv y mantenerla privada)</p></blockquote>
 </div>
   
   
@@ -414,7 +512,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/seq/">Seq</a></h1>
+      <h1 class="entry-title"><a href="/blog/shell/">Shell</a></h1>
     
     
       <p class="meta">
@@ -437,17 +535,7 @@
   </header>
 
 
-  <div class="entry-content"><p>Crea secuencias de números</p>
-
-<blockquote><p>$ seq 7 12 (entre el 7 y el 12)</p>
-
-<p>$ seq 7 2 12 (entre el 7 y el 12 con un incremento de 2 en 2)</p>
-
-<p>$ seq -w 7 12 (entre el 7 y el 12 con el mismo tamaño)</p>
-
-<p>$ seq -s_ 7 12 (con un guión bajo entre cada número)</p>
-
-<p>$ seq -s&#8217;#&#8217; 0 $(tput cols) | tr -d &#8216;[:digit:]&#8217;  (Escribe una raya de “#” en toda la anchura de la terminal)</p></blockquote>
+  <div class="entry-content"><p>Termino usado para referirse al interprete de comandos. Los comandos, cuando se escriben en ficheros ejecutables se denominan shell-scripts o programación shell aunque, mirado estrictamente, no se sean un lenguje de programación. El termino shell hace referencia a un programa particular, el Bourne shell [sh] que es un standard unix y, aunque según las distros pueden incluir distintas shells con más características (bash, ash, csh, ksh, tcsh) todas son compatibles con el bourne shell.</p>
 </div>
   
   
@@ -460,7 +548,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/sensors-detect/">Sensors-detect</a></h1>
+      <h1 class="entry-title"><a href="/blog/shc/">Shc</a></h1>
     
     
       <p class="meta">
@@ -483,7 +571,38 @@
   </header>
 
 
-  <div class="entry-content"><p>Detecta, instala y carga sensores y módulos necesarios.</p>
+  <div class="entry-content"><p>Ofuscador que encripta el código de un script. Descargar el script de http://www.datsi.fi.upm.es/~frosal/sources/</p>
+
+<p>Instalación:</p>
+
+<blockquote><p># cd shc-3.8.9 (entrar en el directorio descomprimido)</p>
+
+<p># cp shc-3.8.9.c shc.c (evitar error &#8220;No rule to make target <code>shc.c', needed by</code>shc&#8217;&#8221;)</p>
+
+<p># mkdir /usr/local/man/man1 (Crear el directorio man1 para evitar el error de &#8220;directorio no existe&#8221;)</p>
+
+<p># make install (Pulsar &#8220;y&#8221; a la pregunta &#8220;Do you want to continue&#8221;)</p></blockquote>
+
+<pre><code>*** Installing shc and shc.1 on /usr/local
+
+*** Do you want to continue? y
+
+install -c -s shc /usr/local/bin/
+
+install -c -m 644 shc.1 /usr/local/man/man1/
+</code></pre>
+
+<p>Uso:</p>
+
+<blockquote><p>$ shc -f script.sh</p></blockquote>
+
+<p>Creará 2 archivos nuevos:</p>
+
+<p>script.sh  script.sh.x  script.sh.x.c</p>
+
+<p>El ejecutable es el terminado en .x [script.sh.x] que podrá enviarse y ejecutarse de la forma habitual pero sin poder leer el código fuente.</p>
+
+<p>Nota.- El terminado en .x.c es el script pero en lenguaje C. Puede borrarse sin ningún problema.</p>
 </div>
   
   
@@ -514,43 +633,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/dig/">dig</a>
+        <a href="/blog/figlet/">figlet</a>
       </li>
     
       <li class="post">
-        <a href="/blog/denyhosts/">denyhosts</a>
+        <a href="/blog/fgrep/">fgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/debget/">debget</a>
+        <a href="/blog/festival/">festival</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ddrescue/">ddrescue</a>
+        <a href="/blog/fbgs/">fbgs</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ddclient/">ddclient</a>
+        <a href="/blog/faillog/">faillog</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dav/">dav</a>
+        <a href="/blog/extundelete/">extundelete</a>
       </li>
     
       <li class="post">
-        <a href="/blog/date/">date</a>
+        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dansguardian/">dansguardian</a>
+        <a href="/blog/eterm/">eterm</a>
       </li>
     
       <li class="post">
-        <a href="/blog/cups/">cups</a>
+        <a href="/blog/errno/">errno</a>
       </li>
     
       <li class="post">
-        <a href="/blog/csscapture/">csscapture</a>
+        <a href="/blog/egrep/">egrep</a>
       </li>
     
   </ul>

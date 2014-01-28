@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Servidor ftp local. # nano /etc/proftp/proftpd.conf DefaultRoot /home/usuario users, !otros DefaultRoot /home/usuario/servidor otros Indicamos que el &hellip;">
+  <meta name="description" content="Editor minimalista. Atajos: Ctrl + h (Muestra la ayuda) Ctrl + i (Información del búfer) Ctrl + p (Abre preferencias) Ctrl + n (Crear nuevo buffer) &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/proftpd/">Proftpd</a></h1>
+      <h1 class="entry-title"><a href="/blog/pyroom/">Pyroom</a></h1>
     
     
       <p class="meta">
@@ -103,17 +103,36 @@
   </header>
 
 
-  <div class="entry-content"><p>Servidor ftp local.</p>
+  <div class="entry-content"><p>Editor minimalista.</p>
 
-<blockquote><p># nano /etc/proftp/proftpd.conf</p></blockquote>
+<p>Atajos:</p>
 
-<p>DefaultRoot     /home/usuario                    users, !otros</p>
+<pre><code>Ctrl + h (Muestra la ayuda)
 
-<p>DefaultRoot     /home/usuario/servidor      otros</p>
+Ctrl + i (Información del búfer)
 
-<p>Indicamos que el directorio raiz de los usuarios del grupo “users” es /home/usuario  pero los del grupo “otros” solo pueden acceder al directorio servidor.</p>
+Ctrl + p (Abre preferencias)
 
-<blockquote><p>$ tail -f /var/log/proftpd  (monitorizar los logs)</p></blockquote>
+Ctrl + n (Crear nuevo buffer)
+
+Ctrl + o (Abrir archivo)
+
+Ctrl + q (salir)
+
+Ctrl + s (Guardar)
+
+Ctrl + shift + s (Guardar búfer como...)
+
+Ctrl + w (Cerrar búfer y salir si era el último búfer)
+
+Ctrl + y (Rehacer la última modificación)
+
+Ctrl + z (Deshacer la última modificación)
+
+Ctrl + RePág (Cambia al buffer anterior)
+
+Ctrl + AvPág (Cambia al siguiente búfer)
+</code></pre>
 </div>
   
   
@@ -126,7 +145,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/procinfo/">Procinfo</a></h1>
+      <h1 class="entry-title"><a href="/blog/pwunconv/">Pwunconv</a></h1>
     
     
       <p class="meta">
@@ -149,9 +168,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Estadisticas del sistema de ficheros virtual /proc</p>
+  <div class="entry-content"><p>Hace invisible el archivo /etc/shadow que previamente se había hecho visible con el comando pwconv.</p>
 
-<blockquote><p>$ procinfo -n2 (actualización cada 2 segundos)</p></blockquote>
+<blockquote><p># pwunconv</p></blockquote>
 </div>
   
   
@@ -164,7 +183,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/privoxy/">Privoxy</a></h1>
+      <h1 class="entry-title"><a href="/blog/pwgen/">Pwgen</a></h1>
     
     
       <p class="meta">
@@ -187,15 +206,28 @@
   </header>
 
 
-  <div class="entry-content"><p>filtrar datos que se utilizan en la navegación web (cookies, encabezados&#8230;). Es importante usarlo con Tor ya que a veces el navegador ejecuta por sí mismo las resoluciones DNS y las agrega a las cabeceras de la petición http.</p>
+  <div class="entry-content"><p>Genera claves aleatoriamente</p>
 
-<blockquote><p># nano /etc/privoxy/config</p></blockquote>
+<blockquote><p>$ pwgen  (Las más simples)</p>
 
-<p>Añadir la linea:</p>
+<p>$ pwgen -Bcnsy</p>
 
-<p>forward-socks5 / 127.0.0.1:5060 .</p>
+<p>$ pwgen -Bsy 10 1 (generar un pasword de 10 cifras con caracteres raros)</p>
 
-<p>Nota.- No olvidar el punto final.</p>
+<p>$ pwgen -Bcs 10 4 (crear 4 contraseñas de 10 caracteres)</p></blockquote>
+
+<p>opciones:</p>
+
+<pre><code>-B     (ambiguas)
+
+-c     (con mayusculas, por defecto)
+
+-n     (con números)
+
+-y     (con símbolos)
+
+-s     (totalmente aleatoria)
+</code></pre>
 </div>
   
   
@@ -208,7 +240,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/prips/">Prips</a></h1>
+      <h1 class="entry-title"><a href="/blog/pwdx/">Pwdx</a></h1>
     
     
       <p class="meta">
@@ -231,11 +263,9 @@
   </header>
 
 
-  <div class="entry-content"><p>imprimir las direcciones IP de un rango determinado.</p>
+  <div class="entry-content"><p>Informa del directorio actual de uno o varios procesos.</p>
 
-<blockquote><p>$ prips 192.168.1.0/24</p>
-
-<p>$ prips -i 4 192.168.1.5 192.168.1.150  (solo una de cada cuatro)</p></blockquote>
+<blockquote><p>$ pwdx pid pid pid</p></blockquote>
 </div>
   
   
@@ -248,7 +278,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/printf/">Printf</a></h1>
+      <h1 class="entry-title"><a href="/blog/pwd/">Pwd</a></h1>
     
     
       <p class="meta">
@@ -271,37 +301,7 @@
   </header>
 
 
-  <div class="entry-content"><p>Escribe y formatea datos</p>
-
-<blockquote><p>$ printf &#8220;%50s\n&#8221; | tr &#8217; &#8217; -  (Generar una linea discontinua)</p>
-
-<p>$ printf &#8220;%s\n&#8221; ${PATH//:/\/* }  (listar aplicaciones y comandos del PATH)</p>
-
-<p>$ printf &#8220;%s\n&#8221; .*  (listar archivos y directorios ocultos de la carpeta actual)</p>
-
-<p>$ printf &#8220;\e[8;10;100;t&#8221; (Cambiar la medida de la  terminal)</p>
-
-<p>$ printf &#8220;%s\t &#8211;> %s\n&#8221; &#8220;$A&#8221; &#8220;$B&#8221; (Dos variables en columnas tabuladas)</p>
-
-<p>$ printf &#8220;%s\n&#8221; Escribir cada palabra en una &#8220;nueva linea&#8221; (Pues eso, excepto las dos últimas entrecomilladas)</p>
-
-<p>$ printf &#8220;%06d\n&#8221; &#8220;$RANDOM&#8221; &#8220;$RANDOM&#8221; &#8220;$RANDOM&#8221; &#8220;$RANDOM&#8221; (Iguala las cuatro salidas de $RANDOM a 6 cifras con ceros delante[%06d])</p>
-
-<p>$ printf &#8220;%-10s %-10s %s\n&#8221;, $1, $2, $3 (3 variables justificadas a la izquierda, las dos primeras con 10 caracteres)</p></blockquote>
-
-<p>Algunas opciones:</p>
-
-<p>%c (Imprime el primer carácter de una variable cadena)</p>
-
-<p>%d (Imprime un número decimal)</p>
-
-<p>%s (Cadena)</p>
-
-<p>%b (Interpreta las secuencias de escape del argumento cadena)</p>
-
-<p>%q (Escribe el argumento cadena de forma que pueda ser usado como entrada a otro comando)</p>
-
-<p>%% (Escribe % literal)</p>
+  <div class="entry-content"><p>Mostrar el directorio actual.</p>
 </div>
   
   
@@ -314,7 +314,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/printenv/">Printenv</a></h1>
+      <h1 class="entry-title"><a href="/blog/pwconv/">Pwconv</a></h1>
     
     
       <p class="meta">
@@ -337,11 +337,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Para saber los valores de todas las variables de entorno predefinidas por  la shell (TERM, SHELL, PWD, LC_ALL, USER, USERNAME, HOME, LOGNAME, BROWSER, DISPLAY&#8230;).</p>
+  <div class="entry-content"><p>Hace visible el archivo /etc/shadow que previamente se había hecho invisible con el comando pwunconv.</p>
 
-<blockquote><p>$ echo $SHELL (Ver el valor de una variable)</p>
-
-<p>$ export SHELL=/bin/sh (Modificar el valor de una variable sólo en la presente sesión. Para hacer el cambio permanente colocar la linea en .bashrc)</p></blockquote>
+<blockquote><p># pwconv</p></blockquote>
 </div>
   
   
@@ -354,7 +352,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/primes/">Primes</a></h1>
+      <h1 class="entry-title"><a href="/blog/pwck/">Pwck</a></h1>
     
     
       <p class="meta">
@@ -377,11 +375,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Generar números primos.</p>
+  <div class="entry-content"><p>Verifica la integridad de los archivos de claves [/etc/passwd y /etc/shadow]</p>
 
-<blockquote><p>$ primes 1 100 (del 1 al 100)</p>
-
-<p>$ primes 100 150 (del 100 al 150)</p></blockquote>
+<blockquote><p># pwck (Salida vacia significa todo correcto)</p></blockquote>
 </div>
   
   
@@ -394,7 +390,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/preload/">Preload</a></h1>
+      <h1 class="entry-title"><a href="/blog/pvesh/">Pvesh</a></h1>
     
     
       <p class="meta">
@@ -417,7 +413,21 @@
   </header>
 
 
-  <div class="entry-content"><p>Demonio que se encarga de recoger información de las aplicaciones más usadas para que en el siguiente inicio estos estén cargados en memoria acelerando el tiempo de arranque de los mismos.</p>
+  <div class="entry-content"><p>ssh restrictivo propio de proxmox.</p>
+
+<blockquote><p>$ pvesh get /nodes/virtual1/qemu (Obtener un listado de todas las máquinas virtuales)</p>
+
+<p>$ pvesh create /nodes/virtual1/qemu/100/status/start (Arrancar la VM con id 100)</p>
+
+<p>$ pvesh get /nodes/virtual1/qemu/100/config (Obtener toda la configuración de la VM con id 100)</p>
+
+<p>$ pvesh delete /nodes/virtual1/qemu/100 (Borrar la máquina virtual con id 100)</p>
+
+<p>$ pvesh get /nodes/virtual1/storage (Obtener la información de los <em>Storages</em>)</p>
+
+<p>$ pvesh create /access/users -userid usuario@pve (Crear usuario)</p>
+
+<p>$ pvesh delete /access/users/usuario@pve (Eliminar usuario)</p></blockquote>
 </div>
   
   
@@ -430,7 +440,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/prelink/">Prelink</a></h1>
+      <h1 class="entry-title"><a href="/blog/pv/">Pv</a></h1>
     
     
       <p class="meta">
@@ -453,21 +463,17 @@
   </header>
 
 
-  <div class="entry-content"><p>Preenlazar binarios y bibliotecas ELF compartidas para acelerar su tiempo de inicio. Precisa lanzar prelink despues de cada nueva instalación de paquetes o configurarlo en el cron.</p>
+  <div class="entry-content"><p>Visualizar el progreso de un proceso</p>
 
-<blockquote><p># prelink -amR (Para equipos x86)</p>
+<blockquote><p>$ echo &#8220;Este texto se escribirá letra a letra hasta terminar con toda la frase&#8221; |  pv -qL 10 (Escribir un texto letra a letra)</p>
 
-<p># prelink -aR (Para equipos x86_64)</p></blockquote>
+<p>$ cat /etc/apt/sources.list | pv -qL 10  (lo mismo de un archivo)</p>
 
-<p>Modificar las opciones de prelink:</p>
+<p>$ pv archivo1 > archivo2  (copiar archivo mostrando el progreso)</p>
 
-<blockquote><p># nano /etc/default/prelink</p></blockquote>
+<p>$ pv -tpreb /dev/urandom | dd of=file.img (ejemplo hacia un archivo)</p>
 
-<p>Y modificamos la línea que pone: PRELINKING=unknown por:</p>
-
-<p>PRELINKING=yes</p>
-
-<blockquote><p># prelink -au (Devolver el sistema a su punto de partida)</p></blockquote>
+<p>$ pv /dev/urandom -L 3m > /dev/null (otro ejemplo del comportamiento de pv)</p></blockquote>
 </div>
   
   
@@ -480,7 +486,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pr/">Pr</a></h1>
+      <h1 class="entry-title"><a href="/blog/pushd/">Pushd</a></h1>
     
     
       <p class="meta">
@@ -503,9 +509,19 @@
   </header>
 
 
-  <div class="entry-content"><p>Muestra en pantalla un archivo de texto en modo “Previsualización de impresión”</p>
+  <div class="entry-content"><p>Moverse al directorio especificado, como con cd, pero el directorio anterior se guarda en una pila al que puede volverse.</p>
 
-<blockquote><p>$ pr fichero.txt</p></blockquote>
+<p>[~]$ pushd /usr/share/apache2/icons (del dir personal entramos en icons)</p>
+
+<p>[/usr/share/apache2/icons]$ pushd /var/www/ (de icons a www)</p>
+
+<p>[/var/www]$ pushd /lib/init/rw/apache2 (de www a apache2)</p>
+
+<p>[/lib/init/rw/apache2]$ popd (retrocedemos un directorio en la pila)</p>
+
+<p>[/var/www]$ popd (retrocedemos otro directorio de la pila)</p>
+
+<p>[/usr/share/apache2/icons]$ dirs (nos informa de la pila de directorios en cada momento)</p>
 </div>
   
   
@@ -536,43 +552,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/dig/">dig</a>
+        <a href="/blog/figlet/">figlet</a>
       </li>
     
       <li class="post">
-        <a href="/blog/denyhosts/">denyhosts</a>
+        <a href="/blog/fgrep/">fgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/debget/">debget</a>
+        <a href="/blog/festival/">festival</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ddrescue/">ddrescue</a>
+        <a href="/blog/fbgs/">fbgs</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ddclient/">ddclient</a>
+        <a href="/blog/faillog/">faillog</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dav/">dav</a>
+        <a href="/blog/extundelete/">extundelete</a>
       </li>
     
       <li class="post">
-        <a href="/blog/date/">date</a>
+        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dansguardian/">dansguardian</a>
+        <a href="/blog/eterm/">eterm</a>
       </li>
     
       <li class="post">
-        <a href="/blog/cups/">cups</a>
+        <a href="/blog/errno/">errno</a>
       </li>
     
       <li class="post">
-        <a href="/blog/csscapture/">csscapture</a>
+        <a href="/blog/egrep/">egrep</a>
       </li>
     
   </ul>

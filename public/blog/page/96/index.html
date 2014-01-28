@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Herramienta para depurar programas en C y C++ Necesitamos que el programa haya sido compilado con modo debug (parámetro -g) en gcc o g++ $ gdb /ruta/ &hellip;">
+  <meta name="description" content="[git-core] Manual completo en español: http://www-cs-students.stanford.edu/~blynn/gitmagic/intl/es/book.html#_hosting_git_gratuito Software de &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/gdb/">Gdb</a></h1>
+      <h1 class="entry-title"><a href="/blog/git/">Git</a></h1>
     
     
       <p class="meta">
@@ -103,376 +103,103 @@
   </header>
 
 
-  <div class="entry-content"><p>Herramienta para depurar programas en C y C++</p>
+  <div class="entry-content"><p>[git-core]</p>
 
-<p>Necesitamos que el programa haya sido compilado con modo debug (parámetro -g) en gcc o g++</p>
+<p>Manual completo en español: <a href="http://www-cs-students.stanford.edu/~blynn/gitmagic/intl/es/book.html#_hosting_git_gratuito">http://www-cs-students.stanford.edu/~blynn/gitmagic/intl/es/book.html#_hosting_git_gratuito</a></p>
 
-<blockquote><p>$ gdb /ruta/programa (Con esto abrimos la shell de GDB)</p></blockquote>
+<p>Software de control de versiones. Una vez registrados en Github [<a href="http://github.com">http://github.com</a>], crear un nuevo repositorio con el nombre escogido y github nos facilitará los datos de acceso [Al estilo: https://github.com/templix/tractatus.git].</p>
 
-<p>Dentro de la Shell de GDB podemos ejecutar comandos</p>
+<p>Crear el repositorio local de un proyecto alojado en github:</p>
 
-<p>(gdb) run (ejecutara el programa sin argumentos)</p>
+<pre><code>$ mkdir tractatus (Crear el directorio local)
 
-<p>(gdb) run &lt; content.xml > test.txt (Con argumentos, ejemplo de o3totxt)</p>
+$ cd tractatus (Entrar en él)
 
-<p>(gdb) break 10 (Decimos a GDB que queremos un punto de control en la linia 10 del código)</p>
+$ git init (Inicializar git)
 
-<p>(gdb) print variable (También p. Nos printara el contenido de la variable)</p>
+$ git config --global user.name "nombre_usuario" (Entrar datos del usuario) 
 
-<p>(gdb) continue (Tambien c. Decimos que el programa continue ejecutándose)</p>
+$ git config --global user.mail mail@direccion.com   (Entrar mail)
 
-<p>(gdb) next  (También n. Ejecuta la siguiente linia de código)</p>
+$ mv /home/usuario/tractatus.txt . (Mover el archivo al repositorio)
 
-<p>(gdb) step (También s. Lo mismo que next pero si la siguiente linia es una función, va a dicha función y ejecuta linia a linia el código de esa función)</p>
+$ git add tractatus.txt (Añadir el fichero a git)
 
-<p>(gdb) [TECLA_ENTER] (Repite el paso anterior)</p>
+$ git commit -a -m 'Inicio del proyecto' (Realizar el primer commit [comentario con los cambios en el proyecto])
 
-<p>(gdb) backtrack (Printa la traza inversa)</p>
+$ git remote add origin https://github.com/templix/tractatus.git (Decirle a nuestra copia local el repositorio remoto donde se alojará)
 
-<p>(gdb) help (ayuda del programa)</p>
-
-<p>(gdb) quit (salimos del programa)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/gcp/">Gcp</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Copiar archivos y directorios mostrando barra de progreso.</p>
-
-<blockquote><p>$ gcp archivo dir (Copiar un archivo en un directorio)</p>
-
-<p>$ gcp file1 file2 file3 dir (Copiar varios archivos en un directorio)</p>
-
-<p>$ gcp -r dir1 dir2 (Copiar de forma recursiva)</p>
-
-<p>$ gcp -f -r dir1 dir2 (Copiar forzando sopbreescritura si ya existe el archivo)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/gconftool-2/">Gconftool-2</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Configurador de todos los parámetros de gnome</p>
-
-<blockquote><p>$ gconftool-2 &#8211;dump / > gconf_backup.xml  (realizar copia de seguridad de la configuración)</p>
-
-<p>$ gconftool-2 &#8211;load gconf_backup.xml /  (restablecer la copia de seguridad)</p>
-
-<p>$ gconftool-2 &#8211;recursive-unset /apps/panel (recuperar los paneles originales)</p></blockquote>
-
-<p>nota.- sustituiendo el “/apps/panel” por cualquier ruta del árbol de directorios [por ejemplo “/”] de gconf-editor pueden restaurarse sus valores originales</p>
-
-<blockquote><p>$ rm -rf .gconf/apps/panel (borra toda la configuración extra de los paneles)</p>
-
-<p>$ gconftool-2 –shutdown &amp;&amp; rm -rf ~/.gconf/apps/panel &amp;&amp; pkill gnome-panel (velver a una configuración anterior de los paneles)</p></blockquote>
-
-<p>Notas:</p>
-
-<p>-t (tipo de datos a utilizar. Los valores son {int|bool|float|string|list|pair})</p>
-
-<p>-s (entrada a modificar)</p>
-
-<p>Los valores de –type pueden ser:</p>
-
-<p>lógicos [bool]. Cuando el parámetro puede ser verdadero [true] o falso [false]. P.e quitar papelera del escritorio:</p>
-
-<blockquote><p>$ gconftool-2 -t bool -s /apps/nautilus/desktop/trash_icon_visible false</p></blockquote>
-
-<p>Enteros (int). Cuando ha de especificarse un número. P.e. aumentar el numero de escritorios a 5:</p>
-
-<blockquote><p>$ gconftool-2 -t int -s /apps/metacity/general/num_workspaces 5</p></blockquote>
-
-<p>reales (float). Cuando el valor tiene el punto como separador decimal. p.e el contraste de cheese:</p>
-
-<blockquote><p>$ gconftool-2 -t float -s /apps/cheese/contrast 1.2</p></blockquote>
-
-<p>Cadenas (string). Cuando ha de especificarse un texto. P.e. cambiar el nombre de la carpeta de usuario:</p>
-
-<blockquote><p>$ gconftool-2 -t string -s /apps/nautilus/desktop/home_icon_name &#8220;Mi carpeta&#8221;</p></blockquote>
-
-<p>Lista de valores (list). En muchos casos va complementado con otra lista (&#8211;list-type) que admite los valores {int|bool|float|string}. p.e detectar codificación en gedit con determinadas opciones:</p>
-
-<blockquote><p>$ gconftool-2 -t list &#8211;list-type string -s /apps/gedit-2/preferences/encodings/auto_detected [UTF-8,CURRENT,ISO-8859-15,UTF-16]</p></blockquote>
-
-<p>Parejas de valores [pairs]. Indica parejas de valores de los tipos anteriores. No he encontrado ningún ejemplo</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/gcc/">Gcc</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Compilador de programas de C*</p>
-
-<blockquote><p>$ gcc -c bill.c (genera una biblioteca)</p>
-
-<p>$ gcc programa.c -o programa_compilado (crea el ejecutable)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/gcalctool/">Gcalctool</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Calculadora.</p>
-
-<blockquote><p>$ gcalctool -s 5*4/2+5</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/gcalccmd/">Gcalccmd</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Calculadora.</p>
-
-<blockquote><p>$ gcalccmd (Entra en el prompt y se teclea por ejemplo 5*4 y dará el resultado)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/fuser/">Fuser</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Cerrar particiones rebeldes, saber aplicaciones que corren en un puerto&#8230;</p>
-
-<blockquote><p>$ fuser -km /media/sda6     (Mata todos los procesos de la partición especificada. Luego desmontarla normal con umount)</p>
-
-<p>$ fuser -n tcp 3389  (indica PID que corre en el puerto 3389)</p>
-
-<p>$ fuser -k 80/tcp   (cerrar todo el tráfico tcp del puerto 80)</p>
-
-<p>$ fuser -v archivo  (Muestra los procesos usados por un fichero o directorio)</p>
-
-<p># fuser -n tcp -s 22 &amp;&amp; echo &#8220;abierto&#8221; (Indica si un puerto está abierto)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/funcoeszz/">Funcoeszz</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Conjunto de 65 funciones y utilidades varias. Una vez instalado:</p>
-
-<blockquote><p>$ funcoeszz zzzz &#8211;bashrc (Para colocar las lineas en .bashrc)</p></blockquote>
-
-<pre><code># Instalacao das Funcoes ZZ (www.funcoeszz.net)
-
-source /usr/bin/funcoeszz
-
-export ZZPATH=/usr/bin/funcoeszz
+$ git push origin master (Enviar los cambios al servidor remoto)
 </code></pre>
 
-<blockquote><p>$ source .bashrc (Releer el fichero)</p>
+<p>Otros comandos:</p>
 
-<p>$ funcoeszz zzzz (listado de los 65 funciones)</p>
+<blockquote><p>$ git clone git@github.com:templix/tractatus.git (Clonar un repositorio por portocopo git)</p>
 
-<p>$ funcoeszz zzzz &#8211;teste (Comprobar que todos los ejecutables que necesita la aplicación estan instalados)</p>
+<p>$ git clone https://github.com/templix/tractatus.git (Clonar un repositorio por protocolo https)</p>
 
-<p>$ funcoeszz zzzz &#8211;atualiza (Baja las últimas versiones de las funciones)</p>
+<p>$ git clone ssh://usuario@host.com/home/templix/repositorio repositorio (Clonar por ssh un directorio remoto en local)</p>
 
-<p>$ funcoeszz ajuda (Ayuda muy util sobre como usar cada un de las funciones)</p>
+<p>$ git config -l (Comprobar los datos del usuario)</p>
 
-<p>$ funcoeszz ascii (Lanzar una de las funciones del listado)</p></blockquote>
+<p>$ git config remote.origin.url (Ver cual es el repositorio remoto)</p>
+
+<p>$ git log (Ver historial de commits)</p>
+
+<p>$ git status (Comprobar si se han efectuado cambios)</p>
+
+<p>$ git config &#8211;global credential.helper cache (guarda la contraseña en caché durante 15 min)</p>
+
+<p>$ git config &#8211;global credential.helper &#8216;cache &#8211;timeout=3600&#8217; (guarda la contraseña durante una hora)</p>
+
+<p>$ git rm archivo (Eliminar archivo)</p>
+
+<p>$ git fetch origin (este comando junto con el siguiente elimina todos los cambios locales y pone la versión del servidor)</p>
+
+<p>$ git reset &#8211;hard origin/master</p>
+
+<p>$ git diff &#8211;color-words archivo1 archivo2  (Mostrar las diferencias en color)</p>
+
+<p>$ git instaweb &#8211;httpd=webrick (Abre el proyecto con navegador en localhost:1234)</p>
+
+<p>$ git instaweb &#8211;httpd=webrick &#8211;stop (Cierra la visualización del proyecto con el navegador)</p>
+
+<p>$ git config &#8211;help (Mostrar ayuda de un comando)</p></blockquote>
+
+<p>1.-</p>
+
+<p>Indicar a git archivos o directorios que quedemos excluir del control de versiones.</p>
+
+<blockquote><p>$ touch .gitignore (Crear el fichero en el directorio raiz del proyecto)</p></blockquote>
+
+<p>Con el contenido que queremos excluir [Algunos ejemplos]:</p>
+
+<pre><code>*~
+
+tmp/*
+
+*.so
+
+*.zip
+
+Thumbs.db
+</code></pre>
+
+<p>Si el archivo .gitignore lo colocamos en el directorio $HOME afectará a todos los proyectos de git. Para ello lanzar:</p>
+
+<blockquote><p>$ git config &#8211;global core.excludesfile ~/.gitignore</p></blockquote>
+
+<p>2.-</p>
+
+<p>Descartar modificaciones.</p>
+
+<p>Si una vez realizadas modificaciones en un archivo, antes de lanzar el commit, queremos verlas y descartarlas:</p>
+
+<blockquote><p>$ git status</p>
+
+<p>$ git diff</p>
+
+<p>$ git checkout &#8211; archivo</p></blockquote>
 </div>
   
   
@@ -485,7 +212,7 @@ export ZZPATH=/usr/bin/funcoeszz
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ftp/">Ftp</a></h1>
+      <h1 class="entry-title"><a href="/blog/gimp/">Gimp</a></h1>
     
     
       <p class="meta">
@@ -508,27 +235,17 @@ export ZZPATH=/usr/bin/funcoeszz
   </header>
 
 
-  <div class="entry-content"><p>Conexión remota por linea de comandos</p>
+  <div class="entry-content"><p>Procesador de imagenes.</p>
 
-<blockquote><p># lftp -help (Para obtener ayuda)</p>
+<p>Carpetas donde colocar herramientas suplementarias:</p>
 
-<p># lftp -u usuario,clave ftp.dominio.com (Para conectarnos con un servidor)</p></blockquote>
+<p>Brochas (.gbr)  /usr/share/gimp/2.0/brushes/</p>
 
-<p>Al entrar en el directorio raiz del servidor ftp remoto con un prompt al estilo de:</p>
+<p>Patrones (.pat)     /usr/share/gimp/2.0/patterns</p>
 
-<p>lftp usuario@ftp.dominio.com:~></p>
+<p>Paletas (.gpl)  /usr/share/gimp/2.0/palettes</p>
 
-<p>Algunas opciones:</p>
-
-<p>lftp usuario@ftp.dominio.com:~> ls -l (listar el directorio)</p>
-
-<p>lftp usuario@ftp.dominio.com:~> mirror htdocs html (copiará todo el contenido de htdocs a la carpeta html del home. Si no existe la crea)</p>
-
-<p>lftp usuario@ftp.dominio.com:~> help mirror (opciones de mirror)</p>
-
-<p>lftp usuario@ftp.dominio.com:~> cd htdocs</p>
-
-<p>lftp usuario@ftp.dominio.con/htdocs:~> exit (salir del remoto)</p>
+<p>Degradados(.ggr)/usr/share/gimp/2.0/gradients</p>
 </div>
   
   
@@ -541,7 +258,7 @@ export ZZPATH=/usr/bin/funcoeszz
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ftff/">Ftff</a></h1>
+      <h1 class="entry-title"><a href="/blog/gftp-text/">Gftp-text</a></h1>
     
     
       <p class="meta">
@@ -564,9 +281,341 @@ export ZZPATH=/usr/bin/funcoeszz
   </header>
 
 
-  <div class="entry-content"><p>Busca archivos o directorios</p>
+  <div class="entry-content"><p>Cliente ftp. Precisa que el servidor tenga corriendo ftp [vsftpd&#8230; ]</p>
 
-<blockquote><p>$ ftff -t2 logfile.txt    (busca  logfile con dos errores en el nombre. permite *)</p></blockquote>
+<blockquote><p>$ gftp-text ftp://usuario@host (Pedirá la contraseña y entrará en el promt del servidor)</p></blockquote>
+
+<p>Nota.- Una vez en el promt:</p>
+
+<p>ftp> help (Para saber los comando disponibles)</p>
+
+<p>ftp> quit (Para salir)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/gftp/">Gftp</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Cliente para  la tranferencia de archivos. Logs y configuración en ~/.gftp/gftp.log y ~/.gftprc</p>
+
+<blockquote><p>$ gftp ssh2://USER:PASS@HOST:22/home/USER_REMOTO (Abre la interfaz gráfica)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/gflags2man/">Gflags2man</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Convierte páginas man en archivos de texto en /tmp.</p>
+
+<blockquote><p>$ gflags2man ls (Creará el archivo ls.1 en /tmp)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/getsebool/">Getsebool</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Permite listar polí­ticas y determinar si estan activas o inactivas en SELinux, implementación de seguridad para GNU/Linux que provee una variedad de políticas de seguridad a través del uso de módulos de Seguridad en el nucleo de Linux. Ver setsebool</p>
+
+<blockquote><p># getsebool -a (Lista todas las políticas, activa o inactivas)</p>
+
+<p># getsebool -a | grep ftp (conocer que polí­ticas que incluyan la cadena ftp están activas)</p></blockquote>
+
+<pre><code>Para el servicio de FTP las políticas serían:
+
+    allow_ftpd_anon_write (Permite a usuarios anónimos escribir en el servidor)
+
+    allow_ftpd_full_access (Permite lectura y escritura sobre los archivos del servidor)
+
+    allow_ftpd_use_cifs (Permite transferencias de datos desde CIFS)
+
+    allow_ftpd_use_nfs (Permite transferencias de datos desde NFS)
+
+    ftp_home_dir (Permite a usuarios locales acceder a sus directorios de inicio)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/getent/">Getent</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Obtiene entradas de la base de datos administrativa (ahosts, passwd, group, hosts, services, protocols, networks, aliases y rpc)</p>
+
+<blockquote><p>$ getent passwd (lista los usuarios creados en el sistema)</p>
+
+<p>$ getend group users (Ver los usuarios del grupo users)</p>
+
+<p>$ getent services 22 (Muestra el servicio que corre por el puerto especificado. Si no se especifica puerto los lista todos)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/getenforce/">Getenforce</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Comprobar el estado de selinux.</p>
+
+<blockquote><p># getenforce</p></blockquote>
+
+<p>Estados posibles</p>
+
+<p>enforcing [impositivo] (Política de seguridad activa)</p>
+
+<p>permissive [permisivo] (Registra los eventos pero no impone la política)</p>
+
+<p>disabled [inhabilitado] (Desactivado)</p>
+
+<blockquote><p># nano /etc/selinux/config</p></blockquote>
+
+<pre><code># This file controls the state of SELinux on the system.
+
+# SELINUX= can take one of these three values:
+
+# enforcing - SELinux security policy is enforced.
+
+# permissive - SELinux prints warnings instead of enforcing.
+
+# disabled - No SELinux policy is loaded.
+
+SELINUX=permissive
+
+# SELINUXTYPE= can take one of these two values:
+
+# default - equivalent to the old strict and targeted policies
+
+# mls     - Multi-Level Security (for military and educational use)
+
+# src     - Custom policy built from source
+
+SELINUXTYPE=default
+
+# SETLOCALDEFS= Check local definition changes
+
+SETLOCALDEFS=0
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/getconf/">Getconf</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Consulta las variables de configuración del sistema.</p>
+
+<blockquote><p>$ getconf -a (Muestra el listado)</p>
+
+<p>$ getconf LONG_BIT (Informa sobre si se trata de un equipo de 32 o 64 bits)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/geoiplookup/">Geoiplookup</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Localiación geográfica de una ip.</p>
+
+<blockquote><p>$ geoiplookup IP</p>
+
+<p># geoip-database-contrib_update (actualizar la BD [/usr/share/GeoIP/])</p></blockquote>
 </div>
   
   
@@ -597,43 +646,43 @@ export ZZPATH=/usr/bin/funcoeszz
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/dig/">dig</a>
+        <a href="/blog/figlet/">figlet</a>
       </li>
     
       <li class="post">
-        <a href="/blog/denyhosts/">denyhosts</a>
+        <a href="/blog/fgrep/">fgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/debget/">debget</a>
+        <a href="/blog/festival/">festival</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ddrescue/">ddrescue</a>
+        <a href="/blog/fbgs/">fbgs</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ddclient/">ddclient</a>
+        <a href="/blog/faillog/">faillog</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dav/">dav</a>
+        <a href="/blog/extundelete/">extundelete</a>
       </li>
     
       <li class="post">
-        <a href="/blog/date/">date</a>
+        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dansguardian/">dansguardian</a>
+        <a href="/blog/eterm/">eterm</a>
       </li>
     
       <li class="post">
-        <a href="/blog/cups/">cups</a>
+        <a href="/blog/errno/">errno</a>
       </li>
     
       <li class="post">
-        <a href="/blog/csscapture/">csscapture</a>
+        <a href="/blog/egrep/">egrep</a>
       </li>
     
   </ul>

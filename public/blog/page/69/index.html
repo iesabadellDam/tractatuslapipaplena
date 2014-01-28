@@ -9,7 +9,8 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Navegador web. Los archivos de configuración en .config/midori/ 1.- Añadir buscadores: En el desplegable &#8220;Añadir motores de búsqueda&#8221; &hellip;">
+  <meta name="description" content="Crear un espacio de intercambio. # mkswap /dev/sda5 (Luego añadir la entrada en /etc/fstab: /dev/sda4 none swap sw 0 0)
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/midori/">Midori</a></h1>
+      <h1 class="entry-title"><a href="/blog/mkswap/">Mkswap</a></h1>
     
     
       <p class="meta">
@@ -103,15 +104,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Navegador web. Los archivos de configuración en .config/midori/</p>
+  <div class="entry-content"><p>Crear un espacio de intercambio.</p>
 
-<p>1.-</p>
-
-<p>Añadir buscadores:</p>
-
-<p>En el desplegable &#8220;Añadir motores de búsqueda&#8221; colocar el nombre y en &#8220;comando&#8221; (en el ejemplo duckduckgo):</p>
-
-<p>https://duckduckgo.com/?q=%s</p>
+<blockquote><p># mkswap /dev/sda5 (Luego añadir la entrada en /etc/fstab: /dev/sda4 none swap sw 0 0)</p></blockquote>
 </div>
   
   
@@ -124,7 +119,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/microfono/">Microfono</a></h1>
+      <h1 class="entry-title"><a href="/blog/mkpasswd/">Mkpasswd</a></h1>
     
     
       <p class="meta">
@@ -147,13 +142,15 @@
   </header>
 
 
-  <div class="entry-content"><blockquote><p># gedit /etc/modprobe.d/alsa-base.conf</p></blockquote>
+  <div class="entry-content"><p>Encriptar contraseñas. Si la contraseña no se especifica, la pedirá por pantalla</p>
 
-<p>Añadir:</p>
+<blockquote><p>$ mkpasswd (Uso básico)</p>
 
-<p>options snd_hda_intel model=laptop options snd-hda-intel position_fix=1 enable=yes</p>
+<p>$ mkpasswd password (Encripta &#8220;passwrd&#8221;. Si no se especifica &#8220;method&#8221; [-m] se usa md5 por defecto)</p>
 
-<p>Reiniciar</p>
+<p>$ mkpasswd -m help (Muestra las opciones de encriptación)</p>
+
+<p>$ mkpasswd -m sha-512 password (Usando sha-512 para la contraseña &#8220;password&#8221;)</p></blockquote>
 </div>
   
   
@@ -166,7 +163,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/mi/">Mi</a></h1>
+      <h1 class="entry-title"><a href="/blog/mkntfs/">Mkntfs</a></h1>
     
     
       <p class="meta">
@@ -189,9 +186,9 @@
   </header>
 
 
-  <div class="entry-content"><p>muestra información sobre los dispositivos montados [dispositivo de bloques, punto de montaje, opciones de montaje y sistema de ficheros utilizado]. Ver di</p>
+  <div class="entry-content"><p>Crear particiones ntfs.</p>
 
-<blockquote><p>$ mi</p></blockquote>
+<blockquote><p>$ mkntfs -L win -F /dev/sdb2 (con etiqueta “win” y forzando)</p></blockquote>
 </div>
   
   
@@ -204,7 +201,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/metapixel/">Metapixel</a></h1>
+      <h1 class="entry-title"><a href="/blog/mknod/">Mknod</a></h1>
     
     
       <p class="meta">
@@ -227,13 +224,19 @@
   </header>
 
 
-  <div class="entry-content"><p>Generar mosaicos de fotos [collage].</p>
+  <div class="entry-content"><p>Crear archivos de dispositivos que no se encuentran en el sistema.</p>
 
-<blockquote><p>$ mkdir collage (Crear el directorio)</p>
+<blockquote><p># mknod -m 644  /dev/ttyS4 c 4 64 (con permisos 644, crear el dispositivo de carácter [c] ttyS0 e intervalo entre el máximo y el mínimo)</p></blockquote>
 
-<p>$ metapixel-prepare &#8211;width=10 &#8211;height=10 -r Imatges/ collage (Copiar con las medidas introducidas [width y height] desde el directorio de imágenes de forma recursiva [-r] al directorio creado)</p>
+<p>Una vez creado precisa otorgar propietarios:</p>
 
-<p>$ metapixel &#8211;metapixel Imagenes/imagen.jpeg destino.jpg &#8211;library collage/ (Que coja la imágen.jpg del directorio Imagenes y la convierta en destino.jpg usando el directorio &#8220;collage&#8221;)</p></blockquote>
+<blockquote><p># chown root:dialout /dev/ttyS4</p></blockquote>
+
+<p>Otro ejemplo</p>
+
+<blockquote><p># mknod -m 640 /dev/loop8 b 7 8 (con permisos 640, especificando que es un dispositivo de bloques [b] e intervalo entre el máximo y el mínimo)</p>
+
+<p># chown root:disk /dev/loop8 (Otorgar propiedad)</p></blockquote>
 </div>
   
   
@@ -246,7 +249,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/metacity/">Metacity</a></h1>
+      <h1 class="entry-title"><a href="/blog/mkisofs/">Mkisofs</a></h1>
     
     
       <p class="meta">
@@ -269,9 +272,11 @@
   </header>
 
 
-  <div class="entry-content"><p>gestor de ventanas</p>
+  <div class="entry-content"><p>Crear imágenes de ficheros</p>
 
-<blockquote><p>$ metacity &#8211;replace (activar metacity)</p></blockquote>
+<blockquote><p>$ mkisofs -r -l -o imagen.iso fichero</p>
+
+<p>$ mkisofs /dev/cdrom > cd.iso (crear una imagen iso del cdrom en disco)</p></blockquote>
 </div>
   
   
@@ -284,7 +289,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/mesg/">Mesg</a></h1>
+      <h1 class="entry-title"><a href="/blog/mkinitcpio/">Mkinitcpio</a></h1>
     
     
       <p class="meta">
@@ -307,11 +312,15 @@
   </header>
 
 
-  <div class="entry-content"><p>Controla el acceso a la terminal por otros usuarios. Se utiliza para permitir o rechazar que otros usuarios escriban mensajes a la propia terminal</p>
+  <div class="entry-content"><p>Herramienta de creación de imagenes de arranque del kernel en ArchLinux</p>
 
-<blockquote><p>$ mesg y   (autoriza)</p>
+<blockquote><p># mkinitcpio -L (Ver lista de hooks)</p>
 
-<p>$ mesg n   (desautoriza)</p></blockquote>
+<p># mkinitcpio -p linux (Cremencoder mf://*.jpg -ovc lavc -o out.avi</p></blockquote>
+
+<p>a la imagen con el preset seleccionado)</p>
+
+<blockquote><p># mkinitcpio -c /etc/mkinitcpio.conf -g /boot/linux.img (crea manualmente la imagen de inicio, especificando el archivo de configuración y el destino)</p></blockquote>
 </div>
   
   
@@ -324,7 +333,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/mencoder/">Mencoder</a></h1>
+      <h1 class="entry-title"><a href="/blog/mkfs/">Mkfs</a></h1>
     
     
       <p class="meta">
@@ -347,21 +356,23 @@
   </header>
 
 
-  <div class="entry-content"><p>Procesador de video.</p>
+  <div class="entry-content"><p>Formatear dispositivos a sistemas de archivo ext2,3,4, vfat&#8230;.</p>
 
-<blockquote><p>$ mencoder mf://*.jpg -ovc lavc -o out.avi (Crear un video de las imágenes de un directorio)</p>
+<blockquote><p># mkfs -t ext3 /dev/sda4  (Formatea a ext3 la particion indicada)</p>
 
-<p>$ mencoder &#8220;mf://*.jpg&#8221; -mf fps=0.5 -vf scale=480:360 -o output.avi -ovc lavc -lavcopts vcodec=mpeg4  (Hacer video avi con imagenes jpg mostrando foto cada 2 segundos)</p></blockquote>
+<p># mkfs.ext3 /dev/sda7 (otrmencoder mf://*.jpg -ovc lavc -o out.avi</p></blockquote>
 
-<p>fps=0.5  (cada 2 segundos)</p>
+<p>o modo)</p>
 
-<p>fps=0.25  (cada 4 segundos)</p>
+<blockquote><p># mkfs.ext2 -c /dev/sda1 (a ext3)</p>
 
-<blockquote><p>$ mencoder video.avi -sub subtitulos.srt -oac copy -ovc lavc -o resultado_final.avi -subcp latin1 -font /usr/share/fonts/TTF/arial.ttf -subfont-text-scale 2.8  (pegar subtítulos- <em>.srt- a un video- </em>.avi- especificando la fuente de letras y la medida)</p>
+<p># mkfs.ext4 -c /dev/sda2 (a ext4)</p>
 
-<p>$ mencoder input.flv -ovc lavc -oac mp3lame -o output.avi  (convertir flv a avi)</p>
+<p># mkfs.msdos -c /dev/fd0  (formatea a msdos)</p>
 
-<p>$ mencoder -idx video_corrupto.avi -ovc copy -oac copy -o video_reparado.avi (Reconstruir un video dañado)</p></blockquote>
+<p># mkfs.vfat /dev/sda1 (formatear en fat 32)</p>
+
+<p># mkfs.vfat -n datos /dev/sdd1 (formatear en fat32 y con etiqueta “datos”)</p></blockquote>
 </div>
   
   
@@ -374,7 +385,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/memoria/">Memória</a></h1>
+      <h1 class="entry-title"><a href="/blog/mkfifo/">Mkfifo</a></h1>
     
     
       <p class="meta">
@@ -397,9 +408,13 @@
   </header>
 
 
-  <div class="entry-content"><p>Liberar memória física</p>
+  <div class="entry-content"><p>Crear una tuberia que tanto sirve para permitir que la salida de una aplicación sea la entrada de otra como redirección de cualquier dato de salida que pueda ser grabado a disco.</p>
 
-<blockquote><p># echo 3 > /proc/sys/vm/drop_caches</p></blockquote>
+<blockquote><p>$ mkfifo pipe (crear la tuberia. Lanzando “ls -l pipe” la primera letra que mostrará será una “p” de pipe [tuberia])</p>
+
+<p>$ ifconfig > pipe  (La consola se bloqueará esperando soltar la tuberia)</p>
+
+<p>$ cat pipe  (Ejecutado desde otra terminal pst o tty ejecutará la tuberia)</p></blockquote>
 </div>
   
   
@@ -412,7 +427,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/members/">Members</a></h1>
+      <h1 class="entry-title"><a href="/blog/mkeot/">Mkeot</a></h1>
     
     
       <p class="meta">
@@ -435,13 +450,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Muestra los miembros del grupo especificado.</p>
+  <div class="entry-content"><p>Genera tipografías en formato EOT desde TTF y OTF. Comando necesario para convertir las fuentes en TTF al formato EOT para ser usado con la propiedad font-face de CSS3, formato requerido por Internet Explorer.</p>
 
-<blockquote><p>$ members -a grupo  (todos sus miembros)</p>
-
-<p>$ members -p grupo  (el usuario primario)</p>
-
-<p>$ members -s grupo  (los secundarios)</p></blockquote>
+<blockquote><p>$ mkeot neuropol_x_free.ttf > neuropol_x_free.eot</p></blockquote>
 </div>
   
   
@@ -454,7 +465,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/medusa/">Medusa</a></h1>
+      <h1 class="entry-title"><a href="/blog/mke2fs/">Mke2fs</a></h1>
     
     
       <p class="meta">
@@ -477,27 +488,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Herramienta para ataques de fuerza bruta contra un variado conjunto de protocolos.</p>
+  <div class="entry-content"><p>Formatear a sistema de archivos ext2</p>
 
-<blockquote><p># medusa -d  (módulos disponibles)</p>
-
-<p># medusa -h 127.0.0.1 -u usuario -P wordlist -M ssh</p></blockquote>
-
-<p>opciones:</p>
-
-<p>-h host (Especificar un host)</p>
-
-<p>-H file (Especificar un fichero con un listado de hosts)</p>
-
-<p>-u username (Especificar el usuario)</p>
-
-<p>-U file  (Especificar un listado de usuarios)</p>
-
-<p>-p password (especificar una contraseña a probar)</p>
-
-<p>-P file  (indicamos un diccionario de contraseñas)</p>
-
-<p>-M module (Especificar un módulo de los disponibles)</p>
+<blockquote><p># mke2fs -c /dev/fd0         (formatea a ext2 el floppy)</p></blockquote>
 </div>
   
   
@@ -528,43 +521,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/dig/">dig</a>
+        <a href="/blog/figlet/">figlet</a>
       </li>
     
       <li class="post">
-        <a href="/blog/denyhosts/">denyhosts</a>
+        <a href="/blog/fgrep/">fgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/debget/">debget</a>
+        <a href="/blog/festival/">festival</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ddrescue/">ddrescue</a>
+        <a href="/blog/fbgs/">fbgs</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ddclient/">ddclient</a>
+        <a href="/blog/faillog/">faillog</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dav/">dav</a>
+        <a href="/blog/extundelete/">extundelete</a>
       </li>
     
       <li class="post">
-        <a href="/blog/date/">date</a>
+        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dansguardian/">dansguardian</a>
+        <a href="/blog/eterm/">eterm</a>
       </li>
     
       <li class="post">
-        <a href="/blog/cups/">cups</a>
+        <a href="/blog/errno/">errno</a>
       </li>
     
       <li class="post">
-        <a href="/blog/csscapture/">csscapture</a>
+        <a href="/blog/egrep/">egrep</a>
       </li>
     
   </ul>

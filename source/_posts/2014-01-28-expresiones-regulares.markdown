@@ -1,13 +1,11 @@
 ---
 layout: post
 title: "expresiones-regulares"
-date: 2014-01-27 20:07
+date: 2014-01-28 16:08
 comments: true
 categories: 
 ---
-[regex o patrones]
-
-Buscar cadenas de texto que coinciden con un patrón. Los comandos más usuales que las emplean son grep, find, sed y awk y cada uno con sus pecualiaridades. Para ilustrar dichas expresiones se usa un archivo de texto al que llamo file.
+[regex o patrones]. Buscar cadenas de texto que coinciden con un patrón. Los comandos más usuales que las emplean son grep, find, sed y awk y cada uno con sus pecualiaridades. Para ilustrar dichas expresiones se usa un archivo de texto al que llamo file.
 
 >$ cat file
 

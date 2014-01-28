@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Mostrar datos de la conexión. Copiar el arxivo de configuración: # cp /usr/share/doc/ipband/examples/ipband.conf-simple /etc/ipband.conf Y &hellip;">
+  <meta name="description" content="Relacionado con direcciones ip y dispositivos de red inalámbricos # iwconfig (Ver los datos de conección de la red inalámbrica) # iwconfig eth0 (Si &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ipband/">Ipband</a></h1>
+      <h1 class="entry-title"><a href="/blog/iwconfig/">Iwconfig</a></h1>
     
     
       <p class="meta">
@@ -96,104 +96,128 @@
   
 
 
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Mostrar datos de la conexión. Copiar el arxivo de configuración:</p>
+  <div class="entry-content"><p>Relacionado con direcciones ip y dispositivos de red inalámbricos</p>
 
-<blockquote><p># cp /usr/share/doc/ipband/examples/ipband.conf-simple /etc/ipband.conf</p></blockquote>
+<blockquote><p># iwconfig (Ver los datos de conección de la red inalámbrica)</p>
 
-<p>Y descomentar o modificar los siguientes parámetros:</p>
+<p># iwconfig eth0 (Si se asocia la tarjeta de red con la conección)</p>
 
-<pre><code>debug 0
+<p># iwconfig wlan0 mode Managed  (activar el modo managed)</p>
 
-interface eth1
+<p># iwconfig wlan0 mode monitor (activar modo monitor)</p>
 
-fork yes
+<p># iwconfig wlan0 key open CLAVE  (ingresar contraseña, si la hay. Si omitimos “open” se interpreta que la clave es “restricted”)</p>
 
-htmlfile /srv/www/htdocs/ipbandwidth/index.html
+<p># iwconfig wlan0 essid ESSID (ESSID= nombre de la red)</p></blockquote>
 
-htmltitle Consumo de banda
+<p>Crear una Red Wifi AdHoc</p>
 
-average 10
+<blockquote><p>$ iwconfig wlan0 mode Ad-Hoc</p>
 
-accumulate no
+<p>$ iwconfig wlan0 essid &#8220;nombre_de_la_red&#8221;</p>
 
-maskbits 32
+<p>$ iwconfig wlan0 key s:clave</p>
 
-localrange 192.168.1.0/24
+<p>$ ifconfig wlan0 xx.xx.xx.xx netmask yy.yy.yy.yy</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ivstools/">Ivstools</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Herramienta para unir/convertir archivos .ivs y .cap</p>
+
+<blockquote><p>$ ivstools &#8211;merge captura1.ivs captura2.ivs captura3.ivs total.ivs</p>
+
+<p>$ ivstools &#8211;captura.cap nuevo.ivs</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/itop/">Itop</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Cuando un componente del hardware necesita un recurso, envia una petición de interrupción al sistema llamado IRQ y este suspende momentáneamente alguna rutina de servicio para continuarla cuando finaliza la interrupción. itop muestra estas interrupciones que vendrian a ser lo mismo que actualizar cada segundo el archivo /porc/interrupts:</p>
+
+<pre><code># watch -n 1 cat /proc/interrupts
 </code></pre>
 
-<p>Reiniciar el servicio:</p>
+<blockquote><p># itop</p></blockquote>
 
-<blockquote><p># /etc/init.d/ipband restart</p></blockquote>
+<p>Cuando está en ejecución, las teclas de control son:</p>
 
-<p>Arrancar la aplicación:</p>
+<pre><code>a (Muestra todos los procesos, no solo los en uso)
 
-<blockquote><p># ipband</p></blockquote>
+t (Muestra el clásico top [ver])
 
-<p>Los informes se muestran poniendo en la barra del navegador: http://localhost/html/ipbandwidth/index.html</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ip-ajustes/">Ip-ajustes</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>1.- Estática</p>
-
-<blockquote><p># gedit /etc/network/interfaces</p></blockquote>
-
-<pre><code>auto eth0 
-
-iface eth0 inet static 
-
-address 192.168.x.x 
-
-netmask 255.255.255.0 
-
-network 192.168.x.0 
-
-boadcast 192.168.2.255 
-
-gateway 192.168.x.1 
+q (Sale de "t" cierra la aplicación)
 </code></pre>
 
-<blockquote><p># /etc/init.d/networking restart (reiniciar el servicio)</p>
-
-<p>$ ifconfig (verificar la nueva ip)</p></blockquote>
+<blockquote><p># itop -n 10 (Sólo muestra 10 procesos)</p></blockquote>
 </div>
   
   
@@ -206,7 +230,7 @@ gateway 192.168.x.1
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ip/">Ip</a></h1>
+      <h1 class="entry-title"><a href="/blog/isutf8/">Isutf8</a></h1>
     
     
       <p class="meta">
@@ -222,42 +246,18 @@ gateway 192.168.x.1
   
 
 
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Configuración de red. Muestra dispositivos, enrutamientos, tuneles.</p>
+  <div class="entry-content"><p>[moreutils]</p>
 
-<blockquote><p>$ ip addr (Revisar tarjetas)</p>
+<p>No muestra salida si el archivo tiene una codificación UTF-8 válida. Si no es el caso muestra el aviso.</p>
 
-<p>$ ip route show (Información)</p>
-
-<p>$ ip link show (Ver interfaces de red)</p>
-
-<p>$ ip link set dev eth0 down (bajar una red)</p>
-
-<p>$ ip route add default via 192.168.1.1 (establecer la ip del router)</p>
-
-<p>$ ip link set dev eth0 up (levantar una red)</p>
-
-<p>$ ip addr add 192.168.1.20 255.255.255.0 dev eth1 (establecer una ip estática)</p>
-
-<p>$ ip n  (MAC e IP del router)</p>
-
-<p>$ ip link set dev eth1 address 00:03:44:88:00:11 (Modificdar la MAC. Previamente bajar la red)</p>
-
-<p>$ ip route del default (Eliminar puerta de enlace para crear una nueva)</p>
-
-<p>$ ip route add default via 192.168.1.10 (Crear nueva puerta de enlace)</p>
-
-<p>$ ip -f inet addr show eth0 (información de la dirección ip)</p>
-
-<p>$ ip route add 192.168.2.0/24 via 192.168.1.10 (Añadir una red a una puerta de enlace)</p></blockquote>
-
-<p>Nota.- Verificar que /etc/resolv contenga una linea con el servidor DNS tipo: nameserver 8.8.8.8 [para las DNS de google]</p>
+<blockquote><p>$ isutf8 archivo</p></blockquote>
 </div>
   
   
@@ -270,7 +270,7 @@ gateway 192.168.x.1
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/iozone/">Iozone</a></h1>
+      <h1 class="entry-title"><a href="/blog/issue-dot-net/">issue.net</a></h1>
     
     
       <p class="meta">
@@ -286,28 +286,16 @@ gateway 192.168.x.1
   
 
 
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Realizar test de velocidad de sistemas de archivos (ext3, ext4&#8230;)</p>
+  <div class="entry-content"><p>Muestra la distro instalada.</p>
 
-<blockquote><p>$ iozone -s 2g -r 64 -i 0 -i 1 -b test.xls</p>
-
-<p>$ iozone -a -g 2G -f /media/sda2</p></blockquote>
-
-<p>-a (automático)</p>
-
-<p>-g (Tamaño de los archivos generados)</p>
-
-<p>-f (el sistema de archivos a tratar)</p>
-
-<p>-i (0= escritura, 1= lectura, 2=lectura/escritura&#8230;.)</p>
-
-<p>-b (archivo que generará con los resultados)</p>
+<blockquote><p>$ cat /etc/issue.net</p></blockquote>
 </div>
   
   
@@ -320,7 +308,7 @@ gateway 192.168.x.1
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/iotop/">Iotop</a></h1>
+      <h1 class="entry-title"><a href="/blog/isosize/">Isosize</a></h1>
     
     
       <p class="meta">
@@ -336,32 +324,16 @@ gateway 192.168.x.1
   
 
 
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>monitoriza el ratio de lectura/escritura en disco .</p>
+  <div class="entry-content"><p>muestra el tamaño de un sistema de ficheros iso9660 en bytes</p>
 
-<blockquote><p>$ iotop -o -u usuario</p>
-
-<p>$ iotop -a -p $(sed &#8216;s, , -p ,g&#8217; &lt;&lt;&lt;<code>pgrep "_raid|_resync|jbd2"</code>) (un raid)</p></blockquote>
-
-<p>Alguns opciones:</p>
-
-<p>-d 2 (Actualización cada 2 segundos)</p>
-
-<p>-b (No interactivo)</p>
-
-<p>-o (Sólo mostrar procesos que hacen uso de entrada/salida)</p>
-
-<p>-t (Incluir una marca de tiempo)</p>
-
-<p>-p pid (Pid del proceso a monitorizar. Por defecto todos)</p>
-
-<p>-u usuario (especificando usuario)</p>
+<blockquote><p>$ isosize archivo.iso</p></blockquote>
 </div>
   
   
@@ -374,7 +346,7 @@ gateway 192.168.x.1
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/iostat/">Iostat</a></h1>
+      <h1 class="entry-title"><a href="/blog/isoinfo/">Isoinfo</a></h1>
     
     
       <p class="meta">
@@ -390,20 +362,16 @@ gateway 192.168.x.1
   
 
 
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>muestra estadísticas de la CPU y de la entrada y salida de los dispositivos y particiones.</p>
+  <div class="entry-content"><p>Información sobre una iso</p>
 
-<blockquote><p>$ iostat -x sda -d 1 6 (6 reportes con 1 segundo de intervalo sobre el disco sda. Suprimiendo la última cifra [6] continuará reportando datos hasta finalizar con Ctrl+c)</p>
-
-<p>$ iostat -d 3 (actualizará resultados cada 3 segundos)</p>
-
-<p>$ iostat -p sda (Ver estadisticas de un disco concreto con sus particiones)</p></blockquote>
+<blockquote><p>$ isoinfo -d -i archivo.iso</p></blockquote>
 </div>
   
   
@@ -416,7 +384,7 @@ gateway 192.168.x.1
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/inxi/">Inxi</a></h1>
+      <h1 class="entry-title"><a href="/blog/irssi/">Irssi</a></h1>
     
     
       <p class="meta">
@@ -432,239 +400,126 @@ gateway 192.168.x.1
   
 
 
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra información del equipo (http://inxi.googlecode.com/svn/trunk/inxi).</p>
+  <div class="entry-content"><p>Chatear via terminal.</p>
 
-<blockquote><p>$ inxi -Fpur -c 4</p></blockquote>
+<blockquote><p>$ irssi (Arrancar la aplicacuó)n</p></blockquote>
 
-<p>Algunas opciones (con inxi -h la lista completa):</p>
+<p>set nick el_nick (establecer nick habitual)</p>
 
-<p>-A (Audio y tarjetas de sonido)</p>
+<p>set quit_message Mi Mensaje de salida (mensaje que se mostrará al salir del xat)</p>
 
-<p>-b (informacio básica)</p>
+<p>save (Obligatorio para guardar todos los cambios)</p>
 
-<p>-c (formato de color de 0 a 32 para la salida de datos)</p>
+<p>network list (lista de las redes existentes)</p>
 
-<p>-C (CPUs)</p>
+<p>network remove nombre_de_red (borrar una red)</p>
 
-<p>-d (drivers opticos)</p>
+<p>server list  (lista de todos los servidores guardados)</p>
 
-<p>-D (disco duro)</p>
+<p>server remove nombre_de_servidor  (borrar un servidor)</p>
 
-<p>-F (salida extendida)</p>
+<p>connect la_red  (Conectar a una red))</p>
 
-<p>-G (tarjeta gráfica)</p>
+<p>channel add -auto #canal la_red (Conexión automática a determinado canal de una red)</p>
 
-<p>-i (Información de red)</p>
+<p>list *linux *   (ver listado de canales que tengan “linux” por titulo)</p>
 
-<p>-I (Procesos, uptime, memoria&#8230;)</p>
+<p>join #canal (Después de conectar con una red, entrar en determinado canal)</p>
 
-<p>-M (Datos de la máquina)</p>
+<p>part  #canal mensaje (salir de un canal con un mensaje)</p>
 
-<p>-N (tarjetas de red)</p>
+<p>quit (cierra la aplicación)</p>
 
-<p>-o (particiones no montadas)</p>
+<p>disconnect servidor  (desconecta de un servidor)</p>
 
-<p>-p (particiones montadas)</p>
+<p>msg usuario un_mensaje  (Manda un mensaje privado a un usuario)</p>
 
-<p>-r (repositorios)</p>
+<p>nick  otro_nick> (Cambiar de nick)</p>
 
-<p>-s (sensors[temperaturas cpu])</p>
+<p>close usuario  (cierra la ventana de un usuario)</p>
 
-<p>-S (Host, Kernel,Escritorio y Distro)</p>
+<p>dcc usuario fichero  (inicia la transferencia de un archivo con usuario)</p>
 
-<p>-t cm (Procesos que consumen más cpu [c] y memoria [m])</p>
+<p>exit (desconecta el servidor)</p>
 
-<p>-u (UUID de las particiones. -uo las no montadas, -up las montadas)</p>
+<p>channel (muestra informacion sobre un canal y los usuarios conectados)</p>
 
-<p>-v 6 (Distintas etiquetas de información. Del 1 al 6)</p>
-</div>
-  
-  
+<p>win #ventana  (cambiar de ventana. igual que con ESC + num de ventana)</p>
 
+<p>script list   (Listado)</p>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/interfaces/">Interfaces</a></h1>
-    
-    
-      <p class="meta">
-        
+<p>help script (ayuda)</p>
 
+<p>nick el_nick:contraseña (logearse con nombre de usuario y contraseña)</p>
 
+<p>msg el_nick set la_contraseña nueva_contraseña (modificar contraseña)</p>
 
+<p>crear una red y servidores:</p>
 
+<p>network add mi_red (crear una red local [mi_red])</p>
 
+<p>server add -auto -network mi_red la_red 6667 password  (Establecer que la red local [mi_red] se conecte automaticamente al arrancar a una red externa [la_red], especificando puerto y contraseña si procede,en caso contrario suprimir estos dos últimos parámetros).</p>
 
+<p>save</p>
 
+<p>Instalar nuevos themes:</p>
 
-  
+<p>Descargar de la pagina oficial de irssi (http://irssi.org/themes) y moverlos a la carpeta ~/.irssi. Para instalarlos:</p>
 
+<p>set theme nombre.theme</p>
 
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
+<p>save</p>
 
+<p>Instalacion de Scripts:</p>
 
-  <div class="entry-content"><p>Archivo de configuración de la red en distros debian.</p>
+<p>Descargarlos de la pagina oficial (http://scripts.irssi.org/) y moverlos a la carpeta ~/.irssi/scripts/ si deseamos cargarlos o descargarlos manualmente:</p>
 
-<p>1.-</p>
+<p>script load nombre_script   (Cargarlo)</p>
 
-<p>Con IP dinámica:</p>
+<p>script unload nombre_script (Descargarlo)</p>
 
-<p>Colocar en el archivo las lineas:</p>
+<p>0 moverlos a la carpeta ~/.irssi/scripts/autorun para que se carguen automaticamente.</p>
 
-<pre><code>auto eth0
+<p>Nota.- Algunos de estos scripts necesitan para funcionar correctamente de algunas librerias.</p>
 
-iface eth0 inet dhcp
-</code></pre>
+<p>Habilitar un registro de las conversaciones:</p>
 
-<p>2.-</p>
+<blockquote><p># mkdir /var/log/irssi  (Crear la carpeta)</p>
 
-<p>Con IP fija</p>
+<p># chown usuario:users /var/log/irssi (Asignar permisos)</p></blockquote>
 
-<p>Colocar en el archivo las lineas:</p>
+<p>Arrancar irssi y teclear:</p>
 
-<pre><code>auto eth0
+<p>set autolog ON</p>
 
-iface eth0 inet static
+<p>set autolog_path /var/log/irssi/$tag/$0.log</p>
 
-address 192.168.1.10
+<p>save</p>
 
-gateway 192.168.1.1
+<blockquote><p># touch /etc/logrotate.d/irssi</p>
 
-netmask 255.255.255.0
+<p># nano /etc/logrotate.d/irssi</p></blockquote>
 
-broadcast 192.168.1.255
-</code></pre>
+<p>Agregar el siguiente contenido:</p>
 
-<p>Reiniciar el servicio:</p>
+<pre><code>/var/log/irssi/*/*.log { 
 
-<blockquote><p># ifdown eth0</p>
+copytruncate 
 
-<p># ifup eth0</p></blockquote>
+compress 
 
-<p>Nota.- Solo modificandolo en network-manager no funciona.</p>
+notifempty 
 
-<p>3.-</p>
+missingok 
 
-<p>Creación de una segunda dirección IP virtual.</p>
-
-<p>Añadir las siguientes lineas a las de la IP fija:</p>
-
-<pre><code>auto eth0:1
-
-iface eth0:1 inet static
-
-address 192.168.0.15
-
-netmask 255.255.255.0
-
-broadcast 192.168.0.255
-
-gateway 192.168.0.1
-</code></pre>
-
-<p>Nota.- La instalación de nerwork-manager o wicd para la gestión de redes implica comentar las modificaciones de este archivo o en, en el caso de network-manager, editar:</p>
-
-<blockquote><p># nano  /etc/NetworkManager/NetworkManager.conf</p></blockquote>
-
-<p>Y modificar la linea:</p>
-
-<p>[ifupdown]</p>
-
-<p>managed=true</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/integrit/">Integrit</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Detectar cuando algún archivo del sistema ha sido alterado mediante la creación, la primera vez que se lanza, de una base de datos con la que confrontar los nuevos escaneos.</p>
-
-<p>Configuración:</p>
-
-<blockquote><p># /etc/integrit/integrit.con</p></blockquote>
-
-<p>Descomentar las lineas:</p>
-
-<pre><code>root=/  
-
-known=/var/lib/integrit/known.cdb       
-
-current=/var/lib/integrit/current.cdb
-</code></pre>
-
-<p>Y descartar los directorios que no se deseen incluir en el escaneo, descomentandolos [&#8220;cdrom&#8221; se descarta, &#8220;/dev&#8221; se escane, &#8220;/usr/src&#8221; no se escaneará de forma recursiva ]:</p>
-
-<pre><code>!/cdrom
-
-# !/dev
-
-=/usr/src
-</code></pre>
-
-<p>Crear la base de datos inicial:</p>
-
-<blockquote><p># integrit -u -C /etc/integrit/integrit.conf</p></blockquote>
-
-<p>Mover la base de datos a know.cdb:</p>
-
-<blockquote><p># mv /var/lib/integrit/current.cdb /var/lib/integrit/known.cdb</p></blockquote>
-
-<p>Lanzar la comprobación:</p>
-
-<blockquote><p># integrit -C /etc/integrit/integrit.conf -c</p></blockquote>
-
-<p>Si queremos colocar la orden en el cron para ser lanzada cada hora y que envie un correo al administrador:</p>
-
-<blockquote><p># crontab -e</p></blockquote>
-
-<p>Y colocamos la linea:</p>
-
-<pre><code>* 1 * * * integrit -C /etc/integrit/integrit.conf -c | mail root
+}
 </code></pre>
 </div>
   
@@ -678,7 +533,7 @@ current=/var/lib/integrit/current.cdb
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/instmodsh/">Instmodsh</a></h1>
+      <h1 class="entry-title"><a href="/blog/irb/">Irb</a></h1>
     
     
       <p class="meta">
@@ -694,20 +549,88 @@ current=/var/lib/integrit/current.cdb
   
 
 
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Para conocer los módulos perl instalados. Entra en el prompt (cmd?) con 3 preguntas:</p>
+  <div class="entry-content"><p>Interprete de comandos interactivo de ruby. Para entrar en la shell:</p>
 
-<p>l (List all installed modules)</p>
+<pre><code>$ irb
 
-<p>m <module> (Select a module)</p>
+irb(main):001:0&gt; print "Hola mundo"
 
-<p>q (Quit the program)</p>
+Hola mundo=&gt; nil
+
+irb(main):002:0&gt; exit
+
+$
+</code></pre>
+
+<p>Explicación de la salida:</p>
+
+<pre><code>irb(main) (que estás en la consola de irb y en el contexto de un programa)
+
+:001 (La linea en la que te encuentras)
+
+:0 (Profundidad. Por ejemplo en Ruby los IF terminan con END. Si ponemos un IF sin el END, el ":0" cambia a ":1" al ponerlo retorna al valor ":0". Si colocamos varios IFS anidados, entonces el nivel de profundidad dirá :1 nivel de profundidad, :2 niveles de profundidad, :3 niveles de profundidad y así sucesivamente)
+
+print ... (Comando a ejecutar)
+
+Hola ... (Ejecución)
+
+==&gt; nil (Final del proceso)
+
+exit (Salir del interprete)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/iptraf/">Iptraf</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Muestra información en tiempo real sobre el tráfico de red.</p>
+
+<blockquote><p># iptraf -i eth0 (Analiza todo el trafico de la red eth0)</p>
+
+<p># iptraf -i all (Analiza el de todas las redes)</p>
+
+<p># iptraf -s eth0 (Analiza el tráfico agrupandolo por protocolo y puerto)</p>
+
+<p># iptraf -z eth0 (Contabiliza paquetes y agrupa por tamaño)</p></blockquote>
+
+<p>Una vez lanzada la aplicación, para salir pulsar X</p>
 </div>
   
   
@@ -738,43 +661,43 @@ current=/var/lib/integrit/current.cdb
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/dig/">dig</a>
+        <a href="/blog/figlet/">figlet</a>
       </li>
     
       <li class="post">
-        <a href="/blog/denyhosts/">denyhosts</a>
+        <a href="/blog/fgrep/">fgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/debget/">debget</a>
+        <a href="/blog/festival/">festival</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ddrescue/">ddrescue</a>
+        <a href="/blog/fbgs/">fbgs</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ddclient/">ddclient</a>
+        <a href="/blog/faillog/">faillog</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dav/">dav</a>
+        <a href="/blog/extundelete/">extundelete</a>
       </li>
     
       <li class="post">
-        <a href="/blog/date/">date</a>
+        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dansguardian/">dansguardian</a>
+        <a href="/blog/eterm/">eterm</a>
       </li>
     
       <li class="post">
-        <a href="/blog/cups/">cups</a>
+        <a href="/blog/errno/">errno</a>
       </li>
     
       <li class="post">
-        <a href="/blog/csscapture/">csscapture</a>
+        <a href="/blog/egrep/">egrep</a>
       </li>
     
   </ul>

@@ -1,13 +1,11 @@
 ---
 layout: post
 title: "extundelete"
-date: 2014-01-27 20:07
+date: 2014-01-28 16:08
 comments: true
 categories: 
 ---
-[e2fsprogs, e2fslibs, e2fslibs-dev, g++, build-essential]
-
-Recuperación de archivos o directorios borrados. La partición sobre la que se actua ha de estar desmontada. Descargar la aplicación de <http://extundelete.sourceforge.net/> e instalarla con el clasico ./configure, make, sudo make install.
+[e2fsprogs, e2fslibs, e2fslibs-dev, g++, build-essential]. Recuperación de archivos o directorios borrados. La partición sobre la que se actua ha de estar desmontada. Descargar la aplicación de <http://extundelete.sourceforge.net/> e instalarla con el clasico ./configure, make, sudo make install.
 
 >\# extundelete  /dev/sda11 --restore-directory /datos/dir_borrado (recuperar el directorio dir_borrado de la partición /dev/sda11. Lo guardará en el directorio RECOVERED_FILES)
 

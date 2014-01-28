@@ -9,7 +9,8 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Gestor de sesión del proyecto MATE. El archivo de configuración en: # nano /etc/mdm/mdm.conf Seleccionar un tema de los disponibles en /usr/share/mdm &hellip;">
+  <meta name="description" content="Formatear a sistema de archivos msdos # mkdosfs -c /dev/fd0
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/mdm/">Mdm</a></h1>
+      <h1 class="entry-title"><a href="/blog/mkdosfs/">Mkdosfs</a></h1>
     
     
       <p class="meta">
@@ -103,21 +104,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Gestor de sesión del proyecto MATE. El archivo de configuración en:</p>
+  <div class="entry-content"><p>Formatear a sistema de archivos msdos</p>
 
-<blockquote><p># nano /etc/mdm/mdm.conf</p></blockquote>
-
-<p>Seleccionar un tema de los disponibles en /usr/share/mdm/themes/:</p>
-
-<p>GraphicalTheme= XXXXX</p>
-
-<p>Entrada automática:</p>
-
-<p>[daemon]</p>
-
-<p>AutomaticLoginEnable=true</p>
-
-<p>AutomaticLogin=USUARIO</p>
+<blockquote><p># mkdosfs -c /dev/fd0</p></blockquote>
 </div>
   
   
@@ -130,7 +119,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/mdf2iso/">Mdf2iso</a></h1>
+      <h1 class="entry-title"><a href="/blog/mkdir/">Mkdir</a></h1>
     
     
       <p class="meta">
@@ -153,9 +142,19 @@
   </header>
 
 
-  <div class="entry-content"><p>Convertir imágenes MDF a ISO</p>
+  <div class="entry-content"><p>Crear directorios</p>
 
-<blockquote><p>$ mdf2iso archivo.mdf archivo.iso</p></blockquote>
+<blockquote><p>$ mkdir -p            (Crea el directorio y todos los subdirectorios especificados.)</p>
+
+<p>$ mkdir -m=rwx      (Especifica los permisos del directorio que se crea)</p>
+
+<p>$ mkdir -p -m=x /home/ct/videos/res/tot  (creará los nuevos directorios “videos”, “res” i “tot” y dará permisos de ejecución (x)  al usuario ct)</p>
+
+<p>$ mkdir -p project/{lib/ext,bin,src,doc/{html,info,pdf},demo/stat/a} (creación de varios directorios y subdirectorios.)</p>
+
+<p>$ mkdir uno dos tres (crear directorios “uno”, “dos” y “tres”)</p>
+
+<p>$ mkdir R{1..9} (Crear los directorios del R1 al R9)</p></blockquote>
 </div>
   
   
@@ -168,7 +167,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/mdadm/">Mdadm</a></h1>
+      <h1 class="entry-title"><a href="/blog/mjpg-streamer/">Mjpg-streamer</a></h1>
     
     
       <p class="meta">
@@ -191,21 +190,31 @@
   </header>
 
 
-  <div class="entry-content"><p>Gestión de raids.</p>
+  <div class="entry-content"><p>Streaming de video</p>
 
-<blockquote><p># mdadm &#8211;create &#8211;verbose /dev/md0 &#8211;level=1 &#8211;raid-devices=2 /dev/sdb1 /dev/sdc1</p></blockquote>
+<blockquote><p>$ mjpg_streamer -i &#8220;input_uvc.so -y -f 5&#8221; -o output_http.so -p 3000 -n -c USER:CONTRASEÑA -b</p></blockquote>
 
-<p>&#8211;create (Para crear el raid)</p>
+<p>Opciones:</p>
 
-<p>&#8211;verbose (No pregunte)</p>
+<p>-f  frames por segundo</p>
 
-<p>/dev/md0 (Dispositivo dónde vamos a crear el raid)</p>
+<p>-y  cambiar formato mjpg por yuv (cuando mjpg da problemas)</p>
 
-<p>&#8211;level=1 (Nivel 1 del RAID [dos discos uno espejo del otro)</p>
+<p>-b  background</p>
 
-<p>&#8211;raid-devices=2 (Número de dispositivos)</p>
+<p>-n  liberar terminal (conjuntamente con -b)</p>
 
-<p>/dev/sdb1 /dev/sdc1 (los dispositivos que vamos a usar)</p>
+<p>-c  usuario:contraseña</p>
+
+<p>Y en el navegador:</p>
+
+<p>http://localhost:3000/?action=snapshot  (tomar una foto)</p>
+
+<p>http://localhost:3000/?action=stream    (reproducir video)</p>
+
+<p>Matar el proceso con:</p>
+
+<blockquote><p>$ kill -9 <code>pidof mjpg_streamer</code></p></blockquote>
 </div>
   
   
@@ -218,7 +227,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/md5sum/">Md5sum</a></h1>
+      <h1 class="entry-title"><a href="/blog/mispipe/">Mispipe</a></h1>
     
     
       <p class="meta">
@@ -241,13 +250,11 @@
   </header>
 
 
-  <div class="entry-content"><p>Escribe o comprueba sumas de verificación md5</p>
+  <div class="entry-content"><p>[moreutils]</p>
 
-<blockquote><p>$ md5sum archivo</p>
+<p>mispipe se comporta como cualquier tuberia de la shell, incluyendo comandos independientes, pero a diferencia de las clásicas tuberias, que sólo devuelven el estado de salida del último comando, mispipe devuelve el estado de salida del primer comando si este falla.</p>
 
-<p>$ md5sum -  (Entra en el prompt. Teclear la palabra o frase y pulsar dos veces Ctrl+d)</p>
-
-<p>$ echo -n palabra | md5sum | awk &#8216;{print $1}&#8217; (md5sum de una palabra)</p></blockquote>
+<blockquote><p>$ mispipe ls &#8220;echo &#8220;NO&#8221;&#8221;</p></blockquote>
 </div>
   
   
@@ -260,7 +267,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/mcrypt/">Mcrypt</a></h1>
+      <h1 class="entry-title"><a href="/blog/mirmon/">Mirmon</a></h1>
     
     
       <p class="meta">
@@ -283,23 +290,13 @@
   </header>
 
 
-  <div class="entry-content"><p>Cifrar achivos</p>
+  <div class="entry-content"><p>Comprueba el estado de los espejos de Debian.</p>
 
-<blockquote><p>$ mcrypt archivo   (cifrar)</p>
+<blockquote><p># mirmon -get update (Actualizar estado)</p></blockquote>
 
-<p>$ mcrypt -u archivo  (elimina el archivo inicial despues del cifrado)</p>
+<p>Visualizarlos en el navegador con la ruta:</p>
 
-<p>$ mdecrypt archivo.nc  (descifrar)</p>
-
-<p>$ mcrypt &#8211;d archivo.nc   (descifrar)</p>
-
-<p>$ mcrypt &#8211;list   (ver lista de algoritmos usables)</p>
-
-<p>$ mcrypt -a rijndael-256 ecb archivo  (cifrar especificando un algoritmo)</p>
-
-<p>$ mcrypt -p archivo    (usando compresión bzip2 antes de la encriptación)</p>
-
-<p>$ mcrypt -b archivo   (No mantener información del algoritmo usado en el cifrado)</p></blockquote>
+<p>/var/lib/mirmon/debian-mirror-check.html</p>
 </div>
   
   
@@ -312,7 +309,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/mcp/">Mcp</a></h1>
+      <h1 class="entry-title"><a href="/blog/miniflux/">Miniflux</a></h1>
     
     
       <p class="meta">
@@ -335,9 +332,41 @@
   </header>
 
 
-  <div class="entry-content"><p>Permite hacer copias de varios ficheros.</p>
+  <div class="entry-content"><p>Lector RSS instalado en local o en un servidor. Simplemente se descarga la aplicación de <a href="http://miniflux.net/">http://miniflux.net/</a> y, una vez descomprimida, se copia al directorio web (generalmente /var/www). Se accede colocando en la barra de direcciones: http://localhost/miniflux (Por defecto el nombre de usuario y contraseña son admin:admin)</p>
 
-<blockquote><p>$ mcp &#8220;;*.png&#8221; &#8220;#1#2.png.bak&#8221; (Realizará un .png.bak de todos los .png que encuentre en el presente directorio y sus subdirectorios)</p></blockquote>
+<p>Atajos de teclado:</p>
+
+<p>gu (Ir a leídas)</p>
+
+<p>gb (Ir a marcadores)</p>
+
+<p>gh (Ir al historial)</p>
+
+<p>gs (Ir a suscripciones)</p>
+
+<p>gp (Ir a preferencias)</p>
+
+<p>s (Descargar contenido)</p>
+
+<p>p (Noticia anterior)</p>
+
+<p>n (Noticia siguiente)</p>
+
+<p>m (Marcar como leido)</p>
+
+<p>v (Abrir la noticia original)</p>
+
+<p>o (Desplegar la noticia)</p>
+
+<p>f (Añadir a favoritos)</p>
+
+<p>h (Ir a página precedente)</p>
+
+<p>l (Ir a página anterior)</p>
+
+<p>? (Abrir la ayuda de los atajos de teclado)</p>
+
+<p>q (Cerrar la ayuda)</p>
 </div>
   
   
@@ -350,7 +379,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/mcookie/">Mcookie</a></h1>
+      <h1 class="entry-title"><a href="/blog/mimms/">Mimms</a></h1>
     
     
       <p class="meta">
@@ -373,9 +402,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Genera números hexadecimales de 128 bits aleatorios.</p>
+  <div class="entry-content"><p>Grabación de emisoras.mencoder mf://*.jpg -ovc lavc -o out.avi</p>
 
-<blockquote><p>$ mcookie</p></blockquote>
+<blockquote><p>$ mimms -t 2 mms://viplagardere.yacast.net/encodereurope2 (2 minutos)</p></blockquote>
 </div>
   
   
@@ -388,7 +417,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/mc/">Mc</a></h1>
+      <h1 class="entry-title"><a href="/blog/mii-tool/">Mii-tool</a></h1>
     
     
       <p class="meta">
@@ -411,127 +440,53 @@
   </header>
 
 
-  <div class="entry-content"><p>Gestor de archivos. La pantalla de Midnight Commander está divida en cuatro partes. La mayor parte de la pantalla está ocupada por los dos paneles de directorio. Por defecto, la segunda línea inferior de la pantalla es la línea de órdenes del sistema y la línea inferior muestra las etiquetas de las teclas de función. La línea superior es la barra de menú que si no está visible puede verse pulsando F9. MC pone a la vista dos directorios al mismo tiempo. Uno de los paneles es el panel actual. Algunas operaciones con archivos como Renombrar y Copiar utilizan por defecto el directorio del panel no seleccionado como destino, pero siempre solicitan una confirmación previa y podemos cambiarlo. Podemos ejecutar comandos del sistema desde MC simplemente escribiéndolos. Todo lo que escribamos aparecerá en la línea de órdenes del sistema y cuando pulsemos Intro, Midnight Commander ejecutará estos comandos. Si tenemos el ratón activado [ver gpm] para seleccionar texto mantener pulsada la tecla Mayúsculas mientras se selecciona.</p>
+  <div class="entry-content"><p>Muestra información similar a ethtool (Ver)</p>
 
-<blockquote><p>$ mc -S gotar.ini /media/servidor /home/usuario (Especificando un skin [Listado en /usr/share/mc/skins] y directorio de cada panel)</p></blockquote>
+<blockquote><p># mii-tool eth0</p></blockquote>
+</div>
+  
+  
 
-<p>Colocando la linea como alias en .bashrc arancará siempre con esta configuración inicial:</p>
 
-<blockquote><p>$ nano .bashrc</p></blockquote>
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/midori/">Midori</a></h1>
+    
+    
+      <p class="meta">
+        
 
-<p>alias mc=&#8217;mc -S gotar.ini /media/servidor /home/usuario&#8217;</p>
 
-<p>Algunas teclas de control:</p>
 
-<pre><code>F1 (Despliega el Menú de ayuda)
 
-F3 (Activa el Visor de archivos interno)
 
-F4 (Ejecuta el Editor interno)
 
-F5 (Copiar archivos)
 
-F6 (Mover archivos)
 
-F7 (Crear carpeta)
+  
 
-F8 (Borrar archivos)
 
-F9 (Activa el menú principal desplegable)
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
 
-F10 (Salir de mc)
 
-Tab (Moverse entre los paneles)
-
-Insert (Marcar para operaciones con múltiples archivos)
-
-Supr (Eliminar archivo)
-
-Flechas de desplazamiento (Permiten moverse por menús y submenús)
-
-Alt-Enter (copiar el nombre de un archivo en la línea de comandos [cp o mv])
-
-Alt-Tab (misma función que la tecla TAB en el shell [completar comando o ruta tras haber escrito sus primeras letras]
-
-Alt-p (Retrocede por el historico de comandos)
-
-Alt-n (Avanza por el historico de comandos)
-
-Alt-h (Abre una ventana con el historico de comandos)
-</code></pre>
+  <div class="entry-content"><p>Navegador web. Los archivos de configuración en .config/midori/</p>
 
 <p>1.-</p>
 
-<p>Mas personalizaciones de los colores:</p>
+<p>Añadir buscadores:</p>
 
-<p>Colores posibles: white, gray, blue, green, yellow, magenta, cyan, red, brown, birghtgreen, brightblue, brightmagenta, brightcyan, brightred, lightgray, default</p>
+<p>En el desplegable &#8220;Añadir motores de búsqueda&#8221; colocar el nombre y en &#8220;comando&#8221; (en el ejemplo duckduckgo):</p>
 
-<p>Se puede incidir en los siguientes aspectos de los grupos:</p>
-
-<pre><code>Base colors: normal, selected, marked, markselect, errors, input, reverse, gauge
-
-Menu colors: menu, menusel, menuhot, menuhotsel
-
-Dialog colors: dnormal, dfocus, dhotnormal, dhotfocus
-
-Help colors: helpnormal, helpitalic, helpbold, helplink, helpslink
-
-Viewer color: viewunderline
-
-Special highlighting colors: executable, directory, link, stalelink, device, special, core
-
-Editor colors: editnormal, editbold, editmarked
-</code></pre>
-
-<p>Nota.- No tienen que definirse obligatoriamente todos los subgrupos</p>
-
-<p>Para pruebas:</p>
-
-<pre><code>$ mc --colors normal=green,default:selected=brightmagenta,gray:marked=yellow,default:markselect=yellow,gray:directory=blue,default:executable=brightgreen,default:link=cyan,default:device=brightmagenta,default:special=lightgray,default:errors=red,default:reverse=green,default:gauge=green,default:input=white,gray:dnormal=green,gray:dfocus=brightgreen,gray:dhotnormal=cyan,gray:dhotfocus=brightcyan,gray:menu=green,default:menuhot=cyan,default:menusel=green,gray:menuhotsel=cyan,default:helpnormal=cyan,default:editnormal=green,default:editbold=blue,default:editmarked=gray,blue:stalelink=red,default 
-</code></pre>
-
-<p>Para dejar la seleccion permanente crear en el directorio (Si no existe se crea):</p>
-
-<blockquote><p>$ nano .moc/ini</p></blockquote>
-
-<p>Y pegar:</p>
-
-<pre><code>[colors]
-
-normal=green,default:selected=brightmagenta,gray:marked=yellow,default:markselect=yellow,gray:directory=blue,default:executable=brightgreen,default:link=cyan,default:device=brightmagenta,default:special=lightgray,default:errors=red,default:reverse=green,default:gauge=green,default:input=white,gray:dnormal=green,gray:dfocus=brightgreen,gray:dhotnormal=cyan,gray:dhotfocus=brightcyan,gray:menu=green,default:menuhot=cyan,default:menusel=green,gray:menuhotsel=cyan,default:helpnormal=cyan,default:editnormal=green,default:editbold=blue,default:editmarked=gray,blue:stalelink=red,default
-</code></pre>
-
-<p>Si lo queremos como alias:</p>
-
-<blockquote><p>$ nano .bashrc</p></blockquote>
-
-<p>Y pegamos:</p>
-
-<pre><code>alias mc="mc --colors normal=green,default:selected=brightmagenta,gray:marked=yellow,default:markselect=yellow,gray:directory=blue,default:executable=brightgreen,default:link=cyan,default:device=brightmagenta,default:special=lightgray,default:errors=red,default:reverse=green,default:gauge=green,default:input=white,gray:dnormal=green,gray:dfocus=brightgreen,gray:dhotnormal=cyan,gray:dhotfocus=brightcyan,gray:menu=green,default:menuhot=cyan,default:menusel=green,gray:menuhotsel=cyan,default:helpnormal=cyan,default:editnormal=green,default:editbold=blue,default:editmarked=gray,blue:stalelink=red,default"
-</code></pre>
-
-<p>2.-</p>
-
-<p>Para configurar las aplicaciones que se usarán por defecto:</p>
-
-<blockquote><p>$ cp /etc/mc/mc.ext .mc/bindings</p>
-
-<p>$ nano .moc/bindings</p></blockquote>
-
-<p>Y modificar las que procedan. Ejemplo:</p>
-
-<pre><code># Para abrir los txt com vi
-
-    shell/.txt
-
-        Open=%var{EDITOR:vi} %f
-
-# Que los videos los abra vlc   
-
-    include/video
-
-        Open=(vlc %f &gt;/dev/null 2&gt;&amp;1 &amp;)
-</code></pre>
+<p>https://duckduckgo.com/?q=%s</p>
 </div>
   
   
@@ -544,7 +499,7 @@ normal=green,default:selected=brightmagenta,gray:marked=yellow,default:markselec
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/mate-screensaver-command/">Mate-screensaver-command</a></h1>
+      <h1 class="entry-title"><a href="/blog/microfono/">Microfono</a></h1>
     
     
       <p class="meta">
@@ -567,80 +522,13 @@ normal=green,default:selected=brightmagenta,gray:marked=yellow,default:markselec
   </header>
 
 
-  <div class="entry-content"><p>Mismas opciones que gnome-screensaver-command (ver)</p>
-</div>
-  
-  
+  <div class="entry-content"><blockquote><p># gedit /etc/modprobe.d/alsa-base.conf</p></blockquote>
 
+<p>Añadir:</p>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/markdown/">Markdown</a></h1>
-    
-    
-      <p class="meta">
-        
+<p>options snd_hda_intel model=laptop options snd-hda-intel position_fix=1 enable=yes</p>
 
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Lenguaje orientado a la escritura de documentos de manera que sean fáciles de escribir y leer directamente en texto plano convirtiéndolos en documentos XHTML bien formados. La aplicación retext permite eleborar textos en markdown y visualizarlos en tiempo real.</p>
-
-<p>Sintaxis elemental [las referencias son respecto de html]:</p>
-
-<p>Notas: Cada signo afecta hasta el primer salto de linea. Un bloque HTML ha de estar precedido por una linea en blanco y con una sangría de 4 espacios y en su interior no actúa la sintaxis markdown. Para escapar un carácter se precede barra [\] . Los párrafos se delimitan con lineas en blanco.</p>
-
-<pre><code># (equivalente a H1. Mismo resultado subrayando el texto con el signo = en la linea inmediata inferior) 
-
-## (equivalente a H2. Mismo resultado que subrayando el texto con el signo - en la linea inmediata inferior) 
-
-&gt; (muestra el texto que sigue como una cita) 
-
-* (Mostrará como una lista no ordenada)
-
-1. (Mostrará como una lista ordenada)  
-
-**texto** (texto entre dos pares de asteriscos: en negrita)
-
-*texto* (texto entre asteriscos: en cursiva)
-
-***texto*** (Texto entre dos trios de asteriscos: negrita y cursiva)
-
-2 espacios al final de una linea fuera salto de linea
-
-&lt;URL&gt; (Modo de colocar un enlace. Igual para un email)
-
---- (3 guiones muestran una linea) 
-
-[nombre del enlace](http://url "nombre que aparece al colocar el cursor") (Enlace a una URL. El entrecomillado es opcional) 
-
-Ejemplo: Puedes buscar en \[google](http://google.es "google") o en \[yahoo](http://es.yahoo.com "yahoo") 
-
-![imagen](http://url "nombre que aparece al colocar el cursor") 
-
-Ejemplo: !\[Herramientas](http://www.linux-mag.com/s/i/topics/toolbox.jpg "Caja de herramientas")
-
-&lt;img class="[clases asignadas]" src="/ruta/a/la/imagen" title="[ancho] [alto] [el title [alt de la imagen]]" &gt; (Colocar una imagen)
-</code></pre>
+<p>Reiniciar</p>
 </div>
   
   
@@ -671,43 +559,43 @@ Ejemplo: !\[Herramientas](http://www.linux-mag.com/s/i/topics/toolbox.jpg "Caja 
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/dig/">dig</a>
+        <a href="/blog/figlet/">figlet</a>
       </li>
     
       <li class="post">
-        <a href="/blog/denyhosts/">denyhosts</a>
+        <a href="/blog/fgrep/">fgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/debget/">debget</a>
+        <a href="/blog/festival/">festival</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ddrescue/">ddrescue</a>
+        <a href="/blog/fbgs/">fbgs</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ddclient/">ddclient</a>
+        <a href="/blog/faillog/">faillog</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dav/">dav</a>
+        <a href="/blog/extundelete/">extundelete</a>
       </li>
     
       <li class="post">
-        <a href="/blog/date/">date</a>
+        <a href="/blog/expresiones-regulares/">expresiones-regulares</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dansguardian/">dansguardian</a>
+        <a href="/blog/eterm/">eterm</a>
       </li>
     
       <li class="post">
-        <a href="/blog/cups/">cups</a>
+        <a href="/blog/errno/">errno</a>
       </li>
     
       <li class="post">
-        <a href="/blog/csscapture/">csscapture</a>
+        <a href="/blog/egrep/">egrep</a>
       </li>
     
   </ul>
