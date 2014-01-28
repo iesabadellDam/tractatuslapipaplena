@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Paquete de gestión para entornos ruby y las gemas de cada proycto. $ rvm install 1.9.2 (Instalar una versión de ruby) $ rvm requirements (Instalar &hellip;">
+  <meta name="description" content="[selinux-basics selinux-policy-default] SELinux proporciona una forma de acceso a recursos basada en políticas de control de acceso obligatorio [ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rvm/">Rvm</a></h1>
+      <h1 class="entry-title"><a href="/blog/selinux/">Selinux</a></h1>
     
     
       <p class="meta">
@@ -96,291 +96,50 @@
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Paquete de gestión para entornos ruby y las gemas de cada proycto.</p>
+  <div class="entry-content"><p>[selinux-basics selinux-policy-default]</p>
 
-<blockquote><p>$ rvm install 1.9.2 (Instalar una versión de ruby)</p>
+<p>SELinux proporciona una forma de acceso a recursos basada en políticas de control de acceso obligatorio [mandatory access control, MAC] incorporado en el kernel. Existen un conjunto de reglas de autorización [políticas] las cuales determinan si una operación sobre un objeto [Archivos, directorios, dispositivos&#8230;] realizada por un sujeto esta o no permitida basándose en los atributos de ambos. Linux utiliza por defecto el control de acceso a discreción [discretionary access control, DAC] basada en los propietarios y grupos a los que pertenece un objeto en los que un usuario normal puede cambiar los permisos de los archivos que posee con el comando chmod. Con selinux se limita el acceso que tienen las aplicaciones a otras aplicaciones y a los ficheros, impidiendo que un proceso pueda modificar cualquier fichero del usuario con el que se lanzó. En DAC el acceso esta descentralizado, siendo el propietario de cada objeto el encargado de asignar los permisos de los diversos grupos que accederán a ellas. En cambio con el MAC los objetos y los sujetos tan solo tienen atributos, pero son las políticas las que se encargan de autorizar o denegar una acción. Ver comandos getsebool y setsebool.</p>
 
-<p>$ rvm requirements (Instalar dependencias)</p>
+<p>Los módulos SELinux disponibles se almacenan en el directorio /usr/share/selinux/default/.</p>
 
-<p>$ rvm upgrade 1.8.7 ruby-1.8.7-p299 (Actualizar de la versión de ruby 1.8.7-p299 a la siguiente)</p>
+<blockquote><p># semodule -i módulo.pp (habilitar un módulos en la configuración actual. La extensión pp significa paquete de política [«policy package»]).</p>
 
-<p>$ rvm &#8211;default ruby-1.9.2 (Establecer la versión de ruby por defecto)</p>
+<p># semodule -r módulo (Elimina un módulo de la configuración actual)</p>
 
-<p>$ rvm gemset list (Lista gemsets [ver] creados, mostrando el que está por defecto y versión)</p>
+<p># semodule -l (Enumera los módulos habilitados actualmente)</p>
 
-<p>$ rvm gemset create NOMBRE_GEMSET (Crear un gemset)</p>
+<p># semanage login -a -s staff_u juan (mapear una cuenta a un usuario especifico de SELinux)</p>
 
-<p>$ rvm gemset use NOMBRE_GEMSET (Utilizar un gemset)</p>
+<p># restorecon -R -F /home/juan (etiquetar los ficheros del usuario mapeado juan)</p>
 
-<p>$ rvm gemset use VERSION@NOMBRE_GEMSET (Especificar versión de ruby y el gemset a cambiar)</p></blockquote>
-</div>
-  
-  
+<p># semanage user -l (enumera las asociaciones entre las identidades de usuario de SELinux y los roles permitidos)</p>
 
+<p># semanage login -d juan (elimina la asociación asignada al usuario juan)</p>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/runlevel/">Runlevel</a></h1>
-    
-    
-      <p class="meta">
-        
+<p># semanage login -m juan (Modificar la asociación asignada al usuario)</p>
 
+<p># semanage login -l (enumera las correspondencias actuales entre identificadores de usuarios y entidades SELinux)</p></blockquote>
 
+<p>tabla de los usuarios estándar SELinux disponibles:</p>
 
+<pre><code>user_u  (Usuario normal que se utilizan para cuentas de usuario que no van a ser empleadas para administrar ningún servicio del sistema)
 
+staff_u (Para administradores con derechos para conmutar roles y ganar privilegios elevados)
 
+root (Cuenta root ligeramente diferente de la cuenta staff_u. Los ficheros protegidos por control de acceso basado en root no pueden ser gestionados por los staff_u)
 
+sysadm_u (Administración del sistema. Por defecto, esta cuenta no se utiliza inmediatamente ya que este usuario obtiene de forma inmediata el rol administrativo (por lo que staff_u y root todavía necesitarán conmutar roles).
 
+system_u (administrar servicios. Nunca se debe utilizar para usuarios finales ya que ofrece acceso directo al rol del sistema)
 
-  
-
-
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>conocer el nivel de ejecución actual del sistema [gráfico, monousuario&#8230;]</p>
-
-<blockquote><p>$ runlevel</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ruby/">Ruby</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Lenguaje de programación orientado a objetos. Ver irb.</p>
-
-<p>Instalación:</p>
-
-<pre><code>$ curl -L https://get.rvm.io | bash -s stable --ruby
-
-$ source ~/.rvm/scripts/rvm
-
-$ rvm install 1.9.3
-
-$ rvm --default ruby-1.9.3
-</code></pre>
-
-<p>Y comprobar o añadir:</p>
-
-<blockquote><p>$ nano .bashrc</p></blockquote>
-
-<p>La linea:</p>
-
-<pre><code> [[ -s "$HOME/.rvm/scripts/rvm" ]] &amp;&amp; source "$HOME/.rvm/scripts/rvm"
-</code></pre>
-
-<blockquote><p>$ ruby script.rb (ejecutar un script de ruby)</p>
-
-<p>$ ruby -e &#8220;puts Dir.glob(&#8216;*&#8217;).count&#8221; (la opción -e permite introducir directamente código en la linea de comando. Mostrar la cantidad de archivos del presente directorio en este caso)</p>
-
-<p>$ ruby -v (Versión de ruby)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/rtorrent/">Rtorrent</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Descarga de archivos a partir de torrents</p>
-
-<blockquote><p>$ rtorrent url.torrent</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/rtcwake/">Rtcwake</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Suspender/hibernar el pc e iniciarlo a una hora determinada.</p>
-
-<blockquote><p># rtcwake -u -m disk -s 150 &amp;&amp; deluge (Asume el tiempo UTC, suspende a disco y vuelve a activarse dentro de 150 minutos arrancando la aplicación deluge)</p></blockquote>
-
-<p>Otros modos [m]:</p>
-
-<p>standby (Modo por defecto y el que menos energia ahorra)</p>
-
-<p>mem (Suspende a RAM. Más ahorrativo)</p>
-
-<p>off (Apaga el ordenador completamente)</p>
-
-<p>no (No suspende inmediatamente, unicamente establece la hora en que despierta el sistema)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/rsync/">Rsync</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Sincronizar archivos o directorios. Trabasjar con el directorio montado.</p>
-
-<blockquote><p>$ rsync -av /home/usuario/Dropbox /home/usuario/Copias_seguridad/ (Copiar todo el directorio “Dropbox” en el directorio “Copias_seguridad”)</p>
-
-<p>$ rsync -av &#8211;exclude=Dropbox /media/servidor /home/usuario/servidor/ (Sincronizar un servidor con un directorio local excluyendo el dir Dropbox)</p></blockquote>
-
-<p>Nota.- Pueden excluirse varios directorios [&#8211;exclude=Dropbox &#8211;exclude=isos &#8211;exclcude=public &#8230;]</p>
-
-<blockquote><p>$ rsync -arvuz Documentos usuario@192.168.1.5:/home/usuario/ (Copiar el directorio en otra máquina)</p>
-
-<p>$ rsync -arvuz -e &#8216;ssh -p 30567&#8217; Documentos usuario@192.168.1.5:/home/usuario/ (Copiar el directorio en otra máquina pero especificando otro puerto SSH)</p></blockquote>
-
-<p>Algunas opciones:</p>
-
-<pre><code>-a (respaldar recursivamente directorios y subdirectorios) 
-
--g (conserva el atributo “group” de los archivos originales) 
-
--E (conserva el atributo “executable” del archivo originales) 
-
--v (aumentar el nivel de información desplegado 
-
--z (comprime los datos que serán transferidos) 
-
---exclude=tmp  (Excluir archivos o directorios. /tmp en este caso)
-
---delete-during  (Borrar los archivos de origen a medida que son transferidos) 
-</code></pre>
-
-<blockquote><p>$ rsync -aHxv root@dirección_IP:/* /carpeta_destino &#8211;exclude=/dev &#8211;exclude=/proc &#8211;exclude=/sys &#8211;exclude=/tmp (copia/clonación en vivo de todo un sistema remoto a un directorio local. Se recomienda parar todos los servicios en ejecución de la máquina remota y repetir el comando varias veces hasta que no haya ningún fichero copiado, para evitar ficheros corrompidos. Se deben crear las carpetas &#8220;/dev&#8221;, &#8220;/proc&#8221;, &#8220;/sys&#8221; y &#8220;/tmp&#8221; en la carpeta de destino).</p>
-
-<p>$ rsync -avz &#8211;exclude-from &#8216;rsync_exclude&#8217; /home/usuario/ /media/sda11/copa_seguridad (Copia de seguridad del /home/usuario a otra partición excluyendo los archivos especificados en el archivo rsync_exclude)</p></blockquote>
-
-<p>Nota.- El formato del archivo rsync_exclude para excluir los ficheros ocultos [.*] todos los de la carpeta Dropbox y el video alien de la carpeta Videos será:</p>
-
-<pre><code>.*
-
-Dropbox/*
-
-Videos/alien
+unconfined_u    Usado cuando la directriz es targeted, este usuario SELinux tiene muchos privilegios (esencialmente no está limitado en sus acciones, aunque todavía se gestiona través de SELinux con una directriz "muy abierta"). 
 </code></pre>
 </div>
   
@@ -394,7 +153,7 @@ Videos/alien
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rsstail/">Rsstail</a></h1>
+      <h1 class="entry-title"><a href="/blog/select/">Select</a></h1>
     
     
       <p class="meta">
@@ -410,28 +169,109 @@ Videos/alien
   
 
 
-<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Mostrar noticias rss en estilo multitail</p>
+  <div class="entry-content"><p>Realiza menús de forma rápida y simple:</p>
 
-<blockquote><p>$ rsstail -n 1 -d -u http://web.com -u http://web1.com -u http://web3.com</p></blockquote>
+<p>Algunos ejemplos:</p>
 
-<p>Algunas opciones:</p>
+<p>1.-</p>
 
-<p>-n 1  (Actualizar cada segundo)</p>
+<pre><code>#!/bin/bash
 
-<p>-d     (Mostrar descripción)</p>
+OPCIONES="Uso_linux Todavía_estoy_con_windows"
 
-<p>-z      (Continuar incluso con errores xml)</p>
+select opt in $OPCIONES; do
 
-<p>-l      (Mostrar enlaces)</p>
+    if [ "$opt" = "Uso_linux" ]; then
 
-<p>-u URL (Host del feed)</p>
+        echo "Bravo, usas el mejor sistema..."
+
+        exit
+
+    elif [ "$opt" = "Todavía_estoy_con_windows" ]; then
+
+        echo "¡Evoluciona de una vez!"
+
+        exit
+
+    else
+
+        echo opción errónea
+
+    fi
+
+done
+</code></pre>
+
+<p>2.-</p>
+
+<pre><code>#!/bin/bash
+
+OPCIONES="hostname pwd exit"
+
+select opt in $OPCIONES; do
+
+    if [ "$opt" = "hostname" ]; then
+
+        echo $HOSTNAME
+
+    elif [ "$opt" = "pwd" ]; then
+
+        pwd
+
+    elif [ "$opt" = "exit" ]; then
+
+        echo "salir"
+
+        exit    
+
+    else
+
+        echo opción errónea
+
+    fi
+
+done
+</code></pre>
+
+<p>3.-</p>
+
+<pre><code>#!/bin/bash
+
+PS3='Elija una opción : '
+
+options="linux win salir"
+
+echo opciones : $options
+
+select opt in $options
+
+do
+
+    if [ "$opt" = "salir" ]; then
+
+        echo "Salgo..."
+
+        exit
+
+    elif [ "$opt" = "linux" ]; then 
+
+        echo "Muy bien..."
+
+    else
+
+        echo "Terriblemente mal..." 
+
+    fi
+
+done
+</code></pre>
 </div>
   
   
@@ -444,7 +284,7 @@ Videos/alien
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rrenice/">Rrenice</a></h1>
+      <h1 class="entry-title"><a href="/blog/seeker/">Seeker</a></h1>
     
     
       <p class="meta">
@@ -467,9 +307,9 @@ Videos/alien
   </header>
 
 
-  <div class="entry-content"><p>[pslist]</p>
+  <div class="entry-content"><p>Comprobar la velocidad del disco duro, pero no en el inicio que es la parte más rápida como hace hdparm, sino de forma aleatoria en todo el espacio del disco.</p>
 
-<p>Herramienta con uso igual que renice [ver]</p>
+<blockquote><p># seeker /dev/sda</p></blockquote>
 </div>
   
   
@@ -482,7 +322,7 @@ Videos/alien
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rpm/">Rpm</a></h1>
+      <h1 class="entry-title"><a href="/blog/sed/">Sed</a></h1>
     
     
       <p class="meta">
@@ -505,25 +345,208 @@ Videos/alien
   </header>
 
 
-  <div class="entry-content"><p>Gestor de paqueteria de distros basadas en Red Hat.</p>
+  <div class="entry-content"><p>Permite borrar líneas, registros o sustituir cadenas de caracteres dentro de las líneas.</p>
 
-<blockquote><p># rpm -ivh paquete (instalar un paquete)</p>
+<p>Archivo base para ejemplo (Empleado &#8211; Precio/hora &#8211; Horas trabajadas – Cómo las cobra):</p>
 
-<p># rpm -ivh –nodeeps paquete (instalar paquete rpm ignorando dependencias)</p>
+<pre><code>$ cat lista 
 
-<p># rpm -e paquete (eliminar paquete)</p>
+Juan Gomez 6 10 banco 
 
-<p># rpm -qa (Listar todos los paquetes instalados)</p>
+Clara Fuentes 7 12 banco 
 
-<p># rpm -qi paquete (información de un paquete)</p>
+Antonio Cano 6 13 metálico 
 
-<p># rpm -q paquete &#8211;whatrequires (listar dependencias de un paquete)</p>
+José Bueno 7 0 banco 
 
-<p># rpm -qf /etc/httpd/conf/httpd.conf (A qué paquete pertenece un archivo)</p>
+Matías Crespo 5 8 metálico 
 
-<p># rpm &#8211;checksig paquete (verificar integridad de un paquete)</p>
+Isabel Ruiz 7 0 metálico 
 
-<p># rpm -qa gpg-pubkey (verificar la integridad de todos los paquetes)</p></blockquote>
+María Monzón 9 16 metálico
+</code></pre>
+
+<p>Mostrar la linea 4 del fichero:</p>
+
+<pre><code>$ sed -n 4p lista
+</code></pre>
+
+<p>Mostrar la 4ª y la 5ª:</p>
+
+<pre><code>$ sed -n 4,5p lista
+</code></pre>
+
+<p>Mostrar de la 3ª al final del fichero:</p>
+
+<pre><code>$ sed -n '4,$p' lista
+</code></pre>
+
+<p>Mostrar desde la primera linea que empiece por “Ant” hasta el final:</p>
+
+<pre><code>$ sed -n '/^\Ant/,$p' lista
+</code></pre>
+
+<p>Mostrar sólo los parrafos desde “Clara” hasta “Bueno”:</p>
+
+<pre><code>$ sed -n '/Clara/,/Bueno/p' lista
+</code></pre>
+
+<p>Mostrar cada linea a doble espacio:</p>
+
+<pre><code>$ sed G lista
+</code></pre>
+
+<p>Mostrar las lineas que cumplen el patrón “Ju” en alguno de sus campos:</p>
+
+<pre><code>$  sed -n '/Ju/p' lista
+</code></pre>
+
+<p>Borrar la 4ª linea del fichero:</p>
+
+<pre><code>$  sed '4d' lista
+</code></pre>
+
+<p>Borrar la última linea del fichero:</p>
+
+<pre><code>$  sed -e \$d lista
+</code></pre>
+
+<p>Lo mismo:</p>
+
+<pre><code>$ sed '$d' lista
+</code></pre>
+
+<p>Borrar las lineas que empiecen por &#8220;J&#8221;:</p>
+
+<pre><code>$ sed -e '/J/d' lista
+</code></pre>
+
+<p>Borrar la segunda linea</p>
+
+<pre><code>$ sed '2d' lista
+</code></pre>
+
+<p>Borrar la 1ª y la 2ª:</p>
+
+<pre><code>$  sed '1,2d' lista
+</code></pre>
+
+<p>Borrar desde la primera linea que empiece por &#8220;Ant&#8221; hasta el final:</p>
+
+<pre><code>$ sed -e '/^\Ant/,$d' lista
+</code></pre>
+
+<p>Borrar desde la 2 linea hasta la que tenga &#8220;Ruiz&#8221;:</p>
+
+<pre><code>$ sed '2,/Ruiz/d' lista
+</code></pre>
+
+<p>Borrar las lineas en blanco de un archivo (en &#8220;lista&#8221; no procede):</p>
+
+<pre><code>$  sed '/^$/d lista
+</code></pre>
+
+<p>Cambiar &#8220;metálico&#8221; por &#8220;gratis&#8221; excepto en la 3 linea:</p>
+
+<pre><code>$ sed '3!s/metálico/gratis/' lista
+</code></pre>
+
+<p>Cambiar &#8220;met&#8221; por &#8220;tem&#8221; en las lineas que no tengan &#8220;Cano&#8221;:</p>
+
+<pre><code>$ sed '/Cano/!s/met/tem/' lista
+</code></pre>
+
+<p>Cambiar campos (banco por cheque):</p>
+
+<pre><code>$ sed 's/banco/cheque/' lista
+</code></pre>
+
+<p>Cambiar las &#8220;J&#8221; y la &#8220;C&#8221; mayúsculas por minúsculas:</p>
+
+<pre><code>$ sed 'y/J-C/j-c/' lista
+</code></pre>
+
+<p>Substituye las vocales por &#8220;u&#8221;:</p>
+
+<pre><code>$ sed -e "s/[aeio]/u/g" lista
+</code></pre>
+
+<p>Substituir los espacios por tabulaciones:</p>
+
+<pre><code>$ sed -e 's/ /\t/g' lista
+</code></pre>
+
+<p>Alinear al centro:</p>
+
+<pre><code>$ sed -e :a -e 's/^.\{1,77\}$/ &amp;/;ta' -e 's/\( *\)\1/\1/' lista
+</code></pre>
+
+<p>Todas las opciones pueden usarse como tubería substituyendo &#8220;lista&#8221; por “cat lista |”:</p>
+
+<pre><code>$ cat lista | sed -n '4,$p'
+</code></pre>
+
+<p>Otros ejemplos:</p>
+
+<p>Mostrar lineas no comentadas de un archivo:</p>
+
+<pre><code>$ sed -e '/^#/d' /etc/fstab
+</code></pre>
+
+<p>Substituir &#8220;foto&#8221; por &#8220;FOTO&#8221; en todo los archivos del directorio:</p>
+
+<pre><code>$ ls * | sed -e 'p;s/foto/FOTO/' | xargs -n2 mv
+</code></pre>
+
+<p>Cambiar “Juan” por “Pedro” en todos los archivos .txt del presente directorio:</p>
+
+<pre><code>$ sed -i 's/Juan/Pedro/g' *.txt
+</code></pre>
+
+<p>Mostrar sólo las lineas con 4 dígitos seguidos:</p>
+
+<pre><code>$ sed '/[0-9]\{4\}/p' archivo
+</code></pre>
+
+<p>Borrar todos los espacios delante de cada linea:</p>
+
+<pre><code>$sed 's/^[ ^t]*//' archivo
+</code></pre>
+
+<p>Borrar todos los espacios detras de cada linea:</p>
+
+<pre><code>$ sed 's/[ ^t]*$//' archivo
+</code></pre>
+
+<p>Borrar todos los espacios delante y detras de cada linea:</p>
+
+<pre><code>$ sed 's/^[ ^t]*//;s/[ ^]*$//' archivo
+</code></pre>
+
+<p>Cambiar los números 3333 por 3.333. El parámetro -r sirva para activar las expresiones regulares extendidas de sed:</p>
+
+<pre><code>$ sed -r "s/\&lt;(reg|exp)[a-z]+/\U&amp;/g"
+</code></pre>
+
+<p>Contar lineas de un archivo [emulador de wc -l]:</p>
+
+<pre><code>sed -n '$=' lista
+</code></pre>
+
+<p>Insertar 5 espacios en blanco delante de cada linea:</p>
+
+<pre><code>$ sed 's/^/     /' lista
+</code></pre>
+
+<p>Insertar 1 linea en blanco despues de la primera linea:</p>
+
+<pre><code>$ sed '2i\ \' lista
+</code></pre>
+
+<p>Insertar 1 linea en blanco despues de la primera linea y de la tercera:</p>
+
+<pre><code>$ sed '2i\ \' | sed '4i\ \' lista
+</code></pre>
 </div>
   
   
@@ -536,7 +559,7 @@ Videos/alien
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rpcinfo/">Rpcinfo</a></h1>
+      <h1 class="entry-title"><a href="/blog/sdiff/">Sdiff</a></h1>
     
     
       <p class="meta">
@@ -559,9 +582,270 @@ Videos/alien
   </header>
 
 
-  <div class="entry-content"><p>Para saber los servicios que estan en marcha</p>
+  <div class="entry-content"><p>Muestra dos ficheros interactivamente.</p>
 
-<blockquote><p>$ rpcinfo -p</p></blockquote>
+<blockquote><p>$ sdiff -W -B file1 file2 (Ignorando espacios [W] y lineas en blanco [B])</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/scrounge-ntfs/">Scrounge-ntfs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Permite recuperar datos de particiones ntfs incluso corruptas.</p>
+
+<blockquote><p># scrounge-ntfs -l /dev/sda  (Para vusializar los datos del disco)</p></blockquote>
+
+<p>La salida del comando puede ser paracida a:</p>
+
+<p>Drive: /dev/sdc</p>
+
+<p>63              16787862        8               6291456</p>
+
+<p>16787925        471607195       8               6291456</p>
+
+<p>Con estos datos lanzar:</p>
+
+<blockquote><p># scrounge-ntfs -m 6291456 -c 8 /dev/sdc 16787925 471607195</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/scrot/">Scrot</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Captura de pantalla</p>
+
+<blockquote><p>$ scrot (Con los valores por defecto)</p>
+
+<p>$ scrot captura.png</p>
+
+<p>$ scrot -s captura.png (Para seleccionar un área en concreto)</p>
+
+<p>$ scrot -d 5 captura.png (retardar la captura 5 segundos)</p>
+
+<p>$ scrot -t 50 captura.png (para reducir la captura un 50%)</p>
+
+<p>$ scrot -ucd 5 (“u” captura la ventana que tiene el foco, “c” que muestre la cuenta regresiva y “d 5” los segundos de retardo)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/script/">Script</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Copia en un fichero toda la actividad tecleada en consola hasta cesar con &#8220;exit&#8221;</p>
+
+<blockquote><p>$ script -a fichero.txt</p>
+
+<p>$ script -t 2> sesion.con -a sesion.vid  (grabará la sesion. Parar el proceso con crtl+d)</p>
+
+<p>$ scriptreplay sesion.con sesion.vid  (reproduce la sesión grabada)</p>
+
+<p>$ script -f /dev/pts/3   (redirigir hacia otra terminal)</p></blockquote>
+
+<p>1.-</p>
+
+<p>Varias formas de ejecutar un script:</p>
+
+<blockquote><p>$ bash miscript.sh</p>
+
+<p>$ sh miscript.sh</p>
+
+<p>$ source miscript.sh</p></blockquote>
+
+<p>O activando el bit de ejecución en los permisos del fichero:</p>
+
+<blockquote><p>$ chmod +x miscript.sh</p>
+
+<p>$ ./miscript.sh</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/scribes/">Scribes</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Editor minimalista especial para programadores.</p>
+
+<pre><code>Algunos atajos:
+
+Ctrl + o (Abrir archivo)
+
+Ctrl + s (Guardar)
+
+Ctrl + Mayus + s (Renombrar)
+
+Ctrl + p (Imprimir)
+
+Ctrl + t (Indentar lineas seleccionadas)
+
+Ctrl + Mayus + t (Suprimir indentación)
+
+Alt +t (Convertir espacios en tabulaciones)
+
+Alt + Mayus + t (Convertir tabulaciones a espacios)
+
+Alt + r (Suprimir espacios al final de linea)
+
+Alt + d (Suprimir linea)
+
+Alt + F4 (Cerrar el editor)
+
+F1 (Abrir la ayuda)
+
+F12 (Abrir preferencias)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/screenkey/">Screenkey</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:09:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[python-xlib]</p>
+
+<p>Aplicacion que, durante una grabacion de escritorio en la que salen terminales y comandos, muestra por pantalla una franja negra en la que se puede apreciar las teclas que se pulsan para que las puedan ver mejor los televidentes. Iniciar la aplicacion (Se mostrara en el area del tray) y la grabacion del escritorio con alguna de las herramientas (gtk-recordMyDesktop, kazam, etc) y pararla con killall -9 screenkey cuando finalice la grabacion.</p>
 </div>
   
   
@@ -592,43 +876,43 @@ Videos/alien
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/gedit/">gedit</a>
+        <a href="/blog/ifne/">ifne</a>
       </li>
     
       <li class="post">
-        <a href="/blog/gconftool-2/">gconftool-2</a>
+        <a href="/blog/ifdata/">ifdata</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ftff/">ftff</a>
+        <a href="/blog/ifconfig/">ifconfig</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fstab/">fstab</a>
+        <a href="/blog/identify/">identify</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fsck/">fsck</a>
+        <a href="/blog/html/">html</a>
       </li>
     
       <li class="post">
-        <a href="/blog/freeradius/">freeradius</a>
+        <a href="/blog/hosts/">hosts</a>
       </li>
     
       <li class="post">
-        <a href="/blog/foremost/">foremost</a>
+        <a href="/blog/host-dot-conf/">host.conf</a>
       </li>
     
       <li class="post">
-        <a href="/blog/for/">for</a>
+        <a href="/blog/honeyproxy/">honeyproxy</a>
       </li>
     
       <li class="post">
-        <a href="/blog/flunym0us/">flunym0us</a>
+        <a href="/blog/hg/">hg</a>
       </li>
     
       <li class="post">
-        <a href="/blog/flexget/">flexget</a>
+        <a href="/blog/hexdump/">hexdump</a>
       </li>
     
   </ul>

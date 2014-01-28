@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Editor de texto $ gedit &#8211;list-encodings (Lista la codificación de caracteres) $ gedit &#8211;encoding UTF-8 archivo.txt (Abre el archivo &hellip;">
+  <meta name="description" content="[moreutils]. Se ejecuta si la entrada estandar no está vacia. $ find . -name archivo | ifne echo &#8220;Existe&#8221; (Si &#8220;archivo&#8221; &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/gedit/">Gedit</a></h1>
+      <h1 class="entry-title"><a href="/blog/ifne/">Ifne</a></h1>
     
     
       <p class="meta">
@@ -96,33 +96,18 @@
   
 
 
-<time datetime="2014-01-28T16:26:00+01:00" pubdate data-updated="true">28-01-2014</time>
+<time datetime="2014-01-28T16:42:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Editor de texto</p>
+  <div class="entry-content"><p>[moreutils]. Se ejecuta si la entrada estandar no está vacia.</p>
 
-<blockquote><p>$ gedit &#8211;list-encodings  (Lista la codificación de caracteres)</p>
+<blockquote><p>$ find . -name archivo | ifne echo &#8220;Existe&#8221; (Si &#8220;archivo&#8221; existe se ejecutará el echo. Si no existe, no)</p>
 
-<p>$ gedit &#8211;encoding UTF-8 archivo.txt  (Abre el archivo mencionado con la cofificación especificada)</p></blockquote>
-
-<p>Atajos</p>
-
-<pre><code>Ctrl+c (Copiar)
-
-Ctrl+s (Guarda documento)
-
-Ctrl+v (Pegar)
-
-Ctrl+x (Cortar)
-
-Ctrl+w (Cerrar ventana activa)
-
-Ctrl+Mayús+flecha  (seleccionar texto a derecha o izquierda)
-</code></pre>
+<p>$ find . -name archivo | ifne -n echo &#8220;No existe&#8221; (Si &#8220;archivo&#8221; no existe se ejecutará el echo. Si existe, no)</p></blockquote>
 </div>
   
   
@@ -135,7 +120,7 @@ Ctrl+Mayús+flecha  (seleccionar texto a derecha o izquierda)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/gconftool-2/">Gconftool-2</a></h1>
+      <h1 class="entry-title"><a href="/blog/ifdata/">Ifdata</a></h1>
     
     
       <p class="meta">
@@ -151,57 +136,28 @@ Ctrl+Mayús+flecha  (seleccionar texto a derecha o izquierda)
   
 
 
-<time datetime="2014-01-28T16:26:00+01:00" pubdate data-updated="true">28-01-2014</time>
+<time datetime="2014-01-28T16:42:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[gconf-editor]. Configurador de todos los parámetros de gnome</p>
+  <div class="entry-content"><p>[moreutils]. Muestra información de la red.</p>
 
-<blockquote><p>$ gconftool-2 &#8211;dump / > gconf_backup.xml  (realizar copia de seguridad de la configuración)</p>
+<blockquote><p>$ ifdata -p eth0 (Muestra la ip local, la mascara de red, la dirección broadcast y los MTU de la red)</p>
 
-<p>$ gconftool-2 &#8211;load gconf_backup.xml /  (restablecer la copia de seguridad)</p>
+<p>$ ifdata -pa -pn eth0 (Muestra la ip local i la mascara de red)</p>
 
-<p>$ gconftool-2 &#8211;recursive-unset /apps/panel (recuperar los paneles originales)</p></blockquote>
+<p>$ ifdata -pe eth5 (Muestra &#8220;yes&#8221; o &#8220;no&#8221; sobre si existe o no la red especificada)</p></blockquote>
 
-<p>nota.- sustituiendo el “/apps/panel” por cualquier ruta del árbol de directorios [por ejemplo “/”] de gconf-editor pueden restaurarse sus valores originales</p>
+<p>Otras opciones:</p>
 
-<blockquote><p>$ rm -rf .gconf/apps/panel (borra toda la configuración extra de los paneles)</p>
+<p>-pb (La dirección broadcast)</p>
 
-<p>$ gconftool-2 –shutdown &amp;&amp; rm -rf ~/.gconf/apps/panel &amp;&amp; pkill gnome-panel (velver a una configuración anterior de los paneles)</p></blockquote>
+<p>-ph (Muestra la MAC)</p>
 
-<p>Notas:</p>
-
-<pre><code>-t (tipo de datos a utilizar. Los valores son {int|bool|float|string|list|pair}) 
-
--s (entrada a modificar)
-</code></pre>
-
-<p>Los valores de –type pueden ser:</p>
-
-<p>lógicos [bool]. Cuando el parámetro puede ser verdadero [true] o falso [false]. P.e quitar papelera del escritorio:</p>
-
-<blockquote><p>$ gconftool-2 -t bool -s /apps/nautilus/desktop/trash_icon_visible false</p></blockquote>
-
-<p>Enteros (int). Cuando ha de especificarse un número. P.e. aumentar el numero de escritorios a 5:</p>
-
-<blockquote><p>$ gconftool-2 -t int -s /apps/metacity/general/num_workspaces 5</p></blockquote>
-
-<p>reales (float). Cuando el valor tiene el punto como separador decimal. p.e el contraste de cheese:</p>
-
-<blockquote><p>$ gconftool-2 -t float -s /apps/cheese/contrast 1.2</p></blockquote>
-
-<p>Cadenas (string). Cuando ha de especificarse un texto. P.e. cambiar el nombre de la carpeta de usuario:</p>
-
-<blockquote><p>$ gconftool-2 -t string -s /apps/nautilus/desktop/home_icon_name &#8220;Mi carpeta&#8221;</p></blockquote>
-
-<p>Lista de valores (list). En muchos casos va complementado con otra lista (&#8211;list-type) que admite los valores {int|bool|float|string}. p.e detectar codificación en gedit con determinadas opciones:</p>
-
-<blockquote><p>$ gconftool-2 -t list &#8211;list-type string -s /apps/gedit-2/preferences/encodings/auto_detected [UTF-8,CURRENT,ISO-8859-15,UTF-16]</p></blockquote>
-
-<p>Parejas de valores [pairs]. Indica parejas de valores de los tipos anteriores. No he encontrado ningún ejemplo</p>
+<p>-pf (Muestra las caracteristicas de la red)</p>
 </div>
   
   
@@ -214,7 +170,7 @@ Ctrl+Mayús+flecha  (seleccionar texto a derecha o izquierda)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ftff/">Ftff</a></h1>
+      <h1 class="entry-title"><a href="/blog/ifconfig/">Ifconfig</a></h1>
     
     
       <p class="meta">
@@ -230,16 +186,26 @@ Ctrl+Mayús+flecha  (seleccionar texto a derecha o izquierda)
   
 
 
-<time datetime="2014-01-28T16:26:00+01:00" pubdate data-updated="true">28-01-2014</time>
+<time datetime="2014-01-28T16:42:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[whichman]. Busca archivos o directorios</p>
+  <div class="entry-content"><p>[net-tools]. Define direcciones ip y dispositivos de red</p>
 
-<blockquote><p>$ ftff -t2 logfile.txt (busca  logfile con dos errores en el nombre. permite *)</p></blockquote>
+<blockquote><p># ifconfig  (ver los datos de conexión)</p>
+
+<p># ifconfig eth0 up 192.168.1.2 (Levanta la placa de red eth0 y le da la ip)</p>
+
+<p># ifconfig eth0 down (Cierra la red eth0)</p>
+
+<p># ifconfig eth0 promisc (Poner la placa en modo promiscuo)</p>
+
+<p># ifconfig wlan0 up (si se trata de redes inalámbricas)</p>
+
+<p># ifconfig eth0 hw ether 00:01:02:03:04:05  (cambiar la dirección MAC)</p></blockquote>
 </div>
   
   
@@ -252,7 +218,7 @@ Ctrl+Mayús+flecha  (seleccionar texto a derecha o izquierda)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/fstab/">Fstab</a></h1>
+      <h1 class="entry-title"><a href="/blog/identify/">Identify</a></h1>
     
     
       <p class="meta">
@@ -268,76 +234,18 @@ Ctrl+Mayús+flecha  (seleccionar texto a derecha o izquierda)
   
 
 
-<time datetime="2014-01-28T16:26:00+01:00" pubdate data-updated="true">28-01-2014</time>
+<time datetime="2014-01-28T16:42:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>(/etc/fstab). Lista todos los discos y particiones disponibles e indica cómo deben ser inicializados. Su estructura es:</p>
+  <div class="entry-content"><p>[imagemagick]. Ver las propiedades de una imagen</p>
 
-<ul>
-<li>Particion punto_de_montaje sistema_de_archivos opciones respaldos orden</li>
-</ul>
+<blockquote><p>$ identify imagen.gif</p>
 
-
-<p>Y un ejemplo seria:</p>
-
-<pre><code>/dev/sda5 /media/datos ext4 rw,users,exec,auto 0 0 (especificando el número de partición) 
-
-UUID=0e4d9ccb-93bb-4762-8b67-c23d181fc84a / ext4 errors=remount-ro 0 1 (especificando el UUID de la partición) 
-</code></pre>
-
-<p>Los puntos de montaje han de existir en el sistema y normalmente se colocan en /media</p>
-
-<p>Algunos sitemas de archivos puede ser:</p>
-
-<pre><code>auto (intenta descubrir automáticamente el sistema de archivos). 
-
-ext2 (sistema de archivos común en Linux). 
-
-ext3 (igual que ext2 pero además añade journaling). 
-
-ext4 (introdujo significativas mejoras respecto a ext3) 
-
-reiserfs (otro sistema muy común en Linux) 
-
-msdos (para dispositivos que usen FAT16) 
-
-vfat (para dispositivos que usen FAT32).
-
-ntfs (sistema de archivos NTFS de Windows) 
-
-smbfs (sistema de archivos de Samba).
-
-nfs (sistema de archivos de red NFS)
-</code></pre>
-
-<p>Algunas opciones:</p>
-
-<pre><code>auto (el dispositivo será montado automáticamente durante el inicio. auto es el valor por defecto) 
-
-noauto (Si no se desea que el dispositivo se monte automáticamente) 
-
-exec (permite ejecutar binarios que están en la partición) 
-
-noexec (lo impide. ütil en particiones windows) 
-
-ro (Montar sólo lectura) 
-
-rw (Montar para lectura/esctritura) 
-
-user (Permite a cualquier usuario montar el sistema de archivos) 
-
-nouser (Solo el usuario root podrá montar el sistema de archivos) 
-
-defaults (Utiliza las opciones por defecto: rw,exec,auto,nouser) 
-</code></pre>
-
-<p>Respaldo. Es el comando que utiliza dump para hacer respaldos del sistema de archivos. Cero desactiva la opción.</p>
-
-<p>Orden. indica el orden en que la aplicación fsck revisará la partición en busca de errores durante el inicio, si es cero el dispositivo no se revisa.</p>
+<p>$ identify -verbose imagen.jpg   (Con mucha más información)</p></blockquote>
 </div>
   
   
@@ -350,7 +258,7 @@ defaults (Utiliza las opciones por defecto: rw,exec,auto,nouser)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/fsck/">Fsck</a></h1>
+      <h1 class="entry-title"><a href="/blog/html/">Html</a></h1>
     
     
       <p class="meta">
@@ -366,59 +274,55 @@ defaults (Utiliza las opciones por defecto: rw,exec,auto,nouser)
   
 
 
-<time datetime="2014-01-28T16:26:00+01:00" pubdate data-updated="true">28-01-2014</time>
+<time datetime="2014-01-28T16:42:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[recomendado dosfstools]. Reparar/chequear/formatear una partición no montada.</p>
+  <div class="entry-content"><p>Lenguaje de marcado predominante en la elaboración de páginas web.</p>
 
-<blockquote><p># fsck -fy /dev/hda1</p>
+<p>Las etiquetas básicas de HTML de obligada presencia en todo documento son:</p>
 
-<p># fsck.ext2 -vpf /dev/hda1 (Repara una partición ext2)</p>
+<pre><code>&lt;!DOCTYPE&gt; (define el tipo de documento HTML) 
 
-<p># fsck.ext3 -vpf /dev/hda1 (Repara una partición ext3)</p>
+&lt;html&gt; (Inicio del documento) 
 
-<p># fsck -fpC 0 /dev/sda1</p>
+&lt;head&gt;  (Cabecera del documento.  Metadatos que no se muestran en el navegador pero de especial relevancia para indexadores) 
 
-<p># fsck.ext4 -cDfty -C 0 /dev/sda1</p>
+En el interior de la etiqueta &lt;head&gt; podemos encontrar: 
 
-<p># fsck.ext4 -vpf /dev/sda1 (Muestra información sobre una partición: fragmentación, inodos, bloques, archivos&#8230;)</p></blockquote>
+&lt;title&gt;  (Título que aparece en la barra del navegador) 
 
-<p>Opciones:</p>
+&lt;meta&gt;  (Metainformación del codumentos: autor, fecha realización, codificación ...) 
 
-<pre><code>-A .- Permitira una navegación en toda la estructura de /etc/fstab.
+&lt;LINK&gt;  (Otros metadatos: referencias a documentos anteriores, glosarios...) 
 
--V  .- información adicional sobre las acciones de fsck
+&lt;body&gt; (Cuerpo del documento que se muestra en el navegador) 
 
--t   .- Imprimir estadísticas de estado (-tt para más información)
+Dentro de la etiqueta &lt;body&gt; podemos encontrar: 
 
--a .- Repara cualquier problema que encuentra en el sistema de archivos sin preguntar (no recomendada)
+&lt;a&gt;  (Ancla. Crea un enlace a otro documento o parte del mismo) 
 
--l .- Lista todos los nombres de archivos
+&lt;h1&gt;, &lt;h2&gt;,… &lt;h6&gt;  (Establece la medida de los títulos de cabecera. De h1, más grande a h6 más pequeño) 
 
--r .- Pide confirmación antes de reparar el sistema de archivos.
+&lt;div&gt; (División estructural de la página) 
 
--s .- Lista el superblock antes de chequear el sistema de archivos.
+&lt;p&gt;  (Párrafo) 
 
-sis_arch .- Especifica el sistema de archivos a verificar 
+&lt;br&gt;  (Salto de linea) 
 
--c .- Buscar bloques dañados con badblocks (ver badblocks)
+&lt;table&gt; (Inicio de una tabla. La fias se defines con &lt;tr&gt; i las celdas dentro de las filas con &lt;td&gt;) 
 
--k .- Bloques dañados donde se almacenan con el comando anterior. 
+&lt;ul&gt; Lista desordenada.Los ítems se definen con &lt;li&gt;) 
 
--C 0 .- Muestra barra de progreso.
+&lt;ol&gt; (Lista ordenada. Los ítems se definen con &lt;li&gt;) 
 
--p .- forzar verificación y reparar automaticamente errores
-
--D .- Obtimizar directorios si es posible
-
--f   .- Forzar el chequeo incluso si el sistema de archivos parece correcto
-
--Y   .- Asume respuesta "yes" a todas las preguntas
+&lt;dl&gt; (Lista de definición. Pueden ser &lt;dt&gt; [termino a definir] y &lt;dd&gt; Definición del termino) 
 </code></pre>
+
+<p>Excepto algunas pocas etiquetas, la mayoría requieren ser cerradas con la misma etiqueta precedida de una barra: <html>&#8230;.</html></p>
 </div>
   
   
@@ -431,7 +335,7 @@ sis_arch .- Especifica el sistema de archivos a verificar
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/freeradius/">Freeradius</a></h1>
+      <h1 class="entry-title"><a href="/blog/hosts/">Hosts</a></h1>
     
     
       <p class="meta">
@@ -447,212 +351,39 @@ sis_arch .- Especifica el sistema de archivos a verificar
   
 
 
-<time datetime="2014-01-28T16:26:00+01:00" pubdate data-updated="true">28-01-2014</time>
+<time datetime="2014-01-28T16:42:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[libssl-dev freeradius-mysql freeradius-utils]. Servidor.</p>
+  <div class="entry-content"><p>(/etc/hosts). Contiene la resolución de &#8220;Hosts&#8221; definidos localmente. La estructura es: IP, nombre del host y alias.</p>
 
-<p>Configurar la base de datos:</p>
+<p>192.168.1.10 mi_servidor.com servidor</p>
 
-<blockquote><p># nano /etc/freeradius/sites-enabled/default</p></blockquote>
-
-<p>En los apartados &#8220;authorize&#8221; y &#8220;accouting&#8221; descomentar las lineas sql</p>
-
-<blockquote><p># nano /etc/freeradius/radius.conf</p></blockquote>
-
-<p>Descomentar la linea $INCLUDE sql.conf</p>
-
-<p>Configurar usuario, contraseña y mensaje de bienvenida:</p>
-
-<blockquote><p># nano /etc/freeradius/users</p></blockquote>
-
-<p>USUARIO Cleartext-Password := &#8220;CONTRASEÑA&#8221;</p>
-
-<pre><code>    Reply-Message "Entrando en el servidor el usuario %{User_Name}"
-</code></pre>
-
-<p>Configurar usuario y contraseña del router o punto de acceso:</p>
-
-<blockquote><p># nano /etc/freeradius/clients.conf</p></blockquote>
-
-<p>client 192.168.1.0/24 {</p>
-
-<pre><code>secret      = CONTRASEÑA_ROUTER
-
-shortname   = USUARIO_ROUTE
-</code></pre>
-
-<p>Finalmente entrar en router y colocar la ip del equipo donde hemos instalado el servidor. Reiniciar el servicio.</p>
-
-<blockquote><p># /etc/init.d/freeradius restart</p>
-
-<p># freeradius -X (Arrancar em modo debug)</p>
-
-<p># radtest USUARIO testing 127.0.0.1 1812 testing123 (Testear si la configuración de un usuario está correcta)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/foremost/">Foremost</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-28T16:26:00+01:00" pubdate data-updated="true">28-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Recuperación de datos</p>
-
-<blockquote><p># foremost -i /dev/sda -o /recovery</p>
-
-<p># foremost -t jpg -i /dev/sda3 -o /home/usr/recuperado (Recuperar jdatepgs de una partición)</p></blockquote>
-
-<p>proceso sobre una imagen:</p>
-
-<blockquote><p># dd if=/dev/sda1 of=imagen.iso conv=noerror,sync (Crear la imagen iso del dispositivo a recuperar. “conv=noerror,sync” indica que ignore errores)</p>
-
-<p># foremost -v -t all -o /home/usuario/recuperado -i imagen.iso</p></blockquote>
-
-<pre><code>-v .- modo detallado
-
--o .- lugar donde almacenar los archivos recuperados
-
--t all .- tipo de archivo a buscar. Para recuperar solo jpg: -t jpg. Para una lista de extensiones: -t jpg,doc,png
-
--i .- lugar donde esta la iso a escanear.
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/for/">For</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-28T16:26:00+01:00" pubdate data-updated="true">28-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>(ucle)]. Ejecuta un trozo de códico si la expresión de control es verdadera y sólo se para cuando es falsa.</p>
-
-<p>Ejemplos:</p>
+<p>127.0.0.1 localhost mipc</p>
 
 <p>1.-</p>
 
-<pre><code>#!/bin/bash
+<p>Configurar bloqueo de páginas web:</p>
 
-    for i in $( ls ); do
-
-        echo item --&gt; $i
-
-    done
+<pre><code># nano /etc/hosts
 </code></pre>
 
-<p>2.-</p>
+<p>Y debajo de:</p>
 
-<pre><code>#!/bin/bash
+<p>127.0.0.1 localhost</p>
 
-for i in `seq 1 10`;
+<p>127.0.1.1 tux</p>
 
-do
+<p>Añadimos, después de la ip local, las que se quieran bloquear separadas por un espacio:</p>
 
-    echo $i
+<p>127.0.0.1 localhost</p>
 
-done
-</code></pre>
+<p>127.0.1.1 tux</p>
 
-<p>Nota.- Si los números los quisieramos en una misma linea, encerrar la variable entre comillas [&#8221;<code>seq 1 10</code>&#8221;]</p>
-
-<p>3.-</p>
-
-<pre><code>#!/bin/bash
-
-for i in 1 2 3 4 5
-
-do
-
-   echo "Es el número $i "
-
-done
-</code></pre>
-
-<p>4.-</p>
-
-<pre><code>#!/bin/bash
-
-for i in {1..5}
-
-do
-
-   echo "Es el número $i "
-
-done
-</code></pre>
-
-<p>5.-</p>
-
-<p>Del 1 al 10 de 2 en 2:</p>
-
-<pre><code>#!/bin/bash
-
-for i in {1..10..2}
-
-do
-
-    echo "Es el número $i "
-
-done
-</code></pre>
+<p>127.0.0.1 www.porn.net www.google.es</p>
 </div>
   
   
@@ -665,7 +396,7 @@ done
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/flunym0us/">Flunym0us</a></h1>
+      <h1 class="entry-title"><a href="/blog/host-dot-conf/">host.conf</a></h1>
     
     
       <p class="meta">
@@ -681,35 +412,29 @@ done
   
 
 
-<time datetime="2014-01-28T16:26:00+01:00" pubdate data-updated="true">28-01-2014</time>
+<time datetime="2014-01-28T16:42:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Pruebas de vulnarabilidad de webs basadas en wordpress. Descarga http://code.google.com/p/flunym0us/downloads/list</p>
+  <div class="entry-content"><p>(/etc/host.conf). Archivo que contiene el orden de cómo serán ejecutadas las resoluciones que requiera el &#8220;Host&#8221;. Algunos parámetros:</p>
 
-<blockquote><p>$ flunym0us -H http://host -w /home/usuario/wordlist -wp -t 60 -r 1 -p 2 -T 2</p></blockquote>
+<p><strong>order hosts,bind,nis</strong> (que cualquier tipo de resolución primero consulte el archivo /etc/hosts , en segundo lugar a BIND y si aún no se ha logrado la resolución, intentar con NIS)</p>
 
-<p>Opciones:</p>
+<pre><code>BIND (Llamada al servidor de nombres)
 
-<pre><code>-wp (Scanear un sitio wordpress)
-
--mo (scanear un sitio Moodle)
-
--H http://host (Nombre del host wordpress a scanear)
-
--w /home/usuario/wordlist (Ruta al diccionario)
-
--t 60 (Tiempo de espera)
-
--r 1 (Reintentos de conexión)
-
--p 2 (Numero de procesos)
-
--T 2 (Número de subprocesos simultaneos por proceso)
+NIS ("Network Information Server" es un sistema de resolución desarrollado por Sun Microsystem's , su implementación generalmente esta limitada a intranets y utiliza una metodología diferente a la usada por BIND
 </code></pre>
+
+<p><strong>multi on</strong> (Que devuelva más de un resultado si existen alias ya que un host puede tener varias direcciones IP y la dirección IP puede coincidir con varios nombres de host. Por defecto es off [sólo se muestra el primero] )</p>
+
+<p><strong>spoofalert on</strong> (Intentar encontrar el nombre de host de una dirección IP. Si la aplicación no devuelve el resultado correcto, puede significar que una máquina intenta hacerse pasar por lo que no es.)</p>
+
+<p><strong>nospoof on</strong> (rechaza los resultados que no pasan la prueba de robo de identidad)</p>
+
+<p><strong>reorder on</strong> (intenta reordenar las direcciones de host para que las direcciones locales [misma subred] se listen en primer lugar)</p>
 </div>
   
   
@@ -722,7 +447,7 @@ done
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/flexget/">Flexget</a></h1>
+      <h1 class="entry-title"><a href="/blog/honeyproxy/">Honeyproxy</a></h1>
     
     
       <p class="meta">
@@ -738,61 +463,161 @@ done
   
 
 
-<time datetime="2014-01-28T16:26:00+01:00" pubdate data-updated="true">28-01-2014</time>
+<time datetime="2014-01-28T16:42:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[python2.6 python-pip]. Descarga de series a partir de su direccion RSS. Archivo de configuración:</p>
+  <div class="entry-content"><p>[python-pip]. Analiza el tráfico web. Instalación:</p>
 
-<blockquote><p>$ nano .flexget/config.yml</p></blockquote>
+<blockquote><p># pip install pyOpenSSL pyasn1 Twisted Autobahn</p>
 
-<p>Con un contenido parecido a:</p>
+<p>$ git clone &#8211;recursive git://github.com/mhils/HoneyProxy.git</p>
 
-<pre><code>presets:
+<p>$ cd HoneyProxy</p>
 
-  tv:
+<p># python honeyproxy.py &#8211;no-gui -a 192.168.1.15 (Arrancar el servicio)</p></blockquote>
 
-    series:
+<pre><code>HoneyProxy has been started!
 
-      settings:
+Configuration Details (normal users: ignore):
 
-    hdtv:
+GUI: http://honey:zhw78b35ioynhg8vr4jcfmn5f326d4e4@localhost:8081/app/
 
-      timeframe: 8 hours
+Proxy Address: 192.168.1.15:8080
 
-      hdtv &lt;720p:
+WebSocket Port: 8082
 
-    - serie 1
+Auth user: honey
 
-    - serie 2
-
-    - serie 3
-
-    - etc
-
-    content_filter:
-
-      require:
-
-    - '*.avi'
-
-    download: "/media/discoext/Descargas/Torrents"
-
-tasks:
-
-  TvTorrent1:
-
-    rss: http://showrss.karmorra.info/feeds/all.rss
-
-    preset: tv
+Auth key: zhw78b35ioynhg8vr4jcfmn5f326d4e4
 </code></pre>
 
-<blockquote><p>$ flexget &#8211;test (Comprobar si la configuración es correcta)</p>
+<p>Una vez instalado y arrancado el servicio, configurar el navegador para su uso en Editar/Preferencias/Avanzado/Red/Configurar la conexión, clicar en &#8220;Configuración manual del proxy&#8221; y en servidor intermediario de HTTP porner la ip de la máquina local o remota puesta al arrancar la aplicación [192.168.1.15 en este caso] y el puerto 8080. Los informes, colocando en la barra de navegación la dirección que muestra al arrancar el servicio, en este caso: http://honey:zhw78b35ioynhg8vr4jcfmn5f326d4e4@localhost:8081/app/ (usuario: honey y key: zhw78b35ioynhg8vr4jcfmn5f326d4e4). Por defecto los informes se guardan en ./dump/sites. Para parar el servicio, matar el proceso:</p>
 
-<p>$ flexget (Lanzar la aplicación)</p></blockquote>
+<pre><code>$ ps aux | grep honeyproxy
+
+$ kill -9 PID
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/hg/">Hg</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T16:42:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[mercurial]</p>
+
+<p>Mercurial es un potente programa de control de versiones para nuestros proyectos. Previamente crear en la carpeta personal, el archivo:</p>
+
+<blockquote><p>$ nano .hgrc</p></blockquote>
+
+<p>Con el siguiente contenido:</p>
+
+<pre><code>[ui]
+
+username = Juanito Perez juanitoperez@gmail.com
+</code></pre>
+
+<blockquote><p>$ hg init repositorio . (crea un repositorio en el directorio actual o en el que se especifique)</p>
+
+<p>$ hg add  (añade los ficheros existentes en el directorio a nuestro proyecto)</p>
+
+<p>$ hg clone http://servidor.com/hg (clona un repositorio a la carpeta actual)</p>
+
+<p>$ hg clone ssh://usuario@servidor.com/carpeta repositorio (clona &#8220;carpeta&#8221; usando ssh en el directorio &#8220;repositorio&#8221; del directorio actual)</p>
+
+<p>$ hg status (muestra el estado de los ficheros del proyecto)</p>
+
+<p>$ hg commit (realizamos un commit al proyecto)</p>
+
+<p>$ hg push (enviamos los cambios al repositorio remoto)</p>
+
+<p>$ hg pull (recuperamos cambios del repositorio)</p>
+
+<p>$ hg update (Recargar los archivos despues de un pull)</p>
+
+<p>$ hg update -C (Mezclar cambios [merge])</p>
+
+<p>$ hg log (vemos todos los cambios realizados en el proyecto)</p>
+
+<p>$ hg log -r 5 (Muestra la 5ª revisión)</p>
+
+<p>$ hg log -r 2:5 (Muestra de las 2ª a la 5ª revisión)</p>
+
+<p>$ hg log -p -r 6 (Muestra todas las modificaciónes del archivo de la 6ª revisión)</p>
+
+<p>$ hg tip -v (Muestra los datos de la última revisión)</p>
+
+<p>$ hg help comando (vemos la ayuda integrada del hg para el comando)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/hexdump/">Hexdump</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T16:42:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[exedit]. Editor de archivos binarios.</p>
+
+<blockquote><p>$ hexdump -C archivo_binario</p></blockquote>
 </div>
   
   
@@ -821,43 +646,43 @@ tasks:
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/gedit/">gedit</a>
+        <a href="/blog/ifne/">ifne</a>
       </li>
     
       <li class="post">
-        <a href="/blog/gconftool-2/">gconftool-2</a>
+        <a href="/blog/ifdata/">ifdata</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ftff/">ftff</a>
+        <a href="/blog/ifconfig/">ifconfig</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fstab/">fstab</a>
+        <a href="/blog/identify/">identify</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fsck/">fsck</a>
+        <a href="/blog/html/">html</a>
       </li>
     
       <li class="post">
-        <a href="/blog/freeradius/">freeradius</a>
+        <a href="/blog/hosts/">hosts</a>
       </li>
     
       <li class="post">
-        <a href="/blog/foremost/">foremost</a>
+        <a href="/blog/host-dot-conf/">host.conf</a>
       </li>
     
       <li class="post">
-        <a href="/blog/for/">for</a>
+        <a href="/blog/honeyproxy/">honeyproxy</a>
       </li>
     
       <li class="post">
-        <a href="/blog/flunym0us/">flunym0us</a>
+        <a href="/blog/hg/">hg</a>
       </li>
     
       <li class="post">
-        <a href="/blog/flexget/">flexget</a>
+        <a href="/blog/hexdump/">hexdump</a>
       </li>
     
   </ul>

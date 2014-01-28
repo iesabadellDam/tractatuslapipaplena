@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Monitor de tráfico IP. Mide el uso del ancho de banda. # iptotal eth0 -r 60 (Escuchará 60 segundos antes de informar) # iptotal eth0 -r 120 -d 3 -P ( &hellip;">
+  <meta name="description" content="Información y test de integridad de imagenes jpeg. $ jpeginfo -c imagen.jpeg $ jpeginfo -5 imagen.jpeg (Muestra el md5 de la imagen) $ jpeginfo -i &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/iptotal/">Iptotal</a></h1>
+      <h1 class="entry-title"><a href="/blog/jpeginfo/">Jpeginfo</a></h1>
     
     
       <p class="meta">
@@ -103,11 +103,13 @@
   </header>
 
 
-  <div class="entry-content"><p>Monitor de tráfico IP. Mide el uso del ancho de banda.</p>
+  <div class="entry-content"><p>Información y test de integridad de imagenes jpeg.</p>
 
-<blockquote><p># iptotal eth0 -r 60 (Escuchará 60 segundos antes de informar)</p>
+<blockquote><p>$ jpeginfo -c imagen.jpeg</p>
 
-<p># iptotal eth0 -r 120 -d 3 -P  (con alto nivel de depuarión[-d 3] y modo promiscuo [-P]</p></blockquote>
+<p>$ jpeginfo -5 imagen.jpeg (Muestra el md5 de la imagen)</p>
+
+<p>$ jpeginfo -i imagen.jpeg</p></blockquote>
 </div>
   
   
@@ -120,7 +122,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/iptables/">Iptables</a></h1>
+      <h1 class="entry-title"><a href="/blog/jp2a/">Jp2a</a></h1>
     
     
       <p class="meta">
@@ -136,349 +138,29 @@
   
 
 
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>herramienta de cortafuegos y trafico de red.</p>
+  <div class="entry-content"><p>Convertir imagenes jpeg a ascii.</p>
 
-<p>Algunos ejemplos generales:</p>
+<blockquote><p>$ jp2a &#8211;background=light -b &#8211;colors imagen.jpg  (Sin fondo, con borde y color)</p>
 
-<pre><code># iptables -F (eliminar todas las reglas)
+<p>$ jp2a &#8211;color &#8211;html &#8211;fill &#8211;background=dark entrada.jpg –output=salida.html (con un html de salida)</p>
 
-# iptables -L (si está activo y con qué reglas)
-
-# iptables -L -vn (mostrando los puertos e información detallada)
-
-# iptables -L -t nat (Listar reglas de una tabla concreta)
-
-# iptables -L fail2ban-ssh (comprobar las ips bloqueadas por fail2ban)
-
-# iptables -D fail2ban-ssh 1 (Quitar la primera ip baneada de las ips bloqueadas)
-
-# iptables -nL --line-numbers (muestra el orden de ejecución de las reglas)
-
-# iptables -nL INPUT (Lista todas las reglas de entrada)
-
-# iptables -nL FORWARD (Lista todas las reglas de salida)
-
-# iptables -D INPUT 3 (borrar la regla número 3)
-
-# iptables -A INPUT -j LOG (Guardar logs de todos los bloqueos)
-</code></pre>
-
-<p>Bloquear (DROP)</p>
-
-<pre><code># iptables -P INPUT DROP (Bloquear todo lo que entra)
-
-# iptables -A INPUT -s IP -j DROP (una ip)
-
-# iptables -A INPUT -s IP -i eth0 -j DROP (una ip de una red)
-
-# iptables -A INPUT -s IP -p tcp -dport 22 -j DROP (un puerto de una ip) 
-
-# iptables -A INPUT -s 192.168.1.0/24 -j DROP (una red)
-
-# iptables -A INPUT -m mac --mac-source 00:11:22:33:44:55 -j DROP (una mac)
-
-# iptables -A INPUT -p tcp --destination-port 21 -j DROP (puerto 21 de entrada)
-
-# iptables -A INPUT -p tcp -s IP --destination-port 21 -j DROP (el puerto 21 de entrada sólo para una IP)
-
-# iptables -A INPUT -p tcp -i eth0 -m multiport --destination-port 22,80,443 -j ACCEPT (Varios puertos)
-
-# iptables -A INPUT p tcp -s 192.168.1.0/24 --destination-port 21 -j DROP (el  puerto 21 de entrada para todo un rango de IPs)
-
-# iptables -A FORWARD -p tcp --dport 25 -j DROP (la salida del puerto 25)
-
-# iptables -A INPUT -p tcp --dport 22 -j LOG --log-prefix "Puerto 22 bloqueado" iptables -A INPUT -p tcp --dport 22 -j DROP (haciendo aparecer una mensaje informando del bloqueo)
-</code></pre>
-
-<p>Permitir (ACCEPT)</p>
-
-<pre><code># iptables -I INPUT 3 -s 192.168.1.0/8 -j ACCEPT (a la red especificada y poner la regla en tercer lugar)
-
-# iptables -D INPUT -s 192.168.1.0/8 -j ACCEPT (Quitar la regla anterior) 
-
-# iptables -A INPUT -i lo -p all -j ACCEPT (todas las entradas a localhost)
-
-# iptables -A OUTPUT -o lo -p all -j ACCEPT (todas las salidas a localhost)
-
-# iptables -A INPUT -p tcp --dport ssh -j ACCEPT (Un servicio concreto)
-
-# iptables -A INPUT -p tcp -i eth0 -m multiport --destination-port 22,80,443 -j ACCEPT (Todas las entradas a varios puertos)
-
-# iptables -A OUTPUT -o eth0 -p tcp -d 192.168.101.0/24 --dport 22 -j ACCEPT  (Permitir trafico ssh saliente para la red especificada)  
-</code></pre>
-
-<p>1.-</p>
-
-<p>Salvar unas reglas de iptables y restablecerlas manualmente:</p>
-
-<blockquote><p># iptables-save -c > /etc/iptables.rules</p>
-
-<p># iptables-restore &lt; /etc/iptables.rules</p></blockquote>
-
-<p>2.-</p>
-
-<p>Salvar unas reglas de iptables para que se activen automaticamente tras un reinicio:</p>
-
-<p>Salvar las reglas:</p>
-
-<blockquote><p># iptables-save > /etc/iptables/rules.v4</p></blockquote>
-
-<p>Crear el archivo:</p>
-
-<blockquote><p># nano /etc/network/if-pre-up.d/iptables (Crear archivo)</p></blockquote>
-
-<p>Con el siguiente contenido:</p>
-
-<pre><code>#!/bin/bash
-
-/sbin/iptables-restore &lt; /etc/iptables/rules.v4
-</code></pre>
-
-<p>Otorgar permisos:</p>
-
-<blockquote><p># chmod +x /etc/network/if-pre-up.d/iptables</p></blockquote>
-
-<p>3.-</p>
-
-<p>Otra opción para salvar las reglas y que se activen tras un reinicio:</p>
-
-<blockquote><p># /etc/init.d/iptables-persistent save (Guardar las reglas existentes)</p>
-
-<p># /etc/init.d/iptables-persistent flush (Reseteará todas las reglas)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ipscan/">Ipscan</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Escanea la red en busca de máquinas activas.</p>
-
-<blockquote><p>$ ipscan -s -f:range 192.168.1.1 192.168.1.255 (todo el rango de ips)</p>
-
-<p>$ ipscan -s -f:file ips.txt (Las especificadas en el archivo ips.txt [una por linea])</p>
-
-<p>$ ipscan -s -f:range 192.168.1.9 192.168.1.16 -o resultat.txt (Derivando el resultado a un archivo)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ipmitool/">Ipmitool</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[openipmi]</p>
-
-<p>Obtener datos del estado de un servidor [que lo soporte] tanto en local desde el propio servidor cómo en remoto. Se trata de un chipset que permite obtener información del estado de diferentes componentes hardware, temperaturas, voltajes, etc&#8230; Primero habilitar el demon ipmievd:</p>
-
-<blockquote><p># nano /etc/default/ipmievd</p></blockquote>
-
-<p>Y modificar la linea:</p>
-
-<p>ENABLED=true</p>
-
-<p>En algunas distros es preciso cargar los módulos:</p>
-
-<pre><code># ipmi_msghandler
-
-# ipmi_si
-
-# ipmi_devintf
-
-# ipmi_watchdog
-
-# ipmi_poweroff
-</code></pre>
-
-<blockquote><p># /etc/init.d/ipmi start (Arrancar el servicio)</p>
-
-<p># ipmitool sensor get &#8220;Ambient Temp&#8221; (Consulta de la temperatura ambiente)</p>
-
-<p># ipmitool user list (Listado de usuarios configurados)</p>
-
-<p># ipmitool -I lan -H 192.168.1.5 -U usuario sel elist (Litar los logs del sistema)</p>
-
-<p># ipmitool -H 192.168.1.10 -U usuario -P contraseña chassis status (Estado de chasis remoto)</p>
-
-<p># ipmitool sdr type Temperature (Obtener la temperatura)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/iperf/">Iperf</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Para poder verificar el ancho de banda entre los clientes de una red local. Se instala en todas las máquinas de la red.</p>
-
-<blockquote><p># iperf -s (Poner el servidor a la escucha por el puerto 5001)</p>
-
-<p># iperf -c 192.168.1.10 (Conectar los clientes con el servidor)</p></blockquote>
-
-<p>Alguna sopciones que pueden añadirse:</p>
-
-<p>-f B (Mostrar el resultado en Bytes por segundo [b: bytes/s, k:kilobits/s, m:megabytes/s, B:Bytes/s, K:KiloBytes/s, M:MegaBytes/s] esta opción sirva igual para el cliente que para el servidor)</p>
-
-<p>-t 120 (Tiempo en segundos de duración de la transmisión. Sólo para el cliente)</p>
-
-<p>-D (Lanzarlo como servicio. Sólo en el servidor)</p>
-
-<p>-i 10 (Tempo en segundos entre mediciones. Sólo cliente)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ipcs/">Ipcs</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Informa sobre la comunicación entre procesos [espacios de memoria, buffers, semaforos..] listando los recursos compartidos que están creados en ese momento. Ver ipcrm. La columna &#8220;shmid&#8221; muestra el ID, la &#8220;owner&#8221; el propietario, &#8220;perms&#8221; los permisos y &#8220;bytes&#8221; el tamaño en bytes</p>
-
-<blockquote><p># ipcs -s | grep postgres  (Muestra los recursos compartidos de postgres)</p>
-
-<p># ipcs -lm (determinar los limites de memoria compartida del sistema)</p>
-
-<p># ipcs -ls (Límites actuales del contador que se utiliza para acceder a los recursos compartidos del sistema)</p>
-
-<p># ipcs -u  (Proporciona información sobre la comunicación entre procesos)</p>
-
-<p># ipcs -m (despliega los segmentos de memoria compartida)</p>
-
-<p># ipcs -mu (muestra un breve resumen)</p>
-
-<p># ipcs -ml (muestra los límites en contraposición a los valores actuales)</p>
-
-<p># ipcs -m -i 950288 (obtener detalle de un segmento de memoria compartida [valor shmid])</p>
-
-<p># ipcs -s (Muestra los semforos en el sistema)</p></blockquote>
+<p>$ jp2a URL/imagen.jpg  (Con una URL de entrada)</p></blockquote>
 
 <p>Algunas opciones:</p>
 
-<p>-m  (segmentos de memoria compartida )</p>
+<pre><code>--size=40x25   (Especificando medidas)
 
-<p>-q   (colas de mensajes )</p>
+--html-title=Imagen  (con un titulo)
 
-<p>-s   (matrices de semáforos )</p>
-
-<p>-a   (todos. Opción por defecto)</p>
-
-<p>-p   (pid)</p>
+--html-no-bold (Sin caracteres en negrita)
+</code></pre>
 </div>
   
   
@@ -491,7 +173,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ipcrm/">Ipcrm</a></h1>
+      <h1 class="entry-title"><a href="/blog/jot/">Jot</a></h1>
     
     
       <p class="meta">
@@ -507,16 +189,34 @@
   
 
 
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Permite eliminar la comunicación entre procesos [ver ipcs]. Si paramos el programa con un Ctrl-C o simplemente sale de forma anormal, el recurso [la memoria compartida] no se libera y queda en el sistema. Con este comando es posible borrarla.</p>
+  <div class="entry-content"><p>[athena-jot]</p>
 
-<blockquote><p># ipcrm -m 950288 (eliminar un segmento de memoria compartida)</p></blockquote>
+<p>Mostrar secuencias de datos o datos aleatorios.</p>
+
+<blockquote><p>$ jot 5 (Mostrar del 1 al 5)</p>
+
+<p>$ jot 5 20 (Mostrar 5 números consecutivos a partir del 20)</p>
+
+<p>$ jot 7 20 30 (Mostrar 7 números entre el 20 y el 30)</p>
+
+<p>$ jot 7 20.00 30.00 (Mostrar 7 números del 20 al 30 con 2 decimales)</p>
+
+<p>$ jot -p2 7 20 30 (Lo mismo con el parámetro p)</p>
+
+<p>$ jot - 20 30 2 (Omitiendo el parámetro de la cantidad de números [-] y del 20 al 30 saltando de 2 en 2)</p>
+
+<p>$ jot -r 4 10000 99999 (4 números aleatorios entre los especificados)</p>
+
+<p>$ jot -s &#8221; &#8221; -b &#8220;-x-&#8221; 20 (20 caracteres especificados [-b] separados por un espacio [-s])</p>
+
+<p>$ jot -s &#8220;&#8221; -c 26 a (26 letras [-c] empezando por la A y sin espacio entre ellas)</p></blockquote>
 </div>
   
   
@@ -529,7 +229,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ipcalc/">Ipcalc</a></h1>
+      <h1 class="entry-title"><a href="/blog/joomla/">Joomla</a></h1>
     
     
       <p class="meta">
@@ -545,87 +245,25 @@
   
 
 
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Calcular las ips y mascaras de una red a partir de una ip dada o un rango.</p>
+  <div class="entry-content"><p>Recuperar la clave para acceder al administrador.</p>
 
-<blockquote><p># ipcalc 192.168.0.1/24</p>
+<p>Instalar webmin y desde el navegador: https://localhost:10000</p>
 
-<p># ipcalc 192.168.0.1/255.255.128.0</p></blockquote>
-</div>
-  
-  
+<p>En servidores -> Servidor BD MySQL clicar sobre la base de datos de joomla, editar la tabla jos_users i mostrar los datos id. Los usuarios estan numerados a partir del número 62. Editamos la fila del administrator admin (por ejemplo), borramos la clave y le ponemos esta:</p>
 
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ipband/">Ipband</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Mostrar datos de la conexión. Copiar el arxivo de configuración:</p>
-
-<blockquote><p># cp /usr/share/doc/ipband/examples/ipband.conf-simple /etc/ipband.conf</p></blockquote>
-
-<p>Y descomentar o modificar los siguientes parámetros:</p>
-
-<pre><code>debug 0
-
-interface eth1
-
-fork yes
-
-htmlfile /srv/www/htdocs/ipbandwidth/index.html
-
-htmltitle Consumo de banda
-
-average 10
-
-accumulate no
-
-maskbits 32
-
-localrange 192.168.1.0/24
+<pre><code>1c7a92ae351d4e21ebdfb897508f59d6 
 </code></pre>
 
-<p>Reiniciar el servicio:</p>
+<p>Guardar y entrar como administrator en nuestra web con el nombre de usuario: admin y la contraseña: holamundo</p>
 
-<blockquote><p># /etc/init.d/ipband restart</p></blockquote>
-
-<p>Arrancar la aplicación:</p>
-
-<blockquote><p># ipband</p></blockquote>
-
-<p>Los informes se muestran poniendo en la barra del navegador: http://localhost/html/ipbandwidth/index.html</p>
+<p>Luego volver a modificar la contraseña desde el panel de control de joomla.</p>
 </div>
   
   
@@ -638,7 +276,7 @@ localrange 192.168.1.0/24
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ip-ajustes/">Ip-ajustes</a></h1>
+      <h1 class="entry-title"><a href="/blog/join/">Join</a></h1>
     
     
       <p class="meta">
@@ -654,35 +292,305 @@ localrange 192.168.1.0/24
   
 
 
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>1.- Estática</p>
+  <div class="entry-content"><p>Muestra lineas coincidentes</p>
 
-<blockquote><p># gedit /etc/network/interfaces</p></blockquote>
+<blockquote><p>$ join fichero1 fichero2</p>
 
-<pre><code>auto eth0 
+<p>$ join -v 1 fichero1 fichero2 (mostrar líneas de fichero1 que no existen en  fichero2)</p></blockquote>
+</div>
+  
+  
 
-iface eth0 inet static 
 
-address 192.168.x.x 
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/john/">John</a></h1>
+    
+    
+      <p class="meta">
+        
 
-netmask 255.255.255.0 
 
-network 192.168.x.0 
 
-boadcast 192.168.2.255 
 
-gateway 192.168.x.1 
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Herramienta que permite averiguar contraseñas encriptadas</p>
+
+<p>El de los repositorios acostumbra a estar capado. Descargar el programa y el parche de:</p>
+
+<blockquote><p>$ wget http://www.openwall.com/john/g/john-1.7.3.4.tar.gz</p>
+
+<p>$ wget http://openwall.info/wiki/_media/john/john-1.7.3.1-generic-crypt-1.diff.gz</p></blockquote>
+
+<p>Descomprimir:</p>
+
+<blockquote><p># tar xvzf john-1.7.3.4.tar.gz</p></blockquote>
+
+<p>Entrar al directorio del programa:</p>
+
+<blockquote><p># cd john-1.7.3.4</p></blockquote>
+
+<p>Aplicar el parche:</p>
+
+<blockquote><p># gzip -dc ../john-1.7.3.1-generic-crypt-1.diff.gz | patch -p1</p></blockquote>
+
+<p>patching file src/Makefile</p>
+
+<p>patching file src/crypt_fmt.c</p>
+
+<p>patching file src/john.c</p>
+
+<p>Hunk #2 succeeded at 67 (offset 2 lines).</p>
+
+<p>El directorio donde se encuentra el código fuente es src:</p>
+
+<blockquote><p># cd src</p>
+
+<p># make</p></blockquote>
+
+<p>Con make obtendrá una lista de los sistemas soportados, luego:</p>
+
+<blockquote><p># make linux-x86-64</p></blockquote>
+
+<p>Si el sistema no esta en la lista:</p>
+
+<blockquote><p># make clean generic</p></blockquote>
+
+<p>Pruebas de detección de correcto funcionamiento.</p>
+
+<blockquote><p># cd ../run</p>
+
+<p># ./john &#8211;test</p></blockquote>
+
+<p>El fichero john.pot contiene los resultados encontrados por john. Si el fichero no está vacío significa que john ha encontrado la contraseña. El fichero john.rec contiene el estado actual de la búsqueda por si se produce una interrupción y es utilizado por el programa para reanudar la búsqueda.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/joe/">Joe</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Editor de texto</p>
+
+<blockquote><p>$ joe -linums fichero (Abre fichero numerando las lineas)</p></blockquote>
+
+<p>Algunas teclas de control [&#8221;<sup>k</sup> h&#8221; significa pulsar la tecla Ctrl y sin soltarla pulsar la letra “k”, soltar estas teclas y pulsar “h”]</p>
+
+<pre><code>^k h (Abrir/cerrar ventana de ayuda. Con esc . se avanza en las ventanas de ayuda y con esc , se retrocede) 
+
+^k d (Guardar archivo sin salir) 
+
+^k x (Guardar y salir) 
+
+^c (Salir sin guardar) 
+
+^k f (Buscar palabra) 
+
+^u (Pantalla anterior) 
+
+^v (Pantalla siguiente) 
+
+^a (Ir al principio de linea) 
+
+`e (Ir al final de la linea) 
+
+^k u (Ir al principio del documento) 
+
+^k v (Ir al final del documento) 
+
+^d (Borrar caracter) 
+
+^y (Borrar linea) 
+
+^w (Borrar palabra siguiente) 
+
+^o (Borrar palabra anterior) 
+
+^_ (Deshacer) 
+
+^c (Cancelar)
 </code></pre>
+</div>
+  
+  
 
-<blockquote><p># /etc/init.d/networking restart (reiniciar el servicio)</p>
 
-<p>$ ifconfig (verificar la nueva ip)</p></blockquote>
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/jobs/">Jobs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Informa sobre los trabajos en ejecución, pendientes de ejecución que se encuentran en backgroud.</p>
+
+<blockquote><p>$ jobs -l (Mostrar también el ID)</p>
+
+<p>$ jobs -p (Mostrar sólo el ID)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<p>-r (Mostrar só lo las que están procesandose)</p>
+
+<p>-s (Sólo las que están paradas)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/jnettop/">Jnettop</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Monitor del tráfico de red ordenado por el ancho de banda utilizado.</p>
+
+<blockquote><p># jnettop</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/jhead/">Jhead</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>mostrará toda la metainformación incrustada en un fichero JPG incluyendo la miniatura [thumbnail] de la foto original</p>
+
+<blockquote><p>$ jhead -st miniatura.jpg imagen_para_analizar.jpg</p>
+
+<p>$ jhead -dt imagen.jpg  (borrar el thumbnail)</p>
+
+<p>$ jhead -mkexif imagen.jpg (borra datos)</p>
+
+<p>$ jhead -purejpg imajen.jpg (borra efix)</p></blockquote>
 </div>
   
   
@@ -713,43 +621,43 @@ gateway 192.168.x.1
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/gedit/">gedit</a>
+        <a href="/blog/ifne/">ifne</a>
       </li>
     
       <li class="post">
-        <a href="/blog/gconftool-2/">gconftool-2</a>
+        <a href="/blog/ifdata/">ifdata</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ftff/">ftff</a>
+        <a href="/blog/ifconfig/">ifconfig</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fstab/">fstab</a>
+        <a href="/blog/identify/">identify</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fsck/">fsck</a>
+        <a href="/blog/html/">html</a>
       </li>
     
       <li class="post">
-        <a href="/blog/freeradius/">freeradius</a>
+        <a href="/blog/hosts/">hosts</a>
       </li>
     
       <li class="post">
-        <a href="/blog/foremost/">foremost</a>
+        <a href="/blog/host-dot-conf/">host.conf</a>
       </li>
     
       <li class="post">
-        <a href="/blog/for/">for</a>
+        <a href="/blog/honeyproxy/">honeyproxy</a>
       </li>
     
       <li class="post">
-        <a href="/blog/flunym0us/">flunym0us</a>
+        <a href="/blog/hg/">hg</a>
       </li>
     
       <li class="post">
-        <a href="/blog/flexget/">flexget</a>
+        <a href="/blog/hexdump/">hexdump</a>
       </li>
     
   </ul>

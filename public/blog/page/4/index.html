@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="[debian-goodies]. Descarga un paquete del repositorio o, caso de estar instalado, muestra la versión. $ debget debian-goodies $ debget 0ad
-">
+  <meta name="description" content="Pruebas de vulnarabilidad de webs basadas en wordpress. Descarga http://code.google.com/p/flunym0us/downloads/list $ flunym0us -H http://host -w / &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/debget/">Debget</a></h1>
+      <h1 class="entry-title"><a href="/blog/flunym0us/">Flunym0us</a></h1>
     
     
       <p class="meta">
@@ -97,18 +96,35 @@
   
 
 
-<time datetime="2014-01-27T20:47:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T16:26:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[debian-goodies]. Descarga un paquete del repositorio o, caso de estar instalado, muestra la versión.</p>
+  <div class="entry-content"><p>Pruebas de vulnarabilidad de webs basadas en wordpress. Descarga http://code.google.com/p/flunym0us/downloads/list</p>
 
-<blockquote><p>$ debget debian-goodies</p>
+<blockquote><p>$ flunym0us -H http://host -w /home/usuario/wordlist -wp -t 60 -r 1 -p 2 -T 2</p></blockquote>
 
-<p>$ debget 0ad</p></blockquote>
+<p>Opciones:</p>
+
+<pre><code>-wp (Scanear un sitio wordpress)
+
+-mo (scanear un sitio Moodle)
+
+-H http://host (Nombre del host wordpress a scanear)
+
+-w /home/usuario/wordlist (Ruta al diccionario)
+
+-t 60 (Tiempo de espera)
+
+-r 1 (Reintentos de conexión)
+
+-p 2 (Numero de procesos)
+
+-T 2 (Número de subprocesos simultaneos por proceso)
+</code></pre>
 </div>
   
   
@@ -121,7 +137,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ddrescue/">Ddrescue</a></h1>
+      <h1 class="entry-title"><a href="/blog/flexget/">Flexget</a></h1>
     
     
       <p class="meta">
@@ -137,42 +153,61 @@
   
 
 
-<time datetime="2014-01-27T20:47:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T16:26:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[make gcc g++]. Recuperación de discos dañados. Proceso:</p>
+  <div class="entry-content"><p>[python2.6 python-pip]. Descarga de series a partir de su direccion RSS. Archivo de configuración:</p>
 
-<p>Descargar el paquete dd_rhelp (Comprobar si existe una versión posterior):</p>
+<blockquote><p>$ nano .flexget/config.yml</p></blockquote>
 
-<blockquote><p>$ wget http://www.kalysto.org/pkg/dd_rhelp-0.1.2.tar.gz</p>
+<p>Con un contenido parecido a:</p>
 
-<p>$ cd dd_rhelp-0.1.2</p>
+<pre><code>presets:
 
-<p># ./dd_rhelp /dev/sdbx sdbx.img</p></blockquote>
+  tv:
 
-<p>Creará sdbx.img en el directorio actual, que podrá montarse:</p>
+    series:
 
-<blockquote><p># mount -o loop sdbx.img /media/imagen</p></blockquote>
+      settings:
 
-<p>Comprobar posibles errores (para partición ext3):</p>
+    hdtv:
 
-<blockquote><p># fsck -y sdbx.img</p></blockquote>
+      timeframe: 8 hours
 
-<p>Restaurar la imagen:</p>
+      hdtv &lt;720p:
 
-<blockquote><p># dd_rhelp sdbx.img /dev/sdax</p></blockquote>
+    - serie 1
 
-<p>Método de ejecutar ddrescue en dos pasadas, de forma que la primera sólo recupera los bloques que no contenga sectores defectuosos y el segundo se centre en recuperar el máximo de los defectuosos:</p>
+    - serie 2
 
-<blockquote><p># ddrescue -v -n /dev/sda /dev/sdb sda.txt</p>
+    - serie 3
 
-<p># ddrescue -v -r2 -d /dev/sda /dev/sdb sda.txt</p></blockquote>
+    - etc
 
-<p>Luego comprobar errores con fsck.</p>
+    content_filter:
+
+      require:
+
+    - '*.avi'
+
+    download: "/media/discoext/Descargas/Torrents"
+
+tasks:
+
+  TvTorrent1:
+
+    rss: http://showrss.karmorra.info/feeds/all.rss
+
+    preset: tv
+</code></pre>
+
+<blockquote><p>$ flexget &#8211;test (Comprobar si la configuración es correcta)</p>
+
+<p>$ flexget (Lanzar la aplicación)</p></blockquote>
 </div>
   
   
@@ -185,7 +220,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ddclient/">Ddclient</a></h1>
+      <h1 class="entry-title"><a href="/blog/figlet/">Figlet</a></h1>
     
     
       <p class="meta">
@@ -201,30 +236,33 @@
   
 
 
-<time datetime="2014-01-27T20:47:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T16:08:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Configurar pc con una ip fija. Requiere registro en dyndns.org. Durante la instalación preguntará los datos del registro pero si se prefiere puede editarse el archivo de configuración y colocarlos a mano</p>
+  <div class="entry-content"><p>Baners</p>
 
-<blockquote><p># gedit /etc/ddclient.conf</p></blockquote>
+<blockquote><p>$ figlet texto (forma básica)</p>
 
-<p>Completar los campos login y password con los datos correspondientes:</p>
+<p>$ showfigfonts    (visualizar las tipografias del comando)</p>
 
-<p>protocol=dyndns2</p>
+<p>$ figlet -f banner texto  (especificando tipografía)</p></blockquote>
 
-<p>use=web, web=checkip.dyndns.com, web-skip=&#8217;IP Address&#8217;</p>
+<p>Opciones</p>
 
-<p>server=members.dyndns.org</p>
+<pre><code>-c (centra el texto de salida) 
 
-<p>login=Nombre_registrado_en_dyndns</p>
+-l (alinea el texto a la izquierda) 
 
-<p>password=&#8217;contraseña_de_dyndns&#8217;</p>
+-r (alinea el texto a la derecha) 
 
-<p>nombre_de_dominio.com</p>
+-w (establece un tamaño máximo)
+
+-t (Con la anchura máxima que permite la terminal)
+</code></pre>
 </div>
   
   
@@ -237,7 +275,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/dav/">Dav</a></h1>
+      <h1 class="entry-title"><a href="/blog/fgrep/">Fgrep</a></h1>
     
     
       <p class="meta">
@@ -253,16 +291,14 @@
   
 
 
-<time datetime="2014-01-27T20:47:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T16:08:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[dav-text]. Editor minimalista para ncurses.</p>
-
-<blockquote><p>$ dav archivo.txt</p></blockquote>
+  <div class="entry-content"><p>(fast grep). Busca cadenas de texto fijas. Ignora el significado especial de los metacaracteres.</p>
 </div>
   
   
@@ -275,7 +311,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/date/">Date</a></h1>
+      <h1 class="entry-title"><a href="/blog/festival/">Festival</a></h1>
     
     
       <p class="meta">
@@ -291,401 +327,474 @@
   
 
 
-<time datetime="2014-01-27T20:47:00+01:00" pubdate data-updated="true">27-01-2014</time>
+<time datetime="2014-01-28T16:08:00+01:00" pubdate data-updated="true">28-01-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Relacionado con fechas y calendarios.</p>
+  <div class="entry-content"><p>[festival festvox-ellpc11k]. Sintetizador de voz.</p>
 
-<blockquote><p>$ date +%s  (en tiempo unix - desde el 1 de enero de 1970-)</p>
+<blockquote><p>$ echo “Linux es genial” | festival &#8211;tts &#8211;language spanish</p>
 
-<p>$ date -s &#8220;2010-01-10 16:59&#8221;  (forma de establecer la fecha y hora actual)</p>
+<p>$ festival &#8211;tts &#8211;language spanish archivo.txt</p></blockquote>
 
-<p>$ date –u 0110170210  (Otra forma de establecer la fecha. mes 01, día 10, hora 17:02 y año 2010)</p>
+<p>Nota.- Si al lanzar la aplicación nos muestra una salida: “Linux: can&#8217;t open /dev/dsp”, crear el fichero .festivalrc en nuestra $HOME pegando el siguiente contenido:</p>
 
-<p>$ date +&#8221;%A,%d-%m-%Y&#8221;</p></blockquote>
+<pre><code>(Parameter.set 'Audio_Command "aplay -q -c 1 -t raw -f s16 -r $SR $FILE")
+
+(Parameter.set 'Audio_Method 'Audio_Command) 
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fbgs/">Fbgs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T16:08:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Visualizar pdf usando framebuffer [sin X]</p>
+
+<blockquote><p>$ fbgs -c archivo.pdf  (visualizarlo en color)</p></blockquote>
+
+<p>Opciones:</p>
+
+<pre><code>-l  (Ampliación a 100 dpi (75 dpi por defecto)
+
+-xl (a 12 dpi)
+
+-xxl (a 150 dpi)
+
+-p contraseña (Si el pdf requiera contraseña)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/faillog/">Faillog</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T16:08:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>(/var/log/faillog). Almacena todos los intentos &#8220;login&#8221; fallidos realizados a una maquina.</p>
+
+<blockquote><p>$ faillog</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/extundelete/">Extundelete</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T16:08:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[e2fsprogs, e2fslibs, e2fslibs-dev, g++, build-essential]. Recuperación de archivos o directorios borrados. La partición sobre la que se actua ha de estar desmontada. Descargar la aplicación de <a href="http://extundelete.sourceforge.net/">http://extundelete.sourceforge.net/</a> e instalarla con el clasico ./configure, make, sudo make install.</p>
+
+<blockquote><p># extundelete  /dev/sda11 &#8211;restore-directory /datos/dir_borrado (recuperar el directorio dir_borrado de la partición /dev/sda11. Lo guardará en el directorio RECOVERED_FILES)</p>
+
+<p># extundelete  /dev/sda11 &#8211;restore-file /datos/imagenes/foto.png -o fotos/ (recuperar un archivo y guardarlo en el directorio fotos)</p>
+
+<p># extundelete /dev/sda11 &#8211;restore-all (recuperar toda una partición)</p>
+
+<p># extundelete /dev/sda11 &#8211;restore-files files (recuperar de la partición /dev/sda11 los archivos enumerados en &#8220;files&#8221; a razón de uno por linea)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/expresiones-regulares/">Expresiones-regulares</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T16:08:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[regex o patrones]. Buscar cadenas de texto que coinciden con un patrón. Los comandos más usuales que las emplean son grep, find, sed y awk y cada uno con sus pecualiaridades. Para ilustrar dichas expresiones se usa un archivo de texto al que llamo file.</p>
+
+<blockquote><p>$ cat file</p></blockquote>
+
+<pre><code># /etc/fstab: static file system information.
+
+UUID=de1d7793-c3d2-4e03-b79d-1a76905619e6 /               ext4    errors=remount-ro 0       1
+
+UUID=ccc71238-d89d-435b-a4e2-c2d836f800bb none            swap    sw              0       0
+
+/dev/sr0        /media/cdrom0   udf,iso9660 user,noauto     0       0
+
+/dev/sda5       /media/datos    ext4    defaults        0       0
+
+/dev/sda7       /media/fotos    ext3    defaults        0       0
+
+servidor:/home/templix /media/servidor  nfs4 defaults   0       0
+
+### Otras cosas
+
+7592 esto es un número....
+
+la letra z es la última
+
+aminora
+
+mediaplayer es un reproductor
+
+tres cincos hace 555
+
+salta la rana
+
+aRmARIO
+</code></pre>
+
+<p>Nota.- Los siguientes ejemplos se basarán en el comando grep. En algunos casos, al corresponder a expresiones regulares extendidas, se usará con el argumento -E. Las expresiones regulares han de ir siempre encerradas con comillas simples.</p>
+
+<pre><code>Literales (Sólo encajan con ellos mismos)
+
+    $ grep 'media' file (mostrara las lineas que contengan "media" incluso "mediaplayer")
+
+    $ grep '\&lt;media\&gt;' file (Sólo mostrará las que contengan exactamente "media")
+
+. [punto] (Cualquier caracter)
+
+    $ grep 'me.ia' file (Misma salida que el anterior)
+
+    $ grep '\&lt;m...a\&gt;' file (Mostrar las de cinco letras que empiecen por "m" y terminen en "a")
+
+    $ grep 'm...a\&gt;' file (Mostrar las lineas que contengan una palabra de cinco letras que empiece por "m" y termine con "a" sin nada a continuación)
+
+[] [Corchetes] (Cualquier caracter de los encerrados entre corchetes)
+
+    $ grep '[wz]' file (Mostras las que contengan "w" o "z")
+
+    $ grep 'sda[0-9]' file (Mostrar las lineas con palabras que empiecen por sda seguidas de un número del 0 al 9)
+
+    $ grep '[0-9]-' file (Buscar lineas que tengan un número seguido de un -)
+
+| [Tuberia] (Especificar varias opciones)
+
+    $ grep -E 'e(xt|rvi)(3|dor)' file (Mostrar las que contengan ext3 y ervidor [servidor])
+
+    $ grep -E 'datos|servidor' file (Mostrar las que tengan las palabras "datos" y "servidor")
+
+- [Guión] (Siempre que no siga a un corchete, especifica un rango)
+
+    $ grep '[0-2]$' file (Lineas que contengan los números 0,1 y 2)
+
+^ [Circunflejo] (Si va precedido de un corchete significa "todo lo que no sea lo que sigue". En los demás casos significa "que la linea empiece por lo que sigue)
+
+    $ grep '^UUID' file (Mostrar las que empiecen por UUID)
+
+    $ grep ':[^/]' file (Las que tengan ":" y no vayan seguidos de una "/")
+
+    $ grep -e '^UUID' -e '^\/' file (Mostrar las que empiecen por UUID y por / . La barra de escape [\] convierte al siguiente caracter en literal)
+
+$ [Dolar] (Indica que el carácter precedente aparece al final de la linea)
+
+    $ grep '0$' file (Muestra las que terminen en 0)
+
+    grep '\.$' file (Muestra las lineas que terminan con un punto)
+
++ [Signo más] (Una o más veces).
+
+    $ grep -E '\-[0-9]+' file (Buscar las lineas con varios números precedidos por un guión [que ha de escaparse con una barra])
+
+* (Asterisco) (Ninguna o más veces)
+
+    $ grep -E '(fot).*' file (Mostrar las que tengan "fot" y puedan estar o no seguidas de otros caracteres)
+
+? (Interrogante) (Un caracter impreciso)
+
+    $ grep -E 'ext4?' file (indica que el caracter anterior [el 4] puede ser distinto de 4 o puede no existir, o sea que mostrará lineas que contengan ext4, ext3, ext...)
+
+{n,m} [Llaves] (Que el caracter anterior a la llave se muestre las veces que indica entre el número n y el m. Si omitimos m significa como mínimo n veces.
+
+    $ grep '5\{2,5\}.*' file (Que se muestre las lineas que tengan un 5 entre dos y cinco veces. Las llaves se escapan)
+
+    $ grep '5\{3\}.*' file (Muestra las lineas en las que el 5 sale tres veces)
+
+    $ grep '5\{3,\}.*' file (Muestra las lineas en las que el 5 sale como mínimo tres veces)
+
+b (Que lo precedente sea el final de una palabra. Siempre ha de escaparse.)
+
+    $ grep 's\b' file (Muestra las lineas que contienen alguna palabra acabada en "s")
+</code></pre>
+
+<p>Otros ejemplos:</p>
+
+<p>Buscar las lineas que no empiecen por #:</p>
+
+<pre><code>$ grep -v '^#' file
+</code></pre>
+
+<p>Mostrar lineas que empiecen por # y las que terminen en 0:</p>
+
+<pre><code>$ grep -E '^#|0$' file
+</code></pre>
+
+<p>Buscar lineas que tengan : seguidos de una barra que ha de escaparse:</p>
+
+<pre><code>$ grep ':\/' file
+</code></pre>
+
+<p>Buscar las lineas que tengan una &#8220;o&#8221; seguida de al menos 3 dígitos:</p>
+
+<pre><code>$ grep 'o[0-9]\{3\}' file
+</code></pre>
+
+<p>Buscar lineas que tengan algún dígito:</p>
+
+<pre><code>$ grep '[[:digit:]]' file
+</code></pre>
+
+<p>Buscar lineas que empiecen por un caracter alfabético:</p>
+
+<pre><code>$ grep '^[[:alpha:]]' file
+</code></pre>
+
+<p>Buscar lineas que tengan &#8220;ext&#8221; usando parentesis:</p>
+
+<pre><code>$ grep '\(ext\)' file
+</code></pre>
+
+<p>Buscar lineas que que tengan un número entre 2 y 9 al menos una vez y esten precedidos de espacio, tabulación o salto de linea:</p>
+
+<pre><code>$grep -E '\s[2-9]+' file
+</code></pre>
+
+<p>Mostrar lineas con entre 3 y 6 letras mayúsculas:</p>
+
+<pre><code>$ grep '[A-Z]\{3,6\}' file
+</code></pre>
+
+<p>Algunos casos comentados:</p>
+
+<p>1.-</p>
+
+<blockquote><p>$ touch nada.8.sh.5</p></blockquote>
+
+<pre><code>$ ls | grep '.*.[6-8].*.[1-6]'
+</code></pre>
+
+<p>Nota.- Cuando se usen con el comando grep han de ir siempre encerradas con comillas simples.</p>
+
+<pre><code>.* (Cero o más caracteres. El punto inicial es imprescindible)
+
+.[6-8] (Seguidos de un punto y un número que contenga entre el 6 y el 8)
+
+.* (seguido un punto y cero o más caracteres)
+
+.[1-6] (y terminado con un punto seguido de un número que contenga del 1 al 6)
+</code></pre>
+
+<p>Nota.- Los corchetes NO indican UN número de un dígito sinó un número que contenga el margen especificado [6,7,8 para el primer corchete y 1,2,3,4,5,6 para el segundo, por tanto también listaría el archivo nada.0357.sh.389 pero no nada.0352.sh.389 porque el número 0352 no contiene ninguno del margen especificado.</p>
+
+<p>Nótese la diferencia en la expresión regular usando el comando mv [sin comillas simples y sin el punto delante del primer asterisco]:</p>
+
+<pre><code>$ mv *.[6-8].*.[1-6] prueba
+</code></pre>
+
+<p>2.-</p>
+
+<p>Buscar en el directorio scripts, todos los que sean de bash:</p>
+
+<pre><code>$ grep -i '^#.*bash' scripts/*
+
+    ^#.*bash (Que el primer caracter de la primera linea sea # y que despues de cero o más caracteres aparezca la palabra bash)
+
+    $ grep -i '$.*bash' scripts
+
+    '$.*bash' (En todos los ficheros del directorio, que al final de la primera linea y despues de cero o más caracteres apararezca la palabra bash)
+</code></pre>
+
+<p>3.-</p>
+
+<p>Ver los correos electrónicos completos de una lista en la que los hay incompletos:</p>
+
+<blockquote><p>$ cat lista</p></blockquote>
+
+<pre><code>juangomez@gmail.com
+
+clarafuentes@
+
+@yahoo.es
+
+ant.rodri-perez@hotmail.nadadenada
+
+pedro@blog.empresa.travel
+</code></pre>
+
+<hr />
+
+<pre><code>$ grep -E '^[a-zA-Z._-]+@[a-zA-Z0-9.]+\.[a-z]+$' lista
+
+    ^[a-zA-Z._-]+ (Que empiece con una palabra que pueda contener mayúsculas, minúsculas, puntos, guiones o guiones bajos)
+
+    @ (Seguida de una @ literal)
+
+    [a-zA-Z0-9.]+ (A continuación varios caracteres que pueden ser mayúsculas, minúsculas, puntos o números)
+
+    \. (Después un punto literal)
+
+    [a-z]+$ (Para terminar, uno o varios caracteres en minúscula)
+
+$ grep -E '^[a-zA-Z._-]+@.[a-zA-Z.0-9]+\.[[:alpha:]]{2,3}$' lista (Sólo mostrará las que terrminen con 2 o 3 letras)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/eterm/">Eterm</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T16:08:00+01:00" pubdate data-updated="true">28-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Terminal.</p>
+
+<blockquote><p>$ Eterm -D 1 -f green -O (En el segundo escritorio [-D 1] con las fuentes en verde  [-f]  y transparente [-O]</p></blockquote>
 
 <p>Algunas opciones:</p>
 
-<pre><code>%D (fecha en formato mm/dd/yy)
+<pre><code>--buttonbar false (Sin la barra del menú)
 
-%T (hora:minutos:segundos en formato 24h)
+-T “titulo de la terminal” 
 
-%R (hora:minutos en formato 24h)
+-b yellow (color de fondo)
 
-%d (día del mes con 2 dígitos)
+-c red (Color del cursor)
 
-%m (mes con 2 digitos)
+-g 50x10 (Medidas. 50 de largo por 10 de ancho)
 
-%y (año con 2 dígitos)
+-S (Abrir en todos los escritorios)
 
-%Y (año con 4 dígitos)
-
-%a (nombre abreviado del día)
-
-%A (nombre completo del día)
-
-%b (nombre abreviado del mes)
-
-%B (nombre completo del mes)
-
-%H (hora con 2 dígitos en formato 0-24h)
-
-%I (hora con 2 digitos en formato 0-12h)
-
-%M (Solo los minutos)
-
-%S (Solo los segundos)
+-e comando (Cuando termine de ejecutar el comando se cierra)
 </code></pre>
-
-<blockquote><p>$ date +&#8221;%A,%d-%m-%Y&#8221; &#8211;date &#8216;1966/4/20 20500 days&#8217; (Para saber cuando alguien cumplirá 20500 días desde su nacimiento)</p>
-
-<p>$ watch -n1 &#8216;banner <code>date +%T</code>&#8217; (Rejoj digital en ascii)</p></blockquote>
-
-<p>1.-</p>
-
-<p>Saber la hora encualquier parte del mundo:</p>
-
-<blockquote><p>$ TZ=&#8221;America/Guatemala&#8221; date (Muestra la hora actual de Guatemala)</p>
-
-<p>$ TZ=&#8221;Europe/Berlin&#8221; date (Muestra la de Berlin)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/dansguardian/">Dansguardian</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:47:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[squid]. Filtro de contenidos web [cliente] que trabaja conjuntamente con el servidor proxy squid [servidor].</p>
-
-<p>Adaptar el archivo de configuración:</p>
-
-<blockquote><p># nano /etc/dansguardian/dansguardian.conf</p></blockquote>
-
-<p>Algunos parámetros a especificar [caso de no estarlo]:</p>
-
-<pre><code>language = 'spanish'
-
-reportinglevel = 3 #valores de 1, 2 y 3
-
-filterport = 8080
-
-proxyip = 127.0.0.1 #La misma ip del proxy squid
-
-proxyport = 3128
-</code></pre>
-
-<p>Guardar el archivo.</p>
-
-<p>El listado de conceptos [ip, nombre de dominio, frases&#8230; ] por los que se puede banear y conceptos excluidos en:</p>
-
-<blockquote><p># ls /etc/dansguardian/lists/</p></blockquote>
-
-<p>Algunos de los más usuales:</p>
-
-<p>bannedextensionlist (extensiones no permitidas)</p>
-
-<p>banneriplist (listado de ips no permitidas)</p>
-
-<p>bannedmimetypelist (Tipos MIME no permitidos)</p>
-
-<p>bannedregexpurllist  (Listado de expresiones a bloquear)</p>
-
-<p>bannedurllist (Bloquear partes especificas de un sitio)</p>
-
-<p>bannedsitelist (Bloquear sitios)</p>
-
-<p>bannedphraselist (Listado de frases prohibidas encerradas entre &lt; ></p>
-
-<p>exceptionsitelist (Lista de excepciones de sitios)</p>
-
-<p>exceptioniplist (lista de excepciones de direcciones IP)</p>
-
-<p>exceptionuserlist (Lista de excepciones de nombres de usuarios que no serán filtrado)</p>
-
-<blockquote><p># /etc/init.d/dansguardian restart</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/cups/">Cups</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:21:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Gestión de impresoras.</p>
-
-<p>1.-</p>
-
-<p>Montar una impresora en red:</p>
-
-<p>En la máquina servidor (la que tiene conectada la impresora)</p>
-
-<pre><code># nano /etc/cups/cupsd.conf
-</code></pre>
-
-<p>Comentar la linea “Listen localhost:631” y añadir la ip de la máquina: “Listen 192.168.2.3:631” y en el siguiente apartado añadir los parámetros de la red:</p>
-
-<pre><code># Restrict access to the server…
-
-&lt;Location /&gt;
-
-    Order allow,deny
-
-    Allow localhost
-
-    Allow @LOCAL
-
-    # permisos a la red local
-
-    Allow from 192.168.2.0/24
-
-&lt;/Location&gt;
-</code></pre>
-
-<p>Para activar la compartición de impresoras:</p>
-
-<p>Browsing on</p>
-
-<pre><code># /etc/init.d/cupsd restart (reiniciar cups)
-</code></pre>
-
-<p>Abrir el navegador y escribir http://localhost:631 después del logeo ir a la pestaña printers y seleccionar la impresora, con lo que nos quedará en la barra de navegación algo parecido a: http://localhost:631/printers/PSC-1100</p>
-
-<p>Que sustituyendo “localhost” por la dirección ip de la máquina nos dará la dirección de la impresora:</p>
-
-<p>http://192.168.2.3:631/printers/PSC-1100</p>
-
-<p>En las máquinas cliente</p>
-
-<pre><code># nano /etc/cups/cupsd.conf
-</code></pre>
-
-<p>Browsing on</p>
-
-<p>BrowseAllow 192.168.2.0/24</p>
-
-<pre><code># /etc/init.d/cupsys restart
-</code></pre>
-
-<p>Y configurar la impresora de la forma habitual ya sea en Sistema -> administración -> impresoras pestaña Configuración -> URI del dispositivo y poner la dirección de la impresora o via http://localhost:631</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/csscapture/">Csscapture</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:21:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[python-cssutils]. Capturar el css de una web.</p>
-
-<blockquote><p>$ csscapture -s web http://www.tuxapuntes.com (guarda en la carpeta “web”)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/zypper/">Zypper</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Gestor de paquetes de opensuse (rpm)</p>
-
-<blockquote><p># zypper (Generar una lista de paquetes instalados)</p>
-
-<p># zypper repos (Listar repositorios)</p>
-
-<p># zypper install paquete  (Instalar paquete)</p>
-
-<p># zypper install rutadelpaquete (Instalar paquetes que no está en los repositorios)</p>
-
-<p># zypper install &#8211;force paquete (Reinstalar)</p>
-
-<p># zypper remove paquete (Desinstalar paquete)</p>
-
-<p># zypper remove &#8211;clean-deps paquete (Desinstalar con dependencias)</p>
-
-<p># zypper search paquete (Buscar paquete)</p>
-
-<p># zypper help comando (ayuda para un comando)</p>
-
-<p># zypper update (Actualizar base de datos y el sistema)</p>
-
-<p># zypper info paquete (Buscar información de paquete)</p>
-
-<p># zypper clean (Limpiar caché e información obsoleta)</p>
-
-<p># zypper refresh (Actualizar información)</p>
-
-<p># zypper dist-upgrade (Actualizar distro)</p>
-
-<p># zypper al &#8216;paquete&#8217; (Descartar paquete para actualizaciones)</p>
-
-<p># zypper rl &#8216;paquete&#8217; (Desbloquear paquete del bloqueo anterior)</p>
-
-<p># zypper verify (Verificar dependencias)</p>
-
-<p># zypper intall-new-recommends (Instalar paquetes recomendados)</p>
-
-<p># zypper list-updates (Listar Actualizaciones disponibles)</p>
-
-<p># zypper list-patches (Listar parches disponibles)</p>
-
-<p># zypper patches (Instalar parches disponibles)</p>
-
-<p># zypper addrepo rutadelrepositorio (Añadir repositorio)</p>
-
-<p># zypper addrepo -f repositorio rutadelrepositorio (Añadir con actualización automática)</p>
-
-<p># zypper modifyrepo &#8211;disable repositorio (Desactivar repositorio)</p>
-
-<p># zypper removerepo nombredelrepositorio (Suprimir repositorio)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/zmore/">Zmore</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:11:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Pagina la visualización de un fichero comprimido (Ver more)</p>
 </div>
   
   
@@ -716,43 +825,43 @@ proxyport = 3128
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/gedit/">gedit</a>
+        <a href="/blog/ifne/">ifne</a>
       </li>
     
       <li class="post">
-        <a href="/blog/gconftool-2/">gconftool-2</a>
+        <a href="/blog/ifdata/">ifdata</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ftff/">ftff</a>
+        <a href="/blog/ifconfig/">ifconfig</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fstab/">fstab</a>
+        <a href="/blog/identify/">identify</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fsck/">fsck</a>
+        <a href="/blog/html/">html</a>
       </li>
     
       <li class="post">
-        <a href="/blog/freeradius/">freeradius</a>
+        <a href="/blog/hosts/">hosts</a>
       </li>
     
       <li class="post">
-        <a href="/blog/foremost/">foremost</a>
+        <a href="/blog/host-dot-conf/">host.conf</a>
       </li>
     
       <li class="post">
-        <a href="/blog/for/">for</a>
+        <a href="/blog/honeyproxy/">honeyproxy</a>
       </li>
     
       <li class="post">
-        <a href="/blog/flunym0us/">flunym0us</a>
+        <a href="/blog/hg/">hg</a>
       </li>
     
       <li class="post">
-        <a href="/blog/flexget/">flexget</a>
+        <a href="/blog/hexdump/">hexdump</a>
       </li>
     
   </ul>

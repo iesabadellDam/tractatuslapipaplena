@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Monitor de tráfico de red # pads -i eth0
+  <meta name="description" content="Pasar un pdf a html $ pdftohtml -i -stdout archivo.pdf | w3m -T text/html (leerlo por consola con w3m sin mostrar imagenes [-i])
 ">
   
 
@@ -81,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pads/">Pads</a></h1>
+      <h1 class="entry-title"><a href="/blog/pdftohtml/">Pdftohtml</a></h1>
     
     
       <p class="meta">
@@ -104,9 +104,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Monitor de tráfico de red</p>
+  <div class="entry-content"><p>Pasar un pdf a html</p>
 
-<blockquote><p># pads -i eth0</p></blockquote>
+<blockquote><p>$ pdftohtml -i -stdout archivo.pdf | w3m -T text/html (leerlo por consola con w3m sin mostrar imagenes [-i])</p></blockquote>
 </div>
   
   
@@ -119,7 +119,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pacworld/">Pacworld</a></h1>
+      <h1 class="entry-title"><a href="/blog/pdftk/">Pdftk</a></h1>
     
     
       <p class="meta">
@@ -142,9 +142,65 @@
   </header>
 
 
-  <div class="entry-content"><p>Herramienta para comprobar la consistencia de la base de datos y arreglar paquetes rotos.</p>
+  <div class="entry-content"><p>Manipulación de pdfs</p>
 
-<blockquote><p># pacworld -v &#8211;exec</p></blockquote>
+<blockquote><p>$ pdftk 1.pdf 2.pdf 3.pdf cat output 123.pdf (Unir PDFs y crear un pdf nuevo)</p>
+
+<p>$ pdftk A=1.pdf B=2.pdf cat A B output 12.pdf (lo mismo utilitzando etiquetas)</p>
+
+<p>$ pdftk *.pdf cat output todos.pdf (o utilitzando comodines)</p>
+
+<p>$ pdftk A=one.pdf B=two.pdf cat A1-7 B1-5 A8 output combined.pdf (Separar páginas seleccionadas de distintos PDFs y crear uno nuevo)</p>
+
+<p>$ pdftk revista.pdf cat 37-39 output 37_39.pdf (Separar páginas de un pdf)</p>
+
+<p>$ pdftk revista.pdf cat 4 output 4.pdf (separar la 4 pagina)</p>
+
+<p>$ pdftk texto.pdf output texto.128.pdf owner_pw foopass (Encriptar un PDF restringiendo todos los permisos)</p>
+
+<p>$ pdftk mydoc.pdf output mydoc.128.pdf owner_pw foo user_pw baz (Lo mismo pero con contraseña para abrir el PDF)</p>
+
+<p>$ pdftk mydoc.pdf output mydoc.128.pdf owner_pw foo user_pw baz allow printing (Lo mismo con permiso para imprimir una vez abierto)</p>
+
+<p>$ pdftk secured.pdf input_pw foopass output unsecured.pdf (Desencriptar pdf)</p>
+
+<p>$ pdftk A=secured.pdf mydoc.pdf input_pw A=foopass cat output combined.pdf (Unir dos PDFs uno de ellos encriptado. La salida no queda encriptada))</p>
+
+<p>$ pdftk mydoc.pdf output mydoc.clear.pdf uncompress (Descomprimir cadenas de paginas PDF para editar el codigo PDF en un editor de texto)</p>
+
+<p>$ pdftk broken.pdf output fixed.pdf (Reparar una tabla XREF de PDF y las longitudes de cadena, cuando es posible))</p>
+
+<p>$ pdftk archivo.pdf output comprimido.pdf compress (Comprimir pdf)</p>
+
+<p>$ pdftk archivo.pdf output descomprimido.pdf uncompress (Descomprimir pdf)</p>
+
+<p>$ pdftk input.pdf cat 1-endE output output.pdf (rotar 90 grados el pdf)</p>
+
+<p>$ pdftk archivo.pdf dump_data_fields (obtener campos de cualquier formulario pdf)</p>
+
+<p>$ pdftk archivo.pdf dump_data_fields output campos.lst (Lo mismo derivado a un archivo)</p>
+
+<p>$ pdfcrack archivo.pdf [opciones] (Si se trata de archivos pdf con contraseña)</p>
+
+<p>$ pdfcrack archivo.pdf -n 6 -c abcdefghijklmnopqrstuvxyz -s</p></blockquote>
+
+<p>Opciones:</p>
+
+<p>-B: Realizar evaluación comparativa y salir</p>
+
+<p>-C [CADENA]: Utiliza los caracteres indicados para la busqueda de la contraseña</p>
+
+<p>-m [numero]: Se buscará hasta llegar a la longitud de caracteres de “numero”</p>
+
+<p>-n [numero]: Se empezará a probar contraseñas de “numero” caracteres</p>
+
+<p>-l [FILE]: Continuará desde el punto guardado en el archivo FILE.</p>
+
+<p>-q: Ejecutar silenciosamente</p>
+
+<p>-s: Realiza el crack permutando contraseñas</p>
+
+<p>-u: Trabajar con el “userpassword”</p>
 </div>
   
   
@@ -157,7 +213,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pactree/">Pactree</a></h1>
+      <h1 class="entry-title"><a href="/blog/pdfresurrect/">Pdfresurrect</a></h1>
     
     
       <p class="meta">
@@ -180,13 +236,15 @@
   </header>
 
 
-  <div class="entry-content"><p>Muestra dependencias de un paquete.</p>
+  <div class="entry-content"><p>herramienta para la extracción/limpieza de metadatos de documentos pdf.</p>
 
-<blockquote><p>$ pactree -c opera (muestra el arbol coloreado)</p>
+<blockquote><p>$ pdfresurrect -i archivo.pdf   (Información del creador del pdf)</p>
 
-<p>$ pactree -u opera (lo muestra de forma lineal y sin duplicados)</p>
+<p>$ pdfresurrect -w archivo.pdf  (Escribe las versiones y resumen del pdf al disco)</p>
 
-<p>$ pactree -g htop > archivo (envia la salida a un archivo que puede ser interpretado por la aplicación de graficos graphviz [ver])</p></blockquote>
+<p>$ pdfresurrect -q archivo.pdf   (Muestra el número de versiones del pdf)</p>
+
+<p>$ pdfresurrect -s  archivo.pdf  (Limpia todos los datos del pdf)</p></blockquote>
 </div>
   
   
@@ -199,7 +257,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pacsearch/">Pacsearch</a></h1>
+      <h1 class="entry-title"><a href="/blog/pdfnup/">Pdfnup</a></h1>
     
     
       <p class="meta">
@@ -222,9 +280,13 @@
   </header>
 
 
-  <div class="entry-content"><p>Buscar paquetes arch (Equivalente a pacman -Ss )</p>
+  <div class="entry-content"><p>Compactar varias páginas de un pdf en una y viceversa.</p>
 
-<blockquote><p>$ pacsearch mail</p></blockquote>
+<blockquote><p>$ pdfnup &#8211;nup 2×4 archivo.pdf (8 páginas)</p>
+
+<p>$ pdfnup &#8211;nup 2x1 &#8211;outfile output.pdf input.pdf (dos pàgines en una)</p>
+
+<p>$ pdfnup &#8211;nup 2x2 &#8211;outfile output.pdf input.pdf  (4 páginas)</p></blockquote>
 </div>
   
   
@@ -237,7 +299,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pacman-optimize/">Pacman-optimize</a></h1>
+      <h1 class="entry-title"><a href="/blog/pdfjoin/">Pdfjoin</a></h1>
     
     
       <p class="meta">
@@ -260,9 +322,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Reagrupa archivos fragmentados de la base de datos de pacman</p>
+  <div class="entry-content"><p>Unir varios pdf con el mismo formato de página en uno</p>
 
-<blockquote><p># pacman-optimize</p></blockquote>
+<blockquote><p>$ pdfjoin &#8211;fitpaper true 1.pdf 2.pdf &#8211;outfile 12.pdf</p></blockquote>
 </div>
   
   
@@ -275,7 +337,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pacman-color/">Pacman-color</a></h1>
+      <h1 class="entry-title"><a href="/blog/pdfimages/">Pdfimages</a></h1>
     
     
       <p class="meta">
@@ -298,7 +360,11 @@
   </header>
 
 
-  <div class="entry-content"><p>Igual que pacman pero coloreando algunas partes de la salida (repositorio, versión, si está instalado&#8230;)</p>
+  <div class="entry-content"><p>Extraer las imágenes de un pdf</p>
+
+<blockquote><p>$ pdfimages fichero.pdf fichero</p>
+
+<p>$ pdfimages -j fichero.pdf fichero (guardarlas en formato jpeg)</p></blockquote>
 </div>
   
   
@@ -311,7 +377,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pacman/">Pacman</a></h1>
+      <h1 class="entry-title"><a href="/blog/pdfcrack/">Pdfcrack</a></h1>
     
     
       <p class="meta">
@@ -334,55 +400,19 @@
   </header>
 
 
-  <div class="entry-content"><p>Gestor de programario de distros archlinux. Ver tambien yaourt.</p>
+  <div class="entry-content"><p>Craqueador de pdfs</p>
 
-<blockquote><p># pacman -S prog1 prog2 (intalar/actualizar paquetes y dependencias)</p>
+<blockquote><p>$ pdfcrack -f archivo.pdf   (Sin especificaciones)</p>
 
-<p># pacman -S extra/paquete (especificando versión- extra o testing-)</p>
+<p>$ pdfcrack -f archivo.pdf -w /home/usuario/diccionario (con un diccionario)</p>
 
-<p># pacman -Sc (Borrar paquetes de versiones viejas)</p>
+<p>$ pdfcrack archivo.pdf -n 6 -c abcdefghijklmnopqrstuvxyz -s</p></blockquote>
 
-<p># pacman -Scc (Borrar caché de pacman - /var/cache/pacman/pkg -)</p>
+<p>-n 6  (Hasta 6 caracteres)</p>
 
-<p># pacman -Si paquete (buscar información de paquete)</p>
+<p>-c &#8230;.(enumerar todas las opciones a probar)</p>
 
-<p># pacman -Ss paquete (buscar por nombre o descricion paquete)</p>
-
-<p># pacman -Sw paquete (Bajar un paquete sin instalarlo)</p>
-
-<p># pacman -Sy paquete  (Sincronizar e instalar)</p>
-
-<p># pacman -Syu (sincronizar y actualizar todo el sistema)</p>
-
-<p># pacman -Sh (Ver las opciones de sincronización de la base de datos)</p>
-
-<p># pacman -R paquete (borrar dejando las dependencias instaladas)</p>
-
-<p># pacman -Rs paquete  (borrar con dependencias no usadas por otros)</p>
-
-<p># pacman -Rsn $(pacman -Qdtq) (Borra paquetes huerfanos)</p>
-
-<p># pacman -R &#8211;nosave paquete (Borra el paquete y toda la configuración).</p>
-
-<p># pacman -Qh (Ver opciones de consultas locales de la base de datos)</p>
-
-<p># pacman -Qi paquete (información de un paquete local)</p>
-
-<p># pacman -Qs paquete (buscar en los paquetes instalados)</p>
-
-<p># pacman -Qm (Buscar paquetes que no estan en los repos)</p>
-
-<p># pacman -Ql paquete (Listar los archivos contenidos en un paquete)</p>
-
-<p># pacman -Qo /ruta/a/archivo (a qué paquete pertenece un archivo)</p>
-
-<p># pacman -Qdt (Busca paquetes huerfanos, sin borrarlos)</p>
-
-<p># pacman -U /ruta/al/paquete/paquete-version.pkg.tar.gz (Ins. local)</p>
-
-<p># pacman-optimize &amp;&amp; sync (agrupar información)</p>
-
-<p># pacman-db-upgrade (Recargar la base de datos)</p></blockquote>
+<p>-s     (Prueba el primer caracter en mayúscula)</p>
 </div>
   
   
@@ -395,7 +425,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/paclist/">Paclist</a></h1>
+      <h1 class="entry-title"><a href="/blog/pdf2ps/">Pdf2ps</a></h1>
     
     
       <p class="meta">
@@ -418,9 +448,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Lista los paquetes instalados del repositorio especificado.</p>
+  <div class="entry-content"><p>Convertir pdf a postscript. Ver ps2pdf</p>
 
-<blockquote><p>$ paclist community (otras opciones: core, archlinuxfr, extra)</p></blockquote>
+<blockquote><p>$ pdf2ps fichero.pdf</p></blockquote>
 </div>
   
   
@@ -433,7 +463,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/packer/">Packer</a></h1>
+      <h1 class="entry-title"><a href="/blog/pdf2djvu/">Pdf2djvu</a></h1>
     
     
       <p class="meta">
@@ -456,15 +486,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Gestor rápido de paquetes pacman y aur con funcionalidades básicas [-Ss , -S, -Syu y -Si]. Para evitar conflictos entre rutas de pacman y aur, instalar diffpac.</p>
+  <div class="entry-content"><p>Convertir pdfs en djvu.</p>
 
-<blockquote><p>$ packer -S &#8211;noconfirm paquete  (Instalar sin pedir confirmación)</p>
-
-<p>$ packer -Syu &#8211;auronly (Actualizar y sincronizar sólo los paquetes de aur)</p>
-
-<p>$ packer -Si paquete (información sobre paquete)</p>
-
-<p>$ packer -G paquete (descargar sin instalar un tarbal de aur)</p></blockquote>
+<blockquote><p>$ pdf2djvu -o salida.djvu archivo.pdf</p></blockquote>
 </div>
   
   
@@ -477,7 +501,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pacdiffviewer/">Pacdiffviewer</a></h1>
+      <h1 class="entry-title"><a href="/blog/pcmanfm/">Pcmanfm</a></h1>
     
     
       <p class="meta">
@@ -500,7 +524,38 @@
   </header>
 
 
-  <div class="entry-content"><p>En Arch, busca archivos de configuración nuevos y obsoletos [pacnew, pacsave] para gestionarlos [eliminarlos, reemplazarlos..]</p>
+  <div class="entry-content"><p>Gestor de archivos</p>
+
+<blockquote><p>$ pcmanfm &#8211;set-wallpaper /home/USER/images/limagen.jpg (colocar fondo)</p></blockquote>
+
+<p>1.-</p>
+
+<p>Creacion de un icono en el escritorio:</p>
+
+<blockquote><p>$ mkdir Desktop</p>
+
+<p>$ touch Desktop/home.desktop</p></blockquote>
+
+<p>Y para lanzar thunar, pegar el contenido:</p>
+
+<pre><code>[Desktop Entry] 
+
+Encoding=UTF-8 
+
+Version=1.0 
+
+Type=Application 
+
+Terminal=false 
+
+Exec=thunar 
+
+Name=Personal 
+
+Icon=/usr/share/icons/gnome/32x32/places/user-home.png
+</code></pre>
+
+<p>Nota.- Revisar la ruta del icono.</p>
 </div>
   
   
@@ -531,43 +586,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/gedit/">gedit</a>
+        <a href="/blog/ifne/">ifne</a>
       </li>
     
       <li class="post">
-        <a href="/blog/gconftool-2/">gconftool-2</a>
+        <a href="/blog/ifdata/">ifdata</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ftff/">ftff</a>
+        <a href="/blog/ifconfig/">ifconfig</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fstab/">fstab</a>
+        <a href="/blog/identify/">identify</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fsck/">fsck</a>
+        <a href="/blog/html/">html</a>
       </li>
     
       <li class="post">
-        <a href="/blog/freeradius/">freeradius</a>
+        <a href="/blog/hosts/">hosts</a>
       </li>
     
       <li class="post">
-        <a href="/blog/foremost/">foremost</a>
+        <a href="/blog/host-dot-conf/">host.conf</a>
       </li>
     
       <li class="post">
-        <a href="/blog/for/">for</a>
+        <a href="/blog/honeyproxy/">honeyproxy</a>
       </li>
     
       <li class="post">
-        <a href="/blog/flunym0us/">flunym0us</a>
+        <a href="/blog/hg/">hg</a>
       </li>
     
       <li class="post">
-        <a href="/blog/flexget/">flexget</a>
+        <a href="/blog/hexdump/">hexdump</a>
       </li>
     
   </ul>

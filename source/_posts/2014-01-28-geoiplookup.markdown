@@ -1,11 +1,11 @@
 ---
 layout: post
 title: "geoiplookup"
-date: 2014-01-27 20:07
+date: 2014-01-28 16:42
 comments: true
 categories: 
 ---
-Localiación geográfica de una ip.
+[geoip-bin geoip-database-contrib]. Localiación geográfica de una ip.
 
 >$ geoiplookup IP
 

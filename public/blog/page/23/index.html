@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Subrayado de palabras en la terminal. $ echo $'linux es g\b_e\b_n\b_i\b_a\b_l\b_ ' | ul (Cada letra a subrayar ha de ir seguida de \b_) ">
+  <meta name="description" content="Actualizar, en Ubuntu, a una nueva versión # update-manager -d (antes de salir la version estable final) # update-manager -c (despues de salir la &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ul/">Ul</a></h1>
+      <h1 class="entry-title"><a href="/blog/update-manager/">Update-manager</a></h1>
     
     
       <p class="meta">
@@ -103,9 +103,178 @@
   </header>
 
 
-  <div class="entry-content"><p>Subrayado de palabras en la terminal.</p>
+  <div class="entry-content"><p>Actualizar, en Ubuntu, a una nueva versión</p>
 
-<pre><code>$ echo $'linux es g\b_e\b_n\b_i\b_a\b_l\b_ ' | ul (Cada letra a subrayar ha de ir seguida de \b_)
+<blockquote><p># update-manager -d   (antes de salir la version estable final)</p>
+
+<p># update-manager -c   (despues de salir la version estable final)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/update-alternatives/">Update-alternatives</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Modificar las aplicaciones por defecto cuando existen otras posibilidades</p>
+
+<blockquote><p>$ ls /etc/alternatives  (Muestra todas las posibilidades)</p>
+
+<p>$ update-alternatives &#8211;list x-www-browser (muestra las alternativas al navegador por defecto)</p>
+
+<p>$ update-alternatives &#8211;display x-www-browser (Para ver, de las opciones, la utilizada)</p>
+
+<p>$ update-alternatives &#8211;config x-www-browser (Para modificarla)</p>
+
+<p>$ update-alternatives &#8211;config x-cursor-theme (Modificar el tema del cursor)</p>
+
+<p>$ update-alternatives &#8211;install  /usr/bin/x-www-browser x-www-browser /usr/bin/firefox 100 (Incluir en el listado una aplicación que no está)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/unzip/">Unzip</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Descomprimir archivos zip.</p>
+
+<blockquote><p>$ unzip archivo.zip</p>
+
+<p>$ unzip -v archivo.zip (Ver contenido)</p>
+
+<p>$ unzip -l archivo.odt (Ver contenido de un archivo odt)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/until/">Until</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Estructura muy parecida a while [until, do, done], pero con la forma de evaluar la condición al revés, es decir, se ejecuta mientras la condición sea falsa.</p>
+
+<p>Algunos ejemplos:</p>
+
+<p>1.-</p>
+
+<p>Decrecer un contador hasta llegar a 5</p>
+
+<pre><code>#!/bin/bash
+
+CONTADOR=10
+
+until [  $CONTADOR -lt 5 ]; do
+
+   echo "El contador a $CONTADOR"
+
+   let CONTADOR-=1
+
+done
+</code></pre>
+
+<p>2.-</p>
+
+<pre><code>#!/bin/bash
+
+SALIR=si
+
+until [ "$OPCION" = "$SALIR" ]
+
+do
+
+  echo "Pulsar teclas... "
+
+  echo "(\"$SALIR\" para salir)"
+
+  read OPCION
+
+  echo "Pulsada la opción salir ($OPCION)"
+
+  echo
+
+done
 </code></pre>
 </div>
   
@@ -119,7 +288,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ufw/">Ufw</a></h1>
+      <h1 class="entry-title"><a href="/blog/unsort/">Unsort</a></h1>
     
     
       <p class="meta">
@@ -142,27 +311,13 @@
   </header>
 
 
-  <div class="entry-content"><p>Cortafuegos</p>
+  <div class="entry-content"><p>Reordena las lineas de un archivo de forma semialeatoria.</p>
 
-<blockquote><p># ufw enable (activar el cortafuegos. “disable” para desactivarlo)</p>
+<blockquote><p>$ unsort -p archivo.txt</p>
 
-<p># ufw deny 4662 (bloquea el puerto)</p>
+<p>$ unsort -M archivo1.txt archivo2.txt (Uniendo en la salida los dos archivos)</p>
 
-<p># ufw delete deny 4662 (Elimina una regla)</p>
-
-<p># ufw allow smtp (permitir servicios concretos)</p>
-
-<p># ufw status (visualizar las normas definidas)</p>
-
-<p># ufw status verbose (Información de estado con mayor detalle)</p>
-
-<p># ufw default allow (permitir todo por defecto)</p>
-
-<p># ufw default deny (bloquear todo por defecto)</p>
-
-<p># ufw deny from ip (bloquear dirección ip)</p>
-
-<p># ufw logging on (activar los logs. “off” para desactivarlos. Herramienta de registro: fwanalog, fwlogwatch, o lire.)</p></blockquote>
+<p>$ unsort -n archivo1.txt archivo2.txt (Mezcla las lineas de forma aleatoria sin alterar el orden)</p></blockquote>
 </div>
   
   
@@ -175,7 +330,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/udisks/">Udisks</a></h1>
+      <h1 class="entry-title"><a href="/blog/unset/">Unset</a></h1>
     
     
       <p class="meta">
@@ -198,13 +353,13 @@
   </header>
 
 
-  <div class="entry-content"><p>Comando para montar y desmontar volumenes usando el demonio que llaman programas como Nautilus o Thunar. Con este método conseguimos que desde estos programas se pueda desmontar cómodamente la partición y además sin necesidad de permisos.</p>
+  <div class="entry-content"><p>elimina variables locales o asigna NULL</p>
 
-<blockquote><p>$ udisks &#8211;mount /dev/sda1 (montará esta partición).</p>
+<blockquote><p>$ unset HISTFILE; unset SAVEHIST  (desactiva el historial de comandos)</p>
 
-<p>$ udisks &#8211;unmount /dev/sda1 (desmontará esta partición).</p>
+<p>$ unset -f funcion (borrar una funcion)</p>
 
-<p>$ udisks &#8211;monitor (Monitoriza la actividad del demonio. Muy útil para verificar si una partición es montada o no)</p></blockquote>
+<p>$ unset VAR (Eliminar una variable)</p></blockquote>
 </div>
   
   
@@ -217,7 +372,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/udiskie/">Udiskie</a></h1>
+      <h1 class="entry-title"><a href="/blog/unrar/">Unrar</a></h1>
     
     
       <p class="meta">
@@ -240,13 +395,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Herramienta  para montar automaticamente unidades en Archlinux. Debe arrancarse el servicio antes de ejecutarse el gestor de ventanas en el archivo .xinitrc. Un ejemplo:</p>
+  <div class="entry-content"><p>Descomprimir archivos rar.</p>
 
-<blockquote><p># nano .xinitrc</p></blockquote>
-
-<p>udiskie &amp;</p>
-
-<p>exec openbox-session</p>
+<blockquote><p>$ unrar x archivo.rar</p></blockquote>
 </div>
   
   
@@ -259,7 +410,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/tzwatch/">Tzwatch</a></h1>
+      <h1 class="entry-title"><a href="/blog/unoconv/">Unoconv</a></h1>
     
     
       <p class="meta">
@@ -282,20 +433,17 @@
   </header>
 
 
-  <div class="entry-content"><p>Muestra las zonas horarias especificadas por el usuario y las guarda en el archivo ~/.tzlist.</p>
+  <div class="entry-content"><p>Exporta todos los formatos soportados por openoffice/libreoffice a otros formatos como pdf, txt&#8230; creando un archivo con el mismo nombre de origen pero con la nueva extensión. Para una lista detallada consultar este enlace: <a href="http://dag.wieers.com/home-made/unoconv/">http://dag.wieers.com/home-made/unoconv/</a></p>
 
-<blockquote><p>$ tzwatch -c (Lanzar tantas veces como de zonas horarias se quiere disponer de información y seguir las instrucciones: Add Zone, Americas, 26 [Guatemala], mostrará la información y preguntará si es correcta, 1 [yes] y Done [salir])</p>
+<blockquote><p>$ unoconv &#8211;show  (Visualizar formatos  soportados)</p>
 
-<p>$ tzwatch (Mostrará hora local de cada una de las zonas elegidas)</p></blockquote>
+<p>$ unoconv -f xls archivo.csv (convertir un csv a xls)</p>
 
-<pre><code>[~]$ tzwatch
+<p>$ unoconv -f pdf <em>.odp </em>.odt (Convierte todos los .odt y .odp a pdfs)</p>
 
-Mon Oct  7 02:39:39 CST 2013   Australia/Adelaide
+<p>$ unoconv &#8211;format=txt document1.odt (convierte el documento a texto plano)</p>
 
-Sun Oct  6 18:09:39 CEST 2013   Europe/Madrid
-
-Sun Oct  6 10:09:39 CST 2013   America/Guatemala
-</code></pre>
+<p>$ unoconv &#8211;format=txt &#8211;stdout document1.odt > salida.txt (envia la salida al STDOUT para redireccionarla a un fichero cualquiera)</p></blockquote>
 </div>
   
   
@@ -308,7 +456,7 @@ Sun Oct  6 10:09:39 CST 2013   America/Guatemala
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/tzselect/">Tzselect</a></h1>
+      <h1 class="entry-title"><a href="/blog/unix2dos/">Unix2dos</a></h1>
     
     
       <p class="meta">
@@ -331,9 +479,33 @@ Sun Oct  6 10:09:39 CST 2013   America/Guatemala
   </header>
 
 
-  <div class="entry-content"><p>Pregunta al usuario información sobre la localización actual y muestra la descripción de la zona horaria correspondiente.</p>
+  <div class="entry-content"><p>Convertir formatos unix a msdos</p>
 
-<blockquote><p>$ tzselect</p></blockquote>
+<blockquote><p>$ unix2dos fichero_unix fichero_dosServidor de archivos ftp. Toda la configuración de encuentra en el archivo:</p>
+
+<p># nano /etc/vsftpd.conf</p></blockquote>
+
+<p>Algunos de los parámetros:</p>
+
+<p>anonymous_enable=NO # si no queremos accesos anonimos</p>
+
+<p>local_enable=YES # Permitir accesos locales autentificados</p>
+
+<p>write_enable=YES # Permite escritura en el servidor</p>
+
+<p>ftpd_banner=Entrando en el servidor ftp&#8230;</p>
+
+<p>chroot_local_user=YES # Enjaular la conexión a su propio directorio personal</p>
+
+<p>max_clients=5 # limitar a 5 los accesos simultaneos</p>
+
+<p>Nota.- Han de redigirirse los puertos 20 y 21 y el rango especificado en el archivo de configuración:</p>
+
+<p>pasv_min_port=44000</p>
+
+<p>pasv_max_port=44100</p>
+
+<p>El cliente podrá conectarse al servidor via filezilla, gftp&#8230;</p>
 </div>
   
   
@@ -346,7 +518,7 @@ Sun Oct  6 10:09:39 CST 2013   America/Guatemala
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/tzconfig/">Tzconfig</a></h1>
+      <h1 class="entry-title"><a href="/blog/unity/">Unity</a></h1>
     
     
       <p class="meta">
@@ -369,123 +541,13 @@ Sun Oct  6 10:09:39 CST 2013   America/Guatemala
   </header>
 
 
-  <div class="entry-content"><p>configurar nuevamente la zona horaria</p>
-</div>
-  
-  
+  <div class="entry-content"><p>Escritorio.</p>
 
+<blockquote><p>$ unity &#8211;reset (Resetear la configuración de unity)</p>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/typeset/">Typeset</a></h1>
-    
-    
-      <p class="meta">
-        
+<p>$ unity &#8211;reset-icons (eliminar iconos agregados al launcher)</p>
 
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Define variables y les da atributos. Ver &#8220;declare&#8221;</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/type/">Type</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Buscar la ubicación del ejecutable e informar si el comando es un alias.</p>
-
-<blockquote><p>$ type mplayer</p>
-
-<p>$ type -a algo (Conocer todas las definiciones de “algo”, teniendo en cuenta que si “algo” es una alias, una función y un script prevalece este orden)</p>
-
-<p>$ type -t cp (Conocer el tipo de un símbolo)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/txt2tags/">Txt2tags</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Convertir archivos de texto a distintos formatos.</p>
-
-<blockquote><p>$ txt2tags -t html fichero.txt   (convierte .txt en .html)</p></blockquote>
+<p>$ unity &#8211;replace (reiniciar)</p></blockquote>
 </div>
   
   
@@ -516,43 +578,43 @@ Sun Oct  6 10:09:39 CST 2013   America/Guatemala
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/gedit/">gedit</a>
+        <a href="/blog/ifne/">ifne</a>
       </li>
     
       <li class="post">
-        <a href="/blog/gconftool-2/">gconftool-2</a>
+        <a href="/blog/ifdata/">ifdata</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ftff/">ftff</a>
+        <a href="/blog/ifconfig/">ifconfig</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fstab/">fstab</a>
+        <a href="/blog/identify/">identify</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fsck/">fsck</a>
+        <a href="/blog/html/">html</a>
       </li>
     
       <li class="post">
-        <a href="/blog/freeradius/">freeradius</a>
+        <a href="/blog/hosts/">hosts</a>
       </li>
     
       <li class="post">
-        <a href="/blog/foremost/">foremost</a>
+        <a href="/blog/host-dot-conf/">host.conf</a>
       </li>
     
       <li class="post">
-        <a href="/blog/for/">for</a>
+        <a href="/blog/honeyproxy/">honeyproxy</a>
       </li>
     
       <li class="post">
-        <a href="/blog/flunym0us/">flunym0us</a>
+        <a href="/blog/hg/">hg</a>
       </li>
     
       <li class="post">
-        <a href="/blog/flexget/">flexget</a>
+        <a href="/blog/hexdump/">hexdump</a>
       </li>
     
   </ul>

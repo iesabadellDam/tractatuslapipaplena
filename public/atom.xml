@@ -4,7 +4,7 @@
   <title><![CDATA[TRACTATUS ELEMENTALIS]]></title>
   <link href="https://tractatuslapipaplena.herokuapp.com/atom.xml" rel="self"/>
   <link href="https://tractatuslapipaplena.herokuapp.com/"/>
-  <updated>2014-01-28T16:26:17+01:00</updated>
+  <updated>2014-01-28T16:43:03+01:00</updated>
   <id>https://tractatuslapipaplena.herokuapp.com/</id>
   <author>
     <name><![CDATA[templix]]></name>
@@ -14,876 +14,674 @@
 
   
   <entry>
-    <title type="html"><![CDATA[gedit]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/gedit/"/>
-    <updated>2014-01-28T16:26:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/gedit</id>
-    <content type="html"><![CDATA[<p>Editor de texto</p>
+    <title type="html"><![CDATA[ifne]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/ifne/"/>
+    <updated>2014-01-28T16:42:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/ifne</id>
+    <content type="html"><![CDATA[<p>[moreutils]. Se ejecuta si la entrada estandar no está vacia.</p>
 
-<blockquote><p>$ gedit &#8211;list-encodings  (Lista la codificación de caracteres)</p>
+<blockquote><p>$ find . -name archivo | ifne echo &#8220;Existe&#8221; (Si &#8220;archivo&#8221; existe se ejecutará el echo. Si no existe, no)</p>
 
-<p>$ gedit &#8211;encoding UTF-8 archivo.txt  (Abre el archivo mencionado con la cofificación especificada)</p></blockquote>
-
-<p>Atajos</p>
-
-<pre><code>Ctrl+c (Copiar)
-
-Ctrl+s (Guarda documento)
-
-Ctrl+v (Pegar)
-
-Ctrl+x (Cortar)
-
-Ctrl+w (Cerrar ventana activa)
-
-Ctrl+Mayús+flecha  (seleccionar texto a derecha o izquierda)
-</code></pre>
+<p>$ find . -name archivo | ifne -n echo &#8220;No existe&#8221; (Si &#8220;archivo&#8221; no existe se ejecutará el echo. Si existe, no)</p></blockquote>
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[gconftool-2]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/gconftool-2/"/>
-    <updated>2014-01-28T16:26:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/gconftool-2</id>
-    <content type="html"><![CDATA[<p>[gconf-editor]. Configurador de todos los parámetros de gnome</p>
+    <title type="html"><![CDATA[ifdata]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/ifdata/"/>
+    <updated>2014-01-28T16:42:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/ifdata</id>
+    <content type="html"><![CDATA[<p>[moreutils]. Muestra información de la red.</p>
 
-<blockquote><p>$ gconftool-2 &#8211;dump / > gconf_backup.xml  (realizar copia de seguridad de la configuración)</p>
+<blockquote><p>$ ifdata -p eth0 (Muestra la ip local, la mascara de red, la dirección broadcast y los MTU de la red)</p>
 
-<p>$ gconftool-2 &#8211;load gconf_backup.xml /  (restablecer la copia de seguridad)</p>
+<p>$ ifdata -pa -pn eth0 (Muestra la ip local i la mascara de red)</p>
 
-<p>$ gconftool-2 &#8211;recursive-unset /apps/panel (recuperar los paneles originales)</p></blockquote>
-
-<p>nota.- sustituiendo el “/apps/panel” por cualquier ruta del árbol de directorios [por ejemplo “/”] de gconf-editor pueden restaurarse sus valores originales</p>
-
-<blockquote><p>$ rm -rf .gconf/apps/panel (borra toda la configuración extra de los paneles)</p>
-
-<p>$ gconftool-2 –shutdown &amp;&amp; rm -rf ~/.gconf/apps/panel &amp;&amp; pkill gnome-panel (velver a una configuración anterior de los paneles)</p></blockquote>
-
-<p>Notas:</p>
-
-<pre><code>-t (tipo de datos a utilizar. Los valores son {int|bool|float|string|list|pair}) 
-
--s (entrada a modificar)
-</code></pre>
-
-<p>Los valores de –type pueden ser:</p>
-
-<p>lógicos [bool]. Cuando el parámetro puede ser verdadero [true] o falso [false]. P.e quitar papelera del escritorio:</p>
-
-<blockquote><p>$ gconftool-2 -t bool -s /apps/nautilus/desktop/trash_icon_visible false</p></blockquote>
-
-<p>Enteros (int). Cuando ha de especificarse un número. P.e. aumentar el numero de escritorios a 5:</p>
-
-<blockquote><p>$ gconftool-2 -t int -s /apps/metacity/general/num_workspaces 5</p></blockquote>
-
-<p>reales (float). Cuando el valor tiene el punto como separador decimal. p.e el contraste de cheese:</p>
-
-<blockquote><p>$ gconftool-2 -t float -s /apps/cheese/contrast 1.2</p></blockquote>
-
-<p>Cadenas (string). Cuando ha de especificarse un texto. P.e. cambiar el nombre de la carpeta de usuario:</p>
-
-<blockquote><p>$ gconftool-2 -t string -s /apps/nautilus/desktop/home_icon_name &#8220;Mi carpeta&#8221;</p></blockquote>
-
-<p>Lista de valores (list). En muchos casos va complementado con otra lista (&#8211;list-type) que admite los valores {int|bool|float|string}. p.e detectar codificación en gedit con determinadas opciones:</p>
-
-<blockquote><p>$ gconftool-2 -t list &#8211;list-type string -s /apps/gedit-2/preferences/encodings/auto_detected [UTF-8,CURRENT,ISO-8859-15,UTF-16]</p></blockquote>
-
-<p>Parejas de valores [pairs]. Indica parejas de valores de los tipos anteriores. No he encontrado ningún ejemplo</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[ftff]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/ftff/"/>
-    <updated>2014-01-28T16:26:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/ftff</id>
-    <content type="html"><![CDATA[<p>[whichman]. Busca archivos o directorios</p>
-
-<blockquote><p>$ ftff -t2 logfile.txt (busca  logfile con dos errores en el nombre. permite *)</p></blockquote>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[fstab]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/fstab/"/>
-    <updated>2014-01-28T16:26:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/fstab</id>
-    <content type="html"><![CDATA[<p>(/etc/fstab). Lista todos los discos y particiones disponibles e indica cómo deben ser inicializados. Su estructura es:</p>
-
-<ul>
-<li>Particion punto_de_montaje sistema_de_archivos opciones respaldos orden</li>
-</ul>
-
-
-<p>Y un ejemplo seria:</p>
-
-<pre><code>/dev/sda5 /media/datos ext4 rw,users,exec,auto 0 0 (especificando el número de partición) 
-
-UUID=0e4d9ccb-93bb-4762-8b67-c23d181fc84a / ext4 errors=remount-ro 0 1 (especificando el UUID de la partición) 
-</code></pre>
-
-<p>Los puntos de montaje han de existir en el sistema y normalmente se colocan en /media</p>
-
-<p>Algunos sitemas de archivos puede ser:</p>
-
-<pre><code>auto (intenta descubrir automáticamente el sistema de archivos). 
-
-ext2 (sistema de archivos común en Linux). 
-
-ext3 (igual que ext2 pero además añade journaling). 
-
-ext4 (introdujo significativas mejoras respecto a ext3) 
-
-reiserfs (otro sistema muy común en Linux) 
-
-msdos (para dispositivos que usen FAT16) 
-
-vfat (para dispositivos que usen FAT32).
-
-ntfs (sistema de archivos NTFS de Windows) 
-
-smbfs (sistema de archivos de Samba).
-
-nfs (sistema de archivos de red NFS)
-</code></pre>
-
-<p>Algunas opciones:</p>
-
-<pre><code>auto (el dispositivo será montado automáticamente durante el inicio. auto es el valor por defecto) 
-
-noauto (Si no se desea que el dispositivo se monte automáticamente) 
-
-exec (permite ejecutar binarios que están en la partición) 
-
-noexec (lo impide. ütil en particiones windows) 
-
-ro (Montar sólo lectura) 
-
-rw (Montar para lectura/esctritura) 
-
-user (Permite a cualquier usuario montar el sistema de archivos) 
-
-nouser (Solo el usuario root podrá montar el sistema de archivos) 
-
-defaults (Utiliza las opciones por defecto: rw,exec,auto,nouser) 
-</code></pre>
-
-<p>Respaldo. Es el comando que utiliza dump para hacer respaldos del sistema de archivos. Cero desactiva la opción.</p>
-
-<p>Orden. indica el orden en que la aplicación fsck revisará la partición en busca de errores durante el inicio, si es cero el dispositivo no se revisa.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[fsck]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/fsck/"/>
-    <updated>2014-01-28T16:26:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/fsck</id>
-    <content type="html"><![CDATA[<p>[recomendado dosfstools]. Reparar/chequear/formatear una partición no montada.</p>
-
-<blockquote><p># fsck -fy /dev/hda1</p>
-
-<p># fsck.ext2 -vpf /dev/hda1 (Repara una partición ext2)</p>
-
-<p># fsck.ext3 -vpf /dev/hda1 (Repara una partición ext3)</p>
-
-<p># fsck -fpC 0 /dev/sda1</p>
-
-<p># fsck.ext4 -cDfty -C 0 /dev/sda1</p>
-
-<p># fsck.ext4 -vpf /dev/sda1 (Muestra información sobre una partición: fragmentación, inodos, bloques, archivos&#8230;)</p></blockquote>
-
-<p>Opciones:</p>
-
-<pre><code>-A .- Permitira una navegación en toda la estructura de /etc/fstab.
-
--V  .- información adicional sobre las acciones de fsck
-
--t   .- Imprimir estadísticas de estado (-tt para más información)
-
--a .- Repara cualquier problema que encuentra en el sistema de archivos sin preguntar (no recomendada)
-
--l .- Lista todos los nombres de archivos
-
--r .- Pide confirmación antes de reparar el sistema de archivos.
-
--s .- Lista el superblock antes de chequear el sistema de archivos.
-
-sis_arch .- Especifica el sistema de archivos a verificar 
-
--c .- Buscar bloques dañados con badblocks (ver badblocks)
-
--k .- Bloques dañados donde se almacenan con el comando anterior. 
-
--C 0 .- Muestra barra de progreso.
-
--p .- forzar verificación y reparar automaticamente errores
-
--D .- Obtimizar directorios si es posible
-
--f   .- Forzar el chequeo incluso si el sistema de archivos parece correcto
-
--Y   .- Asume respuesta "yes" a todas las preguntas
-</code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[freeradius]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/freeradius/"/>
-    <updated>2014-01-28T16:26:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/freeradius</id>
-    <content type="html"><![CDATA[<p>[libssl-dev freeradius-mysql freeradius-utils]. Servidor.</p>
-
-<p>Configurar la base de datos:</p>
-
-<blockquote><p># nano /etc/freeradius/sites-enabled/default</p></blockquote>
-
-<p>En los apartados &#8220;authorize&#8221; y &#8220;accouting&#8221; descomentar las lineas sql</p>
-
-<blockquote><p># nano /etc/freeradius/radius.conf</p></blockquote>
-
-<p>Descomentar la linea $INCLUDE sql.conf</p>
-
-<p>Configurar usuario, contraseña y mensaje de bienvenida:</p>
-
-<blockquote><p># nano /etc/freeradius/users</p></blockquote>
-
-<p>USUARIO Cleartext-Password := &#8220;CONTRASEÑA&#8221;</p>
-
-<pre><code>    Reply-Message "Entrando en el servidor el usuario %{User_Name}"
-</code></pre>
-
-<p>Configurar usuario y contraseña del router o punto de acceso:</p>
-
-<blockquote><p># nano /etc/freeradius/clients.conf</p></blockquote>
-
-<p>client 192.168.1.0/24 {</p>
-
-<pre><code>secret      = CONTRASEÑA_ROUTER
-
-shortname   = USUARIO_ROUTE
-</code></pre>
-
-<p>Finalmente entrar en router y colocar la ip del equipo donde hemos instalado el servidor. Reiniciar el servicio.</p>
-
-<blockquote><p># /etc/init.d/freeradius restart</p>
-
-<p># freeradius -X (Arrancar em modo debug)</p>
-
-<p># radtest USUARIO testing 127.0.0.1 1812 testing123 (Testear si la configuración de un usuario está correcta)</p></blockquote>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[foremost]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/foremost/"/>
-    <updated>2014-01-28T16:26:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/foremost</id>
-    <content type="html"><![CDATA[<p>Recuperación de datos</p>
-
-<blockquote><p># foremost -i /dev/sda -o /recovery</p>
-
-<p># foremost -t jpg -i /dev/sda3 -o /home/usr/recuperado (Recuperar jdatepgs de una partición)</p></blockquote>
-
-<p>proceso sobre una imagen:</p>
-
-<blockquote><p># dd if=/dev/sda1 of=imagen.iso conv=noerror,sync (Crear la imagen iso del dispositivo a recuperar. “conv=noerror,sync” indica que ignore errores)</p>
-
-<p># foremost -v -t all -o /home/usuario/recuperado -i imagen.iso</p></blockquote>
-
-<pre><code>-v .- modo detallado
-
--o .- lugar donde almacenar los archivos recuperados
-
--t all .- tipo de archivo a buscar. Para recuperar solo jpg: -t jpg. Para una lista de extensiones: -t jpg,doc,png
-
--i .- lugar donde esta la iso a escanear.
-</code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[for]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/for/"/>
-    <updated>2014-01-28T16:26:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/for</id>
-    <content type="html"><![CDATA[<p>(ucle)]. Ejecuta un trozo de códico si la expresión de control es verdadera y sólo se para cuando es falsa.</p>
-
-<p>Ejemplos:</p>
-
-<p>1.-</p>
-
-<pre><code>#!/bin/bash
-
-    for i in $( ls ); do
-
-        echo item --&gt; $i
-
-    done
-</code></pre>
-
-<p>2.-</p>
-
-<pre><code>#!/bin/bash
-
-for i in `seq 1 10`;
-
-do
-
-    echo $i
-
-done
-</code></pre>
-
-<p>Nota.- Si los números los quisieramos en una misma linea, encerrar la variable entre comillas [&#8221;<code>seq 1 10</code>&#8221;]</p>
-
-<p>3.-</p>
-
-<pre><code>#!/bin/bash
-
-for i in 1 2 3 4 5
-
-do
-
-   echo "Es el número $i "
-
-done
-</code></pre>
-
-<p>4.-</p>
-
-<pre><code>#!/bin/bash
-
-for i in {1..5}
-
-do
-
-   echo "Es el número $i "
-
-done
-</code></pre>
-
-<p>5.-</p>
-
-<p>Del 1 al 10 de 2 en 2:</p>
-
-<pre><code>#!/bin/bash
-
-for i in {1..10..2}
-
-do
-
-    echo "Es el número $i "
-
-done
-</code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[flunym0us]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/flunym0us/"/>
-    <updated>2014-01-28T16:26:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/flunym0us</id>
-    <content type="html"><![CDATA[<p>Pruebas de vulnarabilidad de webs basadas en wordpress. Descarga http://code.google.com/p/flunym0us/downloads/list</p>
-
-<blockquote><p>$ flunym0us -H http://host -w /home/usuario/wordlist -wp -t 60 -r 1 -p 2 -T 2</p></blockquote>
-
-<p>Opciones:</p>
-
-<pre><code>-wp (Scanear un sitio wordpress)
-
--mo (scanear un sitio Moodle)
-
--H http://host (Nombre del host wordpress a scanear)
-
--w /home/usuario/wordlist (Ruta al diccionario)
-
--t 60 (Tiempo de espera)
-
--r 1 (Reintentos de conexión)
-
--p 2 (Numero de procesos)
-
--T 2 (Número de subprocesos simultaneos por proceso)
-</code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[flexget]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/flexget/"/>
-    <updated>2014-01-28T16:26:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/flexget</id>
-    <content type="html"><![CDATA[<p>[python2.6 python-pip]. Descarga de series a partir de su direccion RSS. Archivo de configuración:</p>
-
-<blockquote><p>$ nano .flexget/config.yml</p></blockquote>
-
-<p>Con un contenido parecido a:</p>
-
-<pre><code>presets:
-
-  tv:
-
-    series:
-
-      settings:
-
-    hdtv:
-
-      timeframe: 8 hours
-
-      hdtv &lt;720p:
-
-    - serie 1
-
-    - serie 2
-
-    - serie 3
-
-    - etc
-
-    content_filter:
-
-      require:
-
-    - '*.avi'
-
-    download: "/media/discoext/Descargas/Torrents"
-
-tasks:
-
-  TvTorrent1:
-
-    rss: http://showrss.karmorra.info/feeds/all.rss
-
-    preset: tv
-</code></pre>
-
-<blockquote><p>$ flexget &#8211;test (Comprobar si la configuración es correcta)</p>
-
-<p>$ flexget (Lanzar la aplicación)</p></blockquote>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[figlet]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/figlet/"/>
-    <updated>2014-01-28T16:08:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/figlet</id>
-    <content type="html"><![CDATA[<p>Baners</p>
-
-<blockquote><p>$ figlet texto (forma básica)</p>
-
-<p>$ showfigfonts    (visualizar las tipografias del comando)</p>
-
-<p>$ figlet -f banner texto  (especificando tipografía)</p></blockquote>
-
-<p>Opciones</p>
-
-<pre><code>-c (centra el texto de salida) 
-
--l (alinea el texto a la izquierda) 
-
--r (alinea el texto a la derecha) 
-
--w (establece un tamaño máximo)
-
--t (Con la anchura máxima que permite la terminal)
-</code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[fgrep]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/fgrep/"/>
-    <updated>2014-01-28T16:08:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/fgrep</id>
-    <content type="html"><![CDATA[<p>(fast grep). Busca cadenas de texto fijas. Ignora el significado especial de los metacaracteres.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[festival]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/festival/"/>
-    <updated>2014-01-28T16:08:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/festival</id>
-    <content type="html"><![CDATA[<p>[festival festvox-ellpc11k]. Sintetizador de voz.</p>
-
-<blockquote><p>$ echo “Linux es genial” | festival &#8211;tts &#8211;language spanish</p>
-
-<p>$ festival &#8211;tts &#8211;language spanish archivo.txt</p></blockquote>
-
-<p>Nota.- Si al lanzar la aplicación nos muestra una salida: “Linux: can&#8217;t open /dev/dsp”, crear el fichero .festivalrc en nuestra $HOME pegando el siguiente contenido:</p>
-
-<pre><code>(Parameter.set 'Audio_Command "aplay -q -c 1 -t raw -f s16 -r $SR $FILE")
-
-(Parameter.set 'Audio_Method 'Audio_Command) 
-</code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[fbgs]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/fbgs/"/>
-    <updated>2014-01-28T16:08:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/fbgs</id>
-    <content type="html"><![CDATA[<p>Visualizar pdf usando framebuffer [sin X]</p>
-
-<blockquote><p>$ fbgs -c archivo.pdf  (visualizarlo en color)</p></blockquote>
-
-<p>Opciones:</p>
-
-<pre><code>-l  (Ampliación a 100 dpi (75 dpi por defecto)
-
--xl (a 12 dpi)
-
--xxl (a 150 dpi)
-
--p contraseña (Si el pdf requiera contraseña)
-</code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[faillog]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/faillog/"/>
-    <updated>2014-01-28T16:08:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/faillog</id>
-    <content type="html"><![CDATA[<p>(/var/log/faillog). Almacena todos los intentos &#8220;login&#8221; fallidos realizados a una maquina.</p>
-
-<blockquote><p>$ faillog</p></blockquote>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[extundelete]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/extundelete/"/>
-    <updated>2014-01-28T16:08:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/extundelete</id>
-    <content type="html"><![CDATA[<p>[e2fsprogs, e2fslibs, e2fslibs-dev, g++, build-essential]. Recuperación de archivos o directorios borrados. La partición sobre la que se actua ha de estar desmontada. Descargar la aplicación de <a href="http://extundelete.sourceforge.net/">http://extundelete.sourceforge.net/</a> e instalarla con el clasico ./configure, make, sudo make install.</p>
-
-<blockquote><p># extundelete  /dev/sda11 &#8211;restore-directory /datos/dir_borrado (recuperar el directorio dir_borrado de la partición /dev/sda11. Lo guardará en el directorio RECOVERED_FILES)</p>
-
-<p># extundelete  /dev/sda11 &#8211;restore-file /datos/imagenes/foto.png -o fotos/ (recuperar un archivo y guardarlo en el directorio fotos)</p>
-
-<p># extundelete /dev/sda11 &#8211;restore-all (recuperar toda una partición)</p>
-
-<p># extundelete /dev/sda11 &#8211;restore-files files (recuperar de la partición /dev/sda11 los archivos enumerados en &#8220;files&#8221; a razón de uno por linea)</p></blockquote>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[expresiones-regulares]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/expresiones-regulares/"/>
-    <updated>2014-01-28T16:08:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/expresiones-regulares</id>
-    <content type="html"><![CDATA[<p>[regex o patrones]. Buscar cadenas de texto que coinciden con un patrón. Los comandos más usuales que las emplean son grep, find, sed y awk y cada uno con sus pecualiaridades. Para ilustrar dichas expresiones se usa un archivo de texto al que llamo file.</p>
-
-<blockquote><p>$ cat file</p></blockquote>
-
-<pre><code># /etc/fstab: static file system information.
-
-UUID=de1d7793-c3d2-4e03-b79d-1a76905619e6 /               ext4    errors=remount-ro 0       1
-
-UUID=ccc71238-d89d-435b-a4e2-c2d836f800bb none            swap    sw              0       0
-
-/dev/sr0        /media/cdrom0   udf,iso9660 user,noauto     0       0
-
-/dev/sda5       /media/datos    ext4    defaults        0       0
-
-/dev/sda7       /media/fotos    ext3    defaults        0       0
-
-servidor:/home/templix /media/servidor  nfs4 defaults   0       0
-
-### Otras cosas
-
-7592 esto es un número....
-
-la letra z es la última
-
-aminora
-
-mediaplayer es un reproductor
-
-tres cincos hace 555
-
-salta la rana
-
-aRmARIO
-</code></pre>
-
-<p>Nota.- Los siguientes ejemplos se basarán en el comando grep. En algunos casos, al corresponder a expresiones regulares extendidas, se usará con el argumento -E. Las expresiones regulares han de ir siempre encerradas con comillas simples.</p>
-
-<pre><code>Literales (Sólo encajan con ellos mismos)
-
-    $ grep 'media' file (mostrara las lineas que contengan "media" incluso "mediaplayer")
-
-    $ grep '\&lt;media\&gt;' file (Sólo mostrará las que contengan exactamente "media")
-
-. [punto] (Cualquier caracter)
-
-    $ grep 'me.ia' file (Misma salida que el anterior)
-
-    $ grep '\&lt;m...a\&gt;' file (Mostrar las de cinco letras que empiecen por "m" y terminen en "a")
-
-    $ grep 'm...a\&gt;' file (Mostrar las lineas que contengan una palabra de cinco letras que empiece por "m" y termine con "a" sin nada a continuación)
-
-[] [Corchetes] (Cualquier caracter de los encerrados entre corchetes)
-
-    $ grep '[wz]' file (Mostras las que contengan "w" o "z")
-
-    $ grep 'sda[0-9]' file (Mostrar las lineas con palabras que empiecen por sda seguidas de un número del 0 al 9)
-
-    $ grep '[0-9]-' file (Buscar lineas que tengan un número seguido de un -)
-
-| [Tuberia] (Especificar varias opciones)
-
-    $ grep -E 'e(xt|rvi)(3|dor)' file (Mostrar las que contengan ext3 y ervidor [servidor])
-
-    $ grep -E 'datos|servidor' file (Mostrar las que tengan las palabras "datos" y "servidor")
-
-- [Guión] (Siempre que no siga a un corchete, especifica un rango)
-
-    $ grep '[0-2]$' file (Lineas que contengan los números 0,1 y 2)
-
-^ [Circunflejo] (Si va precedido de un corchete significa "todo lo que no sea lo que sigue". En los demás casos significa "que la linea empiece por lo que sigue)
-
-    $ grep '^UUID' file (Mostrar las que empiecen por UUID)
-
-    $ grep ':[^/]' file (Las que tengan ":" y no vayan seguidos de una "/")
-
-    $ grep -e '^UUID' -e '^\/' file (Mostrar las que empiecen por UUID y por / . La barra de escape [\] convierte al siguiente caracter en literal)
-
-$ [Dolar] (Indica que el carácter precedente aparece al final de la linea)
-
-    $ grep '0$' file (Muestra las que terminen en 0)
-
-    grep '\.$' file (Muestra las lineas que terminan con un punto)
-
-+ [Signo más] (Una o más veces).
-
-    $ grep -E '\-[0-9]+' file (Buscar las lineas con varios números precedidos por un guión [que ha de escaparse con una barra])
-
-* (Asterisco) (Ninguna o más veces)
-
-    $ grep -E '(fot).*' file (Mostrar las que tengan "fot" y puedan estar o no seguidas de otros caracteres)
-
-? (Interrogante) (Un caracter impreciso)
-
-    $ grep -E 'ext4?' file (indica que el caracter anterior [el 4] puede ser distinto de 4 o puede no existir, o sea que mostrará lineas que contengan ext4, ext3, ext...)
-
-{n,m} [Llaves] (Que el caracter anterior a la llave se muestre las veces que indica entre el número n y el m. Si omitimos m significa como mínimo n veces.
-
-    $ grep '5\{2,5\}.*' file (Que se muestre las lineas que tengan un 5 entre dos y cinco veces. Las llaves se escapan)
-
-    $ grep '5\{3\}.*' file (Muestra las lineas en las que el 5 sale tres veces)
-
-    $ grep '5\{3,\}.*' file (Muestra las lineas en las que el 5 sale como mínimo tres veces)
-
-b (Que lo precedente sea el final de una palabra. Siempre ha de escaparse.)
-
-    $ grep 's\b' file (Muestra las lineas que contienen alguna palabra acabada en "s")
-</code></pre>
-
-<p>Otros ejemplos:</p>
-
-<p>Buscar las lineas que no empiecen por #:</p>
-
-<pre><code>$ grep -v '^#' file
-</code></pre>
-
-<p>Mostrar lineas que empiecen por # y las que terminen en 0:</p>
-
-<pre><code>$ grep -E '^#|0$' file
-</code></pre>
-
-<p>Buscar lineas que tengan : seguidos de una barra que ha de escaparse:</p>
-
-<pre><code>$ grep ':\/' file
-</code></pre>
-
-<p>Buscar las lineas que tengan una &#8220;o&#8221; seguida de al menos 3 dígitos:</p>
-
-<pre><code>$ grep 'o[0-9]\{3\}' file
-</code></pre>
-
-<p>Buscar lineas que tengan algún dígito:</p>
-
-<pre><code>$ grep '[[:digit:]]' file
-</code></pre>
-
-<p>Buscar lineas que empiecen por un caracter alfabético:</p>
-
-<pre><code>$ grep '^[[:alpha:]]' file
-</code></pre>
-
-<p>Buscar lineas que tengan &#8220;ext&#8221; usando parentesis:</p>
-
-<pre><code>$ grep '\(ext\)' file
-</code></pre>
-
-<p>Buscar lineas que que tengan un número entre 2 y 9 al menos una vez y esten precedidos de espacio, tabulación o salto de linea:</p>
-
-<pre><code>$grep -E '\s[2-9]+' file
-</code></pre>
-
-<p>Mostrar lineas con entre 3 y 6 letras mayúsculas:</p>
-
-<pre><code>$ grep '[A-Z]\{3,6\}' file
-</code></pre>
-
-<p>Algunos casos comentados:</p>
-
-<p>1.-</p>
-
-<blockquote><p>$ touch nada.8.sh.5</p></blockquote>
-
-<pre><code>$ ls | grep '.*.[6-8].*.[1-6]'
-</code></pre>
-
-<p>Nota.- Cuando se usen con el comando grep han de ir siempre encerradas con comillas simples.</p>
-
-<pre><code>.* (Cero o más caracteres. El punto inicial es imprescindible)
-
-.[6-8] (Seguidos de un punto y un número que contenga entre el 6 y el 8)
-
-.* (seguido un punto y cero o más caracteres)
-
-.[1-6] (y terminado con un punto seguido de un número que contenga del 1 al 6)
-</code></pre>
-
-<p>Nota.- Los corchetes NO indican UN número de un dígito sinó un número que contenga el margen especificado [6,7,8 para el primer corchete y 1,2,3,4,5,6 para el segundo, por tanto también listaría el archivo nada.0357.sh.389 pero no nada.0352.sh.389 porque el número 0352 no contiene ninguno del margen especificado.</p>
-
-<p>Nótese la diferencia en la expresión regular usando el comando mv [sin comillas simples y sin el punto delante del primer asterisco]:</p>
-
-<pre><code>$ mv *.[6-8].*.[1-6] prueba
-</code></pre>
-
-<p>2.-</p>
-
-<p>Buscar en el directorio scripts, todos los que sean de bash:</p>
-
-<pre><code>$ grep -i '^#.*bash' scripts/*
-
-    ^#.*bash (Que el primer caracter de la primera linea sea # y que despues de cero o más caracteres aparezca la palabra bash)
-
-    $ grep -i '$.*bash' scripts
-
-    '$.*bash' (En todos los ficheros del directorio, que al final de la primera linea y despues de cero o más caracteres apararezca la palabra bash)
-</code></pre>
-
-<p>3.-</p>
-
-<p>Ver los correos electrónicos completos de una lista en la que los hay incompletos:</p>
-
-<blockquote><p>$ cat lista</p></blockquote>
-
-<pre><code>juangomez@gmail.com
-
-clarafuentes@
-
-@yahoo.es
-
-ant.rodri-perez@hotmail.nadadenada
-
-pedro@blog.empresa.travel
-</code></pre>
-
-<hr />
-
-<pre><code>$ grep -E '^[a-zA-Z._-]+@[a-zA-Z0-9.]+\.[a-z]+$' lista
-
-    ^[a-zA-Z._-]+ (Que empiece con una palabra que pueda contener mayúsculas, minúsculas, puntos, guiones o guiones bajos)
-
-    @ (Seguida de una @ literal)
-
-    [a-zA-Z0-9.]+ (A continuación varios caracteres que pueden ser mayúsculas, minúsculas, puntos o números)
-
-    \. (Después un punto literal)
-
-    [a-z]+$ (Para terminar, uno o varios caracteres en minúscula)
-
-$ grep -E '^[a-zA-Z._-]+@.[a-zA-Z.0-9]+\.[[:alpha:]]{2,3}$' lista (Sólo mostrará las que terrminen con 2 o 3 letras)
-</code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[eterm]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/eterm/"/>
-    <updated>2014-01-28T16:08:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/eterm</id>
-    <content type="html"><![CDATA[<p>Terminal.</p>
-
-<blockquote><p>$ Eterm -D 1 -f green -O (En el segundo escritorio [-D 1] con las fuentes en verde  [-f]  y transparente [-O]</p></blockquote>
-
-<p>Algunas opciones:</p>
-
-<pre><code>--buttonbar false (Sin la barra del menú)
-
--T “titulo de la terminal” 
-
--b yellow (color de fondo)
-
--c red (Color del cursor)
-
--g 50x10 (Medidas. 50 de largo por 10 de ancho)
-
--S (Abrir en todos los escritorios)
-
--e comando (Cuando termine de ejecutar el comando se cierra)
-</code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[errno]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/errno/"/>
-    <updated>2014-01-28T16:08:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/errno</id>
-    <content type="html"><![CDATA[<p>[moreutils]. Muestra los errores de código y sus descripciones.</p>
-
-<blockquote><p>$ errno -l (Todo el listado)</p>
-
-<p>$ errno -s desconocido (Busca del listado el que contenga la descripción &#8220;desconocido&#8221;)</p></blockquote>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[egrep]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/egrep/"/>
-    <updated>2014-01-28T16:08:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/egrep</id>
-    <content type="html"><![CDATA[<p>[extended grep]. Busca expresiones regulares.</p>
-
-<pre><code>$ egrep -v '^$|^#' archivo (suprimir lineas en blanco y comentadas)
-
-$ egrep -c '^#' /etc/fstab (Muestra el número de lineas comentadas)
-</code></pre>
-
-<blockquote><p>$ egrep -in &#8220;palabra&#8221; *.txt (busca “palabra” en todos los .txt del directorio)</p>
-
-<p>$ egrep &#8216;UUID|proc&#8217; /etc/fstab (Muestra las lineas con las coincidencias)</p>
-
-<p>$ egrep &#8211;color &#8216;(vmx|svm)&#8217; /proc/cpuinfo (Averiguar si el equipo  admite la virtualización por hardware. Si el comando no devuelve nada es porque no lo soporta)</p></blockquote>
+<p>$ ifdata -pe eth5 (Muestra &#8220;yes&#8221; o &#8220;no&#8221; sobre si existe o no la red especificada)</p></blockquote>
 
 <p>Otras opciones:</p>
 
-<pre><code>-h  Muestra las líneas coincidentes pero no los nombres de archivo. 
+<p>-pb (La dirección broadcast)</p>
 
--i  Ignora los cambios mayúsculas y minúsculas. 
+<p>-ph (Muestra la MAC)</p>
 
--n  Muestra la línea y el número de línea. 
+<p>-pf (Muestra las caracteristicas de la red)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[ifconfig]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/ifconfig/"/>
+    <updated>2014-01-28T16:42:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/ifconfig</id>
+    <content type="html"><![CDATA[<p>[net-tools]. Define direcciones ip y dispositivos de red</p>
 
--r  Lee en todos los archivos de los directorios y subdirectorios. 
+<blockquote><p># ifconfig  (ver los datos de conexión)</p>
 
--v  Muestra todas las lineas que no coinciden. 
+<p># ifconfig eth0 up 192.168.1.2 (Levanta la placa de red eth0 y le da la ip)</p>
 
--w      Sólo coincidencia en palabras completas. 
+<p># ifconfig eth0 down (Cierra la red eth0)</p>
+
+<p># ifconfig eth0 promisc (Poner la placa en modo promiscuo)</p>
+
+<p># ifconfig wlan0 up (si se trata de redes inalámbricas)</p>
+
+<p># ifconfig eth0 hw ether 00:01:02:03:04:05  (cambiar la dirección MAC)</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[identify]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/identify/"/>
+    <updated>2014-01-28T16:42:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/identify</id>
+    <content type="html"><![CDATA[<p>[imagemagick]. Ver las propiedades de una imagen</p>
+
+<blockquote><p>$ identify imagen.gif</p>
+
+<p>$ identify -verbose imagen.jpg   (Con mucha más información)</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[html]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/html/"/>
+    <updated>2014-01-28T16:42:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/html</id>
+    <content type="html"><![CDATA[<p>Lenguaje de marcado predominante en la elaboración de páginas web.</p>
+
+<p>Las etiquetas básicas de HTML de obligada presencia en todo documento son:</p>
+
+<pre><code>&lt;!DOCTYPE&gt; (define el tipo de documento HTML) 
+
+&lt;html&gt; (Inicio del documento) 
+
+&lt;head&gt;  (Cabecera del documento.  Metadatos que no se muestran en el navegador pero de especial relevancia para indexadores) 
+
+En el interior de la etiqueta &lt;head&gt; podemos encontrar: 
+
+&lt;title&gt;  (Título que aparece en la barra del navegador) 
+
+&lt;meta&gt;  (Metainformación del codumentos: autor, fecha realización, codificación ...) 
+
+&lt;LINK&gt;  (Otros metadatos: referencias a documentos anteriores, glosarios...) 
+
+&lt;body&gt; (Cuerpo del documento que se muestra en el navegador) 
+
+Dentro de la etiqueta &lt;body&gt; podemos encontrar: 
+
+&lt;a&gt;  (Ancla. Crea un enlace a otro documento o parte del mismo) 
+
+&lt;h1&gt;, &lt;h2&gt;,… &lt;h6&gt;  (Establece la medida de los títulos de cabecera. De h1, más grande a h6 más pequeño) 
+
+&lt;div&gt; (División estructural de la página) 
+
+&lt;p&gt;  (Párrafo) 
+
+&lt;br&gt;  (Salto de linea) 
+
+&lt;table&gt; (Inicio de una tabla. La fias se defines con &lt;tr&gt; i las celdas dentro de las filas con &lt;td&gt;) 
+
+&lt;ul&gt; Lista desordenada.Los ítems se definen con &lt;li&gt;) 
+
+&lt;ol&gt; (Lista ordenada. Los ítems se definen con &lt;li&gt;) 
+
+&lt;dl&gt; (Lista de definición. Pueden ser &lt;dt&gt; [termino a definir] y &lt;dd&gt; Definición del termino) 
 </code></pre>
+
+<p>Excepto algunas pocas etiquetas, la mayoría requieren ser cerradas con la misma etiqueta precedida de una barra: <html>&#8230;.</html></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[hosts]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/hosts/"/>
+    <updated>2014-01-28T16:42:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/hosts</id>
+    <content type="html"><![CDATA[<p>(/etc/hosts). Contiene la resolución de &#8220;Hosts&#8221; definidos localmente. La estructura es: IP, nombre del host y alias.</p>
+
+<p>192.168.1.10 mi_servidor.com servidor</p>
+
+<p>127.0.0.1 localhost mipc</p>
+
+<p>1.-</p>
+
+<p>Configurar bloqueo de páginas web:</p>
+
+<pre><code># nano /etc/hosts
+</code></pre>
+
+<p>Y debajo de:</p>
+
+<p>127.0.0.1 localhost</p>
+
+<p>127.0.1.1 tux</p>
+
+<p>Añadimos, después de la ip local, las que se quieran bloquear separadas por un espacio:</p>
+
+<p>127.0.0.1 localhost</p>
+
+<p>127.0.1.1 tux</p>
+
+<p>127.0.0.1 www.porn.net www.google.es</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[host.conf]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/host-dot-conf/"/>
+    <updated>2014-01-28T16:42:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/host-dot-conf</id>
+    <content type="html"><![CDATA[<p>(/etc/host.conf). Archivo que contiene el orden de cómo serán ejecutadas las resoluciones que requiera el &#8220;Host&#8221;. Algunos parámetros:</p>
+
+<p><strong>order hosts,bind,nis</strong> (que cualquier tipo de resolución primero consulte el archivo /etc/hosts , en segundo lugar a BIND y si aún no se ha logrado la resolución, intentar con NIS)</p>
+
+<pre><code>BIND (Llamada al servidor de nombres)
+
+NIS ("Network Information Server" es un sistema de resolución desarrollado por Sun Microsystem's , su implementación generalmente esta limitada a intranets y utiliza una metodología diferente a la usada por BIND
+</code></pre>
+
+<p><strong>multi on</strong> (Que devuelva más de un resultado si existen alias ya que un host puede tener varias direcciones IP y la dirección IP puede coincidir con varios nombres de host. Por defecto es off [sólo se muestra el primero] )</p>
+
+<p><strong>spoofalert on</strong> (Intentar encontrar el nombre de host de una dirección IP. Si la aplicación no devuelve el resultado correcto, puede significar que una máquina intenta hacerse pasar por lo que no es.)</p>
+
+<p><strong>nospoof on</strong> (rechaza los resultados que no pasan la prueba de robo de identidad)</p>
+
+<p><strong>reorder on</strong> (intenta reordenar las direcciones de host para que las direcciones locales [misma subred] se listen en primer lugar)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[honeyproxy]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/honeyproxy/"/>
+    <updated>2014-01-28T16:42:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/honeyproxy</id>
+    <content type="html"><![CDATA[<p>[python-pip]. Analiza el tráfico web. Instalación:</p>
+
+<blockquote><p># pip install pyOpenSSL pyasn1 Twisted Autobahn</p>
+
+<p>$ git clone &#8211;recursive git://github.com/mhils/HoneyProxy.git</p>
+
+<p>$ cd HoneyProxy</p>
+
+<p># python honeyproxy.py &#8211;no-gui -a 192.168.1.15 (Arrancar el servicio)</p></blockquote>
+
+<pre><code>HoneyProxy has been started!
+
+Configuration Details (normal users: ignore):
+
+GUI: http://honey:zhw78b35ioynhg8vr4jcfmn5f326d4e4@localhost:8081/app/
+
+Proxy Address: 192.168.1.15:8080
+
+WebSocket Port: 8082
+
+Auth user: honey
+
+Auth key: zhw78b35ioynhg8vr4jcfmn5f326d4e4
+</code></pre>
+
+<p>Una vez instalado y arrancado el servicio, configurar el navegador para su uso en Editar/Preferencias/Avanzado/Red/Configurar la conexión, clicar en &#8220;Configuración manual del proxy&#8221; y en servidor intermediario de HTTP porner la ip de la máquina local o remota puesta al arrancar la aplicación [192.168.1.15 en este caso] y el puerto 8080. Los informes, colocando en la barra de navegación la dirección que muestra al arrancar el servicio, en este caso: http://honey:zhw78b35ioynhg8vr4jcfmn5f326d4e4@localhost:8081/app/ (usuario: honey y key: zhw78b35ioynhg8vr4jcfmn5f326d4e4). Por defecto los informes se guardan en ./dump/sites. Para parar el servicio, matar el proceso:</p>
+
+<pre><code>$ ps aux | grep honeyproxy
+
+$ kill -9 PID
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[hg]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/hg/"/>
+    <updated>2014-01-28T16:42:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/hg</id>
+    <content type="html"><![CDATA[<p>[mercurial]</p>
+
+<p>Mercurial es un potente programa de control de versiones para nuestros proyectos. Previamente crear en la carpeta personal, el archivo:</p>
+
+<blockquote><p>$ nano .hgrc</p></blockquote>
+
+<p>Con el siguiente contenido:</p>
+
+<pre><code>[ui]
+
+username = Juanito Perez juanitoperez@gmail.com
+</code></pre>
+
+<blockquote><p>$ hg init repositorio . (crea un repositorio en el directorio actual o en el que se especifique)</p>
+
+<p>$ hg add  (añade los ficheros existentes en el directorio a nuestro proyecto)</p>
+
+<p>$ hg clone http://servidor.com/hg (clona un repositorio a la carpeta actual)</p>
+
+<p>$ hg clone ssh://usuario@servidor.com/carpeta repositorio (clona &#8220;carpeta&#8221; usando ssh en el directorio &#8220;repositorio&#8221; del directorio actual)</p>
+
+<p>$ hg status (muestra el estado de los ficheros del proyecto)</p>
+
+<p>$ hg commit (realizamos un commit al proyecto)</p>
+
+<p>$ hg push (enviamos los cambios al repositorio remoto)</p>
+
+<p>$ hg pull (recuperamos cambios del repositorio)</p>
+
+<p>$ hg update (Recargar los archivos despues de un pull)</p>
+
+<p>$ hg update -C (Mezclar cambios [merge])</p>
+
+<p>$ hg log (vemos todos los cambios realizados en el proyecto)</p>
+
+<p>$ hg log -r 5 (Muestra la 5ª revisión)</p>
+
+<p>$ hg log -r 2:5 (Muestra de las 2ª a la 5ª revisión)</p>
+
+<p>$ hg log -p -r 6 (Muestra todas las modificaciónes del archivo de la 6ª revisión)</p>
+
+<p>$ hg tip -v (Muestra los datos de la última revisión)</p>
+
+<p>$ hg help comando (vemos la ayuda integrada del hg para el comando)</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[hexdump]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/hexdump/"/>
+    <updated>2014-01-28T16:42:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/hexdump</id>
+    <content type="html"><![CDATA[<p>[exedit]. Editor de archivos binarios.</p>
+
+<blockquote><p>$ hexdump -C archivo_binario</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[gzip]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/gzip/"/>
+    <updated>2014-01-28T16:42:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/gzip</id>
+    <content type="html"><![CDATA[<p>(gz). Comprime un fichero (ni empaqueta ni comprime directorios)</p>
+
+<blockquote><p>$ gzip -r fichero (Comprimir)</p>
+
+<p>$ gzip -9 archivo (Con compresión máxima)</p>
+
+<p>$ gzip -d fichero.gz (Descomprimir)</p>
+
+<p>$ gzip -c fichero.gz (Ver contenido)</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[gs]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/gs/"/>
+    <updated>2014-01-28T16:42:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/gs</id>
+    <content type="html"><![CDATA[<p>[GhostScript]. Unir archivos pdf y ps.</p>
+
+<blockquote><p>$ gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=1+2.pdf 1.pdf 2.pdf</p>
+
+<p>$ gs -q -sPAPERSIZE=a4 -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=1+2.pdf 1.pdf 2.pdf  (Especificando medida de página)</p>
+
+<p>$ gs -q -dNOPAUSE -dBATCH -sDEVICE=pswrite -sOutputFile=1+2.ps 1.ps 2.ps</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[grive]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/grive/"/>
+    <updated>2014-01-28T16:42:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/grive</id>
+    <content type="html"><![CDATA[<p>[gdrive]. Permite sincronizar cualquier carpeta local con el servicio de almacenamiento online de Google. En Ubuntu: add-apt-repository ppa:nilarimogard/webupd8</p>
+
+<blockquote><p>$ mkdir grive (crear una carpeta para sincronizar archivos)</p>
+
+<p>$ cd grive (Entrar en la carpeta)</p>
+
+<p>$ grive -a (Mostrará una URL que debe copipastearse al navegador, preferiblemente chromium, y este nos mostrará un código que ha de copipastearse a la consola, tras lo cual empieza el sincronización)</p></blockquote>
+
+<p>A partir de este momento siempre que entremos en la carpeta gdrive podremos sincronizarla con el almacenamiento de Google lanzando:</p>
+
+<blockquote><p>$ grive</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[graphviz]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/graphviz/"/>
+    <updated>2014-01-28T16:42:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/graphviz</id>
+    <content type="html"><![CDATA[<p>(meta paquete). Genera gráficos a partir de archivos de texto. Ver pactree. Generar un archivo con pactree:</p>
+
+<blockquote><p>$ pactree -g htop > htop</p>
+
+<p>$ dotty htop (muestra el gráfico)</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[go2]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/go2/"/>
+    <updated>2014-01-28T16:42:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/go2</id>
+    <content type="html"><![CDATA[<p>Buscador de directorios. En Ubuntu es necesario hacer el “&#8211;setup”.</p>
+
+<blockquote><p>$ go2 images (Mostrará una lista de todos los directorios “images” del directorio personal precedidos de una letra [a, b, c&#8230;] al pulsarla, entraremos directamente en el directorio especificado)</p>
+
+<p>$ go2 -r carpeta (Busca desde el directorio raiz)</p>
+
+<p>$ go2 -l carpeta (Hace la búsqueda pero sólo muestra el resultado saliendo al acabar dicha búsqueda)</p>
+
+<p>$ /usr/lib/go2/go2.sh &#8211;setup (configura nuestro .bashrc para poder llamar al comando con go2 simplemente)</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[gnome-screensaver-command]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/gnome-screensaver-command/"/>
+    <updated>2014-01-28T16:42:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/gnome-screensaver-command</id>
+    <content type="html"><![CDATA[<p>Herramienta de control del salvapantallas</p>
+
+<blockquote><p>$ gnome-screensaver-command -l (Bloqueo inmediato)</p></blockquote>
+
+<p>Opciones</p>
+
+<pre><code>--exit (Salir de salvapantalla)  
+
+-q (Consulta el estado de la pantalla)
+
+-t (Tiempo para que entre en acción)
+
+-a (Activarlo)
+
+-d (Desactivarlo)
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[gnome]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/gnome/"/>
+    <updated>2014-01-28T16:42:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/gnome</id>
+    <content type="html"><![CDATA[<p>Entorno de escritorio</p>
+
+<blockquote><p># rm -rf .gnome .gnome2 .gconf .gconfd .metacity (Resetear la configuración)</p>
+
+<p>$ gnome-open archivo.odt   (abrir un archivo con la aplicación asociada a ella por defecto)</p>
+
+<p>$ gnome-open http://web.com   (lo mismo con una dirección web)</p></blockquote>
+
+<p>Ajustes</p>
+
+<p>1.-</p>
+
+<p>Suprimir rastro de los documentos e imagenes abiertas (lugares -> Documentos recientes):</p>
+
+<blockquote><p>$ rm .recently-used.xbel</p>
+
+<p>$ mkdir .recently-user.xbel</p></blockquote>
+
+<p>También:</p>
+
+<blockquote><p>$ nano .gtkrc-2.0</p></blockquote>
+
+<p>Si no está se crea. Añadir la linea:</p>
+
+<p>gtk-recent-files-max-age=0</p>
+
+<p>2.-</p>
+
+<p>Acciones sobre gnome y paneles</p>
+
+<blockquote><p># killall gnome-panel (Matar el proceso)</p>
+
+<p># dpkg &#8211;purge &#8211;force-all gnome-panel gnome-panel-data (Desinstalar)</p>
+
+<p># apt-get install gnome-panel gnome-panel-data (instalar el panel)</p>
+
+<p># apt-get install &#8211;einstall gnome-panel gnome-panel-data (reinstalarlo)</p>
+
+<p># /etc/init.d/gdm restart (reiniciar gnome)</p>
+
+<p># gnome-panel &amp; (lanzar la aplicación)</p>
+
+<p># pkg-reconfigure xserver-xorg (reconfigurar la seccion gráfica)</p>
+
+<p># apt-get remove gnome-desktop (desinstalar las X)</p>
+
+<p># apt-get install gnome-desktop (instalar las X)</p>
+
+<p># pgrep -lf gnome-panel | awk &#8216;{if ($2==&#8221;gnome-panel&#8221;) print $1}&#8217; | xargs kill -9 (reiniciar los paneles)</p></blockquote>
+
+<p>3.-</p>
+
+<p>Carpetas por defecto que aparecen en el directorio /home</p>
+
+<blockquote><p>$ cat .config/user-dirs.dirs | grep ^XDG</p></blockquote>
+
+<p>XDG_DESKTOP_DIR=&#8221;$HOME/Escriptori&#8221;</p>
+
+<p>XDG_DOWNLOAD_DIR=&#8221;$HOME/Baixades&#8221;</p>
+
+<p>XDG_TEMPLATES_DIR=&#8221;$HOME/&#8221;</p>
+
+<p>XDG_PUBLICSHARE_DIR=&#8221;$HOME/Públic&#8221;</p>
+
+<p>XDG_DOCUMENTS_DIR=&#8221;$HOME/Documents&#8221;</p>
+
+<p>XDG_MUSIC_DIR=&#8221;$HOME/Música&#8221;</p>
+
+<p>XDG_PICTURES_DIR=&#8221;$HOME/Imatges&#8221;</p>
+
+<p>XDG_VIDEOS_DIR=&#8221;$HOME/Vídeos&#8221;</p>
+
+<p>Para modificarlas editar el archivo:  nano .config/user-dirs.dirs y, si por ejemplo, tenemos las imágenes en /media/sda5/imatges con su entrada en /etc/fstab  Auto, dejamos la entrada correspondiente:</p>
+
+<p>XDG_PICTURES_DIR=&#8221;/media/sda5/imatges&#8221;</p>
+
+<p>Atajos escritorio</p>
+
+<pre><code>Ctrl+o (Abre la carpeta personal o la del documento abierto)
+
+Ctrl+Alt+tecla de cursor (Cambia el espacio de trabajo) 
+
+Ctrl+Alt+backspace (Reiniciar entorno gráfico si está activado)
+
+F1 (Muestra la Ayuda)
+
+F11 (Pantalla completa)
+
+Alt+Inicio (Abre la carpeta personal)
+
+Alt+ImprPant (Realiza una captura de la ventana actual)
+
+Alt+F1 (Abre el menú aplicaciones)
+
+Alt+F2 (Abre el cuadro lanzar aplicaciones) 
+
+Alt+F4 (Cierra la ventana activa)
+
+Alt+F7 (Mueve ventana con las teclas de cursor. Para finalizar pulsar tecla) 
+
+Alt+F8 (Cambia tamaño de ventana con teclas de cursor. finalizar pulsar tecla) 
+
+Alt+F9 (Minimiza) 
+
+Alt+F10 (Maximiza)
+
+Alt+Ctrl+Shift+teclas de cursor (Mueve la ventana activa a otra área de trabajo)
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[gmount]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/gmount/"/>
+    <updated>2014-01-28T16:42:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/gmount</id>
+    <content type="html"><![CDATA[<p>[google-docs-fs fuse]. Equivalente a mount pero para google docs. Ver tambien google gdrive.</p>
+
+<blockquote><p>$ gmount google_docs juan@gmail.com -d (sincronizar la carpeta google_docs con la cuenta y mostrando la salida. Pedirá contraseña)</p>
+
+<p>$ gumount google_docs (Desmontar la carpeta)</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[glances]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/glances/"/>
+    <updated>2014-01-28T16:42:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/glances</id>
+    <content type="html"><![CDATA[<p>Monitorizar la actividad del sistema en local y modo cliente-servidor.</p>
+
+<blockquote><p>$ glances (Monitoreo local)</p></blockquote>
+
+<p>Modo cliente-servidor:</p>
+
+<blockquote><p>$ glances -s (En el servidor)</p>
+
+<p>$ glances -t 3 -c 192.168.1.10 (En el cliente y actualizando el registro cada 3 segundos [por defecto cada segundo])</p></blockquote>
+
+<p>Teclas de control:</p>
+
+<pre><code>h (Oculta / muestra la ayuda) 
+
+a (Muestra los procesos de forma autormatica) 
+
+c (Los muestra por consumo de CPU) 
+
+d (habilitar/deshabilitar estadísticas I/O en disco) 
+
+f (habilita/deshabilita las estadísticas del sistema de archivos)
+
+l (Oculta / muestra logs) 
+
+m (Muestra los procesos por consumo de  memoria) 
+
+n (Oculta / muestra el estado de los interfaces de red) 
+
+p (Muestra los procesos por orden alfabético)
+
+w (Elimina los WARNING finalizados del archivo log) 
+
+1 (intercambia entre las estadisticas globales de CPU y las estadisticas particulares por cada CORE)
+
+q (Salir) 
+</code></pre>
+
+<p>Código de los colores:</p>
+
+<pre><code>verde (correcto) 
+
+azul (cuidado) 
+
+magenta (Alerta) 
+
+rojo (crítico)
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[git]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/git/"/>
+    <updated>2014-01-28T16:42:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/git</id>
+    <content type="html"><![CDATA[<p>[git-core]. Manual completo en español: <a href="http://www-cs-students.stanford.edu/~blynn/gitmagic/intl/es/book.html#_hosting_git_gratuito">http://www-cs-students.stanford.edu/~blynn/gitmagic/intl/es/book.html#_hosting_git_gratuito</a></p>
+
+<p>Software de control de versiones. Una vez registrados en Github [<a href="http://github.com">http://github.com</a>], crear un nuevo repositorio con el nombre escogido y github nos facilitará los datos de acceso [Al estilo: https://github.com/templix/tractatus.git].</p>
+
+<p>Crear el repositorio local de un proyecto alojado en github:</p>
+
+<pre><code>$ mkdir tractatus (Crear el directorio local)
+
+$ cd tractatus (Entrar en él)
+
+$ git init (Inicializar git)
+
+$ git config --global user.name "nombre_usuario" (Entrar datos del usuario) 
+
+$ git config --global user.mail mail@direccion.com   (Entrar mail)
+
+$ mv /home/usuario/tractatus.txt . (Mover el archivo al repositorio)
+
+$ git add tractatus.txt (Añadir el fichero a git)
+
+$ git commit -a -m 'Inicio del proyecto' (Realizar el primer commit [comentario con los cambios en el proyecto])
+
+$ git remote add origin https://github.com/templix/tractatus.git (Decirle a nuestra copia local el repositorio remoto donde se alojará)
+
+$ git push origin master (Enviar los cambios al servidor remoto)
+</code></pre>
+
+<p>Otros comandos:</p>
+
+<blockquote><p>$ git clone git@github.com:templix/tractatus.git (Clonar un repositorio por portocopo git)</p>
+
+<p>$ git clone https://github.com/templix/tractatus.git (Clonar un repositorio por protocolo https)</p>
+
+<p>$ git clone ssh://usuario@host.com/home/templix/repositorio repositorio (Clonar por ssh un directorio remoto en local)</p>
+
+<p>$ git config -l (Comprobar los datos del usuario)</p>
+
+<p>$ git config remote.origin.url (Ver cual es el repositorio remoto)</p>
+
+<p>$ git log (Ver historial de commits)</p>
+
+<p>$ git status (Comprobar si se han efectuado cambios)</p>
+
+<p>$ git config &#8211;global credential.helper cache (guarda la contraseña en caché durante 15 min)</p>
+
+<p>$ git config &#8211;global credential.helper &#8216;cache &#8211;timeout=3600&#8217; (guarda la contraseña durante una hora)</p>
+
+<p>$ git rm archivo (Eliminar archivo)</p>
+
+<p>$ git fetch origin (este comando junto con el siguiente elimina todos los cambios locales y pone la versión del servidor)</p>
+
+<p>$ git reset &#8211;hard origin/master</p>
+
+<p>$ git diff &#8211;color-words archivo1 archivo2  (Mostrar las diferencias en color)</p>
+
+<p>$ git instaweb &#8211;httpd=webrick (Abre el proyecto con navegador en localhost:1234)</p>
+
+<p>$ git instaweb &#8211;httpd=webrick &#8211;stop (Cierra la visualización del proyecto con el navegador)</p>
+
+<p>$ git config &#8211;help (Mostrar ayuda de un comando)</p></blockquote>
+
+<p>1.-</p>
+
+<p>Indicar a git archivos o directorios que quedemos excluir del control de versiones.</p>
+
+<blockquote><p>$ touch .gitignore (Crear el fichero en el directorio raiz del proyecto)</p></blockquote>
+
+<p>Con el contenido que queremos excluir [Algunos ejemplos]:</p>
+
+<pre><code>*~
+
+tmp/*
+
+*.so
+
+*.zip
+
+Thumbs.db
+</code></pre>
+
+<p>Si el archivo .gitignore lo colocamos en el directorio $HOME afectará a todos los proyectos de git. Para ello lanzar:</p>
+
+<blockquote><p>$ git config &#8211;global core.excludesfile ~/.gitignore</p></blockquote>
+
+<p>2.-</p>
+
+<p>Descartar modificaciones.</p>
+
+<p>Si una vez realizadas modificaciones en un archivo, antes de lanzar el commit, queremos verlas y descartarlas:</p>
+
+<blockquote><p>$ git status</p>
+
+<p>$ git diff</p>
+
+<p>$ git checkout &#8211; archivo</p></blockquote>
 ]]></content>
   </entry>
   

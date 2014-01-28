@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Apagar el ordenador.
-">
+  <meta name="description" content="Visualizar el progreso de un proceso $ echo &#8220;Este texto se escribirá letra a letra hasta terminar con toda la frase&#8221; | pv -qL 10 ( &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/poweroff/">Poweroff</a></h1>
+      <h1 class="entry-title"><a href="/blog/pv/">Pv</a></h1>
     
     
       <p class="meta">
@@ -104,7 +103,17 @@
   </header>
 
 
-  <div class="entry-content"><p>Apagar el ordenador.</p>
+  <div class="entry-content"><p>Visualizar el progreso de un proceso</p>
+
+<blockquote><p>$ echo &#8220;Este texto se escribirá letra a letra hasta terminar con toda la frase&#8221; |  pv -qL 10 (Escribir un texto letra a letra)</p>
+
+<p>$ cat /etc/apt/sources.list | pv -qL 10  (lo mismo de un archivo)</p>
+
+<p>$ pv archivo1 > archivo2  (copiar archivo mostrando el progreso)</p>
+
+<p>$ pv -tpreb /dev/urandom | dd of=file.img (ejemplo hacia un archivo)</p>
+
+<p>$ pv /dev/urandom -L 3m > /dev/null (otro ejemplo del comportamiento de pv)</p></blockquote>
 </div>
   
   
@@ -117,7 +126,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/postgres/">Postgres</a></h1>
+      <h1 class="entry-title"><a href="/blog/pushd/">Pushd</a></h1>
     
     
       <p class="meta">
@@ -140,109 +149,19 @@
   </header>
 
 
-  <div class="entry-content"><p>[postgresql php5-pgsql]</p>
+  <div class="entry-content"><p>Moverse al directorio especificado, como con cd, pero el directorio anterior se guarda en una pila al que puede volverse.</p>
 
-<p>Gestión de base de datos. En caso de querer aceptar conexiones externas:</p>
+<p>[~]$ pushd /usr/share/apache2/icons (del dir personal entramos en icons)</p>
 
-<blockquote><p># nano /etc/postgresql/9.1/main/postgresql.conf</p></blockquote>
+<p>[/usr/share/apache2/icons]$ pushd /var/www/ (de icons a www)</p>
 
-<p>Substituir la linea:</p>
+<p>[/var/www]$ pushd /lib/init/rw/apache2 (de www a apache2)</p>
 
-<pre><code>listen_addresses = 'localhost'
-</code></pre>
+<p>[/lib/init/rw/apache2]$ popd (retrocedemos un directorio en la pila)</p>
 
-<p>por:</p>
+<p>[/var/www]$ popd (retrocedemos otro directorio de la pila)</p>
 
-<pre><code>listen_addresses = '*'
-</code></pre>
-
-<p>1.-</p>
-
-<p>Pasos previos para la creación del usuario y la base de datos:</p>
-
-<pre><code>$ sudo -s
-
-# su postgres (Cambiar a la cuenta del usuario por defecto)
-
-$ createuser NOMBRE_DEL_USUARIO (Crear un usuario. Pregunta si con privilegios o sin [Shall the new role be a superuser? (y/n)])
-
-$ createdb NOMBRE_BASE_DE_DATOS -E utf8 -O NOMBRE_DEL_USUARIO (Crear una base de datos especificando propietario y codificación)
-
-$ psql
-
-postgres=# alter user NOMBRE_DEL_USUARIO with passwrd 'LA_CONTRASEÑA'; (Establecer contraseña de un usuario)
-</code></pre>
-
-<p>2.-</p>
-
-<p>Para crear un usuario que sea el mismo que el sistema operativo y con privilegios de administrador:</p>
-
-<pre><code>$ sudo -u postgres createuser --superuser $USER
-
-$ sudo -u postgres psql
-
-$ postgres=# \password USUARIO
-</code></pre>
-
-<p>3.-</p>
-
-<p>Creación de un base de datos [la llamaremos &#8220;misdatos&#8221;]:</p>
-
-<pre><code>$ createdb misdatos (Si se ha creado el mismo usuario que el sistema operativo)
-
-$ sudo -u postgres createdb misdatos (En caso de sólo existir el usuario por defecto [postgres])
-
-$ createdb (Crea una base de datos con el mismo nombre que el usuario)
-
-$ createdb misdatos (Crea una base de datos con un nombre concreto)
-
-$ dropdb misdatos (Eliminar una base de datos)
-</code></pre>
-
-<p>4.-</p>
-
-<p>Acceso a una base de datos:</p>
-
-<pre><code>$ sudo -u usuario psql base_de_datos (Cuando el usuario no es el mismo del sistema)
-
-$ psql misdatos (Entrar en el prompt de la base de datos especificada)
-
-misdatos=# (Prompt de la base de datos de administrador)
-
-misdatos=&gt; (Prompt de la base de datos sin privilegios)
-</code></pre>
-
-<p>5.-</p>
-
-<p>Creación de una tabla (igual que para mysql [ver]):</p>
-
-<pre><code>CREATE TABLE usuario(
-
-nombre VARCHAR(20), apellido VARCHAR(20),
-
-profesión VARCHAR(20), sexo CHAR(1), nacimiento DATE,
-
-antiguedad DATE);
-</code></pre>
-
-<p>misdatos=# DROP TABLE nombre_de_la_tabla; (Borrar una tabla)</p>
-
-<p>misdatos=# INSERT INTO usuario VALUES (&#8216;juan antonio&#8217;, &#8216;gomez&#8217;, &#8216;admin&#8217;, &#8216;h&#8217;, &#8216;1985-10-06&#8217;, &#8216;2008-03-11&#8217;); (Entrar datos en el mismo orden en el que se ha creado la tabla)</p>
-
-<p>misdatos=# SELECT * FROM usuario; (Ver el contenido de una tabla)</p>
-
-<p>misdatos=# SELECT nombre FROM usuario; (Seleccionar una columna de una tabla)</p>
-
-<p>misdatos=# SELECT * FROM usuario ORDER BY nombre; (Mostrar una tabla ordenado segun una columna)</p>
-
-<p>Las metaordenes de psql son un conjunto de órdenes internas, no propiamente órdenes SQL. Todas empiezan con la barra invertida [].</p>
-
-<pre><code>\h (Muestra la ayuda. Pulsando "q" salimos de la ayuda)
-
-\? (Ver todas las ordenes internas)
-
-\q (Salir de psql)
-</code></pre>
+<p>[/usr/share/apache2/icons]$ dirs (nos informa de la pila de directorios en cada momento)</p>
 </div>
   
   
@@ -255,7 +174,7 @@ antiguedad DATE);
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/popularity-contest/">Popularity-contest</a></h1>
+      <h1 class="entry-title"><a href="/blog/pulseaudio/">Pulseaudio</a></h1>
     
     
       <p class="meta">
@@ -278,9 +197,9 @@ antiguedad DATE);
   </header>
 
 
-  <div class="entry-content"><p>Informa a Debian de los paquetes más populares. Normalmente esta aplicación es lanzada por cron (/etc/cron.daily/popularity-contest). El archivo de configuración se encuentra en /etc/popularity-contest.conf. Si queremos ver el listado de lo que manda a Debian:</p>
+  <div class="entry-content"><p>Servidor de sonido multiplataforma.</p>
 
-<blockquote><p># popularity-contest > listado</p></blockquote>
+<blockquote><p>$ pulseaudio -D  (Reiniciar el servicio)</p></blockquote>
 </div>
   
   
@@ -293,7 +212,7 @@ antiguedad DATE);
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/popd/">Popd</a></h1>
+      <h1 class="entry-title"><a href="/blog/pstree/">Pstree</a></h1>
     
     
       <p class="meta">
@@ -316,7 +235,9 @@ antiguedad DATE);
   </header>
 
 
-  <div class="entry-content"><p>Ver pushd.</p>
+  <div class="entry-content"><p>Para ver el árbol de procesos</p>
+
+<blockquote><p>$ pstree -al   (verlo con cada uno de sus hilos de ejecución)</p></blockquote>
 </div>
   
   
@@ -329,7 +250,7 @@ antiguedad DATE);
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pom/">Pom</a></h1>
+      <h1 class="entry-title"><a href="/blog/pslist/">Pslist</a></h1>
     
     
       <p class="meta">
@@ -352,9 +273,13 @@ antiguedad DATE);
   </header>
 
 
-  <div class="entry-content"><p>Informa de las fases de la luna.</p>
+  <div class="entry-content"><p>Examina la lista de los procesos y muestra el ID y los PIDs de los procesos hijos.</p>
 
-<blockquote><p>$ pom</p></blockquote>
+<blockquote><p>$ pslist (Muestra todo el listado)</p>
+
+<p>$ pslist chromium (Mostrará sólo el de la aplicación especificada)</p>
+
+<p>$ pslist 26995 (Mostrará sólo la del PID especificado)</p></blockquote>
 </div>
   
   
@@ -367,7 +292,7 @@ antiguedad DATE);
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pngquant/">Pngquant</a></h1>
+      <h1 class="entry-title"><a href="/blog/psbook/">Psbook</a></h1>
     
     
       <p class="meta">
@@ -390,9 +315,7 @@ antiguedad DATE);
   </header>
 
 
-  <div class="entry-content"><p>Optimizacion de imagenes .png. Comprime reduciendo el número de colores disponible. El tamaño del archivo resultante es mucho menor, pero hay una perdida de calidad.</p>
-
-<blockquote><p>$ pngquant 256 imagen.png</p></blockquote>
+  <div class="entry-content"><p>Paginar un archivo ps para imprimir como libro. Ver ps2pdf.</p>
 </div>
   
   
@@ -405,7 +328,7 @@ antiguedad DATE);
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pngphoon/">Pngphoon</a></h1>
+      <h1 class="entry-title"><a href="/blog/psad/">Psad</a></h1>
     
     
       <p class="meta">
@@ -428,11 +351,9 @@ antiguedad DATE);
   </header>
 
 
-  <div class="entry-content"><p>Crea una imagen png de la fase actual de la luna.</p>
+  <div class="entry-content"><p>Escaneador de ataques a puertos. Los resultados en /var/log/psad/analysis.out</p>
 
-<blockquote><p>$ pngphoon -h 1060px -w 1060px -f lluna.png -s 50 (Los parámetros h [altura de la imagen], w [anchura] y f [archivo de salida] son obligatorios. &#8220;s&#8221; es la densidad de puntos)</p>
-
-<p>$ pngphoon -h 1060px -w 1060px -f lluna.png -b (En negro la superficie de la luna no iluminada)</p></blockquote>
+<blockquote><p># psad -A -i eth0</p></blockquote>
 </div>
   
   
@@ -445,7 +366,7 @@ antiguedad DATE);
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pngnq/">Pngnq</a></h1>
+      <h1 class="entry-title"><a href="/blog/ps2pdf/">Ps2pdf</a></h1>
     
     
       <p class="meta">
@@ -468,13 +389,17 @@ antiguedad DATE);
   </header>
 
 
-  <div class="entry-content"><p>Optimizacion de imagenes .png. Comprime reduciendo el número de colores disponible. El tamaño del archivo resultante es mucho menor, pero hay perdida de calidad.</p>
+  <div class="entry-content"><p>Pasar un archivo ps a pdf</p>
 
-<blockquote><p>$ pngnq imagen.png (No sobreescribe la imagen. Añade al nombre una extension para distinguirla [-nq8])</p>
+<blockquote><p>$ man -t mount | ps2pdf -  mount.pdf   (salvar a pdf una página man del comando &#8220;mount&#8221;)</p></blockquote>
 
-<p>$ pngnq -n 256 imagen.png (Pasando de ARGB de 32 bits por píxel a formato de paleta de 256 colores, con 8 bits por píxel)</p>
+<p>Convertir pdf en formato A4 a A5 para imprimir como libro con las páginas ordenadas:</p>
 
-<p>$ pngnq -n 64 imagen.png (Indicando numero de colores)</p></blockquote>
+<blockquote><p>$ pdftops archivo.pdf  (convertir el .pdf a .ps)</p>
+
+<p>$ psbook archivo.ps | psnup -pa4 -2 > archivo_A5.ps (convertir el archivo generado de A4 a A5)</p>
+
+<p>$ ps2pdf archivo_A5.ps archivo_A5.pdf  (convertir nuevamente a pdf listo para imprimir)</p></blockquote>
 </div>
   
   
@@ -487,7 +412,7 @@ antiguedad DATE);
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pngcrush/">Pngcrush</a></h1>
+      <h1 class="entry-title"><a href="/blog/ps/">Ps</a></h1>
     
     
       <p class="meta">
@@ -510,13 +435,57 @@ antiguedad DATE);
   </header>
 
 
-  <div class="entry-content"><p>Optimizar imagenes png.</p>
+  <div class="entry-content"><p>Informa sobre el estado de los procesos</p>
 
-<blockquote><p>$ pngcrush imagen.png nueva_imagen.png (Uso basico)</p>
+<blockquote><p>$ ps             (muestra el PID de la consola)</p>
 
-<p>$ pngcrush -rem allb -brute -reduce original.png modificada.png (Quitando información adicional [-rem allb], utilizando método de fuerza bruta que prueba 114 filtros y métodos compresión y selecciona el que mejor comprima la imagen [-brute] y reduciendo el tamaño de la imagen [-reduce])</p>
+<p>$ ps -ef (lista entera y completa de los procesos del sistema )</p>
 
-<p>$ optipng -o7 *.png (Todos las imagenes del directorio a su nivel mas alto posible)</p></blockquote>
+<p>$ ps u          (Muestra el usuario y la hora de inicio de los ultimos procesos ejecutados)</p>
+
+<p>$ ps r (Muestra solo los procesos que se estan ejecutando)</p>
+
+<p>$ ps x (Muestra los que no estan controlados por ninguna terminal)</p>
+
+<p>$ ps S (Muestra  tiempo de CPU y fallos de los procesos hijos)</p>
+
+<p>$ ps aux | sort -nrk 4 | head (Los 10 procesos que consumen más memoria)</p>
+
+<p>$ ps -C firefox (ver los procesos asociados a una aplicación)</p>
+
+<p>$ ps -l PID  (informa de la aplicación que corre por un PID)</p>
+
+<p>$ ps -p $$ (Informa del pid de la propia terminal)</p></blockquote>
+
+<p>Opciones</p>
+
+<p>a (muestra lo que se está ejecutando en ttys conocidas)</p>
+
+<p>x (muestra lo que se se está ejecutando desconociendo en cual tty)</p>
+
+<p>u (muestra los usuarios que están ejecutando los procesos)</p>
+
+<p>flags:</p>
+
+<p>USER (usuario que ejecuta el proceso)</p>
+
+<p>PID (número del proceso)</p>
+
+<p>%CPU (porcentaje de CPU que está utilizando)</p>
+
+<p>%MEM (porcentaje de memoria)</p>
+
+<p>RSS (cantidad de memoria en kilobytes que ha utilizado el proceso)</p>
+
+<p>TTY (consola desde la que se está ejecutando)</p>
+
+<p>Stat (muestra el estado del proceso: S &#8220;durmiendo&#8221;, R &#8220;corriendo&#8221;, T &#8220;parado&#8221;, Z &#8220;zombie&#8221;)</p>
+
+<p>START (hora a la que empezó el proceso)</p>
+
+<p>TIME (tiempo de CPU que ha usado el proceso desde su inicio)</p>
+
+<p>COMMAND (nombre del comando que se está ejecutando)</p>
 </div>
   
   
@@ -529,7 +498,7 @@ antiguedad DATE);
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/png2html/">Png2html</a></h1>
+      <h1 class="entry-title"><a href="/blog/proxychains/">Proxychains</a></h1>
     
     
       <p class="meta">
@@ -552,17 +521,37 @@ antiguedad DATE);
   </header>
 
 
-  <div class="entry-content"><p>Convertir imagenes png a html. Dado que la conversión asume 1 pixel por cada caracter, las imagenes resultantes se ven alargadas. Para una visualización más decente han de achatarse. A modo de ejemplo una imagen de 115x115 no se ha visualizado correctamente hasta 155x115.</p>
+  <div class="entry-content"><p>[tor privoxy]</p>
 
-<blockquote><p>$ png2html imagen.png texto.txt salida.html 1</p></blockquote>
+<p>Convierte en anonima la conexión que realiza una aplicación determinada [Ver privoxy]</p>
 
-<p>El archivo texto.txt contiene una palabra, frase o párrafo con el que se confeccionará la imagen. El último número indica:</p>
+<blockquote><p># nano /etc/proxychains.conf</p></blockquote>
 
-<p>0 = fuente pequeña incompatible en algunos navegadores.</p>
+<p>Descomentar o añadir las lineas [usar el mismo puerto que en privoxy]:</p>
 
-<p>1 = fuente mediana.</p>
+<blockquote><p># defaults set to &#8220;tor&#8221;</p></blockquote>
 
-<p>2 = fuente grande.</p>
+<p>socks4  127.0.0.1 9050</p>
+
+<p>Iniciar tor o, caso de usar vidalia, crear nueva identidad.</p>
+
+<blockquote><p># /etc/init.d/tor restart</p>
+
+<p># proxychains curl ifconfig.me (Si la ip no es la nuestra indica que todo está correctamente funcionando)</p></blockquote>
+
+<p>Si configuramos el navegador para usar proxy podemos comprobar su correcto funcionamiento con https://check.torproject.org/</p>
+
+<blockquote><p># proxychains firefox ifconfig.me (Arrancar el navegador bajo proxy)</p>
+
+<p># proxychains nmap -Pn -sT IP (Lanzar nmap con proxy. -Pn y -sT son para dificultar en lo posible dejar trazas)</p></blockquote>
+
+<p>Otros ejemplos:</p>
+
+<blockquote><p># proxychains nessusd -D</p>
+
+<p># proxychains msfconsole</p>
+
+<p># proxychains ssh -D 127.0.0.1:9050 usuario@host</p></blockquote>
 </div>
   
   
@@ -593,43 +582,43 @@ antiguedad DATE);
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/gedit/">gedit</a>
+        <a href="/blog/ifne/">ifne</a>
       </li>
     
       <li class="post">
-        <a href="/blog/gconftool-2/">gconftool-2</a>
+        <a href="/blog/ifdata/">ifdata</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ftff/">ftff</a>
+        <a href="/blog/ifconfig/">ifconfig</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fstab/">fstab</a>
+        <a href="/blog/identify/">identify</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fsck/">fsck</a>
+        <a href="/blog/html/">html</a>
       </li>
     
       <li class="post">
-        <a href="/blog/freeradius/">freeradius</a>
+        <a href="/blog/hosts/">hosts</a>
       </li>
     
       <li class="post">
-        <a href="/blog/foremost/">foremost</a>
+        <a href="/blog/host-dot-conf/">host.conf</a>
       </li>
     
       <li class="post">
-        <a href="/blog/for/">for</a>
+        <a href="/blog/honeyproxy/">honeyproxy</a>
       </li>
     
       <li class="post">
-        <a href="/blog/flunym0us/">flunym0us</a>
+        <a href="/blog/hg/">hg</a>
       </li>
     
       <li class="post">
-        <a href="/blog/flexget/">flexget</a>
+        <a href="/blog/hexdump/">hexdump</a>
       </li>
     
   </ul>

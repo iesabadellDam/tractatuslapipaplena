@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Snifer de red. Dado que los informes los despliega en archivos de texto por cada dato, es preferible lanzar la aplicación desde dentro de una carpeta &hellip;">
+  <meta name="description" content="Creación, gestión y conversión de claves utilizadas para la autenticación de cliente y servidor. Cuando no se especifica ninguna opción, ssh-keygen &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/sniffit/">Sniffit</a></h1>
+      <h1 class="entry-title"><a href="/blog/ssh-keygen/">Ssh-keygen</a></h1>
     
     
       <p class="meta">
@@ -103,191 +103,25 @@
   </header>
 
 
-  <div class="entry-content"><p>Snifer de red. Dado que los informes los despliega en archivos de texto por cada dato, es preferible lanzar la aplicación desde dentro de una carpeta para no llenar todo el directorio de ficheros.</p>
+  <div class="entry-content"><p>Creación, gestión y conversión de claves utilizadas para la autenticación de cliente y servidor. Cuando no se especifica ninguna opción, ssh-keygen genera un par de claves RSA de 2048 bits y solicita un nombre de clave y una frase de paso para proteger la clave privada. Las claves públicas se crean usando el mismo nombre base que la clave privada con una extensión .pub añadida. La ubicación de la clave se muestra cuando se completa la generación de claves. Ver ssh</p>
 
-<blockquote><p># sniffit -s 192.168.1.2  (Captura todos los paquetes con origen en la IP)</p>
+<blockquote><p>$ ssh-keygen -lvf ~/.ssh/known_hosts (Ver todas las huellas digitales y las imágenes randomart)</p>
 
-<p># sniffit -t 192.168.1.2 (Captura todos los paquetes con destino en la IP)</p>
+<p>$ ssh-keygen -t rsa -C newserver -f .ssh/newkey (Generar el par de llaves publica y privada. Caso de exitir preguntará si se sobreescribe)</p>
 
-<p># sniffit -b -s 192.168.1.2 (Captura los paquetes con origen y destino en la IP)</p>
+<p>$ ssh-keygen -B -f .ssh/id_rsa.pub (Muestra la huella digital de la llave especificada en formato SHA-1)</p>
 
-<p># sniffit -F eth1 -b -s 192.168.1.33 -p 9001 (de un puerto y forzando dispositivo)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/snarf/">Snarf</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Descarga páginas web o listado de archivos compartidos por ftp.</p>
-
-<blockquote><p>$ snarf lapipaplena.net (Creará un archivo index.html)</p>
-
-<p>$ snarf ftp://usuario:contraseña@servidor (Creará un archivo ftpindex.txt)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/smem/">Smem</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Informa del uso de la memoria.</p>
-
-<blockquote><p># smem -u (Por parte de los usuarios)</p>
-
-<p># smem -w (por parte del sistema)</p>
-
-<p># smem -m (de todos los procesos)</p>
-
-<p># smem -p (resultado en porcentaje</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/smbstatus/">Smbstatus</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Monitorizar el estado de las conexiones del servidor samba.</p>
-
-<blockquote><p># smbstatus (Listado de equipos conectados a recursos compartidos y ficheros abiertos)</p>
-
-<p># smbstatus -p (Solo el listado de los equipos conectados a samba)</p>
-
-<p># smbstatus -S (Listado de recursos y equipos conectados a ellos)</p>
-
-<p># smbstatus -L  (Listado de ficheros abiertos)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/smbclient/">Smbclient</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Conectar recursos compartidos de windows desde linux.</p>
-
-<blockquote><p>$ smbclient //192.168.1.155/compartido -U usuario (Después de ingresar usuario y contraseña entra en el prompt del recurso compartido)</p>
-
-<p>$ smbclient -L //192.168.1.155 (Ver los recursos compartidos de la IP especificada.</p></blockquote>
+<p>$ ssh-keygen -f &#8220;$HOME/.ssh/known_hosts&#8221; -R [La_URL.com_entre_corchetes]:22 (Suprimir un clave de un host por sufrir alguna modificación y el puerto)</p></blockquote>
 
 <p>1.-</p>
 
-<p>Para montarlo automaticamente:</p>
+<p>Para ver la huella digital cada vez que se ingresa en un host remoto:</p>
 
-<p>Entrar en el /etc/fstab la siguiente linea:</p>
+<blockquote><p># nano /etc/ssh/ssh_config</p></blockquote>
 
-<p>//192.168.1.155/compartido /media/compartido cifs username=NOMBRE, password=CONTRASEÑA,user</p>
+<p>Descomentar la linea y dejarla:</p>
+
+<p>VisualHostKey yes</p>
 </div>
   
   
@@ -300,7 +134,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/smartctl/">Smartctl</a></h1>
+      <h1 class="entry-title"><a href="/blog/ssh/">Ssh</a></h1>
     
     
       <p class="meta">
@@ -323,59 +157,178 @@
   </header>
 
 
-  <div class="entry-content"><p>Comprobar el estado de los discos duros. Si el disco es IDE, suprimir en todos los comandos el &#8220;-d ata&#8221;</p>
+  <div class="entry-content"><p>Comunicación cifrada entre dos máquinas.</p>
 
-<blockquote><p># smartctl -i -d ata /dev/sda (Verificar si un disco ATA suporta smart)</p>
+<blockquote><p>$ ssh usuario@host (básica)</p>
 
-<p># smartctl -s on -d ata /dev/hda (activar el soporte smart)</p>
+<p>$ ssh -v usuario@IP_o_host (comprobar errores en una conexión)</p>
 
-<p># smartctl -d ata -t short /dev/sda (lanzar el test corto)</p>
+<p>$ ssh -p 4000 usuario@host (especificando un puerto)</p>
 
-<p># smartctl -d ata -t long /dev/sda  (lanzar el test largo)</p>
+<p>$ ssh -fND localhost:2080 usuario@host (Crear un servidor proxy en una máquina remota. La “N” es para que no se puedan ejecutar comandos)</p>
 
-<p># smartctl -d ata -l selftest -i /dev/sda (analizar la información de los comandos anteriores)</p></blockquote>
+<p>$ ssh -X -Y usuario@host akregator (Lanzar una aplicación remota en local. Ver punto 11 de esta entrada)</p>
 
-<p>LifeTime indica las horas que el disco ha estado encendido. LBA_of_First_error indica los errores.</p>
+<p>$ ssh usuario@host ls (lanzar un comando remoto y visualizarlo en local)</p>
 
-<blockquote><p># smartctl -d ata -Hc /dev/sda (Si al final se lee PASSED, correcto, si FAILED cambiar disco)</p>
+<p>$ ssh -t usuario@host newsbeuter  (lo mismo si precisa consola)</p>
 
-<p># smartctl -d ata -l error /dev/sda (Listar los errores)</p>
+<p>$ ssh -D 9999 usuario@host (abrir un puerto a partir del cual tunelar una conexión)</p>
 
-<p># smartctl -d ara -A /dev/sda (Listar atributos internos)</p></blockquote>
+<p>$ ssh user@host_ip &#8216;DISPLAY=&#8221;:0.0&#8221; import -window root screenshot.png&#8217; (realizar pantallazo de una sesión remota. Se archiva en el remoto no en local)</p>
 
-<p>Listado de algunos atributos smart</p>
+<p>$ ssh usuario@host &#8220;tar -cf - /home/usuario/dir&#8221; | gzip dir.tar.gz (Comprimir un directorio remoto)</p>
 
-<p>Power_Cycle_Count (RAW_Value).- Veces que le ha llegado   corriente.</p>
-
-<p>Temperature Celsius. (RAW_Value) .- Temperatura del disco</p>
-
-<p>Reallocated_Sector_Ct (RAW_Value).-  número de sectores de repuesto que ha usado el disco para sustituir sectores dañados</p>
-
-<p>Raw_Read_Error_Rate (RAW_Value).- Frequencia de errores en la lectura del disco.</p>
-
-<p>Start_Stop_Count: Cantidad de veces que se ha parado y arrancado el disco</p>
-
-<p>Seek_Error_Rate: Tasa de errores de colocación de la aguja</p>
-
-<p>Power_On_Seconds: Tiempo funcionando</p>
-
-<p>Spin_Retry_Count: Numero de reintentos de arrancada</p>
-
-<p>El campo VALUE [valor] va del número 1 al 253, siendo 1 el peor. Los valores normales son los que estan entre 100 y 200. El campo WHEN_FAILED indica cuando se produjo una falla de algún atributo.</p>
+<p># gedit /var/run/motd   (modificar el mensaje de bienvenida de ssh)</p></blockquote>
 
 <p>1.-</p>
 
-<p>Para activar el demonio que nos avisa si se produce un error en disco:</p>
+<p>conexión remota. El servidor ha de tener el archivo /etc/ssh/sshd_config con los siguientes parámetros:</p>
 
-<blockquote><p># apt-get install smart-notifier</p></blockquote>
+<p>AllowTcpForwarding yes</p>
 
-<p>Editar el archivo de configuración:</p>
+<p>GatewayPorts yes</p>
 
-<blockquote><p># nano /etc/default/smartmontools</p></blockquote>
+<p>Luego configurar Firefox para usar un servidor proxy 127.0.0.1 puerto 9999.</p>
 
-<p>Y descomentar la linea:</p>
+<p>2.-</p>
 
-<p>start_smartd=yes</p>
+<blockquote><p># gedit /etc/issue.net   (modificar el mensaje antes del login. Para activarlo, descomentar del archivo “/etc/ssh/sshd_config” la línea: Banner /etc/issue.net)</p></blockquote>
+
+<p>3.-</p>
+
+<p>Tunel inverso:</p>
+
+<blockquote><p>$ ssh -R 10000:localhost:22 usuario2@host2 (lanzado desde host1 hacia host2 crea un tunel por el puerto 10000)</p>
+
+<p>$ ssh usuario2@host2 (Lanzado desde host3 hacia host2)</p></blockquote>
+
+<p>Una vez entrado en host2, lanzar:</p>
+
+<blockquote><p>$ ssh usuario1@localhost -p 10000 (Para conectar el host3 con el host1)</p></blockquote>
+
+<p>4.-</p>
+
+<p>Crear clave publica para acceder a un remoto sin que pida identificación:</p>
+
+<blockquote><p>$ ssh-keygen -b 4096 -t rsa  (Crear la clave)</p>
+
+<p>$ ssh-copy-id usuario@IP_o_HOST (enviar la clave al remoto)</p></blockquote>
+
+<p>5.-</p>
+
+<p>Para deshabilitar el acceso a todos los usuarios excepto a root:</p>
+
+<blockquote><p># touch /etc/nologin</p>
+
+<p># chmod 644 /etc/nologin</p></blockquote>
+
+<p>6.-</p>
+
+<p>Deshabilitar/personalizar los mensajes que aparecen cuando nos logueamos en algunas distros a un host remoto mediante SSH.</p>
+
+<blockquote><p>$ touch /home/usuario/.hushlogin (Creando este fichero vacio se deshabilitan los mensajes. Borrandolo vuelven a aparecer)</p>
+
+<p># nano /etc/motd (Archivo para personalizar los mensaje de bienvenida a quien se loguea en el sistema)</p></blockquote>
+
+<p>7.-</p>
+
+<p>Crear un atajo para la conexión a un servidor remoto:</p>
+
+<blockquote><p>$ nano .ssh/config</p></blockquote>
+
+<p>Y pegar el siguiente contenido debidamente modificado con nuestros datos:</p>
+
+<pre><code>host servidor
+
+ hostname 192.168.1.10 
+
+ user USUARIO_REMOTO
+</code></pre>
+
+<p>Nota.- Delante de la segunda y tercera linea existe un espacio.</p>
+
+<p>Al crear este archivo, la conexión se realizará con:</p>
+
+<blockquote><p>$ ssh servidor (Pedirá igualmente contraseña)</p></blockquote>
+
+<p>8.-</p>
+
+<p>Evitar desconexiones por inactividad:</p>
+
+<blockquote><p>$ nano .ssh/config</p></blockquote>
+
+<p>Y pegar el siguiente contenido:</p>
+
+<pre><code>Host *
+
+    ServerAliveInterval 120
+
+    ServerAliveCountMax 3
+</code></pre>
+
+<p>9.-</p>
+
+<p>Añadir un registro de las acciones realizadas dentro de cada sesión SFTP</p>
+
+<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
+
+<p>Y dejar la linea como se indica:</p>
+
+<p>Subsystem sftp /usr/lib/openssh/sftp-server -l INFO</p>
+
+<p>Tras reiniciar ssh, el registro se plasmará en /var/log/auth.log</p>
+
+<p>10.-</p>
+
+<p>Aumentando la seguridad del servidor ssh:</p>
+
+<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
+
+<p>Y añadir o modificar las siguientes lineas:</p>
+
+<pre><code>AllowUsers juan pedro andrés (Limitando a uno o varios los usuarios autorizados)
+
+AllowGroup oficina (Restringir acceso a solo un grupo)
+
+Port 372 (Modificando puerto. Aconsejable uno inferior al 1024)
+
+LoginGraceTime 40 (Mostrar la pantalla de login 40 segundos antes de cerrarse)
+
+MaxStartups 4 (Cantidad máxima de conexiones simultaneas)
+
+MaxAuthTries 3 (Limitar el número de intentos de logeo, tras los cuales se cierra la conexión)
+</code></pre>
+
+<p>11.-</p>
+
+<p>Ajustes para tunelar aplicaciones gráficas:</p>
+
+<p>En el servidor:</p>
+
+<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
+
+<pre><code>AllowTcpForwarding yes
+
+X11Forwarding yes
+
+X11DisplayOffset 10
+
+X11UseLocalhost yes
+</code></pre>
+
+<p>En la máquina cliente:</p>
+
+<blockquote><p># nano /etc/ssh/ssh_config</p></blockquote>
+
+<pre><code>ForwardX11 yes
+
+ForwardX11Trusted yes
+</code></pre>
+
+<p>Después de reiniciar ssh, con el parámetro -X se visualizará la gui remota que tambien tiene que estar instalada en local.</p>
+
+<blockquote><p>$ ssh -X usuario@host akregator</p></blockquote>
 </div>
   
   
@@ -388,7 +341,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/slurm/">Slurm</a></h1>
+      <h1 class="entry-title"><a href="/blog/ssconvert/">Ssconvert</a></h1>
     
     
       <p class="meta">
@@ -411,9 +364,19 @@
   </header>
 
 
-  <div class="entry-content"><p>Monitoriza la interfaz de red</p>
+  <div class="entry-content"><p>[gnumeric]</p>
 
-<blockquote><p># slurm -i eth0</p></blockquote>
+<p>Conversor de formatos de hoja de cálculo por línea de comandos.</p>
+
+<blockquote><p>$ ssconvert &#8211;list-exporters (Listado de conversiones de salida)</p>
+
+<p>$ ssconvert &#8211;list-importers (Litado de conversiones de entrada)</p>
+
+<p>$ ssconvert entrada.xls salida.csv (De formato excel a csv)</p>
+
+<p>$ ssconvert -E utf-8 entrada.xls salida.csv (Especificando una codificación para la salida)</p>
+
+<p>$ ssconvert &#8211;export-type=Gnumeric_stf:stf_assistant -O &#8216;separator=| format=preserve charset=unicode&#8217; entrada.xls salida.csv (Especificando opcionalmente un exportador [&#8211;export-type] que permite exportar a txt, especificando un separador de campos que no sea el por defecto [el espacio] sinó la barra vertical [|], preservando el formato de las celdas del original [format], otras opciones de format son &#8220;automatic&#8221; [por defecto] y &#8220;raw&#8221; [sin formato] y con codificación de salida en unicode [por defecto UTF-8])</p></blockquote>
 </div>
   
   
@@ -426,7 +389,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/slowhttptest/">Slowhttptest</a></h1>
+      <h1 class="entry-title"><a href="/blog/ss/">Ss</a></h1>
     
     
       <p class="meta">
@@ -449,33 +412,23 @@
   </header>
 
 
-  <div class="entry-content"><p>Efectuar ataques Slow Http Dos</p>
+  <div class="entry-content"><p>Utilidad para investigar sockets. Sustituye a netstat.</p>
 
-<blockquote><p>$ slowhttptest -c 1000 -H -g -o ataque -i 10 -r 200 -t GET -u http://192.168.1.154 -x 30 -p 3</p></blockquote>
+<blockquote><p># ss -r  (resolviendo las IPs)</p>
 
-<p>c (Número de conexiones con límite en 65539)</p>
+<p># ss -n  (sin resolver)</p>
 
-<p>H (ataque modo SlowLoris enviando paquetes sin completar)</p>
+<p># ss  (igual)</p>
 
-<p>B (ataque modo Slow POST sin terminar de enviar el cuerpo del mensaje)</p>
+<p># ss -l   (muestra los que estan esperando conexión)</p>
 
-<p>X (ataque modo Slow Read de lectura de las respuestas http lentas)</p>
+<p># ss -o  (con conexión establecida)</p>
 
-<p>g (Generr estadistica en formato html)</p>
+<p># ss -p  (con la aplicación que los motiva)</p>
 
-<p>o (Archivo de salida)</p>
+<p># ss -a | grep ssh  (De todas las conexiones, solo muestra las ssh)</p>
 
-<p>i (Intervalo de datos por segundo por conexión)</p>
-
-<p>r (Conexiones por segundo)</p>
-
-<p>t (Cabecera a utilizar)</p>
-
-<p>u (URL de destino)</p>
-
-<p>x (Longitud máxima de los datos)</p>
-
-<p>p (Tiempo de espera de respuesta http una vez el servidor se considera inaccesible)</p>
+<p># ss -tpan &#8216;sport = :22&#8217; (ver conexiones por el puerto 22)</p></blockquote>
 </div>
   
   
@@ -488,7 +441,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/slim/">Slim</a></h1>
+      <h1 class="entry-title"><a href="/blog/srm/">Srm</a></h1>
     
     
       <p class="meta">
@@ -511,15 +464,17 @@
   </header>
 
 
-  <div class="entry-content"><p>Gestor de sesiones ligero. La configuración en el archivo /etc/slim.conf</p>
+  <div class="entry-content"><p>[secure-delete]</p>
 
-<p>1.-</p>
+<p>Aplicación para eliminar de forma segura datos de disco sobreescribiendo su espacio. Es de funcionamiento lento, pero por eso se le considera el más efectivo</p>
 
-<p>Si al usar systemd el sistema no para ni reinicia, modificar las lineas existentes por las siguientes:</p>
+<blockquote><p>$ srm -f dir (Modo rápido i el más inseguro)</p>
 
-<p>halt_cmd /usr/bin/systemctl halt</p>
+<p>$ srm -l dir (Como realizar dos veces srm -f)</p>
 
-<p>reboot_cmd /usr/bin/systemctl reboot</p>
+<p>$ srm archivo.txt (Se sobreescribe 38 veces)</p>
+
+<p>$ srm -rzv dir (se sobreescriben 38 veces los archivos y subdirectorios incluidos [r], sobreescribnedo ceros en el último borrado [z] y mostrando el proceso [v])</p></blockquote>
 </div>
   
   
@@ -532,7 +487,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/sleep/">Sleep</a></h1>
+      <h1 class="entry-title"><a href="/blog/squid/">Squid</a></h1>
     
     
       <p class="meta">
@@ -555,17 +510,226 @@
   </header>
 
 
-  <div class="entry-content"><p>Esperar el tiempo especificado antes de lanzar un comando o aplicacion</p>
+  <div class="entry-content"><p>Proxy caché (intermediario para nuestra conexion a internet, guardando las paginas visualizadas en una caché)</p>
 
-<blockquote><p>$ sleep 5s ; xwd -root -screen > pantalla.xwd   (Capturar la pantallas tras 5 segundos)</p>
+<blockquote><p># cp /etc/squid3/squid.conf{,.defaults} (Realizar copia de seguridad de la configuración)</p>
 
-<p>$ sleep 20m; yes > /dev/dsp (alarma. En 20 minutos suena un pitido)</p>
+<p># nano /etc/squid3/squid.conf</p></blockquote>
 
-<p>$ sleep 3s &amp;&amp; aoss espeak -v es &#8220;Levantate gandul&#8230;..&#8221; 2>/dev/null (Otra forma de programar una alarma)</p>
+<p>Modificamos/adaptamos los siguientes ajustes basicos:</p>
 
-<p>$ sleep 3h &amp;&amp; halt (para el pc a las 3 horas)</p>
+<p>http_port 3128 #puerto de escucha</p>
 
-<p>$ sleep 3d &amp;&amp; halt (para el pc a los 3 dias)</p></blockquote>
+<p>cache_mem 100 MB #Tamaño memoria caché</p>
+
+<p>cache_dir ufs /var/spool/squid 700 16 256 #directorio y tamaño</p>
+
+<p>acl NuestraRed src 192.168.1.0/24 #Nombre y red a la que afecta</p>
+
+<p>http_access allow NuestraRed #permitir acceso a toda la red</p>
+
+<p>http_access allow deny all #Denegamos a los de fuera de la red</p>
+
+<p>auth_param basic /usr/lib/squid/ncsa_auth /etc/squid/passwd #ruta a usuarios</p>
+
+<p>auth_param basic realm “Mensaje de acceso” #mensaje al logearse</p>
+
+<p>auth_param basic children 5 #Procesos de autentificación</p>
+
+<p>auth_param basic basic credentialsttl 1 hours #tiempo</p>
+
+<blockquote><p># squid3 -k parse (Revisión de la sintaxis del archivo squid.conf)</p></blockquote>
+
+<p>Después de las modificaciones reiniciar servicio:</p>
+
+<blockquote><p># /etc/init.d/squid3 restart</p></blockquote>
+
+<p>Configuración de usuarios (/etc/squid/passwd):</p>
+
+<blockquote><p># htpasswd -c /etc/squid3/passwd user1 (Crear archivo [-c] nombre de usuario y pedirá contraseña)</p>
+
+<p># htpasswd /etc/squid3/passwd usuario2 (Sin parámetro -c porque el archivo ya está creado. Otro usuario y contraseña)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/spumux/">Spumux</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Generar subtítulos en un video mpeg.</p>
+
+<blockquote><p>$ spumux -s0 subt.xml &lt; video.mpeg > video_subtitulado.mpeg</p></blockquote>
+
+<p>Nota.- El archivo subt.xml con un contenido:</p>
+
+<pre><code>&lt;subpictures&gt;
+
+   &lt;stream&gt;
+
+        &lt;textsub filename="SUBTITULOS.srt" characterset="ISO8859-1"
+
+                 fontsize="24.0" font="Arial.ttf" horizontal-alignment="center"
+
+                 vertical-alignment="bottom" left-margin="60" right-margin="60"
+
+                 top-margin="20" bottom-margin="30" subtitle-fps="25"
+
+                 movie-fps="29.97" movie-width="720" movie-height="478"/&gt;
+
+   &lt;/stream&gt;
+
+&lt;/subpictures&gt;
+</code></pre>
+
+<p>La fuente Arial.ttf ha de estar [o tener un enlace] en el directorio ~/.spumux</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/sponge/">Sponge</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[moreutils]</p>
+
+<p>herramienta que guarda todo el contenido a escribir hasta que recibe el EOF y luego lo escribe por lo que permite procesar un fichero y reescribirlo en el propio fichero sin perdida de datos.</p>
+
+<blockquote><p>$ tac archivo | sponge archivo (Lee al reves un archivo y lo guarda en el mismo archivo)</p>
+
+<p>$ column -t datos | sponge datos</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/splitvt/">Splitvt</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Lanzar dos shells simultaneas partiendo en dos ventanas una terminal.</p>
+
+<blockquote><p>$ splitvt -t &#8220;linux es genial&#8221; -upper ls -lower top (Con un título [-t] lanzando un ls en la ventana superior y top en la inferior)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/split/">Split</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Cortar archivos</p>
+
+<blockquote><p>$ split -d -b 100m archivo otro_archivo. (Que tengan extensión con números: .00, .01, .02. Trozos de 200 MB, archivo de entrada y de salida terminado con un punto donde se añade la extension. En este ejemplo daría salidas tipo otro_archivo.00, otro_archivo.01&#8230;.)</p>
+
+<p>$ cat prefijo* > archivo  (volver a unirlos)</p></blockquote>
 </div>
   
   
@@ -596,43 +760,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/gedit/">gedit</a>
+        <a href="/blog/ifne/">ifne</a>
       </li>
     
       <li class="post">
-        <a href="/blog/gconftool-2/">gconftool-2</a>
+        <a href="/blog/ifdata/">ifdata</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ftff/">ftff</a>
+        <a href="/blog/ifconfig/">ifconfig</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fstab/">fstab</a>
+        <a href="/blog/identify/">identify</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fsck/">fsck</a>
+        <a href="/blog/html/">html</a>
       </li>
     
       <li class="post">
-        <a href="/blog/freeradius/">freeradius</a>
+        <a href="/blog/hosts/">hosts</a>
       </li>
     
       <li class="post">
-        <a href="/blog/foremost/">foremost</a>
+        <a href="/blog/host-dot-conf/">host.conf</a>
       </li>
     
       <li class="post">
-        <a href="/blog/for/">for</a>
+        <a href="/blog/honeyproxy/">honeyproxy</a>
       </li>
     
       <li class="post">
-        <a href="/blog/flunym0us/">flunym0us</a>
+        <a href="/blog/hg/">hg</a>
       </li>
     
       <li class="post">
-        <a href="/blog/flexget/">flexget</a>
+        <a href="/blog/hexdump/">hexdump</a>
       </li>
     
   </ul>

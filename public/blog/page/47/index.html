@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Permite declarar variables de solo lectura [No modificables]. $ readonly -p (Las muestra todas) $ readonly -f var (Crear la funcion &#8220;var&#8221 &hellip;">
+  <meta name="description" content="[pslist] Herramienta similar a kill [ver] $ rkill -9 scribus (Matará la aplicación especificada. Igual que killall [ver]) $ rkill -9 17424 (Matará la &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/readonly/">Readonly</a></h1>
+      <h1 class="entry-title"><a href="/blog/rkill/">Rkill</a></h1>
     
     
       <p class="meta">
@@ -103,13 +103,13 @@
   </header>
 
 
-  <div class="entry-content"><p>Permite declarar variables de solo lectura [No modificables].</p>
+  <div class="entry-content"><p>[pslist]</p>
 
-<blockquote><p>$ readonly -p (Las muestra todas)</p>
+<p>Herramienta similar a kill [ver]</p>
 
-<p>$ readonly -f var (Crear la funcion &#8220;var&#8221; de solo lectura)</p>
+<blockquote><p>$ rkill -9 scribus (Matará la aplicación especificada. Igual que killall [ver])</p>
 
-<p>$ readonly -r var (Quita el atributo de &#8220;solo lectura&#8221; pero no permite redefinirla)</p></blockquote>
+<p>$ rkill -9 17424 (Matará la aplicación que corra en el PID especificado. Igual que kill)</p></blockquote>
 </div>
   
   
@@ -122,7 +122,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/readlink/">Readlink</a></h1>
+      <h1 class="entry-title"><a href="/blog/rkhunter/">Rkhunter</a></h1>
     
     
       <p class="meta">
@@ -145,11 +145,63 @@
   </header>
 
 
-  <div class="entry-content"><p>Muestra donde apunta un enlace simbólico.</p>
+  <div class="entry-content"><p>Buscador de rootkits instalados en el sistema</p>
 
-<blockquote><p>$ readlink enlace</p>
+<blockquote><p># rkhunter &#8211;update  (Recargar la base de datos)</p>
 
-<p>$ readlink -f enlace (Muestra el path absoluto)</p></blockquote>
+<p># rkhunter -c  (iniciar la aplicación)</p>
+
+<p># rkhunter -c -sk (iniciar la aplicación sin pedir confirmación para proseguir)</p>
+
+<p># rkhunter -c -sk &#8211;propupd (Lanzar con la opción &#8220;propupd&#8221; si se ha modificado la función Hash o para reconstruir la base de datos y evitar &#8220;Warnings&#8221; tipo: Warning: The file properties have changed)</p>
+
+<p># rkhunter &#8211;list (Ver las opciones)</p>
+
+<p># rkhunter &#8211;enable group_accounts,system_commands  (Solo chequear estas dos opciones)</p>
+
+<p># rkhunter &#8211;disable shared_libs  (Descartar esta opción del chequeo)</p>
+
+<p># cat /var/log/rkhunter.log | grep Warning (Visualizar los &#8220;Warnings&#8221;)</p></blockquote>
+
+<p>1.-</p>
+
+<p>Para solucionar el error: Warning: Hidden directory found: /etc/.java</p>
+
+<blockquote><p># nano /etc/rkhunter.conf</p></blockquote>
+
+<p>Y descomentar la linea:</p>
+
+<p>ALLOWHIDDENDIR=&#8221;/etc/.java&#8221;</p>
+
+<p>Nota.- para errores similares con archivos ocultos [/dev/.udev, /dev/.initramfs&#8230; ], descomentar la linea correspondiente.</p>
+
+<p>2.-</p>
+
+<p>Para errores de versión de ciertas aplicaciones [Warning: Application &#8216;gpg&#8217;, version &#8230;.]</p>
+
+<blockquote><p># nano /etc/rkhunter.conf</p></blockquote>
+
+<p>Añadir apps a la linea:</p>
+
+<p>DISABLE_TESTS=&#8221;suspscan hidden_procs deleted_files packet_cap_apps apps&#8221;</p>
+
+<p>3.-</p>
+
+<p>Para suprimir falsa advertencias sobre posibles interfaces promiscuos [P.ejemplo de un servidor virtual], añadir &#8220;promisc&#8221; a la opción DISABLE_TESTS:</p>
+
+<p>DISABLE_TESTS=&#8221;suspscan hidden_procs deleted_files packet_cap_apps apps promisc&#8221;</p>
+
+<p>4.-</p>
+
+<p>Para que los valores se obtengan del gestor de paquetes correspondiente:</p>
+
+<blockquote><p># nano /etc/rkhunter.conf</p></blockquote>
+
+<p>Y descomentar y modificar la linea PKGMGR:</p>
+
+<p>PKGMGR=DPKG</p>
+
+<p>Nota.- Otras opciones para distros no debian o para desactivar la opción: RPM, BSD,SOLARIS y NONE</p>
 </div>
   
   
@@ -162,7 +214,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/read/">Read</a></h1>
+      <h1 class="entry-title"><a href="/blog/rig/">Rig</a></h1>
     
     
       <p class="meta">
@@ -185,33 +237,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Espera una entrada por teclado y le asigna una variable, aunque contenga espacios.</p>
+  <div class="entry-content"><p>Crear nuevas identidades.</p>
 
-<pre><code>$ read -p "dime tu nombre " NOMBRE
-
-$ echo $NOMBRE
-</code></pre>
-
-<p>La opción -a permite leer las palabras como elementos de un array:</p>
-
-<pre><code>$ read -a frase
-
-Hola que tal
-
-$ declare -p frase
-
-declare -a frase='([0]="Hola" [1]="que" [2]="tal")'
-</code></pre>
-
-<p>Algunas opciones:</p>
-
-<p>-d (permite indicar un delimitador de fin de línea de forma que la línea se lee hasta encontrar este delimitador)</p>
-
-<p>-e (permite que se puedan usar todas las combinaciones de teclas de readline)</p>
-
-<p>-t 3 (Especificar un tiempo de espera en la entrada de datos antes de volver al prompt)</p>
-
-<p>-n 1 (Efectuará la acción al pulsar una tecla sin necesidad de pulsar Intro)</p>
+<blockquote><p>$ rig -f -c 5 (De mujer [-f] y 5 opciones [-c]. Para hombre -m)</p></blockquote>
 </div>
   
   
@@ -224,7 +252,7 @@ declare -a frase='([0]="Hola" [1]="que" [2]="tal")'
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rdiff-backup/">Rdiff-backup</a></h1>
+      <h1 class="entry-title"><a href="/blog/rfkill/">Rfkill</a></h1>
     
     
       <p class="meta">
@@ -247,9 +275,15 @@ declare -a frase='([0]="Hola" [1]="que" [2]="tal")'
   </header>
 
 
-  <div class="entry-content"><p>Backups incrementales locales o remotos. La aplicación ha de estar instalada en el cliente y en el servidor.</p>
+  <div class="entry-content"><p>Herramienta para activar/desactivar dispositivos inalámbricos.</p>
 
-<blockquote><p>$ rdiff-backup &#8211;force 192.168.1.20::/home/USER/dir_remoto /home/USER/dir_local (Realiza un backup del dir_remota de la máquina 20 de la red y lo guarda en nuestro dir_local sin comprimir)</p></blockquote>
+<blockquote><p># rfkill list (Muestra listado y su estado)</p>
+
+<p># rfkill block all (bloquear todos [“all”], otras opciones: ”wifi”, “wlan”, “wimax” ….)</p>
+
+<p># rfkill unblock all (Desbloquear todos los dispositivos)</p>
+
+<p># rfkill unblock 0 (Desbloquear la 0 según resultado de “list”)</p></blockquote>
 </div>
   
   
@@ -262,7 +296,7 @@ declare -a frase='([0]="Hola" [1]="que" [2]="tal")'
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rdesktop/">Rdesktop</a></h1>
+      <h1 class="entry-title"><a href="/blog/rev/">Rev</a></h1>
     
     
       <p class="meta">
@@ -285,9 +319,11 @@ declare -a frase='([0]="Hola" [1]="que" [2]="tal")'
   </header>
 
 
-  <div class="entry-content"><p>Conexión a escritorio remoto.</p>
+  <div class="entry-content"><p>invierte una cadena de texto o un archivo</p>
 
-<blockquote><p>$ rdesktop -k es -g 1024×768 -u USER -p PASS -a 15 -T tux -D client (Especificando teclado español [k], medidas de la ventana [g], usuario [u] y contraseña [p], especificar un mobre para la ventana [T] y suprimiendo la decoración de la ventana [D])</p></blockquote>
+<blockquote><p>$ echo &#8220;perico de los palotes&#8221; | rev</p>
+
+<p>$ rev archivo.txt</p></blockquote>
 </div>
   
   
@@ -300,7 +336,7 @@ declare -a frase='([0]="Hola" [1]="que" [2]="tal")'
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rcconf/">Rcconf</a></h1>
+      <h1 class="entry-title"><a href="/blog/retty/">Retty</a></h1>
     
     
       <p class="meta">
@@ -323,9 +359,23 @@ declare -a frase='([0]="Hola" [1]="que" [2]="tal")'
   </header>
 
 
-  <div class="entry-content"><p>Parar/arrancar procesos durante el inicio</p>
+  <div class="entry-content"><p>Capturar el proceso que se está ejecutando en otra consola.</p>
 
-<blockquote><p>$ rcconf -now</p></blockquote>
+<blockquote><p>$ retty PID</p></blockquote>
+
+<p>Ejemplo.</p>
+
+<p>En una consola lanzamos el proceso:</p>
+
+<blockquote><p>$ watch -tn1 &#8216;date &#8220;+%r %F %A&#8221;&#8217;</p></blockquote>
+
+<p>En otra averiguamos el PID:</p>
+
+<blockquote><p>$ ps aux | grep watch</p></blockquote>
+
+<p>Y capturamos el proceso:</p>
+
+<blockquote><p>$ retty PID</p></blockquote>
 </div>
   
   
@@ -338,7 +388,7 @@ declare -a frase='([0]="Hola" [1]="que" [2]="tal")'
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rc-dot-d/">rc.d</a></h1>
+      <h1 class="entry-title"><a href="/blog/restore/">Restore</a></h1>
     
     
       <p class="meta">
@@ -361,13 +411,11 @@ declare -a frase='([0]="Hola" [1]="que" [2]="tal")'
   </header>
 
 
-  <div class="entry-content"><p>Inicia o para servicios en Arch Linux</p>
+  <div class="entry-content"><p>Restaurar una copia de seguridad realizada con dump.</p>
 
-<blockquote><p># rc.d start servicio (inicia el demonio o servicio)</p>
+<blockquote><p>$  restore -rf home.bak (restaurar la copia completa [r] del archivo especificado [f])</p>
 
-<p># rc.d restart servicio (Reinicia el demonio)</p>
-
-<p># rc.d stop servicio (Para el servicio)</p></blockquote>
+<p>$ restore -xaf fichero.bak fichero (restaurar solo la copia del fichero indicado [x], sin preguntar de qué volumen extraer los ficheros y especificando  archivo  [f])</p></blockquote>
 </div>
   
   
@@ -380,7 +428,7 @@ declare -a frase='([0]="Hola" [1]="que" [2]="tal")'
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rbash/">Rbash</a></h1>
+      <h1 class="entry-title"><a href="/blog/resolveip/">Resolveip</a></h1>
     
     
       <p class="meta">
@@ -403,38 +451,9 @@ declare -a frase='([0]="Hola" [1]="que" [2]="tal")'
   </header>
 
 
-  <div class="entry-content"><p>shell restringido. Se usa para imponer a un usuario un entorno severamente limitado en el que, por ejemplo, no podrá cambiar de directorio [cd], especificar nombre que contengan la /, redirigir la salida usando operadores de redirección [>, &lt;, >>], reemplazar la shell, desactivar el modo restringido, etc. Equivalente a &#8220;bash -c&#8221;</p>
+  <div class="entry-content"><p>Buscar el host de una ip o la ip de un host</p>
 
-<blockquote><p># adduser -s /bin/rbash juan (Crear un usuario con shell restringido)</p>
-
-<p># usermod -s /bin/rbash juan (Modificar la shell de un usuario ya establecido)</p></blockquote>
-
-<p>Si queremos ampliar la cantidad de comandos a disposición de un usuario limitado editamos de su directorio personal el archivo .bash_profile:</p>
-
-<blockquote><p># nano .bash_profile</p></blockquote>
-
-<p>Y añadimos o modificamos las siguientes lineas:</p>
-
-<pre><code>PATH=$HOME/apps    
-
-export PATH
-</code></pre>
-
-<p>Creamos el directorio</p>
-
-<blockquote><p># mkdir /home/juan/apps</p></blockquote>
-
-<p>Y añadimos enlaces de los binarios que queramos permitir al usuario [en este caso ls, cp y cat]</p>
-
-<blockquote><p># ln -s /bin/ls /home/juan/apps/</p>
-
-<p># ln -s /bin/cp /home/juan/apps/</p>
-
-<p># ln -s /bin/cat /home/juan/apps/</p></blockquote>
-
-<p>Y bloqueamos el archivo:</p>
-
-<blockquote><p># chattr +i /home/juan/.bash_profile</p></blockquote>
+<blockquote><p>$ resolveip -s www.google.com</p></blockquote>
 </div>
   
   
@@ -447,7 +466,7 @@ export PATH
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/raspi-config/">Raspi-config</a></h1>
+      <h1 class="entry-title"><a href="/blog/resize2fs/">Resize2fs</a></h1>
     
     
       <p class="meta">
@@ -470,7 +489,9 @@ export PATH
   </header>
 
 
-  <div class="entry-content"><p>Acceso a los parámetros de configuración de la placa RaspberriPi</p>
+  <div class="entry-content"><p>Cambiar la medida de una partición.</p>
+
+<blockquote><p># resize2fs /dev/sda3 600M</p></blockquote>
 </div>
   
   
@@ -483,7 +504,7 @@ export PATH
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rarp/">Rarp</a></h1>
+      <h1 class="entry-title"><a href="/blog/resize/">Resize</a></h1>
     
     
       <p class="meta">
@@ -506,11 +527,9 @@ export PATH
   </header>
 
 
-  <div class="entry-content"><p>Manipula la tabla rarp del nucleo.</p>
+  <div class="entry-content"><p>Ver las columnas y líneas de la consola.</p>
 
-<blockquote><p>$ rarp -a (Lista las entradas de la caché si el nucleo tiene soporte rarp)</p>
-
-<p>$ rarp -d hostname (Elimina una entrada de la caché)</p></blockquote>
+<blockquote><p>$ resize</p></blockquote>
 </div>
   
   
@@ -541,43 +560,43 @@ export PATH
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/gedit/">gedit</a>
+        <a href="/blog/ifne/">ifne</a>
       </li>
     
       <li class="post">
-        <a href="/blog/gconftool-2/">gconftool-2</a>
+        <a href="/blog/ifdata/">ifdata</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ftff/">ftff</a>
+        <a href="/blog/ifconfig/">ifconfig</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fstab/">fstab</a>
+        <a href="/blog/identify/">identify</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fsck/">fsck</a>
+        <a href="/blog/html/">html</a>
       </li>
     
       <li class="post">
-        <a href="/blog/freeradius/">freeradius</a>
+        <a href="/blog/hosts/">hosts</a>
       </li>
     
       <li class="post">
-        <a href="/blog/foremost/">foremost</a>
+        <a href="/blog/host-dot-conf/">host.conf</a>
       </li>
     
       <li class="post">
-        <a href="/blog/for/">for</a>
+        <a href="/blog/honeyproxy/">honeyproxy</a>
       </li>
     
       <li class="post">
-        <a href="/blog/flunym0us/">flunym0us</a>
+        <a href="/blog/hg/">hg</a>
       </li>
     
       <li class="post">
-        <a href="/blog/flexget/">flexget</a>
+        <a href="/blog/hexdump/">hexdump</a>
       </li>
     
   </ul>

@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Construir un honeypot por ssh. Descargar y desenpaquetar kippo: $ wget https://kippo.googlecode.com/files/kippo-0.5.tar.gz $ tar xzf kippo-0.5.tar.gz &hellip;">
+  <meta name="description" content="Suite ofimática. Ver lo.. 1.- Cambiar de pantalla de inicio $ wget http://gnome-look.org/CONTENT/content-files/140076-libreoffice_splash.tar.gz $ tar &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/kippo/">Kippo</a></h1>
+      <h1 class="entry-title"><a href="/blog/libreoffice/">Libreoffice</a></h1>
     
     
       <p class="meta">
@@ -103,251 +103,62 @@
   </header>
 
 
-  <div class="entry-content"><p>Construir un honeypot por ssh.</p>
+  <div class="entry-content"><p>Suite ofimática. Ver lo..</p>
 
-<p>Descargar y desenpaquetar kippo:</p>
+<p>1.-</p>
 
-<blockquote><p>$ wget https://kippo.googlecode.com/files/kippo-0.5.tar.gz</p>
+<p>Cambiar de pantalla de inicio</p>
 
-<p>$ tar xzf kippo-0.5.tar.gz</p>
+<blockquote><p>$ wget http://gnome-look.org/CONTENT/content-files/140076-libreoffice_splash.tar.gz</p>
 
-<p>$ cd kippo-0.5</p>
+<p>$ tar -zxvf 140076-libreoffice_splash.tar.gz</p>
 
-<p>$ ./start.sh</p></blockquote>
+<p># cp about.png intro.png /usr/lib/libreoffice/program/</p></blockquote>
 
-<p>Configuración de iptables:</p>
+<p>En el archivo readme.txt se especifica el último paso:</p>
 
-<blockquote><p># iptables -A INPUT -i eth0 -p tcp &#8211;dport 22 -j ACCEPT</p>
+<p>Modificar el archivo /etc/libreoffice/sofficerc con siguientes parámatros:</p>
 
-<p># iptables -A INPUT -i eth0 -p tcp &#8211;dport 2222 -j ACCEPT</p>
+<pre><code>[Bootstrap] 
 
-<p># iptables -A PREROUTING -t nat -i eth0 -p tcp &#8211;dport 22 -j REDIRECT &#8211;to-port 2222</p></blockquote>
+HideEula=1 
 
-<p>Los intentos de acceso ssh quedan registrados en el subdirectorio log:</p>
+Logo=1 
 
-<blockquote><p>$ cd kippo-0.5/log</p>
+NativeProgress=true 
 
-<p>$ tail -f kippo.log</p></blockquote>
-</div>
-  
-  
+ProgressBarColor=78,158,1 
 
+ProgressFrameColor=45,45,45 
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/killall/">Killall</a></h1>
-    
-    
-      <p class="meta">
-        
+ProgressPosition=60,277 
 
+ProgressSize=320,6
+</code></pre>
 
+<p>Atajos (write)</p>
 
+<pre><code>Ctrl+Inicio (Ir al inicio del documento) 
 
+Crtl+Fin Ir al final del documento) 
 
+Ctrl+u (Subrayado) 
 
+Ctrl+i (cursiva) 
 
+Ctrl+b (negrita) 
 
-  
+Ctrl+e (texto centrado) 
 
+Ctrl+l   (texto alineado a la izquierda) 
 
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
+Ctrl+m (Formateado de fuente por defecto) 
 
+Ctrl+a (seleccionar todo el texto) 
 
-  <div class="entry-content"><p>Mata el proceso de la aplicación especificada</p>
+Ctrl+s (Guardar documento) 
 
-<blockquote><p>$ killall -9 scribus</p>
-
-<p>$ killall gnome-panel (reiniciar los paneles)</p>
-
-<p>$ killall -INFO dd  (chequear el estado de un proceso dd)</p>
-
-<p>$ killall -u usuario (Matar los procesos de un  usuario)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/kill/">Kill</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Enviar señales a los procesos.</p>
-
-<blockquote><p>$ kill -l      (lista todas las señales que pueden mandarse a un proceso)</p>
-
-<p>$ kill -0             (mata todos los procesos de la shell)</p>
-
-<p>$ kill -9  pid      (mata el proceso indicado con el número PID)</p>
-
-<p># kill -9 <code>lsof -t -i :22</code> (Mata el proceso que corre en el puerto 22)</p>
-
-<p>$ kill -1 pid  (reinicia el servicio indicado en PID)</p>
-
-<p>$ kill %2 (mata el proceso número 2)</p>
-
-<p>$ kill -19 pid  (Parar un proceso de forma temporal. Con -18 se reanuda)</p></blockquote>
-
-<p>Algunas muestras del número y su equivalencia:</p>
-
-<p>2 SIGINT (Interrumpido desde el teclado [igual que Ctrl+c])</p>
-
-<p>3 SIGQUIT (Cerrado desde el teclado [igual que Ctrl+])</p>
-
-<p>9 SIGKILL (forzar que uno o varios procesos terminen de forma inmediata)</p>
-
-<p>18 SIGCONT (Reanudar un proceso parado)</p>
-
-<p>19 SIGSTOP (suspender un proceso)</p>
-
-<p>20 SIGTSTP (Parar un proceso desde terminal [igual que Ctrl+z])</p>
-
-<p>Nota.- Si en vez de usar los números [kill -9 pid] usamos el nombre de la señal [kill -KILL pid] podemos omitir las letras SIG de la señal [SIGKILL]</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/kernel/">Kernel</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>1.-</p>
-
-<p>Suprimir kernels antiguos</p>
-
-<blockquote><p># uname -r   (para conocer el último)</p>
-
-<p># dpkg &#8211;get-selections | egrep linux-image</p></blockquote>
-
-<p>linux-image-2.6.17-11-generic install</p>
-
-<p>linux-image-2.6.20-15-generic install</p>
-
-<p>linux-image-2.6.20-16-generic install</p>
-
-<p>Dejar el actual y suprimir los otros:</p>
-
-<blockquote><p># apt-get remove &#8211;purge linux-image-2.6.17-11-generic</p></blockquote>
-
-<p>2.-</p>
-
-<p>Instalar nuevo kernel:</p>
-
-<p>Para el ejemplo descargaremos el kernel 3.3.6 para la versión de ubuntu 12.04 [http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.3.6-precise/] para la arquitectura amd64. De los varios archivos que encontramos en la página, para lo que nos ocupa, solo interesan los linux-headers y linux-image.</p>
-
-<blockquote><p>$ wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.3.6-precise/linux-headers-3.3.6-030306_3.3.6-030306.201205121335_all.deb</p>
-
-<p>$ wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.3.6-precise/linux-headers-3.3.6-030306-generic_3.3.6-030306.201205121335_amd64.deb</p>
-
-<p>$ wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.3.6-precise/linux-image-3.3.6-030306-generic_3.3.6-030306.201205121335_amd64.deb</p></blockquote>
-
-<p>La instalación se realiza en el mismo orden de descarga:</p>
-
-<blockquote><p># gdebi linux-headers-3.3.6-030306_3.3.6-030306.201205121335_all.deb</p>
-
-<p># gedbi linux-headers-3.3.6-030306-generic_3.3.6-030306.201205121335_amd64.deb</p>
-
-<p># gedbi linux-image-3.3.6-030306-generic_3.3.6-030306.201205121335_amd64.deb</p></blockquote>
-
-<p>Después de la instalación del kernel, instalar los drivers privativos tipo nvidia o ati. Y actualizar grub:</p>
-
-<blockquote><p># update-grub</p></blockquote>
-
-<p>3.-</p>
-
-<p>[libncurses5 libncurses5-dev]</p>
-
-<p>Compilar el kernel desde el codigo fuente. Puede ser util para habilitar soporte para algun nuevo periferico no soportado por el kernel por defecto. Escoger la ultima version del nucleo estable de kernel.org. Para el ejemplo usaremos la 3.9.11.</p>
-
-<blockquote><p># cd /usr/src</p>
-
-<p># wget https://www.kernel.org/pub/linux/kernel/v3.x/linux-3.9.11.tar.gz</p>
-
-<p># tar -zxvf linux-3.9.11.tar.gz</p>
-
-<p># cd linux-3.9.11</p>
-
-<p># make menuconfig/</p></blockquote>
-
-<p>Mostrara las opciones de configuracion por defecto que podran ser modificadas para nuestra maquina especifica. Una vez terminado, &#8220;guardar&#8221; como .config</p>
-
-<blockquote><p># make (Compilar)</p>
-
-<p># make modules_install (Instalar los modulos)</p>
-
-<p># make install (Instalar el nuevo kernel en el sistema)</p></blockquote>
-
-<p>La instalacion ya modifica el grub.cfg para que el sistema arranque con el nuevo kernel. Si este da problemas puede escogerse para el arranque el antiguo que constara en el menu de Grub. Puede verificarse el nuevo kernel con:</p>
-
-<blockquote><p>$ uname -r</p></blockquote>
-
-<p>4.-</p>
-
-<p>Borrar kernels antiguos de forma automática:</p>
-
-<pre><code># apt-get purge $(dpkg -l 'linux-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/\(.*\)-\([^0-9]\+\)/\1/")"'/d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/;/[0-9]/!d' | head -n -1) --assume-yes 
+F7 (Ortografia y gramatica)
 </code></pre>
 </div>
   
@@ -361,7 +172,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/kbdrate/">Kbdrate</a></h1>
+      <h1 class="entry-title"><a href="/blog/lftp/">Lftp</a></h1>
     
     
       <p class="meta">
@@ -384,9 +195,29 @@
   </header>
 
 
-  <div class="entry-content"><p>Establece la tasa de repetición del teclado y el tiempo de retardo en las tty.</p>
+  <div class="entry-content"><p>Conexión ftp por linea de comandos.</p>
 
-<blockquote><p># kbdrate -d 200 -r 10 (establece retardo de 200 milisegundos y velocidad de repetición de 10 por segundo)</p></blockquote>
+<blockquote><p>$ lftp usuario@host</p>
+
+<p># lftp -help  (Para obtener ayuda)</p>
+
+<p># lftp -u usuario,clave ftp.dominio.com (Conectar con un servidor de FTP)</p></blockquote>
+
+<p>Nota.- entrados en el directorio raiz del servidor ftp remoto el prompt adquiere un estilo:</p>
+
+<blockquote><p># lftp usuario@ftp.dominio.com:~></p></blockquote>
+
+<p>Algunas opciones que tenemos:</p>
+
+<p>~> ls -l  (listar el directorio)</p>
+
+<p>~> mirror htdocs html  (copiará el contenido de htdocs (remoto) a la carpeta html del home (local) y si no existe la crea</p>
+
+<p>~> help mirror (opciones de mirror)</p>
+
+<p>~> cd htdocs</p>
+
+<p>~> exit   (salir del remoto)</p>
 </div>
   
   
@@ -399,7 +230,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/jumanji/">Jumanji</a></h1>
+      <h1 class="entry-title"><a href="/blog/lfm/">Lfm</a></h1>
     
     
       <p class="meta">
@@ -422,91 +253,160 @@
   </header>
 
 
-  <div class="entry-content"><p>Navegador estilo vi con soporte flash.</p>
+  <div class="entry-content"><p>Administrador de archivos</p>
 
-<p>Configuración:</p>
+<blockquote><p>$ lfm -1 (arrancar con un solo panel)</p>
 
-<blockquote><p>$ nano .config/jumanji/jumanjirc</p>
+<p>$ lfm -2 (arrancar con dos [por defecto])</p>
 
-<p># jumanji configuration</p>
+<p>$ lfm /home/usuario/Documentos /media/sda2 (Abrir en cada panel un directorio)</p></blockquote>
 
-<p># search engines</p></blockquote>
+<p>Nota.- Pulsar “q” para cerrar</p>
+</div>
+  
+  
 
-<p>searchengine gg http://google.es</p>
 
-<p>searchengine yo http://www.youtube.com/results?search_query=%s&amp;aq=f</p>
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/let/">Let</a></h1>
+    
+    
+      <p class="meta">
+        
 
-<blockquote><p># browser settings</p></blockquote>
 
-<p>set homepage http://www.lapipaplena.com</p>
 
-<p>set auto_save 60</p>
 
-<p>set single_instance false</p>
 
-<blockquote><p># downloads</p></blockquote>
 
-<p>set download_dir ~/downloads/</p>
 
-<p>set download_command urxvt -e  wget &#8211;load-cookies ~/.config/jumanji/cookies &#8216;%s&#8217; -O &#8216;%s&#8217;;</p>
 
-<blockquote><p># look</p></blockquote>
+  
 
-<p>set font droid sans mono medium 8</p>
 
-<blockquote><p># key bindings</p></blockquote>
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
 
-<p>map <C-q> quit</p>
 
-<blockquote><p># session</p></blockquote>
+  <div class="entry-content"><p>Permite asignar el resultado de una expresión aritmética a una variable.</p>
 
-<p>set default_session_name start</p>
+<blockquote><p>$ let a=4*3; echo $a</p></blockquote>
 
-<p>set session_restored true</p>
+<p>Ejemplo en un script:</p>
 
-<blockquote><p># Enable plugins</p></blockquote>
+<pre><code>#!/bin/bash 
 
-<p>plugin application/x-shockwave-flash</p>
+read -p "Dime dos número del 1 al 100: " NUM1 NUM2 
+
+let SUMA=$NUM1+$NUM2 
+
+echo "La suma de $NUM1 + $NUM2 es $SUMA"
+</code></pre>
+
+<p>let permite utilizar asignaciones:</p>
+
+<pre><code>incremento += 
+
+decremento -= 
+
+mutiplicar por *= 
+
+dividir por /= 
+
+modulo por %= 
+
+incremento en 1 ++ 
+
+decremento en 1 -- 
+</code></pre>
+
+<p>Ejemplo:</p>
+
+<pre><code>#!/bin/bash
+
+let x=1
+
+let x+=1
+
+echo $x
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/less/">Less</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Pagina la visualización de un fichero.</p>
+
+<blockquote><p>$ cat /etc/apt/sources.list | less</p>
+
+<p>$ less fichero</p></blockquote>
 
 <p>Atajos:</p>
 
-<pre><code>o (entrar URL)
+<pre><code>espacio (Avanzar un número de líneas igual al número de líneas de la pantalla) 
 
-t (entrar URL en nueva ventana)
+enter (Avanzar de línea en línea) 
 
-j (bajar por la página)
+y (Retroceder una línea) 
 
-k (subir)
+G (Ir al final del texto) 
 
-h (ir a la izquierda)
+g (Ir al inicio del texto) 
 
-k (ir a la derecha) 
+/ (Ingresar palabra a ser buscada de la página actual al final del texto) 
 
-^f (Descenso al final de la página) 
+? (Ingresar palabra a ser buscada de la página actual al inicio del texto) 
 
-^b (Regreso al inicio de la página) 
+n (Ir a la siguiente coincidencia de búsqueda) 
 
-w (abrir una dirección en una nueva ventana) 
+AvPág (Avanzar una pantalla de texto) 
 
-^w (Cerrar ventana)
+RePág (Retroceder una pantalla de texto) 
 
-^Tab (Cambiar de pestaña)
+v (Abrir lo que se visualiza con el editor. Por defecto vi) 
 
-^I (página anterior)
+h (Ayuda) 
 
-^o (página siguiente) 
-
-? (Buscar palabra)
-
-r (Recargar la página)
-
-R (Recargar ignorando la caché) 
-
-y (Copiar la dirección de la página al portapapeles)
-
-^s (Mostrar código fuente)
-
-^q (Salir)
+q (Salir del programa) 
 </code></pre>
 </div>
   
@@ -520,7 +420,7 @@ y (Copiar la dirección de la página al portapapeles)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/jpegtran/">Jpegtran</a></h1>
+      <h1 class="entry-title"><a href="/blog/leafpad/">Leafpad</a></h1>
     
     
       <p class="meta">
@@ -543,152 +443,223 @@ y (Copiar la dirección de la página al portapapeles)
   </header>
 
 
-  <div class="entry-content"><p>Eliminar información y reducir, modificar o recortar tamaño de imagenes jpeg.</p>
+  <div class="entry-content"><p>Editor tipo gedit.</p>
 
-<blockquote><p>$ jpegtran -copy none optimize original.jpg resultado.jpg (Eliminando información oculta [-copy none] y reduciendo la imagen [-optimize])</p></blockquote>
+<p>Configuración de parámetros:</p>
 
-<p>Algunas opciones:</p>
+<blockquote><p>$ nano .config/leafpad/leafpadrc</p></blockquote>
 
-<p>-grayscale (Forzar salida a escala de grises)</p>
+<pre><code>0.8.18.1 
 
-<p>-rotate 90 (Rotar 90º)</p>
+1215 (Ancho) 
 
-<p>-flip horizontal (Imagen espejo horizontal [izquierda-derecha])</p>
+363 (Alto) 
 
-<p>-flip vertical (Imagen espejo vertical [arriba-abajo])</p>
-</div>
-  
-  
+Monospace 12 (Fuente y medida) 
 
+1 (Ajustar / desajustar lineas al ancho de la ventana [0 o 1]) 
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/jpegjudge/">Jpegjudge</a></h1>
-    
-    
-      <p class="meta">
-        
+0 (Mostrar / esconder número de linea [0 o 1]) 
 
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Determina la calidad de un jpeg en una escala de 0 [menor] a 1000 [mayor calidad]</p>
-
-<blockquote><p>$ jpegjudga -b imagen.jpeg (Mostrar solo el número)</p></blockquote>
-
-<p>Nota.- Puede observarse el deterioro pasando un jpeg a png y volver a pasarlo a jpeg y comparar los resultados del primer jpeg y el último.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/jpeginfo/">Jpeginfo</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Información y test de integridad de imagenes jpeg.</p>
-
-<blockquote><p>$ jpeginfo -c imagen.jpeg</p>
-
-<p>$ jpeginfo -5 imagen.jpeg (Muestra el md5 de la imagen)</p>
-
-<p>$ jpeginfo -i imagen.jpeg</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/jp2a/">Jp2a</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Convertir imagenes jpeg a ascii.</p>
-
-<blockquote><p>$ jp2a &#8211;background=light -b &#8211;colors imagen.jpg  (Sin fondo, con borde y color)</p>
-
-<p>$ jp2a &#8211;color &#8211;html &#8211;fill &#8211;background=dark entrada.jpg –output=salida.html (con un html de salida)</p>
-
-<p>$ jp2a URL/imagen.jpg  (Con una URL de entrada)</p></blockquote>
-
-<p>Algunas opciones:</p>
-
-<pre><code>--size=40x25   (Especificando medidas)
-
---html-title=Imagen  (con un titulo)
-
---html-no-bold (Sin caracteres en negrita)
+0 
 </code></pre>
+
+<p>Atajos:</p>
+
+<pre><code>Ctrl-n (Documento nuevo) 
+
+Ctrl-o (Abrir) 
+
+Ctrl-s (Guardar) 
+
+Shift-Ctrl-s (Guardar como) 
+
+Ctrl-w (Cerrar documento) 
+
+Ctrl-p (Imprimir) 
+
+Ctrl-q (Salir) 
+
+Ctrl-z (Borrar última palabra escrita) 
+
+Ctrl-y (Deshacer "borrar última palabra") 
+
+Ctrl-x (Cortar) 
+
+Ctrl-c (Copiar) 
+
+Ctrl-v (Pegar) 
+
+Ctrl-a (Seleccionar todo el texto) 
+
+Ctrl-f (Buscar en el texto) 
+
+Ctrl-g [F3] (Siguiente busqueda) 
+
+Shift-Ctrl-g [Shift-F3] (Busqueda anterior) 
+
+Ctrl-h [Ctrl-R] (Reemplazar palabras del texto por otras) 
+
+Ctrl-j (Saltar a la linea...) 
+
+Ctrl-t (Siempre en primer plano) 
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ldd/">Ldd</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Para conocer las librerias compartidas que usa una aplicación.</p>
+
+<blockquote><p>$ ldd /usr/bin/amarok</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/lckdo/">Lckdo</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[moreutils]</p>
+
+<p>Bloquea la ejecución de un programa con el fin de evitar que otros procesos se ejecuten en paralelo. Se utiliza como nice [ver] y nohup [ver]</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/lazygal/">Lazygal</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Generar una galería web.</p>
+
+<blockquote><p>$ lazygal directorio_con_las_imagenes  (Creará todos los archivos en el presente directorio por lo que es preferible estar en un directorio vacio)</p>
+
+<p>$ lazygal -o /var/www/ /home/usuario/fotos (Lo creará en la carpeta web a partir del directorio fotos)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/latex2html/">Latex2html</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:08:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Covierte un archivo latex a formato html. Crea un directorio con el mismo nombre del archivo.</p>
+
+<blockquote><p>$ latex2html archivo.tex</p>
+
+<p>$ latex2html -dir DIR archivo.tex (Creará los archivos html en el directorio especificado [tiene que existir])</p></blockquote>
 </div>
   
   
@@ -719,43 +690,43 @@ y (Copiar la dirección de la página al portapapeles)
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/gedit/">gedit</a>
+        <a href="/blog/ifne/">ifne</a>
       </li>
     
       <li class="post">
-        <a href="/blog/gconftool-2/">gconftool-2</a>
+        <a href="/blog/ifdata/">ifdata</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ftff/">ftff</a>
+        <a href="/blog/ifconfig/">ifconfig</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fstab/">fstab</a>
+        <a href="/blog/identify/">identify</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fsck/">fsck</a>
+        <a href="/blog/html/">html</a>
       </li>
     
       <li class="post">
-        <a href="/blog/freeradius/">freeradius</a>
+        <a href="/blog/hosts/">hosts</a>
       </li>
     
       <li class="post">
-        <a href="/blog/foremost/">foremost</a>
+        <a href="/blog/host-dot-conf/">host.conf</a>
       </li>
     
       <li class="post">
-        <a href="/blog/for/">for</a>
+        <a href="/blog/honeyproxy/">honeyproxy</a>
       </li>
     
       <li class="post">
-        <a href="/blog/flunym0us/">flunym0us</a>
+        <a href="/blog/hg/">hg</a>
       </li>
     
       <li class="post">
-        <a href="/blog/flexget/">flexget</a>
+        <a href="/blog/hexdump/">hexdump</a>
       </li>
     
   </ul>

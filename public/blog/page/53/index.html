@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Muestra la memoria consumida por todos los archivo que corren en determinado PID # pmap -x PID # pmap -d PID
-">
+  <meta name="description" content="Servidor ftp local. # nano /etc/proftp/proftpd.conf DefaultRoot /home/usuario users, !otros DefaultRoot /home/usuario/servidor otros Indicamos que el &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pmap/">Pmap</a></h1>
+      <h1 class="entry-title"><a href="/blog/proftpd/">Proftpd</a></h1>
     
     
       <p class="meta">
@@ -104,11 +103,17 @@
   </header>
 
 
-  <div class="entry-content"><p>Muestra la memoria consumida por todos los archivo que corren en determinado PID</p>
+  <div class="entry-content"><p>Servidor ftp local.</p>
 
-<blockquote><p># pmap -x PID</p>
+<blockquote><p># nano /etc/proftp/proftpd.conf</p></blockquote>
 
-<p># pmap -d PID</p></blockquote>
+<p>DefaultRoot     /home/usuario                    users, !otros</p>
+
+<p>DefaultRoot     /home/usuario/servidor      otros</p>
+
+<p>Indicamos que el directorio raiz de los usuarios del grupo “users” es /home/usuario  pero los del grupo “otros” solo pueden acceder al directorio servidor.</p>
+
+<blockquote><p>$ tail -f /var/log/proftpd  (monitorizar los logs)</p></blockquote>
 </div>
   
   
@@ -121,7 +126,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/plowshare/">Plowshare</a></h1>
+      <h1 class="entry-title"><a href="/blog/procinfo/">Procinfo</a></h1>
     
     
       <p class="meta">
@@ -144,13 +149,9 @@
   </header>
 
 
-  <div class="entry-content"><p>herramienta que permite subir y descargar archivos alojados en megaupload, rapidshare&#8230; ]http://plowshare.googlecode.com/files/plowshare-SVN-r1575-snapshot.tar.gz]</p>
+  <div class="entry-content"><p>Estadisticas del sistema de ficheros virtual /proc</p>
 
-<blockquote><p>$ plowdown url (Descargar un archivo)</p>
-
-<p>$ plowdown lista_de_links.txt (descarga una lista de links)</p>
-
-<p>$ plowdown -a usuario:contraseña url (caso de precisar usuario y contraseña)</p></blockquote>
+<blockquote><p>$ procinfo -n2 (actualización cada 2 segundos)</p></blockquote>
 </div>
   
   
@@ -163,7 +164,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/play/">Play</a></h1>
+      <h1 class="entry-title"><a href="/blog/privoxy/">Privoxy</a></h1>
     
     
       <p class="meta">
@@ -186,9 +187,15 @@
   </header>
 
 
-  <div class="entry-content"><p>Reproductor</p>
+  <div class="entry-content"><p>filtrar datos que se utilizan en la navegación web (cookies, encabezados&#8230;). Es importante usarlo con Tor ya que a veces el navegador ejecuta por sí mismo las resoluciones DNS y las agrega a las cabeceras de la petición http.</p>
 
-<blockquote><p>$ play archivo.wav</p></blockquote>
+<blockquote><p># nano /etc/privoxy/config</p></blockquote>
+
+<p>Añadir la linea:</p>
+
+<p>forward-socks5 / 127.0.0.1:5060 .</p>
+
+<p>Nota.- No olvidar el punto final.</p>
 </div>
   
   
@@ -201,7 +208,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/planets/">Planets</a></h1>
+      <h1 class="entry-title"><a href="/blog/prips/">Prips</a></h1>
     
     
       <p class="meta">
@@ -224,27 +231,11 @@
   </header>
 
 
-  <div class="entry-content"><p>Simulador grabitacional del movimiento de los astros.</p>
+  <div class="entry-content"><p>imprimir las direcciones IP de un rango determinado.</p>
 
-<blockquote><p>$ planets</p></blockquote>
+<blockquote><p>$ prips 192.168.1.0/24</p>
 
-<p>Algunas teclas de control:</p>
-
-<p>j (Crea planetas orbitales aleatorios)</p>
-
-<p>r (Crea planetas aleatorios)</p>
-
-<p>c (Centra el sistema planetario)</p>
-
-<p>t (Muestra las trayectorias)</p>
-
-<p>e (Resetear el universo)</p>
-
-<p>s (Guardar)</p>
-
-<p>l (Cargar un universo)</p>
-
-<p>Flechas (Desplazan el conjunto)</p>
+<p>$ prips -i 4 192.168.1.5 192.168.1.150  (solo una de cada cuatro)</p></blockquote>
 </div>
   
   
@@ -257,7 +248,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pktstat/">Pktstat</a></h1>
+      <h1 class="entry-title"><a href="/blog/printf/">Printf</a></h1>
     
     
       <p class="meta">
@@ -280,9 +271,37 @@
   </header>
 
 
-  <div class="entry-content"><p>Monitor de tráfico de red</p>
+  <div class="entry-content"><p>Escribe y formatea datos</p>
 
-<blockquote><p># pktstat -i eth0 -n -w 3 (especificando red, sin resolver las ips y refresco cada 3 segundos [por defecto cada 5])</p></blockquote>
+<blockquote><p>$ printf &#8220;%50s\n&#8221; | tr &#8217; &#8217; -  (Generar una linea discontinua)</p>
+
+<p>$ printf &#8220;%s\n&#8221; ${PATH//:/\/* }  (listar aplicaciones y comandos del PATH)</p>
+
+<p>$ printf &#8220;%s\n&#8221; .*  (listar archivos y directorios ocultos de la carpeta actual)</p>
+
+<p>$ printf &#8220;\e[8;10;100;t&#8221; (Cambiar la medida de la  terminal)</p>
+
+<p>$ printf &#8220;%s\t &#8211;> %s\n&#8221; &#8220;$A&#8221; &#8220;$B&#8221; (Dos variables en columnas tabuladas)</p>
+
+<p>$ printf &#8220;%s\n&#8221; Escribir cada palabra en una &#8220;nueva linea&#8221; (Pues eso, excepto las dos últimas entrecomilladas)</p>
+
+<p>$ printf &#8220;%06d\n&#8221; &#8220;$RANDOM&#8221; &#8220;$RANDOM&#8221; &#8220;$RANDOM&#8221; &#8220;$RANDOM&#8221; (Iguala las cuatro salidas de $RANDOM a 6 cifras con ceros delante[%06d])</p>
+
+<p>$ printf &#8220;%-10s %-10s %s\n&#8221;, $1, $2, $3 (3 variables justificadas a la izquierda, las dos primeras con 10 caracteres)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<p>%c (Imprime el primer carácter de una variable cadena)</p>
+
+<p>%d (Imprime un número decimal)</p>
+
+<p>%s (Cadena)</p>
+
+<p>%b (Interpreta las secuencias de escape del argumento cadena)</p>
+
+<p>%q (Escribe el argumento cadena de forma que pueda ser usado como entrada a otro comando)</p>
+
+<p>%% (Escribe % literal)</p>
 </div>
   
   
@@ -295,7 +314,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pkill/">Pkill</a></h1>
+      <h1 class="entry-title"><a href="/blog/printenv/">Printenv</a></h1>
     
     
       <p class="meta">
@@ -318,17 +337,11 @@
   </header>
 
 
-  <div class="entry-content"><p>matar procesos.</p>
+  <div class="entry-content"><p>Para saber los valores de todas las variables de entorno predefinidas por  la shell (TERM, SHELL, PWD, LC_ALL, USER, USERNAME, HOME, LOGNAME, BROWSER, DISPLAY&#8230;).</p>
 
-<blockquote><p># pkill -x scribus (equivalente a: # killall scribus)</p>
+<blockquote><p>$ echo $SHELL (Ver el valor de una variable)</p>
 
-<p>$ pkill -9 -t pts/3 (Mata procesos no basados en el PID. La terminal 3 en este caso)</p>
-
-<p># pkill -9 -t tty1 (Mata la terminal tty1)</p>
-
-<p># pkill -u <code>whoami</code> (Mata todos los procesos del usuario)</p>
-
-<p># pkill -KILL -u usuario (lo mismo)</p></blockquote>
+<p>$ export SHELL=/bin/sh (Modificar el valor de una variable sólo en la presente sesión. Para hacer el cambio permanente colocar la linea en .bashrc)</p></blockquote>
 </div>
   
   
@@ -341,7 +354,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pkaction/">Pkaction</a></h1>
+      <h1 class="entry-title"><a href="/blog/primes/">Primes</a></h1>
     
     
       <p class="meta">
@@ -364,11 +377,11 @@
   </header>
 
 
-  <div class="entry-content"><p>Herramienta para manejar politicas que permitan a los procesos sin privilegios &#8220;hablar&#8221; con procesos privilegiados.</p>
+  <div class="entry-content"><p>Generar números primos.</p>
 
-<blockquote><p>$ pkaction (Muestra todos los procesos a los que afecta esta politica)</p>
+<blockquote><p>$ primes 1 100 (del 1 al 100)</p>
 
-<p># pkaction | grep power (Las que hacen referencia al proceso &#8220;power&#8221;)</p></blockquote>
+<p>$ primes 100 150 (del 100 al 150)</p></blockquote>
 </div>
   
   
@@ -381,7 +394,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pitidos/">Pitidos</a></h1>
+      <h1 class="entry-title"><a href="/blog/preload/">Preload</a></h1>
     
     
       <p class="meta">
@@ -404,27 +417,7 @@
   </header>
 
 
-  <div class="entry-content"><p>Señales de alerta sonora cuando algo falla.</p>
-
-<p>Sin pitidos.-  Sin suministro eléctrico</p>
-
-<p>Pitido constante ininterrumpido.-  Falla en el suministro eléctrico</p>
-
-<p>Pitidos cortos y constantes.- Placa base defectuosa.</p>
-
-<p>1 pitido corto .- Lo normal.</p>
-
-<p>1 pitido largo.- Fallo en memoria RAM.</p>
-
-<p>1 pitido largo + 1 corto.- Fallo general en la placa base</p>
-
-<p>1 pitido largo + 2 cortos.- Problema con la tarjeta de vídeo</p>
-
-<p>1 pitido largo + 3 cortos.- Monitor no conectado a la tarjeta gráfica</p>
-
-<p>1 pitido largo + varios cortos.- Problema con la tarjeta de vídeo</p>
-
-<p>2 pitidos largos + uno corto.- Error en la sincronización de imágenes</p>
+  <div class="entry-content"><p>Demonio que se encarga de recoger información de las aplicaciones más usadas para que en el siguiente inicio estos estén cargados en memoria acelerando el tiempo de arranque de los mismos.</p>
 </div>
   
   
@@ -437,7 +430,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pip/">Pip</a></h1>
+      <h1 class="entry-title"><a href="/blog/prelink/">Prelink</a></h1>
     
     
       <p class="meta">
@@ -460,9 +453,21 @@
   </header>
 
 
-  <div class="entry-content"><p>Alternativa para la instalación de paquetes python.</p>
+  <div class="entry-content"><p>Preenlazar binarios y bibliotecas ELF compartidas para acelerar su tiempo de inicio. Precisa lanzar prelink despues de cada nueva instalación de paquetes o configurarlo en el cron.</p>
 
-<blockquote><p># pip install paquete</p></blockquote>
+<blockquote><p># prelink -amR (Para equipos x86)</p>
+
+<p># prelink -aR (Para equipos x86_64)</p></blockquote>
+
+<p>Modificar las opciones de prelink:</p>
+
+<blockquote><p># nano /etc/default/prelink</p></blockquote>
+
+<p>Y modificamos la línea que pone: PRELINKING=unknown por:</p>
+
+<p>PRELINKING=yes</p>
+
+<blockquote><p># prelink -au (Devolver el sistema a su punto de partida)</p></blockquote>
 </div>
   
   
@@ -475,7 +480,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pinky/">Pinky</a></h1>
+      <h1 class="entry-title"><a href="/blog/pr/">Pr</a></h1>
     
     
       <p class="meta">
@@ -498,11 +503,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Información sobre los usuarios del sistema.</p>
+  <div class="entry-content"><p>Muestra en pantalla un archivo de texto en modo “Previsualización de impresión”</p>
 
-<blockquote><p>$ pinky -l usuario</p>
-
-<p>$ pinky -b usuario root (shells abiertas por los usuarios especificados)</p></blockquote>
+<blockquote><p>$ pr fichero.txt</p></blockquote>
 </div>
   
   
@@ -533,43 +536,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/gedit/">gedit</a>
+        <a href="/blog/ifne/">ifne</a>
       </li>
     
       <li class="post">
-        <a href="/blog/gconftool-2/">gconftool-2</a>
+        <a href="/blog/ifdata/">ifdata</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ftff/">ftff</a>
+        <a href="/blog/ifconfig/">ifconfig</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fstab/">fstab</a>
+        <a href="/blog/identify/">identify</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fsck/">fsck</a>
+        <a href="/blog/html/">html</a>
       </li>
     
       <li class="post">
-        <a href="/blog/freeradius/">freeradius</a>
+        <a href="/blog/hosts/">hosts</a>
       </li>
     
       <li class="post">
-        <a href="/blog/foremost/">foremost</a>
+        <a href="/blog/host-dot-conf/">host.conf</a>
       </li>
     
       <li class="post">
-        <a href="/blog/for/">for</a>
+        <a href="/blog/honeyproxy/">honeyproxy</a>
       </li>
     
       <li class="post">
-        <a href="/blog/flunym0us/">flunym0us</a>
+        <a href="/blog/hg/">hg</a>
       </li>
     
       <li class="post">
-        <a href="/blog/flexget/">flexget</a>
+        <a href="/blog/hexdump/">hexdump</a>
       </li>
     
   </ul>

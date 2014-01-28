@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Analiza e identifica varios hashes de contraseñas en función de su tipo. Descarga de https://github.com/SmeegeSec/HashTag # hashtag -sh $1$MtCReiOj$ &hellip;">
+  <meta name="description" content="[/etc/host.conf] Archivo que contiene el orden de cómo serán ejecutadas las resoluciones que requiera el &#8220;Host&#8221;. Algunos parámetros: &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/hashtag/">Hashtag</a></h1>
+      <h1 class="entry-title"><a href="/blog/host-dot-conf/">host.conf</a></h1>
     
     
       <p class="meta">
@@ -103,13 +103,24 @@
   </header>
 
 
-  <div class="entry-content"><p>Analiza e identifica varios hashes de contraseñas en función de su tipo. Descarga de <a href="https://github.com/SmeegeSec/HashTag">https://github.com/SmeegeSec/HashTag</a></p>
+  <div class="entry-content"><p>[/etc/host.conf]</p>
 
-<blockquote><p># hashtag -sh $1$MtCReiOj$zvOdxVzPtrQ.PXNW3hTHI0 (Analizar uno sólo)</p>
+<p>Archivo que contiene el orden de cómo serán ejecutadas las resoluciones que requiera el &#8220;Host&#8221;. Algunos parámetros:</p>
 
-<p># hashtag -f archivo (Analizar todos los hash contenidos en un archivo)</p>
+<p><strong>order hosts,bind,nis</strong> (que cualquier tipo de resolución primero consulte el archivo /etc/hosts , en segundo lugar a BIND y si aún no se ha logrado la resolución, intentar con NIS)</p>
 
-<p># hashtag -d dir -o archivo (recorrer un directorio y todos los subdirectorios intentando identificar todos los hash potenciales y mandando el resultado a un archivo. Si no se especifica, la salida es HashTag_Output_File.txt)</p></blockquote>
+<pre><code>BIND (Llamada al servidor de nombres)
+
+NIS ("Network Information Server" es un sistema de resolución desarrollado por Sun Microsystem's , su implementación generalmente esta limitada a intranets y utiliza una metodología diferente a la usada por BIND
+</code></pre>
+
+<p><strong>multi on</strong> (Que devuelva más de un resultado si existen alias ya que un host puede tener varias direcciones IP y la dirección IP puede coincidir con varios nombres de host. Por defecto es off [sólo se muestra el primero] )</p>
+
+<p><strong>spoofalert on</strong> (Intentar encontrar el nombre de host de una dirección IP. Si la aplicación no devuelve el resultado correcto, puede significar que una máquina intenta hacerse pasar por lo que no es.)</p>
+
+<p><strong>nospoof on</strong> (rechaza los resultados que no pasan la prueba de robo de identidad)</p>
+
+<p><strong>reorder on</strong> (intenta reordenar las direcciones de host para que las direcciones locales [misma subred] se listen en primer lugar)</p>
 </div>
   
   
@@ -122,7 +133,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/hash-identifier/">Hash-identifier</a></h1>
+      <h1 class="entry-title"><a href="/blog/host/">Host</a></h1>
     
     
       <p class="meta">
@@ -145,39 +156,33 @@
   </header>
 
 
-  <div class="entry-content"><p>Identifica la encriptación de un hash. Descarga: <a href="https://code.google.com/p/hash-identifier/">https://code.google.com/p/hash-identifier/</a></p>
+  <div class="entry-content"><p>Determina la ip de un registro DNS o, a partir de una ip, el nombre de registro</p>
 
-<blockquote><p>$ python Hash_ID_v1.1.py</p></blockquote>
+<blockquote><p>$ host -v -a telefonica.com</p>
 
-<p>Cuando sale el promt pastear el hash:</p>
+<p>$ host -t SOA google.com</p>
 
-<p>HASH: caf90169eefa5f807d577486b9f795ab86ae2983c5c20806cff959117e90af18</p>
+<p>$ host -R 3 google.es (Eleva a 3 el número de intentos para obtener respuesta. Por defecto 1)</p>
 
-<pre><code>Possible Hashs:
+<p>$ host -C google.es (Muestra los registros SOA y los servidores de nombres autorizados.)</p></blockquote>
 
-[+]  SHA-256
+<p>Tipos de registros</p>
 
-[+]  Haval-256
+<pre><code>A (Registro de dirección que resuelve un nombre de un anfitrión hacia una dirección IPv4)
 
-Least Possible Hashs:
+AAA (Registro de dirección que resuelve un nombre de un anfitrión hacia una dirección IPv6)
 
-[+]  GOST R 34.11-94
+MX (Registro de servidor de correo que sirve para definir una lista de servidores de correo para un dominio, así como la prioridad, el que tiene el número más bajo de los servidores de correo es el que tiene mayor prioridad.)
 
-[+]  RipeMD-256
+PTR (Registro de apuntador que resuelve direcciones IPv4 hacia el nombre anfitriones. Es decir, hace lo contrario al registro A. Se utiliza en zonas de Resolución Inversa)
 
-[+]  SNEFRU-256
+NS (Registro de servidor de nombres que sirve para definir una lista de servidores de nombres con autoridad para un dominio)
 
-[+]  SHA-256(HMAC)
+SOA (Registro de inicio de autoridad que especifica el Servidor DNS Maestro (o Primario) que proporcionará la información con autoridad acerca de un dominio de Internet, dirección de correo electrónico del administrador, número de serie del dominio y parámetros de tiempo para la zona)
 
-[+]  Haval-256(HMAC)
+SRV (Registro de servicios que especifica información acerca de servicios disponibles a través del dominio)
 
-[+]  RipeMD-256(HMAC)
-
-[+]  SNEFRU-256(HMAC)
-
-[+]  SHA-256(md5($pass))
-
-[+]  SHA-256(sha1($pass))
+CNAME (Registro de nombre canónico que hace que un nombre sea alias de otro)
 </code></pre>
 </div>
   
@@ -191,7 +196,7 @@ Least Possible Hashs:
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/hasciicam/">Hasciicam</a></h1>
+      <h1 class="entry-title"><a href="/blog/hodie/">Hodie</a></h1>
     
     
       <p class="meta">
@@ -214,17 +219,11 @@ Least Possible Hashs:
   </header>
 
 
-  <div class="entry-content"><p>Visualizar la webcam via ascii.</p>
+  <div class="entry-content"><p>Muestra la fecha en latín.</p>
 
-<blockquote><p>$ hasciicam -m html -c 50 -o (En modo html, contraste 50 [de 0 a 100. Por defecto 4] y guardar el archivo)</p></blockquote>
+<blockquote><p>$ hodie -n (En numeral)</p>
 
-<p>Otras opciones:</p>
-
-<p>-i /dev/xxxx (Especificando dispositivo.Por defecto /dev/video)</p>
-
-<p>-o archivo (Guardar imagen en archivo. Se reescribe según el parámetro -r. Si no se especifica salida, por defecto es hasciicam.html [para html] y hasciicam.txt [para txt])</p>
-
-<p>-r 1 (Refrescar imagen cada 1 segundo. Por defecto 2. No afecta al modo live)</p>
+<p>$ hodie -c -v (De forma clásica)</p></blockquote>
 </div>
   
   
@@ -237,7 +236,7 @@ Least Possible Hashs:
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/hal-device/">Hal-device</a></h1>
+      <h1 class="entry-title"><a href="/blog/history/">History</a></h1>
     
     
       <p class="meta">
@@ -260,13 +259,23 @@ Least Possible Hashs:
   </header>
 
 
-  <div class="entry-content"><p>Crea, suprime y muestra dispositivos</p>
+  <div class="entry-content"><p>Lista los comandos utilizados por el usuario</p>
 
-<blockquote><p>$ hal-device -a dispositivo  (añadir)</p>
+<blockquote><p>$ history 20       (Lista los últimos 20)</p>
 
-<p>$ hal-device -r dispositivo   (borrar)</p>
+<p>$ history -c        (Elimina el historial)</p>
 
-<p>$ hal-device | grep volume.label  (mostrar etiquetas de todos los volumenes)</p></blockquote>
+<p>$ history -d 125 (Eliminar la orden 125. útil si se escribió la contraseña y esta queda visible en el historial)</p>
+
+<p>$ history | awk &#8216;{print $2}&#8217; | sort | uniq -c | sort -rn | head -10 (lista los 10 comandos más usados y numero de veces)</p>
+
+<p>$ !354  (ejecutará el comando 354 del listado de history)</p>
+
+<p>$ history | grep cp  (Buscar en el historial las veces que se ha lanzado “cp”)</p>
+
+<p>$ history -a (Guardar el historial sin cerrar la sesión)</p>
+
+<p>$ echo $HISTCMD (número de comandos registrados en history)</p></blockquote>
 </div>
   
   
@@ -279,7 +288,7 @@ Least Possible Hashs:
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/hachoir-metadata/">Hachoir-metadata</a></h1>
+      <h1 class="entry-title"><a href="/blog/hidd/">Hidd</a></h1>
     
     
       <p class="meta">
@@ -302,7 +311,11 @@ Least Possible Hashs:
   </header>
 
 
-  <div class="entry-content"><p>Ver entrada python-hachoir-metadata</p>
+  <div class="entry-content"><p>Gestionar dispositivos blueetoth</p>
+
+<blockquote><p># hidd &#8211;search (Buscar dispositivos)</p>
+
+<p># hidd &#8211;connect 0A:1B:2C:4D:5E:6F (Conectar a un dispositivo)</p></blockquote>
 </div>
   
   
@@ -315,7 +328,7 @@ Least Possible Hashs:
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/gzip/">Gzip</a></h1>
+      <h1 class="entry-title"><a href="/blog/heroku/">Heroku</a></h1>
     
     
       <p class="meta">
@@ -338,15 +351,31 @@ Least Possible Hashs:
   </header>
 
 
-  <div class="entry-content"><p>Comprime un fichero (ni empaqueta ni comprime directorios)</p>
+  <div class="entry-content"><p>Gestión de los blogs alojados en <a href="http://www.heroku.com">http://www.heroku.com</a> Ver octopress 17.</p>
 
-<blockquote><p>$ gzip -r fichero (Comprimir)</p>
+<blockquote><p>$ heroku apps:rename nuevo_nombre (Renombrar un blog. Si se hace en la web en algunos casos da problemas)</p>
 
-<p>$ gzip -9 archivo (Con compresión máxima)</p>
+<p>$ heroku addons (Ver los addons instalados)</p>
 
-<p>$ gzip -d fichero.gz (Descomprimir)</p>
+<p>$ heroku apps (Muestra los blogs alojados)</p>
 
-<p>$ gzip -c fichero.gz (Ver contenido)</p></blockquote>
+<p>$ heroku login (Logearse con el nombre de usuario y contraseña de registro)</p>
+
+<p>$ heroku create (Crea el repositorio en el directorio actual)</p>
+
+<p>$ heroku logs (Muestra los logs)</p>
+
+<p>$ heroku ps (Ver las aplicaciones corriendo en heroku)</p>
+
+<p>$ heroku restart web.1 (Reiniciar la aplicación a aprtir del dato obtenido com ps)</p>
+
+<p>$ heroku apps:destroy mighty-fortress-6385 (Eliminar una app)</p>
+
+<p>$ heroku sharing &#8211;app tractatuslapipaplena (Ver los colaboradores de un proyecto)</p>
+
+<p>$ heroku auth:login (Pide los datos de registro)</p>
+
+<p>$ heroku keys:add ~/.ssh/id_rsa.pub (Subir la clave publica)</p></blockquote>
 </div>
   
   
@@ -359,7 +388,7 @@ Least Possible Hashs:
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/gzexe/">Gzexe</a></h1>
+      <h1 class="entry-title"><a href="/blog/help/">Help</a></h1>
     
     
       <p class="meta">
@@ -382,11 +411,11 @@ Least Possible Hashs:
   </header>
 
 
-  <div class="entry-content"><p>Comprime ficheros ejecutables que al ser invocados se autodescomprimen para ejecutarse. Esta utilidad sólo se aplica en equipos con discos muy pequeños.</p>
+  <div class="entry-content"><p>Muestra los comandos disponibles en bash. Estos comandos no tienen página man, por lo que para acceder a una descripción se usa esta opción.</p>
 
-<blockquote><p># gzexe /bin/ls</p></blockquote>
+<blockquote><p>$ help</p>
 
-<p>Creará dos archivos: &#8220;/bin/ls&#8221; y &#8220;/bin/ls~&#8221;. El original es el ls~ que podrá borrarse una vez comprobado que lanzando &#8220;ls&#8221; en consola, funciona correctamente.</p>
+<p>$ help fc</p></blockquote>
 </div>
   
   
@@ -399,7 +428,7 @@ Least Possible Hashs:
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/gxmessage/">Gxmessage</a></h1>
+      <h1 class="entry-title"><a href="/blog/hello/">Hello</a></h1>
     
     
       <p class="meta">
@@ -422,21 +451,13 @@ Least Possible Hashs:
   </header>
 
 
-  <div class="entry-content"><p>Dejar mensajes en la pantalla</p>
+  <div class="entry-content"><p>Muestra el clásico &#8220;Hola, mundo&#8221; o un saludo personalizable.</p>
 
-<blockquote><p>$ gxmessage -center -fg red -bg black &#8220;No cierren la terminal&#8221;</p></blockquote>
+<blockquote><p>$ hello -t (El tradicional &#8220;Hola, mundo&#8221;)</p>
 
-<p>-fg (Color de fuente)</p>
+<p>$ hello -n (Un &#8220;Hola, mundo&#8221; de nueva generación)</p>
 
-<p>-bg (Color de fondo)</p>
-
-<p>-center (En el centro de la pantalla)</p>
-
-<p>-iconic (Minimizado en el panel)</p>
-
-<p>-nearmouse (Se abre donde está el cursor)</p>
-
-<p>-entry (Con un cuadro de dialogo pera entrar una respuesta)</p>
+<p>$ hello -g &#8220;Linux es un sistema genial&#8221; (Muestra la frase)</p></blockquote>
 </div>
   
   
@@ -449,7 +470,7 @@ Least Possible Hashs:
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/gunzip/">Gunzip</a></h1>
+      <h1 class="entry-title"><a href="/blog/head/">Head</a></h1>
     
     
       <p class="meta">
@@ -472,9 +493,13 @@ Least Possible Hashs:
   </header>
 
 
-  <div class="entry-content"><p>Descomprime archivos gz comprimidos con gzip.</p>
+  <div class="entry-content"><p>muestra por defecto las primeras 10 lineas de un archivo si no se especifica cantidad.</p>
 
-<blockquote><p>$ gunzip archivo.txt.gz</p></blockquote>
+<blockquote><p>$ head /var/log/apache2/access.log</p>
+
+<p>$ head -50 /var/log/maillog  (las primeras 50)</p>
+
+<p>$ head -5 archivo1 archivo2 (Muestra las 5 primeras lineas de los dos archivos)</p></blockquote>
 </div>
   
   
@@ -487,7 +512,7 @@ Least Possible Hashs:
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/guake/">Guake</a></h1>
+      <h1 class="entry-title"><a href="/blog/hdparm/">Hdparm</a></h1>
     
     
       <p class="meta">
@@ -510,21 +535,29 @@ Least Possible Hashs:
   </header>
 
 
-  <div class="entry-content"><p>Emulador de terminal emergente. Una vez iniciado el servicio colocándola en la aplicaciones de inicio o con:</p>
+  <div class="entry-content"><p>consultar y modificar diferentes parámetros de los discos duros.</p>
 
-<blockquote><p>$ guake</p></blockquote>
+<blockquote><p># hdparm /dev/sda (Informa del estado [activado o no] de las opciones de hdparm)</p>
 
-<p>La terminal aparecerá o desaparecerá pulsando la tecla F12</p>
+<p># hdparm -tT /dev/sda (Comprobar velocidad de lectura)</p>
 
-<blockquote><p>$ guake -p (arranca las preferencias. En algunas distros ha de lanzarse desde el propio guake)</p></blockquote>
+<p># hdparm -i /dev/sda (Informa de las características del disco duro)</p>
 
-<p>Para una personalización más exhaustiva:</p>
+<p># hdparm -I /dev/sda (Mostrar información más extendida)</p></blockquote>
 
-<blockquote><p># nano /usr/lib/guake/guake.py (En Arch: nano /usr/bin/guake)</p></blockquote>
+<p>1.-</p>
 
-<p>width = 80 (Modificar archura, por defecto 100% de la pantalla)</p>
+<p>Desactivación del APM (Gestión avanzada de energia) de los portatiles ya que esta tecnologia alarga la duración de la batería en detrimento de la vida útil del disco duro.</p>
 
-<p>if halignment == ALIGN_CENTER: (Centrada)</p>
+<blockquote><p># hdparm -I /dev/sda</p></blockquote>
+
+<p>El parámetro que indica si tenemos APM y la frecuencia de ciclo de carga-descarga es:</p>
+
+<p>Advanced power management level: 128</p>
+
+<blockquote><p># smartctl -a /dev/sda | egrep &#8216;ID|Load_Cycle&#8217;(El parámetro RAW_VALUE indica la  cantidad de ciclos que el HD ha consumido. La cantidad de ciclos oscila entre 300000 y 600000 por HD)</p>
+
+<p># hdparm -B 254 /dev/sda (Disminuir la frecuencia de los ciclos a mínimo. El valor máximo sería 1 y desactivado 255)</p></blockquote>
 </div>
   
   
@@ -555,43 +588,43 @@ Least Possible Hashs:
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/gedit/">gedit</a>
+        <a href="/blog/ifne/">ifne</a>
       </li>
     
       <li class="post">
-        <a href="/blog/gconftool-2/">gconftool-2</a>
+        <a href="/blog/ifdata/">ifdata</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ftff/">ftff</a>
+        <a href="/blog/ifconfig/">ifconfig</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fstab/">fstab</a>
+        <a href="/blog/identify/">identify</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fsck/">fsck</a>
+        <a href="/blog/html/">html</a>
       </li>
     
       <li class="post">
-        <a href="/blog/freeradius/">freeradius</a>
+        <a href="/blog/hosts/">hosts</a>
       </li>
     
       <li class="post">
-        <a href="/blog/foremost/">foremost</a>
+        <a href="/blog/host-dot-conf/">host.conf</a>
       </li>
     
       <li class="post">
-        <a href="/blog/for/">for</a>
+        <a href="/blog/honeyproxy/">honeyproxy</a>
       </li>
     
       <li class="post">
-        <a href="/blog/flunym0us/">flunym0us</a>
+        <a href="/blog/hg/">hg</a>
       </li>
     
       <li class="post">
-        <a href="/blog/flexget/">flexget</a>
+        <a href="/blog/hexdump/">hexdump</a>
       </li>
     
   </ul>

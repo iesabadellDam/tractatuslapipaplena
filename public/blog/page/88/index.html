@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Muestra el ancho de banda que está usando una red. # iftop -nP -i eth0 (sin resolver las IPs[n], mostrando puerto[P] y especificando red)
-">
+  <meta name="description" content="Mostrar datos de la conexión. Copiar el arxivo de configuración: # cp /usr/share/doc/ipband/examples/ipband.conf-simple /etc/ipband.conf Y &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/iftop/">Iftop</a></h1>
+      <h1 class="entry-title"><a href="/blog/ipband/">Ipband</a></h1>
     
     
       <p class="meta">
@@ -104,9 +103,40 @@
   </header>
 
 
-  <div class="entry-content"><p>Muestra el ancho de banda que está usando una red.</p>
+  <div class="entry-content"><p>Mostrar datos de la conexión. Copiar el arxivo de configuración:</p>
 
-<blockquote><p># iftop -nP -i eth0 (sin resolver las IPs[n], mostrando puerto[P] y especificando red)</p></blockquote>
+<blockquote><p># cp /usr/share/doc/ipband/examples/ipband.conf-simple /etc/ipband.conf</p></blockquote>
+
+<p>Y descomentar o modificar los siguientes parámetros:</p>
+
+<pre><code>debug 0
+
+interface eth1
+
+fork yes
+
+htmlfile /srv/www/htdocs/ipbandwidth/index.html
+
+htmltitle Consumo de banda
+
+average 10
+
+accumulate no
+
+maskbits 32
+
+localrange 192.168.1.0/24
+</code></pre>
+
+<p>Reiniciar el servicio:</p>
+
+<blockquote><p># /etc/init.d/ipband restart</p></blockquote>
+
+<p>Arrancar la aplicación:</p>
+
+<blockquote><p># ipband</p></blockquote>
+
+<p>Los informes se muestran poniendo en la barra del navegador: http://localhost/html/ipbandwidth/index.html</p>
 </div>
   
   
@@ -119,7 +149,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ifstat/">Ifstat</a></h1>
+      <h1 class="entry-title"><a href="/blog/ip-ajustes/">Ip-ajustes</a></h1>
     
     
       <p class="meta">
@@ -142,21 +172,28 @@
   </header>
 
 
-  <div class="entry-content"><p>Monitorización del trafico de red.</p>
+  <div class="entry-content"><p>1.- Estática</p>
 
-<blockquote><p>$ ifstat -z (Descarta los interfaces sin actividad)</p>
+<blockquote><p># gedit /etc/network/interfaces</p></blockquote>
 
-<p>$ ifstat -i eth1 (Especificando una red)</p></blockquote>
+<pre><code>auto eth0 
 
-<p>Algunas opciones:</p>
+iface eth0 inet static 
 
-<p>-a (Muestra todas las redes)</p>
+address 192.168.x.x 
 
-<p>-T (monitorizando varias redes, muestra el total)</p>
+netmask 255.255.255.0 
 
-<p>-S (Muestra los resultados en la misma linea, si es posible)</p>
+network 192.168.x.0 
 
-<p>-b (Reporta los informes en Kbits / seg en lugar de kbytes / seg.)</p>
+boadcast 192.168.2.255 
+
+gateway 192.168.x.1 
+</code></pre>
+
+<blockquote><p># /etc/init.d/networking restart (reiniciar el servicio)</p>
+
+<p>$ ifconfig (verificar la nueva ip)</p></blockquote>
 </div>
   
   
@@ -169,7 +206,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ifs/">Ifs</a></h1>
+      <h1 class="entry-title"><a href="/blog/ip/">Ip</a></h1>
     
     
       <p class="meta">
@@ -192,421 +229,364 @@
   </header>
 
 
-  <div class="entry-content"><p>Internal Field Separator (separador de campos internos) sirve para indicar cual es el valor que se usa como separador. Si no se especifica ninguno es el espacio.</p>
+  <div class="entry-content"><p>Configuración de red. Muestra dispositivos, enrutamientos, tuneles.</p>
 
-<p>Algunos ejemplos:</p>
+<blockquote><p>$ ip addr (Revisar tarjetas)</p>
+
+<p>$ ip route show (Información)</p>
+
+<p>$ ip link show (Ver interfaces de red)</p>
+
+<p>$ ip link set dev eth0 down (bajar una red)</p>
+
+<p>$ ip route add default via 192.168.1.1 (establecer la ip del router)</p>
+
+<p>$ ip link set dev eth0 up (levantar una red)</p>
+
+<p>$ ip addr add 192.168.1.20 255.255.255.0 dev eth1 (establecer una ip estática)</p>
+
+<p>$ ip n  (MAC e IP del router)</p>
+
+<p>$ ip link set dev eth1 address 00:03:44:88:00:11 (Modificdar la MAC. Previamente bajar la red)</p>
+
+<p>$ ip route del default (Eliminar puerta de enlace para crear una nueva)</p>
+
+<p>$ ip route add default via 192.168.1.10 (Crear nueva puerta de enlace)</p>
+
+<p>$ ip -f inet addr show eth0 (información de la dirección ip)</p>
+
+<p>$ ip route add 192.168.2.0/24 via 192.168.1.10 (Añadir una red a una puerta de enlace)</p></blockquote>
+
+<p>Nota.- Verificar que /etc/resolv contenga una linea con el servidor DNS tipo: nameserver 8.8.8.8 [para las DNS de google]</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/iozone/">Iozone</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Realizar test de velocidad de sistemas de archivos (ext3, ext4&#8230;)</p>
+
+<blockquote><p>$ iozone -s 2g -r 64 -i 0 -i 1 -b test.xls</p>
+
+<p>$ iozone -a -g 2G -f /media/sda2</p></blockquote>
+
+<p>-a (automático)</p>
+
+<p>-g (Tamaño de los archivos generados)</p>
+
+<p>-f (el sistema de archivos a tratar)</p>
+
+<p>-i (0= escritura, 1= lectura, 2=lectura/escritura&#8230;.)</p>
+
+<p>-b (archivo que generará con los resultados)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/iotop/">Iotop</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>monitoriza el ratio de lectura/escritura en disco .</p>
+
+<blockquote><p>$ iotop -o -u usuario</p>
+
+<p>$ iotop -a -p $(sed &#8216;s, , -p ,g&#8217; &lt;&lt;&lt;<code>pgrep "_raid|_resync|jbd2"</code>) (un raid)</p></blockquote>
+
+<p>Alguns opciones:</p>
+
+<p>-d 2 (Actualización cada 2 segundos)</p>
+
+<p>-b (No interactivo)</p>
+
+<p>-o (Sólo mostrar procesos que hacen uso de entrada/salida)</p>
+
+<p>-t (Incluir una marca de tiempo)</p>
+
+<p>-p pid (Pid del proceso a monitorizar. Por defecto todos)</p>
+
+<p>-u usuario (especificando usuario)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/iostat/">Iostat</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>muestra estadísticas de la CPU y de la entrada y salida de los dispositivos y particiones.</p>
+
+<blockquote><p>$ iostat -x sda -d 1 6 (6 reportes con 1 segundo de intervalo sobre el disco sda. Suprimiendo la última cifra [6] continuará reportando datos hasta finalizar con Ctrl+c)</p>
+
+<p>$ iostat -d 3 (actualizará resultados cada 3 segundos)</p>
+
+<p>$ iostat -p sda (Ver estadisticas de un disco concreto con sus particiones)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/inxi/">Inxi</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Muestra información del equipo (http://inxi.googlecode.com/svn/trunk/inxi).</p>
+
+<blockquote><p>$ inxi -Fpur -c 4</p></blockquote>
+
+<p>Algunas opciones (con inxi -h la lista completa):</p>
+
+<p>-A (Audio y tarjetas de sonido)</p>
+
+<p>-b (informacio básica)</p>
+
+<p>-c (formato de color de 0 a 32 para la salida de datos)</p>
+
+<p>-C (CPUs)</p>
+
+<p>-d (drivers opticos)</p>
+
+<p>-D (disco duro)</p>
+
+<p>-F (salida extendida)</p>
+
+<p>-G (tarjeta gráfica)</p>
+
+<p>-i (Información de red)</p>
+
+<p>-I (Procesos, uptime, memoria&#8230;)</p>
+
+<p>-M (Datos de la máquina)</p>
+
+<p>-N (tarjetas de red)</p>
+
+<p>-o (particiones no montadas)</p>
+
+<p>-p (particiones montadas)</p>
+
+<p>-r (repositorios)</p>
+
+<p>-s (sensors[temperaturas cpu])</p>
+
+<p>-S (Host, Kernel,Escritorio y Distro)</p>
+
+<p>-t cm (Procesos que consumen más cpu [c] y memoria [m])</p>
+
+<p>-u (UUID de las particiones. -uo las no montadas, -up las montadas)</p>
+
+<p>-v 6 (Distintas etiquetas de información. Del 1 al 6)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/interfaces/">Interfaces</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Archivo de configuración de la red en distros debian.</p>
 
 <p>1.-</p>
 
-<pre><code>#!/bin/bash
+<p>Con IP dinámica:</p>
 
-# dividir una IP en 4 variables
+<p>Colocar en el archivo las lineas:</p>
 
-# Guardar el separador de campos original
+<pre><code>auto eth0
 
-OLDIFS=$IFS
-
-read -p "Dime la ip: " IP
-
-# Establecemos el separador de campos en el punto
-
-IFS=.
-
-read IP1 IP2 IP3 IP4 &lt;&lt;&lt; "$IP"
-
-echo "$IP1 $IP2 $IP3 $IP4"
-
-# Restablecemos el separador original (El espacio)
-
-IFS=$OLDIFS
+iface eth0 inet dhcp
 </code></pre>
 
 <p>2.-</p>
 
-<pre><code>#!/bin/bash
+<p>Con IP fija</p>
 
-#Almacenamos el valor original de la variable IFS
+<p>Colocar en el archivo las lineas:</p>
 
-OLDIFS=$IFS
+<pre><code>auto eth0
 
-#Cambiamos el valor del IFS a final de linea [\n]
+iface eth0 inet static
 
-IFS=$'\n'
+address 192.168.1.10
 
-for line in $(cat file.txt)
+gateway 192.168.1.1
 
-do
+netmask 255.255.255.0
 
-    echo $line
-
-done
-
-#Restauramos el IFS
-
-IFS=$OLDIFS
+broadcast 192.168.1.255
 </code></pre>
-</div>
-  
-  
 
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ifne/">Ifne</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[moreutils]</p>
-
-<p>Se ejecuta si la entrada estandar no está vacia.</p>
-
-<blockquote><p>$ find . -name archivo | ifne echo &#8220;Existe&#8221; (Si &#8220;archivo&#8221; existe se ejecutará el echo. Si no existe, no)</p>
-
-<p>$ find . -name archivo | ifne -n echo &#8220;No existe&#8221; (Si &#8220;archivo&#8221; no existe se ejecutará el echo. Si existe, no)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ifdown/">Ifdown</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Deshabilita la interfase especificada:</p>
+<p>Reiniciar el servicio:</p>
 
 <blockquote><p># ifdown eth0</p>
 
-<p># ifdown -a (Deshabilita todas las redes)</p></blockquote>
-</div>
-  
-  
+<p># ifup eth0</p></blockquote>
 
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ifdata/">Ifdata</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[moreutils]</p>
-
-<p>Muestra información de la red.</p>
-
-<blockquote><p>$ ifdata -p eth0 (Muestra la ip local, la mascara de red, la dirección broadcast y los MTU de la red)</p>
-
-<p>$ ifdata -pa -pn eth0 (Muestra la ip local i la mascara de red)</p>
-
-<p>$ ifdata -pe eth5 (Muestra &#8220;yes&#8221; o &#8220;no&#8221; sobre si existe o no la red especificada)</p></blockquote>
-
-<p>Otras opciones:</p>
-
-<p>-pb (La dirección broadcast)</p>
-
-<p>-ph (Muestra la MAC)</p>
-
-<p>-pf (Muestra las caracteristicas de la red)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ifconfig/">Ifconfig</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Define direcciones ip y dispositivos de red</p>
-
-<blockquote><p># ifconfig  (ver los datos de conexión)</p>
-
-<p># ifconfig eth0 up 192.168.1.2 (Levanta la placa de red eth0 y le da la ip)</p>
-
-<p># ifconfig eth0 down (Cierra la red eth0)</p>
-
-<p># ifconfig eth0 promisc (Poner la placa en modo promiscuo)</p>
-
-<p># ifconfig wlan0 up (si se trata de redes inalámbricas)</p>
-
-<p># ifconfig eth0 hw ether 00:01:02:03:04:05  (cambiar la dirección MAC)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/if/">If</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:07:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Ejecuta uno o varios comandos dependiendo de si una condición se cumple o no. Algunos scripts de ejemplo para su uso [ver operadores]:</p>
-
-<p>1.-</p>
-
-<pre><code>#!/bin/bash
-
-read -p "Ingrese nombre del usuario: " USUARIO
-
-if grep -e ^$USUARIO: /etc/passwd
-
-then
-
-    echo "El usuario existe en el sistema"
-
-else
-
-    echo "Usuario desconocido"
-
-fi
-
-exit 0
-</code></pre>
-
-<p>2.-</p>
-
-<pre><code>#!/bin/bash
-
-if [ "$(id -u)" != "0" ]; then 
-
-    echo "Solo root puede ejecutar este script." 
-
-    exit 1 
-
-fi
-</code></pre>
+<p>Nota.- Solo modificandolo en network-manager no funciona.</p>
 
 <p>3.-</p>
 
-<pre><code>#!/bin/bash 
+<p>Creación de una segunda dirección IP virtual.</p>
 
-# Verificar si se ha entrado un argumento
+<p>Añadir las siguientes lineas a las de la IP fija:</p>
 
-if [ -z "$1" ]
+<pre><code>auto eth0:1
 
-then 
+iface eth0:1 inet static
 
-          echo "Falta el argumento después del nombre del script" 
+address 192.168.0.15
 
-exit 
+netmask 255.255.255.0
 
-fi 
+broadcast 192.168.0.255
+
+gateway 192.168.0.1
 </code></pre>
 
-<p>4.-</p>
+<p>Nota.- La instalación de nerwork-manager o wicd para la gestión de redes implica comentar las modificaciones de este archivo o en, en el caso de network-manager, editar:</p>
 
-<pre><code>#!/bin/bash
+<blockquote><p># nano  /etc/NetworkManager/NetworkManager.conf</p></blockquote>
 
-# Introducir dos números diferentes e indicar
+<p>Y modificar la linea:</p>
 
-# cuál es el mayor 
+<p>[ifupdown]</p>
 
-read -p "Introduce dos números: " A B
-
-if [ $A -gt $B ]
-
-then
-
-        echo $A "es el mayor"
-
-else
-
-        echo $B "es el mayor"
-
-fi
-</code></pre>
-
-<p>Con varias opciones [elif]</p>
-
-<p>5.-</p>
-
-<pre><code>#!/bin/bash
-
-ls
-
-echo
-
-read -p "Cual leer: " LEER
-
-echo
-
-if [ -f $LEER ]
-
-then
-
-    echo
-
-    cat $LEER
-
-    echo
-
-elif [ -d $LEER ]
-
-then
-
-    echo
-
-    echo "Es un directorio...."
-
-else
-
-    echo
-
-    f_echo "¡¡NO EXISTE!!"
-
-    echo
-
-fi
-</code></pre>
-
-<p>6.-</p>
-
-<pre><code>#!/bin/bash 
-
-echo "Diga si o no:"
-
-read RESPUESTA 
-
-if  [ "$RESPUESTA" = si ]; then 
-
-    echo "Has escrito si" 
-
-elif [ "$RESPUESTA" = no ]; then 
-
-    echo "Has escrito no" 
-
-elif [ "$RESPUESTA" = "" ]; then 
-
-    echo "No has escrito nada" 
-
-else 
-
-    echo "Has escrito una cosa no permitida" 
-
-fi 
-</code></pre>
+<p>managed=true</p>
 </div>
   
   
@@ -619,7 +599,7 @@ fi
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/idesk/">Idesk</a></h1>
+      <h1 class="entry-title"><a href="/blog/integrit/">Integrit</a></h1>
     
     
       <p class="meta">
@@ -642,38 +622,50 @@ fi
   </header>
 
 
-  <div class="entry-content"><p>Herramienta para la creación de iconos en el escritorio. Los archivos con extensión .lnk se colocan en el directorio ~/.idesktop. Una muestra:</p>
+  <div class="entry-content"><p>Detectar cuando algún archivo del sistema ha sido alterado mediante la creación, la primera vez que se lanza, de una base de datos con la que confrontar los nuevos escaneos.</p>
 
-<blockquote><p>$ nano .idesktop/home.lnk</p></blockquote>
+<p>Configuración:</p>
 
-<pre><code>table Icon 
+<blockquote><p># /etc/integrit/integrit.con</p></blockquote>
 
-  Caption: Home 
+<p>Descomentar las lineas:</p>
 
-  Command[0]: thunar /home/usuario 
+<pre><code>root=/  
 
-  Icon: /usr/share/idesk/folder_home.xpm 
+known=/var/lib/integrit/known.cdb       
 
-  Width: 48 
-
-  Height: 48 
-
-  X: 29 
-
-  Y: 39 
-
-end 
+current=/var/lib/integrit/current.cdb
 </code></pre>
 
-<p>Nombre del icono [Caption], El comando que se lanzará [0] con doble click izquierdo del ratón. Con [1], doble click derecho, en este caso thunar abrirá la carpeta personal [Command], la ruta al icono que se empleará [Icon], las medidas ancho [Width] y alto [Height] y la colocación en pantalla, x: distancia en pixels del lateral, y: distancia en pixels de la parte superior.</p>
+<p>Y descartar los directorios que no se deseen incluir en el escaneo, descomentandolos [&#8220;cdrom&#8221; se descarta, &#8220;/dev&#8221; se escane, &#8220;/usr/src&#8221; no se escaneará de forma recursiva ]:</p>
 
-<p>Otros parámetros [fuentes, colores, medidas, fondos, transparencias&#8230;] pueden configurarse en el archivo ~/.ideskrc. Cualquier modificación en idesktop o ideskrc precisa matar el proceso:</p>
+<pre><code>!/cdrom
 
-<blockquote><p>$ killall idesk</p></blockquote>
+# !/dev
 
-<p>Y relanzarlo:</p>
+=/usr/src
+</code></pre>
 
-<blockquote><p>$ idesk</p></blockquote>
+<p>Crear la base de datos inicial:</p>
+
+<blockquote><p># integrit -u -C /etc/integrit/integrit.conf</p></blockquote>
+
+<p>Mover la base de datos a know.cdb:</p>
+
+<blockquote><p># mv /var/lib/integrit/current.cdb /var/lib/integrit/known.cdb</p></blockquote>
+
+<p>Lanzar la comprobación:</p>
+
+<blockquote><p># integrit -C /etc/integrit/integrit.conf -c</p></blockquote>
+
+<p>Si queremos colocar la orden en el cron para ser lanzada cada hora y que envie un correo al administrador:</p>
+
+<blockquote><p># crontab -e</p></blockquote>
+
+<p>Y colocamos la linea:</p>
+
+<pre><code>* 1 * * * integrit -C /etc/integrit/integrit.conf -c | mail root
+</code></pre>
 </div>
   
   
@@ -686,7 +678,7 @@ end
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/identify/">Identify</a></h1>
+      <h1 class="entry-title"><a href="/blog/instmodsh/">Instmodsh</a></h1>
     
     
       <p class="meta">
@@ -709,11 +701,13 @@ end
   </header>
 
 
-  <div class="entry-content"><p>Ver las propiedades de una imagen</p>
+  <div class="entry-content"><p>Para conocer los módulos perl instalados. Entra en el prompt (cmd?) con 3 preguntas:</p>
 
-<blockquote><p>$ identify imagen.gif</p>
+<p>l (List all installed modules)</p>
 
-<p>$ identify -verbose imagen.jpg   (Con mucha más información)</p></blockquote>
+<p>m <module> (Select a module)</p>
+
+<p>q (Quit the program)</p>
 </div>
   
   
@@ -744,43 +738,43 @@ end
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/gedit/">gedit</a>
+        <a href="/blog/ifne/">ifne</a>
       </li>
     
       <li class="post">
-        <a href="/blog/gconftool-2/">gconftool-2</a>
+        <a href="/blog/ifdata/">ifdata</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ftff/">ftff</a>
+        <a href="/blog/ifconfig/">ifconfig</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fstab/">fstab</a>
+        <a href="/blog/identify/">identify</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fsck/">fsck</a>
+        <a href="/blog/html/">html</a>
       </li>
     
       <li class="post">
-        <a href="/blog/freeradius/">freeradius</a>
+        <a href="/blog/hosts/">hosts</a>
       </li>
     
       <li class="post">
-        <a href="/blog/foremost/">foremost</a>
+        <a href="/blog/host-dot-conf/">host.conf</a>
       </li>
     
       <li class="post">
-        <a href="/blog/for/">for</a>
+        <a href="/blog/honeyproxy/">honeyproxy</a>
       </li>
     
       <li class="post">
-        <a href="/blog/flunym0us/">flunym0us</a>
+        <a href="/blog/hg/">hg</a>
       </li>
     
       <li class="post">
-        <a href="/blog/flexget/">flexget</a>
+        <a href="/blog/hexdump/">hexdump</a>
       </li>
     
   </ul>

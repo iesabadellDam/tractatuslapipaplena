@@ -1,13 +1,11 @@
 ---
 layout: post
 title: "honeyproxy"
-date: 2014-01-27 20:07
+date: 2014-01-28 16:42
 comments: true
 categories: 
 ---
-[python-pip]
-
-Analiza el tráfico web. Instalación:
+[python-pip]. Analiza el tráfico web. Instalación:
 
 >\# pip install pyOpenSSL pyasn1 Twisted Autobahn
 

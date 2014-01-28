@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "gnome-screensaver-command"
-date: 2014-01-27 20:07
+date: 2014-01-28 16:42
 comments: true
 categories: 
 ---
@@ -11,13 +11,13 @@ Herramienta de control del salvapantallas
 
 Opciones 
 
---exit (Salir de salvapantalla)  
+	--exit (Salir de salvapantalla)  
 
--q (Consulta el estado de la pantalla)
+	-q (Consulta el estado de la pantalla)
 
--t (Tiempo para que entre en acción)
+	-t (Tiempo para que entre en acción)
 
--a (Activarlo)
+	-a (Activarlo)
 
--d (Desactivarlo)
+	-d (Desactivarlo)
 

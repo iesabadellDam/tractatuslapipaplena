@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Muestra el número de terminal $ tty 1.- Invertir una consola. No sirve para las terminales virtuales de las X. $ /sys/class/graphics/fbcon/rotate &hellip;">
+  <meta name="description" content="Fija los permisos de un fichero o directorio. $ umask (muestra permisos actuales. Normalmente 0022 o 0002) $ umask 0002 (activa los permisos 775 para &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/tty/">Tty</a></h1>
+      <h1 class="entry-title"><a href="/blog/umask/">Umask</a></h1>
     
     
       <p class="meta">
@@ -103,416 +103,479 @@
   </header>
 
 
-  <div class="entry-content"><p>Muestra el número de terminal</p>
+  <div class="entry-content"><p>Fija los permisos de un fichero o directorio.</p>
 
-<blockquote><p>$ tty</p></blockquote>
+<blockquote><p>$ umask (muestra permisos actuales. Normalmente 0022 o 0002)</p>
+
+<p>$ umask 0002 (activa los permisos 775 para el presente directorio. Elprimer cero, indica que los datos serán dados en octal. Los otros tres números [002] han de restarse de 777 para tener los permisos del fichero o directorio)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ulimit/">Ulimit</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Permite  visualizar o limitar los recursos del sistema.</p>
+
+<blockquote><p># ulimit -f 512000 (limita a los usuarios para que no puedan crear archivos de mayor tamaño que 512000 Kb [500 #Mb])</p>
+
+<p>$ ulimit -a   (ver todos los parámetros)</p></blockquote>
+
+<p>Parámetros:</p>
+
+<pre><code>core (Tamaño máximo de los ficheros core [KB])
+
+data (Tamaño máximo para el segmento de datos [KB])
+
+fsize (Tamaño máximo para los ficheros [KB])
+
+memlock (Tamaño máximo para el espacio de direcciones bloqueado en memoria [KB])
+
+nofile (Número máximo de ficheros abiertos)
+
+rss (Tamaño máximo del conjunto residente en memoria [KB])
+
+stack (Tamaño máximo para la pila [KB])
+
+cpu (Tiempo máximo de CPU [minutos])
+
+nproc (Número máximo de procesos)
+
+as (Límite en el espacio de direcciones)
+
+maxlogins (Número máximo de logins)
+
+priority (Prioridad de base para los procesos del usuario)
+
+locks (Número máximo de ficheros bloqueados que el usuario puede mantener)
+</code></pre>
+
+<p>Nota.- El ámbito de aplicación del límite puede ser un nombre de usuario, un grupo (@grupo) o todos (*)</p>
+
+<p>Un ejemplo de limit.conf:</p>
+
+<pre><code>*               soft    nproc           10000
+
+*               hard    nproc           4096
+
+*               soft    core            unlimited
+
+*               hard    core            unlimited
+
+*               soft    memlock         131072
+
+*               hard    memlock         131072
+
+*               soft    nofile          102400
+
+*               hard    nofile          102400
+</code></pre>
 
 <p>1.-</p>
 
-<p>Invertir una consola. No sirve para las terminales virtuales de las X.</p>
+<p>Evitar Forkboms [programas que consumen la totalidad de los recursos del sistema]</p>
 
-<blockquote><p>$ /sys/class/graphics/fbcon/rotate</p></blockquote>
+<p>Si al lanzar el comando:</p>
 
-<p>Borrar el 0 y poner un 2 (180º). Con un 1 la invertimos 90º a la derecha y con un 3 90º a la izquierda.</p>
-</div>
-  
-  
+<blockquote><p>$ ulimit -u</p></blockquote>
 
+<p>El resultado es “ilimitado” o un valor extremadamente alto, podemos ser victimas de los forkbombs. Para resolverlo podemos limitar el número de procesos abiertos a 1000 para que estos no puedan llegar a colapsar el sistema:</p>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ttv/">Ttv</a></h1>
-    
-    
-      <p class="meta">
-        
+<blockquote><p># gedit /etc/security/limits.conf</p></blockquote>
 
+<p>Añadir antes de “End of file”:   * hard nproc 1000</p>
 
+<p>Reiniciar</p>
 
+<p>2.-</p>
 
+<p>En ciertas ocasiones, al procesar muchos archivos, se produce un error &#8220;for output (Too many open files)&#8221; porque se desborda el limite de 1024 k. Para solucionarlo:</p>
 
+<blockquote><p># nano /etc/security/limits.conf</p></blockquote>
 
+<p>Y añadir las siguientes lineas:</p>
 
+<pre><code>*    soft    nofile    9000
 
-  
-
-
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Webcam en consola y ascii</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/tshark/">Tshark</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Capturar paquetes y visualizarlos por pantalla:</p>
-
-<blockquote><p># tshark -n -i eth0 -s 1515</p>
-
-<p># tshark -D (Ver las interfaces de red disponibles)</p>
-
-<p># tshark -n -i eth0 -s 1515 -w archivo (Capturar información y pasarla a un archivo)</p>
-
-<p># tshark -n -i eth0 -s 1515 -w -filesize:10000 -b 10 -w archivo (Lo mismo especificando medida máxima del archivo (-filesize:10000) y cuantidad de ficheros a crear (-b 10) en Mb</p>
-
-<p># tshark -n -i eth0 -s 1515 -a duration:3600 -w archivo (Especificando el tiempo que durará - 1 hora)</p>
-
-<p># tshark -n -t ad -r fitxer.lpc tcp (mostrar los mensajes del protocolo tcp)</p>
-
-<p># tshark -ni eth0 &#8216;tcp port tuxapuntes.com/drupal/80&#8217; -R &#8216;http.request.method == &#8220;GET&#8221;&#8217;  (ver todas las peticiones HTTP GET)</p></blockquote>
-
-<p>Opciones:</p>
-
-<p>-t   Para que salgan las marcas de tiempo real</p>
-
-<p>-n  Inhabilita la resolución de nombres</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/tset/">Tset</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Inicializa los valores de la terminal. Ver reset.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ts/">Ts</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[moreutils]</p>
-
-<p>Añade una marca de tiempo al principio de cada línea de entrada.</p>
-
-<blockquote><p>$ ts (Escribir cualquier cosa y al darle al intro mostrará la marca del tiempo y lo escrito)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/trickle/">Trickle</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Limitar la velocidad de subida/bajada</p>
-
-<p>Nota.- &#8220;-d&#8221; subida y &#8220;-u&#8221; bajada</p>
-
-<blockquote><p>$ trickle -d 50 -u 30 wget http://www.genbeta.com (limitación para un solo host)</p>
-
-<p>$ trickled -d 50 -u 30 (Lanzar la limitación como demonio con lo que todas las aplicaciones que se lancen con trickle tendran la limitación especificada)</p>
-
-<p>$ trickle wget http://www.genbeta.com</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/treil/">Treil</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Generador de una imagen en azulejo a partir de los archivos de un directorio.</p>
-
-<blockquote><p>$ treil -g 800x600 -o imagen.png /usr/share (Con una geometria determinada [g], que la imagen se guarde como imagen.png [o] y el directorio del cual crear la imagen)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/tree/">Tree</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Lista archivos y directorios en forma de arbol.</p>
-
-<blockquote><p>$ tree -d (Sólo los directorios de la presente carpeta)</p>
-
-<p>$ tree -o archivo (Enviar el resultado a un archivo)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/trash/">Trash</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Enviar a la papelera un archivo o directorio</p>
-
-<blockquote><p>$ trash-put archivo (elimina archivo)</p>
-
-<p>$ trash-list (Lista los archivos eliminados)</p>
-
-<p>$ restore-trash (Pregunta el número del archivo a restaurar)</p>
-
-<p>$ trash-empty (Vacia la papelera)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/trap/">Trap</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Captura señales del teclado. Permite ejecutar un comando especificado cuando se produce una señal con un determinado valor.</p>
-
-<blockquote><p>$ trap -l (Lista todos los valores)</p>
-
-<p>$ trap &#8220;rm -f /tmp/$$ ; exit&#8221; 0 1 2 3 15 (ejecutará el rm si se produce una señal: 0 [Salida de la shell], 1 [SIGHUP, cuelgue], 2 [SIGINT, interrupción con ^C], 3 [SIGQUIT, quiet] o 15 [SIGTERM, terminate, señal por defecto de kill]</p></blockquote>
-
-<p>Ejemplo:</p>
-
-<blockquote><p>$ nano no_muero.sh</p></blockquote>
-
-<pre><code>#!/bin/bash
-
-trap "echo ' Aunque pulses Ctrl+C!'" INT
-
-while true
-
-do
-
-sleep 60;
-
-echo "No puedes matarme"
-
-done
+*    hard    nofile    65000
 </code></pre>
 
-<p>El script se repetirá hasta pararlo con Ctrl+z. A continuación mirar el pid</p>
+<p>3.-</p>
 
-<blockquote><p>$ jobs</p>
+<p>Limitar la cantidad de usuarios conectados al sistema:</p>
 
-<p>$ kill -9 %pid (Para matarlo definitivamente)</p></blockquote>
+<blockquote><p># nano /etc/security/limits.conf</p></blockquote>
+
+<p>Y en el parámetro maxlogins modificamos el número que deseemos:</p>
+
+<pre><code>*    -       maxlogins 3
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ul/">Ul</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Subrayado de palabras en la terminal.</p>
+
+<pre><code>$ echo $'linux es g\b_e\b_n\b_i\b_a\b_l\b_ ' | ul (Cada letra a subrayar ha de ir seguida de \b_)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ufw/">Ufw</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Cortafuegos</p>
+
+<blockquote><p># ufw enable (activar el cortafuegos. “disable” para desactivarlo)</p>
+
+<p># ufw deny 4662 (bloquea el puerto)</p>
+
+<p># ufw delete deny 4662 (Elimina una regla)</p>
+
+<p># ufw allow smtp (permitir servicios concretos)</p>
+
+<p># ufw status (visualizar las normas definidas)</p>
+
+<p># ufw status verbose (Información de estado con mayor detalle)</p>
+
+<p># ufw default allow (permitir todo por defecto)</p>
+
+<p># ufw default deny (bloquear todo por defecto)</p>
+
+<p># ufw deny from ip (bloquear dirección ip)</p>
+
+<p># ufw logging on (activar los logs. “off” para desactivarlos. Herramienta de registro: fwanalog, fwlogwatch, o lire.)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/udisks/">Udisks</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Comando para montar y desmontar volumenes usando el demonio que llaman programas como Nautilus o Thunar. Con este método conseguimos que desde estos programas se pueda desmontar cómodamente la partición y además sin necesidad de permisos.</p>
+
+<blockquote><p>$ udisks &#8211;mount /dev/sda1 (montará esta partición).</p>
+
+<p>$ udisks &#8211;unmount /dev/sda1 (desmontará esta partición).</p>
+
+<p>$ udisks &#8211;monitor (Monitoriza la actividad del demonio. Muy útil para verificar si una partición es montada o no)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/udiskie/">Udiskie</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Herramienta  para montar automaticamente unidades en Archlinux. Debe arrancarse el servicio antes de ejecutarse el gestor de ventanas en el archivo .xinitrc. Un ejemplo:</p>
+
+<blockquote><p># nano .xinitrc</p></blockquote>
+
+<p>udiskie &amp;</p>
+
+<p>exec openbox-session</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/tzwatch/">Tzwatch</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Muestra las zonas horarias especificadas por el usuario y las guarda en el archivo ~/.tzlist.</p>
+
+<blockquote><p>$ tzwatch -c (Lanzar tantas veces como de zonas horarias se quiere disponer de información y seguir las instrucciones: Add Zone, Americas, 26 [Guatemala], mostrará la información y preguntará si es correcta, 1 [yes] y Done [salir])</p>
+
+<p>$ tzwatch (Mostrará hora local de cada una de las zonas elegidas)</p></blockquote>
+
+<pre><code>[~]$ tzwatch
+
+Mon Oct  7 02:39:39 CST 2013   Australia/Adelaide
+
+Sun Oct  6 18:09:39 CEST 2013   Europe/Madrid
+
+Sun Oct  6 10:09:39 CST 2013   America/Guatemala
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/tzselect/">Tzselect</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Pregunta al usuario información sobre la localización actual y muestra la descripción de la zona horaria correspondiente.</p>
+
+<blockquote><p>$ tzselect</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/tzconfig/">Tzconfig</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>configurar nuevamente la zona horaria</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/typeset/">Typeset</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T20:10:00+01:00" pubdate data-updated="true">27-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Define variables y les da atributos. Ver &#8220;declare&#8221;</p>
 </div>
   
   
@@ -543,43 +606,43 @@ done
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/gedit/">gedit</a>
+        <a href="/blog/ifne/">ifne</a>
       </li>
     
       <li class="post">
-        <a href="/blog/gconftool-2/">gconftool-2</a>
+        <a href="/blog/ifdata/">ifdata</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ftff/">ftff</a>
+        <a href="/blog/ifconfig/">ifconfig</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fstab/">fstab</a>
+        <a href="/blog/identify/">identify</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fsck/">fsck</a>
+        <a href="/blog/html/">html</a>
       </li>
     
       <li class="post">
-        <a href="/blog/freeradius/">freeradius</a>
+        <a href="/blog/hosts/">hosts</a>
       </li>
     
       <li class="post">
-        <a href="/blog/foremost/">foremost</a>
+        <a href="/blog/host-dot-conf/">host.conf</a>
       </li>
     
       <li class="post">
-        <a href="/blog/for/">for</a>
+        <a href="/blog/honeyproxy/">honeyproxy</a>
       </li>
     
       <li class="post">
-        <a href="/blog/flunym0us/">flunym0us</a>
+        <a href="/blog/hg/">hg</a>
       </li>
     
       <li class="post">
-        <a href="/blog/flexget/">flexget</a>
+        <a href="/blog/hexdump/">hexdump</a>
       </li>
     
   </ul>
