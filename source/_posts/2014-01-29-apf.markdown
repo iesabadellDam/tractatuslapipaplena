@@ -1,0 +1,41 @@
+---
+layout: post
+title: "apf"
+date: 2014-01-29 18:29
+comments: true
+categories: 
+---
+Cortafuegos. Todos los parámetros se configuran en el archivo conf.apf.
+
+>\# nano /etc/apf/conf.apf
+
+La configuración básica:
+
+DEVEL_MODE="0" # 1 en pruebas, 0 en producción
+
+IFACE_IN="eth1" # Interfaces de red
+
+IFACE_OUT="eth1" # interfaces de red
+
+IFACE_TRUSTED="eth0" # Si existen interfaces locales
+
+IG_TCP_CPORTS="21,22,80,110" # Puertos permitidos
+
+IG_UDP_CPORTS=""IG_UDP_CPORTS="" # Puertos UDP permitidos [si existen]
+
+IG_ICMP_TYPES="3,5,11" 3 Puertos ICMP permitidos [si existen]
+
+Otros archivos importantes:
+
+/etc/apf/deny_host.rules (ips, rangos, etc denegados)
+
+/etc/apf/allow_host.rules (ips, rangos, etc permitidos)
+
+/var/log/apf_log (Archivo de logs)
+
+>\# apf -s (arrancar)
+
+>\# apf -r (reiniciar)
+
+>\# apf -f (parar)
+

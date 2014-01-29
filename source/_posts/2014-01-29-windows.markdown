@@ -1,0 +1,121 @@
+---
+layout: post
+title: "windows"
+date: 2014-01-29 18:35
+comments: true
+categories: 
+---
+1.-
+
+Redimensionar desde windows: 
+
+Botón derecho en: Mi PC \ Administrar o Inicio \ Panel de control \ Herramientas administrativas \ Administracion De Equipos. Clicar con el boton derecho sobre la particion que queremos modificar. Aparecen dos opciones: 
+
+* Extend Volume 
+
+* Shirnk Volume 
+
+La opcion de Shrink Volume es la que nos permite liberar espacio de la partición. Windows moverá los archivos necesarios en su interior. Igualmente informá del tamaño maximo que puede liberar con garantias de integridad de datos. El espacio libre podremos particionarlo posteriormente usando herramientas clásicas como gparted. 
+
+2.-
+
+Re-dimensionar desde Linux: 
+
+Cuando a gparted le resulta imposible re-dimensionar particiones ntfs [con vista, por ejemplo] usaremos un Live con las herramientas ntfsprogs [puppy, entre otras]. Previamente habremos desfragmentado la partición win y, si procede, reparados posibles errores de disco desde la consola del sistema [cmd] lazando chkdsk /c 
+
+Arrancado el Live, averiguamos el nombre de la partición: 
+
+>\# fdisk -l | grep NTFS 
+
+Si no hemos lanzado chkdsk en win, con linux podemos reparar los posibles errores con: 
+
+>\# ntfsfix /dev/sdax 
+
+Comprobar si detecta correctamente la partición win: 
+
+>\# sudo ntfsresize -P -i -f -v /dev/hda1 --ad-sectors 
+
+ntfsresize v2.0.0 (libntfs 10:0:0) 
+
+Device name : /dev/hda1 
+
+NTFS volume version: 3.1 
+
+... 
+
+Ordinary : 55549 MB 49454 
+
+You might resize at 25961267200 bytes or 25962 MB (freeing 32608 MB). 
+
+Please make a test run using both the -n and -s options before real resizing! 
+
+Indica cuánto podemos redimensionar (25962 MB) y cuánto espacio quedaría libre (32608 MB).Suponemos que deseamos dejar el sistema de ficheros en 29055000000 by (29055 MB). Primero lo simulamos (recomendable realizar la prueba varias veces): 
+
+>\# ntfsresize -f -s 29055000000 -n /dev/hda1 --bad-sectors 
+
+ntfsresize v2.0.0 (libntfs 10:0:0) 
+
+Device name : /dev/hda1 
+
+NTFS volume version: 3.1 
+
+... 
+
+ERROR: Extended record needed (1096 > 1024), not yet supported! 
+
+Please try to free less space. 
+
+Indica que no se ha dejado suficiente espacio para desplazar los datos. 
+
+dejamos más espacio: 
+
+>\# ntfsresize -f -s 31055000000 -n /dev/hda1 --bad-sectors 
+
+ntfsresize v2.0.0 (libntfs 10:0:0) 
+
+Device name : /dev/hda1 
+
+... 
+
+Updating Boot record … 
+
+The read-only test run ended successfully. 
+
+La simulación sale correcta, procedemos a aplicarla quitando el parámetro -n
+
+>\# ntfsresize -f -s 31055000000 /dev/hda1 --bad-sectors 
+
+ntfsresize v2.0.0 (libntfs 10:0:0)Device name : ... 
+
+... 
+
+Syncing device … 
+
+Successfully resized NTFS on device ‘/dev/hda1′. 
+
+3.-
+
+Crear un usuario administrador en windows [7, server 2008...] 
+
+Arrancar con un Live-cd y montar la partición win. 
+
+Entrar en C:\Windows\System32 
+
+Borrar el archivo Magnify.exe 
+
+Copiar el fichero cmd.exe y renombrar como Magnify.exe 
+
+Reiniciar para que arranque Windows. 
+
+Ejecutar la herramienta de lupa y arrancará una ventana de comandos como usuario administrador 
+
+Crear un usuario administrador: 
+
+net user /add admin 
+
+net localgroup administrators admin /add 
+
+net user admin * 
+
+Reiniciar win y entrar con el usuario creado.
+
