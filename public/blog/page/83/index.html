@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Para conocer los módulos perl instalados. Entra en el prompt (cmd?) con 3 preguntas: l (List all installed modules) m (Select a module) q (Quit the &hellip;">
+  <meta name="description" content="Detectar cuando algún archivo del sistema ha sido alterado mediante la creación, la primera vez que se lanza, de una base de datos con la que &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,85 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/integrit/">Integrit</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-29T18:31:00+01:00" pubdate data-updated="true">29-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Detectar cuando algún archivo del sistema ha sido alterado mediante la creación, la primera vez que se lanza, de una base de datos con la que confrontar los nuevos escaneos.</p>
+
+<p>Configuración:</p>
+
+<blockquote><p># /etc/integrit/integrit.con</p></blockquote>
+
+<p>Descomentar las lineas:</p>
+
+<pre><code>root=/  
+
+known=/var/lib/integrit/known.cdb       
+
+current=/var/lib/integrit/current.cdb
+</code></pre>
+
+<p>Y descartar los directorios que no se deseen incluir en el escaneo, descomentandolos [&#8220;cdrom&#8221; se descarta, &#8220;/dev&#8221; se escane, &#8220;/usr/src&#8221; no se escaneará de forma recursiva ]:</p>
+
+<pre><code>!/cdrom
+
+# !/dev
+
+=/usr/src
+</code></pre>
+
+<p>Crear la base de datos inicial:</p>
+
+<blockquote><p># integrit -u -C /etc/integrit/integrit.conf</p></blockquote>
+
+<p>Mover la base de datos a know.cdb:</p>
+
+<blockquote><p># mv /var/lib/integrit/current.cdb /var/lib/integrit/known.cdb</p></blockquote>
+
+<p>Lanzar la comprobación:</p>
+
+<blockquote><p># integrit -C /etc/integrit/integrit.conf -c</p></blockquote>
+
+<p>Si queremos colocar la orden en el cron para ser lanzada cada hora y que envie un correo al administrador:</p>
+
+<blockquote><p># crontab -e</p></blockquote>
+
+<p>Y colocamos la linea:</p>
+
+<pre><code>* 1 * * * integrit -C /etc/integrit/integrit.conf -c | mail root
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -550,60 +629,6 @@ po::powerokwait:/etc/init.d/powerfail stop
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/impressive/">Impressive</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-29T18:31:00+01:00" pubdate data-updated="true">29-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Visualizar documentos PDF e imágenes (jpg, tiff, png&#8230;)</p>
-
-<blockquote><p>$ impressive documento.pdf</p>
-
-<p>$ impressive -l    (lista efectos disponibles)</p>
-
-<p>$ impressive -t SqueezeLeft documento.pdf</p></blockquote>
-
-<p>Algunas opciones:</p>
-
-<p>AvPág          Va a la página siguientes</p>
-
-<p>RePág          Va a la página anterior</p>
-
-<p>z                  zoom donde esté el cursor</p>
-
-<p>f                   Activa/Desactiva la pantalla completa</p>
-
-<p>q                  Salir de la aplicación</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/84/">&larr; Older</a>
@@ -619,12 +644,16 @@ po::powerokwait:/etc/init.d/powerfail stop
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1370</li>
+	<li>1371</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/telegram/">telegram</a>
+      </li>
     
       <li class="post">
         <a href="/blog/vim/">vim</a>
@@ -660,10 +689,6 @@ po::powerokwait:/etc/init.d/powerfail stop
     
       <li class="post">
         <a href="/blog/zenity/">zenity</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
   </ul>
