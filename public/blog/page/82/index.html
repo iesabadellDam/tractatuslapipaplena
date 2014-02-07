@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Permite eliminar la comunicación entre procesos [ver ipcs]. Si paramos el programa con un Ctrl-C o simplemente sale de forma anormal, el recurso [la &hellip;">
+  <meta name="description" content="Informa sobre la comunicación entre procesos [espacios de memoria, buffers, semaforos..] listando los recursos compartidos que están creados en ese &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,72 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ipcs/">Ipcs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-29T18:31:00+01:00" pubdate data-updated="true">29-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Informa sobre la comunicación entre procesos [espacios de memoria, buffers, semaforos..] listando los recursos compartidos que están creados en ese momento. Ver ipcrm. La columna &#8220;shmid&#8221; muestra el ID, la &#8220;owner&#8221; el propietario, &#8220;perms&#8221; los permisos y &#8220;bytes&#8221; el tamaño en bytes</p>
+
+<blockquote><p># ipcs -s | grep postgres  (Muestra los recursos compartidos de postgres)</p>
+
+<p># ipcs -lm (determinar los limites de memoria compartida del sistema)</p>
+
+<p># ipcs -ls (Límites actuales del contador que se utiliza para acceder a los recursos compartidos del sistema)</p>
+
+<p># ipcs -u  (Proporciona información sobre la comunicación entre procesos)</p>
+
+<p># ipcs -m (despliega los segmentos de memoria compartida)</p>
+
+<p># ipcs -mu (muestra un breve resumen)</p>
+
+<p># ipcs -ml (muestra los límites en contraposición a los valores actuales)</p>
+
+<p># ipcs -m -i 950288 (obtener detalle de un segmento de memoria compartida [valor shmid])</p>
+
+<p># ipcs -s (Muestra los semforos en el sistema)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<p>-m  (segmentos de memoria compartida )</p>
+
+<p>-q   (colas de mensajes )</p>
+
+<p>-s   (matrices de semáforos )</p>
+
+<p>-a   (todos. Opción por defecto)</p>
+
+<p>-p   (pid)</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -570,109 +636,6 @@ gateway 192.168.x.1
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/interfaces/">Interfaces</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-29T18:31:00+01:00" pubdate data-updated="true">29-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Archivo de configuración de la red en distros debian.</p>
-
-<p>1.-</p>
-
-<p>Con IP dinámica:</p>
-
-<p>Colocar en el archivo las lineas:</p>
-
-<pre><code>auto eth0
-
-iface eth0 inet dhcp
-</code></pre>
-
-<p>2.-</p>
-
-<p>Con IP fija</p>
-
-<p>Colocar en el archivo las lineas:</p>
-
-<pre><code>auto eth0
-
-iface eth0 inet static
-
-address 192.168.1.10
-
-gateway 192.168.1.1
-
-netmask 255.255.255.0
-
-broadcast 192.168.1.255
-</code></pre>
-
-<p>Reiniciar el servicio:</p>
-
-<blockquote><p># ifdown eth0</p>
-
-<p># ifup eth0</p></blockquote>
-
-<p>Nota.- Solo modificandolo en network-manager no funciona.</p>
-
-<p>3.-</p>
-
-<p>Creación de una segunda dirección IP virtual.</p>
-
-<p>Añadir las siguientes lineas a las de la IP fija:</p>
-
-<pre><code>auto eth0:1
-
-iface eth0:1 inet static
-
-address 192.168.0.15
-
-netmask 255.255.255.0
-
-broadcast 192.168.0.255
-
-gateway 192.168.0.1
-</code></pre>
-
-<p>Nota.- La instalación de nerwork-manager o wicd para la gestión de redes implica comentar las modificaciones de este archivo o en, en el caso de network-manager, editar:</p>
-
-<blockquote><p># nano  /etc/NetworkManager/NetworkManager.conf</p></blockquote>
-
-<p>Y modificar la linea:</p>
-
-<p>[ifupdown]</p>
-
-<p>managed=true</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/83/">&larr; Older</a>
@@ -694,6 +657,10 @@ gateway 192.168.0.1
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/google/">google</a>
+      </li>
     
       <li class="post">
         <a href="/blog/telegram/">telegram</a>
@@ -729,10 +696,6 @@ gateway 192.168.0.1
     
       <li class="post">
         <a href="/blog/zfgrep/">zfgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zenity/">zenity</a>
       </li>
     
   </ul>
