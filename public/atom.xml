@@ -4,7 +4,7 @@
   <title><![CDATA[TRACTATUS ELEMENTALIS]]></title>
   <link href="https://tractatuslapipaplena.herokuapp.com/atom.xml" rel="self"/>
   <link href="https://tractatuslapipaplena.herokuapp.com/"/>
-  <updated>2014-02-10T20:28:38+01:00</updated>
+  <updated>2014-02-10T22:03:30+01:00</updated>
   <id>https://tractatuslapipaplena.herokuapp.com/</id>
   <author>
     <name><![CDATA[templix]]></name>
@@ -14,38 +14,9 @@
 
   
   <entry>
-    <title type="html"><![CDATA[emms]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/emms/"/>
-    <updated>2014-02-10T20:28:00+01:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/emms</id>
-    <content type="html"><![CDATA[<p>[Emcas Multimedia System]. Reproductor de música propio de emacs. Ver emacs para configuración.</p>
-
-<p>Algunas funciones para emacs:</p>
-
-<pre><code>emms-play-file (Entrar un archivo para reproducir)
-
-emms-playxs-directory (Entrar un directorio)
-
-emms-play-url (una url)
-</code></pre>
-
-<p>Atajos básicos:</p>
-
-<pre><code>s (Stop)
-
-n (Siguiente canción)
-
-p (Canción anterior)
-
-q (Salir)
-</code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
     <title type="html"><![CDATA[emacs]]></title>
     <link href="https://tractatuslapipaplena.herokuapp.com/blog/emacs/"/>
-    <updated>2014-02-09T18:30:00+01:00</updated>
+    <updated>2014-02-10T22:03:00+01:00</updated>
     <id>https://tractatuslapipaplena.herokuapp.com/blog/emacs</id>
     <content type="html"><![CDATA[<p>Tutorial completo en español: <a href="http://www.nongnu.org/emacs-man-es/">http://www.nongnu.org/emacs-man-es/</a> . Mucho más que un editor. Algunas ordenes no coinciden si se lanza en una tty o sobre las X. Lo que sigue es un pequeño manual de primeros auxilios. Emacs entiende por búffer una zona de memoria en la que se encuentra el texto objeto de edición. Cuando leemos un fichero, lo que hacemos es copiar su contenido a una zona de memoria [a un buffer] y durante la edición lo que modificamos es esa zona de memoria, el fichero como tal permanece inalterado hasta que explícitamente demos la orden de grabar en el disco las modificaciones. Cuando emacs se inicia se abren dos búffers que no están asociados a ningún fichero: <em>scratch</em> y <em>messages</em> [En ambos el nombre empieza y acaba por un asterisco, lo que indica que no es un búffer asociado a un fichero]</p>
 
@@ -232,6 +203,8 @@ C-x RET f (Entrar codificación de caracteres: latin-1-unix [latin1], utf-8-unix
 M-! (Muestra en el mini buffer un mensaje para entrar un comando y lo abre un una ventana)
 
 C-u M-! (Inserta la salida del comando en la posición del cursor)
+
+M-x shell (Salir a la shell. C-x k para volver a edición)
 </code></pre>
 
 <p>Modo comando:</p>
@@ -259,6 +232,8 @@ M-x global-hl-line-mode (Resaltar la linea donde está el cursor)
 M-x goto-line (Ir a una linea que se especifique)
 
 M-x insert file (Para insertar en el cursor un archivo)
+
+M-x calendar (Mostrar mes actual, el anterior y el posterior)
 </code></pre>
 
 <p>Para hacer permanente cualquiera de las opciones anteriores, colocarla en ~/.emacs de la siguiente forma:</p>
@@ -326,15 +301,6 @@ M-x insert file (Para insertar en el cursor un archivo)
 
 <p>3.-</p>
 
-<p>Mostrar consola al pulsar F5:</p>
-
-<p>Añadir a .emacs la linea:</p>
-
-<pre><code>(global-set-key (kbd "&lt;f5&gt;") 'eshell)
-</code></pre>
-
-<p>4.-</p>
-
 <p>Escuchar música con emms.</p>
 
 <p>Instalar emms en el sistema mediante repositorio y descargar <a href="http://www.gnu.org/software/emms/">http://www.gnu.org/software/emms/</a> y descomprimir en el directorio personal. En .emacs colocar las lineas:</p>
@@ -350,13 +316,64 @@ M-x insert file (Para insertar en el cursor un archivo)
 
 <p>Llamar com M-x emms (Pulsando TAB apareceran las opciones)</p>
 
-<p>5.-</p>
+<p>4.-</p>
 
-<p>Especificar número de espacios en las tabulaciones.</p>
+<p>Otros ajustes que pueden incorporarse a .emacs precedidas con la explicación comentada:</p>
 
-<p>Colocar en .emacs la linea:</p>
+<pre><code>;;Mostrar consola al pulsar F5:
 
-<pre><code>(setd-default  tab-width  4)
+(global-set-key (kbd "&lt;f5&gt;") 'eshell)
+
+;;Especificar número de espacios en las tabulaciones.
+
+(setd-default  tab-width  4)
+
+;;Mostrar reloj y con formato 24 horas
+
+(setq display-time-24hr-format t)
+
+(display-time)
+
+;;Descomprimir archivos.
+
+(auto-compression-mode t)
+
+;;Reemplazar "yes" y "no" por "y" y "n" en el prompt.
+
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;;Sin copias de seguridad (torvalds-mode).
+
+(setq make-backup-files nil)
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[emms]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/emms/"/>
+    <updated>2014-02-10T20:28:00+01:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/emms</id>
+    <content type="html"><![CDATA[<p>[Emcas Multimedia System]. Reproductor de música propio de emacs. Ver emacs para configuración.</p>
+
+<p>Algunas funciones para emacs:</p>
+
+<pre><code>emms-play-file (Entrar un archivo para reproducir)
+
+emms-playxs-directory (Entrar un directorio)
+
+emms-play-url (una url)
+</code></pre>
+
+<p>Atajos básicos:</p>
+
+<pre><code>s (Stop)
+
+n (Siguiente canción)
+
+p (Canción anterior)
+
+q (Salir)
 </code></pre>
 ]]></content>
   </entry>
