@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Para o reinicia el sistema $ init 0 (para) $ init 1 (reinicia en modo uniusuario) $ init 6 (reinicia)
-">
+  <meta name="description" content="Problemas durante el arranque. Consiste en un fallo de lectura de los controladores ide de discos duros por parte del kernel del sistema operativo &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +74,52 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/initramfs/">Initramfs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-29T18:31:00+01:00" pubdate data-updated="true">29-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Problemas durante el arranque. Consiste en un fallo de lectura de los controladores ide de discos duros por parte del kernel del sistema operativo que no logra reconocer dichos drivers. Arrancar con un livecd o pulsando “e” para editar la opción cuando salga el menu en grub:</p>
+
+<blockquote><p># gedit /boot/grub/menu.lst</p></blockquote>
+
+<p>Y al final de la linea del kernel poner: rootdelay=90</p>
+
+<p>Otras soluciones propuestas (sustituir el rootdelay=90 por):</p>
+
+<p>pci=nomsi</p>
+
+<p>all_generix_ide</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -498,94 +543,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ifs/">Ifs</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-29T18:31:00+01:00" pubdate data-updated="true">29-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Internal Field Separator (separador de campos internos) sirve para indicar cual es el valor que se usa como separador. Si no se especifica ninguno es el espacio.</p>
-
-<p>Algunos ejemplos:</p>
-
-<p>1.-</p>
-
-<pre><code>#!/bin/bash
-
-# dividir una IP en 4 variables
-
-# Guardar el separador de campos original
-
-OLDIFS=$IFS
-
-read -p "Dime la ip: " IP
-
-# Establecemos el separador de campos en el punto
-
-IFS=.
-
-read IP1 IP2 IP3 IP4 &lt;&lt;&lt; "$IP"
-
-echo "$IP1 $IP2 $IP3 $IP4"
-
-# Restablecemos el separador original (El espacio)
-
-IFS=$OLDIFS
-</code></pre>
-
-<p>2.-</p>
-
-<pre><code>#!/bin/bash
-
-#Almacenamos el valor original de la variable IFS
-
-OLDIFS=$IFS
-
-#Cambiamos el valor del IFS a final de linea [\n]
-
-IFS=$'\n'
-
-for line in $(cat file.txt)
-
-do
-
-    echo $line
-
-done
-
-#Restauramos el IFS
-
-IFS=$OLDIFS
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/85/">&larr; Older</a>
@@ -601,12 +558,16 @@ IFS=$OLDIFS
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1372</li>
+	<li>1373</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/ranger/">ranger</a>
+      </li>
     
       <li class="post">
         <a href="/blog/telegram/">telegram</a>
@@ -642,10 +603,6 @@ IFS=$OLDIFS
     
       <li class="post">
         <a href="/blog/zmap/">zmap</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zless/">zless</a>
       </li>
     
   </ul>
