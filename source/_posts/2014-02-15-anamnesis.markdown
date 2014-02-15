@@ -1,13 +1,11 @@
 ---
 layout: post
 title: "anamnesis"
-date: 2014-02-15 04:49
+date: 2014-02-15 04:54
 comments: true
 categories: 
 ---
-Gestor del portapapeles. Almacena el historial del portapapeles y ofrece una interfaz para hacer búsquedas de todo lo copiado. Descarga de: <http://sourceforge.net/projects/\
-
-anamnesis/> Una	vez descomprimido copiar la carpeta en:
+Gestor del portapapeles. Almacena el historial del portapapeles y ofrece una interfaz para hacer búsquedas de todo lo copiado. Descarga de: <http://sourceforge.net/projects/anamnesis/> Una	vez descomprimido copiar la carpeta en:
 
     # cp anamnesis-1.0.4 /usr/local/
 
