@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Para encontrar el ejecutable si está en el path $ which firefox
-">
+  <meta name="description" content="Ejecuta una seria de comandos mientras que una determinada condicion sea cumpla. Algunos scripts ilustrativos: 1.- #!/bin/bash RESPUESTA=s while [ $ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +74,214 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/while/">While</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-29T18:35:00+01:00" pubdate data-updated="true">29-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ejecuta una seria de comandos mientras que una determinada condicion sea cumpla. Algunos scripts ilustrativos:</p>
+
+<p>1.-</p>
+
+<pre><code>#!/bin/bash
+
+RESPUESTA=s
+
+while [ $RESPUESTA = s ]
+
+do
+
+    echo "Introducir nombre: "
+
+    read NOMBRE
+
+    echo "Hola $NOMBRE"
+
+    echo
+
+    echo "¿Desea continuar? (s/n)"
+
+    read RESPUESTA
+
+done
+</code></pre>
+
+<p>2.-</p>
+
+<pre><code>#!/bin/bash
+
+while [ "$OPCION" != 5 ]
+
+do
+
+    echo
+
+    echo "[1] Listar directorio"
+
+    echo "[2] Directorio donde te encuentras"
+
+    echo "[3] fecha de hoy"
+
+    echo "[4] Usuarios conectados"
+
+    echo "[5] Salir"
+
+    echo
+
+    read -p "Ingrese una opción: " OPCION
+
+    echo
+
+    case $OPCION in
+
+        1) ls;;
+
+        2) pwd;;
+
+        3) date +%D ;;
+
+        4) who;;
+
+        5);;
+
+        *) echo "Opción ingresada no valida, intentelo de nuevo";;
+
+    esac
+
+done
+
+exit 0
+</code></pre>
+
+<p>3.-</p>
+
+<pre><code>#!/bin/bash
+
+# imprimir números del 1 al 10
+
+LIMITE=10
+
+a=1
+
+while [ "$a" -le $LIMITE ]
+
+do
+
+  echo "$a "
+
+  let "a+=1"
+
+done
+</code></pre>
+
+<p>4.-</p>
+
+<p>Leer un archivo linea a linea:</p>
+
+<pre><code>#!/bin/bash
+
+while read linea
+
+do
+
+   echo "---&gt; $linea "
+
+done &lt; archivo.txt
+</code></pre>
+
+<p>5.-</p>
+
+<p>Especificando un separador [:]</p>
+
+<pre><code>#!/bin/bash
+
+while IFS=: read user pass uid gid full home shell
+
+do
+
+echo -e "$full :\n\
+
+        Pseudo : $user\n\
+
+        UID :\t $uid\n\
+
+        GID :\t $gid\n\
+
+        Home :\t $home\n\
+
+        Shell :\t $shell\n\n"
+
+done &lt; /etc/passwd
+</code></pre>
+
+<p>6.-</p>
+
+<p>Leer un archivo pasado como parámetro, descartar las lineas en blanco y colorear alternativamente las siguientes en amarillo y rojo.</p>
+
+<pre><code>#!/bin/bash
+
+COLOR=1
+
+while read linia
+
+do
+
+    if [ -z "${linia}" ] 
+
+    then
+
+        continue
+
+    fi
+
+    if [ $COLOR -eq 0 ]
+
+    then
+
+        echo -e "\e[1;30;41m$linia\033[0m" #VERMELL - 0
+
+        COLOR=1
+
+    else
+
+        echo -e "\e[1;30;43m$linia\033[0m" #GROC - 1
+
+        COLOR=0
+
+    fi
+
+done &lt; $1
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -555,46 +762,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/webp/">Webp</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-29T18:35:00+01:00" pubdate data-updated="true">29-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Reduce la medida de imagenes jpeg y png. Es una herramienta de google que, de momento [2013] el formato webp sólo es compatible con algunos navegadores [chromium y Opera] pero puede usarse para comprimir una imagen para acto seguido descomprimirla de nuevo: La reducción de peso es considerable.</p>
-
-<blockquote><p>$ cwebp -q 60 entrada.png -o salida.webp (Compresión al 70 %. Por defecto 75)</p>
-
-<p>$ dwebp entrada.webp -o salida.png (Descompresión)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/12/">&larr; Older</a>
@@ -616,6 +783,10 @@
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/ssh-keygen/">ssh-keygen</a>
+      </li>
     
       <li class="post">
         <a href="/blog/ranger/">ranger</a>
@@ -651,10 +822,6 @@
     
       <li class="post">
         <a href="/blog/google/">google</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/vim/">vim</a>
       </li>
     
   </ul>
