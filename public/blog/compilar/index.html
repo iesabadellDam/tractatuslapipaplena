@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>compila - TRACTATUS ELEMENTALIS</title>
+  <title>compilar - TRACTATUS ELEMENTALIS</title>
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="[buildessential checkinstall]. Instalar aplicaciones a partir del codigo fuente . En general, los pasos a seguir son los siguientes: Descargar el &hellip;">
+  <meta name="description" content="[libncurses libncurses-fdev build-essential]. Instalar aplicaciones a partir del codigo fuente . Los comandos standard que se utilizan son: ./ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="https://tractatuslapipaplena.herokuapp.com/blog/compila">
+  <link rel="canonical" href="https://tractatuslapipaplena.herokuapp.com/blog/compilar">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="TRACTATUS ELEMENTALIS" type="application/atom+xml">
@@ -77,7 +77,7 @@
   
   <header>
     
-      <h1 class="entry-title">Compila</h1>
+      <h1 class="entry-title">Compilar</h1>
     
     
       <p class="meta">
@@ -93,47 +93,51 @@
   
 
 
-<time datetime="2014-01-29T18:30:00+01:00" pubdate data-updated="true">29-01-2014</time>
+<time datetime="2014-02-25T21:12:00+01:00" pubdate data-updated="true">25-02-2014</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>[buildessential checkinstall]. Instalar aplicaciones a partir del codigo fuente . En general, los pasos a seguir son los siguientes:</p>
+<div class="entry-content"><p>[libncurses libncurses-fdev build-essential]. Instalar aplicaciones a partir del codigo fuente .    Los comandos standard que se utilizan son: ./configure,</p>
 
-<p>Descargar el código fuente.</p>
+<p>make, sudo make install y han de ejecutarse desde el directorio que contiene las fuentes. Configure y make se pueden ejecutar como usuario normal, pero make</p>
 
-<p>Descomprimir.</p>
+<p>install generalmente se tiene que ejecutar como administrador por cuestión de permisos.</p>
 
-<p>cd al directorio creado.</p>
+<p>El script configure [configuración] sirve para comprobar las dependencias y las versiones de las librerias del paquete a instalar creando el archivo makefile</p>
 
-<blockquote><p>$ ./configure (comprueba las características del sistema, las dependencias y crea el makefile).</p>
+<p>que constituye la base de la compilación. Si configure falla no se creará makefile. Configure, normalmente, puede ejecutarse con algunos parametros que, en</p>
 
-<p>$ ./configure &#8211;prefix=/home/USUARIO/apps (instalar la aplicacion en $HOME)</p>
+<p>caso de existir, se especifican en el fichero INSTALL o README y que siempre acompaña al paquete de las fuentes. Tambien puede ejecutarse:</p>
 
-<p>$ make (se encarga de la compilación).</p>
+<blockquote><p>$ ./configure &#8211;help</p></blockquote>
 
-<p># make install (instala la aplicación en el sistema)</p></blockquote>
+<p>para listar los parametros que se pueden usar. Si en el paquete de fuentes a intalar ya existe un archivo makefile no habrá el configure y consecuentemente</p>
 
-<p>o mejor aún:</p>
+<p>si se lanza ./configure dará error [No existe el fichero ó directorio] en estos casos puede pasarse directamente al make. Algunas opciones para   configure:</p>
 
-<blockquote><p># checkinstall (crea un paquete .deb de forma que no haya que compilarlo la próxima vez).</p></blockquote>
+<pre><code>  $ ./configure --prefix=/usr  (donde inslalar el programa)
 
-<p>Con checkinstall constarán en el sistema los programas instalados, facilitando su desinstalación.</p>
+  $ ./configure --syscinfdir=/etc  (donde colocar los archivos de configuración)
 
-<p>Para el configure existen varios opciones. Algunas son:</p>
-
-<pre><code>--prefix=/usr  (donde inslalar el programa) 
-
---syscinfdir=/etc  (donde colocar los archivos de configuración) 
-
---locatestatedir=/var/lib  (donde colocar las librerías) 
+  $ ./configure --locatestatedir=/var/lib  (donde colocar las librerías)
 </code></pre>
 
-<p>Uso:</p>
+<p>El make se encarga de leer el makefile donde se indica los archivos a compilar y el orden en el que deben ser compilados. La ejecución de make genera varios</p>
 
-<blockquote><p># ./configure &#8211;syscinfdir=/etc &#8211;prefix=/usr &#8211;locatestatedir=/var/lib</p></blockquote>
+<p>archivos necesarios para la compilación    y que pueden ser eliminados, ya sea al final del proceso    o si este ha de reiniciarse por algún error, con:</p>
+
+<blockquote><p>$ make clean</p></blockquote>
+
+<p>Si el archivo makefile no se ha borrado, Una vez instalado el programa, puede eliminarse con:</p>
+
+<blockquote><p>$ make uninstall</p></blockquote>
+
+<p>make install instala el paquete en el sistema. Una mejor opción a make install es usar checkinstall, lo cual crea un paquete .deb que constará en el listado</p>
+
+<p>de programas instalados con lo que se facilitará su desinstalación ya sea por synaptic o apt-get.</p>
 </div>
 
 
@@ -156,7 +160,7 @@
   
 
 
-<time datetime="2014-01-29T18:30:00+01:00" pubdate data-updated="true">29-01-2014</time>
+<time datetime="2014-02-25T21:12:00+01:00" pubdate data-updated="true">25-02-2014</time>
       
 
 
@@ -164,7 +168,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="https://tractatuslapipaplena.herokuapp.com/blog/compila/" data-via="" data-counturl="https://tractatuslapipaplena.herokuapp.com/blog/compila/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="https://tractatuslapipaplena.herokuapp.com/blog/compilar/" data-via="" data-counturl="https://tractatuslapipaplena.herokuapp.com/blog/compilar/" >Tweet</a>
   
   
   
@@ -173,10 +177,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/compgen/" title="Previous Post: compgen">&laquo; compgen</a>
+        <a class="basic-alignment left" href="/blog/ranger/" title="Previous Post: ranger">&laquo; ranger</a>
       
-      
-        <a class="basic-alignment right" href="/blog/compiz/" title="Next Post: compiz">compiz &raquo;</a>
       
     </p>
   </footer>
@@ -195,6 +197,10 @@
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/compilar/">compilar</a>
+      </li>
     
       <li class="post">
         <a href="/blog/ranger/">ranger</a>
@@ -230,10 +236,6 @@
     
       <li class="post">
         <a href="/blog/w3m/">w3m</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/google/">google</a>
       </li>
     
   </ul>
