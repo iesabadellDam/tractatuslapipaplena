@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="permite mantener activo un proceso, incluso después de haber cerrado la sesión de usuario. $ nohup sleep 10000 &amp; (lanzar el proceso) [1] 9215 ( &hellip;">
+  <meta name="description" content="Servicio de redireccionamiento de ip dinamica a fija. Requiere registro en www.no-ip.com # noip2 -C (Inicio de la configuración del servicio) Please &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,75 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/noip2/">Noip2</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-29T18:32:00+01:00" pubdate data-updated="true">29-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Servicio de redireccionamiento de ip dinamica a fija. Requiere registro en www.no-ip.com</p>
+
+<blockquote><p># noip2 -C    (Inicio de la configuración del servicio)</p></blockquote>
+
+<pre><code>Please enter the login/email string for no-ip.com (usuario registro no-ip.com) 
+
+Please enter the password for user ‘usuario@email.com’ (Contraseña no-ip) 
+
+Please enter an update interval:[30] (Intervalo de tiempo para actualización) 
+
+Do you wish to run something at successful update?[N] (y/N)  (intro) 
+
+New configuration file ‘/etc/no-ip2.conf’ created.
+</code></pre>
+
+<blockquote><p># ps aux | grep noip (Comprobar si está corriendo el servicio)</p>
+
+<p># noip2 -S (Muestra información sobre el proceso activo)</p>
+
+<p># noip2 -K 1234 (Mata el proceso de noip con el número que le indiquemos)</p>
+
+<p># noip2 -M (permite multiple instancias de noip2)</p>
+
+<p># noip2 -i 192.168.1.2 (Forzar a que noip2 actualice los dominios con la IP suministrada)</p>
+
+<p># noip2 -I eth1 (Forzar que noip2 se conecte a internet con la tarjeta de red especificada)</p></blockquote>
+
+<p>Nota.- En algunas distros, para iniciar el servicio al inicio:</p>
+
+<blockquote><p># nano /etc/rc.local</p></blockquote>
+
+<p>Y colocar, según donde se encuentre el ejecutable, la linea:</p>
+
+<p>/usr/local/bin/noip2 &amp;</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -671,62 +740,6 @@ vuln (Dedicados a la detección de vulnerabilidades pero no su explotación [rea
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ngrep/">Ngrep</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-29T18:32:00+01:00" pubdate data-updated="true">29-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Herramienta para monitorear el tráfico de red. Grep para tráfico de red.</p>
-
-<blockquote><p># ngrep port 80  (captura todo lo que use el puerto 80)</p>
-
-<p># ngrep -d eth0 port 80 (especificando una interfaz de red)</p>
-
-<p># ngrep -d eth0 &#8220;Host:&#8221; port 80 (Buscar una expresión en el tráfico)</p>
-
-<p># ngrep -d eth0 -W byline &#8220;Host:&#8221; port 80 (mostrar la salida por linea)</p>
-
-<p># ngrep -e -x PASS (introduciendo una cadena en la busqueda y mostrando lo que no coincida con ella)</p>
-
-<p># ngrep b    (captura todo usando el filtro por defecto)</p>
-
-<p># ngrep port 80 -O archivo (redirige la salida a un archivo)</p></blockquote>
-
-<p>Nota.- Las almoadillas (#) son paquetes que no cumplen la expresión regular.</p>
-
-<p>Otras usos:</p>
-
-<blockquote><p># ngrep -d1 -w -i “user|pass” port 21</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/61/">&larr; Older</a>
@@ -748,6 +761,10 @@ vuln (Dedicados a la detección de vulnerabilidades pero no su explotación [rea
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/chroot/">chroot</a>
+      </li>
     
       <li class="post">
         <a href="/blog/sha1sum/">sha1sum</a>
@@ -783,10 +800,6 @@ vuln (Dedicados a la detección de vulnerabilidades pero no su explotación [rea
     
       <li class="post">
         <a href="/blog/anamnesis/">anamnesis</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/telegram/">telegram</a>
       </li>
     
   </ul>
