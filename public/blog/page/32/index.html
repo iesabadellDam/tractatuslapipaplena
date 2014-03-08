@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Generar subtítulos en un video mpeg. $ spumux -s0 subt.xml &lt; video.mpeg > video_subtitulado.mpeg Nota.- El archivo subt.xml con un contenido: &lt; &hellip;">
+  <meta name="description" content="Proxy caché (intermediario para nuestra conexion a internet, guardando las paginas visualizadas en una caché) # cp /etc/squid3/squid.conf{,.defaults &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,80 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/squid/">Squid</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-29T18:34:00+01:00" pubdate data-updated="true">29-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Proxy caché (intermediario para nuestra conexion a internet, guardando las paginas visualizadas en una caché)</p>
+
+<blockquote><p># cp /etc/squid3/squid.conf{,.defaults} (Realizar copia de seguridad de la configuración)</p>
+
+<p># nano /etc/squid3/squid.conf</p></blockquote>
+
+<p>Modificamos/adaptamos los siguientes ajustes basicos:</p>
+
+<p>http_port 3128 #puerto de escucha</p>
+
+<p>cache_mem 100 MB #Tamaño memoria caché</p>
+
+<p>cache_dir ufs /var/spool/squid 700 16 256 #directorio y tamaño</p>
+
+<p>acl NuestraRed src 192.168.1.0/24 #Nombre y red a la que afecta</p>
+
+<p>http_access allow NuestraRed #permitir acceso a toda la red</p>
+
+<p>http_access allow deny all #Denegamos a los de fuera de la red</p>
+
+<p>auth_param basic /usr/lib/squid/ncsa_auth /etc/squid/passwd #ruta a usuarios</p>
+
+<p>auth_param basic realm “Mensaje de acceso” #mensaje al logearse</p>
+
+<p>auth_param basic children 5 #Procesos de autentificación</p>
+
+<p>auth_param basic basic credentialsttl 1 hours #tiempo</p>
+
+<blockquote><p># squid3 -k parse (Revisión de la sintaxis del archivo squid.conf)</p></blockquote>
+
+<p>Después de las modificaciones reiniciar servicio:</p>
+
+<blockquote><p># /etc/init.d/squid3 restart</p></blockquote>
+
+<p>Configuración de usuarios (/etc/squid/passwd):</p>
+
+<blockquote><p># htpasswd -c /etc/squid3/passwd user1 (Crear archivo [-c] nombre de usuario y pedirá contraseña)</p>
+
+<p># htpasswd /etc/squid3/passwd usuario2 (Sin parámetro -c porque el archivo ya está creado. Otro usuario y contraseña)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -469,66 +543,6 @@ $ chmod +x speedtest_cli.py
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sources-dot-list/">sources.list</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-29T18:34:00+01:00" pubdate data-updated="true">29-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Archivo que contiene las fuentes o repositorios de los paquetes de software en las distros derivadas de Debian.</p>
-
-<p>Generador de sources.list optimizado via web:</p>
-
-<p><a href="http://debgen.simplylinux.ch/" title="sources.list a la carta">http://debgen.simplylinux.ch/</a></p>
-
-<p>División del programario según Debian y Ubuntu:</p>
-
-<p>DEBIAN:</p>
-
-<p>main (Paquetes 100% libres según las directovas de Debian)</p>
-
-<p>contrib (Paquetes que dependen de alguno que no es 100% libre según las directivas de Debian)</p>
-
-<p>non-free (Paquetes que o bien no cumplen la directiva de Debian o no facilitan el código fuente)</p>
-
-<p>UBUNTU:</p>
-
-<p>main (Paquetes que cumplen los requisitos de la licencia de Ubuntu)</p>
-
-<p>restricted (soportados por los desarrolladores de Ubuntu pero o bien no cumplen su licencia o no se tiene acceso al código fuente)</p>
-
-<p>Universe (Programas mantenidos por la comunidad)</p>
-
-<p>Multiverse (Programas comerciales o privativos de terceras empresas o fabricantes)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/33/">&larr; Older</a>
@@ -544,12 +558,16 @@ $ chmod +x speedtest_cli.py
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1376</li>
+	<li>1377</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/cvlc/">cvlc</a>
+      </li>
     
       <li class="post">
         <a href="/blog/lsscsi/">lsscsi</a>
@@ -585,10 +603,6 @@ $ chmod +x speedtest_cli.py
     
       <li class="post">
         <a href="/blog/ssh-keygen/">ssh-keygen</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/peyote/">peyote</a>
       </li>
     
   </ul>
