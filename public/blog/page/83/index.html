@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Para poder verificar el ancho de banda entre los clientes de una red local. Se instala en todas las máquinas de la red. # iperf -s (Poner el servidor &hellip;">
+  <meta name="description" content="[openipmi]. Obtener datos del estado de un servidor [que lo soporte] tanto en local desde el propio servidor cómo en remoto. Se trata de un chipset &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,73 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ipmitool/">Ipmitool</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-29T18:31:00+01:00" pubdate data-updated="true">29-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[openipmi]. Obtener datos del estado de un servidor [que lo soporte] tanto en local desde el propio servidor cómo en remoto. Se trata de un chipset que permite obtener información del estado de diferentes componentes hardware, temperaturas, voltajes, etc&#8230; Primero habilitar el demon ipmievd:</p>
+
+<blockquote><p># nano /etc/default/ipmievd</p></blockquote>
+
+<p>Y modificar la linea:</p>
+
+<p>ENABLED=true</p>
+
+<p>En algunas distros es preciso cargar los módulos:</p>
+
+<pre><code># ipmi_msghandler
+
+# ipmi_si
+
+# ipmi_devintf
+
+# ipmi_watchdog
+
+# ipmi_poweroff
+</code></pre>
+
+<blockquote><p># /etc/init.d/ipmi start (Arrancar el servicio)</p>
+
+<p># ipmitool sensor get &#8220;Ambient Temp&#8221; (Consulta de la temperatura ambiente)</p>
+
+<p># ipmitool user list (Listado de usuarios configurados)</p>
+
+<p># ipmitool -I lan -H 192.168.1.5 -U usuario sel elist (Litar los logs del sistema)</p>
+
+<p># ipmitool -H 192.168.1.10 -U usuario -P contraseña chassis status (Estado de chasis remoto)</p>
+
+<p># ipmitool sdr type Temperature (Obtener la temperatura)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -563,48 +630,6 @@ gateway 192.168.x.1
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/iostat/">Iostat</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-29T18:31:00+01:00" pubdate data-updated="true">29-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>muestra estadísticas de la CPU y de la entrada y salida de los dispositivos y particiones.</p>
-
-<blockquote><p>$ iostat -x sda -d 1 6 (6 reportes con 1 segundo de intervalo sobre el disco sda. Suprimiendo la última cifra [6] continuará reportando datos hasta finalizar con Ctrl+c)</p>
-
-<p>$ iostat -d 3 (actualizará resultados cada 3 segundos)</p>
-
-<p>$ iostat -p sda (Ver estadisticas de un disco concreto con sus particiones)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/84/">&larr; Older</a>
@@ -620,12 +645,16 @@ gateway 192.168.x.1
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1377</li>
+	<li>1378</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/xscreesaver/">xscreesaver</a>
+      </li>
     
       <li class="post">
         <a href="/blog/lsscsi/">lsscsi</a>
@@ -661,10 +690,6 @@ gateway 192.168.x.1
     
       <li class="post">
         <a href="/blog/nikto/">nikto</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/compilar/">compilar</a>
       </li>
     
   </ul>

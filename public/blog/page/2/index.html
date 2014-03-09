@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="[caca-utils highlight atool w3m poppler-utils mediainfo]. Navegador de archivos estilo vim [ver]. Preferible lanzarlo sobre xterm o urxvt. Algunos &hellip;">
+  <meta name="description" content="[libncurses libncurses-fdev build-essential]. Instalar aplicaciones a partir del codigo fuente . Los comandos standard que se utilizan son: ./ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,65 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/compilar/">Compilar</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-25T21:23:00+01:00" pubdate data-updated="true">25-02-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[libncurses libncurses-fdev build-essential]. Instalar aplicaciones a partir del codigo fuente .    Los comandos standard que se utilizan son: ./configure, make, sudo make install y han de ejecutarse desde el directorio que contiene las fuentes. Configure y make se pueden ejecutar como usuario normal, pero make install generalmente se tiene que ejecutar como administrador por cuestión de permisos.</p>
+
+<p>El script configure [configuración] sirve para comprobar las dependencias y las versiones de las librerias del paquete a instalar creando el archivo makefile que constituye la base de la compilación. Si configure falla no se creará makefile. Configure, normalmente, puede ejecutarse con algunos parametros que, en caso de existir, se especifican en el fichero INSTALL o README y que siempre acompaña al paquete de las fuentes. Tambien puede ejecutarse:</p>
+
+<blockquote><p>$ ./configure &#8211;help</p></blockquote>
+
+<p>para listar los parametros que se pueden usar. Si en el paquete de fuentes a intalar ya existe un archivo makefile no habrá el configure y consecuentemente si se lanza ./configure dará error [No existe el fichero ó directorio] en estos casos puede pasarse directamente al make. Algunas opciones para  configure:</p>
+
+<pre><code>  $ ./configure --prefix=/usr  (donde inslalar el programa)
+
+  $ ./configure --syscinfdir=/etc  (donde colocar los archivos de configuración)
+
+  $ ./configure --locatestatedir=/var/lib  (donde colocar las librerías)
+</code></pre>
+
+<p>El make se encarga de leer el makefile donde se indica los archivos a compilar y el orden en el que deben ser compilados. La ejecución de make genera varios archivos necesarios para la compilación  y que pueden ser eliminados, ya sea al final del proceso    o si este ha de reiniciarse por algún error, con:</p>
+
+<blockquote><p>$ make clean</p></blockquote>
+
+<p>Si el archivo makefile no se ha borrado, Una vez instalado el programa, puede eliminarse con:</p>
+
+<blockquote><p>$ make uninstall</p></blockquote>
+
+<p>make install instala el paquete en el sistema. Una mejor opción a make install es usar checkinstall, lo cual crea un paquete .deb que constará en el listado de programas instalados con lo que se facilitará su desinstalación ya sea por synaptic o apt-get.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1142,116 +1201,6 @@ s (Abrir historial reciente)
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/google/">Google</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-02-07T18:12:00+01:00" pubdate data-updated="true">07-02-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Buscador.</p>
-
-<p>1.-</p>
-
-<p>Mejorar busquedas :</p>
-
-<p>. No reconoce caracteres como el punto [.], el guión [-] o el circunflejo [<sup>]</sup></p>
-
-<p>. Suprimir articulos [campo de futbol -> campo futbol]</p>
-
-<p>. Google no distingue mayúsculas ni minúsculas.</p>
-
-<p>. Comillas. Busquedas textuales [&#8220;ludwig van beethoven&#8221;]</p>
-
-<p>. Operador lógico &#8220;OR&#8221; [mayúsculas] buscar dos conceptos [bach OR wagner]</p>
-
-<p>. Barra vertical. Lo mismo [beethoven|wagner]</p>
-
-<p>. ~ - Buscar palabras parecidas [~palabra]</p>
-
-<p>. related – parecido al anterior [related:www.site.com]</p>
-
-<p>. link - Buscar páginas que apuntan a otra [link:wwww.host.com]</p>
-
-<p>. info - Recabar información sobre un dominio [info:www.host.com]</p>
-
-<p>. Asterisco - Si se desconoce algún dato [&#8220;ludwig * beethoven&#8221;]</p>
-
-<p>. filetype - Buscar extensiones concretas [“comandos linux” filetype:pdf]</p>
-
-<p>. site - Restringir resultados por localización geografica [site:.es arroz, armas site:onion.to …]</p>
-
-<p>. time - Saber la hora de algún lugar [time Sao Paulo]</p>
-
-<p>. sunset - Cuando saldrá el sol en algún lugar [sunset Sao Paulo]</p>
-
-<p>. sunrise - Cuando se pondrá en algún lugar [sunrise Sao Paulo]</p>
-
-<p>. cache - Cuando la página ya no está accesible [cache:www.host.com]</p>
-
-<p>. intitle – las que contengan la palabra o frase en el título [intitle:beethoven]</p>
-
-<p>. allintitle - Las que contengan varias palabras sin necesidad de comillas [allintitle:bach,beethoben]</p>
-
-<p>. intext - Buscar la palabra solo en el texto [intext:bach]</p>
-
-<p>. define – Buscar la definición de una palabra [define:palabra]</p>
-
-<p>. inurl - Buscar por algun detalle en la url [inurl:pipa]</p>
-
-<p>. all inurl - Las que contengan varias palabras en su url</p>
-
-<p>. linux 2012..2013 - Buscar una palabra en artículos entre un rango de años.</p>
-
-<p>. 58*13 - Usar google como calculadora</p>
-
-<p>. 100USD a EUR - Conversor de divisas [EUR = Euro, USD = Dólar, JPY = Yen, GBP = Libra esterlina, CHF = Franco suizo &#8230;]</p>
-
-<p>. 42km/h a m/s - Convertir km/hora a metros/segundo</p>
-
-<p>. 1024 GB to  kb - Convertir gigabytes a kilobytes</p>
-
-<p>. 26hr to sec - Convertir horas a segundos</p>
-
-<p>. Usar el menos [-] y el más [+] para excluir o incluir de una busqueda determinado concepto [comandos -militares, comandos +militares]</p>
-
-<p>. do a barrel roll – La página da una vuelta completa en la pantalla.</p>
-
-<p>2.-</p>
-
-<p>Gdrive (google-docs-fs)</p>
-
-<blockquote><p># mkdir /media/gdrive</p>
-
-<p># gmount /media/gdrive cuenta@gmail.com -d (Pedirá contraseña de la cuenta y mostrando la salida del comando. Para desmontar: gumount /media/gdrive)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -1267,12 +1216,16 @@ s (Abrir historial reciente)
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1377</li>
+	<li>1378</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/xscreesaver/">xscreesaver</a>
+      </li>
     
       <li class="post">
         <a href="/blog/lsscsi/">lsscsi</a>
@@ -1308,10 +1261,6 @@ s (Abrir historial reciente)
     
       <li class="post">
         <a href="/blog/nikto/">nikto</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/compilar/">compilar</a>
       </li>
     
   </ul>
