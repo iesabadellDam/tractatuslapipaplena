@@ -4,7 +4,7 @@
   <title><![CDATA[TRACTATUS ELEMENTALIS]]></title>
   <link href="https://tractatuslapipaplena.herokuapp.com/atom.xml" rel="self"/>
   <link href="https://tractatuslapipaplena.herokuapp.com/"/>
-  <updated>2014-03-24T15:20:44+01:00</updated>
+  <updated>2014-03-30T11:34:23+02:00</updated>
   <id>https://tractatuslapipaplena.herokuapp.com/</id>
   <author>
     <name><![CDATA[templix]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[emacs]]></title>
     <link href="https://tractatuslapipaplena.herokuapp.com/blog/emacs/"/>
-    <updated>2014-03-24T15:20:00+01:00</updated>
+    <updated>2014-03-30T11:34:00+02:00</updated>
     <id>https://tractatuslapipaplena.herokuapp.com/blog/emacs</id>
     <content type="html"><![CDATA[<p>Tutorial completo en español: <a href="http://www.nongnu.org/emacs-man-es/">http://www.nongnu.org/emacs-man-es/</a> . Mucho más que un editor [no un procesador]. Lo que sigue es un pequeño manual de primeros auxilios.</p>
 
@@ -429,7 +429,7 @@ M-x eval-buffer (Si el archivo .emacs se encuentra en un buffer)
 
 <p>8.-</p>
 
-<p>Consultando directorios: dired, navegador de archivos de emacs.</p>
+<p>Consultando directorios: dired, navegador de archivos de emacs [C-x d].</p>
 
 <pre><code>g (Despues de una modificación actualiza la pantalla)
 
@@ -511,6 +511,46 @@ C-c C-k (Cambia a modo caracter)
 </code></pre>
 
 <p>11.-</p>
+
+<p>Abrir archivos de dired con aplicaciones externas pulsando F8:</p>
+
+<p>Copiar en .emacs el siguiente código:</p>
+
+<pre><code>(defun external-app ()
+
+ "In dired, open the file named on this line."
+
+  (interactive)
+
+  (let* ((file (dired-get-filename nil t)))
+
+    (call-process "xdg-open" nil 0 nil file)
+
+(global-set-key (kbd "&lt;f8&gt;") 'external-app)
+</code></pre>
+
+<p>12.-</p>
+
+<p>Abrir archivos de dired con determinadas aplicaciones externas:</p>
+
+<p>Descargar la libreria de <a href="http://stud4.tuwien.ac.at/~e0225855/misc/openwith.el">http://stud4.tuwien.ac.at/~e0225855/misc/openwith.el</a> y moverlo a la carpeta ~/.emacs.d/</p>
+
+<p>Y copiar el siguiente codigó en ~/.emacs:</p>
+
+<pre><code>(add-to-list 'load-path "~/.emacs.d/openwith.el")
+
+(require 'openwith)
+
+(setq openwith-associations '(("\\.pdf\\'" "evince" (file))))
+
+(setq openwith-associations '(("\\.flv\\'" "vlc" (file))))
+
+(openwith-mode t)
+</code></pre>
+
+<p>Colocar tantas lineas del tipo &#8220;(setq openwith-associations &#8216;((&#8220;&#46;flv&#39;&#8221; &#8220;vlc&#8221; (file))))&#8221; como archivos queramos asociar.</p>
+
+<p>13.-</p>
 
 <p>Otros ajustes que pueden incorporarse a .emacs precedidas con la explicación comentada:</p>
 
