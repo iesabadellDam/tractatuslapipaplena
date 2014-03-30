@@ -1,10 +1,12 @@
 ---
 layout: post
 title: "libreoffice"
-date: 2014-01-29 18:32
+date: 2014-03-30 16:37
 comments: true
 categories: 
 ---
+[myspell-ca myspell-es]
+
 Suite ofimática. Ver lo..
 
 1.-
