@@ -1,28 +1,10 @@
 ---
 layout: post
 title: "rdiff-backup"
-date: 2014-04-03 14:53
+date: 2014-04-03 15:37
 comments: true
 categories: 
 ---
-Backups incrementales locales o remotos. La aplicación ha de estar instalada en el cliente y en el servidor.
-
->$ rdiff-backup --force 192.168.1.20::/home/USER/dir_remoto /home/USER/dir_local (Realiza un backup del dir_remota de la máquina 20 de la red y lo guarda en nuestro dir_local sin comprimir)
-
-rdiff-backup
-
-Backups incrementales locales o remotos. La aplicación ha de estar instalada en el cliente y en el servidor.
-
->$ rdiff-backup --force 192.168.1.20::/home/USER/dir_remoto /home/USER/dir_local (Realiza un backup del dir_remota de la máquina 20 de la red y lo guarda en nuestro dir_local sin comprimir)
-
-rdiff-backup
-
-Backups incrementales locales o remotos. La aplicación ha de estar instalada en el cliente y en el servidor.
-
->$ rdiff-backup --force 192.168.1.20::/home/USER/dir_remoto /home/USER/dir_local (Realiza un backup del dir_remota de la máquina 20 de la red y lo guarda en nuestro dir_local sin comprimir)
-
-rdiff-backup
-
 Backups incrementales locales o remotos. La aplicación ha de estar instalada en el cliente y en el servidor.
 
 >$ rdiff-backup --force 192.168.1.20::/home/USER/dir_remoto /home/USER/dir_local (Realiza un backup del dir_remota de la máquina 20 de la red y lo guarda en nuestro dir_local sin comprimir)

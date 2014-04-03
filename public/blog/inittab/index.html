@@ -93,7 +93,7 @@
   
 
 
-<time datetime="2014-04-03T14:51:00+02:00" pubdate data-updated="true">03-04-2014</time>
+<time datetime="2014-04-03T15:35:00+02:00" pubdate data-updated="true">03-04-2014</time>
         
       </p>
     
@@ -101,195 +101,6 @@
 
 
 <div class="entry-content"><p>Fichero que gestiona el inicio del sistema o un cambio de estado (runlevel) con el comando init (ver).</p>
-
-<blockquote><p># nano /etc/inittab</p></blockquote>
-
-<p>Especificación de si el sistema arranca en modo monousuario (1) o multiusuario (2-5). Por defecto 2 o 3:</p>
-
-<pre><code>id:2:initdefault:
-</code></pre>
-
-<p>Scripts que se ejecutarán en el inicio y en el orden que lo harán independientemente del runlevel:</p>
-
-<pre><code>si::sysinit:/etc/init.d/rcS (En algunas distros si::sysinit:/etc/rc.d/rc.sysinit)
-</code></pre>
-
-<p>Este script llama a los scripts del directorio /etc/rcS.d. Por cada runlevel se ejecutan los scripts del directorio correpondiente: rc0.d/, rc1.d/, rc2.d/, rc3.d/, rc4.d/, rc5.d/, rc6.d/, rc.local y rcS.d/. El directorio /etc/rc.local se usa para ejecutar servicios porpios del usuario. En estos directorios los scripts que empiezan por una &#8220;K&#8221; paran servicios y los que empiezan por una &#8220;S&#8221; los arrancan.</p>
-
-<p>Qué hacer si se presiona CTRL-ALT-DEL:</p>
-
-<pre><code>ca:12345:ctrlaltdel:/sbin/shutdown -t1 -a -r now
-</code></pre>
-
-<p>Qué hacer si la corriente se va/vuelve</p>
-
-<pre><code>pf::powerwait:/etc/init.d/powerfail start
-
-pn::powerfailnow:/etc/init.d/powerfail now
-
-po::powerokwait:/etc/init.d/powerfail stop
-</code></pre>
-
-<p>Despues de ejecutar los scripts de inicio, init crea un conjunto de terminales virtuales:</p>
-
-<pre><code>1:2345:respawn:/sbin/getty 38400 tty1
-
-2:23:respawn:/sbin/getty 38400 tty2
-
-3:23:respawn:/sbin/getty 38400 tty3
-
-4:23:respawn:/sbin/getty 38400 tty4
-
-5:23:respawn:/sbin/getty 38400 tty5
-
-6:23:respawn:/sbin/getty 38400 tty6
-</code></pre>
-
-<p>Utilizando la opción respawn, si alguien trata de finalizar uno de estos procesos, el proceso simplemente será regenerado (respawned).</p>
-
-<p>1.-</p>
-
-<p>Entrar de forma automática:</p>
-
-<p>Comentar la siguiente línea</p>
-
-<blockquote><p>#1:2345:respawn:/sbin/getty 38400 tty1</p></blockquote>
-
-<p>Y Agrega la siguiente linea:</p>
-
-<p>1:2345:respawn:/bin/login -f USUARIO tty1 </dev/tty1 >/dev/tty1 2>&amp;1</p>
-
-<p>Siendo USUARIO el nombre de usuario que hará login automático.</p>
-
-<p>inittab</p>
-
-<p>Fichero que gestiona el inicio del sistema o un cambio de estado (runlevel) con el comando init (ver).</p>
-
-<blockquote><p># nano /etc/inittab</p></blockquote>
-
-<p>Especificación de si el sistema arranca en modo monousuario (1) o multiusuario (2-5). Por defecto 2 o 3:</p>
-
-<pre><code>id:2:initdefault:
-</code></pre>
-
-<p>Scripts que se ejecutarán en el inicio y en el orden que lo harán independientemente del runlevel:</p>
-
-<pre><code>si::sysinit:/etc/init.d/rcS (En algunas distros si::sysinit:/etc/rc.d/rc.sysinit)
-</code></pre>
-
-<p>Este script llama a los scripts del directorio /etc/rcS.d. Por cada runlevel se ejecutan los scripts del directorio correpondiente: rc0.d/, rc1.d/, rc2.d/, rc3.d/, rc4.d/, rc5.d/, rc6.d/, rc.local y rcS.d/. El directorio /etc/rc.local se usa para ejecutar servicios porpios del usuario. En estos directorios los scripts que empiezan por una &#8220;K&#8221; paran servicios y los que empiezan por una &#8220;S&#8221; los arrancan.</p>
-
-<p>Qué hacer si se presiona CTRL-ALT-DEL:</p>
-
-<pre><code>ca:12345:ctrlaltdel:/sbin/shutdown -t1 -a -r now
-</code></pre>
-
-<p>Qué hacer si la corriente se va/vuelve</p>
-
-<pre><code>pf::powerwait:/etc/init.d/powerfail start
-
-pn::powerfailnow:/etc/init.d/powerfail now
-
-po::powerokwait:/etc/init.d/powerfail stop
-</code></pre>
-
-<p>Despues de ejecutar los scripts de inicio, init crea un conjunto de terminales virtuales:</p>
-
-<pre><code>1:2345:respawn:/sbin/getty 38400 tty1
-
-2:23:respawn:/sbin/getty 38400 tty2
-
-3:23:respawn:/sbin/getty 38400 tty3
-
-4:23:respawn:/sbin/getty 38400 tty4
-
-5:23:respawn:/sbin/getty 38400 tty5
-
-6:23:respawn:/sbin/getty 38400 tty6
-</code></pre>
-
-<p>Utilizando la opción respawn, si alguien trata de finalizar uno de estos procesos, el proceso simplemente será regenerado (respawned).</p>
-
-<p>1.-</p>
-
-<p>Entrar de forma automática:</p>
-
-<p>Comentar la siguiente línea</p>
-
-<blockquote><p>#1:2345:respawn:/sbin/getty 38400 tty1</p></blockquote>
-
-<p>Y Agrega la siguiente linea:</p>
-
-<p>1:2345:respawn:/bin/login -f USUARIO tty1 </dev/tty1 >/dev/tty1 2>&amp;1</p>
-
-<p>Siendo USUARIO el nombre de usuario que hará login automático.</p>
-
-<p>inittab</p>
-
-<p>Fichero que gestiona el inicio del sistema o un cambio de estado (runlevel) con el comando init (ver).</p>
-
-<blockquote><p># nano /etc/inittab</p></blockquote>
-
-<p>Especificación de si el sistema arranca en modo monousuario (1) o multiusuario (2-5). Por defecto 2 o 3:</p>
-
-<pre><code>id:2:initdefault:
-</code></pre>
-
-<p>Scripts que se ejecutarán en el inicio y en el orden que lo harán independientemente del runlevel:</p>
-
-<pre><code>si::sysinit:/etc/init.d/rcS (En algunas distros si::sysinit:/etc/rc.d/rc.sysinit)
-</code></pre>
-
-<p>Este script llama a los scripts del directorio /etc/rcS.d. Por cada runlevel se ejecutan los scripts del directorio correpondiente: rc0.d/, rc1.d/, rc2.d/, rc3.d/, rc4.d/, rc5.d/, rc6.d/, rc.local y rcS.d/. El directorio /etc/rc.local se usa para ejecutar servicios porpios del usuario. En estos directorios los scripts que empiezan por una &#8220;K&#8221; paran servicios y los que empiezan por una &#8220;S&#8221; los arrancan.</p>
-
-<p>Qué hacer si se presiona CTRL-ALT-DEL:</p>
-
-<pre><code>ca:12345:ctrlaltdel:/sbin/shutdown -t1 -a -r now
-</code></pre>
-
-<p>Qué hacer si la corriente se va/vuelve</p>
-
-<pre><code>pf::powerwait:/etc/init.d/powerfail start
-
-pn::powerfailnow:/etc/init.d/powerfail now
-
-po::powerokwait:/etc/init.d/powerfail stop
-</code></pre>
-
-<p>Despues de ejecutar los scripts de inicio, init crea un conjunto de terminales virtuales:</p>
-
-<pre><code>1:2345:respawn:/sbin/getty 38400 tty1
-
-2:23:respawn:/sbin/getty 38400 tty2
-
-3:23:respawn:/sbin/getty 38400 tty3
-
-4:23:respawn:/sbin/getty 38400 tty4
-
-5:23:respawn:/sbin/getty 38400 tty5
-
-6:23:respawn:/sbin/getty 38400 tty6
-</code></pre>
-
-<p>Utilizando la opción respawn, si alguien trata de finalizar uno de estos procesos, el proceso simplemente será regenerado (respawned).</p>
-
-<p>1.-</p>
-
-<p>Entrar de forma automática:</p>
-
-<p>Comentar la siguiente línea</p>
-
-<blockquote><p>#1:2345:respawn:/sbin/getty 38400 tty1</p></blockquote>
-
-<p>Y Agrega la siguiente linea:</p>
-
-<p>1:2345:respawn:/bin/login -f USUARIO tty1 </dev/tty1 >/dev/tty1 2>&amp;1</p>
-
-<p>Siendo USUARIO el nombre de usuario que hará login automático.</p>
-
-<p>inittab</p>
-
-<p>Fichero que gestiona el inicio del sistema o un cambio de estado (runlevel) con el comando init (ver).</p>
 
 <blockquote><p># nano /etc/inittab</p></blockquote>
 
@@ -371,7 +182,7 @@ po::powerokwait:/etc/init.d/powerfail stop
   
 
 
-<time datetime="2014-04-03T14:51:00+02:00" pubdate data-updated="true">03-04-2014</time>
+<time datetime="2014-04-03T15:35:00+02:00" pubdate data-updated="true">03-04-2014</time>
       
 
 

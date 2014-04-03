@@ -1,70 +1,10 @@
 ---
 layout: post
 title: "user-dirs.dirs"
-date: 2014-04-03 14:54
+date: 2014-04-03 15:38
 comments: true
 categories: 
 ---
-Archivo donde se especifican los directorios que saldran por defecto en el $HOME:
-
-XDG_DESKTOP_DIR=”$HOME/Escritorio”
-
-XDG_DOWNLOAD_DIR=”$HOME/Descargas”
-
-XDG_TEMPLATES_DIR=”$HOME/Plantillas”
-
-XDG_PUBLICSHARE_DIR=”$HOME/Público”
-
-XDG_DOCUMENTS_DIR=”$HOME/Documentos”
-
-XDG_MUSIC_DIR=”$HOME/Música”
-
-XDG_PICTURES_DIR=”$HOME/Imágenes”
-
-XDG_VIDEOS_DIR=”$HOME/Vídeos”
-
-user-dirs.dirs (archivo $HOME/.config/user-dirs.dirs)
-
-Archivo donde se especifican los directorios que saldran por defecto en el $HOME:
-
-XDG_DESKTOP_DIR=”$HOME/Escritorio”
-
-XDG_DOWNLOAD_DIR=”$HOME/Descargas”
-
-XDG_TEMPLATES_DIR=”$HOME/Plantillas”
-
-XDG_PUBLICSHARE_DIR=”$HOME/Público”
-
-XDG_DOCUMENTS_DIR=”$HOME/Documentos”
-
-XDG_MUSIC_DIR=”$HOME/Música”
-
-XDG_PICTURES_DIR=”$HOME/Imágenes”
-
-XDG_VIDEOS_DIR=”$HOME/Vídeos”
-
-user-dirs.dirs (archivo $HOME/.config/user-dirs.dirs)
-
-Archivo donde se especifican los directorios que saldran por defecto en el $HOME:
-
-XDG_DESKTOP_DIR=”$HOME/Escritorio”
-
-XDG_DOWNLOAD_DIR=”$HOME/Descargas”
-
-XDG_TEMPLATES_DIR=”$HOME/Plantillas”
-
-XDG_PUBLICSHARE_DIR=”$HOME/Público”
-
-XDG_DOCUMENTS_DIR=”$HOME/Documentos”
-
-XDG_MUSIC_DIR=”$HOME/Música”
-
-XDG_PICTURES_DIR=”$HOME/Imágenes”
-
-XDG_VIDEOS_DIR=”$HOME/Vídeos”
-
-user-dirs.dirs (archivo $HOME/.config/user-dirs.dirs)
-
 Archivo donde se especifican los directorios que saldran por defecto en el $HOME:
 
 XDG_DESKTOP_DIR=”$HOME/Escritorio”

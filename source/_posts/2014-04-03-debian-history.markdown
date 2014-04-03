@@ -1,28 +1,10 @@
 ---
 layout: post
 title: "debian-history"
-date: 2014-04-03 14:50
+date: 2014-04-03 15:34
 comments: true
 categories: 
 ---
-Historia de la distro Debian. Los idiomas disponibles son: Inglés, francés, alemán, italiano, japonés, coreano, portugués, ruso y lituano. Colocar en la barra de navegación [para el idioma francés]:
-
-	http://usr/share/doc/debian-history/fr/index.fr.html
-
-debian-history
-
-Historia de la distro Debian. Los idiomas disponibles son: Inglés, francés, alemán, italiano, japonés, coreano, portugués, ruso y lituano. Colocar en la barra de navegación [para el idioma francés]:
-
-	http://usr/share/doc/debian-history/fr/index.fr.html
-
-debian-history
-
-Historia de la distro Debian. Los idiomas disponibles son: Inglés, francés, alemán, italiano, japonés, coreano, portugués, ruso y lituano. Colocar en la barra de navegación [para el idioma francés]:
-
-	http://usr/share/doc/debian-history/fr/index.fr.html
-
-debian-history
-
 Historia de la distro Debian. Los idiomas disponibles son: Inglés, francés, alemán, italiano, japonés, coreano, portugués, ruso y lituano. Colocar en la barra de navegación [para el idioma francés]:
 
 	http://usr/share/doc/debian-history/fr/index.fr.html
