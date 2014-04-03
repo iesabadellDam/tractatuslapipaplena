@@ -93,7 +93,7 @@
   
 
 
-<time datetime="2014-01-29T18:34:00+01:00" pubdate data-updated="true">29-01-2014</time>
+<time datetime="2014-04-03T14:54:00+02:00" pubdate data-updated="true">03-04-2014</time>
         
       </p>
     
@@ -101,6 +101,228 @@
 
 
 <div class="entry-content"><p>Permite monitorizar [o tomar el control] el acceso a las terminales por parte de servicios remotos [ssh, telnet&#8230;]</p>
+
+<p>Habilitar la aceptación de contraseñas por parte de ssh:</p>
+
+<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
+
+<p>Descomentar y modificar el parámetro:</p>
+
+<p>UseLogin yes</p>
+
+<p>Guardar y reiniciar ssh:</p>
+
+<blockquote><p># /etc/init.d/ssh restart</p></blockquote>
+
+<p>Reemplazar el login original por el ttysnnops.</p>
+
+<blockquote><p># cd /bin/</p>
+
+<p># cp -a login lg</p>
+
+<p># cp -a /usr/sbin/ttysnoops /bin/login</p></blockquote>
+
+<p>Si al lanzar el último comando sale algo parecido a:</p>
+
+<p>cp: no se ha podido crear el fichero ordinario «/bin/login»: Text file busy</p>
+
+<p>Es que existe alguna consola tty funcionando, aunque no sea como root o root está activo en alguna pts. Matar las consolas y salir de los procesos.</p>
+
+<p>Cambiar los permisos del nuevo login:</p>
+
+<blockquote><p># chmod 4755 /bin/login</p></blockquote>
+
+<p>Editar:</p>
+
+<blockquote><p># nano /etc/snooptab</p></blockquote>
+
+<p>Y modificar la linea:</p>
+
+<pre><code>* socket login /bin/login 
+</code></pre>
+
+<p>por:</p>
+
+<pre><code>* socket login /bin/lg 
+</code></pre>
+
+<p>Cuando por los comandos &#8220;who&#8221; o &#8220;finger&#8221; observemos que alguien se ha conectado a nuestra máquina:</p>
+
+<blockquote><p># who</p></blockquote>
+
+<p>marquex  pts/2        2010-09-24 16:59 (tux.local)</p>
+
+<p>marquex  tty7         2010-09-24 16:42 (:0)</p>
+
+<p>marquex  pts/0        2010-09-24 16:50 (:0.0)</p>
+
+<p>Lanzar la aplicación:</p>
+
+<blockquote><p># ttysnoop 2</p></blockquote>
+
+<p>Connected to /dev/pts/2 snoop server&#8230;</p>
+
+<p>Ctrl+&#8217;&#39; (ASCII 28) to suspend, Ctrl+&#8217;-&#8217; (ASCII 31) to terminate.</p>
+
+<p>Snoop password:</p>
+
+<p>Verified OK&#8230; Snoop started.</p>
+
+<p>La contraseña a introducir tiene que ser la de root, no vale la de usuario con sudo, por tanto los ubunteros:</p>
+
+<blockquote><p># passwd root</p></blockquote>
+
+<p>ttysnoop</p>
+
+<p>Permite monitorizar [o tomar el control] el acceso a las terminales por parte de servicios remotos [ssh, telnet&#8230;]</p>
+
+<p>Habilitar la aceptación de contraseñas por parte de ssh:</p>
+
+<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
+
+<p>Descomentar y modificar el parámetro:</p>
+
+<p>UseLogin yes</p>
+
+<p>Guardar y reiniciar ssh:</p>
+
+<blockquote><p># /etc/init.d/ssh restart</p></blockquote>
+
+<p>Reemplazar el login original por el ttysnnops.</p>
+
+<blockquote><p># cd /bin/</p>
+
+<p># cp -a login lg</p>
+
+<p># cp -a /usr/sbin/ttysnoops /bin/login</p></blockquote>
+
+<p>Si al lanzar el último comando sale algo parecido a:</p>
+
+<p>cp: no se ha podido crear el fichero ordinario «/bin/login»: Text file busy</p>
+
+<p>Es que existe alguna consola tty funcionando, aunque no sea como root o root está activo en alguna pts. Matar las consolas y salir de los procesos.</p>
+
+<p>Cambiar los permisos del nuevo login:</p>
+
+<blockquote><p># chmod 4755 /bin/login</p></blockquote>
+
+<p>Editar:</p>
+
+<blockquote><p># nano /etc/snooptab</p></blockquote>
+
+<p>Y modificar la linea:</p>
+
+<pre><code>* socket login /bin/login 
+</code></pre>
+
+<p>por:</p>
+
+<pre><code>* socket login /bin/lg 
+</code></pre>
+
+<p>Cuando por los comandos &#8220;who&#8221; o &#8220;finger&#8221; observemos que alguien se ha conectado a nuestra máquina:</p>
+
+<blockquote><p># who</p></blockquote>
+
+<p>marquex  pts/2        2010-09-24 16:59 (tux.local)</p>
+
+<p>marquex  tty7         2010-09-24 16:42 (:0)</p>
+
+<p>marquex  pts/0        2010-09-24 16:50 (:0.0)</p>
+
+<p>Lanzar la aplicación:</p>
+
+<blockquote><p># ttysnoop 2</p></blockquote>
+
+<p>Connected to /dev/pts/2 snoop server&#8230;</p>
+
+<p>Ctrl+&#8217;&#39; (ASCII 28) to suspend, Ctrl+&#8217;-&#8217; (ASCII 31) to terminate.</p>
+
+<p>Snoop password:</p>
+
+<p>Verified OK&#8230; Snoop started.</p>
+
+<p>La contraseña a introducir tiene que ser la de root, no vale la de usuario con sudo, por tanto los ubunteros:</p>
+
+<blockquote><p># passwd root</p></blockquote>
+
+<p>ttysnoop</p>
+
+<p>Permite monitorizar [o tomar el control] el acceso a las terminales por parte de servicios remotos [ssh, telnet&#8230;]</p>
+
+<p>Habilitar la aceptación de contraseñas por parte de ssh:</p>
+
+<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
+
+<p>Descomentar y modificar el parámetro:</p>
+
+<p>UseLogin yes</p>
+
+<p>Guardar y reiniciar ssh:</p>
+
+<blockquote><p># /etc/init.d/ssh restart</p></blockquote>
+
+<p>Reemplazar el login original por el ttysnnops.</p>
+
+<blockquote><p># cd /bin/</p>
+
+<p># cp -a login lg</p>
+
+<p># cp -a /usr/sbin/ttysnoops /bin/login</p></blockquote>
+
+<p>Si al lanzar el último comando sale algo parecido a:</p>
+
+<p>cp: no se ha podido crear el fichero ordinario «/bin/login»: Text file busy</p>
+
+<p>Es que existe alguna consola tty funcionando, aunque no sea como root o root está activo en alguna pts. Matar las consolas y salir de los procesos.</p>
+
+<p>Cambiar los permisos del nuevo login:</p>
+
+<blockquote><p># chmod 4755 /bin/login</p></blockquote>
+
+<p>Editar:</p>
+
+<blockquote><p># nano /etc/snooptab</p></blockquote>
+
+<p>Y modificar la linea:</p>
+
+<pre><code>* socket login /bin/login 
+</code></pre>
+
+<p>por:</p>
+
+<pre><code>* socket login /bin/lg 
+</code></pre>
+
+<p>Cuando por los comandos &#8220;who&#8221; o &#8220;finger&#8221; observemos que alguien se ha conectado a nuestra máquina:</p>
+
+<blockquote><p># who</p></blockquote>
+
+<p>marquex  pts/2        2010-09-24 16:59 (tux.local)</p>
+
+<p>marquex  tty7         2010-09-24 16:42 (:0)</p>
+
+<p>marquex  pts/0        2010-09-24 16:50 (:0.0)</p>
+
+<p>Lanzar la aplicación:</p>
+
+<blockquote><p># ttysnoop 2</p></blockquote>
+
+<p>Connected to /dev/pts/2 snoop server&#8230;</p>
+
+<p>Ctrl+&#8217;&#39; (ASCII 28) to suspend, Ctrl+&#8217;-&#8217; (ASCII 31) to terminate.</p>
+
+<p>Snoop password:</p>
+
+<p>Verified OK&#8230; Snoop started.</p>
+
+<p>La contraseña a introducir tiene que ser la de root, no vale la de usuario con sudo, por tanto los ubunteros:</p>
+
+<blockquote><p># passwd root</p></blockquote>
+
+<p>ttysnoop</p>
+
+<p>Permite monitorizar [o tomar el control] el acceso a las terminales por parte de servicios remotos [ssh, telnet&#8230;]</p>
 
 <p>Habilitar la aceptación de contraseñas por parte de ssh:</p>
 
@@ -193,7 +415,7 @@
   
 
 
-<time datetime="2014-01-29T18:34:00+01:00" pubdate data-updated="true">29-01-2014</time>
+<time datetime="2014-04-03T14:54:00+02:00" pubdate data-updated="true">03-04-2014</time>
       
 
 
@@ -234,43 +456,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/emacs/">emacs</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/libreoffice/">libreoffice</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tar/">tar</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/chmod/">chmod</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdf2ps/">pdf2ps</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/xscreesaver/">xscreesaver</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lsscsi/">lsscsi</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/apt-get/">apt-get</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lsof/">lsof</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/cvlc/">cvlc</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

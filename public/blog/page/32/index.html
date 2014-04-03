@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Montar un sistema de archivos remoto en local. # sshfs usuario@host_o_IP:/home/usuario /home/usuario/remoto # fusermount -u /home/usuario/remoto ( &hellip;">
+  <meta name="description" content="1.- Para ver las tarjetas de sonido instaladas $ cat /proc/asound/cards 0 [Intel ]: HDA-Intel - HDA Intel HDA Intel at 0xe4100000 irq 169 1 [SAA7134 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/sshfs/">Sshfs</a></h1>
+      <h1 class="entry-title"><a href="/blog/sonido/">Sonido</a></h1>
     
     
       <p class="meta">
@@ -96,540 +96,466 @@
   
 
 
-<time datetime="2014-01-29T18:34:00+01:00" pubdate data-updated="true">29-01-2014</time>
+<time datetime="2014-04-03T14:53:00+02:00" pubdate data-updated="true">03-04-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Montar un sistema de archivos remoto en local.</p>
+  <div class="entry-content"><p>1.-</p>
 
-<blockquote><p># sshfs usuario@host_o_IP:/home/usuario /home/usuario/remoto</p>
+<p>Para ver las tarjetas de sonido instaladas</p>
 
-<p># fusermount -u /home/usuario/remoto  (Desmontarlo)</p></blockquote>
-</div>
-  
-  
+<blockquote><p>$ cat /proc/asound/cards</p></blockquote>
 
+<p>0 [Intel ]: HDA-Intel - HDA Intel</p>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sshd/">Sshd</a></h1>
-    
-    
-      <p class="meta">
-        
+<p>HDA Intel at 0xe4100000 irq 169</p>
 
+<p>1 [SAA7134 ]: SAA7134 - SAA7134</p>
 
+<p>saa7133[0] at 0xe4000000 irq 233</p>
 
+<p>2 [CMI8738MC6 ]: CMI8738-MC6 - C-Media PCI CMI8738-MC6</p>
 
+<p>C-Media PCI CMI8738-MC6 (model 55) at 0xa000, irq 225</p>
 
+<blockquote><p># asoundconf set-default-card 1 (para activar la 1)</p></blockquote>
 
+<p>Editar el fichero /etc/alsa/alsa.conf y poner estas líneas:</p>
 
+<pre><code>defaults.ctl.card 1 
 
-  
+defaults.pcm.card 1 
 
+defaults.pcm.device 1 
+</code></pre>
 
-<time datetime="2014-01-29T18:34:00+01:00" pubdate data-updated="true">29-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Demonio ssh</p>
-
-<blockquote><p>$ sshd -t (Verificar si existen errores en el archivo de configuración)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ssh/">Ssh</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-29T18:34:00+01:00" pubdate data-updated="true">29-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Comunicación cifrada entre dos máquinas.</p>
-
-<blockquote><p>$ ssh usuario@host (básica)</p>
-
-<p>$ ssh -v usuario@IP_o_host (comprobar errores en una conexión)</p>
-
-<p>$ ssh -p 4000 usuario@host (especificando un puerto)</p>
-
-<p>$ ssh -fND localhost:2080 usuario@host (Crear un servidor proxy en una máquina remota. La “N” es para que no se puedan ejecutar comandos)</p>
-
-<p>$ ssh -X -Y usuario@host akregator (Lanzar una aplicación remota en local. Ver punto 11 de esta entrada)</p>
-
-<p>$ ssh usuario@host ls (lanzar un comando remoto y visualizarlo en local)</p>
-
-<p>$ ssh -t usuario@host newsbeuter  (lo mismo si precisa consola)</p>
-
-<p>$ ssh -D 9999 usuario@host (abrir un puerto a partir del cual tunelar una conexión)</p>
-
-<p>$ ssh user@host_ip &#8216;DISPLAY=&#8221;:0.0&#8221; import -window root screenshot.png&#8217; (realizar pantallazo de una sesión remota. Se archiva en el remoto no en local)</p>
-
-<p>$ ssh usuario@host &#8220;tar -cf - /home/usuario/dir&#8221; | gzip dir.tar.gz (Comprimir un directorio remoto)</p>
-
-<p># gedit /var/run/motd   (modificar el mensaje de bienvenida de ssh)</p></blockquote>
-
-<p>1.-</p>
-
-<p>conexión remota. El servidor ha de tener el archivo /etc/ssh/sshd_config con los siguientes parámetros:</p>
-
-<p>AllowTcpForwarding yes</p>
-
-<p>GatewayPorts yes</p>
-
-<p>Luego configurar Firefox para usar un servidor proxy 127.0.0.1 puerto 9999.</p>
+<p>Los cambios son automáticos, no hay ni que reiniciar el servicio.</p>
 
 <p>2.-</p>
 
-<blockquote><p># gedit /etc/issue.net   (modificar el mensaje antes del login. Para activarlo, descomentar del archivo “/etc/ssh/sshd_config” la línea: Banner /etc/issue.net)</p></blockquote>
+<p>Cuando al reiniciar el sonido aparece silenciado:</p>
+
+<blockquote><p># gedit /etc/pulse/default.pa</p></blockquote>
+
+<p>Comentar la linea: # load-module module-device-restore</p>
 
 <p>3.-</p>
 
-<p>Tunel inverso:</p>
+<p>Sin sonido con flash</p>
 
-<blockquote><p>$ ssh -R 10000:localhost:22 usuario2@host2 (lanzado desde host1 hacia host2 crea un tunel por el puerto 10000)</p>
+<p>Si no existe, crear el archivo:</p>
 
-<p>$ ssh usuario2@host2 (Lanzado desde host3 hacia host2)</p></blockquote>
+<blockquote><p>$ sudo touch /etc/asound.conf</p>
 
-<p>Una vez entrado en host2, lanzar:</p>
+<p># nano /etc/asound.conf</p></blockquote>
 
-<blockquote><p>$ ssh usuario1@localhost -p 10000 (Para conectar el host3 con el host1)</p></blockquote>
+<p>Pegar:</p>
+
+<pre><code>pcm.pulse { 
+
+type pulse 
+
+} 
+
+ctl.pulse { 
+
+type pulse 
+
+} 
+
+pcm.!default { 
+
+type pulse 
+
+} 
+
+ctl.!default { 
+
+type pulse 
+
+} 
+</code></pre>
+
+<p>Reiniciar.</p>
 
 <p>4.-</p>
 
-<p>Crear clave publica para acceder a un remoto sin que pida identificación:</p>
+<p>Si Java bloquea el dispositivo de sonido en lugar de usar Pulseaudio</p>
 
-<blockquote><p>$ ssh-keygen -b 4096 -t rsa  (Crear la clave)</p>
+<blockquote><p># cd /usr/lib/jvm/java-6-sun/jre/bin/</p>
 
-<p>$ ssh-copy-id usuario@IP_o_HOST (enviar la clave al remoto)</p></blockquote>
+<p># mv java java.bin</p>
+
+<p># nano /usr/lib/jvm/java-6-sun/jre/bin/java</p></blockquote>
+
+<p>Y copiar en su interior:</p>
+
+<blockquote><p>#!/bin/bash</p></blockquote>
+
+<p>padsp /usr/lib/jvm/java-6-sun/jre/bin/java.bin &#8220;$@&#8221;</p>
+
+<blockquote><p># chmod +x java (darle permisos)</p></blockquote>
 
 <p>5.-</p>
 
-<p>Para deshabilitar el acceso a todos los usuarios excepto a root:</p>
+<p>Substituir pulseaudio por alsa:</p>
 
-<blockquote><p># touch /etc/nologin</p>
+<blockquote><p># apt-add-repository ppa:dtl131/ppa  (Añadir los repositorios gnome-media/applets/settings-daemon)</p>
 
-<p># chmod 644 /etc/nologin</p></blockquote>
+<p># apt-get update  (Actualizar el sistema)</p>
 
-<p>6.-</p>
+<p># apt-get upgrade</p>
 
-<p>Deshabilitar/personalizar los mensajes que aparecen cuando nos logueamos en algunas distros a un host remoto mediante SSH.</p>
+<p># apt-get install esound esound-clients esound-common libesd-alsa0 alsa-base alsa-tools alsa-utils alsa-oss linux-sound-base python-alsaaudio gnome-media libsdl1.2debian-alsa  (Instalar paquetes de alsa)</p>
 
-<blockquote><p>$ touch /home/usuario/.hushlogin (Creando este fichero vacio se deshabilitan los mensajes. Borrandolo vuelven a aparecer)</p>
+<p># apt-get purge libcanberra-pulse pulseaudio pulseaudio-esound-compat pulseaudio-module-bluetooth pulseaudio-module-gconf pulseaudio-module-udev pulseaudio-module-x11 gstreamer0.10-pulseaudio pulseaudio-utils pavucontrol  (Desinstalar los paquetes de pulseaudio)</p></blockquote>
 
-<p># nano /etc/motd (Archivo para personalizar los mensaje de bienvenida a quien se loguea en el sistema)</p></blockquote>
+<p>Reiniciar</p>
 
-<p>7.-</p>
+<p>sonido</p>
 
-<p>Crear un atajo para la conexión a un servidor remoto:</p>
+<p>1.-</p>
 
-<blockquote><p>$ nano .ssh/config</p></blockquote>
+<p>Para ver las tarjetas de sonido instaladas</p>
 
-<p>Y pegar el siguiente contenido debidamente modificado con nuestros datos:</p>
+<blockquote><p>$ cat /proc/asound/cards</p></blockquote>
 
-<pre><code>host servidor
+<p>0 [Intel ]: HDA-Intel - HDA Intel</p>
 
- hostname 192.168.1.10 
+<p>HDA Intel at 0xe4100000 irq 169</p>
 
- user USUARIO_REMOTO
+<p>1 [SAA7134 ]: SAA7134 - SAA7134</p>
+
+<p>saa7133[0] at 0xe4000000 irq 233</p>
+
+<p>2 [CMI8738MC6 ]: CMI8738-MC6 - C-Media PCI CMI8738-MC6</p>
+
+<p>C-Media PCI CMI8738-MC6 (model 55) at 0xa000, irq 225</p>
+
+<blockquote><p># asoundconf set-default-card 1 (para activar la 1)</p></blockquote>
+
+<p>Editar el fichero /etc/alsa/alsa.conf y poner estas líneas:</p>
+
+<pre><code>defaults.ctl.card 1 
+
+defaults.pcm.card 1 
+
+defaults.pcm.device 1 
 </code></pre>
 
-<p>Nota.- Delante de la segunda y tercera linea existe un espacio.</p>
+<p>Los cambios son automáticos, no hay ni que reiniciar el servicio.</p>
 
-<p>Al crear este archivo, la conexión se realizará con:</p>
+<p>2.-</p>
 
-<blockquote><p>$ ssh servidor (Pedirá igualmente contraseña)</p></blockquote>
+<p>Cuando al reiniciar el sonido aparece silenciado:</p>
 
-<p>8.-</p>
+<blockquote><p># gedit /etc/pulse/default.pa</p></blockquote>
 
-<p>Evitar desconexiones por inactividad:</p>
+<p>Comentar la linea: # load-module module-device-restore</p>
 
-<blockquote><p>$ nano .ssh/config</p></blockquote>
+<p>3.-</p>
 
-<p>Y pegar el siguiente contenido:</p>
+<p>Sin sonido con flash</p>
 
-<pre><code>Host *
+<p>Si no existe, crear el archivo:</p>
 
-    ServerAliveInterval 120
+<blockquote><p>$ sudo touch /etc/asound.conf</p>
 
-    ServerAliveCountMax 3
+<p># nano /etc/asound.conf</p></blockquote>
+
+<p>Pegar:</p>
+
+<pre><code>pcm.pulse { 
+
+type pulse 
+
+} 
+
+ctl.pulse { 
+
+type pulse 
+
+} 
+
+pcm.!default { 
+
+type pulse 
+
+} 
+
+ctl.!default { 
+
+type pulse 
+
+} 
 </code></pre>
 
-<p>9.-</p>
+<p>Reiniciar.</p>
 
-<p>Añadir un registro de las acciones realizadas dentro de cada sesión SFTP</p>
+<p>4.-</p>
 
-<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
+<p>Si Java bloquea el dispositivo de sonido en lugar de usar Pulseaudio</p>
 
-<p>Y dejar la linea como se indica:</p>
+<blockquote><p># cd /usr/lib/jvm/java-6-sun/jre/bin/</p>
 
-<p>Subsystem sftp /usr/lib/openssh/sftp-server -l INFO</p>
+<p># mv java java.bin</p>
 
-<p>Tras reiniciar ssh, el registro se plasmará en /var/log/auth.log</p>
+<p># nano /usr/lib/jvm/java-6-sun/jre/bin/java</p></blockquote>
 
-<p>10.-</p>
+<p>Y copiar en su interior:</p>
 
-<p>Aumentando la seguridad del servidor ssh:</p>
+<blockquote><p>#!/bin/bash</p></blockquote>
 
-<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
+<p>padsp /usr/lib/jvm/java-6-sun/jre/bin/java.bin &#8220;$@&#8221;</p>
 
-<p>Y añadir o modificar las siguientes lineas:</p>
+<blockquote><p># chmod +x java (darle permisos)</p></blockquote>
 
-<pre><code>AllowUsers juan pedro andrés (Limitando a uno o varios los usuarios autorizados)
+<p>5.-</p>
 
-AllowGroup oficina (Restringir acceso a solo un grupo)
+<p>Substituir pulseaudio por alsa:</p>
 
-Port 372 (Modificando puerto. Aconsejable uno inferior al 1024)
+<blockquote><p># apt-add-repository ppa:dtl131/ppa  (Añadir los repositorios gnome-media/applets/settings-daemon)</p>
 
-LoginGraceTime 40 (Mostrar la pantalla de login 40 segundos antes de cerrarse)
+<p># apt-get update  (Actualizar el sistema)</p>
 
-MaxStartups 4 (Cantidad máxima de conexiones simultaneas)
+<p># apt-get upgrade</p>
 
-MaxAuthTries 3 (Limitar el número de intentos de logeo, tras los cuales se cierra la conexión)
+<p># apt-get install esound esound-clients esound-common libesd-alsa0 alsa-base alsa-tools alsa-utils alsa-oss linux-sound-base python-alsaaudio gnome-media libsdl1.2debian-alsa  (Instalar paquetes de alsa)</p>
+
+<p># apt-get purge libcanberra-pulse pulseaudio pulseaudio-esound-compat pulseaudio-module-bluetooth pulseaudio-module-gconf pulseaudio-module-udev pulseaudio-module-x11 gstreamer0.10-pulseaudio pulseaudio-utils pavucontrol  (Desinstalar los paquetes de pulseaudio)</p></blockquote>
+
+<p>Reiniciar</p>
+
+<p>sonido</p>
+
+<p>1.-</p>
+
+<p>Para ver las tarjetas de sonido instaladas</p>
+
+<blockquote><p>$ cat /proc/asound/cards</p></blockquote>
+
+<p>0 [Intel ]: HDA-Intel - HDA Intel</p>
+
+<p>HDA Intel at 0xe4100000 irq 169</p>
+
+<p>1 [SAA7134 ]: SAA7134 - SAA7134</p>
+
+<p>saa7133[0] at 0xe4000000 irq 233</p>
+
+<p>2 [CMI8738MC6 ]: CMI8738-MC6 - C-Media PCI CMI8738-MC6</p>
+
+<p>C-Media PCI CMI8738-MC6 (model 55) at 0xa000, irq 225</p>
+
+<blockquote><p># asoundconf set-default-card 1 (para activar la 1)</p></blockquote>
+
+<p>Editar el fichero /etc/alsa/alsa.conf y poner estas líneas:</p>
+
+<pre><code>defaults.ctl.card 1 
+
+defaults.pcm.card 1 
+
+defaults.pcm.device 1 
 </code></pre>
 
-<p>11.-</p>
+<p>Los cambios son automáticos, no hay ni que reiniciar el servicio.</p>
 
-<p>Ajustes para tunelar aplicaciones gráficas:</p>
+<p>2.-</p>
 
-<p>En el servidor:</p>
+<p>Cuando al reiniciar el sonido aparece silenciado:</p>
 
-<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
+<blockquote><p># gedit /etc/pulse/default.pa</p></blockquote>
 
-<pre><code>AllowTcpForwarding yes
+<p>Comentar la linea: # load-module module-device-restore</p>
 
-X11Forwarding yes
+<p>3.-</p>
 
-X11DisplayOffset 10
+<p>Sin sonido con flash</p>
 
-X11UseLocalhost yes
+<p>Si no existe, crear el archivo:</p>
+
+<blockquote><p>$ sudo touch /etc/asound.conf</p>
+
+<p># nano /etc/asound.conf</p></blockquote>
+
+<p>Pegar:</p>
+
+<pre><code>pcm.pulse { 
+
+type pulse 
+
+} 
+
+ctl.pulse { 
+
+type pulse 
+
+} 
+
+pcm.!default { 
+
+type pulse 
+
+} 
+
+ctl.!default { 
+
+type pulse 
+
+} 
 </code></pre>
 
-<p>En la máquina cliente:</p>
+<p>Reiniciar.</p>
 
-<blockquote><p># nano /etc/ssh/ssh_config</p></blockquote>
+<p>4.-</p>
 
-<pre><code>ForwardX11 yes
+<p>Si Java bloquea el dispositivo de sonido en lugar de usar Pulseaudio</p>
 
-ForwardX11Trusted yes
+<blockquote><p># cd /usr/lib/jvm/java-6-sun/jre/bin/</p>
+
+<p># mv java java.bin</p>
+
+<p># nano /usr/lib/jvm/java-6-sun/jre/bin/java</p></blockquote>
+
+<p>Y copiar en su interior:</p>
+
+<blockquote><p>#!/bin/bash</p></blockquote>
+
+<p>padsp /usr/lib/jvm/java-6-sun/jre/bin/java.bin &#8220;$@&#8221;</p>
+
+<blockquote><p># chmod +x java (darle permisos)</p></blockquote>
+
+<p>5.-</p>
+
+<p>Substituir pulseaudio por alsa:</p>
+
+<blockquote><p># apt-add-repository ppa:dtl131/ppa  (Añadir los repositorios gnome-media/applets/settings-daemon)</p>
+
+<p># apt-get update  (Actualizar el sistema)</p>
+
+<p># apt-get upgrade</p>
+
+<p># apt-get install esound esound-clients esound-common libesd-alsa0 alsa-base alsa-tools alsa-utils alsa-oss linux-sound-base python-alsaaudio gnome-media libsdl1.2debian-alsa  (Instalar paquetes de alsa)</p>
+
+<p># apt-get purge libcanberra-pulse pulseaudio pulseaudio-esound-compat pulseaudio-module-bluetooth pulseaudio-module-gconf pulseaudio-module-udev pulseaudio-module-x11 gstreamer0.10-pulseaudio pulseaudio-utils pavucontrol  (Desinstalar los paquetes de pulseaudio)</p></blockquote>
+
+<p>Reiniciar</p>
+
+<p>sonido</p>
+
+<p>1.-</p>
+
+<p>Para ver las tarjetas de sonido instaladas</p>
+
+<blockquote><p>$ cat /proc/asound/cards</p></blockquote>
+
+<p>0 [Intel ]: HDA-Intel - HDA Intel</p>
+
+<p>HDA Intel at 0xe4100000 irq 169</p>
+
+<p>1 [SAA7134 ]: SAA7134 - SAA7134</p>
+
+<p>saa7133[0] at 0xe4000000 irq 233</p>
+
+<p>2 [CMI8738MC6 ]: CMI8738-MC6 - C-Media PCI CMI8738-MC6</p>
+
+<p>C-Media PCI CMI8738-MC6 (model 55) at 0xa000, irq 225</p>
+
+<blockquote><p># asoundconf set-default-card 1 (para activar la 1)</p></blockquote>
+
+<p>Editar el fichero /etc/alsa/alsa.conf y poner estas líneas:</p>
+
+<pre><code>defaults.ctl.card 1 
+
+defaults.pcm.card 1 
+
+defaults.pcm.device 1 
 </code></pre>
 
-<p>Después de reiniciar ssh, con el parámetro -X se visualizará la gui remota que tambien tiene que estar instalada en local.</p>
+<p>Los cambios son automáticos, no hay ni que reiniciar el servicio.</p>
 
-<blockquote><p>$ ssh -X usuario@host akregator</p></blockquote>
-</div>
-  
-  
+<p>2.-</p>
 
+<p>Cuando al reiniciar el sonido aparece silenciado:</p>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ssconvert/">Ssconvert</a></h1>
-    
-    
-      <p class="meta">
-        
+<blockquote><p># gedit /etc/pulse/default.pa</p></blockquote>
 
+<p>Comentar la linea: # load-module module-device-restore</p>
 
+<p>3.-</p>
 
+<p>Sin sonido con flash</p>
 
+<p>Si no existe, crear el archivo:</p>
 
+<blockquote><p>$ sudo touch /etc/asound.conf</p>
 
+<p># nano /etc/asound.conf</p></blockquote>
 
+<p>Pegar:</p>
 
-  
+<pre><code>pcm.pulse { 
 
+type pulse 
 
-<time datetime="2014-01-29T18:34:00+01:00" pubdate data-updated="true">29-01-2014</time>
-        
-      </p>
-    
-  </header>
+} 
 
+ctl.pulse { 
 
-  <div class="entry-content"><p>[gnumeric]. Conversor de formatos de hoja de cálculo por línea de comandos.</p>
+type pulse 
 
-<blockquote><p>$ ssconvert &#8211;list-exporters (Listado de conversiones de salida)</p>
+} 
 
-<p>$ ssconvert &#8211;list-importers (Litado de conversiones de entrada)</p>
+pcm.!default { 
 
-<p>$ ssconvert entrada.xls salida.csv (De formato excel a csv)</p>
+type pulse 
 
-<p>$ ssconvert -E utf-8 entrada.xls salida.csv (Especificando una codificación para la salida)</p>
+} 
 
-<p>$ ssconvert &#8211;export-type=Gnumeric_stf:stf_assistant -O &#8216;separator=| format=preserve charset=unicode&#8217; entrada.xls salida.csv (Especificando opcionalmente un exportador [&#8211;export-type] que permite exportar a txt, especificando un separador de campos que no sea el por defecto [el espacio] sinó la barra vertical [|], preservando el formato de las celdas del original [format], otras opciones de format son &#8220;automatic&#8221; [por defecto] y &#8220;raw&#8221; [sin formato] y con codificación de salida en unicode [por defecto UTF-8])</p></blockquote>
-</div>
-  
-  
+ctl.!default { 
 
+type pulse 
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ss/">Ss</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-29T18:34:00+01:00" pubdate data-updated="true">29-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Utilidad para investigar sockets. Sustituye a netstat.</p>
-
-<blockquote><p># ss -r  (resolviendo las IPs)</p>
-
-<p># ss -n  (sin resolver)</p>
-
-<p># ss  (igual)</p>
-
-<p># ss -l   (muestra los que estan esperando conexión)</p>
-
-<p># ss -o  (con conexión establecida)</p>
-
-<p># ss -p  (con la aplicación que los motiva)</p>
-
-<p># ss -a | grep ssh  (De todas las conexiones, solo muestra las ssh)</p>
-
-<p># ss -tpan &#8216;sport = :22&#8217; (ver conexiones por el puerto 22)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/srm/">Srm</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-29T18:34:00+01:00" pubdate data-updated="true">29-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[secure-delete]. Aplicación para eliminar de forma segura datos de disco sobreescribiendo su espacio. Es de funcionamiento lento, pero por eso se le considera el más efectivo</p>
-
-<blockquote><p>$ srm -f dir (Modo rápido i el más inseguro)</p>
-
-<p>$ srm -l dir (Como realizar dos veces srm -f)</p>
-
-<p>$ srm archivo.txt (Se sobreescribe 38 veces)</p>
-
-<p>$ srm -rzv dir (se sobreescriben 38 veces los archivos y subdirectorios incluidos [r], sobreescribnedo ceros en el último borrado [z] y mostrando el proceso [v])</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/squid/">Squid</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-29T18:34:00+01:00" pubdate data-updated="true">29-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Proxy caché (intermediario para nuestra conexion a internet, guardando las paginas visualizadas en una caché)</p>
-
-<blockquote><p># cp /etc/squid3/squid.conf{,.defaults} (Realizar copia de seguridad de la configuración)</p>
-
-<p># nano /etc/squid3/squid.conf</p></blockquote>
-
-<p>Modificamos/adaptamos los siguientes ajustes basicos:</p>
-
-<p>http_port 3128 #puerto de escucha</p>
-
-<p>cache_mem 100 MB #Tamaño memoria caché</p>
-
-<p>cache_dir ufs /var/spool/squid 700 16 256 #directorio y tamaño</p>
-
-<p>acl NuestraRed src 192.168.1.0/24 #Nombre y red a la que afecta</p>
-
-<p>http_access allow NuestraRed #permitir acceso a toda la red</p>
-
-<p>http_access allow deny all #Denegamos a los de fuera de la red</p>
-
-<p>auth_param basic /usr/lib/squid/ncsa_auth /etc/squid/passwd #ruta a usuarios</p>
-
-<p>auth_param basic realm “Mensaje de acceso” #mensaje al logearse</p>
-
-<p>auth_param basic children 5 #Procesos de autentificación</p>
-
-<p>auth_param basic basic credentialsttl 1 hours #tiempo</p>
-
-<blockquote><p># squid3 -k parse (Revisión de la sintaxis del archivo squid.conf)</p></blockquote>
-
-<p>Después de las modificaciones reiniciar servicio:</p>
-
-<blockquote><p># /etc/init.d/squid3 restart</p></blockquote>
-
-<p>Configuración de usuarios (/etc/squid/passwd):</p>
-
-<blockquote><p># htpasswd -c /etc/squid3/passwd user1 (Crear archivo [-c] nombre de usuario y pedirá contraseña)</p>
-
-<p># htpasswd /etc/squid3/passwd usuario2 (Sin parámetro -c porque el archivo ya está creado. Otro usuario y contraseña)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/spumux/">Spumux</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-29T18:34:00+01:00" pubdate data-updated="true">29-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Generar subtítulos en un video mpeg.</p>
-
-<blockquote><p>$ spumux -s0 subt.xml &lt; video.mpeg > video_subtitulado.mpeg</p></blockquote>
-
-<p>Nota.- El archivo subt.xml con un contenido:</p>
-
-<pre><code>&lt;subpictures&gt;
-
-   &lt;stream&gt;
-
-        &lt;textsub filename="SUBTITULOS.srt" characterset="ISO8859-1"
-
-                 fontsize="24.0" font="Arial.ttf" horizontal-alignment="center"
-
-                 vertical-alignment="bottom" left-margin="60" right-margin="60"
-
-                 top-margin="20" bottom-margin="30" subtitle-fps="25"
-
-                 movie-fps="29.97" movie-width="720" movie-height="478"/&gt;
-
-   &lt;/stream&gt;
-
-&lt;/subpictures&gt;
+} 
 </code></pre>
 
-<p>La fuente Arial.ttf ha de estar [o tener un enlace] en el directorio ~/.spumux</p>
+<p>Reiniciar.</p>
+
+<p>4.-</p>
+
+<p>Si Java bloquea el dispositivo de sonido en lugar de usar Pulseaudio</p>
+
+<blockquote><p># cd /usr/lib/jvm/java-6-sun/jre/bin/</p>
+
+<p># mv java java.bin</p>
+
+<p># nano /usr/lib/jvm/java-6-sun/jre/bin/java</p></blockquote>
+
+<p>Y copiar en su interior:</p>
+
+<blockquote><p>#!/bin/bash</p></blockquote>
+
+<p>padsp /usr/lib/jvm/java-6-sun/jre/bin/java.bin &#8220;$@&#8221;</p>
+
+<blockquote><p># chmod +x java (darle permisos)</p></blockquote>
+
+<p>5.-</p>
+
+<p>Substituir pulseaudio por alsa:</p>
+
+<blockquote><p># apt-add-repository ppa:dtl131/ppa  (Añadir los repositorios gnome-media/applets/settings-daemon)</p>
+
+<p># apt-get update  (Actualizar el sistema)</p>
+
+<p># apt-get upgrade</p>
+
+<p># apt-get install esound esound-clients esound-common libesd-alsa0 alsa-base alsa-tools alsa-utils alsa-oss linux-sound-base python-alsaaudio gnome-media libsdl1.2debian-alsa  (Instalar paquetes de alsa)</p>
+
+<p># apt-get purge libcanberra-pulse pulseaudio pulseaudio-esound-compat pulseaudio-module-bluetooth pulseaudio-module-gconf pulseaudio-module-udev pulseaudio-module-x11 gstreamer0.10-pulseaudio pulseaudio-utils pavucontrol  (Desinstalar los paquetes de pulseaudio)</p></blockquote>
+
+<p>Reiniciar</p>
 </div>
   
   
@@ -642,7 +568,7 @@ ForwardX11Trusted yes
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/sponge/">Sponge</a></h1>
+      <h1 class="entry-title"><a href="/blog/socklist/">Socklist</a></h1>
     
     
       <p class="meta">
@@ -658,18 +584,34 @@ ForwardX11Trusted yes
   
 
 
-<time datetime="2014-01-29T18:34:00+01:00" pubdate data-updated="true">29-01-2014</time>
+<time datetime="2014-04-03T14:53:00+02:00" pubdate data-updated="true">03-04-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[moreutils]. Herramienta que guarda todo el contenido a escribir hasta que recibe el EOF y luego lo escribe por lo que permite procesar un fichero y reescribirlo en el propio fichero sin perdida de datos.</p>
+  <div class="entry-content"><p>[procinfo]. Lista conectores de red abiertos (sockets), mostrando tipo, número de puerto y otros datos específicos.</p>
 
-<blockquote><p>$ tac archivo | sponge archivo (Lee al reves un archivo y lo guarda en el mismo archivo)</p>
+<blockquote><p>$ socklist</p></blockquote>
 
-<p>$ column -t datos | sponge datos</p></blockquote>
+<p>socklist</p>
+
+<p>[procinfo]. Lista conectores de red abiertos (sockets), mostrando tipo, número de puerto y otros datos específicos.</p>
+
+<blockquote><p>$ socklist</p></blockquote>
+
+<p>socklist</p>
+
+<p>[procinfo]. Lista conectores de red abiertos (sockets), mostrando tipo, número de puerto y otros datos específicos.</p>
+
+<blockquote><p>$ socklist</p></blockquote>
+
+<p>socklist</p>
+
+<p>[procinfo]. Lista conectores de red abiertos (sockets), mostrando tipo, número de puerto y otros datos específicos.</p>
+
+<blockquote><p>$ socklist</p></blockquote>
 </div>
   
   
@@ -682,7 +624,7 @@ ForwardX11Trusted yes
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/splitvt/">Splitvt</a></h1>
+      <h1 class="entry-title"><a href="/blog/snort/">Snort</a></h1>
     
     
       <p class="meta">
@@ -698,16 +640,882 @@ ForwardX11Trusted yes
   
 
 
-<time datetime="2014-01-29T18:34:00+01:00" pubdate data-updated="true">29-01-2014</time>
+<time datetime="2014-04-03T14:53:00+02:00" pubdate data-updated="true">03-04-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Lanzar dos shells simultaneas partiendo en dos ventanas una terminal.</p>
+  <div class="entry-content"><p>Sniffer de paquetes y detector de intrusos</p>
 
-<blockquote><p>$ splitvt -t &#8220;linux es genial&#8221; -upper ls -lower top (Con un título [-t] lanzando un ls en la ventana superior y top en la inferior)</p></blockquote>
+<blockquote><p># snort -v -i eth0 (Para inspeccionar el tráfico de una red)</p>
+
+<p># snort -vde -h 192.168.0.1/24 (Inspeccionar una dirección o rango)</p>
+
+<p># snort -vde tcp (especificando protocolo)</p>
+
+<p># snort -v -X -i eth0 port 25 (Especificando un puerto y guardando la información)</p>
+
+<p># snort -v -X -i eth0 -n 5 port 25 (Capturando solo 5 paquetes)</p></blockquote>
+
+<p>La tarjeta de red tiene que estar en modo promiscuo</p>
+
+<p>Opciones</p>
+
+<p>-v          sniffer de TCP</p>
+
+<p>-d y -e    Para obtener las cabeceras</p>
+
+<p>snort</p>
+
+<p>Sniffer de paquetes y detector de intrusos</p>
+
+<blockquote><p># snort -v -i eth0 (Para inspeccionar el tráfico de una red)</p>
+
+<p># snort -vde -h 192.168.0.1/24 (Inspeccionar una dirección o rango)</p>
+
+<p># snort -vde tcp (especificando protocolo)</p>
+
+<p># snort -v -X -i eth0 port 25 (Especificando un puerto y guardando la información)</p>
+
+<p># snort -v -X -i eth0 -n 5 port 25 (Capturando solo 5 paquetes)</p></blockquote>
+
+<p>La tarjeta de red tiene que estar en modo promiscuo</p>
+
+<p>Opciones</p>
+
+<p>-v          sniffer de TCP</p>
+
+<p>-d y -e    Para obtener las cabeceras</p>
+
+<p>snort</p>
+
+<p>Sniffer de paquetes y detector de intrusos</p>
+
+<blockquote><p># snort -v -i eth0 (Para inspeccionar el tráfico de una red)</p>
+
+<p># snort -vde -h 192.168.0.1/24 (Inspeccionar una dirección o rango)</p>
+
+<p># snort -vde tcp (especificando protocolo)</p>
+
+<p># snort -v -X -i eth0 port 25 (Especificando un puerto y guardando la información)</p>
+
+<p># snort -v -X -i eth0 -n 5 port 25 (Capturando solo 5 paquetes)</p></blockquote>
+
+<p>La tarjeta de red tiene que estar en modo promiscuo</p>
+
+<p>Opciones</p>
+
+<p>-v          sniffer de TCP</p>
+
+<p>-d y -e    Para obtener las cabeceras</p>
+
+<p>snort</p>
+
+<p>Sniffer de paquetes y detector de intrusos</p>
+
+<blockquote><p># snort -v -i eth0 (Para inspeccionar el tráfico de una red)</p>
+
+<p># snort -vde -h 192.168.0.1/24 (Inspeccionar una dirección o rango)</p>
+
+<p># snort -vde tcp (especificando protocolo)</p>
+
+<p># snort -v -X -i eth0 port 25 (Especificando un puerto y guardando la información)</p>
+
+<p># snort -v -X -i eth0 -n 5 port 25 (Capturando solo 5 paquetes)</p></blockquote>
+
+<p>La tarjeta de red tiene que estar en modo promiscuo</p>
+
+<p>Opciones</p>
+
+<p>-v          sniffer de TCP</p>
+
+<p>-d y -e    Para obtener las cabeceras</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/snoopy/">Snoopy</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-03T14:53:00+02:00" pubdate data-updated="true">03-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>librería que se encarga de almacenar comandos y el usuario que los ejecuta.</p>
+
+<blockquote><p>$ git clone https://github.com/a2o/snoopy.git</p>
+
+<p>$ cd snoopy</p>
+
+<p>$ ./configure</p>
+
+<p>$ make</p>
+
+<p># make install</p>
+
+<p># make enable</p></blockquote>
+
+<p>Reiniciar los servicios que tengamos funcionando [apache2, ssh&#8230;]</p>
+
+<blockquote><p># /etc/init.d/ssh restart</p></blockquote>
+
+<p>Monitorizar el archivo log de registro com:</p>
+
+<blockquote><p># tail -f /var/log/auth.log</p></blockquote>
+
+<p>snoopy</p>
+
+<p>librería que se encarga de almacenar comandos y el usuario que los ejecuta.</p>
+
+<blockquote><p>$ git clone https://github.com/a2o/snoopy.git</p>
+
+<p>$ cd snoopy</p>
+
+<p>$ ./configure</p>
+
+<p>$ make</p>
+
+<p># make install</p>
+
+<p># make enable</p></blockquote>
+
+<p>Reiniciar los servicios que tengamos funcionando [apache2, ssh&#8230;]</p>
+
+<blockquote><p># /etc/init.d/ssh restart</p></blockquote>
+
+<p>Monitorizar el archivo log de registro com:</p>
+
+<blockquote><p># tail -f /var/log/auth.log</p></blockquote>
+
+<p>snoopy</p>
+
+<p>librería que se encarga de almacenar comandos y el usuario que los ejecuta.</p>
+
+<blockquote><p>$ git clone https://github.com/a2o/snoopy.git</p>
+
+<p>$ cd snoopy</p>
+
+<p>$ ./configure</p>
+
+<p>$ make</p>
+
+<p># make install</p>
+
+<p># make enable</p></blockquote>
+
+<p>Reiniciar los servicios que tengamos funcionando [apache2, ssh&#8230;]</p>
+
+<blockquote><p># /etc/init.d/ssh restart</p></blockquote>
+
+<p>Monitorizar el archivo log de registro com:</p>
+
+<blockquote><p># tail -f /var/log/auth.log</p></blockquote>
+
+<p>snoopy</p>
+
+<p>librería que se encarga de almacenar comandos y el usuario que los ejecuta.</p>
+
+<blockquote><p>$ git clone https://github.com/a2o/snoopy.git</p>
+
+<p>$ cd snoopy</p>
+
+<p>$ ./configure</p>
+
+<p>$ make</p>
+
+<p># make install</p>
+
+<p># make enable</p></blockquote>
+
+<p>Reiniciar los servicios que tengamos funcionando [apache2, ssh&#8230;]</p>
+
+<blockquote><p># /etc/init.d/ssh restart</p></blockquote>
+
+<p>Monitorizar el archivo log de registro com:</p>
+
+<blockquote><p># tail -f /var/log/auth.log</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/sniffit/">Sniffit</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-03T14:53:00+02:00" pubdate data-updated="true">03-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Snifer de red. Dado que los informes los despliega en archivos de texto por cada dato, es preferible lanzar la aplicación desde dentro de una carpeta para no llenar todo el directorio de ficheros.</p>
+
+<blockquote><p># sniffit -s 192.168.1.2  (Captura todos los paquetes con origen en la IP)</p>
+
+<p># sniffit -t 192.168.1.2 (Captura todos los paquetes con destino en la IP)</p>
+
+<p># sniffit -b -s 192.168.1.2 (Captura los paquetes con origen y destino en la IP)</p>
+
+<p># sniffit -F eth1 -b -s 192.168.1.33 -p 9001 (de un puerto y forzando dispositivo)</p></blockquote>
+
+<p>sniffit</p>
+
+<p>Snifer de red. Dado que los informes los despliega en archivos de texto por cada dato, es preferible lanzar la aplicación desde dentro de una carpeta para no llenar todo el directorio de ficheros.</p>
+
+<blockquote><p># sniffit -s 192.168.1.2  (Captura todos los paquetes con origen en la IP)</p>
+
+<p># sniffit -t 192.168.1.2 (Captura todos los paquetes con destino en la IP)</p>
+
+<p># sniffit -b -s 192.168.1.2 (Captura los paquetes con origen y destino en la IP)</p>
+
+<p># sniffit -F eth1 -b -s 192.168.1.33 -p 9001 (de un puerto y forzando dispositivo)</p></blockquote>
+
+<p>sniffit</p>
+
+<p>Snifer de red. Dado que los informes los despliega en archivos de texto por cada dato, es preferible lanzar la aplicación desde dentro de una carpeta para no llenar todo el directorio de ficheros.</p>
+
+<blockquote><p># sniffit -s 192.168.1.2  (Captura todos los paquetes con origen en la IP)</p>
+
+<p># sniffit -t 192.168.1.2 (Captura todos los paquetes con destino en la IP)</p>
+
+<p># sniffit -b -s 192.168.1.2 (Captura los paquetes con origen y destino en la IP)</p>
+
+<p># sniffit -F eth1 -b -s 192.168.1.33 -p 9001 (de un puerto y forzando dispositivo)</p></blockquote>
+
+<p>sniffit</p>
+
+<p>Snifer de red. Dado que los informes los despliega en archivos de texto por cada dato, es preferible lanzar la aplicación desde dentro de una carpeta para no llenar todo el directorio de ficheros.</p>
+
+<blockquote><p># sniffit -s 192.168.1.2  (Captura todos los paquetes con origen en la IP)</p>
+
+<p># sniffit -t 192.168.1.2 (Captura todos los paquetes con destino en la IP)</p>
+
+<p># sniffit -b -s 192.168.1.2 (Captura los paquetes con origen y destino en la IP)</p>
+
+<p># sniffit -F eth1 -b -s 192.168.1.33 -p 9001 (de un puerto y forzando dispositivo)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/snarf/">Snarf</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-03T14:53:00+02:00" pubdate data-updated="true">03-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Descarga páginas web o listado de archivos compartidos por ftp.</p>
+
+<blockquote><p>$ snarf lapipaplena.net (Creará un archivo index.html)</p>
+
+<p>$ snarf ftp://usuario:contraseña@servidor (Creará un archivo ftpindex.txt)</p></blockquote>
+
+<p>snarf</p>
+
+<p>Descarga páginas web o listado de archivos compartidos por ftp.</p>
+
+<blockquote><p>$ snarf lapipaplena.net (Creará un archivo index.html)</p>
+
+<p>$ snarf ftp://usuario:contraseña@servidor (Creará un archivo ftpindex.txt)</p></blockquote>
+
+<p>snarf</p>
+
+<p>Descarga páginas web o listado de archivos compartidos por ftp.</p>
+
+<blockquote><p>$ snarf lapipaplena.net (Creará un archivo index.html)</p>
+
+<p>$ snarf ftp://usuario:contraseña@servidor (Creará un archivo ftpindex.txt)</p></blockquote>
+
+<p>snarf</p>
+
+<p>Descarga páginas web o listado de archivos compartidos por ftp.</p>
+
+<blockquote><p>$ snarf lapipaplena.net (Creará un archivo index.html)</p>
+
+<p>$ snarf ftp://usuario:contraseña@servidor (Creará un archivo ftpindex.txt)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/smem/">Smem</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-03T14:53:00+02:00" pubdate data-updated="true">03-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Informa del uso de la memoria.</p>
+
+<blockquote><p># smem -u (Por parte de los usuarios)</p>
+
+<p># smem -w (por parte del sistema)</p>
+
+<p># smem -m (de todos los procesos)</p>
+
+<p># smem -p (resultado en porcentaje</p></blockquote>
+
+<p>smem</p>
+
+<p>Informa del uso de la memoria.</p>
+
+<blockquote><p># smem -u (Por parte de los usuarios)</p>
+
+<p># smem -w (por parte del sistema)</p>
+
+<p># smem -m (de todos los procesos)</p>
+
+<p># smem -p (resultado en porcentaje</p></blockquote>
+
+<p>smem</p>
+
+<p>Informa del uso de la memoria.</p>
+
+<blockquote><p># smem -u (Por parte de los usuarios)</p>
+
+<p># smem -w (por parte del sistema)</p>
+
+<p># smem -m (de todos los procesos)</p>
+
+<p># smem -p (resultado en porcentaje</p></blockquote>
+
+<p>smem</p>
+
+<p>Informa del uso de la memoria.</p>
+
+<blockquote><p># smem -u (Por parte de los usuarios)</p>
+
+<p># smem -w (por parte del sistema)</p>
+
+<p># smem -m (de todos los procesos)</p>
+
+<p># smem -p (resultado en porcentaje</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/smbstatus/">Smbstatus</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-03T14:53:00+02:00" pubdate data-updated="true">03-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Monitorizar el estado de las conexiones del servidor samba.</p>
+
+<blockquote><p># smbstatus (Listado de equipos conectados a recursos compartidos y ficheros abiertos)</p>
+
+<p># smbstatus -p (Solo el listado de los equipos conectados a samba)</p>
+
+<p># smbstatus -S (Listado de recursos y equipos conectados a ellos)</p>
+
+<p># smbstatus -L  (Listado de ficheros abiertos)</p></blockquote>
+
+<p>smbstatus</p>
+
+<p>Monitorizar el estado de las conexiones del servidor samba.</p>
+
+<blockquote><p># smbstatus (Listado de equipos conectados a recursos compartidos y ficheros abiertos)</p>
+
+<p># smbstatus -p (Solo el listado de los equipos conectados a samba)</p>
+
+<p># smbstatus -S (Listado de recursos y equipos conectados a ellos)</p>
+
+<p># smbstatus -L  (Listado de ficheros abiertos)</p></blockquote>
+
+<p>smbstatus</p>
+
+<p>Monitorizar el estado de las conexiones del servidor samba.</p>
+
+<blockquote><p># smbstatus (Listado de equipos conectados a recursos compartidos y ficheros abiertos)</p>
+
+<p># smbstatus -p (Solo el listado de los equipos conectados a samba)</p>
+
+<p># smbstatus -S (Listado de recursos y equipos conectados a ellos)</p>
+
+<p># smbstatus -L  (Listado de ficheros abiertos)</p></blockquote>
+
+<p>smbstatus</p>
+
+<p>Monitorizar el estado de las conexiones del servidor samba.</p>
+
+<blockquote><p># smbstatus (Listado de equipos conectados a recursos compartidos y ficheros abiertos)</p>
+
+<p># smbstatus -p (Solo el listado de los equipos conectados a samba)</p>
+
+<p># smbstatus -S (Listado de recursos y equipos conectados a ellos)</p>
+
+<p># smbstatus -L  (Listado de ficheros abiertos)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/smbclient/">Smbclient</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-03T14:53:00+02:00" pubdate data-updated="true">03-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Conectar recursos compartidos de windows desde linux.</p>
+
+<blockquote><p>$ smbclient //192.168.1.155/compartido -U usuario (Después de ingresar usuario y contraseña entra en el prompt del recurso compartido)</p>
+
+<p>$ smbclient -L //192.168.1.155 (Ver los recursos compartidos de la IP especificada.</p></blockquote>
+
+<p>1.-</p>
+
+<p>Para montarlo automaticamente:</p>
+
+<p>Entrar en el /etc/fstab la siguiente linea:</p>
+
+<p>//192.168.1.155/compartido /media/compartido cifs username=NOMBRE, password=CONTRASEÑA,user</p>
+
+<p>smbclient</p>
+
+<p>Conectar recursos compartidos de windows desde linux.</p>
+
+<blockquote><p>$ smbclient //192.168.1.155/compartido -U usuario (Después de ingresar usuario y contraseña entra en el prompt del recurso compartido)</p>
+
+<p>$ smbclient -L //192.168.1.155 (Ver los recursos compartidos de la IP especificada.</p></blockquote>
+
+<p>1.-</p>
+
+<p>Para montarlo automaticamente:</p>
+
+<p>Entrar en el /etc/fstab la siguiente linea:</p>
+
+<p>//192.168.1.155/compartido /media/compartido cifs username=NOMBRE, password=CONTRASEÑA,user</p>
+
+<p>smbclient</p>
+
+<p>Conectar recursos compartidos de windows desde linux.</p>
+
+<blockquote><p>$ smbclient //192.168.1.155/compartido -U usuario (Después de ingresar usuario y contraseña entra en el prompt del recurso compartido)</p>
+
+<p>$ smbclient -L //192.168.1.155 (Ver los recursos compartidos de la IP especificada.</p></blockquote>
+
+<p>1.-</p>
+
+<p>Para montarlo automaticamente:</p>
+
+<p>Entrar en el /etc/fstab la siguiente linea:</p>
+
+<p>//192.168.1.155/compartido /media/compartido cifs username=NOMBRE, password=CONTRASEÑA,user</p>
+
+<p>smbclient</p>
+
+<p>Conectar recursos compartidos de windows desde linux.</p>
+
+<blockquote><p>$ smbclient //192.168.1.155/compartido -U usuario (Después de ingresar usuario y contraseña entra en el prompt del recurso compartido)</p>
+
+<p>$ smbclient -L //192.168.1.155 (Ver los recursos compartidos de la IP especificada.</p></blockquote>
+
+<p>1.-</p>
+
+<p>Para montarlo automaticamente:</p>
+
+<p>Entrar en el /etc/fstab la siguiente linea:</p>
+
+<p>//192.168.1.155/compartido /media/compartido cifs username=NOMBRE, password=CONTRASEÑA,user</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/smartctl/">Smartctl</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-03T14:53:00+02:00" pubdate data-updated="true">03-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[smartmontools]. Comprobar el estado de los discos duros. Si el disco es IDE, suprimir en todos los comandos el &#8220;-d ata&#8221;</p>
+
+<blockquote><p># smartctl -i -d ata /dev/sda (Verificar si un disco ATA suporta smart)</p>
+
+<p># smartctl -s on -d ata /dev/hda (activar el soporte smart)</p>
+
+<p># smartctl -d ata -t short /dev/sda (lanzar el test corto)</p>
+
+<p># smartctl -d ata -t long /dev/sda  (lanzar el test largo)</p>
+
+<p># smartctl -d ata -l selftest -i /dev/sda (analizar la información de los comandos anteriores)</p></blockquote>
+
+<p>LifeTime indica las horas que el disco ha estado encendido. LBA_of_First_error indica los errores.</p>
+
+<blockquote><p># smartctl -d ata -Hc /dev/sda (Si al final se lee PASSED, correcto, si FAILED cambiar disco)</p>
+
+<p># smartctl -d ata -l error /dev/sda (Listar los errores)</p>
+
+<p># smartctl -d ara -A /dev/sda (Listar atributos internos)</p></blockquote>
+
+<p>Listado de algunos atributos smart</p>
+
+<p>Power_Cycle_Count (RAW_Value).- Veces que le ha llegado   corriente.</p>
+
+<p>Temperature Celsius. (RAW_Value) .- Temperatura del disco</p>
+
+<p>Reallocated_Sector_Ct (RAW_Value).-  número de sectores de repuesto que ha usado el disco para sustituir sectores dañados</p>
+
+<p>Raw_Read_Error_Rate (RAW_Value).- Frequencia de errores en la lectura del disco.</p>
+
+<p>Start_Stop_Count: Cantidad de veces que se ha parado y arrancado el disco</p>
+
+<p>Seek_Error_Rate: Tasa de errores de colocación de la aguja</p>
+
+<p>Power_On_Seconds: Tiempo funcionando</p>
+
+<p>Spin_Retry_Count: Numero de reintentos de arrancada</p>
+
+<p>El campo VALUE [valor] va del número 1 al 253, siendo 1 el peor. Los valores normales son los que estan entre 100 y 200. El campo WHEN_FAILED indica cuando se produjo una falla de algún atributo.</p>
+
+<p>1.-</p>
+
+<p>Para activar el demonio que nos avisa si se produce un error en disco:</p>
+
+<blockquote><p># apt-get install smart-notifier</p></blockquote>
+
+<p>Editar el archivo de configuración:</p>
+
+<blockquote><p># nano /etc/default/smartmontools</p></blockquote>
+
+<p>Y descomentar la linea:</p>
+
+<p>start_smartd=yes</p>
+
+<p>smartctl</p>
+
+<p>[smartmontools]. Comprobar el estado de los discos duros. Si el disco es IDE, suprimir en todos los comandos el &#8220;-d ata&#8221;</p>
+
+<blockquote><p># smartctl -i -d ata /dev/sda (Verificar si un disco ATA suporta smart)</p>
+
+<p># smartctl -s on -d ata /dev/hda (activar el soporte smart)</p>
+
+<p># smartctl -d ata -t short /dev/sda (lanzar el test corto)</p>
+
+<p># smartctl -d ata -t long /dev/sda  (lanzar el test largo)</p>
+
+<p># smartctl -d ata -l selftest -i /dev/sda (analizar la información de los comandos anteriores)</p></blockquote>
+
+<p>LifeTime indica las horas que el disco ha estado encendido. LBA_of_First_error indica los errores.</p>
+
+<blockquote><p># smartctl -d ata -Hc /dev/sda (Si al final se lee PASSED, correcto, si FAILED cambiar disco)</p>
+
+<p># smartctl -d ata -l error /dev/sda (Listar los errores)</p>
+
+<p># smartctl -d ara -A /dev/sda (Listar atributos internos)</p></blockquote>
+
+<p>Listado de algunos atributos smart</p>
+
+<p>Power_Cycle_Count (RAW_Value).- Veces que le ha llegado   corriente.</p>
+
+<p>Temperature Celsius. (RAW_Value) .- Temperatura del disco</p>
+
+<p>Reallocated_Sector_Ct (RAW_Value).-  número de sectores de repuesto que ha usado el disco para sustituir sectores dañados</p>
+
+<p>Raw_Read_Error_Rate (RAW_Value).- Frequencia de errores en la lectura del disco.</p>
+
+<p>Start_Stop_Count: Cantidad de veces que se ha parado y arrancado el disco</p>
+
+<p>Seek_Error_Rate: Tasa de errores de colocación de la aguja</p>
+
+<p>Power_On_Seconds: Tiempo funcionando</p>
+
+<p>Spin_Retry_Count: Numero de reintentos de arrancada</p>
+
+<p>El campo VALUE [valor] va del número 1 al 253, siendo 1 el peor. Los valores normales son los que estan entre 100 y 200. El campo WHEN_FAILED indica cuando se produjo una falla de algún atributo.</p>
+
+<p>1.-</p>
+
+<p>Para activar el demonio que nos avisa si se produce un error en disco:</p>
+
+<blockquote><p># apt-get install smart-notifier</p></blockquote>
+
+<p>Editar el archivo de configuración:</p>
+
+<blockquote><p># nano /etc/default/smartmontools</p></blockquote>
+
+<p>Y descomentar la linea:</p>
+
+<p>start_smartd=yes</p>
+
+<p>smartctl</p>
+
+<p>[smartmontools]. Comprobar el estado de los discos duros. Si el disco es IDE, suprimir en todos los comandos el &#8220;-d ata&#8221;</p>
+
+<blockquote><p># smartctl -i -d ata /dev/sda (Verificar si un disco ATA suporta smart)</p>
+
+<p># smartctl -s on -d ata /dev/hda (activar el soporte smart)</p>
+
+<p># smartctl -d ata -t short /dev/sda (lanzar el test corto)</p>
+
+<p># smartctl -d ata -t long /dev/sda  (lanzar el test largo)</p>
+
+<p># smartctl -d ata -l selftest -i /dev/sda (analizar la información de los comandos anteriores)</p></blockquote>
+
+<p>LifeTime indica las horas que el disco ha estado encendido. LBA_of_First_error indica los errores.</p>
+
+<blockquote><p># smartctl -d ata -Hc /dev/sda (Si al final se lee PASSED, correcto, si FAILED cambiar disco)</p>
+
+<p># smartctl -d ata -l error /dev/sda (Listar los errores)</p>
+
+<p># smartctl -d ara -A /dev/sda (Listar atributos internos)</p></blockquote>
+
+<p>Listado de algunos atributos smart</p>
+
+<p>Power_Cycle_Count (RAW_Value).- Veces que le ha llegado   corriente.</p>
+
+<p>Temperature Celsius. (RAW_Value) .- Temperatura del disco</p>
+
+<p>Reallocated_Sector_Ct (RAW_Value).-  número de sectores de repuesto que ha usado el disco para sustituir sectores dañados</p>
+
+<p>Raw_Read_Error_Rate (RAW_Value).- Frequencia de errores en la lectura del disco.</p>
+
+<p>Start_Stop_Count: Cantidad de veces que se ha parado y arrancado el disco</p>
+
+<p>Seek_Error_Rate: Tasa de errores de colocación de la aguja</p>
+
+<p>Power_On_Seconds: Tiempo funcionando</p>
+
+<p>Spin_Retry_Count: Numero de reintentos de arrancada</p>
+
+<p>El campo VALUE [valor] va del número 1 al 253, siendo 1 el peor. Los valores normales son los que estan entre 100 y 200. El campo WHEN_FAILED indica cuando se produjo una falla de algún atributo.</p>
+
+<p>1.-</p>
+
+<p>Para activar el demonio que nos avisa si se produce un error en disco:</p>
+
+<blockquote><p># apt-get install smart-notifier</p></blockquote>
+
+<p>Editar el archivo de configuración:</p>
+
+<blockquote><p># nano /etc/default/smartmontools</p></blockquote>
+
+<p>Y descomentar la linea:</p>
+
+<p>start_smartd=yes</p>
+
+<p>smartctl</p>
+
+<p>[smartmontools]. Comprobar el estado de los discos duros. Si el disco es IDE, suprimir en todos los comandos el &#8220;-d ata&#8221;</p>
+
+<blockquote><p># smartctl -i -d ata /dev/sda (Verificar si un disco ATA suporta smart)</p>
+
+<p># smartctl -s on -d ata /dev/hda (activar el soporte smart)</p>
+
+<p># smartctl -d ata -t short /dev/sda (lanzar el test corto)</p>
+
+<p># smartctl -d ata -t long /dev/sda  (lanzar el test largo)</p>
+
+<p># smartctl -d ata -l selftest -i /dev/sda (analizar la información de los comandos anteriores)</p></blockquote>
+
+<p>LifeTime indica las horas que el disco ha estado encendido. LBA_of_First_error indica los errores.</p>
+
+<blockquote><p># smartctl -d ata -Hc /dev/sda (Si al final se lee PASSED, correcto, si FAILED cambiar disco)</p>
+
+<p># smartctl -d ata -l error /dev/sda (Listar los errores)</p>
+
+<p># smartctl -d ara -A /dev/sda (Listar atributos internos)</p></blockquote>
+
+<p>Listado de algunos atributos smart</p>
+
+<p>Power_Cycle_Count (RAW_Value).- Veces que le ha llegado   corriente.</p>
+
+<p>Temperature Celsius. (RAW_Value) .- Temperatura del disco</p>
+
+<p>Reallocated_Sector_Ct (RAW_Value).-  número de sectores de repuesto que ha usado el disco para sustituir sectores dañados</p>
+
+<p>Raw_Read_Error_Rate (RAW_Value).- Frequencia de errores en la lectura del disco.</p>
+
+<p>Start_Stop_Count: Cantidad de veces que se ha parado y arrancado el disco</p>
+
+<p>Seek_Error_Rate: Tasa de errores de colocación de la aguja</p>
+
+<p>Power_On_Seconds: Tiempo funcionando</p>
+
+<p>Spin_Retry_Count: Numero de reintentos de arrancada</p>
+
+<p>El campo VALUE [valor] va del número 1 al 253, siendo 1 el peor. Los valores normales son los que estan entre 100 y 200. El campo WHEN_FAILED indica cuando se produjo una falla de algún atributo.</p>
+
+<p>1.-</p>
+
+<p>Para activar el demonio que nos avisa si se produce un error en disco:</p>
+
+<blockquote><p># apt-get install smart-notifier</p></blockquote>
+
+<p>Editar el archivo de configuración:</p>
+
+<blockquote><p># nano /etc/default/smartmontools</p></blockquote>
+
+<p>Y descomentar la linea:</p>
+
+<p>start_smartd=yes</p>
 </div>
   
   
@@ -738,43 +1546,43 @@ ForwardX11Trusted yes
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/emacs/">emacs</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/libreoffice/">libreoffice</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tar/">tar</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/chmod/">chmod</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdf2ps/">pdf2ps</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/xscreesaver/">xscreesaver</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lsscsi/">lsscsi</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/apt-get/">apt-get</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lsof/">lsof</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/cvlc/">cvlc</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

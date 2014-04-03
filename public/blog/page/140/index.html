@@ -1,0 +1,698 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>TRACTATUS ELEMENTALIS</title>
+  <meta name="author" content="templix">
+
+  
+  <meta name="description" content="(/etc/host.conf). Archivo que contiene el orden de cómo serán ejecutadas las resoluciones que requiera el &#8220;Host&#8221;. Algunos parámetros: &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="https://tractatuslapipaplena.herokuapp.com/blog/page/140">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="TRACTATUS ELEMENTALIS" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <script src="/javascripts/links.js"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <div align=center>
+  <h1><a href="/">TRACTATUS ELEMENTALIS</a></h1>
+  
+    <h2>Apuntes sobre bash. Orgasmos con la terminal.</h2>
+  </dev>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS"></a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search?q=site%3Atractatuslapipaplena.herokuapp.com&q=" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:tractatuslapipaplena.herokuapp.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/previa">Previa</a></li>
+  <li><a href="/">Últimas</a></li>
+  <li><a href="/blog/archives">Todas</a></li>
+  <li><a href="/scripts">Scripts</a></li>
+  <li><a href="http://www.lapipaplena.net">Web</a></li>
+  <li><a href="http://lapipaplena.no-ip.org/wiki/">Wiki</a></li>
+  <li><a href="http://panellpipa.no-ip.org">Socios</a></li>
+
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/host-dot-conf/">host.conf</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-29T18:31:00+01:00" pubdate data-updated="true">29-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>(/etc/host.conf). Archivo que contiene el orden de cómo serán ejecutadas las resoluciones que requiera el &#8220;Host&#8221;. Algunos parámetros:</p>
+
+<p><strong>order hosts,bind,nis</strong> (que cualquier tipo de resolución primero consulte el archivo /etc/hosts , en segundo lugar a BIND y si aún no se ha logrado la resolución, intentar con NIS)</p>
+
+<pre><code>BIND (Llamada al servidor de nombres)
+
+NIS ("Network Information Server" es un sistema de resolución desarrollado por Sun Microsystem's , su implementación generalmente esta limitada a intranets y utiliza una metodología diferente a la usada por BIND
+</code></pre>
+
+<p><strong>multi on</strong> (Que devuelva más de un resultado si existen alias ya que un host puede tener varias direcciones IP y la dirección IP puede coincidir con varios nombres de host. Por defecto es off [sólo se muestra el primero] )</p>
+
+<p><strong>spoofalert on</strong> (Intentar encontrar el nombre de host de una dirección IP. Si la aplicación no devuelve el resultado correcto, puede significar que una máquina intenta hacerse pasar por lo que no es.)</p>
+
+<p><strong>nospoof on</strong> (rechaza los resultados que no pasan la prueba de robo de identidad)</p>
+
+<p><strong>reorder on</strong> (intenta reordenar las direcciones de host para que las direcciones locales [misma subred] se listen en primer lugar)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fluxbox-generate-menu/">Fluxbox-generate_menu</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-29T18:31:00+01:00" pubdate data-updated="true">29-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Generador de menús de fluxbox.</p>
+
+<blockquote><p>$ fluxbox-generate_menu -g (Añade un menú tipo gnome)</p>
+
+<p>$ fluxbox-generate_menu -k -o ~/.fluxbox/menu1 (Añade menú tipo kde y lo coloca en menu1 para probarlo. Sin especificar, substituiría el .fluxbox/menu)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ebook/">Ebook-</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-29T18:30:00+01:00" pubdate data-updated="true">29-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Convertir/visualizar a formato ebook.</p>
+
+<blockquote><p>$ ebook-convert texto.pdf texto.epub</p>
+
+<p>$ ebook-viewer texto.epub (Visualiza con la apliciación calibre)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/dvd-plus-rw-format/">Dvd+rw-format</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-29T18:30:00+01:00" pubdate data-updated="true">29-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Formatear dvd +- Rw</p>
+
+<blockquote><p>$ dvd+rw-format -force /dev/cdrom</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/dhcping/">Dhcping:</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-29T18:30:00+01:00" pubdate data-updated="true">29-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Enviar una solicitud DHCP a un servidor DHCP para ver si está activo.</p>
+
+<blockquote><p># dhcping -v -h 00:23:54:57:FC:78 -s 192.168.1.10 -c 192.168.1.15 (Mostrando la máxima información [v], la MAC del servidor DHCP [h] y su ip [s] y nuestra máquina [c])</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/copy/">Copy</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-29T18:30:00+01:00" pubdate data-updated="true">29-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Carpetas en la nuve tipo Dropbox. Entrar en http://www.copy.com despues de registrarse y logearse, clicar en la pestaña &#8220;Install App&#8221; con lo que se nos descargará la aplicacion de escritorio.</p>
+
+<blockquote><p>$ tar -zvxf copy_agent-1.28.0657.tgz</p>
+
+<p>$ cd copy/x86_64/</p>
+
+<p>$ ./CopyAgent &#8211;install (Donde pondremos nombre de usuario y contraseña del registro y carpeta a compartir. Por defecto Copy)</p>
+
+<p>$ ./CopyConsole (Forzar actualizaciones)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/contrasenas/">Contraseñas</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-29T18:30:00+01:00" pubdate data-updated="true">29-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>1.-</p>
+
+<p>Eliminar contraseña de root. Iniciar sesión con un live-cd y montar la partición del discon duro [suponemos /dev/sda2]</p>
+
+<pre><code># mount /dev/sda2 /media/sda2
+
+# gedit /dev/sda2/etc/passwd 
+</code></pre>
+
+<p>Y en la linea: root:x:0:0:root/root:/bin/bash</p>
+
+<p>Borrar la “x”, dejandola asi: root::0:0:root/root:/bin/bash y repetir la operación con el usuario normal.</p>
+
+<p>Reiniciar</p>
+
+<p>Activar  root en gdm [parecido con otros selectores de sesión: lightdm, xdm&#8230;]</p>
+
+<pre><code># gedit /etc/gdm/gdm.conf 
+</code></pre>
+
+<p>Cambiar la linea:  AllowRoot=false   por AllowRoot=true</p>
+
+<pre><code># passwd root 
+</code></pre>
+
+<p>Entrar la contraseña</p>
+
+<p>2.-</p>
+
+<p>Cambiar el tiempo en que el sistema &#8220;olvidará&#8221; la contraseña después de un sudo:</p>
+
+<pre><code># nano /etc/sudoers 
+</code></pre>
+
+<p>Y añadir la línea: Defaults timestamp_timeout = 5</p>
+
+<p>Donde el 5 es el tiempo en minutos que la contraseña será guardada.</p>
+
+<p>3.-</p>
+
+<p>Otra forma para cuando se pierde la contraseña</p>
+
+<p>Entrar con un cd live y visualizar /etc/shadow del sistema instalado y buscar el  usuario. La estructura es parecida a:</p>
+
+<p>pepe:$1$YpVPtTE9$jNPGevJ8IjHyAqh0h04V4.:13277:0:99999:7:::</p>
+
+<p>Borrar lo que sigue al nombre del usuario para que quede:</p>
+
+<p>pepe::13277:0:99999:7:::</p>
+
+<p>de este modo el usuario no tendrá contraseña y cuando se pida, dar al intro.  Tras reiniciar, cuando aparezca el menu de grub, situarse con el cursor en la línea del kernel que se quiera usar. Pulsar &#8216;e&#8217; para editar la entrada y editar la línea kernel [pulsando &#8216;e&#8217; de nuevo]. Añadir al final de la línea lo siguiente:</p>
+
+<p>init=/bin/bash</p>
+
+<p>Esto hace que el sistema arranque una shell root sin pedir password. Es posible que el teclado esté en inglés. Pulsar &#8216;b&#8217; para comenzar el arranque del kernel. La partición raíz suele montarse como sólo lectura, asi que se deberá montar como lectura/escritura:</p>
+
+<blockquote><p># mount -o remount,rw /dev/hda2</p></blockquote>
+
+<p>Por último, cambiar la clave de root ejecutando:</p>
+
+<blockquote><p># passwd root</p></blockquote>
+
+<p>4.-</p>
+
+<p>Establecer norma en el sistema de que la contraseña tenga como nímino 8 caracteres:</p>
+
+<blockquote><p># nano /etc/pam.d/common-password</p></blockquote>
+
+<p>Y dejar la linea:</p>
+
+<pre><code>password        [success=2 default=ignore]      pam_unix.so obscure sha512 min=8
+</code></pre>
+
+<p>5.-</p>
+
+<p>Página donde comprobar la fortaleza de una contraseña: <a href="https://howsecureismypassword.net/">https://howsecureismypassword.net/</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/codificacion/">Codificación</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-29T18:30:00+01:00" pubdate data-updated="true">29-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[de caracteres]. En documentos html, colocar según proceda al inicio del documento la linea:</p>
+
+<pre><code>&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
+
+&lt;meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /&gt;
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/cb/">Cb-</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-29T18:30:00+01:00" pubdate data-updated="true">29-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[crunchbang-bin-scripts]. Conjunto de scripts propios de la distro crunchbang.</p>
+
+<p>cb-exit (Lanza el dialogo de salida)</p>
+
+<p>cb-welcome (script para reconfigurar el sistema. Arranca recien instalado el S.O)</p>
+
+<p>cb-lock (protector de pantalla)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/burnp6/">burnP6</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-29T18:29:00+01:00" pubdate data-updated="true">29-01-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[cpuburn]. Colocar la cpu al 100%. Si existen varios nucleos lanzar una instancia para cada uno. Existen varias opciones según el tipo de nucleo: burnBX, burnK6, burnK7, burnMMX, burnP5 y burnP6.</p>
+
+<blockquote><p>$ burnP6</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/141/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/139/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+<h1>Número de entradas</h1>
+	<ul>
+	<li>1378</li>
+	</ul>
+</section>
+<section>
+  <h1>Añadidos/modificados</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/zypper/">zypper</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/zmore/">zmore</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/zmap/">zmap</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/zless/">zless</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/zip/">zip</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/zgrep/">zgrep</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/zfgrep/">zfgrep</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/zenity/">zenity</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/zegrep/">zegrep</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/zdump/">zdump</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Sobre mi</h1> 
+  <center>
+  <img src="/images/linux_user.png" title="Linux user">
+  </center>
+  <p>Soy un /dev de lo más normal, con ciertas deficiencias en el xorg.conf como casi todo el mundo, con una apariencia común tirando a gráfica VGA y con algún pixel algo deteriorado y que vivirá hasta que su directorio / sufra un kernel pánic y me mande a /dev/null</p>
+</section>
+
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/107431970267257491799?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+<section>
+  <h1>Blogs útiles</h1>
+  <ul>
+      <li><a href="http://distrowatch.com">Distrowatch</a></li>
+      <li><a href="http://es.wikipedia.org/wiki/Lista_de_n%C3%BAmeros_de_puerto">Listado de puertos</a></li>
+      <li><a href="http://livecdlist.com/">LiveCDs</a></li>
+      <li><a href="http://perseosblog.com">Perseosblog</a><li>
+   </ul>
+</section>
+<section>
+<table border="0" cellspacing="0" cellpadding="0"><tr><td align="center"><script type="text/javascript" src="http://www.worldtimeserver.com/clocks/embed.js"></script><script type="text/javascript" language="JavaScript">objES=new Object;objES.wtsclock="wtsclock001.swf";objES.color="CC6600";objES.wtsid="ES";objES.width=200;objES.height=200;objES.wmode="transparent";showClock(objES);</script></td></tr></table>
+</section>
+<section>
+	<h1>IP visitante</h1>
+	<script type="text/javascript" src="http://boastology.com/tools/ip2c/?im=0&cn=0&ip=1"></script>
+</section>
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - templix -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+<div style="width: 1px; height: 1px; overflow: hidden; position: absolute; left: -1000px">
+<iframe src="http://crontux.homelinux.com/getip.php"></iframe>
+</div>
+
+</body>
+</html>

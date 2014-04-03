@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Es una herramienta similar a partimage para crear imágenes de una o varias particiones a la vez a un fichero asi como restaurar dichas imágenes más &hellip;">
+  <meta name="description" content="Descarga de videos con protocolo RTMP. Supongamos que el video a descargar tenga por ruta: http://www.tv3.cat/videos/1307049732092 Abrir una pestaña &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,480 +80,6 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/fsarchiver/">Fsarchiver</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-29T18:31:00+01:00" pubdate data-updated="true">29-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Es una herramienta similar a partimage para crear imágenes de una o varias particiones a la vez a un fichero asi como restaurar dichas imágenes más tarde.</p>
-
-<blockquote><p># fsarchiver savefs /data/imagen.fsa /dev/sda1 (creamos la imagen de la partición).</p>
-
-<p># fsarchiver savefs /data/imagen2.fsa /dev/sda1 /dev/sdb1 (creamos la imagen de dos particiones simultaneamente que seran almacenadas en el mismo fichero).</p>
-
-<p># fsarchiver restfs /data/imagen2.fsa id=0,dest=/dev/sda1 (restauramos la primera partición de la imagen).</p>
-
-<p># fsarchiver restfs /data/imagen2.fsa id=1,dest=/dev/sdb1 (restauramos la segunda partición).</p>
-
-<p># fsarchiver restfs /data/imagen2.fsa id=0,dest=/dev/sda1 id=1,dest=/dev/sdb1 (restauramos a la vez las dos particiones).</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/freeradius/">Freeradius</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-29T18:31:00+01:00" pubdate data-updated="true">29-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[libssl-dev freeradius-mysql freeradius-utils]. Servidor.</p>
-
-<p>Configurar la base de datos:</p>
-
-<blockquote><p># nano /etc/freeradius/sites-enabled/default</p></blockquote>
-
-<p>En los apartados &#8220;authorize&#8221; y &#8220;accouting&#8221; descomentar las lineas sql</p>
-
-<blockquote><p># nano /etc/freeradius/radius.conf</p></blockquote>
-
-<p>Descomentar la linea $INCLUDE sql.conf</p>
-
-<p>Configurar usuario, contraseña y mensaje de bienvenida:</p>
-
-<blockquote><p># nano /etc/freeradius/users</p></blockquote>
-
-<p>USUARIO Cleartext-Password := &#8220;CONTRASEÑA&#8221;</p>
-
-<pre><code>    Reply-Message "Entrando en el servidor el usuario %{User_Name}"
-</code></pre>
-
-<p>Configurar usuario y contraseña del router o punto de acceso:</p>
-
-<blockquote><p># nano /etc/freeradius/clients.conf</p></blockquote>
-
-<p>client 192.168.1.0/24 {</p>
-
-<pre><code>secret      = CONTRASEÑA_ROUTER
-
-shortname   = USUARIO_ROUTE
-</code></pre>
-
-<p>Finalmente entrar en router y colocar la ip del equipo donde hemos instalado el servidor. Reiniciar el servicio.</p>
-
-<blockquote><p># /etc/init.d/freeradius restart</p>
-
-<p># freeradius -X (Arrancar em modo debug)</p>
-
-<p># radtest USUARIO testing 127.0.0.1 1812 testing123 (Testear si la configuración de un usuario está correcta)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/free/">Free</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-29T18:31:00+01:00" pubdate data-updated="true">29-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Listar la memoria RAM y swap utilizada y disponible</p>
-
-<blockquote><p>$ free -m (muestra los resultados en megabytes)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/fping/">Fping</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-29T18:31:00+01:00" pubdate data-updated="true">29-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Determina máquinas de una red activas</p>
-
-<blockquote><p># fping -g 192.168.2./24 2> /dev/null | grep alive</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/fortune/">Fortune</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-29T18:31:00+01:00" pubdate data-updated="true">29-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Mostrar frases aleatorias al abrir la terminal</p>
-
-<p>añadir al final de /home/usuario/.bashrc:</p>
-
-<p>fortune -a date</p>
-
-<p>frases en /usr/share/games/fortune</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/foremost/">Foremost</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-29T18:31:00+01:00" pubdate data-updated="true">29-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Recuperación de datos</p>
-
-<blockquote><p># foremost -i /dev/sda -o /recovery</p>
-
-<p># foremost -t jpg -i /dev/sda3 -o /home/usr/recuperado (Recuperar jdatepgs de una partición)</p></blockquote>
-
-<p>proceso sobre una imagen:</p>
-
-<blockquote><p># dd if=/dev/sda1 of=imagen.iso conv=noerror,sync (Crear la imagen iso del dispositivo a recuperar. “conv=noerror,sync” indica que ignore errores)</p>
-
-<p># foremost -v -t all -o /home/usuario/recuperado -i imagen.iso</p></blockquote>
-
-<pre><code>-v .- modo detallado
-
--o .- lugar donde almacenar los archivos recuperados
-
--t all .- tipo de archivo a buscar. Para recuperar solo jpg: -t jpg. Para una lista de extensiones: -t jpg,doc,png
-
--i .- lugar donde esta la iso a escanear.
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/for/">For</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-29T18:31:00+01:00" pubdate data-updated="true">29-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>(ucle)]. Ejecuta un trozo de códico si la expresión de control es verdadera y sólo se para cuando es falsa.</p>
-
-<p>Ejemplos:</p>
-
-<p>1.-</p>
-
-<pre><code>#!/bin/bash
-
-    for i in $( ls ); do
-
-        echo item --&gt; $i
-
-    done
-</code></pre>
-
-<p>2.-</p>
-
-<pre><code>#!/bin/bash
-
-for i in `seq 1 10`;
-
-do
-
-    echo $i
-
-done
-</code></pre>
-
-<p>Nota.- Si los números los quisieramos en una misma linea, encerrar la variable entre comillas [&#8221;<code>seq 1 10</code>&#8221;]</p>
-
-<p>3.-</p>
-
-<pre><code>#!/bin/bash
-
-for i in 1 2 3 4 5
-
-do
-
-   echo "Es el número $i "
-
-done
-</code></pre>
-
-<p>4.-</p>
-
-<pre><code>#!/bin/bash
-
-for i in {1..5}
-
-do
-
-   echo "Es el número $i "
-
-done
-</code></pre>
-
-<p>5.-</p>
-
-<p>Del 1 al 10 de 2 en 2:</p>
-
-<pre><code>#!/bin/bash
-
-for i in {1..10..2}
-
-do
-
-    echo "Es el número $i "
-
-done
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/fold/">Fold</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-29T18:31:00+01:00" pubdate data-updated="true">29-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Formatea la salida de un archivo a una determinada longitud.</p>
-
-<blockquote><p>$ fold  -w50 -s archivo (50 caracteres de largo por linea y que corte por los espacios entre palabras y no por las palabras)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/fmt/">Fmt</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-29T18:31:00+01:00" pubdate data-updated="true">29-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra en pantalla archivos de texto de forma optimizada (Ver diferencia con cat)</p>
-
-<blockquote><p>$ fmt fichero.txt</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
       <h1 class="entry-title"><a href="/blog/flvstreamer/">Flvstreamer</a></h1>
     
     
@@ -570,7 +96,7 @@ done
   
 
 
-<time datetime="2014-01-29T18:31:00+01:00" pubdate data-updated="true">29-01-2014</time>
+<time datetime="2014-04-03T14:50:00+02:00" pubdate data-updated="true">03-04-2014</time>
         
       </p>
     
@@ -588,6 +114,2708 @@ done
 <p>Colocando en el número “ID=” el que corresponda y con la ruta rtmp que nos indique lanzar [en una sola linea]:</p>
 
 <blockquote><p>$ flvstreamer -r rtmp://mp4-500-str.tv3.cat/ondemand/mp4:g/tvcatalunya/2/9/1307049732092.mp4 -o video.mp4</p></blockquote>
+
+<p>flvstreamer</p>
+
+<p>Descarga de videos con protocolo RTMP.</p>
+
+<p>Supongamos que el video a descargar tenga por ruta: http://www.tv3.cat/videos/1307049732092</p>
+
+<p>Abrir una pestaña del vavegador y pegar:</p>
+
+<p>http://www.tv3.cat/su/tvc/tvcConditionalAccess.jsp?ID=1307049732092&amp;QUALITY=H&amp;FORMAT=MP4</p>
+
+<p>Colocando en el número “ID=” el que corresponda y con la ruta rtmp que nos indique lanzar [en una sola linea]:</p>
+
+<blockquote><p>$ flvstreamer -r rtmp://mp4-500-str.tv3.cat/ondemand/mp4:g/tvcatalunya/2/9/1307049732092.mp4 -o video.mp4</p></blockquote>
+
+<p>flvstreamer</p>
+
+<p>Descarga de videos con protocolo RTMP.</p>
+
+<p>Supongamos que el video a descargar tenga por ruta: http://www.tv3.cat/videos/1307049732092</p>
+
+<p>Abrir una pestaña del vavegador y pegar:</p>
+
+<p>http://www.tv3.cat/su/tvc/tvcConditionalAccess.jsp?ID=1307049732092&amp;QUALITY=H&amp;FORMAT=MP4</p>
+
+<p>Colocando en el número “ID=” el que corresponda y con la ruta rtmp que nos indique lanzar [en una sola linea]:</p>
+
+<blockquote><p>$ flvstreamer -r rtmp://mp4-500-str.tv3.cat/ondemand/mp4:g/tvcatalunya/2/9/1307049732092.mp4 -o video.mp4</p></blockquote>
+
+<p>flvstreamer</p>
+
+<p>Descarga de videos con protocolo RTMP.</p>
+
+<p>Supongamos que el video a descargar tenga por ruta: http://www.tv3.cat/videos/1307049732092</p>
+
+<p>Abrir una pestaña del vavegador y pegar:</p>
+
+<p>http://www.tv3.cat/su/tvc/tvcConditionalAccess.jsp?ID=1307049732092&amp;QUALITY=H&amp;FORMAT=MP4</p>
+
+<p>Colocando en el número “ID=” el que corresponda y con la ruta rtmp que nos indique lanzar [en una sola linea]:</p>
+
+<blockquote><p>$ flvstreamer -r rtmp://mp4-500-str.tv3.cat/ondemand/mp4:g/tvcatalunya/2/9/1307049732092.mp4 -o video.mp4</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fluxbox-generate-menu/">Fluxbox-generate_menu</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-03T14:50:00+02:00" pubdate data-updated="true">03-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Generador de menús de fluxbox.</p>
+
+<blockquote><p>$ fluxbox-generate_menu -g (Añade un menú tipo gnome)</p>
+
+<p>$ fluxbox-generate_menu -k -o ~/.fluxbox/menu1 (Añade menú tipo kde y lo coloca en menu1 para probarlo. Sin especificar, substituiría el .fluxbox/menu)</p></blockquote>
+
+<p>fluxbox-generate_menu</p>
+
+<p>Generador de menús de fluxbox.</p>
+
+<blockquote><p>$ fluxbox-generate_menu -g (Añade un menú tipo gnome)</p>
+
+<p>$ fluxbox-generate_menu -k -o ~/.fluxbox/menu1 (Añade menú tipo kde y lo coloca en menu1 para probarlo. Sin especificar, substituiría el .fluxbox/menu)</p></blockquote>
+
+<p>fluxbox-generate_menu</p>
+
+<p>Generador de menús de fluxbox.</p>
+
+<blockquote><p>$ fluxbox-generate_menu -g (Añade un menú tipo gnome)</p>
+
+<p>$ fluxbox-generate_menu -k -o ~/.fluxbox/menu1 (Añade menú tipo kde y lo coloca en menu1 para probarlo. Sin especificar, substituiría el .fluxbox/menu)</p></blockquote>
+
+<p>fluxbox-generate_menu</p>
+
+<p>Generador de menús de fluxbox.</p>
+
+<blockquote><p>$ fluxbox-generate_menu -g (Añade un menú tipo gnome)</p>
+
+<p>$ fluxbox-generate_menu -k -o ~/.fluxbox/menu1 (Añade menú tipo kde y lo coloca en menu1 para probarlo. Sin especificar, substituiría el .fluxbox/menu)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/flunym0us/">Flunym0us</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-03T14:50:00+02:00" pubdate data-updated="true">03-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Pruebas de vulnarabilidad de webs basadas en wordpress. Descarga http://code.google.com/p/flunym0us/downloads/list</p>
+
+<blockquote><p>$ flunym0us -H http://host -w /home/usuario/wordlist -wp -t 60 -r 1 -p 2 -T 2</p></blockquote>
+
+<p>Opciones:</p>
+
+<pre><code>-wp (Scanear un sitio wordpress)
+
+-mo (scanear un sitio Moodle)
+
+-H http://host (Nombre del host wordpress a scanear)
+
+-w /home/usuario/wordlist (Ruta al diccionario)
+
+-t 60 (Tiempo de espera)
+
+-r 1 (Reintentos de conexión)
+
+-p 2 (Numero de procesos)
+
+-T 2 (Número de subprocesos simultaneos por proceso)
+</code></pre>
+
+<p>flunym0us</p>
+
+<p>Pruebas de vulnarabilidad de webs basadas en wordpress. Descarga http://code.google.com/p/flunym0us/downloads/list</p>
+
+<blockquote><p>$ flunym0us -H http://host -w /home/usuario/wordlist -wp -t 60 -r 1 -p 2 -T 2</p></blockquote>
+
+<p>Opciones:</p>
+
+<pre><code>-wp (Scanear un sitio wordpress)
+
+-mo (scanear un sitio Moodle)
+
+-H http://host (Nombre del host wordpress a scanear)
+
+-w /home/usuario/wordlist (Ruta al diccionario)
+
+-t 60 (Tiempo de espera)
+
+-r 1 (Reintentos de conexión)
+
+-p 2 (Numero de procesos)
+
+-T 2 (Número de subprocesos simultaneos por proceso)
+</code></pre>
+
+<p>flunym0us</p>
+
+<p>Pruebas de vulnarabilidad de webs basadas en wordpress. Descarga http://code.google.com/p/flunym0us/downloads/list</p>
+
+<blockquote><p>$ flunym0us -H http://host -w /home/usuario/wordlist -wp -t 60 -r 1 -p 2 -T 2</p></blockquote>
+
+<p>Opciones:</p>
+
+<pre><code>-wp (Scanear un sitio wordpress)
+
+-mo (scanear un sitio Moodle)
+
+-H http://host (Nombre del host wordpress a scanear)
+
+-w /home/usuario/wordlist (Ruta al diccionario)
+
+-t 60 (Tiempo de espera)
+
+-r 1 (Reintentos de conexión)
+
+-p 2 (Numero de procesos)
+
+-T 2 (Número de subprocesos simultaneos por proceso)
+</code></pre>
+
+<p>flunym0us</p>
+
+<p>Pruebas de vulnarabilidad de webs basadas en wordpress. Descarga http://code.google.com/p/flunym0us/downloads/list</p>
+
+<blockquote><p>$ flunym0us -H http://host -w /home/usuario/wordlist -wp -t 60 -r 1 -p 2 -T 2</p></blockquote>
+
+<p>Opciones:</p>
+
+<pre><code>-wp (Scanear un sitio wordpress)
+
+-mo (scanear un sitio Moodle)
+
+-H http://host (Nombre del host wordpress a scanear)
+
+-w /home/usuario/wordlist (Ruta al diccionario)
+
+-t 60 (Tiempo de espera)
+
+-r 1 (Reintentos de conexión)
+
+-p 2 (Numero de procesos)
+
+-T 2 (Número de subprocesos simultaneos por proceso)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/flexget/">Flexget</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-03T14:50:00+02:00" pubdate data-updated="true">03-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[python2.6 python-pip]. Descarga de series a partir de su direccion RSS. Archivo de configuración:</p>
+
+<blockquote><p>$ nano .flexget/config.yml</p></blockquote>
+
+<p>Con un contenido parecido a:</p>
+
+<pre><code>presets:
+
+  tv:
+
+    series:
+
+      settings:
+
+    hdtv:
+
+      timeframe: 8 hours
+
+      hdtv &lt;720p:
+
+    - serie 1
+
+    - serie 2
+
+    - serie 3
+
+    - etc
+
+    content_filter:
+
+      require:
+
+    - '*.avi'
+
+    download: "/media/discoext/Descargas/Torrents"
+
+tasks:
+
+  TvTorrent1:
+
+    rss: http://showrss.karmorra.info/feeds/all.rss
+
+    preset: tv
+</code></pre>
+
+<blockquote><p>$ flexget &#8211;test (Comprobar si la configuración es correcta)</p>
+
+<p>$ flexget (Lanzar la aplicación)</p></blockquote>
+
+<p>flexget</p>
+
+<p>[python2.6 python-pip]. Descarga de series a partir de su direccion RSS. Archivo de configuración:</p>
+
+<blockquote><p>$ nano .flexget/config.yml</p></blockquote>
+
+<p>Con un contenido parecido a:</p>
+
+<pre><code>presets:
+
+  tv:
+
+    series:
+
+      settings:
+
+    hdtv:
+
+      timeframe: 8 hours
+
+      hdtv &lt;720p:
+
+    - serie 1
+
+    - serie 2
+
+    - serie 3
+
+    - etc
+
+    content_filter:
+
+      require:
+
+    - '*.avi'
+
+    download: "/media/discoext/Descargas/Torrents"
+
+tasks:
+
+  TvTorrent1:
+
+    rss: http://showrss.karmorra.info/feeds/all.rss
+
+    preset: tv
+</code></pre>
+
+<blockquote><p>$ flexget &#8211;test (Comprobar si la configuración es correcta)</p>
+
+<p>$ flexget (Lanzar la aplicación)</p></blockquote>
+
+<p>flexget</p>
+
+<p>[python2.6 python-pip]. Descarga de series a partir de su direccion RSS. Archivo de configuración:</p>
+
+<blockquote><p>$ nano .flexget/config.yml</p></blockquote>
+
+<p>Con un contenido parecido a:</p>
+
+<pre><code>presets:
+
+  tv:
+
+    series:
+
+      settings:
+
+    hdtv:
+
+      timeframe: 8 hours
+
+      hdtv &lt;720p:
+
+    - serie 1
+
+    - serie 2
+
+    - serie 3
+
+    - etc
+
+    content_filter:
+
+      require:
+
+    - '*.avi'
+
+    download: "/media/discoext/Descargas/Torrents"
+
+tasks:
+
+  TvTorrent1:
+
+    rss: http://showrss.karmorra.info/feeds/all.rss
+
+    preset: tv
+</code></pre>
+
+<blockquote><p>$ flexget &#8211;test (Comprobar si la configuración es correcta)</p>
+
+<p>$ flexget (Lanzar la aplicación)</p></blockquote>
+
+<p>flexget</p>
+
+<p>[python2.6 python-pip]. Descarga de series a partir de su direccion RSS. Archivo de configuración:</p>
+
+<blockquote><p>$ nano .flexget/config.yml</p></blockquote>
+
+<p>Con un contenido parecido a:</p>
+
+<pre><code>presets:
+
+  tv:
+
+    series:
+
+      settings:
+
+    hdtv:
+
+      timeframe: 8 hours
+
+      hdtv &lt;720p:
+
+    - serie 1
+
+    - serie 2
+
+    - serie 3
+
+    - etc
+
+    content_filter:
+
+      require:
+
+    - '*.avi'
+
+    download: "/media/discoext/Descargas/Torrents"
+
+tasks:
+
+  TvTorrent1:
+
+    rss: http://showrss.karmorra.info/feeds/all.rss
+
+    preset: tv
+</code></pre>
+
+<blockquote><p>$ flexget &#8211;test (Comprobar si la configuración es correcta)</p>
+
+<p>$ flexget (Lanzar la aplicación)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/firefox/">Firefox</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-03T14:50:00+02:00" pubdate data-updated="true">03-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Navegador.</p>
+
+<blockquote><p>$ firefox &#8211;private (Nota.- Son dos guiones. Arrancar en modo privado. Para incluir por defecto este modo en la propiedades: firefox &#8211;private %U)</p>
+
+<p>$ firefox &#8216;data:text/html, texto que queremos mostrar&#8217; (Visualizar un texto en una ventana del navegador)</p></blockquote>
+
+<p>Cambios para optimizar las conexiones y para aprovechar otros parámetros. Escribir en la barra de direcciones: &#8220;about:config&#8221; y pulsar enter. Cambiar los siguientes valores. Para ello, hacer doble click encima de la línea a modificar y en el cuadro de diálogo que aparece, escribir el valor nuevo:</p>
+
+<p>Ajustes generales [dependen de la versión instalada]:</p>
+
+<p>network.dns.disableIPv6 true</p>
+
+<p>network.http.max-connections 128</p>
+
+<p>network.http.max-connections-per-server 48</p>
+
+<p>network.http.max-persistent-connections-per-proxy 24</p>
+
+<p>network.http.max-persistent-connections-per-server 12</p>
+
+<p>network.http.pipelining true</p>
+
+<p>network.http.proxy.pipelining true</p>
+
+<p>network.http.pipelining.maxrequests 30</p>
+
+<p>browser.sessionstore.interval 300000</p>
+
+<p>Desactivar escaneo de virus.</p>
+
+<pre><code>browser.download.manager.scanWhenDone false 
+</code></pre>
+
+<p>Guarda pestañas abiertas al cerrar:</p>
+
+<pre><code>browser.showquitwarning true 
+</code></pre>
+
+<p>Deshabilitar la opción de recuperación de sesión.</p>
+
+<pre><code>browser.sessionstore.enabled false 
+</code></pre>
+
+<p>Si tenemos problemas con hotmail, suprimir el nombre de la distro:</p>
+
+<pre><code>general.useragent.vendor 
+</code></pre>
+
+<p>Instalar extensiones incompatibles (peligroso):</p>
+
+<pre><code>extensions.checkCompatibility  False 
+</code></pre>
+
+<p>Si no queremos que pregunte por guardar contraseñas:</p>
+
+<pre><code>signon.RememberSignons false 
+</code></pre>
+
+<p>Activar tecla backspace para ir a la página anterior</p>
+
+<pre><code>browser.backspace_action 0 
+</code></pre>
+
+<p>Visualizar todas las pestañas:</p>
+
+<pre><code>browser.allTabs.previews true 
+</code></pre>
+
+<p>Cambiar idioma:</p>
+
+<pre><code>general.useragent.locale 
+</code></pre>
+
+<p>Deshabilitar o aumentar la cantidad de sugerencias de la barra de direcciones (por defecto 12. Dehabilitar -1).</p>
+
+<pre><code>browser.urlbar.maxRichResults  15 
+</code></pre>
+
+<p>Modificar el intervalo de tiempo de recuperación de sesión (1 segundo=1000. Por defecto cada 10 segundos) El parámetro anterior tiene que estar en &#8220;true&#8221;.</p>
+
+<pre><code>browser.sessionstore.interval 20000 
+</code></pre>
+
+<p>Mejorar la calidad de color (consume muchos recursos).</p>
+
+<pre><code>gfx.color_management.enabled true 
+</code></pre>
+
+<p>Suprimir el scroll de pestañas aunque tengamos muchas abiertas (por defecto 100).</p>
+
+<pre><code>browser.tabs.tabMinWidth 0 
+</code></pre>
+
+<p>Abrir las ventanas emergentes en una nueva pestaña (por defecto lo abre como ventana [2]. Para no abrir ninguno [1])</p>
+
+<pre><code>browser.link.open_newwindow.restriction 0 
+</code></pre>
+
+<p>Habilitar diccionario para todos los campos de texto (por defecto solo multilinea [1]. Deshabilitar [0]).</p>
+
+<pre><code>layout.spellcheckDefault 2 
+</code></pre>
+
+<p>Abrir resultados de búsqueda en otra pestaña.</p>
+
+<pre><code>browser.search.openintab true 
+</code></pre>
+
+<p>Modificar la caché (por defecto 50000 kb)</p>
+
+<pre><code>browser.cache.disk.enable true. 
+
+browser.cache.disk.capacity 100000 
+</code></pre>
+
+<p>Habilitar sugerencias de autocompletado en la barra de direcciones.</p>
+
+<pre><code>browser.urlbar.autofill  true 
+</code></pre>
+
+<p>Auto exportar Favoritos para sincronización con otro navegador</p>
+
+<pre><code>browser.bookmarks.autoExportHTML true 
+</code></pre>
+
+<p>Aumentar el historial de &#8220;deshacer cerrar pestaña&#8221;. (por defecto 10)</p>
+
+<pre><code>browser.sessionstore.max_tabs_undo 20 
+</code></pre>
+
+<p>Deshabilitar tiempo de espera al agregar complementos (por defecto 5 segundos)</p>
+
+<pre><code>security.dialog_enable_delay 0 
+</code></pre>
+
+<p>Ver código fuente con el editor favorito.</p>
+
+<pre><code>view_source.editor.external true 
+
+view_source.editor.path /ruta/al/editor 
+</code></pre>
+
+<p>Mostrar siempre [incluso en modo &#8220;pantalla completa&#8221;] la barra superior.</p>
+
+<pre><code>browser.fullscreen.autohide false 
+</code></pre>
+
+<p>Aumentar lista de búsqueda de complementos (por defecto 5).</p>
+
+<pre><code>extensions.getAddons.maxResults 10 
+</code></pre>
+
+<p>Evitar que un sitio modifique el tamaño de ventanas.</p>
+
+<pre><code>dom.disable_window_move_resize true 
+</code></pre>
+
+<p>Mostrar las pestañas abiertas como miniaturas. Crea un botón que muestra una vista previa de pestañas abiertas.</p>
+
+<pre><code>browser.allTabs.previews  true 
+</code></pre>
+
+<p>No mostrar favicon en la barra de direcciones y en las pestañas.</p>
+
+<pre><code>browser.chrome.site_icons  False
+</code></pre>
+
+<p>Evitar cuelgues al abrir muchas pestañas (por defecto 256)</p>
+
+<pre><code>network.http.max-connections 48
+</code></pre>
+
+<p>Desactivar sitios más visitados en nueva página:</p>
+
+<pre><code>browser.newtabpage.enabled  false
+</code></pre>
+
+<p>Al abrir nueva pestaña que se abra con un URL concreta:</p>
+
+<pre><code>browser.newtab.url
+</code></pre>
+
+<p>Que las preferencias se abran en nueva pestaña y no en nueva ventana:</p>
+
+<pre><code>browser.preferences.InContent true
+</code></pre>
+
+<p>Habilitar lector nativo de pdf en javascript:</p>
+
+<pre><code>pdfjs.disable false
+</code></pre>
+
+<p>Habilitar dominios multilingües [idn] -Que continenen caracteres raros.</p>
+
+<pre><code>network.enableIDN true
+</code></pre>
+
+<p>Ver listado de todos los idn habilitados [todos en true]:</p>
+
+<pre><code>network.IDN.whitelist
+</code></pre>
+
+<p>Habilitar lector de pdfs:</p>
+
+<pre><code>pdfjs.disabled true 
+</code></pre>
+
+<p>Habilitar soporte para H.264, AAC y mp3:</p>
+
+<pre><code>media.gstreamer.enabled true
+</code></pre>
+
+<p>Acceso a los diálogos de firefox:</p>
+
+<pre><code>chrome://browser/content/bookmarks/bookmarksPanel.xul  (las direcciones de interés)
+
+chrome://browser/content/history/history-panel.xul  (historial)
+
+chrome://global/content/console.xul (Consola Javascript)
+
+chrome://passwordmgr/content/passwordManager.xul (Administrador de contraseñas)
+
+chrome://pippki/content/getpassword.xul (Establecer contraseña maestra)
+
+chrome://pippki/content/resetpassword.xul (Restablecer contraseña maestra)
+
+chrome://mozapps/content/downloads/downloads.xul (lista de descargas efectuadas)
+
+chrome://browser/content/browser.xul (abre un navegador completo en una pestaña)
+
+chrome://browser/content/preferences/preferences.xul (Abre las preferencias)
+</code></pre>
+
+<p>Archivos de interés en los perfiles de firefox (.mozilla/firefox/*.default):</p>
+
+<pre><code>bookmarks.html - Nuestros marcadores
+
+cert8.db - Certificados de seguridad
+
+formhistory.dat - Formularios memorizados
+
+key3.db - Contraseñas almacenadas
+</code></pre>
+
+<p>&#8220;about:&#8221; (escrito en la barra de direcciones de firefox):</p>
+
+<pre><code>about:  (Información sobre el navegador)
+
+about:blank  (Una página en blanco)
+
+about:buildconfig  (Detalles de la compilación para nuestra versión)
+
+about:cache  (información sobre la cache del navegador)
+
+about:cache?device=memory  (Muestra la caché en memoria)
+
+about:cache?device=disk  (Muestra la caché de disco)
+
+about:config  (Configuración del navegador)
+
+about:credits  (Lista de los que contribuyeron al desarrollo del navegador)
+
+about:logo  (El logo del navegador)
+
+about:mozilla  (Muestra un pasaje de “El Libro de Mozilla”)
+
+about:plugins  (lista detallada de los plugins que tenemos instalados)
+</code></pre>
+
+<blockquote><p>$ grep -hIr :name ~/.mozilla/firefox/*.default/extensions | tr &#8216;&lt;>=&#8217; &#8216;&#8221;&#8220;&#8221;&#8217; | cut -f3 -d&#8217;&#8221;&#8217; | sort -u  (listar las extensiones de firefox)</p>
+
+<p>$ firefox -ProfileManager -no-remote (crear un perfil sin cerrar firefox)</p>
+
+<p>$ firefox http://www.google.com/search?q=BUSQUEDA (buscar algo por linea de comandos [abre el navegador])</p>
+
+<p>$ firefox http://images.google.com/images?q=BUSQUEDA (Lo mismo para imágenes)</p>
+
+<p>$ firefox http:/books.google.es/search?q=BUSQUEDA (lo mismo con libros)</p>
+
+<p>$ firefox http://news.google.es/news/search?q=BUSQUEDA (Con noticias)</p>
+
+<p>$ find ~/.mozilla -iname &#8216;*.sqlite&#8217; -execdir sqlite3 {} &#8216;vacuum;&#8217; \; (desfragmentar la base de datos de firefox. Tambien existe plugin[SQLite Manager])</p></blockquote>
+
+<p>1.-</p>
+
+<p>Mandar un email desde la barra de direcciones (Valido tambien para chromium):</p>
+
+<p>Tener configurado un gestor de correos [evolution, thunderbird..]. Escribir en la abarra de direcciones:</p>
+
+<pre><code>mailto:usuario@gmail.com
+</code></pre>
+
+<p>Del destinatario. Se abrira el gestor de correo listo para escribir.</p>
+
+<p>Atajos:</p>
+
+<p>Navegación:</p>
+
+<pre><code>Alt + &lt;- (Ir a la página anterior) 
+
+Atl + -&gt; (Ir a la página siguiente) 
+
+Alt + inicio (Inicio) 
+
+^ + o (Abrir archivo) 
+
+F5 (Recargar)  
+
+^+ F5 (Recargar reemplazando caché) 
+
+Esc (Detener) 
+</code></pre>
+
+<p>Página actual:</p>
+
+<pre><code>Fin (Ir al final de la página) 
+
+Inicio (Ir a principio de la página) date
+
+F6 (Ir a la siguiente pestaña) 
+
+Mayús + F6 (Ir a la anterior pestaña) 
+
+^+ p (Imprimir) 
+
+^+ s (Guardar página como...) 
+
+^+ + (Aumentar tamaño texto) 
+
+^+ - (Reducir tamaño texto) 
+
+^+ 0 (Restablecer tamaño texto) 
+</code></pre>
+
+<p>Editar:</p>
+
+<pre><code>^+ c (Copiar) 
+
+^+ x (Cortar) 
+
+Supr (Eliminar) 
+
+^+ v (Pegar) 
+
+^ + Z (Rehacer) 
+
+^+ a (Seleccionar todo) 
+
+^+ z (Deshacer) 
+</code></pre>
+
+<p>Buscar:</p>
+
+<pre><code>^ +f (Encontrar) 
+
+F3 (Encontrar de nuevo) 
+
+Mayús * F3 (Encontrar anterior) 
+
+' (Búsqueda texto de enlaces) 
+
+/ (Búsqueda rápida) 
+
+Esc (Cerrar busquedas) 
+
+^+ k (Barra de búsqueda) 
+
+Alt + flecha arriba/abajo , con el foco en la barra (Seleccionar motor busqueda) 
+</code></pre>
+
+<p>Ventanas y pestañas:</p>
+
+<pre><code>^ + w (Cerrar pestaña) 
+
+Alt + F4 (Cerrar ventana) 
+
+^ + &lt;- (Mover pestaña a la izq.) 
+
+^+ -&gt; (Mover pestaña a la dere.) 
+
+^+ home (Mover pestaña al comienzo) 
+
+^+ fin (Mover pestaña al final) 
+
+^+ t (Nueva pestaña) 
+
+^+ n (Nueva ventana) 
+
+Alt + intro desde la barra direcciones o bus1uedas (Abrir en nueva pestaña) 
+
+^+ tab (Pestaña siguiente) 
+
+^+ Mayús + tab (Pestaña anterior) 
+
+^+ Mayús + t (Deshacer cerrar pestaña) 
+
+^+ Mayús + n (Deshacer cerrar ventana) 
+
+^+ 1 ....8 (Seleccionar pestaña 1 a 8) 
+
+^+ 9 (Seleccionar última pestaña) 
+
+^+ Mayús + e (Vista grupos de pestañas) 
+
+Esc (Cerrar vista de grupos pestañas) 
+</code></pre>
+
+<p>Historial:</p>
+
+<pre><code>^+ h (Panel lateral de Historial) 
+
+^+ H (Historial) 
+</code></pre>
+
+<p>Marcadores:</p>
+
+<pre><code>^ + D (Agregar pestañas a marcadores) 
+
+^+ d (Agregar página a marcadores) 
+
+^+ b (Panel lateral de marcadores) 
+
+^+ O (Marcadores) 
+</code></pre>
+
+<p>Herramientas: http://www.overlooksoft.com/</p>
+
+<pre><code>^+ Y (Descargas) 
+
+^+ A (Complementos) 
+
+^+ K (Consola web) 
+
+^+ I (Inspeccionar) 
+
+Mayús + F4 (Borrador) 
+
+^+ u (Código fuente de la página) 
+
+^+ J (Consola de errores) 
+
+^+ i (Información de la página) 
+
+^+ P (Navegación privada) 
+
+^+ S (Limpiar historial) http://www.overlooksoft.com/
+</code></pre>
+
+<p>Otros atajos:</p>
+
+<pre><code>^+ intro (Completar dirección .com) 
+
+Mayús + intro (Completar dirección .net) 
+
+^+ Mayús + intro (Completar dirección .org) 
+
+Alt (Ver barra de menús en kde) 
+
+F10 (Ver barra de menús en gnome) 
+
+^+ / (Mostrar/Ocultar complementos) 
+
+F7 (Navegación con cursor) 
+
+F11 (Pantalla completa) 
+
+^+ l (Barra de direcciones) 
+</code></pre>
+
+<p>firefox</p>
+
+<p>Navegador.</p>
+
+<blockquote><p>$ firefox &#8211;private (Nota.- Son dos guiones. Arrancar en modo privado. Para incluir por defecto este modo en la propiedades: firefox &#8211;private %U)</p>
+
+<p>$ firefox &#8216;data:text/html, texto que queremos mostrar&#8217; (Visualizar un texto en una ventana del navegador)</p></blockquote>
+
+<p>Cambios para optimizar las conexiones y para aprovechar otros parámetros. Escribir en la barra de direcciones: &#8220;about:config&#8221; y pulsar enter. Cambiar los siguientes valores. Para ello, hacer doble click encima de la línea a modificar y en el cuadro de diálogo que aparece, escribir el valor nuevo:</p>
+
+<p>Ajustes generales [dependen de la versión instalada]:</p>
+
+<p>network.dns.disableIPv6 true</p>
+
+<p>network.http.max-connections 128</p>
+
+<p>network.http.max-connections-per-server 48</p>
+
+<p>network.http.max-persistent-connections-per-proxy 24</p>
+
+<p>network.http.max-persistent-connections-per-server 12</p>
+
+<p>network.http.pipelining true</p>
+
+<p>network.http.proxy.pipelining true</p>
+
+<p>network.http.pipelining.maxrequests 30</p>
+
+<p>browser.sessionstore.interval 300000</p>
+
+<p>Desactivar escaneo de virus.</p>
+
+<pre><code>browser.download.manager.scanWhenDone false 
+</code></pre>
+
+<p>Guarda pestañas abiertas al cerrar:</p>
+
+<pre><code>browser.showquitwarning true 
+</code></pre>
+
+<p>Deshabilitar la opción de recuperación de sesión.</p>
+
+<pre><code>browser.sessionstore.enabled false 
+</code></pre>
+
+<p>Si tenemos problemas con hotmail, suprimir el nombre de la distro:</p>
+
+<pre><code>general.useragent.vendor 
+</code></pre>
+
+<p>Instalar extensiones incompatibles (peligroso):</p>
+
+<pre><code>extensions.checkCompatibility  False 
+</code></pre>
+
+<p>Si no queremos que pregunte por guardar contraseñas:</p>
+
+<pre><code>signon.RememberSignons false 
+</code></pre>
+
+<p>Activar tecla backspace para ir a la página anterior</p>
+
+<pre><code>browser.backspace_action 0 
+</code></pre>
+
+<p>Visualizar todas las pestañas:</p>
+
+<pre><code>browser.allTabs.previews true 
+</code></pre>
+
+<p>Cambiar idioma:</p>
+
+<pre><code>general.useragent.locale 
+</code></pre>
+
+<p>Deshabilitar o aumentar la cantidad de sugerencias de la barra de direcciones (por defecto 12. Dehabilitar -1).</p>
+
+<pre><code>browser.urlbar.maxRichResults  15 
+</code></pre>
+
+<p>Modificar el intervalo de tiempo de recuperación de sesión (1 segundo=1000. Por defecto cada 10 segundos) El parámetro anterior tiene que estar en &#8220;true&#8221;.</p>
+
+<pre><code>browser.sessionstore.interval 20000 
+</code></pre>
+
+<p>Mejorar la calidad de color (consume muchos recursos).</p>
+
+<pre><code>gfx.color_management.enabled true 
+</code></pre>
+
+<p>Suprimir el scroll de pestañas aunque tengamos muchas abiertas (por defecto 100).</p>
+
+<pre><code>browser.tabs.tabMinWidth 0 
+</code></pre>
+
+<p>Abrir las ventanas emergentes en una nueva pestaña (por defecto lo abre como ventana [2]. Para no abrir ninguno [1])</p>
+
+<pre><code>browser.link.open_newwindow.restriction 0 
+</code></pre>
+
+<p>Habilitar diccionario para todos los campos de texto (por defecto solo multilinea [1]. Deshabilitar [0]).</p>
+
+<pre><code>layout.spellcheckDefault 2 
+</code></pre>
+
+<p>Abrir resultados de búsqueda en otra pestaña.</p>
+
+<pre><code>browser.search.openintab true 
+</code></pre>
+
+<p>Modificar la caché (por defecto 50000 kb)</p>
+
+<pre><code>browser.cache.disk.enable true. 
+
+browser.cache.disk.capacity 100000 
+</code></pre>
+
+<p>Habilitar sugerencias de autocompletado en la barra de direcciones.</p>
+
+<pre><code>browser.urlbar.autofill  true 
+</code></pre>
+
+<p>Auto exportar Favoritos para sincronización con otro navegador</p>
+
+<pre><code>browser.bookmarks.autoExportHTML true 
+</code></pre>
+
+<p>Aumentar el historial de &#8220;deshacer cerrar pestaña&#8221;. (por defecto 10)</p>
+
+<pre><code>browser.sessionstore.max_tabs_undo 20 
+</code></pre>
+
+<p>Deshabilitar tiempo de espera al agregar complementos (por defecto 5 segundos)</p>
+
+<pre><code>security.dialog_enable_delay 0 
+</code></pre>
+
+<p>Ver código fuente con el editor favorito.</p>
+
+<pre><code>view_source.editor.external true 
+
+view_source.editor.path /ruta/al/editor 
+</code></pre>
+
+<p>Mostrar siempre [incluso en modo &#8220;pantalla completa&#8221;] la barra superior.</p>
+
+<pre><code>browser.fullscreen.autohide false 
+</code></pre>
+
+<p>Aumentar lista de búsqueda de complementos (por defecto 5).</p>
+
+<pre><code>extensions.getAddons.maxResults 10 
+</code></pre>
+
+<p>Evitar que un sitio modifique el tamaño de ventanas.</p>
+
+<pre><code>dom.disable_window_move_resize true 
+</code></pre>
+
+<p>Mostrar las pestañas abiertas como miniaturas. Crea un botón que muestra una vista previa de pestañas abiertas.</p>
+
+<pre><code>browser.allTabs.previews  true 
+</code></pre>
+
+<p>No mostrar favicon en la barra de direcciones y en las pestañas.</p>
+
+<pre><code>browser.chrome.site_icons  False
+</code></pre>
+
+<p>Evitar cuelgues al abrir muchas pestañas (por defecto 256)</p>
+
+<pre><code>network.http.max-connections 48
+</code></pre>
+
+<p>Desactivar sitios más visitados en nueva página:</p>
+
+<pre><code>browser.newtabpage.enabled  false
+</code></pre>
+
+<p>Al abrir nueva pestaña que se abra con un URL concreta:</p>
+
+<pre><code>browser.newtab.url
+</code></pre>
+
+<p>Que las preferencias se abran en nueva pestaña y no en nueva ventana:</p>
+
+<pre><code>browser.preferences.InContent true
+</code></pre>
+
+<p>Habilitar lector nativo de pdf en javascript:</p>
+
+<pre><code>pdfjs.disable false
+</code></pre>
+
+<p>Habilitar dominios multilingües [idn] -Que continenen caracteres raros.</p>
+
+<pre><code>network.enableIDN true
+</code></pre>
+
+<p>Ver listado de todos los idn habilitados [todos en true]:</p>
+
+<pre><code>network.IDN.whitelist
+</code></pre>
+
+<p>Habilitar lector de pdfs:</p>
+
+<pre><code>pdfjs.disabled true 
+</code></pre>
+
+<p>Habilitar soporte para H.264, AAC y mp3:</p>
+
+<pre><code>media.gstreamer.enabled true
+</code></pre>
+
+<p>Acceso a los diálogos de firefox:</p>
+
+<pre><code>chrome://browser/content/bookmarks/bookmarksPanel.xul  (las direcciones de interés)
+
+chrome://browser/content/history/history-panel.xul  (historial)
+
+chrome://global/content/console.xul (Consola Javascript)
+
+chrome://passwordmgr/content/passwordManager.xul (Administrador de contraseñas)
+
+chrome://pippki/content/getpassword.xul (Establecer contraseña maestra)
+
+chrome://pippki/content/resetpassword.xul (Restablecer contraseña maestra)
+
+chrome://mozapps/content/downloads/downloads.xul (lista de descargas efectuadas)
+
+chrome://browser/content/browser.xul (abre un navegador completo en una pestaña)
+
+chrome://browser/content/preferences/preferences.xul (Abre las preferencias)
+</code></pre>
+
+<p>Archivos de interés en los perfiles de firefox (.mozilla/firefox/*.default):</p>
+
+<pre><code>bookmarks.html - Nuestros marcadores
+
+cert8.db - Certificados de seguridad
+
+formhistory.dat - Formularios memorizados
+
+key3.db - Contraseñas almacenadas
+</code></pre>
+
+<p>&#8220;about:&#8221; (escrito en la barra de direcciones de firefox):</p>
+
+<pre><code>about:  (Información sobre el navegador)
+
+about:blank  (Una página en blanco)
+
+about:buildconfig  (Detalles de la compilación para nuestra versión)
+
+about:cache  (información sobre la cache del navegador)
+
+about:cache?device=memory  (Muestra la caché en memoria)
+
+about:cache?device=disk  (Muestra la caché de disco)
+
+about:config  (Configuración del navegador)
+
+about:credits  (Lista de los que contribuyeron al desarrollo del navegador)
+
+about:logo  (El logo del navegador)
+
+about:mozilla  (Muestra un pasaje de “El Libro de Mozilla”)
+
+about:plugins  (lista detallada de los plugins que tenemos instalados)
+</code></pre>
+
+<blockquote><p>$ grep -hIr :name ~/.mozilla/firefox/*.default/extensions | tr &#8216;&lt;>=&#8217; &#8216;&#8221;&#8220;&#8221;&#8217; | cut -f3 -d&#8217;&#8221;&#8217; | sort -u  (listar las extensiones de firefox)</p>
+
+<p>$ firefox -ProfileManager -no-remote (crear un perfil sin cerrar firefox)</p>
+
+<p>$ firefox http://www.google.com/search?q=BUSQUEDA (buscar algo por linea de comandos [abre el navegador])</p>
+
+<p>$ firefox http://images.google.com/images?q=BUSQUEDA (Lo mismo para imágenes)</p>
+
+<p>$ firefox http:/books.google.es/search?q=BUSQUEDA (lo mismo con libros)</p>
+
+<p>$ firefox http://news.google.es/news/search?q=BUSQUEDA (Con noticias)</p>
+
+<p>$ find ~/.mozilla -iname &#8216;*.sqlite&#8217; -execdir sqlite3 {} &#8216;vacuum;&#8217; \; (desfragmentar la base de datos de firefox. Tambien existe plugin[SQLite Manager])</p></blockquote>
+
+<p>1.-</p>
+
+<p>Mandar un email desde la barra de direcciones (Valido tambien para chromium):</p>
+
+<p>Tener configurado un gestor de correos [evolution, thunderbird..]. Escribir en la abarra de direcciones:</p>
+
+<pre><code>mailto:usuario@gmail.com
+</code></pre>
+
+<p>Del destinatario. Se abrira el gestor de correo listo para escribir.</p>
+
+<p>Atajos:</p>
+
+<p>Navegación:</p>
+
+<pre><code>Alt + &lt;- (Ir a la página anterior) 
+
+Atl + -&gt; (Ir a la página siguiente) 
+
+Alt + inicio (Inicio) 
+
+^ + o (Abrir archivo) 
+
+F5 (Recargar)  
+
+^+ F5 (Recargar reemplazando caché) 
+
+Esc (Detener) 
+</code></pre>
+
+<p>Página actual:</p>
+
+<pre><code>Fin (Ir al final de la página) 
+
+Inicio (Ir a principio de la página) date
+
+F6 (Ir a la siguiente pestaña) 
+
+Mayús + F6 (Ir a la anterior pestaña) 
+
+^+ p (Imprimir) 
+
+^+ s (Guardar página como...) 
+
+^+ + (Aumentar tamaño texto) 
+
+^+ - (Reducir tamaño texto) 
+
+^+ 0 (Restablecer tamaño texto) 
+</code></pre>
+
+<p>Editar:</p>
+
+<pre><code>^+ c (Copiar) 
+
+^+ x (Cortar) 
+
+Supr (Eliminar) 
+
+^+ v (Pegar) 
+
+^ + Z (Rehacer) 
+
+^+ a (Seleccionar todo) 
+
+^+ z (Deshacer) 
+</code></pre>
+
+<p>Buscar:</p>
+
+<pre><code>^ +f (Encontrar) 
+
+F3 (Encontrar de nuevo) 
+
+Mayús * F3 (Encontrar anterior) 
+
+' (Búsqueda texto de enlaces) 
+
+/ (Búsqueda rápida) 
+
+Esc (Cerrar busquedas) 
+
+^+ k (Barra de búsqueda) 
+
+Alt + flecha arriba/abajo , con el foco en la barra (Seleccionar motor busqueda) 
+</code></pre>
+
+<p>Ventanas y pestañas:</p>
+
+<pre><code>^ + w (Cerrar pestaña) 
+
+Alt + F4 (Cerrar ventana) 
+
+^ + &lt;- (Mover pestaña a la izq.) 
+
+^+ -&gt; (Mover pestaña a la dere.) 
+
+^+ home (Mover pestaña al comienzo) 
+
+^+ fin (Mover pestaña al final) 
+
+^+ t (Nueva pestaña) 
+
+^+ n (Nueva ventana) 
+
+Alt + intro desde la barra direcciones o bus1uedas (Abrir en nueva pestaña) 
+
+^+ tab (Pestaña siguiente) 
+
+^+ Mayús + tab (Pestaña anterior) 
+
+^+ Mayús + t (Deshacer cerrar pestaña) 
+
+^+ Mayús + n (Deshacer cerrar ventana) 
+
+^+ 1 ....8 (Seleccionar pestaña 1 a 8) 
+
+^+ 9 (Seleccionar última pestaña) 
+
+^+ Mayús + e (Vista grupos de pestañas) 
+
+Esc (Cerrar vista de grupos pestañas) 
+</code></pre>
+
+<p>Historial:</p>
+
+<pre><code>^+ h (Panel lateral de Historial) 
+
+^+ H (Historial) 
+</code></pre>
+
+<p>Marcadores:</p>
+
+<pre><code>^ + D (Agregar pestañas a marcadores) 
+
+^+ d (Agregar página a marcadores) 
+
+^+ b (Panel lateral de marcadores) 
+
+^+ O (Marcadores) 
+</code></pre>
+
+<p>Herramientas: http://www.overlooksoft.com/</p>
+
+<pre><code>^+ Y (Descargas) 
+
+^+ A (Complementos) 
+
+^+ K (Consola web) 
+
+^+ I (Inspeccionar) 
+
+Mayús + F4 (Borrador) 
+
+^+ u (Código fuente de la página) 
+
+^+ J (Consola de errores) 
+
+^+ i (Información de la página) 
+
+^+ P (Navegación privada) 
+
+^+ S (Limpiar historial) http://www.overlooksoft.com/
+</code></pre>
+
+<p>Otros atajos:</p>
+
+<pre><code>^+ intro (Completar dirección .com) 
+
+Mayús + intro (Completar dirección .net) 
+
+^+ Mayús + intro (Completar dirección .org) 
+
+Alt (Ver barra de menús en kde) 
+
+F10 (Ver barra de menús en gnome) 
+
+^+ / (Mostrar/Ocultar complementos) 
+
+F7 (Navegación con cursor) 
+
+F11 (Pantalla completa) 
+
+^+ l (Barra de direcciones) 
+</code></pre>
+
+<p>firefox</p>
+
+<p>Navegador.</p>
+
+<blockquote><p>$ firefox &#8211;private (Nota.- Son dos guiones. Arrancar en modo privado. Para incluir por defecto este modo en la propiedades: firefox &#8211;private %U)</p>
+
+<p>$ firefox &#8216;data:text/html, texto que queremos mostrar&#8217; (Visualizar un texto en una ventana del navegador)</p></blockquote>
+
+<p>Cambios para optimizar las conexiones y para aprovechar otros parámetros. Escribir en la barra de direcciones: &#8220;about:config&#8221; y pulsar enter. Cambiar los siguientes valores. Para ello, hacer doble click encima de la línea a modificar y en el cuadro de diálogo que aparece, escribir el valor nuevo:</p>
+
+<p>Ajustes generales [dependen de la versión instalada]:</p>
+
+<p>network.dns.disableIPv6 true</p>
+
+<p>network.http.max-connections 128</p>
+
+<p>network.http.max-connections-per-server 48</p>
+
+<p>network.http.max-persistent-connections-per-proxy 24</p>
+
+<p>network.http.max-persistent-connections-per-server 12</p>
+
+<p>network.http.pipelining true</p>
+
+<p>network.http.proxy.pipelining true</p>
+
+<p>network.http.pipelining.maxrequests 30</p>
+
+<p>browser.sessionstore.interval 300000</p>
+
+<p>Desactivar escaneo de virus.</p>
+
+<pre><code>browser.download.manager.scanWhenDone false 
+</code></pre>
+
+<p>Guarda pestañas abiertas al cerrar:</p>
+
+<pre><code>browser.showquitwarning true 
+</code></pre>
+
+<p>Deshabilitar la opción de recuperación de sesión.</p>
+
+<pre><code>browser.sessionstore.enabled false 
+</code></pre>
+
+<p>Si tenemos problemas con hotmail, suprimir el nombre de la distro:</p>
+
+<pre><code>general.useragent.vendor 
+</code></pre>
+
+<p>Instalar extensiones incompatibles (peligroso):</p>
+
+<pre><code>extensions.checkCompatibility  False 
+</code></pre>
+
+<p>Si no queremos que pregunte por guardar contraseñas:</p>
+
+<pre><code>signon.RememberSignons false 
+</code></pre>
+
+<p>Activar tecla backspace para ir a la página anterior</p>
+
+<pre><code>browser.backspace_action 0 
+</code></pre>
+
+<p>Visualizar todas las pestañas:</p>
+
+<pre><code>browser.allTabs.previews true 
+</code></pre>
+
+<p>Cambiar idioma:</p>
+
+<pre><code>general.useragent.locale 
+</code></pre>
+
+<p>Deshabilitar o aumentar la cantidad de sugerencias de la barra de direcciones (por defecto 12. Dehabilitar -1).</p>
+
+<pre><code>browser.urlbar.maxRichResults  15 
+</code></pre>
+
+<p>Modificar el intervalo de tiempo de recuperación de sesión (1 segundo=1000. Por defecto cada 10 segundos) El parámetro anterior tiene que estar en &#8220;true&#8221;.</p>
+
+<pre><code>browser.sessionstore.interval 20000 
+</code></pre>
+
+<p>Mejorar la calidad de color (consume muchos recursos).</p>
+
+<pre><code>gfx.color_management.enabled true 
+</code></pre>
+
+<p>Suprimir el scroll de pestañas aunque tengamos muchas abiertas (por defecto 100).</p>
+
+<pre><code>browser.tabs.tabMinWidth 0 
+</code></pre>
+
+<p>Abrir las ventanas emergentes en una nueva pestaña (por defecto lo abre como ventana [2]. Para no abrir ninguno [1])</p>
+
+<pre><code>browser.link.open_newwindow.restriction 0 
+</code></pre>
+
+<p>Habilitar diccionario para todos los campos de texto (por defecto solo multilinea [1]. Deshabilitar [0]).</p>
+
+<pre><code>layout.spellcheckDefault 2 
+</code></pre>
+
+<p>Abrir resultados de búsqueda en otra pestaña.</p>
+
+<pre><code>browser.search.openintab true 
+</code></pre>
+
+<p>Modificar la caché (por defecto 50000 kb)</p>
+
+<pre><code>browser.cache.disk.enable true. 
+
+browser.cache.disk.capacity 100000 
+</code></pre>
+
+<p>Habilitar sugerencias de autocompletado en la barra de direcciones.</p>
+
+<pre><code>browser.urlbar.autofill  true 
+</code></pre>
+
+<p>Auto exportar Favoritos para sincronización con otro navegador</p>
+
+<pre><code>browser.bookmarks.autoExportHTML true 
+</code></pre>
+
+<p>Aumentar el historial de &#8220;deshacer cerrar pestaña&#8221;. (por defecto 10)</p>
+
+<pre><code>browser.sessionstore.max_tabs_undo 20 
+</code></pre>
+
+<p>Deshabilitar tiempo de espera al agregar complementos (por defecto 5 segundos)</p>
+
+<pre><code>security.dialog_enable_delay 0 
+</code></pre>
+
+<p>Ver código fuente con el editor favorito.</p>
+
+<pre><code>view_source.editor.external true 
+
+view_source.editor.path /ruta/al/editor 
+</code></pre>
+
+<p>Mostrar siempre [incluso en modo &#8220;pantalla completa&#8221;] la barra superior.</p>
+
+<pre><code>browser.fullscreen.autohide false 
+</code></pre>
+
+<p>Aumentar lista de búsqueda de complementos (por defecto 5).</p>
+
+<pre><code>extensions.getAddons.maxResults 10 
+</code></pre>
+
+<p>Evitar que un sitio modifique el tamaño de ventanas.</p>
+
+<pre><code>dom.disable_window_move_resize true 
+</code></pre>
+
+<p>Mostrar las pestañas abiertas como miniaturas. Crea un botón que muestra una vista previa de pestañas abiertas.</p>
+
+<pre><code>browser.allTabs.previews  true 
+</code></pre>
+
+<p>No mostrar favicon en la barra de direcciones y en las pestañas.</p>
+
+<pre><code>browser.chrome.site_icons  False
+</code></pre>
+
+<p>Evitar cuelgues al abrir muchas pestañas (por defecto 256)</p>
+
+<pre><code>network.http.max-connections 48
+</code></pre>
+
+<p>Desactivar sitios más visitados en nueva página:</p>
+
+<pre><code>browser.newtabpage.enabled  false
+</code></pre>
+
+<p>Al abrir nueva pestaña que se abra con un URL concreta:</p>
+
+<pre><code>browser.newtab.url
+</code></pre>
+
+<p>Que las preferencias se abran en nueva pestaña y no en nueva ventana:</p>
+
+<pre><code>browser.preferences.InContent true
+</code></pre>
+
+<p>Habilitar lector nativo de pdf en javascript:</p>
+
+<pre><code>pdfjs.disable false
+</code></pre>
+
+<p>Habilitar dominios multilingües [idn] -Que continenen caracteres raros.</p>
+
+<pre><code>network.enableIDN true
+</code></pre>
+
+<p>Ver listado de todos los idn habilitados [todos en true]:</p>
+
+<pre><code>network.IDN.whitelist
+</code></pre>
+
+<p>Habilitar lector de pdfs:</p>
+
+<pre><code>pdfjs.disabled true 
+</code></pre>
+
+<p>Habilitar soporte para H.264, AAC y mp3:</p>
+
+<pre><code>media.gstreamer.enabled true
+</code></pre>
+
+<p>Acceso a los diálogos de firefox:</p>
+
+<pre><code>chrome://browser/content/bookmarks/bookmarksPanel.xul  (las direcciones de interés)
+
+chrome://browser/content/history/history-panel.xul  (historial)
+
+chrome://global/content/console.xul (Consola Javascript)
+
+chrome://passwordmgr/content/passwordManager.xul (Administrador de contraseñas)
+
+chrome://pippki/content/getpassword.xul (Establecer contraseña maestra)
+
+chrome://pippki/content/resetpassword.xul (Restablecer contraseña maestra)
+
+chrome://mozapps/content/downloads/downloads.xul (lista de descargas efectuadas)
+
+chrome://browser/content/browser.xul (abre un navegador completo en una pestaña)
+
+chrome://browser/content/preferences/preferences.xul (Abre las preferencias)
+</code></pre>
+
+<p>Archivos de interés en los perfiles de firefox (.mozilla/firefox/*.default):</p>
+
+<pre><code>bookmarks.html - Nuestros marcadores
+
+cert8.db - Certificados de seguridad
+
+formhistory.dat - Formularios memorizados
+
+key3.db - Contraseñas almacenadas
+</code></pre>
+
+<p>&#8220;about:&#8221; (escrito en la barra de direcciones de firefox):</p>
+
+<pre><code>about:  (Información sobre el navegador)
+
+about:blank  (Una página en blanco)
+
+about:buildconfig  (Detalles de la compilación para nuestra versión)
+
+about:cache  (información sobre la cache del navegador)
+
+about:cache?device=memory  (Muestra la caché en memoria)
+
+about:cache?device=disk  (Muestra la caché de disco)
+
+about:config  (Configuración del navegador)
+
+about:credits  (Lista de los que contribuyeron al desarrollo del navegador)
+
+about:logo  (El logo del navegador)
+
+about:mozilla  (Muestra un pasaje de “El Libro de Mozilla”)
+
+about:plugins  (lista detallada de los plugins que tenemos instalados)
+</code></pre>
+
+<blockquote><p>$ grep -hIr :name ~/.mozilla/firefox/*.default/extensions | tr &#8216;&lt;>=&#8217; &#8216;&#8221;&#8220;&#8221;&#8217; | cut -f3 -d&#8217;&#8221;&#8217; | sort -u  (listar las extensiones de firefox)</p>
+
+<p>$ firefox -ProfileManager -no-remote (crear un perfil sin cerrar firefox)</p>
+
+<p>$ firefox http://www.google.com/search?q=BUSQUEDA (buscar algo por linea de comandos [abre el navegador])</p>
+
+<p>$ firefox http://images.google.com/images?q=BUSQUEDA (Lo mismo para imágenes)</p>
+
+<p>$ firefox http:/books.google.es/search?q=BUSQUEDA (lo mismo con libros)</p>
+
+<p>$ firefox http://news.google.es/news/search?q=BUSQUEDA (Con noticias)</p>
+
+<p>$ find ~/.mozilla -iname &#8216;*.sqlite&#8217; -execdir sqlite3 {} &#8216;vacuum;&#8217; \; (desfragmentar la base de datos de firefox. Tambien existe plugin[SQLite Manager])</p></blockquote>
+
+<p>1.-</p>
+
+<p>Mandar un email desde la barra de direcciones (Valido tambien para chromium):</p>
+
+<p>Tener configurado un gestor de correos [evolution, thunderbird..]. Escribir en la abarra de direcciones:</p>
+
+<pre><code>mailto:usuario@gmail.com
+</code></pre>
+
+<p>Del destinatario. Se abrira el gestor de correo listo para escribir.</p>
+
+<p>Atajos:</p>
+
+<p>Navegación:</p>
+
+<pre><code>Alt + &lt;- (Ir a la página anterior) 
+
+Atl + -&gt; (Ir a la página siguiente) 
+
+Alt + inicio (Inicio) 
+
+^ + o (Abrir archivo) 
+
+F5 (Recargar)  
+
+^+ F5 (Recargar reemplazando caché) 
+
+Esc (Detener) 
+</code></pre>
+
+<p>Página actual:</p>
+
+<pre><code>Fin (Ir al final de la página) 
+
+Inicio (Ir a principio de la página) date
+
+F6 (Ir a la siguiente pestaña) 
+
+Mayús + F6 (Ir a la anterior pestaña) 
+
+^+ p (Imprimir) 
+
+^+ s (Guardar página como...) 
+
+^+ + (Aumentar tamaño texto) 
+
+^+ - (Reducir tamaño texto) 
+
+^+ 0 (Restablecer tamaño texto) 
+</code></pre>
+
+<p>Editar:</p>
+
+<pre><code>^+ c (Copiar) 
+
+^+ x (Cortar) 
+
+Supr (Eliminar) 
+
+^+ v (Pegar) 
+
+^ + Z (Rehacer) 
+
+^+ a (Seleccionar todo) 
+
+^+ z (Deshacer) 
+</code></pre>
+
+<p>Buscar:</p>
+
+<pre><code>^ +f (Encontrar) 
+
+F3 (Encontrar de nuevo) 
+
+Mayús * F3 (Encontrar anterior) 
+
+' (Búsqueda texto de enlaces) 
+
+/ (Búsqueda rápida) 
+
+Esc (Cerrar busquedas) 
+
+^+ k (Barra de búsqueda) 
+
+Alt + flecha arriba/abajo , con el foco en la barra (Seleccionar motor busqueda) 
+</code></pre>
+
+<p>Ventanas y pestañas:</p>
+
+<pre><code>^ + w (Cerrar pestaña) 
+
+Alt + F4 (Cerrar ventana) 
+
+^ + &lt;- (Mover pestaña a la izq.) 
+
+^+ -&gt; (Mover pestaña a la dere.) 
+
+^+ home (Mover pestaña al comienzo) 
+
+^+ fin (Mover pestaña al final) 
+
+^+ t (Nueva pestaña) 
+
+^+ n (Nueva ventana) 
+
+Alt + intro desde la barra direcciones o bus1uedas (Abrir en nueva pestaña) 
+
+^+ tab (Pestaña siguiente) 
+
+^+ Mayús + tab (Pestaña anterior) 
+
+^+ Mayús + t (Deshacer cerrar pestaña) 
+
+^+ Mayús + n (Deshacer cerrar ventana) 
+
+^+ 1 ....8 (Seleccionar pestaña 1 a 8) 
+
+^+ 9 (Seleccionar última pestaña) 
+
+^+ Mayús + e (Vista grupos de pestañas) 
+
+Esc (Cerrar vista de grupos pestañas) 
+</code></pre>
+
+<p>Historial:</p>
+
+<pre><code>^+ h (Panel lateral de Historial) 
+
+^+ H (Historial) 
+</code></pre>
+
+<p>Marcadores:</p>
+
+<pre><code>^ + D (Agregar pestañas a marcadores) 
+
+^+ d (Agregar página a marcadores) 
+
+^+ b (Panel lateral de marcadores) 
+
+^+ O (Marcadores) 
+</code></pre>
+
+<p>Herramientas: http://www.overlooksoft.com/</p>
+
+<pre><code>^+ Y (Descargas) 
+
+^+ A (Complementos) 
+
+^+ K (Consola web) 
+
+^+ I (Inspeccionar) 
+
+Mayús + F4 (Borrador) 
+
+^+ u (Código fuente de la página) 
+
+^+ J (Consola de errores) 
+
+^+ i (Información de la página) 
+
+^+ P (Navegación privada) 
+
+^+ S (Limpiar historial) http://www.overlooksoft.com/
+</code></pre>
+
+<p>Otros atajos:</p>
+
+<pre><code>^+ intro (Completar dirección .com) 
+
+Mayús + intro (Completar dirección .net) 
+
+^+ Mayús + intro (Completar dirección .org) 
+
+Alt (Ver barra de menús en kde) 
+
+F10 (Ver barra de menús en gnome) 
+
+^+ / (Mostrar/Ocultar complementos) 
+
+F7 (Navegación con cursor) 
+
+F11 (Pantalla completa) 
+
+^+ l (Barra de direcciones) 
+</code></pre>
+
+<p>firefox</p>
+
+<p>Navegador.</p>
+
+<blockquote><p>$ firefox &#8211;private (Nota.- Son dos guiones. Arrancar en modo privado. Para incluir por defecto este modo en la propiedades: firefox &#8211;private %U)</p>
+
+<p>$ firefox &#8216;data:text/html, texto que queremos mostrar&#8217; (Visualizar un texto en una ventana del navegador)</p></blockquote>
+
+<p>Cambios para optimizar las conexiones y para aprovechar otros parámetros. Escribir en la barra de direcciones: &#8220;about:config&#8221; y pulsar enter. Cambiar los siguientes valores. Para ello, hacer doble click encima de la línea a modificar y en el cuadro de diálogo que aparece, escribir el valor nuevo:</p>
+
+<p>Ajustes generales [dependen de la versión instalada]:</p>
+
+<p>network.dns.disableIPv6 true</p>
+
+<p>network.http.max-connections 128</p>
+
+<p>network.http.max-connections-per-server 48</p>
+
+<p>network.http.max-persistent-connections-per-proxy 24</p>
+
+<p>network.http.max-persistent-connections-per-server 12</p>
+
+<p>network.http.pipelining true</p>
+
+<p>network.http.proxy.pipelining true</p>
+
+<p>network.http.pipelining.maxrequests 30</p>
+
+<p>browser.sessionstore.interval 300000</p>
+
+<p>Desactivar escaneo de virus.</p>
+
+<pre><code>browser.download.manager.scanWhenDone false 
+</code></pre>
+
+<p>Guarda pestañas abiertas al cerrar:</p>
+
+<pre><code>browser.showquitwarning true 
+</code></pre>
+
+<p>Deshabilitar la opción de recuperación de sesión.</p>
+
+<pre><code>browser.sessionstore.enabled false 
+</code></pre>
+
+<p>Si tenemos problemas con hotmail, suprimir el nombre de la distro:</p>
+
+<pre><code>general.useragent.vendor 
+</code></pre>
+
+<p>Instalar extensiones incompatibles (peligroso):</p>
+
+<pre><code>extensions.checkCompatibility  False 
+</code></pre>
+
+<p>Si no queremos que pregunte por guardar contraseñas:</p>
+
+<pre><code>signon.RememberSignons false 
+</code></pre>
+
+<p>Activar tecla backspace para ir a la página anterior</p>
+
+<pre><code>browser.backspace_action 0 
+</code></pre>
+
+<p>Visualizar todas las pestañas:</p>
+
+<pre><code>browser.allTabs.previews true 
+</code></pre>
+
+<p>Cambiar idioma:</p>
+
+<pre><code>general.useragent.locale 
+</code></pre>
+
+<p>Deshabilitar o aumentar la cantidad de sugerencias de la barra de direcciones (por defecto 12. Dehabilitar -1).</p>
+
+<pre><code>browser.urlbar.maxRichResults  15 
+</code></pre>
+
+<p>Modificar el intervalo de tiempo de recuperación de sesión (1 segundo=1000. Por defecto cada 10 segundos) El parámetro anterior tiene que estar en &#8220;true&#8221;.</p>
+
+<pre><code>browser.sessionstore.interval 20000 
+</code></pre>
+
+<p>Mejorar la calidad de color (consume muchos recursos).</p>
+
+<pre><code>gfx.color_management.enabled true 
+</code></pre>
+
+<p>Suprimir el scroll de pestañas aunque tengamos muchas abiertas (por defecto 100).</p>
+
+<pre><code>browser.tabs.tabMinWidth 0 
+</code></pre>
+
+<p>Abrir las ventanas emergentes en una nueva pestaña (por defecto lo abre como ventana [2]. Para no abrir ninguno [1])</p>
+
+<pre><code>browser.link.open_newwindow.restriction 0 
+</code></pre>
+
+<p>Habilitar diccionario para todos los campos de texto (por defecto solo multilinea [1]. Deshabilitar [0]).</p>
+
+<pre><code>layout.spellcheckDefault 2 
+</code></pre>
+
+<p>Abrir resultados de búsqueda en otra pestaña.</p>
+
+<pre><code>browser.search.openintab true 
+</code></pre>
+
+<p>Modificar la caché (por defecto 50000 kb)</p>
+
+<pre><code>browser.cache.disk.enable true. 
+
+browser.cache.disk.capacity 100000 
+</code></pre>
+
+<p>Habilitar sugerencias de autocompletado en la barra de direcciones.</p>
+
+<pre><code>browser.urlbar.autofill  true 
+</code></pre>
+
+<p>Auto exportar Favoritos para sincronización con otro navegador</p>
+
+<pre><code>browser.bookmarks.autoExportHTML true 
+</code></pre>
+
+<p>Aumentar el historial de &#8220;deshacer cerrar pestaña&#8221;. (por defecto 10)</p>
+
+<pre><code>browser.sessionstore.max_tabs_undo 20 
+</code></pre>
+
+<p>Deshabilitar tiempo de espera al agregar complementos (por defecto 5 segundos)</p>
+
+<pre><code>security.dialog_enable_delay 0 
+</code></pre>
+
+<p>Ver código fuente con el editor favorito.</p>
+
+<pre><code>view_source.editor.external true 
+
+view_source.editor.path /ruta/al/editor 
+</code></pre>
+
+<p>Mostrar siempre [incluso en modo &#8220;pantalla completa&#8221;] la barra superior.</p>
+
+<pre><code>browser.fullscreen.autohide false 
+</code></pre>
+
+<p>Aumentar lista de búsqueda de complementos (por defecto 5).</p>
+
+<pre><code>extensions.getAddons.maxResults 10 
+</code></pre>
+
+<p>Evitar que un sitio modifique el tamaño de ventanas.</p>
+
+<pre><code>dom.disable_window_move_resize true 
+</code></pre>
+
+<p>Mostrar las pestañas abiertas como miniaturas. Crea un botón que muestra una vista previa de pestañas abiertas.</p>
+
+<pre><code>browser.allTabs.previews  true 
+</code></pre>
+
+<p>No mostrar favicon en la barra de direcciones y en las pestañas.</p>
+
+<pre><code>browser.chrome.site_icons  False
+</code></pre>
+
+<p>Evitar cuelgues al abrir muchas pestañas (por defecto 256)</p>
+
+<pre><code>network.http.max-connections 48
+</code></pre>
+
+<p>Desactivar sitios más visitados en nueva página:</p>
+
+<pre><code>browser.newtabpage.enabled  false
+</code></pre>
+
+<p>Al abrir nueva pestaña que se abra con un URL concreta:</p>
+
+<pre><code>browser.newtab.url
+</code></pre>
+
+<p>Que las preferencias se abran en nueva pestaña y no en nueva ventana:</p>
+
+<pre><code>browser.preferences.InContent true
+</code></pre>
+
+<p>Habilitar lector nativo de pdf en javascript:</p>
+
+<pre><code>pdfjs.disable false
+</code></pre>
+
+<p>Habilitar dominios multilingües [idn] -Que continenen caracteres raros.</p>
+
+<pre><code>network.enableIDN true
+</code></pre>
+
+<p>Ver listado de todos los idn habilitados [todos en true]:</p>
+
+<pre><code>network.IDN.whitelist
+</code></pre>
+
+<p>Habilitar lector de pdfs:</p>
+
+<pre><code>pdfjs.disabled true 
+</code></pre>
+
+<p>Habilitar soporte para H.264, AAC y mp3:</p>
+
+<pre><code>media.gstreamer.enabled true
+</code></pre>
+
+<p>Acceso a los diálogos de firefox:</p>
+
+<pre><code>chrome://browser/content/bookmarks/bookmarksPanel.xul  (las direcciones de interés)
+
+chrome://browser/content/history/history-panel.xul  (historial)
+
+chrome://global/content/console.xul (Consola Javascript)
+
+chrome://passwordmgr/content/passwordManager.xul (Administrador de contraseñas)
+
+chrome://pippki/content/getpassword.xul (Establecer contraseña maestra)
+
+chrome://pippki/content/resetpassword.xul (Restablecer contraseña maestra)
+
+chrome://mozapps/content/downloads/downloads.xul (lista de descargas efectuadas)
+
+chrome://browser/content/browser.xul (abre un navegador completo en una pestaña)
+
+chrome://browser/content/preferences/preferences.xul (Abre las preferencias)
+</code></pre>
+
+<p>Archivos de interés en los perfiles de firefox (.mozilla/firefox/*.default):</p>
+
+<pre><code>bookmarks.html - Nuestros marcadores
+
+cert8.db - Certificados de seguridad
+
+formhistory.dat - Formularios memorizados
+
+key3.db - Contraseñas almacenadas
+</code></pre>
+
+<p>&#8220;about:&#8221; (escrito en la barra de direcciones de firefox):</p>
+
+<pre><code>about:  (Información sobre el navegador)
+
+about:blank  (Una página en blanco)
+
+about:buildconfig  (Detalles de la compilación para nuestra versión)
+
+about:cache  (información sobre la cache del navegador)
+
+about:cache?device=memory  (Muestra la caché en memoria)
+
+about:cache?device=disk  (Muestra la caché de disco)
+
+about:config  (Configuración del navegador)
+
+about:credits  (Lista de los que contribuyeron al desarrollo del navegador)
+
+about:logo  (El logo del navegador)
+
+about:mozilla  (Muestra un pasaje de “El Libro de Mozilla”)
+
+about:plugins  (lista detallada de los plugins que tenemos instalados)
+</code></pre>
+
+<blockquote><p>$ grep -hIr :name ~/.mozilla/firefox/*.default/extensions | tr &#8216;&lt;>=&#8217; &#8216;&#8221;&#8220;&#8221;&#8217; | cut -f3 -d&#8217;&#8221;&#8217; | sort -u  (listar las extensiones de firefox)</p>
+
+<p>$ firefox -ProfileManager -no-remote (crear un perfil sin cerrar firefox)</p>
+
+<p>$ firefox http://www.google.com/search?q=BUSQUEDA (buscar algo por linea de comandos [abre el navegador])</p>
+
+<p>$ firefox http://images.google.com/images?q=BUSQUEDA (Lo mismo para imágenes)</p>
+
+<p>$ firefox http:/books.google.es/search?q=BUSQUEDA (lo mismo con libros)</p>
+
+<p>$ firefox http://news.google.es/news/search?q=BUSQUEDA (Con noticias)</p>
+
+<p>$ find ~/.mozilla -iname &#8216;*.sqlite&#8217; -execdir sqlite3 {} &#8216;vacuum;&#8217; \; (desfragmentar la base de datos de firefox. Tambien existe plugin[SQLite Manager])</p></blockquote>
+
+<p>1.-</p>
+
+<p>Mandar un email desde la barra de direcciones (Valido tambien para chromium):</p>
+
+<p>Tener configurado un gestor de correos [evolution, thunderbird..]. Escribir en la abarra de direcciones:</p>
+
+<pre><code>mailto:usuario@gmail.com
+</code></pre>
+
+<p>Del destinatario. Se abrira el gestor de correo listo para escribir.</p>
+
+<p>Atajos:</p>
+
+<p>Navegación:</p>
+
+<pre><code>Alt + &lt;- (Ir a la página anterior) 
+
+Atl + -&gt; (Ir a la página siguiente) 
+
+Alt + inicio (Inicio) 
+
+^ + o (Abrir archivo) 
+
+F5 (Recargar)  
+
+^+ F5 (Recargar reemplazando caché) 
+
+Esc (Detener) 
+</code></pre>
+
+<p>Página actual:</p>
+
+<pre><code>Fin (Ir al final de la página) 
+
+Inicio (Ir a principio de la página) date
+
+F6 (Ir a la siguiente pestaña) 
+
+Mayús + F6 (Ir a la anterior pestaña) 
+
+^+ p (Imprimir) 
+
+^+ s (Guardar página como...) 
+
+^+ + (Aumentar tamaño texto) 
+
+^+ - (Reducir tamaño texto) 
+
+^+ 0 (Restablecer tamaño texto) 
+</code></pre>
+
+<p>Editar:</p>
+
+<pre><code>^+ c (Copiar) 
+
+^+ x (Cortar) 
+
+Supr (Eliminar) 
+
+^+ v (Pegar) 
+
+^ + Z (Rehacer) 
+
+^+ a (Seleccionar todo) 
+
+^+ z (Deshacer) 
+</code></pre>
+
+<p>Buscar:</p>
+
+<pre><code>^ +f (Encontrar) 
+
+F3 (Encontrar de nuevo) 
+
+Mayús * F3 (Encontrar anterior) 
+
+' (Búsqueda texto de enlaces) 
+
+/ (Búsqueda rápida) 
+
+Esc (Cerrar busquedas) 
+
+^+ k (Barra de búsqueda) 
+
+Alt + flecha arriba/abajo , con el foco en la barra (Seleccionar motor busqueda) 
+</code></pre>
+
+<p>Ventanas y pestañas:</p>
+
+<pre><code>^ + w (Cerrar pestaña) 
+
+Alt + F4 (Cerrar ventana) 
+
+^ + &lt;- (Mover pestaña a la izq.) 
+
+^+ -&gt; (Mover pestaña a la dere.) 
+
+^+ home (Mover pestaña al comienzo) 
+
+^+ fin (Mover pestaña al final) 
+
+^+ t (Nueva pestaña) 
+
+^+ n (Nueva ventana) 
+
+Alt + intro desde la barra direcciones o bus1uedas (Abrir en nueva pestaña) 
+
+^+ tab (Pestaña siguiente) 
+
+^+ Mayús + tab (Pestaña anterior) 
+
+^+ Mayús + t (Deshacer cerrar pestaña) 
+
+^+ Mayús + n (Deshacer cerrar ventana) 
+
+^+ 1 ....8 (Seleccionar pestaña 1 a 8) 
+
+^+ 9 (Seleccionar última pestaña) 
+
+^+ Mayús + e (Vista grupos de pestañas) 
+
+Esc (Cerrar vista de grupos pestañas) 
+</code></pre>
+
+<p>Historial:</p>
+
+<pre><code>^+ h (Panel lateral de Historial) 
+
+^+ H (Historial) 
+</code></pre>
+
+<p>Marcadores:</p>
+
+<pre><code>^ + D (Agregar pestañas a marcadores) 
+
+^+ d (Agregar página a marcadores) 
+
+^+ b (Panel lateral de marcadores) 
+
+^+ O (Marcadores) 
+</code></pre>
+
+<p>Herramientas: http://www.overlooksoft.com/</p>
+
+<pre><code>^+ Y (Descargas) 
+
+^+ A (Complementos) 
+
+^+ K (Consola web) 
+
+^+ I (Inspeccionar) 
+
+Mayús + F4 (Borrador) 
+
+^+ u (Código fuente de la página) 
+
+^+ J (Consola de errores) 
+
+^+ i (Información de la página) 
+
+^+ P (Navegación privada) 
+
+^+ S (Limpiar historial) http://www.overlooksoft.com/
+</code></pre>
+
+<p>Otros atajos:</p>
+
+<pre><code>^+ intro (Completar dirección .com) 
+
+Mayús + intro (Completar dirección .net) 
+
+^+ Mayús + intro (Completar dirección .org) 
+
+Alt (Ver barra de menús en kde) 
+
+F10 (Ver barra de menús en gnome) 
+
+^+ / (Mostrar/Ocultar complementos) 
+
+F7 (Navegación con cursor) 
+
+F11 (Pantalla completa) 
+
+^+ l (Barra de direcciones) 
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/finger/">Finger</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-03T14:50:00+02:00" pubdate data-updated="true">03-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Quien está conectado al sistema, tiempo, consola&#8230;</p>
+
+<blockquote><p>$ finger -s</p>
+
+<p>$ finger -l</p></blockquote>
+
+<p>finger</p>
+
+<p>Quien está conectado al sistema, tiempo, consola&#8230;</p>
+
+<blockquote><p>$ finger -s</p>
+
+<p>$ finger -l</p></blockquote>
+
+<p>finger</p>
+
+<p>Quien está conectado al sistema, tiempo, consola&#8230;</p>
+
+<blockquote><p>$ finger -s</p>
+
+<p>$ finger -l</p></blockquote>
+
+<p>finger</p>
+
+<p>Quien está conectado al sistema, tiempo, consola&#8230;</p>
+
+<blockquote><p>$ finger -s</p>
+
+<p>$ finger -l</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fing/">Fing</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-03T14:50:00+02:00" pubdate data-updated="true">03-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Escaner de la conexión wiki. Página de descarga http://www.overlooksoft.com/</p>
+
+<blockquote><p># fing</p></blockquote>
+
+<p>fing</p>
+
+<p>Escaner de la conexión wiki. Página de descarga http://www.overlooksoft.com/</p>
+
+<blockquote><p># fing</p></blockquote>
+
+<p>fing</p>
+
+<p>Escaner de la conexión wiki. Página de descarga http://www.overlooksoft.com/</p>
+
+<blockquote><p># fing</p></blockquote>
+
+<p>fing</p>
+
+<p>Escaner de la conexión wiki. Página de descarga http://www.overlooksoft.com/</p>
+
+<blockquote><p># fing</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/findsmb/">Findsmb</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-03T14:50:00+02:00" pubdate data-updated="true">03-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Busca máquinas en la red que respondan al protocolo samba.</p>
+
+<blockquote><p>$ findsmb -r</p></blockquote>
+
+<p>findsmb</p>
+
+<p>Busca máquinas en la red que respondan al protocolo samba.</p>
+
+<blockquote><p>$ findsmb -r</p></blockquote>
+
+<p>findsmb</p>
+
+<p>Busca máquinas en la red que respondan al protocolo samba.</p>
+
+<blockquote><p>$ findsmb -r</p></blockquote>
+
+<p>findsmb</p>
+
+<p>Busca máquinas en la red que respondan al protocolo samba.</p>
+
+<blockquote><p>$ findsmb -r</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/findmnt/">Findmnt</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-03T14:50:00+02:00" pubdate data-updated="true">03-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Busca sistemas de archivos.</p>
+
+<blockquote><p>$ findmnt -s (en /etc/fstab)</p>
+
+<p>$ findmnt -m (en /etc/mtab)</p>
+
+<p>$ findmnt -l (Lista todos los archivos de sitema)</p></blockquote>
+
+<p>findmnt</p>
+
+<p>Busca sistemas de archivos.</p>
+
+<blockquote><p>$ findmnt -s (en /etc/fstab)</p>
+
+<p>$ findmnt -m (en /etc/mtab)</p>
+
+<p>$ findmnt -l (Lista todos los archivos de sitema)</p></blockquote>
+
+<p>findmnt</p>
+
+<p>Busca sistemas de archivos.</p>
+
+<blockquote><p>$ findmnt -s (en /etc/fstab)</p>
+
+<p>$ findmnt -m (en /etc/mtab)</p>
+
+<p>$ findmnt -l (Lista todos los archivos de sitema)</p></blockquote>
+
+<p>findmnt</p>
+
+<p>Busca sistemas de archivos.</p>
+
+<blockquote><p>$ findmnt -s (en /etc/fstab)</p>
+
+<p>$ findmnt -m (en /etc/mtab)</p>
+
+<p>$ findmnt -l (Lista todos los archivos de sitema)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/findfs/">Findfs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-03T14:50:00+02:00" pubdate data-updated="true">03-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Busca el sistema de ficheros por su etiqueta (LABEL) o UUID.</p>
+
+<blockquote><p>$ findfs UUID=388dda65-2432-4684-8cd9-b1649006fe30</p>
+
+<p>$ findfs LABEL=datos</p></blockquote>
+
+<p>findfs</p>
+
+<p>Busca el sistema de ficheros por su etiqueta (LABEL) o UUID.</p>
+
+<blockquote><p>$ findfs UUID=388dda65-2432-4684-8cd9-b1649006fe30</p>
+
+<p>$ findfs LABEL=datos</p></blockquote>
+
+<p>findfs</p>
+
+<p>Busca el sistema de ficheros por su etiqueta (LABEL) o UUID.</p>
+
+<blockquote><p>$ findfs UUID=388dda65-2432-4684-8cd9-b1649006fe30</p>
+
+<p>$ findfs LABEL=datos</p></blockquote>
+
+<p>findfs</p>
+
+<p>Busca el sistema de ficheros por su etiqueta (LABEL) o UUID.</p>
+
+<blockquote><p>$ findfs UUID=388dda65-2432-4684-8cd9-b1649006fe30</p>
+
+<p>$ findfs LABEL=datos</p></blockquote>
 </div>
   
   
@@ -618,43 +2846,43 @@ done
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/emacs/">emacs</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/libreoffice/">libreoffice</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tar/">tar</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/chmod/">chmod</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdf2ps/">pdf2ps</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/xscreesaver/">xscreesaver</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lsscsi/">lsscsi</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/apt-get/">apt-get</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lsof/">lsof</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/cvlc/">cvlc</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

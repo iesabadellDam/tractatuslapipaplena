@@ -1,0 +1,821 @@
+---
+layout: post
+title: "apache2"
+date: 2014-04-03 14:49
+comments: true
+categories: 
+---
+Ajustes de apache2
+
+>\# apache2ctl -M    (Visualizar todos los modulos de apache)
+
+>\# apache2ctl -S (visualizar el estatus de apache)
+
+>\# apache2ctl -t  (Comprobar que la configuracion de apache va bien)
+
+>\# apache2ctl -k graceful  (Reiniciar sin cortar las conexiones de los usuarios)
+
+>\# apache2ctl -k start  (arrancar el servidor. Equivale a /etc/init.d/apache2 start. Tambien acepta las opciones: stop, restart)
+
+>\# apache2ctl configtest (Otra forma de comprobar la configuración de apache)
+
+>\# tail -f /var/log/apache2/access.log  (muestra en tiempo real, accesos, ips...)
+
+>\# tail -f /var/log/apache2/error.log  (muestra los errores de acceso)
+
+Ajustes
+
+1.-
+
+Ajustes mínimos:
+
+>\# nano /etc/apache2/apache2.conf
+
+Epecificar la carpeta web y el nombre del servidor web:
+
+	DocumentRoot /var/www 
+
+	ServerName localhost 
+
+2.-
+
+Permisos de la carpeta web:
+
+>\# chmod -R 755 /var/www && find /var/www -type d -exec chmod 711 {} \; 
+
+3.-
+
+mod_evasive:
+
+Descargar mod_evasive 
+
+>$ http://www.zdziarski.com/blog/wp-content/uploads/2010/02/mod_evasive_1.10.1.tar.gz 
+
+Descomprimir y entrar en la carpeta: 
+
+>$ tar -zxf mod_evasive_1.10.1.tar.gz 
+
+>$ cd mod_evasive/ 
+
+Puede que tengamos que instalar: 
+
+>\# apt-get install apache2-prefork-dev 
+
+Compilar el módulo: 
+
+>\# apxs2 -i -a -c mod_evasive20.c 
+
+Para confirmar que se ha habilitado lo podemos buscar en: 
+
+>$ ls /usr/lib/apache2/modules/ | grep evasive 
+
+mod_evasive20.so 
+
+Reiniciar apache 
+
+>\# /etc/init.d/apache2 restart 
+
+Para testear su efectividad: 
+
+>\# perl test.pl 
+
+Que viene en el mismo paquete descargado. El resultado correcto: 
+
+HTTP/1.1 200 OK 
+
+HTTP/1.1 200 OK 
+
+HTTP/1.1 200 OK 
+
+HTTP/1.1 2... 
+
+HTTP/1.1 403 Forbidden 
+
+HTTP/1.1 403 Forbidden 
+
+HTTP/1.1 403 Forbi ... 
+
+Los parámetros por defecto son suficientes en condiciones "normales". Si se precisa afinar más su configuración, pueden añadirse las siguientes lineas al archivo /etc/apache2/httpd.conf: 
+
+	<IfModule mod_evasive20.c> 
+
+	DOSHashTableSize    3097 
+
+	DOSPageCount        1 
+
+	DOSSiteCount        50 
+
+	DOSPageInterval     1 
+
+	DOSSiteInterval     1 
+
+	DOSBlockingPeriod   600 
+
+	</IfModule> 
+
+Que significa que si una página o cualquier objeto de ella, recibe 50 peticiones por segundo cada segundo la IP será bloqueada durante 600 segundos.
+
+4.-
+
+Para que apache no informe del sistema operativo y versión de apache
+
+>\# nano /etc/apache2/apache2.conf
+
+Añadir las lineas:
+
+	ServerTokens ProductOnly 
+
+	ServerSignature Off
+
+5.- 
+
+Ocultar un archivo de la carpeta webapachetop
+
+Comando top [ver] especifico para servidores apache y lanzado al estilo de tail [ver]
+
+>\# apachetop -f /var/log/apache2/access.log (Monitorear en tiempo real)
+
+>\# nano /etc/apache2/apache2.conf
+
+Y colocar en su interior:
+
+	<Files archivo_a_ocultar> 
+
+	order allow,deny 
+
+	deny from all 
+
+	</Files>
+
+6.-
+
+Ver total de peticiones a nuestro servidor apache por dirección IP:
+
+>\# cat /var/log/apache2/access.log | awk '{print($1)}' | sort | uniq -c | sort
+
+7.-
+
+Crear un directorio web privado:
+
+>\# nano /etc/apache2/apache2.conf
+
+Agregar el siguiente contenido:
+
+	<Directory /var/www/privado>
+
+	AllowOverride AuthConfig
+
+	</Directory>
+
+Reiniciar apache:
+
+>\# /etc/init.d/apache2 restart
+
+Crear el archivo .htaccess en el interior del directorio privado:
+
+>$ nano /var/www/privado/.htaccess
+
+Agregar el contenido:
+
+	AuthName "Acceso restringido"
+
+	AuthUserFile /var/www/.htpasswd
+
+	AuthType Basic
+
+	require valid-user
+
+Crear el archivo para el usuario con privilegios:
+
+htpasswd -c /var/www/.htpasswd juan
+
+Entrar la contraseña y confirmación.
+
+Para añadir más usuario con privilegios, sin el parámetro -c:
+
+htpasswd /var/www/.htpasswd pedro
+
+8.-
+
+Para que las aplicaciones no aparezcan con caracteres extraños y simbolos raros:
+
+>\# nano /etc/apache2/conf.d/carhset
+
+Y añadir las siguientes lineas:
+
+	AddDefaultCharset UTF-8
+
+	AddDefaultCharset latin1
+
+apache2 
+
+Ajustes de apache2
+
+>\# apache2ctl -M    (Visualizar todos los modulos de apache)
+
+>\# apache2ctl -S (visualizar el estatus de apache)
+
+>\# apache2ctl -t  (Comprobar que la configuracion de apache va bien)
+
+>\# apache2ctl -k graceful  (Reiniciar sin cortar las conexiones de los usuarios)
+
+>\# apache2ctl -k start  (arrancar el servidor. Equivale a /etc/init.d/apache2 start. Tambien acepta las opciones: stop, restart)
+
+>\# apache2ctl configtest (Otra forma de comprobar la configuración de apache)
+
+>\# tail -f /var/log/apache2/access.log  (muestra en tiempo real, accesos, ips...)
+
+>\# tail -f /var/log/apache2/error.log  (muestra los errores de acceso)
+
+Ajustes
+
+1.-
+
+Ajustes mínimos:
+
+>\# nano /etc/apache2/apache2.conf
+
+Epecificar la carpeta web y el nombre del servidor web:
+
+	DocumentRoot /var/www 
+
+	ServerName localhost 
+
+2.-
+
+Permisos de la carpeta web:
+
+>\# chmod -R 755 /var/www && find /var/www -type d -exec chmod 711 {} \; 
+
+3.-
+
+mod_evasive:
+
+Descargar mod_evasive 
+
+>$ http://www.zdziarski.com/blog/wp-content/uploads/2010/02/mod_evasive_1.10.1.tar.gz 
+
+Descomprimir y entrar en la carpeta: 
+
+>$ tar -zxf mod_evasive_1.10.1.tar.gz 
+
+>$ cd mod_evasive/ 
+
+Puede que tengamos que instalar: 
+
+>\# apt-get install apache2-prefork-dev 
+
+Compilar el módulo: 
+
+>\# apxs2 -i -a -c mod_evasive20.c 
+
+Para confirmar que se ha habilitado lo podemos buscar en: 
+
+>$ ls /usr/lib/apache2/modules/ | grep evasive 
+
+mod_evasive20.so 
+
+Reiniciar apache 
+
+>\# /etc/init.d/apache2 restart 
+
+Para testear su efectividad: 
+
+>\# perl test.pl 
+
+Que viene en el mismo paquete descargado. El resultado correcto: 
+
+HTTP/1.1 200 OK 
+
+HTTP/1.1 200 OK 
+
+HTTP/1.1 200 OK 
+
+HTTP/1.1 2... 
+
+HTTP/1.1 403 Forbidden 
+
+HTTP/1.1 403 Forbidden 
+
+HTTP/1.1 403 Forbi ... 
+
+Los parámetros por defecto son suficientes en condiciones "normales". Si se precisa afinar más su configuración, pueden añadirse las siguientes lineas al archivo /etc/apache2/httpd.conf: 
+
+	<IfModule mod_evasive20.c> 
+
+	DOSHashTableSize    3097 
+
+	DOSPageCount        1 
+
+	DOSSiteCount        50 
+
+	DOSPageInterval     1 
+
+	DOSSiteInterval     1 
+
+	DOSBlockingPeriod   600 
+
+	</IfModule> 
+
+Que significa que si una página o cualquier objeto de ella, recibe 50 peticiones por segundo cada segundo la IP será bloqueada durante 600 segundos.
+
+4.-
+
+Para que apache no informe del sistema operativo y versión de apache
+
+>\# nano /etc/apache2/apache2.conf
+
+Añadir las lineas:
+
+	ServerTokens ProductOnly 
+
+	ServerSignature Off
+
+5.- 
+
+Ocultar un archivo de la carpeta webapachetop
+
+Comando top [ver] especifico para servidores apache y lanzado al estilo de tail [ver]
+
+>\# apachetop -f /var/log/apache2/access.log (Monitorear en tiempo real)
+
+>\# nano /etc/apache2/apache2.conf
+
+Y colocar en su interior:
+
+	<Files archivo_a_ocultar> 
+
+	order allow,deny 
+
+	deny from all 
+
+	</Files>
+
+6.-
+
+Ver total de peticiones a nuestro servidor apache por dirección IP:
+
+>\# cat /var/log/apache2/access.log | awk '{print($1)}' | sort | uniq -c | sort
+
+7.-
+
+Crear un directorio web privado:
+
+>\# nano /etc/apache2/apache2.conf
+
+Agregar el siguiente contenido:
+
+	<Directory /var/www/privado>
+
+	AllowOverride AuthConfig
+
+	</Directory>
+
+Reiniciar apache:
+
+>\# /etc/init.d/apache2 restart
+
+Crear el archivo .htaccess en el interior del directorio privado:
+
+>$ nano /var/www/privado/.htaccess
+
+Agregar el contenido:
+
+	AuthName "Acceso restringido"
+
+	AuthUserFile /var/www/.htpasswd
+
+	AuthType Basic
+
+	require valid-user
+
+Crear el archivo para el usuario con privilegios:
+
+htpasswd -c /var/www/.htpasswd juan
+
+Entrar la contraseña y confirmación.
+
+Para añadir más usuario con privilegios, sin el parámetro -c:
+
+htpasswd /var/www/.htpasswd pedro
+
+8.-
+
+Para que las aplicaciones no aparezcan con caracteres extraños y simbolos raros:
+
+>\# nano /etc/apache2/conf.d/carhset
+
+Y añadir las siguientes lineas:
+
+	AddDefaultCharset UTF-8
+
+	AddDefaultCharset latin1
+
+apache2 
+
+Ajustes de apache2
+
+>\# apache2ctl -M    (Visualizar todos los modulos de apache)
+
+>\# apache2ctl -S (visualizar el estatus de apache)
+
+>\# apache2ctl -t  (Comprobar que la configuracion de apache va bien)
+
+>\# apache2ctl -k graceful  (Reiniciar sin cortar las conexiones de los usuarios)
+
+>\# apache2ctl -k start  (arrancar el servidor. Equivale a /etc/init.d/apache2 start. Tambien acepta las opciones: stop, restart)
+
+>\# apache2ctl configtest (Otra forma de comprobar la configuración de apache)
+
+>\# tail -f /var/log/apache2/access.log  (muestra en tiempo real, accesos, ips...)
+
+>\# tail -f /var/log/apache2/error.log  (muestra los errores de acceso)
+
+Ajustes
+
+1.-
+
+Ajustes mínimos:
+
+>\# nano /etc/apache2/apache2.conf
+
+Epecificar la carpeta web y el nombre del servidor web:
+
+	DocumentRoot /var/www 
+
+	ServerName localhost 
+
+2.-
+
+Permisos de la carpeta web:
+
+>\# chmod -R 755 /var/www && find /var/www -type d -exec chmod 711 {} \; 
+
+3.-
+
+mod_evasive:
+
+Descargar mod_evasive 
+
+>$ http://www.zdziarski.com/blog/wp-content/uploads/2010/02/mod_evasive_1.10.1.tar.gz 
+
+Descomprimir y entrar en la carpeta: 
+
+>$ tar -zxf mod_evasive_1.10.1.tar.gz 
+
+>$ cd mod_evasive/ 
+
+Puede que tengamos que instalar: 
+
+>\# apt-get install apache2-prefork-dev 
+
+Compilar el módulo: 
+
+>\# apxs2 -i -a -c mod_evasive20.c 
+
+Para confirmar que se ha habilitado lo podemos buscar en: 
+
+>$ ls /usr/lib/apache2/modules/ | grep evasive 
+
+mod_evasive20.so 
+
+Reiniciar apache 
+
+>\# /etc/init.d/apache2 restart 
+
+Para testear su efectividad: 
+
+>\# perl test.pl 
+
+Que viene en el mismo paquete descargado. El resultado correcto: 
+
+HTTP/1.1 200 OK 
+
+HTTP/1.1 200 OK 
+
+HTTP/1.1 200 OK 
+
+HTTP/1.1 2... 
+
+HTTP/1.1 403 Forbidden 
+
+HTTP/1.1 403 Forbidden 
+
+HTTP/1.1 403 Forbi ... 
+
+Los parámetros por defecto son suficientes en condiciones "normales". Si se precisa afinar más su configuración, pueden añadirse las siguientes lineas al archivo /etc/apache2/httpd.conf: 
+
+	<IfModule mod_evasive20.c> 
+
+	DOSHashTableSize    3097 
+
+	DOSPageCount        1 
+
+	DOSSiteCount        50 
+
+	DOSPageInterval     1 
+
+	DOSSiteInterval     1 
+
+	DOSBlockingPeriod   600 
+
+	</IfModule> 
+
+Que significa que si una página o cualquier objeto de ella, recibe 50 peticiones por segundo cada segundo la IP será bloqueada durante 600 segundos.
+
+4.-
+
+Para que apache no informe del sistema operativo y versión de apache
+
+>\# nano /etc/apache2/apache2.conf
+
+Añadir las lineas:
+
+	ServerTokens ProductOnly 
+
+	ServerSignature Off
+
+5.- 
+
+Ocultar un archivo de la carpeta webapachetop
+
+Comando top [ver] especifico para servidores apache y lanzado al estilo de tail [ver]
+
+>\# apachetop -f /var/log/apache2/access.log (Monitorear en tiempo real)
+
+>\# nano /etc/apache2/apache2.conf
+
+Y colocar en su interior:
+
+	<Files archivo_a_ocultar> 
+
+	order allow,deny 
+
+	deny from all 
+
+	</Files>
+
+6.-
+
+Ver total de peticiones a nuestro servidor apache por dirección IP:
+
+>\# cat /var/log/apache2/access.log | awk '{print($1)}' | sort | uniq -c | sort
+
+7.-
+
+Crear un directorio web privado:
+
+>\# nano /etc/apache2/apache2.conf
+
+Agregar el siguiente contenido:
+
+	<Directory /var/www/privado>
+
+	AllowOverride AuthConfig
+
+	</Directory>
+
+Reiniciar apache:
+
+>\# /etc/init.d/apache2 restart
+
+Crear el archivo .htaccess en el interior del directorio privado:
+
+>$ nano /var/www/privado/.htaccess
+
+Agregar el contenido:
+
+	AuthName "Acceso restringido"
+
+	AuthUserFile /var/www/.htpasswd
+
+	AuthType Basic
+
+	require valid-user
+
+Crear el archivo para el usuario con privilegios:
+
+htpasswd -c /var/www/.htpasswd juan
+
+Entrar la contraseña y confirmación.
+
+Para añadir más usuario con privilegios, sin el parámetro -c:
+
+htpasswd /var/www/.htpasswd pedro
+
+8.-
+
+Para que las aplicaciones no aparezcan con caracteres extraños y simbolos raros:
+
+>\# nano /etc/apache2/conf.d/carhset
+
+Y añadir las siguientes lineas:
+
+	AddDefaultCharset UTF-8
+
+	AddDefaultCharset latin1
+
+apache2 
+
+Ajustes de apache2
+
+>\# apache2ctl -M    (Visualizar todos los modulos de apache)
+
+>\# apache2ctl -S (visualizar el estatus de apache)
+
+>\# apache2ctl -t  (Comprobar que la configuracion de apache va bien)
+
+>\# apache2ctl -k graceful  (Reiniciar sin cortar las conexiones de los usuarios)
+
+>\# apache2ctl -k start  (arrancar el servidor. Equivale a /etc/init.d/apache2 start. Tambien acepta las opciones: stop, restart)
+
+>\# apache2ctl configtest (Otra forma de comprobar la configuración de apache)
+
+>\# tail -f /var/log/apache2/access.log  (muestra en tiempo real, accesos, ips...)
+
+>\# tail -f /var/log/apache2/error.log  (muestra los errores de acceso)
+
+Ajustes
+
+1.-
+
+Ajustes mínimos:
+
+>\# nano /etc/apache2/apache2.conf
+
+Epecificar la carpeta web y el nombre del servidor web:
+
+	DocumentRoot /var/www 
+
+	ServerName localhost 
+
+2.-
+
+Permisos de la carpeta web:
+
+>\# chmod -R 755 /var/www && find /var/www -type d -exec chmod 711 {} \; 
+
+3.-
+
+mod_evasive:
+
+Descargar mod_evasive 
+
+>$ http://www.zdziarski.com/blog/wp-content/uploads/2010/02/mod_evasive_1.10.1.tar.gz 
+
+Descomprimir y entrar en la carpeta: 
+
+>$ tar -zxf mod_evasive_1.10.1.tar.gz 
+
+>$ cd mod_evasive/ 
+
+Puede que tengamos que instalar: 
+
+>\# apt-get install apache2-prefork-dev 
+
+Compilar el módulo: 
+
+>\# apxs2 -i -a -c mod_evasive20.c 
+
+Para confirmar que se ha habilitado lo podemos buscar en: 
+
+>$ ls /usr/lib/apache2/modules/ | grep evasive 
+
+mod_evasive20.so 
+
+Reiniciar apache 
+
+>\# /etc/init.d/apache2 restart 
+
+Para testear su efectividad: 
+
+>\# perl test.pl 
+
+Que viene en el mismo paquete descargado. El resultado correcto: 
+
+HTTP/1.1 200 OK 
+
+HTTP/1.1 200 OK 
+
+HTTP/1.1 200 OK 
+
+HTTP/1.1 2... 
+
+HTTP/1.1 403 Forbidden 
+
+HTTP/1.1 403 Forbidden 
+
+HTTP/1.1 403 Forbi ... 
+
+Los parámetros por defecto son suficientes en condiciones "normales". Si se precisa afinar más su configuración, pueden añadirse las siguientes lineas al archivo /etc/apache2/httpd.conf: 
+
+	<IfModule mod_evasive20.c> 
+
+	DOSHashTableSize    3097 
+
+	DOSPageCount        1 
+
+	DOSSiteCount        50 
+
+	DOSPageInterval     1 
+
+	DOSSiteInterval     1 
+
+	DOSBlockingPeriod   600 
+
+	</IfModule> 
+
+Que significa que si una página o cualquier objeto de ella, recibe 50 peticiones por segundo cada segundo la IP será bloqueada durante 600 segundos.
+
+4.-
+
+Para que apache no informe del sistema operativo y versión de apache
+
+>\# nano /etc/apache2/apache2.conf
+
+Añadir las lineas:
+
+	ServerTokens ProductOnly 
+
+	ServerSignature Off
+
+5.- 
+
+Ocultar un archivo de la carpeta webapachetop
+
+Comando top [ver] especifico para servidores apache y lanzado al estilo de tail [ver]
+
+>\# apachetop -f /var/log/apache2/access.log (Monitorear en tiempo real)
+
+>\# nano /etc/apache2/apache2.conf
+
+Y colocar en su interior:
+
+	<Files archivo_a_ocultar> 
+
+	order allow,deny 
+
+	deny from all 
+
+	</Files>
+
+6.-
+
+Ver total de peticiones a nuestro servidor apache por dirección IP:
+
+>\# cat /var/log/apache2/access.log | awk '{print($1)}' | sort | uniq -c | sort
+
+7.-
+
+Crear un directorio web privado:
+
+>\# nano /etc/apache2/apache2.conf
+
+Agregar el siguiente contenido:
+
+	<Directory /var/www/privado>
+
+	AllowOverride AuthConfig
+
+	</Directory>
+
+Reiniciar apache:
+
+>\# /etc/init.d/apache2 restart
+
+Crear el archivo .htaccess en el interior del directorio privado:
+
+>$ nano /var/www/privado/.htaccess
+
+Agregar el contenido:
+
+	AuthName "Acceso restringido"
+
+	AuthUserFile /var/www/.htpasswd
+
+	AuthType Basic
+
+	require valid-user
+
+Crear el archivo para el usuario con privilegios:
+
+htpasswd -c /var/www/.htpasswd juan
+
+Entrar la contraseña y confirmación.
+
+Para añadir más usuario con privilegios, sin el parámetro -c:
+
+htpasswd /var/www/.htpasswd pedro
+
+8.-
+
+Para que las aplicaciones no aparezcan con caracteres extraños y simbolos raros:
+
+>\# nano /etc/apache2/conf.d/carhset
+
+Y añadir las siguientes lineas:
+
+	AddDefaultCharset UTF-8
+
+	AddDefaultCharset latin1
+

@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="[ecryptfs-utils cryptsetup]. Sistema de ficheros que permite encriptar la informacion. Puede ser montado en un sistema de ficheros convencional [ext4 &hellip;">
+  <meta name="description" content="Sscar una imagen de una partición. # e2image /dev/sda2 copia.img e2image Sscar una imagen de una partición. # e2image /dev/sda2 copia.img e2image &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,303 +80,6 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ecryptfs/">Ecryptfs</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-29T18:30:00+01:00" pubdate data-updated="true">29-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[ecryptfs-utils cryptsetup]. Sistema de ficheros que permite encriptar la informacion. Puede ser montado en un sistema de ficheros convencional [ext4, ext3&#8230;] lo cual siginifica que no tenemos que preocuparnos por asignarle espacio: conforme añadimos o eliminamos archivos, el espacio crece o decrece. Se podría coger un solo fichero encriptado, enviarse a otro PC y acceder a la información de ese fichero usando la misma contraseña.</p>
-
-<p>1.-</p>
-
-<p>Encriptar un directorio:</p>
-
-<blockquote><p>$ mkdir cripta (Crear directorio)</p>
-
-<p># chmod 700 cripta (Otorgarle permisos)</p>
-
-<p># mount -t ecryptfs cripta /media/tumba (Montar el directorio. Pregunta contraseña [la firma de la clave en el fichero /root/.ecryptfs/sig-cache.txt]. Las demás preguntas [método de cifrado, longitud de la contraseña&#8230;] pueden dejarse con las opciones por defecto)</p>
-
-<p># umount /media/tumba (Desmontar directorio)</p></blockquote>
-
-<p>Nota.- Es bastante usual, montar el directorio consigo mismo:</p>
-
-<blockquote><p># mount -t ecryptfs cripta cripta</p></blockquote>
-
-<p>2.-</p>
-
-<p>Ejecutar el asistente de creación de directorio cifrado:</p>
-
-<blockquote><p># ecryptfs-setup-private</p>
-
-<p># ecryptfs-umount-private (Desmontar el directorio)</p>
-
-<p># ecryptfs-mount-private (Montar el directorio)</p></blockquote>
-
-<p>Nota.- Para impedir que el directorio creado se monte automáticamente al inicio de sesión, borrar el archivo ~/.ecryptfs/auto-mount. Para revertir el proceso crear en el mismo directorio un archivo vacio:</p>
-
-<blockquote><p>$ touch ~/.ecryptfs/auto-mount</p></blockquote>
-
-<p>3.-</p>
-
-<p>Encriptar el directorio personal [$HOME]</p>
-
-<p>Salir de la cuenta de usuario y entrar en la de root.</p>
-
-<blockquote><p># modprobe ecryptfs (activar el módulo del kernel)</p>
-
-<p># ecryptfs-migrate-home -u USUARIO (Encriptar la $HOME del USUARIO)</p></blockquote>
-
-<p>Cerrar la cuenta de administrador y, sin reiniciar, entrar en la de USUARIO</p>
-
-<blockquote><p>$ ecryptfs-unwrap-passphrase (Pedirá la contraseña. Como medida de precaución es preciso anotar la cadena de texto que muestre)</p>
-
-<p># ecryptfs-setup-swap (Como media de seguridad es necesario encriptar la partición de intercambio [Swap])</p>
-
-<p># ecryptfs-rewrap-passphrase .ecryptfs/sig-cache.txt (Modificar la contraseña)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/echo/">Echo</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-29T18:30:00+01:00" pubdate data-updated="true">29-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra o incluye algo en un fichero.</p>
-
-<blockquote><p>$ echo $$   (muestra el PID de la consola)</p>
-
-<p>$ echo $PS1   (muestra el prompt)</p>
-
-<p># echo deb ftp://ftp.debian.org/debian etch main >> /etc/apt/source.list  (añade el repositorio mencionado al archivo sources.list)</p></blockquote>
-
-<p>Nota.- con un solo “>” pondria la linea especificada borrando todo lo demas.)</p>
-
-<blockquote><p>$ echo $((10*2)) (Realiza el cálculo matemático)</p>
-
-<p>$ echo “ Buenas.. voy a reiniciar ¿Haces algo?” >> /dev/pts/23 (Manda el mensaje a la consola 23)</p>
-
-<p>$ echo rm <em>.png (lista lo que se va a borrar, antes de lanzar rm </em>.png)</p>
-
-<p>$ echo &#8220;&#8221; > archivo.txt (Borra el contenido de archivo.txt. Para un borrado total mejor usar $ :> archivo.txt)</p></blockquote>
-
-<pre><code>$ echo -e "&lt;?php\nphpinfo();\n?&gt;" (la opción -e hace que se interprete los saltos de linea [\n], tabulaciones [\t] etc. en algunas distros es necesario lanzar: shopt -s extglob)
-
-$ echo -e "linux\\tes\\tgenial" (tabular cada palabra con \\t. La primera barra [\] sirva para escapar el caracter \t)
-
-$ echo -e "Dato1\n\tDato2\n\tDato3\n" &gt; ejemplo.txt (entra datos en ejemplo.txt con salto de linea despues de cada dato)
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ebook/">Ebook-</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-29T18:30:00+01:00" pubdate data-updated="true">29-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Convertir/visualizar a formato ebook.</p>
-
-<blockquote><p>$ ebook-convert texto.pdf texto.epub</p>
-
-<p>$ ebook-viewer texto.epub (Visualiza con la apliciación calibre)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/e4defrag/">E4defrag</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-29T18:30:00+01:00" pubdate data-updated="true">29-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[e2fsprogs]. Desfragmentar particiones ext4.</p>
-
-<blockquote><p># e4defrag /dev/sda2</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/e2undo/">E2undo</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-29T18:30:00+01:00" pubdate data-updated="true">29-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Cuando la aplicación e2fsprogs falla, e2undo restablece el sistema de ficheros  ext2/ext3/ext4 anterior del dispositivo.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/e2label/">E2label</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-29T18:30:00+01:00" pubdate data-updated="true">29-01-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[ntfsprogs]. Poner etiquetas a las particiones y dispositivos ext3</p>
-
-<blockquote><p># e2label /dev/dispositivo_usb mi_usb  (cuando se conecte, en el escritorio aparecerá el icono con el nombre “mi_usb”)</p>
-
-<p># e2label /dev/sda5  (dirá si la partición sdb5 tiene nombre de etiqueta)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
       <h1 class="entry-title"><a href="/blog/e2image/">E2image</a></h1>
     
     
@@ -393,7 +96,7 @@ $ echo -e "Dato1\n\tDato2\n\tDato3\n" &gt; ejemplo.txt (entra datos en ejemplo.t
   
 
 
-<time datetime="2014-01-29T18:30:00+01:00" pubdate data-updated="true">29-01-2014</time>
+<time datetime="2014-04-03T14:50:00+02:00" pubdate data-updated="true">03-04-2014</time>
         
       </p>
     
@@ -401,6 +104,24 @@ $ echo -e "Dato1\n\tDato2\n\tDato3\n" &gt; ejemplo.txt (entra datos en ejemplo.t
 
 
   <div class="entry-content"><p>Sscar una imagen de una partición.</p>
+
+<blockquote><p># e2image /dev/sda2 copia.img</p></blockquote>
+
+<p>e2image</p>
+
+<p>Sscar una imagen de una partición.</p>
+
+<blockquote><p># e2image /dev/sda2 copia.img</p></blockquote>
+
+<p>e2image</p>
+
+<p>Sscar una imagen de una partición.</p>
+
+<blockquote><p># e2image /dev/sda2 copia.img</p></blockquote>
+
+<p>e2image</p>
+
+<p>Sscar una imagen de una partición.</p>
 
 <blockquote><p># e2image /dev/sda2 copia.img</p></blockquote>
 </div>
@@ -431,7 +152,7 @@ $ echo -e "Dato1\n\tDato2\n\tDato3\n" &gt; ejemplo.txt (entra datos en ejemplo.t
   
 
 
-<time datetime="2014-01-29T18:30:00+01:00" pubdate data-updated="true">29-01-2014</time>
+<time datetime="2014-04-03T14:50:00+02:00" pubdate data-updated="true">03-04-2014</time>
         
       </p>
     
@@ -439,6 +160,36 @@ $ echo -e "Dato1\n\tDato2\n\tDato3\n" &gt; ejemplo.txt (entra datos en ejemplo.t
 
 
   <div class="entry-content"><p>Optimizar y reparar particones ext2 y ext3. Preciso desmontarla.</p>
+
+<blockquote><p># e2fsck -b 8193 /dev/hda2  (&#8220;-b 8193&#8221;que use la informacion de la primera copia del super bloque para reparar los daños.)</p>
+
+<p># e2fsck -fpDv /dev/sda1 (para optimizar la partición)</p></blockquote>
+
+<p>Nota.- &#8220;-c&#8221; buscar y marcar los bloques dañados, &#8220;-D&#8221; Optimiza, &#8220;-f&#8221; fuerza, &#8220;-p&#8221; repara y &#8220;-v&#8221; informa</p>
+
+<p>e2fsck</p>
+
+<p>Optimizar y reparar particones ext2 y ext3. Preciso desmontarla.</p>
+
+<blockquote><p># e2fsck -b 8193 /dev/hda2  (&#8220;-b 8193&#8221;que use la informacion de la primera copia del super bloque para reparar los daños.)</p>
+
+<p># e2fsck -fpDv /dev/sda1 (para optimizar la partición)</p></blockquote>
+
+<p>Nota.- &#8220;-c&#8221; buscar y marcar los bloques dañados, &#8220;-D&#8221; Optimiza, &#8220;-f&#8221; fuerza, &#8220;-p&#8221; repara y &#8220;-v&#8221; informa</p>
+
+<p>e2fsck</p>
+
+<p>Optimizar y reparar particones ext2 y ext3. Preciso desmontarla.</p>
+
+<blockquote><p># e2fsck -b 8193 /dev/hda2  (&#8220;-b 8193&#8221;que use la informacion de la primera copia del super bloque para reparar los daños.)</p>
+
+<p># e2fsck -fpDv /dev/sda1 (para optimizar la partición)</p></blockquote>
+
+<p>Nota.- &#8220;-c&#8221; buscar y marcar los bloques dañados, &#8220;-D&#8221; Optimiza, &#8220;-f&#8221; fuerza, &#8220;-p&#8221; repara y &#8220;-v&#8221; informa</p>
+
+<p>e2fsck</p>
+
+<p>Optimizar y reparar particones ext2 y ext3. Preciso desmontarla.</p>
 
 <blockquote><p># e2fsck -b 8193 /dev/hda2  (&#8220;-b 8193&#8221;que use la informacion de la primera copia del super bloque para reparar los daños.)</p>
 
@@ -473,7 +224,7 @@ $ echo -e "Dato1\n\tDato2\n\tDato3\n" &gt; ejemplo.txt (entra datos en ejemplo.t
   
 
 
-<time datetime="2014-01-29T18:30:00+01:00" pubdate data-updated="true">29-01-2014</time>
+<time datetime="2014-04-03T14:50:00+02:00" pubdate data-updated="true">03-04-2014</time>
         
       </p>
     
@@ -481,6 +232,141 @@ $ echo -e "Dato1\n\tDato2\n\tDato3\n" &gt; ejemplo.txt (entra datos en ejemplo.t
 
 
   <div class="entry-content"><p>Navegador minimalista con soporte para flash.</p>
+
+<p>Atajos: dwb:keys</p>
+
+<p>Configuración: dwb:settings</p>
+
+<p>Las configuraciones en texto plano en .config/dwb/</p>
+
+<p>Algunos atajos:</p>
+
+<pre><code>o (Para entrar una url) 
+
+O (abrirla en una nueva pestaña) 
+
+J (Cambiar entre pestañas)
+
+j (bajar por la página)
+
+k (subir)
+
+d (cerrar pestaña)
+
+u (reabrir pestaña cerrada) 
+
+go (Editar la url) 
+
+r (Recargar la página) 
+
+R (Recargar sin usar la caché) 
+
+f (Marcar los enlaces para escoger el que proceda) 
+
+F (Marcar los enlaces y abrir el escogido en nueva pestaña) 
+
+i (Modo insert para insertar en algún cuadro de dialogo) 
+
+Esc (Volver a modo normal) 
+
+M (Entrar url en en laces de interés) 
+
+ctrl q (Para salir del navegador) 
+</code></pre>
+
+<p>dwb</p>
+
+<p>Navegador minimalista con soporte para flash.</p>
+
+<p>Atajos: dwb:keys</p>
+
+<p>Configuración: dwb:settings</p>
+
+<p>Las configuraciones en texto plano en .config/dwb/</p>
+
+<p>Algunos atajos:</p>
+
+<pre><code>o (Para entrar una url) 
+
+O (abrirla en una nueva pestaña) 
+
+J (Cambiar entre pestañas)
+
+j (bajar por la página)
+
+k (subir)
+
+d (cerrar pestaña)
+
+u (reabrir pestaña cerrada) 
+
+go (Editar la url) 
+
+r (Recargar la página) 
+
+R (Recargar sin usar la caché) 
+
+f (Marcar los enlaces para escoger el que proceda) 
+
+F (Marcar los enlaces y abrir el escogido en nueva pestaña) 
+
+i (Modo insert para insertar en algún cuadro de dialogo) 
+
+Esc (Volver a modo normal) 
+
+M (Entrar url en en laces de interés) 
+
+ctrl q (Para salir del navegador) 
+</code></pre>
+
+<p>dwb</p>
+
+<p>Navegador minimalista con soporte para flash.</p>
+
+<p>Atajos: dwb:keys</p>
+
+<p>Configuración: dwb:settings</p>
+
+<p>Las configuraciones en texto plano en .config/dwb/</p>
+
+<p>Algunos atajos:</p>
+
+<pre><code>o (Para entrar una url) 
+
+O (abrirla en una nueva pestaña) 
+
+J (Cambiar entre pestañas)
+
+j (bajar por la página)
+
+k (subir)
+
+d (cerrar pestaña)
+
+u (reabrir pestaña cerrada) 
+
+go (Editar la url) 
+
+r (Recargar la página) 
+
+R (Recargar sin usar la caché) 
+
+f (Marcar los enlaces para escoger el que proceda) 
+
+F (Marcar los enlaces y abrir el escogido en nueva pestaña) 
+
+i (Modo insert para insertar en algún cuadro de dialogo) 
+
+Esc (Volver a modo normal) 
+
+M (Entrar url en en laces de interés) 
+
+ctrl q (Para salir del navegador) 
+</code></pre>
+
+<p>dwb</p>
+
+<p>Navegador minimalista con soporte para flash.</p>
 
 <p>Atajos: dwb:keys</p>
 
@@ -550,7 +436,7 @@ ctrl q (Para salir del navegador)
   
 
 
-<time datetime="2014-01-29T18:30:00+01:00" pubdate data-updated="true">29-01-2014</time>
+<time datetime="2014-04-03T14:50:00+02:00" pubdate data-updated="true">03-04-2014</time>
         
       </p>
     
@@ -589,6 +475,639 @@ Ctrl+g l (Redibujar toda la pantalla)
 
 Ctrl+g q (Salir)
 </code></pre>
+
+<p>dvtm</p>
+
+<p>Terminal multiplexor</p>
+
+<blockquote><p>$ dvtm (Lanza la aplicacion)</p></blockquote>
+
+<p>Algunos atajos</p>
+
+<pre><code>Ctrl+g c (Crear una nueva ventana)
+
+Ctrl+g x (Cerrar la ventana enfocada)
+
+Ctrl+g l (Aumenta el ancho de la ventana enfocada)
+
+Ctrl+g h (Disminuye la anchura de la ventana enfocada)
+
+Ctrl+g j (Cambiar el foco a la siguiente ventana)
+
+Ctrl+g k (Cambiar a la ventana anterior)
+
+Ctrl+g 3 (Ir a la ventana 3 contando desde la esquina superior izquierda)
+
+Ctrl+g espacio (Redisea todas las ventanas)
+
+Ctrl+g t (Cambiar el diseño de mosaico a pila vertical)
+
+Ctrl+g b (Cambiar a diseño de mosaico)
+
+Ctrl+g g (Cambiiar a diseño de cuadrícula)
+
+Ctrl+g l (Redibujar toda la pantalla)
+
+Ctrl+g q (Salir)
+</code></pre>
+
+<p>dvtm</p>
+
+<p>Terminal multiplexor</p>
+
+<blockquote><p>$ dvtm (Lanza la aplicacion)</p></blockquote>
+
+<p>Algunos atajos</p>
+
+<pre><code>Ctrl+g c (Crear una nueva ventana)
+
+Ctrl+g x (Cerrar la ventana enfocada)
+
+Ctrl+g l (Aumenta el ancho de la ventana enfocada)
+
+Ctrl+g h (Disminuye la anchura de la ventana enfocada)
+
+Ctrl+g j (Cambiar el foco a la siguiente ventana)
+
+Ctrl+g k (Cambiar a la ventana anterior)
+
+Ctrl+g 3 (Ir a la ventana 3 contando desde la esquina superior izquierda)
+
+Ctrl+g espacio (Redisea todas las ventanas)
+
+Ctrl+g t (Cambiar el diseño de mosaico a pila vertical)
+
+Ctrl+g b (Cambiar a diseño de mosaico)
+
+Ctrl+g g (Cambiiar a diseño de cuadrícula)
+
+Ctrl+g l (Redibujar toda la pantalla)
+
+Ctrl+g q (Salir)
+</code></pre>
+
+<p>dvtm</p>
+
+<p>Terminal multiplexor</p>
+
+<blockquote><p>$ dvtm (Lanza la aplicacion)</p></blockquote>
+
+<p>Algunos atajos</p>
+
+<pre><code>Ctrl+g c (Crear una nueva ventana)
+
+Ctrl+g x (Cerrar la ventana enfocada)
+
+Ctrl+g l (Aumenta el ancho de la ventana enfocada)
+
+Ctrl+g h (Disminuye la anchura de la ventana enfocada)
+
+Ctrl+g j (Cambiar el foco a la siguiente ventana)
+
+Ctrl+g k (Cambiar a la ventana anterior)
+
+Ctrl+g 3 (Ir a la ventana 3 contando desde la esquina superior izquierda)
+
+Ctrl+g espacio (Redisea todas las ventanas)
+
+Ctrl+g t (Cambiar el diseño de mosaico a pila vertical)
+
+Ctrl+g b (Cambiar a diseño de mosaico)
+
+Ctrl+g g (Cambiiar a diseño de cuadrícula)
+
+Ctrl+g l (Redibujar toda la pantalla)
+
+Ctrl+g q (Salir)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/dvgrab/">Dvgrab</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-03T14:50:00+02:00" pubdate data-updated="true">03-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Catura de videos desde una cámara digital DV.</p>
+
+<p>Previas:</p>
+
+<blockquote><p># modprobe rw1394</p>
+
+<p># chmod o+rw /dev/raw1394</p></blockquote>
+
+<p>Uso:</p>
+
+<blockquote><p>$ dvgrab &#8211;buffers 500 (Los videos se almacenarán de forma secuencial [001.avi, 002.avi&#8230;] y 500 frames. Por defecto 100)</p>
+
+<p>$ dvgrab -f avi -s 0 videos/archivo.avi (Especificando formato, sin perdida de calidad y destino)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<pre><code>-a 30 (crear nuevo archivo cada 30 segundos
+
+-csize 5 (divide el archivo de captura cuando llega a 5MB)
+
+-debug all (mostrar información de la captura.
+
+-d 10,20 (tiempo total a capturar en formato SMIL. Por defecto ilimitado
+
+-every 50 (grabar un cuadro cada 50)
+
+-f dif (formato de captura. Por defecto raw. Algunos formatos: dif [raw con extensión .dif], qt [formato QuickTime], mpeg2 [compresión MPEG-2], jpeg [secuencia de imágenes]
+
+-F 20 (cantidad máxima de fotogramas por archivo. Por defecto ilimitado)
+
+-nostop (no detener la reproducción en el dispositivo al cerrar la captura)
+
+-rewind (rebobina el MiniDV al finalizar)
+
+-t (poner fecha y hora de registro como nombre del archivo)
+</code></pre>
+
+<p>dvgrab</p>
+
+<p>Catura de videos desde una cámara digital DV.</p>
+
+<p>Previas:</p>
+
+<blockquote><p># modprobe rw1394</p>
+
+<p># chmod o+rw /dev/raw1394</p></blockquote>
+
+<p>Uso:</p>
+
+<blockquote><p>$ dvgrab &#8211;buffers 500 (Los videos se almacenarán de forma secuencial [001.avi, 002.avi&#8230;] y 500 frames. Por defecto 100)</p>
+
+<p>$ dvgrab -f avi -s 0 videos/archivo.avi (Especificando formato, sin perdida de calidad y destino)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<pre><code>-a 30 (crear nuevo archivo cada 30 segundos
+
+-csize 5 (divide el archivo de captura cuando llega a 5MB)
+
+-debug all (mostrar información de la captura.
+
+-d 10,20 (tiempo total a capturar en formato SMIL. Por defecto ilimitado
+
+-every 50 (grabar un cuadro cada 50)
+
+-f dif (formato de captura. Por defecto raw. Algunos formatos: dif [raw con extensión .dif], qt [formato QuickTime], mpeg2 [compresión MPEG-2], jpeg [secuencia de imágenes]
+
+-F 20 (cantidad máxima de fotogramas por archivo. Por defecto ilimitado)
+
+-nostop (no detener la reproducción en el dispositivo al cerrar la captura)
+
+-rewind (rebobina el MiniDV al finalizar)
+
+-t (poner fecha y hora de registro como nombre del archivo)
+</code></pre>
+
+<p>dvgrab</p>
+
+<p>Catura de videos desde una cámara digital DV.</p>
+
+<p>Previas:</p>
+
+<blockquote><p># modprobe rw1394</p>
+
+<p># chmod o+rw /dev/raw1394</p></blockquote>
+
+<p>Uso:</p>
+
+<blockquote><p>$ dvgrab &#8211;buffers 500 (Los videos se almacenarán de forma secuencial [001.avi, 002.avi&#8230;] y 500 frames. Por defecto 100)</p>
+
+<p>$ dvgrab -f avi -s 0 videos/archivo.avi (Especificando formato, sin perdida de calidad y destino)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<pre><code>-a 30 (crear nuevo archivo cada 30 segundos
+
+-csize 5 (divide el archivo de captura cuando llega a 5MB)
+
+-debug all (mostrar información de la captura.
+
+-d 10,20 (tiempo total a capturar en formato SMIL. Por defecto ilimitado
+
+-every 50 (grabar un cuadro cada 50)
+
+-f dif (formato de captura. Por defecto raw. Algunos formatos: dif [raw con extensión .dif], qt [formato QuickTime], mpeg2 [compresión MPEG-2], jpeg [secuencia de imágenes]
+
+-F 20 (cantidad máxima de fotogramas por archivo. Por defecto ilimitado)
+
+-nostop (no detener la reproducción en el dispositivo al cerrar la captura)
+
+-rewind (rebobina el MiniDV al finalizar)
+
+-t (poner fecha y hora de registro como nombre del archivo)
+</code></pre>
+
+<p>dvgrab</p>
+
+<p>Catura de videos desde una cámara digital DV.</p>
+
+<p>Previas:</p>
+
+<blockquote><p># modprobe rw1394</p>
+
+<p># chmod o+rw /dev/raw1394</p></blockquote>
+
+<p>Uso:</p>
+
+<blockquote><p>$ dvgrab &#8211;buffers 500 (Los videos se almacenarán de forma secuencial [001.avi, 002.avi&#8230;] y 500 frames. Por defecto 100)</p>
+
+<p>$ dvgrab -f avi -s 0 videos/archivo.avi (Especificando formato, sin perdida de calidad y destino)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<pre><code>-a 30 (crear nuevo archivo cada 30 segundos
+
+-csize 5 (divide el archivo de captura cuando llega a 5MB)
+
+-debug all (mostrar información de la captura.
+
+-d 10,20 (tiempo total a capturar en formato SMIL. Por defecto ilimitado
+
+-every 50 (grabar un cuadro cada 50)
+
+-f dif (formato de captura. Por defecto raw. Algunos formatos: dif [raw con extensión .dif], qt [formato QuickTime], mpeg2 [compresión MPEG-2], jpeg [secuencia de imágenes]
+
+-F 20 (cantidad máxima de fotogramas por archivo. Por defecto ilimitado)
+
+-nostop (no detener la reproducción en el dispositivo al cerrar la captura)
+
+-rewind (rebobina el MiniDV al finalizar)
+
+-t (poner fecha y hora de registro como nombre del archivo)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/dvdbackup/">Dvdbackup</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-03T14:50:00+02:00" pubdate data-updated="true">03-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[dependencias: libdvdread, libdvdcss]. Ripeo de dvds.</p>
+
+<blockquote><p>$ dvdbackup -i /dev/cdrom  (/información del dvd)</p>
+
+<p>$ dvdbackup -M -i/dev/cdrom -o/home/usuario/carpeta_destino (lanzar la aplicación)</p></blockquote>
+
+<p>dvdbackup</p>
+
+<p>[dependencias: libdvdread, libdvdcss]. Ripeo de dvds.</p>
+
+<blockquote><p>$ dvdbackup -i /dev/cdrom  (/información del dvd)</p>
+
+<p>$ dvdbackup -M -i/dev/cdrom -o/home/usuario/carpeta_destino (lanzar la aplicación)</p></blockquote>
+
+<p>dvdbackup</p>
+
+<p>[dependencias: libdvdread, libdvdcss]. Ripeo de dvds.</p>
+
+<blockquote><p>$ dvdbackup -i /dev/cdrom  (/información del dvd)</p>
+
+<p>$ dvdbackup -M -i/dev/cdrom -o/home/usuario/carpeta_destino (lanzar la aplicación)</p></blockquote>
+
+<p>dvdbackup</p>
+
+<p>[dependencias: libdvdread, libdvdcss]. Ripeo de dvds.</p>
+
+<blockquote><p>$ dvdbackup -i /dev/cdrom  (/información del dvd)</p>
+
+<p>$ dvdbackup -M -i/dev/cdrom -o/home/usuario/carpeta_destino (lanzar la aplicación)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/dvdauthor/">Dvdauthor</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-03T14:50:00+02:00" pubdate data-updated="true">03-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Crear videos compatibles con reproductores domesticos [genera los directorios VIDEO_TS y AUDIO_TS]. Ver página man para una muestra del archivo de control.</p>
+
+<blockquote><p>$ dvdauthor -o directorio archivo_control.xml</p>
+
+<p>$ dvdauthor -o mi_dvd -T (crear table de contenidos)</p></blockquote>
+
+<p>dvdauthor</p>
+
+<p>Crear videos compatibles con reproductores domesticos [genera los directorios VIDEO_TS y AUDIO_TS]. Ver página man para una muestra del archivo de control.</p>
+
+<blockquote><p>$ dvdauthor -o directorio archivo_control.xml</p>
+
+<p>$ dvdauthor -o mi_dvd -T (crear table de contenidos)</p></blockquote>
+
+<p>dvdauthor</p>
+
+<p>Crear videos compatibles con reproductores domesticos [genera los directorios VIDEO_TS y AUDIO_TS]. Ver página man para una muestra del archivo de control.</p>
+
+<blockquote><p>$ dvdauthor -o directorio archivo_control.xml</p>
+
+<p>$ dvdauthor -o mi_dvd -T (crear table de contenidos)</p></blockquote>
+
+<p>dvdauthor</p>
+
+<p>Crear videos compatibles con reproductores domesticos [genera los directorios VIDEO_TS y AUDIO_TS]. Ver página man para una muestra del archivo de control.</p>
+
+<blockquote><p>$ dvdauthor -o directorio archivo_control.xml</p>
+
+<p>$ dvdauthor -o mi_dvd -T (crear table de contenidos)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/dvd-plus-rw-format/">Dvd+rw-format</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-03T14:50:00+02:00" pubdate data-updated="true">03-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Formatear dvd +- Rw</p>
+
+<blockquote><p>$ dvd+rw-format -force /dev/cdrom</p></blockquote>
+
+<p>dvd+rw-format</p>
+
+<p>Formatear dvd +- Rw</p>
+
+<blockquote><p>$ dvd+rw-format -force /dev/cdrom</p></blockquote>
+
+<p>dvd+rw-format</p>
+
+<p>Formatear dvd +- Rw</p>
+
+<blockquote><p>$ dvd+rw-format -force /dev/cdrom</p></blockquote>
+
+<p>dvd+rw-format</p>
+
+<p>Formatear dvd +- Rw</p>
+
+<blockquote><p>$ dvd+rw-format -force /dev/cdrom</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/duplicity/">Duplicity</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-03T14:50:00+02:00" pubdate data-updated="true">03-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Herramienta para realizar backups tanto en modo local como remoto</p>
+
+<blockquote><p># duplicity full /home file:///backups/ (realiza un backup copmpleto [full] en modo local de la carpeta /home en la carpeta /backups)</p>
+
+<p>$ duplicity /home/usuario scp://usuario@host/dir (Backup de un directorio local a un servidor remoto)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<pre><code>--no-encryption (Sin codificar. Por defecto codifica los archivos en el destino)
+
+--include /home/usuario/datos/documentos (Backups de un subdirectorio especifico)
+
+--remove-all-but-n-full 1 --force (Sólo dejará en destino la última copia "full", borrando la anterior y las incrementales que dependen de ella) 
+</code></pre>
+
+<p>duplicity</p>
+
+<p>Herramienta para realizar backups tanto en modo local como remoto</p>
+
+<blockquote><p># duplicity full /home file:///backups/ (realiza un backup copmpleto [full] en modo local de la carpeta /home en la carpeta /backups)</p>
+
+<p>$ duplicity /home/usuario scp://usuario@host/dir (Backup de un directorio local a un servidor remoto)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<pre><code>--no-encryption (Sin codificar. Por defecto codifica los archivos en el destino)
+
+--include /home/usuario/datos/documentos (Backups de un subdirectorio especifico)
+
+--remove-all-but-n-full 1 --force (Sólo dejará en destino la última copia "full", borrando la anterior y las incrementales que dependen de ella) 
+</code></pre>
+
+<p>duplicity</p>
+
+<p>Herramienta para realizar backups tanto en modo local como remoto</p>
+
+<blockquote><p># duplicity full /home file:///backups/ (realiza un backup copmpleto [full] en modo local de la carpeta /home en la carpeta /backups)</p>
+
+<p>$ duplicity /home/usuario scp://usuario@host/dir (Backup de un directorio local a un servidor remoto)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<pre><code>--no-encryption (Sin codificar. Por defecto codifica los archivos en el destino)
+
+--include /home/usuario/datos/documentos (Backups de un subdirectorio especifico)
+
+--remove-all-but-n-full 1 --force (Sólo dejará en destino la última copia "full", borrando la anterior y las incrementales que dependen de ella) 
+</code></pre>
+
+<p>duplicity</p>
+
+<p>Herramienta para realizar backups tanto en modo local como remoto</p>
+
+<blockquote><p># duplicity full /home file:///backups/ (realiza un backup copmpleto [full] en modo local de la carpeta /home en la carpeta /backups)</p>
+
+<p>$ duplicity /home/usuario scp://usuario@host/dir (Backup de un directorio local a un servidor remoto)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<pre><code>--no-encryption (Sin codificar. Por defecto codifica los archivos en el destino)
+
+--include /home/usuario/datos/documentos (Backups de un subdirectorio especifico)
+
+--remove-all-but-n-full 1 --force (Sólo dejará en destino la última copia "full", borrando la anterior y las incrementales que dependen de ella) 
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/dumpkeys/">Dumpkeys</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-03T14:50:00+02:00" pubdate data-updated="true">03-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Permite obtener el mapa de teclas (Keymap) utilizado por el controlador de teclado actual.</p>
+
+<blockquote><p>$ dumpkeys</p></blockquote>
+
+<p>dumpkeys</p>
+
+<p>Permite obtener el mapa de teclas (Keymap) utilizado por el controlador de teclado actual.</p>
+
+<blockquote><p>$ dumpkeys</p></blockquote>
+
+<p>dumpkeys</p>
+
+<p>Permite obtener el mapa de teclas (Keymap) utilizado por el controlador de teclado actual.</p>
+
+<blockquote><p>$ dumpkeys</p></blockquote>
+
+<p>dumpkeys</p>
+
+<p>Permite obtener el mapa de teclas (Keymap) utilizado por el controlador de teclado actual.</p>
+
+<blockquote><p>$ dumpkeys</p></blockquote>
 </div>
   
   
@@ -619,43 +1138,43 @@ Ctrl+g q (Salir)
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/emacs/">emacs</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/libreoffice/">libreoffice</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/tar/">tar</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/chmod/">chmod</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdf2ps/">pdf2ps</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/xscreesaver/">xscreesaver</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lsscsi/">lsscsi</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/apt-get/">apt-get</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lsof/">lsof</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/cvlc/">cvlc</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>
