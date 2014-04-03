@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Montar un sistema de archivos remoto en local. # sshfs usuario@host_o_IP:/home/usuario /home/usuario/remoto # fusermount -u /home/usuario/remoto ( &hellip;">
+  <meta name="description" content="Demonio que protege SSH y otros servicios contra ataques de fuerza bruta. Funciona observando los cambios en /var/log/auth.log, verificando si &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,59 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/sshguard/">Sshguard</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-03T15:38:00+02:00" pubdate data-updated="true">03-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Demonio que protege SSH y otros servicios contra ataques de fuerza bruta. Funciona observando los cambios en /var/log/auth.log, verificando si alguien esta fallando varias veces al autentificarse. Luego de varios errores de autentificacion (por defecto 14) el host ofensivo sera bloqueado por 7 minutos y se duplicará cada vez que el host ofensivo repita el ataque. Carece de archivo de configuración y puede complementarse con iptables:</p>
+
+<blockquote><p># iptables -A INPUT -j sshguard (Para activarlo en todos los puertos)</p>
+
+<p># iptables -A INPUT -m multiport -p tcp &#8211;destination-ports 21,22 -j sshguard (Para puertos concretos [ftp y ssh])</p></blockquote>
+
+<p>El archivo para colocar las direcciones no afectadas por sshguard:</p>
+
+<blockquote><p># nano /etc/sshguard/whitelist</p></blockquote>
+
+<p>Con el siguiente formato:</p>
+
+<pre><code>192.168.1.53 (Una ip)
+
+192.168.1.0/24 (Un rango)
+
+lapipaplena.net (Un host)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -693,46 +746,6 @@ ForwardX11Trusted yes
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sponge/">Sponge</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-03T15:38:00+02:00" pubdate data-updated="true">03-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[moreutils]. Herramienta que guarda todo el contenido a escribir hasta que recibe el EOF y luego lo escribe por lo que permite procesar un fichero y reescribirlo en el propio fichero sin perdida de datos.</p>
-
-<blockquote><p>$ tac archivo | sponge archivo (Lee al reves un archivo y lo guarda en el mismo archivo)</p>
-
-<p>$ column -t datos | sponge datos</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/31/">&larr; Older</a>
@@ -754,6 +767,10 @@ ForwardX11Trusted yes
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/emacs/">emacs</a>
+      </li>
     
       <li class="post">
         <a href="/blog/zypper/">zypper</a>
@@ -789,10 +806,6 @@ ForwardX11Trusted yes
     
       <li class="post">
         <a href="/blog/zegrep/">zegrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>
