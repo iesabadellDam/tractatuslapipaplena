@@ -1,0 +1,101 @@
+---
+layout: post
+title: "arrays"
+date: 2014-04-05 18:17
+comments: true
+categories: 
+---
+También llamado vector, arreglo o alineación es un conjunto o agrupación de variables del mismo tipo cuyo acceso se realiza por índices. El primer indice de una array es el 0.
+
+Ejemplos de uso:
+
+1.-
+
+	#!/bin/bash
+
+	array=($(ls -1))
+
+	echo "escoge el archivo..."
+
+	declare -p array | sed -e 's/ /\n/g'
+
+	read MOD
+
+	echo "Has escogido ${array[MOD]}"
+
+2.-
+
+Recorrer un array:
+
+	fruta[1]=manzana
+
+	fruta[2]=pera
+
+	fruta[3]=limón
+
+	fruta[4]=higo
+
+	for i in "${fruta[@]}"
+
+	  do
+
+		echo $i;
+
+	  done
+
+3.-
+
+Un array puede establecerse con "declare". Tiene la misma salida:
+
+	declare -a distro=('Debian' 'Suse' 'Gentoo' 'Fedora' 'Puppy')
+
+	echo ${distro[@]}
+
+Que el siguiente:
+
+	distro=('Debian' 'Suse' 'Gentoo' 'Fedora' 'Puppy')
+
+	echo ${distro[@]}
+
+4.-
+
+Copiar un array:
+
+	distro=('Debian' 'Suse' 'Gentoo' 'Fedora' 'Puppy')
+
+	opciones=("${distro[@]}")
+
+	echo ${opciones[@]}
+
+5.-
+
+Añadir un array a continuación de otro y mostrar el número de elementos:
+
+	distro=('Debian' 'Suse' 'Gentoo' 'Fedora' 'Puppy');
+
+	Shell=('bash' 'csh' 'jsh' 'rsh' 'ksh');
+
+	UnixShell=("${distro[@]}" "${Shell[@]}")
+
+	echo ${UnixShell[@]}
+
+	echo ${#UnixShell[@]}
+
+6.-
+
+Algunas opciones con arrays:
+
+	echo ${#array[@]} (Mostrar la cantidad de elementos del array)
+
+	echo ${#array[3]} (Mostrar el tamaño del elemento 3)
+
+	echo ${!array[@]} (Mostrar los elementos que no son nulos)
+
+	echo ${fruta[@]/pera/fresa} (En el ejemplo 2 substituir "pera" por "fresa")
+
+	fruta=("${fruta[@]}" "melón") (Añadir un elemento)
+
+	unset fruta[2] (Borrar un elemento)
+
+	unset fruta (Borra todo el array)
+

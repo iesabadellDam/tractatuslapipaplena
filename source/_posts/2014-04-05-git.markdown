@@ -1,0 +1,101 @@
+---
+layout: post
+title: "git"
+date: 2014-04-05 18:18
+comments: true
+categories: 
+---
+[git-core]. Manual completo en español: <http://www-cs-students.stanford.edu/~blynn/gitmagic/intl/es/book.html#_hosting_git_gratuito>
+
+Software de control de versiones. Una vez registrados en Github [<http://github.com>], crear un nuevo repositorio con el nombre escogido y github nos facilitará los datos de acceso [Al estilo: https://github.com/templix/tractatus.git].
+
+Crear el repositorio local de un proyecto alojado en github:
+
+	$ mkdir tractatus (Crear el directorio local)
+
+	$ cd tractatus (Entrar en él)
+
+	$ git init (Inicializar git)
+
+	$ git config --global user.name "nombre_usuario" (Entrar datos del usuario)
+
+	$ git config --global user.mail mail@direccion.com   (Entrar mail)
+
+	$ mv /home/usuario/tractatus.txt . (Mover el archivo al repositorio)
+
+	$ git add tractatus.txt (Añadir el fichero a git)
+
+	$ git commit -a -m 'Inicio del proyecto' (Realizar el primer commit [comentario con los cambios en el proyecto])
+
+	$ git remote add origin https://github.com/templix/tractatus.git (Decirle a nuestra copia local el repositorio remoto donde se alojará)
+
+	$ git push origin master (Enviar los cambios al servidor remoto)
+
+Otros comandos:
+
+>$ git clone git@github.com:templix/tractatus.git (Clonar un repositorio por portocopo git)
+
+>$ git clone https://github.com/templix/tractatus.git (Clonar un repositorio por protocolo https)
+
+>$ git clone ssh://usuario@host.com/home/templix/repositorio repositorio (Clonar por ssh un directorio remoto en local)
+
+>$ git config -l (Comprobar los datos del usuario)
+
+>$ git config remote.origin.url (Ver cual es el repositorio remoto)
+
+>$ git log (Ver historial de commits)
+
+>$ git status (Comprobar si se han efectuado cambios)
+
+>$ git config --global credential.helper cache (guarda la contraseña en caché durante 15 min)
+
+>$ git config --global credential.helper 'cache --timeout=3600' (guarda la contraseña durante una hora)
+
+>$ git rm archivo (Eliminar archivo)
+
+>$ git fetch origin (este comando junto con el siguiente elimina todos los cambios locales y pone la versión del servidor)
+
+>$ git reset --hard origin/master
+
+>$ git diff --color-words archivo1 archivo2  (Mostrar las diferencias en color)
+
+>$ git instaweb --httpd=webrick (Abre el proyecto con navegador en localhost:1234)
+
+>$ git instaweb --httpd=webrick --stop (Cierra la visualización del proyecto con el navegador)
+
+>$ git config --help (Mostrar ayuda de un comando)
+
+1.-
+
+Indicar a git archivos o directorios que quedemos excluir del control de versiones.
+
+>$ touch .gitignore (Crear el fichero en el directorio raiz del proyecto)
+
+Con el contenido que queremos excluir [Algunos ejemplos]:
+
+	*~
+
+	tmp/*
+
+	*.so
+
+	*.zip
+
+	Thumbs.db
+
+Si el archivo .gitignore lo colocamos en el directorio $HOME afectará a todos los proyectos de git. Para ello lanzar:
+
+>$ git config --global core.excludesfile ~/.gitignore
+
+2.-
+
+Descartar modificaciones.
+
+Si una vez realizadas modificaciones en un archivo, antes de lanzar el commit, queremos verlas y descartarlas:
+
+>$ git status
+
+>$ git diff
+
+>$ git checkout -- archivo
+

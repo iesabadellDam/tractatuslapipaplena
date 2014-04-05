@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Conversor de archivos de audio y video $ ffmpeg -i archivo.mpg (Obtener información de un archivo) $ ffmpeg -i archivo1.avi archivo2.mpg (Convertir &hellip;">
+  <meta name="description" content="[festival festvox-ellpc11k]. Sintetizador de voz. $ echo “Linux es genial” | festival &#8211;tts &#8211;language spanish $ festival &#8211;tts &#8211 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,117 +80,6 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ffmpeg/">Ffmpeg</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-03T15:35:00+02:00" pubdate data-updated="true">03-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Conversor de archivos de audio y video</p>
-
-<blockquote><p>$ ffmpeg -i archivo.mpg  (Obtener información de un archivo)</p>
-
-<p>$ ffmpeg -i archivo1.avi archivo2.mpg  (Convertir de un formato a otro)</p>
-
-<p>$ ffmpeg -i archivo1.3gp -vcodec mpeg4 -acodec mp3 archivo2.avi (Convertir videos en formato 3gp del móvil a avi)</p>
-
-<p>$ ffmpeg -i archivo1.avi archivo2.mpg -s 640×480 -b 800 (Cambiar formato especificando bitrate y resolución del archivo de salida)</p>
-
-<p>$ ffmpeg -i archivo.avi -vn -acodec copy audio.mp3 (Extraer el audio de un archivo de video)</p>
-
-<p>$ ffmpeg -i input.flac -ab 196k -ac 2 -ar 48000 output.mp3 (De flac a mp3)</p>
-
-<p>$ ffmpeg -i archivo.avi -an -vcodec copy video.avi  (Extraer el video de un archivo sin el audio)</p>
-
-<p>$ ffmpeg -i movie.avi -acodec mp3 -ar 11025 movie.flv  (de avi a flv)</p>
-
-<p>$ ffmpeg -i music.mp3 -acodec amr_nb -ar 8000 -ac 1 -ab 32 music.amr (de mp3 a amr)</p>
-
-<p>$ ffmpeg -i video.mpg -f mp3 audio_track.mp3 (de mpeg a mp)</p>
-
-<p>$ ffmpeg -i myfile.avi -target pal-vcd myfile_vcd.mpg (de avi a vcd)</p>
-
-<p>$ ffmpeg -i music.wav -acodec amr_nb -ar 8000 -ac 1 -ab 32 music.amr (de wav a amr)</p>
-
-<p>$ ffmpeg -i video_1 -t 9 video_2 (video_2 tendrá los 9 primeros segundos de video_1)</p>
-
-<p>$ ffmpeg -i video_1 -ss 9 -t 15 video_2 (video_2 empezarà en el minuto 9 de video_1 y durará 15 segundos a partir de este punto)</p>
-
-<p>$ ffmpeg -i archivo.mpeg -s qcif -r 12 -ac 1 -ar 8000 -b 30 -ab 12 salida.3gp (de mpeg a 3gp)</p>
-
-<p>$ ffmpeg -i pelicula.mpg -acodec mp3 -vcodec xvid -b 687 pelicula.avi (de mpeg a Xcid)</p>
-
-<p>$ ffmpeg -i pelicula.mpg -vcodec flv -y pelicula.flv (de mpeg a flv)</p>
-
-<p>$ ffmpeg -f image2 -i imagenes%d.jpg video.mpeg  (Convertir una secuencia de imagenes a video)</p>
-
-<p>$ ffmpeg -i video -sameq -r 1 %d.png (sacar un fotograma png cada segundo de un video)</p>
-
-<p>$ ffmpeg -i video.avi video.mpg -s 640×480 -b 800  (convertir de avi mpg especificando resolución y bitrate)</p>
-
-<p>$ ffmpeg -i video.mpeg -pix_fmt rgb24 imagenes.gif (Convertir imagenes de un video a .gif animado)</p></blockquote>
-
-<pre><code>$ ffmpeg -i video1.avi -sameq video1.mpeg (Unir varios videos. Primero convertirlos a mpeg))
-
-$ ffmpeg -i video2.avi -sameq video2.mpeg
-
-$ cat video1.mpeg video2.mpeg &gt; nuevo_video.mpeg (Unir los videos resultantes usando cat)
-</code></pre>
-
-<blockquote><p>$ ffmpeg -i nuevo_video.mpeg -sameq nuevo_video.avi (de mpeg a avi)</p>
-
-<p>$ ffmpeg -i video.avi -an video_sin_sonido.avi (Suprimir el audio de un video)</p>
-
-<p>$ ffmpeg -i video.avi audio.mp3 (Separar para guardar el sonido de un video)</p>
-
-<p>$ ffmpeg -i audio.mp3 -i montaje.avi video_final.avi (Añadir sonido a un video sin él)</p></blockquote>
-
-<p>Nota.- Si el audio.mp3 es más largo que el montaje.avi el resultado final tendrá la duración del audio y viceversa.</p>
-
-<blockquote><p>$ ffmpeg -f alsa -ac 2 -i hw:0,0 -f x11grab -r 30 -s $(xwininfo -root | grep &#8216;geometry&#8217; | awk &#8216;{print $2;}&#8217;) -i :0.0 -acodec pcm_s16le -vcodec libx264 -vpre lossless_ultrafast -threads 0 -y output.mkv  (crear un video del escritorio)</p>
-
-<p>$ ffmpeg -f x11grab -r 25 -s 800x600 -i :0.0 video.mpg (lo mismo. Alguien ha de estar visualizando la sesión)</p>
-
-<p>$ ffmpeg -f x11grab -s 1280x1024 -r 25 -i :0.0 -sameq /home/usuario/video.mpg (Grabar escritorio)</p>
-
-<p>$ ffmpeg -loop_input -i imagen.png -vframes 500 -an video.avi (Crear video.avi de 500 segundos mostrando una imagen)</p>
-
-<p>$ ffmpeg -itsoffset -4 -i video.avi -vcodec mjpeg -vframes 1 -an -f rawvideo -s 320x240 test.jpg (Sacar un tumbnail de un video)</p>
-
-<p>$ ffmpeg -ss 5 -i video.mpegi -vframes 1 -s 320x240 thumb.jpg (lo mismo)</p>
-
-<p>$ ffmpeg -i http://192.168.1.115/img/video.asf -vcodec copy -b 900k salida.asf (Grabar un video de una ubicación en la red [cámara ip])</p>
-
-<p>$ ffmpeg -i ./PELICULA_ENTRADA.MOV -s 800x450 -vcodec libxvid -acodec aac -strict experimental -ac 2 -r 25 -ab 44100 -b 500k -aspect 16:9 fichero_salida.mp4 (Convertir un vídeo a un formato reconocido por Android)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
       <h1 class="entry-title"><a href="/blog/festival/">Festival</a></h1>
     
     
@@ -207,7 +96,7 @@ $ cat video1.mpeg video2.mpeg &gt; nuevo_video.mpeg (Unir los videos resultantes
   
 
 
-<time datetime="2014-04-03T15:35:00+02:00" pubdate data-updated="true">03-04-2014</time>
+<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
         
       </p>
     
@@ -224,7 +113,7 @@ $ cat video1.mpeg video2.mpeg &gt; nuevo_video.mpeg (Unir los videos resultantes
 
 <pre><code>(Parameter.set 'Audio_Command "aplay -q -c 1 -t raw -f s16 -r $SR $FILE")
 
-(Parameter.set 'Audio_Method 'Audio_Command) 
+(Parameter.set 'Audio_Method 'Audio_Command)
 </code></pre>
 </div>
   
@@ -254,7 +143,7 @@ $ cat video1.mpeg video2.mpeg &gt; nuevo_video.mpeg (Unir los videos resultantes
   
 
 
-<time datetime="2014-04-03T15:35:00+02:00" pubdate data-updated="true">03-04-2014</time>
+<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
         
       </p>
     
@@ -306,7 +195,7 @@ $ cat video1.mpeg video2.mpeg &gt; nuevo_video.mpeg (Unir los videos resultantes
   
 
 
-<time datetime="2014-04-03T15:35:00+02:00" pubdate data-updated="true">03-04-2014</time>
+<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
         
       </p>
     
@@ -346,7 +235,7 @@ $ cat video1.mpeg video2.mpeg &gt; nuevo_video.mpeg (Unir los videos resultantes
   
 
 
-<time datetime="2014-04-03T15:35:00+02:00" pubdate data-updated="true">03-04-2014</time>
+<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
         
       </p>
     
@@ -386,7 +275,7 @@ $ cat video1.mpeg video2.mpeg &gt; nuevo_video.mpeg (Unir los videos resultantes
   
 
 
-<time datetime="2014-04-03T15:35:00+02:00" pubdate data-updated="true">03-04-2014</time>
+<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
         
       </p>
     
@@ -457,7 +346,7 @@ E (Abre preferencias)
   
 
 
-<time datetime="2014-04-03T15:35:00+02:00" pubdate data-updated="true">03-04-2014</time>
+<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
         
       </p>
     
@@ -503,7 +392,7 @@ E (Abre preferencias)
   
 
 
-<time datetime="2014-04-03T15:35:00+02:00" pubdate data-updated="true">03-04-2014</time>
+<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
         
       </p>
     
@@ -545,7 +434,7 @@ E (Abre preferencias)
   
 
 
-<time datetime="2014-04-03T15:35:00+02:00" pubdate data-updated="true">03-04-2014</time>
+<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
         
       </p>
     
@@ -583,7 +472,7 @@ E (Abre preferencias)
   
 
 
-<time datetime="2014-04-03T15:35:00+02:00" pubdate data-updated="true">03-04-2014</time>
+<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
         
       </p>
     
@@ -601,6 +490,44 @@ E (Abre preferencias)
 <p>$ !n (Ejecuta el comando número n)</p>
 
 <p>$ !dialog (Ejecuta el último comando que empiece por dialog)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fbv/">Fbv</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Visualizar imágenes en framebuffer.</p>
+
+<blockquote><p>$ fbv imagen</p></blockquote>
 </div>
   
   
@@ -629,14 +556,6 @@ E (Abre preferencias)
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/grep/">grep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/emacs/">emacs</a>
-      </li>
     
       <li class="post">
         <a href="/blog/zypper/">zypper</a>
@@ -668,6 +587,14 @@ E (Abre preferencias)
     
       <li class="post">
         <a href="/blog/zenity/">zenity</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/zegrep/">zegrep</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

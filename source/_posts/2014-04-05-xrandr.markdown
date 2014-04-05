@@ -1,0 +1,89 @@
+---
+layout: post
+title: "xrandr"
+date: 2014-04-05 18:22
+comments: true
+categories: 
+---
+Cambiar la resolución de pantalla.
+
+>$ xrandr  (muestra la resolución usada, la máxima, la mínima y todas las posibles. La marcada con un "*" es la usada y la “+” es la optima)
+
+>$ xrandr | grep \* | cut -d' ' -f4 (otra forma de ver la resolución usada)
+
+>$ xrandr -s 1280x1024    (modificar la resolución)
+
+>$ xrandr -r 76   (modificar la tasa de refresco)
+
+>$ xrandr --auto (configurar proyectores externos)
+
+>$ xrandr -q | awk -F'current' -F',' 'NR==1 {gsub("( |current)","");print $2}'  (solo muestra la resolución usada)
+
+>$ xrandr -q | grep -w Screen (muestra la mínima, la usada y la máxima)
+
+Ejemplo práctico:
+
+Conocer resoluciones y cual es la utilizada:
+
+>$ xrandr
+
+crear/agregar nueva resolución:
+
+>$ cvt 1127 999 | grep Modeline | cut -d" " -f 2-
+
+"1128x999_60.00"   93.00  1128 1200 1312 1496  999 1002 1012 1037 -hsync +vsync
+
+cargar la nueva resolución:
+
+>$ xrandr --newmode "1128x999_60.00"   93.00  1128 1200 1312 1496  999 1002 1012 1037 -hsync +vsync
+
+Comprobar que se ha agregado la nueva resolución:
+
+>$ xrandr
+
+añadir el modo creado a la tarjeta conectada (VGA-0, LVDS1...)
+
+>$ xrandr --addmode VGA-0 1128x999_60.00
+
+Para eliminar este modo: xnest
+
+Herramienta que permite abrir un servidor X dentro de otro servidor X
+
+>$ Xnest :20 -ca & (Sesion número 20)
+
+Para mandar instancias al servidor xnest:
+
+>$ xterm -display :20 (Abrirá exterm en el interior de la sesión 20)
+
+>$ Xnest :20 -geometry 800x600 & (Especificando medidas de la ventana)
+
+>$ xrandr --rmmode VGA-0 1128x999_60.00
+
+Para predeterminar la nueva configuración:
+
+>$ xrandr --output VGA-0 --mode 1128x999_60.00
+
+Si nos da un error “out of range” (fuera de rango) suele ser porque la tasa de refresco del monitor es diferente de la configurada por defecto. Para modificarla:
+
+>$ xrandr --output VGA-0 --mode 1128x999_60.00 --rate 60,3
+
+Una vez comprobado que todo funciona para hacer permanentes los cambios:
+
+>\# nano /etc/gdm/Init/Default
+
+A continuación de las lineas:
+
+PATH=”/usr/bin:$PATH”
+
+OLD_IFS=$IFS
+
+Añadir:
+
+xrandr --newmode "1128x999_60.00"   93.00  1128 1200 1312 1496  999 1002 1012 1037 -hsync +vsync
+
+xrandr --addmode VGA-0 1128x999_60.00
+
+xrandr --output VGA-0 --mode 1128x999_60.00 --rate 60,3
+
+Reiniciar.
+

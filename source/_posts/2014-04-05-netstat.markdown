@@ -1,0 +1,103 @@
+---
+layout: post
+title: "netstat"
+date: 2014-04-05 18:20
+comments: true
+categories: 
+---
+Puertos y conexiones.
+
+>\# netstat --inet --all
+
+Proto Recv-Q Send-Q Local Address           Foreign Address         State
+
+tcp        0        0          localhost:832                 *:*                     LISTEN
+
+tcp        0        0          localhost:2208               *:*                     LISTEN
+
+...
+
+Proto.- protocolo, Recv-Q.- paquetes recibidos, Send-Q.- paquetes enviados, Local Address.- direccion local, Foreign Address.- direccion remota, State.- estado de la conexión (listen = a la escucha).
+
+>\# netstat -ac   (puertos abiertos,donde se dirigen y de donde  vienen)
+
+>\# netstat -atu | grep '*.*'   (Ver todos los servicios que ofrece la máquina)
+
+>\# netstat -ta  (Lista los servidores que estén corriendo en el sistema)
+
+>\# netstat -rn  (Muestra la tabla de enrutamiento)
+
+>\# netstat  -an (Máxima información de nuestra conexión)
+
+>\# netstat  -i (Tablas de Interfaces de red)
+
+>\# netstat -e (información extendida)
+
+>\# netstat -p (numero de PID y servicio que está corriendo)
+
+>\# netstat -c (Lista continua)
+
+>\# netstat -l (Sockets a la espera)
+
+>\# netstat -napt (puertos abiertos y servicios que corren)
+
+>\# netstat -pan | grep ESTABLISHED
+
+>\# netstat -luntp | grep LISTEN | awk '{print $7}'
+
+>\# netstat -l | grep tcp
+
+>\# netstat -antp | grep 22  (preguntar como está el puerto 22)
+
+>\# netstat | awk '/EST/{print $5}' | sort  (lista de conexiones establecidas)
+
+>\# netstat -an | grep -Ec '^tcp.+ESTABLISHED$'  (Muestra conexiones tcp)
+
+>\# netstat -tpee    (información sobre las conexiones a internet)
+
+>\# netstat -tunlp  (Muestra servicios activos y a la escucha, pid y puertos)
+
+>\# if (nc -zw2 lapipaplena.homelinux.com 80); then echo open; fi (Preguntar si el puerto de un host está abierto)
+
+>\# netstat -nt | awk '{print $6}' | sort | uniq -c | sort -n -k 1 -r (Cantidad y estado de los puertos abiertos)
+
+>\# netstat -luntp | grep LISTEN | awk '{print $7}'  (pid de los servicios en LISTEN y demonio que corre en ellos)
+
+>\# netstat -n -p|grep SYN_REC | wc -l  (Muestra si estamos sufriendo un ataque ddos)
+
+>\# netstat -lantp | grep ESTABLISHED |awk '{print $5}' | awk -F: '{print $1}' | sort -u (Todas las ip conectadas a nuestro host)
+
+>\# netstat -plan | grep :80 |  grep ESTABLISHED | awk {'print $5'} | cut -d: -f 1 | sort | uniq -c | sort -n (Otra forma de mostralas)
+
+>\# netstat -plan | grep :80 | awk {'print $5'} | cut -d: -f 1 | sort | uniq -c | sort -n
+
+(Muestra el número de peticiones al puerto 80 por cada IP)
+
+>\# netstat -plutn
+
+Explicación de los Flags:
+
+G (La ruta utiliza una pasarela)
+
+U (La interfaz está activa)
+
+H (Esta interfaz permite el acceso a una sola máquina)
+
+D (Esta ruta es creada dinámicamente)
+
+M (estee registro ha sido modificado por un mensaje de redirección ICMP)
+
+! (La ruta es una ruta de rechazo y los datagramas serán descartados)
+
+Nota.- la dirección externa si no es 0.0.0.0.* significa que alguien le está hablando activamente.
+
+Otras opciones:
+
+-o (indica el número del proceso asignado a la conexión)
+
+-s (muestra las estadísticas detalladas para cada protocolo)
+
+-t (muestra solo las conexiones activas por TCP)
+
+-u (muestra solo las conexiones activas por UDC)
+

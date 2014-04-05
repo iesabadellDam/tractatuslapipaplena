@@ -1,0 +1,31 @@
+---
+layout: post
+title: "hdparm"
+date: 2014-04-05 18:19
+comments: true
+categories: 
+---
+consultar y modificar diferentes parámetros de los discos duros.
+
+>\# hdparm /dev/sda (Informa del estado [activado o no] de las opciones de hdparm)
+
+>\# hdparm -tT /dev/sda (Comprobar velocidad de lectura)
+
+>\# hdparm -i /dev/sda (Informa de las características del disco duro)
+
+>\# hdparm -I /dev/sda (Mostrar información más extendida)
+
+1.-
+
+Desactivación del APM (Gestión avanzada de energia) de los portatiles ya que esta tecnologia alarga la duración de la batería en detrimento de la vida útil del disco duro.
+
+>\# hdparm -I /dev/sda
+
+El parámetro que indica si tenemos APM y la frecuencia de ciclo de carga-descarga es:
+
+Advanced power management level: 128
+
+>\# smartctl -a /dev/sda | egrep 'ID|Load_Cycle'(El parámetro RAW_VALUE indica la  cantidad de ciclos que el HD ha consumido. La cantidad de ciclos oscila entre 300000 y 600000 por HD)
+
+>\# hdparm -B 254 /dev/sda (Disminuir la frecuencia de los ciclos a mínimo. El valor máximo sería 1 y desactivado 255)
+
