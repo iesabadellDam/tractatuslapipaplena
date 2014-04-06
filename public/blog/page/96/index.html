@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Compilador de programas de C* $ gcc -c bill.c (genera una biblioteca) $ gcc programa.c -o programa_compilado (crea el ejecutable)
-">
+  <meta name="description" content="[gconf-editor]. Configurador de todos los parámetros de gnome $ gconftool-2 &#8211;dump / > gconf_backup.xml (realizar copia de seguridad de la &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +74,85 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/gconftool-2/">Gconftool-2</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[gconf-editor]. Configurador de todos los parámetros de gnome</p>
+
+<blockquote><p>$ gconftool-2 &#8211;dump / > gconf_backup.xml  (realizar copia de seguridad de la configuración)</p>
+
+<p>$ gconftool-2 &#8211;load gconf_backup.xml /  (restablecer la copia de seguridad)</p>
+
+<p>$ gconftool-2 &#8211;recursive-unset /apps/panel (recuperar los paneles originales)</p></blockquote>
+
+<p>nota.- sustituiendo el “/apps/panel” por cualquier ruta del árbol de directorios [por ejemplo “/”] de gconf-editor pueden restaurarse sus valores originales</p>
+
+<blockquote><p>$ rm -rf .gconf/apps/panel (borra toda la configuración extra de los paneles)</p>
+
+<p>$ gconftool-2 –shutdown &amp;&amp; rm -rf ~/.gconf/apps/panel &amp;&amp; pkill gnome-panel (velver a una configuración anterior de los paneles)</p></blockquote>
+
+<p>Notas:</p>
+
+<pre><code>-t (tipo de datos a utilizar. Los valores son {int|bool|float|string|list|pair})
+
+-s (entrada a modificar)
+</code></pre>
+
+<p>Los valores de –type pueden ser:</p>
+
+<p>lógicos [bool]. Cuando el parámetro puede ser verdadero [true] o falso [false]. P.e quitar papelera del escritorio:</p>
+
+<blockquote><p>$ gconftool-2 -t bool -s /apps/nautilus/desktop/trash_icon_visible false</p></blockquote>
+
+<p>Enteros (int). Cuando ha de especificarse un número. P.e. aumentar el numero de escritorios a 5:</p>
+
+<blockquote><p>$ gconftool-2 -t int -s /apps/metacity/general/num_workspaces 5</p></blockquote>
+
+<p>reales (float). Cuando el valor tiene el punto como separador decimal. p.e el contraste de cheese:</p>
+
+<blockquote><p>$ gconftool-2 -t float -s /apps/cheese/contrast 1.2</p></blockquote>
+
+<p>Cadenas (string). Cuando ha de especificarse un texto. P.e. cambiar el nombre de la carpeta de usuario:</p>
+
+<blockquote><p>$ gconftool-2 -t string -s /apps/nautilus/desktop/home_icon_name &#8220;Mi carpeta&#8221;</p></blockquote>
+
+<p>Lista de valores (list). En muchos casos va complementado con otra lista (&#8211;list-type) que admite los valores {int|bool|float|string}. p.e detectar codificación en gedit con determinadas opciones:</p>
+
+<blockquote><p>$ gconftool-2 -t list &#8211;list-type string -s /apps/gedit-2/preferences/encodings/auto_detected [UTF-8,CURRENT,ISO-8859-15,UTF-16]</p></blockquote>
+
+<p>Parejas de valores [pairs]. Indica parejas de valores de los tipos anteriores. No he encontrado ningún ejemplo</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -484,104 +562,6 @@ export ZZPATH=/usr/bin/funcoeszz
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/fstab/">Fstab</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>(/etc/fstab). Lista todos los discos y particiones disponibles e indica cómo deben ser inicializados. Su estructura es:</p>
-
-<ul>
-<li>Particion punto_de_montaje sistema_de_archivos opciones respaldos orden</li>
-</ul>
-
-
-<p>Y un ejemplo seria:</p>
-
-<pre><code>/dev/sda5 /media/datos ext4 rw,users,exec,auto 0 0 (especificando el número de partición)
-
-UUID=0e4d9ccb-93bb-4762-8b67-c23d181fc84a / ext4 errors=remount-ro 0 1 (especificando el UUID de la partición)
-</code></pre>
-
-<p>Los puntos de montaje han de existir en el sistema y normalmente se colocan en /media</p>
-
-<p>Algunos sitemas de archivos puede ser:</p>
-
-<pre><code>auto (intenta descubrir automáticamente el sistema de archivos).
-
-ext2 (sistema de archivos común en Linux).
-
-ext3 (igual que ext2 pero además añade journaling).
-
-ext4 (introdujo significativas mejoras respecto a ext3)
-
-reiserfs (otro sistema muy común en Linux)
-
-msdos (para dispositivos que usen FAT16)
-
-vfat (para dispositivos que usen FAT32).
-
-ntfs (sistema de archivos NTFS de Windows)
-
-smbfs (sistema de archivos de Samba).
-
-nfs (sistema de archivos de red NFS)
-</code></pre>
-
-<p>Algunas opciones:</p>
-
-<pre><code>auto (el dispositivo será montado automáticamente durante el inicio. auto es el valor por defecto)
-
-noauto (Si no se desea que el dispositivo se monte automáticamente)
-
-exec (permite ejecutar binarios que están en la partición)
-
-noexec (lo impide. ütil en particiones windows)
-
-ro (Montar sólo lectura)
-
-rw (Montar para lectura/esctritura)
-
-user (Permite a cualquier usuario montar el sistema de archivos)
-
-nouser (Solo el usuario root podrá montar el sistema de archivos)
-
-defaults (Utiliza las opciones por defecto: rw,exec,auto,nouser)
-</code></pre>
-
-<p>Respaldo. Es el comando que utiliza dump para hacer respaldos del sistema de archivos. Cero desactiva la opción.</p>
-
-<p>Orden. indica el orden en que la aplicación fsck revisará la partición en busca de errores durante el inicio, si es cero el dispositivo no se revisa.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/97/">&larr; Older</a>
@@ -597,12 +577,16 @@ defaults (Utiliza las opciones por defecto: rw,exec,auto,nouser)
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1378</li>
+	<li>1379</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/fbcmd/">fbcmd</a>
+      </li>
     
       <li class="post">
         <a href="/blog/emacs/">emacs</a>
@@ -638,10 +622,6 @@ defaults (Utiliza las opciones por defecto: rw,exec,auto,nouser)
     
       <li class="post">
         <a href="/blog/zenity/">zenity</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
   </ul>
