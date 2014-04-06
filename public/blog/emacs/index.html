@@ -93,7 +93,7 @@
   
 
 
-<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-04-06T02:34:00+02:00" pubdate data-updated="true">06-04-2014</time>
         
       </p>
     
@@ -294,6 +294,8 @@ C-x custom (Personalizar numerosos aspectos de emacs)
 C-x C-+ (Agrandar la fuente)
 
 C-x C-- (Disminuir la fuente)
+
+C-x z z z (Repite el último comando tantas veces como "zetas" pongamos. En este caso 3 veces )
 </code></pre>
 
 <p>Entrar comandos de shell e insertar:</p>
@@ -355,6 +357,8 @@ M-x command-history  (History de comandos entrados)
 M-x calculator (Calculadora muy elemental)
 
 M-x man (mostrar man de un comando)
+
+M-x global-whitespace-mode (Mostrar/ocultar caracteres no imprimibles)
 </code></pre>
 
 <p>Para hacer permanente cualquiera de las opciones anteriores, colocarla en ~/.emacs de la siguiente forma:</p>
@@ -638,6 +642,69 @@ C-c C-k (Cambia a modo caracter)
 
 <p>13.-</p>
 
+<p>Algunos ajustes en el prompt de eshell que pueden incorporarse al archivo .emacs:</p>
+
+<p>Modificar el prompt para mostrar el directorio de trabajol. Para mostrar el usuario: (concat (getenv &#8220;USER&#8221;)</p>
+
+<pre><code>(setq eshell-prompt-function
+
+(lambda nil
+
+(concat (eshell/pwd)
+
+(if (= (user-uid) 0) " # " " $ "))))
+</code></pre>
+
+<p>Usar bash en lugar de la shell de emacs:</p>
+
+<pre><code>(setq shell-file-name "/bin/bash")
+</code></pre>
+
+<p>Modificar el mensaje de bienvenida al entrar en eshell:</p>
+
+<pre><code>(setq eshell-banner-message "\n... entrant a  emacs shell...\n\n")
+</code></pre>
+
+<p>Nota.- Si ya tenemos una terminal [eshell o term] abierta no permite abrir ninguna más a menos de que le cambiemos el nombre:</p>
+
+<pre><code>M-x rename-buffer
+</code></pre>
+
+<p>14.-</p>
+
+<p>Para poder copipastear de emacs a las X y viceversa colocar en .emacs el código:</p>
+
+<pre><code>;; http://hugoheden.wordpress.com/2009/03/08/copypaste-with-emacs-in-terminal/
+
+(setq x-select-enable-clipboard t)
+
+(unless window-system
+
+(when (getenv "DISPLAY")
+
+(defun xsel-cut-function (text &amp;optional push)
+
+(with-temp-buffer
+
+(insert text)
+
+(call-process-region (point-min) (point-max) "xsel" nil 0 nil "--clipboard" "--input")))
+
+(defun xsel-paste-function()
+
+(let ((xsel-output (shell-command-to-string "xsel --clipboard --output")))
+
+(unless (string= (car kill-ring) xsel-output)
+
+    xsel-output )))
+
+(setq interprogram-cut-function 'xsel-cut-function)
+
+(setq interprogram-paste-function 'xsel-paste-function)))
+</code></pre>
+
+<p>15.-</p>
+
 <p>Otros ajustes que pueden incorporarse a .emacs precedidas con la explicación comentada:</p>
 
 <pre><code>;;Mostrar consola al pulsar F5:
@@ -662,7 +729,7 @@ C-c C-k (Cambia a modo caracter)
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
-;;Sin copias de seguridad (torvalds-mode).
+;;Sin copias de seguridad.
 
 (setq make-backup-files nil)
 
@@ -686,7 +753,7 @@ calendar-day-name-array
 
 ["Domingo" "Lunes" "Martes"
 
-"Miercoles" "Jueves" "Viernes" "SÃ¡bado"]
+"Miercoles" "Jueves" "Viernes" "Sábado"]
 
 calendar-month-name-array
 
@@ -695,6 +762,30 @@ calendar-month-name-array
 "Mayo" "Junio" "Julio" "Agosto" "Septiembre"
 
 "Octubre" "Noviembre" "Diciembre"])
+
+;; Suprimir espacios al final de la linea y lineas en blanco del final:
+
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; Lenguage y codificación:
+
+(set-terminal-coding-system 'utf-8)
+
+(set-keyboard-coding-system 'utf-8)
+
+(prefer-coding-system 'utf-8)
+
+(set-language-environment "Spanish")
+
+;; Guardar la sessión al cerrar emacs y restaurarla al arrancar nuevamente:
+
+;; Colocar a cero [0] para desactivar:
+
+(desktop-save-mode 1)
+
+;; Ocultar caracteres al pedir un password:
+
+(add-hook 'comint-output-filter-functions 'comint-watch-for-password-prompt)
 </code></pre>
 </div>
 
@@ -718,7 +809,7 @@ calendar-month-name-array
   
 
 
-<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-04-06T02:34:00+02:00" pubdate data-updated="true">06-04-2014</time>
       
 
 
@@ -735,10 +826,8 @@ calendar-month-name-array
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/elinks/" title="Previous Post: elinks">&laquo; elinks</a>
+        <a class="basic-alignment left" href="/blog/zypper/" title="Previous Post: zypper">&laquo; zypper</a>
       
-      
-        <a class="basic-alignment right" href="/blog/emerge/" title="Next Post: emerge">emerge &raquo;</a>
       
     </p>
   </footer>
@@ -757,6 +846,10 @@ calendar-month-name-array
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/emacs/">emacs</a>
+      </li>
     
       <li class="post">
         <a href="/blog/zypper/">zypper</a>
@@ -792,10 +885,6 @@ calendar-month-name-array
     
       <li class="post">
         <a href="/blog/zegrep/">zegrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>
