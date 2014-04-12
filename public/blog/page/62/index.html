@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Demonio que crea logs del uso de la red. # cat /var/log/net-acct/net-acct.log
-">
+  <meta name="description" content="utilidad que se puede utilizar para practicamente cualquier cosa relacionada con el protocolo TCP/IP [navaja suiza] Nota.- En algunas distros está &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +74,94 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/netcat/">Netcat</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-05T18:20:00+02:00" pubdate data-updated="true">05-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>utilidad que se puede utilizar para practicamente cualquier cosa relacionada con el protocolo TCP/IP [navaja suiza]</p>
+
+<p>Nota.- En algunas distros está ligeramente capado. Preferible bajarlo de http://netcat.sourceforge.net/download.php y compilarlo:</p>
+
+<blockquote><p>$ ./configure</p>
+
+<p>$ make DFLAGS=&#8221; -DTELNET -DGAPING_SECURITY_HOLE&#8221;</p>
+
+<p># make install</p>
+
+<p>$ nc -v -v -z 192.168.2.5 21 22 25 110 5900 (que se conecte a la IP, envie más información [-v por duplicado], que no envie ningún dato [-z] y que lo haga por los puertos mencionados [21,22,25,110,5900])</p>
+
+<p>$ nc -l -p 3001 -e /bin/bash  (Que esté a la escucha [-l] en el puerto 3001 [-p] y que, cuando haya conexión, ejecute nuestra shell bash [-e &#8230;.])</p>
+
+<p>$ nc IP_servidor 3001  (desde el cliente, conectamos con el servidor y todo lo que escribamos se enviará al bash del servidor y lo que nos responda aparecerá en nuestra pantallla. Para terminar la conexión CTROL-C)</p>
+
+<p>$ telnet -l usuario IP_o_nombre_host 3001 (Otra forma de establecer la conexión.)</p>
+
+<p>$ nc -l -p 3000 > archivo (Dejar el servidor listo para recibir un archivo)</p>
+
+<p>$ nc IP_servidor 3000 &lt; archivo  (enviar desde el cliente el archivo)</p>
+
+<p>$ nc -zw2 www.nombre.com 80 &amp;&amp; echo open  (comprobar si está abierto el puerto 80 de un host)</p>
+
+<p>$ nc -l -p 10000 &lt; pelicula.avi  (streaming de video-servidor)</p>
+
+<p>$ nc IP_o_host 10000 | mplayer – (streaming de video-cliente)</p>
+
+<p>$ nc -l -p 10000 &lt; fichero.mp3  (streaming de  audio-servidor)</p>
+
+<p>$ nc IP_o_host 10000 | madplay –  (streaming de audio-cliente)</p>
+
+<p>$ nc -l -p http -c &#8220;cat index.html&#8221;  (servidor http)</p>
+
+<p>$ echo “GET /” | nc www.google.com 80 > index.html  (copiar una página web)</p>
+
+<p>$ nc -l -p 10000 -c &#8220;nc host 22&#8221; (Proxy. El trafico recibido en el puerto 10000 se redirige al 22 del host especificado)</p>
+
+<p>$ nc towel.blinkenlights.nl 23  (visionar la guerra de las galaxias)</p>
+
+<p>$ dd if=/dev/sda5 | nc -l -p 10000  (clonar un disco por red. En el servidor)</p>
+
+<p>$ nc IP_o_host 10000 | dd of=sda5.img  (En el cliente)</p>
+
+<p>$ nc -l -p 7777 > /dev/null  (Prueba de rendimiento entre dos máquinas. En el Servidor)</p>
+
+<p>$ pv -r /dev/zero | nc IP_servidor 7777  (En el cliente)</p></blockquote>
+
+<p>opciones</p>
+
+<p>-v -v   .-  mostrar máxima información</p>
+
+<p>-z  .-  mostrar puertos a la escucha</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -673,46 +760,6 @@ Alt + x (Suprimir/añadir la ayuda del final de página)
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/namei/">Namei</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:20:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Mostrar la ruta desde el directorio raiz hasta donde especifiquemos.</p>
-
-<blockquote><p>$ namei $(pwd) (hasta el presente directorio)</p>
-
-<p>$ namei -m $(pwd)/archivo (mostrando permisos y propietarios)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/63/">&larr; Older</a>
@@ -728,12 +775,16 @@ Alt + x (Suprimir/añadir la ayuda del final de página)
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1382</li>
+	<li>1383</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/mysqladmin/">mysqladmin</a>
+      </li>
     
       <li class="post">
         <a href="/blog/umask/">umask</a>
@@ -769,10 +820,6 @@ Alt + x (Suprimir/añadir la ayuda del final de página)
     
       <li class="post">
         <a href="/blog/zmap/">zmap</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zless/">zless</a>
       </li>
     
   </ul>
