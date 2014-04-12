@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Controla los leds del teclado $ setleds -D +num >> /dev/tty1 (activa el teclado numérico) $ setleds -D -caps >> /dev/tty1 (desactiva las mayúsculas &hellip;">
+  <meta name="description" content="Permite activar/desactivar las políticas en selinux. Ver getsebool # setsebool httpd_can_network_connect on (Activamos el permitir a Apache realizar &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,48 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/setsebool/">Setsebool</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Permite activar/desactivar las políticas en selinux. Ver getsebool</p>
+
+<blockquote><p># setsebool httpd_can_network_connect on (Activamos el permitir a Apache realizar conexiones de red)</p>
+
+<p># setsebool -P httpd_can_network_connect on (Hacer el cambio persistente)</p>
+
+<p># setsebool httpd_disable_trans 1 (Otra forma de desactivar una politica. Con 0 se activa)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -576,243 +618,6 @@ done
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sed/">Sed</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Permite borrar líneas, registros o sustituir cadenas de caracteres dentro de las líneas.</p>
-
-<p>Archivo base para ejemplo (Empleado &#8211; Precio/hora &#8211; Horas trabajadas – Cómo las cobra):</p>
-
-<pre><code>$ cat lista
-
-Juan Gomez 6 10 banco
-
-Clara Fuentes 7 12 banco
-
-Antonio Cano 6 13 metálico
-
-José Bueno 7 0 banco
-
-Matías Crespo 5 8 metálico
-
-Isabel Ruiz 7 0 metálico
-
-María Monzón 9 16 metálico
-</code></pre>
-
-<p>Mostrar la linea 4 del fichero:</p>
-
-<pre><code>$ sed -n 4p lista
-</code></pre>
-
-<p>Mostrar la 4ª y la 5ª:</p>
-
-<pre><code>$ sed -n 4,5p lista
-</code></pre>
-
-<p>Mostrar de la 3ª al final del fichero:</p>
-
-<pre><code>$ sed -n '4,$p' lista
-</code></pre>
-
-<p>Mostrar desde la primera linea que empiece por “Ant” hasta el final:</p>
-
-<pre><code>$ sed -n '/^\Ant/,$p' lista
-</code></pre>
-
-<p>Mostrar sólo los parrafos desde “Clara” hasta “Bueno”:</p>
-
-<pre><code>$ sed -n '/Clara/,/Bueno/p' lista
-</code></pre>
-
-<p>Mostrar cada linea a doble espacio:</p>
-
-<pre><code>$ sed G lista
-</code></pre>
-
-<p>Mostrar las lineas que cumplen el patrón “Ju” en alguno de sus campos:</p>
-
-<pre><code>$  sed -n '/Ju/p' lista
-</code></pre>
-
-<p>Borrar la 4ª linea del fichero:</p>
-
-<pre><code>$  sed '4d' lista
-</code></pre>
-
-<p>Borrar la última linea del fichero:</p>
-
-<pre><code>$  sed -e \$d lista
-</code></pre>
-
-<p>Lo mismo:</p>
-
-<pre><code>$ sed '$d' lista
-</code></pre>
-
-<p>Borrar las lineas que empiecen por &#8220;J&#8221;:</p>
-
-<pre><code>$ sed -e '/J/d' lista
-</code></pre>
-
-<p>Borrar la segunda linea</p>
-
-<pre><code>$ sed '2d' lista
-</code></pre>
-
-<p>Borrar la 1ª y la 2ª:</p>
-
-<pre><code>$  sed '1,2d' lista
-</code></pre>
-
-<p>Borrar desde la primera linea que empiece por &#8220;Ant&#8221; hasta el final:</p>
-
-<pre><code>$ sed -e '/^\Ant/,$d' lista
-</code></pre>
-
-<p>Borrar desde la 2 linea hasta la que tenga &#8220;Ruiz&#8221;:</p>
-
-<pre><code>$ sed '2,/Ruiz/d' lista
-</code></pre>
-
-<p>Borrar las lineas en blanco de un archivo (en &#8220;lista&#8221; no procede):</p>
-
-<pre><code>$  sed '/^$/d lista
-</code></pre>
-
-<p>Cambiar &#8220;metálico&#8221; por &#8220;gratis&#8221; excepto en la 3 linea:</p>
-
-<pre><code>$ sed '3!s/metálico/gratis/' lista
-</code></pre>
-
-<p>Cambiar &#8220;met&#8221; por &#8220;tem&#8221; en las lineas que no tengan &#8220;Cano&#8221;:</p>
-
-<pre><code>$ sed '/Cano/!s/met/tem/' lista
-</code></pre>
-
-<p>Cambiar campos (banco por cheque):</p>
-
-<pre><code>$ sed 's/banco/cheque/' lista
-</code></pre>
-
-<p>Cambiar las &#8220;J&#8221; y la &#8220;C&#8221; mayúsculas por minúsculas:</p>
-
-<pre><code>$ sed 'y/J-C/j-c/' lista
-</code></pre>
-
-<p>Substituye las vocales por &#8220;u&#8221;:</p>
-
-<pre><code>$ sed -e "s/[aeio]/u/g" lista
-</code></pre>
-
-<p>Substituir los espacios por tabulaciones:</p>
-
-<pre><code>$ sed -e 's/ /\t/g' lista
-</code></pre>
-
-<p>Alinear al centro:</p>
-
-<pre><code>$ sed -e :a -e 's/^.\{1,77\}$/ &amp;/;ta' -e 's/\( *\)\1/\1/' lista
-</code></pre>
-
-<p>Todas las opciones pueden usarse como tubería substituyendo &#8220;lista&#8221; por “cat lista |”:</p>
-
-<pre><code>$ cat lista | sed -n '4,$p'
-</code></pre>
-
-<p>Otros ejemplos:</p>
-
-<p>Mostrar lineas no comentadas de un archivo:</p>
-
-<pre><code>$ sed -e '/^#/d' /etc/fstab
-</code></pre>
-
-<p>Substituir &#8220;foto&#8221; por &#8220;FOTO&#8221; en todo los archivos del directorio:</p>
-
-<pre><code>$ ls * | sed -e 'p;s/foto/FOTO/' | xargs -n2 mv
-</code></pre>
-
-<p>Cambiar “Juan” por “Pedro” en todos los archivos .txt del presente directorio:</p>
-
-<pre><code>$ sed -i 's/Juan/Pedro/g' *.txt
-</code></pre>
-
-<p>Mostrar sólo las lineas con 4 dígitos seguidos:</p>
-
-<pre><code>$ sed '/[0-9]\{4\}/p' archivo
-</code></pre>
-
-<p>Borrar todos los espacios delante de cada linea:</p>
-
-<pre><code>$sed 's/^[ ^t]*//' archivo
-</code></pre>
-
-<p>Borrar todos los espacios detras de cada linea:</p>
-
-<pre><code>$ sed 's/[ ^t]*$//' archivo
-</code></pre>
-
-<p>Borrar todos los espacios delante y detras de cada linea:</p>
-
-<pre><code>$ sed 's/^[ ^t]*//;s/[ ^]*$//' archivo
-</code></pre>
-
-<p>Cambiar los números 3333 por 3.333. El parámetro -r sirva para activar las expresiones regulares extendidas de sed:</p>
-
-<pre><code>$ sed -r "s/\&lt;(reg|exp)[a-z]+/\U&amp;/g"
-</code></pre>
-
-<p>Contar lineas de un archivo [emulador de wc -l]:</p>
-
-<pre><code>sed -n '$=' lista
-</code></pre>
-
-<p>Insertar 5 espacios en blanco delante de cada linea:</p>
-
-<pre><code>$ sed 's/^/     /' lista
-</code></pre>
-
-<p>Insertar 1 linea en blanco despues de la primera linea:</p>
-
-<pre><code>$ sed '2i\ \' lista
-</code></pre>
-
-<p>Insertar 1 linea en blanco despues de la primera linea y de la tercera:</p>
-
-<pre><code>$ sed '2i\ \' | sed '4i\ \' lista
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/38/">&larr; Older</a>
@@ -828,12 +633,16 @@ María Monzón 9 16 metálico
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1381</li>
+	<li>1382</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/truecrypt/">truecrypt</a>
+      </li>
     
       <li class="post">
         <a href="/blog/mytop/">mytop</a>
@@ -869,10 +678,6 @@ María Monzón 9 16 metálico
     
       <li class="post">
         <a href="/blog/zip/">zip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
   </ul>
