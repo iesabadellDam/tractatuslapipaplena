@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="[moreutils]. Se ejecuta si la entrada estandar no está vacia. $ find . -name archivo | ifne echo &#8220;Existe&#8221; (Si &#8220;archivo&#8221; &hellip;">
+  <meta name="description" content="Internal Field Separator (separador de campos internos) sirve para indicar cual es el valor que se usa como separador. Si no se especifica ninguno es &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,94 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ifs/">Ifs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Internal Field Separator (separador de campos internos) sirve para indicar cual es el valor que se usa como separador. Si no se especifica ninguno es el espacio.</p>
+
+<p>Algunos ejemplos:</p>
+
+<p>1.-</p>
+
+<pre><code>#!/bin/bash
+
+# dividir una IP en 4 variables
+
+# Guardar el separador de campos original
+
+OLDIFS=$IFS
+
+read -p "Dime la ip: " IP
+
+# Establecemos el separador de campos en el punto
+
+IFS=.
+
+read IP1 IP2 IP3 IP4 &lt;&lt;&lt; "$IP"
+
+echo "$IP1 $IP2 $IP3 $IP4"
+
+# Restablecemos el separador original (El espacio)
+
+IFS=$OLDIFS
+</code></pre>
+
+<p>2.-</p>
+
+<pre><code>#!/bin/bash
+
+#Almacenamos el valor original de la variable IFS
+
+OLDIFS=$IFS
+
+#Cambiamos el valor del IFS a final de linea [\n]
+
+IFS=$'\n'
+
+for line in $(cat file.txt)
+
+do
+
+    echo $line
+
+done
+
+#Restauramos el IFS
+
+IFS=$OLDIFS
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -626,44 +714,6 @@ end
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ibam/">Ibam</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Monitor de carga de la bateria</p>
-
-<blockquote><p>$ ibam -a</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/87/">&larr; Older</a>
@@ -685,6 +735,10 @@ end
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/find/">find</a>
+      </li>
     
       <li class="post">
         <a href="/blog/sudo/">sudo</a>
@@ -720,10 +774,6 @@ end
     
       <li class="post">
         <a href="/blog/mytop/">mytop</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/innotop/">innotop</a>
       </li>
     
   </ul>
