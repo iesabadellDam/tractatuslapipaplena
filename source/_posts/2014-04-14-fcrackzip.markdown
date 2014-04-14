@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "fcrackzip"
-date: 2014-04-05 18:18
+date: 2014-04-14 05:47
 comments: true
 categories: 
 ---
@@ -9,7 +9,11 @@ Craquear zips protegidos
 
 >$ fcrackzip -c aA1 -l 5 archivo_protegido.zip
 
--c aA1!  (Prueba ninúsculas, mayúsculas, números y caracteres especiales [!:$%&/()=?{[]}+*~#])
+>$ fcrackzip -b -c a -u -l 1-6 archivo_protegido.zip
+
+-c aA1!  (Prueba minúsculas, mayúsculas, números y caracteres especiales [!:$%&/()=?{[]}+*~#])
+
+-c a (Que pruebe solo minúsculas de la a a la z)
 
 -l 3-5  (Entre 3 y 5 caracteres)
 
