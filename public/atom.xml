@@ -4,7 +4,7 @@
   <title><![CDATA[TRACTATUS ELEMENTALIS]]></title>
   <link href="https://tractatuslapipaplena.herokuapp.com/atom.xml" rel="self"/>
   <link href="https://tractatuslapipaplena.herokuapp.com/"/>
-  <updated>2014-04-14T15:58:05+02:00</updated>
+  <updated>2014-04-17T19:49:30+02:00</updated>
   <id>https://tractatuslapipaplena.herokuapp.com/</id>
   <author>
     <name><![CDATA[templix]]></name>
@@ -14,9 +14,82 @@
 
   
   <entry>
+    <title type="html"><![CDATA[john]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/john/"/>
+    <updated>2014-04-17T19:49:00+02:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/john</id>
+    <content type="html"><![CDATA[<p>Herramienta que permite averiguar contraseñas encriptadas</p>
+
+<p>El de los repositorios acostumbra a estar capado. Descargar el programa y el parche de:</p>
+
+<blockquote><p>$ wget http://www.openwall.com/john/g/john-1.7.3.4.tar.gz</p>
+
+<p>$ wget http://openwall.info/wiki/_media/john/john-1.7.3.1-generic-crypt-1.diff.gz</p></blockquote>
+
+<p>Descomprimir:</p>
+
+<blockquote><p># tar xvzf john-1.7.3.4.tar.gz</p></blockquote>
+
+<p>Entrar al directorio del programa:</p>
+
+<blockquote><p># cd john-1.7.3.4</p></blockquote>
+
+<p>Aplicar el parche:</p>
+
+<blockquote><p># gzip -dc ../john-1.7.3.1-generic-crypt-1.diff.gz | patch -p1</p></blockquote>
+
+<p>patching file src/Makefile</p>
+
+<p>patching file src/crypt_fmt.c</p>
+
+<p>patching file src/john.c</p>
+
+<p>Hunk #2 succeeded at 67 (offset 2 lines).</p>
+
+<p>El directorio donde se encuentra el código fuente es src:</p>
+
+<blockquote><p># cd src</p>
+
+<p># make</p></blockquote>
+
+<p>Con make obtendrá una lista de los sistemas soportados, luego:</p>
+
+<blockquote><p># make linux-x86-64</p></blockquote>
+
+<p>Si el sistema no esta en la lista:</p>
+
+<blockquote><p># make clean generic</p></blockquote>
+
+<p>Pruebas de detección de correcto funcionamiento.</p>
+
+<blockquote><p># cd ../run</p>
+
+<p># ./john &#8211;test</p></blockquote>
+
+<p>El fichero john.pot contiene los resultados encontrados por john. Si el fichero no está vacío significa que john ha encontrado la contraseña. El fichero john.rec contiene el estado actual de la búsqueda por si se produce una interrupción y es utilizado por el programa para reanudar la búsqueda.</p>
+
+<p>1.-</p>
+
+<p>Comprobación de la fortaleza de nuestra constraseñas:</p>
+
+<blockquote><p># unshadow /etc/passwd /etc/shadow > contraseñas.txt</p>
+
+<p># john contraseñas.txt</p>
+
+<p># john &#8211;single contraseñas.txt (usanólo el modo single)</p>
+
+<p># john &#8211;incremental contraseñas.txt (Usando el modo incremental)</p>
+
+<p># john &#8211;wordlist=diccionario.lst &#8211;rules contraseñas.txt (Usando un diccionario)</p>
+
+<p># john &#8211;show contraseñas.txt (Ver resultados)</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[find]]></title>
     <link href="https://tractatuslapipaplena.herokuapp.com/blog/find/"/>
-    <updated>2014-04-14T15:58:00+02:00</updated>
+    <updated>2014-04-17T19:49:00+02:00</updated>
     <id>https://tractatuslapipaplena.herokuapp.com/blog/find</id>
     <content type="html"><![CDATA[<p>Buscar archivos o directorios</p>
 
@@ -66,7 +139,36 @@
 
 <p>$ find ~/ -depth -type f -empty (Buscar archivos vacios. Con -type d buscará directorios vacios)</p>
 
-<p>$ find / -name &#8220;algo&#8221; -a ! -path &#8220;/media/servidor/*&#8221; -exec echo {} \; 2>/dev/null (Buscar &#8220;algo&#8221; descartando el directorio /media/servidor/)</p></blockquote>
+<p>$ find / -name &#8220;algo&#8221; -a ! -path &#8220;/media/servidor/*&#8221; -exec echo {} \; 2>/dev/null (Buscar &#8220;algo&#8221; descartando el directorio /media/servidor/)</p>
+
+<p>$ find /home/usuario -iname &#8216;*.odt&#8217; -exec cp &#8216;{}&#8217; /home/usuario/Documentos \; (Copiar todos los odt a la carpeta Documentos)</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[apt]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/apt/"/>
+    <updated>2014-04-17T19:49:00+02:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/apt</id>
+    <content type="html"><![CDATA[<p>Aplicación que unifica las opciones y parámetros de apt-cache y apt-get. Tambien cuenta con una barra de progreso. Tiene casi los mismo parametros que el comando apt-get.</p>
+
+<blockquote><p># apt list (Muestra todos los paquetes disponibles</p>
+
+<p># apt list &#8211;installed (Muestra todos los paquetes instalados)</p>
+
+<p># apt list &#8211;upgradable (Muestra todos los paquetes instalables)</p>
+
+<p>$ apt search paquete (Buscar un paquete)</p>
+
+<p># apt update (Actualiza el listado de paquetes)</p>
+
+<p># apt upgrade (Actualiza todos los paquetes del sistema)</p>
+
+<p># apt install paquete (Instala un paquete)</p>
+
+<p># apt remove paquete (Suprime un paquete)</p>
+
+<p># apt edit-sources (Edita el sources.list)</p></blockquote>
 ]]></content>
   </entry>
   
@@ -1447,36 +1549,6 @@ u (Mostrar solamente de un usuario específico)
     <updated>2014-04-05T18:23:00+02:00</updated>
     <id>https://tractatuslapipaplena.herokuapp.com/blog/zgrep</id>
     <content type="html"><![CDATA[<p>imprime las líneas que cumplan la expresión regula sobre ficheros comprimidos (Ver grep)</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[zfgrep]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/zfgrep/"/>
-    <updated>2014-04-05T18:23:00+02:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/zfgrep</id>
-    <content type="html"><![CDATA[<p>Busca cadenas de texto fijas sobre archivos comprimidos (ver fgrep)</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[zenity]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/zenity/"/>
-    <updated>2014-04-05T18:23:00+02:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/zenity</id>
-    <content type="html"><![CDATA[<p>Creación de dialogos gráficos simples. Especialmente para scripts.</p>
-
-<blockquote><p>$ zenity -?   (muestra las opciones de la aplicación y de ayuda)</p>
-
-<p>$ zenity &#8211;title Archivo &#8211;width 800 &#8211;height 600 &#8211;text-info &#8211;filename /home/usuario/archivo.txt (mostrar un archivo)</p>
-
-<p>$ zenity &#8211;info &#8211;text=&#8221;Este PC va a explotar en 10 segundos. Date por muerto.&#8221;</p>
-
-<p>$ zenity &#8211;password &#8211;username (Muestra diálogo entrar usuario y contraseña)</p>
-
-<p>$ zenity &#8211;calendar (Muestra el calendario)</p>
-
-<p>$ zenity &#8211;scale (Muestra la escala)</p></blockquote>
 ]]></content>
   </entry>
   

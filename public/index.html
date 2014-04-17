@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Buscar archivos o directorios $ find / -iname archivo (Busca en / archivo sin distinguir minusculas y mayusculas) $ find /home -name *.png -print ( &hellip;">
+  <meta name="description" content="Herramienta que permite averiguar contraseñas encriptadas El de los repositorios acostumbra a estar capado. Descargar el programa y el parche de: $ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +80,106 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/john/">John</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-17T19:49:00+02:00" pubdate data-updated="true">17-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Herramienta que permite averiguar contraseñas encriptadas</p>
+
+<p>El de los repositorios acostumbra a estar capado. Descargar el programa y el parche de:</p>
+
+<blockquote><p>$ wget http://www.openwall.com/john/g/john-1.7.3.4.tar.gz</p>
+
+<p>$ wget http://openwall.info/wiki/_media/john/john-1.7.3.1-generic-crypt-1.diff.gz</p></blockquote>
+
+<p>Descomprimir:</p>
+
+<blockquote><p># tar xvzf john-1.7.3.4.tar.gz</p></blockquote>
+
+<p>Entrar al directorio del programa:</p>
+
+<blockquote><p># cd john-1.7.3.4</p></blockquote>
+
+<p>Aplicar el parche:</p>
+
+<blockquote><p># gzip -dc ../john-1.7.3.1-generic-crypt-1.diff.gz | patch -p1</p></blockquote>
+
+<p>patching file src/Makefile</p>
+
+<p>patching file src/crypt_fmt.c</p>
+
+<p>patching file src/john.c</p>
+
+<p>Hunk #2 succeeded at 67 (offset 2 lines).</p>
+
+<p>El directorio donde se encuentra el código fuente es src:</p>
+
+<blockquote><p># cd src</p>
+
+<p># make</p></blockquote>
+
+<p>Con make obtendrá una lista de los sistemas soportados, luego:</p>
+
+<blockquote><p># make linux-x86-64</p></blockquote>
+
+<p>Si el sistema no esta en la lista:</p>
+
+<blockquote><p># make clean generic</p></blockquote>
+
+<p>Pruebas de detección de correcto funcionamiento.</p>
+
+<blockquote><p># cd ../run</p>
+
+<p># ./john &#8211;test</p></blockquote>
+
+<p>El fichero john.pot contiene los resultados encontrados por john. Si el fichero no está vacío significa que john ha encontrado la contraseña. El fichero john.rec contiene el estado actual de la búsqueda por si se produce una interrupción y es utilizado por el programa para reanudar la búsqueda.</p>
+
+<p>1.-</p>
+
+<p>Comprobación de la fortaleza de nuestra constraseñas:</p>
+
+<blockquote><p># unshadow /etc/passwd /etc/shadow > contraseñas.txt</p>
+
+<p># john contraseñas.txt</p>
+
+<p># john &#8211;single contraseñas.txt (usanólo el modo single)</p>
+
+<p># john &#8211;incremental contraseñas.txt (Usando el modo incremental)</p>
+
+<p># john &#8211;wordlist=diccionario.lst &#8211;rules contraseñas.txt (Usando un diccionario)</p>
+
+<p># john &#8211;show contraseñas.txt (Ver resultados)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/find/">Find</a></h1>
     
     
@@ -96,7 +196,7 @@
   
 
 
-<time datetime="2014-04-14T15:58:00+02:00" pubdate data-updated="true">14-04-2014</time>
+<time datetime="2014-04-17T19:49:00+02:00" pubdate data-updated="true">17-04-2014</time>
         
       </p>
     
@@ -151,7 +251,63 @@
 
 <p>$ find ~/ -depth -type f -empty (Buscar archivos vacios. Con -type d buscará directorios vacios)</p>
 
-<p>$ find / -name &#8220;algo&#8221; -a ! -path &#8220;/media/servidor/*&#8221; -exec echo {} \; 2>/dev/null (Buscar &#8220;algo&#8221; descartando el directorio /media/servidor/)</p></blockquote>
+<p>$ find / -name &#8220;algo&#8221; -a ! -path &#8220;/media/servidor/*&#8221; -exec echo {} \; 2>/dev/null (Buscar &#8220;algo&#8221; descartando el directorio /media/servidor/)</p>
+
+<p>$ find /home/usuario -iname &#8216;*.odt&#8217; -exec cp &#8216;{}&#8217; /home/usuario/Documentos \; (Copiar todos los odt a la carpeta Documentos)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/apt/">Apt</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-17T19:49:00+02:00" pubdate data-updated="true">17-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Aplicación que unifica las opciones y parámetros de apt-cache y apt-get. Tambien cuenta con una barra de progreso. Tiene casi los mismo parametros que el comando apt-get.</p>
+
+<blockquote><p># apt list (Muestra todos los paquetes disponibles</p>
+
+<p># apt list &#8211;installed (Muestra todos los paquetes instalados)</p>
+
+<p># apt list &#8211;upgradable (Muestra todos los paquetes instalables)</p>
+
+<p>$ apt search paquete (Buscar un paquete)</p>
+
+<p># apt update (Actualiza el listado de paquetes)</p>
+
+<p># apt upgrade (Actualiza todos los paquetes del sistema)</p>
+
+<p># apt install paquete (Instala un paquete)</p>
+
+<p># apt remove paquete (Suprime un paquete)</p>
+
+<p># apt edit-sources (Edita el sources.list)</p></blockquote>
 </div>
   
   
@@ -1319,301 +1475,6 @@ drwxr-xr-x 2 templix templix 4096 abr 12 06:10 dir
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/truecrypt/">Truecrypt</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-12T06:01:00+02:00" pubdate data-updated="true">12-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Aplicación que permite cifrar sistemas de archivos enteros, generar archivos cifrados y tambien generar sistemas ocultos dentro de otros sistemas. Descarga de : http://www.truecrypt.org/downloads</p>
-
-<p>Descomprimir y ejecutar:</p>
-
-<pre><code>$ tar xf truecrypt-7.1a-linux-console-x64.tar.gz
-
-# ./truecrypt-7.1a-setup-console-x64
-</code></pre>
-
-<blockquote><p># truecrypt -t -c (por consola [t] y ejecutar por primera vez [c]. Sin el parámetro &#8220;t&#8221; abre la gui)</p></blockquote>
-
-<pre><code>Volume type:
-
- 1) Normal
-
- 2) Hidden
-
-Select [1]: 1
-
-**[Seleccionar si va a estar oculto o no: 1]**
-
-Enter volume path: /media/cripta
-
-**[Donde se montará. No tiene que existir el directorio]**
-
-Enter volume size (sizeK/size[M]/sizeG): 20M
-
-**[Tamaño del volumen: a voluntad]**
-
-Encryption algorithm:
-
- 1) AES
-
- 2) Serpent
-
- 3) Twofish
-
- 4) AES-Twofish
-
- 5) AES-Twofish-Serpent
-
- 6) Serpent-AES
-
- 7) Serpent-Twofish-AES
-
- 8) Twofish-Serpent
-
-Select [1]: 5
-
-**[Algoritmo de encriptación: a voluntad]**
-
-Hash algorithm:
-
- 1) RIPEMD-160
-
- 2) SHA-512
-
- 3) Whirlpool
-
-Select [1]: 2
-
-**[El hash: a voluntad]**
-
-Filesystem:
-
- 1) None
-
- 2) FAT
-
- 3) Linux Ext2
-
- 4) Linux Ext3
-
- 5) Linux Ext4
-
-Select [2]: 5
-
-**[El sistema de archivo]**
-
-Enter password:
-
-WARNING: Short passwords are easy to crack using brute force techniques!
-
-**[CUIDADO: Contraseñas cortas son fáciles de romper usando técnicas de fuerza bruta!]**
-
-We recommend choosing a password consisting of more than 20 characters. Are you sure you want to use a short password? (y=Yes/n=No) [No]: y
-
-**[Informa que la contraseña tiene menos de 20 caracteres pero la aceptamos de todas formas]**
-
-Re-enter password:
-
-**[La repetimos]**
-
-Enter keyfile path [none]:
-
-**[Sin archivo de claves: enter]**
-
-Please type at least 320 randomly chosen characters and then press Enter:
-
-Characters remaining: 134
-
-Characters remaining: 26
-
-**[Nos hace tipear 320 caracteres en el teclado... todavia faltan 134... todavia faltan 26...]**
-
- Done: 100,000%  Speed:   22 MB/s  Left: 0 s
-
-**[Por fin... y toma sus notas... pasamos de ellas...]**
-
-The TrueCrypt volume has been successfully created.
-
-**[Finalmente se ha creado el volumen]**
-</code></pre>
-
-<blockquote><p># truecrypt -t /media/cripta (Ejecutando la aplicación. Intro a todo:)</p></blockquote>
-
-<pre><code>Enter mount directory [default]:
-
-Enter password for /media/cripta:
-
-Enter keyfile [none]:
-
-Protect hidden volume (if any)? (y=Yes/n=No) [No]:
-</code></pre>
-
-<blockquote><p># truecript -t -l (Comprobar dispositivo montado)</p></blockquote>
-
-<pre><code>1: /media/cripta /dev/mapper/truecrypt1 /media/truecrypt1
-</code></pre>
-
-<blockquote><p># truecrypt -d /media/cripta (Desmontar volumen)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/mytop/">Mytop</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-09T17:16:00+02:00" pubdate data-updated="true">09-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Monitorización del servidor de bases de datos mysql. &#8220;q&#8221; para salir. Comprobar la actividad ingresando en otra consola en mysql [mysql -u USER -p]</p>
-
-<blockquote><p>$ mytop -u USER -p PASS -h localhost -P 3306 &#8211;color (Especificando host y puerto)</p></blockquote>
-
-<p>Para no poner la contraseña y que quede reflejada en el historial, es preferible entrar los datos en un archivo:</p>
-
-<blockquote><p>$ nano .mytop</p></blockquote>
-
-<p>Con los siguientes parámetros:</p>
-
-<pre><code>user=USER
-
-pass=PASS
-
-host=localhost
-
-db=
-
-delay=3
-
-port=3306
-
-batchmode=0
-
-header=1
-
-color=1
-
-idle=1
-</code></pre>
-
-<p>Delay=3 (Refrescar informe cada 3 segundos)</p>
-
-<p>batchmode=0 (Con valor 1 mostrará por pantalla todas las consultas una detrás de otra sin recargar la página. Si el valor es 0 cada vez que se refresque la página se borrarán las consultas anteriores)</p>
-
-<p>header=1 (Valor 1 muestra la cabecera)</p>
-
-<p>color=1 (en color)</p>
-
-<p>idle=1 (que muestre los resultados de las consultas que están dormidas)</p>
-
-<p>Conceptos que muestra la pantalla de mytop:</p>
-
-<pre><code>Queries (Número tatal de consultas)
-
-qps (Media de consultas por segundo)
-
-qps now (Número de consultas por segundo desde la última vez que se descargaron resultados)
-
-Slow (Número de consultas lentas)
-
-Slow qps (Consultas lentas desde la última descarga de resultados)
-
-Se/In/Up/De (indica cual es el porcentaje de Select, Insert, Update o Delete que se ejecutan en el servidor)
-
-key efficiency (Porcentaje de consultas que están utilizado una clave/índice en la consulta)
-
-Bps in/out (Media de bytes por segundo entrantes a la base de datos y media de bytes por segundo salientes)
-
-Now in/out (Media de bytes entrantes y salientes por segundo desde que mytop ha refrescado la página)
-</code></pre>
-
-<p>Teclas interactivas:</p>
-
-<pre><code>d (Mostrar solo datos de una base de datos)
-
-f (Mostrar información completa de una consulta)
-
-F (Desactivar todos los filtros)
-
-h (Mostrar solamente los datos de un servidor específico)
-
-H (Mostrar/ocultar cabecera)
-
-i (Mostrar/ocultar consultar dormidas)
-
-k (Matar una consulta)
-
-p (Pausar la vista)
-
-m (Cambiar "consultas más lentas" a "consultas por segundo")
-
-o (Invertir orden)
-
-q (Salir)
-
-r (Resetear todos los valores)
-
-s (Cambiar el tiempo de refresco)
-
-t (Cambiar al modo vista)
-
-u (Mostrar solamente de un usuario específico)
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1627,7 +1488,7 @@ u (Mostrar solamente de un usuario específico)
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1384</li>
+	<li>1385</li>
 	</ul>
 </section>
 <section>
@@ -1635,7 +1496,15 @@ u (Mostrar solamente de un usuario específico)
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/john/">john</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/find/">find</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/apt/">apt</a>
       </li>
     
       <li class="post">
@@ -1664,14 +1533,6 @@ u (Mostrar solamente de un usuario específico)
     
       <li class="post">
         <a href="/blog/umask/">umask</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/truecrypt/">truecrypt</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/mytop/">mytop</a>
       </li>
     
   </ul>

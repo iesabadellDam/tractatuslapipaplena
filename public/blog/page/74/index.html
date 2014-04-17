@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Muestra información de toda la máquina $ lshw -html > hardware.html (Mandar la información a un archivo html) # lshw -C network (Ver los dispositivos &hellip;">
+  <meta name="description" content="Listar ficheros o procesos abiertos # lsof -i :4662 (servicios usados por el puerto 4662 aunque esten a la escucha) # lsof -X (Desactiva la &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,129 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/lsof/">Lsof</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Listar ficheros o procesos abiertos</p>
+
+<blockquote><p># lsof -i :4662  (servicios usados por el puerto 4662 aunque esten a la escucha)</p>
+
+<p># lsof -X (Desactiva la identifiación de conexiones)</p>
+
+<p># lsof -i@lapipaplena.homelinux.com  (verificar conexiones con una máquina)</p>
+
+<p># lsof -i@88.25.114.11   (lo mismo pero especificando la ip)</p>
+
+<p># lsof -i | grep ssh  (Para que muestre solo los que usan el protocolo ssh)</p>
+
+<p># lsof +D /var/log  (Mostrar los servicios que tiene abierto un directorio)</p>
+
+<p># lsof fichero  (Muestra los servicios que tiene abiertos fichero)</p>
+
+<p># lsof -nPi TCP   (Muestra los eventos de red de las conexiones TCP)</p>
+
+<p># lsof -p PID  (Ficheros que tiene abierto determinado proceso)</p>
+
+<p># lsof -N      (Muestra los archivos NFS abiertos)</p>
+
+<p># lsof -c firefox   (Muestra los ficheros abiertos por firefox)</p>
+
+<p># lsof -P -i -n -sTCP:LISTEN (listado de puertos en LISTEN)</p>
+
+<p># lsof -i -P | grep -i &#8220;listen&#8221; (otra forma de listarlos)</p>
+
+<p># lsof -i tcp -i udp  (lista puertos tcp y udp abiertos)</p>
+
+<p># lsof -Pni | grep LISTEN   (chequear puertos abiertos)</p>
+
+<p># lsof -c bash -r  (Monitorizar un proceso)</p>
+
+<p># lsof -i :631 | awk &#8216;{print $1,$2}&#8217; | sort -u  (muestra pid y demonio del puerto especificado)</p>
+
+<p># lsof -t -i :22 (Muestra el pid del puerto especificado)</p>
+
+<p># lsof -nPi | txt2html  > lsof.html (Mandar la salida a un html para visualizarlo por el navegador)</p></blockquote>
+
+<p>Opciones:</p>
+
+<pre><code>-P (Muestra los números de puerto en vez de la aplicación que corre en ellos)
+
+-n (Para que no resuelva las IP de las conexiones)
+
+-i (Hace referencia a los eventos utilizados por procesos de red)
+
+-u usuario (Muestra los procesos abiertos por “usuario”)
+
+-x (Sigue links y puntos de montaje)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/lsmod/">Lsmod</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Listar todos los módulos cargados del kernel, y alguna información adicional de ellos.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -397,170 +520,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ls/">Ls</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Listar archivos de un directorio.</p>
-
-<blockquote><p>$ ls -i (Muestra todos los archivos no ocultos)</p>
-
-<p>$ ls -a (Muestra todos los archivos, incluso los ocultos)</p>
-
-<p>$ ls -l (Muestra permisos, último acceso i propietarios)</p>
-
-<p>$ ls -1 (muestra en un listado)</p>
-
-<p>$ ls -F (Muestra a continuación de cada elemento si se trata de un directorio [/], un ejecutable [*] o un enlace [@])</p>
-
-<p>$ ls -L (En los enlaces, se muestra el archivo al que apuntan)</p>
-
-<p>$ ls -l PID (Muestra qué está corriendo con el PID especificado)</p>
-
-<p>$ ls -R    (recursivamente)</p>
-
-<p>$ ls -Z (listar visualizando los contextos en selinux [ver])</p>
-
-<p>$ ls -s    (Muestra el tamaño)</p>
-
-<p>$ ls -S (Lista por tamaño)</p>
-
-<p>$ ls ../ (Listar los archivos del directorio anterior)</p>
-
-<p>$ ls -t    (lista por fecha de modificación de más nuevo a más viejo)</p>
-
-<p>$ ls /boot /usr (Lista los dos directorios especificados)</p>
-
-<p>$ ls -ad *.sh (lista los terminados en .sh)</p>
-
-<p>$ ls *.{odt,txt} (Lista los de las extensiones mencionadas)</p>
-
-<p>$ ls -ad */ (Lista sólo los directorios)</p>
-
-<p>$ ls -alL /home/usuario/videos</p>
-
-<p>$ ls -l /lib/modules (muestra los kernels instalados)</p>
-
-<p>$ ls | xargs rm (Eliminar todos los archivos)</p>
-
-<p>$ ls @(<em>.sh|</em>.txt) (Sólo mostrará las extensiones especificadas. Precisa activación de los comodines extendidos de bash con: shopt -s extglob)</p>
-
-<p>$ ls !(<em>.sh|</em>.txt) | xargs rm (Elimina todos menos los mencionados)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/lp/">Lp</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Gestión de impresoras y trabajos de impresión.</p>
-
-<blockquote><p>$ lp fichero (imprime fichero con la impresora predeterminada)</p>
-
-<p>$ lp -d otra_impresora fichero (Imprime con una impresora especificada)</p>
-
-<p>$ lpq           (muestra los trabajos pendientes y les asigna un número)</p>
-
-<p>$ lprm 5      (borra el trabajo pendiente de impresión especificado [5])</p>
-
-<p>$ lpstat -p -d (muestra la impresora predeterminada)</p>
-
-<p>$ lpstat -a           (muestra todas las impresoras)</p>
-
-<p>$ lpstat -v           (indicando ubicación)</p>
-
-<p>$ lp -n 10 fichero   (imprimirá 10 copias [opciones de 1 a 100])</p>
-
-<p>$ lp -P 7,9,12-15 fichero (imprime las páginas indicadas y de la 12 a la 15)</p>
-
-<p>$ lp -o media=A4 fichero (especificando tipo de papel o sobre)</p></blockquote>
-
-<p>Opciones “media”:</p>
-
-<p>Letter – US Letter (216x279mm).</p>
-
-<p>Legal – US Legal (216x356mm).</p>
-
-<p>A4 – ISO A4 (210x297mm).</p>
-
-<p>COM10 – US 10 Envelope (241x105mm).</p>
-
-<p>DL – ISO DL Envelope (220x110mm).</p>
-
-<blockquote><p>$ lp -o media=Custom.ANCHOxLARGOmm fichero (con un papel de medida indicada)</p>
-
-<p>$ lp -o landscape fichero (rotar 90º la impresión. Imprimir apaisado)</p>
-
-<p>$ lp -o orientation-requested=4 fichero (lo mismo que el anterior)</p></blockquote>
-
-<p>1.-</p>
-
-<p>Cuando al intentar imprimir sale el mensaje: Error - Scheduler Not Responding:</p>
-
-<blockquote><p>$ nano .bashrc</p></blockquote>
-
-<p>Y añadir la linea:</p>
-
-<p>export CUPS_SERVER=localhost</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/75/">&larr; Older</a>
@@ -576,7 +535,7 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1384</li>
+	<li>1385</li>
 	</ul>
 </section>
 <section>
@@ -584,7 +543,15 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/john/">john</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/find/">find</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/apt/">apt</a>
       </li>
     
       <li class="post">
@@ -613,14 +580,6 @@
     
       <li class="post">
         <a href="/blog/umask/">umask</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/truecrypt/">truecrypt</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/mytop/">mytop</a>
       </li>
     
   </ul>
