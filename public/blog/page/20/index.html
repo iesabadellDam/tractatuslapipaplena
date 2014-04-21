@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Ignora las líneas idénticas siempre y cuando sean adyacentes. $ uniq -u archivo archivo_sin repeticiones $ uniq -d archivo archivo2 (en archivo2 sólo &hellip;">
+  <meta name="description" content="[openssh-server ssh]. Sincronización de carpetas remotas. Previamente crear la clave y copiarla al otro pc: $ ssh-keygen -t dsa $ ssh-copy-id -i $ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,67 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/unison/">Unison</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[openssh-server ssh]. Sincronización de carpetas remotas.</p>
+
+<p>Previamente crear la clave y copiarla al otro pc:</p>
+
+<blockquote><p>$ ssh-keygen -t dsa</p>
+
+<p>$ ssh-copy-id -i $HOME/.ssh/id_dsa.pub root@ip_o_host</p></blockquote>
+
+<p>Sincronizar las carpetas (la web en este ejemplo)</p>
+
+<blockquote><p>$ unison /srv/http ssh://ip_o_host//srv/http</p></blockquote>
+
+<p>Si la carpeta a sincronizar se coloca en el archivo de configuración:</p>
+
+<blockquote><p># nano /root/.unison/default.prf</p></blockquote>
+
+<p>root = /srv/http</p>
+
+<p>root = ssh://ip_o_host//srv/http</p>
+
+<p>Puede colocarse la orden en el cron para que se actualice cada 5 minutos:</p>
+
+<p>crontab -e</p>
+
+<pre><code>*/5 * * * * /usr/bin/unison &amp;&gt; /dev/null
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -535,45 +596,6 @@ locks (Número máximo de ficheros bloqueados que el usuario puede mantener)
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ul/">Ul</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Subrayado de palabras en la terminal.</p>
-
-<pre><code>$ echo $'linux es g\b_e\b_n\b_i\b_a\b_l\b_ ' | ul (Cada letra a subrayar ha de ir seguida de \b_)
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/21/">&larr; Older</a>
@@ -595,6 +617,10 @@ locks (Número máximo de ficheros bloqueados que el usuario puede mantener)
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/automater/">automater</a>
+      </li>
     
       <li class="post">
         <a href="/blog/cadaver/">cadaver</a>
@@ -630,10 +656,6 @@ locks (Número máximo de ficheros bloqueados que el usuario puede mantener)
     
       <li class="post">
         <a href="/blog/fcrackzip/">fcrackzip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/emacs/">emacs</a>
       </li>
     
   </ul>
