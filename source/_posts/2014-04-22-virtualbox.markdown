@@ -1,11 +1,11 @@
 ---
 layout: post
 title: "virtualbox"
-date: 2014-04-05 18:22
+date: 2014-04-22 05:56
 comments: true
 categories: 
 ---
-[vitualbox-guest-utils]. Herramienta que permite la virtualización de sistemas operativos.
+[vitualbox-guest-utils linux-headers-$(uname -r) build-essential dkms]. Herramienta que permite la virtualización de sistemas operativos.
 
 En la página https://www.virtualbox.org/wiki/Downloads apartado "VirtualBox 4.2 Oracle VM VirtualBox Extension Pack" clicar en "All platforms" y Descargar el paquete de extensiones Oracle_VM_VirtualBox_Extension_Pack-4.2.0-80737.vbox-extpack. Para instalarlo, doble clic en el paquete y seguir instrucciones [aceptar condiciones y contraseña de root].
 
@@ -48,4 +48,6 @@ O/ubuntu-12.04.2-server-i386.iso (Asignamos a la máquina Virtual una ISO de ins
 >$ VBoxHeadless --startvm "maquina_virtual" -e "TCP/Ports=7000" & (Arrancamos la máquina virtual indicando que queremos un servidor RDP para conexión remota en el puerto 7000)
 
 >$ VBoxManage controlvm "maquina_virtual" poweroff (Para la máquina virtual. Recomendable parar primero la máquina virtual desde la maquina virtual y luego ejecutar esto)
+
+>$ VBoxManage clonehd Metasploitable.vmdk ../Metasploitable2-Linux.vdi -format VDI (Convertir una imagen vmdk en vdi)
 
