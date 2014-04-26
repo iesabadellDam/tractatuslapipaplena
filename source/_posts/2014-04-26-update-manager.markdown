@@ -1,11 +1,11 @@
 ---
 layout: post
 title: "update-manager"
-date: 2014-04-05 18:22
+date: 2014-04-26 12:15
 comments: true
 categories: 
 ---
-Actualizar, en Ubuntu, a una nueva versión
+Actualizar, en Ubuntu, a una nueva versión. Ver tambi�n do-release-update
 
 >\# update-manager -d   (antes de salir la version estable final)
 
