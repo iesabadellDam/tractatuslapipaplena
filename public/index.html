@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Gestor de paquetes de Slackware sin resolución de dependencias. Como previa antes de su uso es preciso descomentar el repositorio de nuestra elección &hellip;">
+  <meta name="description" content="Actualizar, en Ubuntu, a una nueva versión. Ver también do-release-upgrade. # update-manager -d (antes de salir la version estable final) # update- &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,98 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/update-manager/">Update-manager</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-26T12:48:00+02:00" pubdate data-updated="true">26-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Actualizar, en Ubuntu, a una nueva versión. Ver también do-release-upgrade.</p>
+
+<blockquote><p># update-manager -d   (antes de salir la version estable final)</p>
+
+<p># update-manager -c   (despues de salir la version estable final)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/do-release-upgrade/">Do-release-upgrade</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-26T12:48:00+02:00" pubdate data-updated="true">26-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Herramienta para actualizar por consola sistemas basados en Ubuntu a una nueva versión de la distribución. Para configurar si queremos actualizar entre versiones normales o versiones LTS, debemos modificar del fichero /etc/update-manager/release-upgrades la linea:</p>
+
+<p>Para versiones LTS:</p>
+
+<p>Prompt=lts</p>
+
+<p>Para versiones normales:</p>
+
+<p>Prompt=normal</p>
+
+<p>Para no verificar nunca nuevas versiones:</p>
+
+<p>Prompt=never</p>
+
+<p>Estas modificaciones son válidas también para update-manager [ver]</p>
+
+<blockquote><p># do-release-upgrade -d</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1045,192 +1137,6 @@ María Monzón 9 16 metálico
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/john/">John</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-17T19:49:00+02:00" pubdate data-updated="true">17-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Herramienta que permite averiguar contraseñas encriptadas</p>
-
-<p>El de los repositorios acostumbra a estar capado. Descargar el programa y el parche de:</p>
-
-<blockquote><p>$ wget http://www.openwall.com/john/g/john-1.7.3.4.tar.gz</p>
-
-<p>$ wget http://openwall.info/wiki/_media/john/john-1.7.3.1-generic-crypt-1.diff.gz</p></blockquote>
-
-<p>Descomprimir:</p>
-
-<blockquote><p># tar xvzf john-1.7.3.4.tar.gz</p></blockquote>
-
-<p>Entrar al directorio del programa:</p>
-
-<blockquote><p># cd john-1.7.3.4</p></blockquote>
-
-<p>Aplicar el parche:</p>
-
-<blockquote><p># gzip -dc ../john-1.7.3.1-generic-crypt-1.diff.gz | patch -p1</p></blockquote>
-
-<p>patching file src/Makefile</p>
-
-<p>patching file src/crypt_fmt.c</p>
-
-<p>patching file src/john.c</p>
-
-<p>Hunk #2 succeeded at 67 (offset 2 lines).</p>
-
-<p>El directorio donde se encuentra el código fuente es src:</p>
-
-<blockquote><p># cd src</p>
-
-<p># make</p></blockquote>
-
-<p>Con make obtendrá una lista de los sistemas soportados, luego:</p>
-
-<blockquote><p># make linux-x86-64</p></blockquote>
-
-<p>Si el sistema no esta en la lista:</p>
-
-<blockquote><p># make clean generic</p></blockquote>
-
-<p>Pruebas de detección de correcto funcionamiento.</p>
-
-<blockquote><p># cd ../run</p>
-
-<p># ./john &#8211;test</p></blockquote>
-
-<p>El fichero john.pot contiene los resultados encontrados por john. Si el fichero no está vacío significa que john ha encontrado la contraseña. El fichero john.rec contiene el estado actual de la búsqueda por si se produce una interrupción y es utilizado por el programa para reanudar la búsqueda.</p>
-
-<p>1.-</p>
-
-<p>Comprobación de la fortaleza de nuestra constraseñas:</p>
-
-<blockquote><p># unshadow /etc/passwd /etc/shadow > contraseñas.txt</p>
-
-<p># john contraseñas.txt</p>
-
-<p># john &#8211;single contraseñas.txt (usanólo el modo single)</p>
-
-<p># john &#8211;incremental contraseñas.txt (Usando el modo incremental)</p>
-
-<p># john &#8211;wordlist=diccionario.lst &#8211;rules contraseñas.txt (Usando un diccionario)</p>
-
-<p># john &#8211;show contraseñas.txt (Ver resultados)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/find/">Find</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-17T19:49:00+02:00" pubdate data-updated="true">17-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Buscar archivos o directorios</p>
-
-<blockquote><p>$ find / -iname archivo     (Busca en / archivo sin distinguir minusculas y mayusculas)</p>
-
-<p>$ find /home -name *.png -print      (Buscará en /home todos los archivos “.png” y mostrará la ruta)</p>
-
-<p>$ find . -name &#8220;*.bak&#8221; -exec rm {} \; (buscará en el directorio todos los acabados en .bak y los borrará. la instrucción &#8220;-exec&#8221; seguido del comando a ejecutar. los corchetes {} se refiere a los ficheros que find ha encontrado y la barra invertida seguido de punto y coma \; indica el final de la instrucción)</p>
-
-<p>$ find . ! -iname “<em>.png” ! -name “</em>.jpg”  (Buscar en el directorio actual todos los archivos menos los acabados en png y jpg)</p>
-
-<p>$ find . -amin -15 (Buscar los que se ha accedido en los últimos 15 minutos)</p>
-
-<p>$ find . -atime 15 (Buscar los que se accedió por última vez hace 15 dias)</p>
-
-<p>$ find / -amin -10 (Los que se ha accedido los últimos 10 minutos)</p>
-
-<p>$ find . -type f  (Buscar ficheros)</p>
-
-<p>$ find . -type d  (Buscar directorios)</p>
-
-<p>$ find / -iname fichero 2>/dev/null  (buscar redireccionando los avisos de permiso denegado a /dev/null)</p>
-
-<p>$ find . -iname &#8221;<em>.txt&#8221; -or -iname &#8221;</em>.odt&#8221; -exec cp {} documentos \; (Buscar los txt y los odt y copiarlos a la carpeta documentos)</p>
-
-<p>$ find . -type f -iname &#8220;*.bak&#8221; | xargs rm (buscar los ficheros acabados en .bak y borrarlos. xargs hace lo mismo que exec pero usando una tuberia.)</p>
-
-<p>$ find /home/usuario -iname &#8216;*.bak&#8217; -delete (Otra forma de borrar todos los .bak de un directorio)</p>
-
-<p>$ find . -type f -iname *.sla (buscará los ficheros .sla)</p>
-
-<p>$ find . -type f -mtime 0 (Buscará los ficheros creados o modificados hoy)</p>
-
-<p>$ find / -type f -mtime -1 -print (Los modificados las últimas 24 horas)</p>
-
-<p>$ find / -mtime +2 -print (Los modificados hace más de dos dias)</p>
-
-<p>$ find -L . -type l  (Buscar enlaces rotos)</p>
-
-<p>$ find . -type f -size +300k > masde300k.txt (buscar .sh mayores de 300k)</p>
-
-<p>$ find ./ -name .svn -exec rm -rf {} \; (eliminar todos los directorios y subdirectorios subversión)</p>
-
-<p>$ find . -name &#8220;*.html&#8221; -exec grep -i -H &#8220;Tractatus elementalis&#8221; {} \; (Buscar en todos los archivos html del directorio actual con un texto concreto)</p>
-
-<p>$ find . -name *.txt -exec sed -i &#8220;s/cosa/casa/g&#8221; {} \; (Substituir “cosa” por “casa” en todos los .txt del presente directorio)</p>
-
-<p>$ find ~/ -depth -type f -empty (Buscar archivos vacios. Con -type d buscará directorios vacios)</p>
-
-<p>$ find / -name &#8220;algo&#8221; -a ! -path &#8220;/media/servidor/*&#8221; -exec echo {} \; 2>/dev/null (Buscar &#8220;algo&#8221; descartando el directorio /media/servidor/)</p>
-
-<p>$ find /home/usuario -iname &#8216;*.odt&#8217; -exec cp &#8216;{}&#8217; /home/usuario/Documentos \; (Copiar todos los odt a la carpeta Documentos)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1250,6 +1156,14 @@ María Monzón 9 16 metálico
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/update-manager/">update-manager</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/do-release-upgrade/">do-release-upgrade</a>
+      </li>
     
       <li class="post">
         <a href="/blog/slackpkg/">slackpkg</a>
@@ -1281,14 +1195,6 @@ María Monzón 9 16 metálico
     
       <li class="post">
         <a href="/blog/sed/">sed</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/john/">john</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/find/">find</a>
       </li>
     
   </ul>

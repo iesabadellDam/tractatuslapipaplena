@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Monitorización del servidor de bases de datos mysql. $ innotop -u USER -p PASS -h localhost -P 3306 Nota.- Pulsar &#8220;q&#8221; para salir.
-">
+  <meta name="description" content="Aplicación que permite cifrar sistemas de archivos enteros, generar archivos cifrados y tambien generar sistemas ocultos dentro de otros sistemas. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +74,301 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/truecrypt/">Truecrypt</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-12T06:01:00+02:00" pubdate data-updated="true">12-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Aplicación que permite cifrar sistemas de archivos enteros, generar archivos cifrados y tambien generar sistemas ocultos dentro de otros sistemas. Descarga de : http://www.truecrypt.org/downloads</p>
+
+<p>Descomprimir y ejecutar:</p>
+
+<pre><code>$ tar xf truecrypt-7.1a-linux-console-x64.tar.gz
+
+# ./truecrypt-7.1a-setup-console-x64
+</code></pre>
+
+<blockquote><p># truecrypt -t -c (por consola [t] y ejecutar por primera vez [c]. Sin el parámetro &#8220;t&#8221; abre la gui)</p></blockquote>
+
+<pre><code>Volume type:
+
+ 1) Normal
+
+ 2) Hidden
+
+Select [1]: 1
+
+**[Seleccionar si va a estar oculto o no: 1]**
+
+Enter volume path: /media/cripta
+
+**[Donde se montará. No tiene que existir el directorio]**
+
+Enter volume size (sizeK/size[M]/sizeG): 20M
+
+**[Tamaño del volumen: a voluntad]**
+
+Encryption algorithm:
+
+ 1) AES
+
+ 2) Serpent
+
+ 3) Twofish
+
+ 4) AES-Twofish
+
+ 5) AES-Twofish-Serpent
+
+ 6) Serpent-AES
+
+ 7) Serpent-Twofish-AES
+
+ 8) Twofish-Serpent
+
+Select [1]: 5
+
+**[Algoritmo de encriptación: a voluntad]**
+
+Hash algorithm:
+
+ 1) RIPEMD-160
+
+ 2) SHA-512
+
+ 3) Whirlpool
+
+Select [1]: 2
+
+**[El hash: a voluntad]**
+
+Filesystem:
+
+ 1) None
+
+ 2) FAT
+
+ 3) Linux Ext2
+
+ 4) Linux Ext3
+
+ 5) Linux Ext4
+
+Select [2]: 5
+
+**[El sistema de archivo]**
+
+Enter password:
+
+WARNING: Short passwords are easy to crack using brute force techniques!
+
+**[CUIDADO: Contraseñas cortas son fáciles de romper usando técnicas de fuerza bruta!]**
+
+We recommend choosing a password consisting of more than 20 characters. Are you sure you want to use a short password? (y=Yes/n=No) [No]: y
+
+**[Informa que la contraseña tiene menos de 20 caracteres pero la aceptamos de todas formas]**
+
+Re-enter password:
+
+**[La repetimos]**
+
+Enter keyfile path [none]:
+
+**[Sin archivo de claves: enter]**
+
+Please type at least 320 randomly chosen characters and then press Enter:
+
+Characters remaining: 134
+
+Characters remaining: 26
+
+**[Nos hace tipear 320 caracteres en el teclado... todavia faltan 134... todavia faltan 26...]**
+
+ Done: 100,000%  Speed:   22 MB/s  Left: 0 s
+
+**[Por fin... y toma sus notas... pasamos de ellas...]**
+
+The TrueCrypt volume has been successfully created.
+
+**[Finalmente se ha creado el volumen]**
+</code></pre>
+
+<blockquote><p># truecrypt -t /media/cripta (Ejecutando la aplicación. Intro a todo:)</p></blockquote>
+
+<pre><code>Enter mount directory [default]:
+
+Enter password for /media/cripta:
+
+Enter keyfile [none]:
+
+Protect hidden volume (if any)? (y=Yes/n=No) [No]:
+</code></pre>
+
+<blockquote><p># truecript -t -l (Comprobar dispositivo montado)</p></blockquote>
+
+<pre><code>1: /media/cripta /dev/mapper/truecrypt1 /media/truecrypt1
+</code></pre>
+
+<blockquote><p># truecrypt -d /media/cripta (Desmontar volumen)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/mytop/">Mytop</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-09T17:16:00+02:00" pubdate data-updated="true">09-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Monitorización del servidor de bases de datos mysql. &#8220;q&#8221; para salir. Comprobar la actividad ingresando en otra consola en mysql [mysql -u USER -p]</p>
+
+<blockquote><p>$ mytop -u USER -p PASS -h localhost -P 3306 &#8211;color (Especificando host y puerto)</p></blockquote>
+
+<p>Para no poner la contraseña y que quede reflejada en el historial, es preferible entrar los datos en un archivo:</p>
+
+<blockquote><p>$ nano .mytop</p></blockquote>
+
+<p>Con los siguientes parámetros:</p>
+
+<pre><code>user=USER
+
+pass=PASS
+
+host=localhost
+
+db=
+
+delay=3
+
+port=3306
+
+batchmode=0
+
+header=1
+
+color=1
+
+idle=1
+</code></pre>
+
+<p>Delay=3 (Refrescar informe cada 3 segundos)</p>
+
+<p>batchmode=0 (Con valor 1 mostrará por pantalla todas las consultas una detrás de otra sin recargar la página. Si el valor es 0 cada vez que se refresque la página se borrarán las consultas anteriores)</p>
+
+<p>header=1 (Valor 1 muestra la cabecera)</p>
+
+<p>color=1 (en color)</p>
+
+<p>idle=1 (que muestre los resultados de las consultas que están dormidas)</p>
+
+<p>Conceptos que muestra la pantalla de mytop:</p>
+
+<pre><code>Queries (Número tatal de consultas)
+
+qps (Media de consultas por segundo)
+
+qps now (Número de consultas por segundo desde la última vez que se descargaron resultados)
+
+Slow (Número de consultas lentas)
+
+Slow qps (Consultas lentas desde la última descarga de resultados)
+
+Se/In/Up/De (indica cual es el porcentaje de Select, Insert, Update o Delete que se ejecutan en el servidor)
+
+key efficiency (Porcentaje de consultas que están utilizado una clave/índice en la consulta)
+
+Bps in/out (Media de bytes por segundo entrantes a la base de datos y media de bytes por segundo salientes)
+
+Now in/out (Media de bytes entrantes y salientes por segundo desde que mytop ha refrescado la página)
+</code></pre>
+
+<p>Teclas interactivas:</p>
+
+<pre><code>d (Mostrar solo datos de una base de datos)
+
+f (Mostrar información completa de una consulta)
+
+F (Desactivar todos los filtros)
+
+h (Mostrar solamente los datos de un servidor específico)
+
+H (Mostrar/ocultar cabecera)
+
+i (Mostrar/ocultar consultar dormidas)
+
+k (Matar una consulta)
+
+p (Pausar la vista)
+
+m (Cambiar "consultas más lentas" a "consultas por segundo")
+
+o (Invertir orden)
+
+q (Salir)
+
+r (Resetear todos los valores)
+
+s (Cambiar el tiempo de refresco)
+
+t (Cambiar al modo vista)
+
+u (Mostrar solamente de un usuario específico)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -460,90 +754,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/zfgrep/">Zfgrep</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:23:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Busca cadenas de texto fijas sobre archivos comprimidos (ver fgrep)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/zenity/">Zenity</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:23:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Creación de dialogos gráficos simples. Especialmente para scripts.</p>
-
-<blockquote><p>$ zenity -?   (muestra las opciones de la aplicación y de ayuda)</p>
-
-<p>$ zenity &#8211;title Archivo &#8211;width 800 &#8211;height 600 &#8211;text-info &#8211;filename /home/usuario/archivo.txt (mostrar un archivo)</p>
-
-<p>$ zenity &#8211;info &#8211;text=&#8221;Este PC va a explotar en 10 segundos. Date por muerto.&#8221;</p>
-
-<p>$ zenity &#8211;password &#8211;username (Muestra diálogo entrar usuario y contraseña)</p>
-
-<p>$ zenity &#8211;calendar (Muestra el calendario)</p>
-
-<p>$ zenity &#8211;scale (Muestra la escala)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -565,6 +775,14 @@
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/update-manager/">update-manager</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/do-release-upgrade/">do-release-upgrade</a>
+      </li>
     
       <li class="post">
         <a href="/blog/slackpkg/">slackpkg</a>
@@ -596,14 +814,6 @@
     
       <li class="post">
         <a href="/blog/sed/">sed</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/john/">john</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/find/">find</a>
       </li>
     
   </ul>

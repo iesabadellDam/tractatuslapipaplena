@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "do-release-upgrade"
-date: 2014-04-26 12:43
+date: 2014-04-26 12:48
 comments: true
 categories: 
 ---
@@ -11,7 +11,7 @@ Para versiones LTS:
 
 Prompt=lts 
 
-para versiones normales:
+Para versiones normales:
 
 Prompt=normal
 
@@ -19,7 +19,7 @@ Para no verificar nunca nuevas versiones:
 
 Prompt=never
 
-Estas modificaciones son v�lidas también para update-manager [ver]
+Estas modificaciones son válidas también para update-manager [ver]
 
 >\# do-release-upgrade -d
 

