@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Calcular las ips y mascaras de una red a partir de una ip dada o un rango. # ipcalc 192.168.0.1/24 # ipcalc 192.168.0.1/255.255.128.0
-">
+  <meta name="description" content="Permite eliminar la comunicación entre procesos [ver ipcs]. Si paramos el programa con un Ctrl-C o simplemente sale de forma anormal, el recurso [la &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +74,44 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ipcrm/">Ipcrm</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Permite eliminar la comunicación entre procesos [ver ipcs]. Si paramos el programa con un Ctrl-C o simplemente sale de forma anormal, el recurso [la memoria compartida] no se libera y queda en el sistema. Con este comando es posible borrarla.</p>
+
+<blockquote><p># ipcrm -m 950288 (eliminar un segmento de memoria compartida)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -636,85 +673,6 @@ gateway 192.168.0.1
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/integrit/">Integrit</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Detectar cuando algún archivo del sistema ha sido alterado mediante la creación, la primera vez que se lanza, de una base de datos con la que confrontar los nuevos escaneos.</p>
-
-<p>Configuración:</p>
-
-<blockquote><p># /etc/integrit/integrit.con</p></blockquote>
-
-<p>Descomentar las lineas:</p>
-
-<pre><code>root=/
-
-known=/var/lib/integrit/known.cdb
-
-current=/var/lib/integrit/current.cdb
-</code></pre>
-
-<p>Y descartar los directorios que no se deseen incluir en el escaneo, descomentandolos [&#8220;cdrom&#8221; se descarta, &#8220;/dev&#8221; se escane, &#8220;/usr/src&#8221; no se escaneará de forma recursiva ]:</p>
-
-<pre><code>!/cdrom
-
-# !/dev
-
-=/usr/src
-</code></pre>
-
-<p>Crear la base de datos inicial:</p>
-
-<blockquote><p># integrit -u -C /etc/integrit/integrit.conf</p></blockquote>
-
-<p>Mover la base de datos a know.cdb:</p>
-
-<blockquote><p># mv /var/lib/integrit/current.cdb /var/lib/integrit/known.cdb</p></blockquote>
-
-<p>Lanzar la comprobación:</p>
-
-<blockquote><p># integrit -C /etc/integrit/integrit.conf -c</p></blockquote>
-
-<p>Si queremos colocar la orden en el cron para ser lanzada cada hora y que envie un correo al administrador:</p>
-
-<blockquote><p># crontab -e</p></blockquote>
-
-<p>Y colocamos la linea:</p>
-
-<pre><code>* 1 * * * integrit -C /etc/integrit/integrit.conf -c | mail root
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/85/">&larr; Older</a>
@@ -730,12 +688,16 @@ current=/var/lib/integrit/current.cdb
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1387</li>
+	<li>1388</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/slackpkg/">slackpkg</a>
+      </li>
     
       <li class="post">
         <a href="/blog/lxde/">lxde</a>
@@ -771,10 +733,6 @@ current=/var/lib/integrit/current.cdb
     
       <li class="post">
         <a href="/blog/find/">find</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/apt/">apt</a>
       </li>
     
   </ul>
