@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "do-release-upgrade"
-date: 2014-04-26 12:15
+date: 2014-04-26 12:27
 comments: true
 categories: 
 ---
@@ -19,7 +19,7 @@ Para no verificar nunca nuevas versiones:
 
 Prompt=never
 
-Estas modificaciones son válidas también para update-manager [ver]
+Estas modificaciones son válidas tambiÃ©n para update-manager [ver]
 
 >\# do-release-upgrade -d
 
