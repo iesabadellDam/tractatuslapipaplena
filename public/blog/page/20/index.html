@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="[openssh-server ssh]. Sincronización de carpetas remotas. Previamente crear la clave y copiarla al otro pc: $ ssh-keygen -t dsa $ ssh-copy-id -i $ &hellip;">
+  <meta name="description" content="Conversor de unidades [metros, litros, millas, pulgadas, grados&#8230;]. Las unidades han de expresarse en inglés. $ units Muestra &#8220;You have&# &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,88 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/units/">Units</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Conversor de unidades [metros, litros, millas, pulgadas, grados&#8230;]. Las unidades han de expresarse en inglés.</p>
+
+<blockquote><p>$ units</p></blockquote>
+
+<p>Muestra &#8220;You have&#8221; para entrar lo que tenemos [1m, 10lb, 2hr, tempK(0)&#8230; ] y a continuación &#8220;You want&#8221;, lo que queremos. Algunos ejemplos:</p>
+
+<p>De millas a kilómetros:</p>
+
+<pre><code>You have: 10mi
+
+You want: km
+
+    * 16.09344
+
+    / 0.062137119
+</code></pre>
+
+<p>De libras a gramos:</p>
+
+<pre><code>You have: 1lb
+
+You want: gr
+
+    * 7000
+
+    / 0.00014285714
+</code></pre>
+
+<p>De grados kelvin a celsius:</p>
+
+<pre><code>You have: tempK(0)
+
+You want: tempC
+
+    -273.15
+</code></pre>
+
+<p>De 3 horas más 16 minutos a segundos</p>
+
+<pre><code>You have: 3hr + 16min
+
+You want: sec
+
+    * 11760
+
+    / 8.5034014e-05
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -466,136 +548,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ulimit/">Ulimit</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Permite  visualizar o limitar los recursos del sistema.</p>
-
-<blockquote><p># ulimit -f 512000 (limita a los usuarios para que no puedan crear archivos de mayor tamaño que 512000 Kb [500 #Mb])</p>
-
-<p>$ ulimit -a   (ver todos los parámetros)</p></blockquote>
-
-<p>Parámetros:</p>
-
-<pre><code>core (Tamaño máximo de los ficheros core [KB])
-
-data (Tamaño máximo para el segmento de datos [KB])
-
-fsize (Tamaño máximo para los ficheros [KB])
-
-memlock (Tamaño máximo para el espacio de direcciones bloqueado en memoria [KB])
-
-nofile (Número máximo de ficheros abiertos)
-
-rss (Tamaño máximo del conjunto residente en memoria [KB])
-
-stack (Tamaño máximo para la pila [KB])
-
-cpu (Tiempo máximo de CPU [minutos])
-
-nproc (Número máximo de procesos)
-
-as (Límite en el espacio de direcciones)
-
-maxlogins (Número máximo de logins)
-
-priority (Prioridad de base para los procesos del usuario)
-
-locks (Número máximo de ficheros bloqueados que el usuario puede mantener)
-</code></pre>
-
-<p>Nota.- El ámbito de aplicación del límite puede ser un nombre de usuario, un grupo (@grupo) o todos (*)</p>
-
-<p>Un ejemplo de limit.conf:</p>
-
-<pre><code>*               soft    nproc           10000
-
-*               hard    nproc           4096
-
-*               soft    core            unlimited
-
-*               hard    core            unlimited
-
-*               soft    memlock         131072
-
-*               hard    memlock         131072
-
-*               soft    nofile          102400
-
-*               hard    nofile          102400
-</code></pre>
-
-<p>1.-</p>
-
-<p>Evitar Forkboms [programas que consumen la totalidad de los recursos del sistema]</p>
-
-<p>Si al lanzar el comando:</p>
-
-<blockquote><p>$ ulimit -u</p></blockquote>
-
-<p>El resultado es “ilimitado” o un valor extremadamente alto, podemos ser victimas de los forkbombs. Para resolverlo podemos limitar el número de procesos abiertos a 1000 para que estos no puedan llegar a colapsar el sistema:</p>
-
-<blockquote><p># gedit /etc/security/limits.conf</p></blockquote>
-
-<p>Añadir antes de “End of file”:   * hard nproc 1000</p>
-
-<p>Reiniciar</p>
-
-<p>2.-</p>
-
-<p>En ciertas ocasiones, al procesar muchos archivos, se produce un error &#8220;for output (Too many open files)&#8221; porque se desborda el limite de 1024 k. Para solucionarlo:</p>
-
-<blockquote><p># nano /etc/security/limits.conf</p></blockquote>
-
-<p>Y añadir las siguientes lineas:</p>
-
-<pre><code>*    soft    nofile    9000
-
-*    hard    nofile    65000
-</code></pre>
-
-<p>3.-</p>
-
-<p>Limitar la cantidad de usuarios conectados al sistema:</p>
-
-<blockquote><p># nano /etc/security/limits.conf</p></blockquote>
-
-<p>Y en el parámetro maxlogins modificamos el número que deseemos:</p>
-
-<pre><code>*    -       maxlogins 3
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/21/">&larr; Older</a>
@@ -617,6 +569,10 @@ locks (Número máximo de ficheros bloqueados que el usuario puede mantener)
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/lxde/">lxde</a>
+      </li>
     
       <li class="post">
         <a href="/blog/virtualbox/">virtualbox</a>
@@ -652,10 +608,6 @@ locks (Número máximo de ficheros bloqueados que el usuario puede mantener)
     
       <li class="post">
         <a href="/blog/apt/">apt</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/sudo/">sudo</a>
       </li>
     
   </ul>

@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="[uzbl-tabbed)]. Navegador estilo vi. Arrancarlo con uzbl-tabbed para permitir pestañas. $ nano .config/uzbl/config (archivos de configuración) Atajos &hellip;">
+  <meta name="description" content="Existen dos tipos de variables: Variables locales (tiene valor únicamente dentro de nuestra shell) Variables globales (disponibles para todos los &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,169 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/variables/">Variables</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Existen dos tipos de variables:</p>
+
+<p>Variables locales (tiene valor únicamente dentro de nuestra shell)</p>
+
+<p>Variables globales (disponibles para todos los procesos invocados por la shell)</p>
+
+<p>Al ejecutar un script la línea de comandos introducida se guarda en unas variables especiales que podemos referenciar:</p>
+
+<blockquote><p>$0 (Nombre del comando)</p>
+
+<p>$1 (Primer argumento)</p>
+
+<p>$2 (Segundo&#8230;)</p>
+
+<p>$@ (Todos los argumentos introducidos, separados por espacios)</p>
+
+<p>$# (Número de argumentos)</p>
+
+<p>$$ (identificador del proceso)</p>
+
+<p>$? (Cuando finaliza la ejecución de un proceso, $? será cero (0) si se ejecuta correctamente y distinto de cero si se ha producido algún error. Es muy usual guardar su valor en una variable (VAR=$?) para su posterior uso.)</p></blockquote>
+
+<p>Para declarar una variable sólo se precisa asignarle un valor. Nunca el valor puede preceder a la variable. No se ponen espacios ni antes ni después del signo igual. El nombre puede contener caracteres alfabéticos (A-Z, a-z), numéricos (0-9) o el guión bajo ‘_’. El primer carácter no puede ser un número o contener otros signos (2DIR, .DIR, -VAR&#8230;)</p>
+
+<pre><code>DIR="/var/www"
+</code></pre>
+
+<p>También puede asignarse a partir del contenido de un fichero:</p>
+
+<pre><code>$ firma=$(&lt;firma.txt)
+</code></pre>
+
+<p>Puede asignarse a la salida de un comando encerrado entrecomillas graves:</p>
+
+<pre><code>WHO=`who | awk '{print$2}'`
+</code></pre>
+
+<p>O entra parentesis antecedido por el signo dolars ($):</p>
+
+<pre><code>WHO=$(who | awk '{print$2}')
+</code></pre>
+
+<p>Variables introducidas por el teclado:</p>
+
+<pre><code>echo "Como te llamas"
+
+read NOMBRE
+</code></pre>
+
+<p>Puede especificarse un tiempo (en segundos) de espera para entrar lo solicitado (-t):</p>
+
+<pre><code>read -t 10 -p "¿Nombre y apellido? " NOMBRE APELLIDO
+</code></pre>
+
+<p>Para definir variables numéricas se utiliza el comando let:</p>
+
+<pre><code>let A=100
+
+let B=200
+
+let C=$A+$B
+</code></pre>
+
+<p>Si al llamar a una variable, esta va seguida de un carácter que sea otra letra, numero o el guión normal o bajo, La encerraremos entre llaves &#8216;{}&#8217;:</p>
+
+<pre><code>ARCHIVO="registro"
+
+echo "${ARCHIVO}_2011.txt"
+
+registro_2011.txt
+</code></pre>
+
+<p>Cuando bash encuentra en una palabra el signo &#8220;$&#8221; todo lo que va a continuación se considera el nombre de una variable y todos los caracteres desde el &#8220;$&#8221; hasta el final de la palabra son sustituidos por dicha variable:</p>
+
+<pre><code>COSA="mastro"
+
+echo "ca$COSA"
+
+camastro
+</code></pre>
+
+<p>Otra forma de entrar variables es mostrando un promt:</p>
+
+<pre><code>$ read -p "palabra&gt; " PALABRA
+</code></pre>
+
+<p>Si no indicamos nombre de variable, lo ingresado se guarda en la variable REPLY:</p>
+
+<pre><code>read
+
+juan jose pedro
+
+$ echo $REPLY
+
+juan jose pedro
+</code></pre>
+
+<p>Modificar parte de una variable:</p>
+
+<pre><code>a="Linux es un sistema genial"
+
+echo ${a/geni/brut}
+
+Linux es un sistema brutal
+</code></pre>
+
+<p>Algunas de la variables globales:</p>
+
+<pre><code>$HOME  (ruta del directorio home del usuario)
+
+$PATH    (directorios donde se encuentran los ejecutables)
+
+$TERM    (nombre de la terminal)
+
+$BASH    (ruta del interprete bash )
+
+$PWD      (directorio actual)
+
+$USER     (Usuario)
+
+$HOSTNAME  (Nombre del equipo)
+
+$HISTFILE (ruta para el histórico de comandos ejecutados)
+
+$UID     (Número de usuario para el sistema)
+
+$RANDOM (números aleatorios entre 0 y 32767)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -612,52 +775,6 @@ SKEL=/etc/skel
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/usbmount/">Usbmount</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>(+ autofs [demonio]). Automontar dispositivos de almacenamiento externo. Editar:</p>
-
-<blockquote><p># nano /etc/usbmount/usbmount.conf</p></blockquote>
-
-<p>Y verificar/modificar según necesidades, las lineas:</p>
-
-<p>MOUNTPOINTS=&#8221;/media/usb0 /media/usb1 /media/usb2 /media/usb3 /media/usb4 /media/usb5 /media/usb6 /media/usb7&#8221;</p>
-
-<p>FILESYSTEMS=&#8221;vfat ext2 ext3 ext4 hfsplus&#8221;</p>
-
-<p>MOUNTOPTIONS=&#8221;sync,noexec,nodev,noatime,users,umask=000&#8221;</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/18/">&larr; Older</a>
@@ -679,6 +796,10 @@ SKEL=/etc/skel
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/lxde/">lxde</a>
+      </li>
     
       <li class="post">
         <a href="/blog/virtualbox/">virtualbox</a>
@@ -714,10 +835,6 @@ SKEL=/etc/skel
     
       <li class="post">
         <a href="/blog/apt/">apt</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/sudo/">sudo</a>
       </li>
     
   </ul>

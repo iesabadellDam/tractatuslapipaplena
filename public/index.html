@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="[vitualbox-guest-utils linux-headers-$(uname -r) build-essential dkms]. Herramienta que permite la virtualización de sistemas operativos. En la &hellip;">
+  <meta name="description" content="Escritorio ligero. Sus componentes: pcmanfm (gestor de archivos) lxlauncher (lanzador de aplicaciones) lxpanel (panel de escritorio) lxsession-edit ( &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,171 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/lxde/">Lxde</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-26T06:37:00+02:00" pubdate data-updated="true">26-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Escritorio ligero. Sus componentes:</p>
+
+<pre><code>pcmanfm (gestor de archivos)
+
+lxlauncher (lanzador de aplicaciones)
+
+lxpanel (panel de escritorio)
+
+lxsession-edit (cambiar el gestor de ventanas y las aplicaciones ejecutadas al inicio)
+
+lxsession  (gestor de sesiones con las opciones cerrar, reiniciar y suspender)
+
+lxappearance  (gestor de temas. Permite cambiar el aspecto, iconos  y tipografías)
+
+leafpad (editor de texto)
+
+xarchiver  (gestor de archivos comprimidos)
+
+gpicview (visor de imágenes)
+
+lxterminal (Consola)
+
+lxtask  (administrador de tareas y monitor de sistema)
+
+openbox  (gestor de ventanas)
+
+lxrandr (gestor de resolucaión de pantalla y monitores externos)
+
+lxshortcut (editor de lanzadores)
+
+lxmusic (reproductor de música basado en xmms2)
+</code></pre>
+
+<p>Archivos de configuración de los elementos del escritorio lxde:</p>
+
+<pre><code>~/.config/gtkrc-2.0 (Temas de escritorio GTK+ e iconos)
+
+~/.config/leafpad/leafpadrc (Editor de textos Leafpad)
+
+~/.config/lxpanel/LXDE/panels/panel (Paneles)
+
+~/.config/lxpanel/LXDE/config (Lanzadores de aplicaciones del panel)
+
+~/.config/lxsession/LXDE/config (Administrador de ventanas)
+
+~/.config/lxterminal/lxterminal.conf (Terminal)
+
+~/.config/openbox/lxde-rc.xml (Openbox)
+
+~/.config/openbox/menu.xml (Menu de Openbox)
+
+~/.config/pcmanfm/main.lxde (Pcmanfm)
+</code></pre>
+
+<p>1.-</p>
+
+<p>Arrancar aplicaciones al inicio:</p>
+
+<blockquote><p># /etc/xdg/lxsession/LXDE/autostart</p></blockquote>
+
+<p>Colocar las aplicaciones precedidas de una @:</p>
+
+<pre><code>@liferea
+
+@gdesklets
+</code></pre>
+
+<p>2.-</p>
+
+<p>Crear iconos en el escritorio:</p>
+
+<p>Colocar los archivos en la carpeta Desktop o Escritorio si se tiene en español:</p>
+
+<blockquote><p>$ nano Desktop/home.lnk</p></blockquote>
+
+<p>Y colocamos el siguiente contenido de ejemplo:</p>
+
+<pre><code>[Desktop Entry]
+
+Name=Personal
+
+Type=Application
+
+Comment=Carpeta personal
+
+Terminal=false
+
+Exec=pcmanfm ~
+
+Icon=folder_home.png
+
+Encoding=UTF-8
+</code></pre>
+
+<p>Para colocar la papelera:</p>
+
+<pre><code>$ nano Desktop/papelera.lnk
+
+Y pegar el contenido:
+
+[Desktop Entry]
+
+Name=Papelera
+
+Type=Application
+
+Comment=Papelera
+
+Terminal=false
+
+Exec=pcmanfm trash:///
+
+Icon=emptytrash.png
+
+Encoding=UTF-8
+</code></pre>
+
+<p>3.-</p>
+
+<p>Modificar iconos:</p>
+
+<blockquote><p>$ ls /usr/share/icons/ (Ver el listado de los disponibles)</p>
+
+<p># nano  /usr/share/icons/default/index.theme</p></blockquote>
+
+<p>Y en apartado Inherits colocar el deseado:</p>
+
+<p>Inherits = ComixCursors-Red-Large</p>
+
+<p>Reiniciar.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1054,92 +1219,6 @@ María Monzón 9 16 metálico
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sudo/">Sudo</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-14T15:48:00+02:00" pubdate data-updated="true">14-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Utilidad que permite a un usuario ejecutar programas con privilegios de root. En algunas distros sólo el usuario creado durante la instalación puede ejecutar sudo con privilegios de root, los demás han de ser agregados al grupo admin.</p>
-
-<blockquote><p>$ sudo -k   (limpia la clave sudo introducida)</p>
-
-<p>$ sudo -u usuario comando   (ejecutar el comando como un usuario privilegiado distinto de root)</p>
-
-<p>$ sudo -l    (ver los permisos de sudo que tiene un usuario)</p>
-
-<p>$ sudo !! (Ejecutar el último comando con sudo)</p></blockquote>
-
-<p>Pueden añadirse las siguientes lineas en /etc/sudoers:</p>
-
-<p>Defaults passprompt=”mi frase solicitando la contraseña&#8230;”</p>
-
-<p>Defaults badpass_message=”mi frase si se entra erronea&#8230;”</p>
-
-<p>usuario    ALL=(ALL) ALL  (Añadir el usuario a sudo)</p>
-
-<p>Defaults:usuario !authenticate  (si no queremos que nos pida la contraseña)</p>
-
-<p>Defaults env_reset , pwfeedback (Defaults env_reset</p>
-
-<p>sustituirla por:)</p>
-
-<p>usuario ALL=NOPASSWD: /usr/sbin/firestarter (Para que no pida contraseña al arrancar una aplicación concreta)</p>
-
-<p>O añadir a la linea Defaults, algunos parámetros separados por comas:</p>
-
-<p>timestamp_timeout=5   (La contraseña se guardará 5 minutos.)</p>
-
-<p>insults    (Te mostrará insultos si fallas la contraseña)</p>
-
-<p>passwd_tries=2   (Permitir 2 errores al entrar la contraseña. Por defecto 3)</p>
-
-<p>rootpw (Para que nos pida la contraseña de root y no la de usuario)</p>
-
-<p>Ejemplos:</p>
-
-<p>Defaults     !lecture,tty_tickets,!fqdn,timestamp_timeout=0,insults</p>
-
-<p>Defaults@192.168.1.2 !lecture,tty&#8230;. (Permitir ejecución sólo desde nuestra máquina)</p>
-
-<p>1.-</p>
-
-<p>Para que al entrar un contraseña en la terminal aparezcan asterisco:</p>
-
-<p>En la linea: Defaults env_reset</p>
-
-<p>Añadir &#8220;pwfeedback&#8221; dejándola:</p>
-
-<p>Defaults env_reset , pwfeedback</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1159,6 +1238,10 @@ María Monzón 9 16 metálico
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/lxde/">lxde</a>
+      </li>
     
       <li class="post">
         <a href="/blog/virtualbox/">virtualbox</a>
@@ -1194,10 +1277,6 @@ María Monzón 9 16 metálico
     
       <li class="post">
         <a href="/blog/apt/">apt</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/sudo/">sudo</a>
       </li>
     
   </ul>

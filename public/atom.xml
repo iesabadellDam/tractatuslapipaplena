@@ -4,7 +4,7 @@
   <title><![CDATA[TRACTATUS ELEMENTALIS]]></title>
   <link href="https://tractatuslapipaplena.herokuapp.com/atom.xml" rel="self"/>
   <link href="https://tractatuslapipaplena.herokuapp.com/"/>
-  <updated>2014-04-22T05:56:34+02:00</updated>
+  <updated>2014-04-26T06:37:23+02:00</updated>
   <id>https://tractatuslapipaplena.herokuapp.com/</id>
   <author>
     <name><![CDATA[templix]]></name>
@@ -12,6 +12,144 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[lxde]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/lxde/"/>
+    <updated>2014-04-26T06:37:00+02:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/lxde</id>
+    <content type="html"><![CDATA[<p>Escritorio ligero. Sus componentes:</p>
+
+<pre><code>pcmanfm (gestor de archivos)
+
+lxlauncher (lanzador de aplicaciones)
+
+lxpanel (panel de escritorio)
+
+lxsession-edit (cambiar el gestor de ventanas y las aplicaciones ejecutadas al inicio)
+
+lxsession  (gestor de sesiones con las opciones cerrar, reiniciar y suspender)
+
+lxappearance  (gestor de temas. Permite cambiar el aspecto, iconos  y tipografías)
+
+leafpad (editor de texto)
+
+xarchiver  (gestor de archivos comprimidos)
+
+gpicview (visor de imágenes)
+
+lxterminal (Consola)
+
+lxtask  (administrador de tareas y monitor de sistema)
+
+openbox  (gestor de ventanas)
+
+lxrandr (gestor de resolucaión de pantalla y monitores externos)
+
+lxshortcut (editor de lanzadores)
+
+lxmusic (reproductor de música basado en xmms2)
+</code></pre>
+
+<p>Archivos de configuración de los elementos del escritorio lxde:</p>
+
+<pre><code>~/.config/gtkrc-2.0 (Temas de escritorio GTK+ e iconos)
+
+~/.config/leafpad/leafpadrc (Editor de textos Leafpad)
+
+~/.config/lxpanel/LXDE/panels/panel (Paneles)
+
+~/.config/lxpanel/LXDE/config (Lanzadores de aplicaciones del panel)
+
+~/.config/lxsession/LXDE/config (Administrador de ventanas)
+
+~/.config/lxterminal/lxterminal.conf (Terminal)
+
+~/.config/openbox/lxde-rc.xml (Openbox)
+
+~/.config/openbox/menu.xml (Menu de Openbox)
+
+~/.config/pcmanfm/main.lxde (Pcmanfm)
+</code></pre>
+
+<p>1.-</p>
+
+<p>Arrancar aplicaciones al inicio:</p>
+
+<blockquote><p># /etc/xdg/lxsession/LXDE/autostart</p></blockquote>
+
+<p>Colocar las aplicaciones precedidas de una @:</p>
+
+<pre><code>@liferea
+
+@gdesklets
+</code></pre>
+
+<p>2.-</p>
+
+<p>Crear iconos en el escritorio:</p>
+
+<p>Colocar los archivos en la carpeta Desktop o Escritorio si se tiene en español:</p>
+
+<blockquote><p>$ nano Desktop/home.lnk</p></blockquote>
+
+<p>Y colocamos el siguiente contenido de ejemplo:</p>
+
+<pre><code>[Desktop Entry]
+
+Name=Personal
+
+Type=Application
+
+Comment=Carpeta personal
+
+Terminal=false
+
+Exec=pcmanfm ~
+
+Icon=folder_home.png
+
+Encoding=UTF-8
+</code></pre>
+
+<p>Para colocar la papelera:</p>
+
+<pre><code>$ nano Desktop/papelera.lnk
+
+Y pegar el contenido:
+
+[Desktop Entry]
+
+Name=Papelera
+
+Type=Application
+
+Comment=Papelera
+
+Terminal=false
+
+Exec=pcmanfm trash:///
+
+Icon=emptytrash.png
+
+Encoding=UTF-8
+</code></pre>
+
+<p>3.-</p>
+
+<p>Modificar iconos:</p>
+
+<blockquote><p>$ ls /usr/share/icons/ (Ver el listado de los disponibles)</p>
+
+<p># nano  /usr/share/icons/default/index.theme</p></blockquote>
+
+<p>Y en apartado Inherits colocar el deseado:</p>
+
+<p>Inherits = ComixCursors-Red-Large</p>
+
+<p>Reiniciar.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[virtualbox]]></title>
@@ -1971,51 +2109,6 @@ u (Mostrar solamente de un usuario específico)
 <blockquote><p>$ innotop -u USER -p PASS -h localhost -P 3306</p></blockquote>
 
 <p>Nota.- Pulsar &#8220;q&#8221; para salir.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[fbcmd]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/fbcmd/"/>
-    <updated>2014-04-06T16:45:00+02:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/fbcmd</id>
-    <content type="html"><![CDATA[<p>[php5-cli php5-curl]. Cliente de línea de comandos para Facebook.</p>
-
-<blockquote><p>$ php -r &#8216;echo phpversion();&#8217; (Comprobar si php5 está instalado)</p>
-
-<p>$ php -r &#8216;phpinfo();&#8217; | grep -i curl (Comprobar si php tiene soporte para curl)</p>
-
-<p>$ wget https://raw.github.com/dtompkins/fbcmd/master/fbcmd_update.php (Descargar fbcmd)</p>
-
-<p>$ php fbcmd_update.php (Preparar la instalación)</p>
-
-<p>$ php fbcmd_update.php sudo</p>
-
-<p>$ php fbcmd_update.php</p>
-
-<p>$ fbcmd (Arrancar la aplicación. Mostrará una url del tipo https://www.facebook.com/dialog/oauth?client_id=424&#8230;.)</p></blockquote>
-
-<p>Entrar en fecebook con la url mencionada y aceptar la conexión de la aplicación. Mostrará un código XXXXX</p>
-
-<blockquote><p>$ fbcmd auth XXXXX (Autentificarse con el código)</p></blockquote>
-
-<p>Aceptar los terminos que nos proponen y acabar la configuración.</p>
-
-<blockquote><p>$ fbcmd update (Actualizar la versión)</p>
-
-<p>$ fbcmd post &#8220;Estoy posteando en consola&#8221; (Enviar una entrada)</p>
-
-<p>$ fbcmd target USER post &#8220;Texto al muro de USER&#8221;</p>
-
-<p>$ fbcmd @USER post &#8220;Texto al muro de USER&#8221;</p>
-
-<p>$ fbcmd fstatus (Ver estado de tus amigos)</p>
-
-<p>$ fbcmd fonline (Mostrar los amigos que están actualmente en línea)</p>
-
-<p>$ fbcmd stream (Mostrar streaming de los amigos)</p>
-
-<p>$ fbcmd comment 5 &#8220;texto de comentario&#8221; (Agregar un comentario)</p></blockquote>
 ]]></content>
   </entry>
   
