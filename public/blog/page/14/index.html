@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="[weather-util]. Estado del tiempo. Buscar el código de la ciudad en: http://www.nws.noaa.gov/tg/siteloc.shtml $ weather -m -v LEGE (En decimal con la &hellip;">
+  <meta name="description" content="Genera reportes en formato html de los accesos a una página web instalada en la misma máquina. Configuración mínima: # nano /etc/webalizer/webalizer. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,74 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/webalizer/">Webalizer</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Genera reportes en formato html de los accesos a una página web instalada en la misma máquina.</p>
+
+<p>Configuración mínima:</p>
+
+<blockquote><p># nano /etc/webalizer/webalizer.conf</p></blockquote>
+
+<p>Verificando que el siguiente contenido esté descomentado:</p>
+
+<pre><code>LogFile         /var/log/apache2/access.log
+
+OutputDir       /var/www/webalizer
+
+Incremental     yes
+
+ReportTitle     Estidísticas de PAGINAWEB_NOMBRE
+
+Hostname URL_PAGINA
+
+IgnoreSite      localhost
+</code></pre>
+
+<p>Especificamos los logs a analizar [logfile], el directorio de salida de los resultados [outputdir], que analice todo por separado [incremental], título de la página de reporte [reporttitle], nombre de la página a analizar [hostname] y que innore los accesos desde la propia máquina [ignoresite]</p>
+
+<blockquote><p># webalizer -c /etc/webalizer.conf -d (que se base en el archivo especificado [-c] y que haga debugging de los reportes por si todo salió sin errores [-d])</p></blockquote>
+
+<p>Dado que los reportes solo se realizan cuando se ejecuta el comando, es preferible colocar la linea en crontab:</p>
+
+<blockquote><p>$ crontab -e</p></blockquote>
+
+<p>Y añadir:</p>
+
+<pre><code>0 0 * * * /usr/bin/webalizer -c /etc/webalizer.conf -d
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -495,46 +563,6 @@ s (Abrir historial reciente)
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/vte/">Vte</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Terminal</p>
-
-<blockquote><p>$ vte -T (Lanza terminal semitransparente)</p>
-
-<p>$ vte -g 60x10 -r red (Especificando medidas y color del cursor)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/15/">&larr; Older</a>
@@ -556,6 +584,10 @@ s (Abrir historial reciente)
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/ftp/">ftp</a>
+      </li>
     
       <li class="post">
         <a href="/blog/fatattr/">fatattr</a>
@@ -591,10 +623,6 @@ s (Abrir historial reciente)
     
       <li class="post">
         <a href="/blog/apt-get/">apt-get</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/hydra/">hydra</a>
       </li>
     
   </ul>

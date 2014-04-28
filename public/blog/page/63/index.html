@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Medir el rendimiento de la red. Ha de instalarse en el cliente y en el servidor. Utiliza el puerto 12865. # nmap -O -p 12865 localhost | grep tcp ( &hellip;">
+  <meta name="description" content="Puertos y conexiones. # netstat &#8211;inet &#8211;all Proto Recv-Q Send-Q Local Address Foreign Address State tcp 0 0 localhost:832 : LISTEN tcp 0 0 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,136 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/netstat/">Netstat</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-05T18:20:00+02:00" pubdate data-updated="true">05-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Puertos y conexiones.</p>
+
+<blockquote><p># netstat &#8211;inet &#8211;all</p></blockquote>
+
+<p>Proto Recv-Q Send-Q Local Address           Foreign Address         State</p>
+
+<p>tcp        0        0          localhost:832                 <em>:</em>                     LISTEN</p>
+
+<p>tcp        0        0          localhost:2208               <em>:</em>                     LISTEN</p>
+
+<p>&#8230;</p>
+
+<p>Proto.- protocolo, Recv-Q.- paquetes recibidos, Send-Q.- paquetes enviados, Local Address.- direccion local, Foreign Address.- direccion remota, State.- estado de la conexión (listen = a la escucha).</p>
+
+<blockquote><p># netstat -ac   (puertos abiertos,donde se dirigen y de donde  vienen)</p>
+
+<p># netstat -atu | grep &#8217;<em>.</em>&#8217;   (Ver todos los servicios que ofrece la máquina)</p>
+
+<p># netstat -ta  (Lista los servidores que estén corriendo en el sistema)</p>
+
+<p># netstat -rn  (Muestra la tabla de enrutamiento)</p>
+
+<p># netstat  -an (Máxima información de nuestra conexión)</p>
+
+<p># netstat  -i (Tablas de Interfaces de red)</p>
+
+<p># netstat -e (información extendida)</p>
+
+<p># netstat -p (numero de PID y servicio que está corriendo)</p>
+
+<p># netstat -c (Lista continua)</p>
+
+<p># netstat -l (Sockets a la espera)</p>
+
+<p># netstat -napt (puertos abiertos y servicios que corren)</p>
+
+<p># netstat -pan | grep ESTABLISHED</p>
+
+<p># netstat -luntp | grep LISTEN | awk &#8216;{print $7}&#8217;</p>
+
+<p># netstat -l | grep tcp</p>
+
+<p># netstat -antp | grep 22  (preguntar como está el puerto 22)</p>
+
+<p># netstat | awk &#8216;/EST/{print $5}&#8217; | sort  (lista de conexiones establecidas)</p>
+
+<p># netstat -an | grep -Ec &#8217;<sup>tcp.+ESTABLISHED$&#8217;</sup>  (Muestra conexiones tcp)</p>
+
+<p># netstat -tpee    (información sobre las conexiones a internet)</p>
+
+<p># netstat -tunlp  (Muestra servicios activos y a la escucha, pid y puertos)</p>
+
+<p># if (nc -zw2 lapipaplena.homelinux.com 80); then echo open; fi (Preguntar si el puerto de un host está abierto)</p>
+
+<p># netstat -nt | awk &#8216;{print $6}&#8217; | sort | uniq -c | sort -n -k 1 -r (Cantidad y estado de los puertos abiertos)</p>
+
+<p># netstat -luntp | grep LISTEN | awk &#8216;{print $7}&#8217;  (pid de los servicios en LISTEN y demonio que corre en ellos)</p>
+
+<p># netstat -n -p|grep SYN_REC | wc -l  (Muestra si estamos sufriendo un ataque ddos)</p>
+
+<p># netstat -lantp | grep ESTABLISHED |awk &#8216;{print $5}&#8217; | awk -F: &#8216;{print $1}&#8217; | sort -u (Todas las ip conectadas a nuestro host)</p>
+
+<p># netstat -plan | grep :80 |  grep ESTABLISHED | awk {&#8216;print $5&#8217;} | cut -d: -f 1 | sort | uniq -c | sort -n (Otra forma de mostralas)</p>
+
+<p># netstat -plan | grep :80 | awk {&#8216;print $5&#8217;} | cut -d: -f 1 | sort | uniq -c | sort -n</p></blockquote>
+
+<p>(Muestra el número de peticiones al puerto 80 por cada IP)</p>
+
+<blockquote><p># netstat -plutn</p></blockquote>
+
+<p>Explicación de los Flags:</p>
+
+<p>G (La ruta utiliza una pasarela)</p>
+
+<p>U (La interfaz está activa)</p>
+
+<p>H (Esta interfaz permite el acceso a una sola máquina)</p>
+
+<p>D (Esta ruta es creada dinámicamente)</p>
+
+<p>M (estee registro ha sido modificado por un mensaje de redirección ICMP)</p>
+
+<p>! (La ruta es una ruta de rechazo y los datagramas serán descartados)</p>
+
+<p>Nota.- la dirección externa si no es 0.0.0.0.* significa que alguien le está hablando activamente.</p>
+
+<p>Otras opciones:</p>
+
+<p>-o (indica el número del proceso asignado a la conexión)</p>
+
+<p>-s (muestra las estadísticas detalladas para cada protocolo)</p>
+
+<p>-t (muestra solo las conexiones activas por TCP)</p>
+
+<p>-u (muestra solo las conexiones activas por UDC)</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -536,79 +666,6 @@ Backspace (Pone el tema desde inicio)
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/nbtscan/">Nbtscan</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:20:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Para ver máquinas que compartan información en una red por medio del protocolo NetBIOS [windows utiliza este protocolo para sus comunicaciones] GNU/Linux, BSD, Solaris y Mac utiliza el servicio samba por lo cual también serán detectados sus recursos compartidos.</p>
-
-<blockquote><p># nbtscan 192.168.0.0/24  (Obtener nombres de los PCs de nuestra red)</p>
-
-<p># nbtscan -v 192.168.0.0/24  (Obtener la tabla NetBIOS de cada uno de los PCs que encuentre)</p>
-
-<p># nbtscan -r 192.168.2.0/24  (Para escanear completamente toda la red)</p>
-
-<p># nbtscan -v -s : 192.168.2.0/24  (Lo mismo con información por columnas)</p>
-
-<p># nbtscan -r 192.168.2.1-64  (Escanear por un rango de ips)</p>
-
-<p># nbtscan -f listado   (Escanear a partir de un archivo de ips)</p></blockquote>
-
-<p>El archivo listado tendrá un formato:</p>
-
-<p>192.168.2.3</p>
-
-<p>192.168.2.6</p>
-
-<p>192.168.2.11</p>
-
-<p>&#8230;</p>
-
-<blockquote><p># nbtstat -A Ip_victima  (si hay algun pc al que se pueda entrar)</p></blockquote>
-
-<p>Si muestra la entrada <20> será susceptible de intrusion.</p>
-
-<pre><code>LOKO &lt;00&gt; UNIQUE Registered
-
-CHEPUDO &lt;00&gt; GROUP Registered
-
-LOKO &lt;03&gt; UNIQUE Registered
-
-LOKO &lt;20&gt; UNIQUE Registered
-
-CHEPUDO &lt;1E&gt; GROUP Registered
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/64/">&larr; Older</a>
@@ -630,6 +687,10 @@ CHEPUDO &lt;1E&gt; GROUP Registered
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/ftp/">ftp</a>
+      </li>
     
       <li class="post">
         <a href="/blog/fatattr/">fatattr</a>
@@ -665,10 +726,6 @@ CHEPUDO &lt;1E&gt; GROUP Registered
     
       <li class="post">
         <a href="/blog/apt-get/">apt-get</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/hydra/">hydra</a>
       </li>
     
   </ul>
