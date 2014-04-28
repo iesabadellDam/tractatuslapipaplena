@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Crear una contraseña para una entrada de grub2 # grub-mkpasswd-pbkdf2 Se entra la contraseña y se confirma. Saldrá una codificación del tipo: Your &hellip;">
+  <meta name="description" content="Gestor de arranque. Los dispositivos empiezan por 0 y las particiones empiezan con 1. “sda1” es “hd0,1” y no “hd0,0” como en el antiguo grub. 1.- &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,280 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/grub2/">Grub2</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Gestor de arranque. Los dispositivos empiezan por 0 y las particiones empiezan con 1. “sda1” es “hd0,1” y no “hd0,0” como en el antiguo grub.</p>
+
+<p>1.-</p>
+
+<p>Modificación de parámetros generales:</p>
+
+<blockquote><p># gedit /etc/default/grub</p></blockquote>
+
+<pre><code>GRUB_DEFAULT= 0/saved (0 selecciona primera entrada, 1 la segunda... "saved" selecciona la última entrada  ejecutada.)
+
+GRUB_TIMEOUT=10 (tiempo de espera antes de arrancar)
+
+GRUB_HIDDEN_TIMEOUT=0  (esconder el menú de entradas. Si hay varios sistemas comentarlo)
+
+GRUB_HIDDEN_MENU_QUIET=true (oculta la cuenta atrás. "false" la muestra)
+
+GRUB_DISTRIBUTOR=lsb_release -i -s 2&gt; /dev/null || echo Debian (determina el nombre del sistema)
+
+GRUB_CMDLINE_LINUX="acpi_osi=Linux" (opciones concretas que pueden pasarse al arranque)
+
+GRUB_CMDLINE_LINUX_DEFAULT="splash noapic" (otras opciones por defecto)
+
+GRUB_GFXMODE=1024x768 (activa el grub gráfico)
+
+GRUB_DISABLE_LINUX_RECOVERY="true" (muestra la opción de recovery mode en el menú. “false lo suprime)
+</code></pre>
+
+<blockquote><p># update-grub2   (hacer efectivos los cambios)</p></blockquote>
+
+<p>2.-</p>
+
+<p>Para que no aparezca memtest en el menú:</p>
+
+<blockquote><p># chmod -x /etc/grub.d/20_memtest86+</p></blockquote>
+
+<p>El mismo comando con “+x” lo restituye.</p>
+
+<blockquote><p># update-grub2</p></blockquote>
+
+<p>3.-</p>
+
+<p>Quitar lineas que hacen referencia a kernels antiguos:</p>
+
+<blockquote><p># dpkg &#8211;get-selections | grep linux-image  (averiguar los instalados)</p>
+
+<p># apt-get remove &#8211;purge linux-image-2.6.xx-xx-generic</p></blockquote>
+
+<p>El update-grub2 se hará de forma automática.</p>
+
+<p>4.-</p>
+
+<p>Cambiar la imagen de fondo [apt-get install grub2-splashimages]. Si se quieren hacer con gimp, estas han de tener un tamaño de  640×480 pixeles y extensión .tga</p>
+
+<blockquote><p>$ ls /usr/share/images/grub   (directorio de la imágenes)</p>
+
+<p># gedit /etc/grub.d/05_debian_theme</p></blockquote>
+
+<p>Y modificamos en la linea:</p>
+
+<p>WALLPAPER=&#8221;/usr/share/images/grub/Lake_mapourika_NZ.tga&#8221;</p>
+
+<blockquote><p># update-grub2</p></blockquote>
+
+<p>5.-</p>
+
+<p>Reinstalar grub2 desde un live-cd o desde otra partición.</p>
+
+<blockquote><p># fdisk -l   (para saber la partición del grub que queremos instalar)</p>
+
+<p># mount /dev/sda2 /media/sda2  (motar la partición)</p>
+
+<p># mount -o bind /dev/ /media/sda2/dev/  (montar los sistemas de ficheros)</p>
+
+<p># mount -o bind /sys/ /media/sda2/sys/</p>
+
+<p># mount -o bind /proc/ /media/sda2/proc/</p>
+
+<p># chroot /media/sda2    (Chorootear la partición que alberga el grub que vamos a instalar)</p>
+
+<p># grub-install /dev/sda   (instalar grub en el disco)</p></blockquote>
+
+<p>6.-</p>
+
+<p>Para solucionar el problema de que al arrancar un sistema operativo la pantalla no muestra nada, editar el archivo:</p>
+
+<blockquote><p># nano /etc/default/grub</p></blockquote>
+
+<p>Y en la linea:</p>
+
+<p>GRUB_CMDLINE_LINUX_DEFAULT=&#8221;quiet&#8221;</p>
+
+<p>Añadir el chipset de vuestra gráfica:</p>
+
+<pre><code>General (para cualquier gráfica): nomodeset
+
+ATI (driver libre ati o radeon): radeon.modeset=0
+
+ATI (driver privativo): nomodeset
+
+nVidia: xforcevesa o nomodeset
+
+Nvidia con driver libre (nouveau): nouveau.modeset=0
+
+Intel: i915.modeset=0
+</code></pre>
+
+<p>Quedando la entrada, por ejemplo para una Intel; como sigue:</p>
+
+<pre><code>GRUB_CMDLINE_LINUX_DEFAULT="quiet i915.modeset=0"
+</code></pre>
+
+<p>7.-</p>
+
+<p>Modificar los colores de las fuentes para adaptarlas a las imágenes mostradas.</p>
+
+<blockquote><p># gedit /etc/grub.d/05_debian_theme</p></blockquote>
+
+<p>y modificar las líneas</p>
+
+<p>set menu_color_normal=white/black</p>
+
+<p>set menu_color_highlight=black/light-gray</p>
+
+<p>color_normal (los que se utilizan por defecto)</p>
+
+<p>color_highlight (los que se utilizan para la entrada seleccionada).</p>
+
+<p>El primero de los 2 colores de cada uno de estos campos se refiere al color de la fuente, y el segundo, al color de fondo.</p>
+
+<p>Colores permitidos:</p>
+
+<pre><code>red (rojo)
+
+green (verde)
+
+blue (azul)
+
+yellow (amarillo)
+
+cyan (cian)
+
+magenta (magenta)
+
+white (blanco)
+
+black (negro)
+
+light-gray (gris claro)
+</code></pre>
+
+<p>8.-</p>
+
+<p>Colocar contraseña a grub2 para dos usuarios:</p>
+
+<blockquote><p># nano /etc/grub.d/00_header</p></blockquote>
+
+<p>Colocar al final:</p>
+
+<p>cat &lt;&lt; EOF</p>
+
+<p>set superusers=”usuario1”</p>
+
+<p>password usuario1 la_contraseña</p>
+
+<p>password usuario2 otra_contraseña</p>
+
+<p>EOF</p>
+
+<p>9.-</p>
+
+<p>Para que en el grub2 salga la partición de windows del sistema pero no otras particiones ntfs (de recuperación, HP, ….)</p>
+
+<blockquote><p>$ gedit /boot/grub/grub.cfg</p></blockquote>
+
+<p>Copiar el menuentry perteneciente a la partición windows (no la de recuperación) y pastearla en:</p>
+
+<blockquote><p># gedit /etc/grub.d/40_custom</p></blockquote>
+
+<p>Luego:</p>
+
+<blockquote><p># gedit /etc/default/grub</p></blockquote>
+
+<p>Y añadir al final del archivo la linea:</p>
+
+<p>GRUB_DISABLE_OS_PROBER=true</p>
+
+<p>Recargar grub:</p>
+
+<blockquote><p># update-grub</p></blockquote>
+
+<p>Nota.- Las entradas de 40_custom no se muestran en la salida de la consola pero quedan reflejadas en el grub.cfg</p>
+
+<p>10.-</p>
+
+<p>Poner contraseña a grub2</p>
+
+<blockquote><p># grub-mkpasswd-pbkdf2 (Crear la contraseña encriptada en SHA512)</p>
+
+<p># nano /etc/grub.d/00_header</p></blockquote>
+
+<p>Y colocar al final del archivo:</p>
+
+<p>cat &lt;&lt; EOF</p>
+
+<p>set superusers=&#8221;usuario&#8221;</p>
+
+<p>password_pbkdf2 usuario contraseña_SHA512</p>
+
+<p>EOF</p>
+
+<blockquote><p># nano /etc/grub.d/10_linux</p></blockquote>
+
+<p>Buscar la linea:</p>
+
+<p>printf &#8220;menuentry &#8216;${title}&#8217; ${CLASS} {\n&#8221; &#8220;${os}&#8221; &#8220;${version}&#8221;</p>
+
+<p>Y colocar al usuario al final de {CLASS}:</p>
+
+<p>printf &#8220;menuentry &#8216;${title}&#8217; ${CLASS} &#8211;users usuario {\n&#8221; &#8220;${os}&#8221; &#8220;${version}&#8221;</p>
+
+<blockquote><p># update-grub</p></blockquote>
+
+<p>11.-</p>
+
+<p>Entrar como root desde grub sin contraseña:</p>
+
+<pre><code>1.- Cuando sale el menú de grub desplazarse al sistema que se quiere arrancar y pulsar la letra "e"
+
+2.- moverse a la linea del kernel
+</code></pre>
+
+<p>En este punto puede optarse por dos soluciones:</p>
+
+<pre><code>a) borrar todo desde después de "ro" hasta el final y colocar init=/bin/bash [linux   /boot/vmlinuz-3.2.0-4-amd64 root=UUID=de1d7793-c3d2-4e03-b79d-1a76905619e6 ro init=/bin/bash ]. El teclado estará en inglés.
+
+b) ponemos al final de la linea "single" [linux   /boot/vmlinuz-3.2.0-4-amd64 root=UUID=de1d7793-c3d2-4e03-b79d-1a76905619e6 ro  quiet single ]
+</code></pre>
+
+<p>Y proseguir con el arranque pulsando F10 o Ctrl+x con lo que el sistema iniciará con una consola root.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -458,52 +732,6 @@ grub&gt; quit                 (salir)
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/grive/">Grive</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[gdrive]. Permite sincronizar cualquier carpeta local con el servicio de almacenamiento online de Google. En Ubuntu: add-apt-repository ppa:nilarimogard/webupd8</p>
-
-<blockquote><p>$ mkdir grive (crear una carpeta para sincronizar archivos)</p>
-
-<p>$ cd grive (Entrar en la carpeta)</p>
-
-<p>$ grive -a (Mostrará una URL que debe copipastearse al navegador, preferiblemente chromium, y este nos mostrará un código que ha de copipastearse a la consola, tras lo cual empieza el sincronización)</p></blockquote>
-
-<p>A partir de este momento siempre que entremos en la carpeta gdrive podremos sincronizarla con el almacenamiento de Google lanzando:</p>
-
-<blockquote><p>$ grive</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/93/">&larr; Older</a>
@@ -519,12 +747,16 @@ grub&gt; quit                 (salir)
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1388</li>
+	<li>1389</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/fatattr/">fatattr</a>
+      </li>
     
       <li class="post">
         <a href="/blog/update-manager/">update-manager</a>
@@ -560,10 +792,6 @@ grub&gt; quit                 (salir)
     
       <li class="post">
         <a href="/blog/hydra/">hydra</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/sed/">sed</a>
       </li>
     
   </ul>
