@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Listar la memoria RAM y swap utilizada y disponible $ free -m (muestra los resultados en megabytes)
-">
+  <meta name="description" content="[libssl-dev freeradius-mysql freeradius-utils]. Servidor. Configurar la base de datos: # nano /etc/freeradius/sites-enabled/default En los apartados &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +74,80 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/freeradius/">Freeradius</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[libssl-dev freeradius-mysql freeradius-utils]. Servidor.</p>
+
+<p>Configurar la base de datos:</p>
+
+<blockquote><p># nano /etc/freeradius/sites-enabled/default</p></blockquote>
+
+<p>En los apartados &#8220;authorize&#8221; y &#8220;accouting&#8221; descomentar las lineas sql</p>
+
+<blockquote><p># nano /etc/freeradius/radius.conf</p></blockquote>
+
+<p>Descomentar la linea $INCLUDE sql.conf</p>
+
+<p>Configurar usuario, contraseña y mensaje de bienvenida:</p>
+
+<blockquote><p># nano /etc/freeradius/users</p></blockquote>
+
+<p>USUARIO Cleartext-Password := &#8220;CONTRASEÑA&#8221;</p>
+
+<pre><code>    Reply-Message "Entrando en el servidor el usuario %{User_Name}"
+</code></pre>
+
+<p>Configurar usuario y contraseña del router o punto de acceso:</p>
+
+<blockquote><p># nano /etc/freeradius/clients.conf</p></blockquote>
+
+<p>client 192.168.1.0/24 {</p>
+
+<pre><code>secret      = CONTRASEÑA_ROUTER
+
+shortname   = USUARIO_ROUTE
+</code></pre>
+
+<p>Finalmente entrar en router y colocar la ip del equipo donde hemos instalado el servidor. Reiniciar el servicio.</p>
+
+<blockquote><p># /etc/init.d/freeradius restart</p>
+
+<p># freeradius -X (Arrancar em modo debug)</p>
+
+<p># radtest USUARIO testing 127.0.0.1 1812 testing123 (Testear si la configuración de un usuario está correcta)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -516,63 +589,6 @@ done
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/flunym0us/">Flunym0us</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Pruebas de vulnarabilidad de webs basadas en wordpress. Descarga http://code.google.com/p/flunym0us/downloads/list</p>
-
-<blockquote><p>$ flunym0us -H http://host -w /home/usuario/wordlist -wp -t 60 -r 1 -p 2 -T 2</p></blockquote>
-
-<p>Opciones:</p>
-
-<pre><code>-wp (Scanear un sitio wordpress)
-
--mo (scanear un sitio Moodle)
-
--H http://host (Nombre del host wordpress a scanear)
-
--w /home/usuario/wordlist (Ruta al diccionario)
-
--t 60 (Tiempo de espera)
-
--r 1 (Reintentos de conexión)
-
--p 2 (Numero de procesos)
-
--T 2 (Número de subprocesos simultaneos por proceso)
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/100/">&larr; Older</a>
@@ -594,6 +610,10 @@ done
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/bc/">bc</a>
+      </li>
     
       <li class="post">
         <a href="/blog/stat/">stat</a>
@@ -629,10 +649,6 @@ done
     
       <li class="post">
         <a href="/blog/automater/">automater</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/cadaver/">cadaver</a>
       </li>
     
   </ul>
