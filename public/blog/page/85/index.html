@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="monitoriza el ratio de lectura/escritura en disco . $ iotop -o -u usuario $ iotop -a -p $(sed &#8216;s, , -p ,g&#8217; &lt;&lt;&lt;pgrep "_raid| &hellip;">
+  <meta name="description" content="Realizar test de velocidad de sistemas de archivos (ext3, ext4&#8230;) $ iozone -s 2g -r 64 -i 0 -i 1 -b test.xls $ iozone -a -g 2G -f /media/sda2 -a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,56 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/iozone/">Iozone</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Realizar test de velocidad de sistemas de archivos (ext3, ext4&#8230;)</p>
+
+<blockquote><p>$ iozone -s 2g -r 64 -i 0 -i 1 -b test.xls</p>
+
+<p>$ iozone -a -g 2G -f /media/sda2</p></blockquote>
+
+<p>-a (automático)</p>
+
+<p>-g (Tamaño de los archivos generados)</p>
+
+<p>-f (el sistema de archivos a tratar)</p>
+
+<p>-i (0= escritura, 1= lectura, 2=lectura/escritura&#8230;.)</p>
+
+<p>-b (archivo que generará con los resultados)</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -614,101 +664,6 @@ current=/var/lib/integrit/current.cdb
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/inittab/">Inittab</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Fichero que gestiona el inicio del sistema o un cambio de estado (runlevel) con el comando init (ver).</p>
-
-<blockquote><p># nano /etc/inittab</p></blockquote>
-
-<p>Especificación de si el sistema arranca en modo monousuario (1) o multiusuario (2-5). Por defecto 2 o 3:</p>
-
-<pre><code>id:2:initdefault:
-</code></pre>
-
-<p>Scripts que se ejecutarán en el inicio y en el orden que lo harán independientemente del runlevel:</p>
-
-<pre><code>si::sysinit:/etc/init.d/rcS (En algunas distros si::sysinit:/etc/rc.d/rc.sysinit)
-</code></pre>
-
-<p>Este script llama a los scripts del directorio /etc/rcS.d. Por cada runlevel se ejecutan los scripts del directorio correpondiente: rc0.d/, rc1.d/, rc2.d/, rc3.d/, rc4.d/, rc5.d/, rc6.d/, rc.local y rcS.d/. El directorio /etc/rc.local se usa para ejecutar servicios porpios del usuario. En estos directorios los scripts que empiezan por una &#8220;K&#8221; paran servicios y los que empiezan por una &#8220;S&#8221; los arrancan.</p>
-
-<p>Qué hacer si se presiona CTRL-ALT-DEL:</p>
-
-<pre><code>ca:12345:ctrlaltdel:/sbin/shutdown -t1 -a -r now
-</code></pre>
-
-<p>Qué hacer si la corriente se va/vuelve</p>
-
-<pre><code>pf::powerwait:/etc/init.d/powerfail start
-
-pn::powerfailnow:/etc/init.d/powerfail now
-
-po::powerokwait:/etc/init.d/powerfail stop
-</code></pre>
-
-<p>Despues de ejecutar los scripts de inicio, init crea un conjunto de terminales virtuales:</p>
-
-<pre><code>1:2345:respawn:/sbin/getty 38400 tty1
-
-2:23:respawn:/sbin/getty 38400 tty2
-
-3:23:respawn:/sbin/getty 38400 tty3
-
-4:23:respawn:/sbin/getty 38400 tty4
-
-5:23:respawn:/sbin/getty 38400 tty5
-
-6:23:respawn:/sbin/getty 38400 tty6
-</code></pre>
-
-<p>Utilizando la opción respawn, si alguien trata de finalizar uno de estos procesos, el proceso simplemente será regenerado (respawned).</p>
-
-<p>1.-</p>
-
-<p>Entrar de forma automática:</p>
-
-<p>Comentar la siguiente línea</p>
-
-<blockquote><p>#1:2345:respawn:/sbin/getty 38400 tty1</p></blockquote>
-
-<p>Y Agrega la siguiente linea:</p>
-
-<p>1:2345:respawn:/bin/login -f USUARIO tty1 </dev/tty1 >/dev/tty1 2>&amp;1</p>
-
-<p>Siendo USUARIO el nombre de usuario que hará login automático.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/86/">&larr; Older</a>
@@ -724,12 +679,16 @@ po::powerokwait:/etc/init.d/powerfail stop
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1389</li>
+	<li>1390</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/boinc/">boinc</a>
+      </li>
     
       <li class="post">
         <a href="/blog/bc/">bc</a>
@@ -765,10 +724,6 @@ po::powerokwait:/etc/init.d/powerfail stop
     
       <li class="post">
         <a href="/blog/virtualbox/">virtualbox</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/automater/">automater</a>
       </li>
     
   </ul>
