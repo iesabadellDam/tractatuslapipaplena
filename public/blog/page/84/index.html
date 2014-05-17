@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="herramienta de cortafuegos y trafico de red. Algunos ejemplos generales: # iptables -F (eliminar todas las reglas) # iptables -L (si está activo y &hellip;">
+  <meta name="description" content="Muestra información en tiempo real sobre el tráfico de red. # iptraf -i eth0 (Analiza todo el trafico de la red eth0) # iptraf -i all (Analiza el de &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,92 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/iptraf/">Iptraf</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Muestra información en tiempo real sobre el tráfico de red.</p>
+
+<blockquote><p># iptraf -i eth0 (Analiza todo el trafico de la red eth0)</p>
+
+<p># iptraf -i all (Analiza el de todas las redes)</p>
+
+<p># iptraf -s eth0 (Analiza el tráfico agrupandolo por protocolo y puerto)</p>
+
+<p># iptraf -z eth0 (Contabiliza paquetes y agrupa por tamaño)</p></blockquote>
+
+<p>Una vez lanzada la aplicación, para salir pulsar X</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/iptotal/">Iptotal</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Monitor de tráfico IP. Mide el uso del ancho de banda.</p>
+
+<blockquote><p># iptotal eth0 -r 60 (Escuchará 60 segundos antes de informar)</p>
+
+<p># iptotal eth0 -r 120 -d 3 -P  (con alto nivel de depuarión[-d 3] y modo promiscuo [-P]</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -591,127 +677,6 @@ localrange 192.168.1.0/24
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ip-ajustes/">Ip-ajustes</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>1.- Estática</p>
-
-<blockquote><p># gedit /etc/network/interfaces</p></blockquote>
-
-<pre><code>auto eth0
-
-iface eth0 inet static
-
-address 192.168.x.x
-
-netmask 255.255.255.0
-
-network 192.168.x.0
-
-boadcast 192.168.2.255
-
-gateway 192.168.x.1
-</code></pre>
-
-<blockquote><p># /etc/init.d/networking restart (reiniciar el servicio)</p>
-
-<p>$ ifconfig (verificar la nueva ip)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ip/">Ip</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>(comando). Configuración de red. Muestra dispositivos, enrutamientos, tuneles.</p>
-
-<blockquote><p>$ ip addr (Revisar tarjetas)</p>
-
-<p>$ ip route show (Información)</p>
-
-<p>$ ip link show (Ver interfaces de red)</p>
-
-<p>$ ip link set dev eth0 down (bajar una red)</p>
-
-<p>$ ip route add default via 192.168.1.1 (establecer la ip del router)</p>
-
-<p>$ ip link set dev eth0 up (levantar una red)</p>
-
-<p>$ ip addr add 192.168.1.20 255.255.255.0 dev eth1 (establecer una ip estática)</p>
-
-<p>$ ip n  (MAC e IP del router)</p>
-
-<p>$ ip link set dev eth1 address 00:03:44:88:00:11 (Modificdar la MAC. Previamente bajar la red)</p>
-
-<p>$ ip route del default (Eliminar puerta de enlace para crear una nueva)</p>
-
-<p>$ ip route add default via 192.168.1.10 (Crear nueva puerta de enlace)</p>
-
-<p>$ ip -f inet addr show eth0 (información de la dirección ip)</p>
-
-<p>$ ip route add 192.168.2.0/24 via 192.168.1.10 (Añadir una red a una puerta de enlace)</p></blockquote>
-
-<p>Nota.- Verificar que /etc/resolv contenga una linea con el servidor DNS tipo: nameserver 8.8.8.8 [para las DNS de google]</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/85/">&larr; Older</a>
@@ -727,12 +692,20 @@ gateway 192.168.x.1
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1390</li>
+	<li>1392</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/lshell/">lshell</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/apt-mirror/">apt-mirror</a>
+      </li>
     
       <li class="post">
         <a href="/blog/typeset/">typeset</a>
@@ -764,14 +737,6 @@ gateway 192.168.x.1
     
       <li class="post">
         <a href="/blog/do-release-upgrade/">do-release-upgrade</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/slackpkg/">slackpkg</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/lxde/">lxde</a>
       </li>
     
   </ul>

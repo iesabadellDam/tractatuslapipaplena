@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Define variables y les da atributos. Es necesario para operar con números y hacer cuentas con ellos. Ver &#8220;declare&#8221; Un ejemplo de uso en &hellip;">
+  <meta name="description" content="shell restrictiva para permitir a usuarios acceder via ssh al sistema limitando sus privilegios. Algunas modificaciones en el archivo de &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,139 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/lshell/">Lshell</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-17T04:43:00+02:00" pubdate data-updated="true">17-05-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>shell restrictiva para permitir a usuarios acceder via ssh al sistema limitando sus privilegios. Algunas modificaciones en el archivo de configuración:</p>
+
+<blockquote><p># nano /etc/lshell.conf</p></blockquote>
+
+<pre><code>...
+
+[global]
+
+# archivo de logs
+
+logpath         : /var/log/lshell/
+
+...
+
+[default]
+
+...
+
+# Comandos permitidos
+
+allowed         : ['ls','echo','cd','ll','cat','more','nano']
+
+# Mensaje al arrancar
+
+intro           : "*** Entrando en la máquina con privilegios limitados *** Pulsar '?' o 'help' para listar comandos autoritzados"
+
+# Si el usuario tiene una carpeta personal
+
+home_path       : '/home/USUARIO/'
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/apt-mirror/">Apt-mirror</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-17T04:43:00+02:00" pubdate data-updated="true">17-05-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[apache2]. Configurar un repositorio local. Seguidamente se muestra el proceso:</p>
+
+<blockquote><p>$ mkdir repo (Crear el directorio)</p>
+
+<p># nano /etc/apt/mirror.list</p></blockquote>
+
+<p>Añadir al principio la linea del directorio:</p>
+
+<pre><code>set base_path /home/USER/repo
+</code></pre>
+
+<blockquote><p># apt-mirror (Recargar/actualizar el repositorio)</p></blockquote>
+
+<p>Crear el enlace para que esté disponible via web:</p>
+
+<blockquote><p>$ cd /var/www/html</p>
+
+<p>$ ln -s /home/USER/distro/mirror/us.archive.ubuntu.com/ubuntu ubuntu</p></blockquote>
+
+<p>Modificar el sources.list:</p>
+
+<blockquote><p># nano /etc/apt/sources.list</p></blockquote>
+
+<p>Añadir la lineas:</p>
+
+<pre><code>deb http://192.168.1.2/ubuntu trusty universe
+
+deb http://192.168.1.2/ubuntu trusty main restricted
+
+deb http://192.168.1.2/ubuntu trusty-updates main restricted
+</code></pre>
+
+<blockquote><p># apt-update (Actualizar el cliente)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -482,237 +615,6 @@ v (Etiqueta de volumen)
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/slackpkg/">Slackpkg</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-26T07:29:00+02:00" pubdate data-updated="true">26-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Gestor de paquetes de Slackware sin resolución de dependencias. Como previa antes de su uso es preciso descomentar el repositorio de nuestra elección en /etc/slackpkg/mirrors</p>
-
-<blockquote><p># slackpkg update gpg (Bajar llaves publicas)</p>
-
-<p># slackpkg update (Recargar listado)</p>
-
-<p># slackpkg upgrade-all (Actualizar toda la distro)</p>
-
-<p># slackpkg search paquete (buscar paquete)</p>
-
-<p># slackpkg install paquete (instalar paquete)</p>
-
-<p># slackpkg upgrade paquete (actualiza el paquete elegido)</p>
-
-<p># slackpkg reinstall paquete (reinstala paquete)</p>
-
-<p># slackpkg remove paquete (desinstala paquete)</p>
-
-<p># slackpkg blacklist paquete (pone el paquete en lista negra)</p>
-
-<p># slackpkg download paquete (descarga paquete sin instalarlo)</p>
-
-<p># slackpkg info paquete (muestra informacion de paquete)</p>
-
-<p># slackpkg clean-system (Lista los paquetes obsoletos)</p>
-
-<p># slackpkg install-new (Lista los paquetes introducidos recientemente)</p>
-
-<p># slackpkg generate-template (Generar una plantilla de los paquetes instalados en un pc)</p>
-
-<p># slackpkg install-template (Instalar un slackware en un pc a partir de una plantilla))</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/lxde/">Lxde</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-26T06:37:00+02:00" pubdate data-updated="true">26-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Escritorio ligero. Sus componentes:</p>
-
-<pre><code>pcmanfm (gestor de archivos)
-
-lxlauncher (lanzador de aplicaciones)
-
-lxpanel (panel de escritorio)
-
-lxsession-edit (cambiar el gestor de ventanas y las aplicaciones ejecutadas al inicio)
-
-lxsession  (gestor de sesiones con las opciones cerrar, reiniciar y suspender)
-
-lxappearance  (gestor de temas. Permite cambiar el aspecto, iconos  y tipografías)
-
-leafpad (editor de texto)
-
-xarchiver  (gestor de archivos comprimidos)
-
-gpicview (visor de imágenes)
-
-lxterminal (Consola)
-
-lxtask  (administrador de tareas y monitor de sistema)
-
-openbox  (gestor de ventanas)
-
-lxrandr (gestor de resolucaión de pantalla y monitores externos)
-
-lxshortcut (editor de lanzadores)
-
-lxmusic (reproductor de música basado en xmms2)
-</code></pre>
-
-<p>Archivos de configuración de los elementos del escritorio lxde:</p>
-
-<pre><code>~/.config/gtkrc-2.0 (Temas de escritorio GTK+ e iconos)
-
-~/.config/leafpad/leafpadrc (Editor de textos Leafpad)
-
-~/.config/lxpanel/LXDE/panels/panel (Paneles)
-
-~/.config/lxpanel/LXDE/config (Lanzadores de aplicaciones del panel)
-
-~/.config/lxsession/LXDE/config (Administrador de ventanas)
-
-~/.config/lxterminal/lxterminal.conf (Terminal)
-
-~/.config/openbox/lxde-rc.xml (Openbox)
-
-~/.config/openbox/menu.xml (Menu de Openbox)
-
-~/.config/pcmanfm/main.lxde (Pcmanfm)
-</code></pre>
-
-<p>1.-</p>
-
-<p>Arrancar aplicaciones al inicio:</p>
-
-<blockquote><p># /etc/xdg/lxsession/LXDE/autostart</p></blockquote>
-
-<p>Colocar las aplicaciones precedidas de una @:</p>
-
-<pre><code>@liferea
-
-@gdesklets
-</code></pre>
-
-<p>2.-</p>
-
-<p>Crear iconos en el escritorio:</p>
-
-<p>Colocar los archivos en la carpeta Desktop o Escritorio si se tiene en español:</p>
-
-<blockquote><p>$ nano Desktop/home.lnk</p></blockquote>
-
-<p>Y colocamos el siguiente contenido de ejemplo:</p>
-
-<pre><code>[Desktop Entry]
-
-Name=Personal
-
-Type=Application
-
-Comment=Carpeta personal
-
-Terminal=false
-
-Exec=pcmanfm ~
-
-Icon=folder_home.png
-
-Encoding=UTF-8
-</code></pre>
-
-<p>Para colocar la papelera:</p>
-
-<pre><code>$ nano Desktop/papelera.lnk
-
-Y pegar el contenido:
-
-[Desktop Entry]
-
-Name=Papelera
-
-Type=Application
-
-Comment=Papelera
-
-Terminal=false
-
-Exec=pcmanfm trash:///
-
-Icon=emptytrash.png
-
-Encoding=UTF-8
-</code></pre>
-
-<p>3.-</p>
-
-<p>Modificar iconos:</p>
-
-<blockquote><p>$ ls /usr/share/icons/ (Ver el listado de los disponibles)</p>
-
-<p># nano  /usr/share/icons/default/index.theme</p></blockquote>
-
-<p>Y en apartado Inherits colocar el deseado:</p>
-
-<p>Inherits = ComixCursors-Red-Large</p>
-
-<p>Reiniciar.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -726,12 +628,20 @@ Encoding=UTF-8
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1390</li>
+	<li>1392</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/lshell/">lshell</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/apt-mirror/">apt-mirror</a>
+      </li>
     
       <li class="post">
         <a href="/blog/typeset/">typeset</a>
@@ -763,14 +673,6 @@ Encoding=UTF-8
     
       <li class="post">
         <a href="/blog/do-release-upgrade/">do-release-upgrade</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/slackpkg/">slackpkg</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/lxde/">lxde</a>
       </li>
     
   </ul>

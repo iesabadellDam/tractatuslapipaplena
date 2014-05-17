@@ -4,7 +4,7 @@
   <title><![CDATA[TRACTATUS ELEMENTALIS]]></title>
   <link href="https://tractatuslapipaplena.herokuapp.com/atom.xml" rel="self"/>
   <link href="https://tractatuslapipaplena.herokuapp.com/"/>
-  <updated>2014-05-07T18:24:55+02:00</updated>
+  <updated>2014-05-17T04:43:14+02:00</updated>
   <id>https://tractatuslapipaplena.herokuapp.com/</id>
   <author>
     <name><![CDATA[templix]]></name>
@@ -12,6 +12,85 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[lshell]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/lshell/"/>
+    <updated>2014-05-17T04:43:00+02:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/lshell</id>
+    <content type="html"><![CDATA[<p>shell restrictiva para permitir a usuarios acceder via ssh al sistema limitando sus privilegios. Algunas modificaciones en el archivo de configuración:</p>
+
+<blockquote><p># nano /etc/lshell.conf</p></blockquote>
+
+<pre><code>...
+
+[global]
+
+# archivo de logs
+
+logpath         : /var/log/lshell/
+
+...
+
+[default]
+
+...
+
+# Comandos permitidos
+
+allowed         : ['ls','echo','cd','ll','cat','more','nano']
+
+# Mensaje al arrancar
+
+intro           : "*** Entrando en la máquina con privilegios limitados *** Pulsar '?' o 'help' para listar comandos autoritzados"
+
+# Si el usuario tiene una carpeta personal
+
+home_path       : '/home/USUARIO/'
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[apt-mirror]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/apt-mirror/"/>
+    <updated>2014-05-17T04:43:00+02:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/apt-mirror</id>
+    <content type="html"><![CDATA[<p>[apache2]. Configurar un repositorio local. Seguidamente se muestra el proceso:</p>
+
+<blockquote><p>$ mkdir repo (Crear el directorio)</p>
+
+<p># nano /etc/apt/mirror.list</p></blockquote>
+
+<p>Añadir al principio la linea del directorio:</p>
+
+<pre><code>set base_path /home/USER/repo
+</code></pre>
+
+<blockquote><p># apt-mirror (Recargar/actualizar el repositorio)</p></blockquote>
+
+<p>Crear el enlace para que esté disponible via web:</p>
+
+<blockquote><p>$ cd /var/www/html</p>
+
+<p>$ ln -s /home/USER/distro/mirror/us.archive.ubuntu.com/ubuntu ubuntu</p></blockquote>
+
+<p>Modificar el sources.list:</p>
+
+<blockquote><p># nano /etc/apt/sources.list</p></blockquote>
+
+<p>Añadir la lineas:</p>
+
+<pre><code>deb http://192.168.1.2/ubuntu trusty universe
+
+deb http://192.168.1.2/ubuntu trusty main restricted
+
+deb http://192.168.1.2/ubuntu trusty-updates main restricted
+</code></pre>
+
+<blockquote><p># apt-update (Actualizar el cliente)</p></blockquote>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[typeset]]></title>
@@ -1087,92 +1166,6 @@ María Monzón 9 16 metálico
 <p>$ find / -name &#8220;algo&#8221; -a ! -path &#8220;/media/servidor/*&#8221; -exec echo {} \; 2>/dev/null (Buscar &#8220;algo&#8221; descartando el directorio /media/servidor/)</p>
 
 <p>$ find /home/usuario -iname &#8216;*.odt&#8217; -exec cp &#8216;{}&#8217; /home/usuario/Documentos \; (Copiar todos los odt a la carpeta Documentos)</p></blockquote>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[apt]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/apt/"/>
-    <updated>2014-04-17T19:49:00+02:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/apt</id>
-    <content type="html"><![CDATA[<p>Aplicación que unifica las opciones y parámetros de apt-cache y apt-get. Tambien cuenta con una barra de progreso. Tiene casi los mismo parametros que el comando apt-get.</p>
-
-<blockquote><p># apt list (Muestra todos los paquetes disponibles</p>
-
-<p># apt list &#8211;installed (Muestra todos los paquetes instalados)</p>
-
-<p># apt list &#8211;upgradable (Muestra todos los paquetes instalables)</p>
-
-<p>$ apt search paquete (Buscar un paquete)</p>
-
-<p># apt update (Actualiza el listado de paquetes)</p>
-
-<p># apt upgrade (Actualiza todos los paquetes del sistema)</p>
-
-<p># apt install paquete (Instala un paquete)</p>
-
-<p># apt remove paquete (Suprime un paquete)</p>
-
-<p># apt edit-sources (Edita el sources.list)</p></blockquote>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[sudo]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/sudo/"/>
-    <updated>2014-04-14T15:48:00+02:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/sudo</id>
-    <content type="html"><![CDATA[<p>Utilidad que permite a un usuario ejecutar programas con privilegios de root. En algunas distros sólo el usuario creado durante la instalación puede ejecutar sudo con privilegios de root, los demás han de ser agregados al grupo admin.</p>
-
-<blockquote><p>$ sudo -k   (limpia la clave sudo introducida)</p>
-
-<p>$ sudo -u usuario comando   (ejecutar el comando como un usuario privilegiado distinto de root)</p>
-
-<p>$ sudo -l    (ver los permisos de sudo que tiene un usuario)</p>
-
-<p>$ sudo !! (Ejecutar el último comando con sudo)</p></blockquote>
-
-<p>Pueden añadirse las siguientes lineas en /etc/sudoers:</p>
-
-<p>Defaults passprompt=”mi frase solicitando la contraseña&#8230;”</p>
-
-<p>Defaults badpass_message=”mi frase si se entra erronea&#8230;”</p>
-
-<p>usuario    ALL=(ALL) ALL  (Añadir el usuario a sudo)</p>
-
-<p>Defaults:usuario !authenticate  (si no queremos que nos pida la contraseña)</p>
-
-<p>Defaults env_reset , pwfeedback (Defaults env_reset</p>
-
-<p>sustituirla por:)</p>
-
-<p>usuario ALL=NOPASSWD: /usr/sbin/firestarter (Para que no pida contraseña al arrancar una aplicación concreta)</p>
-
-<p>O añadir a la linea Defaults, algunos parámetros separados por comas:</p>
-
-<p>timestamp_timeout=5   (La contraseña se guardará 5 minutos.)</p>
-
-<p>insults    (Te mostrará insultos si fallas la contraseña)</p>
-
-<p>passwd_tries=2   (Permitir 2 errores al entrar la contraseña. Por defecto 3)</p>
-
-<p>rootpw (Para que nos pida la contraseña de root y no la de usuario)</p>
-
-<p>Ejemplos:</p>
-
-<p>Defaults     !lecture,tty_tickets,!fqdn,timestamp_timeout=0,insults</p>
-
-<p>Defaults@192.168.1.2 !lecture,tty&#8230;. (Permitir ejecución sólo desde nuestra máquina)</p>
-
-<p>1.-</p>
-
-<p>Para que al entrar un contraseña en la terminal aparezcan asterisco:</p>
-
-<p>En la linea: Defaults env_reset</p>
-
-<p>Añadir &#8220;pwfeedback&#8221; dejándola:</p>
-
-<p>Defaults env_reset , pwfeedback</p>
 ]]></content>
   </entry>
   
