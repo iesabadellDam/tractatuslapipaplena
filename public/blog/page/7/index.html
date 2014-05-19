@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Teclado virtual.
-">
+  <meta name="description" content="[xbase-clients]. Captura de pantalla $ xwd > pantalla.xwd (Capturar la ventana al clicarla) $ xwd -root -screen > pantalla.xwd (Capturar la ventana &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +74,48 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/xwd/">Xwd</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-05T18:23:00+02:00" pubdate data-updated="true">05-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[xbase-clients]. Captura de pantalla</p>
+
+<blockquote><p>$ xwd > pantalla.xwd  (Capturar la ventana al clicarla)</p>
+
+<p>$ xwd -root -screen > pantalla.xwd  (Capturar la ventana inmediatamente)</p>
+
+<p>$ xwud -in pantalla.xwd  (Ver imágenes en formato xwd)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -507,122 +548,6 @@ XTerm*HiBackColor: #c06077
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/xrandr/">Xrandr</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Cambiar la resolución de pantalla.</p>
-
-<blockquote><p>$ xrandr  (muestra la resolución usada, la máxima, la mínima y todas las posibles. La marcada con un &#8220;*&#8221; es la usada y la “+” es la optima)</p>
-
-<p>$ xrandr | grep * | cut -d&#8217; &#8217; -f4 (otra forma de ver la resolución usada)</p>
-
-<p>$ xrandr -s 1280x1024    (modificar la resolución)</p>
-
-<p>$ xrandr -r 76   (modificar la tasa de refresco)</p>
-
-<p>$ xrandr &#8211;auto (configurar proyectores externos)</p>
-
-<p>$ xrandr -q | awk -F&#8217;current&#8217; -F&#8217;,&#8217; &#8216;NR==1 {gsub(&#8220;( |current)&#8221;,&#8221;&#8220;);print $2}&#8217;  (solo muestra la resolución usada)</p>
-
-<p>$ xrandr -q | grep -w Screen (muestra la mínima, la usada y la máxima)</p></blockquote>
-
-<p>Ejemplo práctico:</p>
-
-<p>Conocer resoluciones y cual es la utilizada:</p>
-
-<blockquote><p>$ xrandr</p></blockquote>
-
-<p>crear/agregar nueva resolución:</p>
-
-<blockquote><p>$ cvt 1127 999 | grep Modeline | cut -d&#8221; &#8221; -f 2-</p></blockquote>
-
-<p>&#8220;1128x999_60.00&#8221;   93.00  1128 1200 1312 1496  999 1002 1012 1037 -hsync +vsync</p>
-
-<p>cargar la nueva resolución:</p>
-
-<blockquote><p>$ xrandr &#8211;newmode &#8220;1128x999_60.00&#8221;   93.00  1128 1200 1312 1496  999 1002 1012 1037 -hsync +vsync</p></blockquote>
-
-<p>Comprobar que se ha agregado la nueva resolución:</p>
-
-<blockquote><p>$ xrandr</p></blockquote>
-
-<p>añadir el modo creado a la tarjeta conectada (VGA-0, LVDS1&#8230;)</p>
-
-<blockquote><p>$ xrandr &#8211;addmode VGA-0 1128x999_60.00</p></blockquote>
-
-<p>Para eliminar este modo: xnest</p>
-
-<p>Herramienta que permite abrir un servidor X dentro de otro servidor X</p>
-
-<blockquote><p>$ Xnest :20 -ca &amp; (Sesion número 20)</p></blockquote>
-
-<p>Para mandar instancias al servidor xnest:</p>
-
-<blockquote><p>$ xterm -display :20 (Abrirá exterm en el interior de la sesión 20)</p>
-
-<p>$ Xnest :20 -geometry 800x600 &amp; (Especificando medidas de la ventana)</p>
-
-<p>$ xrandr &#8211;rmmode VGA-0 1128x999_60.00</p></blockquote>
-
-<p>Para predeterminar la nueva configuración:</p>
-
-<blockquote><p>$ xrandr &#8211;output VGA-0 &#8211;mode 1128x999_60.00</p></blockquote>
-
-<p>Si nos da un error “out of range” (fuera de rango) suele ser porque la tasa de refresco del monitor es diferente de la configurada por defecto. Para modificarla:</p>
-
-<blockquote><p>$ xrandr &#8211;output VGA-0 &#8211;mode 1128x999_60.00 &#8211;rate 60,3</p></blockquote>
-
-<p>Una vez comprobado que todo funciona para hacer permanentes los cambios:</p>
-
-<blockquote><p># nano /etc/gdm/Init/Default</p></blockquote>
-
-<p>A continuación de las lineas:</p>
-
-<p>PATH=”/usr/bin:$PATH”</p>
-
-<p>OLD_IFS=$IFS</p>
-
-<p>Añadir:</p>
-
-<p>xrandr &#8211;newmode &#8220;1128x999_60.00&#8221;   93.00  1128 1200 1312 1496  999 1002 1012 1037 -hsync +vsync</p>
-
-<p>xrandr &#8211;addmode VGA-0 1128x999_60.00</p>
-
-<p>xrandr &#8211;output VGA-0 &#8211;mode 1128x999_60.00 &#8211;rate 60,3</p>
-
-<p>Reiniciar.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/8/">&larr; Older</a>
@@ -644,6 +569,10 @@ XTerm*HiBackColor: #c06077
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/ssh/">ssh</a>
+      </li>
     
       <li class="post">
         <a href="/blog/lshell/">lshell</a>
@@ -679,10 +608,6 @@ XTerm*HiBackColor: #c06077
     
       <li class="post">
         <a href="/blog/update-manager/">update-manager</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/do-release-upgrade/">do-release-upgrade</a>
       </li>
     
   </ul>

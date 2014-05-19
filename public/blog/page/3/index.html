@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Aplicación que unifica las opciones y parámetros de apt-cache y apt-get. Tambien cuenta con una barra de progreso. Tiene casi los mismo parametros &hellip;">
+  <meta name="description" content="Buscar archivos o directorios $ find / -iname archivo (Busca en / archivo sin distinguir minusculas y mayusculas) $ find /home -name *.png -print ( &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,92 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/find/">Find</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-17T19:49:00+02:00" pubdate data-updated="true">17-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Buscar archivos o directorios</p>
+
+<blockquote><p>$ find / -iname archivo     (Busca en / archivo sin distinguir minusculas y mayusculas)</p>
+
+<p>$ find /home -name *.png -print      (Buscará en /home todos los archivos “.png” y mostrará la ruta)</p>
+
+<p>$ find . -name &#8220;*.bak&#8221; -exec rm {} \; (buscará en el directorio todos los acabados en .bak y los borrará. la instrucción &#8220;-exec&#8221; seguido del comando a ejecutar. los corchetes {} se refiere a los ficheros que find ha encontrado y la barra invertida seguido de punto y coma \; indica el final de la instrucción)</p>
+
+<p>$ find . ! -iname “<em>.png” ! -name “</em>.jpg”  (Buscar en el directorio actual todos los archivos menos los acabados en png y jpg)</p>
+
+<p>$ find . -amin -15 (Buscar los que se ha accedido en los últimos 15 minutos)</p>
+
+<p>$ find . -atime 15 (Buscar los que se accedió por última vez hace 15 dias)</p>
+
+<p>$ find / -amin -10 (Los que se ha accedido los últimos 10 minutos)</p>
+
+<p>$ find . -type f  (Buscar ficheros)</p>
+
+<p>$ find . -type d  (Buscar directorios)</p>
+
+<p>$ find / -iname fichero 2>/dev/null  (buscar redireccionando los avisos de permiso denegado a /dev/null)</p>
+
+<p>$ find . -iname &#8221;<em>.txt&#8221; -or -iname &#8221;</em>.odt&#8221; -exec cp {} documentos \; (Buscar los txt y los odt y copiarlos a la carpeta documentos)</p>
+
+<p>$ find . -type f -iname &#8220;*.bak&#8221; | xargs rm (buscar los ficheros acabados en .bak y borrarlos. xargs hace lo mismo que exec pero usando una tuberia.)</p>
+
+<p>$ find /home/usuario -iname &#8216;*.bak&#8217; -delete (Otra forma de borrar todos los .bak de un directorio)</p>
+
+<p>$ find . -type f -iname *.sla (buscará los ficheros .sla)</p>
+
+<p>$ find . -type f -mtime 0 (Buscará los ficheros creados o modificados hoy)</p>
+
+<p>$ find / -type f -mtime -1 -print (Los modificados las últimas 24 horas)</p>
+
+<p>$ find / -mtime +2 -print (Los modificados hace más de dos dias)</p>
+
+<p>$ find -L . -type l  (Buscar enlaces rotos)</p>
+
+<p>$ find . -type f -size +300k > masde300k.txt (buscar .sh mayores de 300k)</p>
+
+<p>$ find ./ -name .svn -exec rm -rf {} \; (eliminar todos los directorios y subdirectorios subversión)</p>
+
+<p>$ find . -name &#8220;*.html&#8221; -exec grep -i -H &#8220;Tractatus elementalis&#8221; {} \; (Buscar en todos los archivos html del directorio actual con un texto concreto)</p>
+
+<p>$ find . -name *.txt -exec sed -i &#8220;s/cosa/casa/g&#8221; {} \; (Substituir “cosa” por “casa” en todos los .txt del presente directorio)</p>
+
+<p>$ find ~/ -depth -type f -empty (Buscar archivos vacios. Con -type d buscará directorios vacios)</p>
+
+<p>$ find / -name &#8220;algo&#8221; -a ! -path &#8220;/media/servidor/*&#8221; -exec echo {} \; 2>/dev/null (Buscar &#8220;algo&#8221; descartando el directorio /media/servidor/)</p>
+
+<p>$ find /home/usuario -iname &#8216;*.odt&#8217; -exec cp &#8216;{}&#8217; /home/usuario/Documentos \; (Copiar todos los odt a la carpeta Documentos)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1455,135 +1541,6 @@ Protect hidden volume (if any)? (y=Yes/n=No) [No]:
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/mytop/">Mytop</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-09T17:16:00+02:00" pubdate data-updated="true">09-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Monitorización del servidor de bases de datos mysql. &#8220;q&#8221; para salir. Comprobar la actividad ingresando en otra consola en mysql [mysql -u USER -p]</p>
-
-<blockquote><p>$ mytop -u USER -p PASS -h localhost -P 3306 &#8211;color (Especificando host y puerto)</p></blockquote>
-
-<p>Para no poner la contraseña y que quede reflejada en el historial, es preferible entrar los datos en un archivo:</p>
-
-<blockquote><p>$ nano .mytop</p></blockquote>
-
-<p>Con los siguientes parámetros:</p>
-
-<pre><code>user=USER
-
-pass=PASS
-
-host=localhost
-
-db=
-
-delay=3
-
-port=3306
-
-batchmode=0
-
-header=1
-
-color=1
-
-idle=1
-</code></pre>
-
-<p>Delay=3 (Refrescar informe cada 3 segundos)</p>
-
-<p>batchmode=0 (Con valor 1 mostrará por pantalla todas las consultas una detrás de otra sin recargar la página. Si el valor es 0 cada vez que se refresque la página se borrarán las consultas anteriores)</p>
-
-<p>header=1 (Valor 1 muestra la cabecera)</p>
-
-<p>color=1 (en color)</p>
-
-<p>idle=1 (que muestre los resultados de las consultas que están dormidas)</p>
-
-<p>Conceptos que muestra la pantalla de mytop:</p>
-
-<pre><code>Queries (Número tatal de consultas)
-
-qps (Media de consultas por segundo)
-
-qps now (Número de consultas por segundo desde la última vez que se descargaron resultados)
-
-Slow (Número de consultas lentas)
-
-Slow qps (Consultas lentas desde la última descarga de resultados)
-
-Se/In/Up/De (indica cual es el porcentaje de Select, Insert, Update o Delete que se ejecutan en el servidor)
-
-key efficiency (Porcentaje de consultas que están utilizado una clave/índice en la consulta)
-
-Bps in/out (Media de bytes por segundo entrantes a la base de datos y media de bytes por segundo salientes)
-
-Now in/out (Media de bytes entrantes y salientes por segundo desde que mytop ha refrescado la página)
-</code></pre>
-
-<p>Teclas interactivas:</p>
-
-<pre><code>d (Mostrar solo datos de una base de datos)
-
-f (Mostrar información completa de una consulta)
-
-F (Desactivar todos los filtros)
-
-h (Mostrar solamente los datos de un servidor específico)
-
-H (Mostrar/ocultar cabecera)
-
-i (Mostrar/ocultar consultar dormidas)
-
-k (Matar una consulta)
-
-p (Pausar la vista)
-
-m (Cambiar "consultas más lentas" a "consultas por segundo")
-
-o (Invertir orden)
-
-q (Salir)
-
-r (Resetear todos los valores)
-
-s (Cambiar el tiempo de refresco)
-
-t (Cambiar al modo vista)
-
-u (Mostrar solamente de un usuario específico)
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -1605,6 +1562,10 @@ u (Mostrar solamente de un usuario específico)
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/ssh/">ssh</a>
+      </li>
     
       <li class="post">
         <a href="/blog/lshell/">lshell</a>
@@ -1640,10 +1601,6 @@ u (Mostrar solamente de un usuario específico)
     
       <li class="post">
         <a href="/blog/update-manager/">update-manager</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/do-release-upgrade/">do-release-upgrade</a>
       </li>
     
   </ul>

@@ -4,7 +4,7 @@
   <title><![CDATA[TRACTATUS ELEMENTALIS]]></title>
   <link href="https://tractatuslapipaplena.herokuapp.com/atom.xml" rel="self"/>
   <link href="https://tractatuslapipaplena.herokuapp.com/"/>
-  <updated>2014-05-17T04:43:14+02:00</updated>
+  <updated>2014-05-19T20:31:24+02:00</updated>
   <id>https://tractatuslapipaplena.herokuapp.com/</id>
   <author>
     <name><![CDATA[templix]]></name>
@@ -12,6 +12,188 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[ssh]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/ssh/"/>
+    <updated>2014-05-19T20:31:00+02:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/ssh</id>
+    <content type="html"><![CDATA[<p>Comunicación cifrada entre dos máquinas.</p>
+
+<blockquote><p>$ ssh usuario@host (básica)</p>
+
+<p>$ ssh -v usuario@IP_o_host (comprobar errores en una conexión)</p>
+
+<p>$ ssh -p 4000 usuario@host (especificando un puerto)</p>
+
+<p>$ ssh -fND localhost:2080 usuario@host (Crear un servidor proxy en una máquina remota. La “N” es para que no se puedan ejecutar comandos)</p>
+
+<p>$ ssh -X -Y usuario@host akregator (Lanzar una aplicación remota en local. Ver punto 11 de esta entrada)</p>
+
+<p>$ ssh usuario@host ls (lanzar un comando remoto y visualizarlo en local)</p>
+
+<p>$ ssh -t usuario@host newsbeuter  (lo mismo si precisa consola)</p>
+
+<p>$ ssh -D 9999 usuario@host (abrir un puerto a partir del cual tunelar una conexión)</p>
+
+<p>$ ssh user@host_ip &#8216;DISPLAY=&#8221;:0.0&#8221; import -window root screenshot.png&#8217; (realizar pantallazo de una sesión remota. Se archiva en el remoto no en local)</p>
+
+<p>$ ssh usuario@host &#8220;tar -cf - /home/usuario/dir&#8221; | gzip dir.tar.gz (Comprimir un directorio remoto)</p>
+
+<p>$ ssh usuario@host cat /home/usuario/archivo.txt | xclip -selection (Copiar el contenido de un archivo remoto en el clipboard local)</p>
+
+<p># gedit /var/run/motd   (modificar el mensaje de bienvenida de ssh)</p></blockquote>
+
+<p>1.-</p>
+
+<p>conexión remota. El servidor ha de tener el archivo /etc/ssh/sshd_config con los siguientes parámetros:</p>
+
+<p>AllowTcpForwarding yes</p>
+
+<p>GatewayPorts yes</p>
+
+<p>Luego configurar Firefox para usar un servidor proxy 127.0.0.1 puerto 9999.</p>
+
+<p>2.-</p>
+
+<blockquote><p># gedit /etc/issue.net   (modificar el mensaje antes del login. Para activarlo, descomentar del archivo “/etc/ssh/sshd_config” la línea: Banner /etc/issue.net)</p></blockquote>
+
+<p>3.-</p>
+
+<p>Tunel inverso:</p>
+
+<blockquote><p>$ ssh -R 10000:localhost:22 usuario2@host2 (lanzado desde host1 hacia host2 crea un tunel por el puerto 10000)</p>
+
+<p>$ ssh usuario2@host2 (Lanzado desde host3 hacia host2)</p></blockquote>
+
+<p>Una vez entrado en host2, lanzar:</p>
+
+<blockquote><p>$ ssh usuario1@localhost -p 10000 (Para conectar el host3 con el host1)</p></blockquote>
+
+<p>4.-</p>
+
+<p>Crear clave publica para acceder a un remoto sin que pida identificación:</p>
+
+<blockquote><p>$ ssh-keygen -b 4096 -t rsa  (Crear la clave)</p>
+
+<p>$ ssh-copy-id usuario@IP_o_HOST (enviar la clave al remoto)</p></blockquote>
+
+<p>5.-</p>
+
+<p>Para deshabilitar el acceso a todos los usuarios excepto a root:</p>
+
+<blockquote><p># touch /etc/nologin</p>
+
+<p># chmod 644 /etc/nologin</p></blockquote>
+
+<p>6.-</p>
+
+<p>Deshabilitar/personalizar los mensajes que aparecen cuando nos logueamos en algunas distros a un host remoto mediante SSH.</p>
+
+<blockquote><p>$ touch /home/usuario/.hushlogin (Creando este fichero vacio se deshabilitan los mensajes. Borrandolo vuelven a aparecer)</p>
+
+<p># nano /etc/motd (Archivo para personalizar los mensaje de bienvenida a quien se loguea en el sistema)</p></blockquote>
+
+<p>7.-</p>
+
+<p>Crear un atajo para la conexión a un servidor remoto:</p>
+
+<blockquote><p>$ nano .ssh/config</p></blockquote>
+
+<p>Y pegar el siguiente contenido debidamente modificado con nuestros datos:</p>
+
+<pre><code>host servidor
+
+ hostname 192.168.1.10
+
+ user USUARIO_REMOTO
+</code></pre>
+
+<p>Nota.- Delante de la segunda y tercera linea existe un espacio.</p>
+
+<p>Al crear este archivo, la conexión se realizará con:</p>
+
+<blockquote><p>$ ssh servidor (Pedirá igualmente contraseña)</p></blockquote>
+
+<p>8.-</p>
+
+<p>Evitar desconexiones por inactividad:</p>
+
+<blockquote><p>$ nano .ssh/config</p></blockquote>
+
+<p>Y pegar el siguiente contenido:</p>
+
+<pre><code>Host *
+
+    ServerAliveInterval 120
+
+    ServerAliveCountMax 3
+</code></pre>
+
+<p>9.-</p>
+
+<p>Añadir un registro de las acciones realizadas dentro de cada sesión SFTP</p>
+
+<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
+
+<p>Y dejar la linea como se indica:</p>
+
+<p>Subsystem sftp /usr/lib/openssh/sftp-server -l INFO</p>
+
+<p>Tras reiniciar ssh, el registro se plasmará en /var/log/auth.log</p>
+
+<p>10.-</p>
+
+<p>Aumentando la seguridad del servidor ssh:</p>
+
+<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
+
+<p>Y añadir o modificar las siguientes lineas:</p>
+
+<pre><code>AllowUsers juan pedro andrés (Limitando a uno o varios los usuarios autorizados)
+
+AllowGroup oficina (Restringir acceso a solo un grupo)
+
+Port 372 (Modificando puerto. Aconsejable uno inferior al 1024)
+
+LoginGraceTime 40 (Mostrar la pantalla de login 40 segundos antes de cerrarse)
+
+MaxStartups 4 (Cantidad máxima de conexiones simultaneas)
+
+MaxAuthTries 3 (Limitar el número de intentos de logeo, tras los cuales se cierra la conexión)
+</code></pre>
+
+<p>11.-</p>
+
+<p>Ajustes para tunelar aplicaciones gráficas:</p>
+
+<p>En el servidor:</p>
+
+<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
+
+<pre><code>AllowTcpForwarding yes
+
+X11Forwarding yes
+
+X11DisplayOffset 10
+
+X11UseLocalhost yes
+</code></pre>
+
+<p>En la máquina cliente:</p>
+
+<blockquote><p># nano /etc/ssh/ssh_config</p></blockquote>
+
+<pre><code>ForwardX11 yes
+
+ForwardX11Trusted yes
+</code></pre>
+
+<p>Después de reiniciar ssh, con el parámetro -X se visualizará la gui remota que tambien tiene que estar instalada en local.</p>
+
+<blockquote><p>$ ssh -X usuario@host akregator</p></blockquote>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[lshell]]></title>
@@ -1107,65 +1289,6 @@ María Monzón 9 16 metálico
 <p># john &#8211;wordlist=diccionario.lst &#8211;rules contraseñas.txt (Usando un diccionario)</p>
 
 <p># john &#8211;show contraseñas.txt (Ver resultados)</p></blockquote>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[find]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/find/"/>
-    <updated>2014-04-17T19:49:00+02:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/find</id>
-    <content type="html"><![CDATA[<p>Buscar archivos o directorios</p>
-
-<blockquote><p>$ find / -iname archivo     (Busca en / archivo sin distinguir minusculas y mayusculas)</p>
-
-<p>$ find /home -name *.png -print      (Buscará en /home todos los archivos “.png” y mostrará la ruta)</p>
-
-<p>$ find . -name &#8220;*.bak&#8221; -exec rm {} \; (buscará en el directorio todos los acabados en .bak y los borrará. la instrucción &#8220;-exec&#8221; seguido del comando a ejecutar. los corchetes {} se refiere a los ficheros que find ha encontrado y la barra invertida seguido de punto y coma \; indica el final de la instrucción)</p>
-
-<p>$ find . ! -iname “<em>.png” ! -name “</em>.jpg”  (Buscar en el directorio actual todos los archivos menos los acabados en png y jpg)</p>
-
-<p>$ find . -amin -15 (Buscar los que se ha accedido en los últimos 15 minutos)</p>
-
-<p>$ find . -atime 15 (Buscar los que se accedió por última vez hace 15 dias)</p>
-
-<p>$ find / -amin -10 (Los que se ha accedido los últimos 10 minutos)</p>
-
-<p>$ find . -type f  (Buscar ficheros)</p>
-
-<p>$ find . -type d  (Buscar directorios)</p>
-
-<p>$ find / -iname fichero 2>/dev/null  (buscar redireccionando los avisos de permiso denegado a /dev/null)</p>
-
-<p>$ find . -iname &#8221;<em>.txt&#8221; -or -iname &#8221;</em>.odt&#8221; -exec cp {} documentos \; (Buscar los txt y los odt y copiarlos a la carpeta documentos)</p>
-
-<p>$ find . -type f -iname &#8220;*.bak&#8221; | xargs rm (buscar los ficheros acabados en .bak y borrarlos. xargs hace lo mismo que exec pero usando una tuberia.)</p>
-
-<p>$ find /home/usuario -iname &#8216;*.bak&#8217; -delete (Otra forma de borrar todos los .bak de un directorio)</p>
-
-<p>$ find . -type f -iname *.sla (buscará los ficheros .sla)</p>
-
-<p>$ find . -type f -mtime 0 (Buscará los ficheros creados o modificados hoy)</p>
-
-<p>$ find / -type f -mtime -1 -print (Los modificados las últimas 24 horas)</p>
-
-<p>$ find / -mtime +2 -print (Los modificados hace más de dos dias)</p>
-
-<p>$ find -L . -type l  (Buscar enlaces rotos)</p>
-
-<p>$ find . -type f -size +300k > masde300k.txt (buscar .sh mayores de 300k)</p>
-
-<p>$ find ./ -name .svn -exec rm -rf {} \; (eliminar todos los directorios y subdirectorios subversión)</p>
-
-<p>$ find . -name &#8220;*.html&#8221; -exec grep -i -H &#8220;Tractatus elementalis&#8221; {} \; (Buscar en todos los archivos html del directorio actual con un texto concreto)</p>
-
-<p>$ find . -name *.txt -exec sed -i &#8220;s/cosa/casa/g&#8221; {} \; (Substituir “cosa” por “casa” en todos los .txt del presente directorio)</p>
-
-<p>$ find ~/ -depth -type f -empty (Buscar archivos vacios. Con -type d buscará directorios vacios)</p>
-
-<p>$ find / -name &#8220;algo&#8221; -a ! -path &#8220;/media/servidor/*&#8221; -exec echo {} \; 2>/dev/null (Buscar &#8220;algo&#8221; descartando el directorio /media/servidor/)</p>
-
-<p>$ find /home/usuario -iname &#8216;*.odt&#8217; -exec cp &#8216;{}&#8217; /home/usuario/Documentos \; (Copiar todos los odt a la carpeta Documentos)</p></blockquote>
 ]]></content>
   </entry>
   
