@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Buscar archivos o directorios $ find / -iname archivo (Busca en / archivo sin distinguir minusculas y mayusculas) $ find /home -name *.png -print ( &hellip;">
+  <meta name="description" content="Herramienta que permite averiguar contraseñas encriptadas El de los repositorios acostumbra a estar capado. Descargar el programa y el parche de: $ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,106 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/john/">John</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-17T19:49:00+02:00" pubdate data-updated="true">17-04-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Herramienta que permite averiguar contraseñas encriptadas</p>
+
+<p>El de los repositorios acostumbra a estar capado. Descargar el programa y el parche de:</p>
+
+<blockquote><p>$ wget http://www.openwall.com/john/g/john-1.7.3.4.tar.gz</p>
+
+<p>$ wget http://openwall.info/wiki/_media/john/john-1.7.3.1-generic-crypt-1.diff.gz</p></blockquote>
+
+<p>Descomprimir:</p>
+
+<blockquote><p># tar xvzf john-1.7.3.4.tar.gz</p></blockquote>
+
+<p>Entrar al directorio del programa:</p>
+
+<blockquote><p># cd john-1.7.3.4</p></blockquote>
+
+<p>Aplicar el parche:</p>
+
+<blockquote><p># gzip -dc ../john-1.7.3.1-generic-crypt-1.diff.gz | patch -p1</p></blockquote>
+
+<p>patching file src/Makefile</p>
+
+<p>patching file src/crypt_fmt.c</p>
+
+<p>patching file src/john.c</p>
+
+<p>Hunk #2 succeeded at 67 (offset 2 lines).</p>
+
+<p>El directorio donde se encuentra el código fuente es src:</p>
+
+<blockquote><p># cd src</p>
+
+<p># make</p></blockquote>
+
+<p>Con make obtendrá una lista de los sistemas soportados, luego:</p>
+
+<blockquote><p># make linux-x86-64</p></blockquote>
+
+<p>Si el sistema no esta en la lista:</p>
+
+<blockquote><p># make clean generic</p></blockquote>
+
+<p>Pruebas de detección de correcto funcionamiento.</p>
+
+<blockquote><p># cd ../run</p>
+
+<p># ./john &#8211;test</p></blockquote>
+
+<p>El fichero john.pot contiene los resultados encontrados por john. Si el fichero no está vacío significa que john ha encontrado la contraseña. El fichero john.rec contiene el estado actual de la búsqueda por si se produce una interrupción y es utilizado por el programa para reanudar la búsqueda.</p>
+
+<p>1.-</p>
+
+<p>Comprobación de la fortaleza de nuestra constraseñas:</p>
+
+<blockquote><p># unshadow /etc/passwd /etc/shadow > contraseñas.txt</p>
+
+<p># john contraseñas.txt</p>
+
+<p># john &#8211;single contraseñas.txt (usanólo el modo single)</p>
+
+<p># john &#8211;incremental contraseñas.txt (Usando el modo incremental)</p>
+
+<p># john &#8211;wordlist=diccionario.lst &#8211;rules contraseñas.txt (Usando un diccionario)</p>
+
+<p># john &#8211;show contraseñas.txt (Ver resultados)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1375,172 +1475,6 @@ drwxr-xr-x 2 templix templix 4096 abr 12 06:10 dir
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/truecrypt/">Truecrypt</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-12T06:01:00+02:00" pubdate data-updated="true">12-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Aplicación que permite cifrar sistemas de archivos enteros, generar archivos cifrados y tambien generar sistemas ocultos dentro de otros sistemas. Descarga de : http://www.truecrypt.org/downloads</p>
-
-<p>Descomprimir y ejecutar:</p>
-
-<pre><code>$ tar xf truecrypt-7.1a-linux-console-x64.tar.gz
-
-# ./truecrypt-7.1a-setup-console-x64
-</code></pre>
-
-<blockquote><p># truecrypt -t -c (por consola [t] y ejecutar por primera vez [c]. Sin el parámetro &#8220;t&#8221; abre la gui)</p></blockquote>
-
-<pre><code>Volume type:
-
- 1) Normal
-
- 2) Hidden
-
-Select [1]: 1
-
-**[Seleccionar si va a estar oculto o no: 1]**
-
-Enter volume path: /media/cripta
-
-**[Donde se montará. No tiene que existir el directorio]**
-
-Enter volume size (sizeK/size[M]/sizeG): 20M
-
-**[Tamaño del volumen: a voluntad]**
-
-Encryption algorithm:
-
- 1) AES
-
- 2) Serpent
-
- 3) Twofish
-
- 4) AES-Twofish
-
- 5) AES-Twofish-Serpent
-
- 6) Serpent-AES
-
- 7) Serpent-Twofish-AES
-
- 8) Twofish-Serpent
-
-Select [1]: 5
-
-**[Algoritmo de encriptación: a voluntad]**
-
-Hash algorithm:
-
- 1) RIPEMD-160
-
- 2) SHA-512
-
- 3) Whirlpool
-
-Select [1]: 2
-
-**[El hash: a voluntad]**
-
-Filesystem:
-
- 1) None
-
- 2) FAT
-
- 3) Linux Ext2
-
- 4) Linux Ext3
-
- 5) Linux Ext4
-
-Select [2]: 5
-
-**[El sistema de archivo]**
-
-Enter password:
-
-WARNING: Short passwords are easy to crack using brute force techniques!
-
-**[CUIDADO: Contraseñas cortas son fáciles de romper usando técnicas de fuerza bruta!]**
-
-We recommend choosing a password consisting of more than 20 characters. Are you sure you want to use a short password? (y=Yes/n=No) [No]: y
-
-**[Informa que la contraseña tiene menos de 20 caracteres pero la aceptamos de todas formas]**
-
-Re-enter password:
-
-**[La repetimos]**
-
-Enter keyfile path [none]:
-
-**[Sin archivo de claves: enter]**
-
-Please type at least 320 randomly chosen characters and then press Enter:
-
-Characters remaining: 134
-
-Characters remaining: 26
-
-**[Nos hace tipear 320 caracteres en el teclado... todavia faltan 134... todavia faltan 26...]**
-
- Done: 100,000%  Speed:   22 MB/s  Left: 0 s
-
-**[Por fin... y toma sus notas... pasamos de ellas...]**
-
-The TrueCrypt volume has been successfully created.
-
-**[Finalmente se ha creado el volumen]**
-</code></pre>
-
-<blockquote><p># truecrypt -t /media/cripta (Ejecutando la aplicación. Intro a todo:)</p></blockquote>
-
-<pre><code>Enter mount directory [default]:
-
-Enter password for /media/cripta:
-
-Enter keyfile [none]:
-
-Protect hidden volume (if any)? (y=Yes/n=No) [No]:
-</code></pre>
-
-<blockquote><p># truecript -t -l (Comprobar dispositivo montado)</p></blockquote>
-
-<pre><code>1: /media/cripta /dev/mapper/truecrypt1 /media/truecrypt1
-</code></pre>
-
-<blockquote><p># truecrypt -d /media/cripta (Desmontar volumen)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -1562,6 +1496,10 @@ Protect hidden volume (if any)? (y=Yes/n=No) [No]:
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/logrotate/">logrotate</a>
+      </li>
     
       <li class="post">
         <a href="/blog/ssh/">ssh</a>
@@ -1597,10 +1535,6 @@ Protect hidden volume (if any)? (y=Yes/n=No) [No]:
     
       <li class="post">
         <a href="/blog/fatattr/">fatattr</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/update-manager/">update-manager</a>
       </li>
     
   </ul>
