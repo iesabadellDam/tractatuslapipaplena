@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Transferencia encriptada de archivos entre computadoras $ sftp host
-">
+  <meta name="description" content="Transferencia encriptada de archivos entre computadoras por ssh. Ajustes previos: # nano /etc/ssh/sshd_config Y colocar las lineas: Subsystem sftp &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -94,16 +93,35 @@
   
 
 
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-05-21T17:25:00+02:00" pubdate data-updated="true">21-05-2014</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Transferencia encriptada de archivos entre computadoras</p>
+<div class="entry-content"><p>Transferencia encriptada de archivos entre computadoras por ssh.</p>
 
-<blockquote><p>$ sftp host</p></blockquote>
+<p>Ajustes previos:</p>
+
+<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
+
+<p>Y colocar las lineas:</p>
+
+<pre><code>Subsystem sftp internal-sftp
+
+Match group USER
+
+ ChrootDirectory /home/USER
+
+ ForceCommand internal-sftp
+
+ AllowTCPForwarding no
+
+ X11Forwarding no
+</code></pre>
+
+<blockquote><p>$ sftp USER@host</p></blockquote>
 </div>
 
 
@@ -126,7 +144,7 @@
   
 
 
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-05-21T17:25:00+02:00" pubdate data-updated="true">21-05-2014</time>
       
 
 
@@ -143,10 +161,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/sfill/" title="Previous Post: sfill">&laquo; sfill</a>
+        <a class="basic-alignment left" href="/blog/logrotate/" title="Previous Post: logrotate">&laquo; logrotate</a>
       
-      
-        <a class="basic-alignment right" href="/blog/sg/" title="Next Post: sg">sg &raquo;</a>
       
     </p>
   </footer>
@@ -165,6 +181,10 @@
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/sftp/">sftp</a>
+      </li>
     
       <li class="post">
         <a href="/blog/logrotate/">logrotate</a>
@@ -200,10 +220,6 @@
     
       <li class="post">
         <a href="/blog/ftp/">ftp</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/fatattr/">fatattr</a>
       </li>
     
   </ul>

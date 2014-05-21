@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Rotación, compresión y correos del sistema de logs. # logrotate -d /etc/logrotate.conf (Verificación del correcto funcionamiento) # logrotate -f /etc &hellip;">
+  <meta name="description" content="Transferencia encriptada de archivos entre computadoras por ssh. Ajustes previos: # nano /etc/ssh/sshd_config Y colocar las lineas: Subsystem sftp &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,63 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/sftp/">Sftp</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-21T17:25:00+02:00" pubdate data-updated="true">21-05-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Transferencia encriptada de archivos entre computadoras por ssh.</p>
+
+<p>Ajustes previos:</p>
+
+<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
+
+<p>Y colocar las lineas:</p>
+
+<pre><code>Subsystem sftp internal-sftp
+
+Match group USER
+
+ ChrootDirectory /home/USER
+
+ ForceCommand internal-sftp
+
+ AllowTCPForwarding no
+
+ X11Forwarding no
+</code></pre>
+
+<blockquote><p>$ sftp USER@host</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -727,61 +784,6 @@ cd, dir, ls, list, mkdir, rmdir, pwd, rename (Funionan igual que en la shell)
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/fatattr/">Fatattr</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-28T05:49:00+02:00" pubdate data-updated="true">28-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Permite ver y/o modificar los atributos MSDOS en un sistema de archivos FAT empleando los signos + para otorgar y - para quitar. Dichos premisos son:</p>
-
-<pre><code>r (Solo lectura)
-
-a (Archivo)
-
-s (Archivo del sistema)
-
-h (Oculto)
-
-d (Directorio)
-
-v (Etiqueta de volumen)
-</code></pre>
-
-<blockquote><p>$ fatattr /media/usb1/* (Muestra los atributos)</p>
-
-<p>$ fatattr -s /media/usb1/* (Quita el atributo oculto de todo el usb)</p>
-
-<p>$ fatattr +s /media/usb1/* (Oculta todos los archivos del usb)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -801,6 +803,10 @@ v (Etiqueta de volumen)
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/sftp/">sftp</a>
+      </li>
     
       <li class="post">
         <a href="/blog/logrotate/">logrotate</a>
@@ -836,10 +842,6 @@ v (Etiqueta de volumen)
     
       <li class="post">
         <a href="/blog/ftp/">ftp</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/fatattr/">fatattr</a>
       </li>
     
   </ul>
