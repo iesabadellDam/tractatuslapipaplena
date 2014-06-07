@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Consulta las variables de configuración del sistema. $ getconf -a (Muestra el listado) $ getconf LONG_BIT (Informa sobre si se trata de un equipo de &hellip;">
+  <meta name="description" content="Cerrar particiones rebeldes, saber aplicaciones que corren en un puerto&#8230; $ fuser -km /media/sda6 (Mata todos los procesos de la partición &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/getconf/">Getconf</a></h1>
+      <h1 class="entry-title"><a href="/blog/fuser/">Fuser</a></h1>
     
     
       <p class="meta">
@@ -96,18 +96,24 @@
   
 
 
-<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Consulta las variables de configuración del sistema.</p>
+  <div class="entry-content"><p>Cerrar particiones rebeldes, saber aplicaciones que corren en un puerto&#8230;</p>
 
-<blockquote><p>$ getconf -a (Muestra el listado)</p>
+<blockquote><p>$ fuser -km /media/sda6     (Mata todos los procesos de la partición especificada. Luego desmontarla normal con umount)</p>
 
-<p>$ getconf LONG_BIT (Informa sobre si se trata de un equipo de 32 o 64 bits)</p></blockquote>
+<p>$ fuser -n tcp 3389  (indica PID que corre en el puerto 3389)</p>
+
+<p>$ fuser -k 80/tcp   (cerrar todo el tráfico tcp del puerto 80)</p>
+
+<p>$ fuser -v archivo  (Muestra los procesos usados por un fichero o directorio)</p>
+
+<p># fuser -n tcp -s 22 &amp;&amp; echo &#8220;abierto&#8221; (Indica si un puerto está abierto)</p></blockquote>
 </div>
   
   
@@ -120,7 +126,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/geoiplookup/">Geoiplookup</a></h1>
+      <h1 class="entry-title"><a href="/blog/funcoeszz/">Funcoeszz</a></h1>
     
     
       <p class="meta">
@@ -136,18 +142,35 @@
   
 
 
-<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[geoip-bin geoip-database-contrib]. Localiación geográfica de una ip.</p>
+  <div class="entry-content"><p>Conjunto de 65 funciones y utilidades varias. Una vez instalado:</p>
 
-<blockquote><p>$ geoiplookup IP</p>
+<blockquote><p>$ funcoeszz zzzz &#8211;bashrc (Para colocar las lineas en .bashrc)</p></blockquote>
 
-<p># geoip-database-contrib_update (actualizar la BD [/usr/share/GeoIP/])</p></blockquote>
+<pre><code># Instalacao das Funcoes ZZ (www.funcoeszz.net)
+
+source /usr/bin/funcoeszz
+
+export ZZPATH=/usr/bin/funcoeszz
+</code></pre>
+
+<blockquote><p>$ source .bashrc (Releer el fichero)</p>
+
+<p>$ funcoeszz zzzz (listado de los 65 funciones)</p>
+
+<p>$ funcoeszz zzzz &#8211;teste (Comprobar que todos los ejecutables que necesita la aplicación estan instalados)</p>
+
+<p>$ funcoeszz zzzz &#8211;atualiza (Baja las últimas versiones de las funciones)</p>
+
+<p>$ funcoeszz ajuda (Ayuda muy util sobre como usar cada un de las funciones)</p>
+
+<p>$ funcoeszz ascii (Lanzar una de las funciones del listado)</p></blockquote>
 </div>
   
   
@@ -160,7 +183,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/genius/">Genius</a></h1>
+      <h1 class="entry-title"><a href="/blog/ftp/">Ftp</a></h1>
     
     
       <p class="meta">
@@ -176,206 +199,60 @@
   
 
 
-<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Calculadora.</p>
+  <div class="entry-content"><p>Conexión remota por linea de comandos</p>
 
-<blockquote><p>$ genius (Entra en el prompt. Su uso en el clásico: 60*2, 100/5&#8230; exit para salir)</p>
+<blockquote><p># ftp -help (Para obtener ayuda)</p>
 
-<p>$ genius –exec=50/2</p></blockquote>
-</div>
-  
-  
+<p># ftp -u usuario,clave ftp.dominio.com (Para conectarnos con un servidor)</p>
 
+<p># ftp dominio.com 20201 (Entrar especificando un puerto)</p></blockquote>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/gemsets/">Gemsets</a></h1>
-    
-    
-      <p class="meta">
-        
+<p>Al entrar en el directorio raiz del servidor ftp remoto con un prompt al estilo de:</p>
 
+<p>ftp usuario@ftp.dominio.com:~></p>
 
+<p>Algunas opciones:</p>
 
+<pre><code>get archivo (Recibir un fichero de la máquina remota)
 
+mget file file file (Recibir varios ficheros de la máquina remota.
 
+put archivo (Enviar un fichero desde nuestra máquina a la máquina remota)
 
+mput file file file (Enviar varios archivos de nuestra máquina a la máquina remota)
 
+quit (Para desconectarnos del servidor)
 
-  
+!ls (Ejecuta una shell que permite la entrada de comandos [ls] en nuestro sistema. Con "exit" volveremos al programa de FTP)
 
+!xterm &amp; (Lanzaría otra xterm)
 
-<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
+bell (Indica al sistema que ejecute un pitido cuando finalice la ejecución de los comandos)
 
+bye (Termina la ejecución de ftp)
 
-  <div class="entry-content"><p>Conjunto de gemas que definimos para una determinada versión de Ruby [ver] y que están aislados entre ellos. O sea, si tenemos dos proyectos y cada uno con una versión distinta, no tienen conflicto entre ellos. Por tanto, lo más recomendable es definir un gemset para cada proyecto en el que estemos trabajando. Ver rvm.</p>
-</div>
-  
-  
+quit (Termina la ejecución de ftp)
 
+close (Termina la sesión ftp sin salir del programa)
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/gem/">Gem</a></h1>
-    
-    
-      <p class="meta">
-        
+delete file (Borra un archivo)
 
+mdelete file file file (Borra varios archivos)
 
+reget file(Continuar bajando un fichero cortado anteriormente)
 
+open (conectar desde un ftp a otro)
 
+? (Muestra todos los comandos disponibles)
 
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[rubygems]. Nombre que reciben los módulos en ruby.</p>
-
-<blockquote><p>$ gem install rake (Instalar. &#8220;Rake&#8221; en este caso)</p>
-
-<p>$ gem install rake &#8211;remote (Instalar desde un servidor remoto)</p>
-
-<p>$ gem list &#8211;local (Muestra las gemas instaladas)</p>
-
-<p>$ gem list R (Lista las gemas cuyo nombre empieza por &#8220;R&#8221;)</p>
-
-<p>$ gem search rake (Buscar una gema)</p>
-
-<p>$ gem search &#8211;both mysql (Busca entre las gemas locales o remotas las que contengan &#8220;mysql&#8221;)</p>
-
-<p>$ gem search &#8211;remote mysql (Busca entre las gemas remotas las que contengan &#8220;mysql&#8221;)</p>
-
-<p>$ gem help (Información de todas las gemas)</p>
-
-<p>$ gem help push (Muestra información sobre un comando. &#8220;push&#8221; en este caso)</p>
-
-<p>$ gem content rake (lo que instalo una gema en el sistema)</p>
-
-<p>$ gem uninstall rake (Desinstalar &#8220;rake&#8221;)</p>
-
-<p>$ gem environment (Información sobre rubygems)</p>
-
-<p>$ gem update (Actualizar todas las gemas del sistema)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/gelemental/">Gelemental</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra la tabla periódica de los elementos quimicos.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/gedit/">Gedit</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Editor de texto</p>
-
-<blockquote><p>$ gedit &#8211;list-encodings  (Lista la codificación de caracteres)</p>
-
-<p>$ gedit &#8211;encoding UTF-8 archivo.txt  (Abre el archivo mencionado con la cofificación especificada)</p></blockquote>
-
-<p>Atajos</p>
-
-<pre><code>Ctrl+c (Copiar)
-
-Ctrl+s (Guarda documento)
-
-Ctrl+v (Pegar)
-
-Ctrl+x (Cortar)
-
-Ctrl+w (Cerrar ventana activa)
-
-Ctrl+Mayús+flecha  (seleccionar texto a derecha o izquierda)
+cd, dir, ls, list, mkdir, rmdir, pwd, rename (Funionan igual que en la shell)
 </code></pre>
 </div>
   
@@ -389,7 +266,7 @@ Ctrl+Mayús+flecha  (seleccionar texto a derecha o izquierda)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/gdm/">Gdm</a></h1>
+      <h1 class="entry-title"><a href="/blog/ftff/">Ftff</a></h1>
     
     
       <p class="meta">
@@ -405,57 +282,16 @@ Ctrl+Mayús+flecha  (seleccionar texto a derecha o izquierda)
   
 
 
-<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Pantalla de login para entrar en el sistema</p>
+  <div class="entry-content"><p>[whichman]. Busca archivos o directorios</p>
 
-<p>1-</p>
-
-<p>Para ocultar usuarios:</p>
-
-<p>Aparecen en la pantalla de login los que tienen un ID 1000 o superior. Para conocer los ID:</p>
-
-<blockquote><p># cat /etc/passwd | gawk -F: &#8216;{print $3, $1}&#8217; | sort -n</p></blockquote>
-
-<p>Para suprimirlos:</p>
-
-<blockquote><p># nano /etc/gdm/custom.conf</p></blockquote>
-
-<p>Y el apartado greeter dejarlo:</p>
-
-<p>[greeter]</p>
-
-<p>Exclude=usuario_a_ocultar,boinc,yacy</p>
-
-<p>2.-</p>
-
-<p>Entrada automática y otros ajustes:</p>
-
-<blockquote><p># gdmsetup</p></blockquote>
-
-<p>3.-</p>
-
-<p>Cambiar fondo en la pantalla de login.</p>
-
-<blockquote><p># nano /etc/gdm3/greeter.gsettings</p></blockquote>
-
-<p>Y modificando la linea &#8220;pictori-uri&#8221; para que apunte a la imagen deseada:</p>
-
-<pre><code>[org.gnome.desktop.background]
-
-picture-uri='file:///path/a/fondo'
-
-picture-options='zoom'
-</code></pre>
-
-<p>Una vez modificado, aplicar los cambios con:</p>
-
-<blockquote><p># dpkg-reconfigure gdm3</p></blockquote>
+<blockquote><p>$ ftff -t2 logfile.txt (busca  logfile con dos errores en el nombre. permite *)</p></blockquote>
 </div>
   
   
@@ -468,7 +304,7 @@ picture-options='zoom'
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/gdisk/">Gdisk</a></h1>
+      <h1 class="entry-title"><a href="/blog/fte/">Fte</a></h1>
     
     
       <p class="meta">
@@ -484,38 +320,72 @@ picture-options='zoom'
   
 
 
-<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Herramienta para particionar discos rígidos de cualquier tamaño con una tabla de particiones GPT de GUID (Globally Unique Identifier) imprescindible para los discos mayores de 2 TB. Para el caso de discos rígidos SSD, por defecto gdisk asegura que sus particiones estén correctamente alineadas [discos duros que no tienen 512 bytes por sectors]. El uso de particiones GPT, elimina la necesidad de basarse en particiones primarias, extendidas o lógicas propias del sistema MBR. GPT puede soportar un número casi ilimitado de particiones y tiene solamente el límite de la cantidad de espacio reservado para las entradas de las particiones en el disco GPT, por defecto gdisk tiene un límite 128 particiones.</p>
+  <div class="entry-content"><p>Editor. Según se lance desde las X o por consola se usará fte, xfte o sfte. F1 muestra todos los atajos y se accede a los menús de forma clásica con Alt+f&#8230;</p>
+</div>
+  
+  
 
-<blockquote><p># gdisk /dev/sda</p></blockquote>
 
-<p>Algunos comandos:</p>
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fswebcam/">Fswebcam</a></h1>
+    
+    
+      <p class="meta">
+        
 
-<pre><code>i (información de las particiones)
 
-l (listar particiones)
 
-m (volver al menú principal)
 
-d (borrar partición)
 
-n (crear nueva partición)
 
-o (crear nueva tabla de particiones GUID)
 
-t (cambiar tipo de partición)
 
-c (cambiar de partición)
+  
 
-q (salir guardando los cambios)
 
-? (mostar menú de opciones)
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Capturas con la webcam.</p>
+
+<blockquote><p>$ fswebcam &#8211;crop 200x100 &#8211;save out (Especificando medidas y archivo de salida)</p>
+
+<p>$ fswebcam -r 600x500 out1.jpeg &#8211;greyscale out2.jpeg (Dos capturas, especificando resolución y la otra en escala de grises)</p>
+
+<p>$ fswebcam &#8211;banner-colour &#8220;#FF0000&#8221; &#8211;save out (Con el baner de color rojo)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<pre><code>-d  (Especificar el dispositivo de video. Por defecto /dev/video0)
+
+--no-banner (Que la captura no muestre el baner. Por defecto sale en la parte inferior)
+
+--top-banner (Que el baner salga en parte superior)
+
+--title "linux es genial" (Mostrando un texto en el baner)
+
+--timestamp "%d-%m-%Y" (Mostrando en el baner la fecha en formato dia-mes-año)
+
+--info "Linux es un sistema genial" (Añadir un texto que se muestra debajo de la fecha con letra más pequeña)
+
+--invert (Haciendo un negativo de la imagen)
 </code></pre>
 </div>
   
@@ -529,7 +399,7 @@ q (salir guardando los cambios)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/gdebi/">Gdebi</a></h1>
+      <h1 class="entry-title"><a href="/blog/fstab/">Fstab</a></h1>
     
     
       <p class="meta">
@@ -545,16 +415,241 @@ q (salir guardando los cambios)
   
 
 
-<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Instalador de paquetes .deb</p>
+  <div class="entry-content"><p>(/etc/fstab). Lista todos los discos y particiones disponibles e indica cómo deben ser inicializados. Su estructura es:</p>
 
-<blockquote><p># gdebi paquete.deb</p></blockquote>
+<ul>
+<li>Particion punto_de_montaje sistema_de_archivos opciones respaldos orden</li>
+</ul>
+
+
+<p>Y un ejemplo seria:</p>
+
+<pre><code>/dev/sda5 /media/datos ext4 rw,users,exec,auto 0 0 (especificando el número de partición)
+
+UUID=0e4d9ccb-93bb-4762-8b67-c23d181fc84a / ext4 errors=remount-ro 0 1 (especificando el UUID de la partición)
+</code></pre>
+
+<p>Los puntos de montaje han de existir en el sistema y normalmente se colocan en /media</p>
+
+<p>Algunos sitemas de archivos puede ser:</p>
+
+<pre><code>auto (intenta descubrir automáticamente el sistema de archivos).
+
+ext2 (sistema de archivos común en Linux).
+
+ext3 (igual que ext2 pero además añade journaling).
+
+ext4 (introdujo significativas mejoras respecto a ext3)
+
+reiserfs (otro sistema muy común en Linux)
+
+msdos (para dispositivos que usen FAT16)
+
+vfat (para dispositivos que usen FAT32).
+
+ntfs (sistema de archivos NTFS de Windows)
+
+smbfs (sistema de archivos de Samba).
+
+nfs (sistema de archivos de red NFS)
+</code></pre>
+
+<p>Algunas opciones:</p>
+
+<pre><code>auto (el dispositivo será montado automáticamente durante el inicio. auto es el valor por defecto)
+
+noauto (Si no se desea que el dispositivo se monte automáticamente)
+
+exec (permite ejecutar binarios que están en la partición)
+
+noexec (lo impide. ütil en particiones windows)
+
+ro (Montar sólo lectura)
+
+rw (Montar para lectura/esctritura)
+
+user (Permite a cualquier usuario montar el sistema de archivos)
+
+nouser (Solo el usuario root podrá montar el sistema de archivos)
+
+defaults (Utiliza las opciones por defecto: rw,exec,auto,nouser)
+</code></pre>
+
+<p>Respaldo. Es el comando que utiliza dump para hacer respaldos del sistema de archivos. Cero desactiva la opción.</p>
+
+<p>Orden. indica el orden en que la aplicación fsck revisará la partición en busca de errores durante el inicio, si es cero el dispositivo no se revisa.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fspy/">Fspy</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Herramienta de monitorización de la actividad de un sistema de archivos.</p>
+
+<blockquote><p># fspy /home/usuario</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fsck/">Fsck</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[recomendado dosfstools]. Reparar/chequear/formatear una partición no montada.</p>
+
+<blockquote><p># fsck -fy /dev/hda1</p>
+
+<p># fsck.ext2 -vpf /dev/hda1 (Repara una partición ext2)</p>
+
+<p># fsck.ext3 -vpf /dev/hda1 (Repara una partición ext3)</p>
+
+<p># fsck -fpC 0 /dev/sda1</p>
+
+<p># fsck.ext4 -cDfty -C 0 /dev/sda1</p>
+
+<p># fsck.ext4 -vpf /dev/sda1 (Muestra información sobre una partición: fragmentación, inodos, bloques, archivos&#8230;)</p></blockquote>
+
+<p>Opciones:</p>
+
+<pre><code>-A .- Permitira una navegación en toda la estructura de /etc/fstab.
+
+-V  .- información adicional sobre las acciones de fsck
+
+-t   .- Imprimir estadísticas de estado (-tt para más información)
+
+-a .- Repara cualquier problema que encuentra en el sistema de archivos sin preguntar (no recomendada)
+
+-l .- Lista todos los nombres de archivos
+
+-r .- Pide confirmación antes de reparar el sistema de archivos.
+
+-s .- Lista el superblock antes de chequear el sistema de archivos.
+
+sis_arch .- Especifica el sistema de archivos a verificar
+
+-c .- Buscar bloques dañados con badblocks (ver badblocks)
+
+-k .- Bloques dañados donde se almacenan con el comando anterior.
+
+-C 0 .- Muestra barra de progreso.
+
+-p .- forzar verificación y reparar automaticamente errores
+
+-D .- Obtimizar directorios si es posible
+
+-f   .- Forzar el chequeo incluso si el sistema de archivos parece correcto
+
+-Y   .- Asume respuesta "yes" a todas las preguntas
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fsarchiver/">Fsarchiver</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Es una herramienta similar a partimage para crear imágenes de una o varias particiones a la vez a un fichero asi como restaurar dichas imágenes más tarde.</p>
+
+<blockquote><p># fsarchiver savefs /data/imagen.fsa /dev/sda1 (creamos la imagen de la partición).</p>
+
+<p># fsarchiver savefs /data/imagen2.fsa /dev/sda1 /dev/sdb1 (creamos la imagen de dos particiones simultaneamente que seran almacenadas en el mismo fichero).</p>
+
+<p># fsarchiver restfs /data/imagen2.fsa id=0,dest=/dev/sda1 (restauramos la primera partición de la imagen).</p>
+
+<p># fsarchiver restfs /data/imagen2.fsa id=1,dest=/dev/sdb1 (restauramos la segunda partición).</p>
+
+<p># fsarchiver restfs /data/imagen2.fsa id=0,dest=/dev/sda1 id=1,dest=/dev/sdb1 (restauramos a la vez las dos particiones).</p></blockquote>
 </div>
   
   
@@ -585,43 +680,43 @@ q (salir guardando los cambios)
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/nmap/">nmap</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/nethogs/">nethogs</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lilo/">lilo</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/anarchism/">anarchism</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sftp/">sftp</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/logrotate/">logrotate</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssh/">ssh</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lshell/">lshell</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/apt-mirror/">apt-mirror</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/typeset/">typeset</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

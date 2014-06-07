@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Rastrear puertos. Estados de los puertos: abierto (Una aplicación acepta conexiones TCP o paquetes UDP en este puerto indicando qué servicio está &hellip;">
+  <meta name="description" content="Gestor de paquetes de opensuse (rpm) # zypper (Generar una lista de paquetes instalados) # zypper repos (Listar repositorios) # zypper install &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/nmap/">Nmap</a></h1>
+      <h1 class="entry-title"><a href="/blog/zypper/">Zypper</a></h1>
     
     
       <p class="meta">
@@ -96,262 +96,64 @@
   
 
 
-<time datetime="2014-06-02T17:57:00+02:00" pubdate data-updated="true">02-06-2014</time>
+<time datetime="2014-06-07T07:14:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Rastrear puertos.</p>
+  <div class="entry-content"><p>Gestor de paquetes de opensuse (rpm)</p>
 
-<p>Estados de los puertos:</p>
+<blockquote><p># zypper (Generar una lista de paquetes instalados)</p>
 
-<pre><code>abierto (Una aplicación acepta conexiones TCP o paquetes UDP en este puerto indicando qué servicio está corriendo)
+<p># zypper repos (Listar repositorios)</p>
 
-cerrado (Recibe y responde a las sondas de Nmap, pero no tiene una aplicación escuchando en él)
+<p># zypper install paquete  (Instalar paquete)</p>
 
-filtrado (No puede determinar si el puerto está abierto porque un filtrado de paquetes previene que sus sondas lo alcancen)
+<p># zypper install rutadelpaquete (Instalar paquetes que no está en los repositorios)</p>
 
-no filtrado (Indica que el puerto es accesible pero que Nmap no puede determinar si se encuentra abierto o cerrado)
+<p># zypper install &#8211;force paquete (Reinstalar)</p>
 
-abierto|filtrado (Nmap marca a los puertos en este estado cuando no puede determinar si el puerto se encuentra abierto o filtrado)
-</code></pre>
+<p># zypper remove paquete (Desinstalar paquete)</p>
 
-<p>Entrada de los objetivos cuando no se realiza por la linea de ordenes:</p>
+<p># zypper remove &#8211;clean-deps paquete (Desinstalar con dependencias)</p>
 
-<pre><code>-iL ips.txt (Desde una lista de ips colocadas una por linea en el archivo ips.txt)
+<p># zypper search paquete (Buscar paquete)</p>
 
--iR 100 (Scanear 100 ips aleatoria. Con -iR 0 el escaneo no termina nunca.)
-</code></pre>
+<p># zypper help comando (ayuda para un comando)</p>
 
-<p>Técnicas de sondeos de puertos que soporta Nmap:</p>
+<p># zypper update (Actualizar base de datos y el sistema)</p>
 
-<pre><code>-sA [sondeo TCP ACK] (Este sondeo no puede determinar puertos abiertos o abiertos|filtrados. Se utiliza para mapear reglas de cortafuegos, y para determinar si son cortafuegos con inspección de estados y qué puertos están filtrados.
+<p># zypper info paquete (Buscar información de paquete)</p>
 
--sL [Sondeo de lista] (lista los objetivos a analizar sin enviar paquetes de ningún tipo a los objetivos)
+<p># zypper clean (Limpiar caché e información obsoleta)</p>
 
--sM [sondeo TCP Maimon] (El sondeo Maimon debe su nombre a la persona que lo descubrió: Uriel Maimon. Describió la técnica en la revista Phrack número 49 (noviembre de 1996). Nmap, que incluye esta técnica, se publicó dos números más tarde. Esta técnica es exactamente la misma a los sondeos Null, FIN, y Xmas, pero en los que se envía una sonda FIN/ACK. Según el RFC 793 (TCP), se debería generar un paquete RST cuando se responde a dicha sonda independientemente de si el puerto está cerrado o abierto. Uriel se dio cuenta, sin embargo, de que muchos sistemas derivados de BSD simplemente descartan el paquete si el puerto está abierto.
+<p># zypper refresh (Actualizar información)</p>
 
--sN, -sF, -sX [sondeos TCP Null, FIN, y Xmas] (Estos sondeos aprovechan una indefinición en la RFC de TCP que diferencia los puertos abiertos y cerrados. La ventaja fundamental de este tipo de sondeos es que pueden atravesar algunos cortafuegos que no hagan inspección de estados o encaminadores que hagan filtrado de paquetes. Otra ventaja es que este tipo de sondeos son algo más sigilosos que, incluso, un sondeo SYN. Un problema de estos sondeos es que no se puede distinguir los puertos abiertos de algunos puertos filtrados, lo que resulta en la respuesta abierto|filtrado.
+<p># zypper dist-upgrade (Actualizar distro)</p>
 
--sO [sondeo de protocolo IP] (Este sondeo permite determinar qué protocolos [TCP, ICMP, IGMP, etc.] soportan los sistemas objetivo. Esto no es, técnicamente, un sondeo de puertos, dado que cambia los números de protocolo IP en lugar de los números de puerto TCP ó UDP.
+<p># zypper al &#8216;paquete&#8217; (Descartar paquete para actualizaciones)</p>
 
--sP [sondeo ping] (Sólo determina si el objetivo responde. Metodo intrusivo)
+<p># zypper rl &#8216;paquete&#8217; (Desbloquear paquete del bloqueo anterior)</p>
 
--sS [sondeo TCP SYN] (Es el utilizado por defecto. Puede sondear miles de puertos por segundo en una red rápida sin cortafuegos y es relativamente sigiloso y poco molesto, ya que no llega a completar las conexiones TCP)
+<p># zypper verify (Verificar dependencias)</p>
 
--sT [sondeo TCP connect()] (Es el sondeo por omisión cuando no se puede utilizar el sondeo SYN. Al realizar conexiones completas para abrir los puertos objetivo en lugar de realizar el reseteo de la conexión medio abierta como hace el sondeo SYN implica que tarda más tiempo y son necesarios más paquetes para obtener la información y que muy probablemente el sistema objetivo va a registrar la conexión.)
+<p># zypper intall-new-recommends (Instalar paquetes recomendados)</p>
 
--sU [sondeos UDP] (Los 3 servicios UDP más comunes son: DNS [53], SNMP [161/162], y DHCP [67/68].  Los sondeos UDP funcionan mediante el envío (sin datos) de una cabecera UDP para cada puerto objetivo. Si se obtiene un error ICMP indica que el puerto no es alcanzable y se marca como cerrado. Si se recibe cualquier error ICMP no alcanzable se marca el puerto como filtrado. Si se recibe una respuesta al paquete UDP el puerto está abierto. Si no se ha recibido ninguna respuesta después de algunas retransmisiones entonces se clasifica el puerto como abierto|filtrado. Esto significa que el puerto podría estar abierto o que hay un filtro de paquetes bloqueando la comunicación. Puede utilizarse el sondeo de versión (-sV) para diferenciar los puertos abiertos de los filtrados.
+<p># zypper list-updates (Listar Actualizaciones disponibles)</p>
 
--sV [Sondear versiones] (Sondea puertos abiertos para obtener información de la versión del servicio.
+<p># zypper list-patches (Listar parches disponibles)</p>
 
--sW [sondeo de ventana TCP] (Aprovecha de un detalle de implementación de algunos sistemas que permite diferenciar puertos abiertos de los cerrados, en lugar de imprimir no filtrado cuando se devuelve un RST.)
+<p># zypper patches (Instalar parches disponibles)</p>
 
---scanflags [Sondeo TCP a medida] (Esta opción permite diseñar su propio sondeo mediante la especificación de banderas TCP arbitrarias y puede ser un valor numérico como el 9 (PSH y FIN), aunque es más sencillo utilizar nombres simbólicos juntando la combinación de URG, ACK, PSH, RST, SYN, y FIN [--scanflags URGACKPSHRSTSYNFIN] donde se fijan todas las banderas, aunque no es muy útil para sondear. Este es un método de sondeo avanzado que permite hacer un sondeo de puertos TCP a ciegas de verdad lo que significa que no se envía ningún paquete al sistema objetivo desde su dirección IP real por lo que es extraordinariamente sigiloso)
-</code></pre>
+<p># zypper addrepo rutadelrepositorio (Añadir repositorio)</p>
 
-<p>Descubrimiento de sistemas:</p>
+<p># zypper addrepo -f repositorio rutadelrepositorio (Añadir con actualización automática)</p>
 
-<pre><code>-P0 [No realizar ping] (Nmap no realiza la etapa de descubrimiento y actua como si cada Ip objetivo se encontrara activa)
+<p># zypper modifyrepo &#8211;disable repositorio (Desactivar repositorio)</p>
 
--PA22,445 [Ping TCP ACK] (Envía un paquete TCP vacío con la bandera ACK a una lista de puertos separados por comas para determinar si responden.
-
--PS21,22,25,80 [Ping TCP SYN] (Envía un paquete TCP vacío con la bandera SYN a una lista de puertos separados por comas para saber si el sistema responde.
-
--PU445,5000 [Ping UDP] (Envía paquetes UDP vacios a los puertos indicados para indicar si el sistema responde. Atraviesan cortafuegos y filtros que sólo analizan TCP)
-
--PR [Ping ARP] (El sondeo ARP detecta máquinas en la red local)
-</code></pre>
-
-<p>Especificación de puertos:</p>
-
-<pre><code>-p 21,22 (Separados por comas)
-
--p- (Todos los puertos de 0 al 65535)
-
--p 1-1023 (Del 1 al 1023)
-
--F (escanear los 100 puertos más usados)
-
--r (Analizar los puertos de forma secuencial. Por defecto se analizan de forma aleatoria)
-</code></pre>
-
-<p>Formatos de salida:</p>
-
-<pre><code>-oN archivo (Redirigir la salida a un archivo especificado)
-
--oX archivo.xml (Redirigir a un archivo xml
-
--oS archivo (Redirigiendo a una salida humoristica sobre los script kiddies)
-</code></pre>
-
-<p>Otras opciones:</p>
-
-<pre><code>-A (Opciones de sondeos agresivos. Activa detección de sistema operativo [-O] y el análisis de versiones [-sV]).
-
--n (No realizar resolución DNS de las direcciones IP activas que encuentre)
-
--R (Realizar resolución DNS de todos los objetivos)
-
--O (Averiguar el sistema operativo)
-
--O --osscan-guess (Averiguar el sistema operativo fonzandolo a identificarse)
-
--D 192.168.1.12,192.168.1.13,192.168.1.14 IP_OBJETIVO (Especificando ips falsas separadas por comas para emmascarar la nuestra)
-
--T4 (Tiempo de sondeo desde muy lento y fiable [0] a muy rápido e impreciso [5])
-
--S IP (Especificando una IP falsa)
-
--v (Incrementar el nivel de detalle. -vv mayor incremento de detalle)
-</code></pre>
-
-<p>nmap scripts</p>
-
-<p>funcionalidad de nmap que permite la realización de diversas tareas de descubrimiento, detección, expotación de diversas vulnerabilidades, etc. Listado en http://nmap.org/nsedoc/index.html y en local: /usr/share/nmap/scripts/:</p>
-
-<p>Categorias:</p>
-
-<pre><code>auth (Identifican credenciales de autenticación en el sistema objetivo frecuentemente por fuerza bruta [ftp-anon, snmp-brute, http-auth...])
-
-broadcast (Realizan un escaneo broadcast en toda la red objetivo sin necesidad de indicar los host de forma manual. utilizando el argumento “newtargets” se indica a Nmap incluir los host descubiertos en la pila de escaneo.)
-
-default (Conjunto de scripts que tratan de capturar la mayor cantidad de información de un objetivo a costa de generar mucho ruido en el sistema remoto.)
-
-discovery (Tratan de mapear los host de la red [registros públicos, dispositivos SNMP, servicios de directorio...])
-
-dos (Intentan causar denegación de servicio sobre un servicio determinado.)
-
-exploit (Tratan de detectar y explotar algún tipo de vulnerabilidad sobre el objetivo.)
-
-external (Los que se comunican con otros hosts distintos del local. Pueden enviar a una fuente externa la IP del objetivo y del atacante.)
-
-fuzzer (Envían datos aleatorios, inesperados o incompletos, con el fin de detectar posibles vulnerabilidades en servicios)
-
-intrusive (Intentan utilizar grandes recursos del sistema objetivo que pueden incluso inutilizarlo)
-
-malware (Intentan determinar si el objetivo se encuentra infectado con maleware o backdoors [smtp-strangeport y auth-spoof])
-
-safe (Scripts poco intrusivos diseñados para no afectar ni dañar el objetivo [ssh-hostkey o html-title])
-
-version (Diseñados para identificar versiones concretas de servicios. Se ejecutan solo si el escaneo tiene la opción Scan Version [-sV])
-
-vuln (Dedicados a la detección de vulnerabilidades pero no su explotación [realvnc-auth-bypass y afp-path-vuln])
-</code></pre>
-
-<p>Opciones:</p>
-
-<blockquote><p># nmap &#8211;script-args <argumentos> (Se trata de un conjunto de argumentos que se suministran a los Scripts que admiten parámetros para configurar su ejecución.)</p>
-
-<p># nmap &#8211;script citrix-brute-xml &#8211;script-args=userdbd=usernames.lst,passdb=passwords.lst,ntdomain=domain -p 80,443,8080 IP</p>
-
-<p># nmap &#8211;script auth &#8211;script-args userdb=usernames.lst,passdb=passwords.lst IP</p></blockquote>
-
-<p>usernames.lst (base de datos de usuarios. Personalización en /usr/share/nmap/nselib/data/usernames.lst)</p>
-
-<p>passdb (base de datos de contraseñas. Personalización en /usr/share/nmap/nselib/data/passwords.lst)</p>
-
-<p>ntdomain (dominio nt del servidor- previamente ha de averiguarse)</p>
-
-<p>Nota.- En algunos scripts las bases de datos usuarios/paswwords .lst se usan por defecto.</p>
-
-<p>Mostrar información</p>
-
-<pre><code>--script-help vuln (De una categoria)
-
---script-help openlookup-info.nse (De un script)
-
---script-help all (De todo)
-
---script-trace (toda la comunicación entrante y saliente ejecutada por los scripts es impresa en pantalla)
-</code></pre>
-
-<p>Actualizaciones:</p>
-
-<pre><code>--script-db (Actualiza la base de datos localizada en scripts/script.db. Útil si se ha añadido o suprimido alguno
-
---script-updatedb (Actualiza los scripts de la base de datos)
-</code></pre>
-
-<p>Ejemplos:</p>
-
-<blockquote><p># nmap -iR 10000 -p 80 (Selecciona objetivos al azar por el puerto 80)</p>
-
-<p># nmap -sP IP  (Sondeo Ping. Para detectar equipos de una red)</p>
-
-<p># nmap -P0 IP  (Asume que todos los objetivos están vivos)</p>
-
-<p># nmap -PS -p 137-139 IP  (Análisis TCP de los puertos indicados)</p>
-
-<p># nmap -PE IP  (Análisis ICMP del tipo echo)</p>
-
-<p># nmap -PI IP     (Utiliza paquetes icmp para determinar que hosts están conectados y es especial si deseas hacer un scan a través de un firewall)</p>
-
-<p># nmap -sF IP     (Analisis sigiloso)</p>
-
-<p># nmap -sW IP    (especial para máquinas windous)</p>
-
-<p># nmap -sX IP     (Análisis Xmas)</p>
-
-<p># nmap -sS -A -p 1-65535 IP  (escanear todos los puertos [-p&#8230;] TCP [-sS] y detectar las versiones del software [-A] de forma silenciosa)</p>
-
-<p># nmap &#8211;version-all IP  (Utilizar todas las sondas con intensidad 9 -máxima)</p>
-
-<p># nmap -p 1-65535 &#8211;open localhost  (lista de puertos abiertos)</p>
-
-<p># nmap -p 80 hostname  (determina si el puerto 80 está abierto)</p>
-
-<p># nmap -sn 192.168.1.0/24 (descubrir máquinas conectadas de una red)</p>
-
-<p># nmap -v -sP 192.168.1.0/24 | grep down | wc -l (Ips disponibles en una red)</p>
-
-<p># nmap -p- localhost (rastrear todos los puertos)</p>
-
-<p># nmap &#8211;iflist (Muestra la lista de interfaces de red y rutas)</p>
-
-<p># nmap 192.168.0.* &#8211;exclude 192.168.0.100 (Excluir un host del escaneo de una red)</p>
-
-<p># nmap &#8211;iflist (encontrar la interfaz y la información del propio host)</p></blockquote>
-
-<p>Con scripts</p>
-
-<blockquote><p># nmap &#8211;script=&#8221;http-* and not http-enum&#8221; IP (filtro AND y NOT. Para usar todos los scripts http pero no los de enumeración)</p>
-
-<p># nmap &#8211;script malware IP (Usará todos los scripts de la categoria &#8220;malware&#8221;)</p>
-
-<p># nmap -sC IP (Usar todos los de la categoria &#8220;default&#8221; [-sC])</p>
-
-<p># nmap -PN -p81 &#8211;script http-iis-webdav-vuln IP (Buscando vulnerabilidades Webdav)</p>
-
-<p># nmap &#8211;script-trace &#8211;script smb-check-vulns -p445 IP (Detectar Conficker, gusano informático que apareció en octubre de 2008, que ataca sistemas Windows)</p>
-
-<p># nmap -sU -script=citrix-enum-servers -p1604 IP (explorar si hay algún servidor o granja citrix y realizar una enumeración de las aplicaciones publicadas)</p>
-
-<p># nmap -P0 -n -sS -p445,139 &#8211;script=smb-security-mode IP</p>
-
-<p># nmap &#8211;script vnc-brute 127.0.0.1</p>
-
-<p># nmap -p 22 &#8211;script ssh-hostkey host  (especificando puerto)</p>
-
-<p># nmap -p 5900 &#8211;script vnc-brute &#8211;script-args passdb=/home/USER/wordlist host (usando un dicccionario)</p>
-
-<p># nmap &#8211;script mysql-brute 192.168.1.1-255 (escaneo de rangos)</p>
-
-<p># nmap &#8211;script vnc-brute localhost (contra un host con vnc a la escucha)</p>
-
-<p># nmap -sV &#8211;script=ftp-brute IP</p>
-
-<p># nmap &#8211;script ftp-brute &#8211;script-args userdb=/tmp/users IP</p>
-
-<p># nmap &#8211;script ftp-brute &#8211;script-args userdb=/tmp/users,passdb=/tmp/passwds IP</p>
-
-<p># nmap &#8211;script ssh-hostkey &#8211;script-args ssh_hostkey=full host</p>
-
-<p># nmap &#8211;script ssh-hostkey &#8211;script-args ssh_hostkey=all host</p>
-
-<p># nmap -sV -sC &#8211;script-args ftp-anon.maxlist=-1 IP (Comprueba si un servidor ftp permite conexiones anónimas. El &#8220;-1&#8221; para desactivar el límite de 20 archivos)</p></blockquote>
+<p># zypper removerepo nombredelrepositorio (Suprimir repositorio)</p></blockquote>
 </div>
   
   
@@ -364,7 +166,7 @@ vuln (Dedicados a la detección de vulnerabilidades pero no su explotación [rea
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/nethogs/">Nethogs</a></h1>
+      <h1 class="entry-title"><a href="/blog/zmore/">Zmore</a></h1>
     
     
       <p class="meta">
@@ -380,22 +182,14 @@ vuln (Dedicados a la detección de vulnerabilidades pero no su explotación [rea
   
 
 
-<time datetime="2014-05-31T07:59:00+02:00" pubdate data-updated="true">31-05-2014</time>
+<time datetime="2014-06-07T07:14:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Visualiza procesos que están consumiendo más ancho de banda en el sistema</p>
-
-<blockquote><p># nethogs   (uso básico. Por defecto el dispositivo es eth0)</p>
-
-<p># nethogs eth0 eth1 (especificando dos dispositivos)</p>
-
-<p># nethogs -t eth1  (rastreando conexiones y especificando dispositivo)</p>
-
-<p># nethogs -d 5 eth1 (Actualizando datos cada 5 segundos)</p></blockquote>
+  <div class="entry-content"><p>Pagina la visualización de un fichero comprimido (Ver more)</p>
 </div>
   
   
@@ -408,7 +202,7 @@ vuln (Dedicados a la detección de vulnerabilidades pero no su explotación [rea
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/lilo/">Lilo</a></h1>
+      <h1 class="entry-title"><a href="/blog/zmap/">Zmap</a></h1>
     
     
       <p class="meta">
@@ -424,75 +218,16 @@ vuln (Dedicados a la detección de vulnerabilidades pero no su explotación [rea
   
 
 
-<time datetime="2014-05-25T19:02:00+02:00" pubdate data-updated="true">25-05-2014</time>
+<time datetime="2014-06-07T07:14:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Gestor de arranque. La configuración en:</p>
+  <div class="entry-content"><p>Herramienta que permite escanear las direcciones IP de todo Internet en menos de 1 hora. Para incrementar la velocidad, el escaneo no se realiza por orden de número de IPs sinó a saltos. Desgarga:</p>
 
-<blockquote><p># nano /etc/lilo.conf</p></blockquote>
-
-<p>Algunos parametros a especificar:</p>
-
-<blockquote><p># Indica que se instale en determinado disco:</p></blockquote>
-
-<p>boot = /dev/sda</p>
-
-<blockquote><p># El sistema que arrancará por defecto [el especificado en la etiqueta [label]]</p></blockquote>
-
-<p>default = Linux</p>
-
-<blockquote><p># Que muestre cualquier cosa que sea referenciado en la línea message:</p></blockquote>
-
-<p>prompt</p>
-
-<blockquote><p># Una imagen. Medidas 640x480:</p></blockquote>
-
-<p>bitmap = /boot/slack.bmp</p>
-
-<blockquote><p># un mensaje de inicio:</p></blockquote>
-
-<p>message = /boot/boot_message.txt</p>
-
-<blockquote><p># tiempo de espera para arrancar la partición por defecto [en segundos]:</p></blockquote>
-
-<p>timeout = 50</p>
-
-<blockquote><p># Una partición linux</p></blockquote>
-
-<p>image = /boot/vmlinuz</p>
-
-<pre><code>root = /dev/sda2
-
-label = Linux
-
-read only
-</code></pre>
-
-<blockquote><p># nota: read-only Indica que el sistema de ficheros raíz se montará en modo solo-lectura.</p>
-
-<p># Por norma general, el proceso de arranque lo remonta luego en modo lectura-escritura.</p>
-
-<p># Una partición windows:</p></blockquote>
-
-<p>other = /dev/hda1</p>
-
-<pre><code>label = Windows
-
-table = /dev/sda1 
-</code></pre>
-
-<p>Si queremos una contraseña para entrar en alguno de los sistemas colocamos en su entrada:</p>
-
-<pre><code>password = 12345
-</code></pre>
-
-<p>Cualquier modificación en este archivo para guardar los cambios, implica lanzar:</p>
-
-<blockquote><p># lilo</p></blockquote>
+<blockquote><p>$ git clone https://github.com/zmap/zmap.git</p></blockquote>
 </div>
   
   
@@ -505,7 +240,7 @@ table = /dev/sda1
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/anarchism/">Anarchism</a></h1>
+      <h1 class="entry-title"><a href="/blog/zless/">Zless</a></h1>
     
     
       <p class="meta">
@@ -521,16 +256,14 @@ table = /dev/sda1
   
 
 
-<time datetime="2014-05-24T07:36:00+02:00" pubdate data-updated="true">24-05-2014</time>
+<time datetime="2014-06-07T07:14:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Historia del anarquismo en inglés. Acceder al contenido mediante el navegador.</p>
-
-<p>/usr/share/doc/anarchism/html/index.html</p>
+  <div class="entry-content"><p>Pagina la visualización de un fichero comprimido (Ver less).</p>
 </div>
   
   
@@ -543,7 +276,7 @@ table = /dev/sda1
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/sftp/">Sftp</a></h1>
+      <h1 class="entry-title"><a href="/blog/zip/">Zip</a></h1>
     
     
       <p class="meta">
@@ -559,35 +292,18 @@ table = /dev/sda1
   
 
 
-<time datetime="2014-05-21T17:25:00+02:00" pubdate data-updated="true">21-05-2014</time>
+<time datetime="2014-06-07T07:14:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Transferencia encriptada de archivos entre computadoras por ssh.</p>
+  <div class="entry-content"><p>[unzip]. comprime y empaqueta</p>
 
-<p>Ajustes previos:</p>
+<blockquote><p>$ zip archivo.zip fichero1 fichero2 (Comprimir varios ficheros)</p>
 
-<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
-
-<p>Y colocar las lineas:</p>
-
-<pre><code>Subsystem sftp internal-sftp
-
-Match group USER
-
- ChrootDirectory /home/USER
-
- ForceCommand internal-sftp
-
- AllowTCPForwarding no
-
- X11Forwarding no
-</code></pre>
-
-<blockquote><p>$ sftp USER@host</p></blockquote>
+<p>$ zip -r archivo.zip file1 file2 dir1 (comprimir varios files y directorios)</p></blockquote>
 </div>
   
   
@@ -600,7 +316,7 @@ Match group USER
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/logrotate/">Logrotate</a></h1>
+      <h1 class="entry-title"><a href="/blog/zgrep/">Zgrep</a></h1>
     
     
       <p class="meta">
@@ -616,28 +332,14 @@ Match group USER
   
 
 
-<time datetime="2014-05-20T18:17:00+02:00" pubdate data-updated="true">20-05-2014</time>
+<time datetime="2014-06-07T07:14:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Rotación, compresión y correos del sistema de logs.</p>
-
-<blockquote><p># logrotate -d /etc/logrotate.conf (Verificación del correcto funcionamiento)</p>
-
-<p># logrotate -f /etc/logrotate.conf  (forzar la verificación)</p></blockquote>
-
-<p>1.-</p>
-
-<p>Por defecto, se añade un numero al fichero rotado. Si queremos que se use la fecha:</p>
-
-<blockquote><p># nano /etc/logrotate.conf</p></blockquote>
-
-<p>Añadir la linea:</p>
-
-<p>dateext</p>
+  <div class="entry-content"><p>imprime las líneas que cumplan la expresión regula sobre ficheros comprimidos (Ver grep)</p>
 </div>
   
   
@@ -650,7 +352,7 @@ Match group USER
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ssh/">Ssh</a></h1>
+      <h1 class="entry-title"><a href="/blog/zfgrep/">Zfgrep</a></h1>
     
     
       <p class="meta">
@@ -666,187 +368,14 @@ Match group USER
   
 
 
-<time datetime="2014-05-19T20:31:00+02:00" pubdate data-updated="true">19-05-2014</time>
+<time datetime="2014-06-07T07:14:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Comunicación cifrada entre dos máquinas.</p>
-
-<blockquote><p>$ ssh usuario@host (básica)</p>
-
-<p>$ ssh -v usuario@IP_o_host (comprobar errores en una conexión)</p>
-
-<p>$ ssh -p 4000 usuario@host (especificando un puerto)</p>
-
-<p>$ ssh -fND localhost:2080 usuario@host (Crear un servidor proxy en una máquina remota. La “N” es para que no se puedan ejecutar comandos)</p>
-
-<p>$ ssh -X -Y usuario@host akregator (Lanzar una aplicación remota en local. Ver punto 11 de esta entrada)</p>
-
-<p>$ ssh usuario@host ls (lanzar un comando remoto y visualizarlo en local)</p>
-
-<p>$ ssh -t usuario@host newsbeuter  (lo mismo si precisa consola)</p>
-
-<p>$ ssh -D 9999 usuario@host (abrir un puerto a partir del cual tunelar una conexión)</p>
-
-<p>$ ssh user@host_ip &#8216;DISPLAY=&#8221;:0.0&#8221; import -window root screenshot.png&#8217; (realizar pantallazo de una sesión remota. Se archiva en el remoto no en local)</p>
-
-<p>$ ssh usuario@host &#8220;tar -cf - /home/usuario/dir&#8221; | gzip dir.tar.gz (Comprimir un directorio remoto)</p>
-
-<p>$ ssh usuario@host cat /home/usuario/archivo.txt | xclip -selection (Copiar el contenido de un archivo remoto en el clipboard local)</p>
-
-<p># gedit /var/run/motd   (modificar el mensaje de bienvenida de ssh)</p></blockquote>
-
-<p>1.-</p>
-
-<p>conexión remota. El servidor ha de tener el archivo /etc/ssh/sshd_config con los siguientes parámetros:</p>
-
-<p>AllowTcpForwarding yes</p>
-
-<p>GatewayPorts yes</p>
-
-<p>Luego configurar Firefox para usar un servidor proxy 127.0.0.1 puerto 9999.</p>
-
-<p>2.-</p>
-
-<blockquote><p># gedit /etc/issue.net   (modificar el mensaje antes del login. Para activarlo, descomentar del archivo “/etc/ssh/sshd_config” la línea: Banner /etc/issue.net)</p></blockquote>
-
-<p>3.-</p>
-
-<p>Tunel inverso:</p>
-
-<blockquote><p>$ ssh -R 10000:localhost:22 usuario2@host2 (lanzado desde host1 hacia host2 crea un tunel por el puerto 10000)</p>
-
-<p>$ ssh usuario2@host2 (Lanzado desde host3 hacia host2)</p></blockquote>
-
-<p>Una vez entrado en host2, lanzar:</p>
-
-<blockquote><p>$ ssh usuario1@localhost -p 10000 (Para conectar el host3 con el host1)</p></blockquote>
-
-<p>4.-</p>
-
-<p>Crear clave publica para acceder a un remoto sin que pida identificación:</p>
-
-<blockquote><p>$ ssh-keygen -b 4096 -t rsa  (Crear la clave)</p>
-
-<p>$ ssh-copy-id usuario@IP_o_HOST (enviar la clave al remoto)</p></blockquote>
-
-<p>5.-</p>
-
-<p>Para deshabilitar el acceso a todos los usuarios excepto a root:</p>
-
-<blockquote><p># touch /etc/nologin</p>
-
-<p># chmod 644 /etc/nologin</p></blockquote>
-
-<p>6.-</p>
-
-<p>Deshabilitar/personalizar los mensajes que aparecen cuando nos logueamos en algunas distros a un host remoto mediante SSH.</p>
-
-<blockquote><p>$ touch /home/usuario/.hushlogin (Creando este fichero vacio se deshabilitan los mensajes. Borrandolo vuelven a aparecer)</p>
-
-<p># nano /etc/motd (Archivo para personalizar los mensaje de bienvenida a quien se loguea en el sistema)</p></blockquote>
-
-<p>7.-</p>
-
-<p>Crear un atajo para la conexión a un servidor remoto:</p>
-
-<blockquote><p>$ nano .ssh/config</p></blockquote>
-
-<p>Y pegar el siguiente contenido debidamente modificado con nuestros datos:</p>
-
-<pre><code>host servidor
-
- hostname 192.168.1.10
-
- user USUARIO_REMOTO
-</code></pre>
-
-<p>Nota.- Delante de la segunda y tercera linea existe un espacio.</p>
-
-<p>Al crear este archivo, la conexión se realizará con:</p>
-
-<blockquote><p>$ ssh servidor (Pedirá igualmente contraseña)</p></blockquote>
-
-<p>8.-</p>
-
-<p>Evitar desconexiones por inactividad:</p>
-
-<blockquote><p>$ nano .ssh/config</p></blockquote>
-
-<p>Y pegar el siguiente contenido:</p>
-
-<pre><code>Host *
-
-    ServerAliveInterval 120
-
-    ServerAliveCountMax 3
-</code></pre>
-
-<p>9.-</p>
-
-<p>Añadir un registro de las acciones realizadas dentro de cada sesión SFTP</p>
-
-<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
-
-<p>Y dejar la linea como se indica:</p>
-
-<p>Subsystem sftp /usr/lib/openssh/sftp-server -l INFO</p>
-
-<p>Tras reiniciar ssh, el registro se plasmará en /var/log/auth.log</p>
-
-<p>10.-</p>
-
-<p>Aumentando la seguridad del servidor ssh:</p>
-
-<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
-
-<p>Y añadir o modificar las siguientes lineas:</p>
-
-<pre><code>AllowUsers juan pedro andrés (Limitando a uno o varios los usuarios autorizados)
-
-AllowGroup oficina (Restringir acceso a solo un grupo)
-
-Port 372 (Modificando puerto. Aconsejable uno inferior al 1024)
-
-LoginGraceTime 40 (Mostrar la pantalla de login 40 segundos antes de cerrarse)
-
-MaxStartups 4 (Cantidad máxima de conexiones simultaneas)
-
-MaxAuthTries 3 (Limitar el número de intentos de logeo, tras los cuales se cierra la conexión)
-</code></pre>
-
-<p>11.-</p>
-
-<p>Ajustes para tunelar aplicaciones gráficas:</p>
-
-<p>En el servidor:</p>
-
-<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
-
-<pre><code>AllowTcpForwarding yes
-
-X11Forwarding yes
-
-X11DisplayOffset 10
-
-X11UseLocalhost yes
-</code></pre>
-
-<p>En la máquina cliente:</p>
-
-<blockquote><p># nano /etc/ssh/ssh_config</p></blockquote>
-
-<pre><code>ForwardX11 yes
-
-ForwardX11Trusted yes
-</code></pre>
-
-<p>Después de reiniciar ssh, con el parámetro -X se visualizará la gui remota que tambien tiene que estar instalada en local.</p>
-
-<blockquote><p>$ ssh -X usuario@host akregator</p></blockquote>
+  <div class="entry-content"><p>Busca cadenas de texto fijas sobre archivos comprimidos (ver fgrep)</p>
 </div>
   
   
@@ -859,7 +388,7 @@ ForwardX11Trusted yes
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/lshell/">Lshell</a></h1>
+      <h1 class="entry-title"><a href="/blog/zenity/">Zenity</a></h1>
     
     
       <p class="meta">
@@ -875,43 +404,26 @@ ForwardX11Trusted yes
   
 
 
-<time datetime="2014-05-17T04:43:00+02:00" pubdate data-updated="true">17-05-2014</time>
+<time datetime="2014-06-07T07:14:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>shell restrictiva para permitir a usuarios acceder via ssh al sistema limitando sus privilegios. Algunas modificaciones en el archivo de configuración:</p>
+  <div class="entry-content"><p>Creación de dialogos gráficos simples. Especialmente para scripts.</p>
 
-<blockquote><p># nano /etc/lshell.conf</p></blockquote>
+<blockquote><p>$ zenity -?   (muestra las opciones de la aplicación y de ayuda)</p>
 
-<pre><code>...
+<p>$ zenity &#8211;title Archivo &#8211;width 800 &#8211;height 600 &#8211;text-info &#8211;filename /home/usuario/archivo.txt (mostrar un archivo)</p>
 
-[global]
+<p>$ zenity &#8211;info &#8211;text=&#8221;Este PC va a explotar en 10 segundos. Date por muerto.&#8221;</p>
 
-# archivo de logs
+<p>$ zenity &#8211;password &#8211;username (Muestra diálogo entrar usuario y contraseña)</p>
 
-logpath         : /var/log/lshell/
+<p>$ zenity &#8211;calendar (Muestra el calendario)</p>
 
-...
-
-[default]
-
-...
-
-# Comandos permitidos
-
-allowed         : ['ls','echo','cd','ll','cat','more','nano']
-
-# Mensaje al arrancar
-
-intro           : "*** Entrando en la máquina con privilegios limitados *** Pulsar '?' o 'help' para listar comandos autoritzados"
-
-# Si el usuario tiene una carpeta personal
-
-home_path       : '/home/USUARIO/'
-</code></pre>
+<p>$ zenity &#8211;scale (Muestra la escala)</p></blockquote>
 </div>
   
   
@@ -924,7 +436,7 @@ home_path       : '/home/USUARIO/'
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/apt-mirror/">Apt-mirror</a></h1>
+      <h1 class="entry-title"><a href="/blog/zegrep/">Zegrep</a></h1>
     
     
       <p class="meta">
@@ -940,46 +452,14 @@ home_path       : '/home/USUARIO/'
   
 
 
-<time datetime="2014-05-17T04:43:00+02:00" pubdate data-updated="true">17-05-2014</time>
+<time datetime="2014-06-07T07:14:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[apache2]. Configurar un repositorio local. Seguidamente se muestra el proceso:</p>
-
-<blockquote><p>$ mkdir repo (Crear el directorio)</p>
-
-<p># nano /etc/apt/mirror.list</p></blockquote>
-
-<p>Añadir al principio la linea del directorio:</p>
-
-<pre><code>set base_path /home/USER/repo
-</code></pre>
-
-<blockquote><p># apt-mirror (Recargar/actualizar el repositorio)</p></blockquote>
-
-<p>Crear el enlace para que esté disponible via web:</p>
-
-<blockquote><p>$ cd /var/www/html</p>
-
-<p>$ ln -s /home/USER/distro/mirror/us.archive.ubuntu.com/ubuntu ubuntu</p></blockquote>
-
-<p>Modificar el sources.list:</p>
-
-<blockquote><p># nano /etc/apt/sources.list</p></blockquote>
-
-<p>Añadir la lineas:</p>
-
-<pre><code>deb http://192.168.1.2/ubuntu trusty universe
-
-deb http://192.168.1.2/ubuntu trusty main restricted
-
-deb http://192.168.1.2/ubuntu trusty-updates main restricted
-</code></pre>
-
-<blockquote><p># apt-update (Actualizar el cliente)</p></blockquote>
+  <div class="entry-content"><p>Busca expresiones regulares sobre archivos comprimidos (Ver egrep)</p>
 </div>
   
   
@@ -992,7 +472,7 @@ deb http://192.168.1.2/ubuntu trusty-updates main restricted
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/typeset/">Typeset</a></h1>
+      <h1 class="entry-title"><a href="/blog/zdump/">Zdump</a></h1>
     
     
       <p class="meta">
@@ -1008,25 +488,16 @@ deb http://192.168.1.2/ubuntu trusty-updates main restricted
   
 
 
-<time datetime="2014-05-07T18:24:00+02:00" pubdate data-updated="true">07-05-2014</time>
+<time datetime="2014-06-07T07:14:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Define variables y les da atributos. Es necesario para operar con números y hacer cuentas con ellos. Ver &#8220;declare&#8221;</p>
+  <div class="entry-content"><p>Visualiza la zona horaria especificada.</p>
 
-<p>Un ejemplo de uso en un script:</p>
-
-<pre><code>#! /bin/bash
-
-typeset -i suma
-
-suma=7+5
-
-echo $suma
-</code></pre>
+<blockquote><p>$ zdump Madrid</p></blockquote>
 </div>
   
   
@@ -1055,43 +526,43 @@ echo $suma
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/nmap/">nmap</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/nethogs/">nethogs</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lilo/">lilo</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/anarchism/">anarchism</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sftp/">sftp</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/logrotate/">logrotate</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssh/">ssh</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lshell/">lshell</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/apt-mirror/">apt-mirror</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/typeset/">typeset</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

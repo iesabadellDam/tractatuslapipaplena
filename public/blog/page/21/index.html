@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Estructura muy parecida a while [until, do, done], pero con la forma de evaluar la condición al revés, es decir, se ejecuta mientras la condición sea &hellip;">
+  <meta name="description" content="Grabación de una sesión tty $ ttyrec archivo (A partir de cuando vuelva a salir el prompt se grabará todo en “archivo”. Finalizar con “killall ttyrec &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/until/">Until</a></h1>
+      <h1 class="entry-title"><a href="/blog/ttyrec/">Ttyrec</a></h1>
     
     
       <p class="meta">
@@ -96,410 +96,448 @@
   
 
 
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:14:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Estructura muy parecida a while [until, do, done], pero con la forma de evaluar la condición al revés, es decir, se ejecuta mientras la condición sea falsa.</p>
+  <div class="entry-content"><p>Grabación de una sesión tty</p>
 
-<p>Algunos ejemplos:</p>
+<blockquote><p>$ ttyrec archivo  (A partir de cuando vuelva a salir el prompt se grabará todo en “archivo”. Finalizar con “killall ttyrec”)</p>
+
+<p>$ ttyplay -s2 archivo (reproducir lo grabado a doble velocidad. Pulsando las telcas “-” y “+”, baja o sube la velocidad de reproducción)</p>
+
+<p>$ ttyrec -a archivo  (Añadir nueva grabación a continuación de archivo. No sobreescribe archivo)</p>
+
+<p>$ ttytime archivo  (Dirá los segundos que dura la grabación)</p></blockquote>
+
+<p>Nota.- Para compartir el archivo puede subirse a http://playterm.org/</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/tty-clock/">Tty-clock</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:14:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Reloj digital por consola</p>
+
+<blockquote><p>$ tty-clock -s -c -C 1 (marcando los segundo [s] en el centro de la consola [c] y en color rojo [1]</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<p>-r  Que rebote por los lados de la terminal.</p>
+
+<p>Colores: 2: verde, 3: amarillo, 4: azul, 5: rosa, 6:turquesa, 7: blanco</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/tty/">Tty</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:14:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Muestra el número de terminal</p>
+
+<blockquote><p>$ tty</p></blockquote>
 
 <p>1.-</p>
 
-<p>Decrecer un contador hasta llegar a 5</p>
+<p>Invertir una consola. No sirve para las terminales virtuales de las X.</p>
 
-<pre><code>#!/bin/bash
+<blockquote><p>$ /sys/class/graphics/fbcon/rotate</p></blockquote>
 
-CONTADOR=10
+<p>Borrar el 0 y poner un 2 (180º). Con un 1 la invertimos 90º a la derecha y con un 3 90º a la izquierda.</p>
+</div>
+  
+  
 
-until [  $CONTADOR -lt 5 ]; do
 
-   echo "El contador a $CONTADOR"
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ttv/">Ttv</a></h1>
+    
+    
+      <p class="meta">
+        
 
-   let CONTADOR-=1
 
-done
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:14:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Webcam en consola y ascii</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/tshark/">Tshark</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:14:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Capturar paquetes y visualizarlos por pantalla:</p>
+
+<blockquote><p># tshark -n -i eth0 -s 1515</p>
+
+<p># tshark -D (Ver las interfaces de red disponibles)</p>
+
+<p># tshark -n -i eth0 -s 1515 -w archivo (Capturar información y pasarla a un archivo)</p>
+
+<p># tshark -n -i eth0 -s 1515 -w -filesize:10000 -b 10 -w archivo (Lo mismo especificando medida máxima del archivo (-filesize:10000) y cuantidad de ficheros a crear (-b 10) en Mb</p>
+
+<p># tshark -n -i eth0 -s 1515 -a duration:3600 -w archivo (Especificando el tiempo que durará - 1 hora)</p>
+
+<p># tshark -n -t ad -r fitxer.lpc tcp (mostrar los mensajes del protocolo tcp)</p>
+
+<p># tshark -ni eth0 &#8216;tcp port tuxapuntes.com/drupal/80&#8217; -R &#8216;http.request.method == &#8220;GET&#8221;&#8217;  (ver todas las peticiones HTTP GET)</p></blockquote>
+
+<p>Opciones:</p>
+
+<p>-t   Para que salgan las marcas de tiempo real</p>
+
+<p>-n  Inhabilita la resolución de nombres</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/tset/">Tset</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:14:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Inicializa los valores de la terminal. Ver reset.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ts/">Ts</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:14:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[moreutils]</p>
+
+<p>Añade una marca de tiempo al principio de cada línea de entrada.</p>
+
+<blockquote><p>$ ts (Escribir cualquier cosa y al darle al intro mostrará la marca del tiempo y lo escrito)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/truecrypt/">Truecrypt</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:14:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Aplicación que permite cifrar sistemas de archivos enteros, generar archivos cifrados y tambien generar sistemas ocultos dentro de otros sistemas. Descarga de : http://www.truecrypt.org/downloads</p>
+
+<p>Descomprimir y ejecutar:</p>
+
+<pre><code>$ tar xf truecrypt-7.1a-linux-console-x64.tar.gz
+
+# ./truecrypt-7.1a-setup-console-x64
 </code></pre>
 
-<p>2.-</p>
+<blockquote><p># truecrypt -t -c (por consola [t] y ejecutar por primera vez [c]. Sin el parámetro &#8220;t&#8221; abre la gui)</p></blockquote>
 
-<pre><code>#!/bin/bash
+<pre><code>Volume type:
 
-SALIR=si
+ 1) Normal
 
-until [ "$OPCION" = "$SALIR" ]
+ 2) Hidden
 
-do
+Select [1]: 1
 
-  echo "Pulsar teclas... "
+**[Seleccionar si va a estar oculto o no: 1]**
 
-  echo "(\"$SALIR\" para salir)"
+Enter volume path: /media/cripta
 
-  read OPCION
+**[Donde se montará. No tiene que existir el directorio]**
 
-  echo "Pulsada la opción salir ($OPCION)"
+Enter volume size (sizeK/size[M]/sizeG): 20M
 
-  echo
+**[Tamaño del volumen: a voluntad]**
 
-done
-</code></pre>
-</div>
-  
-  
+Encryption algorithm:
 
+ 1) AES
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/unsort/">Unsort</a></h1>
-    
-    
-      <p class="meta">
-        
+ 2) Serpent
 
+ 3) Twofish
 
+ 4) AES-Twofish
 
+ 5) AES-Twofish-Serpent
 
+ 6) Serpent-AES
 
+ 7) Serpent-Twofish-AES
 
+ 8) Twofish-Serpent
 
+Select [1]: 5
 
-  
+**[Algoritmo de encriptación: a voluntad]**
 
+Hash algorithm:
 
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
+ 1) RIPEMD-160
 
+ 2) SHA-512
 
-  <div class="entry-content"><p>Reordena las lineas de un archivo de forma semialeatoria.</p>
+ 3) Whirlpool
 
-<blockquote><p>$ unsort -p archivo.txt</p>
+Select [1]: 2
 
-<p>$ unsort -M archivo1.txt archivo2.txt (Uniendo en la salida los dos archivos)</p>
+**[El hash: a voluntad]**
 
-<p>$ unsort -n archivo1.txt archivo2.txt (Mezcla las lineas de forma aleatoria sin alterar el orden)</p></blockquote>
-</div>
-  
-  
+Filesystem:
 
+ 1) None
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/unset/">Unset</a></h1>
-    
-    
-      <p class="meta">
-        
+ 2) FAT
 
+ 3) Linux Ext2
 
+ 4) Linux Ext3
 
+ 5) Linux Ext4
 
+Select [2]: 5
 
+**[El sistema de archivo]**
 
+Enter password:
 
+WARNING: Short passwords are easy to crack using brute force techniques!
 
-  
+**[CUIDADO: Contraseñas cortas son fáciles de romper usando técnicas de fuerza bruta!]**
 
+We recommend choosing a password consisting of more than 20 characters. Are you sure you want to use a short password? (y=Yes/n=No) [No]: y
 
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
+**[Informa que la contraseña tiene menos de 20 caracteres pero la aceptamos de todas formas]**
 
+Re-enter password:
 
-  <div class="entry-content"><p>elimina variables locales o asigna NULL</p>
+**[La repetimos]**
 
-<blockquote><p>$ unset HISTFILE; unset SAVEHIST  (desactiva el historial de comandos)</p>
+Enter keyfile path [none]:
 
-<p>$ unset -f funcion (borrar una funcion)</p>
+**[Sin archivo de claves: enter]**
 
-<p>$ unset VAR (Eliminar una variable)</p></blockquote>
-</div>
-  
-  
+Please type at least 320 randomly chosen characters and then press Enter:
 
+Characters remaining: 134
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/unrar/">Unrar</a></h1>
-    
-    
-      <p class="meta">
-        
+Characters remaining: 26
 
+**[Nos hace tipear 320 caracteres en el teclado... todavia faltan 134... todavia faltan 26...]**
 
+ Done: 100,000%  Speed:   22 MB/s  Left: 0 s
 
+**[Por fin... y toma sus notas... pasamos de ellas...]**
 
+The TrueCrypt volume has been successfully created.
 
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Descomprimir archivos rar.</p>
-
-<blockquote><p>$ unrar x archivo.rar</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/unoconv/">Unoconv</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Exporta todos los formatos soportados por openoffice/libreoffice a otros formatos como pdf, txt&#8230; creando un archivo con el mismo nombre de origen pero con la nueva extensión. Para una lista detallada consultar este enlace: <a href="http://dag.wieers.com/home-made/unoconv/">http://dag.wieers.com/home-made/unoconv/</a></p>
-
-<blockquote><p>$ unoconv &#8211;show  (Visualizar formatos  soportados)</p>
-
-<p>$ unoconv -f xls archivo.csv (convertir un csv a xls)</p>
-
-<p>$ unoconv -f pdf <em>.odp </em>.odt (Convierte todos los .odt y .odp a pdfs)</p>
-
-<p>$ unoconv &#8211;format=txt document1.odt (convierte el documento a texto plano)</p>
-
-<p>$ unoconv &#8211;format=txt &#8211;stdout document1.odt > salida.txt (envia la salida al STDOUT para redireccionarla a un fichero cualquiera)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/unix2dos/">Unix2dos</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Convertir formatos unix a msdos</p>
-
-<blockquote><p>$ unix2dos fichero_unix fichero_dosServidor de archivos ftp. Toda la configuración de encuentra en el archivo:</p>
-
-<p># nano /etc/vsftpd.conf</p></blockquote>
-
-<p>Algunos de los parámetros:</p>
-
-<p>anonymous_enable=NO # si no queremos accesos anonimos</p>
-
-<p>local_enable=YES # Permitir accesos locales autentificados</p>
-
-<p>write_enable=YES # Permite escritura en el servidor</p>
-
-<p>ftpd_banner=Entrando en el servidor ftp&#8230;</p>
-
-<p>chroot_local_user=YES # Enjaular la conexión a su propio directorio personal</p>
-
-<p>max_clients=5 # limitar a 5 los accesos simultaneos</p>
-
-<p>Nota.- Han de redigirirse los puertos 20 y 21 y el rango especificado en el archivo de configuración:</p>
-
-<p>pasv_min_port=44000</p>
-
-<p>pasv_max_port=44100</p>
-
-<p>El cliente podrá conectarse al servidor via filezilla, gftp&#8230;</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/unity/">Unity</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Escritorio.</p>
-
-<blockquote><p>$ unity &#8211;reset (Resetear la configuración de unity)</p>
-
-<p>$ unity &#8211;reset-icons (eliminar iconos agregados al launcher)</p>
-
-<p>$ unity &#8211;replace (reiniciar)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/units/">Units</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Conversor de unidades [metros, litros, millas, pulgadas, grados&#8230;]. Las unidades han de expresarse en inglés.</p>
-
-<blockquote><p>$ units</p></blockquote>
-
-<p>Muestra &#8220;You have&#8221; para entrar lo que tenemos [1m, 10lb, 2hr, tempK(0)&#8230; ] y a continuación &#8220;You want&#8221;, lo que queremos. Algunos ejemplos:</p>
-
-<p>De millas a kilómetros:</p>
-
-<pre><code>You have: 10mi
-
-You want: km
-
-    * 16.09344
-
-    / 0.062137119
+**[Finalmente se ha creado el volumen]**
 </code></pre>
 
-<p>De libras a gramos:</p>
+<blockquote><p># truecrypt -t /media/cripta (Ejecutando la aplicación. Intro a todo:)</p></blockquote>
 
-<pre><code>You have: 1lb
+<pre><code>Enter mount directory [default]:
 
-You want: gr
+Enter password for /media/cripta:
 
-    * 7000
+Enter keyfile [none]:
 
-    / 0.00014285714
+Protect hidden volume (if any)? (y=Yes/n=No) [No]:
 </code></pre>
 
-<p>De grados kelvin a celsius:</p>
+<blockquote><p># truecript -t -l (Comprobar dispositivo montado)</p></blockquote>
 
-<pre><code>You have: tempK(0)
-
-You want: tempC
-
-    -273.15
+<pre><code>1: /media/cripta /dev/mapper/truecrypt1 /media/truecrypt1
 </code></pre>
 
-<p>De 3 horas más 16 minutos a segundos</p>
-
-<pre><code>You have: 3hr + 16min
-
-You want: sec
-
-    * 11760
-
-    / 8.5034014e-05
-</code></pre>
+<blockquote><p># truecrypt -d /media/cripta (Desmontar volumen)</p></blockquote>
 </div>
   
   
@@ -512,7 +550,7 @@ You want: sec
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/unison/">Unison</a></h1>
+      <h1 class="entry-title"><a href="/blog/trickle/">Trickle</a></h1>
     
     
       <p class="meta">
@@ -528,39 +566,22 @@ You want: sec
   
 
 
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:14:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[openssh-server ssh]. Sincronización de carpetas remotas.</p>
+  <div class="entry-content"><p>Limitar la velocidad de subida/bajada</p>
 
-<p>Previamente crear la clave y copiarla al otro pc:</p>
+<p>Nota.- &#8220;-d&#8221; subida y &#8220;-u&#8221; bajada</p>
 
-<blockquote><p>$ ssh-keygen -t dsa</p>
+<blockquote><p>$ trickle -d 50 -u 30 wget http://www.genbeta.com (limitación para un solo host)</p>
 
-<p>$ ssh-copy-id -i $HOME/.ssh/id_dsa.pub root@ip_o_host</p></blockquote>
+<p>$ trickled -d 50 -u 30 (Lanzar la limitación como demonio con lo que todas las aplicaciones que se lancen con trickle tendran la limitación especificada)</p>
 
-<p>Sincronizar las carpetas (la web en este ejemplo)</p>
-
-<blockquote><p>$ unison /srv/http ssh://ip_o_host//srv/http</p></blockquote>
-
-<p>Si la carpeta a sincronizar se coloca en el archivo de configuración:</p>
-
-<blockquote><p># nano /root/.unison/default.prf</p></blockquote>
-
-<p>root = /srv/http</p>
-
-<p>root = ssh://ip_o_host//srv/http</p>
-
-<p>Puede colocarse la orden en el cron para que se actualice cada 5 minutos:</p>
-
-<p>crontab -e</p>
-
-<pre><code>*/5 * * * * /usr/bin/unison &amp;&gt; /dev/null
-</code></pre>
+<p>$ trickle wget http://www.genbeta.com</p></blockquote>
 </div>
   
   
@@ -573,7 +594,7 @@ You want: sec
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/uniq/">Uniq</a></h1>
+      <h1 class="entry-title"><a href="/blog/treil/">Treil</a></h1>
     
     
       <p class="meta">
@@ -589,20 +610,16 @@ You want: sec
   
 
 
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:14:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Ignora las líneas idénticas siempre y cuando sean adyacentes.</p>
+  <div class="entry-content"><p>Generador de una imagen en azulejo a partir de los archivos de un directorio.</p>
 
-<blockquote><p>$ uniq -u archivo archivo_sin repeticiones</p>
-
-<p>$ uniq -d archivo archivo2 (en archivo2 sólo las repetidas)</p>
-
-<p>$ uniq -c archivo (Muestra al principio de la linea el número de veces que se repite)</p></blockquote>
+<blockquote><p>$ treil -g 800x600 -o imagen.png /usr/share (Con una geometria determinada [g], que la imagen se guarde como imagen.png [o] y el directorio del cual crear la imagen)</p></blockquote>
 </div>
   
   
@@ -633,43 +650,43 @@ You want: sec
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/nmap/">nmap</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/nethogs/">nethogs</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lilo/">lilo</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/anarchism/">anarchism</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sftp/">sftp</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/logrotate/">logrotate</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssh/">ssh</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lshell/">lshell</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/apt-mirror/">apt-mirror</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/typeset/">typeset</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

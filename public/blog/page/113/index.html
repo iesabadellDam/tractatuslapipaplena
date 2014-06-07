@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Cliente DHCP # dhclient eth0 (modifica la ip de la máquina)
-">
+  <meta name="description" content="Verificar la integridad de los ficheros. # debsums -s &amp;> log.txt (Modo silencioso [-s] y redirigiendo el resultado a un archivo para posterior &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,423 +80,6 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/dhclient/">Dhclient</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Cliente DHCP</p>
-
-<blockquote><p># dhclient eth0  (modifica la ip de la máquina)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/df/">Df</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Mostrar información de las particiones</p>
-
-<blockquote><p>$ df -h (los resultados en M y G, por defecto son en bytes)</p>
-
-<p>$ df -a (de todas las particiones incluso las de 0 bloques)</p>
-
-<p>$ df -t vfat (de las particiones especificadas, en el caso las vfat)</p>
-
-<p>$ df  -T (de todas las particiones y el tipo)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/devilspie/">Devilspie</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Permite especificar el comportamiento de las ventanas para que determinadas aplicaciones se abran en un escritorio concreto. Ha de colocarse en las aplicaciones de inicio.</p>
-
-<blockquote><p>$ mkdir .devilspie (Crear el directorio)</p></blockquote>
-
-<p>Crear por cada aplicación un archivo .ds en el directorio:</p>
-
-<blockquote><p>$ nano .devilspie/firefox.ds</p></blockquote>
-
-<p>Con el siguiente contenido a modo de ejemplo:</p>
-
-<pre><code>(if
-
-  (is (application_name) "firefox")
-
-  (set_workspace 3)
-
-)
-</code></pre>
-
-<p>Cada vez que arranquemos firefox, se abrirá en el escritorio número 3.</p>
-
-<p>Para saber el nombre de las aplicaciones que corren en cada escritorio:</p>
-
-<blockquote><p>$ nano .devilspie/debug.ds</p></blockquote>
-
-<p>Con el siguiente contenido:</p>
-
-<pre><code>(debug)
-</code></pre>
-
-<p>Cuando arranquemos devilspie por consola, nos las mostrará.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/descriptor/">Descriptor</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Toda aplicación tiene siempre tres descriptores de fichero abiertos, el 0 para la entrada estándar [stdin], el 1 para la salida estándar [stdout], y el 2 para la salida de errores estándar [stderr]. Del 3 al 9 son descriptores adicionales [ver tuberias]. En el ejemplo:</p>
-
-<blockquote><p>$ ls -a >> listado.txt</p></blockquote>
-
-<p>La salida estándart [descriptor 1] se envia al fichero listado.txt, consecuentemente en pantalla no veremos nada. En el caso:</p>
-
-<blockquote><p>$ ls -zy >> listado.txt</p></blockquote>
-
-<p>El error [descriptor 2] se mostrará por pantalla y listado.txt permanecerá vacio. Para redirigir el error [descriptor 2 ]al fichero listado.txt [descriptor 1]:</p>
-
-<blockquote><p>$ ls -zy >> listado.txt 2>&amp;1</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/denyhosts/">Denyhosts</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Protege contra ataques.</p>
-
-<p>Configuración:</p>
-
-<blockquote><p># nano /etc/denyhosts.conf</p></blockquote>
-
-<p>Algunas opciones:</p>
-
-<pre><code>SECURE_LOG = /var/log/auth.log (Ruta a los logs)
-
-DENY_THRESHOLD_INVALID = 5 (Intentos fallidos permitidos con una cuenta que no existe)
-
-DENY_THRESHOLD_VALID = 5 (Intentos falllidos con usuarios validos)
-
-PURGE_DENY =5d (Tiempo de baneo de una IP. 5 dias en este caso)
-
-BLOCK_SERVICE = sshd (Servicios que queremos proteger [ sshd, ALL...)
-</code></pre>
-
-<p>Nota.- Tambien es posible arrancar el servicio con la opción &#8220;purge&#8221;  [/etc/init.d/denyhosts start &#8211;purge] para eliminar las ips bloqueadas y que se muestran en /etc/hosts.deny</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/deluser/">Deluser</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Elimina un usuario del sistema sin borrar su directorio.</p>
-
-<blockquote><p># deluser usuario</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/delgroup/">Delgroup</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Elimina un grupo del sistema</p>
-
-<blockquote><p># delgroup grupo</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/declare/">Declare</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Listar las variables de entorno. En caso de que una función tenga el mismo nombre que un script tiene preferencia la función. Usado principalmente en scripts.</p>
-
-<blockquote><p>$ declare -f (Imprime las funciones alfabeticamente y su definición)</p>
-
-<p>$ declare -f funcion (Mostrará la especificada)</p>
-
-<p>$ declare -F (Lista sólo los nombres de la funciones)</p>
-
-<p>$ declare -p var (Saber el tipo de la variable &#8220;var&#8221;)</p>
-
-<p>$ declare -i var=5 (Declarar una variable de tipo entero)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/debugfs/">Debugfs</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Depurador de sistemas ext. Permite consultar datos del sistema en tiempo real.</p>
-
-<blockquote><p># debugfs (Entra en el promt de la aplicación. Pulsar letra &#8220;q&#8221; para salir del promt)</p></blockquote>
-
-<p>debugfs 1.42 (29-Nov-2011)</p>
-
-<p>debugfs: help (Muestra un listado de todas las opciones)</p>
-
-<p>debugfs: open /dev/sda2 (Abre un sistema de archivos)</p>
-
-<p>debugfs: stats (información de los superbloques)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
       <h1 class="entry-title"><a href="/blog/debsums/">Debsums</a></h1>
     
     
@@ -514,7 +96,7 @@ BLOCK_SERVICE = sshd (Servicios que queremos proteger [ sshd, ALL...)
   
 
 
-<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:09:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
@@ -530,6 +112,583 @@ BLOCK_SERVICE = sshd (Servicios que queremos proteger [ sshd, ALL...)
 <p># debsums -s | grep &#8220;mismatch&#8221; | cut -d &#8221; &#8221; -f4 | uniq > reinstall.txt (Lo mismo)</p>
 
 <p># apt-get install &#8211;reinstall <code>(cat reinstall.txt)</code>  (para instalarlos a partir del listado)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/deborphan/">Deborphan</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:09:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Visualizar paquetes huerfanos</p>
+
+<blockquote><p>$ deborphan &#8211;guess-all   (Los muestra todos)</p>
+
+<p># apt-get remove $(deborphan &#8211;guess-all)     (borra todos los mostrados)</p>
+
+<p># deborphan        (para ver las librerias huérfanas)</p>
+
+<p># dpkg -l $(deborphan)    (lo mismo que el anterior con más detalles)</p>
+
+<p># sudo dpkg &#8211;purge $(deborphan)   (eliminar los paquetes huérfanos)</p>
+
+<p># apt-get remove <code>deborphan</code> (Lo mismo)</p>
+
+<p># dpkg -l $(deborphan &#8211;find-config)  (para borrar configuraciones que no se han borrado tras la desinstalación de un paquete)</p>
+
+<p># dpkg &#8211;purge $(deborphan &#8211;ind-config)  (para eliminarlos)</p>
+
+<p># apt-get remove $(deborphan &#8211;guess-all)</p></blockquote>
+
+<p>Nota.- Normalmente estas aplicaciones han de repetirse varias veces hasta que al lanzar el comando no salga ninguna archivo huerfana.</p>
+
+<blockquote><p># deborphan | xargs sudo apt-get -y remove &#8211;purge (otra forma de eliminar paquetes huerfanos)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/debian-timeline/">Debian-timeline</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:09:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Línea de tiempo del proyecto Debian basado en Javascript y HTML: Versiones, bugs, lanzamientos importantes&#8230; Colocar en la barra de navegación:</p>
+
+<pre><code>http://usr/share/debian-timeline/index.html
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/debian-history/">Debian-history</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:09:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Historia de la distro Debian. Los idiomas disponibles son: Inglés, francés, alemán, italiano, japonés, coreano, portugués, ruso y lituano. Colocar en la barra de navegación [para el idioma francés]:</p>
+
+<pre><code>http://usr/share/doc/debian-history/fr/index.fr.html
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/debget/">Debget</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:09:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[debian-goodies]. Descarga un paquete del repositorio o, caso de estar instalado, muestra la versión.</p>
+
+<blockquote><p>$ debget debian-goodies</p>
+
+<p>$ debget 0ad</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/deb/">Deb</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:09:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Extensión de los paquetes para distros Debian.</p>
+
+<p>1.-</p>
+
+<p>Crear un paquete para esta distro a partir de un script:</p>
+
+<pre><code>$ mkdir deb
+</code></pre>
+
+<p>En ese directorio recrear la estructura destino que queremos utilizar. En nuestro caso /usr/bin, el directorio para el icono y permisos:</p>
+
+<pre><code>$ mkdir -p deb/usr/bin
+
+$ mkdir -p deb/usr/share/applications
+</code></pre>
+
+<p>Copiar el script en el bin creado:</p>
+
+<pre><code>$ cp script deb/usr/bin
+</code></pre>
+
+<p>Crear el subdirectorio DEBIAN:</p>
+
+<pre><code>$ mkdir deb/DEBIAN
+</code></pre>
+
+<p>En su interior el fichero “control”:</p>
+
+<pre><code>$ nano deb/DEBIAN/control
+</code></pre>
+
+<p>En el que pegamos datos del paquete:</p>
+
+<p>Package: nombre_que_queremos</p>
+
+<p>Priority: optional</p>
+
+<p>Section: misc</p>
+
+<p>Maintainer: el_mantenedor</p>
+
+<p>Architecture: all</p>
+
+<p>Version: 1.0</p>
+
+<p>Depends: Las_dependendias_del_paquete</p>
+
+<p>Description: Pequeña_descripción_de_la_maravilla</p>
+
+<p> Este script &#8230;. para &#8230;.. de &#8230;.. aquello&#8230;&#8230;.</p>
+
+<p>Notas: En el nombre del paquete (Package) no se admiten espacios ni barras bajas) y en la descripción (Description) el primer carácter de la segunda linea es un espacio y al final del texto, darle al intro para que ponga una linea vacia. Las dependencias que pongamos en “Depends” son las que se instalarán  con la instalación del .deb.</p>
+
+<p>Crear el paquete “menu” en el mismo directorio:</p>
+
+<pre><code>$ nano deb/DEBIAN/menu
+</code></pre>
+
+<p>Y en su interior pegar:</p>
+
+<pre><code>?package(nombre_script):needs="X11" \
+
+    section="Applications/Network/Monitoring" \
+
+    title="Suport VNC" command="gnome-terminal -e script_que_sea" \
+
+    icon="/usr/share/pixmaps/gnome-term-linux2.png"
+</code></pre>
+
+<p>Notas: Nombre del paquete, que precisa de las X (X11), donde se colocará en el menú “Aplicaciones” (otras opciones: section=”Apps/Multimedia”&#8230;), el comando que lo lanzará (gnome-terminal -e script) y el icono que hemos escogido. Crear el archivo nombre_script.desktop para los datos del icono:</p>
+
+<pre><code>$ gedit deb/usr/share/applications/nombre_script.desktop
+</code></pre>
+
+<p>Y pegar el siguiente contenido:</p>
+
+<pre><code>[Desktop Entry]
+
+Version=1.0
+
+Name=Nombre_script
+
+GenericName=Nombre_script
+
+Comment=Pequeño_comentario
+
+Exec=Nombre_script_que_lo_lanzará
+
+Terminal=true
+
+Type=Application
+
+Categories=Application;Network;
+
+Icon=gnome-term-linux2.png
+
+StartupNotify=true
+</code></pre>
+
+<p>Nota.- también varios modelos de iconos en:</p>
+
+<pre><code>$ ls /home/usuario/.local/share/applications/
+</code></pre>
+
+<p>Cambiar el propietario del directorio:</p>
+
+<pre><code># chown -R root.root deb
+</code></pre>
+
+<p>Finalmente crear el paquete .deb y que lo coloque en el escritorio:</p>
+
+<pre><code># dpkg -b deb /home/usuario/Escritorio/nombre.deb
+</code></pre>
+
+<p>2.-</p>
+
+<p>Crear un paquete a partir de un tar.gz:</p>
+
+<p>Para el ejemplo usaremos el paquete picpuz, un juego para crear puzles a partir de una fotografia, que aunque tenga versión .deb, para el caso nos sirve.</p>
+
+<p>Crear carpeta de trabajo y entrar en ella:</p>
+
+<pre><code>$ mkdir picpuz
+
+$ cd picpuz
+</code></pre>
+
+<p>Descargar y descomprimir el tar.gz y entrar en la carpeta descomprimida:</p>
+
+<blockquote><p>$ wget http://kornelix.squarespace.com/storage/downloads/picpuz-2.2.tar.gz</p>
+
+<p>$ tar xvzf picpuz-2.2.tar.gz</p>
+
+<p>$ cd picpuz-2.2</p></blockquote>
+
+<p>Crear el nuevo paquete .orig.tar.gz con los estandares de Debian, con licencia gpl3 y generando el paquete desde las fuentes:</p>
+
+<pre><code>$ dh_make --createorig  -c gpl3 -s
+</code></pre>
+
+<p>Construir el paquete .deb:</p>
+
+<pre><code>$ dpkg-buildpackage -rfakeroot
+</code></pre>
+
+<p>Listar el contenido de un paquete .deb:</p>
+
+<pre><code>$ ar -tv picpuz_2.2-1_i386.deb
+</code></pre>
+
+<p>Información y perspectiva general de lo que ofrece el paquete:</p>
+
+<pre><code>$ dpkg-deb -I picpuz_2.2-1_i386.deb
+</code></pre>
+
+<p>Listar los ficheros que serán instalados:</p>
+
+<pre><code>$ dpkg-deb -c picpuz_2.2-1_i386.deb
+</code></pre>
+
+<p>instalarlo:</p>
+
+<pre><code># dpkg -i picpuz_2.2-1_i386.deb
+</code></pre>
+
+<p>Lo encontraremos en aplicaciones/juegos</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/deallocvt/">Deallocvt</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:09:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Libera memoria y estructuras de datos del núcleo para todas las consolas virtuales que no se usen. Una consola virtual se considera en desuso si no es la consola en primer plano, ni  ningún  proceso  la  tiene  abierta  para  lectura  o escritura, ni se ha seleccionado ningún texto en su pantalla. Ver openvt</p>
+
+<blockquote><p># deallocvt (Las desasigna todas)</p>
+
+<p># deallocvt 5 (Sólo desasigna la /dev/tty5)</p></blockquote>
+
+<p>Un ejemplo de uso:</p>
+
+<blockquote><p># openvt -s ls (lanzara el comando ls en la primera consola virtual libre. Normalmente la /dev/tty8)</p>
+
+<p># deallocvt 8</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ddrescue/">Ddrescue</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:09:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[make gcc g++]. Recuperación de discos dañados. Proceso:</p>
+
+<p>Descargar el paquete dd_rhelp (Comprobar si existe una versión posterior):</p>
+
+<blockquote><p>$ wget http://www.kalysto.org/pkg/dd_rhelp-0.1.2.tar.gz</p>
+
+<p>$ cd dd_rhelp-0.1.2</p>
+
+<p># ./dd_rhelp /dev/sdbx sdbx.img</p></blockquote>
+
+<p>Creará sdbx.img en el directorio actual, que podrá montarse:</p>
+
+<blockquote><p># mount -o loop sdbx.img /media/imagen</p></blockquote>
+
+<p>Comprobar posibles errores (para partición ext3):</p>
+
+<blockquote><p># fsck -y sdbx.img</p></blockquote>
+
+<p>Restaurar la imagen:</p>
+
+<blockquote><p># dd_rhelp sdbx.img /dev/sdax</p></blockquote>
+
+<p>Método de ejecutar ddrescue en dos pasadas, de forma que la primera sólo recupera los bloques que no contenga sectores defectuosos y el segundo se centre en recuperar el máximo de los defectuosos:</p>
+
+<blockquote><p># ddrescue -v -n /dev/sda /dev/sdb sda.txt</p>
+
+<p># ddrescue -v -r2 -d /dev/sda /dev/sdb sda.txt</p></blockquote>
+
+<p>Luego comprobar errores con fsck.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ddclient/">Ddclient</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:09:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Configurar pc con una ip fija. Requiere registro en dyndns.org. Durante la instalación preguntará los datos del registro pero si se prefiere puede editarse el archivo de configuración y colocarlos a mano</p>
+
+<blockquote><p># gedit /etc/ddclient.conf</p></blockquote>
+
+<p>Completar los campos login y password con los datos correspondientes:</p>
+
+<p>protocol=dyndns2</p>
+
+<p>use=web, web=checkip.dyndns.com, web-skip=&#8217;IP Address&#8217;</p>
+
+<p>server=members.dyndns.org</p>
+
+<p>login=Nombre_registrado_en_dyndns</p>
+
+<p>password=&#8217;contraseña_de_dyndns&#8217;</p>
+
+<p>nombre_de_dominio.com</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ddate/">Ddate</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:09:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Convierte fechas gregorianas en fechas subrealistas. Algunas opciones coinciden con las de &#8220;date&#8221; (ver)</p>
+
+<blockquote><p>$ ddate +%d-%B-%Y</p></blockquote>
 </div>
   
   
@@ -560,43 +719,43 @@ BLOCK_SERVICE = sshd (Servicios que queremos proteger [ sshd, ALL...)
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/nmap/">nmap</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/nethogs/">nethogs</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lilo/">lilo</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/anarchism/">anarchism</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sftp/">sftp</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/logrotate/">logrotate</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssh/">ssh</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lshell/">lshell</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/apt-mirror/">apt-mirror</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/typeset/">typeset</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

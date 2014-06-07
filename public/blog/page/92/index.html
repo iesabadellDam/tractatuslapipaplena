@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Dejar mensajes en la pantalla $ gxmessage -center -fg red -bg black &#8220;No cierren la terminal&#8221; -fg (Color de fuente) -bg (Color de fondo) - &hellip;">
+  <meta name="description" content="[gdrive]. Permite sincronizar cualquier carpeta local con el servicio de almacenamiento online de Google. En Ubuntu: add-apt-repository ppa: &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/gxmessage/">Gxmessage</a></h1>
+      <h1 class="entry-title"><a href="/blog/grive/">Grive</a></h1>
     
     
       <p class="meta">
@@ -96,28 +96,24 @@
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Dejar mensajes en la pantalla</p>
+  <div class="entry-content"><p>[gdrive]. Permite sincronizar cualquier carpeta local con el servicio de almacenamiento online de Google. En Ubuntu: add-apt-repository ppa:nilarimogard/webupd8</p>
 
-<blockquote><p>$ gxmessage -center -fg red -bg black &#8220;No cierren la terminal&#8221;</p></blockquote>
+<blockquote><p>$ mkdir grive (crear una carpeta para sincronizar archivos)</p>
 
-<p>-fg (Color de fuente)</p>
+<p>$ cd grive (Entrar en la carpeta)</p>
 
-<p>-bg (Color de fondo)</p>
+<p>$ grive -a (Mostrará una URL que debe copipastearse al navegador, preferiblemente chromium, y este nos mostrará un código que ha de copipastearse a la consola, tras lo cual empieza el sincronización)</p></blockquote>
 
-<p>-center (En el centro de la pantalla)</p>
+<p>A partir de este momento siempre que entremos en la carpeta gdrive podremos sincronizarla con el almacenamiento de Google lanzando:</p>
 
-<p>-iconic (Minimizado en el panel)</p>
-
-<p>-nearmouse (Se abre donde está el cursor)</p>
-
-<p>-entry (Con un cuadro de dialogo pera entrar una respuesta)</p>
+<blockquote><p>$ grive</p></blockquote>
 </div>
   
   
@@ -130,7 +126,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/gunzip/">Gunzip</a></h1>
+      <h1 class="entry-title"><a href="/blog/grep/">Grep</a></h1>
     
     
       <p class="meta">
@@ -146,16 +142,54 @@
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Descomprime archivos gz comprimidos con gzip.</p>
+  <div class="entry-content"><p>Lee la entrada estándar o un archivo e imprime las líneas que cumplan el patrón. Ver expresiones regulares</p>
 
-<blockquote><p>$ gunzip archivo.txt.gz</p></blockquote>
+<blockquote><p>$ grep -c &#8216;UUID&#8217; /etc/fstab (Muestra sólo el número de líneas que coinciden con el patron)</p>
+
+<p>$ grep -n &#8216;UUID&#8217; /etc/fstab (Muestra el número de lineas y su contenido)</p>
+
+<p>$ grep -i &#8216;uuid&#8217; /etc/fstab (No distingue entre mayusculas ni minúsculas)</p>
+
+<p>$ grep -w &#8216;fstab&#8217; /etc/fstab (Ha de coincidir el patron completo, no una parte)</p>
+
+<p>$ grep -v &#8216;fstab&#8217; /etc/fstab (Muestra las que no tienen el patrón)</p>
+
+<p>$ grep -E &#8216;fstab|dev&#8217; /etc/fstab (Mostras las lineas que contengan dos palabras. Requiere habilitar las expresiones regulares extendidas [ver])</p>
+
+<p>$ grep -e &#8216;fstab&#8217; -e &#8216;dev&#8217; /etc/fstab (Forma de mostrar las lineas que contengan dos palabras sin habilitar las expresiones regualres extendidas)</p>
+
+<p>$ grep -r &#8216;fstab&#8217; /etc (Buscar una palabra de un directorio y los subdirectorios)</p>
+
+<p>$ grep -l -r &#8216;fstab&#8217; /etc (Sólo mostrar los archivos que contienen la palabra en el directorio y los subdirectorios)</p>
+
+<p>$ grep -n &#8216;fstab&#8217; /etc/fstab (Mostrar la linea y el número de linea)</p>
+
+<p>$ grep -A 2 &#8216;swap&#8217; /etc/fstab (Mostrar la línea y las 2 siguientes)</p>
+
+<p>$ grep &#8211;color UUID /etc/fstab (Resaltar en color la palabra &#8220;UUID&#8221;)</p></blockquote>
+
+<p>Otras opciones:</p>
+
+<blockquote><p>$ grep -Fx -f archivo1 archivo2 (Mostrar líneas que aparezcan en dos archivos)</p>
+
+<p># grep -i -a -B35 -A90 &#8216;palabreja&#8217; /dev/sda1 > recup.txt (recuperar un archivo borrado con rm que incluye la palabra “palabreja” y su tamaño estimado: [-B50] 35 lineas anteriores a “palabreja” y [-A90] 90 lineas posteriores. Especificar partición y archivo de recuperación)</p>
+
+<p>$ grep cups /etc/services (Conocer el puerto por el que corre un servicio)</p>
+
+<p>$ grep 631 /etc/services (Conocer el servicio por el que corre un puerto)</p>
+
+<p>$ grep -s &#8216;palabra&#8217; * (Suprime los mensajes de error sobre ficheros que no existen o no se pueden leer)</p></blockquote>
+
+<p>Buscar tres palabras al inicio de la linea [escapando la barra vertical] de un archivo:</p>
+
+<p>  $ mysqldump &#8211;help | grep ^routines\|<sup>trigg\|<sup>user</sup></sup> -E</p>
 </div>
   
   
@@ -168,7 +202,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/guake/">Guake</a></h1>
+      <h1 class="entry-title"><a href="/blog/grc/">Grc</a></h1>
     
     
       <p class="meta">
@@ -184,28 +218,16 @@
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Emulador de terminal emergente. Una vez iniciado el servicio colocándola en la aplicaciones de inicio o con:</p>
+  <div class="entry-content"><p>Colorear la salida de los comandos especificados en /etc/grc.conf</p>
 
-<blockquote><p>$ guake</p></blockquote>
-
-<p>La terminal aparecerá o desaparecerá pulsando la tecla F12</p>
-
-<blockquote><p>$ guake -p (arranca las preferencias. En algunas distros ha de lanzarse desde el propio guake)</p></blockquote>
-
-<p>Para una personalización más exhaustiva:</p>
-
-<blockquote><p># nano /usr/lib/guake/guake.py (En Arch: nano /usr/bin/guake)</p></blockquote>
-
-<p>width = 80 (Modificar archura, por defecto 100% de la pantalla)</p>
-
-<p>if halignment == ALIGN_CENTER: (Centrada)</p>
+<blockquote><p>$ grc ping www.tuxapuntes.com</p></blockquote>
 </div>
   
   
@@ -218,7 +240,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/gtypist/">Gtypist</a></h1>
+      <h1 class="entry-title"><a href="/blog/graphviz/">Graphviz</a></h1>
     
     
       <p class="meta">
@@ -234,14 +256,18 @@
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Programa para aprender mecanografia en ncurses.</p>
+  <div class="entry-content"><p>(meta paquete). Genera gráficos a partir de archivos de texto. Ver pactree. Generar un archivo con pactree:</p>
+
+<blockquote><p>$ pactree -g htop > htop</p>
+
+<p>$ dotty htop (muestra el gráfico)</p></blockquote>
 </div>
   
   
@@ -254,7 +280,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/gsettings/">Gsettings</a></h1>
+      <h1 class="entry-title"><a href="/blog/gpw/">Gpw</a></h1>
     
     
       <p class="meta">
@@ -270,46 +296,16 @@
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Herramienta de configuración. Equivalente a gconftool-2 [gconf-editor] pero para gnome3 [dconf-editor]</p>
+  <div class="entry-content"><p>Generador de contraseñas pronunciables</p>
 
-<blockquote><p>$ gsettings set com.canonical.indicator.session show-real-name-on-panel false (Borrar el nombre del panel de unity)</p>
-
-<p>$ gsettings set com.canonical.indicator.sound blacklisted-media-players &#8220;[&#8216;xmms2&#8217;]&#8221; (añadir aplicaciones en el menú de sonido)</p></blockquote>
-
-<p>Opciones</p>
-
-<p>help (Muestra informacion)</p>
-
-<p>list-schemas (Lista de esquemas instalados)</p>
-
-<p>list-relocatable-schemas (Lista los que pueden ser modificados)</p>
-
-<p>list-keys (Lista las claves de un esquema)</p>
-
-<p>list-children    (lista los procesos hijos de un esquema)</p>
-
-<p>list-recursively (Lista claves y valores recursivamente)</p>
-
-<p>range (Consulta el rango de la clave)</p>
-
-<p>get (Obtine el valor de una clave)</p>
-
-<p>set (Establece el valor de una clave)</p>
-
-<p>reset (Reinicia el valor de la clave)</p>
-
-<p>reset-recursively (Reinicia los valores de todo un esquema)</p>
-
-<p>writable (Comprueba si un clave es modificable)</p>
-
-<p>monitor (Hace un seguimiento por si hay cambios)</p>
+<blockquote><p>$ gpw 5 8  (creará 5 de 8 caracteres)</p></blockquote>
 </div>
   
   
@@ -322,7 +318,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/gs/">Gs</a></h1>
+      <h1 class="entry-title"><a href="/blog/gpm/">Gpm</a></h1>
     
     
       <p class="meta">
@@ -338,330 +334,39 @@
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[GhostScript]. Unir archivos pdf y ps.</p>
+  <div class="entry-content"><p>Activar el mouse en las tty1-6. Si al arrancar el servicio [/etc/init.d/gpm start] marca error [fail] buscar el dispositivo:</p>
 
-<blockquote><p>$ gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=1+2.pdf 1.pdf 2.pdf</p>
+<blockquote><p># find /dev -iname psaux</p></blockquote>
 
-<p>$ gs -q -sPAPERSIZE=a4 -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=1+2.pdf 1.pdf 2.pdf  (Especificando medida de página)</p>
+<p>Y arrancar la aplicación con los datos obtenidos:</p>
 
-<p>$ gs -q -dNOPAUSE -dBATCH -sDEVICE=pswrite -sOutputFile=1+2.ps 1.ps 2.ps</p></blockquote>
-</div>
-  
-  
+<blockquote><p># gpm -m /dev/psaux -t ps2</p></blockquote>
 
+<p>Configuración:</p>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/grun/">Grun</a></h1>
-    
-    
-      <p class="meta">
-        
+<blockquote><p># nano /etc/gpm.conf</p></blockquote>
 
+<pre><code>....
 
+device=/dev/input/mice
 
+responsiveness=25
 
+repeat_type=none
 
+type=exps2
 
+append=''
 
-
-  
-
-
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Lanador de aplicaciones GTK.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/grub2/">Grub2</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Gestor de arranque. Los dispositivos empiezan por 0 y las particiones empiezan con 1. “sda1” es “hd0,1” y no “hd0,0” como en el antiguo grub.</p>
-
-<p>1.-</p>
-
-<p>Modificación de parámetros generales:</p>
-
-<blockquote><p># gedit /etc/default/grub</p></blockquote>
-
-<pre><code>GRUB_DEFAULT= 0/saved (0 selecciona primera entrada, 1 la segunda... "saved" selecciona la última entrada  ejecutada.)
-
-GRUB_TIMEOUT=10 (tiempo de espera antes de arrancar)
-
-GRUB_HIDDEN_TIMEOUT=0  (esconder el menú de entradas. Si hay varios sistemas comentarlo)
-
-GRUB_HIDDEN_MENU_QUIET=true (oculta la cuenta atrás. "false" la muestra)
-
-GRUB_DISTRIBUTOR=lsb_release -i -s 2&gt; /dev/null || echo Debian (determina el nombre del sistema)
-
-GRUB_CMDLINE_LINUX="acpi_osi=Linux" (opciones concretas que pueden pasarse al arranque)
-
-GRUB_CMDLINE_LINUX_DEFAULT="splash noapic" (otras opciones por defecto)
-
-GRUB_GFXMODE=1024x768 (activa el grub gráfico)
-
-GRUB_DISABLE_LINUX_RECOVERY="true" (muestra la opción de recovery mode en el menú. “false lo suprime)
+sample_rate=
 </code></pre>
-
-<blockquote><p># update-grub2   (hacer efectivos los cambios)</p></blockquote>
-
-<p>2.-</p>
-
-<p>Para que no aparezca memtest en el menú:</p>
-
-<blockquote><p># chmod -x /etc/grub.d/20_memtest86+</p></blockquote>
-
-<p>El mismo comando con “+x” lo restituye.</p>
-
-<blockquote><p># update-grub2</p></blockquote>
-
-<p>3.-</p>
-
-<p>Quitar lineas que hacen referencia a kernels antiguos:</p>
-
-<blockquote><p># dpkg &#8211;get-selections | grep linux-image  (averiguar los instalados)</p>
-
-<p># apt-get remove &#8211;purge linux-image-2.6.xx-xx-generic</p></blockquote>
-
-<p>El update-grub2 se hará de forma automática.</p>
-
-<p>4.-</p>
-
-<p>Cambiar la imagen de fondo [apt-get install grub2-splashimages]. Si se quieren hacer con gimp, estas han de tener un tamaño de  640×480 pixeles y extensión .tga</p>
-
-<blockquote><p>$ ls /usr/share/images/grub   (directorio de la imágenes)</p>
-
-<p># gedit /etc/grub.d/05_debian_theme</p></blockquote>
-
-<p>Y modificamos en la linea:</p>
-
-<p>WALLPAPER=&#8221;/usr/share/images/grub/Lake_mapourika_NZ.tga&#8221;</p>
-
-<blockquote><p># update-grub2</p></blockquote>
-
-<p>5.-</p>
-
-<p>Reinstalar grub2 desde un live-cd o desde otra partición.</p>
-
-<blockquote><p># fdisk -l   (para saber la partición del grub que queremos instalar)</p>
-
-<p># mount /dev/sda2 /media/sda2  (motar la partición)</p>
-
-<p># mount -o bind /dev/ /media/sda2/dev/  (montar los sistemas de ficheros)</p>
-
-<p># mount -o bind /sys/ /media/sda2/sys/</p>
-
-<p># mount -o bind /proc/ /media/sda2/proc/</p>
-
-<p># chroot /media/sda2    (Chorootear la partición que alberga el grub que vamos a instalar)</p>
-
-<p># grub-install /dev/sda   (instalar grub en el disco)</p></blockquote>
-
-<p>6.-</p>
-
-<p>Para solucionar el problema de que al arrancar un sistema operativo la pantalla no muestra nada, editar el archivo:</p>
-
-<blockquote><p># nano /etc/default/grub</p></blockquote>
-
-<p>Y en la linea:</p>
-
-<p>GRUB_CMDLINE_LINUX_DEFAULT=&#8221;quiet&#8221;</p>
-
-<p>Añadir el chipset de vuestra gráfica:</p>
-
-<pre><code>General (para cualquier gráfica): nomodeset
-
-ATI (driver libre ati o radeon): radeon.modeset=0
-
-ATI (driver privativo): nomodeset
-
-nVidia: xforcevesa o nomodeset
-
-Nvidia con driver libre (nouveau): nouveau.modeset=0
-
-Intel: i915.modeset=0
-</code></pre>
-
-<p>Quedando la entrada, por ejemplo para una Intel; como sigue:</p>
-
-<pre><code>GRUB_CMDLINE_LINUX_DEFAULT="quiet i915.modeset=0"
-</code></pre>
-
-<p>7.-</p>
-
-<p>Modificar los colores de las fuentes para adaptarlas a las imágenes mostradas.</p>
-
-<blockquote><p># gedit /etc/grub.d/05_debian_theme</p></blockquote>
-
-<p>y modificar las líneas</p>
-
-<p>set menu_color_normal=white/black</p>
-
-<p>set menu_color_highlight=black/light-gray</p>
-
-<p>color_normal (los que se utilizan por defecto)</p>
-
-<p>color_highlight (los que se utilizan para la entrada seleccionada).</p>
-
-<p>El primero de los 2 colores de cada uno de estos campos se refiere al color de la fuente, y el segundo, al color de fondo.</p>
-
-<p>Colores permitidos:</p>
-
-<pre><code>red (rojo)
-
-green (verde)
-
-blue (azul)
-
-yellow (amarillo)
-
-cyan (cian)
-
-magenta (magenta)
-
-white (blanco)
-
-black (negro)
-
-light-gray (gris claro)
-</code></pre>
-
-<p>8.-</p>
-
-<p>Colocar contraseña a grub2 para dos usuarios:</p>
-
-<blockquote><p># nano /etc/grub.d/00_header</p></blockquote>
-
-<p>Colocar al final:</p>
-
-<p>cat &lt;&lt; EOF</p>
-
-<p>set superusers=”usuario1”</p>
-
-<p>password usuario1 la_contraseña</p>
-
-<p>password usuario2 otra_contraseña</p>
-
-<p>EOF</p>
-
-<p>9.-</p>
-
-<p>Para que en el grub2 salga la partición de windows del sistema pero no otras particiones ntfs (de recuperación, HP, ….)</p>
-
-<blockquote><p>$ gedit /boot/grub/grub.cfg</p></blockquote>
-
-<p>Copiar el menuentry perteneciente a la partición windows (no la de recuperación) y pastearla en:</p>
-
-<blockquote><p># gedit /etc/grub.d/40_custom</p></blockquote>
-
-<p>Luego:</p>
-
-<blockquote><p># gedit /etc/default/grub</p></blockquote>
-
-<p>Y añadir al final del archivo la linea:</p>
-
-<p>GRUB_DISABLE_OS_PROBER=true</p>
-
-<p>Recargar grub:</p>
-
-<blockquote><p># update-grub</p></blockquote>
-
-<p>Nota.- Las entradas de 40_custom no se muestran en la salida de la consola pero quedan reflejadas en el grub.cfg</p>
-
-<p>10.-</p>
-
-<p>Poner contraseña a grub2</p>
-
-<blockquote><p># grub-mkpasswd-pbkdf2 (Crear la contraseña encriptada en SHA512)</p>
-
-<p># nano /etc/grub.d/00_header</p></blockquote>
-
-<p>Y colocar al final del archivo:</p>
-
-<p>cat &lt;&lt; EOF</p>
-
-<p>set superusers=&#8221;usuario&#8221;</p>
-
-<p>password_pbkdf2 usuario contraseña_SHA512</p>
-
-<p>EOF</p>
-
-<blockquote><p># nano /etc/grub.d/10_linux</p></blockquote>
-
-<p>Buscar la linea:</p>
-
-<p>printf &#8220;menuentry &#8216;${title}&#8217; ${CLASS} {\n&#8221; &#8220;${os}&#8221; &#8220;${version}&#8221;</p>
-
-<p>Y colocar al usuario al final de {CLASS}:</p>
-
-<p>printf &#8220;menuentry &#8216;${title}&#8217; ${CLASS} &#8211;users usuario {\n&#8221; &#8220;${os}&#8221; &#8220;${version}&#8221;</p>
-
-<blockquote><p># update-grub</p></blockquote>
-
-<p>11.-</p>
-
-<p>Entrar como root desde grub sin contraseña:</p>
-
-<pre><code>1.- Cuando sale el menú de grub desplazarse al sistema que se quiere arrancar y pulsar la letra "e"
-
-2.- moverse a la linea del kernel
-</code></pre>
-
-<p>En este punto puede optarse por dos soluciones:</p>
-
-<pre><code>a) borrar todo desde después de "ro" hasta el final y colocar init=/bin/bash [linux   /boot/vmlinuz-3.2.0-4-amd64 root=UUID=de1d7793-c3d2-4e03-b79d-1a76905619e6 ro init=/bin/bash ]. El teclado estará en inglés.
-
-b) ponemos al final de la linea "single" [linux   /boot/vmlinuz-3.2.0-4-amd64 root=UUID=de1d7793-c3d2-4e03-b79d-1a76905619e6 ro  quiet single ]
-</code></pre>
-
-<p>Y proseguir con el arranque pulsando F10 o Ctrl+x con lo que el sistema iniciará con una consola root.</p>
 </div>
   
   
@@ -674,7 +379,7 @@ b) ponemos al final de la linea "single" [linux   /boot/vmlinuz-3.2.0-4-amd64 ro
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/grub-mkpasswd-pbkdf2/">Grub-mkpasswd-pbkdf2</a></h1>
+      <h1 class="entry-title"><a href="/blog/gpg/">Gpg</a></h1>
     
     
       <p class="meta">
@@ -690,38 +395,38 @@ b) ponemos al final de la linea "single" [linux   /boot/vmlinuz-3.2.0-4-amd64 ro
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Crear una contraseña para una entrada de grub2</p>
+  <div class="entry-content"><p>Encriptación y autentificación de claves públicas</p>
 
-<blockquote><p># grub-mkpasswd-pbkdf2</p></blockquote>
+<blockquote><p># gpg &#8211;keyserver subkeys.pgp.net &#8211;recv-keys XXXXXXXXXXXXXX</p>
 
-<p>Se entra la contraseña y se confirma. Saldrá una codificación del tipo:</p>
+<p># gpg &#8211;export &#8211;armor XXXXXXXXXXXX | apt-key add -</p>
 
-<p>Your PBKDF2 is grub.pbkdf2.sha512.10000.F2FE383&#8230;..</p>
+<p># gpg &#8211;passphrase 1234 -c archivo.txt (Encriptar un archivo con la clave 1234)</p>
 
-<p>Editar grub.cfg</p>
+<p># gpg &#8211;passphrase 1234 -o xx.gpg -c archivo.txt (Encriptar archivo.txt con la clave 1234 y generando como archivo de salida xx.gpg)</p>
 
-<blockquote><p># nano /boot/grub/grub.cfg</p></blockquote>
+<p># gpg &#8211;dump-options  (visualizar todas las opciones)</p>
 
-<p>Colocar al final de la parte comentada (#):</p>
+<p># gpg -c archivo.txt (poner contraseña a un texto)</p>
 
-<p>set superusers=&#8221;NOMBRE_USUARIO&#8221;</p>
+<p># gpg archivo.txt.gpg (abrir)</p>
 
-<p>password_pbkdf2 NOMBRE_USUARIO grub.pbkdf2.sha512.10000.F2FE383&#8230;..</p>
+<p># gpg &#8211;refresh-keys (refrescar claves)</p>
 
-<p>Especificando el nombre del usuario y copipasteando la clave codificada que nos ha dado el comando anterior. Finalmente en la entrada [menuentry] que se quiere proteger inmediatamente después de las comillas [&#8216;&#8230;.&#8217;] indicando el nombre del sistema operatico:</p>
+<p>$ gpg &#8211;gen-random &#8211;armor 1 8 (Crear una clave aleatoria de 8 caracteres)</p>
 
-<p>&#8211;users NOMBRE_USUARIO</p>
+<p>$ gpg -ab fichero.txt (Crear una firma para un fichero)</p>
 
-<p>El resultado sería:</p>
+<p>$ gpg &#8211;gen-key (Crear las claves. Preguntará algoritmo [RSA/RSA], longitud [2048 bits], caducidad, nombre y correo [opcional])</p>
 
-<p>menuentry &#8216;Ubuntu, amb Linux 3.2.0-24-generic (mode de restabliment)&#8217; &#8211;users NOMBRE_USUARIO &#8211;class ubuntu &#8211;class gnu-linux &#8230;.</p>
+<p>$ gpg &#8211;list-keys (Ver listado )</p></blockquote>
 </div>
   
   
@@ -734,7 +439,7 @@ b) ponemos al final de la linea "single" [linux   /boot/vmlinuz-3.2.0-4-amd64 ro
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/grub-mkconfig/">Grub-mkconfig</a></h1>
+      <h1 class="entry-title"><a href="/blog/gperiodic/">Gperiodic</a></h1>
     
     
       <p class="meta">
@@ -750,18 +455,94 @@ b) ponemos al final de la linea "single" [linux   /boot/vmlinuz-3.2.0-4-amd64 ro
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Generar un fichero de configuración para grub [grub.cfg]</p>
+  <div class="entry-content"><p>Muestra la tabla periódica de los elementos quimicos.</p>
+</div>
+  
+  
 
-<blockquote><p># grub-mkconfig -o /boot/grub/grub.cfg</p></blockquote>
 
-<p>Despues instalar en el MBR [grub-install /dev/sda]</p>
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/gpe-taskmanager/">Gpe-taskmanager</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Abre una ventana en las X informando de las aplicaciones abiertas permitiendo matar el proceso que interesa o ha quedado colgado.</p>
+
+<blockquote><p>$ gpe-taskmanager</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/gpasswd/">Gpasswd</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Añadir usuarios a grupos.</p>
+
+<blockquote><p># gpasswd -d usuario video (Para eliminar &#8220;usuario&#8221; del grupo &#8220;video&#8221;)</p>
+
+<p># gpasswd -a usuario video (Añadir &#8220;usuario&#8221; al grupo &#8220;video&#8221;)</p>
+
+<p># gpasswd -A usuario video (Define a &#8220;usuario&#8221; como administrador del grupo &#8220;video&#8221;)</p></blockquote>
 </div>
   
   
@@ -792,43 +573,43 @@ b) ponemos al final de la linea "single" [linux   /boot/vmlinuz-3.2.0-4-amd64 ro
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/nmap/">nmap</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/nethogs/">nethogs</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lilo/">lilo</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/anarchism/">anarchism</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sftp/">sftp</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/logrotate/">logrotate</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssh/">ssh</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lshell/">lshell</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/apt-mirror/">apt-mirror</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/typeset/">typeset</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

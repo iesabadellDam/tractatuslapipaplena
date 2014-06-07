@@ -9,7 +9,8 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="salva pantallas (screen saver) de arte abstracto en el que colaboran miles de personas en el mundo. Cuando los equipos &#8220;sueñan&#8221; &hellip;">
+  <meta name="description" content="Sscar una imagen de una partición. # e2image /dev/sda2 copia.img
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/electricsheep/">Electricsheep</a></h1>
+      <h1 class="entry-title"><a href="/blog/e2image/">E2image</a></h1>
     
     
       <p class="meta">
@@ -96,33 +97,16 @@
   
 
 
-<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>salva pantallas (screen saver) de arte abstracto en el que colaboran miles de personas en el mundo. Cuando los equipos &#8220;sueñan&#8221; ElectricSheep se enciende y comunica su ordenar con los demás a través de Internet para crear animaciones abstractas conocidas como &#8220;ovejas&#8221;. Para que salga como opción en xscreensaver:</p>
+  <div class="entry-content"><p>Sscar una imagen de una partición.</p>
 
-<blockquote><p>$ nano .xscreensaver</p></blockquote>
-
-<p>Añadir la linea al final del apartado:</p>
-
-<pre><code>....
-
-- GL:                           companioncube -root                         \n\
-
-- GL:                           hilbert -root                               \n\
-
-- GL:                           tronbit -root                               \n\
-
-                                unicode -root                               \n\
-
-                                electricsheep                               \n\
-</code></pre>
-
-<p>Nota.- Los videos se encuentran en ~/.electricsheep en formato .avi</p>
+<blockquote><p># e2image /dev/sda2 copia.img</p></blockquote>
 </div>
   
   
@@ -135,7 +119,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/eject/">Eject</a></h1>
+      <h1 class="entry-title"><a href="/blog/e2fsck/">E2fsck</a></h1>
     
     
       <p class="meta">
@@ -151,22 +135,20 @@
   
 
 
-<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Abre/cierra la bandeja del cdrom</p>
+  <div class="entry-content"><p>Optimizar y reparar particones ext2 y ext3. Preciso desmontarla.</p>
 
-<blockquote><p>$ eject /dev/cdrom0    (Abre)</p>
+<blockquote><p># e2fsck -b 8193 /dev/hda2  (&#8220;-b 8193&#8221;que use la informacion de la primera copia del super bloque para reparar los daños.)</p>
 
-<p>$ eject -t /dev/cdrom0   (Cierra)</p>
+<p># e2fsck -fpDv /dev/sda1 (para optimizar la partición)</p></blockquote>
 
-<p>$ eject /dev/cdrom; sleep 1; eject -t /dev/cdrom  (abrirlo y cerrarlo)</p>
-
-<p>$ eject sda8 (desmonta la partición mencionada)</p></blockquote>
+<p>Nota.- &#8220;-c&#8221; buscar y marcar los bloques dañados, &#8220;-D&#8221; Optimiza, &#8220;-f&#8221; fuerza, &#8220;-p&#8221; repara y &#8220;-v&#8221; informa</p>
 </div>
   
   
@@ -179,7 +161,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/egrep/">Egrep</a></h1>
+      <h1 class="entry-title"><a href="/blog/dwb/">Dwb</a></h1>
     
     
       <p class="meta">
@@ -195,39 +177,54 @@
   
 
 
-<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[extended grep]. Busca expresiones regulares.</p>
+  <div class="entry-content"><p>Navegador minimalista con soporte para flash.</p>
 
-<pre><code>$ egrep -v '^$|^#' archivo (suprimir lineas en blanco y comentadas)
+<p>Atajos: dwb:keys</p>
 
-$ egrep -c '^#' /etc/fstab (Muestra el número de lineas comentadas)
-</code></pre>
+<p>Configuración: dwb:settings</p>
 
-<blockquote><p>$ egrep -in &#8220;palabra&#8221; *.txt (busca “palabra” en todos los .txt del directorio)</p>
+<p>Las configuraciones en texto plano en .config/dwb/</p>
 
-<p>$ egrep &#8216;UUID|proc&#8217; /etc/fstab (Muestra las lineas con las coincidencias)</p>
+<p>Algunos atajos:</p>
 
-<p>$ egrep &#8211;color &#8216;(vmx|svm)&#8217; /proc/cpuinfo (Averiguar si el equipo  admite la virtualización por hardware. Si el comando no devuelve nada es porque no lo soporta)</p></blockquote>
+<pre><code>o (Para entrar una url)
 
-<p>Otras opciones:</p>
+O (abrirla en una nueva pestaña)
 
-<pre><code>-h  Muestra las líneas coincidentes pero no los nombres de archivo.
+J (Cambiar entre pestañas)
 
--i  Ignora los cambios mayúsculas y minúsculas.
+j (bajar por la página)
 
--n  Muestra la línea y el número de línea.
+k (subir)
 
--r  Lee en todos los archivos de los directorios y subdirectorios.
+d (cerrar pestaña)
 
--v  Muestra todas las lineas que no coinciden.
+u (reabrir pestaña cerrada)
 
--w      Sólo coincidencia en palabras completas.
+go (Editar la url)
+
+r (Recargar la página)
+
+R (Recargar sin usar la caché)
+
+f (Marcar los enlaces para escoger el que proceda)
+
+F (Marcar los enlaces y abrir el escogido en nueva pestaña)
+
+i (Modo insert para insertar en algún cuadro de dialogo)
+
+Esc (Volver a modo normal)
+
+M (Entrar url en en laces de interés)
+
+ctrl q (Para salir del navegador)
 </code></pre>
 </div>
   
@@ -241,7 +238,7 @@ $ egrep -c '^#' /etc/fstab (Muestra el número de lineas comentadas)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ed/">Ed</a></h1>
+      <h1 class="entry-title"><a href="/blog/dvtm/">Dvtm</a></h1>
     
     
       <p class="meta">
@@ -257,70 +254,44 @@ $ egrep -c '^#' /etc/fstab (Muestra el número de lineas comentadas)
   
 
 
-<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Editor de lineas.</p>
+  <div class="entry-content"><p>Terminal multiplexor</p>
 
-<p>Teclas de control:</p>
+<blockquote><p>$ dvtm (Lanza la aplicacion)</p></blockquote>
 
-<pre><code>a (Añadir texto a partir de la línea indicada, o en la actual si no se indica)
+<p>Algunos atajos</p>
 
-i (Inserta texto antes de línea indicada)
+<pre><code>Ctrl+g c (Crear una nueva ventana)
 
-c (Cambiar la línea o líneas indicadas)
+Ctrl+g x (Cerrar la ventana enfocada)
 
-d (Borra la línea o las líneas indicadas)
+Ctrl+g l (Aumenta el ancho de la ventana enfocada)
 
-p (Visualiza la línea o el rango de líneas indicadas)
+Ctrl+g h (Disminuye la anchura de la ventana enfocada)
 
-n (Visualiza la línea o rango indicados mostrando su número)
+Ctrl+g j (Cambiar el foco a la siguiente ventana)
 
-m3 (Mover la línea o rango de líneas a partir de la línea 3)
+Ctrl+g k (Cambiar a la ventana anterior)
 
-t2 (Copiar la línea o rango de líneas indicado a partir de la línea 2)
+Ctrl+g 3 (Ir a la ventana 3 contando desde la esquina superior izquierda)
 
-e[fic] (Carga el fichero indicado. No actúa si el fichero actual no está grabado)
+Ctrl+g espacio (Redisea todas las ventanas)
 
-E[fic] (Carga el fichero indicado sin comprobar si el fichero actual está grabado o no)
+Ctrl+g t (Cambiar el diseño de mosaico a pila vertical)
 
-f[nombre] (Fija el nombre del fichero actual)
+Ctrl+g b (Cambiar a diseño de mosaico)
 
-r [fic] (Lee el fichero indicado añadiendo a partir de la línea indicada o de la última si no se indica)
+Ctrl+g g (Cambiiar a diseño de cuadrícula)
 
-w [fic] (Graba las líneas indicadas, todas por defecto, en el fichero especificado o en el fichero actual por defecto)
+Ctrl+g l (Redibujar toda la pantalla)
 
-q (Sale del editor, emite un error si el fichero actual no fue grabado)
-
-Q (Igual que el anterior, sin comprobar si el fichero actual fue grabado)
-
-P (Activa /Desactiva el prompt del editor)
-
-H (Activa/Desactiva los mensaje explicativos de error)
-
-u (Deshace el último comando que puede deshacerse. Por ejemplo una inserción)
-
-!orden (Ejecuta la orden especificada llamando al intérprete de comandos sin salir del editor)
-
-+5 (Avanza 5 líneas o una por defecto desde la línea actual)
-
--4 (Retrocede 4 líneas o una por defecto desde la línea actual)
-
-^d (Vuelve al modo orden)
-
-g/cosa/n (Busca "cosa" y vusualiza la linea [n])
-
-G/cosa/ (Se posiciona una a una en todas las líneas dónde ha encontrado "cosa" y espera una orden o "intro" para continuar)
-
-v/cosa/n (Busca las líneas que no contengan la expresión "cosa" y las visualiza)
-
-V/cosa/ (Se posiciona en cada linea donde no ha encontrado "cosa" [todas por defecto] a espera de una orden o "intro" para continuar)
-
-s/cosa/casa/[g] (Busca las líneas que contienen "cosa" y substituye "cosa" por "casa"
+Ctrl+g q (Salir)
 </code></pre>
 </div>
   
@@ -334,7 +305,7 @@ s/cosa/casa/[g] (Busca las líneas que contienen "cosa" y substituye "cosa" por 
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ecryptfs/">Ecryptfs</a></h1>
+      <h1 class="entry-title"><a href="/blog/dvgrab/">Dvgrab</a></h1>
     
     
       <p class="meta">
@@ -350,120 +321,48 @@ s/cosa/casa/[g] (Busca las líneas que contienen "cosa" y substituye "cosa" por 
   
 
 
-<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[ecryptfs-utils cryptsetup]. Sistema de ficheros que permite encriptar la informacion. Puede ser montado en un sistema de ficheros convencional [ext4, ext3&#8230;] lo cual siginifica que no tenemos que preocuparnos por asignarle espacio: conforme añadimos o eliminamos archivos, el espacio crece o decrece. Se podría coger un solo fichero encriptado, enviarse a otro PC y acceder a la información de ese fichero usando la misma contraseña.</p>
+  <div class="entry-content"><p>Catura de videos desde una cámara digital DV.</p>
 
-<p>1.-</p>
+<p>Previas:</p>
 
-<p>Encriptar un directorio:</p>
+<blockquote><p># modprobe rw1394</p>
 
-<blockquote><p>$ mkdir cripta (Crear directorio)</p>
+<p># chmod o+rw /dev/raw1394</p></blockquote>
 
-<p># chmod 700 cripta (Otorgarle permisos)</p>
+<p>Uso:</p>
 
-<p># mount -t ecryptfs cripta /media/tumba (Montar el directorio. Pregunta contraseña [la firma de la clave en el fichero /root/.ecryptfs/sig-cache.txt]. Las demás preguntas [método de cifrado, longitud de la contraseña&#8230;] pueden dejarse con las opciones por defecto)</p>
+<blockquote><p>$ dvgrab &#8211;buffers 500 (Los videos se almacenarán de forma secuencial [001.avi, 002.avi&#8230;] y 500 frames. Por defecto 100)</p>
 
-<p># umount /media/tumba (Desmontar directorio)</p></blockquote>
+<p>$ dvgrab -f avi -s 0 videos/archivo.avi (Especificando formato, sin perdida de calidad y destino)</p></blockquote>
 
-<p>Nota.- Es bastante usual, montar el directorio consigo mismo:</p>
+<p>Algunas opciones:</p>
 
-<blockquote><p># mount -t ecryptfs cripta cripta</p></blockquote>
+<pre><code>-a 30 (crear nuevo archivo cada 30 segundos
 
-<p>2.-</p>
+-csize 5 (divide el archivo de captura cuando llega a 5MB)
 
-<p>Ejecutar el asistente de creación de directorio cifrado:</p>
+-debug all (mostrar información de la captura.
 
-<blockquote><p># ecryptfs-setup-private</p>
+-d 10,20 (tiempo total a capturar en formato SMIL. Por defecto ilimitado
 
-<p># ecryptfs-umount-private (Desmontar el directorio)</p>
+-every 50 (grabar un cuadro cada 50)
 
-<p># ecryptfs-mount-private (Montar el directorio)</p></blockquote>
+-f dif (formato de captura. Por defecto raw. Algunos formatos: dif [raw con extensión .dif], qt [formato QuickTime], mpeg2 [compresión MPEG-2], jpeg [secuencia de imágenes]
 
-<p>Nota.- Para impedir que el directorio creado se monte automáticamente al inicio de sesión, borrar el archivo ~/.ecryptfs/auto-mount. Para revertir el proceso crear en el mismo directorio un archivo vacio:</p>
+-F 20 (cantidad máxima de fotogramas por archivo. Por defecto ilimitado)
 
-<blockquote><p>$ touch ~/.ecryptfs/auto-mount</p></blockquote>
+-nostop (no detener la reproducción en el dispositivo al cerrar la captura)
 
-<p>3.-</p>
+-rewind (rebobina el MiniDV al finalizar)
 
-<p>Encriptar el directorio personal [$HOME]</p>
-
-<p>Salir de la cuenta de usuario y entrar en la de root.</p>
-
-<blockquote><p># modprobe ecryptfs (activar el módulo del kernel)</p>
-
-<p># ecryptfs-migrate-home -u USUARIO (Encriptar la $HOME del USUARIO)</p></blockquote>
-
-<p>Cerrar la cuenta de administrador y, sin reiniciar, entrar en la de USUARIO</p>
-
-<blockquote><p>$ ecryptfs-unwrap-passphrase (Pedirá la contraseña. Como medida de precaución es preciso anotar la cadena de texto que muestre)</p>
-
-<p># ecryptfs-setup-swap (Como media de seguridad es necesario encriptar la partición de intercambio [Swap])</p>
-
-<p># ecryptfs-rewrap-passphrase .ecryptfs/sig-cache.txt (Modificar la contraseña)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/echo/">Echo</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra o incluye algo en un fichero.</p>
-
-<blockquote><p>$ echo $$   (muestra el PID de la consola)</p>
-
-<p>$ echo $PS1   (muestra el prompt)</p>
-
-<p># echo deb ftp://ftp.debian.org/debian etch main >> /etc/apt/source.list  (añade el repositorio mencionado al archivo sources.list)</p></blockquote>
-
-<p>Nota.- con un solo “>” pondria la linea especificada borrando todo lo demas.)</p>
-
-<blockquote><p>$ echo $((10*2)) (Realiza el cálculo matemático)</p>
-
-<p>$ echo “ Buenas.. voy a reiniciar ¿Haces algo?” >> /dev/pts/23 (Manda el mensaje a la consola 23)</p>
-
-<p>$ echo rm <em>.png (lista lo que se va a borrar, antes de lanzar rm </em>.png)</p>
-
-<p>$ echo &#8220;&#8221; > archivo.txt (Borra el contenido de archivo.txt. Para un borrado total mejor usar $ :> archivo.txt)</p></blockquote>
-
-<pre><code>$ echo -e "&lt;?php\nphpinfo();\n?&gt;" (la opción -e hace que se interprete los saltos de linea [\n], tabulaciones [\t] etc. en algunas distros es necesario lanzar: shopt -s extglob)
-
-$ echo -e "linux\\tes\\tgenial" (tabular cada palabra con \\t. La primera barra [\] sirva para escapar el caracter \t)
-
-$ echo -e "Dato1\n\tDato2\n\tDato3\n" &gt; ejemplo.txt (entra datos en ejemplo.txt con salto de linea despues de cada dato)
+-t (poner fecha y hora de registro como nombre del archivo)
 </code></pre>
 </div>
   
@@ -477,7 +376,7 @@ $ echo -e "Dato1\n\tDato2\n\tDato3\n" &gt; ejemplo.txt (entra datos en ejemplo.t
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ebook/">Ebook-</a></h1>
+      <h1 class="entry-title"><a href="/blog/dvdbackup/">Dvdbackup</a></h1>
     
     
       <p class="meta">
@@ -493,18 +392,18 @@ $ echo -e "Dato1\n\tDato2\n\tDato3\n" &gt; ejemplo.txt (entra datos en ejemplo.t
   
 
 
-<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Convertir/visualizar a formato ebook.</p>
+  <div class="entry-content"><p>[dependencias: libdvdread, libdvdcss]. Ripeo de dvds.</p>
 
-<blockquote><p>$ ebook-convert texto.pdf texto.epub</p>
+<blockquote><p>$ dvdbackup -i /dev/cdrom  (/información del dvd)</p>
 
-<p>$ ebook-viewer texto.epub (Visualiza con la apliciación calibre)</p></blockquote>
+<p>$ dvdbackup -M -i/dev/cdrom -o/home/usuario/carpeta_destino (lanzar la aplicación)</p></blockquote>
 </div>
   
   
@@ -517,7 +416,7 @@ $ echo -e "Dato1\n\tDato2\n\tDato3\n" &gt; ejemplo.txt (entra datos en ejemplo.t
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/e4defrag/">E4defrag</a></h1>
+      <h1 class="entry-title"><a href="/blog/dvdauthor/">Dvdauthor</a></h1>
     
     
       <p class="meta">
@@ -533,16 +432,18 @@ $ echo -e "Dato1\n\tDato2\n\tDato3\n" &gt; ejemplo.txt (entra datos en ejemplo.t
   
 
 
-<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[e2fsprogs]. Desfragmentar particiones ext4.</p>
+  <div class="entry-content"><p>Crear videos compatibles con reproductores domesticos [genera los directorios VIDEO_TS y AUDIO_TS]. Ver página man para una muestra del archivo de control.</p>
 
-<blockquote><p># e4defrag /dev/sda2</p></blockquote>
+<blockquote><p>$ dvdauthor -o directorio archivo_control.xml</p>
+
+<p>$ dvdauthor -o mi_dvd -T (crear table de contenidos)</p></blockquote>
 </div>
   
   
@@ -555,7 +456,7 @@ $ echo -e "Dato1\n\tDato2\n\tDato3\n" &gt; ejemplo.txt (entra datos en ejemplo.t
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/e2undo/">E2undo</a></h1>
+      <h1 class="entry-title"><a href="/blog/dvd-plus-rw-format/">Dvd+rw-format</a></h1>
     
     
       <p class="meta">
@@ -571,14 +472,16 @@ $ echo -e "Dato1\n\tDato2\n\tDato3\n" &gt; ejemplo.txt (entra datos en ejemplo.t
   
 
 
-<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Cuando la aplicación e2fsprogs falla, e2undo restablece el sistema de ficheros  ext2/ext3/ext4 anterior del dispositivo.</p>
+  <div class="entry-content"><p>Formatear dvd +- Rw</p>
+
+<blockquote><p>$ dvd+rw-format -force /dev/cdrom</p></blockquote>
 </div>
   
   
@@ -591,7 +494,7 @@ $ echo -e "Dato1\n\tDato2\n\tDato3\n" &gt; ejemplo.txt (entra datos en ejemplo.t
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/e2label/">E2label</a></h1>
+      <h1 class="entry-title"><a href="/blog/duplicity/">Duplicity</a></h1>
     
     
       <p class="meta">
@@ -607,18 +510,65 @@ $ echo -e "Dato1\n\tDato2\n\tDato3\n" &gt; ejemplo.txt (entra datos en ejemplo.t
   
 
 
-<time datetime="2014-04-05T18:18:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[ntfsprogs]. Poner etiquetas a las particiones y dispositivos ext3</p>
+  <div class="entry-content"><p>Herramienta para realizar backups tanto en modo local como remoto</p>
 
-<blockquote><p># e2label /dev/dispositivo_usb mi_usb  (cuando se conecte, en el escritorio aparecerá el icono con el nombre “mi_usb”)</p>
+<blockquote><p># duplicity full /home file:///backups/ (realiza un backup copmpleto [full] en modo local de la carpeta /home en la carpeta /backups)</p>
 
-<p># e2label /dev/sda5  (dirá si la partición sdb5 tiene nombre de etiqueta)</p></blockquote>
+<p>$ duplicity /home/usuario scp://usuario@host/dir (Backup de un directorio local a un servidor remoto)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<pre><code>--no-encryption (Sin codificar. Por defecto codifica los archivos en el destino)
+
+--include /home/usuario/datos/documentos (Backups de un subdirectorio especifico)
+
+--remove-all-but-n-full 1 --force (Sólo dejará en destino la última copia "full", borrando la anterior y las incrementales que dependen de ella)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/dumpkeys/">Dumpkeys</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Permite obtener el mapa de teclas (Keymap) utilizado por el controlador de teclado actual.</p>
+
+<blockquote><p>$ dumpkeys</p></blockquote>
 </div>
   
   
@@ -649,43 +599,43 @@ $ echo -e "Dato1\n\tDato2\n\tDato3\n" &gt; ejemplo.txt (entra datos en ejemplo.t
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/nmap/">nmap</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/nethogs/">nethogs</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lilo/">lilo</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/anarchism/">anarchism</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sftp/">sftp</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/logrotate/">logrotate</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssh/">ssh</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lshell/">lshell</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/apt-mirror/">apt-mirror</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/typeset/">typeset</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Ejecuta uno o varios comandos dependiendo de si una condición se cumple o no. Algunos scripts de ejemplo para su uso [ver operadores]: 1.- #!/bin/ &hellip;">
+  <meta name="description" content="(/etc/host.conf). Archivo que contiene el orden de cómo serán ejecutadas las resoluciones que requiera el &#8220;Host&#8221;. Algunos parámetros: &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/if/">If</a></h1>
+      <h1 class="entry-title"><a href="/blog/host-dot-conf/">host.conf</a></h1>
     
     
       <p class="meta">
@@ -96,157 +96,91 @@
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Ejecuta uno o varios comandos dependiendo de si una condición se cumple o no. Algunos scripts de ejemplo para su uso [ver operadores]:</p>
+  <div class="entry-content"><p>(/etc/host.conf). Archivo que contiene el orden de cómo serán ejecutadas las resoluciones que requiera el &#8220;Host&#8221;. Algunos parámetros:</p>
 
-<p>1.-</p>
+<p><strong>order hosts,bind,nis</strong> (que cualquier tipo de resolución primero consulte el archivo /etc/hosts , en segundo lugar a BIND y si aún no se ha logrado la resolución, intentar con NIS)</p>
 
-<pre><code>#!/bin/bash
+<pre><code>BIND (Llamada al servidor de nombres)
 
-read -p "Ingrese nombre del usuario: " USUARIO
-
-if grep -e ^$USUARIO: /etc/passwd
-
-then
-
-    echo "El usuario existe en el sistema"
-
-else
-
-    echo "Usuario desconocido"
-
-fi
-
-exit 0
+NIS ("Network Information Server" es un sistema de resolución desarrollado por Sun Microsystem's , su implementación generalmente esta limitada a intranets y utiliza una metodología diferente a la usada por BIND
 </code></pre>
 
-<p>2.-</p>
+<p><strong>multi on</strong> (Que devuelva más de un resultado si existen alias ya que un host puede tener varias direcciones IP y la dirección IP puede coincidir con varios nombres de host. Por defecto es off [sólo se muestra el primero] )</p>
 
-<pre><code>#!/bin/bash
+<p><strong>spoofalert on</strong> (Intentar encontrar el nombre de host de una dirección IP. Si la aplicación no devuelve el resultado correcto, puede significar que una máquina intenta hacerse pasar por lo que no es.)</p>
 
-if [ "$(id -u)" != "0" ]; then
+<p><strong>nospoof on</strong> (rechaza los resultados que no pasan la prueba de robo de identidad)</p>
 
-    echo "Solo root puede ejecutar este script."
+<p><strong>reorder on</strong> (intenta reordenar las direcciones de host para que las direcciones locales [misma subred] se listen en primer lugar)</p>
+</div>
+  
+  
 
-    exit 1
 
-fi
-</code></pre>
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/host/">Host</a></h1>
+    
+    
+      <p class="meta">
+        
 
-<p>3.-</p>
 
-<pre><code>#!/bin/bash
 
-# Verificar si se ha entrado un argumento
 
-if [ -z "$1" ]
 
-then
 
-          echo "Falta el argumento después del nombre del script"
 
-exit
 
-fi
-</code></pre>
+  
 
-<p>4.-</p>
 
-<pre><code>#!/bin/bash
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
 
-# Introducir dos números diferentes e indicar
 
-# cuál es el mayor
+  <div class="entry-content"><p>Determina la ip de un registro DNS o, a partir de una ip, el nombre de registro</p>
 
-read -p "Introduce dos números: " A B
+<blockquote><p>$ host -v -a telefonica.com</p>
 
-if [ $A -gt $B ]
+<p>$ host -t SOA google.com</p>
 
-then
+<p>$ host -R 3 google.es (Eleva a 3 el número de intentos para obtener respuesta. Por defecto 1)</p>
 
-        echo $A "es el mayor"
+<p>$ host -C google.es (Muestra los registros SOA y los servidores de nombres autorizados.)</p></blockquote>
 
-else
+<p>Tipos de registros</p>
 
-        echo $B "es el mayor"
+<pre><code>A (Registro de dirección que resuelve un nombre de un anfitrión hacia una dirección IPv4)
 
-fi
-</code></pre>
+AAA (Registro de dirección que resuelve un nombre de un anfitrión hacia una dirección IPv6)
 
-<p>Con varias opciones [elif]</p>
+MX (Registro de servidor de correo que sirve para definir una lista de servidores de correo para un dominio, así como la prioridad, el que tiene el número más bajo de los servidores de correo es el que tiene mayor prioridad.)
 
-<p>5.-</p>
+PTR (Registro de apuntador que resuelve direcciones IPv4 hacia el nombre anfitriones. Es decir, hace lo contrario al registro A. Se utiliza en zonas de Resolución Inversa)
 
-<pre><code>#!/bin/bash
+NS (Registro de servidor de nombres que sirve para definir una lista de servidores de nombres con autoridad para un dominio)
 
-ls
+SOA (Registro de inicio de autoridad que especifica el Servidor DNS Maestro (o Primario) que proporcionará la información con autoridad acerca de un dominio de Internet, dirección de correo electrónico del administrador, número de serie del dominio y parámetros de tiempo para la zona)
 
-echo
+SRV (Registro de servicios que especifica información acerca de servicios disponibles a través del dominio)
 
-read -p "Cual leer: " LEER
-
-echo
-
-if [ -f $LEER ]
-
-then
-
-    echo
-
-    cat $LEER
-
-    echo
-
-elif [ -d $LEER ]
-
-then
-
-    echo
-
-    echo "Es un directorio...."
-
-else
-
-    echo
-
-    f_echo "¡¡NO EXISTE!!"
-
-    echo
-
-fi
-</code></pre>
-
-<p>6.-</p>
-
-<pre><code>#!/bin/bash
-
-echo "Diga si o no:"
-
-read RESPUESTA
-
-if  [ "$RESPUESTA" = si ]; then
-
-    echo "Has escrito si"
-
-elif [ "$RESPUESTA" = no ]; then
-
-    echo "Has escrito no"
-
-elif [ "$RESPUESTA" = "" ]; then
-
-    echo "No has escrito nada"
-
-else
-
-    echo "Has escrito una cosa no permitida"
-
-fi
+CNAME (Registro de nombre canónico que hace que un nombre sea alias de otro)
 </code></pre>
 </div>
   
@@ -260,7 +194,7 @@ fi
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/idesk/">Idesk</a></h1>
+      <h1 class="entry-title"><a href="/blog/honeyproxy/">Honeyproxy</a></h1>
     
     
       <p class="meta">
@@ -276,45 +210,44 @@ fi
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Herramienta para la creación de iconos en el escritorio. Los archivos con extensión .lnk se colocan en el directorio ~/.idesktop. Una muestra:</p>
+  <div class="entry-content"><p>[python-pip]. Analiza el tráfico web. Instalación:</p>
 
-<blockquote><p>$ nano .idesktop/home.lnk</p></blockquote>
+<blockquote><p># pip install pyOpenSSL pyasn1 Twisted Autobahn</p>
 
-<pre><code>table Icon
+<p>$ git clone &#8211;recursive git://github.com/mhils/HoneyProxy.git</p>
 
-  Caption: Home
+<p>$ cd HoneyProxy</p>
 
-  Command[0]: thunar /home/usuario
+<p># python honeyproxy.py &#8211;no-gui -a 192.168.1.15 (Arrancar el servicio)</p></blockquote>
 
-  Icon: /usr/share/idesk/folder_home.xpm
+<pre><code>HoneyProxy has been started!
 
-  Width: 48
+Configuration Details (normal users: ignore):
 
-  Height: 48
+GUI: http://honey:zhw78b35ioynhg8vr4jcfmn5f326d4e4@localhost:8081/app/
 
-  X: 29
+Proxy Address: 192.168.1.15:8080
 
-  Y: 39
+WebSocket Port: 8082
 
-end
+Auth user: honey
+
+Auth key: zhw78b35ioynhg8vr4jcfmn5f326d4e4
 </code></pre>
 
-<p>Nombre del icono [Caption], El comando que se lanzará [0] con doble click izquierdo del ratón. Con [1], doble click derecho, en este caso thunar abrirá la carpeta personal [Command], la ruta al icono que se empleará [Icon], las medidas ancho [Width] y alto [Height] y la colocación en pantalla, x: distancia en pixels del lateral, y: distancia en pixels de la parte superior.</p>
+<p>Una vez instalado y arrancado el servicio, configurar el navegador para su uso en Editar/Preferencias/Avanzado/Red/Configurar la conexión, clicar en &#8220;Configuración manual del proxy&#8221; y en servidor intermediario de HTTP porner la ip de la máquina local o remota puesta al arrancar la aplicación [192.168.1.15 en este caso] y el puerto 8080. Los informes, colocando en la barra de navegación la dirección que muestra al arrancar el servicio, en este caso: http://honey:zhw78b35ioynhg8vr4jcfmn5f326d4e4@localhost:8081/app/ (usuario: honey y key: zhw78b35ioynhg8vr4jcfmn5f326d4e4). Por defecto los informes se guardan en ./dump/sites. Para parar el servicio, matar el proceso:</p>
 
-<p>Otros parámetros [fuentes, colores, medidas, fondos, transparencias&#8230;] pueden configurarse en el archivo ~/.ideskrc. Cualquier modificación en idesktop o ideskrc precisa matar el proceso:</p>
+<pre><code>$ ps aux | grep honeyproxy
 
-<blockquote><p>$ killall idesk</p></blockquote>
-
-<p>Y relanzarlo:</p>
-
-<blockquote><p>$ idesk</p></blockquote>
+$ kill -9 PID
+</code></pre>
 </div>
   
   
@@ -327,7 +260,7 @@ end
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/identify/">Identify</a></h1>
+      <h1 class="entry-title"><a href="/blog/hodie/">Hodie</a></h1>
     
     
       <p class="meta">
@@ -343,18 +276,18 @@ end
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[imagemagick]. Ver las propiedades de una imagen</p>
+  <div class="entry-content"><p>Muestra la fecha en latín.</p>
 
-<blockquote><p>$ identify imagen.gif</p>
+<blockquote><p>$ hodie -n (En numeral)</p>
 
-<p>$ identify -verbose imagen.jpg   (Con mucha más información)</p></blockquote>
+<p>$ hodie -c -v (De forma clásica)</p></blockquote>
 </div>
   
   
@@ -367,7 +300,7 @@ end
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/id/">Id</a></h1>
+      <h1 class="entry-title"><a href="/blog/history/">History</a></h1>
     
     
       <p class="meta">
@@ -383,22 +316,30 @@ end
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Conocer el uid y el gid del usuario especificado</p>
+  <div class="entry-content"><p>Lista los comandos utilizados por el usuario</p>
 
-<blockquote><p>$ id root</p>
+<blockquote><p>$ history 20       (Lista los últimos 20)</p>
 
-<p>$ id -u (Del usuario no root)</p>
+<p>$ history -c        (Elimina el historial)</p>
 
-<p>$ id -a (De todos los grupos a los que pertenece el usuario)</p>
+<p>$ history -d 125 (Eliminar la orden 125. útil si se escribió la contraseña y esta queda visible en el historial)</p>
 
-<p>$ id -un (Muestra el usuario con el que estamos)</p></blockquote>
+<p>$ history | awk &#8216;{print $2}&#8217; | sort | uniq -c | sort -rn | head -10 (lista los 10 comandos más usados y numero de veces)</p>
+
+<p>$ !354  (ejecutará el comando 354 del listado de history)</p>
+
+<p>$ history | grep cp  (Buscar en el historial las veces que se ha lanzado “cp”)</p>
+
+<p>$ history -a (Guardar el historial sin cerrar la sesión)</p>
+
+<p>$ echo $HISTCMD (número de comandos registrados en history)</p></blockquote>
 </div>
   
   
@@ -411,7 +352,7 @@ end
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/iconv/">Iconv</a></h1>
+      <h1 class="entry-title"><a href="/blog/hidd/">Hidd</a></h1>
     
     
       <p class="meta">
@@ -427,20 +368,18 @@ end
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Modificar la codificación de un archivo</p>
+  <div class="entry-content"><p>Gestionar dispositivos blueetoth</p>
 
-<blockquote><p>$ iconv -l   (Muestra todas las opciones posibles)</p>
+<blockquote><p># hidd &#8211;search (Buscar dispositivos)</p>
 
-<p>$ iconv -t us-ascii -f utf-8 archivo.txt > re_codificado.txt (Para saber la codificación de un archivo: $ file &#8211;mime-encoding archivo.txt)</p>
-
-<p>$ iconv &#8211;from-code=ISO-8559-1 &#8211;to-code=UTF-8 viejo.txt -o nuevo.txt (Pasar viejo.txt de codificación ISO-8559-1 a UTF-8 en el nuevo.txt)</p></blockquote>
+<p># hidd &#8211;connect 0A:1B:2C:4D:5E:6F (Conectar a un dispositivo)</p></blockquote>
 </div>
   
   
@@ -453,7 +392,7 @@ end
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ibam/">Ibam</a></h1>
+      <h1 class="entry-title"><a href="/blog/hg/">Hg</a></h1>
     
     
       <p class="meta">
@@ -469,16 +408,55 @@ end
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Monitor de carga de la bateria</p>
+  <div class="entry-content"><p>[mercurial]. Mercurial es un potente programa de control de versiones para nuestros proyectos. Previamente crear en la carpeta personal, el archivo:</p>
 
-<blockquote><p>$ ibam -a</p></blockquote>
+<blockquote><p>$ nano .hgrc</p></blockquote>
+
+<p>Con el siguiente contenido:</p>
+
+<pre><code>[ui]
+
+username = Juanito Perez juanitoperez@gmail.com
+</code></pre>
+
+<blockquote><p>$ hg init repositorio . (crea un repositorio en el directorio actual o en el que se especifique)</p>
+
+<p>$ hg add  (añade los ficheros existentes en el directorio a nuestro proyecto)</p>
+
+<p>$ hg clone http://servidor.com/hg (clona un repositorio a la carpeta actual)</p>
+
+<p>$ hg clone ssh://usuario@servidor.com/carpeta repositorio (clona &#8220;carpeta&#8221; usando ssh en el directorio &#8220;repositorio&#8221; del directorio actual)</p>
+
+<p>$ hg status (muestra el estado de los ficheros del proyecto)</p>
+
+<p>$ hg commit (realizamos un commit al proyecto)</p>
+
+<p>$ hg push (enviamos los cambios al repositorio remoto)</p>
+
+<p>$ hg pull (recuperamos cambios del repositorio)</p>
+
+<p>$ hg update (Recargar los archivos despues de un pull)</p>
+
+<p>$ hg update -C (Mezclar cambios [merge])</p>
+
+<p>$ hg log (vemos todos los cambios realizados en el proyecto)</p>
+
+<p>$ hg log -r 5 (Muestra la 5ª revisión)</p>
+
+<p>$ hg log -r 2:5 (Muestra de las 2ª a la 5ª revisión)</p>
+
+<p>$ hg log -p -r 6 (Muestra todas las modificaciónes del archivo de la 6ª revisión)</p>
+
+<p>$ hg tip -v (Muestra los datos de la última revisión)</p>
+
+<p>$ hg help comando (vemos la ayuda integrada del hg para el comando)</p></blockquote>
 </div>
   
   
@@ -491,7 +469,7 @@ end
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/hwclock/">Hwclock</a></h1>
+      <h1 class="entry-title"><a href="/blog/hexdump/">Hexdump</a></h1>
     
     
       <p class="meta">
@@ -507,20 +485,16 @@ end
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Ver fecha y hora de la BIOS</p>
+  <div class="entry-content"><p>[exedit]. Editor de archivos binarios.</p>
 
-<blockquote><p># hwclock -D (Muestra toda la información))</p>
-
-<p># hwclock -w (sincroniza la del hardware a la del sistema)</p>
-
-<p># hwclock -r  (verifica desfase entre ambas)</p></blockquote>
+<blockquote><p>$ hexdump -C archivo_binario</p></blockquote>
 </div>
   
   
@@ -533,7 +507,7 @@ end
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/httping/">Httping</a></h1>
+      <h1 class="entry-title"><a href="/blog/heroku/">Heroku</a></h1>
     
     
       <p class="meta">
@@ -549,20 +523,38 @@ end
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Ping específico para conexiones HTTP</p>
+  <div class="entry-content"><p>Gestión de los blogs alojados en <a href="http://www.heroku.com">http://www.heroku.com</a> Ver octopress 17.</p>
 
-<blockquote><p># httping -g http://www.tuxapuntes.com</p>
+<blockquote><p>$ heroku apps:rename nuevo_nombre (Renombrar un blog. Si se hace en la web en algunos casos da problemas)</p>
 
-<p># httping -h localhost</p>
+<p>$ heroku addons (Ver los addons instalados)</p>
 
-<p># httping -h localhost -p 80</p></blockquote>
+<p>$ heroku apps (Muestra los blogs alojados)</p>
+
+<p>$ heroku login (Logearse con el nombre de usuario y contraseña de registro)</p>
+
+<p>$ heroku create (Crea el repositorio en el directorio actual)</p>
+
+<p>$ heroku logs (Muestra los logs)</p>
+
+<p>$ heroku ps (Ver las aplicaciones corriendo en heroku)</p>
+
+<p>$ heroku restart web.1 (Reiniciar la aplicación a aprtir del dato obtenido com ps)</p>
+
+<p>$ heroku apps:destroy mighty-fortress-6385 (Eliminar una app)</p>
+
+<p>$ heroku sharing &#8211;app tractatuslapipaplena (Ver los colaboradores de un proyecto)</p>
+
+<p>$ heroku auth:login (Pide los datos de registro)</p>
+
+<p>$ heroku keys:add ~/.ssh/id_rsa.pub (Subir la clave publica)</p></blockquote>
 </div>
   
   
@@ -575,7 +567,7 @@ end
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/httpd/">Httpd</a></h1>
+      <h1 class="entry-title"><a href="/blog/help/">Help</a></h1>
     
     
       <p class="meta">
@@ -591,64 +583,18 @@ end
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Servicio de protocolo de transferencia de apache</p>
+  <div class="entry-content"><p>Muestra los comandos disponibles en bash. Estos comandos no tienen página man, por lo que para acceder a una descripción se usa esta opción.</p>
 
-<blockquote><p>$ httpd -l  (visualizar los módulos activos de apache)</p>
+<blockquote><p>$ help</p>
 
-<p>$ httpd -L  (Listado de directivas disponibles)</p>
-
-<p>$ httpd -t  (realiza un test de los archivos de configuración [Syntax OK])</p>
-
-<p>$ httpd -h  (muestra las opciones)</p>
-
-<p>$ httpd -v (versión de apache)</p>
-
-<p>$ httpd -V (versión y parámetros compilados)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/htpasswd/">Htpasswd</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Comando con el que definimos usuario y contraseñas para el servidor apache.</p>
-
-<blockquote><p>$ htpasswd -c /home/USER/public_html/.htpasswd USUARIO (Creando el archivo  .htpasswd en la ruta especificada con los datos de usuario)</p></blockquote>
+<p>$ help fc</p></blockquote>
 </div>
   
   
@@ -679,43 +625,43 @@ end
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/nmap/">nmap</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/nethogs/">nethogs</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lilo/">lilo</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/anarchism/">anarchism</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sftp/">sftp</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/logrotate/">logrotate</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssh/">ssh</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lshell/">lshell</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/apt-mirror/">apt-mirror</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/typeset/">typeset</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

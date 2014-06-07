@@ -9,7 +9,8 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Gestor de archivos. La pantalla de Midnight Commander está divida en cuatro partes. La mayor parte de la pantalla está ocupada por los dos paneles de &hellip;">
+  <meta name="description" content="Muestra los dispositivos pcmci.
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/mc/">Mc</a></h1>
+      <h1 class="entry-title"><a href="/blog/lspcmci/">Lspcmci</a></h1>
     
     
       <p class="meta">
@@ -96,134 +97,14 @@
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Gestor de archivos. La pantalla de Midnight Commander está divida en cuatro partes. La mayor parte de la pantalla está ocupada por los dos paneles de directorio. Por defecto, la segunda línea inferior de la pantalla es la línea de órdenes del sistema y la línea inferior muestra las etiquetas de las teclas de función. La línea superior es la barra de menú que si no está visible puede verse pulsando F9. MC pone a la vista dos directorios al mismo tiempo. Uno de los paneles es el panel actual. Algunas operaciones con archivos como Renombrar y Copiar utilizan por defecto el directorio del panel no seleccionado como destino, pero siempre solicitan una confirmación previa y podemos cambiarlo. Podemos ejecutar comandos del sistema desde MC simplemente escribiéndolos. Todo lo que escribamos aparecerá en la línea de órdenes del sistema y cuando pulsemos Intro, Midnight Commander ejecutará estos comandos. Si tenemos el ratón activado [ver gpm] para seleccionar texto mantener pulsada la tecla Mayúsculas mientras se selecciona.</p>
-
-<blockquote><p>$ mc -S gotar.ini /media/servidor /home/usuario (Especificando un skin [Listado en /usr/share/mc/skins] y directorio de cada panel)</p></blockquote>
-
-<p>Colocando la linea como alias en .bashrc arancará siempre con esta configuración inicial:</p>
-
-<blockquote><p>$ nano .bashrc</p></blockquote>
-
-<p>alias mc=&#8217;mc -S gotar.ini /media/servidor /home/usuario&#8217;</p>
-
-<p>Algunas teclas de control:</p>
-
-<pre><code>F1 (Despliega el Menú de ayuda)
-
-F3 (Activa el Visor de archivos interno)
-
-F4 (Ejecuta el Editor interno)
-
-F5 (Copiar archivos)
-
-F6 (Mover archivos)
-
-F7 (Crear carpeta)
-
-F8 (Borrar archivos)
-
-F9 (Activa el menú principal desplegable)
-
-F10 (Salir de mc)
-
-Tab (Moverse entre los paneles)
-
-Insert (Marcar para operaciones con múltiples archivos)
-
-Supr (Eliminar archivo)
-
-Flechas de desplazamiento (Permiten moverse por menús y submenús)
-
-Alt-Enter (copiar el nombre de un archivo en la línea de comandos [cp o mv])
-
-Alt-Tab (misma función que la tecla TAB en el shell [completar comando o ruta tras haber escrito sus primeras letras]
-
-Alt-p (Retrocede por el historico de comandos)
-
-Alt-n (Avanza por el historico de comandos)
-
-Alt-h (Abre una ventana con el historico de comandos)
-</code></pre>
-
-<p>1.-</p>
-
-<p>Mas personalizaciones de los colores:</p>
-
-<p>Colores posibles: white, gray, blue, green, yellow, magenta, cyan, red, brown, birghtgreen, brightblue, brightmagenta, brightcyan, brightred, lightgray, default</p>
-
-<p>Se puede incidir en los siguientes aspectos de los grupos:</p>
-
-<pre><code>Base colors: normal, selected, marked, markselect, errors, input, reverse, gauge
-
-Menu colors: menu, menusel, menuhot, menuhotsel
-
-Dialog colors: dnormal, dfocus, dhotnormal, dhotfocus
-
-Help colors: helpnormal, helpitalic, helpbold, helplink, helpslink
-
-Viewer color: viewunderline
-
-Special highlighting colors: executable, directory, link, stalelink, device, special, core
-
-Editor colors: editnormal, editbold, editmarked
-</code></pre>
-
-<p>Nota.- No tienen que definirse obligatoriamente todos los subgrupos</p>
-
-<p>Para pruebas:</p>
-
-<pre><code>$ mc --colors normal=green,default:selected=brightmagenta,gray:marked=yellow,default:markselect=yellow,gray:directory=blue,default:executable=brightgreen,default:link=cyan,default:device=brightmagenta,default:special=lightgray,default:errors=red,default:reverse=green,default:gauge=green,default:input=white,gray:dnormal=green,gray:dfocus=brightgreen,gray:dhotnormal=cyan,gray:dhotfocus=brightcyan,gray:menu=green,default:menuhot=cyan,default:menusel=green,gray:menuhotsel=cyan,default:helpnormal=cyan,default:editnormal=green,default:editbold=blue,default:editmarked=gray,blue:stalelink=red,default
-</code></pre>
-
-<p>Para dejar la seleccion permanente crear en el directorio (Si no existe se crea):</p>
-
-<blockquote><p>$ nano .moc/ini</p></blockquote>
-
-<p>Y pegar:</p>
-
-<pre><code>[colors]
-
-normal=green,default:selected=brightmagenta,gray:marked=yellow,default:markselect=yellow,gray:directory=blue,default:executable=brightgreen,default:link=cyan,default:device=brightmagenta,default:special=lightgray,default:errors=red,default:reverse=green,default:gauge=green,default:input=white,gray:dnormal=green,gray:dfocus=brightgreen,gray:dhotnormal=cyan,gray:dhotfocus=brightcyan,gray:menu=green,default:menuhot=cyan,default:menusel=green,gray:menuhotsel=cyan,default:helpnormal=cyan,default:editnormal=green,default:editbold=blue,default:editmarked=gray,blue:stalelink=red,default
-</code></pre>
-
-<p>Si lo queremos como alias:</p>
-
-<blockquote><p>$ nano .bashrc</p></blockquote>
-
-<p>Y pegamos:</p>
-
-<pre><code>alias mc="mc --colors normal=green,default:selected=brightmagenta,gray:marked=yellow,default:markselect=yellow,gray:directory=blue,default:executable=brightgreen,default:link=cyan,default:device=brightmagenta,default:special=lightgray,default:errors=red,default:reverse=green,default:gauge=green,default:input=white,gray:dnormal=green,gray:dfocus=brightgreen,gray:dhotnormal=cyan,gray:dhotfocus=brightcyan,gray:menu=green,default:menuhot=cyan,default:menusel=green,gray:menuhotsel=cyan,default:helpnormal=cyan,default:editnormal=green,default:editbold=blue,default:editmarked=gray,blue:stalelink=red,default"
-</code></pre>
-
-<p>2.-</p>
-
-<p>Para configurar las aplicaciones que se usarán por defecto:</p>
-
-<blockquote><p>$ cp /etc/mc/mc.ext .mc/bindings</p>
-
-<p>$ nano .moc/bindings</p></blockquote>
-
-<p>Y modificar las que procedan. Ejemplo:</p>
-
-<pre><code># Para abrir los txt com vi
-
-    shell/.txt
-
-        Open=%var{EDITOR:vi} %f
-
-# Que los videos los abra vlc
-
-    include/video
-
-        Open=(vlc %f &gt;/dev/null 2&gt;&amp;1 &amp;)
-</code></pre>
+  <div class="entry-content"><p>Muestra los dispositivos pcmci.</p>
 </div>
   
   
@@ -236,7 +117,7 @@ normal=green,default:selected=brightmagenta,gray:marked=yellow,default:markselec
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/mate-screensaver-command/">Mate-screensaver-command</a></h1>
+      <h1 class="entry-title"><a href="/blog/lspci/">Lspci</a></h1>
     
     
       <p class="meta">
@@ -252,14 +133,18 @@ normal=green,default:selected=brightmagenta,gray:marked=yellow,default:markselec
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Mismas opciones que gnome-screensaver-command (ver)</p>
+  <div class="entry-content"><p>Para averiguar todos los dispositivos pci</p>
+
+<blockquote><p>$ lspci | grep Ethernet  (listar dispositivos pci relacionados con la red)</p>
+
+<p>$ lspci | grep VGA   (conocer la tarjeta gráfica)</p></blockquote>
 </div>
   
   
@@ -272,7 +157,7 @@ normal=green,default:selected=brightmagenta,gray:marked=yellow,default:markselec
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/markdown/">Markdown</a></h1>
+      <h1 class="entry-title"><a href="/blog/lsof/">Lsof</a></h1>
     
     
       <p class="meta">
@@ -288,50 +173,64 @@ normal=green,default:selected=brightmagenta,gray:marked=yellow,default:markselec
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Lenguaje orientado a la escritura de documentos de manera que sean fáciles de escribir y leer directamente en texto plano convirtiéndolos en documentos XHTML bien formados. La aplicación retext permite eleborar textos en markdown y visualizarlos en tiempo real.</p>
+  <div class="entry-content"><p>Listar ficheros o procesos abiertos</p>
 
-<p>Sintaxis elemental [las referencias son respecto de html]:</p>
+<blockquote><p># lsof -i :4662  (servicios usados por el puerto 4662 aunque esten a la escucha)</p>
 
-<p>Notas: Cada signo afecta hasta el primer salto de linea. Un bloque HTML ha de estar precedido por una linea en blanco y con una sangría de 4 espacios y en su interior no actúa la sintaxis markdown. Para escapar un carácter se precede barra [\] . Los párrafos se delimitan con lineas en blanco.</p>
+<p># lsof -X (Desactiva la identifiación de conexiones)</p>
 
-<pre><code># (equivalente a H1. Mismo resultado subrayando el texto con el signo = en la linea inmediata inferior)
+<p># lsof -i@lapipaplena.homelinux.com  (verificar conexiones con una máquina)</p>
 
-## (equivalente a H2. Mismo resultado que subrayando el texto con el signo - en la linea inmediata inferior)
+<p># lsof -i@88.25.114.11   (lo mismo pero especificando la ip)</p>
 
-&gt; (muestra el texto que sigue como una cita)
+<p># lsof -i | grep ssh  (Para que muestre solo los que usan el protocolo ssh)</p>
 
-* (Mostrará como una lista no ordenada)
+<p># lsof +D /var/log  (Mostrar los servicios que tiene abierto un directorio)</p>
 
-1. (Mostrará como una lista ordenada)
+<p># lsof fichero  (Muestra los servicios que tiene abiertos fichero)</p>
 
-**texto** (texto entre dos pares de asteriscos: en negrita)
+<p># lsof -nPi TCP   (Muestra los eventos de red de las conexiones TCP)</p>
 
-*texto* (texto entre asteriscos: en cursiva)
+<p># lsof -p PID  (Ficheros que tiene abierto determinado proceso)</p>
 
-***texto*** (Texto entre dos trios de asteriscos: negrita y cursiva)
+<p># lsof -N      (Muestra los archivos NFS abiertos)</p>
 
-2 espacios al final de una linea fuera salto de linea
+<p># lsof -c firefox   (Muestra los ficheros abiertos por firefox)</p>
 
-&lt;URL&gt; (Modo de colocar un enlace. Igual para un email)
+<p># lsof -P -i -n -sTCP:LISTEN (listado de puertos en LISTEN)</p>
 
---- (3 guiones muestran una linea)
+<p># lsof -i -P | grep -i &#8220;listen&#8221; (otra forma de listarlos)</p>
 
-[nombre del enlace](http://url "nombre que aparece al colocar el cursor") (Enlace a una URL. El entrecomillado es opcional)
+<p># lsof -i tcp -i udp  (lista puertos tcp y udp abiertos)</p>
 
-Ejemplo: Puedes buscar en \[google](http://google.es "google") o en \[yahoo](http://es.yahoo.com "yahoo")
+<p># lsof -Pni | grep LISTEN   (chequear puertos abiertos)</p>
 
-![imagen](http://url "nombre que aparece al colocar el cursor")
+<p># lsof -c bash -r  (Monitorizar un proceso)</p>
 
-Ejemplo: !\[Herramientas](http://www.linux-mag.com/s/i/topics/toolbox.jpg "Caja de herramientas")
+<p># lsof -i :631 | awk &#8216;{print $1,$2}&#8217; | sort -u  (muestra pid y demonio del puerto especificado)</p>
 
-&lt;img class="[clases asignadas]" src="/ruta/a/la/imagen" title="[ancho] [alto] [el title [alt de la imagen]]" &gt; (Colocar una imagen)
+<p># lsof -t -i :22 (Muestra el pid del puerto especificado)</p>
+
+<p># lsof -nPi | txt2html  > lsof.html (Mandar la salida a un html para visualizarlo por el navegador)</p></blockquote>
+
+<p>Opciones:</p>
+
+<pre><code>-P (Muestra los números de puerto en vez de la aplicación que corre en ellos)
+
+-n (Para que no resuelva las IP de las conexiones)
+
+-i (Hace referencia a los eventos utilizados por procesos de red)
+
+-u usuario (Muestra los procesos abiertos por “usuario”)
+
+-x (Sigue links y puntos de montaje)
 </code></pre>
 </div>
   
@@ -345,7 +244,7 @@ Ejemplo: !\[Herramientas](http://www.linux-mag.com/s/i/topics/toolbox.jpg "Caja 
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/manswitch/">Manswitch</a></h1>
+      <h1 class="entry-title"><a href="/blog/lsmod/">Lsmod</a></h1>
     
     
       <p class="meta">
@@ -361,18 +260,14 @@ Ejemplo: !\[Herramientas](http://www.linux-mag.com/s/i/topics/toolbox.jpg "Caja 
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Busca un flag concreto en las páginas man.</p>
-
-<blockquote><p>$ manswitch ps -a</p>
-
-<p>$ manswitch uname -r</p></blockquote>
+  <div class="entry-content"><p>Listar todos los módulos cargados del kernel, y alguna información adicional de ellos.</p>
 </div>
   
   
@@ -385,7 +280,7 @@ Ejemplo: !\[Herramientas](http://www.linux-mag.com/s/i/topics/toolbox.jpg "Caja 
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/manpath/">Manpath</a></h1>
+      <h1 class="entry-title"><a href="/blog/lshw/">Lshw</a></h1>
     
     
       <p class="meta">
@@ -401,16 +296,18 @@ Ejemplo: !\[Herramientas](http://www.linux-mag.com/s/i/topics/toolbox.jpg "Caja 
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Busca la ruta a las páginas man.</p>
+  <div class="entry-content"><p>Muestra información de toda la máquina</p>
 
-<blockquote><p>$ manpath -g</p></blockquote>
+<blockquote><p>$ lshw -html > hardware.html (Mandar la información a un archivo html)</p>
+
+<p># lshw -C network (Ver los dispositivos de red instalados)</p></blockquote>
 </div>
   
   
@@ -423,7 +320,7 @@ Ejemplo: !\[Herramientas](http://www.linux-mag.com/s/i/topics/toolbox.jpg "Caja 
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/man2web/">Man2web</a></h1>
+      <h1 class="entry-title"><a href="/blog/lshell/">Lshell</a></h1>
     
     
       <p class="meta">
@@ -439,136 +336,42 @@ Ejemplo: !\[Herramientas](http://www.linux-mag.com/s/i/topics/toolbox.jpg "Caja 
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Pasar páginas del manual a formato html.</p>
+  <div class="entry-content"><p>shell restrictiva para permitir a usuarios acceder via ssh al sistema limitando sus privilegios. Algunas modificaciones en el archivo de configuración:</p>
 
-<blockquote><p>$ man2web ifconfig > ifconfig.html</p></blockquote>
-</div>
-  
-  
+<blockquote><p># nano /etc/lshell.conf</p></blockquote>
 
+<pre><code>...
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/man2html/">Man2html</a></h1>
-    
-    
-      <p class="meta">
-        
+[global]
 
+# archivo de logs
 
+logpath         : /var/log/lshell/
 
+...
 
+[default]
 
+...
 
+# Comandos permitidos
 
+allowed         : ['ls','echo','cd','ll','cat','more','nano']
 
-  
+# Mensaje al arrancar
 
+intro           : "*** Entrando en la máquina con privilegios limitados *** Pulsar '?' o 'help' para listar comandos autoritzados"
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
+# Si el usuario tiene una carpeta personal
 
-
-  <div class="entry-content"><p>Pasar páginas de manual a formato html.</p>
-
-<blockquote><p>$ man ls | man2html > man_ls.html</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/man/">Man</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra la página del manual de un comando o aplicación.</p>
-
-<blockquote><p>$ man -L es comando (especificando idioma si disponible)</p>
-
-<p>$ man -k permissions (Busca comandos que traten sobre “permissions”)</p>
-
-<p>$ man -k vnc ssh (Buscar sobre dos comandos)</p>
-
-<p>$ man -t ls > ls.pdf (Formateado para salida pdf)</p>
-
-<p>$ man -t ls | ps2pdf -&gt; /home/usuario/ls.pdf (Lo mismo)</p>
-
-<p>$ man 2 read (Especificando la sección del manual. Por defecto la 1)</p></blockquote>
-
-<p>Secciones:</p>
-
-<p>Sección 1: Comandos generales</p>
-
-<p>Sección 2: Llamadas a sistema</p>
-
-<p>Sección 3: Funciones (programación en C)</p>
-
-<p>Sección 4: Ficheros especiales</p>
-
-<p>Sección 5: Formatos de fichero y convenciones</p>
-
-<p>Sección 6: Juegos</p>
-
-<p>Sección 7: Convenciones y otros</p>
-
-<p>Sección 8: Comandos privilegiados y de administración</p>
-
-<p>Algunas teclas de control:</p>
-
-<pre><code>Ctrl + f (Avanza una página)
-
-Crrl + b (Retrocede una página)
-
-/palabra (Busca “palabra” en el texto hacia adelante)
-
-?palabra (Busca “palabra” en el texto hacia atrás)
-
-n (Elemento siguiente en la busqueda)
-
-N (Elemento previo en la busqueda)
-
-q (Salir)
+home_path       : '/home/USUARIO/'
 </code></pre>
 </div>
   
@@ -582,7 +385,7 @@ q (Salir)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/maldet/">Maldet</a></h1>
+      <h1 class="entry-title"><a href="/blog/lshal/">Lshal</a></h1>
     
     
       <p class="meta">
@@ -598,22 +401,26 @@ q (Salir)
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Detector de malware.</p>
+  <div class="entry-content"><p>Muestra información del firmware, serial server, Bios, kernel, procesador, discos, puntos de montaje, particiones, usb, pci&#8230;</p>
 
-<blockquote><p># maldet -a /home/usuario</p>
+<blockquote><p>$ lshal  (Información de los dispositivos de HAL en formato largo y detallado))</p>
 
-<p># maldet -m /home/user1,/home/user2</p>
+<p>$ lshal -l (Lo mismo que el anterior)</p>
 
-<p># maldet -u (Acualización de firmas de detección de malware desde rfxn.com)</p>
+<p>$ lshal -s (Muestra el UDI [Dispositivo identificador único])</p>
 
-<p># maldet –report (Muestra el último reporte)</p></blockquote>
+<p>$ lshal -st (Lo mismo pero en forma de arbol)</p>
+
+<p>$ lshal -m (Monitor de los dispositivos de HAL mostrando cambios de estado en tiempo real al conectar un dispositivo)</p>
+
+<p>$ lshal -u UDI (Muestra información de un dispositivo específico)</p></blockquote>
 </div>
   
   
@@ -626,7 +433,7 @@ q (Salir)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/makepkg/">Makepkg</a></h1>
+      <h1 class="entry-title"><a href="/blog/lsdev/">Lsdev</a></h1>
     
     
       <p class="meta">
@@ -642,20 +449,94 @@ q (Salir)
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Script para automatizar la construcción de paquetes para Archlinux.</p>
+  <div class="entry-content"><p>[procinfo]. Lista los dispositivos presentes en el sistema y que IRQs y puertos IO (entrada/salida) usan.</p>
 
-<blockquote><p># makepkg &#8211;asroot (Lanzado en el interior del directorio donde se encuentra el PKGBUILD, crea el paquete .pkg.tar.xz, instalable con pacman -U)</p>
+<blockquote><p>$ lsdev</p></blockquote>
+</div>
+  
+  
 
-<p># makepkg &#8211;asroot &#8211;source (Lanzado en el interior del directorio donde se encuentra al PKGBUILD, crea el paquete .src.tar.gz listo para subir a AUR)</p>
 
-<p># makepkg &#8211;asroot -g paquete (Muestra el md5sum)</p></blockquote>
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/lscpu/">Lscpu</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Muestra información sobre la cpu</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/lsblk/">Lsblk</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Muestra información del dispositivo especificado.</p>
+
+<blockquote><p>$ lsblk -a /dev/sda</p>
+
+<p>$ lsblk -f /dev/sda (Mostrando etiquetas, uuids y puntos de montaje)</p>
+
+<p>$ lsblk -m /dev/sda (Mostrando propietarios, grupos y permisos)</p></blockquote>
 </div>
   
   
@@ -686,43 +567,43 @@ q (Salir)
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/nmap/">nmap</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/nethogs/">nethogs</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lilo/">lilo</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/anarchism/">anarchism</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sftp/">sftp</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/logrotate/">logrotate</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssh/">ssh</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lshell/">lshell</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/apt-mirror/">apt-mirror</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/typeset/">typeset</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

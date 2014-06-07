@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Para conocer los módulos perl instalados. Entra en el prompt (cmd?) con 3 preguntas: l (List all installed modules) m (Select a module) q (Quit the &hellip;">
+  <meta name="description" content="[moreutils]. Muestra información de la red. $ ifdata -p eth0 (Muestra la ip local, la mascara de red, la dirección broadcast y los MTU de la red) $ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/instmodsh/">Instmodsh</a></h1>
+      <h1 class="entry-title"><a href="/blog/ifdata/">Ifdata</a></h1>
     
     
       <p class="meta">
@@ -96,20 +96,28 @@
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Para conocer los módulos perl instalados. Entra en el prompt (cmd?) con 3 preguntas:</p>
+  <div class="entry-content"><p>[moreutils]. Muestra información de la red.</p>
 
-<p>l (List all installed modules)</p>
+<blockquote><p>$ ifdata -p eth0 (Muestra la ip local, la mascara de red, la dirección broadcast y los MTU de la red)</p>
 
-<p>m <module> (Select a module)</p>
+<p>$ ifdata -pa -pn eth0 (Muestra la ip local i la mascara de red)</p>
 
-<p>q (Quit the program)</p>
+<p>$ ifdata -pe eth5 (Muestra &#8220;yes&#8221; o &#8220;no&#8221; sobre si existe o no la red especificada)</p></blockquote>
+
+<p>Otras opciones:</p>
+
+<p>-pb (La dirección broadcast)</p>
+
+<p>-ph (Muestra la MAC)</p>
+
+<p>-pf (Muestra las caracteristicas de la red)</p>
 </div>
   
   
@@ -122,7 +130,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/install-mbr/">Install-mbr</a></h1>
+      <h1 class="entry-title"><a href="/blog/ifconfig/">Ifconfig</a></h1>
     
     
       <p class="meta">
@@ -138,18 +146,26 @@
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Instala un nuevo código MBR al inicio del disco duro.</p>
+  <div class="entry-content"><p>[net-tools]. Define direcciones ip y dispositivos de red</p>
 
-<blockquote><p># install-mbr /dev/sda (instala)</p>
+<blockquote><p># ifconfig  (ver los datos de conexión)</p>
 
-<p># install-mbr -l /dev/sda (muestra información del código mbr)</p></blockquote>
+<p># ifconfig eth0 up 192.168.1.2 (Levanta la placa de red eth0 y le da la ip)</p>
+
+<p># ifconfig eth0 down (Cierra la red eth0)</p>
+
+<p># ifconfig eth0 promisc (Poner la placa en modo promiscuo)</p>
+
+<p># ifconfig wlan0 up (si se trata de redes inalámbricas)</p>
+
+<p># ifconfig eth0 hw ether 00:01:02:03:04:05  (cambiar la dirección MAC)</p></blockquote>
 </div>
   
   
@@ -162,7 +178,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/insmod/">Insmod</a></h1>
+      <h1 class="entry-title"><a href="/blog/if/">If</a></h1>
     
     
       <p class="meta">
@@ -178,171 +194,225 @@
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Carga modulos.</p>
-
-<blockquote><p># insmod mudulo</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/inputrc/">Inputrc</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>(archivo /etc/inputrc y ~/.inputrc). Librería readline que permite editar líneas de texto usando los modos de emacs y vi. Esto permite estandarizar las combinaciones de teclas entre muchos comandos.</p>
-
-<blockquote><p>$ nano .inputrc</p></blockquote>
-
-<p>Ajustes que pueden añadirse al archivo personal.</p>
+  <div class="entry-content"><p>Ejecuta uno o varios comandos dependiendo de si una condición se cumple o no. Algunos scripts de ejemplo para su uso [ver operadores]:</p>
 
 <p>1.-</p>
 
-<p>Que al pulsar Ctrl+x Ctrl+f liste las funciones y con Ctrl+x Ctrl+v las variables:</p>
+<pre><code>#!/bin/bash
 
-<blockquote><p># Lista las funciones y variables de readline</p></blockquote>
+read -p "Ingrese nombre del usuario: " USUARIO
 
-<p>&#8220;\C-x\C-f&#8221;: dump-functions</p>
+if grep -e ^$USUARIO: /etc/passwd
 
-<p>&#8220;\C-x\C-v&#8221;: dump-variables</p>
+then
+
+    echo "El usuario existe en el sistema"
+
+else
+
+    echo "Usuario desconocido"
+
+fi
+
+exit 0
+</code></pre>
 
 <p>2.-</p>
 
-<p>Que el autocompletado con la tecla &#8220;tab&#8221; no distinga mayúsculas y minúsculas:</p>
+<pre><code>#!/bin/bash
 
-<blockquote><p># Ignora diferencias de mayusculas/minusculas al</p>
+if [ "$(id -u)" != "0" ]; then
 
-<p># completar con tabulador</p></blockquote>
+    echo "Solo root puede ejecutar este script."
 
-<p>set completion-ignore-case on</p>
-</div>
-  
-  
+    exit 1
 
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/inittab/">Inittab</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Fichero que gestiona el inicio del sistema o un cambio de estado (runlevel) con el comando init (ver).</p>
-
-<blockquote><p># nano /etc/inittab</p></blockquote>
-
-<p>Especificación de si el sistema arranca en modo monousuario (1) o multiusuario (2-5). Por defecto 2 o 3:</p>
-
-<pre><code>id:2:initdefault:
+fi
 </code></pre>
 
-<p>Scripts que se ejecutarán en el inicio y en el orden que lo harán independientemente del runlevel:</p>
+<p>3.-</p>
 
-<pre><code>si::sysinit:/etc/init.d/rcS (En algunas distros si::sysinit:/etc/rc.d/rc.sysinit)
+<pre><code>#!/bin/bash
+
+# Verificar si se ha entrado un argumento
+
+if [ -z "$1" ]
+
+then
+
+          echo "Falta el argumento después del nombre del script"
+
+exit
+
+fi
 </code></pre>
 
-<p>Este script llama a los scripts del directorio /etc/rcS.d. Por cada runlevel se ejecutan los scripts del directorio correpondiente: rc0.d/, rc1.d/, rc2.d/, rc3.d/, rc4.d/, rc5.d/, rc6.d/, rc.local y rcS.d/. El directorio /etc/rc.local se usa para ejecutar servicios porpios del usuario. En estos directorios los scripts que empiezan por una &#8220;K&#8221; paran servicios y los que empiezan por una &#8220;S&#8221; los arrancan.</p>
+<p>4.-</p>
 
-<p>Qué hacer si se presiona CTRL-ALT-DEL:</p>
+<pre><code>#!/bin/bash
 
-<pre><code>ca:12345:ctrlaltdel:/sbin/shutdown -t1 -a -r now
+# Introducir dos números diferentes e indicar
+
+# cuál es el mayor
+
+read -p "Introduce dos números: " A B
+
+if [ $A -gt $B ]
+
+then
+
+        echo $A "es el mayor"
+
+else
+
+        echo $B "es el mayor"
+
+fi
 </code></pre>
 
-<p>Qué hacer si la corriente se va/vuelve</p>
+<p>Con varias opciones [elif]</p>
 
-<pre><code>pf::powerwait:/etc/init.d/powerfail start
+<p>5.-</p>
 
-pn::powerfailnow:/etc/init.d/powerfail now
+<pre><code>#!/bin/bash
 
-po::powerokwait:/etc/init.d/powerfail stop
+ls
+
+echo
+
+read -p "Cual leer: " LEER
+
+echo
+
+if [ -f $LEER ]
+
+then
+
+    echo
+
+    cat $LEER
+
+    echo
+
+elif [ -d $LEER ]
+
+then
+
+    echo
+
+    echo "Es un directorio...."
+
+else
+
+    echo
+
+    f_echo "¡¡NO EXISTE!!"
+
+    echo
+
+fi
 </code></pre>
 
-<p>Despues de ejecutar los scripts de inicio, init crea un conjunto de terminales virtuales:</p>
+<p>6.-</p>
 
-<pre><code>1:2345:respawn:/sbin/getty 38400 tty1
+<pre><code>#!/bin/bash
 
-2:23:respawn:/sbin/getty 38400 tty2
+echo "Diga si o no:"
 
-3:23:respawn:/sbin/getty 38400 tty3
+read RESPUESTA
 
-4:23:respawn:/sbin/getty 38400 tty4
+if  [ "$RESPUESTA" = si ]; then
 
-5:23:respawn:/sbin/getty 38400 tty5
+    echo "Has escrito si"
 
-6:23:respawn:/sbin/getty 38400 tty6
+elif [ "$RESPUESTA" = no ]; then
+
+    echo "Has escrito no"
+
+elif [ "$RESPUESTA" = "" ]; then
+
+    echo "No has escrito nada"
+
+else
+
+    echo "Has escrito una cosa no permitida"
+
+fi
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/idesk/">Idesk</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Herramienta para la creación de iconos en el escritorio. Los archivos con extensión .lnk se colocan en el directorio ~/.idesktop. Una muestra:</p>
+
+<blockquote><p>$ nano .idesktop/home.lnk</p></blockquote>
+
+<pre><code>table Icon
+
+  Caption: Home
+
+  Command[0]: thunar /home/usuario
+
+  Icon: /usr/share/idesk/folder_home.xpm
+
+  Width: 48
+
+  Height: 48
+
+  X: 29
+
+  Y: 39
+
+end
 </code></pre>
 
-<p>Utilizando la opción respawn, si alguien trata de finalizar uno de estos procesos, el proceso simplemente será regenerado (respawned).</p>
+<p>Nombre del icono [Caption], El comando que se lanzará [0] con doble click izquierdo del ratón. Con [1], doble click derecho, en este caso thunar abrirá la carpeta personal [Command], la ruta al icono que se empleará [Icon], las medidas ancho [Width] y alto [Height] y la colocación en pantalla, x: distancia en pixels del lateral, y: distancia en pixels de la parte superior.</p>
 
-<p>1.-</p>
+<p>Otros parámetros [fuentes, colores, medidas, fondos, transparencias&#8230;] pueden configurarse en el archivo ~/.ideskrc. Cualquier modificación en idesktop o ideskrc precisa matar el proceso:</p>
 
-<p>Entrar de forma automática:</p>
+<blockquote><p>$ killall idesk</p></blockquote>
 
-<p>Comentar la siguiente línea</p>
+<p>Y relanzarlo:</p>
 
-<blockquote><p>#1:2345:respawn:/sbin/getty 38400 tty1</p></blockquote>
-
-<p>Y Agrega la siguiente linea:</p>
-
-<p>1:2345:respawn:/bin/login -f USUARIO tty1 </dev/tty1 >/dev/tty1 2>&amp;1</p>
-
-<p>Siendo USUARIO el nombre de usuario que hará login automático.</p>
+<blockquote><p>$ idesk</p></blockquote>
 </div>
   
   
@@ -355,7 +425,7 @@ po::powerokwait:/etc/init.d/powerfail stop
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/initramfs/">Initramfs</a></h1>
+      <h1 class="entry-title"><a href="/blog/identify/">Identify</a></h1>
     
     
       <p class="meta">
@@ -371,24 +441,18 @@ po::powerokwait:/etc/init.d/powerfail stop
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Problemas durante el arranque. Consiste en un fallo de lectura de los controladores ide de discos duros por parte del kernel del sistema operativo que no logra reconocer dichos drivers. Arrancar con un livecd o pulsando “e” para editar la opción cuando salga el menu en grub:</p>
+  <div class="entry-content"><p>[imagemagick]. Ver las propiedades de una imagen</p>
 
-<blockquote><p># gedit /boot/grub/menu.lst</p></blockquote>
+<blockquote><p>$ identify imagen.gif</p>
 
-<p>Y al final de la linea del kernel poner: rootdelay=90</p>
-
-<p>Otras soluciones propuestas (sustituir el rootdelay=90 por):</p>
-
-<p>pci=nomsi</p>
-
-<p>all_generix_ide</p>
+<p>$ identify -verbose imagen.jpg   (Con mucha más información)</p></blockquote>
 </div>
   
   
@@ -401,7 +465,7 @@ po::powerokwait:/etc/init.d/powerfail stop
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/init/">Init</a></h1>
+      <h1 class="entry-title"><a href="/blog/id/">Id</a></h1>
     
     
       <p class="meta">
@@ -417,20 +481,22 @@ po::powerokwait:/etc/init.d/powerfail stop
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Para o reinicia el sistema</p>
+  <div class="entry-content"><p>Conocer el uid y el gid del usuario especificado</p>
 
-<blockquote><p>$ init 0    (para)</p>
+<blockquote><p>$ id root</p>
 
-<p>$ init 1    (reinicia en modo  uniusuario)</p>
+<p>$ id -u (Del usuario no root)</p>
 
-<p>$ init 6    (reinicia)</p></blockquote>
+<p>$ id -a (De todos los grupos a los que pertenece el usuario)</p>
+
+<p>$ id -un (Muestra el usuario con el que estamos)</p></blockquote>
 </div>
   
   
@@ -443,7 +509,7 @@ po::powerokwait:/etc/init.d/powerfail stop
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/info/">Info</a></h1>
+      <h1 class="entry-title"><a href="/blog/iconv/">Iconv</a></h1>
     
     
       <p class="meta">
@@ -459,18 +525,20 @@ po::powerokwait:/etc/init.d/powerfail stop
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Páginas de manual para la mayoria de programas del proyecto GNU con una estructura jerarquizada. Ligeramente más complejo que las clásicas páginas man  [ver]</p>
+  <div class="entry-content"><p>Modificar la codificación de un archivo</p>
 
-<blockquote><p>$ info (MUestra la lista de los nodos disponibles en el primer nivel)</p>
+<blockquote><p>$ iconv -l   (Muestra todas las opciones posibles)</p>
 
-<p>$ info ifconfig</p></blockquote>
+<p>$ iconv -t us-ascii -f utf-8 archivo.txt > re_codificado.txt (Para saber la codificación de un archivo: $ file &#8211;mime-encoding archivo.txt)</p>
+
+<p>$ iconv &#8211;from-code=ISO-8559-1 &#8211;to-code=UTF-8 viejo.txt -o nuevo.txt (Pasar viejo.txt de codificación ISO-8559-1 a UTF-8 en el nuevo.txt)</p></blockquote>
 </div>
   
   
@@ -483,7 +551,7 @@ po::powerokwait:/etc/init.d/powerfail stop
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/imsniff/">Imsniff</a></h1>
+      <h1 class="entry-title"><a href="/blog/ibam/">Ibam</a></h1>
     
     
       <p class="meta">
@@ -499,50 +567,16 @@ po::powerokwait:/etc/init.d/powerfail stop
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Capturar paquetes relacionados con el protocolo MSN . Su uso pasa por el envenenamiento arp, situando nuestra máquina entre la victima y el router lanzando en varias terminales y sin cerrarlas:</p>
+  <div class="entry-content"><p>Monitor de carga de la bateria</p>
 
-<blockquote><p># arpspoof -i eth0 -t 192.168.1.15 192.168.1.1</p>
-
-<p># arpspoof -i eth0 -t 192.168.1.1 192.168.1.15</p></blockquote>
-
-<p>Activar forwarding para que los paquetes vayan a su verdadero dueño:</p>
-
-<blockquote><p># echo 1 > /proc/sys/net/ipv4/ip_forward</p></blockquote>
-
-<p>Crear una carpeta donde guardar los datos:</p>
-
-<blockquote><p>$ mkdir snifadas</p></blockquote>
-
-<p>Modificar el archivo de configuración a partir de la  propia documentación ::</p>
-
-<blockquote><p># cp /usr/share/doc/imsniff/examples/imsniff.conf.sample /etc/imsniff.conf</p>
-
-<p># nano /etc/imsniff.conf</p></blockquote>
-
-<p>daemonize = 0</p>
-
-<p>promisc = 0</p>
-
-<p>verbose = 2</p>
-
-<p>chatdir = /home/USER/snifadas/chats</p>
-
-<p>debugdir = /home/USER/snifadas/debug</p>
-
-<p>interface eth0</p>
-
-<p>Los directorios &#8220;chats&#8221; y &#8220;debug&#8221; los crea la misma aplicación.</p>
-
-<p>Lanzar el sniffer de conversaciones msn:</p>
-
-<blockquote><p># imsniff</p></blockquote>
+<blockquote><p>$ ibam -a</p></blockquote>
 </div>
   
   
@@ -555,7 +589,7 @@ po::powerokwait:/etc/init.d/powerfail stop
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/impressive/">Impressive</a></h1>
+      <h1 class="entry-title"><a href="/blog/hydra/">Hydra</a></h1>
     
     
       <p class="meta">
@@ -571,32 +605,62 @@ po::powerokwait:/etc/init.d/powerfail stop
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Visualizar documentos PDF e imágenes (jpg, tiff, png&#8230;)</p>
+  <div class="entry-content"><p>Se utiliza para crackear los sistemas de login de diferentes servicios como HTTP, FTP, TELNET, IMAP, SMB, SSH, etc.</p>
 
-<blockquote><p>$ impressive documento.pdf</p>
+<blockquote><p># hydra 192.168.1.5 -l admin -p 1234 (Una ip con el usuario &#8220;admin&#8221; con la clave &#8220;1234&#8221;)</p>
 
-<p>$ impressive -l    (lista efectos disponibles)</p>
+<p># hydra -M lista_ips ssh -s 22 (A un listado de ips a una por linea y sobre el puerto 22)</p>
 
-<p>$ impressive -t SqueezeLeft documento.pdf</p></blockquote>
+<p># hydra 192.168.1.8 ftp -s 21 -l juan -P wordlist.txt (Una ip el puerto 21 del usuario &#8220;juan&#8221; y probando las contraseñas de un archivo de texto a una por linea)</p></blockquote>
+</div>
+  
+  
 
-<p>Algunas opciones:</p>
 
-<p>AvPág          Va a la página siguientes</p>
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/hwclock/">Hwclock</a></h1>
+    
+    
+      <p class="meta">
+        
 
-<p>RePág          Va a la página anterior</p>
 
-<p>z                  zoom donde esté el cursor</p>
 
-<p>f                   Activa/Desactiva la pantalla completa</p>
 
-<p>q                  Salir de la aplicación</p>
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ver fecha y hora de la BIOS</p>
+
+<blockquote><p># hwclock -D (Muestra toda la información))</p>
+
+<p># hwclock -w (sincroniza la del hardware a la del sistema)</p>
+
+<p># hwclock -r  (verifica desfase entre ambas)</p></blockquote>
 </div>
   
   
@@ -627,43 +691,43 @@ po::powerokwait:/etc/init.d/powerfail stop
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/nmap/">nmap</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/nethogs/">nethogs</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lilo/">lilo</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/anarchism/">anarchism</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sftp/">sftp</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/logrotate/">logrotate</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssh/">ssh</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lshell/">lshell</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/apt-mirror/">apt-mirror</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/typeset/">typeset</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

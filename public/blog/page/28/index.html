@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Escritorio. $ thunar -B (Con varios ficheros seleccionados, al pulsar F2 se abre la ventana para renombrarlos) $ thunar-volman-settings (Abre el &hellip;">
+  <meta name="description" content="Registra lo que hace un usuario en el sistema cuando requiere privilegios de administrador y lo almacena en dos ficheros de log, uno para los &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/thunar/">Thunar</a></h1>
+      <h1 class="entry-title"><a href="/blog/sudosh/">Sudosh</a></h1>
     
     
       <p class="meta">
@@ -96,60 +96,108 @@
   
 
 
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Escritorio.</p>
+  <div class="entry-content"><p>Registra lo que hace un usuario en el sistema cuando requiere privilegios de administrador y lo almacena en dos ficheros de log, uno para los comandos y otro para los tiempos.</p>
 
-<blockquote><p>$ thunar -B (Con varios ficheros seleccionados, al pulsar F2 se abre la ventana para renombrarlos)</p>
+<p>[http://sourceforge.net/projects/sudosh2/]</p>
 
-<p>$ thunar-volman-settings (Abre el gestor de medios extraíbles)</p></blockquote>
+<blockquote><p># sudosh (Inicia la grabación de todo lo que ocurre en la consola)</p>
+
+<p># sudosh-replay (Muestra las grabaciones archivadas en /var/log/sudosh/)</p>
+
+<p># sudosh-replay templix-root-script-1353428989-Eji70wlZOAuIE4HM (Reproduce la escogida)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/sudo/">Sudo</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Utilidad que permite a un usuario ejecutar programas con privilegios de root. En algunas distros sólo el usuario creado durante la instalación puede ejecutar sudo con privilegios de root, los demás han de ser agregados al grupo admin.</p>
+
+<blockquote><p>$ sudo -k   (limpia la clave sudo introducida)</p>
+
+<p>$ sudo -u usuario comando   (ejecutar el comando como un usuario privilegiado distinto de root)</p>
+
+<p>$ sudo -l    (ver los permisos de sudo que tiene un usuario)</p>
+
+<p>$ sudo !! (Ejecutar el último comando con sudo)</p></blockquote>
+
+<p>Pueden añadirse las siguientes lineas en /etc/sudoers:</p>
+
+<p>Defaults passprompt=”mi frase solicitando la contraseña&#8230;”</p>
+
+<p>Defaults badpass_message=”mi frase si se entra erronea&#8230;”</p>
+
+<p>usuario    ALL=(ALL) ALL  (Añadir el usuario a sudo)</p>
+
+<p>Defaults:usuario !authenticate  (si no queremos que nos pida la contraseña)</p>
+
+<p>Defaults env_reset , pwfeedback (Defaults env_reset</p>
+
+<p>sustituirla por:)</p>
+
+<p>usuario ALL=NOPASSWD: /usr/sbin/firestarter (Para que no pida contraseña al arrancar una aplicación concreta)</p>
+
+<p>O añadir a la linea Defaults, algunos parámetros separados por comas:</p>
+
+<p>timestamp_timeout=5   (La contraseña se guardará 5 minutos.)</p>
+
+<p>insults    (Te mostrará insultos si fallas la contraseña)</p>
+
+<p>passwd_tries=2   (Permitir 2 errores al entrar la contraseña. Por defecto 3)</p>
+
+<p>rootpw (Para que nos pida la contraseña de root y no la de usuario)</p>
+
+<p>Ejemplos:</p>
+
+<p>Defaults     !lecture,tty_tickets,!fqdn,timestamp_timeout=0,insults</p>
+
+<p>Defaults@192.168.1.2 !lecture,tty&#8230;. (Permitir ejecución sólo desde nuestra máquina)</p>
 
 <p>1.-</p>
 
-<p>Modificar el tema de iconos por defecto:</p>
+<p>Para que al entrar un contraseña en la terminal aparezcan asterisco:</p>
 
-<p>Descomprimir la carpeta de iconos y moverla:</p>
+<p>En la linea: Defaults env_reset</p>
 
-<blockquote><p># mv GartoonRedux /usr/share/icons</p></blockquote>
+<p>Añadir &#8220;pwfeedback&#8221; dejándola:</p>
 
-<p>Editar o crear el archivo:</p>
-
-<blockquote><p>$ nano .gtkrc-2.0</p></blockquote>
-
-<p>Y modificar o añadir la linea:</p>
-
-<p>gtk-icon-theme-name = &#8220;GartoonRedux&#8221;</p>
-
-<p>Al abrir nuevamente thunar, se muestran los cambios.</p>
-
-<p>2.-</p>
-
-<p>Para habilitar el automontado de dispositivos, además de configurarlo en las propiedades, en algunas distros se precisan los paquetes gvfs gvfs-afc</p>
-
-<p>3.-</p>
-
-<p>Para incluir en el menú contextual la opción &#8220;Abrir como root&#8221;, en &#8220;editar/Configurar acciones personalizadas&#8221;, &#8220;añadir&#8221; [+] y en la pestaña &#8220;Basico&#8221; colocar en el cuadro de diálogo:</p>
-
-<pre><code>nombre: Abrir directorio como root
-
-descripcion: Abrir directorio con privilegios de root
-
-comando: gksu thunar %f
-
-icono: opcional
-</code></pre>
-
-<p>Y en la pestaña &#8220;condiciones generales&#8221;:</p>
-
-<pre><code>Patrón de archivos: *
-
-Aparece si la selección contiene:  Macamos la casilla de directorio y la de archivo
-</code></pre>
+<p>Defaults env_reset , pwfeedback</p>
 </div>
   
   
@@ -162,7 +210,7 @@ Aparece si la selección contiene:  Macamos la casilla de directorio y la de arc
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/testdisk/">Testdisk</a></h1>
+      <h1 class="entry-title"><a href="/blog/sublime-text/">Sublime-text</a></h1>
     
     
       <p class="meta">
@@ -178,16 +226,42 @@ Aparece si la selección contiene:  Macamos la casilla de directorio y la de arc
   
 
 
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[photorec]. Escaneo y reparación de particiones.</p>
+  <div class="entry-content"><p>Editor. Descargar según arquitectura de http://www.sublimetext.com/2 o via ppa (Debian):</p>
 
-<blockquote><p>$ testdisk /list (Muestra todas las particiones incluso las no montadas)</p></blockquote>
+<blockquote><p>$ wget http://blog.anantshri.info/content/uploads/2010/09/add-apt-repository.sh.txt</p>
+
+<p># mv add-apt-repository.sh.txt /usr/sbin/add-apt-repository</p>
+
+<p># chmod o+x /usr/sbin/add-apt-repository</p>
+
+<p># chown root:root /usr/sbin/add-apt-repository</p>
+
+<p># add-apt-repository ppa:webupd8team/sublime-text-2</p>
+
+<p># apt-get update</p>
+
+<p># apt-get install sublime-text-2</p></blockquote>
+
+<p>Teclas de control:</p>
+
+<p>Ctrl + p (abrir cuadro de diálogo [goto anything] donde se entran las consultas)</p>
+
+<p>:palabra (Buscar &#8220;palabra&#8221; en el archivo abierto)</p>
+
+<p>:157 (Ir a la linea 157)</p>
+
+<p>Ctrl + ` (Ir a la consola de sublime text)</p>
+
+<p>Ctrl + Mayu + p (Acceder al control de paquetes. Entrando &#8220;Install package&#8221; se instalan nuevos plugins y con &#8220;Remove package&#8221; se desinstalan)</p>
+
+<p>Ctrl + n (Abrir nuevo documento)</p>
 </div>
   
   
@@ -200,7 +274,7 @@ Aparece si la selección contiene:  Macamos la casilla de directorio y la de arc
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/test/">Test</a></h1>
+      <h1 class="entry-title"><a href="/blog/su/">Su</a></h1>
     
     
       <p class="meta">
@@ -216,53 +290,26 @@ Aparece si la selección contiene:  Macamos la casilla de directorio y la de arc
   
 
 
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Comprobar tipos de archivos y comparar valores, devolviendo 1 si es cierto y o si es falsa.</p>
+  <div class="entry-content"><p>Cambiar de usuario</p>
 
-<p>Sobre ficheros:</p>
+<blockquote><p>$ su -m           (Cambia de root [#] a usuario normal [$])</p></blockquote>
 
-<pre><code>$ test -e archivo; echo $? (Devuelve 0 si archivo exist)
+<p>Nota.-  Tambien puede hacerse tecleando “exit o con Ctrl + d”</p>
 
-$ test -f archivo; echo $? (Devuelve 0 si archivo existe y es un archivo regular)
+<blockquote><p>$ su -  (cambia a root)</p>
 
-$ test -d archivo; echo $? (Devuelve 0 si existe y es un directorio)
+<p>$ su -c htop (Pedirá contraseña para lanzar htop, pero cuando se salga el prompt será de usuario, no de root)</p>
 
-$ test -s archivo; echo $? (Devuelve 0 si archivo existe y tiene un tamaño mayor que 0)
+<p>$ su -c &#8220;!!&#8221; root (Ejecutar el último comando ejecutado como root)</p>
 
-$ test archivo -nt archivo2; echo $? (Devuelve 0 si archivo se ha modificado con posterioridad a archivo2)
-
-$ test archivo -ot archivo2; echo $? (Devuelve 0 si archivo se ha modificado con anterioridad a archivo2)
-</code></pre>
-
-<p>Sobre caracteres numéricos:</p>
-
-<pre><code>$ test $int1 -eq $int2; echo $? (Devuelve 0 si los enteros son iguales)
-
-$ test $int1 -ne $int2; echo $? (Devuelve 0 si los enteros NO son iguales)
-
-$ test $int1 -lt $int2; echo $? (Devuelve 0 si int1 es menor que int2)
-
-$ test $int1 -le $int2; echo $? (Devuelve 0 si int1 es menor o igual que int2)
-
-$ test $int1 -gt $int2; echo $? (Devuelve 0 si int1 es mayor estricto que int2)
-
-$ test $int1 -ge $int2; echo $? (Devuelve 0 si int1 es mayor o igual que int2)
-</code></pre>
-
-<p>Sobre strings:</p>
-
-<pre><code>$ DIR=home; test $string; echo $? (Devuelve 0 si la cadena no es nula)
-
-$ test -z $DIR; echo $? (Devuelve 0 si la longitud del string es 0)
-
-$ test -n $DIR; echo $? (Devuelve 0 si la longitud del string NO es 0)
-</code></pre>
+<p>$ su - usuario (recarga todos los archivos del perfil del usuario y se reseteen todos los paths y alias. Si no se especifica usuario, por defecto es root)</p></blockquote>
 </div>
   
   
@@ -275,7 +322,7 @@ $ test -n $DIR; echo $? (Devuelve 0 si la longitud del string NO es 0)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/termsaver/">Termsaver</a></h1>
+      <h1 class="entry-title"><a href="/blog/stty/">Stty</a></h1>
     
     
       <p class="meta">
@@ -291,37 +338,20 @@ $ test -n $DIR; echo $? (Devuelve 0 si la longitud del string NO es 0)
   
 
 
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Salvapantallas para la terminal.</p>
+  <div class="entry-content"><p>Muestra/modifica las características del terminal</p>
 
-<blockquote><p>$ termsaver quotes4all (Irá mostrando citas extraidas de quotes4all.net)</p></blockquote>
+<blockquote><p>$ stty -a  (muestra todas las teclas de control, algunas obsoletas. Las más útiles: ^c [para el comando actual], ^d [final de flujo de entrada], ^u [borrar desde la posición actual al principio de linea] y ^w [borrar desde la posición actual al principio de la palabra])</p>
 
-<p>Otras opciones:</p>
+<p>$ stty size   (muestra número de columnas y lineas)</p>
 
-<pre><code>asciiartfarts (Imagenes en ascii)
-
-clock (Un reloj digital)
-
-dot (Un punto)
-
-rfc (Contenido RTC [conjunto de documentos que sirven de referencia para la comunidad de Internet])
-
-matrix (Código matrix)
-</code></pre>
-
-<blockquote><p>$ termsaver programmer &#8211;help (Muestra ejemplos de como usar la opción indicada)</p>
-
-<p>$ termsaver randtxt &#8211;word linux_es_un_sistema_genial &#8211;delay 1 (Mostrará la frase cada segundo en un lugar distinto de la pantalla)</p>
-
-<p>$ termsaver urlfetcher -u lapipaplena.org (Mostrará el código de la página indicada)</p>
-
-<p>$ termsaver programmer -p script.sh (Mostrará el código indicado linea a linea)</p></blockquote>
+<p>$ stty speed  (velocidad en baudios)</p></blockquote>
 </div>
   
   
@@ -334,7 +364,7 @@ matrix (Código matrix)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/termite/">Termite</a></h1>
+      <h1 class="entry-title"><a href="/blog/strings/">Strings</a></h1>
     
     
       <p class="meta">
@@ -350,18 +380,18 @@ matrix (Código matrix)
   
 
 
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Emulador de terminal.</p>
+  <div class="entry-content"><p>Analizar la memoria o una particion</p>
 
-<blockquote><p>$ termite &#8211;geometry=900x150 (Especificando medidas)</p>
+<blockquote><p>$ strings /dev/mem</p>
 
-<p>$ termite -e htop (Ejecutar una aplicación)</p></blockquote>
+<p>$ strings /dev/sda5</p></blockquote>
 </div>
   
   
@@ -374,7 +404,7 @@ matrix (Código matrix)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/terminator/">Terminator</a></h1>
+      <h1 class="entry-title"><a href="/blog/stressapptest/">Stressapptest</a></h1>
     
     
       <p class="meta">
@@ -390,35 +420,26 @@ matrix (Código matrix)
   
 
 
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Terminal que puede dividirse horizontalmente y verticalmente.</p>
+  <div class="entry-content"><p>Herramienta para realizar un test de carga del sistema.</p>
 
-<blockquote><p>$ terminal -T linux –giometry 1150x250 (Especificando un titulo y medidas)</p></blockquote>
+<blockquote><p># stressapptest -s 20 -M 256 -m 8 -C 8 -W</p></blockquote>
 
-<p>Algunos atajos:</p>
+<p>Algunas opciones:</p>
 
-<pre><code>Ctrl + Mayus + o (División horizontal)
+<p>-M mbytes  (Cantidad de megabytes de memoria RAM para realizar las pruebas. Por defecto toda la disponible)</p>
 
-Ctrl + Mayus + e (División vertical)
+<p>-s 20 (Tiempo que durará el proceso)</p>
 
-Ctrl + Mayus + w (Cerrar ventana)
+<p>-m 8 (Cantidad de procesos de copiado de memoria)</p>
 
-Ctrl + Mayus + cursores (Redimensionar ventana)
-
-Alt + cursores (Moverse por las ventanas)
-
-Ctrl + Mayus + t (Abrir nueva pestaña)
-
-Ctrl + RePag / AvPag (Moverse entre pestañas)
-
-Ctrl + Mayus + q (Cerrar terminator)
-</code></pre>
+<p>-W (llevar al límite la cpu)</p>
 </div>
   
   
@@ -431,7 +452,7 @@ Ctrl + Mayus + q (Cerrar terminator)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/terminal/">Terminal</a></h1>
+      <h1 class="entry-title"><a href="/blog/stress/">Stress</a></h1>
     
     
       <p class="meta">
@@ -447,16 +468,26 @@ Ctrl + Mayus + q (Cerrar terminator)
   
 
 
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Nombre de la consola propia de xfce. El archivo de configuración se encuentra en:</p>
+  <div class="entry-content"><p>Herramientas para realizar un test de carga del sistema.</p>
 
-<blockquote><p>$ nano .config/Terminal/terminalrc</p></blockquote>
+<blockquote><p># stress -c 8 -i 4 -m 2 &#8211;vm-bytes 128M -t 20S</p></blockquote>
+
+<p>Opciones:</p>
+
+<p>-c (8 multiples ciclos infinitos de raices cuadradas para la cpu)</p>
+
+<p>-i (Introduce 4 ciclos infinitos que ejecutan la llamada al sistema sync())</p>
+
+<p>&#8211;hdd-bytes 3G (carga de escritura en disco de 3G. Opciones: B,K,M,G)</p>
+
+<p>-t 20s (Tiempo que durará el proceso, 20 segundos. Opciones: s,m,h,d,y)</p>
 </div>
   
   
@@ -469,7 +500,7 @@ Ctrl + Mayus + q (Cerrar terminator)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/telinit/">Telinit</a></h1>
+      <h1 class="entry-title"><a href="/blog/streamripper/">Streamripper</a></h1>
     
     
       <p class="meta">
@@ -485,18 +516,16 @@ Ctrl + Mayus + q (Cerrar terminator)
   
 
 
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Modifica o cambia el runlevel [inittab].</p>
+  <div class="entry-content"><p>Ripear a partir de emisoras icecast (www.icecast.com) y showcast (www.showtcast.com). Crea una carpeta en el presente directorio.</p>
 
-<blockquote><p># telinit -t 10 6 (que reinicie [6] en 10 segundo [-t 10])</p>
-
-<p># telinit q (releer archivo de configuración si se ha modificado)</p></blockquote>
+<blockquote><p>$ streamrippwer http://yp.shoutcast.com/sbin/tunein-station.pls?id=321414 -l 4000 (grabar durante 4000 segundos)</p></blockquote>
 </div>
   
   
@@ -509,7 +538,7 @@ Ctrl + Mayus + q (Cerrar terminator)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/telegram/">Telegram</a></h1>
+      <h1 class="entry-title"><a href="/blog/strace/">Strace</a></h1>
     
     
       <p class="meta">
@@ -525,141 +554,28 @@ Ctrl + Mayus + q (Cerrar terminator)
   
 
 
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[libreadline-dev libconfig-dev libssl-dev lua5.2 liblua5.2-dev]. Aplicación de mensajería instantanea más rápida, segura y libre que WhatsApp.</p>
+  <div class="entry-content"><p>Muestra las llamadas al sistema originadas por un proceso.</p>
 
-<p>Descarga y compilación:</p>
+<blockquote><p>$ strace comando</p>
 
-<pre><code>$ wget https://github.com/vysheng/tg/archive/master.zip -O tg-master.zip
+<p>$ strace -p PID (Por número de proceso)</p>
 
-$ unzip tg-master.zip
+<p>$ strace -c comando -o traza.txt (mostrar resumen de llamadas y errores durante la ejecución y redirigido a un archivo)</p></blockquote>
 
-$ cd tg-master
+<p>Algunas opciones:</p>
 
-$ ./configure
+<p>-f (Incluir posibles forks que haga un programa, por ejemplo httpd)</p>
 
-$ make
-</code></pre>
+<p>-v (Muestra el máximo de información)</p>
 
-<p>Registro:</p>
-
-<pre><code>$ ./telegram -k tg.pub (Solicita el número de móvil con el prefijo del país [+34xxxxxxxxx], al momento recibimos un sms con el número de código [xxxxx] que introduciremos en la terminal)
-
-$ ./telegram -N (Arrancar la aplicación lista para poder descargar fotos y videos)
-</code></pre>
-
-<p>Algunas teclas de control:</p>
-
-<pre><code>help (Mostrar todos los comandos disponibles)
-
-msg contacto texto_a_enviar (Enviar mensaje a un contacto. Han de escribirse las primeras letras del contacto y pulsar tabulador para autocompletar)
-
-contact_list (Muestra la lista decontactos)
-
-suggested_contacts (Muestra sugerencias de contactos)
-
-add_contact núm_telefono nombre apellido (Añadir un contacto)
-
-chat_with_peer contacto (Xatear todo el rato con el mismo contacto)
-
-history contacto [limite] (Muestra la conversación con el contacto especificado. Si no se especifica limite,    por defecto son 40 lineas. Tambien pone como leidos todos los mesajes)
-
-dialog_list (Muestra mensajes pendientes)
-
-user_info contacto (Muestra información del contacto)
-
-stats (Muestra datos de nuestra cuenta)
-
-send_photo contacto archivo.jpg (Enviar a contacto una imagen)
-
-send_video contacto archivo.avi (Enviar un video a un contacto)
-
-send_text contacto archivo.txt (Enviar un texto a un contacto)
-
-fwd contacto id (Buscar el mensaje con el número de id especificado)
-
-mark_read contacto (Marcar todos los mensajes del contacto como leidos)
-
-rename_contact contacto nombre apellido (Renombrar un contacto)
-
-create_secret_chat contacto (Crear un chat privado con un contacto)
-
-set log_level 0 (Desactivar información de cuando se conectan los sontactos)
-
-set msg_num 1 (Antiva la numeración de los mensajes. con un valor 0 los desactiva)
-
-load_photo ID (Descargar una photo especificando el ID. Crea el dir ~/.telegram/download)
-
-load_video ID (Descarga un video)
-
-quit (Salir)
-</code></pre>
-
-<p>Otros valores para log_level:</p>
-
-<pre><code>1 (imprime información acerca de los mensajes leídos)
-
-2 (imprime la línea, cuando alguien está escribiendo en el chat)
-
-3 (Informa cuando alguien cambia de estado en linea
-</code></pre>
-
-<p>1.-</p>
-
-<p>Pra hacer permanentes algunas opciones:</p>
-
-<blockquote><p>$ nano .telegram/config</p></blockquote>
-
-<pre><code>log_level = 0;
-
-msg_num = 0;
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/tee/">Tee</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra la salida de un comando en pantalla y al mismo tiempo la graba en un archivo</p>
-
-<blockquote><p>$ rkhunter -c -sk | tee rkhunter.txt</p>
-
-<p>$ rkhunter -c -sk | tee -a rkhunter.txt (Añadirá la entrada al final del fichero)</p></blockquote>
+<p>-s 8192 (Valor de 8192 como limite de longitud de las cadenas. Por defecto 32)</p>
 </div>
   
   
@@ -690,43 +606,43 @@ msg_num = 0;
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/nmap/">nmap</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/nethogs/">nethogs</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lilo/">lilo</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/anarchism/">anarchism</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sftp/">sftp</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/logrotate/">logrotate</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssh/">ssh</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lshell/">lshell</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/apt-mirror/">apt-mirror</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/typeset/">typeset</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

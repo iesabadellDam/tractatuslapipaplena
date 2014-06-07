@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Instalar las X en UbuntuServer # apt-get install ubuntu-desktop (Completo) # apt-get install x-window-system-core gnome-core (mínimo) # apt-get &hellip;">
+  <meta name="description" content="Devuelve el estado de SELinux y la política que se está usando. Ver selinux y getsenforce # sestatus # sestatus -v (estado detallado de un sistema &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/sistema/">Sistema</a></h1>
+      <h1 class="entry-title"><a href="/blog/sestatus/">Sestatus</a></h1>
     
     
       <p class="meta">
@@ -96,24 +96,18 @@
   
 
 
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Instalar las X en UbuntuServer</p>
+  <div class="entry-content"><p>Devuelve el estado de SELinux y la política que se está usando. Ver selinux y getsenforce</p>
 
-<blockquote><p># apt-get install ubuntu-desktop (Completo)</p>
+<blockquote><p># sestatus</p>
 
-<p># apt-get install x-window-system-core gnome-core (mínimo)</p>
-
-<p># apt-get install language-pack-es language-pack-es-base language-pack-gnome-es language-pack-gnome-es-base language-selector language-support-es  (instalar los paquetes de idiomas en la instalación mínima))</p>
-
-<p># apt-get install gksu gnome-system-tools gnome-nettool (herramientas de red  y paquetes necesarios en la instalación mínima)</p>
-
-<p>$ startx</p></blockquote>
+<p># sestatus -v (estado detallado de un sistema ejecutando SELinux)</p></blockquote>
 </div>
   
   
@@ -126,7 +120,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/signos/">Signos</a></h1>
+      <h1 class="entry-title"><a href="/blog/service/">Service</a></h1>
     
     
       <p class="meta">
@@ -142,89 +136,303 @@
   
 
 
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>1</p>
+  <div class="entry-content"><p>Inicia o para servicios.</p>
 
-<pre><code>Tecla barra inclinada (\)
+<blockquote><p># service apache2 start (Arranca apache2)</p>
 
-Delante de un comando indica que este se ejecuta tal cual, sin hacer uso de algún alias que pudiera tener.
+<p># service apache2 stop (Para apache2)</p>
 
-$ \ls
+<p># service apache2 restart (Reinicia el apache2)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/seq/">Seq</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Crea secuencias de números</p>
+
+<blockquote><p>$ seq 7 12 (entre el 7 y el 12)</p>
+
+<p>$ seq 7 2 12 (entre el 7 y el 12 con un incremento de 2 en 2)</p>
+
+<p>$ seq -w 7 12 (entre el 7 y el 12 con el mismo tamaño)</p>
+
+<p>$ seq -s_ 7 12 (con un guión bajo entre cada número)</p>
+
+<p>$ seq -s&#8217;#&#8217; 0 $(tput cols) | tr -d &#8216;[:digit:]&#8217;  (Escribe una raya de “#” en toda la anchura de la terminal)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/sensors-detect/">Sensors-detect</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Detecta, instala y carga sensores y módulos necesarios.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/selinux/">Selinux</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[selinux-basics selinux-policy-default]. SELinux proporciona una forma de acceso a recursos basada en políticas de control de acceso obligatorio [mandatory access control, MAC] incorporado en el kernel. Existen un conjunto de reglas de autorización [políticas] las cuales determinan si una operación sobre un objeto [Archivos, directorios, dispositivos&#8230;] realizada por un sujeto esta o no permitida basándose en los atributos de ambos. Linux utiliza por defecto el control de acceso a discreción [discretionary access control, DAC] basada en los propietarios y grupos a los que pertenece un objeto en los que un usuario normal puede cambiar los permisos de los archivos que posee con el comando chmod. Con selinux se limita el acceso que tienen las aplicaciones a otras aplicaciones y a los ficheros, impidiendo que un proceso pueda modificar cualquier fichero del usuario con el que se lanzó. En DAC el acceso esta descentralizado, siendo el propietario de cada objeto el encargado de asignar los permisos de los diversos grupos que accederán a ellas. En cambio con el MAC los objetos y los sujetos tan solo tienen atributos, pero son las políticas las que se encargan de autorizar o denegar una acción. Ver comandos getsebool y setsebool.</p>
+
+<p>Los módulos SELinux disponibles se almacenan en el directorio /usr/share/selinux/default/.</p>
+
+<blockquote><p># semodule -i módulo.pp (habilitar un módulos en la configuración actual. La extensión pp significa paquete de política [«policy package»]).</p>
+
+<p># semodule -r módulo (Elimina un módulo de la configuración actual)</p>
+
+<p># semodule -l (Enumera los módulos habilitados actualmente)</p>
+
+<p># semanage login -a -s staff_u juan (mapear una cuenta a un usuario especifico de SELinux)</p>
+
+<p># restorecon -R -F /home/juan (etiquetar los ficheros del usuario mapeado juan)</p>
+
+<p># semanage user -l (enumera las asociaciones entre las identidades de usuario de SELinux y los roles permitidos)</p>
+
+<p># semanage login -d juan (elimina la asociación asignada al usuario juan)</p>
+
+<p># semanage login -m juan (Modificar la asociación asignada al usuario)</p>
+
+<p># semanage login -l (enumera las correspondencias actuales entre identificadores de usuarios y entidades SELinux)</p></blockquote>
+
+<p>tabla de los usuarios estándar SELinux disponibles:</p>
+
+<pre><code>user_u  (Usuario normal que se utilizan para cuentas de usuario que no van a ser empleadas para administrar ningún servicio del sistema)
+
+staff_u (Para administradores con derechos para conmutar roles y ganar privilegios elevados)
+
+root (Cuenta root ligeramente diferente de la cuenta staff_u. Los ficheros protegidos por control de acceso basado en root no pueden ser gestionados por los staff_u)
+
+sysadm_u (Administración del sistema. Por defecto, esta cuenta no se utiliza inmediatamente ya que este usuario obtiene de forma inmediata el rol administrativo (por lo que staff_u y root todavía necesitarán conmutar roles).
+
+system_u (administrar servicios. Nunca se debe utilizar para usuarios finales ya que ofrece acceso directo al rol del sistema)
+
+unconfined_u    Usado cuando la directriz es targeted, este usuario SELinux tiene muchos privilegios (esencialmente no está limitado en sus acciones, aunque todavía se gestiona través de SELinux con una directriz "muy abierta").
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/select/">Select</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Realiza menús de forma rápida y simple:</p>
+
+<p>Algunos ejemplos:</p>
+
+<p>1.-</p>
+
+<pre><code>#!/bin/bash
+
+OPCIONES="Uso_linux Todavía_estoy_con_windows"
+
+select opt in $OPCIONES; do
+
+    if [ "$opt" = "Uso_linux" ]; then
+
+        echo "Bravo, usas el mejor sistema..."
+
+        exit
+
+    elif [ "$opt" = "Todavía_estoy_con_windows" ]; then
+
+        echo "¡Evoluciona de una vez!"
+
+        exit
+
+    else
+
+        echo opción errónea
+
+    fi
+
+done
 </code></pre>
 
-<p>2</p>
+<p>2.-</p>
 
-<pre><code>Tecla asterisco (*)
+<pre><code>#!/bin/bash
 
-cualquier caracter o cadena de caracteres
+OPCIONES="hostname pwd exit"
 
-$ find /home/usuario -iname text*
+select opt in $OPCIONES; do
+
+    if [ "$opt" = "hostname" ]; then
+
+        echo $HOSTNAME
+
+    elif [ "$opt" = "pwd" ]; then
+
+        pwd
+
+    elif [ "$opt" = "exit" ]; then
+
+        echo "salir"
+
+        exit
+
+    else
+
+        echo opción errónea
+
+    fi
+
+done
 </code></pre>
 
-<p>3</p>
+<p>3.-</p>
 
-<pre><code>Interrogante cerrado (?)
+<pre><code>#!/bin/bash
 
-Substituye un solo caracter
+PS3='Elija una opción : '
 
-$ find /home/usuario -iname text?.txt
-</code></pre>
+options="linux win salir"
 
-<p>4</p>
+echo opciones : $options
 
-<pre><code>Corchetes ([ ])
+select opt in $options
 
-Cualquier caracter que este dentro de los corchetes [a-g] ,  [12-32]
+do
 
-$ find /home/usuario iname text[m-t].txt
-</code></pre>
+    if [ "$opt" = "salir" ]; then
 
-<p>5</p>
+        echo "Salgo..."
 
-<pre><code>Dos admiraciones cerradas (!!)
+        exit
 
-Repite el último comando.
+    elif [ "$opt" = "linux" ]; then
 
-$ tail -f /var/log/fail2ban.log
+        echo "Muy bien..."
 
-Permiso denegado
+    else
 
-$ sudo !!
+        echo "Terriblemente mal..."
 
-sudo tail -f /var/log/fail2ban.log
+    fi
 
-Dime la contraseña....
-</code></pre>
-
-<p>6</p>
-
-<pre><code>Signo mayor que (&gt;)
-
-Antepuesto a un archivo, borra todo su contenido.
-
-$ &gt; archivo
-</code></pre>
-
-<p>7</p>
-
-<pre><code>Tecla espacio
-
-Anteponiendo un espacio delante de un comando este no se almacena en el historial.
-</code></pre>
-
-<p>8</p>
-
-<pre><code>Acento circunflejo (^)
-
-Si al ejecutar un comando tecleamos mal una ruta, por ejemplo, confundiendo /home por /hmoe, podemos enmendar el error con:
-
-$ ^hmoe^home
+done
 </code></pre>
 </div>
   
@@ -238,7 +446,7 @@ $ ^hmoe^home
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/shutdown/">Shutdown</a></h1>
+      <h1 class="entry-title"><a href="/blog/seeker/">Seeker</a></h1>
     
     
       <p class="meta">
@@ -254,28 +462,16 @@ $ ^hmoe^home
   
 
 
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Apagar/reiniciar la máquina</p>
+  <div class="entry-content"><p>Comprobar la velocidad del disco duro, pero no en el inicio que es la parte más rápida como hace hdparm, sino de forma aleatoria en todo el espacio del disco.</p>
 
-<blockquote><p>$ shutdown -h now    (apagar)</p>
-
-<p>$ shutdown -r now     (reiniciar)</p>
-
-<p># shutdown -h +20 (apagado dentro de 20 minutos)</p>
-
-<p># shutdown -c   (anula la cuenta regresiva anterior)</p>
-
-<p># shutdown -rF now  (forzar fsck en el reinicio)</p>
-
-<p># shutdown -h $((60 * 4)) (Apagar dentro de 4 horas)</p>
-
-<p># shutdown -h 20:30 -k “Se apagará a las 20 horas 30 minutos” (Mandando un mensaje a los usuarios)</p></blockquote>
+<blockquote><p># seeker /dev/sda</p></blockquote>
 </div>
   
   
@@ -288,7 +484,7 @@ $ ^hmoe^home
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/shuf/">Shuf</a></h1>
+      <h1 class="entry-title"><a href="/blog/sed/">Sed</a></h1>
     
     
       <p class="meta">
@@ -304,22 +500,220 @@ $ ^hmoe^home
   
 
 
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Genera numeros aleatorio y muestra lineas de archivo de fiorma aleatoria.</p>
+  <div class="entry-content"><p>Permite borrar líneas, registros o sustituir cadenas de caracteres dentro de las líneas.</p>
 
-<blockquote><p>$ shuf -n 4 /etc/fstab -o archivo (Muestra 4 lineas aleatorias del archivo y manda el resultado a &#8220;archivo&#8221;)</p>
+<p>Archivo base para ejemplo (Empleado &#8211; Precio/hora &#8211; Horas trabajadas – Cómo las cobra):</p>
 
-<p>$ shuf -i 1-49 -n 6 (para la loto)</p></blockquote>
+<pre><code>$ cat lista
 
-<p>-i [x-y]  rango de números</p>
+Juan Gomez 6 10 banco
 
-<p>-n   Cantidad de numeros a visualizar</p>
+Clara Fuentes 7 12 banco
+
+Antonio Cano 6 13 metálico
+
+José Bueno 7 0 banco
+
+Matías Crespo 5 8 metálico
+
+Isabel Ruiz 7 0 metálico
+
+María Monzón 9 16 metálico
+</code></pre>
+
+<p>Mostrar la linea 4 del fichero:</p>
+
+<pre><code>$ sed -n 4p lista
+</code></pre>
+
+<p>Mostrar la 4ª y la 5ª:</p>
+
+<pre><code>$ sed -n 4,5p lista
+</code></pre>
+
+<p>Mostrar de la 3ª al final del fichero:</p>
+
+<pre><code>$ sed -n '4,$p' lista
+</code></pre>
+
+<p>Mostrar desde la primera linea que empiece por “Ant” hasta el final:</p>
+
+<pre><code>$ sed -n '/^\Ant/,$p' lista
+</code></pre>
+
+<p>Mostrar sólo los parrafos desde “Clara” hasta “Bueno”:</p>
+
+<pre><code>$ sed -n '/Clara/,/Bueno/p' lista
+</code></pre>
+
+<p>Mostrar cada linea a doble espacio:</p>
+
+<pre><code>$ sed G lista
+</code></pre>
+
+<p>Mostrar las lineas que cumplen el patrón “Ju” en alguno de sus campos:</p>
+
+<pre><code>$  sed -n '/Ju/p' lista
+</code></pre>
+
+<p>Borrar la 4ª linea del fichero:</p>
+
+<pre><code>$  sed '4d' lista
+</code></pre>
+
+<p>Borrar la última linea del fichero:</p>
+
+<pre><code>$  sed -e \$d lista
+</code></pre>
+
+<p>Lo mismo:</p>
+
+<pre><code>$ sed '$d' lista
+</code></pre>
+
+<p>Borrar las lineas que empiecen por &#8220;J&#8221;:</p>
+
+<pre><code>$ sed -e '/J/d' lista
+</code></pre>
+
+<p>Borrar la segunda linea</p>
+
+<pre><code>$ sed '2d' lista
+</code></pre>
+
+<p>Borrar la 1ª y la 2ª:</p>
+
+<pre><code>$  sed '1,2d' lista
+</code></pre>
+
+<p>Borrar a partir del primer espacio en blanco:</p>
+
+<pre><code>$ sed -e 's/ .*//' lista
+</code></pre>
+
+<p>Borrar desde la primera linea que empiece por &#8220;Ant&#8221; hasta el final:</p>
+
+<pre><code>$ sed -e '/^\Ant/,$d' lista
+</code></pre>
+
+<p>Borrar desde la 2 linea hasta la que tenga &#8220;Ruiz&#8221;:</p>
+
+<pre><code>$ sed '2,/Ruiz/d' lista
+</code></pre>
+
+<p>Borrar las lineas en blanco de un archivo (en &#8220;lista&#8221; no procede):</p>
+
+<pre><code>$  sed '/^$/d lista
+</code></pre>
+
+<p>Cambiar &#8220;metálico&#8221; por &#8220;gratis&#8221; excepto en la 3 linea:</p>
+
+<pre><code>$ sed '3!s/metálico/gratis/' lista
+</code></pre>
+
+<p>Cambiar &#8220;met&#8221; por &#8220;tem&#8221; en las lineas que no tengan &#8220;Cano&#8221;:</p>
+
+<pre><code>$ sed '/Cano/!s/met/tem/' lista
+</code></pre>
+
+<p>Cambiar campos (banco por cheque):</p>
+
+<pre><code>$ sed 's/banco/cheque/' lista
+</code></pre>
+
+<p>Cambiar las &#8220;J&#8221; y la &#8220;C&#8221; mayúsculas por minúsculas:</p>
+
+<pre><code>$ sed 'y/J-C/j-c/' lista
+</code></pre>
+
+<p>Substituye las vocales por &#8220;u&#8221;:</p>
+
+<pre><code>$ sed -e "s/[aeio]/u/g" lista
+</code></pre>
+
+<p>Substituir los espacios por tabulaciones:</p>
+
+<pre><code>$ sed -e 's/ /\t/g' lista
+</code></pre>
+
+<p>Alinear al centro:</p>
+
+<pre><code>$ sed -e :a -e 's/^.\{1,77\}$/ &amp;/;ta' -e 's/\( *\)\1/\1/' lista
+</code></pre>
+
+<p>Todas las opciones pueden usarse como tubería substituyendo &#8220;lista&#8221; por “cat lista |”:</p>
+
+<pre><code>$ cat lista | sed -n '4,$p'
+</code></pre>
+
+<p>Otros ejemplos:</p>
+
+<p>Mostrar lineas no comentadas de un archivo:</p>
+
+<pre><code>$ sed -e '/^#/d' /etc/fstab
+</code></pre>
+
+<p>Substituir &#8220;foto&#8221; por &#8220;FOTO&#8221; en todo los archivos del directorio:</p>
+
+<pre><code>$ ls * | sed -e 'p;s/foto/FOTO/' | xargs -n2 mv
+</code></pre>
+
+<p>Cambiar “Juan” por “Pedro” en todos los archivos .txt del presente directorio:</p>
+
+<pre><code>$ sed -i 's/Juan/Pedro/g' *.txt
+</code></pre>
+
+<p>Mostrar sólo las lineas con 4 dígitos seguidos:</p>
+
+<pre><code>$ sed '/[0-9]\{4\}/p' archivo
+</code></pre>
+
+<p>Borrar todos los espacios delante de cada linea:</p>
+
+<pre><code>$sed 's/^[ ^t]*//' archivo
+</code></pre>
+
+<p>Borrar todos los espacios detras de cada linea:</p>
+
+<pre><code>$ sed 's/[ ^t]*$//' archivo
+</code></pre>
+
+<p>Borrar todos los espacios delante y detras de cada linea:</p>
+
+<pre><code>$ sed 's/^[ ^t]*//;s/[ ^]*$//' archivo
+</code></pre>
+
+<p>Cambiar los números 3333 por 3.333. El parámetro -r sirva para activar las expresiones regulares extendidas de sed:</p>
+
+<pre><code>$ sed -r "s/\&lt;(reg|exp)[a-z]+/\U&amp;/g"
+</code></pre>
+
+<p>Contar lineas de un archivo [emulador de wc -l]:</p>
+
+<pre><code>sed -n '$=' lista
+</code></pre>
+
+<p>Insertar 5 espacios en blanco delante de cada linea:</p>
+
+<pre><code>$ sed 's/^/     /' lista
+</code></pre>
+
+<p>Insertar 1 linea en blanco despues de la primera linea:</p>
+
+<pre><code>$ sed '2i\ \' lista
+</code></pre>
+
+<p>Insertar 1 linea en blanco despues de la primera linea y de la tercera:</p>
+
+<pre><code>$ sed '2i\ \' | sed '4i\ \' lista
+</code></pre>
 </div>
   
   
@@ -332,7 +726,7 @@ $ ^hmoe^home
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/shred/">Shred</a></h1>
+      <h1 class="entry-title"><a href="/blog/sdiff/">Sdiff</a></h1>
     
     
       <p class="meta">
@@ -348,22 +742,16 @@ $ ^hmoe^home
   
 
 
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[secure-delete]. Borrar de forma segura espacios de disco</p>
+  <div class="entry-content"><p>Muestra dos ficheros interactivamente.</p>
 
-<blockquote><p>$ shred -fuv  archivo    (Borra archivo y sobreescribe su espacio  25 veces)</p>
-
-<p>$ shred -zn10 /dev/sda (Borrar un disco sobreescribiendo 10 veces)</p>
-
-<p>$ shred -fuv -n 50 archivo     (Lo mismo pero 50 veces)</p>
-
-<p>$ shred -u -z -n 20 archivo.txt  (suprime un archivo y reescribe el espacio 20 veces con ceros)</p></blockquote>
+<blockquote><p>$ sdiff -W -B file1 file2 (Ignorando espacios [W] y lineas en blanco [B])</p></blockquote>
 </div>
   
   
@@ -376,7 +764,7 @@ $ ^hmoe^home
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/showrgb/">Showrgb</a></h1>
+      <h1 class="entry-title"><a href="/blog/scrounge-ntfs/">Scrounge-ntfs</a></h1>
     
     
       <p class="meta">
@@ -392,168 +780,28 @@ $ ^hmoe^home
   
 
 
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>listado de los colores reconocidos por el sistema y valor RGB</p>
+  <div class="entry-content"><p>Permite recuperar datos de particiones ntfs incluso corruptas.</p>
 
-<blockquote><p>$ for line in {0..17}; do for col in {0..15}; do code=$(( $col * 18 + $line )); printf $&#8217;\e[38;05;%dm %03d&#8217; $code $code ;done; echo ;done (Muestra el código numérico de los 256 colores)</p>
+<blockquote><p># scrounge-ntfs -l /dev/sda  (Para vusializar los datos del disco)</p></blockquote>
 
-<p>$ showrgb | grep red (Muestra el código)</p></blockquote>
-</div>
-  
-  
+<p>La salida del comando puede ser paracida a:</p>
 
+<p>Drive: /dev/sdc</p>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/showkey/">Showkey</a></h1>
-    
-    
-      <p class="meta">
-        
+<p>63              16787862        8               6291456</p>
 
+<p>16787925        471607195       8               6291456</p>
 
+<p>Con estos datos lanzar:</p>
 
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra el código de la tecla pulsada.</p>
-
-<blockquote><p>$ showkey -a (arranca el prompt y mostrarà el código ascii de cada tecla que se pulse hasta finalizar con ctrl+d)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/showfigfonts/">Showfigfonts</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra las fuentes disponibles para el comando figlet.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/showconsolefonts/">Showconsolefonts</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra las fuentes de las ttys</p>
-
-<blockquote><p>$ showconsolefonts -v -C /dev/tty2 (Con información adicional y especificando la tty)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/show-all-colors/">Show_all_colors</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra un listado de todos los colores disposibles.</p>
-
-<blockquote><p>$ show_all_colors</p></blockquote>
+<blockquote><p># scrounge-ntfs -m 6291456 -c 8 /dev/sdc 16787925 471607195</p></blockquote>
 </div>
   
   
@@ -584,43 +832,43 @@ $ ^hmoe^home
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/nmap/">nmap</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/nethogs/">nethogs</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lilo/">lilo</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/anarchism/">anarchism</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sftp/">sftp</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/logrotate/">logrotate</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssh/">ssh</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lshell/">lshell</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/apt-mirror/">apt-mirror</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/typeset/">typeset</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

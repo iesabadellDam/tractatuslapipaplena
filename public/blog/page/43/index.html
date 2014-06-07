@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Mostrar noticias rss en estilo multitail $ rsstail -n 1 -d -u http://web.com -u http://web1.com -u http://web3.com Algunas opciones: -n 1 (Actualizar &hellip;">
+  <meta name="description" content="Los discos dvd contienen un código que indica la región geográfica donde el dvd fue publicado imposibilitando que los comprados en unas regiones, &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rsstail/">Rsstail</a></h1>
+      <h1 class="entry-title"><a href="/blog/regionset/">Regionset</a></h1>
     
     
       <p class="meta">
@@ -96,28 +96,421 @@
   
 
 
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Mostrar noticias rss en estilo multitail</p>
+  <div class="entry-content"><p>Los discos dvd contienen un código que indica la región geográfica donde el dvd fue publicado imposibilitando que los comprados en unas regiones, puedan reproducirse en otras:</p>
 
-<blockquote><p>$ rsstail -n 1 -d -u http://web.com -u http://web1.com -u http://web3.com</p></blockquote>
+<p>Códigos de región:</p>
+
+<pre><code>1 Norte América (USA y Canadá)
+
+2 Europa, Medio-oriente, Sudáfrica y Japón
+
+3 Sudeste Asiático, Taiwan, Corea
+
+4 Hispano América, Brasil, Australia, Nueva Zelanda
+
+5 Antigua URSS (Rusia, Ucrania, etc.), resto de África, India
+
+6 China
+</code></pre>
+
+<p>Esta aplicación permite cambiar dicho código del reproductor, no en el disco dvd y en la mayoría de los casos sólo permite hacer 5 cambios y en algunos casos, sólo 2.</p>
+
+<blockquote><p># regionset</p></blockquote>
+
+<pre><code>regionset version 0.1 -- reads/sets region code on DVD drives
+
+Current Region Code settings:
+
+RPC Phase: II
+
+type: NONE
+
+vendor resets available: 4
+
+user controlled changes resets available: 5
+
+drive plays discs from region(s):, mask=0xFF
+
+Would you like to change the region setting of your drive? [y/n]:
+</code></pre>
+
+<p>vendor resets available: 4 (indica el número de cambios disponibles)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/reflector/">Reflector</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Optimizador del mirrorlist de pacman.</p>
+
+<blockquote><p># reflector (Mostrará todos los mirrors de archlinux.org/mirrors/status/json/)</p>
+
+<p># reflector &#8211;sort rate -l 10 -f 5 &#8211;save /etc/pacman.d/mirrorlist (Que tome los 5 mejores [f] de los 10 más actualizados [l], los ordene por velocidad de descarga [sort] y que sobreescriba el archivo mirrorlist [save])</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/red/">Red</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>1.- Configurar IP fija</p>
+
+<blockquote><p># nano /etc/network/interfaces</p></blockquote>
+
+<p>Borrar todo el contenido y susbtituirlo por:</p>
+
+<pre><code>auto lo
+
+iface lo inet loopback
+
+auto eth0
+
+iface eth0 inet static
+
+address 192.168.1.10 # IP estática
+
+netmask 255.255.255.0 # Mascara
+
+gateway 192.168.1.1 # IP del router
+</code></pre>
+
+<p>Reiniciar red:</p>
+
+<blockquote><p># /etc/init.d/networking restart</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/recode/">Recode</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Convierte archivos a distintos formatos de caracteres</p>
+
+<blockquote><p>$ recode -l | less (listado de conversiones disponibles)</p>
+
+<p>$ recode iso8859-15..utf8 file.txt (cambiar caracteres iso&#8230; a utf.. de file.txt</p>
+
+<p>$ recode iso8859-15../b64 file.txt (de caracteres iso.. a codificacion base64)</p>
+
+<p>$ recode -lf iso8859-15 | grep euro  (buscar tabla de caracteres)</p>
+
+<p>$ cat file.txt | recode ISO_8859-1..UTF8 > nuevo.txt (De iso8859-1 a utf-8 )</p>
+
+<p>$ recode ..HTML &lt; file.txt > file.html  (pasar un texto a html)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/reboot/">Reboot</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Reiniciar el sistema.</p>
+
+<blockquote><p>$ reboot -f (Fonzandolo)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/readpst/">Readpst</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Herramienta para convertir base de datos de Outlook en PST a eml para su posterior exportación a Thunderbird</p>
+
+<blockquote><p>$ readpst -o  -r miarchivo.pst</p>
+
+<p>$ readpst -M -b -e -o carpeta-destino miarchivo.pst (Generará los archivos EML en la carpeta-destino)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/readonly/">Readonly</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Permite declarar variables de solo lectura [No modificables].</p>
+
+<blockquote><p>$ readonly -p (Las muestra todas)</p>
+
+<p>$ readonly -f var (Crear la funcion &#8220;var&#8221; de solo lectura)</p>
+
+<p>$ readonly -r var (Quita el atributo de &#8220;solo lectura&#8221; pero no permite redefinirla)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/readlink/">Readlink</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Muestra donde apunta un enlace simbólico.</p>
+
+<blockquote><p>$ readlink enlace</p>
+
+<p>$ readlink -f enlace (Muestra el path absoluto)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/read/">Read</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Espera una entrada por teclado y le asigna una variable, aunque contenga espacios.</p>
+
+<pre><code>$ read -p "dime tu nombre " NOMBRE
+
+$ echo $NOMBRE
+</code></pre>
+
+<p>La opción -a permite leer las palabras como elementos de un array:</p>
+
+<pre><code>$ read -a frase
+
+Hola que tal
+
+$ declare -p frase
+
+declare -a frase='([0]="Hola" [1]="que" [2]="tal")'
+</code></pre>
 
 <p>Algunas opciones:</p>
 
-<p>-n 1  (Actualizar cada segundo)</p>
+<p>-d (permite indicar un delimitador de fin de línea de forma que la línea se lee hasta encontrar este delimitador)</p>
 
-<p>-d     (Mostrar descripción)</p>
+<p>-e (permite que se puedan usar todas las combinaciones de teclas de readline)</p>
 
-<p>-z      (Continuar incluso con errores xml)</p>
+<p>-t 3 (Especificar un tiempo de espera en la entrada de datos antes de volver al prompt)</p>
 
-<p>-l      (Mostrar enlaces)</p>
-
-<p>-u URL (Host del feed)</p>
+<p>-n 1 (Efectuará la acción al pulsar una tecla sin necesidad de pulsar Intro)</p>
 </div>
   
   
@@ -130,7 +523,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rrenice/">Rrenice</a></h1>
+      <h1 class="entry-title"><a href="/blog/rdiff-backup/">Rdiff-backup</a></h1>
     
     
       <p class="meta">
@@ -146,399 +539,16 @@
   
 
 
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[pslist]. Herramienta con uso igual que renice [ver]</p>
-</div>
-  
-  
+  <div class="entry-content"><p>Backups incrementales locales o remotos. La aplicación ha de estar instalada en el cliente y en el servidor.</p>
 
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/rpm/">Rpm</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Gestor de paqueteria de distros basadas en Red Hat.</p>
-
-<blockquote><p># rpm -ivh paquete (instalar un paquete)</p>
-
-<p># rpm -ivh –nodeeps paquete (instalar paquete rpm ignorando dependencias)</p>
-
-<p># rpm -e paquete (eliminar paquete)</p>
-
-<p># rpm -qa (Listar todos los paquetes instalados)</p>
-
-<p># rpm -qi paquete (información de un paquete)</p>
-
-<p># rpm -q paquete &#8211;whatrequires (listar dependencias de un paquete)</p>
-
-<p># rpm -qf /etc/httpd/conf/httpd.conf (A qué paquete pertenece un archivo)</p>
-
-<p># rpm &#8211;checksig paquete (verificar integridad de un paquete)</p>
-
-<p># rpm -qa gpg-pubkey (verificar la integridad de todos los paquetes)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/rpcinfo/">Rpcinfo</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Para saber los servicios que estan en marcha</p>
-
-<blockquote><p>$ rpcinfo -p</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/routel/">Routel</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Componente de ip route para listar las tablas de enrutado. [ver routef]</p>
-
-<blockquote><p>$ routel</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/routef/">Routef</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Refresca las tablas de enrutado [ver routel]</p>
-
-<blockquote><p># routef</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/route/">Route</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Para saber la IP del router</p>
-
-<blockquote><p>$ route -n</p>
-
-<p>$ route add default gw 192.168.1.50 (Establecer los protocolos de conexión después de levantar una red manualmente con ifconfig)</p>
-
-<p># ip route add 192.168.1.53 via 192.168.0.33 (redirigir un pc a otro)</p>
-
-<p># ip route add 192.168.1.0/24 via 192.168.0.33 (redirigir una red a un pc)</p>
-
-<p># route add &#8211;host 192.168.0.12 eth0 (agregar un host a una tabla de enrutamiento)</p>
-
-<p># route add -host IP reject (Rechaza la conexión de una ip en concreto)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/robots-dot-txt/">robots.txt</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Archivo que evita que determinado contenido de un sitio web sea indexado por los motores de búsqueda. Este archivo distingue mayúsculas y minúsculas, puede incluir comentario mediante almohadilla [#] y cada grupo User-agen/Disallow debe de estar separado por una linea en blanco.</p>
-
-<p>Algunos comandos:</p>
-
-<p>User-agent (Indica qué tipo de robot debe cumplir con la directiva que se indica)</p>
-
-<pre><code>User-agent: * (Incluir todos los buscadores)
-
-User-agent: Googlebot (Especificar el buscador de Google)
-
-User-agent: Bingbot (Especificar el robot de Bing)
-</code></pre>
-
-<p>Disallow  (Niega el acceso a un directorio, un archivo o una página)</p>
-
-<pre><code>Disallow: (Permite la entrada a todo el sitio)
-
-Disallow: / (Denegar todo el sitio)
-
-Disallow: /directorio/ (Denegar un directorio)
-
-Disallow: /restringido*/ (Denegar directorios que comienzan por "restringido")
-
-Disallow: /pagina.html (Denegar una página)
-
-Disallow: /*.png$ (Denegar los archivos que terminen con la extensión .png)
-</code></pre>
-
-<p>Allow (Permitir el acceso a directorios, archivos o páginas)</p>
-
-<pre><code>Allow: /directorio/subdirectorio/ (Permitir un subdirectorio)
-</code></pre>
-
-<p>Sitemap (Indica la ruta a un mapa del sitio en XML)</p>
-
-<pre><code>Sitemap: http://web.com/sitemap.xml
-</code></pre>
-
-<p>Crawl-delay (Indica número de segundos que debe esperar para cada acceso a cada página)</p>
-
-<pre><code>Crawl-delay: 30
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/rmdir/">Rmdir</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Borra directorios vacios</p>
-
-<blockquote><p>$ rmdir /home/usuario/dir_vacio</p>
-
-<p>$ find . -type d -empty -exec rmdir {} \; (Otra forma)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/rm/">Rm</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Borrar archivos</p>
-
-<blockquote><p>$ rm -R directorio         (Borra directorios y los subdirectorios)</p>
-
-<p>$ rm -i   archivo        (Pide confirmación antes de borrar)</p>
-
-<p>$ rm file1 file2  (Borrar varios archivos)</p>
-
-<p>$ rm -R dir1 dir2 dir3 (Lo mismo con varios directorios)</p>
-
-<p>$ rm -f           (Fuerza eliminación incluso si existen ficheros que no existen)</p>
-
-<p>$ find . -type f -empty -exec rm {} \;  (Elimina todos los archivos vacios de un directorio)</p>
-
-<p>$ rm !(*.txt)  (Eliminar todos los archivos menos los .txt)</p>
-
-<p>$ rm !(tuto+([1-9]) (Borrar los ficheros excepto del tuto1 al tuto9</p></blockquote>
+<blockquote><p>$ rdiff-backup &#8211;force 192.168.1.20::/home/USER/dir_remoto /home/USER/dir_local (Realiza un backup del dir_remota de la máquina 20 de la red y lo guarda en nuestro dir_local sin comprimir)</p></blockquote>
 </div>
   
   
@@ -569,43 +579,43 @@ Disallow: /*.png$ (Denegar los archivos que terminen con la extensión .png)
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/nmap/">nmap</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/nethogs/">nethogs</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lilo/">lilo</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/anarchism/">anarchism</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sftp/">sftp</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/logrotate/">logrotate</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssh/">ssh</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lshell/">lshell</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/apt-mirror/">apt-mirror</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/typeset/">typeset</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Herramientas para realizar un test de carga del sistema. # stress -c 8 -i 4 -m 2 &#8211;vm-bytes 128M -t 20S Opciones: -c (8 multiples ciclos &hellip;">
+  <meta name="description" content="Muestra la entrada ordenada. $ sort archivo > archivo_ordenado (por la primera columna) $ sort [intro] (va esperando palabras o números que ordena &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/stress/">Stress</a></h1>
+      <h1 class="entry-title"><a href="/blog/sort/">Sort</a></h1>
     
     
       <p class="meta">
@@ -96,26 +96,44 @@
   
 
 
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Herramientas para realizar un test de carga del sistema.</p>
+  <div class="entry-content"><p>Muestra la entrada ordenada.</p>
 
-<blockquote><p># stress -c 8 -i 4 -m 2 &#8211;vm-bytes 128M -t 20S</p></blockquote>
+<blockquote><p>$ sort archivo > archivo_ordenado  (por la primera columna)</p>
 
-<p>Opciones:</p>
+<p>$ sort  [intro] (va esperando palabras o números que ordena con Ctrl+d)</p>
 
-<p>-c (8 multiples ciclos infinitos de raices cuadradas para la cpu)</p>
+<p>$ sort &lt;&lt; fin (Lo mismo pero ordena después de introducir “fin”)</p>
 
-<p>-i (Introduce 4 ciclos infinitos que ejecutan la llamada al sistema sync())</p>
+<p>$ sort -o archivo1 archivo1 (escribe el resultado en el propio archivo)</p>
 
-<p>&#8211;hdd-bytes 3G (carga de escritura en disco de 3G. Opciones: B,K,M,G)</p>
+<p>$ sort -u fichero  (ordenar eliminando lineas repetidas)</p>
 
-<p>-t 20s (Tiempo que durará el proceso, 20 segundos. Opciones: s,m,h,d,y)</p>
+<p>$ sort -t , -k2n archivo  (ordenar por el segundo campo separado del primero por una “,” y por su valor numérico)</p>
+
+<p>$ sort -t , -k3 archivo   (ordenar por el tercer campo separados por comas)</p></blockquote>
+
+<p>Opciones</p>
+
+<p>-f : Ordena alfabeticamente (diferencia Minúsculas y mayúsculas).</p>
+
+<p>-n : Para ordenar los campos numéricos por su valor numérico.</p>
+
+<p>-r : De mayor a menor.</p>
+
+<p>-R : desordenar, aleatoriamente</p>
+
+<p>-k numero : Especifica por qué columna o campo realizar la ordenación</p>
+
+<p>-t : indica que vamos a usar un delimitador de campo especificado</p>
+
+<p>-u : Suprime todas las líneas repetidas después de realizar la ordenación.</p>
 </div>
   
   
@@ -128,7 +146,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/streamripper/">Streamripper</a></h1>
+      <h1 class="entry-title"><a href="/blog/sonido/">Sonido</a></h1>
     
     
       <p class="meta">
@@ -144,16 +162,124 @@
   
 
 
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Ripear a partir de emisoras icecast (www.icecast.com) y showcast (www.showtcast.com). Crea una carpeta en el presente directorio.</p>
+  <div class="entry-content"><p>1.-</p>
 
-<blockquote><p>$ streamrippwer http://yp.shoutcast.com/sbin/tunein-station.pls?id=321414 -l 4000 (grabar durante 4000 segundos)</p></blockquote>
+<p>Para ver las tarjetas de sonido instaladas</p>
+
+<blockquote><p>$ cat /proc/asound/cards</p></blockquote>
+
+<p>0 [Intel ]: HDA-Intel - HDA Intel</p>
+
+<p>HDA Intel at 0xe4100000 irq 169</p>
+
+<p>1 [SAA7134 ]: SAA7134 - SAA7134</p>
+
+<p>saa7133[0] at 0xe4000000 irq 233</p>
+
+<p>2 [CMI8738MC6 ]: CMI8738-MC6 - C-Media PCI CMI8738-MC6</p>
+
+<p>C-Media PCI CMI8738-MC6 (model 55) at 0xa000, irq 225</p>
+
+<blockquote><p># asoundconf set-default-card 1 (para activar la 1)</p></blockquote>
+
+<p>Editar el fichero /etc/alsa/alsa.conf y poner estas líneas:</p>
+
+<pre><code>defaults.ctl.card 1
+
+defaults.pcm.card 1
+
+defaults.pcm.device 1
+</code></pre>
+
+<p>Los cambios son automáticos, no hay ni que reiniciar el servicio.</p>
+
+<p>2.-</p>
+
+<p>Cuando al reiniciar el sonido aparece silenciado:</p>
+
+<blockquote><p># gedit /etc/pulse/default.pa</p></blockquote>
+
+<p>Comentar la linea: # load-module module-device-restore</p>
+
+<p>3.-</p>
+
+<p>Sin sonido con flash</p>
+
+<p>Si no existe, crear el archivo:</p>
+
+<blockquote><p>$ sudo touch /etc/asound.conf</p>
+
+<p># nano /etc/asound.conf</p></blockquote>
+
+<p>Pegar:</p>
+
+<pre><code>pcm.pulse {
+
+type pulse
+
+}
+
+ctl.pulse {
+
+type pulse
+
+}
+
+pcm.!default {
+
+type pulse
+
+}
+
+ctl.!default {
+
+type pulse
+
+}
+</code></pre>
+
+<p>Reiniciar.</p>
+
+<p>4.-</p>
+
+<p>Si Java bloquea el dispositivo de sonido en lugar de usar Pulseaudio</p>
+
+<blockquote><p># cd /usr/lib/jvm/java-6-sun/jre/bin/</p>
+
+<p># mv java java.bin</p>
+
+<p># nano /usr/lib/jvm/java-6-sun/jre/bin/java</p></blockquote>
+
+<p>Y copiar en su interior:</p>
+
+<blockquote><p>#!/bin/bash</p></blockquote>
+
+<p>padsp /usr/lib/jvm/java-6-sun/jre/bin/java.bin &#8220;$@&#8221;</p>
+
+<blockquote><p># chmod +x java (darle permisos)</p></blockquote>
+
+<p>5.-</p>
+
+<p>Substituir pulseaudio por alsa:</p>
+
+<blockquote><p># apt-add-repository ppa:dtl131/ppa  (Añadir los repositorios gnome-media/applets/settings-daemon)</p>
+
+<p># apt-get update  (Actualizar el sistema)</p>
+
+<p># apt-get upgrade</p>
+
+<p># apt-get install esound esound-clients esound-common libesd-alsa0 alsa-base alsa-tools alsa-utils alsa-oss linux-sound-base python-alsaaudio gnome-media libsdl1.2debian-alsa  (Instalar paquetes de alsa)</p>
+
+<p># apt-get purge libcanberra-pulse pulseaudio pulseaudio-esound-compat pulseaudio-module-bluetooth pulseaudio-module-gconf pulseaudio-module-udev pulseaudio-module-x11 gstreamer0.10-pulseaudio pulseaudio-utils pavucontrol  (Desinstalar los paquetes de pulseaudio)</p></blockquote>
+
+<p>Reiniciar</p>
 </div>
   
   
@@ -166,7 +292,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/strace/">Strace</a></h1>
+      <h1 class="entry-title"><a href="/blog/socklist/">Socklist</a></h1>
     
     
       <p class="meta">
@@ -182,28 +308,16 @@
   
 
 
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra las llamadas al sistema originadas por un proceso.</p>
+  <div class="entry-content"><p>[procinfo]. Lista conectores de red abiertos (sockets), mostrando tipo, número de puerto y otros datos específicos.</p>
 
-<blockquote><p>$ strace comando</p>
-
-<p>$ strace -p PID (Por número de proceso)</p>
-
-<p>$ strace -c comando -o traza.txt (mostrar resumen de llamadas y errores durante la ejecución y redirigido a un archivo)</p></blockquote>
-
-<p>Algunas opciones:</p>
-
-<p>-f (Incluir posibles forks que haga un programa, por ejemplo httpd)</p>
-
-<p>-v (Muestra el máximo de información)</p>
-
-<p>-s 8192 (Valor de 8192 como limite de longitud de las cadenas. Por defecto 32)</p>
+<blockquote><p>$ socklist</p></blockquote>
 </div>
   
   
@@ -216,7 +330,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/stjerm/">Stjerm</a></h1>
+      <h1 class="entry-title"><a href="/blog/snort/">Snort</a></h1>
     
     
       <p class="meta">
@@ -232,30 +346,32 @@
   
 
 
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Consola tipo guake.</p>
+  <div class="entry-content"><p>Sniffer de paquetes y detector de intrusos</p>
 
-<blockquote><p>$ stjerm -k f12 -s left -o 70 -h 250 -w 1280 (Que aparezca pulsando F12, con barra de escroll a la izquierda, opacidad del 70% y especificando ancho y largo)</p></blockquote>
+<blockquote><p># snort -v -i eth0 (Para inspeccionar el tráfico de una red)</p>
 
-<p>Algunas opciones:</p>
+<p># snort -vde -h 192.168.0.1/24 (Inspeccionar una dirección o rango)</p>
 
-<p>-ah (Ocultar automáticamente la ventana cuando no está enfocada)</p>
+<p># snort -vde tcp (especificando protocolo)</p>
 
-<p>-bg red (Color de fondo)</p>
+<p># snort -v -X -i eth0 port 25 (Especificando un puerto y guardando la información)</p>
 
-<p>-bgimg imagen.png (Establecer una imagen de fondo)</p>
+<p># snort -v -X -i eth0 -n 5 port 25 (Capturando solo 5 paquetes)</p></blockquote>
 
-<p>-fn (Tipo y tamaño de fuente)</p>
+<p>La tarjeta de red tiene que estar en modo promiscuo</p>
 
-<p>-fg blue (Color de la fuente)</p>
+<p>Opciones</p>
 
-<p>-p (Posición de la ventana [valores: top, bottom, left, right])</p>
+<p>-v          sniffer de TCP</p>
+
+<p>-d y -e    Para obtener las cabeceras</p>
 </div>
   
   
@@ -268,7 +384,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/steghide/">Steghide</a></h1>
+      <h1 class="entry-title"><a href="/blog/snoopy/">Snoopy</a></h1>
     
     
       <p class="meta">
@@ -284,20 +400,34 @@
   
 
 
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Detectar y extraer mensajes incrustados dentro de una imagen o música</p>
+  <div class="entry-content"><p>librería que se encarga de almacenar comandos y el usuario que los ejecuta.</p>
 
-<blockquote><p>$ steghide embed -cf imagen.jpg -ef archivo_texto  (incrustar un texto en una imagen)</p>
+<blockquote><p>$ git clone https://github.com/a2o/snoopy.git</p>
 
-<p>$ steghide embed -cf archivo.wav -ef archivo_texto (incrustar un texto en un archivo de música)</p>
+<p>$ cd snoopy</p>
 
-<p>$ steghide extract -sf imagen.jpg  (extraer el archivo incrustado)</p></blockquote>
+<p>$ ./configure</p>
+
+<p>$ make</p>
+
+<p># make install</p>
+
+<p># make enable</p></blockquote>
+
+<p>Reiniciar los servicios que tengamos funcionando [apache2, ssh&#8230;]</p>
+
+<blockquote><p># /etc/init.d/ssh restart</p></blockquote>
+
+<p>Monitorizar el archivo log de registro com:</p>
+
+<blockquote><p># tail -f /var/log/auth.log</p></blockquote>
 </div>
   
   
@@ -310,7 +440,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/status/">Status</a></h1>
+      <h1 class="entry-title"><a href="/blog/sniffit/">Sniffit</a></h1>
     
     
       <p class="meta">
@@ -326,16 +456,22 @@
   
 
 
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Verifica si un servicio está activo o no.</p>
+  <div class="entry-content"><p>Snifer de red. Dado que los informes los despliega en archivos de texto por cada dato, es preferible lanzar la aplicación desde dentro de una carpeta para no llenar todo el directorio de ficheros.</p>
 
-<blockquote><p>$ status ssh</p></blockquote>
+<blockquote><p># sniffit -s 192.168.1.2  (Captura todos los paquetes con origen en la IP)</p>
+
+<p># sniffit -t 192.168.1.2 (Captura todos los paquetes con destino en la IP)</p>
+
+<p># sniffit -b -s 192.168.1.2 (Captura los paquetes con origen y destino en la IP)</p>
+
+<p># sniffit -F eth1 -b -s 192.168.1.33 -p 9001 (de un puerto y forzando dispositivo)</p></blockquote>
 </div>
   
   
@@ -348,7 +484,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/startx/">Startx</a></h1>
+      <h1 class="entry-title"><a href="/blog/snarf/">Snarf</a></h1>
     
     
       <p class="meta">
@@ -364,16 +500,18 @@
   
 
 
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Arrancar sistema gráfico</p>
+  <div class="entry-content"><p>Descarga páginas web o listado de archivos compartidos por ftp.</p>
 
-<blockquote><p>$ startx &#8211; :1 (una segunda sesión gráfica accesible en ^Alt + F8)</p></blockquote>
+<blockquote><p>$ snarf lapipaplena.net (Creará un archivo index.html)</p>
+
+<p>$ snarf ftp://usuario:contraseña@servidor (Creará un archivo ftpindex.txt)</p></blockquote>
 </div>
   
   
@@ -386,7 +524,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/stalonetray/">Stalonetray</a></h1>
+      <h1 class="entry-title"><a href="/blog/smem/">Smem</a></h1>
     
     
       <p class="meta">
@@ -402,40 +540,22 @@
   
 
 
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Applet para albergar el area de notificación.</p>
+  <div class="entry-content"><p>Informa del uso de la memoria.</p>
 
-<blockquote><p>$ stalonetray -bg #A78B5C -d title -geometry 6x1-0+0 -i 30 (con el color especificado [-bg], decoración de ventana [-d], las medidas [6x1] y la situación en pantalla [-0+0, abajo, derecha])</p></blockquote>
+<blockquote><p># smem -u (Por parte de los usuarios)</p>
 
-<p>Algunas opciones:</p>
+<p># smem -w (por parte del sistema)</p>
 
-<p>-d  (none, title, border, all)</p>
+<p># smem -m (de todos los procesos)</p>
 
-<p>situación:</p>
-
-<p>Abajo a la izquierda    5x1+0-0</p>
-
-<p>Abajo en el centro (1024x768) + 20 píxeles elevado 5x1-450-20</p>
-
-<p>Abajo a la derecha  5x1-0-0</p>
-
-<p>Arriba a la izquierda   5x1+0+0</p>
-
-<p>Arriba a la izquierda + 20 píxeles descendido  5x1+0+20</p>
-
-<p>Arriba en el centro (1024x768)  5x1+450+0</p>
-
-<p>Arriba a la derecha 5x1-0+0</p>
-
-<p>Arriba a la derecha + 20 píxeles descendido    5x1-0+20</p>
-
-<p>Abajo a la izquierda + 20 píxeles elevado  5x1+0-20</p>
+<p># smem -p (resultado en porcentaje</p></blockquote>
 </div>
   
   
@@ -448,7 +568,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/st/">St</a></h1>
+      <h1 class="entry-title"><a href="/blog/smbstatus/">Smbstatus</a></h1>
     
     
       <p class="meta">
@@ -464,16 +584,22 @@
   
 
 
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Terminal simple.</p>
+  <div class="entry-content"><p>Monitorizar el estado de las conexiones del servidor samba.</p>
 
-<blockquote><p>$ st -t Reiniciar -e sudo init 6 (Abrir un terminal st con título para entrar la contraseña y reiniciar)</p></blockquote>
+<blockquote><p># smbstatus (Listado de equipos conectados a recursos compartidos y ficheros abiertos)</p>
+
+<p># smbstatus -p (Solo el listado de los equipos conectados a samba)</p>
+
+<p># smbstatus -S (Listado de recursos y equipos conectados a ellos)</p>
+
+<p># smbstatus -L  (Listado de ficheros abiertos)</p></blockquote>
 </div>
   
   
@@ -486,7 +612,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/sswap/">Sswap</a></h1>
+      <h1 class="entry-title"><a href="/blog/smbclient/">Smbclient</a></h1>
     
     
       <p class="meta">
@@ -502,18 +628,26 @@
   
 
 
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[secure-delete]. Borrado seguro de swap. Previamente desactivar con swapoff /dev/sda7 y al finalizar el proceso volver a activarla con swapon /dev/sda7 [Si no sabemos donde se encuentra la swap: cat /proc/swaps. Argumentos paracidos a srm [ver] y sfill [ver]. El espacio se sobreescribe 38 veces.</p>
+  <div class="entry-content"><p>Conectar recursos compartidos de windows desde linux.</p>
 
-<blockquote><p>$ sswap -f /dev/sda7 (Modo rápido e inseguro)</p>
+<blockquote><p>$ smbclient //192.168.1.155/compartido -U usuario (Después de ingresar usuario y contraseña entra en el prompt del recurso compartido)</p>
 
-<p>$ sswap -lv /dev/sda7 (Como lanzar dos veces sswap -f y mostrando el proceso)</p></blockquote>
+<p>$ smbclient -L //192.168.1.155 (Ver los recursos compartidos de la IP especificada.</p></blockquote>
+
+<p>1.-</p>
+
+<p>Para montarlo automaticamente:</p>
+
+<p>Entrar en el /etc/fstab la siguiente linea:</p>
+
+<p>//192.168.1.155/compartido /media/compartido cifs username=NOMBRE, password=CONTRASEÑA,user</p>
 </div>
   
   
@@ -544,43 +678,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/nmap/">nmap</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/nethogs/">nethogs</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lilo/">lilo</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/anarchism/">anarchism</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sftp/">sftp</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/logrotate/">logrotate</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssh/">ssh</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lshell/">lshell</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/apt-mirror/">apt-mirror</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/typeset/">typeset</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

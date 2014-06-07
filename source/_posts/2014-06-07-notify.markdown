@@ -1,0 +1,39 @@
+---
+layout: post
+title: "notify"
+date: 2014-06-07 07:12
+comments: true
+categories: 
+---
+[libnotify-bin]. Aviso o notificación que lanza el sistema al producirse un evento o terminar una tarea.
+
+>$ notify-send "Linus es un sistema genial" -t 5000
+
+Un ejemplo de uso para algunas tareas:
+
+>$ nano .bashrc
+
+Añadir las siguientes dos lineas:
+
+alias alert_helper='history|tail -n1|sed -e "s/^\s*[0-9]\+\s*//" -e "s/;\s*alert$//"'
+
+alias alert='notify-send -i /usr/share/icons/gnome/32×32/apps/gnome-terminal.png "[$?] $(alert_helper)"'
+
+Guardar y recargar bashrc:
+
+>$ source .bashrc
+
+Otros ejemplos:
+
+>$ find /home/$USER -iname *.jpg; notify-send "El comando ha terminado su labor."
+
+>$ sleep 10; alert
+
+>$ find /home/$USER -iname *.jpg; notify-send -i gtk-dialog-warning -t 4000 "ATENCIÓN" "El comando find ha terminado..."
+
+opciones:
+
+-i especifica el icono a usar
+
+-t tiempo en milisegundos que se mostrará la nota
+

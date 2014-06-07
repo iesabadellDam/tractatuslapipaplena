@@ -1,0 +1,57 @@
+---
+layout: post
+title: "ecryptfs"
+date: 2014-06-07 07:10
+comments: true
+categories: 
+---
+[ecryptfs-utils cryptsetup]. Sistema de ficheros que permite encriptar la informacion. Puede ser montado en un sistema de ficheros convencional [ext4, ext3...] lo cual siginifica que no tenemos que preocuparnos por asignarle espacio: conforme añadimos o eliminamos archivos, el espacio crece o decrece. Se podría coger un solo fichero encriptado, enviarse a otro PC y acceder a la información de ese fichero usando la misma contraseña.
+
+1.-
+
+Encriptar un directorio:
+
+>$ mkdir cripta (Crear directorio)
+
+>\# chmod 700 cripta (Otorgarle permisos)
+
+>\# mount -t ecryptfs cripta /media/tumba (Montar el directorio. Pregunta contraseña [la firma de la clave en el fichero /root/.ecryptfs/sig-cache.txt]. Las demás preguntas [método de cifrado, longitud de la contraseña...] pueden dejarse con las opciones por defecto)
+
+>\# umount /media/tumba (Desmontar directorio)
+
+Nota.- Es bastante usual, montar el directorio consigo mismo:
+
+>\# mount -t ecryptfs cripta cripta
+
+2.-
+
+Ejecutar el asistente de creación de directorio cifrado:
+
+>\# ecryptfs-setup-private
+
+>\# ecryptfs-umount-private (Desmontar el directorio)
+
+>\# ecryptfs-mount-private (Montar el directorio)
+
+Nota.- Para impedir que el directorio creado se monte automáticamente al inicio de sesión, borrar el archivo ~/.ecryptfs/auto-mount. Para revertir el proceso crear en el mismo directorio un archivo vacio:
+
+>$ touch ~/.ecryptfs/auto-mount
+
+3.-
+
+Encriptar el directorio personal [$HOME]
+
+Salir de la cuenta de usuario y entrar en la de root.
+
+>\# modprobe ecryptfs (activar el módulo del kernel)
+
+>\# ecryptfs-migrate-home -u USUARIO (Encriptar la $HOME del USUARIO)
+
+Cerrar la cuenta de administrador y, sin reiniciar, entrar en la de USUARIO
+
+>$ ecryptfs-unwrap-passphrase (Pedirá la contraseña. Como medida de precaución es preciso anotar la cadena de texto que muestre)
+
+>\# ecryptfs-setup-swap (Como media de seguridad es necesario encriptar la partición de intercambio [Swap])
+
+>\# ecryptfs-rewrap-passphrase .ecryptfs/sig-cache.txt (Modificar la contraseña)
+

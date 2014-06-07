@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Inicia o para servicios. # service apache2 start (Arranca apache2) # service apache2 stop (Para apache2) # service apache2 restart (Reinicia el &hellip;">
+  <meta name="description" content="Suspender/hibernar el pc e iniciarlo a una hora determinada. # rtcwake -u -m disk -s 150 &amp;&amp; deluge (Asume el tiempo UTC, suspende a disco y &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/service/">Service</a></h1>
+      <h1 class="entry-title"><a href="/blog/rtcwake/">Rtcwake</a></h1>
     
     
       <p class="meta">
@@ -96,20 +96,26 @@
   
 
 
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Inicia o para servicios.</p>
+  <div class="entry-content"><p>Suspender/hibernar el pc e iniciarlo a una hora determinada.</p>
 
-<blockquote><p># service apache2 start (Arranca apache2)</p>
+<blockquote><p># rtcwake -u -m disk -s 150 &amp;&amp; deluge (Asume el tiempo UTC, suspende a disco y vuelve a activarse dentro de 150 minutos arrancando la aplicación deluge)</p></blockquote>
 
-<p># service apache2 stop (Para apache2)</p>
+<p>Otros modos [m]:</p>
 
-<p># service apache2 restart (Reinicia el apache2)</p></blockquote>
+<p>standby (Modo por defecto y el que menos energia ahorra)</p>
+
+<p>mem (Suspende a RAM. Más ahorrativo)</p>
+
+<p>off (Apaga el ordenador completamente)</p>
+
+<p>no (No suspende inmediatamente, unicamente establece la hora en que despierta el sistema)</p>
 </div>
   
   
@@ -122,7 +128,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/seq/">Seq</a></h1>
+      <h1 class="entry-title"><a href="/blog/rsync/">Rsync</a></h1>
     
     
       <p class="meta">
@@ -138,130 +144,53 @@
   
 
 
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Crea secuencias de números</p>
+  <div class="entry-content"><p>Sincronizar archivos o directorios. Trabasjar con el directorio montado.</p>
 
-<blockquote><p>$ seq 7 12 (entre el 7 y el 12)</p>
+<blockquote><p>$ rsync -av /home/usuario/Dropbox /home/usuario/Copias_seguridad/ (Copiar todo el directorio “Dropbox” en el directorio “Copias_seguridad”)</p>
 
-<p>$ seq 7 2 12 (entre el 7 y el 12 con un incremento de 2 en 2)</p>
+<p>$ rsync -av &#8211;exclude=Dropbox /media/servidor /home/usuario/servidor/ (Sincronizar un servidor con un directorio local excluyendo el dir Dropbox)</p></blockquote>
 
-<p>$ seq -w 7 12 (entre el 7 y el 12 con el mismo tamaño)</p>
+<p>Nota.- Pueden excluirse varios directorios [&#8211;exclude=Dropbox &#8211;exclude=isos &#8211;exclcude=public &#8230;]</p>
 
-<p>$ seq -s_ 7 12 (con un guión bajo entre cada número)</p>
+<blockquote><p>$ rsync -arvuz Documentos usuario@192.168.1.5:/home/usuario/ (Copiar el directorio en otra máquina)</p>
 
-<p>$ seq -s&#8217;#&#8217; 0 $(tput cols) | tr -d &#8216;[:digit:]&#8217;  (Escribe una raya de “#” en toda la anchura de la terminal)</p></blockquote>
-</div>
-  
-  
+<p>$ rsync -arvuz -e &#8216;ssh -p 30567&#8217; Documentos usuario@192.168.1.5:/home/usuario/ (Copiar el directorio en otra máquina pero especificando otro puerto SSH)</p></blockquote>
 
+<p>Algunas opciones:</p>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sensors-detect/">Sensors-detect</a></h1>
-    
-    
-      <p class="meta">
-        
+<pre><code>-a (respaldar recursivamente directorios y subdirectorios)
 
+-g (conserva el atributo “group” de los archivos originales)
 
+-E (conserva el atributo “executable” del archivo originales)
 
+-v (aumentar el nivel de información desplegado
 
+-z (comprime los datos que serán transferidos)
 
+--exclude=tmp  (Excluir archivos o directorios. /tmp en este caso)
 
+--delete-during  (Borrar los archivos de origen a medida que son transferidos)
+</code></pre>
 
+<blockquote><p>$ rsync -aHxv root@dirección_IP:/* /carpeta_destino &#8211;exclude=/dev &#8211;exclude=/proc &#8211;exclude=/sys &#8211;exclude=/tmp (copia/clonación en vivo de todo un sistema remoto a un directorio local. Se recomienda parar todos los servicios en ejecución de la máquina remota y repetir el comando varias veces hasta que no haya ningún fichero copiado, para evitar ficheros corrompidos. Se deben crear las carpetas &#8220;/dev&#8221;, &#8220;/proc&#8221;, &#8220;/sys&#8221; y &#8220;/tmp&#8221; en la carpeta de destino).</p>
 
-  
+<p>$ rsync -avz &#8211;exclude-from &#8216;rsync_exclude&#8217; /home/usuario/ /media/sda11/copa_seguridad (Copia de seguridad del /home/usuario a otra partición excluyendo los archivos especificados en el archivo rsync_exclude)</p></blockquote>
 
+<p>Nota.- El formato del archivo rsync_exclude para excluir los ficheros ocultos [.*] todos los de la carpeta Dropbox y el video alien de la carpeta Videos será:</p>
 
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
+<pre><code>.*
 
+Dropbox/*
 
-  <div class="entry-content"><p>Detecta, instala y carga sensores y módulos necesarios.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/selinux/">Selinux</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[selinux-basics selinux-policy-default]. SELinux proporciona una forma de acceso a recursos basada en políticas de control de acceso obligatorio [mandatory access control, MAC] incorporado en el kernel. Existen un conjunto de reglas de autorización [políticas] las cuales determinan si una operación sobre un objeto [Archivos, directorios, dispositivos&#8230;] realizada por un sujeto esta o no permitida basándose en los atributos de ambos. Linux utiliza por defecto el control de acceso a discreción [discretionary access control, DAC] basada en los propietarios y grupos a los que pertenece un objeto en los que un usuario normal puede cambiar los permisos de los archivos que posee con el comando chmod. Con selinux se limita el acceso que tienen las aplicaciones a otras aplicaciones y a los ficheros, impidiendo que un proceso pueda modificar cualquier fichero del usuario con el que se lanzó. En DAC el acceso esta descentralizado, siendo el propietario de cada objeto el encargado de asignar los permisos de los diversos grupos que accederán a ellas. En cambio con el MAC los objetos y los sujetos tan solo tienen atributos, pero son las políticas las que se encargan de autorizar o denegar una acción. Ver comandos getsebool y setsebool.</p>
-
-<p>Los módulos SELinux disponibles se almacenan en el directorio /usr/share/selinux/default/.</p>
-
-<blockquote><p># semodule -i módulo.pp (habilitar un módulos en la configuración actual. La extensión pp significa paquete de política [«policy package»]).</p>
-
-<p># semodule -r módulo (Elimina un módulo de la configuración actual)</p>
-
-<p># semodule -l (Enumera los módulos habilitados actualmente)</p>
-
-<p># semanage login -a -s staff_u juan (mapear una cuenta a un usuario especifico de SELinux)</p>
-
-<p># restorecon -R -F /home/juan (etiquetar los ficheros del usuario mapeado juan)</p>
-
-<p># semanage user -l (enumera las asociaciones entre las identidades de usuario de SELinux y los roles permitidos)</p>
-
-<p># semanage login -d juan (elimina la asociación asignada al usuario juan)</p>
-
-<p># semanage login -m juan (Modificar la asociación asignada al usuario)</p>
-
-<p># semanage login -l (enumera las correspondencias actuales entre identificadores de usuarios y entidades SELinux)</p></blockquote>
-
-<p>tabla de los usuarios estándar SELinux disponibles:</p>
-
-<pre><code>user_u  (Usuario normal que se utilizan para cuentas de usuario que no van a ser empleadas para administrar ningún servicio del sistema)
-
-staff_u (Para administradores con derechos para conmutar roles y ganar privilegios elevados)
-
-root (Cuenta root ligeramente diferente de la cuenta staff_u. Los ficheros protegidos por control de acceso basado en root no pueden ser gestionados por los staff_u)
-
-sysadm_u (Administración del sistema. Por defecto, esta cuenta no se utiliza inmediatamente ya que este usuario obtiene de forma inmediata el rol administrativo (por lo que staff_u y root todavía necesitarán conmutar roles).
-
-system_u (administrar servicios. Nunca se debe utilizar para usuarios finales ya que ofrece acceso directo al rol del sistema)
-
-unconfined_u    Usado cuando la directriz es targeted, este usuario SELinux tiene muchos privilegios (esencialmente no está limitado en sus acciones, aunque todavía se gestiona través de SELinux con una directriz "muy abierta").
+Videos/alien
 </code></pre>
 </div>
   
@@ -275,7 +204,7 @@ unconfined_u    Usado cuando la directriz es targeted, este usuario SELinux tien
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/select/">Select</a></h1>
+      <h1 class="entry-title"><a href="/blog/rsstail/">Rsstail</a></h1>
     
     
       <p class="meta">
@@ -291,343 +220,380 @@ unconfined_u    Usado cuando la directriz es targeted, este usuario SELinux tien
   
 
 
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Realiza menús de forma rápida y simple:</p>
+  <div class="entry-content"><p>Mostrar noticias rss en estilo multitail</p>
 
-<p>Algunos ejemplos:</p>
+<blockquote><p>$ rsstail -n 1 -d -u http://web.com -u http://web1.com -u http://web3.com</p></blockquote>
 
-<p>1.-</p>
+<p>Algunas opciones:</p>
 
-<pre><code>#!/bin/bash
+<p>-n 1  (Actualizar cada segundo)</p>
 
-OPCIONES="Uso_linux Todavía_estoy_con_windows"
+<p>-d     (Mostrar descripción)</p>
 
-select opt in $OPCIONES; do
+<p>-z      (Continuar incluso con errores xml)</p>
 
-    if [ "$opt" = "Uso_linux" ]; then
+<p>-l      (Mostrar enlaces)</p>
 
-        echo "Bravo, usas el mejor sistema..."
+<p>-u URL (Host del feed)</p>
+</div>
+  
+  
 
-        exit
 
-    elif [ "$opt" = "Todavía_estoy_con_windows" ]; then
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/rrenice/">Rrenice</a></h1>
+    
+    
+      <p class="meta">
+        
 
-        echo "¡Evoluciona de una vez!"
 
-        exit
 
-    else
 
-        echo opción errónea
 
-    fi
 
-done
+
+
+  
+
+
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[pslist]. Herramienta con uso igual que renice [ver]</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/rpm/">Rpm</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Gestor de paqueteria de distros basadas en Red Hat.</p>
+
+<blockquote><p># rpm -ivh paquete (instalar un paquete)</p>
+
+<p># rpm -ivh –nodeeps paquete (instalar paquete rpm ignorando dependencias)</p>
+
+<p># rpm -e paquete (eliminar paquete)</p>
+
+<p># rpm -qa (Listar todos los paquetes instalados)</p>
+
+<p># rpm -qi paquete (información de un paquete)</p>
+
+<p># rpm -q paquete &#8211;whatrequires (listar dependencias de un paquete)</p>
+
+<p># rpm -qf /etc/httpd/conf/httpd.conf (A qué paquete pertenece un archivo)</p>
+
+<p># rpm &#8211;checksig paquete (verificar integridad de un paquete)</p>
+
+<p># rpm -qa gpg-pubkey (verificar la integridad de todos los paquetes)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/rpcinfo/">Rpcinfo</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Para saber los servicios que estan en marcha</p>
+
+<blockquote><p>$ rpcinfo -p</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/routel/">Routel</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Componente de ip route para listar las tablas de enrutado. [ver routef]</p>
+
+<blockquote><p>$ routel</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/routef/">Routef</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Refresca las tablas de enrutado [ver routel]</p>
+
+<blockquote><p># routef</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/route/">Route</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Para saber la IP del router</p>
+
+<blockquote><p>$ route -n</p>
+
+<p>$ route add default gw 192.168.1.50 (Establecer los protocolos de conexión después de levantar una red manualmente con ifconfig)</p>
+
+<p># ip route add 192.168.1.53 via 192.168.0.33 (redirigir un pc a otro)</p>
+
+<p># ip route add 192.168.1.0/24 via 192.168.0.33 (redirigir una red a un pc)</p>
+
+<p># route add &#8211;host 192.168.0.12 eth0 (agregar un host a una tabla de enrutamiento)</p>
+
+<p># route add -host IP reject (Rechaza la conexión de una ip en concreto)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/robots-dot-txt/">robots.txt</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:13:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Archivo que evita que determinado contenido de un sitio web sea indexado por los motores de búsqueda. Este archivo distingue mayúsculas y minúsculas, puede incluir comentario mediante almohadilla [#] y cada grupo User-agen/Disallow debe de estar separado por una linea en blanco.</p>
+
+<p>Algunos comandos:</p>
+
+<p>User-agent (Indica qué tipo de robot debe cumplir con la directiva que se indica)</p>
+
+<pre><code>User-agent: * (Incluir todos los buscadores)
+
+User-agent: Googlebot (Especificar el buscador de Google)
+
+User-agent: Bingbot (Especificar el robot de Bing)
 </code></pre>
 
-<p>2.-</p>
+<p>Disallow  (Niega el acceso a un directorio, un archivo o una página)</p>
 
-<pre><code>#!/bin/bash
+<pre><code>Disallow: (Permite la entrada a todo el sitio)
 
-OPCIONES="hostname pwd exit"
+Disallow: / (Denegar todo el sitio)
 
-select opt in $OPCIONES; do
+Disallow: /directorio/ (Denegar un directorio)
 
-    if [ "$opt" = "hostname" ]; then
+Disallow: /restringido*/ (Denegar directorios que comienzan por "restringido")
 
-        echo $HOSTNAME
+Disallow: /pagina.html (Denegar una página)
 
-    elif [ "$opt" = "pwd" ]; then
-
-        pwd
-
-    elif [ "$opt" = "exit" ]; then
-
-        echo "salir"
-
-        exit
-
-    else
-
-        echo opción errónea
-
-    fi
-
-done
+Disallow: /*.png$ (Denegar los archivos que terminen con la extensión .png)
 </code></pre>
 
-<p>3.-</p>
+<p>Allow (Permitir el acceso a directorios, archivos o páginas)</p>
 
-<pre><code>#!/bin/bash
-
-PS3='Elija una opción : '
-
-options="linux win salir"
-
-echo opciones : $options
-
-select opt in $options
-
-do
-
-    if [ "$opt" = "salir" ]; then
-
-        echo "Salgo..."
-
-        exit
-
-    elif [ "$opt" = "linux" ]; then
-
-        echo "Muy bien..."
-
-    else
-
-        echo "Terriblemente mal..."
-
-    fi
-
-done
+<pre><code>Allow: /directorio/subdirectorio/ (Permitir un subdirectorio)
 </code></pre>
-</div>
-  
-  
 
+<p>Sitemap (Indica la ruta a un mapa del sitio en XML)</p>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/seeker/">Seeker</a></h1>
-    
-    
-      <p class="meta">
-        
+<pre><code>Sitemap: http://web.com/sitemap.xml
+</code></pre>
 
+<p>Crawl-delay (Indica número de segundos que debe esperar para cada acceso a cada página)</p>
 
+<pre><code>Crawl-delay: 30
+</code></pre>
 
+<p>Aspecto que puede presentar un archivo robots.txt:</p>
 
+<pre><code>User-agent: wget
 
+Disallow: /
 
+-- linea en blanco --  
 
+User-agent: grub-client
 
-  
+Disallow: /
 
+-- linea en blanco --
 
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
+User-agent: *
 
+Disallow: 
 
-  <div class="entry-content"><p>Comprobar la velocidad del disco duro, pero no en el inicio que es la parte más rápida como hace hdparm, sino de forma aleatoria en todo el espacio del disco.</p>
+-- linea en blanco --
 
-<blockquote><p># seeker /dev/sda</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sdiff/">Sdiff</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra dos ficheros interactivamente.</p>
-
-<blockquote><p>$ sdiff -W -B file1 file2 (Ignorando espacios [W] y lineas en blanco [B])</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/scrounge-ntfs/">Scrounge-ntfs</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Permite recuperar datos de particiones ntfs incluso corruptas.</p>
-
-<blockquote><p># scrounge-ntfs -l /dev/sda  (Para vusializar los datos del disco)</p></blockquote>
-
-<p>La salida del comando puede ser paracida a:</p>
-
-<p>Drive: /dev/sdc</p>
-
-<p>63              16787862        8               6291456</p>
-
-<p>16787925        471607195       8               6291456</p>
-
-<p>Con estos datos lanzar:</p>
-
-<blockquote><p># scrounge-ntfs -m 6291456 -c 8 /dev/sdc 16787925 471607195</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/scrot/">Scrot</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Captura de pantalla</p>
-
-<blockquote><p>$ scrot (Con los valores por defecto)</p>
-
-<p>$ scrot captura.png</p>
-
-<p>$ scrot -s captura.png (Para seleccionar un área en concreto)</p>
-
-<p>$ scrot -d 5 captura.png (retardar la captura 5 segundos)</p>
-
-<p>$ scrot -t 50 captura.png (para reducir la captura un 50%)</p>
-
-<p>$ scrot -ucd 5 (“u” captura la ventana que tiene el foco, “c” que muestre la cuenta regresiva y “d 5” los segundos de retardo)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/script/">Script</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:21:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[scriptreplay]. Copia en un fichero toda la actividad tecleada en consola hasta cesar con &#8220;exit&#8221;</p>
-
-<blockquote><p>$ script -a fichero.txt</p>
-
-<p>$ script -t 2> sesion.con -a sesion.vid  (grabará la sesion. Parar el proceso con crtl+d)</p>
-
-<p>$ scriptreplay sesion.con sesion.vid  (reproduce la sesión grabada)</p>
-
-<p>$ script -f /dev/pts/3   (redirigir hacia otra terminal)</p></blockquote>
-
-<p>1.-</p>
-
-<p>Varias formas de ejecutar un script:</p>
-
-<blockquote><p>$ bash miscript.sh</p>
-
-<p>$ sh miscript.sh</p>
-
-<p>$ source miscript.sh</p></blockquote>
-
-<p>O activando el bit de ejecución en los permisos del fichero:</p>
-
-<blockquote><p>$ chmod +x miscript.sh</p>
-
-<p>$ ./miscript.sh</p></blockquote>
+Sitemap: https://tractatuslapipaplena.herokuapp.com/sitemap.xml 
+</code></pre>
 </div>
   
   
@@ -658,43 +624,43 @@ done
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/nmap/">nmap</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/nethogs/">nethogs</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lilo/">lilo</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/anarchism/">anarchism</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sftp/">sftp</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/logrotate/">logrotate</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssh/">ssh</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lshell/">lshell</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/apt-mirror/">apt-mirror</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/typeset/">typeset</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

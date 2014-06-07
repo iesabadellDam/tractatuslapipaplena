@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Para restituir un gestor de arranque # grub grub&gt; grub&gt; find /boot/grub/stage1 (saber los grubs que tenemos en el PC) grub&gt; root (hd0,1) ( &hellip;">
+  <meta name="description" content="Reparar la tabla de particiones. # gpart /dev/sda (escanear el disco) # gpart -W /dev/sda /dev/sda (reparar) # gpart -f -i /dev/sda (escaneo completo &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/grub/">Grub</a></h1>
+      <h1 class="entry-title"><a href="/blog/gpart/">Gpart</a></h1>
     
     
       <p class="meta">
@@ -96,31 +96,422 @@
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Para restituir un gestor de arranque</p>
+  <div class="entry-content"><p>Reparar la tabla de particiones.</p>
 
-<blockquote><p># grub</p></blockquote>
+<blockquote><p># gpart /dev/sda (escanear el disco)</p>
 
-<pre><code>grub&gt;
+<p># gpart -W /dev/sda /dev/sda (reparar)</p>
 
-grub&gt; find /boot/grub/stage1    (saber los grubs que tenemos en el PC)
+<p># gpart -f -i /dev/sda (escaneo completo [-f] y preguntando si quieres o no activar la partición encontrada [-i])</p></blockquote>
+</div>
+  
+  
 
-grub&gt; root (hd0,1)     (escogemos el que queremos instalar)
 
-grub&gt; setup (hd0)     (y donde lo queremos instalar)
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/google/">Google</a></h1>
+    
+    
+      <p class="meta">
+        
 
-grub&gt; quit                 (salir)
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Buscador.</p>
+
+<p>1.-</p>
+
+<p>Mejorar busquedas :</p>
+
+<p>. No reconoce caracteres como el punto [.], el guión [-] o el circunflejo [<sup>]</sup></p>
+
+<p>. Suprimir articulos [campo de futbol -> campo futbol]</p>
+
+<p>. Google no distingue mayúsculas ni minúsculas.</p>
+
+<p>. Comillas. Busquedas textuales [&#8220;ludwig van beethoven&#8221;]</p>
+
+<p>. Operador lógico &#8220;OR&#8221; [mayúsculas] buscar dos conceptos [bach OR wagner]</p>
+
+<p>. Barra vertical. Lo mismo [beethoven|wagner]</p>
+
+<p>. ~ - Buscar palabras parecidas [~palabra]</p>
+
+<p>. related – parecido al anterior [related:www.site.com]</p>
+
+<p>. link - Buscar páginas que apuntan a otra [link:wwww.host.com]</p>
+
+<p>. info - Recabar información sobre un dominio [info:www.host.com]</p>
+
+<p>. Asterisco - Si se desconoce algún dato [&#8220;ludwig * beethoven&#8221;]</p>
+
+<p>. filetype - Buscar extensiones concretas [“comandos linux” filetype:pdf]</p>
+
+<p>. site - Restringir resultados por localización geografica [site:.es arroz, armas site:onion.to …]</p>
+
+<p>. time - Saber la hora de algún lugar [time Sao Paulo]</p>
+
+<p>. sunset - Cuando saldrá el sol en algún lugar [sunset Sao Paulo]</p>
+
+<p>. sunrise - Cuando se pondrá en algún lugar [sunrise Sao Paulo]</p>
+
+<p>. cache - Cuando la página ya no está accesible [cache:www.host.com]</p>
+
+<p>. intitle – las que contengan la palabra o frase en el título [intitle:beethoven]</p>
+
+<p>. allintitle - Las que contengan varias palabras sin necesidad de comillas [allintitle:bach,beethoben]</p>
+
+<p>. intext - Buscar la palabra solo en el texto [intext:bach]</p>
+
+<p>. define – Buscar la definición de una palabra [define:palabra]</p>
+
+<p>. inurl - Buscar por algun detalle en la url [inurl:pipa]</p>
+
+<p>. all inurl - Las que contengan varias palabras en su url</p>
+
+<p>. linux 2012..2013 - Buscar una palabra en artículos entre un rango de años.</p>
+
+<p>. 58*13 - Usar google como calculadora</p>
+
+<p>. 100USD a EUR - Conversor de divisas [EUR = Euro, USD = Dólar, JPY = Yen, GBP = Libra esterlina, CHF = Franco suizo &#8230;]</p>
+
+<p>. 42km/h a m/s - Convertir km/hora a metros/segundo</p>
+
+<p>. 1024 GB to  kb - Convertir gigabytes a kilobytes</p>
+
+<p>. 26hr to sec - Convertir horas a segundos</p>
+
+<p>. Usar el menos [-] y el más [+] para excluir o incluir de una busqueda determinado concepto [comandos -militares, comandos +militares]</p>
+
+<p>. do a barrel roll – La página da una vuelta completa en la pantalla.</p>
+
+<p>2.-</p>
+
+<p>Gdrive (google-docs-fs)</p>
+
+<blockquote><p># mkdir /media/gdrive</p>
+
+<p># gmount /media/gdrive cuenta@gmail.com -d (Pedirá contraseña de la cuenta y mostrando la salida del comando. Para desmontar: gumount /media/gdrive)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/golismero/">Golismero</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Framework para auditorías de seguridad y pentesting.</p>
+
+<blockquote><p>$ git clone https://github.com/golismero/golismero.git (Descargar la última versión)</p>
+
+<p>$ cd golismero</p>
+
+<p># python golismero.py localhost -o prueba.html -o prueba.txt &#8211;audit-name prueba_localhost (Iniciar la uditoria, que guarde el resultado en .html y .txt y dándole un nombre)</p>
+
+<p># python golismero.py URL -i nikto_output.csv -o report.html -d all (Importar el resultado de un scaneo con nikto [-i] y desactivando todos los plugins [-d])</p>
+
+<p># python golismero.py URL -nd (Sin guardar los resultados en la base de datos. Por defecto lo hace automáticamente)</p>
+
+<p># python golismero.py URL -db database.db -no (Realizar el scaneo y guardarlo en la basa de datos)</p>
+
+<p># python golismero.py -db database.db -d all -o report.html (Generar un informe a partir de un scaneo guardado en la base de datos)</p>
+
+<p># python golismero.py &#8211;plugin-list (Ver listado de plugins disponibles)</p>
+
+<p># python golismero.py &#8211;plugin-info dns_analyzer (Ver detalles de un plugin concreto)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/gocr/">Gocr</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>programa que imprime en la salida estándar todo el texto que puede leer de cualquier fichero gráfico de entrada. Usado especialmente para el descifrado de kapchas. El programa necesita cierto aprendizaje.</p>
+
+<blockquote><p>$ mkdir ocrdb</p>
+
+<p>$ gocr -d 2 -p ./ocrdb/ -m 256 -m 130 kapcha.jpg (El aprendizaje. Lanzar varias veces)</p>
+
+<p>$ gocr -p ocrdb/ -m 2 kapcha.jpg (Comprobar si el programa lo resuelve solo)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/goaccess/">Goaccess</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Analiza el registro del servervidor web Apache</p>
+
+<blockquote><p># goaccess -f /var/log/apache2/access.log (forma básica, especificando el fichero)</p>
+
+<p># goaccess -f /var/log/apache2/access.log -a -s -b (Habilitar lista de usuarios para el servidor seleccionado [a], activar respuesta de estado HTTP [s] y habilitar el consumo de ancho de banda total [b])</p>
+
+<p># goaccess -f /var/log/apache2/access.log -a > reporte.html (Mandar resultado a un archivo html)</p></blockquote>
+
+<p>Nota.- Con la aplicación en marxa, con F1 aparecen las teclas interactivas.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/go2/">Go2</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Buscador de directorios. En Ubuntu es necesario hacer el “&#8211;setup”.</p>
+
+<blockquote><p>$ go2 images (Mostrará una lista de todos los directorios “images” del directorio personal precedidos de una letra [a, b, c&#8230;] al pulsarla, entraremos directamente en el directorio especificado)</p>
+
+<p>$ go2 -r carpeta (Busca desde el directorio raiz)</p>
+
+<p>$ go2 -l carpeta (Hace la búsqueda pero sólo muestra el resultado saliendo al acabar dicha búsqueda)</p>
+
+<p>$ /usr/lib/go2/go2.sh &#8211;setup (configura nuestro .bashrc para poder llamar al comando con go2 simplemente)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/gnome-terminal/">Gnome-terminal</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Emulador de terminal de gnome.</p>
+
+<blockquote><p>$ gnome-terminal &#8211;hide-menubar &#8211;geometry=200x70+0+0 -e &#8220;sh -c &#8216;links2 http://google.es&#8217;&#8221;&amp; (arrancar una terminal, sin menús, con unas medidas concretas y en ella, arrancar el navegador)</p></blockquote>
+
+<p>Opciones:</p>
+
+<pre><code>--window-with-profile=perfil2  (especificar un perfil para arrancar)
+
+--show-menubar  (Mostrar los menús)
+
+--maximize (maximizada)
+
+--full-screen (a pantalla completa)
+
+--zoom=x.x (factor de ampliación de la terminal [--zoom=1.0 medida normal])
 </code></pre>
 
-<blockquote><p># grub-install &#8211;root-directory=/media/floppy fd0 (crear un disquete de arranque)</p>
+<p>atajos:</p>
 
-<p># grub-install &#8211;root-directory=/mnt/sda1 &#8211;recheck /dev/sda (indica el directorio donde procede grub, parecido al comando anterior)</p></blockquote>
+<pre><code>Ctrl + a (lleva el cursor al principio de la línea)
+
+Ctrl + b (Retrocede un carácter)
+
+Ctrl + c (mata lo que se está escribiendo y devuelve el prompt)
+
+Ctrl + d (Sale de root y si está como usuario, cierra la terminal)
+
+Ctrl + e (lleva el cursor al final de la línea)
+
+Ctrl + f (adelanta un caracter)
+
+Ctrl + k (Borra de la posición actual al final de la linea)
+
+Ctrl + l (limpia la pantalla)
+
+Ctrl + r (Buscar en el historial de comandos. “Esc” editar. “Ctrl +g” abortar “Intro” ejecutar)
+
+Ctrl + t (Intercambiar las dos letras anteriores al cursor [pieran → pierna])
+
+Ctrl + u (Borra de la posición actual al principio de la linea)
+
+Ctrl + w (borra del cursor al primer espacio hacia el principio de la linea)
+
+Ctrl + y (Deshace la última acción)
+
+Ctrl + Mayu + t (Abrir nueva pestaña)
+
+Ctrl + Mayu + w (Cerrar pestaña)
+
+Esc + d (Borra de la posición actual al final de la palabra)
+
+Esc + b (Ir una palabra hacia atras)
+
+Esc + f (Ir una palabra hacia adelante)
+
+Esc + t (Intercambiar las dos palabras anteriores al cursor [sin tos → tos sin])
+
+Mayús+RePág (Hace scroll de la terminal hacia arriba)
+
+Mayús+AvPág (Hace scroll de la terminal hacia abajo)
+</code></pre>
+
+<p>1.-</p>
+
+<p>Cambiar las medidas por defecto de la terminal:</p>
+
+<blockquote><p># nano /usr/share/vte/termcap/xterm</p></blockquote>
+
+<p>Buscar la linea:</p>
+
+<p>co#80:it#8:li#24:\</p>
+
+<p>Y modificar los parámetros co (columnas) y li (lineas) con las nuevas medidas: co#100:it#8:li#10:\</p>
 </div>
   
   
@@ -133,7 +524,7 @@ grub&gt; quit                 (salir)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/grpck/">Grpck</a></h1>
+      <h1 class="entry-title"><a href="/blog/gnome-screensaver-command/">Gnome-screensaver-command</a></h1>
     
     
       <p class="meta">
@@ -149,16 +540,29 @@ grub&gt; quit                 (salir)
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Chequea las sintaxis correcta del fichero /etc/group.</p>
+  <div class="entry-content"><p>Herramienta de control del salvapantallas</p>
 
-<blockquote><p># grpck (Una salida vacia indica que todo es correcto)</p></blockquote>
+<blockquote><p>$ gnome-screensaver-command -l (Bloqueo inmediato)</p></blockquote>
+
+<p>Opciones</p>
+
+<pre><code>--exit (Salir de salvapantalla)
+
+-q (Consulta el estado de la pantalla)
+
+-t (Tiempo para que entre en acción)
+
+-a (Activarlo)
+
+-d (Desactivarlo)
+</code></pre>
 </div>
   
   
@@ -171,7 +575,7 @@ grub&gt; quit                 (salir)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/growisofs/">Growisofs</a></h1>
+      <h1 class="entry-title"><a href="/blog/gnome-keyring/">Gnome-keyring</a></h1>
     
     
       <p class="meta">
@@ -187,16 +591,30 @@ grub&gt; quit                 (salir)
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Grabación de dvds.</p>
+  <div class="entry-content"><p>Demonio para gestionar de manera segura las credenciales de acceso del usuario, como los nombre de usuario y las contraseñas. Usando algunos escritorios la consola puede mostrar el error:</p>
 
-<blockquote><p>$ growisofs -dvd-compat -Z /dev/sdb=imagen.iso</p></blockquote>
+<p>WARNING: gnome-keyring:: couldn&#8217;t connect to: /home/USER/.cache/keyring-s1KHzb/pkcs11: El fichero o directorio no existe</p>
+
+<p>Para resolverlo:</p>
+
+<blockquote><p># nano /etc/xdg/autostart/gnome-keyring-pkcs11.desktop</p></blockquote>
+
+<p>Buscar la linea:</p>
+
+<p>OnlyShowIn=GNOME;Unity;</p>
+
+<p>Y añadir el escritorio usado:</p>
+
+<p>OnlyShowIn=GNOME;Unity;LXDE;Xfce</p>
+
+<p>Reiniciar</p>
 </div>
   
   
@@ -209,7 +627,7 @@ grub&gt; quit                 (salir)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/groups/">Groups</a></h1>
+      <h1 class="entry-title"><a href="/blog/gnome/">Gnome</a></h1>
     
     
       <p class="meta">
@@ -225,292 +643,121 @@ grub&gt; quit                 (salir)
   
 
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:10:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra los grupos a los que pertenece el usuario.</p>
+  <div class="entry-content"><p>Entorno de escritorio</p>
 
-<blockquote><p>$ groups usuario  (El usuario especificado)</p>
+<blockquote><p># rm -rf .gnome .gnome2 .gconf .gconfd .metacity (Resetear la configuración)</p>
 
-<p>$ groups  (Sin especificar usuario muestra los del usuario con el que estamos)</p></blockquote>
-</div>
-  
-  
+<p>$ gnome-open archivo.odt   (abrir un archivo con la aplicación asociada a ella por defecto)</p>
 
+<p>$ gnome-open http://web.com   (lo mismo con una dirección web)</p></blockquote>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/groupmod/">Groupmod</a></h1>
-    
-    
-      <p class="meta">
-        
+<p>Ajustes</p>
 
+<p>1.-</p>
 
+<p>Suprimir rastro de los documentos e imagenes abiertas (lugares -> Documentos recientes):</p>
 
+<blockquote><p>$ rm .recently-used.xbel</p>
 
+<p>$ mkdir .recently-user.xbel</p></blockquote>
 
+<p>También:</p>
 
+<blockquote><p>$ nano .gtkrc-2.0</p></blockquote>
 
+<p>Si no está se crea. Añadir la linea:</p>
 
-  
+<p>gtk-recent-files-max-age=0</p>
 
+<p>2.-</p>
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
+<p>Acciones sobre gnome y paneles</p>
 
+<blockquote><p># killall gnome-panel (Matar el proceso)</p>
 
-  <div class="entry-content"><p>Renombrar grupos.</p>
+<p># dpkg &#8211;purge &#8211;force-all gnome-panel gnome-panel-data (Desinstalar)</p>
 
-<blockquote><p># grouopmod -n nuevo_grupo viejo_grupo</p></blockquote>
-</div>
-  
-  
+<p># apt-get install gnome-panel gnome-panel-data (instalar el panel)</p>
 
+<p># apt-get install &#8211;einstall gnome-panel gnome-panel-data (reinstalarlo)</p>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/groupdel/">Groupdel</a></h1>
-    
-    
-      <p class="meta">
-        
+<p># /etc/init.d/gdm restart (reiniciar gnome)</p>
 
+<p># gnome-panel &amp; (lanzar la aplicación)</p>
 
+<p># pkg-reconfigure xserver-xorg (reconfigurar la seccion gráfica)</p>
 
+<p># apt-get remove gnome-desktop (desinstalar las X)</p>
 
+<p># apt-get install gnome-desktop (instalar las X)</p>
 
+<p># pgrep -lf gnome-panel | awk &#8216;{if ($2==&#8221;gnome-panel&#8221;) print $1}&#8217; | xargs kill -9 (reiniciar los paneles)</p></blockquote>
 
+<p>3.-</p>
 
+<p>Carpetas por defecto que aparecen en el directorio /home</p>
 
-  
+<blockquote><p>$ cat .config/user-dirs.dirs | grep ^XDG</p></blockquote>
 
+<p>XDG_DESKTOP_DIR=&#8221;$HOME/Escriptori&#8221;</p>
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
+<p>XDG_DOWNLOAD_DIR=&#8221;$HOME/Baixades&#8221;</p>
 
+<p>XDG_TEMPLATES_DIR=&#8221;$HOME/&#8221;</p>
 
-  <div class="entry-content"><p>Borrar un grupo.</p>
+<p>XDG_PUBLICSHARE_DIR=&#8221;$HOME/Públic&#8221;</p>
 
-<blockquote><p># groupdell oficina</p></blockquote>
-</div>
-  
-  
+<p>XDG_DOCUMENTS_DIR=&#8221;$HOME/Documents&#8221;</p>
 
+<p>XDG_MUSIC_DIR=&#8221;$HOME/Música&#8221;</p>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/groupadd/">Groupadd</a></h1>
-    
-    
-      <p class="meta">
-        
+<p>XDG_PICTURES_DIR=&#8221;$HOME/Imatges&#8221;</p>
 
+<p>XDG_VIDEOS_DIR=&#8221;$HOME/Vídeos&#8221;</p>
 
+<p>Para modificarlas editar el archivo:  nano .config/user-dirs.dirs y, si por ejemplo, tenemos las imágenes en /media/sda5/imatges con su entrada en /etc/fstab  Auto, dejamos la entrada correspondiente:</p>
 
+<p>XDG_PICTURES_DIR=&#8221;/media/sda5/imatges&#8221;</p>
 
+<p>Atajos escritorio</p>
 
+<pre><code>Ctrl+o (Abre la carpeta personal o la del documento abierto)
 
+Ctrl+Alt+tecla de cursor (Cambia el espacio de trabajo)
 
+Ctrl+Alt+backspace (Reiniciar entorno gráfico si está activado)
 
-  
+F1 (Muestra la Ayuda)
 
+F11 (Pantalla completa)
 
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
+Alt+Inicio (Abre la carpeta personal)
 
+Alt+ImprPant (Realiza una captura de la ventana actual)
 
-  <div class="entry-content"><p>Crear un nuevo grupo</p>
+Alt+F1 (Abre el menú aplicaciones)
 
-<blockquote><p># groupadd oficina</p></blockquote>
-</div>
-  
-  
+Alt+F2 (Abre el cuadro lanzar aplicaciones)
 
+Alt+F4 (Cierra la ventana activa)
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/grive/">Grive</a></h1>
-    
-    
-      <p class="meta">
-        
+Alt+F7 (Mueve ventana con las teclas de cursor. Para finalizar pulsar tecla)
 
+Alt+F8 (Cambia tamaño de ventana con teclas de cursor. finalizar pulsar tecla)
 
+Alt+F9 (Minimiza)
 
+Alt+F10 (Maximiza)
 
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[gdrive]. Permite sincronizar cualquier carpeta local con el servicio de almacenamiento online de Google. En Ubuntu: add-apt-repository ppa:nilarimogard/webupd8</p>
-
-<blockquote><p>$ mkdir grive (crear una carpeta para sincronizar archivos)</p>
-
-<p>$ cd grive (Entrar en la carpeta)</p>
-
-<p>$ grive -a (Mostrará una URL que debe copipastearse al navegador, preferiblemente chromium, y este nos mostrará un código que ha de copipastearse a la consola, tras lo cual empieza el sincronización)</p></blockquote>
-
-<p>A partir de este momento siempre que entremos en la carpeta gdrive podremos sincronizarla con el almacenamiento de Google lanzando:</p>
-
-<blockquote><p>$ grive</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/grep/">Grep</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Lee la entrada estándar o un archivo e imprime las líneas que cumplan el patrón. Ver expresiones regulares</p>
-
-<blockquote><p>$ grep -c &#8216;UUID&#8217; /etc/fstab (Muestra sólo el número de líneas que coinciden con el patron)</p>
-
-<p>$ grep -n &#8216;UUID&#8217; /etc/fstab (Muestra el número de lineas y su contenido)</p>
-
-<p>$ grep -i &#8216;uuid&#8217; /etc/fstab (No distingue entre mayusculas ni minúsculas)</p>
-
-<p>$ grep -w &#8216;fstab&#8217; /etc/fstab (Ha de coincidir el patron completo, no una parte)</p>
-
-<p>$ grep -v &#8216;fstab&#8217; /etc/fstab (Muestra las que no tienen el patrón)</p>
-
-<p>$ grep -E &#8216;fstab|dev&#8217; /etc/fstab (Mostras las lineas que contengan dos palabras. Requiere habilitar las expresiones regulares extendidas [ver])</p>
-
-<p>$ grep -e &#8216;fstab&#8217; -e &#8216;dev&#8217; /etc/fstab (Forma de mostrar las lineas que contengan dos palabras sin habilitar las expresiones regualres extendidas)</p>
-
-<p>$ grep -r &#8216;fstab&#8217; /etc (Buscar una palabra de un directorio y los subdirectorios)</p>
-
-<p>$ grep -l -r &#8216;fstab&#8217; /etc (Sólo mostrar los archivos que contienen la palabra en el directorio y los subdirectorios)</p>
-
-<p>$ grep -n &#8216;fstab&#8217; /etc/fstab (Mostrar la linea y el número de linea)</p>
-
-<p>$ grep -A 2 &#8216;swap&#8217; /etc/fstab (Mostrar la línea y las 2 siguientes)</p>
-
-<p>$ grep &#8211;color UUID /etc/fstab (Resaltar en color la palabra &#8220;UUID&#8221;)</p></blockquote>
-
-<p>Otras opciones:</p>
-
-<blockquote><p>$ grep -Fx -f archivo1 archivo2 (Mostrar líneas que aparezcan en dos archivos)</p>
-
-<p># grep -i -a -B35 -A90 &#8216;palabreja&#8217; /dev/sda1 > recup.txt (recuperar un archivo borrado con rm que incluye la palabra “palabreja” y su tamaño estimado: [-B50] 35 lineas anteriores a “palabreja” y [-A90] 90 lineas posteriores. Especificar partición y archivo de recuperación)</p>
-
-<p>$ grep cups /etc/services (Conocer el puerto por el que corre un servicio)</p>
-
-<p>$ grep 631 /etc/services (Conocer el servicio por el que corre un puerto)</p>
-
-<p>$ grep -s &#8216;palabra&#8217; * (Suprime los mensajes de error sobre ficheros que no existen o no se pueden leer)</p></blockquote>
-
-<p>Buscar tres palabras al inicio de la linea [escapando la barra vertical] de un archivo:</p>
-
-<p>  $ mysqldump &#8211;help | grep ^routines\|<sup>trigg\|<sup>user</sup></sup> -E</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/grc/">Grc</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:19:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Colorear la salida de los comandos especificados en /etc/grc.conf</p>
-
-<blockquote><p>$ grc ping www.tuxapuntes.com</p></blockquote>
+Alt+Ctrl+Shift+teclas de cursor (Mueve la ventana activa a otra área de trabajo)
+</code></pre>
 </div>
   
   
@@ -541,43 +788,43 @@ grub&gt; quit                 (salir)
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/nmap/">nmap</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/nethogs/">nethogs</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lilo/">lilo</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/anarchism/">anarchism</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sftp/">sftp</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/logrotate/">logrotate</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssh/">ssh</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lshell/">lshell</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/apt-mirror/">apt-mirror</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/typeset/">typeset</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

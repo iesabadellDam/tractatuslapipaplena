@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Crear nuevo valor uuid $ uuidgen -r (Aleatorio) $ uuidgen -t (Crea un UUID basado en el reloj del sistema)
-">
+  <meta name="description" content="Fija los permisos de un fichero o directorio. Los permisos base para los directorios son 0777 (rwxrwxrwx) y para los archivos 0666 (rw-rw-rw-). Por &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/uuidgen/">Uuidgen</a></h1>
+      <h1 class="entry-title"><a href="/blog/umask/">Umask</a></h1>
     
     
       <p class="meta">
@@ -97,157 +96,33 @@
   
 
 
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:14:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Crear nuevo valor uuid</p>
+  <div class="entry-content"><p>Fija los permisos de un fichero o directorio. Los permisos base para los directorios son 0777 (rwxrwxrwx) y para los archivos 0666 (rw-rw-rw-). Por tanto la cifra que proporciona umask ha de restarse de estos importes para conocer los permisos reales:</p>
 
-<blockquote><p>$ uuidgen -r (Aleatorio)</p>
+<blockquote><p>$ umask (muestra permisos actuales. Normalmente 0022 por tanto los permisos reales son 755 para directorios y 644 para ficheros)</p></blockquote>
 
-<p>$ uuidgen -t (Crea un UUID basado en el reloj del sistema)</p></blockquote>
-</div>
-  
-  
+<p>Ejemplo:</p>
 
+<pre><code>$ touch archivo.txt
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/uuencode/">Uuencode</a></h1>
-    
-    
-      <p class="meta">
-        
+$ mkdir dir
 
+$ ls -l
 
+total 4
 
+-rw-r--r-- 1 templix templix    0 abr 12 06:10 archivo.txt
 
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[sharutils]. Algoritmo utilizado para convertir datos binarios de 8 bits a formato de 7 bits. La codificación uuencoding se creó originalmente para enviar archivos binarios mediante el protocolo de correo electrónico uucp. Si no se especifica salida se muestra por pantalla (/dev/stdout)</p>
-
-<blockquote><p>$ uuencode file1 file2 > file.uue (&#8220;file1&#8221;: nombre del binario a codificar, &#8220;file2&#8221;: Nombre que tendrá el binario una vez descodificado [puede ser el mismo que el binario original] y &#8220;file.uue&#8221; el nombre que se verá en el directorio.)</p>
-
-<p>$ uudecode file.uue (Descodificar el binario. Se verá con el nombre puesto en &#8220;file2&#8221;)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/utorrent/">Utorrent</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Descarga de torrents. Previamente crear los directorios de descargas:</p>
-
-<blockquote><p>$ mkdir rtorrent</p>
-
-<p>$ mkdir rtorrent/descargas</p>
-
-<p>$ mkdir rtorrent/sesion vsftpd</p>
-
-<p>$ mkdir rtorrent/torrents</p></blockquote>
-
-<p>Los torrents se colocan en la carpeta rtorrent/torrents para que al abrir la aplicación los coja directo. Crear un archivo de configuración:</p>
-
-<blockquote><p>$ touch .rtorrent.rc</p></blockquote>
-
-<p>Editarlo y pegar las siguientes entradas:</p>
-
-<blockquote><p>$ nano .rtorrent.rc</p>
-
-<p># Session directory</p></blockquote>
-
-<p>session = /home/USER/rtorrent/sesion</p>
-
-<p>directory = /home/USER/rtorrent/descargas</p>
-
-<p>schedule = watch_directory,5,5,load_start=/home/USER/rtorrent/torrents/*.torrent</p>
-
-<blockquote><p># Port range to use for listening.</p></blockquote>
-
-<p>port_range = 55556-55560</p>
-
-<blockquote><p># Maximum number of simultanious uploads per torrent.</p></blockquote>
-
-<p>max_uploads = 5</p>
-
-<blockquote><p># Global upload and download rate in KiB. &#8220;0&#8221; for unlimited.</p>
-
-<p>#download_rate = 0</p></blockquote>
-
-<p>upload_rate = 50</p>
-
-<blockquote><p># Maximum and minimum number of peers to connect to per torrent.</p>
-
-<p>#min_peers = 40</p></blockquote>
-
-<p>max_peers = 80</p>
-
-<blockquote><p># Same as above but for seeding completed torrents (-1 = same as downloading)</p></blockquote>
-
-<p>min_peers_seed = 10</p>
-
-<p>max_peers_seed = 30</p>
-
-<p>Algunos atajos:</p>
-
-<pre><code>^ q (cierra la aplicación)
-
-Flechas arriba y abajo (Selecciona torrents)
-
-flecha derecha (Muestra información sobre el torrent seleccionado)
-
-^ s (Inicia la descarga el torrent seleccionado)
-
-^ d (para la descarga o, si está parada, suprime el torrent)
+drwxr-xr-x 2 templix templix 4096 abr 12 06:10 dir
 </code></pre>
+
+<blockquote><p># umask 0002 (Modifica los permisos a 0775 para directorios y 664 para archivos)</p></blockquote>
 </div>
   
   
@@ -260,7 +135,7 @@ flecha derecha (Muestra información sobre el torrent seleccionado)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/users/">Users</a></h1>
+      <h1 class="entry-title"><a href="/blog/ulimit/">Ulimit</a></h1>
     
     
       <p class="meta">
@@ -276,190 +151,107 @@ flecha derecha (Muestra información sobre el torrent seleccionado)
   
 
 
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:14:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Quien está conectado al sistema</p>
+  <div class="entry-content"><p>Permite  visualizar o limitar los recursos del sistema.</p>
 
-<blockquote><p>$ users | xargs -n1 echo | sort | uniq -c  (número de sesiones abierta por los usuarios.</p></blockquote>
-</div>
-  
-  
+<blockquote><p># ulimit -f 512000 (limita a los usuarios para que no puedan crear archivos de mayor tamaño que 512000 Kb [500 #Mb])</p>
 
+<p>$ ulimit -a   (ver todos los parámetros)</p></blockquote>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/usermod/">Usermod</a></h1>
-    
-    
-      <p class="meta">
-        
+<p>Parámetros:</p>
 
+<pre><code>core (Tamaño máximo de los ficheros core [KB])
 
+data (Tamaño máximo para el segmento de datos [KB])
 
+fsize (Tamaño máximo para los ficheros [KB])
 
+memlock (Tamaño máximo para el espacio de direcciones bloqueado en memoria [KB])
 
+nofile (Número máximo de ficheros abiertos)
 
+rss (Tamaño máximo del conjunto residente en memoria [KB])
 
+stack (Tamaño máximo para la pila [KB])
 
-  
+cpu (Tiempo máximo de CPU [minutos])
 
+nproc (Número máximo de procesos)
 
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
+as (Límite en el espacio de direcciones)
 
+maxlogins (Número máximo de logins)
 
-  <div class="entry-content"><p>modifica propiedades de los usuarios [directorio base, el shell, grupos a los que pertenece, expiración, bloqueo/desbloqueo de la cuenta]</p>
+priority (Prioridad de base para los procesos del usuario)
 
-<blockquote><p># usermod -G grupo1,grupo2 usuario (añade usuario a grupos)</p>
+locks (Número máximo de ficheros bloqueados que el usuario puede mantener)
+</code></pre>
 
-<p># usermod -a -G video usuario  (incluye usuario al grupo video. )</p>
+<p>Nota.- El ámbito de aplicación del límite puede ser un nombre de usuario, un grupo (@grupo) o todos (*)</p>
 
-<p># usermod -e 2009-12-10 user  (la cuenta de user expira el 20-12-09)vsftpd</p>
+<p>Un ejemplo de limit.conf:</p>
 
-<p># usermod -L usuario  (Bloquea a usuario)</p>
+<pre><code>*               soft    nproc           10000
 
-<p># usermod -U usuario  (Desbloquea a usuario)</p>
+*               hard    nproc           4096
 
-<p># usermod -u 999 usuario (baja el ID del usuario, normalmente 1000, para ocultarlo de la pantalla de login [gdm])</p>
+*               soft    core            unlimited
 
-<p># usermod -s /sbin/nologin apache (Otorga al usuario apache una shell que no permite la ejecución de ningún comando)</p>
+*               hard    core            unlimited
 
-<p># usermod -l juan pedro (Cambiar el nombre de usuario “pedro” a “juan”)</p>
+*               soft    memlock         131072
 
-<p># usermod -d /home/nuevo -m usuario (modificar el nombre del directorio  home de un usuario)</p></blockquote>
-</div>
-  
-  
+*               hard    memlock         131072
 
+*               soft    nofile          102400
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/userdel/">Userdel</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Borrar usuarios</p>
-
-<blockquote><p># userdel usuario (Elimina al usuario pero no su directorio personal)</p>
-
-<p># userdel -r usuario (lo borra junto a su directorio $HOME)</p>
-
-<p># userdel -f usuario (Borra al usuario y su directorio personal incluso aunque esté logeado en el sistema)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/useradd/">Useradd</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Crear usuarios.</p>
-
-<blockquote><p># useradd -d /home/user -m user (Especifica la ruta a su $HOME)</p></blockquote>
-
-<p>Otras opciones:</p>
-
-<p>-M usuario  (sin directorio $HOME)</p>
-
-<p>-g users user (grupo principal al que pertenece el usuario)</p>
-
-<p>-e 20111231 user (fecha de expiración de un usuario: 2011-12-31)</p>
-
-<p>-G video,audio user (grupos adicionales a los que pertenece)</p>
-
-<p>-s /bin/bash (especifica la shell del usuario)</p>
-
-<p>-s /sbin/nologin (El usuario no podra logearse en el sistema. Ideal para usuarios con acceso a Samba o FTP sin acceso al interprete de comandos)</p>
-
-<p>-u 503 (Identificador que sera asignado al usuario. Por defecto la UID será a partir del numero 500. Si no se especifica, automáticamente se establece el siguiente número disponible a partir del último usuario creado.)</p>
-
-<p>Un ejemplo completo:</p>
-
-<blockquote><p># useradd -d /home/paco -g users -s /bin/bash -m paco</p></blockquote>
+*               hard    nofile          102400
+</code></pre>
 
 <p>1.-</p>
 
-<p>/etc/default/useradd</p>
+<p>Evitar Forkboms [programas que consumen la totalidad de los recursos del sistema]</p>
 
-<p>Archivo donde se definen los valores [shell, directorio del directorio personal, ID del grupo, expiración de la contraseña&#8230;] por defecto para la creación de nuevos usuarios [ver useradd y skel]</p>
+<p>Si al lanzar el comando:</p>
 
-<p>Algunos parámetros:</p>
+<blockquote><p>$ ulimit -u</p></blockquote>
 
-<pre><code>GROUP=100
+<p>El resultado es “ilimitado” o un valor extremadamente alto, podemos ser victimas de los forkbombs. Para resolverlo podemos limitar el número de procesos abiertos a 1000 para que estos no puedan llegar a colapsar el sistema:</p>
 
-HOME=/home
+<blockquote><p># gedit /etc/security/limits.conf</p></blockquote>
 
-INACTIVE=-1
+<p>Añadir antes de “End of file”:   * hard nproc 1000</p>
 
-EXPIRE=
+<p>Reiniciar</p>
 
-SHELL=/bin/sh
+<p>2.-</p>
 
-SKEL=/etc/skel
+<p>En ciertas ocasiones, al procesar muchos archivos, se produce un error &#8220;for output (Too many open files)&#8221; porque se desborda el limite de 1024 k. Para solucionarlo:</p>
+
+<blockquote><p># nano /etc/security/limits.conf</p></blockquote>
+
+<p>Y añadir las siguientes lineas:</p>
+
+<pre><code>*    soft    nofile    9000
+
+*    hard    nofile    65000
+</code></pre>
+
+<p>3.-</p>
+
+<p>Limitar la cantidad de usuarios conectados al sistema:</p>
+
+<blockquote><p># nano /etc/security/limits.conf</p></blockquote>
+
+<p>Y en el parámetro maxlogins modificamos el número que deseemos:</p>
+
+<pre><code>*    -       maxlogins 3
 </code></pre>
 </div>
   
@@ -473,7 +265,7 @@ SKEL=/etc/skel
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/user-dirs-dot-dirs/">user-dirs.dirs</a></h1>
+      <h1 class="entry-title"><a href="/blog/ul/">Ul</a></h1>
     
     
       <p class="meta">
@@ -489,30 +281,17 @@ SKEL=/etc/skel
   
 
 
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:14:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Archivo donde se especifican los directorios que saldran por defecto en el $HOME:</p>
+  <div class="entry-content"><p>Subrayado de palabras en la terminal.</p>
 
-<p>XDG_DESKTOP_DIR=”$HOME/Escritorio”</p>
-
-<p>XDG_DOWNLOAD_DIR=”$HOME/Descargas”</p>
-
-<p>XDG_TEMPLATES_DIR=”$HOME/Plantillas”</p>
-
-<p>XDG_PUBLICSHARE_DIR=”$HOME/Público”</p>
-
-<p>XDG_DOCUMENTS_DIR=”$HOME/Documentos”</p>
-
-<p>XDG_MUSIC_DIR=”$HOME/Música”</p>
-
-<p>XDG_PICTURES_DIR=”$HOME/Imágenes”</p>
-
-<p>XDG_VIDEOS_DIR=”$HOME/Vídeos”</p>
+<pre><code>$ echo $'linux es g\b_e\b_n\b_i\b_a\b_l\b_ ' | ul (Cada letra a subrayar ha de ir seguida de \b_)
+</code></pre>
 </div>
   
   
@@ -525,7 +304,7 @@ SKEL=/etc/skel
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/usbmount/">Usbmount</a></h1>
+      <h1 class="entry-title"><a href="/blog/ufw/">Ufw</a></h1>
     
     
       <p class="meta">
@@ -541,24 +320,34 @@ SKEL=/etc/skel
   
 
 
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:14:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>(+ autofs [demonio]). Automontar dispositivos de almacenamiento externo. Editar:</p>
+  <div class="entry-content"><p>Cortafuegos</p>
 
-<blockquote><p># nano /etc/usbmount/usbmount.conf</p></blockquote>
+<blockquote><p># ufw enable (activar el cortafuegos. “disable” para desactivarlo)</p>
 
-<p>Y verificar/modificar según necesidades, las lineas:</p>
+<p># ufw deny 4662 (bloquea el puerto)</p>
 
-<p>MOUNTPOINTS=&#8221;/media/usb0 /media/usb1 /media/usb2 /media/usb3 /media/usb4 /media/usb5 /media/usb6 /media/usb7&#8221;</p>
+<p># ufw delete deny 4662 (Elimina una regla)</p>
 
-<p>FILESYSTEMS=&#8221;vfat ext2 ext3 ext4 hfsplus&#8221;</p>
+<p># ufw allow smtp (permitir servicios concretos)</p>
 
-<p>MOUNTOPTIONS=&#8221;sync,noexec,nodev,noatime,users,umask=000&#8221;</p>
+<p># ufw status (visualizar las normas definidas)</p>
+
+<p># ufw status verbose (Información de estado con mayor detalle)</p>
+
+<p># ufw default allow (permitir todo por defecto)</p>
+
+<p># ufw default deny (bloquear todo por defecto)</p>
+
+<p># ufw deny from ip (bloquear dirección ip)</p>
+
+<p># ufw logging on (activar los logs. “off” para desactivarlos. Herramienta de registro: fwanalog, fwlogwatch, o lire.)</p></blockquote>
 </div>
   
   
@@ -571,7 +360,7 @@ SKEL=/etc/skel
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/usb-modeswitch/">Usb_modeswitch</a></h1>
+      <h1 class="entry-title"><a href="/blog/udisks/">Udisks</a></h1>
     
     
       <p class="meta">
@@ -587,69 +376,232 @@ SKEL=/etc/skel
   
 
 
-<time datetime="2014-04-05T18:22:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:14:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Configuración del modem Huawei. Editar:</p>
+  <div class="entry-content"><p>Comando para montar y desmontar volumenes usando el demonio que llaman programas como Nautilus o Thunar. Con este método conseguimos que desde estos programas se pueda desmontar cómodamente la partición y además sin necesidad de permisos.</p>
 
-<blockquote><p># gedit /etc/usb_modeswitch.conf</p></blockquote>
+<blockquote><p>$ udisks &#8211;mount /dev/sda1 (montará esta partición).</p>
 
-<pre><code>EnableLogging=0
+<p>$ udisks &#8211;unmount /dev/sda1 (desmontará esta partición).</p>
+
+<p>$ udisks &#8211;monitor (Monitoriza la actividad del demonio. Muy útil para verificar si una partición es montada o no)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/udiskie/">Udiskie</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:14:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Herramienta  para montar automaticamente unidades en Archlinux. Debe arrancarse el servicio antes de ejecutarse el gestor de ventanas en el archivo .xinitrc. Un ejemplo:</p>
+
+<blockquote><p># nano .xinitrc</p></blockquote>
+
+<p>udiskie &amp;</p>
+
+<p>exec openbox-session</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/tzwatch/">Tzwatch</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:14:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Muestra las zonas horarias especificadas por el usuario y las guarda en el archivo ~/.tzlist.</p>
+
+<blockquote><p>$ tzwatch -c (Lanzar tantas veces como de zonas horarias se quiere disponer de información y seguir las instrucciones: Add Zone, Americas, 26 [Guatemala], mostrará la información y preguntará si es correcta, 1 [yes] y Done [salir])</p>
+
+<p>$ tzwatch (Mostrará hora local de cada una de las zonas elegidas)</p></blockquote>
+
+<pre><code>[~]$ tzwatch
+
+Mon Oct  7 02:39:39 CST 2013   Australia/Adelaide
+
+Sun Oct  6 18:09:39 CEST 2013   Europe/Madrid
+
+Sun Oct  6 10:09:39 CST 2013   America/Guatemala
 </code></pre>
+</div>
+  
+  
 
-<p>Y pegar el siguiente contenido:</p>
 
-<pre><code># Huawei E1752
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/tzselect/">Tzselect</a></h1>
+    
+    
+      <p class="meta">
+        
 
-#
 
-# Contributor:
 
-DefaultVendor=0x12d1
 
-DefaultProduct=0x1446
 
-TargetVendor=0x12d1
 
-TargetProduct=0x1417
 
-MessageEndpoint=0x01
 
-MessageContent="55534243000000000000000000000011060000000000000000000000000000"
+  
+
+
+<time datetime="2014-06-07T07:14:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Pregunta al usuario información sobre la localización actual y muestra la descripción de la zona horaria correspondiente.</p>
+
+<blockquote><p>$ tzselect</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/tzconfig/">Tzconfig</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:14:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>configurar nuevamente la zona horaria</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/typeset/">Typeset</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T07:14:00+02:00" pubdate data-updated="true">07-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Define variables y les da atributos. Es necesario para operar con números y hacer cuentas con ellos. Ver &#8220;declare&#8221;</p>
+
+<p>Un ejemplo de uso en un script:</p>
+
+<pre><code>#! /bin/bash
+
+typeset -i suma
+
+suma=7+5
+
+echo $suma
 </code></pre>
-
-<p>Verificar que el número de TargetProduc coincida con la salida de:</p>
-
-<blockquote><p># lsusb</p></blockquote>
-
-<pre><code>Bus 006 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
-
-Bus 005 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
-
-Bus 004 Device 002: ID 0461:4d03 Primax Electronics, Ltd Kensington Mouse-in-a-box
-
-Bus 004 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
-
-Bus 003 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
-
-Bus 002 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
-
-Bus 001 Device 006: ID 12d1:1417 Huawei Technologies Co., Ltd.
-
-Bus 001 Device 003: ID 0402:5602 ALi Corp. Video Camera Controller
-
-Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
-</code></pre>
-
-<p>Arrancarlo con alguno de los siguientes comandos:</p>
-
-<blockquote><p># usb_modeswitch -v 12d1 -p 1417 -d 1</p>
-
-<p># usb_modeswitch -c /etc/usb_modeswitch.conf</p></blockquote>
 </div>
   
   
@@ -680,43 +632,43 @@ Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/nmap/">nmap</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/nethogs/">nethogs</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lilo/">lilo</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/anarchism/">anarchism</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sftp/">sftp</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/logrotate/">logrotate</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssh/">ssh</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lshell/">lshell</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/apt-mirror/">apt-mirror</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/typeset/">typeset</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

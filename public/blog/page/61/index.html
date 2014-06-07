@@ -9,7 +9,8 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="[bsd-games]. Muestra como se muestran los números en inglés. $ number -l 55 $ number (Entra en el promt para ir entrando números. “q” [enter] para &hellip;">
+  <meta name="description" content="Generar claves de ficheros $ nettlet-hash &#8211;list (lista los algoritmos que pueden usarse) $ nettlet-hash -a sha224 fichero
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/number/">Number</a></h1>
+      <h1 class="entry-title"><a href="/blog/nettlet-hash/">Nettlet-hash</a></h1>
     
     
       <p class="meta">
@@ -96,18 +97,18 @@
   
 
 
-<time datetime="2014-04-05T18:20:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:12:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[bsd-games]. Muestra como se muestran los números en inglés.</p>
+  <div class="entry-content"><p>Generar claves de ficheros</p>
 
-<blockquote><p>$ number -l 55</p>
+<blockquote><p>$ nettlet-hash &#8211;list  (lista los algoritmos que pueden usarse)</p>
 
-<p>$ number (Entra en el promt para ir entrando números. “q” [enter] para salir)</p></blockquote>
+<p>$ nettlet-hash -a sha224 fichero</p></blockquote>
 </div>
   
   
@@ -120,7 +121,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ntpdate/">Ntpdate</a></h1>
+      <h1 class="entry-title"><a href="/blog/netstat/">Netstat</a></h1>
     
     
       <p class="meta">
@@ -136,16 +137,108 @@
   
 
 
-<time datetime="2014-04-05T18:20:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:12:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Actualiza la hora del sistema via NTP (Network Time Protocol)</p>
+  <div class="entry-content"><p>Puertos y conexiones.</p>
 
-<blockquote><p># ntpdate -u cl.pool.ntp.org</p></blockquote>
+<blockquote><p># netstat &#8211;inet &#8211;all</p></blockquote>
+
+<p>Proto Recv-Q Send-Q Local Address           Foreign Address         State</p>
+
+<p>tcp        0        0          localhost:832                 <em>:</em>                     LISTEN</p>
+
+<p>tcp        0        0          localhost:2208               <em>:</em>                     LISTEN</p>
+
+<p>&#8230;</p>
+
+<p>Proto.- protocolo, Recv-Q.- paquetes recibidos, Send-Q.- paquetes enviados, Local Address.- direccion local, Foreign Address.- direccion remota, State.- estado de la conexión (listen = a la escucha).</p>
+
+<blockquote><p># netstat -ac   (puertos abiertos,donde se dirigen y de donde  vienen)</p>
+
+<p># netstat -atu | grep &#8217;<em>.</em>&#8217;   (Ver todos los servicios que ofrece la máquina)</p>
+
+<p># netstat -ta  (Lista los servidores que estén corriendo en el sistema)</p>
+
+<p># netstat -rn  (Muestra la tabla de enrutamiento)</p>
+
+<p># netstat  -an (Máxima información de nuestra conexión)</p>
+
+<p># netstat  -i (Tablas de Interfaces de red)</p>
+
+<p># netstat -e (información extendida)</p>
+
+<p># netstat -p (numero de PID y servicio que está corriendo)</p>
+
+<p># netstat -c (Lista continua)</p>
+
+<p># netstat -l (Sockets a la espera)</p>
+
+<p># netstat -napt (puertos abiertos y servicios que corren)</p>
+
+<p># netstat -pan | grep ESTABLISHED</p>
+
+<p># netstat -luntp | grep LISTEN | awk &#8216;{print $7}&#8217;</p>
+
+<p># netstat -l | grep tcp</p>
+
+<p># netstat -antp | grep 22  (preguntar como está el puerto 22)</p>
+
+<p># netstat | awk &#8216;/EST/{print $5}&#8217; | sort  (lista de conexiones establecidas)</p>
+
+<p># netstat -an | grep -Ec &#8217;<sup>tcp.+ESTABLISHED$&#8217;</sup>  (Muestra conexiones tcp)</p>
+
+<p># netstat -tpee    (información sobre las conexiones a internet)</p>
+
+<p># netstat -tunlp  (Muestra servicios activos y a la escucha, pid y puertos)</p>
+
+<p># if (nc -zw2 lapipaplena.homelinux.com 80); then echo open; fi (Preguntar si el puerto de un host está abierto)</p>
+
+<p># netstat -nt | awk &#8216;{print $6}&#8217; | sort | uniq -c | sort -n -k 1 -r (Cantidad y estado de los puertos abiertos)</p>
+
+<p># netstat -luntp | grep LISTEN | awk &#8216;{print $7}&#8217;  (pid de los servicios en LISTEN y demonio que corre en ellos)</p>
+
+<p># netstat -n -p|grep SYN_REC | wc -l  (Muestra si estamos sufriendo un ataque ddos)</p>
+
+<p># netstat -lantp | grep ESTABLISHED |awk &#8216;{print $5}&#8217; | awk -F: &#8216;{print $1}&#8217; | sort -u (Todas las ip conectadas a nuestro host)</p>
+
+<p># netstat -plan | grep :80 |  grep ESTABLISHED | awk {&#8216;print $5&#8217;} | cut -d: -f 1 | sort | uniq -c | sort -n (Otra forma de mostralas)</p>
+
+<p># netstat -plan | grep :80 | awk {&#8216;print $5&#8217;} | cut -d: -f 1 | sort | uniq -c | sort -n</p></blockquote>
+
+<p>(Muestra el número de peticiones al puerto 80 por cada IP)</p>
+
+<blockquote><p># netstat -plutn</p></blockquote>
+
+<p>Explicación de los Flags:</p>
+
+<p>G (La ruta utiliza una pasarela)</p>
+
+<p>U (La interfaz está activa)</p>
+
+<p>H (Esta interfaz permite el acceso a una sola máquina)</p>
+
+<p>D (Esta ruta es creada dinámicamente)</p>
+
+<p>M (estee registro ha sido modificado por un mensaje de redirección ICMP)</p>
+
+<p>! (La ruta es una ruta de rechazo y los datagramas serán descartados)</p>
+
+<p>Nota.- la dirección externa si no es 0.0.0.0.* significa que alguien le está hablando activamente.</p>
+
+<p>Otras opciones:</p>
+
+<p>-o (indica el número del proceso asignado a la conexión)</p>
+
+<p>-s (muestra las estadísticas detalladas para cada protocolo)</p>
+
+<p>-t (muestra solo las conexiones activas por TCP)</p>
+
+<p>-u (muestra solo las conexiones activas por UDC)</p>
 </div>
   
   
@@ -158,7 +251,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ntop/">Ntop</a></h1>
+      <h1 class="entry-title"><a href="/blog/netperf/">Netperf</a></h1>
     
     
       <p class="meta">
@@ -174,22 +267,24 @@
   
 
 
-<time datetime="2014-04-05T18:20:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:12:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[graphviz gsfonts-x11]. Monitor de red via navegador.</p>
+  <div class="entry-content"><p>Medir el rendimiento de la red. Ha de instalarse en el cliente y en el servidor. Utiliza el puerto 12865.</p>
 
-<blockquote><p># ntop &#8211;set-admin-password   (contraseña para el usuario &#8220;admin&#8221;)</p>
+<blockquote><p># nmap -O -p 12865 localhost | grep tcp (comprobar si el puerto esta abierto)</p></blockquote>
 
-<p># gedit /var/lib/ntop/init.cfg (Comprobar interfaz de red. Por defecto eth0)</p>
+<p>12965/tcp closed unknown</p>
 
-<p># /etc/init.d/ntop restart (reiniciar)</p></blockquote>
+<blockquote><p># nmap localhost -p 12865 | grep tcp   (abrir el puerto)</p></blockquote>
 
-<p>http://localhost:3000 (Visualizar los informes)</p>
+<p>2865/tcp open  unknown</p>
+
+<blockquote><p># netperf -H localhost</p></blockquote>
 </div>
   
   
@@ -202,7 +297,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ntfslabel/">Ntfslabel</a></h1>
+      <h1 class="entry-title"><a href="/blog/netpbm/">Netpbm</a></h1>
     
     
       <p class="meta">
@@ -218,16 +313,16 @@
   
 
 
-<time datetime="2014-04-05T18:20:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:12:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[ntfsprogs]. Poner etiquetas a las particiones y dispositivos ntfs</p>
+  <div class="entry-content"><p>Conjunto de herramientas para manipulación de imágenes que permiten convertir entre muchos formatos gráficos conocidos [gif, bmp, jpg&#8230;] a un formato interno, o bien del formato interno a los formatos conocidos. Los formatos internos que utiliza son .ppm [Portable Pixel Map] para imágenes en color, .pgm [Portable Gray Map] para imágenes en escala de grises, y .pbm [Portable Bit Map] para imágenes formadas por bits de blanco y negro. A veces estos formatos aparecen bajo la extensión general .pnm, que abarca a todos ellos. Incluye más de 200  aplicaciones, tales como: jpegtopnm , pnmtojpeg , bmptoppm [man netpbm para un listado detallado],  muchos de estos formatos estan practicamente en desuso.</p>
 
-<blockquote><p># ntfslabel -f -v /dev/sda1 win</p></blockquote>
+<blockquote><p>$ pbmtoascii -2x4 imagen.pbm  (convertir .pbm a ascii. Para mayor resolución -1x2)</p></blockquote>
 </div>
   
   
@@ -240,7 +335,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ntfsfix/">Ntfsfix</a></h1>
+      <h1 class="entry-title"><a href="/blog/nethogs/">Nethogs</a></h1>
     
     
       <p class="meta">
@@ -256,20 +351,22 @@
   
 
 
-<time datetime="2014-04-05T18:20:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:12:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[ntfsprogs]. Reparación de inconsistencias en sistemas de archivos ntfs.</p>
+  <div class="entry-content"><p>Visualiza procesos que están consumiendo más ancho de banda en el sistema</p>
 
-<blockquote><p># ntfsfix /dev/sdb1</p></blockquote>
+<blockquote><p># nethogs   (uso básico. Por defecto el dispositivo es eth0)</p>
 
-<p>Finalizado el proceso, montarla:</p>
+<p># nethogs eth0 eth1 (especificando dos dispositivos)</p>
 
-<blockquote><p># mount -t ntfs-3g /dev/sdb1 /media/win -o force</p></blockquote>
+<p># nethogs -t eth1  (rastreando conexiones y especificando dispositivo)</p>
+
+<p># nethogs -d 5 eth1 (Actualizando datos cada 5 segundos)</p></blockquote>
 </div>
   
   
@@ -282,7 +379,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ntfsclone/">Ntfsclone</a></h1>
+      <h1 class="entry-title"><a href="/blog/netdiscover/">Netdiscover</a></h1>
     
     
       <p class="meta">
@@ -298,18 +395,18 @@
   
 
 
-<time datetime="2014-04-05T18:20:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:12:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[ntfsprogs]. Permite la creación de particiones NTFS de Windows y su posterior restauración</p>
+  <div class="entry-content"><p>Buscar máquinas [activas o pasivas] conectados  a una red.</p>
 
-<blockquote><p># ntfsclone -s -o imagen.img /dev/sda1 (crea el fichero imagen.img de la partición /dev/sda1)</p>
+<blockquote><p># netdiscover -i eth0</p>
 
-<p># ntfsclone -r -O /dev/sda1 imagen.img (Restaura la imagen en la partición que queramos)</p></blockquote>
+<p># netdiscover -r 192.168.1.0/24 -i eth1 (especificando rango de ips)</p></blockquote>
 </div>
   
   
@@ -322,7 +419,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ntfs-3g/">Ntfs-3g</a></h1>
+      <h1 class="entry-title"><a href="/blog/netcat/">Netcat</a></h1>
     
     
       <p class="meta">
@@ -338,20 +435,66 @@
   
 
 
-<time datetime="2014-04-05T18:20:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:12:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[fuse]. Driver que permite modificar archivos en sistemas ntfs. La partición puede ser montada:</p>
+  <div class="entry-content"><p>utilidad que se puede utilizar para practicamente cualquier cosa relacionada con el protocolo TCP/IP [navaja suiza]</p>
 
-<blockquote><p># mount -t ntfs-3g /dev/hda3 /media/win</p></blockquote>
+<p>Nota.- En algunas distros está ligeramente capado. Preferible bajarlo de http://netcat.sourceforge.net/download.php y compilarlo:</p>
 
-<p>O en el /etc/fstab con la linea:</p>
+<blockquote><p>$ ./configure</p>
 
-<p>/dev/hda3  /media/win ntfs-3g defaults 0 0</p>
+<p>$ make DFLAGS=&#8221; -DTELNET -DGAPING_SECURITY_HOLE&#8221;</p>
+
+<p># make install</p>
+
+<p>$ nc -v -v -z 192.168.2.5 21 22 25 110 5900 (que se conecte a la IP, envie más información [-v por duplicado], que no envie ningún dato [-z] y que lo haga por los puertos mencionados [21,22,25,110,5900])</p>
+
+<p>$ nc -l -p 3001 -e /bin/bash  (Que esté a la escucha [-l] en el puerto 3001 [-p] y que, cuando haya conexión, ejecute nuestra shell bash [-e &#8230;.])</p>
+
+<p>$ nc IP_servidor 3001  (desde el cliente, conectamos con el servidor y todo lo que escribamos se enviará al bash del servidor y lo que nos responda aparecerá en nuestra pantallla. Para terminar la conexión CTROL-C)</p>
+
+<p>$ telnet -l usuario IP_o_nombre_host 3001 (Otra forma de establecer la conexión.)</p>
+
+<p>$ nc -l -p 3000 > archivo (Dejar el servidor listo para recibir un archivo)</p>
+
+<p>$ nc IP_servidor 3000 &lt; archivo  (enviar desde el cliente el archivo)</p>
+
+<p>$ nc -zw2 www.nombre.com 80 &amp;&amp; echo open  (comprobar si está abierto el puerto 80 de un host)</p>
+
+<p>$ nc -l -p 10000 &lt; pelicula.avi  (streaming de video-servidor)</p>
+
+<p>$ nc IP_o_host 10000 | mplayer – (streaming de video-cliente)</p>
+
+<p>$ nc -l -p 10000 &lt; fichero.mp3  (streaming de  audio-servidor)</p>
+
+<p>$ nc IP_o_host 10000 | madplay –  (streaming de audio-cliente)</p>
+
+<p>$ nc -l -p http -c &#8220;cat index.html&#8221;  (servidor http)</p>
+
+<p>$ echo “GET /” | nc www.google.com 80 > index.html  (copiar una página web)</p>
+
+<p>$ nc -l -p 10000 -c &#8220;nc host 22&#8221; (Proxy. El trafico recibido en el puerto 10000 se redirige al 22 del host especificado)</p>
+
+<p>$ nc towel.blinkenlights.nl 23  (visionar la guerra de las galaxias)</p>
+
+<p>$ dd if=/dev/sda5 | nc -l -p 10000  (clonar un disco por red. En el servidor)</p>
+
+<p>$ nc IP_o_host 10000 | dd of=sda5.img  (En el cliente)</p>
+
+<p>$ nc -l -p 7777 > /dev/null  (Prueba de rendimiento entre dos máquinas. En el Servidor)</p>
+
+<p>$ pv -r /dev/zero | nc IP_servidor 7777  (En el cliente)</p></blockquote>
+
+<p>opciones</p>
+
+<p>-v -v   .-  mostrar máxima información</p>
+
+<p>-z  .-  mostrar puertos a la escucha</p>
 </div>
   
   
@@ -364,7 +507,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/nstat/">Nstat</a></h1>
+      <h1 class="entry-title"><a href="/blog/net-acct/">Net-acct</a></h1>
     
     
       <p class="meta">
@@ -380,22 +523,16 @@
   
 
 
-<time datetime="2014-04-05T18:20:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:12:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra las estadísticas de la red.</p>
+  <div class="entry-content"><p>Demonio que crea logs del uso de la red.</p>
 
-<blockquote><p>$ nstat</p>
-
-<p>$ nstat -z (Mostrando los contadores a cero. Por defecto no se muestran)</p>
-
-<p>$ nstat -a (Volcado absoluto de todos los contadores)</p>
-
-<p>$ nstat -r (Resetear los contadores)</p></blockquote>
+<blockquote><p># cat /var/log/net-acct/net-acct.log</p></blockquote>
 </div>
   
   
@@ -408,7 +545,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/nslookup/">Nslookup</a></h1>
+      <h1 class="entry-title"><a href="/blog/nessus/">Nessus</a></h1>
     
     
       <p class="meta">
@@ -424,18 +561,30 @@
   
 
 
-<time datetime="2014-04-05T18:20:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:12:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>saber si las DNS resuelven correctamente los nombres y las IP</p>
+  <div class="entry-content"><p>Scaner de vulneradilidades</p>
 
-<blockquote><p>$ nslookup ip_o_nombre_host</p>
+<p>Descargar nessus de: http://www.nessus.org/download/</p>
 
-<p>$ nslookup <code>curl ifconfig.me</code> (conocer la IP pública)</p></blockquote>
+<p>Registrarnos en:  http://www.nessus.org/plugins/?view=register-info</p>
+
+<p>Entrar el código de activación recibido por correo:</p>
+
+<blockquote><p># /opt/nessus/bin/nessus-fetch &#8211;register 218B-76A4-CB0F-072B-AEEA</p>
+
+<p># /opt/nessus/sbin/nessus-adduser (Entrar usuario y contraseña)</p>
+
+<p># /opt/nessus/sbin/nessusd (Arrancar el servicio)</p></blockquote>
+
+<p>Abrir navegador y entrar en la pantalla de login con:</p>
+
+<p>https://127.0.0.1:8834</p>
 </div>
   
   
@@ -448,7 +597,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/nscd/">Nscd</a></h1>
+      <h1 class="entry-title"><a href="/blog/ncmpcpp/">Ncmpcpp</a></h1>
     
     
       <p class="meta">
@@ -464,16 +613,57 @@
   
 
 
-<time datetime="2014-04-05T18:20:00+02:00" pubdate data-updated="true">05-04-2014</time>
+<time datetime="2014-06-07T07:12:00+02:00" pubdate data-updated="true">07-06-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Demonio que cada vez que se reinicia, elimina los datos de la caché DNS. Para mayor efectividad colocar en el cron.</p>
+  <div class="entry-content"><p>Reproductor de música. Al ser del tipo cliente-servidor, Precisa mpd [ver] arrancado.</p>
 
-<blockquote><p># /etc/init.d/nscd restart</p></blockquote>
+<p>En el archivo de configuración, que tiene que crearse, sólo es necesario especificar el directorio de música:</p>
+
+<blockquote><p>$ nano .ncmpcpp/config</p></blockquote>
+
+<p>mpd_music_dir = &#8220;/home/usuario/Musica&#8221;</p>
+
+<p>Algunas teclas de control:</p>
+
+<pre><code>F1 (Ayuda)
+
+F2 (Lista de reproducción)
+
+F3 (Explorador)
+
+F4 (Busca en la base de datos)
+
+F5 (Libreria)
+
+F6 (Editor de listas de reproduccion)
+
+F7 (Editor de etiquetas)
+
+F8 (Outputs)
+
+F9 (Visualizador musical)
+
+F10 (Reloj)
+
+@ (Informacion del servidor mpd)
+
+s (Detiene la reproducción)
+
+p (Cambia la visualización)
+
+P (Pausa la reproducción)
+
+Backspace (Pone el tema desde inicio)
+
+&lt; (Tema anterior)
+
+&gt; (Tema siguiente)
+</code></pre>
 </div>
   
   
@@ -504,43 +694,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/nmap/">nmap</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/nethogs/">nethogs</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lilo/">lilo</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/anarchism/">anarchism</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/sftp/">sftp</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/logrotate/">logrotate</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/ssh/">ssh</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lshell/">lshell</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/apt-mirror/">apt-mirror</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/typeset/">typeset</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>
