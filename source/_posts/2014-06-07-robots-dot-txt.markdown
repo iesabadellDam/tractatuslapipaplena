@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "robots.txt"
-date: 2014-06-07 07:13
+date: 2014-06-07 08:01
 comments: true
 categories: 
 ---
@@ -49,19 +49,19 @@ Aspecto que puede presentar un archivo robots.txt:
 
 	Disallow: /
 
-	-- linea en blanco --  
+	\\ linea en blanco  
 
 	User-agent: grub-client
 
 	Disallow: /
 
-	-- linea en blanco --
+	\\ linea en blanco
 
 	User-agent: *
 
 	Disallow: 
 
-	-- linea en blanco --
+	\\ linea en blanco
 
 	Sitemap: https://tractatuslapipaplena.herokuapp.com/sitemap.xml 
 
