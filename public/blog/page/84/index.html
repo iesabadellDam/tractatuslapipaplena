@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Detectar cuando algún archivo del sistema ha sido alterado mediante la creación, la primera vez que se lanza, de una base de datos con la que &hellip;">
+  <meta name="description" content="Archivo de configuración de la red en distros debian. 1.- Con IP dinámica: Colocar en el archivo las lineas: auto eth0 iface eth0 inet dhcp 2.- Con &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,109 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/interfaces/">Interfaces</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:25:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Archivo de configuración de la red en distros debian.</p>
+
+<p>1.-</p>
+
+<p>Con IP dinámica:</p>
+
+<p>Colocar en el archivo las lineas:</p>
+
+<pre><code>auto eth0
+
+iface eth0 inet dhcp
+</code></pre>
+
+<p>2.-</p>
+
+<p>Con IP fija</p>
+
+<p>Colocar en el archivo las lineas:</p>
+
+<pre><code>auto eth0
+
+iface eth0 inet static
+
+address 192.168.1.10
+
+gateway 192.168.1.1
+
+netmask 255.255.255.0
+
+broadcast 192.168.1.255
+</code></pre>
+
+<p>Reiniciar el servicio:</p>
+
+<blockquote><p># ifdown eth0</p>
+
+<p># ifup eth0</p></blockquote>
+
+<p>Nota.- Solo modificandolo en network-manager no funciona.</p>
+
+<p>3.-</p>
+
+<p>Creación de una segunda dirección IP virtual.</p>
+
+<p>Añadir las siguientes lineas a las de la IP fija:</p>
+
+<pre><code>auto eth0:1
+
+iface eth0:1 inet static
+
+address 192.168.0.15
+
+netmask 255.255.255.0
+
+broadcast 192.168.0.255
+
+gateway 192.168.0.1
+</code></pre>
+
+<p>Nota.- La instalación de nerwork-manager o wicd para la gestión de redes implica comentar las modificaciones de este archivo o en, en el caso de network-manager, editar:</p>
+
+<blockquote><p># nano  /etc/NetworkManager/NetworkManager.conf</p></blockquote>
+
+<p>Y modificar la linea:</p>
+
+<p>[ifupdown]</p>
+
+<p>managed=true</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -557,46 +660,6 @@ po::powerokwait:/etc/init.d/powerfail stop
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/info/">Info</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:25:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Páginas de manual para la mayoria de programas del proyecto GNU con una estructura jerarquizada. Ligeramente más complejo que las clásicas páginas man  [ver]</p>
-
-<blockquote><p>$ info (MUestra la lista de los nodos disponibles en el primer nivel)</p>
-
-<p>$ info ifconfig</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/85/">&larr; Older</a>
@@ -612,12 +675,16 @@ po::powerokwait:/etc/init.d/powerfail stop
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1394</li>
+	<li>1395</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/pyradio/">pyradio</a>
+      </li>
     
       <li class="post">
         <a href="/blog/zypper/">zypper</a>
@@ -653,10 +720,6 @@ po::powerokwait:/etc/init.d/powerfail stop
     
       <li class="post">
         <a href="/blog/zegrep/">zegrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>
