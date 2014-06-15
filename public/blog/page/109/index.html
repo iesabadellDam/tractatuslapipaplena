@@ -9,7 +9,8 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Bajar versión a un programa instalado. # downgrade firefox Mostrará la salida: “please choose a version, [s]earch A.R.M., or [q]uit:” Pulsando “s” &hellip;">
+  <meta name="description" content="Snifer de imagenes y video # driftnet -i wlan2
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +75,235 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/driftnet/">Driftnet</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:24:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Snifer de imagenes y video</p>
+
+<blockquote><p># driftnet -i wlan2</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/dpkg/">Dpkg</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:24:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Gestor de programario de distros derivadas de Debian</p>
+
+<blockquote><p># dpkg -i paquete   (Instalación de paquetes .deb)</p>
+
+<p># dpkg -r paquete   (Desinstala un paquete)</p>
+
+<p># dpkg &#8211;purge paquete    (Desinstala junto sus archivos de configuración)</p>
+
+<p># dpkg &#8211;audit   (Visualizar paquetes instalados parcialmente)</p>
+
+<p># dpkg &#8211;force -r paquete  (Fuerza la desinstalación de un paquete)</p>
+
+<p># dpkg &#8211;force-all -r paquete  (Fuerza más la desinstalación de un paquete)</p>
+
+<p># dpkg -c paquete   (Muestra los ficheros de un paquete)</p>
+
+<p># dpkg &#8211;yet-to-unpack  (paquetes descargados sin instalar)</p>
+
+<p># dpkg -C   (Muestra los instalados parcialmente)</p>
+
+<p># dpkg -L paquete  (Ficheros que se instalaron con un paquete)</p>
+
+<p>$ dpkg -l inkscape  (Conocer si un paquete está instalado y su versión)</p>
+
+<p># dpkg -S fichero    (Muestra a qué paquete pertenece un fichero)</p>
+
+<p># dpkg &#8211;get-selections   (Muestra todos los paquetes instalados en el sistema)</p>
+
+<p># dpkg &#8211;get-selections | cut -f1 (Lo mismo más fino)</p>
+
+<p># dpkg &#8211;get-selections > lista.txt    (Los manda a un fichero)</p>
+
+<p># dpkg &#8211;get-selections | grep python (muestra todos los paquetes python)</p>
+
+<p># dpkg -l > llistat.txt      (Manda a un fichero todos los paquetes Debian)</p>
+
+<p># dpkg &#8211;status paquete  (Info, dependencias, recomendaciones, sugerencias)</p>
+
+<p># dpkg -install paquete &#8211;force-conflicts (instalar un paquete conflicitivo)</p>
+
+<p># dpkg-reconfigure paquete    (Reconfigura paquetes instalados)</p>
+
+<p># dpkg-reconfigure -phigh -a   (Reconfigurar todo el sistema)</p>
+
+<p># dpkg-reconfigure debconf    (R. interfaz de configuración)</p>
+
+<p># dpkg-reconfigure xserver-xorg  (R. el servidor X)</p>
+
+<p># dpkg-reconfigure console-common (R. el teclado)</p>
+
+<p># dpkg-reconfigure console-setup (mismo que lo anterior)</p>
+
+<p># dpkg-reconfigure locales     (R. el lenguaje)</p>
+
+<p># dpkg-reconfigure tzdata      (R. la zona horaria)</p>
+
+<p># dpkg-reconfigure console-data (R. las tty)</p>
+
+<p># dpkg-reconfigure -a (Borra paquetes de configuraciones)</p>
+
+<p># dpkg-reconfigure fontconfig-config  (R. fuentes. Seguir con:)</p>
+
+<p># dpkg-reconfigure fontconfig  (R. fuentes)</p>
+
+<p># dpkg &#8211;configure -a  (R. inconsistencias o procesos despues de un cuelgue)</p>
+
+<p># dpkg -i &#8211;force-overwrite /var/cache/apt/archives/paquete.deb (forzar install)</p>
+
+<p># dpkg -b deb paquete.deb (Convertir la carpeta “deb” en un archivo “.deb”)</p></blockquote>
+
+<p>1.-</p>
+
+<p>En ocasiones, algún paquete medio o mal instalado puede bloquear la aplicación. En estos casos puede usarse:</p>
+
+<blockquote><p># rm /var/lib/apt/lists/* -vf</p></blockquote>
+
+<p>Y a continuación:</p>
+
+<blockquote><p># apt-get update</p></blockquote>
+
+<p>2.-</p>
+
+<p>Forzar desinstalación de paquetes resistentes.</p>
+
+<pre><code># dpkg --purge --force-remove-reinstreq paquete
+
+# dpkg --listfiles paquete_dañado
+
+# gedit /var/lib/dpkg/status (eliminar la sección paquete_dañado)
+
+# gedit /var/lib/dpkg/available   (eliminar la sección paquete_dañado)
+
+# dpkg -l | grep ^rc | awk '{print $2}' | sudo xargs dpkg -P  (suprimir residuos de instalaciones)
+</code></pre>
+
+<p>3.-</p>
+
+<p>Otra forma de forzar la desinstalación de paquetes conflictivos:</p>
+
+<pre><code># rm /var/lib/dpkg/info/paquete
+
+# dpkg -r --force-remove-reinstreq paquete
+
+# dpkg -l | sed '/^rc/!d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/' | xargs -r sudo apt-get -y purge (Suprimir configuraciones residuales y huerfanas)
+</code></pre>
+
+<p>4.-</p>
+
+<p>Otro modo de suprimir archivos de configuración huerfanos (rc):</p>
+
+<pre><code># dpkg -l | grep ^rc (Comprobar si tenenos paquetes de estas caracteristicas)
+
+# dpkg -P $(dpkg -l |awk '/^rc/ { print $2 }') (Eliminarlos)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/dpigs/">Dpigs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:24:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[debian-goodies]. Muestra los paquetes que ocupan más espacio.</p>
+
+<blockquote><p>$ dpigs (Los primeros diez 10. Opción por defecto)</p>
+
+<p>$ dpigs -n 20 (Los primeros 20)</p>
+
+<p>$ dpigs -S (Muestra los paquetes fuente más grandes instalados en el sistema)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -371,181 +601,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/dnstracer/">Dnstracer</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:24:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Consultas DNS desde una ip o un host. dnstracer determina cuando un servidor de nombres de dominio [DNS] obtiene información de un nombre de anfitrión dado, y a continuación el servidor DNS manda la respuesta de autorización.</p>
-
-<blockquote><p>$ dnstracer host</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/dnstop/">Dnstop</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:24:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Monitorear el tráfico dns.</p>
-
-<blockquote><p># dnstop -i 192.168.1.3 -p -r 2 eth0 (Excluir la propia máquina [i], en modo no promiscuo [p], actualizando cada 2 segundos [r] y la red objetivo)</p></blockquote>
-
-<p>En la mayoria de los casos, lo normal en lanzar:</p>
-
-<blockquote><p># dnstop eth0</p></blockquote>
-
-<p>Y realizar las consultas de forma interactiva pulsando las siguientes teclas:</p>
-
-<pre><code>s (visualizar las direcciones de origen)
-
-d (visualizar las direcciones de destino)
-
-t (desglosar por tipo)
-
-r (mostrar el desglose de los códigos de respuesta)
-
-1 (mostrar consulta de primer nivel [.com, .net, .info])
-
-2 (mostrar consulta de segundo nivel)
-
-3 (mostrar consulta de tercer nivel)
-
-! (mostrar fuente y consulta de primer nivel)
-
-@ (mostrar fuente y consulta de segundo nivel)
-
-# (mostrar fuente y consulta de tercer nivel)
-
-Ctrl + r (Reinicia el contador)
-
-? (Muestra la ayuda)
-
-Ctrl + x (Salir)
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/dnsmasq/">Dnsmasq</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:23:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Para que el ordenador guarde en cache las páginas visitadas y no vuelva a resolver las ips con el servidor DNS:</p>
-
-<blockquote><p># gedit /etc/resolv.conf</p></blockquote>
-
-<p>Independientemente de que existan más lineas indicando otras ips, añadir la siguiente:</p>
-
-<p>nameserver 127.0.0.1</p>
-
-<p>Y para distribuir la carga entre varios servidores, añadir la linea:</p>
-
-<p>options timeout:1 rotate attempts:1</p>
-
-<p>Comprobar el correcto funcionamiento:</p>
-
-<blockquote><p>$ dig tuxapuntes.com | grep Query</p></blockquote>
-
-<p>;; Query time: 369 msec</p>
-
-<p>Volver a lanzar dig:</p>
-
-<blockquote><p>$ dig tuxapuntes.com | grep Query</p></blockquote>
-
-<p>;; Query time: 0 msec</p>
-
-<p>Si nuestra IP es dinámica, NetworkManager nos modificará cada cierto tiempo el archivo /etc/resolv.conf, para substituir el creado automaticamente por el nuestro:</p>
-
-<blockquote><p># cp /etc/resolv.conf /etc/resolv.conf.local (Asegurándonos que este último tiene la linea “nameserver 127.0.0.1”)</p>
-
-<p># crontab -e</p></blockquote>
-
-<p>*/3 * * * * cp /etc/resolv.conf.local /etc/resolv.conf (actualizar cada 3 minutos)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/110/">&larr; Older</a>
@@ -561,12 +616,24 @@ Ctrl + x (Salir)
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1395</li>
+	<li>1398</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/weboorrents/">weboorrents</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/webood/">webood</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/videoob/">videoob</a>
+      </li>
     
       <li class="post">
         <a href="/blog/pyradio/">pyradio</a>
@@ -594,18 +661,6 @@ Ctrl + x (Salir)
     
       <li class="post">
         <a href="/blog/zgrep/">zgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zfgrep/">zfgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zenity/">zenity</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
   </ul>

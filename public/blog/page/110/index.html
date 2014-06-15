@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Herramienta que, mediante fuerza bruta, permite obtener los subdominios de un dominio. $ dnsmap url (forma básica) $ dnsmap url -w words.txt -r &hellip;">
+  <meta name="description" content="Consultas DNS desde una ip o un host. dnstracer determina cuando un servidor de nombres de dominio [DNS] obtiene información de un nombre de &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,181 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/dnstracer/">Dnstracer</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:24:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Consultas DNS desde una ip o un host. dnstracer determina cuando un servidor de nombres de dominio [DNS] obtiene información de un nombre de anfitrión dado, y a continuación el servidor DNS manda la respuesta de autorización.</p>
+
+<blockquote><p>$ dnstracer host</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/dnstop/">Dnstop</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:24:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Monitorear el tráfico dns.</p>
+
+<blockquote><p># dnstop -i 192.168.1.3 -p -r 2 eth0 (Excluir la propia máquina [i], en modo no promiscuo [p], actualizando cada 2 segundos [r] y la red objetivo)</p></blockquote>
+
+<p>En la mayoria de los casos, lo normal en lanzar:</p>
+
+<blockquote><p># dnstop eth0</p></blockquote>
+
+<p>Y realizar las consultas de forma interactiva pulsando las siguientes teclas:</p>
+
+<pre><code>s (visualizar las direcciones de origen)
+
+d (visualizar las direcciones de destino)
+
+t (desglosar por tipo)
+
+r (mostrar el desglose de los códigos de respuesta)
+
+1 (mostrar consulta de primer nivel [.com, .net, .info])
+
+2 (mostrar consulta de segundo nivel)
+
+3 (mostrar consulta de tercer nivel)
+
+! (mostrar fuente y consulta de primer nivel)
+
+@ (mostrar fuente y consulta de segundo nivel)
+
+# (mostrar fuente y consulta de tercer nivel)
+
+Ctrl + r (Reinicia el contador)
+
+? (Muestra la ayuda)
+
+Ctrl + x (Salir)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/dnsmasq/">Dnsmasq</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:23:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Para que el ordenador guarde en cache las páginas visitadas y no vuelva a resolver las ips con el servidor DNS:</p>
+
+<blockquote><p># gedit /etc/resolv.conf</p></blockquote>
+
+<p>Independientemente de que existan más lineas indicando otras ips, añadir la siguiente:</p>
+
+<p>nameserver 127.0.0.1</p>
+
+<p>Y para distribuir la carga entre varios servidores, añadir la linea:</p>
+
+<p>options timeout:1 rotate attempts:1</p>
+
+<p>Comprobar el correcto funcionamiento:</p>
+
+<blockquote><p>$ dig tuxapuntes.com | grep Query</p></blockquote>
+
+<p>;; Query time: 369 msec</p>
+
+<p>Volver a lanzar dig:</p>
+
+<blockquote><p>$ dig tuxapuntes.com | grep Query</p></blockquote>
+
+<p>;; Query time: 0 msec</p>
+
+<p>Si nuestra IP es dinámica, NetworkManager nos modificará cada cierto tiempo el archivo /etc/resolv.conf, para substituir el creado automaticamente por el nuestro:</p>
+
+<blockquote><p># cp /etc/resolv.conf /etc/resolv.conf.local (Asegurándonos que este último tiene la linea “nameserver 127.0.0.1”)</p>
+
+<p># crontab -e</p></blockquote>
+
+<p>*/3 * * * * cp /etc/resolv.conf.local /etc/resolv.conf (actualizar cada 3 minutos)</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -431,124 +606,6 @@ nameserver 4.2.2.2
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/djvusmooth/">Djvusmooth</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:23:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Visor y manipulador gráfico de documentos djvu.</p>
-
-<blockquote><p>$ djvusmooth archivo.djvu</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/djvudump/">Djvudump</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:23:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Mostrar la estructura interna de los archivos DjVu.</p>
-
-<blockquote><p>$ djvudump archivo.djvu</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/djvm/">Djvm</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:23:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Manipular documentos .djvu</p>
-
-<blockquote><p>$ djvm -l fichero.djvm (Lista el contenido)</p>
-
-<p>$ djvm -c archivo.djvu file1.djvu file2.djvu (Crea un archivo juntando varios archivos djvu)</p>
-
-<p>$ djvm -d archivo.djvu 0022 (Eliminar la página 22 del archivo.djvu)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/111/">&larr; Older</a>
@@ -564,12 +621,24 @@ nameserver 4.2.2.2
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1395</li>
+	<li>1398</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/weboorrents/">weboorrents</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/webood/">webood</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/videoob/">videoob</a>
+      </li>
     
       <li class="post">
         <a href="/blog/pyradio/">pyradio</a>
@@ -597,18 +666,6 @@ nameserver 4.2.2.2
     
       <li class="post">
         <a href="/blog/zgrep/">zgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zfgrep/">zfgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zenity/">zenity</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
   </ul>

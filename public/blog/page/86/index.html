@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Deshabilita la interfase especificada: # ifdown eth0 # ifdown -a (Deshabilita todas las redes)
-">
+  <meta name="description" content="Monitorización del trafico de red. $ ifstat -z (Descarta los interfaces sin actividad) $ ifstat -i eth1 (Especificando una red) Algunas opciones: -a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +74,184 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ifstat/">Ifstat</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:25:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Monitorización del trafico de red.</p>
+
+<blockquote><p>$ ifstat -z (Descarta los interfaces sin actividad)</p>
+
+<p>$ ifstat -i eth1 (Especificando una red)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<p>-a (Muestra todas las redes)</p>
+
+<p>-T (monitorizando varias redes, muestra el total)</p>
+
+<p>-S (Muestra los resultados en la misma linea, si es posible)</p>
+
+<p>-b (Reporta los informes en Kbits / seg en lugar de kbytes / seg.)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ifs/">Ifs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:25:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Internal Field Separator (separador de campos internos) sirve para indicar cual es el valor que se usa como separador. Si no se especifica ninguno es el espacio.</p>
+
+<p>Algunos ejemplos:</p>
+
+<p>1.-</p>
+
+<pre><code>#!/bin/bash
+
+# dividir una IP en 4 variables
+
+# Guardar el separador de campos original
+
+OLDIFS=$IFS
+
+read -p "Dime la ip: " IP
+
+# Establecemos el separador de campos en el punto
+
+IFS=.
+
+read IP1 IP2 IP3 IP4 &lt;&lt;&lt; "$IP"
+
+echo "$IP1 $IP2 $IP3 $IP4"
+
+# Restablecemos el separador original (El espacio)
+
+IFS=$OLDIFS
+</code></pre>
+
+<p>2.-</p>
+
+<pre><code>#!/bin/bash
+
+#Almacenamos el valor original de la variable IFS
+
+OLDIFS=$IFS
+
+#Cambiamos el valor del IFS a final de linea [\n]
+
+IFS=$'\n'
+
+for line in $(cat file.txt)
+
+do
+
+    echo $line
+
+done
+
+#Restauramos el IFS
+
+IFS=$OLDIFS
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ifne/">Ifne</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:25:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[moreutils]. Se ejecuta si la entrada estandar no está vacia.</p>
+
+<blockquote><p>$ find . -name archivo | ifne echo &#8220;Existe&#8221; (Si &#8220;archivo&#8221; existe se ejecutará el echo. Si no existe, no)</p>
+
+<p>$ find . -name archivo | ifne -n echo &#8220;No existe&#8221; (Si &#8220;archivo&#8221; no existe se ejecutará el echo. Si existe, no)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -545,128 +722,6 @@ end
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/iconv/">Iconv</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:25:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Modificar la codificación de un archivo</p>
-
-<blockquote><p>$ iconv -l   (Muestra todas las opciones posibles)</p>
-
-<p>$ iconv -t us-ascii -f utf-8 archivo.txt > re_codificado.txt (Para saber la codificación de un archivo: $ file &#8211;mime-encoding archivo.txt)</p>
-
-<p>$ iconv &#8211;from-code=ISO-8559-1 &#8211;to-code=UTF-8 viejo.txt -o nuevo.txt (Pasar viejo.txt de codificación ISO-8559-1 a UTF-8 en el nuevo.txt)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ibam/">Ibam</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:25:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Monitor de carga de la bateria</p>
-
-<blockquote><p>$ ibam -a</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/hydra/">Hydra</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:25:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Se utiliza para crackear los sistemas de login de diferentes servicios como HTTP, FTP, TELNET, IMAP, SMB, SSH, etc.</p>
-
-<blockquote><p># hydra 192.168.1.5 -l admin -p 1234 (Una ip con el usuario &#8220;admin&#8221; con la clave &#8220;1234&#8221;)</p>
-
-<p># hydra -M lista_ips ssh -s 22 (A un listado de ips a una por linea y sobre el puerto 22)</p>
-
-<p># hydra 192.168.1.8 ftp -s 21 -l juan -P wordlist.txt (Una ip el puerto 21 del usuario &#8220;juan&#8221; y probando las contraseñas de un archivo de texto a una por linea)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/87/">&larr; Older</a>
@@ -682,12 +737,24 @@ end
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1395</li>
+	<li>1398</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/weboorrents/">weboorrents</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/webood/">webood</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/videoob/">videoob</a>
+      </li>
     
       <li class="post">
         <a href="/blog/pyradio/">pyradio</a>
@@ -715,18 +782,6 @@ end
     
       <li class="post">
         <a href="/blog/zgrep/">zgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zfgrep/">zfgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zenity/">zenity</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
   </ul>

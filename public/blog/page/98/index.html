@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Es una herramienta similar a partimage para crear imágenes de una o varias particiones a la vez a un fichero asi como restaurar dichas imágenes más &hellip;">
+  <meta name="description" content="(/etc/fstab). Lista todos los discos y particiones disponibles e indica cómo deben ser inicializados. Su estructura es: Particion punto_de_montaje &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,223 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fstab/">Fstab</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:24:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>(/etc/fstab). Lista todos los discos y particiones disponibles e indica cómo deben ser inicializados. Su estructura es:</p>
+
+<ul>
+<li>Particion punto_de_montaje sistema_de_archivos opciones respaldos orden</li>
+</ul>
+
+
+<p>Y un ejemplo seria:</p>
+
+<pre><code>/dev/sda5 /media/datos ext4 rw,users,exec,auto 0 0 (especificando el número de partición)
+
+UUID=0e4d9ccb-93bb-4762-8b67-c23d181fc84a / ext4 errors=remount-ro 0 1 (especificando el UUID de la partición)
+</code></pre>
+
+<p>Los puntos de montaje han de existir en el sistema y normalmente se colocan en /media</p>
+
+<p>Algunos sitemas de archivos puede ser:</p>
+
+<pre><code>auto (intenta descubrir automáticamente el sistema de archivos).
+
+ext2 (sistema de archivos común en Linux).
+
+ext3 (igual que ext2 pero además añade journaling).
+
+ext4 (introdujo significativas mejoras respecto a ext3)
+
+reiserfs (otro sistema muy común en Linux)
+
+msdos (para dispositivos que usen FAT16)
+
+vfat (para dispositivos que usen FAT32).
+
+ntfs (sistema de archivos NTFS de Windows)
+
+smbfs (sistema de archivos de Samba).
+
+nfs (sistema de archivos de red NFS)
+</code></pre>
+
+<p>Algunas opciones:</p>
+
+<pre><code>auto (el dispositivo será montado automáticamente durante el inicio. auto es el valor por defecto)
+
+noauto (Si no se desea que el dispositivo se monte automáticamente)
+
+exec (permite ejecutar binarios que están en la partición)
+
+noexec (lo impide. ütil en particiones windows)
+
+ro (Montar sólo lectura)
+
+rw (Montar para lectura/esctritura)
+
+user (Permite a cualquier usuario montar el sistema de archivos)
+
+nouser (Solo el usuario root podrá montar el sistema de archivos)
+
+defaults (Utiliza las opciones por defecto: rw,exec,auto,nouser)
+</code></pre>
+
+<p>Respaldo. Es el comando que utiliza dump para hacer respaldos del sistema de archivos. Cero desactiva la opción.</p>
+
+<p>Orden. indica el orden en que la aplicación fsck revisará la partición en busca de errores durante el inicio, si es cero el dispositivo no se revisa.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fspy/">Fspy</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:24:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Herramienta de monitorización de la actividad de un sistema de archivos.</p>
+
+<blockquote><p># fspy /home/usuario</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fsck/">Fsck</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:24:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[recomendado dosfstools]. Reparar/chequear/formatear una partición no montada.</p>
+
+<blockquote><p># fsck -fy /dev/hda1</p>
+
+<p># fsck.ext2 -vpf /dev/hda1 (Repara una partición ext2)</p>
+
+<p># fsck.ext3 -vpf /dev/hda1 (Repara una partición ext3)</p>
+
+<p># fsck -fpC 0 /dev/sda1</p>
+
+<p># fsck.ext4 -cDfty -C 0 /dev/sda1</p>
+
+<p># fsck.ext4 -vpf /dev/sda1 (Muestra información sobre una partición: fragmentación, inodos, bloques, archivos&#8230;)</p></blockquote>
+
+<p>Opciones:</p>
+
+<pre><code>-A .- Permitira una navegación en toda la estructura de /etc/fstab.
+
+-V  .- información adicional sobre las acciones de fsck
+
+-t   .- Imprimir estadísticas de estado (-tt para más información)
+
+-a .- Repara cualquier problema que encuentra en el sistema de archivos sin preguntar (no recomendada)
+
+-l .- Lista todos los nombres de archivos
+
+-r .- Pide confirmación antes de reparar el sistema de archivos.
+
+-s .- Lista el superblock antes de chequear el sistema de archivos.
+
+sis_arch .- Especifica el sistema de archivos a verificar
+
+-c .- Buscar bloques dañados con badblocks (ver badblocks)
+
+-k .- Bloques dañados donde se almacenan con el comando anterior.
+
+-C 0 .- Muestra barra de progreso.
+
+-p .- forzar verificación y reparar automaticamente errores
+
+-D .- Obtimizar directorios si es posible
+
+-f   .- Forzar el chequeo incluso si el sistema de archivos parece correcto
+
+-Y   .- Asume respuesta "yes" a todas las preguntas
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -473,128 +690,6 @@ done
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/fold/">Fold</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:24:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Formatea la salida de un archivo a una determinada longitud.</p>
-
-<blockquote><p>$ fold  -w50 -s archivo (50 caracteres de largo por linea y que corte por los espacios entre palabras y no por las palabras)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/fmt/">Fmt</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:24:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra en pantalla archivos de texto de forma optimizada (Ver diferencia con cat)</p>
-
-<blockquote><p>$ fmt fichero.txt</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/flvstreamer/">Flvstreamer</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:24:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Descarga de videos con protocolo RTMP.</p>
-
-<p>Supongamos que el video a descargar tenga por ruta: http://www.tv3.cat/videos/1307049732092</p>
-
-<p>Abrir una pestaña del vavegador y pegar:</p>
-
-<p>http://www.tv3.cat/su/tvc/tvcConditionalAccess.jsp?ID=1307049732092&amp;QUALITY=H&amp;FORMAT=MP4</p>
-
-<p>Colocando en el número “ID=” el que corresponda y con la ruta rtmp que nos indique lanzar [en una sola linea]:</p>
-
-<blockquote><p>$ flvstreamer -r rtmp://mp4-500-str.tv3.cat/ondemand/mp4:g/tvcatalunya/2/9/1307049732092.mp4 -o video.mp4</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/99/">&larr; Older</a>
@@ -610,12 +705,24 @@ done
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1395</li>
+	<li>1398</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/weboorrents/">weboorrents</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/webood/">webood</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/videoob/">videoob</a>
+      </li>
     
       <li class="post">
         <a href="/blog/pyradio/">pyradio</a>
@@ -643,18 +750,6 @@ done
     
       <li class="post">
         <a href="/blog/zgrep/">zgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zfgrep/">zfgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zenity/">zenity</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
   </ul>

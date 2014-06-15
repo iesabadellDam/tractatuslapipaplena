@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="[apache2 php5 php-pear php-xml-parser php5-sqlite php5-json sqlite php5-mysql mp3info curl libcurl3 libcurl3-dev php5-curl zip php5-gd]. Nube de &hellip;">
+  <meta name="description" content="(gui: blinky). Gestor rápido de paquetes pacman y aur con funcionalidades básicas [-Ss , -S, -Syu y -Si]. Para evitar conflictos entre rutas de &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,130 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/packer/">Packer</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:26:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>(gui: blinky). Gestor rápido de paquetes pacman y aur con funcionalidades básicas [-Ss , -S, -Syu y -Si]. Para evitar conflictos entre rutas de pacman y aur, instalar diffpac.</p>
+
+<blockquote><p>$ packer -S &#8211;noconfirm paquete  (Instalar sin pedir confirmación)</p>
+
+<p>$ packer -Syu &#8211;auronly (Actualizar y sincronizar sólo los paquetes de aur)</p>
+
+<p>$ packer -Si paquete (información sobre paquete)</p>
+
+<p>$ packer -G paquete (descargar sin instalar un tarbal de aur)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/pacdiffviewer/">Pacdiffviewer</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:26:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>En Arch, busca archivos de configuración nuevos y obsoletos [pacnew, pacsave] para gestionarlos [eliminarlos, reemplazarlos..]</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/p0f/">P0f</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:26:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>identifica huellas de sistemas operativos de forma pasiva (solo escuchando)</p>
+
+<blockquote><p># p0f -i eth0</p>
+
+<p># p0f -A -i eth0  (averiguar conexiones que nos realizan o pasan por nuestra máquina)</p>
+
+<p># p0f -R -i eth0  (con conexiones que nos rechazan el tráfico)</p></blockquote>
+
+<p>Nota.- Lanzar la aplicación, visitar distintas páginas con el navegador y mirar en la consola lo que aparece.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -417,292 +541,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/operadores/">Operadores</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:26:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>(Bash scripting).</p>
-
-<p>lógicos o de comparación de cadenas alfanuméricas:</p>
-
-<pre><code>= (Verdadero si las 2 cadenas son iguales)
-
-!= (Verdadero si las 2 cadenas son distintas)
-
--n (Informa si la cadena tiene longitud mayor a cero)
-
--z (Informa si la cadena tiene longitud igual a cero)
-
-== (Verdadero si las 2 cadenas son iguales [solo en bash])
-
-&lt; (Si una cadena es menor que otra)
-
-&gt; (Si una cadena es mayor que otra)
-</code></pre>
-
-<p>lógicos o de comparacion de valores numericos</p>
-
-<pre><code>x -lt y (x menor que y)
-
-x -le y (x menor o igual que y)
-
-x -eq y (x igual que y)
-
-x -ge y (x mayor o igual que y)
-
-x -gt y (x mayor que y)
-
-x -ne y (x no igual que y)
-</code></pre>
-
-<p>De comprobacion de atributos de fichero</p>
-
-<pre><code>-d fichero (fichero existe y es un directorio)
-
--e fichero (fichero existe)
-
--f fichero (fichero existe y es regular [no un directorio])
-
--r fichero (si fichero tiene permiso de lectura)
-
--s fichero (fichero existe y no esta vacio)
-
--w fichero (si fichero tiene permiso de escritura)
-
--x fichero (si fichero tiene permiso de ejecucion o de busqueda si es un directorio)
-
--O fichero (si eres dueño del fichero)
-
--G fichero (si el grupo del fichero es igual al tuyo)
-</code></pre>
-
-<p>Algunos ejemplos:</p>
-
-<p>1.-</p>
-
-<p>Comprobar si un fichero tiene datos:</p>
-
-<pre><code>#!/bin/bash
-
-A=/etc/fstab
-
-if [ -s "$A" ]
-
-then
-
-    echo "Tiene datos"
-
-else
-
-    echo "No los tiene"
-
-fi
-</code></pre>
-
-<p>2.-</p>
-
-<p>Comprobar si un directorio es el personal del usuario:</p>
-
-<pre><code>#!/bin/bash
-
-read -p "Ingrese un directorio: " DIR
-
-if [ $DIR = home ]
-
-then
-
-    echo "Es tu directorio personal"
-
-else
-
-    echo "No es tu home"
-
-fi
-
-exit 0
-</code></pre>
-
-<p>3.-</p>
-
-<p>Verificar si un archivo pasado como argumento existe o no:</p>
-
-<pre><code>#!/bin/bash
-
-if [ $# -eq 0 ]
-
-then
-
-     echo "Falta el parametro"
-
-     exit
-
-else
-
-    if [ -f $1 ]
-
-    then
-
-        echo "archivo existe"
-
-    else
-
-        echo "archivo no existe"
-
-    fi
-
-fi
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/opera/">Opera</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:26:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Navegador</p>
-
-<p>1.-</p>
-
-<p>Para que google no detecte al navegador y poder usar g+</p>
-
-<p>En la barra de direcciones poner:</p>
-
-<pre><code>opera:config#ISP|Id
-</code></pre>
-
-<p>Y en el espacio en blanco poner:</p>
-
-<pre><code>AppleWebKit/535.1
-</code></pre>
-
-<p>Guardar y reiniciar.</p>
-
-<p>2.-</p>
-
-<p>Suprimir el icono de la bandeja de entrada [tray]</p>
-
-<p>Entrar en:</p>
-
-<p>about:config</p>
-
-<p>Escribir la palabra “tray” en el buscador y deseleccionar:</p>
-
-<p>Show Tray Icon.</p>
-
-<p>También cambiando la orden en el editor de menu:</p>
-
-<p>opera %u –notrayicon</p>
-
-<p>3.-</p>
-
-<p>Aceleración por hardware (Opera-next 12)</p>
-
-<p>about:config</p>
-
-<p>Apartado “User Prefs”</p>
-
-<p>Colocar los siguientes parámetros a “1”:</p>
-
-<p>Enable Hardware Acceleration</p>
-
-<p>Enable WebGL</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/openvt/">Openvt</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:26:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>lanza un programa en una nueva consola virtual [ttyX]. Ver deallocvt</p>
-
-<blockquote><p># openvt -c 9 ifconfig (Lanzar ifconfig en la /dev/tty9)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/57/">&larr; Older</a>
@@ -718,12 +556,24 @@ fi
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1395</li>
+	<li>1398</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/weboorrents/">weboorrents</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/webood/">webood</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/videoob/">videoob</a>
+      </li>
     
       <li class="post">
         <a href="/blog/pyradio/">pyradio</a>
@@ -751,18 +601,6 @@ fi
     
       <li class="post">
         <a href="/blog/zgrep/">zgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zfgrep/">zfgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zenity/">zenity</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
   </ul>

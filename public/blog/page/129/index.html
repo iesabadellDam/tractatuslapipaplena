@@ -9,7 +9,8 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="[boinc-client boinc-manager]Plataforma de software libre para la computación distribuida que comprende áreas tan diversas como matemáticas, medicina &hellip;">
+  <meta name="description" content="Grabar los mensajes de inicio de sesión. # bootlogd -l inicio.log (Especificando archivo. Por defecto en /var/log/boot)
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +75,140 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/bootlogd/">Bootlogd</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:23:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Grabar los mensajes de inicio de sesión.</p>
+
+<blockquote><p># bootlogd -l inicio.log (Especificando archivo. Por defecto en /var/log/boot)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/bootchart/">Bootchart</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:23:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ver el proceso de arranque en una imagen png. En la entrada del kernel en el grub colocar: init=/sbin/bootchartd</p>
+
+<p>Ejemplo:</p>
+
+<pre><code>title  Arch Linux
+
+root   (hd0,0)
+
+kernel /boot/vmlinuz26 root=/dev/sda2 init=/sbin/bootchartd ro
+
+initrd /boot/kernel26.img
+</code></pre>
+
+<p>Cuando el sistema haya arrancado lanzar:</p>
+
+<blockquote><p># bootchart-render</p></blockquote>
+
+<pre><code>Parsing /var/log/bootchart.tgz
+
+Wrote image: ./bootchart.png
+</code></pre>
+
+<p>Lo que convertirá el ilegible archivo bootchart.tgz en una imágen en nuestro home. El archivo de configuración en /etc/bootchartd.conf</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/bookman/">Bookman</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:23:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Generar libros de las páginas man.</p>
+
+<blockquote><p>$ bookman -p -t “Paginas man” /usr/man/man1/* > man.pdf (en formato pdf [-p] y con título [-t])</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -444,170 +579,6 @@ www.research.microsoft.com
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/bin2iso/">Bin2iso</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:23:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Convierte una imagen bin/cue a iso</p>
-
-<blockquote><p>$ bin2iso imagen.cue  imagen.iso</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/bg/">Bg</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:23:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Pasa un proceso a segundo plano.</p>
-
-<blockquote><p>$ bg PID</p>
-
-<p>$ bg %3 (mover el proceso 3 a background)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/beep/">Beep</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:23:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Pitidos del altavoz</p>
-
-<blockquote><p># beep</p>
-
-<p># beep -f 440 -l 1000 (Sonando un La durante 1000 milisegundos)</p>
-
-<p># beep -r 5 -d 1000 (5 pitidos separados entre ellos por 1000 milisegundos de silencio)</p>
-
-<p># beep -f 1000 -n -f 2000 -n -f 1500 (&#8220;-n&#8221; permite introducir nuevos parámetros)</p>
-
-<p># cat /etc/apt/sources.list | beep -c -f 311 -D 50 -l 10  (Emitirá un pitido despues de cada caracter[-c])</p></blockquote>
-
-<p>Notas:</p>
-
-<p>Frecuencias de la escala musical (-f):</p>
-
-<p>Do > 261</p>
-
-<p>Do# > 277</p>
-
-<p>Re > 293</p>
-
-<p>Re# > 311</p>
-
-<p>Mi > 329</p>
-
-<p>Fa > 349</p>
-
-<p>Fa# > 369</p>
-
-<p>Sol > 392</p>
-
-<p>Sol# >415</p>
-
-<p>La > 440</p>
-
-<p>La# > 466</p>
-
-<p>Si > 493</p>
-
-<p>Si beep no emite sonidos, puede que el dispositivo esté en la lista negra:</p>
-
-<blockquote><p># nano /etc/modprobe.d/blacklist.conf (Comprobar si existe una linea: blacklist pcspkr)</p>
-
-<p># lsmod | grep pcsp  (Otra forma de comprobar si existe como módulo)</p>
-
-<p># modprobe pcspkr  (para cargarlo)</p>
-
-<p># modprobe -r pcspkr  (Para eliminarlo nuevamente)</p>
-
-<p># rmmod pcspkr  (Otra forma de quitar el módulo)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/130/">&larr; Older</a>
@@ -623,12 +594,24 @@ www.research.microsoft.com
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1395</li>
+	<li>1398</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/weboorrents/">weboorrents</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/webood/">webood</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/videoob/">videoob</a>
+      </li>
     
       <li class="post">
         <a href="/blog/pyradio/">pyradio</a>
@@ -656,18 +639,6 @@ www.research.microsoft.com
     
       <li class="post">
         <a href="/blog/zgrep/">zgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zfgrep/">zfgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zenity/">zenity</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
   </ul>

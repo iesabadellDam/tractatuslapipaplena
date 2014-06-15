@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="[axel o aria] Paquete que incrementa la velocidad de descarga de paquetes respecto de apt-get mediante el uso de axel [ver] o aria. Descargar el &hellip;">
+  <meta name="description" content="[apache2]. Configurar un repositorio local. Seguidamente se muestra el proceso: $ mkdir repo (Crear el directorio) # nano /etc/apt/mirror.list Añadir &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,372 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/apt-mirror/">Apt-mirror</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:22:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[apache2]. Configurar un repositorio local. Seguidamente se muestra el proceso:</p>
+
+<blockquote><p>$ mkdir repo (Crear el directorio)</p>
+
+<p># nano /etc/apt/mirror.list</p></blockquote>
+
+<p>Añadir al principio la linea del directorio:</p>
+
+<pre><code>set base_path /home/USER/repo
+</code></pre>
+
+<blockquote><p># apt-mirror (Recargar/actualizar el repositorio)</p></blockquote>
+
+<p>Crear el enlace para que esté disponible via web:</p>
+
+<blockquote><p>$ cd /var/www/html</p>
+
+<p>$ ln -s /home/USER/distro/mirror/us.archive.ubuntu.com/ubuntu ubuntu</p></blockquote>
+
+<p>Modificar el sources.list:</p>
+
+<blockquote><p># nano /etc/apt/sources.list</p></blockquote>
+
+<p>Añadir la lineas:</p>
+
+<pre><code>deb http://192.168.1.2/ubuntu trusty universe
+
+deb http://192.168.1.2/ubuntu trusty main restricted
+
+deb http://192.168.1.2/ubuntu trusty-updates main restricted
+</code></pre>
+
+<blockquote><p># apt-update (Actualizar el cliente)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/apt-get/">Apt-get</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:22:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[aptitude y apt-cache]. Gestor de programario de distribuciones Debian. Listtado del historial de instalaciones y desinstalaciones en /var/log/apt/history.log</p>
+
+<blockquote><p># apt-get update    (Actualiza la lista de paquetes)</p>
+
+<p># apt-get upgrade   (Actualiza todos los paquetes instalados)</p>
+
+<p># apt-get upgrade paquete     (Solo actualiza “paquete”)</p>
+
+<p># apt-get dist-upgrade    (Actualiza la distribución)</p>
+
+<p># apt-get install paquete (Instala paquetes con resolución de depencias)</p>
+
+<p># pat-get install paquete -y (instalar paquete sin pedir confirmación)</p>
+
+<p># apt-get install &#8211;reinstall  paquete      (Reinstala un paquete)</p>
+
+<p># apt-get autoremove  (Borra paquetes huérfanos)</p>
+
+<p># apt-get remove paquete        (Elimina un paquete)</p>
+
+<p># apt-get remove &#8211;purge paquete  (Desinstala con archivos de configuración)</p>
+
+<p># apt-get remove $(deborphan)  (Elimina huerfanos. lanzar varias veces)</p>
+
+<p># apt-get clean        (Elimina caché)</p>
+
+<p># apt-get autoclean  (lo mismo de versiones antiguas de paquetes)</p>
+
+<p># apt-get -f install   (sin especificar paquete, para reparar la aplicación)</p>
+
+<p># apt-get -s install paquete        (simula la instalación)</p>
+
+<p># apt-get &#8211;compile source paquete  (baja las fuentes, compila y crear un .deb)</p>
+
+<p># apt-get check          (Verifica dependencias rotas)</p>
+
+<p># apt-get build-dep paquete (instalar las dependencias necesarias para poder compilar un paquete fuente)</p>
+
+<p># apt-get install network-manager=0.9.1.90-0ubuntu3 (version concreta)</p>
+
+<p># apt-get hold network-manager (Mantener una version concreta)</p>
+
+<p># apt-get source paquete (buscar un paquete fuente para ser compilado)</p>
+
+<p># apt-rdepends paquete (muestra todas las dependencias)</p>
+
+<p># apt-rdepends -b paquete (muestra las dependencias directas)</p>
+
+<p># apt-rdepends -f paquete  (muestra version y estado del paquete)</p>
+
+<p># apt-cache search paquete       (Busca en la cache paquete)</p>
+
+<p># apt-cache show paquete         (Muestra la descripción completa del paquete)</p>
+
+<p># apt-cache showpkg paquete   (Muestra su relación con otros paquetes)</p>
+
+<p># apt-cache depends paquete    (Muestra las dependencias del paquete)</p>
+
+<p># apt-cache rdepend paquete     (Muestra dependencias inversas del paquete)</p>
+
+<p># apt-cache policy paquete       (repositorio de donde se ha bajado un paquete)</p>
+
+<p># apt-get &#8211;yes install paquete (Responder “si” a preguntas de la instalación)</p>
+
+<p># aptitude search ~ilinux-image (Lista los kernels instalados)</p>
+
+<p># aptitude search ~i -F %p (Lista los paquetes instalados)</p>
+
+<p># apt-setup                              (Crea un sources.list optimizado)</p>
+
+<p># add-apt-repository ppa:repositorio   (añadir un repositorio ppa)</p>
+
+<p># ppa-purge ppa:repositorio   (suprimirlo. Precisa el script ppa-purge))</p></blockquote>
+
+<p>/etc/apt/sources.list               (Fichero de repositorios.)</p>
+
+<p>/var/cache/apt/archives          (Caché de los paquetes .deb instalados)</p>
+
+<p>/var/log/apt/term.log (Archivo de logs de la aplicación)</p>
+
+<p>1.-</p>
+
+<p>Para resolver problemas con  /var/lib/apt/lists/*  lanzar:</p>
+
+<blockquote><p># rm /var/lib/apt/lists/* -vf</p></blockquote>
+
+<p>Y luego:</p>
+
+<blockquote><p># apt-get update</p></blockquote>
+
+<p>2.-</p>
+
+<blockquote><p># apt-get -o &#8220;Acquire::Check-Valid-Until=false&#8221; update   (Saltarse el validador  que verifica la fecha de caducidad del archivo “Release” de debian [Error ” Release file expired, ignoring file”])</p></blockquote>
+
+<p>3.-</p>
+
+<p>Añadir repositorios de distintas ramas en debian.</p>
+
+<p>Incluir en el sources.list los repositorios de las distintas ramas:</p>
+
+<blockquote><p># nano sources.list</p></blockquote>
+
+<pre><code>## Debian Testing
+
+deb http://ftp.de.debian.org/debian/ testing main contrib non-free
+
+deb-src http://ftp.de.debian.org/debian/ testing main contrib non-free
+
+## seguridad Debian Testing
+
+deb http://security.debian.org/ testing/updates main contrib non-free
+
+deb-src http://security.debian.org/ testing/updates main contrib non-free
+
+## Debian Unstable
+
+deb http://ftp.us.debian.org/debian unstable main non-free contrib
+
+## Debian experimental
+
+deb http://ftp.fr.debian.org/debian experimental main non-free contrib
+</code></pre>
+
+<p>Editar o crear el fichero:</p>
+
+<blockquote><p># nano /etc/apt/apt.conf</p></blockquote>
+
+<p>Con el siguiente contenido:</p>
+
+<pre><code>APT::Default-Release “testing”;
+
+APT::Cache-Limit 55000000;
+
+Apt::Get::Purge;
+
+APT::Clean-Installed;
+
+APT::Get::Fix-Broken;
+
+APT::Get::Fix-Missing;
+
+APT::Get::Show-Upgraded “true”;
+</code></pre>
+
+<p>Con el que establecemos las siguientes caracteristicas: Definir Debian Testing como rama principal,Limitar la cache utilizada en el proceso de actualización,Borrar archivos de configuración de los paquetes desinstalados y Arreglar el sistema en caso de detectar dependencias rotas.</p>
+
+<p>Editar el archivo preferences:</p>
+
+<blockquote><p># nano /etc/apt/preferences</p></blockquote>
+
+<p>Con el contenido:</p>
+
+<pre><code>Package: *
+
+Pin: release a=testing
+
+Pin-Priority: 900
+
+Package: *
+
+Pin: release a=unstable
+
+Pin-Priority: 600
+
+Package: *
+
+Pin: release a=experimental
+
+Pin-Priority: 50
+</code></pre>
+
+<p>Que tiene por significado que si el paquete existe en la rama testing se enstalará este, en caso contrario, si existe en unstable se instalará el unstable y sólo si no existe en las otras dos, se instalará de la versión experimental.</p>
+
+<p>También podemos especificarlo en el comando:</p>
+
+<blockquote><p># apt-get install libreoffice/unstable (Firefox se instalará de la rma unstable, pero las dependencias, se buscarán en primer lugar en la rama testing)</p>
+
+<p># apt-get -t unstable install firefox (Tanto firefox como las dependencias se instalarás de la rama unstable)</p></blockquote>
+
+<p>4.-</p>
+
+<p>Instalación de aplicaciones sin conexión a internet. Ha de instalarse en dos equipos: el que tiene conexión y en el que no la tiene. Esta aplicación tiene muchas limitaciones ya que no instala dependencias por lo que puede usarse en pocos casos.</p>
+
+<p>En el equipo sin conexión:</p>
+
+<blockquote><p># apt-offline set apt.sig &#8211;update &#8211;upgrade &#8211;install-packages PAQUETE (genera el archivo apt.sig que ha de trasladarse al equipo que tiene conexión)</p></blockquote>
+
+<p>En el equipo conexión:</p>
+
+<blockquote><p># apt-offline get apt.sig &#8211;threads 5 &#8211;bundle offline.zip (Crea el archivo offline.zip que se traslada al equipo sin conexión)</p></blockquote>
+
+<p>Otra vez en el equipo sin conexión:</p>
+
+<blockquote><p># apt-offline install offline.zip</p>
+
+<p># apt-get install PAQUETE (Instalación del paquete)</p></blockquote>
+
+<p>5.- Instalar aplicaciones de arquitectura 386 en equipos amd64:</p>
+
+<blockquote><p># nano /etc/apt/sources.list</p></blockquote>
+
+<p>Añadir las lineas:</p>
+
+<pre><code>deb http://ftp.debian.org/debian/ wheezy-updates main contrib
+
+deb http://http.us.debian.org/debian/ wheezy contrib non-free main
+</code></pre>
+
+<blockquote><p># apt-get update</p>
+
+<p># apt-get upgrade</p></blockquote>
+
+<p>Activar multiarquitectura:</p>
+
+<blockquote><p># dpkg &#8211;add-architecture i386</p>
+
+<p># apt-get update</p></blockquote>
+
+<p>Instalar librerías base para los sistemas de 32 bits:</p>
+
+<blockquote><p># apt-get install libc6:i386</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/apt-file/">Apt-file</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:22:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Buscar un paquete que contiene un fichero o ver el contenido de un paquete. Una vez instalado, para realizar la caché,  lanzar en primer lugar:</p>
+
+<blockquote><p># apt-file update</p>
+
+<p># apt-file search ifconfig</p>
+
+<p># apt-file list ifconfig</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -407,154 +773,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/apf/">Apf</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:22:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Cortafuegos. Todos los parámetros se configuran en el archivo conf.apf.</p>
-
-<blockquote><p># nano /etc/apf/conf.apf</p></blockquote>
-
-<p>La configuración básica:</p>
-
-<p>DEVEL_MODE=&#8221;0&#8221; # 1 en pruebas, 0 en producción</p>
-
-<p>IFACE_IN=&#8221;eth1&#8221; # Interfaces de red</p>
-
-<p>IFACE_OUT=&#8221;eth1&#8221; # interfaces de red</p>
-
-<p>IFACE_TRUSTED=&#8221;eth0&#8221; # Si existen interfaces locales</p>
-
-<p>IG_TCP_CPORTS=&#8221;21,22,80,110&#8221; # Puertos permitidos</p>
-
-<p>IG_UDP_CPORTS=&#8221;&#8220;IG_UDP_CPORTS=&#8221;&#8221; # Puertos UDP permitidos [si existen]</p>
-
-<p>IG_ICMP_TYPES=&#8221;3,5,11&#8221; 3 Puertos ICMP permitidos [si existen]</p>
-
-<p>Otros archivos importantes:</p>
-
-<p>/etc/apf/deny_host.rules (ips, rangos, etc denegados)</p>
-
-<p>/etc/apf/allow_host.rules (ips, rangos, etc permitidos)</p>
-
-<p>/var/log/apf_log (Archivo de logs)</p>
-
-<blockquote><p># apf -s (arrancar)</p>
-
-<p># apf -r (reiniciar)</p>
-
-<p># apf -f (parar)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/apariencia/">Apariencia</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:22:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Tener el escritorio root y de usuario con la misma apariencia . Crear enlaces entre las carpetas que contienen la apariencia de entorno del usuario y las de root:</p>
-
-<blockquote><p>$ sudo ln -s /home/usuario/.themes /root/.themes</p>
-
-<p>$ sudo ln -s /home/usuario/.icons /root/.icons</p>
-
-<p>$ sudo ln -s /home/usuario/.fonts /root/.fonts</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/apachetop/">Apachetop</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:22:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Comando top [ver] especifico para servidores apache y lanzado al estilo de tail [ver]</p>
-
-<blockquote><p># apachetop -f /var/log/apache2/access.log (Monitorear en tiempo real)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/136/">&larr; Older</a>
@@ -570,12 +788,24 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1395</li>
+	<li>1398</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/weboorrents/">weboorrents</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/webood/">webood</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/videoob/">videoob</a>
+      </li>
     
       <li class="post">
         <a href="/blog/pyradio/">pyradio</a>
@@ -603,18 +833,6 @@
     
       <li class="post">
         <a href="/blog/zgrep/">zgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zfgrep/">zfgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zenity/">zenity</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
   </ul>

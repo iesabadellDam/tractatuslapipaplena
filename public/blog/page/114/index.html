@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Convierte fechas gregorianas en fechas subrealistas. Algunas opciones coinciden con las de &#8220;date&#8221; (ver) $ ddate +%d-%B-%Y
-">
+  <meta name="description" content="Libera memoria y estructuras de datos del núcleo para todas las consolas virtuales que no se usen. Una consola virtual se considera en desuso si no &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +74,168 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/deallocvt/">Deallocvt</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:23:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Libera memoria y estructuras de datos del núcleo para todas las consolas virtuales que no se usen. Una consola virtual se considera en desuso si no es la consola en primer plano, ni  ningún  proceso  la  tiene  abierta  para  lectura  o escritura, ni se ha seleccionado ningún texto en su pantalla. Ver openvt</p>
+
+<blockquote><p># deallocvt (Las desasigna todas)</p>
+
+<p># deallocvt 5 (Sólo desasigna la /dev/tty5)</p></blockquote>
+
+<p>Un ejemplo de uso:</p>
+
+<blockquote><p># openvt -s ls (lanzara el comando ls en la primera consola virtual libre. Normalmente la /dev/tty8)</p>
+
+<p># deallocvt 8</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ddrescue/">Ddrescue</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:23:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[make gcc g++]. Recuperación de discos dañados. Proceso:</p>
+
+<p>Descargar el paquete dd_rhelp (Comprobar si existe una versión posterior):</p>
+
+<blockquote><p>$ wget http://www.kalysto.org/pkg/dd_rhelp-0.1.2.tar.gz</p>
+
+<p>$ cd dd_rhelp-0.1.2</p>
+
+<p># ./dd_rhelp /dev/sdbx sdbx.img</p></blockquote>
+
+<p>Creará sdbx.img en el directorio actual, que podrá montarse:</p>
+
+<blockquote><p># mount -o loop sdbx.img /media/imagen</p></blockquote>
+
+<p>Comprobar posibles errores (para partición ext3):</p>
+
+<blockquote><p># fsck -y sdbx.img</p></blockquote>
+
+<p>Restaurar la imagen:</p>
+
+<blockquote><p># dd_rhelp sdbx.img /dev/sdax</p></blockquote>
+
+<p>Método de ejecutar ddrescue en dos pasadas, de forma que la primera sólo recupera los bloques que no contenga sectores defectuosos y el segundo se centre en recuperar el máximo de los defectuosos:</p>
+
+<blockquote><p># ddrescue -v -n /dev/sda /dev/sdb sda.txt</p>
+
+<p># ddrescue -v -r2 -d /dev/sda /dev/sdb sda.txt</p></blockquote>
+
+<p>Luego comprobar errores con fsck.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ddclient/">Ddclient</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:23:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Configurar pc con una ip fija. Requiere registro en dyndns.org. Durante la instalación preguntará los datos del registro pero si se prefiere puede editarse el archivo de configuración y colocarlos a mano</p>
+
+<blockquote><p># gedit /etc/ddclient.conf</p></blockquote>
+
+<p>Completar los campos login y password con los datos correspondientes:</p>
+
+<p>protocol=dyndns2</p>
+
+<p>use=web, web=checkip.dyndns.com, web-skip=&#8217;IP Address&#8217;</p>
+
+<p>server=members.dyndns.org</p>
+
+<p>login=Nombre_registrado_en_dyndns</p>
+
+<p>password=&#8217;contraseña_de_dyndns&#8217;</p>
+
+<p>nombre_de_dominio.com</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -433,182 +594,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/dares/">Dares</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:23:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Rescatar contenido de cds y dvds dañados</p>
-
-<blockquote><p>$ dares -i image_cdrom -s /tmp (salvar en /tmp)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/dansguardian/">Dansguardian</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:23:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[squid]. Filtro de contenidos web [cliente] que trabaja conjuntamente con el servidor proxy squid [servidor].</p>
-
-<p>Adaptar el archivo de configuración:</p>
-
-<blockquote><p># nano /etc/dansguardian/dansguardian.conf</p></blockquote>
-
-<p>Algunos parámetros a especificar [caso de no estarlo]:</p>
-
-<pre><code>language = 'spanish'
-
-reportinglevel = 3 #valores de 1, 2 y 3
-
-filterport = 8080
-
-proxyip = 127.0.0.1 #La misma ip del proxy squid
-
-proxyport = 3128
-</code></pre>
-
-<p>Guardar el archivo.</p>
-
-<p>El listado de conceptos [ip, nombre de dominio, frases&#8230; ] por los que se puede banear y conceptos excluidos en:</p>
-
-<blockquote><p># ls /etc/dansguardian/lists/</p></blockquote>
-
-<p>Algunos de los más usuales:</p>
-
-<p>bannedextensionlist (extensiones no permitidas)</p>
-
-<p>banneriplist (listado de ips no permitidas)</p>
-
-<p>bannedmimetypelist (Tipos MIME no permitidos)</p>
-
-<p>bannedregexpurllist  (Listado de expresiones a bloquear)</p>
-
-<p>bannedurllist (Bloquear partes especificas de un sitio)</p>
-
-<p>bannedsitelist (Bloquear sitios)</p>
-
-<p>bannedphraselist (Listado de frases prohibidas encerradas entre &lt; ></p>
-
-<p>exceptionsitelist (Lista de excepciones de sitios)</p>
-
-<p>exceptioniplist (lista de excepciones de direcciones IP)</p>
-
-<p>exceptionuserlist (Lista de excepciones de nombres de usuarios que no serán filtrado)</p>
-
-<blockquote><p># /etc/init.d/dansguardian restart</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/cvlc/">Cvlc</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:23:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Modo de la aplicación vlc [ver] usado como reproductor de música.</p>
-
-<blockquote><p>$ cvlc archivo.mp3</p></blockquote>
-
-<p>Algunas teclas de control:</p>
-
-<pre><code>Ctrl + mayusc + space (Reproducir/pausar)
-
-Ctrl + mayusc + n (siguiente archivo)
-
-Ctrl + mayusc + p (archivo anterior)
-
-Ctrl + mayusc + flecha arriba (Subir volumen)
-
-Ctrl + mayusc + flechas abajo (Bajar volumen)
-
-Ctrl + mayusc + m (Silenciar)
-
-Ctrl + mayusc + q (Salir)
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/115/">&larr; Older</a>
@@ -624,12 +609,24 @@ Ctrl + mayusc + q (Salir)
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1395</li>
+	<li>1398</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/weboorrents/">weboorrents</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/webood/">webood</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/videoob/">videoob</a>
+      </li>
     
       <li class="post">
         <a href="/blog/pyradio/">pyradio</a>
@@ -657,18 +654,6 @@ Ctrl + mayusc + q (Salir)
     
       <li class="post">
         <a href="/blog/zgrep/">zgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zfgrep/">zfgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zenity/">zenity</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
   </ul>

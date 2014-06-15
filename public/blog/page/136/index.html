@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Ajustes de apache2 # apache2ctl -M (Visualizar todos los modulos de apache) # apache2ctl -S (visualizar el estatus de apache) # apache2ctl -t ( &hellip;">
+  <meta name="description" content="Cortafuegos. Todos los parámetros se configuran en el archivo conf.apf. # nano /etc/apf/conf.apf La configuración básica: DEVEL_MODE=&#8221;0&#8221 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,154 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/apf/">Apf</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:22:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Cortafuegos. Todos los parámetros se configuran en el archivo conf.apf.</p>
+
+<blockquote><p># nano /etc/apf/conf.apf</p></blockquote>
+
+<p>La configuración básica:</p>
+
+<p>DEVEL_MODE=&#8221;0&#8221; # 1 en pruebas, 0 en producción</p>
+
+<p>IFACE_IN=&#8221;eth1&#8221; # Interfaces de red</p>
+
+<p>IFACE_OUT=&#8221;eth1&#8221; # interfaces de red</p>
+
+<p>IFACE_TRUSTED=&#8221;eth0&#8221; # Si existen interfaces locales</p>
+
+<p>IG_TCP_CPORTS=&#8221;21,22,80,110&#8221; # Puertos permitidos</p>
+
+<p>IG_UDP_CPORTS=&#8221;&#8220;IG_UDP_CPORTS=&#8221;&#8221; # Puertos UDP permitidos [si existen]</p>
+
+<p>IG_ICMP_TYPES=&#8221;3,5,11&#8221; 3 Puertos ICMP permitidos [si existen]</p>
+
+<p>Otros archivos importantes:</p>
+
+<p>/etc/apf/deny_host.rules (ips, rangos, etc denegados)</p>
+
+<p>/etc/apf/allow_host.rules (ips, rangos, etc permitidos)</p>
+
+<p>/var/log/apf_log (Archivo de logs)</p>
+
+<blockquote><p># apf -s (arrancar)</p>
+
+<p># apf -r (reiniciar)</p>
+
+<p># apf -f (parar)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/apariencia/">Apariencia</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:22:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Tener el escritorio root y de usuario con la misma apariencia . Crear enlaces entre las carpetas que contienen la apariencia de entorno del usuario y las de root:</p>
+
+<blockquote><p>$ sudo ln -s /home/usuario/.themes /root/.themes</p>
+
+<p>$ sudo ln -s /home/usuario/.icons /root/.icons</p>
+
+<p>$ sudo ln -s /home/usuario/.fonts /root/.fonts</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/apachetop/">Apachetop</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:22:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Comando top [ver] especifico para servidores apache y lanzado al estilo de tail [ver]</p>
+
+<blockquote><p># apachetop -f /var/log/apache2/access.log (Monitorear en tiempo real)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -592,140 +740,6 @@ AddDefaultCharset latin1
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/anamnesis/">Anamnesis</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:22:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Gestor del portapapeles. Almacena el historial del portapapeles y ofrece una interfaz para hacer búsquedas de todo lo copiado. Descarga de: <a href="http://sourceforge.net/projects/anamnesis/">http://sourceforge.net/projects/anamnesis/</a> Una   vez descomprimido copiar la carpeta en:</p>
-
-<pre><code># cp anamnesis-1.0.4 /usr/local/
-</code></pre>
-
-<p>Colocar el ejecutable en el path:</p>
-
-<pre><code># ln -s /usr/local/anemnesis-1.0.4/source/anemnesis.py /usr/bin/anemnesis
-</code></pre>
-
-<blockquote><p>$ anamnesis &#8211;start (Arrancar sesión. Otras opciones: restart, stop)</p>
-
-<p>$ anamnesis -b (Ver el historial. Con intro o cambiando de escritorio desaparece)</p>
-
-<p>$ anamnesis -l 3 (Mostrar los últimos 3 datos guardados)</p>
-
-<p>$ anamnesis -l 5 &#8211;filter=&#8221;palabra&#8221; (Buscar en los últimos 5 datos el que contine &#8220;palabra&#8221;)</p>
-
-<p>$ anamnesis -a &#8220;Historial del Portapapeles&#8221; (Ponerle un título)</p>
-
-<p>$ anamnesis &#8211;remove = 5 (Eliminar el registro del ID número 5)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/amixer/">Amixer</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:22:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Bajar el volumen</p>
-
-<blockquote><p>$ amixer sset Master 50%-   (Bajar un 50% del volumen)</p>
-
-<p>$ amixer sset Master 30%+  (Sube un 30% el volumen)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/amidi/">Amidi</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:22:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Relativo a los dispositivos midi.</p>
-
-<blockquote><p>$ amidi -l     (listar los dispositivos MIDI de ALSA-utils)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/137/">&larr; Older</a>
@@ -741,12 +755,24 @@ AddDefaultCharset latin1
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1395</li>
+	<li>1398</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/weboorrents/">weboorrents</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/webood/">webood</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/videoob/">videoob</a>
+      </li>
     
       <li class="post">
         <a href="/blog/pyradio/">pyradio</a>
@@ -774,18 +800,6 @@ AddDefaultCharset latin1
     
       <li class="post">
         <a href="/blog/zgrep/">zgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zfgrep/">zfgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zenity/">zenity</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
   </ul>

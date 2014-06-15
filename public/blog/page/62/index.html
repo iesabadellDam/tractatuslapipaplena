@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Reproductor de música. Al ser del tipo cliente-servidor, Precisa mpd [ver] arrancado. En el archivo de configuración, que tiene que crearse, sólo es &hellip;">
+  <meta name="description" content="utilidad que se puede utilizar para practicamente cualquier cosa relacionada con el protocolo TCP/IP [navaja suiza] Nota.- En algunas distros está &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,184 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/netcat/">Netcat</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:26:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>utilidad que se puede utilizar para practicamente cualquier cosa relacionada con el protocolo TCP/IP [navaja suiza]</p>
+
+<p>Nota.- En algunas distros está ligeramente capado. Preferible bajarlo de http://netcat.sourceforge.net/download.php y compilarlo:</p>
+
+<blockquote><p>$ ./configure</p>
+
+<p>$ make DFLAGS=&#8221; -DTELNET -DGAPING_SECURITY_HOLE&#8221;</p>
+
+<p># make install</p>
+
+<p>$ nc -v -v -z 192.168.2.5 21 22 25 110 5900 (que se conecte a la IP, envie más información [-v por duplicado], que no envie ningún dato [-z] y que lo haga por los puertos mencionados [21,22,25,110,5900])</p>
+
+<p>$ nc -l -p 3001 -e /bin/bash  (Que esté a la escucha [-l] en el puerto 3001 [-p] y que, cuando haya conexión, ejecute nuestra shell bash [-e &#8230;.])</p>
+
+<p>$ nc IP_servidor 3001  (desde el cliente, conectamos con el servidor y todo lo que escribamos se enviará al bash del servidor y lo que nos responda aparecerá en nuestra pantallla. Para terminar la conexión CTROL-C)</p>
+
+<p>$ telnet -l usuario IP_o_nombre_host 3001 (Otra forma de establecer la conexión.)</p>
+
+<p>$ nc -l -p 3000 > archivo (Dejar el servidor listo para recibir un archivo)</p>
+
+<p>$ nc IP_servidor 3000 &lt; archivo  (enviar desde el cliente el archivo)</p>
+
+<p>$ nc -zw2 www.nombre.com 80 &amp;&amp; echo open  (comprobar si está abierto el puerto 80 de un host)</p>
+
+<p>$ nc -l -p 10000 &lt; pelicula.avi  (streaming de video-servidor)</p>
+
+<p>$ nc IP_o_host 10000 | mplayer – (streaming de video-cliente)</p>
+
+<p>$ nc -l -p 10000 &lt; fichero.mp3  (streaming de  audio-servidor)</p>
+
+<p>$ nc IP_o_host 10000 | madplay –  (streaming de audio-cliente)</p>
+
+<p>$ nc -l -p http -c &#8220;cat index.html&#8221;  (servidor http)</p>
+
+<p>$ echo “GET /” | nc www.google.com 80 > index.html  (copiar una página web)</p>
+
+<p>$ nc -l -p 10000 -c &#8220;nc host 22&#8221; (Proxy. El trafico recibido en el puerto 10000 se redirige al 22 del host especificado)</p>
+
+<p>$ nc towel.blinkenlights.nl 23  (visionar la guerra de las galaxias)</p>
+
+<p>$ dd if=/dev/sda5 | nc -l -p 10000  (clonar un disco por red. En el servidor)</p>
+
+<p>$ nc IP_o_host 10000 | dd of=sda5.img  (En el cliente)</p>
+
+<p>$ nc -l -p 7777 > /dev/null  (Prueba de rendimiento entre dos máquinas. En el Servidor)</p>
+
+<p>$ pv -r /dev/zero | nc IP_servidor 7777  (En el cliente)</p></blockquote>
+
+<p>opciones</p>
+
+<p>-v -v   .-  mostrar máxima información</p>
+
+<p>-z  .-  mostrar puertos a la escucha</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/net-acct/">Net-acct</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:26:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Demonio que crea logs del uso de la red.</p>
+
+<blockquote><p># cat /var/log/net-acct/net-acct.log</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/nessus/">Nessus</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:26:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Scaner de vulneradilidades</p>
+
+<p>Descargar nessus de: http://www.nessus.org/download/</p>
+
+<p>Registrarnos en:  http://www.nessus.org/plugins/?view=register-info</p>
+
+<p>Entrar el código de activación recibido por correo:</p>
+
+<blockquote><p># /opt/nessus/bin/nessus-fetch &#8211;register 218B-76A4-CB0F-072B-AEEA</p>
+
+<p># /opt/nessus/sbin/nessus-adduser (Entrar usuario y contraseña)</p>
+
+<p># /opt/nessus/sbin/nessusd (Arrancar el servicio)</p></blockquote>
+
+<p>Abrir navegador y entrar en la pantalla de login con:</p>
+
+<p>https://127.0.0.1:8834</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -582,229 +760,6 @@ Alt + x (Suprimir/añadir la ayuda del final de página)
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/namei/">Namei</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:26:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Mostrar la ruta desde el directorio raiz hasta donde especifiquemos.</p>
-
-<blockquote><p>$ namei $(pwd) (hasta el presente directorio)</p>
-
-<p>$ namei -m $(pwd)/archivo (mostrando permisos y propietarios)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/mytop/">Mytop</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:26:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Monitorización del servidor de bases de datos mysql. &#8220;q&#8221; para salir. Comprobar la actividad ingresando en otra consola en mysql [mysql -u USER -p]</p>
-
-<blockquote><p>$ mytop -u USER -p PASS -h localhost -P 3306 &#8211;color (Especificando host y puerto)</p></blockquote>
-
-<p>Para no poner la contraseña y que quede reflejada en el historial, es preferible entrar los datos en un archivo:</p>
-
-<blockquote><p>$ nano .mytop</p></blockquote>
-
-<p>Con los siguientes parámetros:</p>
-
-<pre><code>user=USER
-
-pass=PASS
-
-host=localhost
-
-db=
-
-delay=3
-
-port=3306
-
-batchmode=0
-
-header=1
-
-color=1
-
-idle=1
-</code></pre>
-
-<p>Delay=3 (Refrescar informe cada 3 segundos)</p>
-
-<p>batchmode=0 (Con valor 1 mostrará por pantalla todas las consultas una detrás de otra sin recargar la página. Si el valor es 0 cada vez que se refresque la página se borrarán las consultas anteriores)</p>
-
-<p>header=1 (Valor 1 muestra la cabecera)</p>
-
-<p>color=1 (en color)</p>
-
-<p>idle=1 (que muestre los resultados de las consultas que están dormidas)</p>
-
-<p>Conceptos que muestra la pantalla de mytop:</p>
-
-<pre><code>Queries (Número tatal de consultas)
-
-qps (Media de consultas por segundo)
-
-qps now (Número de consultas por segundo desde la última vez que se descargaron resultados)
-
-Slow (Número de consultas lentas)
-
-Slow qps (Consultas lentas desde la última descarga de resultados)
-
-Se/In/Up/De (indica cual es el porcentaje de Select, Insert, Update o Delete que se ejecutan en el servidor)
-
-key efficiency (Porcentaje de consultas que están utilizado una clave/índice en la consulta)
-
-Bps in/out (Media de bytes por segundo entrantes a la base de datos y media de bytes por segundo salientes)
-
-Now in/out (Media de bytes entrantes y salientes por segundo desde que mytop ha refrescado la página)
-</code></pre>
-
-<p>Teclas interactivas:</p>
-
-<pre><code>d (Mostrar solo datos de una base de datos)
-
-f (Mostrar información completa de una consulta)
-
-F (Desactivar todos los filtros)
-
-h (Mostrar solamente los datos de un servidor específico)
-
-H (Mostrar/ocultar cabecera)
-
-i (Mostrar/ocultar consultar dormidas)
-
-k (Matar una consulta)
-
-p (Pausar la vista)
-
-m (Cambiar "consultas más lentas" a "consultas por segundo")
-
-o (Invertir orden)
-
-q (Salir)
-
-r (Resetear todos los valores)
-
-s (Cambiar el tiempo de refresco)
-
-t (Cambiar al modo vista)
-
-u (Mostrar solamente de un usuario específico)
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/mysqladmin/">Mysqladmin</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:26:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Cliente mysql para realizar operaciones administrativas.</p>
-
-<blockquote><p>$ mysqladmin -u root -p version (Conocer la versión instalada)</p>
-
-<p>$ mysqladmin -u root password 1234 (Establecer un primera contraseña si no la establece al instalar)</p>
-
-<p>$ mysqladmin -u root -p1234 password &#8216;abcd&#8217;(Cambiar la contraseña 1234 por abcd)</p>
-
-<p>$ mysqladmin -u root -p create BASE_DATOS (Crear una base de datos)</p>
-
-<p>$ mysqladmin -u root -p drop BASE_DATOS (Borrar una base de datos)</p>
-
-<p>$ mysqladmin -u root -p status (Mostrar conexiones del servidor mysql)</p>
-
-<p>$ mysqladmin -u root -p reload (Recargar privilegios)</p>
-
-<p>$ mysqladmin -u root -p flush-logs (Vuelca todos los logs)</p>
-
-<p>$ mysqladmin -u root -p flush-tables (Vuelca todas las tablas)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/63/">&larr; Older</a>
@@ -820,12 +775,24 @@ u (Mostrar solamente de un usuario específico)
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1395</li>
+	<li>1398</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/weboorrents/">weboorrents</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/webood/">webood</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/videoob/">videoob</a>
+      </li>
     
       <li class="post">
         <a href="/blog/pyradio/">pyradio</a>
@@ -853,18 +820,6 @@ u (Mostrar solamente de un usuario específico)
     
       <li class="post">
         <a href="/blog/zgrep/">zgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zfgrep/">zfgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zenity/">zenity</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
   </ul>
