@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Analizar el tráfico de red via navegador. Una vez instalado arrancar el demonio: # /etc/init.d/darkstat start Y pasado un tiempo visualizar los datos &hellip;">
+  <meta name="description" content="Relacionado con fechas y calendarios. $ date +%s (en tiempo unix - desde el 1 de enero de 1970-) $ date -s &#8220;2010-01-10 16:59&#8221; (forma de &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,95 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/date/">Date</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:23:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Relacionado con fechas y calendarios.</p>
+
+<blockquote><p>$ date +%s  (en tiempo unix - desde el 1 de enero de 1970-)</p>
+
+<p>$ date -s &#8220;2010-01-10 16:59&#8221;  (forma de establecer la fecha y hora actual)</p>
+
+<p>$ date –u 0110170210  (Otra forma de establecer la fecha. mes 01, día 10, hora 17:02 y año 2010)</p>
+
+<p>$ date +&#8221;%A,%d-%m-%Y&#8221;</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<pre><code>%D (fecha en formato mm/dd/yy)
+
+%T (hora:minutos:segundos en formato 24h)
+
+%R (hora:minutos en formato 24h)
+
+%d (día del mes con 2 dígitos)
+
+%m (mes con 2 digitos)
+
+%y (año con 2 dígitos)
+
+%Y (año con 4 dígitos)
+
+%a (nombre abreviado del día)
+
+%A (nombre completo del día)
+
+%b (nombre abreviado del mes)
+
+%B (nombre completo del mes)
+
+%H (hora con 2 dígitos en formato 0-24h)
+
+%I (hora con 2 digitos en formato 0-12h)
+
+%M (Solo los minutos)
+
+%S (Solo los segundos)
+</code></pre>
+
+<blockquote><p>$ date +&#8221;%A,%d-%m-%Y&#8221; &#8211;date &#8216;1966/4/20 20500 days&#8217; (Para saber cuando alguien cumplirá 20500 días desde su nacimiento)</p>
+
+<p>$ watch -n1 &#8216;banner <code>date +%T</code>&#8217; (Rejoj digital en ascii)</p></blockquote>
+
+<p>1.-</p>
+
+<p>Saber la hora encualquier parte del mundo:</p>
+
+<blockquote><p>$ TZ=&#8221;America/Guatemala&#8221; date (Muestra la hora actual de Guatemala)</p>
+
+<p>$ TZ=&#8221;Europe/Berlin&#8221; date (Muestra la de Berlin)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -570,97 +659,6 @@ $ curl -s https://help.github.com/articles/generating-ssh-keys | grep -Po  --col
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/cups/">Cups</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:23:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Gestión de impresoras.</p>
-
-<p>1.-</p>
-
-<p>Montar una impresora en red:</p>
-
-<p>En la máquina servidor (la que tiene conectada la impresora)</p>
-
-<pre><code># nano /etc/cups/cupsd.conf
-</code></pre>
-
-<p>Comentar la linea “Listen localhost:631” y añadir la ip de la máquina: “Listen 192.168.2.3:631” y en el siguiente apartado añadir los parámetros de la red:</p>
-
-<pre><code># Restrict access to the server…
-
-&lt;Location /&gt;
-
-    Order allow,deny
-
-    Allow localhost
-
-    Allow @LOCAL
-
-    # permisos a la red local
-
-    Allow from 192.168.2.0/24
-
-&lt;/Location&gt;
-</code></pre>
-
-<p>Para activar la compartición de impresoras:</p>
-
-<p>Browsing on</p>
-
-<pre><code># /etc/init.d/cupsd restart (reiniciar cups)
-</code></pre>
-
-<p>Abrir el navegador y escribir http://localhost:631 después del logeo ir a la pestaña printers y seleccionar la impresora, con lo que nos quedará en la barra de navegación algo parecido a: http://localhost:631/printers/PSC-1100</p>
-
-<p>Que sustituyendo “localhost” por la dirección ip de la máquina nos dará la dirección de la impresora:</p>
-
-<p>http://192.168.2.3:631/printers/PSC-1100</p>
-
-<p>En las máquinas cliente</p>
-
-<pre><code># nano /etc/cups/cupsd.conf
-</code></pre>
-
-<p>Browsing on</p>
-
-<p>BrowseAllow 192.168.2.0/24</p>
-
-<pre><code># /etc/init.d/cupsys restart
-</code></pre>
-
-<p>Y configurar la impresora de la forma habitual ya sea en Sistema -> administración -> impresoras pestaña Configuración -> URI del dispositivo y poner la dirección de la impresora o via http://localhost:631</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/116/">&larr; Older</a>
@@ -676,12 +674,16 @@ $ curl -s https://help.github.com/articles/generating-ssh-keys | grep -Po  --col
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1400</li>
+	<li>1401</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/pdf2svg/">pdf2svg</a>
+      </li>
     
       <li class="post">
         <a href="/blog/wetboobs/">wetboobs</a>
@@ -717,10 +719,6 @@ $ curl -s https://help.github.com/articles/generating-ssh-keys | grep -Po  --col
     
       <li class="post">
         <a href="/blog/zmap/">zmap</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zless/">zless</a>
       </li>
     
   </ul>

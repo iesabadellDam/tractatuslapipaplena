@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Permite realizar operaciones aritméticas. $ expr 2 + 3 $ expr 2 * 3 (Para la multiplicación ha de anteponerse al signo la barra ) $ expr 12 / 2 $ sum &hellip;">
+  <meta name="description" content="[regex o patrones]. Buscar cadenas de texto que coinciden con un patrón. Los comandos más usuales que las emplean son grep, find, sed y awk y cada &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,269 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/expresiones-regulares/">Expresiones-regulares</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:24:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[regex o patrones]. Buscar cadenas de texto que coinciden con un patrón. Los comandos más usuales que las emplean son grep, find, sed y awk y cada uno con sus pecualiaridades. Para ilustrar dichas expresiones se usa un archivo de texto al que llamo file.</p>
+
+<blockquote><p>$ cat file</p></blockquote>
+
+<pre><code># /etc/fstab: static file system information.
+
+UUID=de1d7793-c3d2-4e03-b79d-1a76905619e6 /               ext4    errors=remount-ro 0       1
+
+UUID=ccc71238-d89d-435b-a4e2-c2d836f800bb none            swap    sw              0       0
+
+/dev/sr0        /media/cdrom0   udf,iso9660 user,noauto     0       0
+
+/dev/sda5       /media/datos    ext4    defaults        0       0
+
+/dev/sda7       /media/fotos    ext3    defaults        0       0
+
+servidor:/home/templix /media/servidor  nfs4 defaults   0       0
+
+### Otras cosas
+
+7592 esto es un número....
+
+la letra z es la última
+
+aminora
+
+mediaplayer es un reproductor
+
+tres cincos hace 555
+
+salta la rana
+
+aRmARIO
+</code></pre>
+
+<p>Nota.- Los siguientes ejemplos se basarán en el comando grep. En algunos casos, al corresponder a expresiones regulares extendidas, se usará con el argumento -E. Las expresiones regulares han de ir siempre encerradas con comillas simples.</p>
+
+<pre><code>Literales (Sólo encajan con ellos mismos)
+
+    $ grep 'media' file (mostrara las lineas que contengan "media" incluso "mediaplayer")
+
+    $ grep '\&lt;media\&gt;' file (Sólo mostrará las que contengan exactamente "media")
+
+. [punto] (Cualquier caracter)
+
+    $ grep 'me.ia' file (Misma salida que el anterior)
+
+    $ grep '\&lt;m...a\&gt;' file (Mostrar las de cinco letras que empiecen por "m" y terminen en "a")
+
+    $ grep 'm...a\&gt;' file (Mostrar las lineas que contengan una palabra de cinco letras que empiece por "m" y termine con "a" sin nada a continuación)
+
+[] [Corchetes] (Cualquier caracter de los encerrados entre corchetes)
+
+    $ grep '[wz]' file (Mostras las que contengan "w" o "z")
+
+    $ grep 'sda[0-9]' file (Mostrar las lineas con palabras que empiecen por sda seguidas de un número del 0 al 9)
+
+    $ grep '[0-9]-' file (Buscar lineas que tengan un número seguido de un -)
+
+| [Tuberia] (Especificar varias opciones)
+
+    $ grep -E 'e(xt|rvi)(3|dor)' file (Mostrar las que contengan ext3 y ervidor [servidor])
+
+    $ grep -E 'datos|servidor' file (Mostrar las que tengan las palabras "datos" y "servidor")
+
+- [Guión] (Siempre que no siga a un corchete, especifica un rango)
+
+    $ grep '[0-2]$' file (Lineas que contengan los números 0,1 y 2)
+
+^ [Circunflejo] (Si va precedido de un corchete significa "todo lo que no sea lo que sigue". En los demás casos significa "que la linea empiece por lo que sigue)
+
+    $ grep '^UUID' file (Mostrar las que empiecen por UUID)
+
+    $ grep ':[^/]' file (Las que tengan ":" y no vayan seguidos de una "/")
+
+    $ grep -e '^UUID' -e '^\/' file (Mostrar las que empiecen por UUID y por / . La barra de escape [\] convierte al siguiente caracter en literal)
+
+$ [Dolar] (Indica que el carácter precedente aparece al final de la linea)
+
+    $ grep '0$' file (Muestra las que terminen en 0)
+
+    grep '\.$' file (Muestra las lineas que terminan con un punto)
+
++ [Signo más] (Una o más veces).
+
+    $ grep -E '\-[0-9]+' file (Buscar las lineas con varios números precedidos por un guión [que ha de escaparse con una barra])
+
+* (Asterisco) (Ninguna o más veces)
+
+    $ grep -E '(fot).*' file (Mostrar las que tengan "fot" y puedan estar o no seguidas de otros caracteres)
+
+? (Interrogante) (Un caracter impreciso)
+
+    $ grep -E 'ext4?' file (indica que el caracter anterior [el 4] puede ser distinto de 4 o puede no existir, o sea que mostrará lineas que contengan ext4, ext3, ext...)
+
+{n,m} [Llaves] (Que el caracter anterior a la llave se muestre las veces que indica entre el número n y el m. Si omitimos m significa como mínimo n veces.
+
+    $ grep '5\{2,5\}.*' file (Que se muestre las lineas que tengan un 5 entre dos y cinco veces. Las llaves se escapan)
+
+    $ grep '5\{3\}.*' file (Muestra las lineas en las que el 5 sale tres veces)
+
+    $ grep '5\{3,\}.*' file (Muestra las lineas en las que el 5 sale como mínimo tres veces)
+
+b (Que lo precedente sea el final de una palabra. Siempre ha de escaparse.)
+
+    $ grep 's\b' file (Muestra las lineas que contienen alguna palabra acabada en "s")
+</code></pre>
+
+<p>Otros ejemplos:</p>
+
+<p>Buscar las lineas que no empiecen por #:</p>
+
+<pre><code>$ grep -v '^#' file
+</code></pre>
+
+<p>Mostrar lineas que empiecen por # y las que terminen en 0:</p>
+
+<pre><code>$ grep -E '^#|0$' file
+</code></pre>
+
+<p>Buscar lineas que tengan : seguidos de una barra que ha de escaparse:</p>
+
+<pre><code>$ grep ':\/' file
+</code></pre>
+
+<p>Buscar las lineas que tengan una &#8220;o&#8221; seguida de al menos 3 dígitos:</p>
+
+<pre><code>$ grep 'o[0-9]\{3\}' file
+</code></pre>
+
+<p>Buscar lineas que tengan algún dígito:</p>
+
+<pre><code>$ grep '[[:digit:]]' file
+</code></pre>
+
+<p>Buscar lineas que empiecen por un caracter alfabético:</p>
+
+<pre><code>$ grep '^[[:alpha:]]' file
+</code></pre>
+
+<p>Buscar lineas que tengan &#8220;ext&#8221; usando parentesis:</p>
+
+<pre><code>$ grep '\(ext\)' file
+</code></pre>
+
+<p>Buscar lineas que que tengan un número entre 2 y 9 al menos una vez y esten precedidos de espacio, tabulación o salto de linea:</p>
+
+<pre><code>$grep -E '\s[2-9]+' file
+</code></pre>
+
+<p>Mostrar lineas con entre 3 y 6 letras mayúsculas:</p>
+
+<pre><code>$ grep '[A-Z]\{3,6\}' file
+</code></pre>
+
+<p>Algunos casos comentados:</p>
+
+<p>1.-</p>
+
+<blockquote><p>$ touch nada.8.sh.5</p></blockquote>
+
+<pre><code>$ ls | grep '.*.[6-8].*.[1-6]'
+</code></pre>
+
+<p>Nota.- Cuando se usen con el comando grep han de ir siempre encerradas con comillas simples.</p>
+
+<pre><code>.* (Cero o más caracteres. El punto inicial es imprescindible)
+
+.[6-8] (Seguidos de un punto y un número que contenga entre el 6 y el 8)
+
+.* (seguido un punto y cero o más caracteres)
+
+.[1-6] (y terminado con un punto seguido de un número que contenga del 1 al 6)
+</code></pre>
+
+<p>Nota.- Los corchetes NO indican UN número de un dígito sinó un número que contenga el margen especificado [6,7,8 para el primer corchete y 1,2,3,4,5,6 para el segundo, por tanto también listaría el archivo nada.0357.sh.389 pero no nada.0352.sh.389 porque el número 0352 no contiene ninguno del margen especificado.</p>
+
+<p>Nótese la diferencia en la expresión regular usando el comando mv [sin comillas simples y sin el punto delante del primer asterisco]:</p>
+
+<pre><code>$ mv *.[6-8].*.[1-6] prueba
+</code></pre>
+
+<p>2.-</p>
+
+<p>Buscar en el directorio scripts, todos los que sean de bash:</p>
+
+<pre><code>$ grep -i '^#.*bash' scripts/*
+
+    ^#.*bash (Que el primer caracter de la primera linea sea # y que despues de cero o más caracteres aparezca la palabra bash)
+
+    $ grep -i '$.*bash' scripts
+
+    '$.*bash' (En todos los ficheros del directorio, que al final de la primera linea y despues de cero o más caracteres apararezca la palabra bash)
+</code></pre>
+
+<p>3.-</p>
+
+<p>Ver los correos electrónicos completos de una lista en la que los hay incompletos:</p>
+
+<blockquote><p>$ cat lista</p></blockquote>
+
+<pre><code>juangomez@gmail.com
+
+clarafuentes@
+
+@yahoo.es
+
+ant.rodri-perez@hotmail.nadadenada
+
+pedro@blog.empresa.travel
+</code></pre>
+
+<hr />
+
+<pre><code>$ grep -E '^[a-zA-Z._-]+@[a-zA-Z0-9.]+\.[a-z]+$' lista
+
+    ^[a-zA-Z._-]+ (Que empiece con una palabra que pueda contener mayúsculas, minúsculas, puntos, guiones o guiones bajos)
+
+    @ (Seguida de una @ literal)
+
+    [a-zA-Z0-9.]+ (A continuación varios caracteres que pueden ser mayúsculas, minúsculas, puntos o números)
+
+    \. (Después un punto literal)
+
+    [a-z]+$ (Para terminar, uno o varios caracteres en minúscula)
+
+$ grep -E '^[a-zA-Z._-]+@.[a-zA-Z.0-9]+\.[[:alpha:]]{2,3}$' lista (Sólo mostrará las que terrminen con 2 o 3 letras)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -524,170 +787,6 @@ eval echo '$'$Y
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ettercap/">Ettercap</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:24:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[Dependencias: libcap2 libnet1 zlib1g libpthread-stubs0 libpcre3-dev libpcap-dev libcap-dev libnet6-1.3-0 libnet1-dev libssl-dev ncurses-bin libncurses5-dev libsdl-pango1 libatk1.0-dev]</p>
-
-<p>Snifador de red. Muestra pantallas solicitando aceptación de certificado en los navegadores de las victimas.</p>
-
-<p>descargar de http://ettercap.sourceforge.net/ y descomprimir</p>
-
-<blockquote><p>$ wget http://prdownloads.sourceforge.net/ettercap/ettercap-NG-0.7.3.tar.gz?download</p>
-
-<p>$ wget http://sourceforge.net/projects/ettercap/files/ettercap/NG-0.7.3/ettercap-NG-0.7.3.tar.gz/download</p>
-
-<p>$ tar -zvxf paquete</p>
-
-<p>$ cd ettercap-NG-0.7.3</p></blockquote>
-
-<pre><code>$ ./configure
-
-$ make
-
-# make install
-</code></pre>
-
-<blockquote><p>$ ettercap -P list   (visualizar plugins instalados)</p></blockquote>
-
-<p>modificar archivo de configuración:</p>
-
-<blockquote><p># nano /etc/etter.conf</p></blockquote>
-
-<p>descomentar la linea:himne20-01-13 19:37Menos información</p>
-
-<blockquote><p># if you use iptables:</p></blockquote>
-
-<p>redir_command_on = &#8220;iptables -t nat -A PREROUTING -i %iface -p tcp &#8211;dport %port -j REDIRECT &#8211;to-port %rport&#8221;</p>
-
-<p>Y modificar:</p>
-
-<blockquote><p># the command used by the remote_browser plugin</p></blockquote>
-
-<p>remote_browser = &#8220;firefox -remote openurl(http://%host%url)&#8221;</p>
-
-<p>Para usar el plugin dns_spoof (Redireccionar páginas a otros sitios)</p>
-
-<blockquote><p># nano /usr/share/ettercap/etter.dns</p>
-
-<p># 3  Modos de especificar la redirección a localhost</p></blockquote>
-
-<pre><code>microsoft.com          A       192.168.1.2
-
-*.microsoft.com        A       192.168.1.2
-
-*google*               A       192.168.1.2
-</code></pre>
-
-<p>Para la sustitución de imagenes:</p>
-
-<blockquote><p># touch test2filter</p></blockquote>
-
-<p>Pegar:</p>
-
-<pre><code>if (ip.proto == TCP &amp;&amp; tcp.src == 80) {
-
-replace("img src=", "img src=\"http://www.irongeek.com/images/jollypwn.png\" ");
-
-replace("IMG SRC=", "img src=\"http://www.irongeek.com/images/jollypwn.png\" ");
-
-msg("Filter ok.\n");
-</code></pre>
-
-<p>Configurar el sistema para que acepte todos los paquetes que detecte. Si al lanzar:</p>
-
-<blockquote><p># cat /proc/sys/net/ipv4/ip_forward</p></blockquote>
-
-<p>Si la respuesta no es 1, lanzar:</p>
-
-<blockquote><p># echo 1 > /proc/sys/net/ipv4/ip_forward</p></blockquote>
-
-<p>Arrancar la aplicación en ncurses [en terminal -> ettercap -T , en modo gtk -> ettercap -G y en modo demonio -> ettercap -D . En este último caso el análisis se realiza en los archivos de log]:</p>
-
-<blockquote><p># ettercap -C</p></blockquote>
-
-<p>Clicar en:</p>
-
-<pre><code>Sniff -&gt; Unifield sniffing
-</code></pre>
-
-<p>Y aceptar [o poner] la red [eth0]. En la nueva pantalla, clic en:</p>
-
-<pre><code>Host -&gt; Scan for host
-</code></pre>
-
-<p>Para escanear la red. Para visionar las máquina activas obtenidas, clic en:</p>
-
-<pre><code>Hosts -&gt; Hosts List
-</code></pre>
-
-<p>Bajar con el cursor hasta la IP del router y pulsar la tecla &#8220;1&#8221;. Luego nos situamos sobre la IP del objetivo y pulsar la tecla &#8220;2&#8221; con lo que colocamos nuestra máquina entre el router y la máquina objetivo (envenenamiento arp). Luego en el cuadro que se abre con:</p>
-
-<pre><code>Mitm -&gt; Arp poisoning
-</code></pre>
-
-<p>Parameters, ponemos:</p>
-
-<pre><code>remote
-</code></pre>
-
-<p>Y arrancamos el sniffer:</p>
-
-<pre><code>Start -&gt; Start sniffing
-
-Para observar las conexiones que realiza la máquina objetivo:
-
-View -&gt; Connections
-
-Para terminar el ataque:
-
-Mitm -&gt; Stop mitm atack
-
-Start -&gt; Stop Sniffing
-
-Start -&gt; Exit
-</code></pre>
-
-<p>Forma abreviada:</p>
-
-<pre><code># ettercap -Tq -M arp:remote -i eth0 ip_victima ip_router
-
-O solo especificando la del router si se ataca toda la red:
-</code></pre>
-
-<blockquote><p># ettercap -Tq -M arp:remote -i eth0 ip_router</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/105/">&larr; Older</a>
@@ -703,12 +802,16 @@ O solo especificando la del router si se ataca toda la red:
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1400</li>
+	<li>1401</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/pdf2svg/">pdf2svg</a>
+      </li>
     
       <li class="post">
         <a href="/blog/wetboobs/">wetboobs</a>
@@ -744,10 +847,6 @@ O solo especificando la del router si se ataca toda la red:
     
       <li class="post">
         <a href="/blog/zmap/">zmap</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zless/">zless</a>
       </li>
     
   </ul>
