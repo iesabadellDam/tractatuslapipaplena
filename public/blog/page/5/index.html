@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Aplicación para establecer parámetros del servidor X # xset q (muestra información de la configuración actual) # xset dpms 200 300 600 (segundos para &hellip;">
+  <meta name="description" content="Emulador de terminal $ xterm -bg black -fg gray -bc -cr red -e ssh usuario@remoto.com $ xterm -fg white -bg blue -e links2 http://google.es &amp; ( &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,95 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/xterm/">Xterm</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:28:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Emulador de terminal</p>
+
+<blockquote><p>$ xterm -bg black -fg gray -bc -cr red -e ssh usuario@remoto.com</p>
+
+<p>$ xterm -fg white -bg blue -e links2 http://google.es &amp; (Abrir navegador en una terminal con fondo azul y letra blanca)</p>
+
+<p>$ xterm -u8 (Arrancar la terminal con soporte utf-8 [equivalente a lanzarla con uxterm])</p></blockquote>
+
+<p>Opciones:</p>
+
+<p>-cr blue (cursor de color azul [white, yellow, grey, red&#8230;])</p>
+
+<p>-geom 100x100 (especificar dimensiones)</p>
+
+<p>-maximized  (Ventana maximizada)</p>
+
+<p>1.-</p>
+
+<p>Modificar las medidas por defecto:</p>
+
+<blockquote><p># nano /usr/share/vte/termcap/xterm</p></blockquote>
+
+<p>Buscar la linea:</p>
+
+<p>co#80:it#8:li#24:\</p>
+
+<p>Y modificar los parámetros co [columnas] y li [líneas] por ejemplo:</p>
+
+<p>co#120:it#8:li#15:\</p>
+
+<p>2.-</p>
+
+<p>Otras  personalizaciones:</p>
+
+<p>Modificar o crear el archivo:</p>
+
+<blockquote><p>$ nano .Xresources</p></blockquote>
+
+<p>Pegar el contenido:</p>
+
+<pre><code>XTerm*Background: black
+
+XTerm*Foreground: yellow
+
+XTerm*font: 9x15
+
+XTerm*saveLines: 1000
+
+XTerm*HiForeColor: white
+
+XTerm*HiBackColor: #c06077
+</code></pre>
+
+<blockquote><p>$ xrdb -merge .Xresources (Aplicar los cambios, en caso contrario no se aplicaran hasta el siguiente reinicio)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -537,61 +626,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/xpra/">Xpra</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:28:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Permite ejecutar en un equipo una aplicación remota desde un servidor X, manteniendo la conexión aunque esta se hay interrumpido. Posibilita la comunicación remota con aplicaciones individuales sin que sea obligatorio cargar todo el escritorio remoto.</p>
-
-<pre><code>@client:~$ ssh usuario@servidor.com (Establecer conexión con el servidor)
-
-@server:~$ xpra start :5 (Arrancar el Display 5)
-
-@server:~$ DISPLAY=:5 midori &amp; (Lanzar una aplicación [midori] en el display 5)
-
-@server:~$ logout (Cerrar la conexión con el servidor)
-
-Realizar una nueva conexión con el servidor esta vez con xpra y contra el display 5:
-
-@client:~$ xpra attach ssh:usuario@servidor.com:5 (Después de entrar la contraseña, se abrirá la aplicación midori del servidor en el cliente)
-</code></pre>
-
-<p>@server:~$ xpra list (Lista las sesiones xpra abiertas)</p>
-
-<p>@server:~$ xpra stop :5 (Cierra el display 5)</p>
-
-<p>@server:~$ xpra attach :5 (Entra en el display 5)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -613,6 +647,10 @@ Realizar una nueva conexión con el servidor esta vez con xpra y contra el displ
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/git/">git</a>
+      </li>
     
       <li class="post">
         <a href="/blog/aspell/">aspell</a>
@@ -648,10 +686,6 @@ Realizar una nueva conexión con el servidor esta vez con xpra y contra el displ
     
       <li class="post">
         <a href="/blog/pyradio/">pyradio</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zypper/">zypper</a>
       </li>
     
   </ul>
