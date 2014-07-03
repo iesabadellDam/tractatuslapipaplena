@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Combina archivos, juntando las primeras lineas con las primeras, las segundas con las segundas&#8230; $ paste 1.txt 2.txt > 3.txt
-">
+  <meta name="description" content="Herramienta que permite aplicar un parche a un determinado fichero o directorio. Toma un fichero que contiene un listado de diferencias producidas &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +74,115 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/patch/">Patch</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:26:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Herramienta que permite aplicar un parche a un determinado fichero o directorio. Toma un fichero que contiene un listado de diferencias producidas por el programa diff y esas diferencias se aplica a uno o más archivos. Los nombres de los archivos para ser parcheado por lo general se toman del fichero del parche, pero si hay un solo archivo para ser parcheado puede ser especificado en la línea de comandos como originalfile.</p>
+
+<p>1.-</p>
+
+<p>Aplicar un parche a una aplicación instalada.</p>
+
+<blockquote><p>$ wget http://host/parche.patch  (Descargar el parche)</p>
+
+<p># patch &#8211;backup /usr/bin/aplicacion_a_parchear ~/parche.patch</p></blockquote>
+
+<p>Un ejemplo completo en archivos de texto:</p>
+
+<p>Tenemos dos ficheros, file1 (archivo original) y file2 (archivo modificado) con el siguiente contenido:</p>
+
+<pre><code>$ cat file1
+
+Me gusta linux
+
+$ cat file2
+
+Me gusta la libertad
+</code></pre>
+
+<p>Generar el parche parche con el comando diff:</p>
+
+<pre><code>$ diff -u file1 file2 &gt; file.patch
+
+$ cat file.patch
+
+--- file1   2013-11-02 03:14:28.466555864 +0100
+
++++ file2   2013-11-02 03:14:46.230555684 +0100
+
+@@ -1 +1 @@
+
+-Me gusta linux
+
++Me gusta la libertad
+</code></pre>
+
+<p>Tenemos un tercer fichero con el siguiente contenido:</p>
+
+<pre><code>$ cat file3
+
+Me gusta linux
+
+No uso programario privativo
+</code></pre>
+
+<p>Y queremos parchearlo con el archivo que hemos creado previamente. El resultado sería el siguiente:</p>
+
+<pre><code>$ patch file3 &lt; file.patch
+
+patching file file3
+
+$ cat file3
+
+Me gusta la libertad
+
+No uso programario privativo
+</code></pre>
+
+<p>Para anular un parche previamente aplicado:</p>
+
+<pre><code>$ patch -R file3 &lt; file.patch
+
+patching file file3
+
+$ cat file3
+
+Me gusta la libertad
+
+No uso programario privativo
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -446,44 +554,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/pacworld/">Pacworld</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:26:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Herramienta para comprobar la consistencia de la base de datos y arreglar paquetes rotos.</p>
-
-<blockquote><p># pacworld -v &#8211;exec</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/56/">&larr; Older</a>
@@ -505,6 +575,10 @@
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/emacs/">emacs</a>
+      </li>
     
       <li class="post">
         <a href="/blog/apt-get/">apt-get</a>
@@ -540,10 +614,6 @@
     
       <li class="post">
         <a href="/blog/weboorrents/">weboorrents</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/webood/">webood</a>
       </li>
     
   </ul>

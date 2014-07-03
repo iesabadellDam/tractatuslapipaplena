@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Gestor de sesiones. 1.- Suprimir la cuenta de invitado: # nano /etc/lightdm/lightdm.conf Añadir la linea: allow-guest=false # restart lightdm ( &hellip;">
+  <meta name="description" content="Gestor de arranque. La configuración en: # nano /etc/lilo.conf Algunos parametros a especificar: # Indica que se instale en determinado disco: boot &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,103 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/lilo/">Lilo</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:25:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Gestor de arranque. La configuración en:</p>
+
+<blockquote><p># nano /etc/lilo.conf</p></blockquote>
+
+<p>Algunos parametros a especificar:</p>
+
+<blockquote><p># Indica que se instale en determinado disco:</p></blockquote>
+
+<p>boot = /dev/sda</p>
+
+<blockquote><p># El sistema que arrancará por defecto [el especificado en la etiqueta [label]]</p></blockquote>
+
+<p>default = Linux</p>
+
+<blockquote><p># Que muestre cualquier cosa que sea referenciado en la línea message:</p></blockquote>
+
+<p>prompt</p>
+
+<blockquote><p># Una imagen. Medidas 640x480:</p></blockquote>
+
+<p>bitmap = /boot/slack.bmp</p>
+
+<blockquote><p># un mensaje de inicio:</p></blockquote>
+
+<p>message = /boot/boot_message.txt</p>
+
+<blockquote><p># tiempo de espera para arrancar la partición por defecto [en segundos]:</p></blockquote>
+
+<p>timeout = 50</p>
+
+<blockquote><p># Una partición linux</p></blockquote>
+
+<p>image = /boot/vmlinuz</p>
+
+<pre><code>root = /dev/sda2
+
+label = Linux
+
+read only
+</code></pre>
+
+<blockquote><p># nota: read-only Indica que el sistema de ficheros raíz se montará en modo solo-lectura.</p>
+
+<p># Por norma general, el proceso de arranque lo remonta luego en modo lectura-escritura.</p>
+
+<p># Una partición windows:</p></blockquote>
+
+<p>other = /dev/hda1</p>
+
+<pre><code>label = Windows
+
+table = /dev/sda1 
+</code></pre>
+
+<p>Si queremos una contraseña para entrar en alguno de los sistemas colocamos en su entrada:</p>
+
+<pre><code>password = 12345
+</code></pre>
+
+<p>Cualquier modificación en este archivo para guardar los cambios, implica lanzar:</p>
+
+<blockquote><p># lilo</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -664,42 +761,6 @@ Ctrl-t (Siempre en primer plano)
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/lckdo/">Lckdo</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:25:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[moreutils]. Bloquea la ejecución de un programa con el fin de evitar que otros procesos se ejecuten en paralelo. Se utiliza como nice [ver] y nohup [ver]</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/79/">&larr; Older</a>
@@ -721,6 +782,10 @@ Ctrl-t (Siempre en primer plano)
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/emacs/">emacs</a>
+      </li>
     
       <li class="post">
         <a href="/blog/apt-get/">apt-get</a>
@@ -756,10 +821,6 @@ Ctrl-t (Siempre en primer plano)
     
       <li class="post">
         <a href="/blog/weboorrents/">weboorrents</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/webood/">webood</a>
       </li>
     
   </ul>
