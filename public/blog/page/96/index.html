@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Obtiene entradas de la base de datos administrativa (ahosts, passwd, group, hosts, services, protocols, networks, aliases y rpc) $ getent passwd ( &hellip;">
+  <meta name="description" content="Permite listar polí­ticas y determinar si estan activas o inactivas en SELinux, implementación de seguridad para GNU/Linux que provee una variedad de &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,59 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/getsebool/">Getsebool</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:24:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Permite listar polí­ticas y determinar si estan activas o inactivas en SELinux, implementación de seguridad para GNU/Linux que provee una variedad de políticas de seguridad a través del uso de módulos de Seguridad en el nucleo de Linux. Ver setsebool</p>
+
+<blockquote><p># getsebool -a (Lista todas las políticas, activa o inactivas)</p>
+
+<p># getsebool -a | grep ftp (conocer que polí­ticas que incluyan la cadena ftp están activas)</p></blockquote>
+
+<pre><code>Para el servicio de FTP las políticas serían:
+
+    allow_ftpd_anon_write (Permite a usuarios anónimos escribir en el servidor)
+
+    allow_ftpd_full_access (Permite lectura y escritura sobre los archivos del servidor)
+
+    allow_ftpd_use_cifs (Permite transferencias de datos desde CIFS)
+
+    allow_ftpd_use_nfs (Permite transferencias de datos desde NFS)
+
+    ftp_home_dir (Permite a usuarios locales acceder a sus directorios de inicio)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -501,85 +554,6 @@ Ctrl+Mayús+flecha  (seleccionar texto a derecha o izquierda)
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/gdm/">Gdm</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:24:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Pantalla de login para entrar en el sistema</p>
-
-<p>1-</p>
-
-<p>Para ocultar usuarios:</p>
-
-<p>Aparecen en la pantalla de login los que tienen un ID 1000 o superior. Para conocer los ID:</p>
-
-<blockquote><p># cat /etc/passwd | gawk -F: &#8216;{print $3, $1}&#8217; | sort -n</p></blockquote>
-
-<p>Para suprimirlos:</p>
-
-<blockquote><p># nano /etc/gdm/custom.conf</p></blockquote>
-
-<p>Y el apartado greeter dejarlo:</p>
-
-<p>[greeter]</p>
-
-<p>Exclude=usuario_a_ocultar,boinc,yacy</p>
-
-<p>2.-</p>
-
-<p>Entrada automática y otros ajustes:</p>
-
-<blockquote><p># gdmsetup</p></blockquote>
-
-<p>3.-</p>
-
-<p>Cambiar fondo en la pantalla de login.</p>
-
-<blockquote><p># nano /etc/gdm3/greeter.gsettings</p></blockquote>
-
-<p>Y modificando la linea &#8220;pictori-uri&#8221; para que apunte a la imagen deseada:</p>
-
-<pre><code>[org.gnome.desktop.background]
-
-picture-uri='file:///path/a/fondo'
-
-picture-options='zoom'
-</code></pre>
-
-<p>Una vez modificado, aplicar los cambios con:</p>
-
-<blockquote><p># dpkg-reconfigure gdm3</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/97/">&larr; Older</a>
@@ -601,6 +575,10 @@ picture-options='zoom'
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/apt-get/">apt-get</a>
+      </li>
     
       <li class="post">
         <a href="/blog/git/">git</a>
@@ -636,10 +614,6 @@ picture-options='zoom'
     
       <li class="post">
         <a href="/blog/webood/">webood</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/pyradio/">pyradio</a>
       </li>
     
   </ul>
