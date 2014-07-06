@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Navegador 1.- Para que google no detecte al navegador y poder usar g+ En la barra de direcciones poner: opera:config#ISP|Id Y en el espacio en blanco &hellip;">
+  <meta name="description" content="(Bash scripting). lógicos o de comparación de cadenas alfanuméricas: = (Verdadero si las 2 cadenas son iguales) != (Verdadero si las 2 cadenas son &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,172 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/operadores/">Operadores</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:26:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>(Bash scripting).</p>
+
+<p>lógicos o de comparación de cadenas alfanuméricas:</p>
+
+<pre><code>= (Verdadero si las 2 cadenas son iguales)
+
+!= (Verdadero si las 2 cadenas son distintas)
+
+-n (Informa si la cadena tiene longitud mayor a cero)
+
+-z (Informa si la cadena tiene longitud igual a cero)
+
+== (Verdadero si las 2 cadenas son iguales [solo en bash])
+
+&lt; (Si una cadena es menor que otra)
+
+&gt; (Si una cadena es mayor que otra)
+</code></pre>
+
+<p>lógicos o de comparacion de valores numericos</p>
+
+<pre><code>x -lt y (x menor que y)
+
+x -le y (x menor o igual que y)
+
+x -eq y (x igual que y)
+
+x -ge y (x mayor o igual que y)
+
+x -gt y (x mayor que y)
+
+x -ne y (x no igual que y)
+</code></pre>
+
+<p>De comprobacion de atributos de fichero</p>
+
+<pre><code>-d fichero (fichero existe y es un directorio)
+
+-e fichero (fichero existe)
+
+-f fichero (fichero existe y es regular [no un directorio])
+
+-r fichero (si fichero tiene permiso de lectura)
+
+-s fichero (fichero existe y no esta vacio)
+
+-w fichero (si fichero tiene permiso de escritura)
+
+-x fichero (si fichero tiene permiso de ejecucion o de busqueda si es un directorio)
+
+-O fichero (si eres dueño del fichero)
+
+-G fichero (si el grupo del fichero es igual al tuyo)
+</code></pre>
+
+<p>Algunos ejemplos:</p>
+
+<p>1.-</p>
+
+<p>Comprobar si un fichero tiene datos:</p>
+
+<pre><code>#!/bin/bash
+
+A=/etc/fstab
+
+if [ -s "$A" ]
+
+then
+
+    echo "Tiene datos"
+
+else
+
+    echo "No los tiene"
+
+fi
+</code></pre>
+
+<p>2.-</p>
+
+<p>Comprobar si un directorio es el personal del usuario:</p>
+
+<pre><code>#!/bin/bash
+
+read -p "Ingrese un directorio: " DIR
+
+if [ $DIR = home ]
+
+then
+
+    echo "Es tu directorio personal"
+
+else
+
+    echo "No es tu home"
+
+fi
+
+exit 0
+</code></pre>
+
+<p>3.-</p>
+
+<p>Verificar si un archivo pasado como argumento existe o no:</p>
+
+<pre><code>#!/bin/bash
+
+if [ $# -eq 0 ]
+
+then
+
+     echo "Falta el parametro"
+
+     exit
+
+else
+
+    if [ -f $1 ]
+
+    then
+
+        echo "archivo existe"
+
+    else
+
+        echo "archivo no existe"
+
+    fi
+
+fi
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1135,44 +1301,6 @@ $ git push heroku master (En algunas ocasiones es suficiente con "git push")
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/obmenugen/">Obmenugen</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:26:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Generador de menús para escritorios ligeros (openbox, fluxbox&#8230;)</p>
-
-<blockquote><p>$ obmenugen</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/59/">&larr; Older</a>
@@ -1194,6 +1322,10 @@ $ git push heroku master (En algunas ocasiones es suficiente con "git push")
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/interfaces/">interfaces</a>
+      </li>
     
       <li class="post">
         <a href="/blog/stumpwm/">stumpwm</a>
@@ -1229,10 +1361,6 @@ $ git push heroku master (En algunas ocasiones es suficiente con "git push")
     
       <li class="post">
         <a href="/blog/wetboobs/">wetboobs</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/videoob/">videoob</a>
       </li>
     
   </ul>

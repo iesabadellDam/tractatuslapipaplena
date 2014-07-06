@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="muestra estadísticas de la CPU y de la entrada y salida de los dispositivos y particiones. $ iostat -x sda -d 1 6 (6 reportes con 1 segundo de &hellip;">
+  <meta name="description" content="monitoriza el ratio de lectura/escritura en disco . $ iotop -o -u usuario $ iotop -a -p $(sed &#8216;s, , -p ,g&#8217; &lt;&lt;&lt;pgrep "_raid| &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,60 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/iotop/">Iotop</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:25:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>monitoriza el ratio de lectura/escritura en disco .</p>
+
+<blockquote><p>$ iotop -o -u usuario</p>
+
+<p>$ iotop -a -p $(sed &#8216;s, , -p ,g&#8217; &lt;&lt;&lt;<code>pgrep "_raid|_resync|jbd2"</code>) (un raid)</p></blockquote>
+
+<p>Alguns opciones:</p>
+
+<p>-d 2 (Actualización cada 2 segundos)</p>
+
+<p>-b (No interactivo)</p>
+
+<p>-o (Sólo mostrar procesos que hacen uso de entrada/salida)</p>
+
+<p>-t (Incluir una marca de tiempo)</p>
+
+<p>-p pid (Pid del proceso a monitorizar. Por defecto todos)</p>
+
+<p>-u usuario (especificando usuario)</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -191,109 +245,6 @@
 
 -v 6 (Distintas etiquetas de información. Del 1 al 6)
 </code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/interfaces/">Interfaces</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:25:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Archivo de configuración de la red en distros debian.</p>
-
-<p>1.-</p>
-
-<p>Con IP dinámica:</p>
-
-<p>Colocar en el archivo las lineas:</p>
-
-<pre><code>auto eth0
-
-iface eth0 inet dhcp
-</code></pre>
-
-<p>2.-</p>
-
-<p>Con IP fija</p>
-
-<p>Colocar en el archivo las lineas:</p>
-
-<pre><code>auto eth0
-
-iface eth0 inet static
-
-address 192.168.1.10
-
-gateway 192.168.1.1
-
-netmask 255.255.255.0
-
-broadcast 192.168.1.255
-</code></pre>
-
-<p>Reiniciar el servicio:</p>
-
-<blockquote><p># ifdown eth0</p>
-
-<p># ifup eth0</p></blockquote>
-
-<p>Nota.- Solo modificandolo en network-manager no funciona.</p>
-
-<p>3.-</p>
-
-<p>Creación de una segunda dirección IP virtual.</p>
-
-<p>Añadir las siguientes lineas a las de la IP fija:</p>
-
-<pre><code>auto eth0:1
-
-iface eth0:1 inet static
-
-address 192.168.0.15
-
-netmask 255.255.255.0
-
-broadcast 192.168.0.255
-
-gateway 192.168.0.1
-</code></pre>
-
-<p>Nota.- La instalación de nerwork-manager o wicd para la gestión de redes implica comentar las modificaciones de este archivo o en, en el caso de network-manager, editar:</p>
-
-<blockquote><p># nano  /etc/NetworkManager/NetworkManager.conf</p></blockquote>
-
-<p>Y modificar la linea:</p>
-
-<p>[ifupdown]</p>
-
-<p>managed=true</p>
 </div>
   
   
@@ -718,6 +669,10 @@ po::powerokwait:/etc/init.d/powerfail stop
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/interfaces/">interfaces</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/stumpwm/">stumpwm</a>
       </li>
     
@@ -751,10 +706,6 @@ po::powerokwait:/etc/init.d/powerfail stop
     
       <li class="post">
         <a href="/blog/wetboobs/">wetboobs</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/videoob/">videoob</a>
       </li>
     
   </ul>

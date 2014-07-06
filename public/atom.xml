@@ -4,7 +4,7 @@
   <title><![CDATA[TRACTATUS ELEMENTALIS]]></title>
   <link href="https://tractatuslapipaplena.herokuapp.com/atom.xml" rel="self"/>
   <link href="https://tractatuslapipaplena.herokuapp.com/"/>
-  <updated>2014-07-06T11:18:59+02:00</updated>
+  <updated>2014-07-06T11:39:12+02:00</updated>
   <id>https://tractatuslapipaplena.herokuapp.com/</id>
   <author>
     <name><![CDATA[templix]]></name>
@@ -12,6 +12,93 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[interfaces]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/interfaces/"/>
+    <updated>2014-07-06T11:39:00+02:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/interfaces</id>
+    <content type="html"><![CDATA[<p>[/etc/network/interfaces]</p>
+
+<p>Archivo de configuración de la red en distros debian.</p>
+
+<p>1.-</p>
+
+<p>Con IP dinámica:</p>
+
+<p>Colocar en el archivo las lineas:</p>
+
+<pre><code>auto eth0
+
+iface eth0 inet dhcp
+</code></pre>
+
+<p>2.-</p>
+
+<p>Con IP fija</p>
+
+<p>Colocar en el archivo las lineas:</p>
+
+<pre><code>auto eth0
+
+iface eth0 inet static
+
+address 192.168.1.10
+
+gateway 192.168.1.1
+
+netmask 255.255.255.0
+
+broadcast 192.168.1.255
+</code></pre>
+
+<p>Reiniciar el servicio:</p>
+
+<blockquote><p># ifdown eth0</p>
+
+<p># ifup eth0</p></blockquote>
+
+<p>Nota.- Solo modificandolo en network-manager no funciona.</p>
+
+<p>3.-</p>
+
+<p>Creación de una segunda dirección IP virtual.</p>
+
+<p>Añadir las siguientes lineas a las de la IP fija:</p>
+
+<pre><code>auto eth0:1
+
+iface eth0:1 inet static
+
+address 192.168.0.15
+
+netmask 255.255.255.0
+
+broadcast 192.168.0.255
+
+gateway 192.168.0.1
+</code></pre>
+
+<p>Nota.- La instalación de nerwork-manager o wicd para la gestión de redes implica comentar las modificaciones de este archivo o en, en el caso de network-manager, editar:</p>
+
+<blockquote><p># nano  /etc/NetworkManager/NetworkManager.conf</p></blockquote>
+
+<p>Y modificar la linea:</p>
+
+<pre><code>[ifupdown]
+
+managed=true
+</code></pre>
+
+<p>4.-</p>
+
+<p>Obtener el módulo que usa una determinada interfaz de red:</p>
+
+<blockquote><p># ls /sys/class/net/ (Listar todas las interfaces de red del equipo)</p>
+
+<p># ls -la /sys/class/net/eth1/device/driver (Ver el módulo del kernel que está usando una interfaz de red)</p></blockquote>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[stumpwm]]></title>
@@ -1649,15 +1736,6 @@ Enter the url: "http://radio.sodreuruguay.com:9090/listen.pls"
 <blockquote><p>$ zip archivo.zip fichero1 fichero2 (Comprimir varios ficheros)</p>
 
 <p>$ zip -r archivo.zip file1 file2 dir1 (comprimir varios files y directorios)</p></blockquote>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[zgrep]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/zgrep/"/>
-    <updated>2014-06-08T08:28:00+02:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/zgrep</id>
-    <content type="html"><![CDATA[<p>imprime las líneas que cumplan la expresión regula sobre ficheros comprimidos (Ver grep)</p>
 ]]></content>
   </entry>
   

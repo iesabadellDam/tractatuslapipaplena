@@ -1,10 +1,12 @@
 ---
 layout: post
 title: "interfaces"
-date: 2014-06-08 08:25
+date: 2014-07-06 11:39
 comments: true
 categories: 
 ---
+[/etc/network/interfaces]
+
 Archivo de configuración de la red en distros debian.
 
 1.-
@@ -67,7 +69,15 @@ Nota.- La instalación de nerwork-manager o wicd para la gestión de redes impli
 
 Y modificar la linea:
 
-[ifupdown]
+	[ifupdown]
 
-managed=true
+	managed=true
+
+4.-
+
+Obtener el módulo que usa una determinada interfaz de red:
+
+>\# ls /sys/class/net/ (Listar todas las interfaces de red del equipo)
+
+>\# ls -la /sys/class/net/eth1/device/driver (Ver el módulo del kernel que está usando una interfaz de red)
 
