@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Quien está conectado al sistema $ users | xargs -n1 echo | sort | uniq -c (número de sesiones abierta por los usuarios.
-">
+  <meta name="description" content="Descarga de torrents. Previamente crear los directorios de descargas: $ mkdir rtorrent $ mkdir rtorrent/descargas $ mkdir rtorrent/sesion vsftpd $ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +74,105 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/utorrent/">Utorrent</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:28:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Descarga de torrents. Previamente crear los directorios de descargas:</p>
+
+<blockquote><p>$ mkdir rtorrent</p>
+
+<p>$ mkdir rtorrent/descargas</p>
+
+<p>$ mkdir rtorrent/sesion vsftpd</p>
+
+<p>$ mkdir rtorrent/torrents</p></blockquote>
+
+<p>Los torrents se colocan en la carpeta rtorrent/torrents para que al abrir la aplicación los coja directo. Crear un archivo de configuración:</p>
+
+<blockquote><p>$ touch .rtorrent.rc</p></blockquote>
+
+<p>Editarlo y pegar las siguientes entradas:</p>
+
+<blockquote><p>$ nano .rtorrent.rc</p>
+
+<p># Session directory</p></blockquote>
+
+<p>session = /home/USER/rtorrent/sesion</p>
+
+<p>directory = /home/USER/rtorrent/descargas</p>
+
+<p>schedule = watch_directory,5,5,load_start=/home/USER/rtorrent/torrents/*.torrent</p>
+
+<blockquote><p># Port range to use for listening.</p></blockquote>
+
+<p>port_range = 55556-55560</p>
+
+<blockquote><p># Maximum number of simultanious uploads per torrent.</p></blockquote>
+
+<p>max_uploads = 5</p>
+
+<blockquote><p># Global upload and download rate in KiB. &#8220;0&#8221; for unlimited.</p>
+
+<p>#download_rate = 0</p></blockquote>
+
+<p>upload_rate = 50</p>
+
+<blockquote><p># Maximum and minimum number of peers to connect to per torrent.</p>
+
+<p>#min_peers = 40</p></blockquote>
+
+<p>max_peers = 80</p>
+
+<blockquote><p># Same as above but for seeding completed torrents (-1 = same as downloading)</p></blockquote>
+
+<p>min_peers_seed = 10</p>
+
+<p>max_peers_seed = 30</p>
+
+<p>Algunos atajos:</p>
+
+<pre><code>^ q (cierra la aplicación)
+
+Flechas arriba y abajo (Selecciona torrents)
+
+flecha derecha (Muestra información sobre el torrent seleccionado)
+
+^ s (Inicia la descarga el torrent seleccionado)
+
+^ d (para la descarga o, si está parada, suprime el torrent)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -565,52 +663,6 @@ http://systemadmin.es
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/urlcrazy/">Urlcrazy</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:28:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[ruby 1.8)]. http://www.morningstarsecurity.com/research/urlcrazy . Herramienta que genera posibles URLs de un dominio que podrian ser usados para ataques de phising, malversing o fraudes varios.</p>
-
-<blockquote><p>$ ./urlcrazy (Muestra las opciones)</p>
-
-<p>$ ./urlcrazy -o paypal.txt paypal.com (Redirigiendo el resultado a un archivo)</p></blockquote>
-
-<p>Otras opciones:</p>
-
-<p>-p (Mostrar URL parecidas más populares según google)</p>
-
-<p>-r (No resolviendo los nombre de dominio)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/18/">&larr; Older</a>
@@ -626,12 +678,16 @@ http://systemadmin.es
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1403</li>
+	<li>1404</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/dtrx/">dtrx</a>
+      </li>
     
       <li class="post">
         <a href="/blog/fold/">fold</a>
@@ -667,10 +723,6 @@ http://systemadmin.es
     
       <li class="post">
         <a href="/blog/wget/">wget</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/pdf2svg/">pdf2svg</a>
       </li>
     
   </ul>
