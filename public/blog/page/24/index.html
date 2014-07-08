@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Permite seguir la pista de un paquete desde un host a otro. # traceroute www.tuxapuntes.com
-">
+  <meta name="description" content="Captura señales del teclado. Permite ejecutar un comando especificado cuando se produce una señal con un determinado valor. $ trap -l (Lista todos &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +74,71 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/trap/">Trap</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:28:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Captura señales del teclado. Permite ejecutar un comando especificado cuando se produce una señal con un determinado valor.</p>
+
+<blockquote><p>$ trap -l (Lista todos los valores)</p>
+
+<p>$ trap &#8220;rm -f /tmp/$$ ; exit&#8221; 0 1 2 3 15 (ejecutará el rm si se produce una señal: 0 [Salida de la shell], 1 [SIGHUP, cuelgue], 2 [SIGINT, interrupción con ^C], 3 [SIGQUIT, quiet] o 15 [SIGTERM, terminate, señal por defecto de kill]</p></blockquote>
+
+<p>Ejemplo:</p>
+
+<blockquote><p>$ nano no_muero.sh</p></blockquote>
+
+<pre><code>#!/bin/bash
+
+trap "echo ' Aunque pulses Ctrl+C!'" INT
+
+while true
+
+do
+
+sleep 60;
+
+echo "No puedes matarme"
+
+done
+</code></pre>
+
+<p>El script se repetirá hasta pararlo con Ctrl+z. A continuación mirar el pid</p>
+
+<blockquote><p>$ jobs</p>
+
+<p>$ kill -9 %pid (Para matarlo definitivamente)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -578,96 +642,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/top/">Top</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:27:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>información sobre el estado del sistema, procesos, uso del procesador, memoria etc&#8230; en ejecucion</p>
-
-<blockquote><p>$ top | grep Tasks (Visualizar procesos abiertos incluidos los zombies)</p>
-
-<p>$ top -u usuario  (procesos abiertos por el usuario indicado)</p>
-
-<p>$ top -p $(pgrep -d, yaourt) (Monitorizar un proceso)</p>
-
-<p>$ top -p <code>pgrep pidgin</code> (Monitorear un proceso)</p>
-
-<p>$ top -b -n 2 -d 2 (En modo batch [b] que termine el comando despues de mostrar 2 procesos top [n] con un intervalo de 2 segundos [d])</p></blockquote>
-
-<p>Teclas de control</p>
-
-<p>Ctrl + m (los ordenamos por uso de memoria)</p>
-
-<p>Ctrl + c  (Salir)</p>
-
-<p>k  (y colocar el PID correspondiente mataremos el proceso)</p>
-
-<p>Z  (para modificar el color. Con “z” se escoge el color)</p>
-
-<p>n  ( y colocar el número de procesos que queremos visualizar)</p>
-
-<p>A  (abre multiples ventanas “top”)</p>
-
-<p>f   (activa/desactiva columnas a visualizar)</p>
-
-<p>o  (Modifica el orden de las columnas)</p>
-
-<p>G + num (del 1 al 4 cambia el modo de presentación)</p>
-
-<p>W (Graba el tipo de visualización. A partir de la siguiente vez que se lance la aplicación se mostrará con los parámetros grabados)</p>
-
-<p>Columnas:</p>
-
-<p>PID .-       Identificador</p>
-
-<p>USER.-   Usuario que ha ejecutado el proceso.</p>
-
-<p>PR.-         Prioridad</p>
-
-<p>NI.-         Valor nice del proceso (negativos-> mayor prioridad)</p>
-
-<p>RES.-        Memoria RAM ocupada por el proceso.</p>
-
-<p>%CPU.-   Porcentaje ocupado de la CPU</p>
-
-<p>TIME+.-  Cuanto tiempo lleva el proceso en el sistema.</p>
-
-<p>COMMAND.- Nombre del procesos y sus parametros.</p>
-
-<p>PPID.-       PID del proceso padre.</p>
-
-<p>UID.-        ID del usuario que ha ejecutado el proceso.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/25/">&larr; Older</a>
@@ -689,6 +663,10 @@
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/lsusb/">lsusb</a>
+      </li>
     
       <li class="post">
         <a href="/blog/portsentry/">portsentry</a>
@@ -724,10 +702,6 @@
     
       <li class="post">
         <a href="/blog/git/">git</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/aspell/">aspell</a>
       </li>
     
   </ul>
