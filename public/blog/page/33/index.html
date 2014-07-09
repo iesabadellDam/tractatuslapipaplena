@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Cortar archivos $ split -d -b 100m archivo otro_archivo. (Que tengan extensión con números: .00, .01, .02. Trozos de 200 MB, archivo de entrada y de &hellip;">
+  <meta name="description" content="Lanzar dos shells simultaneas partiendo en dos ventanas una terminal. $ splitvt -t &#8220;linux es genial&#8221; -upper ls -lower top (Con un título &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,44 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/splitvt/">Splitvt</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:27:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Lanzar dos shells simultaneas partiendo en dos ventanas una terminal.</p>
+
+<blockquote><p>$ splitvt -t &#8220;linux es genial&#8221; -upper ls -lower top (Con un título [-t] lanzando un ls en la ventana superior y top en la inferior)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -500,152 +538,6 @@ $ chmod +x speedtest_cli.py
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sonido/">Sonido</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:27:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>1.-</p>
-
-<p>Para ver las tarjetas de sonido instaladas</p>
-
-<blockquote><p>$ cat /proc/asound/cards</p></blockquote>
-
-<p>0 [Intel ]: HDA-Intel - HDA Intel</p>
-
-<p>HDA Intel at 0xe4100000 irq 169</p>
-
-<p>1 [SAA7134 ]: SAA7134 - SAA7134</p>
-
-<p>saa7133[0] at 0xe4000000 irq 233</p>
-
-<p>2 [CMI8738MC6 ]: CMI8738-MC6 - C-Media PCI CMI8738-MC6</p>
-
-<p>C-Media PCI CMI8738-MC6 (model 55) at 0xa000, irq 225</p>
-
-<blockquote><p># asoundconf set-default-card 1 (para activar la 1)</p></blockquote>
-
-<p>Editar el fichero /etc/alsa/alsa.conf y poner estas líneas:</p>
-
-<pre><code>defaults.ctl.card 1
-
-defaults.pcm.card 1
-
-defaults.pcm.device 1
-</code></pre>
-
-<p>Los cambios son automáticos, no hay ni que reiniciar el servicio.</p>
-
-<p>2.-</p>
-
-<p>Cuando al reiniciar el sonido aparece silenciado:</p>
-
-<blockquote><p># gedit /etc/pulse/default.pa</p></blockquote>
-
-<p>Comentar la linea: # load-module module-device-restore</p>
-
-<p>3.-</p>
-
-<p>Sin sonido con flash</p>
-
-<p>Si no existe, crear el archivo:</p>
-
-<blockquote><p>$ sudo touch /etc/asound.conf</p>
-
-<p># nano /etc/asound.conf</p></blockquote>
-
-<p>Pegar:</p>
-
-<pre><code>pcm.pulse {
-
-type pulse
-
-}
-
-ctl.pulse {
-
-type pulse
-
-}
-
-pcm.!default {
-
-type pulse
-
-}
-
-ctl.!default {
-
-type pulse
-
-}
-</code></pre>
-
-<p>Reiniciar.</p>
-
-<p>4.-</p>
-
-<p>Si Java bloquea el dispositivo de sonido en lugar de usar Pulseaudio</p>
-
-<blockquote><p># cd /usr/lib/jvm/java-6-sun/jre/bin/</p>
-
-<p># mv java java.bin</p>
-
-<p># nano /usr/lib/jvm/java-6-sun/jre/bin/java</p></blockquote>
-
-<p>Y copiar en su interior:</p>
-
-<blockquote><p>#!/bin/bash</p></blockquote>
-
-<p>padsp /usr/lib/jvm/java-6-sun/jre/bin/java.bin &#8220;$@&#8221;</p>
-
-<blockquote><p># chmod +x java (darle permisos)</p></blockquote>
-
-<p>5.-</p>
-
-<p>Substituir pulseaudio por alsa:</p>
-
-<blockquote><p># apt-add-repository ppa:dtl131/ppa  (Añadir los repositorios gnome-media/applets/settings-daemon)</p>
-
-<p># apt-get update  (Actualizar el sistema)</p>
-
-<p># apt-get upgrade</p>
-
-<p># apt-get install esound esound-clients esound-common libesd-alsa0 alsa-base alsa-tools alsa-utils alsa-oss linux-sound-base python-alsaaudio gnome-media libsdl1.2debian-alsa  (Instalar paquetes de alsa)</p>
-
-<p># apt-get purge libcanberra-pulse pulseaudio pulseaudio-esound-compat pulseaudio-module-bluetooth pulseaudio-module-gconf pulseaudio-module-udev pulseaudio-module-x11 gstreamer0.10-pulseaudio pulseaudio-utils pavucontrol  (Desinstalar los paquetes de pulseaudio)</p></blockquote>
-
-<p>Reiniciar</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/34/">&larr; Older</a>
@@ -667,6 +559,10 @@ type pulse
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/pdftk/">pdftk</a>
+      </li>
     
       <li class="post">
         <a href="/blog/pdf2svg/">pdf2svg</a>
@@ -702,10 +598,6 @@ type pulse
     
       <li class="post">
         <a href="/blog/apt-get/">apt-get</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/emacs/">emacs</a>
       </li>
     
   </ul>
