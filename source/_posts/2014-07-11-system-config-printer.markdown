@@ -1,11 +1,11 @@
 ---
 layout: post
 title: "system-config-printer"
-date: 2014-06-08 08:27
+date: 2014-07-11 05:43
 comments: true
 categories: 
 ---
-Gestión de impresoras. Lanza la gui.
+Gestor de impresoras. Lanza la gui.
 
 >$ system-config-printer
 
