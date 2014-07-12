@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Empaquetar y comprimir archivos y/o directorios. $ tar -cf archivo.tar dir (Crear paquete .tar) $ tar -xf archivo.tar (Descomprimir un .tar) $ tar - &hellip;">
+  <meta name="description" content="Capturar el trafico de la red. # tcpdump -D (Ver las distintas redes disponibles) # tcpdump -nni any (Capturar todas las interfaces de red del equipo &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,126 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/tcpdump/">Tcpdump</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:27:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Capturar el trafico de la red.</p>
+
+<blockquote><p># tcpdump -D (Ver las distintas redes disponibles)</p>
+
+<p># tcpdump -nni any (Capturar todas las interfaces de red del equipo)</p>
+
+<p># tcpdump -n -i eth0 -s 1515 -w archivo (que la información se guarde en archivo)</p>
+
+<p># tcpdump -n -i eth0 -s 1515 -l | tee archivo (verlo en pantalla y que se guarde en archivo)</p>
+
+<p># tcpdump -n -r archivo -c 4 (analizar ficheros)</p>
+
+<p># tcpdump -n -r archivo udp (filtrar por protocolos - udp, tcp, icmp, arp &#8230;)</p>
+
+<p># tcpdump -n -r archivo -c 2 not tcp (con operadores booleanos [not, and]. Ver las 2 primeras capturas que no sean tcp)</p>
+
+<p># tcpdump -n -r archivo -c 2 not tcp and not udp (Ver las 2 primeras capturas que no sean tcp ni udp)</p>
+
+<p># tcpdump -n -r archivo -c 2 tpc and dst port 25 (Ver las 2 primeras capturas tcp y dst con destino al puerto 25)</p>
+
+<p># tcpdump -enni eth0 (info de la capa de enlace y MACs origen y destino)</p>
+
+<p># tcpdump host 192.168.1.3 (Capturar todo el tráfico del host especificado)</p>
+
+<p># tcpdump src net 192.168.1.0/28 (Especificando una red)</p>
+
+<p># tcpdump src host 192.168.1.3 (Solo lo que salga de la IP especificada)</p>
+
+<p># tcpdump dst port 23 (Todo el trafico que vaya dirigido al puerto 23)</p>
+
+<p># tcpdump udp and dst port 53 (Capturar tráfico de comunicación con las DNS)</p>
+
+<p># tcpdump tcp and not port 80 (Capturar todo el tráfico excepto el web)</p>
+
+<p># tcpdump tcp and port 80 (Capturar solo el web)</p>
+
+<p># tcpdump -i eth0 port not 80 and host www.google.com (Para saber si google manda “cosas” por otros puertos que no sean el 80)</p>
+
+<p># tcpdump -n -i eth1 -X tcp (Ver información del contenido de los paquetes)</p>
+
+<p># tcpdump ether src 01:20:21:00:00:B2 (Captura tráfico de la mac)</p>
+
+<p># tcpdump udp and dst port 53 (Capturar peticiones DNS)</p>
+
+<p># tcpdump tcp and (port 22 or port 23) (Capturar el tráfico telnet y ssh)</p>
+
+<p># tcpdump portrange 21-23 (tráfico origen/destino de los puertos 21, 22 o 23)</p>
+
+<p># tcpdump -n -i eth1 -X -s 200 port 9001 (de un puerto concreto)</p>
+
+<p># tcpdump -v -i eth1 port 9001 | awk &#8216;{print$1,$2,$3}&#8217;</p>
+
+<p># tcpdump port 9001 (Capturar todo el tráfico del puerto especificado)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<p>-n (Para no resolver las direcciones IP)</p>
+
+<p>-i (Indica la interfaz de red)</p>
+
+<p>-s (volumen de la parte del paquete que queremos capturar [1515 es suficiente])</p>
+
+<p>-c (cantidad de mensajes a visualizar)</p>
+
+<p>-p (no cambia la interfaz a modo promiscuo)</p>
+
+<p>-x (ver los contenidos de los paquetes)</p>
+
+<p>-r archivo (Para leer los datos de un archivo guardado con la opción -w)</p>
+
+<p>src (Dirección y puerto origen)</p>
+
+<p>dst (Dirección y puerto destino)</p>
+
+<p>1.-</p>
+
+<p>Ejemplo de un proceso:</p>
+
+<blockquote><p># tcpdump -nni eth0 &#8216;port 80&#8217; -w /tmp/port.80 (Capturar el tráfico por el puerto 80 y mandarlo a un archivo)</p>
+
+<p># tcpdump -r /tmp/port.80 -nn (Análisis básico de los datos)</p>
+
+<p># tcpdump -r /tmp/port.80 -nn &#8216;host !216.158.240.43&#8217; (Filtrar los datos descartando un host)</p>
+
+<p># tcpdump -r /tmp/port.80 -nn &#8216;host !216.158.240.43&#8217; -w /tmp/port.80.b (Lo mismo enviando los nuevos datos a otro fichero)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -508,54 +628,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/synaptic/">Synaptic</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:27:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Interfaz gráfica para apt, sistema de gestión de paquetes basadas en Debian.</p>
-
-<p>Atajos de teclado:</p>
-
-<p>Ctrl + f (Buscar paquete)</p>
-
-<p>Ctrl + r (Refrescar lista de paquetes)</p>
-
-<p>Ctrl + g (Marcar todas las actualizaciones)</p>
-
-<p>Ctrl + p (Aplicar los cambios)</p>
-
-<p>Ctrl + q (Salir)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/29/">&larr; Older</a>
@@ -571,12 +643,16 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1405</li>
+	<li>1406</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/exim/">exim</a>
+      </li>
     
       <li class="post">
         <a href="/blog/system-config-printer/">system-config-printer</a>
@@ -612,10 +688,6 @@
     
       <li class="post">
         <a href="/blog/stumpwm/">stumpwm</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/ofris-en/">ofris-en</a>
       </li>
     
   </ul>

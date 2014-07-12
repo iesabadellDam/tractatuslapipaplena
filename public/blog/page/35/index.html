@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Monitoriza la interfaz de red # slurm -i eth0
-">
+  <meta name="description" content="[smartmontools]. Comprobar el estado de los discos duros. Si el disco es IDE, suprimir en todos los comandos el &#8220;-d ata&#8221; # smartctl -i -d &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +74,94 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/smartctl/">Smartctl</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:27:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[smartmontools]. Comprobar el estado de los discos duros. Si el disco es IDE, suprimir en todos los comandos el &#8220;-d ata&#8221;</p>
+
+<blockquote><p># smartctl -i -d ata /dev/sda (Verificar si un disco ATA suporta smart)</p>
+
+<p># smartctl -s on -d ata /dev/hda (activar el soporte smart)</p>
+
+<p># smartctl -d ata -t short /dev/sda (lanzar el test corto)</p>
+
+<p># smartctl -d ata -t long /dev/sda  (lanzar el test largo)</p>
+
+<p># smartctl -d ata -l selftest -i /dev/sda (analizar la información de los comandos anteriores)</p></blockquote>
+
+<p>LifeTime indica las horas que el disco ha estado encendido. LBA_of_First_error indica los errores.</p>
+
+<blockquote><p># smartctl -d ata -Hc /dev/sda (Si al final se lee PASSED, correcto, si FAILED cambiar disco)</p>
+
+<p># smartctl -d ata -l error /dev/sda (Listar los errores)</p>
+
+<p># smartctl -d ara -A /dev/sda (Listar atributos internos)</p></blockquote>
+
+<p>Listado de algunos atributos smart</p>
+
+<p>Power_Cycle_Count (RAW_Value).- Veces que le ha llegado   corriente.</p>
+
+<p>Temperature Celsius. (RAW_Value) .- Temperatura del disco</p>
+
+<p>Reallocated_Sector_Ct (RAW_Value).-  número de sectores de repuesto que ha usado el disco para sustituir sectores dañados</p>
+
+<p>Raw_Read_Error_Rate (RAW_Value).- Frequencia de errores en la lectura del disco.</p>
+
+<p>Start_Stop_Count: Cantidad de veces que se ha parado y arrancado el disco</p>
+
+<p>Seek_Error_Rate: Tasa de errores de colocación de la aguja</p>
+
+<p>Power_On_Seconds: Tiempo funcionando</p>
+
+<p>Spin_Retry_Count: Numero de reintentos de arrancada</p>
+
+<p>El campo VALUE [valor] va del número 1 al 253, siendo 1 el peor. Los valores normales son los que estan entre 100 y 200. El campo WHEN_FAILED indica cuando se produjo una falla de algún atributo.</p>
+
+<p>1.-</p>
+
+<p>Para activar el demonio que nos avisa si se produce un error en disco:</p>
+
+<blockquote><p># apt-get install smart-notifier</p></blockquote>
+
+<p>Editar el archivo de configuración:</p>
+
+<blockquote><p># nano /etc/default/smartmontools</p></blockquote>
+
+<p>Y descomentar la linea:</p>
+
+<p>start_smartd=yes</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -500,52 +587,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sistema/">Sistema</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:27:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Instalar las X en UbuntuServer</p>
-
-<blockquote><p># apt-get install ubuntu-desktop (Completo)</p>
-
-<p># apt-get install x-window-system-core gnome-core (mínimo)</p>
-
-<p># apt-get install language-pack-es language-pack-es-base language-pack-gnome-es language-pack-gnome-es-base language-selector language-support-es  (instalar los paquetes de idiomas en la instalación mínima))</p>
-
-<p># apt-get install gksu gnome-system-tools gnome-nettool (herramientas de red  y paquetes necesarios en la instalación mínima)</p>
-
-<p>$ startx</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/36/">&larr; Older</a>
@@ -561,12 +602,16 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1405</li>
+	<li>1406</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/exim/">exim</a>
+      </li>
     
       <li class="post">
         <a href="/blog/system-config-printer/">system-config-printer</a>
@@ -602,10 +647,6 @@
     
       <li class="post">
         <a href="/blog/stumpwm/">stumpwm</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/ofris-en/">ofris-en</a>
       </li>
     
   </ul>
