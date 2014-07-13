@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "systemctl"
-date: 2014-07-13 08:02
+date: 2014-07-13 10:55
 comments: true
 categories: 
 ---
@@ -44,4 +44,14 @@ categories:
 >\# systemctl isolate multi-user.target (Arrancar en runlevel 3)
 
 >\# systemctl isolate graphical.target (Arrancar en runlevel 5)
+
+1.-
+
+Para incorporar el arranque a grub2, modificar del archivo:
+
+>\# nano /etc/default/grub
+
+La linea:
+
+	GRUB_CMDLINE_LINUX_DEFAULT="quiet init=/bin/systemd"
 
