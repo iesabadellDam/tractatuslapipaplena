@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="[net-tools]. Define direcciones ip y dispositivos de red # ifconfig (ver los datos de conexión) # ifconfig eth0 up 192.168.1.2 (Levanta la placa de &hellip;">
+  <meta name="description" content="Ver fecha y hora de la BIOS # hwclock -D (Muestra toda la información)) # hwclock -w (sincroniza la del hardware a la del sistema) # hwclock -r ( &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,507 +80,6 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ifconfig/">Ifconfig</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:25:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[net-tools]. Define direcciones ip y dispositivos de red</p>
-
-<blockquote><p># ifconfig  (ver los datos de conexión)</p>
-
-<p># ifconfig eth0 up 192.168.1.2 (Levanta la placa de red eth0 y le da la ip)</p>
-
-<p># ifconfig eth0 down (Cierra la red eth0)</p>
-
-<p># ifconfig eth0 promisc (Poner la placa en modo promiscuo)</p>
-
-<p># ifconfig wlan0 up (si se trata de redes inalámbricas)</p>
-
-<p># ifconfig eth0 hw ether 00:01:02:03:04:05  (cambiar la dirección MAC)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/if/">If</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:25:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Ejecuta uno o varios comandos dependiendo de si una condición se cumple o no. Algunos scripts de ejemplo para su uso [ver operadores]:</p>
-
-<p>1.-</p>
-
-<pre><code>#!/bin/bash
-
-read -p "Ingrese nombre del usuario: " USUARIO
-
-if grep -e ^$USUARIO: /etc/passwd
-
-then
-
-    echo "El usuario existe en el sistema"
-
-else
-
-    echo "Usuario desconocido"
-
-fi
-
-exit 0
-</code></pre>
-
-<p>2.-</p>
-
-<pre><code>#!/bin/bash
-
-if [ "$(id -u)" != "0" ]; then
-
-    echo "Solo root puede ejecutar este script."
-
-    exit 1
-
-fi
-</code></pre>
-
-<p>3.-</p>
-
-<pre><code>#!/bin/bash
-
-# Verificar si se ha entrado un argumento
-
-if [ -z "$1" ]
-
-then
-
-          echo "Falta el argumento después del nombre del script"
-
-exit
-
-fi
-</code></pre>
-
-<p>4.-</p>
-
-<pre><code>#!/bin/bash
-
-# Introducir dos números diferentes e indicar
-
-# cuál es el mayor
-
-read -p "Introduce dos números: " A B
-
-if [ $A -gt $B ]
-
-then
-
-        echo $A "es el mayor"
-
-else
-
-        echo $B "es el mayor"
-
-fi
-</code></pre>
-
-<p>Con varias opciones [elif]</p>
-
-<p>5.-</p>
-
-<pre><code>#!/bin/bash
-
-ls
-
-echo
-
-read -p "Cual leer: " LEER
-
-echo
-
-if [ -f $LEER ]
-
-then
-
-    echo
-
-    cat $LEER
-
-    echo
-
-elif [ -d $LEER ]
-
-then
-
-    echo
-
-    echo "Es un directorio...."
-
-else
-
-    echo
-
-    f_echo "¡¡NO EXISTE!!"
-
-    echo
-
-fi
-</code></pre>
-
-<p>6.-</p>
-
-<pre><code>#!/bin/bash
-
-echo "Diga si o no:"
-
-read RESPUESTA
-
-if  [ "$RESPUESTA" = si ]; then
-
-    echo "Has escrito si"
-
-elif [ "$RESPUESTA" = no ]; then
-
-    echo "Has escrito no"
-
-elif [ "$RESPUESTA" = "" ]; then
-
-    echo "No has escrito nada"
-
-else
-
-    echo "Has escrito una cosa no permitida"
-
-fi
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/idesk/">Idesk</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:25:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Herramienta para la creación de iconos en el escritorio. Los archivos con extensión .lnk se colocan en el directorio ~/.idesktop. Una muestra:</p>
-
-<blockquote><p>$ nano .idesktop/home.lnk</p></blockquote>
-
-<pre><code>table Icon
-
-  Caption: Home
-
-  Command[0]: thunar /home/usuario
-
-  Icon: /usr/share/idesk/folder_home.xpm
-
-  Width: 48
-
-  Height: 48
-
-  X: 29
-
-  Y: 39
-
-end
-</code></pre>
-
-<p>Nombre del icono [Caption], El comando que se lanzará [0] con doble click izquierdo del ratón. Con [1], doble click derecho, en este caso thunar abrirá la carpeta personal [Command], la ruta al icono que se empleará [Icon], las medidas ancho [Width] y alto [Height] y la colocación en pantalla, x: distancia en pixels del lateral, y: distancia en pixels de la parte superior.</p>
-
-<p>Otros parámetros [fuentes, colores, medidas, fondos, transparencias&#8230;] pueden configurarse en el archivo ~/.ideskrc. Cualquier modificación en idesktop o ideskrc precisa matar el proceso:</p>
-
-<blockquote><p>$ killall idesk</p></blockquote>
-
-<p>Y relanzarlo:</p>
-
-<blockquote><p>$ idesk</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/identify/">Identify</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:25:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[imagemagick]. Ver las propiedades de una imagen</p>
-
-<blockquote><p>$ identify imagen.gif</p>
-
-<p>$ identify -verbose imagen.jpg   (Con mucha más información)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/id/">Id</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:25:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Conocer el uid y el gid del usuario especificado</p>
-
-<blockquote><p>$ id root</p>
-
-<p>$ id -u (Del usuario no root)</p>
-
-<p>$ id -a (De todos los grupos a los que pertenece el usuario)</p>
-
-<p>$ id -un (Muestra el usuario con el que estamos)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/iconv/">Iconv</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:25:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Modificar la codificación de un archivo</p>
-
-<blockquote><p>$ iconv -l   (Muestra todas las opciones posibles)</p>
-
-<p>$ iconv -t us-ascii -f utf-8 archivo.txt > re_codificado.txt (Para saber la codificación de un archivo: $ file &#8211;mime-encoding archivo.txt)</p>
-
-<p>$ iconv &#8211;from-code=ISO-8559-1 &#8211;to-code=UTF-8 viejo.txt -o nuevo.txt (Pasar viejo.txt de codificación ISO-8559-1 a UTF-8 en el nuevo.txt)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ibam/">Ibam</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:25:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Monitor de carga de la bateria</p>
-
-<blockquote><p>$ ibam -a</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/hydra/">Hydra</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:25:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Se utiliza para crackear los sistemas de login de diferentes servicios como HTTP, FTP, TELNET, IMAP, SMB, SSH, etc.</p>
-
-<blockquote><p># hydra 192.168.1.5 -l admin -p 1234 (Una ip con el usuario &#8220;admin&#8221; con la clave &#8220;1234&#8221;)</p>
-
-<p># hydra -M lista_ips ssh -s 22 (A un listado de ips a una por linea y sobre el puerto 22)</p>
-
-<p># hydra 192.168.1.8 ftp -s 21 -l juan -P wordlist.txt (Una ip el puerto 21 del usuario &#8220;juan&#8221; y probando las contraseñas de un archivo de texto a una por linea)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
       <h1 class="entry-title"><a href="/blog/hwclock/">Hwclock</a></h1>
     
     
@@ -597,7 +96,7 @@ end
   
 
 
-<time datetime="2014-06-08T08:25:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
@@ -639,7 +138,7 @@ end
   
 
 
-<time datetime="2014-06-08T08:25:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
@@ -653,6 +152,406 @@ end
 <p># httping -h localhost</p>
 
 <p># httping -h localhost -p 80</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/httpd/">Httpd</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Servicio de protocolo de transferencia de apache</p>
+
+<blockquote><p>$ httpd -l  (visualizar los módulos activos de apache)</p>
+
+<p>$ httpd -L  (Listado de directivas disponibles)</p>
+
+<p>$ httpd -t  (realiza un test de los archivos de configuración [Syntax OK])</p>
+
+<p>$ httpd -h  (muestra las opciones)</p>
+
+<p>$ httpd -v (versión de apache)</p>
+
+<p>$ httpd -V (versión y parámetros compilados)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/htpasswd/">Htpasswd</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Comando con el que definimos usuario y contraseñas para el servidor apache.</p>
+
+<blockquote><p>$ htpasswd -c /home/USER/public_html/.htpasswd USUARIO (Creando el archivo  .htpasswd en la ruta especificada con los datos de usuario)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/htop/">Htop</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Muestra el consumo de CPU, RAM y SWAP y debajo de estos los diferentes procesos  organizados por defecto de mayor a mejor consumo de CPU. Pulsando “u” podremos introducir el usuario a monitorizar y pulsando “k” e introduciendo el PID, materemos el proceso.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/html/">Html</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Lenguaje de marcado predominante en la elaboración de páginas web.</p>
+
+<p>Las etiquetas básicas de HTML de obligada presencia en todo documento son:</p>
+
+<pre><code>&lt;!DOCTYPE&gt; (define el tipo de documento HTML)
+
+&lt;html&gt; (Inicio del documento)
+
+&lt;head&gt;  (Cabecera del documento.  Metadatos que no se muestran en el navegador pero de especial relevancia para indexadores)
+
+En el interior de la etiqueta &lt;head&gt; podemos encontrar:
+
+&lt;title&gt;  (Título que aparece en la barra del navegador)
+
+&lt;meta&gt;  (Metainformación del codumentos: autor, fecha realización, codificación ...)
+
+&lt;LINK&gt;  (Otros metadatos: referencias a documentos anteriores, glosarios...)
+
+&lt;body&gt; (Cuerpo del documento que se muestra en el navegador)
+
+Dentro de la etiqueta &lt;body&gt; podemos encontrar:
+
+&lt;a&gt;  (Ancla. Crea un enlace a otro documento o parte del mismo)
+
+&lt;h1&gt;, &lt;h2&gt;,… &lt;h6&gt;  (Establece la medida de los títulos de cabecera. De h1, más grande a h6 más pequeño)
+
+&lt;div&gt; (División estructural de la página)
+
+&lt;p&gt;  (Párrafo)
+
+&lt;br&gt;  (Salto de linea)
+
+&lt;table&gt; (Inicio de una tabla. La fias se defines con &lt;tr&gt; i las celdas dentro de las filas con &lt;td&gt;)
+
+&lt;ul&gt; Lista desordenada.Los ítems se definen con &lt;li&gt;)
+
+&lt;ol&gt; (Lista ordenada. Los ítems se definen con &lt;li&gt;)
+
+&lt;dl&gt; (Lista de definición. Pueden ser &lt;dt&gt; [termino a definir] y &lt;dd&gt; Definición del termino)
+</code></pre>
+
+<p>Excepto algunas pocas etiquetas, la mayoría requieren ser cerradas con la misma etiqueta precedida de una barra: <html>&#8230;.</html></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/hsetroot/">Hsetroot</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Coloca imágen en el fondo de pantalla permitiendo modificar: brillo, contraste, transparencias&#8230;</p>
+
+<blockquote><p>$ hsetroot -clear &#8220;#f6f6f6&#8221; (Borra el rango de color especificado)</p>
+
+<p>$ hsetroot -center imagen.jpg (coloca la imagen centrada. Otras opciones: -tile: mosaico, -full: respetando proporciones y -fill: redimensiona al tamaño de la pantalla)</p>
+
+<p>$ hsetroot -blur 1.5 imagen.jpg (desenfoca)</p>
+
+<p>$ hsetroot -contrast 30 imagen.jpg (Ajusta el contraste al valor)</p>
+
+<p>$ hsetroot -flipv imagen.jpg (Refleja la imagen vertical. -fliph: horizontal y -flipd: diagonal)</p>
+
+<p>$ hsetroot -alpha 150 imagen.jpg</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/hping/">Hping</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Herramienta de intrusión remota (ataque ICMP)</p>
+
+<blockquote><p># hping3 -I eth0 -S 192.169.2.2  (ping no silencioso)</p>
+
+<p># hping3 -I eth0 -a 192.168.2.158 -S 192.169.2.2  (enmascarando  nuestra IP con una de ficticia-192.168.1.158)</p>
+
+<p># hping3 -I eth0 -a 192.168.2.158 -S 192.168.2.2 -p 135 (Descubrir máquinas que con un ping no responden, enmascarando la IP y especificando un puerto)</p>
+
+<p># hping3 -S -a ip_ficticia -p 80 -k ip_atacada</p>
+
+<p># hping3 -i m100 -S -a ip_ficticia -p 80 -k ip_atacada</p>
+
+<p># hping3 -S 192.168.1.158 &#8211;flood &#8211;rand-source -d 5000 -p 80 (Enviando paquetes lo más rápido posible [flood], simulando orígenes aleatorios [rand-source], tamaño del paquete en bites [d] y puerto de entrada)</p>
+
+<p># hping3 &#8211;rand-source -p 80 -S &#8211;flood ip_victima (ataque DDos a una ip)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/hosts/">Hosts</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>(/etc/hosts). Contiene la resolución de &#8220;Hosts&#8221; definidos localmente. La estructura es: IP, nombre del host y alias.</p>
+
+<p>192.168.1.10 mi_servidor.com servidor</p>
+
+<p>127.0.0.1 localhost mipc</p>
+
+<p>1.-</p>
+
+<p>Configurar bloqueo de páginas web:</p>
+
+<pre><code># nano /etc/hosts
+</code></pre>
+
+<p>Y debajo de:</p>
+
+<p>127.0.0.1 localhost</p>
+
+<p>127.0.1.1 tux</p>
+
+<p>Añadimos, después de la ip local, las que se quieran bloquear separadas por un espacio:</p>
+
+<p>127.0.0.1 localhost</p>
+
+<p>127.0.1.1 tux</p>
+
+<p>127.0.0.1 www.porn.net www.google.es</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/hostname/">Hostname</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Mostrar el nombre de &#8230;</p>
+
+<blockquote><p>$ hostname -a (el alias de la maquina)</p>
+
+<p>$ hostname -i (la IP del ordenador)</p>
+
+<p>$ hostname -s (el nombre de la maquina)</p></blockquote>
 </div>
   
   
@@ -683,43 +582,43 @@ end
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/systemctl/">systemctl</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/journalctl/">journalctl</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/exim/">exim</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/system-config-printer/">system-config-printer</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdftk/">pdftk</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdf2svg/">pdf2svg</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lsusb/">lsusb</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/portsentry/">portsentry</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dtrx/">dtrx</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fold/">fold</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

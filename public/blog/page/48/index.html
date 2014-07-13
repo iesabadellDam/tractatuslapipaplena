@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Hace invisible el archivo /etc/shadow que previamente se había hecho visible con el comando pwconv. # pwunconv
-">
+  <meta name="description" content="Informa sobre el estado de los procesos $ ps (muestra el PID de la consola) $ ps -ef (lista entera y completa de los procesos del sistema ) $ ps u ( &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pwunconv/">Pwunconv</a></h1>
+      <h1 class="entry-title"><a href="/blog/ps/">Ps</a></h1>
     
     
       <p class="meta">
@@ -97,16 +96,64 @@
   
 
 
-<time datetime="2014-06-08T08:26:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Hace invisible el archivo /etc/shadow que previamente se había hecho visible con el comando pwconv.</p>
+  <div class="entry-content"><p>Informa sobre el estado de los procesos</p>
 
-<blockquote><p># pwunconv</p></blockquote>
+<blockquote><p>$ ps             (muestra el PID de la consola)</p>
+
+<p>$ ps -ef (lista entera y completa de los procesos del sistema )</p>
+
+<p>$ ps u          (Muestra el usuario y la hora de inicio de los ultimos procesos ejecutados)</p>
+
+<p>$ ps r (Muestra solo los procesos que se estan ejecutando)</p>
+
+<p>$ ps x (Muestra los que no estan controlados por ninguna terminal)</p>
+
+<p>$ ps S (Muestra  tiempo de CPU y fallos de los procesos hijos)</p>
+
+<p>$ ps aux | sort -nrk 4 | head (Los 10 procesos que consumen más memoria)</p>
+
+<p>$ ps -C firefox (ver los procesos asociados a una aplicación)</p>
+
+<p>$ ps -l PID  (informa de la aplicación que corre por un PID)</p>
+
+<p>$ ps -p $$ (Informa del pid de la propia terminal)</p></blockquote>
+
+<p>Opciones</p>
+
+<p>a (muestra lo que se está ejecutando en ttys conocidas)</p>
+
+<p>x (muestra lo que se se está ejecutando desconociendo en cual tty)</p>
+
+<p>u (muestra los usuarios que están ejecutando los procesos)</p>
+
+<p>flags:</p>
+
+<p>USER (usuario que ejecuta el proceso)</p>
+
+<p>PID (número del proceso)</p>
+
+<p>%CPU (porcentaje de CPU que está utilizando)</p>
+
+<p>%MEM (porcentaje de memoria)</p>
+
+<p>RSS (cantidad de memoria en kilobytes que ha utilizado el proceso)</p>
+
+<p>TTY (consola desde la que se está ejecutando)</p>
+
+<p>Stat (muestra el estado del proceso: S &#8220;durmiendo&#8221;, R &#8220;corriendo&#8221;, T &#8220;parado&#8221;, Z &#8220;zombie&#8221;)</p>
+
+<p>START (hora a la que empezó el proceso)</p>
+
+<p>TIME (tiempo de CPU que ha usado el proceso desde su inicio)</p>
+
+<p>COMMAND (nombre del comando que se está ejecutando)</p>
 </div>
   
   
@@ -119,7 +166,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pwgen/">Pwgen</a></h1>
+      <h1 class="entry-title"><a href="/blog/proxychains/">Proxychains</a></h1>
     
     
       <p class="meta">
@@ -135,35 +182,42 @@
   
 
 
-<time datetime="2014-06-08T08:26:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Genera claves aleatoriamente</p>
+  <div class="entry-content"><p>[tor privoxy]. Convierte en anonima la conexión que realiza una aplicación determinada [Ver privoxy]</p>
 
-<blockquote><p>$ pwgen  (Las más simples)</p>
+<blockquote><p># nano /etc/proxychains.conf</p></blockquote>
 
-<p>$ pwgen -Bcnsy</p>
+<p>Descomentar o añadir las lineas [usar el mismo puerto que en privoxy]:</p>
 
-<p>$ pwgen -Bsy 10 1 (generar un pasword de 10 cifras con caracteres raros)</p>
+<blockquote><p># defaults set to &#8220;tor&#8221;</p></blockquote>
 
-<p>$ pwgen -Bcs 10 4 (crear 4 contraseñas de 10 caracteres)</p></blockquote>
+<p>socks4  127.0.0.1 9050</p>
 
-<p>opciones:</p>
+<p>Iniciar tor o, caso de usar vidalia, crear nueva identidad.</p>
 
-<pre><code>-B     (ambiguas)
+<blockquote><p># /etc/init.d/tor restart</p>
 
--c     (con mayusculas, por defecto)
+<p># proxychains curl ifconfig.me (Si la ip no es la nuestra indica que todo está correctamente funcionando)</p></blockquote>
 
--n     (con números)
+<p>Si configuramos el navegador para usar proxy podemos comprobar su correcto funcionamiento con https://check.torproject.org/</p>
 
--y     (con símbolos)
+<blockquote><p># proxychains firefox ifconfig.me (Arrancar el navegador bajo proxy)</p>
 
--s     (totalmente aleatoria)
-</code></pre>
+<p># proxychains nmap -Pn -sT IP (Lanzar nmap con proxy. -Pn y -sT son para dificultar en lo posible dejar trazas)</p></blockquote>
+
+<p>Otros ejemplos:</p>
+
+<blockquote><p># proxychains nessusd -D</p>
+
+<p># proxychains msfconsole</p>
+
+<p># proxychains ssh -D 127.0.0.1:9050 usuario@host</p></blockquote>
 </div>
   
   
@@ -176,7 +230,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pwdx/">Pwdx</a></h1>
+      <h1 class="entry-title"><a href="/blog/proftpd/">Proftpd</a></h1>
     
     
       <p class="meta">
@@ -192,16 +246,24 @@
   
 
 
-<time datetime="2014-06-08T08:26:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Informa del directorio actual de uno o varios procesos.</p>
+  <div class="entry-content"><p>Servidor ftp local.</p>
 
-<blockquote><p>$ pwdx pid pid pid</p></blockquote>
+<blockquote><p># nano /etc/proftp/proftpd.conf</p></blockquote>
+
+<p>DefaultRoot     /home/usuario                    users, !otros</p>
+
+<p>DefaultRoot     /home/usuario/servidor      otros</p>
+
+<p>Indicamos que el directorio raiz de los usuarios del grupo “users” es /home/usuario  pero los del grupo “otros” solo pueden acceder al directorio servidor.</p>
+
+<blockquote><p>$ tail -f /var/log/proftpd  (monitorizar los logs)</p></blockquote>
 </div>
   
   
@@ -214,7 +276,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pwd/">Pwd</a></h1>
+      <h1 class="entry-title"><a href="/blog/procinfo/">Procinfo</a></h1>
     
     
       <p class="meta">
@@ -230,14 +292,16 @@
   
 
 
-<time datetime="2014-06-08T08:26:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Mostrar el directorio actual.</p>
+  <div class="entry-content"><p>Estadisticas del sistema de ficheros virtual /proc</p>
+
+<blockquote><p>$ procinfo -n2 (actualización cada 2 segundos)</p></blockquote>
 </div>
   
   
@@ -250,7 +314,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pwconv/">Pwconv</a></h1>
+      <h1 class="entry-title"><a href="/blog/privoxy/">Privoxy</a></h1>
     
     
       <p class="meta">
@@ -266,16 +330,22 @@
   
 
 
-<time datetime="2014-06-08T08:26:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Hace visible el archivo /etc/shadow que previamente se había hecho invisible con el comando pwunconv.</p>
+  <div class="entry-content"><p>filtrar datos que se utilizan en la navegación web (cookies, encabezados&#8230;). Es importante usarlo con Tor ya que a veces el navegador ejecuta por sí mismo las resoluciones DNS y las agrega a las cabeceras de la petición http.</p>
 
-<blockquote><p># pwconv</p></blockquote>
+<blockquote><p># nano /etc/privoxy/config</p></blockquote>
+
+<p>Añadir la linea:</p>
+
+<p>forward-socks5 / 127.0.0.1:5060 .</p>
+
+<p>Nota.- No olvidar el punto final.</p>
 </div>
   
   
@@ -288,7 +358,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pwck/">Pwck</a></h1>
+      <h1 class="entry-title"><a href="/blog/prips/">Prips</a></h1>
     
     
       <p class="meta">
@@ -304,16 +374,18 @@
   
 
 
-<time datetime="2014-06-08T08:26:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Verifica la integridad de los archivos de claves [/etc/passwd y /etc/shadow]</p>
+  <div class="entry-content"><p>imprimir las direcciones IP de un rango determinado.</p>
 
-<blockquote><p># pwck (Salida vacia significa todo correcto)</p></blockquote>
+<blockquote><p>$ prips 192.168.1.0/24</p>
+
+<p>$ prips -i 4 192.168.1.5 192.168.1.150  (solo una de cada cuatro)</p></blockquote>
 </div>
   
   
@@ -326,7 +398,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pvesh/">Pvesh</a></h1>
+      <h1 class="entry-title"><a href="/blog/printf/">Printf</a></h1>
     
     
       <p class="meta">
@@ -342,28 +414,44 @@
   
 
 
-<time datetime="2014-06-08T08:26:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>ssh restrictivo propio de proxmox.</p>
+  <div class="entry-content"><p>Escribe y formatea datos</p>
 
-<blockquote><p>$ pvesh get /nodes/virtual1/qemu (Obtener un listado de todas las máquinas virtuales)</p>
+<blockquote><p>$ printf &#8220;%50s\n&#8221; | tr &#8217; &#8217; -  (Generar una linea discontinua)</p>
 
-<p>$ pvesh create /nodes/virtual1/qemu/100/status/start (Arrancar la VM con id 100)</p>
+<p>$ printf &#8220;%s\n&#8221; ${PATH//:/\/* }  (listar aplicaciones y comandos del PATH)</p>
 
-<p>$ pvesh get /nodes/virtual1/qemu/100/config (Obtener toda la configuración de la VM con id 100)</p>
+<p>$ printf &#8220;%s\n&#8221; .*  (listar archivos y directorios ocultos de la carpeta actual)</p>
 
-<p>$ pvesh delete /nodes/virtual1/qemu/100 (Borrar la máquina virtual con id 100)</p>
+<p>$ printf &#8220;\e[8;10;100;t&#8221; (Cambiar la medida de la  terminal)</p>
 
-<p>$ pvesh get /nodes/virtual1/storage (Obtener la información de los <em>Storages</em>)</p>
+<p>$ printf &#8220;%s\t &#8211;> %s\n&#8221; &#8220;$A&#8221; &#8220;$B&#8221; (Dos variables en columnas tabuladas)</p>
 
-<p>$ pvesh create /access/users -userid usuario@pve (Crear usuario)</p>
+<p>$ printf &#8220;%s\n&#8221; Escribir cada palabra en una &#8220;nueva linea&#8221; (Pues eso, excepto las dos últimas entrecomilladas)</p>
 
-<p>$ pvesh delete /access/users/usuario@pve (Eliminar usuario)</p></blockquote>
+<p>$ printf &#8220;%06d\n&#8221; &#8220;$RANDOM&#8221; &#8220;$RANDOM&#8221; &#8220;$RANDOM&#8221; &#8220;$RANDOM&#8221; (Iguala las cuatro salidas de $RANDOM a 6 cifras con ceros delante[%06d])</p>
+
+<p>$ printf &#8220;%-10s %-10s %s\n&#8221;, $1, $2, $3 (3 variables justificadas a la izquierda, las dos primeras con 10 caracteres)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<p>%c (Imprime el primer carácter de una variable cadena)</p>
+
+<p>%d (Imprime un número decimal)</p>
+
+<p>%s (Cadena)</p>
+
+<p>%b (Interpreta las secuencias de escape del argumento cadena)</p>
+
+<p>%q (Escribe el argumento cadena de forma que pueda ser usado como entrada a otro comando)</p>
+
+<p>%% (Escribe % literal)</p>
 </div>
   
   
@@ -376,7 +464,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pv/">Pv</a></h1>
+      <h1 class="entry-title"><a href="/blog/printenv/">Printenv</a></h1>
     
     
       <p class="meta">
@@ -392,24 +480,18 @@
   
 
 
-<time datetime="2014-06-08T08:26:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Visualizar el progreso de un proceso</p>
+  <div class="entry-content"><p>Para saber los valores de todas las variables de entorno predefinidas por  la shell (TERM, SHELL, PWD, LC_ALL, USER, USERNAME, HOME, LOGNAME, BROWSER, DISPLAY&#8230;).</p>
 
-<blockquote><p>$ echo &#8220;Este texto se escribirá letra a letra hasta terminar con toda la frase&#8221; |  pv -qL 10 (Escribir un texto letra a letra)</p>
+<blockquote><p>$ echo $SHELL (Ver el valor de una variable)</p>
 
-<p>$ cat /etc/apt/sources.list | pv -qL 10  (lo mismo de un archivo)</p>
-
-<p>$ pv archivo1 > archivo2  (copiar archivo mostrando el progreso)</p>
-
-<p>$ pv -tpreb /dev/urandom | dd of=file.img (ejemplo hacia un archivo)</p>
-
-<p>$ pv /dev/urandom -L 3m > /dev/null (otro ejemplo del comportamiento de pv)</p></blockquote>
+<p>$ export SHELL=/bin/sh (Modificar el valor de una variable sólo en la presente sesión. Para hacer el cambio permanente colocar la linea en .bashrc)</p></blockquote>
 </div>
   
   
@@ -422,7 +504,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pushd/">Pushd</a></h1>
+      <h1 class="entry-title"><a href="/blog/primes/">Primes</a></h1>
     
     
       <p class="meta">
@@ -438,26 +520,18 @@
   
 
 
-<time datetime="2014-06-08T08:26:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Moverse al directorio especificado, como con cd, pero el directorio anterior se guarda en una pila al que puede volverse.</p>
+  <div class="entry-content"><p>Generar números primos.</p>
 
-<p>[~]$ pushd /usr/share/apache2/icons (del dir personal entramos en icons)</p>
+<blockquote><p>$ primes 1 100 (del 1 al 100)</p>
 
-<p>[/usr/share/apache2/icons]$ pushd /var/www/ (de icons a www)</p>
-
-<p>[/var/www]$ pushd /lib/init/rw/apache2 (de www a apache2)</p>
-
-<p>[/lib/init/rw/apache2]$ popd (retrocedemos un directorio en la pila)</p>
-
-<p>[/var/www]$ popd (retrocedemos otro directorio de la pila)</p>
-
-<p>[/usr/share/apache2/icons]$ dirs (nos informa de la pila de directorios en cada momento)</p>
+<p>$ primes 100 150 (del 100 al 150)</p></blockquote>
 </div>
   
   
@@ -470,7 +544,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/pulseaudio/">Pulseaudio</a></h1>
+      <h1 class="entry-title"><a href="/blog/preload/">Preload</a></h1>
     
     
       <p class="meta">
@@ -486,16 +560,14 @@
   
 
 
-<time datetime="2014-06-08T08:26:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Servidor de sonido multiplataforma.</p>
-
-<blockquote><p>$ pulseaudio -D  (Reiniciar el servicio)</p></blockquote>
+  <div class="entry-content"><p>Demonio que se encarga de recoger información de las aplicaciones más usadas para que en el siguiente inicio estos estén cargados en memoria acelerando el tiempo de arranque de los mismos.</p>
 </div>
   
   
@@ -526,43 +598,43 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/systemctl/">systemctl</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/journalctl/">journalctl</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/exim/">exim</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/system-config-printer/">system-config-printer</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdftk/">pdftk</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdf2svg/">pdf2svg</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lsusb/">lsusb</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/portsentry/">portsentry</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dtrx/">dtrx</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fold/">fold</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

@@ -1,0 +1,57 @@
+---
+layout: post
+title: "disown"
+date: 2014-07-13 16:48
+comments: true
+categories: 
+---
+Disociar un proceso de la terminal que lo lanzó. Cuando creamos un proceso desde una terminal, éste queda ligado a la terminal. Si se cierra la terminal, también se cierra el proceso. disown evita tal contingencia. Veamos el proceso:
+
+Si se lanza:
+
+>$ yes > /dev/null
+
+Cerramos y volvemos a abrir la terminal y ejecutamos:
+
+>$ ps aux | grep yes | grep -v grep
+
+Veremos que el proceso no existe. Si volvemos a lanzar "yes":
+
+>$ yes > /dev/null
+
+Pulsamos Ctrl+z:
+
+[1]+  Detenido                  yes > /dev/null
+
+Lanzando:
+
+>$ jobs
+
+Nos mostrará la misma salida. Ahora en el promt escribimos:
+
+>$ disown -h %1
+
+Con lo que desligamos el proceso de la terminal. Hemos liberado la terminal pero si la cerramos, aún matamos el proceso "yes". Para que esto no ocurra, lo mandamos a segundo plano con bg y número de proceso [1]:
+
+>$ bg 1
+
+[1]+ yes > /dev/null &
+
+Ahora podemos cerrar la terminal sin que el proceso "yes" se vea afectado. El proceso se simplifica si ya lanzamos el comando en background:
+
+>$ yes > /dev/null &
+
+[1] 13248
+
+Lo disociamos de la terminal:
+
+>$ disown -h %1
+
+Y ya podemos cerrar la terminal sin afectar al proceso.
+
+Otras opciones:
+
+>$ disown -a (Desliga todos los procesos ejecutados desde la terminal)
+
+>$ disown -r (Desliga los que esten en marcha [running])
+

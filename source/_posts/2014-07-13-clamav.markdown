@@ -1,0 +1,45 @@
+---
+layout: post
+title: "clamav"
+date: 2014-07-13 16:47
+comments: true
+categories: 
+---
+Antivirus
+
+>\# freshclam -v (actualizar la lista de virus)
+
+>\# freshclam -d -c 24    (arranca el demonio que actualizará clamav 24 veces diarias- Maximo 50 veces diarias)
+
+>\# clamscan -ri    (Sin especificar directorio, escanear el del usuario)
+
+>\# clamscan -ri --remove /home/usuario  (escanea el directorio usuario y borra directamente los archivos infectados)
+
+>\# clamscan -r -l test_clamav.txt  (manda el resultado a un archivo)
+
+>\# sigtool --list-sigs > list (listado de virus y troyanos que detecta)
+
+>\# clamscan -v -r --bell --move=/home/usuario/cuarentena --log=/var/log/clamav/clamav.log /media/win
+
+Opciones:
+
+	-v (muestra la información)
+
+	-r  (revisa directorios y subdirectorios)
+
+	--bell  (aviso sonoro al detectar un virus)
+
+	--move  (confina los virus en el directorio especificado)
+
+	--log  (guarda los logs en el archivo especificado)
+
+	-i  (solo mostrará los archivos infectados)
+
+	-d  (arrancar en modo demonio)
+
+Archivo de logs: /var/log/clamav/clamav.log
+
+Configuración: /etc/clamav/clamd.conf
+
+Reconfigurar paquete: # dpkg-reconfigure clamav-base
+

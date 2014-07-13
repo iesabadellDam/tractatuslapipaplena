@@ -1,0 +1,47 @@
+---
+layout: post
+title: "nfs"
+date: 2014-07-13 16:50
+comments: true
+categories: 
+---
+[nfs-kernel-server]. Servidor de archivos.
+
+En el Servidor:
+
+>\# nano /etc/exports (Para especificar carpetas que se van a compartir)
+
+Formato de las carpetas que se comparte:
+
+/home/usuario/datos 192.168.1.0/24(rw,no_root_squash,sync)
+
+opciones:
+
+192.168.1.0/24 (Compartida por un rango de ips)
+
+192.168.1.8 (Solo para una ip)
+
+rw (lectura y escritura)
+
+no_root_squash (permite a root del cliente accesos root en el servidor)
+
+async (No sincronizando los datos)
+
+sync (Sincronizando los datos)
+
+>\# /etc/init.d/nfs-kernel-server restart (reiniciar demonio)
+
+>\# exportfs -a (Releer el archivo exports si se ha modificado)
+
+En el Cliente
+
+>\# apt-get install nfs-common (Instalar cliente)
+
+>\# mount -t nfs 192.168.1.8:/home/usuario/datos /media/servidor
+
+Si se desea en el fstab, colocar la linea:
+
+>\# nano /etc/fstab
+
+192.168.1.2:/home/usuario/datos /media/servidor nfs rw,user 0 0
+

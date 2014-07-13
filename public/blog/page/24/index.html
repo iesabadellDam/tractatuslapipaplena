@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Aplicación que permite cifrar sistemas de archivos enteros, generar archivos cifrados y tambien generar sistemas ocultos dentro de otros sistemas. &hellip;">
+  <meta name="description" content="Terminal multiplexor $ tmux (Lanzar la aplicación) $ tmux ls (Listar las sesiones tmux abiertas) $ tmux attach -t 0 (Sincronizarse con la sesión 0 [ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/truecrypt/">Truecrypt</a></h1>
+      <h1 class="entry-title"><a href="/blog/tmux/">Tmux</a></h1>
     
     
       <p class="meta">
@@ -96,144 +96,142 @@
   
 
 
-<time datetime="2014-06-08T08:28:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Aplicación que permite cifrar sistemas de archivos enteros, generar archivos cifrados y tambien generar sistemas ocultos dentro de otros sistemas. Descarga de : http://www.truecrypt.org/downloads</p>
+  <div class="entry-content"><p>Terminal multiplexor</p>
 
-<p>Descomprimir y ejecutar:</p>
+<blockquote><p>$ tmux (Lanzar la aplicación)</p>
 
-<pre><code>$ tar xf truecrypt-7.1a-linux-console-x64.tar.gz
+<p>$ tmux ls (Listar las sesiones tmux abiertas)</p>
 
-# ./truecrypt-7.1a-setup-console-x64
+<p>$ tmux attach -t 0 (Sincronizarse con la sesión 0 [attach] en local o en remoto via ssh)</p>
+
+<p>$ tmux rename-session -t 0 tty1 (Renombrar la sesion 0 a tty1)</p>
+
+<p>$ tmux kill-window -t 2 (Matar la sesión tmux número 2)</p>
+
+<p>$ tmux new-session -s hack_wifi (Abrir sesión con un nombre)</p>
+
+<p>$ tmux list-commands (Listar la sintaxis de todos los comandos soportados)</p>
+
+<p>$ tmux list-keys (Listado de todas las teclas de control)</p>
+
+<p>$ tmux new-session -d &#8216;vi /etc/apt/sources.list&#8217; \; split-window -d &#8216;newsbeuter&#8217; \; attach (Arrancar una sesión tmux con el sources.list en el panel superior y con el lector RSS newsbeuter en el inferior)</p>
+
+<p>$ tmux new-session \; split-window \; split-window -h \; split-window -v \; attach (Arrancar la aplicación con varios panels horizontales y verticales)</p></blockquote>
+
+<p>Un completo tutorial en: <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=tmux&amp;sektion=1">http://www.openbsd.org/cgi-bin/man.cgi?query=tmux&amp;sektion=1</a></p>
+
+<p>Atajos:</p>
+
+<pre><code>Ctrl+b c (Crear una nueva ventana)
+
+Ctrl+b d (Salir de tmux actual (detach) sin cerrar sesión)
+
+Ctrl+b n (Ir a la ventana siguiente)
+
+Ctrl+b p (Ir a la ventana anterior)
+
+Ctrl+b &amp; (Matar la ventana actual, incluye todos los paneles)
+
+Ctrl+b x (Matar panel actual)
+
+Ctrl+b , (cambiar el nombre de la ventana actual )
+
+Ctrl+b % (Dividir verticalmente la ventana actual en dos paneles)
+
+Ctrl+b " (Dividir horizontalmente la ventana actual en dos paneles)
+
+Ctrl+b q (Mostrar brevemente los números de cada panel)
+
+Ctrl+b o (Cambiar al siguiente panel)
+
+Ctrl+b ? (Lista todas las combinaciones de teclas de control)
+
+Ctrl+b w (Lista todas las ventanas)
+
+Ctrl+b núm (Moverse a la ventana seleccionada (0-9). No al panel)
+
+Ctrl+b up (Ir al panel de encima)
+
+Ctrl+b down (Ir al panel de abajo)
+
+Ctrl+b left (Ir al panel de la izquierda)
+
+Ctrl+b right (Ir al panel de la derecha)
+
+Ctrl+b t (Muestra en el panel un reloj digital)
+
+Ctrl+b s (Elegir sesión)
+
+Ctrl+b [ (Entra en modo scroll con la teclas del cursor. Termina pulsando q)
 </code></pre>
 
-<blockquote><p># truecrypt -t -c (por consola [t] y ejecutar por primera vez [c]. Sin el parámetro &#8220;t&#8221; abre la gui)</p></blockquote>
+<p>1.-</p>
 
-<pre><code>Volume type:
+<p>Muestra para colorear los paneles:</p>
 
- 1) Normal
+<p>Crear en el directorio personal el archivo oculto:</p>
 
- 2) Hidden
+<blockquote><p>$ touch .tmux.conf</p></blockquote>
 
-Select [1]: 1
+<p>Con el siguiente contenido [modificar al gusto]</p>
 
-**[Seleccionar si va a estar oculto o no: 1]**
+<pre><code># default statusbar colors
 
-Enter volume path: /media/cripta
+set -g status-fg colour136
 
-**[Donde se montará. No tiene que existir el directorio]**
+set -g status-bg colour235
 
-Enter volume size (sizeK/size[M]/sizeG): 20M
+set -g status-attr default
 
-**[Tamaño del volumen: a voluntad]**
+# default window title colors
 
-Encryption algorithm:
+setw -g window-status-fg colour244
 
- 1) AES
+setw -g window-status-bg default
 
- 2) Serpent
+setw -g window-status-attr dim
 
- 3) Twofish
+# active window title colors
 
- 4) AES-Twofish
+setw -g window-status-current-fg colour166
 
- 5) AES-Twofish-Serpent
+setw -g window-status-current-bg default
 
- 6) Serpent-AES
+#setw -g window-status-current-attr bright
 
- 7) Serpent-Twofish-AES
+setw -g window-status-current-attr underscore
 
- 8) Twofish-Serpent
+# panel border
 
-Select [1]: 5
+set-option -g pane-border-fg white #base02
 
-**[Algoritmo de encriptación: a voluntad]**
+set-option -g pane-active-border-fg colour46 #base01
 
-Hash algorithm:
+# command/message line colors
 
- 1) RIPEMD-160
+set -g message-fg white
 
- 2) SHA-512
+set -g message-bg black
 
- 3) Whirlpool
+set -g message-attr bright
 
-Select [1]: 2
+# pane number display
 
-**[El hash: a voluntad]**
+set-option -g display-panes-active-colour colour33 #blue
 
-Filesystem:
+set-option -g display-panes-colour colour166 #orange
 
- 1) None
+# clock
 
- 2) FAT
-
- 3) Linux Ext2
-
- 4) Linux Ext3
-
- 5) Linux Ext4
-
-Select [2]: 5
-
-**[El sistema de archivo]**
-
-Enter password:
-
-WARNING: Short passwords are easy to crack using brute force techniques!
-
-**[CUIDADO: Contraseñas cortas son fáciles de romper usando técnicas de fuerza bruta!]**
-
-We recommend choosing a password consisting of more than 20 characters. Are you sure you want to use a short password? (y=Yes/n=No) [No]: y
-
-**[Informa que la contraseña tiene menos de 20 caracteres pero la aceptamos de todas formas]**
-
-Re-enter password:
-
-**[La repetimos]**
-
-Enter keyfile path [none]:
-
-**[Sin archivo de claves: enter]**
-
-Please type at least 320 randomly chosen characters and then press Enter:
-
-Characters remaining: 134
-
-Characters remaining: 26
-
-**[Nos hace tipear 320 caracteres en el teclado... todavia faltan 134... todavia faltan 26...]**
-
- Done: 100,000%  Speed:   22 MB/s  Left: 0 s
-
-**[Por fin... y toma sus notas... pasamos de ellas...]**
-
-The TrueCrypt volume has been successfully created.
-
-**[Finalmente se ha creado el volumen]**
+set-window-option -g clock-mode-colour colour64 #green
 </code></pre>
-
-<blockquote><p># truecrypt -t /media/cripta (Ejecutando la aplicación. Intro a todo:)</p></blockquote>
-
-<pre><code>Enter mount directory [default]:
-
-Enter password for /media/cripta:
-
-Enter keyfile [none]:
-
-Protect hidden volume (if any)? (y=Yes/n=No) [No]:
-</code></pre>
-
-<blockquote><p># truecript -t -l (Comprobar dispositivo montado)</p></blockquote>
-
-<pre><code>1: /media/cripta /dev/mapper/truecrypt1 /media/truecrypt1
-</code></pre>
-
-<blockquote><p># truecrypt -d /media/cripta (Desmontar volumen)</p></blockquote>
 </div>
   
   
@@ -246,7 +244,7 @@ Protect hidden volume (if any)? (y=Yes/n=No) [No]:
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/trickle/">Trickle</a></h1>
+      <h1 class="entry-title"><a href="/blog/tmpfs/">Tmpfs</a></h1>
     
     
       <p class="meta">
@@ -262,22 +260,20 @@ Protect hidden volume (if any)? (y=Yes/n=No) [No]:
   
 
 
-<time datetime="2014-06-08T08:28:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Limitar la velocidad de subida/bajada</p>
+  <div class="entry-content"><p>Permite asignar parte de la memoria física para ser utilizada como una partición lo que permite una vez montada, leer o escribir archivos de la RAM como si de una partición de disco se tratara. Dado que se está escribiendo en la memoria RAM del sistema, esta se borra en un reinicio o en un cuelgue. Relacionado con ramfs [ver], se diferencia de este en que tmpfs usa swap y que no permite escribir más que el tamaño que se ha especificado en el montaje. El proceso:</p>
 
-<p>Nota.- &#8220;-d&#8221; subida y &#8220;-u&#8221; bajada</p>
+<blockquote><p># mkdir /media/tmp</p>
 
-<blockquote><p>$ trickle -d 50 -u 30 wget http://www.genbeta.com (limitación para un solo host)</p>
+<p># mount -t tmpfs -o size=20m tmpfs /media/tmp</p></blockquote>
 
-<p>$ trickled -d 50 -u 30 (Lanzar la limitación como demonio con lo que todas las aplicaciones que se lancen con trickle tendran la limitación especificada)</p>
-
-<p>$ trickle wget http://www.genbeta.com</p></blockquote>
+<p>Comprobar con df -k [ver] o mount [ver] su correcto montaje</p>
 </div>
   
   
@@ -290,7 +286,7 @@ Protect hidden volume (if any)? (y=Yes/n=No) [No]:
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/treil/">Treil</a></h1>
+      <h1 class="entry-title"><a href="/blog/tload/">Tload</a></h1>
     
     
       <p class="meta">
@@ -306,16 +302,16 @@ Protect hidden volume (if any)? (y=Yes/n=No) [No]:
   
 
 
-<time datetime="2014-06-08T08:28:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Generador de una imagen en azulejo a partir de los archivos de un directorio.</p>
+  <div class="entry-content"><p>Muestra el promedio de carga en el terminal en forma de dibujos de caracteres.</p>
 
-<blockquote><p>$ treil -g 800x600 -o imagen.png /usr/share (Con una geometria determinada [g], que la imagen se guarde como imagen.png [o] y el directorio del cual crear la imagen)</p></blockquote>
+<blockquote><p>$ tload -d 2 (Con actualizacion cada 2 segundos)</p></blockquote>
 </div>
   
   
@@ -328,7 +324,7 @@ Protect hidden volume (if any)? (y=Yes/n=No) [No]:
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/tree/">Tree</a></h1>
+      <h1 class="entry-title"><a href="/blog/timidity/">Timidity</a></h1>
     
     
       <p class="meta">
@@ -344,18 +340,18 @@ Protect hidden volume (if any)? (y=Yes/n=No) [No]:
   
 
 
-<time datetime="2014-06-08T08:28:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Lista archivos y directorios en forma de arbol.</p>
+  <div class="entry-content"><p>Convertir formatos de audio de midi a wav  o a ogg</p>
 
-<blockquote><p>$ tree -d (Sólo los directorios de la presente carpeta)</p>
+<blockquote><p>$ timidity -Ow -s 44100 -o output.wav input.mid  (MIDI -> WAV)</p>
 
-<p>$ tree -o archivo (Enviar el resultado a un archivo)</p></blockquote>
+<p>$ timidity -Og -s 44100 -o output.ogg input.mid  ( MIDI -> OGG)</p></blockquote>
 </div>
   
   
@@ -368,7 +364,7 @@ Protect hidden volume (if any)? (y=Yes/n=No) [No]:
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/trash/">Trash</a></h1>
+      <h1 class="entry-title"><a href="/blog/times/">Times</a></h1>
     
     
       <p class="meta">
@@ -384,22 +380,14 @@ Protect hidden volume (if any)? (y=Yes/n=No) [No]:
   
 
 
-<time datetime="2014-06-08T08:28:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[trash-cli]. Enviar a la papelera un archivo o directorio</p>
-
-<blockquote><p>$ trash-put archivo (elimina archivo)</p>
-
-<p>$ trash-list (Lista los archivos eliminados)</p>
-
-<p>$ restore-trash (Pregunta el número del archivo a restaurar)</p>
-
-<p>$ trash-empty (Vacia la papelera)</p></blockquote>
+  <div class="entry-content"><p>Muestra los tiempos de usuario y sistema acumulados para procesos ejecutados desde el interprete de comandos</p>
 </div>
   
   
@@ -412,7 +400,7 @@ Protect hidden volume (if any)? (y=Yes/n=No) [No]:
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/trap/">Trap</a></h1>
+      <h1 class="entry-title"><a href="/blog/timeout/">Timeout</a></h1>
     
     
       <p class="meta">
@@ -428,43 +416,16 @@ Protect hidden volume (if any)? (y=Yes/n=No) [No]:
   
 
 
-<time datetime="2014-06-08T08:28:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Captura señales del teclado. Permite ejecutar un comando especificado cuando se produce una señal con un determinado valor.</p>
+  <div class="entry-content"><p>Limita el tiempo de funcionamiento de un comando o aplicación.</p>
 
-<blockquote><p>$ trap -l (Lista todos los valores)</p>
-
-<p>$ trap &#8220;rm -f /tmp/$$ ; exit&#8221; 0 1 2 3 15 (ejecutará el rm si se produce una señal: 0 [Salida de la shell], 1 [SIGHUP, cuelgue], 2 [SIGINT, interrupción con ^C], 3 [SIGQUIT, quiet] o 15 [SIGTERM, terminate, señal por defecto de kill]</p></blockquote>
-
-<p>Ejemplo:</p>
-
-<blockquote><p>$ nano no_muero.sh</p></blockquote>
-
-<pre><code>#!/bin/bash
-
-trap "echo ' Aunque pulses Ctrl+C!'" INT
-
-while true
-
-do
-
-sleep 60;
-
-echo "No puedes matarme"
-
-done
-</code></pre>
-
-<p>El script se repetirá hasta pararlo con Ctrl+z. A continuación mirar el pid</p>
-
-<blockquote><p>$ jobs</p>
-
-<p>$ kill -9 %pid (Para matarlo definitivamente)</p></blockquote>
+<blockquote><p>$ timeout 60 firefox (arrancará firefox y se cerrará a los 60 segundo)</p></blockquote>
 </div>
   
   
@@ -477,7 +438,7 @@ done
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/traceroute/">Traceroute</a></h1>
+      <h1 class="entry-title"><a href="/blog/time/">Time</a></h1>
     
     
       <p class="meta">
@@ -493,16 +454,20 @@ done
   
 
 
-<time datetime="2014-06-08T08:28:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Permite seguir la pista de un paquete desde un host a otro.</p>
+  <div class="entry-content"><p>Devuelve el tiempo de ejecución de un comando o aplicación.</p>
 
-<blockquote><p># traceroute www.tuxapuntes.com</p></blockquote>
+<blockquote><p>$ time netstat -anpt</p>
+
+<p># time nmap -sS www.tuxapuntes.com</p>
+
+<p>$ time echo &#8220;scale=5000; 4*a(1)&#8221; | bc -l -q (Calcula 5000 decimales de pi para comprobar velocidad del procesador)</p></blockquote>
 </div>
   
   
@@ -515,7 +480,7 @@ done
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/tr/">Tr</a></h1>
+      <h1 class="entry-title"><a href="/blog/tightvncserver/">Tightvncserver</a></h1>
     
     
       <p class="meta">
@@ -531,36 +496,24 @@ done
   
 
 
-<time datetime="2014-06-08T08:28:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Cambia caracteres de un archivo</p>
+  <div class="entry-content"><p>(En el cliente: xtightvncviewer). Conexión remota.</p>
 
-<blockquote><p>$ tr JM ?$ &lt; archivo  (cambia las &#8220;J&#8221; y las &#8220;M&#8221; por &#8220;?&#8221; y &#8220;$&#8221; en todo el archivo)</p>
+<p>En el Servidor:</p>
 
-<p>$ cat archivo | tr ea ?% (Cambia las &#8220;e&#8221; y &#8220;a&#8221; por &#8220;?&#8221; y &#8220;%&#8221; respectivamente)</p>
+<blockquote><p># tightvncserver -depth 16 -geometry 640x480</p></blockquote>
 
-<p>$ echo &#8216;la pipa plena&#8217; | tr &#8216;a-z&#8217; &#8216;A-Z&#8217;  (De minúsculas a mayúsculas)</p>
+<p>En el Cliente:</p>
 
-<p>$ echo &#8216;la pipa plena&#8217; | tr -d a (Borra las “a”)</p>
+<blockquote><p>$ xtightvncviewer</p></blockquote>
 
-<p>$ tr -d [aeiou] archivo  (Borra las vocales de archivo)</p>
-
-<p>$ echo &#8216;la   pipa    plena&#8217; | tr -s &#8217; &#8217; (Borra espacios repetidos)</p>
-
-<p>$ echo &#8216;la pipa plena&#8217; | tr -c &#8216;pln&#8217; &#8216;?&#8217; (Substituye todos los caracteres  por “?” inclusive los espacios, menos los indicados [pln])</p>
-
-<p>$ ls |tr &#8216;\t&#8217; &#8216;\n&#8217; (Substituye la tabulación vertical [\t] por salto de linea [\n])</p>
-
-<p>$ tr -dc A-Za-z0-9_ &lt; /dev/urandom | head -c 8 | xargs   (contraseñas de 8 caracteres aleatorias)</p>
-
-<p>$ echo &#8220;El boxeador está OK.&#8221; | tr O m | tr K a | tr . l (varios tr)</p>
-
-<p>$ tr &#8221; &#8221; . &lt; archivo (substituir los espacios por puntos)</p></blockquote>
+<p>Nota.- Sale una caja de texto donde entrar la ip o nombre del host y otra para ingresar la clave.</p>
 </div>
   
   
@@ -573,7 +526,7 @@ done
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/tput/">Tput</a></h1>
+      <h1 class="entry-title"><a href="/blog/tiger/">Tiger</a></h1>
     
     
       <p class="meta">
@@ -589,28 +542,18 @@ done
   
 
 
-<time datetime="2014-06-08T08:28:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>formatación de la terminal [posicionar el cursor en la pantalla, borrar datos de la pantalla, saber la cantidad de líneas y columnas de la pantalla, posicionar correctamente un campo, borrar un campo..]</p>
+  <div class="entry-content"><p>Chequear vulnerabilidades del sistema. Informe en /var/log/tiger</p>
 
-<blockquote><p>$ tput cols  (Cantidad de columnas de la terminal)</p>
+<blockquote><p># tiger  (Sin parámetros, escanea todo el sistema)</p>
 
-<p>$ tput lines (Cantidad de lineas)</p>
-
-<p>$ tput civis (Hace invisible el cursor)</p>
-
-<p>$ tput cnorm (Lo vuelve visible)</p>
-
-<p>$ tput sgr0 (vuelve la terminal a los parámetros por defecto)</p>
-
-<p>$ tput smcup (Borra el contenido de la terminal guardandolo)</p>
-
-<p>$ tput rmcup (Restablece el contenido de la terminal borrado con el comando anterior)</p></blockquote>
+<p># tiger -H -l /home/user/logs (crear un html con los resultados y guardarlo en el directorio “logs”)</p></blockquote>
 </div>
   
   
@@ -623,7 +566,7 @@ done
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/tpp/">Tpp</a></h1>
+      <h1 class="entry-title"><a href="/blog/tidy/">Tidy</a></h1>
     
     
       <p class="meta">
@@ -639,124 +582,24 @@ done
   
 
 
-<time datetime="2014-06-08T08:28:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Presentaciones en terminal.</p>
+  <div class="entry-content"><p>Validación y corrección de archivos html</p>
 
-<p>&#8211;title Este_es_el_titulo   (titulo de la presentación)</p>
+<blockquote><p>$ tidy fichero.html  (Analiza el código del fichero)</p>
 
-<p>&#8211;author juanito            (Autor)</p>
+<p>$ tidy -m fichero.html  (Corrige,modificándolo, el código del fichero)</p>
 
-<p>&#8211;date today  %d %b %Y      (fecha actual en formato dia/mes/año)</p>
+<p>$ tidy -m -asxml fichero.html  (Convierte un html a xml)</p>
 
-<p>&#8211;bgcolor yellow           (color de fondo)</p>
+<p>$ tidy -m -asxhtml fichero.html ( Convierte un html a xhtml )</p>
 
-<p>&#8211;fgcolor black            (color texto. Los colores válidos son: white, yellow, red, green, blue, cyan, magenta, black. Por defecto transparencia))</p>
-
-<p>&#8211;heading inicio           (nombre de la página, centrado)</p>
-
-<p>&#8211;horline                  (dibuja una linea en todo el ancho de pantalla)</p>
-
-<p>&#8211;withborder               (Marca un borde en los limites de la pantalla)</p>
-
-<p>&#8211;header texto             (Texto arriba del todo de la página)</p>
-
-<p>&#8211;footer texto             (Texto abajo del todo de la página)</p>
-
-<p>&#8211;color red            (Especifica un color de texto a partir de este punto)</p>
-
-<p>&#8211;center Se_pondra_en_el_centro   (El texto se centrará en la página)</p>
-
-<p>&#8211;right texto       (El texto se alineará a la derecha)</p>
-
-<p>&#8212;         (parar la presentación hasta que se clique en la barra de espacio)</p>
-
-<p>&#8211;newpage       (nueva página. Se accede pulsando cursor abajo o espacio)</p>
-
-<p>&#8211;##comentario          (comentario. No aparece en la presentación)</p>
-
-<p>&#8211;sleep 5           (Para la presentación 5 segundos. Por defecto son 3)</p>
-
-<p>&#8211;huge Fin_de_la_presentacion   (Figlet generará las letras del texto)</p>
-
-<p>&#8211;sethugefont big   (Los tipos de letra disponibles son los de figlet: banner, big, block, bubble, digital, ivrit, leas, mini, mnemonic, script, shadow, slant, small, smscript, smshadow, smslant, standard y term)</p>
-
-<p>&#8211;exec fbi -vt 01 imagen.png        (Ejecuta el comando)</p>
-
-<p>&#8211;beginoutput       (crea el inicio de un marco de texto)</p>
-
-<p>El_texto_que_proceda</p>
-
-<p>&#8211;endoutput         (Final del marco de texto)</p>
-
-<p>&#8211;beginshelloutput  (Inicio marco de texto. Con &#8220;$&#8221; saldrá letra a letra)</p>
-
-<blockquote><p>$ El_texto-que-proceda</p></blockquote>
-
-<p>&#8211;endshelloutput    (Final marco de texto)</p>
-
-<p>&#8211;bZoldon            (Inicio de escritura en negrita)</p>
-
-<p>El_texto_que_proceda</p>
-
-<p>&#8211;boldoff       (Final del uso de negrita)</p>
-
-<p>&#8211;revon             (Invierte los colores de letra y fondo)</p>
-
-<p>El_texto_que_proceda</p>
-
-<p>&#8211;revoff        (Termina la inversión)</p>
-
-<p>&#8211;ulon              (Inicio texto subrayado-??)</p>
-
-<p>El_texto_que_proceda</p>
-
-<p>&#8211;uloff             (Final texto subrayado)</p>
-
-<p>&#8211;beginslideleft    (El texto sale de izquierda a derecha)</p>
-
-<p>El_texto_que_proceda</p>
-
-<p>&#8211;endslideleft      (Final de salida de izquierda a derecha)</p>
-
-<p>&#8211;beginslideright   (El texto sale de derecha a izquierda)</p>
-
-<p>El_texto_que_proceda</p>
-
-<p>&#8211;endslideright     (Final de salida de derecha a izquierda)</p>
-
-<p>&#8211;beginslidetop     (Inicio de la salida del texto de arriba)</p>
-
-<p>El_texto_que_proceda</p>
-
-<p>&#8211;endslidetop       (Final de salida del texto de arriba)</p>
-
-<p>&#8211;beginslidebottom  (Inicio de salida del texto por abajo)</p>
-
-<p>El_texto_que_proceda</p>
-
-<p>&#8211;endslidebottom    (Final de salida por abajo)</p>
-
-<p>Teclas para desplazarse durante la presentación</p>
-
-<p>espacio (visualizar página siguiente)</p>
-
-<p>b (visualizar página anterior)</p>
-
-<p>q (salir de tpp)</p>
-
-<p>j (saltar a la página que se indique con el teclado numérico)</p>
-
-<p>s (saltar a la página de inicio)</p>
-
-<p>e (ir a la última página)</p>
-
-<p>c (inicio de línea de comandos)</p>
+<p>$ tidy -m -ashtml fichero.xhtml  ( Convierte un xhtml a html)</p></blockquote>
 </div>
   
   
@@ -787,43 +630,43 @@ done
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/systemctl/">systemctl</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/journalctl/">journalctl</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/exim/">exim</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/system-config-printer/">system-config-printer</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdftk/">pdftk</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdf2svg/">pdf2svg</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lsusb/">lsusb</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/portsentry/">portsentry</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dtrx/">dtrx</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fold/">fold</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

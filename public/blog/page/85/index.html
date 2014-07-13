@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Permite eliminar la comunicación entre procesos [ver ipcs]. Si paramos el programa con un Ctrl-C o simplemente sale de forma anormal, el recurso [la &hellip;">
+  <meta name="description" content="[/etc/network/interfaces] Archivo de configuración de la red en distros debian. 1.- Con IP dinámica: Colocar en el archivo las lineas: auto eth0 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ipcrm/">Ipcrm</a></h1>
+      <h1 class="entry-title"><a href="/blog/interfaces/">Interfaces</a></h1>
     
     
       <p class="meta">
@@ -96,473 +96,92 @@
   
 
 
-<time datetime="2014-06-08T08:25:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Permite eliminar la comunicación entre procesos [ver ipcs]. Si paramos el programa con un Ctrl-C o simplemente sale de forma anormal, el recurso [la memoria compartida] no se libera y queda en el sistema. Con este comando es posible borrarla.</p>
+  <div class="entry-content"><p>[/etc/network/interfaces]</p>
 
-<blockquote><p># ipcrm -m 950288 (eliminar un segmento de memoria compartida)</p></blockquote>
-</div>
-  
-  
+<p>Archivo de configuración de la red en distros debian.</p>
 
+<p>1.-</p>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ipcalc/">Ipcalc</a></h1>
-    
-    
-      <p class="meta">
-        
+<p>Con IP dinámica:</p>
 
+<p>Colocar en el archivo las lineas:</p>
 
+<pre><code>auto eth0
 
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:25:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Calcular las ips y mascaras de una red a partir de una ip dada o un rango.</p>
-
-<blockquote><p># ipcalc 192.168.0.1/24</p>
-
-<p># ipcalc 192.168.0.1/255.255.128.0</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ipband/">Ipband</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:25:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Mostrar datos de la conexión. Copiar el arxivo de configuración:</p>
-
-<blockquote><p># cp /usr/share/doc/ipband/examples/ipband.conf-simple /etc/ipband.conf</p></blockquote>
-
-<p>Y descomentar o modificar los siguientes parámetros:</p>
-
-<pre><code>debug 0
-
-interface eth1
-
-fork yes
-
-htmlfile /srv/www/htdocs/ipbandwidth/index.html
-
-htmltitle Consumo de banda
-
-average 10
-
-accumulate no
-
-maskbits 32
-
-localrange 192.168.1.0/24
+iface eth0 inet dhcp
 </code></pre>
 
-<p>Reiniciar el servicio:</p>
+<p>2.-</p>
 
-<blockquote><p># /etc/init.d/ipband restart</p></blockquote>
+<p>Con IP fija</p>
 
-<p>Arrancar la aplicación:</p>
-
-<blockquote><p># ipband</p></blockquote>
-
-<p>Los informes se muestran poniendo en la barra del navegador: http://localhost/html/ipbandwidth/index.html</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ip-ajustes/">Ip-ajustes</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:25:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>1.- Estática</p>
-
-<blockquote><p># gedit /etc/network/interfaces</p></blockquote>
+<p>Colocar en el archivo las lineas:</p>
 
 <pre><code>auto eth0
 
 iface eth0 inet static
 
-address 192.168.x.x
+address 192.168.1.10
+
+gateway 192.168.1.1
 
 netmask 255.255.255.0
 
-network 192.168.x.0
-
-boadcast 192.168.2.255
-
-gateway 192.168.x.1
+broadcast 192.168.1.255
 </code></pre>
 
-<blockquote><p># /etc/init.d/networking restart (reiniciar el servicio)</p>
+<p>Reiniciar el servicio:</p>
 
-<p>$ ifconfig (verificar la nueva ip)</p></blockquote>
-</div>
-  
-  
+<blockquote><p># ifdown eth0</p>
 
+<p># ifup eth0</p></blockquote>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ip/">Ip</a></h1>
-    
-    
-      <p class="meta">
-        
+<p>Nota.- Solo modificandolo en network-manager no funciona.</p>
 
+<p>3.-</p>
 
+<p>Creación de una segunda dirección IP virtual.</p>
 
+<p>Añadir las siguientes lineas a las de la IP fija:</p>
 
+<pre><code>auto eth0:1
 
+iface eth0:1 inet static
 
+address 192.168.0.15
 
+netmask 255.255.255.0
 
-  
+broadcast 192.168.0.255
 
-
-<time datetime="2014-06-08T08:25:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>(comando). Configuración de red. Muestra dispositivos, enrutamientos, tuneles.</p>
-
-<blockquote><p>$ ip addr (Revisar tarjetas)</p>
-
-<p>$ ip route show (Información)</p>
-
-<p>$ ip link show (Ver interfaces de red)</p>
-
-<p>$ ip link set dev eth0 down (bajar una red)</p>
-
-<p>$ ip route add default via 192.168.1.1 (establecer la ip del router)</p>
-
-<p>$ ip link set dev eth0 up (levantar una red)</p>
-
-<p>$ ip addr add 192.168.1.20 255.255.255.0 dev eth1 (establecer una ip estática)</p>
-
-<p>$ ip n  (MAC e IP del router)</p>
-
-<p>$ ip link set dev eth1 address 00:03:44:88:00:11 (Modificdar la MAC. Previamente bajar la red)</p>
-
-<p>$ ip route del default (Eliminar puerta de enlace para crear una nueva)</p>
-
-<p>$ ip route add default via 192.168.1.10 (Crear nueva puerta de enlace)</p>
-
-<p>$ ip -f inet addr show eth0 (información de la dirección ip)</p>
-
-<p>$ ip route add 192.168.2.0/24 via 192.168.1.10 (Añadir una red a una puerta de enlace)</p></blockquote>
-
-<p>Nota.- Verificar que /etc/resolv contenga una linea con el servidor DNS tipo: nameserver 8.8.8.8 [para las DNS de google]</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/iozone/">Iozone</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:25:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Realizar test de velocidad de sistemas de archivos (ext3, ext4&#8230;)</p>
-
-<blockquote><p>$ iozone -s 2g -r 64 -i 0 -i 1 -b test.xls</p>
-
-<p>$ iozone -a -g 2G -f /media/sda2</p></blockquote>
-
-<p>-a (automático)</p>
-
-<p>-g (Tamaño de los archivos generados)</p>
-
-<p>-f (el sistema de archivos a tratar)</p>
-
-<p>-i (0= escritura, 1= lectura, 2=lectura/escritura&#8230;.)</p>
-
-<p>-b (archivo que generará con los resultados)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/iotop/">Iotop</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:25:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>monitoriza el ratio de lectura/escritura en disco .</p>
-
-<blockquote><p>$ iotop -o -u usuario</p>
-
-<p>$ iotop -a -p $(sed &#8216;s, , -p ,g&#8217; &lt;&lt;&lt;<code>pgrep "_raid|_resync|jbd2"</code>) (un raid)</p></blockquote>
-
-<p>Alguns opciones:</p>
-
-<p>-d 2 (Actualización cada 2 segundos)</p>
-
-<p>-b (No interactivo)</p>
-
-<p>-o (Sólo mostrar procesos que hacen uso de entrada/salida)</p>
-
-<p>-t (Incluir una marca de tiempo)</p>
-
-<p>-p pid (Pid del proceso a monitorizar. Por defecto todos)</p>
-
-<p>-u usuario (especificando usuario)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/iostat/">Iostat</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:25:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>muestra estadísticas de la CPU y de la entrada y salida de los dispositivos y particiones.</p>
-
-<blockquote><p>$ iostat -x sda -d 1 6 (6 reportes con 1 segundo de intervalo sobre el disco sda. Suprimiendo la última cifra [6] continuará reportando datos hasta finalizar con Ctrl+c)</p>
-
-<p>$ iostat -d 3 (actualizará resultados cada 3 segundos)</p>
-
-<p>$ iostat -p sda (Ver estadisticas de un disco concreto con sus particiones)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/inxi/">Inxi</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:25:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra información del equipo (<a href="http://inxi.googlecode.com/svn/trunk/inxi">http://inxi.googlecode.com/svn/trunk/inxi</a>).</p>
-
-<blockquote><p>$ inxi -Fpur -c 4</p></blockquote>
-
-<p>Algunas opciones (con inxi -h la lista completa):</p>
-
-<pre><code>-A (Audio y tarjetas de sonido)
-
--b (informacio básica)
-
--c (formato de color de 0 a 32 para la salida de datos)
-
--C (CPUs)
-
--d (drivers opticos)
-
--D (disco duro)
-
--F (salida extendida)
-
--G (tarjeta gráfica)
-
--i (Información de red)
-
--I (Procesos, uptime, memoria...)
-
--M (Datos de la máquina)
-
--N (    tarjetas de red)
-
--o (particiones no montadas)
-
--p (particiones montadas)
-
--r (repositorios)
-
--s (sensors[temperaturas cpu])
-
--S  (Host, Kernel,Escritorio y Distro)
-
--t cm (Procesos que consumen más cpu [c] y memoria [m])
-
--u (UUID de las particiones. -uo las no montadas, -up las montadas)
-
--v 6 (Distintas etiquetas de información. Del 1 al 6)
+gateway 192.168.0.1
 </code></pre>
+
+<p>Nota.- La instalación de nerwork-manager o wicd para la gestión de redes implica comentar las modificaciones de este archivo o en, en el caso de network-manager, editar:</p>
+
+<blockquote><p># nano  /etc/NetworkManager/NetworkManager.conf</p></blockquote>
+
+<p>Y modificar la linea:</p>
+
+<pre><code>[ifupdown]
+
+managed=true
+</code></pre>
+
+<p>4.-</p>
+
+<p>Obtener el módulo que usa una determinada interfaz de red:</p>
+
+<blockquote><p># ls /sys/class/net/ (Listar todas las interfaces de red del equipo)</p>
+
+<p># ls -la /sys/class/net/eth1/device/driver (Ver el módulo del kernel que está usando una interfaz de red)</p></blockquote>
 </div>
   
   
@@ -591,7 +210,7 @@ gateway 192.168.x.1
   
 
 
-<time datetime="2014-06-08T08:25:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
@@ -649,6 +268,409 @@ current=/var/lib/integrit/current.cdb
 
     </article>
   
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/instmodsh/">Instmodsh</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Para conocer los módulos perl instalados. Entra en el prompt (cmd?) con 3 preguntas:</p>
+
+<p>l (List all installed modules)</p>
+
+<p>m <module> (Select a module)</p>
+
+<p>q (Quit the program)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/install-mbr/">Install-mbr</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Instala un nuevo código MBR al inicio del disco duro.</p>
+
+<blockquote><p># install-mbr /dev/sda (instala)</p>
+
+<p># install-mbr -l /dev/sda (muestra información del código mbr)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/insmod/">Insmod</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Carga modulos.</p>
+
+<blockquote><p># insmod mudulo</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/inputrc/">Inputrc</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>(archivo /etc/inputrc y ~/.inputrc). Librería readline que permite editar líneas de texto usando los modos de emacs y vi. Esto permite estandarizar las combinaciones de teclas entre muchos comandos.</p>
+
+<blockquote><p>$ nano .inputrc</p></blockquote>
+
+<p>Ajustes que pueden añadirse al archivo personal.</p>
+
+<p>1.-</p>
+
+<p>Que al pulsar Ctrl+x Ctrl+f liste las funciones y con Ctrl+x Ctrl+v las variables:</p>
+
+<blockquote><p># Lista las funciones y variables de readline</p></blockquote>
+
+<p>&#8220;\C-x\C-f&#8221;: dump-functions</p>
+
+<p>&#8220;\C-x\C-v&#8221;: dump-variables</p>
+
+<p>2.-</p>
+
+<p>Que el autocompletado con la tecla &#8220;tab&#8221; no distinga mayúsculas y minúsculas:</p>
+
+<blockquote><p># Ignora diferencias de mayusculas/minusculas al</p>
+
+<p># completar con tabulador</p></blockquote>
+
+<p>set completion-ignore-case on</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/innotop/">Innotop</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Monitorización del servidor de bases de datos mysql.</p>
+
+<blockquote><p>$ innotop -u USER -p PASS -h localhost -P 3306</p></blockquote>
+
+<p>Nota.- Pulsar &#8220;q&#8221; para salir.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/inittab/">Inittab</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Fichero que gestiona el inicio del sistema o un cambio de estado (runlevel) con el comando init (ver).</p>
+
+<blockquote><p># nano /etc/inittab</p></blockquote>
+
+<p>Especificación de si el sistema arranca en modo monousuario (1) o multiusuario (2-5). Por defecto 2 o 3:</p>
+
+<pre><code>id:2:initdefault:
+</code></pre>
+
+<p>Scripts que se ejecutarán en el inicio y en el orden que lo harán independientemente del runlevel:</p>
+
+<pre><code>si::sysinit:/etc/init.d/rcS (En algunas distros si::sysinit:/etc/rc.d/rc.sysinit)
+</code></pre>
+
+<p>Este script llama a los scripts del directorio /etc/rcS.d. Por cada runlevel se ejecutan los scripts del directorio correpondiente: rc0.d/, rc1.d/, rc2.d/, rc3.d/, rc4.d/, rc5.d/, rc6.d/, rc.local y rcS.d/. El directorio /etc/rc.local se usa para ejecutar servicios porpios del usuario. En estos directorios los scripts que empiezan por una &#8220;K&#8221; paran servicios y los que empiezan por una &#8220;S&#8221; los arrancan.</p>
+
+<p>Qué hacer si se presiona CTRL-ALT-DEL:</p>
+
+<pre><code>ca:12345:ctrlaltdel:/sbin/shutdown -t1 -a -r now
+</code></pre>
+
+<p>Qué hacer si la corriente se va/vuelve</p>
+
+<pre><code>pf::powerwait:/etc/init.d/powerfail start
+
+pn::powerfailnow:/etc/init.d/powerfail now
+
+po::powerokwait:/etc/init.d/powerfail stop
+</code></pre>
+
+<p>Despues de ejecutar los scripts de inicio, init crea un conjunto de terminales virtuales:</p>
+
+<pre><code>1:2345:respawn:/sbin/getty 38400 tty1
+
+2:23:respawn:/sbin/getty 38400 tty2
+
+3:23:respawn:/sbin/getty 38400 tty3
+
+4:23:respawn:/sbin/getty 38400 tty4
+
+5:23:respawn:/sbin/getty 38400 tty5
+
+6:23:respawn:/sbin/getty 38400 tty6
+</code></pre>
+
+<p>Utilizando la opción respawn, si alguien trata de finalizar uno de estos procesos, el proceso simplemente será regenerado (respawned).</p>
+
+<p>1.-</p>
+
+<p>Entrar de forma automática:</p>
+
+<p>Comentar la siguiente línea</p>
+
+<blockquote><p>#1:2345:respawn:/sbin/getty 38400 tty1</p></blockquote>
+
+<p>Y Agrega la siguiente linea:</p>
+
+<p>1:2345:respawn:/bin/login -f USUARIO tty1 </dev/tty1 >/dev/tty1 2>&amp;1</p>
+
+<p>Siendo USUARIO el nombre de usuario que hará login automático.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/initramfs/">Initramfs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Problemas durante el arranque. Consiste en un fallo de lectura de los controladores ide de discos duros por parte del kernel del sistema operativo que no logra reconocer dichos drivers. Arrancar con un livecd o pulsando “e” para editar la opción cuando salga el menu en grub:</p>
+
+<blockquote><p># gedit /boot/grub/menu.lst</p></blockquote>
+
+<p>Y al final de la linea del kernel poner: rootdelay=90</p>
+
+<p>Otras soluciones propuestas (sustituir el rootdelay=90 por):</p>
+
+<p>pci=nomsi</p>
+
+<p>all_generix_ide</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/init/">Init</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Para o reinicia el sistema</p>
+
+<blockquote><p>$ init 0    (para)</p>
+
+<p>$ init 1    (reinicia en modo  uniusuario)</p>
+
+<p>$ init 6    (reinicia)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/86/">&larr; Older</a>
@@ -672,43 +694,43 @@ current=/var/lib/integrit/current.cdb
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/systemctl/">systemctl</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/journalctl/">journalctl</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/exim/">exim</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/system-config-printer/">system-config-printer</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdftk/">pdftk</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdf2svg/">pdf2svg</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lsusb/">lsusb</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/portsentry/">portsentry</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dtrx/">dtrx</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fold/">fold</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

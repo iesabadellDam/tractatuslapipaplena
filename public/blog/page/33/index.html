@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Proxy caché (intermediario para nuestra conexion a internet, guardando las paginas visualizadas en una caché) # cp /etc/squid3/squid.conf{,.defaults &hellip;">
+  <meta name="description" content="librería que se encarga de almacenar comandos y el usuario que los ejecuta. $ git clone https://github.com/a2o/snoopy.git $ cd snoopy $ ./configure &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/squid/">Squid</a></h1>
+      <h1 class="entry-title"><a href="/blog/snoopy/">Snoopy</a></h1>
     
     
       <p class="meta">
@@ -96,52 +96,34 @@
   
 
 
-<time datetime="2014-06-08T08:27:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Proxy caché (intermediario para nuestra conexion a internet, guardando las paginas visualizadas en una caché)</p>
+  <div class="entry-content"><p>librería que se encarga de almacenar comandos y el usuario que los ejecuta.</p>
 
-<blockquote><p># cp /etc/squid3/squid.conf{,.defaults} (Realizar copia de seguridad de la configuración)</p>
+<blockquote><p>$ git clone https://github.com/a2o/snoopy.git</p>
 
-<p># nano /etc/squid3/squid.conf</p></blockquote>
+<p>$ cd snoopy</p>
 
-<p>Modificamos/adaptamos los siguientes ajustes basicos:</p>
+<p>$ ./configure</p>
 
-<p>http_port 3128 #puerto de escucha</p>
+<p>$ make</p>
 
-<p>cache_mem 100 MB #Tamaño memoria caché</p>
+<p># make install</p>
 
-<p>cache_dir ufs /var/spool/squid 700 16 256 #directorio y tamaño</p>
+<p># make enable</p></blockquote>
 
-<p>acl NuestraRed src 192.168.1.0/24 #Nombre y red a la que afecta</p>
+<p>Reiniciar los servicios que tengamos funcionando [apache2, ssh&#8230;]</p>
 
-<p>http_access allow NuestraRed #permitir acceso a toda la red</p>
+<blockquote><p># /etc/init.d/ssh restart</p></blockquote>
 
-<p>http_access allow deny all #Denegamos a los de fuera de la red</p>
+<p>Monitorizar el archivo log de registro com:</p>
 
-<p>auth_param basic /usr/lib/squid/ncsa_auth /etc/squid/passwd #ruta a usuarios</p>
-
-<p>auth_param basic realm “Mensaje de acceso” #mensaje al logearse</p>
-
-<p>auth_param basic children 5 #Procesos de autentificación</p>
-
-<p>auth_param basic basic credentialsttl 1 hours #tiempo</p>
-
-<blockquote><p># squid3 -k parse (Revisión de la sintaxis del archivo squid.conf)</p></blockquote>
-
-<p>Después de las modificaciones reiniciar servicio:</p>
-
-<blockquote><p># /etc/init.d/squid3 restart</p></blockquote>
-
-<p>Configuración de usuarios (/etc/squid/passwd):</p>
-
-<blockquote><p># htpasswd -c /etc/squid3/passwd user1 (Crear archivo [-c] nombre de usuario y pedirá contraseña)</p>
-
-<p># htpasswd /etc/squid3/passwd usuario2 (Sin parámetro -c porque el archivo ya está creado. Otro usuario y contraseña)</p></blockquote>
+<blockquote><p># tail -f /var/log/auth.log</p></blockquote>
 </div>
   
   
@@ -154,7 +136,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/spumux/">Spumux</a></h1>
+      <h1 class="entry-title"><a href="/blog/sniffit/">Sniffit</a></h1>
     
     
       <p class="meta">
@@ -170,39 +152,22 @@
   
 
 
-<time datetime="2014-06-08T08:27:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Generar subtítulos en un video mpeg.</p>
+  <div class="entry-content"><p>Snifer de red. Dado que los informes los despliega en archivos de texto por cada dato, es preferible lanzar la aplicación desde dentro de una carpeta para no llenar todo el directorio de ficheros.</p>
 
-<blockquote><p>$ spumux -s0 subt.xml &lt; video.mpeg > video_subtitulado.mpeg</p></blockquote>
+<blockquote><p># sniffit -s 192.168.1.2  (Captura todos los paquetes con origen en la IP)</p>
 
-<p>Nota.- El archivo subt.xml con un contenido:</p>
+<p># sniffit -t 192.168.1.2 (Captura todos los paquetes con destino en la IP)</p>
 
-<pre><code>&lt;subpictures&gt;
+<p># sniffit -b -s 192.168.1.2 (Captura los paquetes con origen y destino en la IP)</p>
 
-   &lt;stream&gt;
-
-        &lt;textsub filename="SUBTITULOS.srt" characterset="ISO8859-1"
-
-                 fontsize="24.0" font="Arial.ttf" horizontal-alignment="center"
-
-                 vertical-alignment="bottom" left-margin="60" right-margin="60"
-
-                 top-margin="20" bottom-margin="30" subtitle-fps="25"
-
-                 movie-fps="29.97" movie-width="720" movie-height="478"/&gt;
-
-   &lt;/stream&gt;
-
-&lt;/subpictures&gt;
-</code></pre>
-
-<p>La fuente Arial.ttf ha de estar [o tener un enlace] en el directorio ~/.spumux</p>
+<p># sniffit -F eth1 -b -s 192.168.1.33 -p 9001 (de un puerto y forzando dispositivo)</p></blockquote>
 </div>
   
   
@@ -215,7 +180,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/sponge/">Sponge</a></h1>
+      <h1 class="entry-title"><a href="/blog/snarf/">Snarf</a></h1>
     
     
       <p class="meta">
@@ -231,18 +196,18 @@
   
 
 
-<time datetime="2014-06-08T08:27:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[moreutils]. Herramienta que guarda todo el contenido a escribir hasta que recibe el EOF y luego lo escribe por lo que permite procesar un fichero y reescribirlo en el propio fichero sin perdida de datos.</p>
+  <div class="entry-content"><p>Descarga páginas web o listado de archivos compartidos por ftp.</p>
 
-<blockquote><p>$ tac archivo | sponge archivo (Lee al reves un archivo y lo guarda en el mismo archivo)</p>
+<blockquote><p>$ snarf lapipaplena.net (Creará un archivo index.html)</p>
 
-<p>$ column -t datos | sponge datos</p></blockquote>
+<p>$ snarf ftp://usuario:contraseña@servidor (Creará un archivo ftpindex.txt)</p></blockquote>
 </div>
   
   
@@ -255,7 +220,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/splitvt/">Splitvt</a></h1>
+      <h1 class="entry-title"><a href="/blog/smem/">Smem</a></h1>
     
     
       <p class="meta">
@@ -271,16 +236,22 @@
   
 
 
-<time datetime="2014-06-08T08:27:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Lanzar dos shells simultaneas partiendo en dos ventanas una terminal.</p>
+  <div class="entry-content"><p>Informa del uso de la memoria.</p>
 
-<blockquote><p>$ splitvt -t &#8220;linux es genial&#8221; -upper ls -lower top (Con un título [-t] lanzando un ls en la ventana superior y top en la inferior)</p></blockquote>
+<blockquote><p># smem -u (Por parte de los usuarios)</p>
+
+<p># smem -w (por parte del sistema)</p>
+
+<p># smem -m (de todos los procesos)</p>
+
+<p># smem -p (resultado en porcentaje</p></blockquote>
 </div>
   
   
@@ -293,7 +264,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/split/">Split</a></h1>
+      <h1 class="entry-title"><a href="/blog/smbstatus/">Smbstatus</a></h1>
     
     
       <p class="meta">
@@ -309,18 +280,22 @@
   
 
 
-<time datetime="2014-06-08T08:27:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Cortar archivos</p>
+  <div class="entry-content"><p>Monitorizar el estado de las conexiones del servidor samba.</p>
 
-<blockquote><p>$ split -d -b 100m archivo otro_archivo. (Que tengan extensión con números: .00, .01, .02. Trozos de 200 MB, archivo de entrada y de salida terminado con un punto donde se añade la extension. En este ejemplo daría salidas tipo otro_archivo.00, otro_archivo.01&#8230;.)</p>
+<blockquote><p># smbstatus (Listado de equipos conectados a recursos compartidos y ficheros abiertos)</p>
 
-<p>$ cat prefijo* > archivo  (volver a unirlos)</p></blockquote>
+<p># smbstatus -p (Solo el listado de los equipos conectados a samba)</p>
+
+<p># smbstatus -S (Listado de recursos y equipos conectados a ellos)</p>
+
+<p># smbstatus -L  (Listado de ficheros abiertos)</p></blockquote>
 </div>
   
   
@@ -333,7 +308,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/speedtest-cli/">Speedtest_cli</a></h1>
+      <h1 class="entry-title"><a href="/blog/smbclient/">Smbclient</a></h1>
     
     
       <p class="meta">
@@ -349,29 +324,26 @@
   
 
 
-<time datetime="2014-06-08T08:27:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>script en python que se conecta a un servidor y realiza un test de velocidad de nuestra conexió.</p>
+  <div class="entry-content"><p>Conectar recursos compartidos de windows desde linux.</p>
 
-<p>Descarga y permisos:</p>
+<blockquote><p>$ smbclient //192.168.1.155/compartido -U usuario (Después de ingresar usuario y contraseña entra en el prompt del recurso compartido)</p>
 
-<pre><code>$ wget https://raw.github.com/sivel/speedtest-cli/master/speedtest_cli.py
+<p>$ smbclient -L //192.168.1.155 (Ver los recursos compartidos de la IP especificada.</p></blockquote>
 
-$ chmod +x speedtest_cli.py
-</code></pre>
+<p>1.-</p>
 
-<blockquote><p>$ ./speedtest_cli.py (Forma básica)</p>
+<p>Para montarlo automaticamente:</p>
 
-<p>$ ./speedtest_cli.py &#8211;sahre (Nos da una URL con la imagen en png de la conexión)</p>
+<p>Entrar en el /etc/fstab la siguiente linea:</p>
 
-<p>$ ./speedtest_cli.py &#8211;list (Mostrará una lista ordenada de los servidores de Speedtest.net con los más cercanos en primer lugar.)</p>
-
-<p>$ ./speedtest_cli.py &#8211;server 804 (Especificar un servidor distinto al más cercano,     tomado del listado anterior)</p></blockquote>
+<p>//192.168.1.155/compartido /media/compartido cifs username=NOMBRE, password=CONTRASEÑA,user</p>
 </div>
   
   
@@ -384,7 +356,7 @@ $ chmod +x speedtest_cli.py
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/speedometer/">Speedometer</a></h1>
+      <h1 class="entry-title"><a href="/blog/smartctl/">Smartctl</a></h1>
     
     
       <p class="meta">
@@ -400,22 +372,66 @@ $ chmod +x speedtest_cli.py
   
 
 
-<time datetime="2014-06-08T08:27:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Monitor de transferencia de ficheros [velocímetro].</p>
+  <div class="entry-content"><p>[smartmontools]. Comprobar el estado de los discos duros. Si el disco es IDE, suprimir en todos los comandos el &#8220;-d ata&#8221;</p>
 
-<blockquote><p># speedometer -p -rx eth0  (tráfico recibido y el resultado en consola [-p])</p>
+<blockquote><p># smartctl -i -d ata /dev/sda (Verificar si un disco ATA suporta smart)</p>
 
-<p># speedometer -tx eth0  (tráfico transmitido y el resultado en modo gráfico)</p>
+<p># smartctl -s on -d ata /dev/hda (activar el soporte smart)</p>
 
-<p># speedometer -i 0.25 -rx eth0 (t. recibido, en modo gráfico y muestreo cada 0.25 segundos.)</p></blockquote>
+<p># smartctl -d ata -t short /dev/sda (lanzar el test corto)</p>
 
-<p>pulsar “q” para cerrar</p>
+<p># smartctl -d ata -t long /dev/sda  (lanzar el test largo)</p>
+
+<p># smartctl -d ata -l selftest -i /dev/sda (analizar la información de los comandos anteriores)</p></blockquote>
+
+<p>LifeTime indica las horas que el disco ha estado encendido. LBA_of_First_error indica los errores.</p>
+
+<blockquote><p># smartctl -d ata -Hc /dev/sda (Si al final se lee PASSED, correcto, si FAILED cambiar disco)</p>
+
+<p># smartctl -d ata -l error /dev/sda (Listar los errores)</p>
+
+<p># smartctl -d ara -A /dev/sda (Listar atributos internos)</p></blockquote>
+
+<p>Listado de algunos atributos smart</p>
+
+<p>Power_Cycle_Count (RAW_Value).- Veces que le ha llegado   corriente.</p>
+
+<p>Temperature Celsius. (RAW_Value) .- Temperatura del disco</p>
+
+<p>Reallocated_Sector_Ct (RAW_Value).-  número de sectores de repuesto que ha usado el disco para sustituir sectores dañados</p>
+
+<p>Raw_Read_Error_Rate (RAW_Value).- Frequencia de errores en la lectura del disco.</p>
+
+<p>Start_Stop_Count: Cantidad de veces que se ha parado y arrancado el disco</p>
+
+<p>Seek_Error_Rate: Tasa de errores de colocación de la aguja</p>
+
+<p>Power_On_Seconds: Tiempo funcionando</p>
+
+<p>Spin_Retry_Count: Numero de reintentos de arrancada</p>
+
+<p>El campo VALUE [valor] va del número 1 al 253, siendo 1 el peor. Los valores normales son los que estan entre 100 y 200. El campo WHEN_FAILED indica cuando se produjo una falla de algún atributo.</p>
+
+<p>1.-</p>
+
+<p>Para activar el demonio que nos avisa si se produce un error en disco:</p>
+
+<blockquote><p># apt-get install smart-notifier</p></blockquote>
+
+<p>Editar el archivo de configuración:</p>
+
+<blockquote><p># nano /etc/default/smartmontools</p></blockquote>
+
+<p>Y descomentar la linea:</p>
+
+<p>start_smartd=yes</p>
 </div>
   
   
@@ -428,7 +444,7 @@ $ chmod +x speedtest_cli.py
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/speaker/">Speaker</a></h1>
+      <h1 class="entry-title"><a href="/blog/slurm/">Slurm</a></h1>
     
     
       <p class="meta">
@@ -444,16 +460,16 @@ $ chmod +x speedtest_cli.py
   
 
 
-<time datetime="2014-06-08T08:27:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>(ver aoss espeak). Pruebas de sonido.</p>
+  <div class="entry-content"><p>Monitoriza la interfaz de red</p>
 
-<blockquote><p># speaker-test -c 6 -t wav (probar altavoces usando voz [t])</p></blockquote>
+<blockquote><p># slurm -i eth0</p></blockquote>
 </div>
   
   
@@ -466,7 +482,7 @@ $ chmod +x speedtest_cli.py
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/spacedream/">Spacedream</a></h1>
+      <h1 class="entry-title"><a href="/blog/slowhttptest/">Slowhttptest</a></h1>
     
     
       <p class="meta">
@@ -482,16 +498,40 @@ $ chmod +x speedtest_cli.py
   
 
 
-<time datetime="2014-06-08T08:27:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra una imagen del cielo en la tty. Con las teclas del cursor permite moverse por entre la constelación de estrellas.</p>
+  <div class="entry-content"><p>Efectuar ataques Slow Http Dos</p>
 
-<blockquote><p>$ spacedream</p></blockquote>
+<blockquote><p>$ slowhttptest -c 1000 -H -g -o ataque -i 10 -r 200 -t GET -u http://192.168.1.154 -x 30 -p 3</p></blockquote>
+
+<p>c (Número de conexiones con límite en 65539)</p>
+
+<p>H (ataque modo SlowLoris enviando paquetes sin completar)</p>
+
+<p>B (ataque modo Slow POST sin terminar de enviar el cuerpo del mensaje)</p>
+
+<p>X (ataque modo Slow Read de lectura de las respuestas http lentas)</p>
+
+<p>g (Generr estadistica en formato html)</p>
+
+<p>o (Archivo de salida)</p>
+
+<p>i (Intervalo de datos por segundo por conexión)</p>
+
+<p>r (Conexiones por segundo)</p>
+
+<p>t (Cabecera a utilizar)</p>
+
+<p>u (URL de destino)</p>
+
+<p>x (Longitud máxima de los datos)</p>
+
+<p>p (Tiempo de espera de respuesta http una vez el servidor se considera inaccesible)</p>
 </div>
   
   
@@ -504,7 +544,7 @@ $ chmod +x speedtest_cli.py
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/sox/">Sox</a></h1>
+      <h1 class="entry-title"><a href="/blog/slim/">Slim</a></h1>
     
     
       <p class="meta">
@@ -520,22 +560,22 @@ $ chmod +x speedtest_cli.py
   
 
 
-<time datetime="2014-06-08T08:27:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Unir ficheros de audio en uno. Soporta mp3, wav, ogg&#8230;</p>
+  <div class="entry-content"><p>Gestor de sesiones ligero. La configuración en el archivo /etc/slim.conf</p>
 
-<blockquote><p>$ soxmix 1.mp3 2.mp3 mezcla.mp3</p>
+<p>1.-</p>
 
-<p>$ sox file.mp3 file2.mp3 trim 0 5 (corta los primeros 5 segundos de file.mp3 y los guarda en file2.mp3)</p>
+<p>Si al usar systemd el sistema no para ni reinicia, modificar las lineas existentes por las siguientes:</p>
 
-<p>$ sox file.mp3 file.wav (pasar de mp3a wav)</p>
+<p>halt_cmd /usr/bin/systemctl halt</p>
 
-<p>$ sox 2.wav 3.wav speed 0.5 (3.wav irá a la mitad de velocitad que 2.wav)</p></blockquote>
+<p>reboot_cmd /usr/bin/systemctl reboot</p>
 </div>
   
   
@@ -566,43 +606,43 @@ $ chmod +x speedtest_cli.py
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/systemctl/">systemctl</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/journalctl/">journalctl</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/exim/">exim</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/system-config-printer/">system-config-printer</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdftk/">pdftk</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdf2svg/">pdf2svg</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lsusb/">lsusb</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/portsentry/">portsentry</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dtrx/">dtrx</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fold/">fold</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

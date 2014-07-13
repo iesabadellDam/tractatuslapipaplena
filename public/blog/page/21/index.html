@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Informa de la &#8230; $ uname -a (&#8230; versión instalada del kernel y otros datos) $ uname -m (&#8230; arquitectura de la máquina) $ uname -r (&# &hellip;">
+  <meta name="description" content="Descarga de videos de tv3.cat. $ wget http://www.gnulinux.cat/dev/tv3.tar.gz $ tar -xvzf tv3.tar.gz $ cd tv3 $ bash install Una vez tengamos la URL &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/uname/">Uname</a></h1>
+      <h1 class="entry-title"><a href="/blog/tv3/">Tv3</a></h1>
     
     
       <p class="meta">
@@ -96,20 +96,28 @@
   
 
 
-<time datetime="2014-06-08T08:28:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Informa de la &#8230;</p>
+  <div class="entry-content"><p>Descarga de videos de tv3.cat.</p>
 
-<blockquote><p>$ uname -a (&#8230; versión instalada del kernel y otros datos)</p>
+<blockquote><p>$ wget http://www.gnulinux.cat/dev/tv3.tar.gz</p>
 
-<p>$ uname -m (&#8230; arquitectura de la máquina)</p>
+<p>$ tar -xvzf tv3.tar.gz</p>
 
-<p>$ uname -r (&#8230; versión instalada del kernel)</p></blockquote>
+<p>$ cd tv3</p>
+
+<p>$ bash install</p></blockquote>
+
+<p>Una vez tengamos la URL del video [por ejemplo: http://www.tv3.cat/videos/4226490/Especial-diada-de-Sant-Felix-a-Vilafranca]</p>
+
+<p>Arrancar la aplicación con el número que muestra:</p>
+
+<blockquote><p>$ tv3 4226490</p></blockquote>
 </div>
   
   
@@ -122,7 +130,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/unalias/">Unalias</a></h1>
+      <h1 class="entry-title"><a href="/blog/tune2fs/">Tune2fs</a></h1>
     
     
       <p class="meta">
@@ -138,284 +146,270 @@
   
 
 
-<time datetime="2014-06-08T08:28:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Suprimir alias.</p>
+  <div class="entry-content"><p>[tunefs +. Chequeo de la tabla de particiones</p>
 
-<blockquote><p>$ unalias -a (Suprime todos los alias)</p></blockquote>
-</div>
-  
-  
+<blockquote><p># tune2fs -c 80 /dev/sda1 (cada 80 reinicios)</p>
 
+<p># tune2fs -i 2m /dev/sda1 (cada 2 meses)</p>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/umount/">Umount</a></h1>
-    
-    
-      <p class="meta">
-        
+<p># tune2fs -i 2w /dev/hda3 (cada 2 semanas)</p>
 
+<p># tune2fs -i 2d /dev/sda1 (cada 2 dias)</p>
 
+<p># tune2fs -l /dev/sdb1 (ver registro completo de la partición)</p>
 
+<p># tune2fs -l /dev/hda3 | grep ‘Last checked’ (ver fecha del último escaneo)</p>
 
+<p># tune2fs -l /dev/hda3 | grep -i check (veces que se fuerza el chequeo)</p>
 
+<p># tune2fs -i 0 /dev/hda3 (desactivar chequeo)</p>
 
+<p># showfsck (saber cuantas reiniciadas faltan hasta el proximo chequeo)</p>
 
+<p># tune2fs -l /dev/hda3 | grep -i ‘mount count’ (lo mismo que el anterior)</p>
 
-  
+<p># tune2fs -m 1 /dev/sda1 (modificar el espacio reservado para root al 1%. Por defecto es del 5%. Ver dumpe2fs)</p>
 
+<p># tune2fs -O ^has_journal /dev/sda1 (Desactivar journaling en una partición)</p>
 
-<time datetime="2014-06-08T08:28:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Desmontar particiones</p>
-
-<blockquote><p>$ umount -a (Desmonta todas las especificadas en /etc/mtab)</p>
-
-<p>$ umount -r (Si falla el desmontaje, intenta remontar como “solo lectura”)</p>
-
-<p>$ umount -t vfat,ext3 (Solo desmonta los tipos especificados)</p>
-
-<p>$ umount -fl (fuerza el desmonte de la particion)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/umask/">Umask</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:28:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Fija los permisos de un fichero o directorio. Los permisos base para los directorios son 0777 (rwxrwxrwx) y para los archivos 0666 (rw-rw-rw-). Por tanto la cifra que proporciona umask ha de restarse de estos importes para conocer los permisos reales:</p>
-
-<blockquote><p>$ umask (muestra permisos actuales. Normalmente 0022 por tanto los permisos reales son 755 para directorios y 644 para ficheros)</p></blockquote>
-
-<p>Ejemplo:</p>
-
-<pre><code>$ touch archivo.txt
-
-$ mkdir dir
-
-$ ls -l
-
-total 4
-
--rw-r--r-- 1 templix templix    0 abr 12 06:10 archivo.txt
-
-drwxr-xr-x 2 templix templix 4096 abr 12 06:10 dir
-</code></pre>
-
-<blockquote><p># umask 0002 (Modifica los permisos a 0775 para directorios y 664 para archivos)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ulimit/">Ulimit</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:28:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Permite  visualizar o limitar los recursos del sistema.</p>
-
-<blockquote><p># ulimit -f 512000 (limita a los usuarios para que no puedan crear archivos de mayor tamaño que 512000 Kb [500 #Mb])</p>
-
-<p>$ ulimit -a   (ver todos los parámetros)</p></blockquote>
-
-<p>Parámetros:</p>
-
-<pre><code>core (Tamaño máximo de los ficheros core [KB])
-
-data (Tamaño máximo para el segmento de datos [KB])
-
-fsize (Tamaño máximo para los ficheros [KB])
-
-memlock (Tamaño máximo para el espacio de direcciones bloqueado en memoria [KB])
-
-nofile (Número máximo de ficheros abiertos)
-
-rss (Tamaño máximo del conjunto residente en memoria [KB])
-
-stack (Tamaño máximo para la pila [KB])
-
-cpu (Tiempo máximo de CPU [minutos])
-
-nproc (Número máximo de procesos)
-
-as (Límite en el espacio de direcciones)
-
-maxlogins (Número máximo de logins)
-
-priority (Prioridad de base para los procesos del usuario)
-
-locks (Número máximo de ficheros bloqueados que el usuario puede mantener)
-</code></pre>
-
-<p>Nota.- El ámbito de aplicación del límite puede ser un nombre de usuario, un grupo (@grupo) o todos (*)</p>
-
-<p>Un ejemplo de limit.conf:</p>
-
-<pre><code>*               soft    nproc           10000
-
-*               hard    nproc           4096
-
-*               soft    core            unlimited
-
-*               hard    core            unlimited
-
-*               soft    memlock         131072
-
-*               hard    memlock         131072
-
-*               soft    nofile          102400
-
-*               hard    nofile          102400
-</code></pre>
+<p># tune2fs -O has_journal /dev/sda1 (Activar journaling)</p></blockquote>
 
 <p>1.-</p>
 
-<p>Evitar Forkboms [programas que consumen la totalidad de los recursos del sistema]</p>
+<p>Convertir sistema de archivos de ext3 a ext4. Desde un livecd o una partición no montada :</p>
 
-<p>Si al lanzar el comando:</p>
+<blockquote><p># tune2fs -O extents,uninit_bg,dir_index /dev/sdax (convertir)</p>
 
-<blockquote><p>$ ulimit -u</p></blockquote>
+<p># fsck -pf /dev/sdax  (Para dar consistencia al nuevo sistema)</p>
 
-<p>El resultado es “ilimitado” o un valor extremadamente alto, podemos ser victimas de los forkbombs. Para resolverlo podemos limitar el número de procesos abiertos a 1000 para que estos no puedan llegar a colapsar el sistema:</p>
+<p># mount -t ext4 /dev/sdax /media/punto_de_montaje (montar la unidad)</p></blockquote>
+</div>
+  
+  
 
-<blockquote><p># gedit /etc/security/limits.conf</p></blockquote>
 
-<p>Añadir antes de “End of file”:   * hard nproc 1000</p>
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/tuberias/">Tuberias</a></h1>
+    
+    
+      <p class="meta">
+        
 
-<p>Reiniciar</p>
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>1.-</p>
+
+<p>comando1 | comando2  (el resultado de comando1 se utiliza para comando2)</p>
+
+<blockquote><p>$ dmesg                            (montón de datos)</p>
+
+<p>$ dmesg | grep &#8216;error&#8217;       (solo los que den &#8220;error&#8221;)</p></blockquote>
 
 <p>2.-</p>
 
-<p>En ciertas ocasiones, al procesar muchos archivos, se produce un error &#8220;for output (Too many open files)&#8221; porque se desborda el limite de 1024 k. Para solucionarlo:</p>
+<p>comando1 &amp; comando2 (los comando se ejecutan simultáneamente, pero  comando1 se ejecuta en segundo plano (background))</p>
 
-<blockquote><p># nano /etc/security/limits.conf</p></blockquote>
+<blockquote><p>$ sudo firestarter &amp; ifconfig</p></blockquote>
 
-<p>Y añadir las siguientes lineas:</p>
+<p>[1] 16572                   (pid de firestarter en baskground)</p>
 
-<pre><code>*    soft    nofile    9000
+<p>eth0      Link encap:Ethernet  Hwa&#8230;.  (ejecución de ifconfig)</p>
 
-*    hard    nofile    65000
-</code></pre>
+<p>Matar el proceso de forma clásica (# kill -9 16572)</p>
 
 <p>3.-</p>
 
-<p>Limitar la cantidad de usuarios conectados al sistema:</p>
+<p>comando &amp; exit  (Lanzado como usuario normal, ejecuta el comando o abre la aplicación y cierra la terminal [gedit &amp; exit])</p>
 
-<blockquote><p># nano /etc/security/limits.conf</p></blockquote>
+<p>4.-</p>
 
-<p>Y en el parámetro maxlogins modificamos el número que deseemos:</p>
+<p>gksu comando &amp; exit (Lo mismo pero como root [gksu synaptic &amp; exit] Se cierra la terminal pero se abre una ventana pidiendo la contraseña)</p>
 
-<pre><code>*    -       maxlogins 3
+<p>5.-</p>
+
+<p>comando1 &amp;&amp; comando2  (si comando1 funciona  se ejecuta comando2)</p>
+
+<p>Probar la diferencia con los ejemplos anterior y posterior substituyendo los caracteres.</p>
+
+<p>6.-</p>
+
+<p>comando1 || comando2  (comando2 se ejecuta solamente si comando1 falla)</p>
+
+<blockquote><p>$ sudo filestarmer || ifconfig</p></blockquote>
+
+<p>filestarmer: command not found    (error por tanto &#8230;)</p>
+
+<p>eth0      Link encap:Ethe &#8230;.           (&#8230; se ejecuta ifconfig)</p>
+
+<blockquote><p>$ ls || ifconfig                                  (solo ejecutará ls)</p></blockquote>
+
+<p>7.-</p>
+
+<p>comando1; comando2 (comando2 se ejecuta despues de comando1)</p>
+
+<blockquote><p>$ ls; ifconfig; filestarmer; who</p></blockquote>
+
+<p>8.-</p>
+
+<p>Redireccionamiento de errores:</p>
+
+<blockquote><p>$ cat archivo_inexistente</p></blockquote>
+
+<p>cat: archivo_inexistente: El fichero o el directorio no existe</p>
+
+<p>El error direccionado a un archivo [error]:</p>
+
+<blockquote><p>$ cat archivo_inexistente 2> error</p>
+
+<p>$</p></blockquote>
+
+<p>También pueden usarse dos signos > [2>> error] para añadir el error a continuación sin borrar el contenido del fichero “error”. Para mandar los errores al pozo sin fondo:</p>
+
+<blockquote><p>$ cat archivo_inexistente 2>/dev/null</p></blockquote>
+
+<p>O varios direccionamientos:</p>
+
+<blockquote><p>$ find / -name archivo > encontrado 2> errores &amp;</p>
+
+<p>$ find / -name archivo >&amp; encontrado-errores.txt (Otra forma de redirigir a dos archivos [encontrado y errores.txt])</p></blockquote>
+
+<p>Indicando que la salida del comando find (las rutas en donde encontró el “archivo ”) se almacene en el archivo “encontrado” y que si existe errores en la ejecución del comando (no tiene permisos para entrar a buscar en algún</p>
+
+<p>directorio) el error se almacene en el archivo “errores”. Adicionalmente enviamos el comando a background para poder hacer uso de la terminal mientras se realiza el proceso.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ttysnoop/">Ttysnoop</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Permite monitorizar [o tomar el control] el acceso a las terminales por parte de servicios remotos [ssh, telnet&#8230;]</p>
+
+<p>Habilitar la aceptación de contraseñas por parte de ssh:</p>
+
+<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
+
+<p>Descomentar y modificar el parámetro:</p>
+
+<p>UseLogin yes</p>
+
+<p>Guardar y reiniciar ssh:</p>
+
+<blockquote><p># /etc/init.d/ssh restart</p></blockquote>
+
+<p>Reemplazar el login original por el ttysnnops.</p>
+
+<blockquote><p># cd /bin/</p>
+
+<p># cp -a login lg</p>
+
+<p># cp -a /usr/sbin/ttysnoops /bin/login</p></blockquote>
+
+<p>Si al lanzar el último comando sale algo parecido a:</p>
+
+<p>cp: no se ha podido crear el fichero ordinario «/bin/login»: Text file busy</p>
+
+<p>Es que existe alguna consola tty funcionando, aunque no sea como root o root está activo en alguna pts. Matar las consolas y salir de los procesos.</p>
+
+<p>Cambiar los permisos del nuevo login:</p>
+
+<blockquote><p># chmod 4755 /bin/login</p></blockquote>
+
+<p>Editar:</p>
+
+<blockquote><p># nano /etc/snooptab</p></blockquote>
+
+<p>Y modificar la linea:</p>
+
+<pre><code>* socket login /bin/login
 </code></pre>
-</div>
-  
-  
 
+<p>por:</p>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ul/">Ul</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:28:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Subrayado de palabras en la terminal.</p>
-
-<pre><code>$ echo $'linux es g\b_e\b_n\b_i\b_a\b_l\b_ ' | ul (Cada letra a subrayar ha de ir seguida de \b_)
+<pre><code>* socket login /bin/lg
 </code></pre>
+
+<p>Cuando por los comandos &#8220;who&#8221; o &#8220;finger&#8221; observemos que alguien se ha conectado a nuestra máquina:</p>
+
+<blockquote><p># who</p></blockquote>
+
+<p>marquex  pts/2        2010-09-24 16:59 (tux.local)</p>
+
+<p>marquex  tty7         2010-09-24 16:42 (:0)</p>
+
+<p>marquex  pts/0        2010-09-24 16:50 (:0.0)</p>
+
+<p>Lanzar la aplicación:</p>
+
+<blockquote><p># ttysnoop 2</p></blockquote>
+
+<p>Connected to /dev/pts/2 snoop server&#8230;</p>
+
+<p>Ctrl+&#8217;&#39; (ASCII 28) to suspend, Ctrl+&#8217;-&#8217; (ASCII 31) to terminate.</p>
+
+<p>Snoop password:</p>
+
+<p>Verified OK&#8230; Snoop started.</p>
+
+<p>La contraseña a introducir tiene que ser la de root, no vale la de usuario con sudo, por tanto los ubunteros:</p>
+
+<blockquote><p># passwd root</p></blockquote>
 </div>
   
   
@@ -428,7 +422,7 @@ locks (Número máximo de ficheros bloqueados que el usuario puede mantener)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ufw/">Ufw</a></h1>
+      <h1 class="entry-title"><a href="/blog/ttyrec/">Ttyrec</a></h1>
     
     
       <p class="meta">
@@ -444,34 +438,24 @@ locks (Número máximo de ficheros bloqueados que el usuario puede mantener)
   
 
 
-<time datetime="2014-06-08T08:28:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Cortafuegos</p>
+  <div class="entry-content"><p>Grabación de una sesión tty</p>
 
-<blockquote><p># ufw enable (activar el cortafuegos. “disable” para desactivarlo)</p>
+<blockquote><p>$ ttyrec archivo  (A partir de cuando vuelva a salir el prompt se grabará todo en “archivo”. Finalizar con “killall ttyrec”)</p>
 
-<p># ufw deny 4662 (bloquea el puerto)</p>
+<p>$ ttyplay -s2 archivo (reproducir lo grabado a doble velocidad. Pulsando las telcas “-” y “+”, baja o sube la velocidad de reproducción)</p>
 
-<p># ufw delete deny 4662 (Elimina una regla)</p>
+<p>$ ttyrec -a archivo  (Añadir nueva grabación a continuación de archivo. No sobreescribe archivo)</p>
 
-<p># ufw allow smtp (permitir servicios concretos)</p>
+<p>$ ttytime archivo  (Dirá los segundos que dura la grabación)</p></blockquote>
 
-<p># ufw status (visualizar las normas definidas)</p>
-
-<p># ufw status verbose (Información de estado con mayor detalle)</p>
-
-<p># ufw default allow (permitir todo por defecto)</p>
-
-<p># ufw default deny (bloquear todo por defecto)</p>
-
-<p># ufw deny from ip (bloquear dirección ip)</p>
-
-<p># ufw logging on (activar los logs. “off” para desactivarlos. Herramienta de registro: fwanalog, fwlogwatch, o lire.)</p></blockquote>
+<p>Nota.- Para compartir el archivo puede subirse a http://playterm.org/</p>
 </div>
   
   
@@ -484,7 +468,7 @@ locks (Número máximo de ficheros bloqueados que el usuario puede mantener)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/udisks/">Udisks</a></h1>
+      <h1 class="entry-title"><a href="/blog/tty-clock/">Tty-clock</a></h1>
     
     
       <p class="meta">
@@ -500,20 +484,22 @@ locks (Número máximo de ficheros bloqueados que el usuario puede mantener)
   
 
 
-<time datetime="2014-06-08T08:28:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Comando para montar y desmontar volumenes usando el demonio que llaman programas como Nautilus o Thunar. Con este método conseguimos que desde estos programas se pueda desmontar cómodamente la partición y además sin necesidad de permisos.</p>
+  <div class="entry-content"><p>Reloj digital por consola</p>
 
-<blockquote><p>$ udisks &#8211;mount /dev/sda1 (montará esta partición).</p>
+<blockquote><p>$ tty-clock -s -c -C 1 (marcando los segundo [s] en el centro de la consola [c] y en color rojo [1]</p></blockquote>
 
-<p>$ udisks &#8211;unmount /dev/sda1 (desmontará esta partición).</p>
+<p>Algunas opciones:</p>
 
-<p>$ udisks &#8211;monitor (Monitoriza la actividad del demonio. Muy útil para verificar si una partición es montada o no)</p></blockquote>
+<p>-r  Que rebote por los lados de la terminal.</p>
+
+<p>Colores: 2: verde, 3: amarillo, 4: azul, 5: rosa, 6:turquesa, 7: blanco</p>
 </div>
   
   
@@ -526,7 +512,7 @@ locks (Número máximo de ficheros bloqueados que el usuario puede mantener)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/udiskie/">Udiskie</a></h1>
+      <h1 class="entry-title"><a href="/blog/tty/">Tty</a></h1>
     
     
       <p class="meta">
@@ -542,20 +528,24 @@ locks (Número máximo de ficheros bloqueados que el usuario puede mantener)
   
 
 
-<time datetime="2014-06-08T08:28:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Herramienta  para montar automaticamente unidades en Archlinux. Debe arrancarse el servicio antes de ejecutarse el gestor de ventanas en el archivo .xinitrc. Un ejemplo:</p>
+  <div class="entry-content"><p>Muestra el número de terminal</p>
 
-<blockquote><p># nano .xinitrc</p></blockquote>
+<blockquote><p>$ tty</p></blockquote>
 
-<p>udiskie &amp;</p>
+<p>1.-</p>
 
-<p>exec openbox-session</p>
+<p>Invertir una consola. No sirve para las terminales virtuales de las X.</p>
+
+<blockquote><p>$ /sys/class/graphics/fbcon/rotate</p></blockquote>
+
+<p>Borrar el 0 y poner un 2 (180º). Con un 1 la invertimos 90º a la derecha y con un 3 90º a la izquierda.</p>
 </div>
   
   
@@ -568,7 +558,7 @@ locks (Número máximo de ficheros bloqueados que el usuario puede mantener)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/tzwatch/">Tzwatch</a></h1>
+      <h1 class="entry-title"><a href="/blog/ttv/">Ttv</a></h1>
     
     
       <p class="meta">
@@ -584,27 +574,106 @@ locks (Número máximo de ficheros bloqueados que el usuario puede mantener)
   
 
 
-<time datetime="2014-06-08T08:28:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra las zonas horarias especificadas por el usuario y las guarda en el archivo ~/.tzlist.</p>
+  <div class="entry-content"><p>Webcam en consola y ascii</p>
+</div>
+  
+  
 
-<blockquote><p>$ tzwatch -c (Lanzar tantas veces como de zonas horarias se quiere disponer de información y seguir las instrucciones: Add Zone, Americas, 26 [Guatemala], mostrará la información y preguntará si es correcta, 1 [yes] y Done [salir])</p>
 
-<p>$ tzwatch (Mostrará hora local de cada una de las zonas elegidas)</p></blockquote>
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/tshark/">Tshark</a></h1>
+    
+    
+      <p class="meta">
+        
 
-<pre><code>[~]$ tzwatch
 
-Mon Oct  7 02:39:39 CST 2013   Australia/Adelaide
 
-Sun Oct  6 18:09:39 CEST 2013   Europe/Madrid
 
-Sun Oct  6 10:09:39 CST 2013   America/Guatemala
-</code></pre>
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Capturar paquetes y visualizarlos por pantalla:</p>
+
+<blockquote><p># tshark -n -i eth0 -s 1515</p>
+
+<p># tshark -D (Ver las interfaces de red disponibles)</p>
+
+<p># tshark -n -i eth0 -s 1515 -w archivo (Capturar información y pasarla a un archivo)</p>
+
+<p># tshark -n -i eth0 -s 1515 -w -filesize:10000 -b 10 -w archivo (Lo mismo especificando medida máxima del archivo (-filesize:10000) y cuantidad de ficheros a crear (-b 10) en Mb</p>
+
+<p># tshark -n -i eth0 -s 1515 -a duration:3600 -w archivo (Especificando el tiempo que durará - 1 hora)</p>
+
+<p># tshark -n -t ad -r fitxer.lpc tcp (mostrar los mensajes del protocolo tcp)</p>
+
+<p># tshark -ni eth0 &#8216;tcp port tuxapuntes.com/drupal/80&#8217; -R &#8216;http.request.method == &#8220;GET&#8221;&#8217;  (ver todas las peticiones HTTP GET)</p></blockquote>
+
+<p>Opciones:</p>
+
+<p>-t   Para que salgan las marcas de tiempo real</p>
+
+<p>-n  Inhabilita la resolución de nombres</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/tset/">Tset</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Inicializa los valores de la terminal. Ver reset.</p>
 </div>
   
   
@@ -635,43 +704,43 @@ Sun Oct  6 10:09:39 CST 2013   America/Guatemala
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/systemctl/">systemctl</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/journalctl/">journalctl</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/exim/">exim</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/system-config-printer/">system-config-printer</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdftk/">pdftk</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdf2svg/">pdf2svg</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lsusb/">lsusb</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/portsentry/">portsentry</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dtrx/">dtrx</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fold/">fold</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

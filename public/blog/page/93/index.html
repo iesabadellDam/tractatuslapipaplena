@@ -9,7 +9,8 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Crear una contraseña para una entrada de grub2 # grub-mkpasswd-pbkdf2 Se entra la contraseña y se confirma. Saldrá una codificación del tipo: Your &hellip;">
+  <meta name="description" content="Crear un nuevo grupo # groupadd oficina
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,351 +81,6 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/grub-mkpasswd-pbkdf2/">Grub-mkpasswd-pbkdf2</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:24:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Crear una contraseña para una entrada de grub2</p>
-
-<blockquote><p># grub-mkpasswd-pbkdf2</p></blockquote>
-
-<p>Se entra la contraseña y se confirma. Saldrá una codificación del tipo:</p>
-
-<p>Your PBKDF2 is grub.pbkdf2.sha512.10000.F2FE383&#8230;..</p>
-
-<p>Editar grub.cfg</p>
-
-<blockquote><p># nano /boot/grub/grub.cfg</p></blockquote>
-
-<p>Colocar al final de la parte comentada (#):</p>
-
-<p>set superusers=&#8221;NOMBRE_USUARIO&#8221;</p>
-
-<p>password_pbkdf2 NOMBRE_USUARIO grub.pbkdf2.sha512.10000.F2FE383&#8230;..</p>
-
-<p>Especificando el nombre del usuario y copipasteando la clave codificada que nos ha dado el comando anterior. Finalmente en la entrada [menuentry] que se quiere proteger inmediatamente después de las comillas [&#8216;&#8230;.&#8217;] indicando el nombre del sistema operatico:</p>
-
-<p>&#8211;users NOMBRE_USUARIO</p>
-
-<p>El resultado sería:</p>
-
-<p>menuentry &#8216;Ubuntu, amb Linux 3.2.0-24-generic (mode de restabliment)&#8217; &#8211;users NOMBRE_USUARIO &#8211;class ubuntu &#8211;class gnu-linux &#8230;.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/grub-mkconfig/">Grub-mkconfig</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:24:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Generar un fichero de configuración para grub [grub.cfg]</p>
-
-<blockquote><p># grub-mkconfig -o /boot/grub/grub.cfg</p></blockquote>
-
-<p>Despues instalar en el MBR [grub-install /dev/sda]</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/grub/">Grub</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:24:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Para restituir un gestor de arranque</p>
-
-<blockquote><p># grub</p></blockquote>
-
-<pre><code>grub&gt;
-
-grub&gt; find /boot/grub/stage1    (saber los grubs que tenemos en el PC)
-
-grub&gt; root (hd0,1)     (escogemos el que queremos instalar)
-
-grub&gt; setup (hd0)     (y donde lo queremos instalar)
-
-grub&gt; quit                 (salir)
-</code></pre>
-
-<blockquote><p># grub-install &#8211;root-directory=/media/floppy fd0 (crear un disquete de arranque)</p>
-
-<p># grub-install &#8211;root-directory=/mnt/sda1 &#8211;recheck /dev/sda (indica el directorio donde procede grub, parecido al comando anterior)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/grpck/">Grpck</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:24:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Chequea las sintaxis correcta del fichero /etc/group.</p>
-
-<blockquote><p># grpck (Una salida vacia indica que todo es correcto)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/growisofs/">Growisofs</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:24:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Grabación de dvds.</p>
-
-<blockquote><p>$ growisofs -dvd-compat -Z /dev/sdb=imagen.iso</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/groups/">Groups</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:24:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra los grupos a los que pertenece el usuario.</p>
-
-<blockquote><p>$ groups usuario  (El usuario especificado)</p>
-
-<p>$ groups  (Sin especificar usuario muestra los del usuario con el que estamos)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/groupmod/">Groupmod</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:24:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Renombrar grupos.</p>
-
-<blockquote><p># grouopmod -n nuevo_grupo viejo_grupo</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/groupdel/">Groupdel</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:24:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Borrar un grupo.</p>
-
-<blockquote><p># groupdell oficina</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
       <h1 class="entry-title"><a href="/blog/groupadd/">Groupadd</a></h1>
     
     
@@ -441,7 +97,7 @@ grub&gt; quit                 (salir)
   
 
 
-<time datetime="2014-06-08T08:24:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
@@ -479,7 +135,7 @@ grub&gt; quit                 (salir)
   
 
 
-<time datetime="2014-06-08T08:24:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
@@ -497,6 +153,393 @@ grub&gt; quit                 (salir)
 <p>A partir de este momento siempre que entremos en la carpeta gdrive podremos sincronizarla con el almacenamiento de Google lanzando:</p>
 
 <blockquote><p>$ grive</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/grep/">Grep</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Lee la entrada estándar o un archivo e imprime las líneas que cumplan el patrón. Ver expresiones regulares</p>
+
+<blockquote><p>$ grep -c &#8216;UUID&#8217; /etc/fstab (Muestra sólo el número de líneas que coinciden con el patron)</p>
+
+<p>$ grep -n &#8216;UUID&#8217; /etc/fstab (Muestra el número de lineas y su contenido)</p>
+
+<p>$ grep -i &#8216;uuid&#8217; /etc/fstab (No distingue entre mayusculas ni minúsculas)</p>
+
+<p>$ grep -w &#8216;fstab&#8217; /etc/fstab (Ha de coincidir el patron completo, no una parte)</p>
+
+<p>$ grep -v &#8216;fstab&#8217; /etc/fstab (Muestra las que no tienen el patrón)</p>
+
+<p>$ grep -E &#8216;fstab|dev&#8217; /etc/fstab (Mostras las lineas que contengan dos palabras. Requiere habilitar las expresiones regulares extendidas [ver])</p>
+
+<p>$ grep -e &#8216;fstab&#8217; -e &#8216;dev&#8217; /etc/fstab (Forma de mostrar las lineas que contengan dos palabras sin habilitar las expresiones regualres extendidas)</p>
+
+<p>$ grep -r &#8216;fstab&#8217; /etc (Buscar una palabra de un directorio y los subdirectorios)</p>
+
+<p>$ grep -l -r &#8216;fstab&#8217; /etc (Sólo mostrar los archivos que contienen la palabra en el directorio y los subdirectorios)</p>
+
+<p>$ grep -n &#8216;fstab&#8217; /etc/fstab (Mostrar la linea y el número de linea)</p>
+
+<p>$ grep -A 2 &#8216;swap&#8217; /etc/fstab (Mostrar la línea y las 2 siguientes)</p>
+
+<p>$ grep &#8211;color UUID /etc/fstab (Resaltar en color la palabra &#8220;UUID&#8221;)</p></blockquote>
+
+<p>Otras opciones:</p>
+
+<blockquote><p>$ grep -Fx -f archivo1 archivo2 (Mostrar líneas que aparezcan en dos archivos)</p>
+
+<p># grep -i -a -B35 -A90 &#8216;palabreja&#8217; /dev/sda1 > recup.txt (recuperar un archivo borrado con rm que incluye la palabra “palabreja” y su tamaño estimado: [-B50] 35 lineas anteriores a “palabreja” y [-A90] 90 lineas posteriores. Especificar partición y archivo de recuperación)</p>
+
+<p>$ grep cups /etc/services (Conocer el puerto por el que corre un servicio)</p>
+
+<p>$ grep 631 /etc/services (Conocer el servicio por el que corre un puerto)</p>
+
+<p>$ grep -s &#8216;palabra&#8217; * (Suprime los mensajes de error sobre ficheros que no existen o no se pueden leer)</p></blockquote>
+
+<p>Buscar tres palabras al inicio de la linea [escapando la barra vertical] de un archivo:</p>
+
+<p>  $ mysqldump &#8211;help | grep ^routines\|<sup>trigg\|<sup>user</sup></sup> -E</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/grc/">Grc</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Colorear la salida de los comandos especificados en /etc/grc.conf</p>
+
+<blockquote><p>$ grc ping www.tuxapuntes.com</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/graphviz/">Graphviz</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>(meta paquete). Genera gráficos a partir de archivos de texto. Ver pactree. Generar un archivo con pactree:</p>
+
+<blockquote><p>$ pactree -g htop > htop</p>
+
+<p>$ dotty htop (muestra el gráfico)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/gpw/">Gpw</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Generador de contraseñas pronunciables</p>
+
+<blockquote><p>$ gpw 5 8  (creará 5 de 8 caracteres)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/gpm/">Gpm</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Activar el mouse en las tty1-6. Si al arrancar el servicio [/etc/init.d/gpm start] marca error [fail] buscar el dispositivo:</p>
+
+<blockquote><p># find /dev -iname psaux</p></blockquote>
+
+<p>Y arrancar la aplicación con los datos obtenidos:</p>
+
+<blockquote><p># gpm -m /dev/psaux -t ps2</p></blockquote>
+
+<p>Configuración:</p>
+
+<blockquote><p># nano /etc/gpm.conf</p></blockquote>
+
+<pre><code>....
+
+device=/dev/input/mice
+
+responsiveness=25
+
+repeat_type=none
+
+type=exps2
+
+append=''
+
+sample_rate=
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/gpg/">Gpg</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Encriptación y autentificación de claves públicas</p>
+
+<blockquote><p># gpg &#8211;keyserver subkeys.pgp.net &#8211;recv-keys XXXXXXXXXXXXXX</p>
+
+<p># gpg &#8211;export &#8211;armor XXXXXXXXXXXX | apt-key add -</p>
+
+<p># gpg &#8211;passphrase 1234 -c archivo.txt (Encriptar un archivo con la clave 1234)</p>
+
+<p># gpg &#8211;passphrase 1234 -o xx.gpg -c archivo.txt (Encriptar archivo.txt con la clave 1234 y generando como archivo de salida xx.gpg)</p>
+
+<p># gpg &#8211;dump-options  (visualizar todas las opciones)</p>
+
+<p># gpg -c archivo.txt (poner contraseña a un texto)</p>
+
+<p># gpg archivo.txt.gpg (abrir)</p>
+
+<p># gpg &#8211;refresh-keys (refrescar claves)</p>
+
+<p>$ gpg &#8211;gen-random &#8211;armor 1 8 (Crear una clave aleatoria de 8 caracteres)</p>
+
+<p>$ gpg -ab fichero.txt (Crear una firma para un fichero)</p>
+
+<p>$ gpg &#8211;gen-key (Crear las claves. Preguntará algoritmo [RSA/RSA], longitud [2048 bits], caducidad, nombre y correo [opcional])</p>
+
+<p>$ gpg &#8211;list-keys (Ver listado )</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/gperiodic/">Gperiodic</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Muestra la tabla periódica de los elementos quimicos.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/gpe-taskmanager/">Gpe-taskmanager</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Abre una ventana en las X informando de las aplicaciones abiertas permitiendo matar el proceso que interesa o ha quedado colgado.</p>
+
+<blockquote><p>$ gpe-taskmanager</p></blockquote>
 </div>
   
   
@@ -527,43 +570,43 @@ grub&gt; quit                 (salir)
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/systemctl/">systemctl</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/journalctl/">journalctl</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/exim/">exim</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/system-config-printer/">system-config-printer</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdftk/">pdftk</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdf2svg/">pdf2svg</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lsusb/">lsusb</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/portsentry/">portsentry</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dtrx/">dtrx</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fold/">fold</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

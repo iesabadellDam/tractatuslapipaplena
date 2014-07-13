@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="[photorec]. Escaneo y reparación de particiones. $ testdisk /list (Muestra todas las particiones incluso las no montadas)
+  <meta name="description" content="Gestor de impresoras. Lanza la gui. $ system-config-printer
 ">
   
 
@@ -81,7 +81,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/testdisk/">Testdisk</a></h1>
+      <h1 class="entry-title"><a href="/blog/system-config-printer/">System-config-printer</a></h1>
     
     
       <p class="meta">
@@ -97,16 +97,16 @@
   
 
 
-<time datetime="2014-06-08T08:27:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[photorec]. Escaneo y reparación de particiones.</p>
+  <div class="entry-content"><p>Gestor de impresoras. Lanza la gui.</p>
 
-<blockquote><p>$ testdisk /list (Muestra todas las particiones incluso las no montadas)</p></blockquote>
+<blockquote><p>$ system-config-printer</p></blockquote>
 </div>
   
   
@@ -119,7 +119,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/test/">Test</a></h1>
+      <h1 class="entry-title"><a href="/blog/syslinux/">Syslinux</a></h1>
     
     
       <p class="meta">
@@ -135,53 +135,16 @@
   
 
 
-<time datetime="2014-06-08T08:27:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Comprobar tipos de archivos y comparar valores, devolviendo 1 si es cierto y o si es falsa.</p>
+  <div class="entry-content"><p>Hacer particiones arrancables</p>
 
-<p>Sobre ficheros:</p>
-
-<pre><code>$ test -e archivo; echo $? (Devuelve 0 si archivo exist)
-
-$ test -f archivo; echo $? (Devuelve 0 si archivo existe y es un archivo regular)
-
-$ test -d archivo; echo $? (Devuelve 0 si existe y es un directorio)
-
-$ test -s archivo; echo $? (Devuelve 0 si archivo existe y tiene un tamaño mayor que 0)
-
-$ test archivo -nt archivo2; echo $? (Devuelve 0 si archivo se ha modificado con posterioridad a archivo2)
-
-$ test archivo -ot archivo2; echo $? (Devuelve 0 si archivo se ha modificado con anterioridad a archivo2)
-</code></pre>
-
-<p>Sobre caracteres numéricos:</p>
-
-<pre><code>$ test $int1 -eq $int2; echo $? (Devuelve 0 si los enteros son iguales)
-
-$ test $int1 -ne $int2; echo $? (Devuelve 0 si los enteros NO son iguales)
-
-$ test $int1 -lt $int2; echo $? (Devuelve 0 si int1 es menor que int2)
-
-$ test $int1 -le $int2; echo $? (Devuelve 0 si int1 es menor o igual que int2)
-
-$ test $int1 -gt $int2; echo $? (Devuelve 0 si int1 es mayor estricto que int2)
-
-$ test $int1 -ge $int2; echo $? (Devuelve 0 si int1 es mayor o igual que int2)
-</code></pre>
-
-<p>Sobre strings:</p>
-
-<pre><code>$ DIR=home; test $string; echo $? (Devuelve 0 si la cadena no es nula)
-
-$ test -z $DIR; echo $? (Devuelve 0 si la longitud del string es 0)
-
-$ test -n $DIR; echo $? (Devuelve 0 si la longitud del string NO es 0)
-</code></pre>
+<blockquote><p>$ syslinux /dev/sda1</p></blockquote>
 </div>
   
   
@@ -194,7 +157,7 @@ $ test -n $DIR; echo $? (Devuelve 0 si la longitud del string NO es 0)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/termsaver/">Termsaver</a></h1>
+      <h1 class="entry-title"><a href="/blog/sysctl/">Sysctl</a></h1>
     
     
       <p class="meta">
@@ -210,37 +173,30 @@ $ test -n $DIR; echo $? (Devuelve 0 si la longitud del string NO es 0)
   
 
 
-<time datetime="2014-06-08T08:27:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Salvapantallas para la terminal.</p>
+  <div class="entry-content"><p>Muestra la configuración de los parámetros del kernel</p>
 
-<blockquote><p>$ termsaver quotes4all (Irá mostrando citas extraidas de quotes4all.net)</p></blockquote>
+<blockquote><p># sysctl -a | more (Muestra todas las [muchisimas] variables)</p>
 
-<p>Otras opciones:</p>
+<p># sysctl fs.file-max     (máximo de ficheros que pueden abrirse en el sistema)</p>
 
-<pre><code>asciiartfarts (Imagenes en ascii)
+<p># sysctl fs.file-max=256000   (modificarlo a 256000)</p>
 
-clock (Un reloj digital)
+<p># sysctl -w vm.swappiness=10 (usar más memoria RAM y menos SWAP)</p>
 
-dot (Un punto)
+<p># sysctl kernel.panic=5 (forzar reinicio a los 5 segundos despues de un kernel panic)</p></blockquote>
 
-rfc (Contenido RTC [conjunto de documentos que sirven de referencia para la comunidad de Internet])
+<p>Para hacer los cambios permanentes añadir las lineas al archivo /etc/sysctl.conf:</p>
 
-matrix (Código matrix)
-</code></pre>
+<blockquote><p># echo &#8220;kernel.panic=5&#8221; >> /etc/sysctl.conf</p>
 
-<blockquote><p>$ termsaver programmer &#8211;help (Muestra ejemplos de como usar la opción indicada)</p>
-
-<p>$ termsaver randtxt &#8211;word linux_es_un_sistema_genial &#8211;delay 1 (Mostrará la frase cada segundo en un lugar distinto de la pantalla)</p>
-
-<p>$ termsaver urlfetcher -u lapipaplena.org (Mostrará el código de la página indicada)</p>
-
-<p>$ termsaver programmer -p script.sh (Mostrará el código indicado linea a linea)</p></blockquote>
+<p># echo &#8220;vm.swappiness=10&#8221; >> /etc/sysctl.conf</p></blockquote>
 </div>
   
   
@@ -253,7 +209,7 @@ matrix (Código matrix)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/termite/">Termite</a></h1>
+      <h1 class="entry-title"><a href="/blog/synclient/">Synclient</a></h1>
     
     
       <p class="meta">
@@ -269,18 +225,18 @@ matrix (Código matrix)
   
 
 
-<time datetime="2014-06-08T08:27:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Emulador de terminal.</p>
+  <div class="entry-content"><p>Consultar/modificar las opciones del touchpad</p>
 
-<blockquote><p>$ termite &#8211;geometry=900x150 (Especificando medidas)</p>
+<blockquote><p>$ synclient -l (Ver la configuración)</p>
 
-<p>$ termite -e htop (Ejecutar una aplicación)</p></blockquote>
+<p>$ synclient TapButton1=1 TapButton2=2 VertEdgeScroll=1 (Activar el click y el escroll. Para hacerlo permanente poner la linea en el inicio [en fluxbox sería en /.fluxbox/startup]</p></blockquote>
 </div>
   
   
@@ -293,7 +249,7 @@ matrix (Código matrix)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/terminator/">Terminator</a></h1>
+      <h1 class="entry-title"><a href="/blog/sync/">Sync</a></h1>
     
     
       <p class="meta">
@@ -309,35 +265,18 @@ matrix (Código matrix)
   
 
 
-<time datetime="2014-06-08T08:27:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Terminal que puede dividirse horizontalmente y verticalmente.</p>
+  <div class="entry-content"><p>Sincroniza memoria y disco [escribe el contenido de los buffers en disco]</p>
 
-<blockquote><p>$ terminal -T linux –giometry 1150x250 (Especificando un titulo y medidas)</p></blockquote>
+<blockquote><p>$ sync</p>
 
-<p>Algunos atajos:</p>
-
-<pre><code>Ctrl + Mayus + o (División horizontal)
-
-Ctrl + Mayus + e (División vertical)
-
-Ctrl + Mayus + w (Cerrar ventana)
-
-Ctrl + Mayus + cursores (Redimensionar ventana)
-
-Alt + cursores (Moverse por las ventanas)
-
-Ctrl + Mayus + t (Abrir nueva pestaña)
-
-Ctrl + RePag / AvPag (Moverse entre pestañas)
-
-Ctrl + Mayus + q (Cerrar terminator)
-</code></pre>
+<p># sync; init 0 (Sincronizar y apagar el equipo)</p></blockquote>
 </div>
   
   
@@ -350,7 +289,7 @@ Ctrl + Mayus + q (Cerrar terminator)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/terminal/">Terminal</a></h1>
+      <h1 class="entry-title"><a href="/blog/synaptic/">Synaptic</a></h1>
     
     
       <p class="meta">
@@ -366,16 +305,26 @@ Ctrl + Mayus + q (Cerrar terminator)
   
 
 
-<time datetime="2014-06-08T08:27:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Nombre de la consola propia de xfce. El archivo de configuración se encuentra en:</p>
+  <div class="entry-content"><p>Interfaz gráfica para apt, sistema de gestión de paquetes basadas en Debian.</p>
 
-<blockquote><p>$ nano .config/Terminal/terminalrc</p></blockquote>
+<p>Atajos de teclado:</p>
+
+<p>Ctrl + f (Buscar paquete)</p>
+
+<p>Ctrl + r (Refrescar lista de paquetes)</p>
+
+<p>Ctrl + g (Marcar todas las actualizaciones)</p>
+
+<p>Ctrl + p (Aplicar los cambios)</p>
+
+<p>Ctrl + q (Salir)</p>
 </div>
   
   
@@ -388,7 +337,7 @@ Ctrl + Mayus + q (Cerrar terminator)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/telinit/">Telinit</a></h1>
+      <h1 class="entry-title"><a href="/blog/swappiness/">Swappiness</a></h1>
     
     
       <p class="meta">
@@ -404,18 +353,16 @@ Ctrl + Mayus + q (Cerrar terminator)
   
 
 
-<time datetime="2014-06-08T08:27:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Modifica o cambia el runlevel [inittab].</p>
+  <div class="entry-content"><p>Uso de la swap por parte del sistema. Ver sysctl.</p>
 
-<blockquote><p># telinit -t 10 6 (que reinicie [6] en 10 segundo [-t 10])</p>
-
-<p># telinit q (releer archivo de configuración si se ha modificado)</p></blockquote>
+<blockquote><p>$  cat /proc/sys/vm/swappiness</p></blockquote>
 </div>
   
   
@@ -428,7 +375,7 @@ Ctrl + Mayus + q (Cerrar terminator)
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/telegram/">Telegram</a></h1>
+      <h1 class="entry-title"><a href="/blog/swapon/">Swapon</a></h1>
     
     
       <p class="meta">
@@ -444,101 +391,20 @@ Ctrl + Mayus + q (Cerrar terminator)
   
 
 
-<time datetime="2014-06-08T08:27:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[libreadline-dev libconfig-dev libssl-dev lua5.2 liblua5.2-dev]. Aplicación de mensajería instantanea más rápida, segura y libre que WhatsApp.</p>
+  <div class="entry-content"><p>Activar una partición swap.</p>
 
-<p>Descarga y compilación:</p>
+<blockquote><p>$ swapon /dev/hda5</p>
 
-<pre><code>$ wget https://github.com/vysheng/tg/archive/master.zip -O tg-master.zip
+<p>$ swapon -a (Activar todas las particiones swap del /etc/fstab)</p>
 
-$ unzip tg-master.zip
-
-$ cd tg-master
-
-$ ./configure
-
-$ make
-</code></pre>
-
-<p>Registro:</p>
-
-<pre><code>$ ./telegram -k tg.pub (Solicita el número de móvil con el prefijo del país [+34xxxxxxxxx], al momento recibimos un sms con el número de código [xxxxx] que introduciremos en la terminal)
-
-$ ./telegram -N (Arrancar la aplicación lista para poder descargar fotos y videos)
-</code></pre>
-
-<p>Algunas teclas de control:</p>
-
-<pre><code>help (Mostrar todos los comandos disponibles)
-
-msg contacto texto_a_enviar (Enviar mensaje a un contacto. Han de escribirse las primeras letras del contacto y pulsar tabulador para autocompletar)
-
-contact_list (Muestra la lista decontactos)
-
-suggested_contacts (Muestra sugerencias de contactos)
-
-add_contact núm_telefono nombre apellido (Añadir un contacto)
-
-chat_with_peer contacto (Xatear todo el rato con el mismo contacto)
-
-history contacto [limite] (Muestra la conversación con el contacto especificado. Si no se especifica limite,    por defecto son 40 lineas. Tambien pone como leidos todos los mesajes)
-
-dialog_list (Muestra mensajes pendientes)
-
-user_info contacto (Muestra información del contacto)
-
-stats (Muestra datos de nuestra cuenta)
-
-send_photo contacto archivo.jpg (Enviar a contacto una imagen)
-
-send_video contacto archivo.avi (Enviar un video a un contacto)
-
-send_text contacto archivo.txt (Enviar un texto a un contacto)
-
-fwd contacto id (Buscar el mensaje con el número de id especificado)
-
-mark_read contacto (Marcar todos los mensajes del contacto como leidos)
-
-rename_contact contacto nombre apellido (Renombrar un contacto)
-
-create_secret_chat contacto (Crear un chat privado con un contacto)
-
-set log_level 0 (Desactivar información de cuando se conectan los sontactos)
-
-set msg_num 1 (Antiva la numeración de los mensajes. con un valor 0 los desactiva)
-
-load_photo ID (Descargar una photo especificando el ID. Crea el dir ~/.telegram/download)
-
-load_video ID (Descarga un video)
-
-quit (Salir)
-</code></pre>
-
-<p>Otros valores para log_level:</p>
-
-<pre><code>1 (imprime información acerca de los mensajes leídos)
-
-2 (imprime la línea, cuando alguien está escribiendo en el chat)
-
-3 (Informa cuando alguien cambia de estado en linea
-</code></pre>
-
-<p>1.-</p>
-
-<p>Pra hacer permanentes algunas opciones:</p>
-
-<blockquote><p>$ nano .telegram/config</p></blockquote>
-
-<pre><code>log_level = 0;
-
-msg_num = 0;
-</code></pre>
+<p>$ swapon -s (Comprobar estado actual de la memória swap)</p></blockquote>
 </div>
   
   
@@ -551,7 +417,7 @@ msg_num = 0;
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/tee/">Tee</a></h1>
+      <h1 class="entry-title"><a href="/blog/swapoff/">Swapoff</a></h1>
     
     
       <p class="meta">
@@ -567,18 +433,16 @@ msg_num = 0;
   
 
 
-<time datetime="2014-06-08T08:27:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra la salida de un comando en pantalla y al mismo tiempo la graba en un archivo</p>
+  <div class="entry-content"><p>Desactivar una partición swap.</p>
 
-<blockquote><p>$ rkhunter -c -sk | tee rkhunter.txt</p>
-
-<p>$ rkhunter -c -sk | tee -a rkhunter.txt (Añadirá la entrada al final del fichero)</p></blockquote>
+<blockquote><p>$ swapoff -a (Desactivar todas las especificadas en /etc/fstab)</p></blockquote>
 </div>
   
   
@@ -591,7 +455,7 @@ msg_num = 0;
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/teclado/">Teclado</a></h1>
+      <h1 class="entry-title"><a href="/blog/suspend/">Suspend</a></h1>
     
     
       <p class="meta">
@@ -607,51 +471,16 @@ msg_num = 0;
   
 
 
-<time datetime="2014-06-08T08:27:00+02:00" pubdate data-updated="true">08-06-2014</time>
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Ver sexkbmap.</p>
+  <div class="entry-content"><p>Cuando es posible, suspender la shell actual.</p>
 
-<p>Achivo de configuración:</p>
-
-<blockquote><p># nano /etc/default/keyboard</p></blockquote>
-
-<pre><code>XKBMODEL="pc105"
-
-XKBLAYOUT="es,de,fr,us"
-
-XKBVARIANT="cat"
-
-XKBOPTIONS=""
-
-BACKSPACE="guess"
-</code></pre>
-
-<blockquote><p># dpkg-reconfigure keyboard-configuration</p></blockquote>
-
-<p>Reiniciar.</p>
-
-<p>1.-</p>
-
-<p>Con el paquete console-data</p>
-
-<p>Al instalar el paquete, solicita la informacion del teclado, para modificarla:</p>
-
-<blockquote><p># dpkg-reconfigure console-data</p></blockquote>
-
-<p>2.-</p>
-
-<p>En ciertas ocasiones es necesario modificar del archivo:</p>
-
-<blockquote><p># nano /etc/initramfs-tools/initramfs.conf</p></blockquote>
-
-<p>El parametro:</p>
-
-<p>KEYMAP=y</p>
+<blockquote><p># suspend -f (Pasará de root a nuestro usuario)</p></blockquote>
 </div>
   
   
@@ -682,43 +511,43 @@ BACKSPACE="guess"
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/systemctl/">systemctl</a>
+        <a href="/blog/zypper/">zypper</a>
       </li>
     
       <li class="post">
-        <a href="/blog/journalctl/">journalctl</a>
+        <a href="/blog/zmore/">zmore</a>
       </li>
     
       <li class="post">
-        <a href="/blog/exim/">exim</a>
+        <a href="/blog/zmap/">zmap</a>
       </li>
     
       <li class="post">
-        <a href="/blog/system-config-printer/">system-config-printer</a>
+        <a href="/blog/zless/">zless</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdftk/">pdftk</a>
+        <a href="/blog/zip/">zip</a>
       </li>
     
       <li class="post">
-        <a href="/blog/pdf2svg/">pdf2svg</a>
+        <a href="/blog/zgrep/">zgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/lsusb/">lsusb</a>
+        <a href="/blog/zfgrep/">zfgrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/portsentry/">portsentry</a>
+        <a href="/blog/zenity/">zenity</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dtrx/">dtrx</a>
+        <a href="/blog/zegrep/">zegrep</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fold/">fold</a>
+        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

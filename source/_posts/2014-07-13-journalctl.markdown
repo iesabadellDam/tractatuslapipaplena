@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "journalctl"
-date: 2014-07-13 08:02
+date: 2014-07-13 16:49
 comments: true
 categories: 
 ---

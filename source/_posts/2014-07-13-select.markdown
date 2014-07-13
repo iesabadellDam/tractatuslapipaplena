@@ -1,0 +1,101 @@
+---
+layout: post
+title: "select"
+date: 2014-07-13 16:51
+comments: true
+categories: 
+---
+Realiza menús de forma rápida y simple:
+
+Algunos ejemplos:
+
+1.-
+
+	#!/bin/bash
+
+	OPCIONES="Uso_linux Todavía_estoy_con_windows"
+
+	select opt in $OPCIONES; do
+
+		if [ "$opt" = "Uso_linux" ]; then
+
+			echo "Bravo, usas el mejor sistema..."
+
+			exit
+
+		elif [ "$opt" = "Todavía_estoy_con_windows" ]; then
+
+			echo "¡Evoluciona de una vez!"
+
+			exit
+
+		else
+
+			echo opción errónea
+
+		fi
+
+	done
+
+2.-
+
+	#!/bin/bash
+
+	OPCIONES="hostname pwd exit"
+
+	select opt in $OPCIONES; do
+
+		if [ "$opt" = "hostname" ]; then
+
+			echo $HOSTNAME
+
+		elif [ "$opt" = "pwd" ]; then
+
+			pwd
+
+		elif [ "$opt" = "exit" ]; then
+
+			echo "salir"
+
+			exit
+
+		else
+
+			echo opción errónea
+
+		fi
+
+	done
+
+3.-
+
+	#!/bin/bash
+
+	PS3='Elija una opción : '
+
+	options="linux win salir"
+
+	echo opciones : $options
+
+	select opt in $options
+
+	do
+
+    	if [ "$opt" = "salir" ]; then
+
+        	echo "Salgo..."
+
+        	exit
+
+    	elif [ "$opt" = "linux" ]; then
+
+        	echo "Muy bien..."
+
+    	else
+
+        	echo "Terriblemente mal..."
+
+    	fi
+
+	done
+
