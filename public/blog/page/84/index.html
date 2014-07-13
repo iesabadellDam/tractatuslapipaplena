@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Informa sobre la comunicación entre procesos [espacios de memoria, buffers, semaforos..] listando los recursos compartidos que están creados en ese &hellip;">
+  <meta name="description" content="[openipmi]. Obtener datos del estado de un servidor [que lo soporte] tanto en local desde el propio servidor cómo en remoto. Se trata de un chipset &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,123 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ipmitool/">Ipmitool</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[openipmi]. Obtener datos del estado de un servidor [que lo soporte] tanto en local desde el propio servidor cómo en remoto. Se trata de un chipset que permite obtener información del estado de diferentes componentes hardware, temperaturas, voltajes, etc&#8230; Primero habilitar el demon ipmievd:</p>
+
+<blockquote><p># nano /etc/default/ipmievd</p></blockquote>
+
+<p>Y modificar la linea:</p>
+
+<p>ENABLED=true</p>
+
+<p>En algunas distros es preciso cargar los módulos:</p>
+
+<pre><code># ipmi_msghandler
+
+# ipmi_si
+
+# ipmi_devintf
+
+# ipmi_watchdog
+
+# ipmi_poweroff
+</code></pre>
+
+<blockquote><p># /etc/init.d/ipmi start (Arrancar el servicio)</p>
+
+<p># ipmitool sensor get &#8220;Ambient Temp&#8221; (Consulta de la temperatura ambiente)</p>
+
+<p># ipmitool user list (Listado de usuarios configurados)</p>
+
+<p># ipmitool -I lan -H 192.168.1.5 -U usuario sel elist (Litar los logs del sistema)</p>
+
+<p># ipmitool -H 192.168.1.10 -U usuario -P contraseña chassis status (Estado de chasis remoto)</p>
+
+<p># ipmitool sdr type Temperature (Obtener la temperatura)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/iperf/">Iperf</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Para poder verificar el ancho de banda entre los clientes de una red local. Se instala en todas las máquinas de la red.</p>
+
+<blockquote><p># iperf -s (Poner el servidor a la escucha por el puerto 5001)</p>
+
+<p># iperf -c 192.168.1.10 (Conectar los clientes con el servidor)</p></blockquote>
+
+<p>Alguna sopciones que pueden añadirse:</p>
+
+<p>-f B (Mostrar el resultado en Bytes por segundo [b: bytes/s, k:kilobits/s, m:megabytes/s, B:Bytes/s, K:KiloBytes/s, M:MegaBytes/s] esta opción sirva igual para el cliente que para el servidor)</p>
+
+<p>-t 120 (Tiempo en segundos de duración de la transmisión. Sólo para el cliente)</p>
+
+<p>-D (Lanzarlo como servicio. Sólo en el servidor)</p>
+
+<p>-i 10 (Tempo en segundos entre mediciones. Sólo cliente)</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -513,129 +630,6 @@ gateway 192.168.x.1
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/iostat/">Iostat</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>muestra estadísticas de la CPU y de la entrada y salida de los dispositivos y particiones.</p>
-
-<blockquote><p>$ iostat -x sda -d 1 6 (6 reportes con 1 segundo de intervalo sobre el disco sda. Suprimiendo la última cifra [6] continuará reportando datos hasta finalizar con Ctrl+c)</p>
-
-<p>$ iostat -d 3 (actualizará resultados cada 3 segundos)</p>
-
-<p>$ iostat -p sda (Ver estadisticas de un disco concreto con sus particiones)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/inxi/">Inxi</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra información del equipo (<a href="http://inxi.googlecode.com/svn/trunk/inxi">http://inxi.googlecode.com/svn/trunk/inxi</a>).</p>
-
-<blockquote><p>$ inxi -Fpur -c 4</p></blockquote>
-
-<p>Algunas opciones (con inxi -h la lista completa):</p>
-
-<pre><code>-A (Audio y tarjetas de sonido)
-
--b (informacio básica)
-
--c (formato de color de 0 a 32 para la salida de datos)
-
--C (CPUs)
-
--d (drivers opticos)
-
--D (disco duro)
-
--F (salida extendida)
-
--G (tarjeta gráfica)
-
--i (Información de red)
-
--I (Procesos, uptime, memoria...)
-
--M (Datos de la máquina)
-
--N (    tarjetas de red)
-
--o (particiones no montadas)
-
--p (particiones montadas)
-
--r (repositorios)
-
--s (sensors[temperaturas cpu])
-
--S  (Host, Kernel,Escritorio y Distro)
-
--t cm (Procesos que consumen más cpu [c] y memoria [m])
-
--u (UUID de las particiones. -uo las no montadas, -up las montadas)
-
--v 6 (Distintas etiquetas de información. Del 1 al 6)
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/85/">&larr; Older</a>
@@ -659,6 +653,26 @@ gateway 192.168.x.1
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/systemctl/">systemctl</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/lilo/">lilo</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/journalctl/">journalctl</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/emacs/">emacs</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/apt-get/">apt-get</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/zypper/">zypper</a>
       </li>
     
@@ -676,26 +690,6 @@ gateway 192.168.x.1
     
       <li class="post">
         <a href="/blog/zip/">zip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zgrep/">zgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zfgrep/">zfgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zenity/">zenity</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zegrep/">zegrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Generar claves de ficheros $ nettlet-hash &#8211;list (lista los algoritmos que pueden usarse) $ nettlet-hash -a sha224 fichero
-">
+  <meta name="description" content="Herramienta para monitorear el tráfico de red. Grep para tráfico de red. # ngrep port 80 (captura todo lo que use el puerto 80) # ngrep -d eth0 port &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +74,296 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ngrep/">Ngrep</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Herramienta para monitorear el tráfico de red. Grep para tráfico de red.</p>
+
+<blockquote><p># ngrep port 80  (captura todo lo que use el puerto 80)</p>
+
+<p># ngrep -d eth0 port 80 (especificando una interfaz de red)</p>
+
+<p># ngrep -d eth0 &#8220;Host:&#8221; port 80 (Buscar una expresión en el tráfico)</p>
+
+<p># ngrep -d eth0 -W byline &#8220;Host:&#8221; port 80 (mostrar la salida por linea)</p>
+
+<p># ngrep -e -x PASS (introduciendo una cadena en la busqueda y mostrando lo que no coincida con ella)</p>
+
+<p># ngrep b    (captura todo usando el filtro por defecto)</p>
+
+<p># ngrep port 80 -O archivo (redirige la salida a un archivo)</p></blockquote>
+
+<p>Nota.- Las almoadillas (#) son paquetes que no cumplen la expresión regular.</p>
+
+<p>Otras usos:</p>
+
+<blockquote><p># ngrep -d1 -w -i “user|pass” port 21</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/nfsstat/">Nfsstat</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Consulta datos sobre el servidor NFS</p>
+
+<blockquote><p># nfsstat -m (Muestra datos de los puntos de montaje sólamente)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/nfs/">Nfs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[nfs-kernel-server]. Servidor de archivos.</p>
+
+<p>En el Servidor:</p>
+
+<blockquote><p># nano /etc/exports (Para especificar carpetas que se van a compartir)</p></blockquote>
+
+<p>Formato de las carpetas que se comparte:</p>
+
+<p>/home/usuario/datos 192.168.1.0/24(rw,no_root_squash,sync)</p>
+
+<p>opciones:</p>
+
+<p>192.168.1.0/24 (Compartida por un rango de ips)</p>
+
+<p>192.168.1.8 (Solo para una ip)</p>
+
+<p>rw (lectura y escritura)</p>
+
+<p>no_root_squash (permite a root del cliente accesos root en el servidor)</p>
+
+<p>async (No sincronizando los datos)</p>
+
+<p>sync (Sincronizando los datos)</p>
+
+<blockquote><p># /etc/init.d/nfs-kernel-server restart (reiniciar demonio)</p>
+
+<p># exportfs -a (Releer el archivo exports si se ha modificado)</p></blockquote>
+
+<p>En el Cliente</p>
+
+<blockquote><p># apt-get install nfs-common (Instalar cliente)</p>
+
+<p># mount -t nfs 192.168.1.8:/home/usuario/datos /media/servidor</p></blockquote>
+
+<p>Si se desea en el fstab, colocar la linea:</p>
+
+<blockquote><p># nano /etc/fstab</p></blockquote>
+
+<p>192.168.1.2:/home/usuario/datos /media/servidor nfs rw,user 0 0</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/newsbeuter/">Newsbeuter</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Lector RSS en consola</p>
+
+<blockquote><p>$ newsbeuter -i archivo.opml  (cargar los feeds de otra aplicación)</p>
+
+<p>$ newsbeuter -r (arrancar la aplicación obteniendo todas las fuentes)</p>
+
+<p>$ newsbeuter -e (exportar las fuentes a un archivo)</p></blockquote>
+
+<p>Algunos atajos [newsbeuter -h]:</p>
+
+<pre><code>q (Subir pantalla/salir de la aplicación)
+
+Q (Salir de la aplicación)
+
+C (Marcarlos todos como leidos)
+
+A (Fuente leida)
+
+n (Pasar a siguiente fuente no leida)
+
+p (Pasar a la anterior fuente no leida)
+
+o (Abrir noticia en el navegador [lynx por defecto ])
+
+u (Ver listado de URLs de la noticia, Introduciendo el indice la abre)
+
+/ (Abrir busqueda)
+
+? (Abrir diálogo de ayuda)
+</code></pre>
+
+<p>1.-</p>
+
+<p>Para incorporar los feeds de google reader editar o crear si no existe:</p>
+
+<blockquote><p>$ nano .newsbeuter/config</p></blockquote>
+
+<p>texto que se tiene que agregar:</p>
+
+<pre><code>urls-source "googlereader"
+
+googlereader-login "login_de_googlereader"
+
+googlereader-password "contraseña"
+</code></pre>
+
+<p>2.-</p>
+
+<p>Otros ajustes que pueden hacerse en este archivo:</p>
+
+<pre><code>auto-reload yes
+
+reload-time 15
+
+keep-articles-days 15
+
+browser "elinks %u"
+
+notify-beep yes
+</code></pre>
+
+<p>Que relea las fuentes al arrancar, las actualice cada 15 minutos, que guarde las noticias 15 dias, las abra con elinks y que avise con un beep las nuevas noticias. Si las noticias se leen en las X puede especificarse como navegador firefox o chromium [browser firefox]</p>
+
+<p>3.-</p>
+
+<p>Configurar colores:</p>
+
+<p>Los colores soportados: black, red, green, yellow, blue, magenta, cyan y white.</p>
+
+<p>Los elementos sobre los que se puede actuar: listnormal [lista de las fuentes], listfocus [Fuente o articulo donde está el foco], info (Linea superior y penúltima de la pantalla que muestra información], background [última linea de la pantalla] y article [articulo que se abre para su lectura]</p>
+
+<p>Los atributos: standout, underline, reverse, blink, dim, bold, protect e invis [pueden especificarse uno, varios o ninguno]</p>
+
+<p>Muestra de mi configuración de color:</p>
+
+<blockquote><p>$ nano .newsbeuter/config</p></blockquote>
+
+<pre><code>color listnormal yellow black
+
+color listfocus green blue bold
+
+color info yellow blue bold
+
+color background red black bold
+
+color article cyan black
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -414,263 +703,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/netcat/">Netcat</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>utilidad que se puede utilizar para practicamente cualquier cosa relacionada con el protocolo TCP/IP [navaja suiza]</p>
-
-<p>Nota.- En algunas distros está ligeramente capado. Preferible bajarlo de http://netcat.sourceforge.net/download.php y compilarlo:</p>
-
-<blockquote><p>$ ./configure</p>
-
-<p>$ make DFLAGS=&#8221; -DTELNET -DGAPING_SECURITY_HOLE&#8221;</p>
-
-<p># make install</p>
-
-<p>$ nc -v -v -z 192.168.2.5 21 22 25 110 5900 (que se conecte a la IP, envie más información [-v por duplicado], que no envie ningún dato [-z] y que lo haga por los puertos mencionados [21,22,25,110,5900])</p>
-
-<p>$ nc -l -p 3001 -e /bin/bash  (Que esté a la escucha [-l] en el puerto 3001 [-p] y que, cuando haya conexión, ejecute nuestra shell bash [-e &#8230;.])</p>
-
-<p>$ nc IP_servidor 3001  (desde el cliente, conectamos con el servidor y todo lo que escribamos se enviará al bash del servidor y lo que nos responda aparecerá en nuestra pantallla. Para terminar la conexión CTROL-C)</p>
-
-<p>$ telnet -l usuario IP_o_nombre_host 3001 (Otra forma de establecer la conexión.)</p>
-
-<p>$ nc -l -p 3000 > archivo (Dejar el servidor listo para recibir un archivo)</p>
-
-<p>$ nc IP_servidor 3000 &lt; archivo  (enviar desde el cliente el archivo)</p>
-
-<p>$ nc -zw2 www.nombre.com 80 &amp;&amp; echo open  (comprobar si está abierto el puerto 80 de un host)</p>
-
-<p>$ nc -l -p 10000 &lt; pelicula.avi  (streaming de video-servidor)</p>
-
-<p>$ nc IP_o_host 10000 | mplayer – (streaming de video-cliente)</p>
-
-<p>$ nc -l -p 10000 &lt; fichero.mp3  (streaming de  audio-servidor)</p>
-
-<p>$ nc IP_o_host 10000 | madplay –  (streaming de audio-cliente)</p>
-
-<p>$ nc -l -p http -c &#8220;cat index.html&#8221;  (servidor http)</p>
-
-<p>$ echo “GET /” | nc www.google.com 80 > index.html  (copiar una página web)</p>
-
-<p>$ nc -l -p 10000 -c &#8220;nc host 22&#8221; (Proxy. El trafico recibido en el puerto 10000 se redirige al 22 del host especificado)</p>
-
-<p>$ nc towel.blinkenlights.nl 23  (visionar la guerra de las galaxias)</p>
-
-<p>$ dd if=/dev/sda5 | nc -l -p 10000  (clonar un disco por red. En el servidor)</p>
-
-<p>$ nc IP_o_host 10000 | dd of=sda5.img  (En el cliente)</p>
-
-<p>$ nc -l -p 7777 > /dev/null  (Prueba de rendimiento entre dos máquinas. En el Servidor)</p>
-
-<p>$ pv -r /dev/zero | nc IP_servidor 7777  (En el cliente)</p></blockquote>
-
-<p>opciones</p>
-
-<p>-v -v   .-  mostrar máxima información</p>
-
-<p>-z  .-  mostrar puertos a la escucha</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/net-acct/">Net-acct</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Demonio que crea logs del uso de la red.</p>
-
-<blockquote><p># cat /var/log/net-acct/net-acct.log</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/nessus/">Nessus</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Scaner de vulneradilidades</p>
-
-<p>Descargar nessus de: http://www.nessus.org/download/</p>
-
-<p>Registrarnos en:  http://www.nessus.org/plugins/?view=register-info</p>
-
-<p>Entrar el código de activación recibido por correo:</p>
-
-<blockquote><p># /opt/nessus/bin/nessus-fetch &#8211;register 218B-76A4-CB0F-072B-AEEA</p>
-
-<p># /opt/nessus/sbin/nessus-adduser (Entrar usuario y contraseña)</p>
-
-<p># /opt/nessus/sbin/nessusd (Arrancar el servicio)</p></blockquote>
-
-<p>Abrir navegador y entrar en la pantalla de login con:</p>
-
-<p>https://127.0.0.1:8834</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ncmpcpp/">Ncmpcpp</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Reproductor de música. Al ser del tipo cliente-servidor, Precisa mpd [ver] arrancado.</p>
-
-<p>En el archivo de configuración, que tiene que crearse, sólo es necesario especificar el directorio de música:</p>
-
-<blockquote><p>$ nano .ncmpcpp/config</p></blockquote>
-
-<p>mpd_music_dir = &#8220;/home/usuario/Musica&#8221;</p>
-
-<p>Algunas teclas de control:</p>
-
-<pre><code>F1 (Ayuda)
-
-F2 (Lista de reproducción)
-
-F3 (Explorador)
-
-F4 (Busca en la base de datos)
-
-F5 (Libreria)
-
-F6 (Editor de listas de reproduccion)
-
-F7 (Editor de etiquetas)
-
-F8 (Outputs)
-
-F9 (Visualizador musical)
-
-F10 (Reloj)
-
-@ (Informacion del servidor mpd)
-
-s (Detiene la reproducción)
-
-p (Cambia la visualización)
-
-P (Pausa la reproducción)
-
-Backspace (Pone el tema desde inicio)
-
-&lt; (Tema anterior)
-
-&gt; (Tema siguiente)
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/63/">&larr; Older</a>
@@ -694,6 +726,26 @@ Backspace (Pone el tema desde inicio)
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/systemctl/">systemctl</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/lilo/">lilo</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/journalctl/">journalctl</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/emacs/">emacs</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/apt-get/">apt-get</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/zypper/">zypper</a>
       </li>
     
@@ -711,26 +763,6 @@ Backspace (Pone el tema desde inicio)
     
       <li class="post">
         <a href="/blog/zip/">zip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zgrep/">zgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zfgrep/">zfgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zenity/">zenity</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zegrep/">zegrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

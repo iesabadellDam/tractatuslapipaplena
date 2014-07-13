@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Modificación de los atributos de la terminal. Algunos flags solo son aplicables a las tty. $ setterm -r (La resetea incluso si ha quedado colgada) $ &hellip;">
+  <meta name="description" content="Transferencia encriptada de archivos entre computadoras por ssh. Ajustes previos: # nano /etc/ssh/sshd_config Y colocar las lineas: Subsystem sftp &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,191 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/sftp/">Sftp</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Transferencia encriptada de archivos entre computadoras por ssh.</p>
+
+<p>Ajustes previos:</p>
+
+<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
+
+<p>Y colocar las lineas:</p>
+
+<pre><code>Subsystem sftp internal-sftp
+
+Match group USER
+
+ ChrootDirectory /home/USER
+
+ ForceCommand internal-sftp
+
+ AllowTCPForwarding no
+
+ X11Forwarding no
+</code></pre>
+
+<blockquote><p>$ sftp USER@host</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/sfill/">Sfill</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[paquete secure-delete]. Borrado de todos los rastros de datos del espacio libre del disco. Parecidos parámetros de srm [ver]. Sobreescribe 38 veces el espacio.</p>
+
+<blockquote><p># sfill -f dir (Borrado rápito pero inseguro)</p>
+
+<p># sfill -l dir (Como lanzar dos veces sfill -f)</p>
+
+<p># sfill -i dir (Borrar solamente inodos en directorio)</p>
+
+<p># sfill -zv dir (Sobreescribiendo ceros en el último borrado y mostrando el proceso)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/sfdisk/">Sfdisk</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Mostrar un listado de las particiones con sus características exactas.</p>
+
+<blockquote><p># sfdisk -d /dev/sda (Muestra la tabla de particiones de sda)</p>
+
+<p># sfdisk -d /dev/sda | sfdisk /dev/sdb (copia la tabla de sda a sdb)</p>
+
+<p># sfdisk -d /dev/sda > tabla.bak (Guardar tabla de particiones)</p>
+
+<p># sfdisk /dev/sda &lt; tabla.bak (Restaurar tabla de particiones)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/setxkbmap/">Setxkbmap</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Configurar teclado [para X.org] en la sesión actual.</p>
+
+<blockquote><p>$ setxkbmap -layout es</p>
+
+<p>$ setxkbmap es (configurarlo en español)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -338,170 +523,6 @@ set +x
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sestatus/">Sestatus</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Devuelve el estado de SELinux y la política que se está usando. Ver selinux y getsenforce</p>
-
-<blockquote><p># sestatus</p>
-
-<p># sestatus -v (estado detallado de un sistema ejecutando SELinux)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/service/">Service</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Inicia o para servicios.</p>
-
-<blockquote><p># service apache2 start (Arranca apache2)</p>
-
-<p># service apache2 stop (Para apache2)</p>
-
-<p># service apache2 restart (Reinicia el apache2)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/seq/">Seq</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Crea secuencias de números</p>
-
-<blockquote><p>$ seq 7 12 (entre el 7 y el 12)</p>
-
-<p>$ seq 7 2 12 (entre el 7 y el 12 con un incremento de 2 en 2)</p>
-
-<p>$ seq -w 7 12 (entre el 7 y el 12 con el mismo tamaño)</p>
-
-<p>$ seq -s_ 7 12 (con un guión bajo entre cada número)</p>
-
-<p>$ seq -s&#8217;#&#8217; 0 $(tput cols) | tr -d &#8216;[:digit:]&#8217;  (Escribe una raya de “#” en toda la anchura de la terminal)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sensors-detect/">Sensors-detect</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Detecta, instala y carga sensores y módulos necesarios.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/38/">&larr; Older</a>
@@ -525,6 +546,26 @@ set +x
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/systemctl/">systemctl</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/lilo/">lilo</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/journalctl/">journalctl</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/emacs/">emacs</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/apt-get/">apt-get</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/zypper/">zypper</a>
       </li>
     
@@ -542,26 +583,6 @@ set +x
     
       <li class="post">
         <a href="/blog/zip/">zip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zgrep/">zgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zfgrep/">zfgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zenity/">zenity</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zegrep/">zegrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

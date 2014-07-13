@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Presentaciones en terminal. &#8211;title Este_es_el_titulo (titulo de la presentación) &#8211;author juanito (Autor) &#8211;date today %d %b %Y ( &hellip;">
+  <meta name="description" content="[trash-cli]. Enviar a la papelera un archivo o directorio $ trash-put archivo (elimina archivo) $ trash-list (Lista los archivos eliminados) $ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,261 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/trash/">Trash</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[trash-cli]. Enviar a la papelera un archivo o directorio</p>
+
+<blockquote><p>$ trash-put archivo (elimina archivo)</p>
+
+<p>$ trash-list (Lista los archivos eliminados)</p>
+
+<p>$ restore-trash (Pregunta el número del archivo a restaurar)</p>
+
+<p>$ trash-empty (Vacia la papelera)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/trap/">Trap</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Captura señales del teclado. Permite ejecutar un comando especificado cuando se produce una señal con un determinado valor.</p>
+
+<blockquote><p>$ trap -l (Lista todos los valores)</p>
+
+<p>$ trap &#8220;rm -f /tmp/$$ ; exit&#8221; 0 1 2 3 15 (ejecutará el rm si se produce una señal: 0 [Salida de la shell], 1 [SIGHUP, cuelgue], 2 [SIGINT, interrupción con ^C], 3 [SIGQUIT, quiet] o 15 [SIGTERM, terminate, señal por defecto de kill]</p></blockquote>
+
+<p>Ejemplo:</p>
+
+<blockquote><p>$ nano no_muero.sh</p></blockquote>
+
+<pre><code>#!/bin/bash
+
+trap "echo ' Aunque pulses Ctrl+C!'" INT
+
+while true
+
+do
+
+sleep 60;
+
+echo "No puedes matarme"
+
+done
+</code></pre>
+
+<p>El script se repetirá hasta pararlo con Ctrl+z. A continuación mirar el pid</p>
+
+<blockquote><p>$ jobs</p>
+
+<p>$ kill -9 %pid (Para matarlo definitivamente)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/traceroute/">Traceroute</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Permite seguir la pista de un paquete desde un host a otro.</p>
+
+<blockquote><p># traceroute www.tuxapuntes.com</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/tr/">Tr</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Cambia caracteres de un archivo</p>
+
+<blockquote><p>$ tr JM ?$ &lt; archivo  (cambia las &#8220;J&#8221; y las &#8220;M&#8221; por &#8220;?&#8221; y &#8220;$&#8221; en todo el archivo)</p>
+
+<p>$ cat archivo | tr ea ?% (Cambia las &#8220;e&#8221; y &#8220;a&#8221; por &#8220;?&#8221; y &#8220;%&#8221; respectivamente)</p>
+
+<p>$ echo &#8216;la pipa plena&#8217; | tr &#8216;a-z&#8217; &#8216;A-Z&#8217;  (De minúsculas a mayúsculas)</p>
+
+<p>$ echo &#8216;la pipa plena&#8217; | tr -d a (Borra las “a”)</p>
+
+<p>$ tr -d [aeiou] archivo  (Borra las vocales de archivo)</p>
+
+<p>$ echo &#8216;la   pipa    plena&#8217; | tr -s &#8217; &#8217; (Borra espacios repetidos)</p>
+
+<p>$ echo &#8216;la pipa plena&#8217; | tr -c &#8216;pln&#8217; &#8216;?&#8217; (Substituye todos los caracteres  por “?” inclusive los espacios, menos los indicados [pln])</p>
+
+<p>$ ls |tr &#8216;\t&#8217; &#8216;\n&#8217; (Substituye la tabulación vertical [\t] por salto de linea [\n])</p>
+
+<p>$ tr -dc A-Za-z0-9_ &lt; /dev/urandom | head -c 8 | xargs   (contraseñas de 8 caracteres aleatorias)</p>
+
+<p>$ echo &#8220;El boxeador está OK.&#8221; | tr O m | tr K a | tr . l (varios tr)</p>
+
+<p>$ tr &#8221; &#8221; . &lt; archivo (substituir los espacios por puntos)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/tput/">Tput</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>formatación de la terminal [posicionar el cursor en la pantalla, borrar datos de la pantalla, saber la cantidad de líneas y columnas de la pantalla, posicionar correctamente un campo, borrar un campo..]</p>
+
+<blockquote><p>$ tput cols  (Cantidad de columnas de la terminal)</p>
+
+<p>$ tput lines (Cantidad de lineas)</p>
+
+<p>$ tput civis (Hace invisible el cursor)</p>
+
+<p>$ tput cnorm (Lo vuelve visible)</p>
+
+<p>$ tput sgr0 (vuelve la terminal a los parámetros por defecto)</p>
+
+<p>$ tput smcup (Borra el contenido de la terminal guardandolo)</p>
+
+<p>$ tput rmcup (Restablece el contenido de la terminal borrado con el comando anterior)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -393,308 +648,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/tor-resolve/">Tor-resolve</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Resuelve direcciones IP o nombres de host via tor.</p>
-
-<blockquote><p>$ tor-resolve lapipaplena.net</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/top/">Top</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>información sobre el estado del sistema, procesos, uso del procesador, memoria etc&#8230; en ejecucion</p>
-
-<blockquote><p>$ top | grep Tasks (Visualizar procesos abiertos incluidos los zombies)</p>
-
-<p>$ top -u usuario  (procesos abiertos por el usuario indicado)</p>
-
-<p>$ top -p $(pgrep -d, yaourt) (Monitorizar un proceso)</p>
-
-<p>$ top -p <code>pgrep pidgin</code> (Monitorear un proceso)</p>
-
-<p>$ top -b -n 2 -d 2 (En modo batch [b] que termine el comando despues de mostrar 2 procesos top [n] con un intervalo de 2 segundos [d])</p></blockquote>
-
-<p>Teclas de control</p>
-
-<p>Ctrl + m (los ordenamos por uso de memoria)</p>
-
-<p>Ctrl + c  (Salir)</p>
-
-<p>k  (y colocar el PID correspondiente mataremos el proceso)</p>
-
-<p>Z  (para modificar el color. Con “z” se escoge el color)</p>
-
-<p>n  ( y colocar el número de procesos que queremos visualizar)</p>
-
-<p>A  (abre multiples ventanas “top”)</p>
-
-<p>f   (activa/desactiva columnas a visualizar)</p>
-
-<p>o  (Modifica el orden de las columnas)</p>
-
-<p>G + num (del 1 al 4 cambia el modo de presentación)</p>
-
-<p>W (Graba el tipo de visualización. A partir de la siguiente vez que se lance la aplicación se mostrará con los parámetros grabados)</p>
-
-<p>Columnas:</p>
-
-<p>PID .-       Identificador</p>
-
-<p>USER.-   Usuario que ha ejecutado el proceso.</p>
-
-<p>PR.-         Prioridad</p>
-
-<p>NI.-         Valor nice del proceso (negativos-> mayor prioridad)</p>
-
-<p>RES.-        Memoria RAM ocupada por el proceso.</p>
-
-<p>%CPU.-   Porcentaje ocupado de la CPU</p>
-
-<p>TIME+.-  Cuanto tiempo lleva el proceso en el sistema.</p>
-
-<p>COMMAND.- Nombre del procesos y sus parametros.</p>
-
-<p>PPID.-       PID del proceso padre.</p>
-
-<p>UID.-        ID del usuario que ha ejecutado el proceso.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/tomb/">Tomb</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Encriptar directorios. Por seguridad ha de desactivarse la partición swap (intercambio) antes de crear la tumba o al acceder a ella a menos que tengamos la swap encriptada.</p>
-
-<blockquote><p># swapoff -a (“swapon” para activarla nuevamente)</p></blockquote>
-
-<p>En algunas distros es necesario activar el demonio:</p>
-
-<blockquote><p># /etc/init.d/cryptdisks start</p>
-
-<p># tomb create -s 1024 &#8211;ignore-swap cripta (Crear el directorio encriptado .tomb y el de la clave .key, especificando medida. Pedirá contraseña y confirmación. )</p>
-
-<p># tomb-open cripta.tomb (Abrir el directorio encriptado cuando .tomb y .key estan en el mismo directorio. Lo montará en /media/tumba.tomb)</p>
-
-<p># tomb -k /root/cripta.tomb.key open cripta.tomb (Montar el directorio encriptado cuando .key está en otro directorio [/root]</p>
-
-<p># tomb close cripta (Cerrar el directorio. En realidad desmontarlo)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/toilet/">Toilet</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>(figlet mejorado). Edición de banners</p>
-
-<blockquote><p>$ toilet -f future -F gay texto</p>
-
-<p>$ toilet -t -f smblock -F metal -E html texto</p></blockquote>
-
-<p>Opciones</p>
-
-<p>-f bigmono12 (Otras fuentes: bigmono9, circle, emboss, emboss2, future, mono12, mono9, smblock, smbraille, smmono12, smmono9)</p>
-
-<p>-F gay (filtro &#8220;gay&#8221; o &#8220;metal&#8221;)</p>
-
-<p>-E html (Saca en formato en html para su inclusión en una web)</p>
-
-<p>-t (se adapta al ancho de la terminal)</p>
-
-<p>-S (letras más juntas. Por defecto es -s)</p>
-
-<p>-o (más juntas)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/tmuxinator/">Tmuxinator</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>gema de ruby que permite definir pestañas, páneles y comandos que correrán en cada uno de los paneles de una sesión tmux. Cada proyecto guarda su configuración en un archivo .yml en el directorio ~/.tmuxinator. En el archivo .bashrc ha de constar la variable $EDITOR [export EDITOR=/usr/bin/vim, nano o el que sea]</p>
-
-<pre><code>$ tmuxinator new proyecto1 (Crear un proyecto)
-
-$ tmuxinator proyecto1 (Abrir un proyecto)
-
-$ tmuxinator open proyecto1 (Editar un proyecto)
-
-$ tmuxinator list (Listar todos los proyectos)
-
-$ tmuxinator delete proyecto1 (Suprimir un proyecto)
-
-$ tmuxinator doctor (Ver problemas en la configuración)
-
-$ tmuxinator implode (Suprimir todos los proyectos)
-</code></pre>
-
-<p>Muestra de un archivo.yml:</p>
-
-<pre><code>name: proyecto1
-
-root: ~/
-
-    windows:
-
-            - editor:
-
-            layout: main-vertical
-
-            panes:
-
-                - top
-
-                - who; pwd
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/24/">&larr; Older</a>
@@ -718,6 +671,26 @@ root: ~/
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/systemctl/">systemctl</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/lilo/">lilo</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/journalctl/">journalctl</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/emacs/">emacs</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/apt-get/">apt-get</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/zypper/">zypper</a>
       </li>
     
@@ -735,26 +708,6 @@ root: ~/
     
       <li class="post">
         <a href="/blog/zip/">zip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zgrep/">zgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zfgrep/">zfgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zenity/">zenity</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zegrep/">zegrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

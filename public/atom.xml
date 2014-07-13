@@ -4,7 +4,7 @@
   <title><![CDATA[TRACTATUS ELEMENTALIS]]></title>
   <link href="https://tractatuslapipaplena.herokuapp.com/atom.xml" rel="self"/>
   <link href="https://tractatuslapipaplena.herokuapp.com/"/>
-  <updated>2014-07-13T16:56:59+02:00</updated>
+  <updated>2014-07-13T17:33:55+02:00</updated>
   <id>https://tractatuslapipaplena.herokuapp.com/</id>
   <author>
     <name><![CDATA[templix]]></name>
@@ -12,6 +12,1135 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[systemctl]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/systemctl/"/>
+    <updated>2014-07-13T17:33:00+02:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/systemctl</id>
+    <content type="html"><![CDATA[<p>[systemd-sysv]. Systemd es un administrador del sistema y gestor de servicios compatible con SysV al que reemplaza.</p>
+
+<blockquote><p># systemctl reboot (Reiniciar el pc)</p>
+
+<p># systemctl poweroff (Parar el sistema)</p>
+
+<p># systemctl suspend (Suspender el sistema)</p>
+
+<p># systemctl hibernate (Poner el sistema en hivernación)</p>
+
+<p># systemctl (Listado de unidades activas)</p>
+
+<p># systemctl list-units (Listado de unidades activas)</p>
+
+<p># systemctl &#8211;failed (Listado de unidades que han tenido problemas)</p>
+
+<p># systemctl list-unit-files (Listado de unidades instaladas)</p>
+
+<p># systemctl start slim.service (Activa slim de inmediato)</p>
+
+<p># systemctl stop sshd.service (Parar ssh de inmediato)</p>
+
+<p># systemctl restart dhcpcd@eth0.service (Reiniciar conexión por dhcp)</p>
+
+<p># systemctl reload wicd.service (Recargar la configuración de wicd)</p>
+
+<p># systemctl status cronie.service (Muestra el estado de cron)</p>
+
+<p># systemctl is-enabled vsftpd.service (Comprueba si vsftpd está habilitada o no)</p>
+
+<p># systemctl enable NetworkManager.service (Activa el inicio automático de network-manager en el arranque)</p>
+
+<p># systemctl disable smbd.service (Desactiva el inicio automático de samba en el arranque)</p>
+
+<p># systemctl daemon-reload (Recarga systemd, escaneando en busca de unidades nuevas o modificadas)</p>
+
+<p># systemctl isolate multi-user.target (Arrancar en runlevel 3)</p>
+
+<p># systemctl isolate graphical.target (Arrancar en runlevel 5)</p></blockquote>
+
+<p>1.-</p>
+
+<p>Para incorporar el arranque a grub2, modificar del archivo:</p>
+
+<blockquote><p># nano /etc/default/grub</p></blockquote>
+
+<p>La linea:</p>
+
+<pre><code>GRUB_CMDLINE_LINUX_DEFAULT="quiet init=/bin/systemd"
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[lilo]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/lilo/"/>
+    <updated>2014-07-13T17:33:00+02:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/lilo</id>
+    <content type="html"><![CDATA[<p>Gestor de arranque. La configuración en:</p>
+
+<blockquote><p># nano /etc/lilo.conf</p></blockquote>
+
+<p>Algunos parametros a especificar:</p>
+
+<blockquote><p># Indica que se instale en determinado disco:</p></blockquote>
+
+<p>boot = /dev/sda</p>
+
+<blockquote><p># El sistema que arrancará por defecto [el especificado en la etiqueta [label]]</p></blockquote>
+
+<p>default = Linux</p>
+
+<blockquote><p># Que muestre cualquier cosa que sea referenciado en la línea message:</p></blockquote>
+
+<p>prompt</p>
+
+<blockquote><p># Una imagen. Medidas 640x480:</p></blockquote>
+
+<p>bitmap = /boot/slack.bmp</p>
+
+<blockquote><p># un mensaje de inicio:</p></blockquote>
+
+<p>message = /boot/boot_message.txt</p>
+
+<blockquote><p># tiempo de espera para arrancar la partición por defecto [en segundos]:</p></blockquote>
+
+<p>timeout = 50</p>
+
+<blockquote><p># Una partición linux</p></blockquote>
+
+<p>image = /boot/vmlinuz</p>
+
+<pre><code>root = /dev/sda2
+
+label = Linux
+
+read only
+</code></pre>
+
+<blockquote><p># nota: read-only Indica que el sistema de ficheros raíz se montará en modo solo-lectura.</p>
+
+<p># Por norma general, el proceso de arranque lo remonta luego en modo lectura-escritura.</p>
+
+<p># Una partición windows:</p></blockquote>
+
+<p>other = /dev/hda1</p>
+
+<pre><code>label = Windows
+
+table = /dev/sda1
+</code></pre>
+
+<p>Si queremos una contraseña para entrar en alguno de los sistemas colocamos en su entrada:</p>
+
+<pre><code>password = 12345
+</code></pre>
+
+<p>Cualquier modificación en este archivo para guardar los cambios, implica lanzar:</p>
+
+<blockquote><p># lilo</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[journalctl]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/journalctl/"/>
+    <updated>2014-07-13T17:33:00+02:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/journalctl</id>
+    <content type="html"><![CDATA[<p>Sistema de registro [log] propio de systemd.</p>
+
+<blockquote><p># journalctl (Leer el registro)</p>
+
+<p># journalctl -b (Mostrar todos los mesajes de arranque)</p>
+
+<p># journalctl -b -0 (Muestra los mensajes del arranque actual)</p>
+
+<p># journalctl -b -1 (Muestra los mensajes del arranque anterior)</p>
+
+<p># journalctl -b -2 (Muestra los mensajes desde los dos últimos arranques)</p>
+
+<p># journalctl -f (Seguir los mensajes nuevos)</p>
+
+<p># journalctl _PID=1 (Mostrar mensajes por su PID)</p>
+
+<p># journalctl -u netcfg (Mostrar mensajes de una unidad especifica)</p></blockquote>
+
+<p>1.-</p>
+
+<p>Hacer que el demonio syslog funcione con journal</p>
+
+<blockquote><p># systemctl enable syslog-ng</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[emacs]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/emacs/"/>
+    <updated>2014-07-13T17:33:00+02:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/emacs</id>
+    <content type="html"><![CDATA[<p>Tutorial completo en español: <a href="http://www.nongnu.org/emacs-man-es/">http://www.nongnu.org/emacs-man-es/</a> . Mucho más que un editor [no un procesador]. Lo que sigue es un pequeño manual de primeros auxilios.</p>
+
+<p>Cuando Emacs abre un archivo lo abre en un buffer. Cuando leemos un fichero, lo que hacemos es copiar su contenido a una zona de memoria [a un buffer] y durante la edición lo que modificamos es esa zona de memoria, el fichero como tal permanece inalterado hasta que explícitamente demos la orden de grabar en el disco las modificaciones. Cuando emacs se inicia se abren dos búffers que no están asociados a ningún fichero: <em>scratch</em> y <em>messages</em> [En ambos el nombre empieza y acaba por un asterisco, lo que indica que no es un búffer asociado a un fichero]</p>
+
+<p>Significado de algunas teclas en la terminologia de emacs:</p>
+
+<pre><code>Alt = M (meta)
+
+Crtl= C (control)
+
+SPC (Barra espacio)
+
+RET (intro)
+
+RETRO (retroceso)
+</code></pre>
+
+<blockquote><p>$ emacs -nw (Lanzar emacs en consola. Para crear un alias: alias emacs=&#8217;emacs -nw&#8217;)</p>
+
+<p>$ emacs -nw &#8211;debug-ini (Modo debuger para comprobar errores de sintaxis en ~/.emacs)</p>
+
+<p>$ emacs -p (Arrancar emacs prescindiendo del archivo de configuración cuando este tiene errores)</p>
+
+<p>$ emacs -u usuario (Arrancar emacs con la configuración de otro usuario)</p></blockquote>
+
+<p>Teclas de socorro:</p>
+
+<pre><code>C-g (Cancelar algo: un comando, una combinación de teclas...)
+
+C-x u (Deshacer)
+</code></pre>
+
+<p>Movimiento por el texto:</p>
+
+<pre><code>C-a (ir al comienzo de una línea)
+
+C-e (ir al final de una línea)
+
+C-f (un caracter hacia adelante)
+
+C-b (un caracter hacia atrás)
+
+M-f (una palabra hacia adelante)
+
+M-b (una palabra hacia atrás)
+
+C-n (ir ala siguiente línea)
+
+C-p (ir a la línea anterior)
+
+M-a (Ir al inicio de la frase)
+
+M-e (Ir al final de la frase)
+
+C-v (Pagina siguiente)
+
+M 8 C-v (baja 8 lineas la pantalla, NO 8 PÁGINAS)
+
+M-v (Pagina anterior)
+
+M 8 M-v (Sube 8 lineas la pantalla, NO 8 PÁGINAS)
+
+M-&lt; (Ir al principio del texto)
+
+M-&gt; (Ir al final del texto)
+
+M-g g (Ir a la linea)
+
+C-l (Redibuja la pantalla. La primera vez que se pulsa, coloca la linea del cursor en el centro, la segunda arriba y la tercera abajo)
+</code></pre>
+
+<p>Salir:</p>
+
+<pre><code>C-x C-c (Salir de Emacs)
+
+C-x C-s (Guardar sin salir)
+
+C-x C-w (Salir y guardar como)
+
+C-x s (Guardar todos los ficheros abiertos. Preguntará.)
+</code></pre>
+
+<p>Copiar, cortar, pegar y reemplazar</p>
+
+<pre><code>C-Esp (Inicio del marcado de texto)
+
+C-x h (Marcar todo el buffer, "Seleccionar todo")
+
+M-w (Copiar)
+
+C-w (Cortar)
+
+C-y (Pegar)
+
+C-x C-t (Copiar linea)
+
+M-h (Selecciona un párrafo)
+
+C-% (Primero entrar la palabra a cambiar i despues la que sustituye)
+</code></pre>
+
+<p>Buscar:</p>
+
+<pre><code>C-s (busca hacia adelante)
+
+C-r (busca hacia atras)
+
+C-s C-s (repite la busqueda)
+</code></pre>
+
+<p>Borrar:</p>
+
+<pre><code>M-d (Palabra despues del cursor)
+
+M 3 M-d (Borra 3 palabras)
+
+C-k (del cursor a fin de linea)
+
+M 3 C-k (Borra 3 lineas)
+
+M-k (todo el párrafo)
+
+M 3 M-k (Borra 3 párrafos)
+</code></pre>
+
+<p>Ventanas:</p>
+
+<pre><code>C-x 2 (división horizontal de la ventana en dos)
+
+C-x 3 (división vertical de la ventana en dos)
+
+C-x 1 (Deja solo la ventana activa abierta)
+
+C-x o (cambiar de ventana)
+
+C-x 0 (Eliminar ventana actual)
+
+C-x } (alarga la ventana activa en dirección horizontal)
+
+C-x { (La acorta en dirección horizontal)
+
+C-x ^ (La alarga en dirección vertical)
+</code></pre>
+
+<p>Buffers:</p>
+
+<pre><code>C-x k (cierra la buffer actual. Pide confirmación)
+
+C-x b (Cambiar de buffer)
+
+C-x C-b (Listar buffers en un panel)
+
+C-x flechas derecha/izquierda (cambiar al siguiente/anterior)
+</code></pre>
+
+<p>Marcas:</p>
+
+<pre><code>C-x r m (Solicita nombre para la linea marcada)
+
+C-x r b a (Ir a la linea marcada con el nombre que entremos, en este caso la "a". Si se encuentra la marca en un archivo no abierto, se abrirá)
+
+C-x r l (Lista todas las marcas)
+</code></pre>
+
+<p>Imprimir:</p>
+
+<pre><code>C-u M-x ps-print-buffer-with-faces (Imprimir a ps. Luego con ps2pdf pasar a pdf)
+
+M-x  print-buffer (Imprimir archivo con numeración y cabeceras)
+
+M-x  lpr-buffer (Imprimir sin numeración ni cabeceras)
+
+M-x  print-region (Imprimir trozo seleccionado con numeración y cabeceras)
+
+M-x  lpr-region  (Imprimir trozo seleccionado sin numeración ni cabeceras)
+</code></pre>
+
+<p>Varios:</p>
+
+<pre><code>C-x C-f (brir un archivo)
+
+C-o (Inserta linea en blanco a continuación del cursor)
+
+M-x tetris (Listado de juegos en /usr/share/emacs/24.3/lisp/play/. Lanzar sin la extensión)
+
+M-x help-with-tutorial-spec-language (abre buffer con los idiomas disponibles para el manual)
+
+C-x d (Abre un directorio que se especifique)
+
+C-x RET f (Entrar codificación de caracteres: latin-1-unix [latin1], utf-8-unix [utf8]..)
+
+C-x custom (Personalizar numerosos aspectos de emacs)
+
+C-x C-+ (Agrandar la fuente)
+
+C-x C-- (Disminuir la fuente)
+
+C-x z z z (Repite el último comando tantas veces como "zetas" pongamos. En este caso 3 veces )
+
+&amp; (Teniendo el cursor sobre un archivo en dired, permitirá entrar una aplicación para abrirla)
+</code></pre>
+
+<p>Entrar comandos de shell e insertar:</p>
+
+<pre><code>C-z (Suspende la sesion emacs y entra en la shell. Volver a emacs con fg o con %emacs)
+
+M-! (Muestra en el mini buffer un mensaje para entrar un comando y lo abre un una ventana)
+
+C-u M-! (Inserta la salida del comando en la posición del cursor)
+
+M-x shell (Salir a la shell. C-x k para volver a edición)
+
+C-x i (Insertar archivo en la posición del cursor)
+
+C-c C-l (Mostrar historial de comandos)
+</code></pre>
+
+<p>ayuda:</p>
+
+<pre><code>F10 (Abre la ayuda general)
+
+C-h k (Muestra información sobre un atajo)
+
+C-h a (Todas las opciones de un comando)
+
+C-h b (Ver todos los atajos)
+
+C-h w (Muestra el atajo de la función que entremos)
+
+C-h f (Información sobre una función)
+</code></pre>
+
+<p>Modo comando:</p>
+
+<pre><code>M-x recover file (levantar respaldo del archivo)
+
+M-x apropos INTRO print (Muestra información de "print")
+
+M-x list-faces-display (Ver lista y muestra de los estilos disponibles)
+
+M-x set-foreground-color (Pedirá color en inglés para las fuentes.
+
+M-x set-background-color (Pedirá color para el fondo)
+
+M-x w3m-browser-url (Pedirá url para conectar. Precisa w3m-el)
+
+M-x browse-url-firefox (Abrir una url con firefox)
+
+M-x global-linum-mode (Mostras/esconder números de linea)
+
+M-x global-visual-line-mode (Cortar/no cortar palabras al final de la pantalla)
+
+M-x global-hl-line-mode (Resaltar la linea donde está el cursor)
+
+M-x calendar (Mostrar mes actual, el anterior y el posterior)
+
+M-x command-history  (History de comandos entrados)
+
+M-x calculator (Calculadora muy elemental)
+
+M-x man (mostrar man de un comando)
+
+M-x global-whitespace-mode (Mostrar/ocultar caracteres no imprimibles)
+</code></pre>
+
+<p>Para hacer permanente cualquiera de las opciones anteriores, colocarla en ~/.emacs de la siguiente forma:</p>
+
+<pre><code>(global-set-key (kbd "&lt;f7&gt;") 'global-linum-mode)
+</code></pre>
+
+<p>Para mostrar u ocultar los numeros de linea pulsando F7</p>
+
+<p>1.-</p>
+
+<p>Abrir navegador de archivos. Precisa tenerlo instalado</p>
+
+<p>Instalar nav:</p>
+
+<p>Descarga de <a href="http://code.google.com/p/emacs-nav/">http://code.google.com/p/emacs-nav/</a>. Una vez descomprimido copiar el directorio en ~/.emacs.d/ y renombrar como nav</p>
+
+<blockquote><p>$ emacs .emacs</p></blockquote>
+
+<p>Completar configuración y que se abra pulsado F8, añadir las siguientes lineas:</p>
+
+<pre><code>(add-to-list 'load-path "/home/USER/.emacs.d/nav/")
+
+(require 'nav)
+
+(nav-disable-overeager-window-splitting)
+
+(global-set-key [f8] 'nav-toggle)
+</code></pre>
+
+<p>Abrir con M-x nav</p>
+
+<p>2.-</p>
+
+<p>Añadir una &#8220;lista negra&#8221; de bufferes a los que no interesar acceder (scratch, messages&#8230;).</p>
+
+<p>Añadir a .emacs las siguientes lineas:</p>
+
+<pre><code>(require 'iswitchb)
+
+(iswitchb-mode)
+
+(add-to-list 'iswitchb-buffer-ignore "^ ")
+
+(add-to-list 'iswitchb-buffer-ignore "*Messages*")
+
+(add-to-list 'iswitchb-buffer-ignore "*ECB")
+
+(add-to-list 'iswitchb-buffer-ignore "*Buffer")
+
+(add-to-list 'iswitchb-buffer-ignore "*Completions")
+
+(add-to-list 'iswitchb-buffer-ignore "*scratch*")
+
+(add-to-list 'iswitchb-buffer-ignore "*ftp ")
+
+(add-to-list 'iswitchb-buffer-ignore "*bsh")
+
+(add-to-list 'iswitchb-buffer-ignore "*jde-log")
+
+(add-to-list 'iswitchb-buffer-ignore "^[tT][aA][gG][sS]$")
+</code></pre>
+
+<p>Al pulsar C-x b (Listar buffers abiertos) El buffer que aparece en primer lugar, resaltado en otro color, es el que se mostrará al pulsar Enter. Si queremos cambiar a otro buffer pulsar C-s para rotar el orden de los elementos de la lista.</p>
+
+<p>3.-</p>
+
+<p>Escuchar música con emms.</p>
+
+<p>Instalar emms en el sistema mediante repositorio y descargar <a href="http://www.gnu.org/software/emms/">http://www.gnu.org/software/emms/</a> , descomprimir y mover el directorio a ~/.emacs.d/l. En .emacs colocar las lineas:</p>
+
+<pre><code>(add-to-list 'load-path "~/emms/")
+
+(require 'emms-setup)
+
+(emms-standard)
+
+(emms-default-players)
+</code></pre>
+
+<p>Llamar com M-x emms (Pulsando TAB apareceran las opciones)</p>
+
+<p>4.-</p>
+
+<p>Corrector ortográfico. apt-get install aspell-es dictionary-el</p>
+
+<pre><code>M-x ispell-buffer (Muestra las alternativas a la palabra mal escrita)
+
+M-x dictionary (Una vez escogido el deseado, buscar traducción, significado...)
+
+M-x flyspell-mode (Lanzado al inicio del texto, mostrará los errores al escribirlos)
+</code></pre>
+
+<p>5.-</p>
+
+<p>Recargar archivo de configuración .emacs despues de una modificación:</p>
+
+<pre><code>M-x load-file (Cuando solicite el nombre del archivo colocar .emacs)
+
+M-x eval-buffer (Si el archivo .emacs se encuentra en un buffer)
+</code></pre>
+
+<p>6.-</p>
+
+<p>Conectar a un servidor ssh:</p>
+
+<p>Descargar tramp de <a href="http://ftp.gnu.org/gnu/tramp/">http://ftp.gnu.org/gnu/tramp/</a> descomprimir y mover la carpeta al directorio ~/emac.d/ . En el archivo de configuración .emacs añadir las lineas:</p>
+
+<pre><code>(require 'tramp)
+
+(setq tramp-default-method "ssh")
+</code></pre>
+
+<p>Abrir sesión de emacs y acceder al host remoto con:</p>
+
+<pre><code>C-x C-f /ssh:USER@host_remoto:/home/USER/
+</code></pre>
+
+<p>Pedirá contraseña.</p>
+
+<p>Nota.- Después de pulsar el atajo, no olvidar borrar la referencia al directorio local ~/ dejándolo en /</p>
+
+<p>7.-</p>
+
+<p>Temas de colores:</p>
+
+<p>Descargar el paquete tar.gz de:  <a href="http://download.gna.org/color-theme/">http://download.gna.org/color-theme/</a></p>
+
+<p>Una vez decomprimido mover la carpeta a ~/.emacs.d:</p>
+
+<pre><code>~/.emacs.d/color-theme
+</code></pre>
+
+<p>Y añadir a .emacs las lineas:</p>
+
+<pre><code>(add-to-list 'load-path (expand-file-name "~/.emacs.d/color-theme/"))
+
+(require 'color-theme)
+
+(color-theme-initialize)
+</code></pre>
+
+<p>Arrancar emacs y:</p>
+
+<pre><code>M-x color-theme-select
+</code></pre>
+
+<p>Mostrará en un nuevo buffer una lista de temas disponibles que podrán probarse seleccionandolos con &#8220;intro&#8221; o la tecla &#8220;i&#8221;. Una vez escogido el tema, pulsando la letra d, muestra la linea que ha de entrarse en .emacs. Supongamos que escogemos Charcoal Black, añadiremos la linea (color-theme-charcoal-black) quedando toda la entrada:</p>
+
+<pre><code>(add-to-list 'load-path (expand-file-name "~/.emacs.d/color-theme/"))
+
+(require 'color-theme)
+
+(color-theme-initialize)
+
+(color-theme-charcoal-black)
+</code></pre>
+
+<p>8.-</p>
+
+<p>Consultando directorios: dired, navegador de archivos de emacs [C-x d].</p>
+
+<pre><code>g (Despues de una modificación actualiza la pantalla)
+
+v (Muestra el archivo en modo solo-lectura
+
+q (Regresa al listado)
+
+e [enter] (Editar el archivo)
+
+d (Marca un archivo para su eliminación colocando una "D" en la 1ª columna)
+
+u (Elimina la marca anterior)
+
+x (Elimina los archivos marcados con una "D")
+
+D (Eliminación inmediata)
+
+C (Copiar)
+
+3C (Copiar el archivo de la linea del cursor y los 3 siguientes)
+
+R (Renombrar o mover)
+
+Z (Comprimir descomprimir [compress (.z .Z) y gzip (.gz)])
+
+X (Entrar comandos de shell [chmod, grep, find, sort ...])
+
++ (Crear directorio)
+
+** (Marcar todos los ejecutables)
+
+*/ (Marca todos los directorios)
+
+*! (Desmarca todo)
+
+M (Cambiar los permisos. Sólo poner la numeración [777, 755...])
+
+O (Cambiar el propietario)
+
+P (Imprimir el fichero. El comando lp imprimirá con la impresora predeterminada)
+
+h (Muestra la ayuda y todos los atajos de teclado)
+
+S (Crear un enlace simbólico)
+</code></pre>
+
+<p>9.-</p>
+
+<p>M-x term [Emulador de terminal]</p>
+
+<p>Utiliza dos modos de entrada: El modo caracter que envia cada caracter de entrada directamente a la subshell, a excepción del carácter de escape [C-c] y el modo línea que actúa como modo Shell [Permite entrada de todas las combinaciones de teclas emacs, desplaza el cursor por la pantalla con las flechas, puede marcarse trozos de texto para copiar&#8230;]. Para alternar entre estos dos modos:</p>
+
+<pre><code>C-c C-j (Cambia a modo línea)
+
+C-c C-k (Cambia a modo caracter)
+</code></pre>
+
+<p>10.-</p>
+
+<p>Uso de sudo. Entrar el siguiente código en .emacs:</p>
+
+<pre><code>;; Uso de sudo: C-x C-f /sudo::/etc/hosts
+
+;; C-x C-f /sudo:root@localhost:/etc/hosts  o C-x sudo-find-file
+
+(defun sudo-find-file (file-name)
+
+  "Like find file, but opens the file as root."
+
+  (interactive "FSudo Find File: ")
+
+  (let ((tramp-file-name (concat "/sudo::" (expand-file-name file-name))))
+
+  (find-file tramp-file-name)))
+
+;; Atajo de teclado para sudo:
+
+(global-set-key (kbd "C-x F") 'sudo-find-file)
+</code></pre>
+
+<p>11.-</p>
+
+<p>Abrir archivos de dired con aplicaciones externas pulsando F8:</p>
+
+<p>Copiar en .emacs el siguiente código:</p>
+
+<pre><code>(defun external-app ()
+
+ "In dired, open the file named on this line."
+
+  (interactive)
+
+  (let* ((file (dired-get-filename nil t)))
+
+    (call-process "xdg-open" nil 0 nil file)
+
+(global-set-key (kbd "&lt;f8&gt;") 'external-app)
+</code></pre>
+
+<p>12.-</p>
+
+<p>Abrir archivos de dired con determinadas aplicaciones externas:</p>
+
+<p>Descargar la libreria de <a href="http://stud4.tuwien.ac.at/~e0225855/misc/openwith.el">http://stud4.tuwien.ac.at/~e0225855/misc/openwith.el</a> y moverlo a la carpeta ~/.emacs.d/</p>
+
+<p>Y copiar el siguiente codigó en ~/.emacs:</p>
+
+<pre><code>(add-to-list 'load-path "~/.emacs.d/openwith.el")
+
+(require 'openwith)
+
+(setq openwith-associations '(("\\.pdf\\'" "evince" (file))))
+
+(setq openwith-associations '(("\\.flv\\'" "vlc" (file))))
+
+(openwith-mode t)
+</code></pre>
+
+<p>Colocar tantas lineas del tipo &#8220;(setq openwith-associations &#8216;((&#8220;&#46;flv&#39;&#8221; &#8220;vlc&#8221; (file))))&#8221; como archivos queramos asociar.</p>
+
+<p>13.-</p>
+
+<p>Algunos ajustes en el prompt de eshell que pueden incorporarse al archivo .emacs:</p>
+
+<p>Modificar el prompt para mostrar el directorio de trabajol. Para mostrar el usuario: (concat (getenv &#8220;USER&#8221;)</p>
+
+<pre><code>(setq eshell-prompt-function
+
+(lambda nil
+
+(concat (eshell/pwd)
+
+(if (= (user-uid) 0) " # " " $ "))))
+</code></pre>
+
+<p>Usar bash en lugar de la shell de emacs:</p>
+
+<pre><code>(setq shell-file-name "/bin/bash")
+</code></pre>
+
+<p>Modificar el mensaje de bienvenida al entrar en eshell:</p>
+
+<pre><code>(setq eshell-banner-message "\n... entrant a  emacs shell...\n\n")
+</code></pre>
+
+<p>Nota.- Si ya tenemos una terminal [eshell o term] abierta no permite abrir ninguna más a menos de que le cambiemos el nombre:</p>
+
+<pre><code>M-x rename-buffer
+</code></pre>
+
+<p>14.-</p>
+
+<p>Para poder copipastear de emacs a las X y viceversa colocar en .emacs el código:</p>
+
+<pre><code>;; http://hugoheden.wordpress.com/2009/03/08/copypaste-with-emacs-in-terminal/
+
+(setq x-select-enable-clipboard t)
+
+(unless window-system
+
+(when (getenv "DISPLAY")
+
+(defun xsel-cut-function (text &amp;optional push)
+
+(with-temp-buffer
+
+(insert text)
+
+(call-process-region (point-min) (point-max) "xsel" nil 0 nil "--clipboard" "--input")))
+
+(defun xsel-paste-function()
+
+(let ((xsel-output (shell-command-to-string "xsel --clipboard --output")))
+
+(unless (string= (car kill-ring) xsel-output)
+
+    xsel-output )))
+
+(setq interprogram-cut-function 'xsel-cut-function)
+
+(setq interprogram-paste-function 'xsel-paste-function)))
+</code></pre>
+
+<p>15.-</p>
+
+<p>Operar con trozos seleccionados [C-espacio]</p>
+
+<pre><code>C-x r s (Guardarla en un registro)
+
+C-x TAB (Sangrar toda la selección)
+</code></pre>
+
+<p>16.-</p>
+
+<p>Otros ajustes que pueden incorporarse a .emacs precedidas con la explicación comentada:</p>
+
+<pre><code>;;Mostrar consola al pulsar F5:
+
+(global-set-key (kbd "&lt;f5&gt;") 'eshell)
+
+;;Especificar número de espacios en las tabulaciones.
+
+(setd-default  tab-width  4)
+
+;;Mostrar reloj y con formato 24 horas
+
+(setq display-time-24hr-format t)
+
+(display-time)
+
+;;Descomprimir archivos.
+
+(auto-compression-mode t)
+
+;;Reemplazar "yes" y "no" por "y" y "n" en el prompt.
+
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;;Sin copias de seguridad.
+
+(setq make-backup-files nil)
+
+;; Embellecer el calendario:
+
+(setq view-diary-entries-initially t
+
+mark-diary-entries-in-calendar t
+
+number-of-diary-entries 7)
+
+(add-hook 'diary-display-hook 'fancy-diary-display)
+
+(add-hook 'today-visible-calendar-hook 'calendar-mark-today)
+
+;; Poner en español el calendario:
+
+(setq calendar-week-start-day 1
+
+calendar-day-name-array
+
+["Domingo" "Lunes" "Martes"
+
+"Miercoles" "Jueves" "Viernes" "Sábado"]
+
+calendar-month-name-array
+
+["Enero" "Febrero" "Marzo" "Abril"
+
+"Mayo" "Junio" "Julio" "Agosto" "Septiembre"
+
+"Octubre" "Noviembre" "Diciembre"])
+
+;; Suprimir espacios al final de la linea y lineas en blanco del final:
+
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; Lenguage y codificación:
+
+(set-terminal-coding-system 'utf-8)
+
+(set-keyboard-coding-system 'utf-8)
+
+(prefer-coding-system 'utf-8)
+
+(set-language-environment "Spanish")
+
+;; Guardar la sessión al cerrar emacs y restaurarla al arrancar nuevamente:
+
+;; Colocar a cero [0] para desactivar:
+
+(desktop-save-mode 1)
+
+;; Ocultar caracteres al pedir un password:
+
+(add-hook 'comint-output-filter-functions 'comint-watch-for-password-prompt)
+
+;; Colocar el tipo de sistema
+
+(defun insert-system-type()
+
+(interactive)
+
+(insert (format "%s" system-type)))
+
+;; Colocar el nombre del sistema
+
+(defun insert-system-name()
+
+(interactive)
+
+(insert (format "%s" system-name)))
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[apt-get]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/apt-get/"/>
+    <updated>2014-07-13T17:33:00+02:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/apt-get</id>
+    <content type="html"><![CDATA[<p>[aptitude y apt-cache]. Gestor de programario de distribuciones Debian. Listtado del historial de instalaciones y desinstalaciones en /var/log/apt/history.log</p>
+
+<blockquote><p># apt-get update    (Actualiza la lista de paquetes)</p>
+
+<p># apt-get upgrade   (Actualiza todos los paquetes instalados)</p>
+
+<p># apt-get upgrade paquete     (Solo actualiza “paquete”)</p>
+
+<p># apt-get dist-upgrade    (Actualiza la distribución)</p>
+
+<p># apt-get install paquete (Instala paquetes con resolución de depencias)</p>
+
+<p># apt-get install paquete -y (instalar paquete sin pedir confirmación)</p>
+
+<p># apt-get install &#8211;reinstall  paquete      (Reinstala un paquete)</p>
+
+<p># apt-get autoremove  (Borra paquetes huérfanos)</p>
+
+<p># apt-get remove paquete        (Elimina un paquete)</p>
+
+<p># apt-get remove &#8211;purge paquete  (Desinstala con archivos de configuración)</p>
+
+<p># apt-get remove $(deborphan)  (Elimina huerfanos. lanzar varias veces)</p>
+
+<p># apt-get clean        (Elimina caché)</p>
+
+<p># apt-get autoclean  (lo mismo de versiones antiguas de paquetes)</p>
+
+<p># apt-get -f install   (sin especificar paquete, para reparar la aplicación)</p>
+
+<p># apt-get -s install paquete        (simula la instalación)</p>
+
+<p># apt-get &#8211;compile source paquete  (baja las fuentes, compila y crear un .deb)</p>
+
+<p># apt-get check          (Verifica dependencias rotas)</p>
+
+<p># apt-get build-dep paquete (instalar las dependencias necesarias para poder compilar un paquete fuente)</p>
+
+<p># apt-get install network-manager=0.9.1.90-0ubuntu3 (version concreta)</p>
+
+<p># apt-mark hold network-manager (Mantener una version concreta)</p>
+
+<p># apt-get source paquete (buscar un paquete fuente para ser compilado)</p>
+
+<p># apt-rdepends paquete (muestra todas las dependencias)</p>
+
+<p># apt-rdepends -b paquete (muestra las dependencias directas)</p>
+
+<p># apt-rdepends -f paquete  (muestra version y estado del paquete)</p>
+
+<p># apt-cache search paquete       (Busca en la cache paquete)</p>
+
+<p># apt-cache show paquete         (Muestra la descripción completa del paquete)</p>
+
+<p># apt-cache showpkg paquete   (Muestra su relación con otros paquetes)</p>
+
+<p># apt-cache depends paquete    (Muestra las dependencias del paquete)</p>
+
+<p># apt-cache rdepend paquete     (Muestra dependencias inversas del paquete)</p>
+
+<p># apt-cache policy paquete       (Ver vesiones de paquetes y la versión instalada)</p>
+
+<p># apt-show-versions paquete (Muestra si un paquete es actualizable)</p>
+
+<p># apt-show-versions -a paquete (Muestra todas las versiones disponibles del paquete)</p>
+
+<p># apt-get &#8211;yes install paquete (Responder “si” a preguntas de la instalación)</p>
+
+<p># aptitude search ~ilinux-image (Lista los kernels instalados)</p>
+
+<p># aptitude search ~i -F %p (Lista los paquetes instalados)</p>
+
+<p># apt-setup                              (Crea un sources.list optimizado)</p>
+
+<p># add-apt-repository ppa:repositorio   (añadir un repositorio ppa)</p>
+
+<p># ppa-purge ppa:repositorio   (suprimirlo. Precisa el script ppa-purge))</p></blockquote>
+
+<p>/etc/apt/sources.list               (Fichero de repositorios.)</p>
+
+<p>/var/cache/apt/archives          (Caché de los paquetes .deb instalados)</p>
+
+<p>/var/log/apt/term.log (Archivo de logs de la aplicación)</p>
+
+<p>1.-</p>
+
+<p>Para resolver problemas con  /var/lib/apt/lists/*  lanzar:</p>
+
+<blockquote><p># rm /var/lib/apt/lists/* -vf</p></blockquote>
+
+<p>Y luego:</p>
+
+<blockquote><p># apt-get update</p></blockquote>
+
+<p>2.-</p>
+
+<blockquote><p># apt-get -o &#8220;Acquire::Check-Valid-Until=false&#8221; update   (Saltarse el validador  que verifica la fecha de caducidad del archivo “Release” de debian [Error ” Release file expired, ignoring file”])</p></blockquote>
+
+<p>3.-</p>
+
+<p>Añadir repositorios de distintas ramas en debian.</p>
+
+<p>Incluir en el sources.list los repositorios de las distintas ramas:</p>
+
+<blockquote><p># nano sources.list</p></blockquote>
+
+<pre><code>## Debian Testing
+
+deb http://ftp.de.debian.org/debian/ testing main contrib non-free
+
+deb-src http://ftp.de.debian.org/debian/ testing main contrib non-free
+
+## seguridad Debian Testing
+
+deb http://security.debian.org/ testing/updates main contrib non-free
+
+deb-src http://security.debian.org/ testing/updates main contrib non-free
+
+## Debian Unstable
+
+deb http://ftp.us.debian.org/debian unstable main non-free contrib
+
+## Debian experimental
+
+deb http://ftp.fr.debian.org/debian experimental main non-free contrib
+</code></pre>
+
+<p>Editar o crear el fichero:</p>
+
+<blockquote><p># nano /etc/apt/apt.conf</p></blockquote>
+
+<p>Con el siguiente contenido:</p>
+
+<pre><code>APT::Default-Release “testing”;
+
+APT::Cache-Limit 55000000;
+
+Apt::Get::Purge;
+
+APT::Clean-Installed;
+
+APT::Get::Fix-Broken;
+
+APT::Get::Fix-Missing;
+
+APT::Get::Show-Upgraded “true”;
+</code></pre>
+
+<p>Con el que establecemos las siguientes caracteristicas: Definir Debian Testing como rama principal,Limitar la cache utilizada en el proceso de actualización,Borrar archivos de configuración de los paquetes desinstalados y Arreglar el sistema en caso de detectar dependencias rotas.</p>
+
+<p>Editar el archivo preferences:</p>
+
+<blockquote><p># nano /etc/apt/preferences</p></blockquote>
+
+<p>Con el contenido:</p>
+
+<pre><code>Package: *
+
+Pin: release a=testing
+
+Pin-Priority: 900
+
+Package: *
+
+Pin: release a=unstable
+
+Pin-Priority: 600
+
+Package: *
+
+Pin: release a=experimental
+
+Pin-Priority: 50
+</code></pre>
+
+<p>Que tiene por significado que si el paquete existe en la rama testing se enstalará este, en caso contrario, si existe en unstable se instalará el unstable y sólo si no existe en las otras dos, se instalará de la versión experimental.</p>
+
+<p>También podemos especificarlo en el comando:</p>
+
+<blockquote><p># apt-get install libreoffice/unstable (Firefox se instalará de la rma unstable, pero las dependencias, se buscarán en primer lugar en la rama testing)</p>
+
+<p># apt-get -t unstable install firefox (Tanto firefox como las dependencias se instalarás de la rama unstable)</p></blockquote>
+
+<p>4.-</p>
+
+<p>Instalación de aplicaciones sin conexión a internet. Ha de instalarse en dos equipos: el que tiene conexión y en el que no la tiene. Esta aplicación tiene muchas limitaciones ya que no instala dependencias por lo que puede usarse en pocos casos.</p>
+
+<p>En el equipo sin conexión:</p>
+
+<blockquote><p># apt-offline set apt.sig &#8211;update &#8211;upgrade &#8211;install-packages PAQUETE (genera el archivo apt.sig que ha de trasladarse al equipo que tiene conexión)</p></blockquote>
+
+<p>En el equipo conexión:</p>
+
+<blockquote><p># apt-offline get apt.sig &#8211;threads 5 &#8211;bundle offline.zip (Crea el archivo offline.zip que se traslada al equipo sin conexión)</p></blockquote>
+
+<p>Otra vez en el equipo sin conexión:</p>
+
+<blockquote><p># apt-offline install offline.zip</p>
+
+<p># apt-get install PAQUETE (Instalación del paquete)</p></blockquote>
+
+<p>5.-</p>
+
+<p>Instalar aplicaciones de arquitectura 386 en equipos amd64:</p>
+
+<blockquote><p># nano /etc/apt/sources.list</p></blockquote>
+
+<p>Añadir las lineas:</p>
+
+<pre><code>deb http://ftp.debian.org/debian/ wheezy-updates main contrib
+
+deb http://http.us.debian.org/debian/ wheezy contrib non-free main
+</code></pre>
+
+<blockquote><p># apt-get update</p>
+
+<p># apt-get upgrade</p></blockquote>
+
+<p>Activar multiarquitectura:</p>
+
+<blockquote><p># dpkg &#8211;add-architecture i386</p>
+
+<p># apt-get update</p></blockquote>
+
+<p>Instalar librerías base para los sistemas de 32 bits:</p>
+
+<blockquote><p># apt-get install libc6:i386</p></blockquote>
+
+<p>6.-</p>
+
+<p>Configurar apt para que no descargue traducciones:</p>
+
+<blockquote><p># nano /etc/apt/apt.conf.d/99Translations</p></blockquote>
+
+<p>Con el siguiente contenido:</p>
+
+<pre><code>Acquire::Languages "none";
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[zypper]]></title>
@@ -253,123 +1382,6 @@
     <updated>2014-07-13T16:53:00+02:00</updated>
     <id>https://tractatuslapipaplena.herokuapp.com/blog/ytree</id>
     <content type="html"><![CDATA[<p>Navegador de archivos minimalista. Puede usarse para administrar permisos en directorios, ver distintos tipos de archivos [gif, jpg, txt., html] con los visores favoritos de cada uno y revisar archivos comprimidos [tar, arc, lha, zip, zoo].</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[youtube-dl]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/youtube-dl/"/>
-    <updated>2014-07-13T16:53:00+02:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/youtube-dl</id>
-    <content type="html"><![CDATA[<p>Descargar videos de youtube</p>
-
-<blockquote><p>$ youtube-dl url</p>
-
-<p>$ youtube-dl -b url (Bajarlo a la calida más alta posible)</p>
-
-<p>$ youtube-dl -o nombre.flv url  (Guardar con nombre especificado)</p>
-
-<p>$ youtube-dl -a archivo_de_urls_de_youtube (bajar multiples videos)</p>
-
-<p>$ youtube -upepe -pcontraseña url (especificando usuario y contraseña)</p>
-
-<p>$ youtube-dl -t &#8211;extract-audio &#8211;audio-format mp3 url (Sacar el audio en formato mp3 a un video de youtube)</p></blockquote>
-
-<p>Nota.- En algunas ocasiones muestra un error (ERROR: format not available for video) se soluciona bajando directamente el ejecutable de internet y suprimiendo el de los repositorios.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[yetris]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/yetris/"/>
-    <updated>2014-07-13T16:53:00+02:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/yetris</id>
-    <content type="html"><![CDATA[<p>[libncurses5-dev]. Juego tetris para ncurses.</p>
-
-<pre><code>$ git clone https://github.com/alexdantas/.git
-
-$ cd yetris
-
-$ make
-
-$ make install
-</code></pre>
-
-<blockquote><p>$ yetris -c -g -n (En el centro de la pantalla, sin pistas de donde caen los bloques y sin color)</p>
-
-<p>$ yetris -u (Mostrar el modo de uso)</p>
-
-<p>$ yetris -r (Resetear las reglas)</p></blockquote>
-
-<p>Algunas teclas de control:</p>
-
-<pre><code>Flechas derecha izquierda (Desplazamiento horizontal)
-
-espacio o flecha abajo (Desplazamiento vertical rápido)
-
-z, x (Rotar los bloques)
-
-p (Pausa. Pulsar otra vez "p" para salir de pausa)
-
-h (Mostrar teclas de control. Intro para salir)
-
-r (Reiniciar el juego)
-
-q (salir)
-</code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[yes]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/yes/"/>
-    <updated>2014-07-13T16:53:00+02:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/yes</id>
-    <content type="html"><![CDATA[<p>Repetición indefinida, hasta matar el proceso con Ctrl + c,  de una palabra o frase.</p>
-
-<blockquote><p>$ yes linux es genial</p>
-
-<p>$ yes &#8220;$(figlet Linux)&#8221; (En combinación con el comando figlet)</p>
-
-<p>$ yes | rm -i * (Pasado como entrada para que conteste &#8220;si&#8221; a todo)</p></blockquote>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[yelp]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/yelp/"/>
-    <updated>2014-07-13T16:53:00+02:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/yelp</id>
-    <content type="html"><![CDATA[<p>Navegador de ayuda de gnome. Incluye documentación detallada sobre la mayoría de aplicaciones y utilidades [panel, gestor de archivos&#8230;]</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[yasat]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/yasat/"/>
-    <updated>2014-07-13T16:53:00+02:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/yasat</id>
-    <content type="html"><![CDATA[<p>Herramienta que permite realizar una auditoría rápida del sistema o de diferentes partes que lo componen: usuarios, servicios apache, samba, cups, php, netwirk, comprobación del kernel, etc. Por defecto los informe se guardan en ~/.yasat/)</p>
-
-<blockquote><p>$ yasat -l (Listar plugins disponibles)</p>
-
-<p># yasat -s (Auditoria standard del sistema)</p>
-
-<p># yasat -f (Auditoria más exhaustiva)</p>
-
-<p># yasat -a (Sin pedir confirmaciones)</p></blockquote>
-
-<p>Algunas opciones:</p>
-
-<p>-H (Obtener el resultado en formato html. Por defecto en ~/.yasat/yasat.html)</p>
-
-<p>&#8211;check-update (Verificar si existen actualizaciones de la aplicación)</p>
-
-<p>&#8211;skip nfs,ntp (Sólo comprobar los servicios mencionados, separados por comas)</p>
-
-<p>&#8211;html-output archivo.html (Mandar el resultado a un archivo que no sea el por defecto. Precisa tambien -H)</p>
-
-<p>Nota.- La visualización del archivo.html ha de realizarse como root [# firefox archivo.html]</p>
 ]]></content>
   </entry>
   

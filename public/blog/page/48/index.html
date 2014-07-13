@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Informa sobre el estado de los procesos $ ps (muestra el PID de la consola) $ ps -ef (lista entera y completa de los procesos del sistema ) $ ps u ( &hellip;">
+  <meta name="description" content="Examina la lista de los procesos y muestra el ID y los PIDs de los procesos hijos. $ pslist (Muestra todo el listado) $ pslist chromium (Mostrará &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,168 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/pslist/">Pslist</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Examina la lista de los procesos y muestra el ID y los PIDs de los procesos hijos.</p>
+
+<blockquote><p>$ pslist (Muestra todo el listado)</p>
+
+<p>$ pslist chromium (Mostrará sólo el de la aplicación especificada)</p>
+
+<p>$ pslist 26995 (Mostrará sólo la del PID especificado)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/psbook/">Psbook</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[psutils]. Paginar un archivo ps para imprimir como libro. Ver ps2pdf.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/psad/">Psad</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Demonio. Escaneador de ataques a puertos. Los resultados en /var/log/psad/analysis.out</p>
+
+<blockquote><p># psad -A -i eth0</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ps2pdf/">Ps2pdf</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[psutils]. Pasar un archivo ps a pdf</p>
+
+<blockquote><p>$ man -t mount | ps2pdf -  mount.pdf   (salvar a pdf una página man del comando &#8220;mount&#8221;)</p></blockquote>
+
+<p>Convertir pdf en formato A4 a A5 para imprimir como libro con las páginas ordenadas:</p>
+
+<blockquote><p>$ pdftops archivo.pdf  (convertir el .pdf a .ps)</p>
+
+<p>$ psbook archivo.ps | psnup -pa4 -2 > archivo_A5.ps (convertir el archivo generado de A4 a A5)</p>
+
+<p>$ ps2pdf archivo_A5.ps archivo_A5.pdf  (convertir nuevamente a pdf listo para imprimir)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -393,188 +555,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/printf/">Printf</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Escribe y formatea datos</p>
-
-<blockquote><p>$ printf &#8220;%50s\n&#8221; | tr &#8217; &#8217; -  (Generar una linea discontinua)</p>
-
-<p>$ printf &#8220;%s\n&#8221; ${PATH//:/\/* }  (listar aplicaciones y comandos del PATH)</p>
-
-<p>$ printf &#8220;%s\n&#8221; .*  (listar archivos y directorios ocultos de la carpeta actual)</p>
-
-<p>$ printf &#8220;\e[8;10;100;t&#8221; (Cambiar la medida de la  terminal)</p>
-
-<p>$ printf &#8220;%s\t &#8211;> %s\n&#8221; &#8220;$A&#8221; &#8220;$B&#8221; (Dos variables en columnas tabuladas)</p>
-
-<p>$ printf &#8220;%s\n&#8221; Escribir cada palabra en una &#8220;nueva linea&#8221; (Pues eso, excepto las dos últimas entrecomilladas)</p>
-
-<p>$ printf &#8220;%06d\n&#8221; &#8220;$RANDOM&#8221; &#8220;$RANDOM&#8221; &#8220;$RANDOM&#8221; &#8220;$RANDOM&#8221; (Iguala las cuatro salidas de $RANDOM a 6 cifras con ceros delante[%06d])</p>
-
-<p>$ printf &#8220;%-10s %-10s %s\n&#8221;, $1, $2, $3 (3 variables justificadas a la izquierda, las dos primeras con 10 caracteres)</p></blockquote>
-
-<p>Algunas opciones:</p>
-
-<p>%c (Imprime el primer carácter de una variable cadena)</p>
-
-<p>%d (Imprime un número decimal)</p>
-
-<p>%s (Cadena)</p>
-
-<p>%b (Interpreta las secuencias de escape del argumento cadena)</p>
-
-<p>%q (Escribe el argumento cadena de forma que pueda ser usado como entrada a otro comando)</p>
-
-<p>%% (Escribe % literal)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/printenv/">Printenv</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Para saber los valores de todas las variables de entorno predefinidas por  la shell (TERM, SHELL, PWD, LC_ALL, USER, USERNAME, HOME, LOGNAME, BROWSER, DISPLAY&#8230;).</p>
-
-<blockquote><p>$ echo $SHELL (Ver el valor de una variable)</p>
-
-<p>$ export SHELL=/bin/sh (Modificar el valor de una variable sólo en la presente sesión. Para hacer el cambio permanente colocar la linea en .bashrc)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/primes/">Primes</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Generar números primos.</p>
-
-<blockquote><p>$ primes 1 100 (del 1 al 100)</p>
-
-<p>$ primes 100 150 (del 100 al 150)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/preload/">Preload</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Demonio que se encarga de recoger información de las aplicaciones más usadas para que en el siguiente inicio estos estén cargados en memoria acelerando el tiempo de arranque de los mismos.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/49/">&larr; Older</a>
@@ -598,6 +578,26 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/systemctl/">systemctl</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/lilo/">lilo</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/journalctl/">journalctl</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/emacs/">emacs</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/apt-get/">apt-get</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/zypper/">zypper</a>
       </li>
     
@@ -615,26 +615,6 @@
     
       <li class="post">
         <a href="/blog/zip/">zip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zgrep/">zgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zfgrep/">zfgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zenity/">zenity</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zegrep/">zegrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "systemctl"
-date: 2014-07-13 16:52
+date: 2014-07-13 17:33
 comments: true
 categories: 
 ---

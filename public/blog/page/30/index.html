@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Arrancar sistema gráfico $ startx &#8211; :1 (una segunda sesión gráfica accesible en ^Alt + F8)
-">
+  <meta name="description" content="Consola tipo guake. $ stjerm -k f12 -s left -o 70 -h 250 -w 1280 (Que aparezca pulsando F12, con barra de escroll a la izquierda, opacidad del 70% y &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +74,184 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/stjerm/">Stjerm</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Consola tipo guake.</p>
+
+<blockquote><p>$ stjerm -k f12 -s left -o 70 -h 250 -w 1280 (Que aparezca pulsando F12, con barra de escroll a la izquierda, opacidad del 70% y especificando ancho y largo)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<p>-ah (Ocultar automáticamente la ventana cuando no está enfocada)</p>
+
+<p>-bg red (Color de fondo)</p>
+
+<p>-bgimg imagen.png (Establecer una imagen de fondo)</p>
+
+<p>-fn (Tipo y tamaño de fuente)</p>
+
+<p>-fg blue (Color de la fuente)</p>
+
+<p>-p (Posición de la ventana [valores: top, bottom, left, right])</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/steghide/">Steghide</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Detectar y extraer mensajes incrustados dentro de una imagen o música</p>
+
+<blockquote><p>$ steghide embed -cf imagen.jpg -ef archivo_texto  (incrustar un texto en una imagen)</p>
+
+<p>$ steghide embed -cf archivo.wav -ef archivo_texto (incrustar un texto en un archivo de música)</p>
+
+<p>$ steghide extract -sf imagen.jpg  (extraer el archivo incrustado)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/status/">Status</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Verifica si un servicio está activo o no.</p>
+
+<blockquote><p>$ status ssh</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/stat/">Stat</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Estadísticas de archivo, directorios y sistemas</p>
+
+<blockquote><p># stat /etc/passwd</p>
+
+<p># stat /usr</p>
+
+<p># stat -f /</p>
+
+<p>$ stat -c &#8220;%s&#8221; archivo (medida del archivo)</p>
+
+<p>$ stat -c &#8216;%n %U:%G-%a&#8217; * (Mostrar nombre archivo, propietario, grupo y permisos)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -356,193 +533,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sshguard/">Sshguard</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Demonio que protege SSH y otros servicios contra ataques de fuerza bruta. Funciona observando los cambios en /var/log/auth.log, verificando si alguien esta fallando varias veces al autentificarse. Luego de varios errores de autentificacion (por defecto 14) el host ofensivo sera bloqueado por 7 minutos y se duplicará cada vez que el host ofensivo repita el ataque. Carece de archivo de configuración y puede complementarse con iptables:</p>
-
-<blockquote><p># iptables -A INPUT -j sshguard (Para activarlo en todos los puertos)</p>
-
-<p># iptables -A INPUT -m multiport -p tcp &#8211;destination-ports 21,22 -j sshguard (Para puertos concretos [ftp y ssh])</p></blockquote>
-
-<p>El archivo para colocar las direcciones no afectadas por sshguard:</p>
-
-<blockquote><p># nano /etc/sshguard/whitelist</p></blockquote>
-
-<p>Con el siguiente formato:</p>
-
-<pre><code>192.168.1.53 (Una ip)
-
-192.168.1.0/24 (Un rango)
-
-lapipaplena.net (Un host)
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sshfs/">Sshfs</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Montar un sistema de archivos remoto en local.</p>
-
-<blockquote><p># sshfs usuario@host_o_IP:/home/usuario /home/usuario/remoto</p>
-
-<p># fusermount -u /home/usuario/remoto  (Desmontarlo)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sshd/">Sshd</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Demonio ssh</p>
-
-<blockquote><p>$ sshd -t (Verificar si existen errores en el archivo de configuración)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ssh-keygen/">Ssh-keygen</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Creación, gestión y conversión de claves utilizadas para la autenticación de cliente y servidor. Cuando no se especifica ninguna opción, ssh-keygen genera un par de claves RSA de 2048 bits y solicita un nombre de clave y una frase de paso para proteger la clave privada. Las claves públicas se crean usando el mismo nombre base que la clave privada con una extensión .pub añadida. La ubicación de la clave se muestra cuando se completa la generación de claves. Ver ssh</p>
-
-<blockquote><p>$ ssh-keygen -lvf ~/.ssh/known_hosts (Ver todas las huellas digitales y las imágenes randomart)</p>
-
-<p>$ ssh-keygen -t rsa -C newserver -f .ssh/newkey (Generar el par de llaves publica y privada. Caso de exitir preguntará si se sobreescribe)</p>
-
-<p>$ ssh-keygen -B -f .ssh/id_rsa.pub (Muestra la huella digital de la llave especificada en formato SHA-1)</p>
-
-<p>$ ssh-keygen -f &#8220;$HOME/.ssh/known_hosts&#8221; -R [La_URL.com_entre_corchetes]:22 (Suprimir un clave de un host por sufrir alguna modificación y el puerto)</p>
-
-<p>$ ssh-keygen -R HOST (Otra forma de suprimir una clave de un host modificado)</p></blockquote>
-
-<p>1.-</p>
-
-<p>Para ver la huella digital cada vez que se ingresa en un host remoto:</p>
-
-<blockquote><p># nano /etc/ssh/ssh_config</p></blockquote>
-
-<p>Descomentar la linea y dejarla:</p>
-
-<p>VisualHostKey yes</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/31/">&larr; Older</a>
@@ -566,6 +556,26 @@ lapipaplena.net (Un host)
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/systemctl/">systemctl</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/lilo/">lilo</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/journalctl/">journalctl</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/emacs/">emacs</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/apt-get/">apt-get</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/zypper/">zypper</a>
       </li>
     
@@ -583,26 +593,6 @@ lapipaplena.net (Un host)
     
       <li class="post">
         <a href="/blog/zip/">zip</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zgrep/">zgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zfgrep/">zfgrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zenity/">zenity</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zegrep/">zegrep</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zdump/">zdump</a>
       </li>
     
   </ul>
