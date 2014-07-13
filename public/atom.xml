@@ -4,7 +4,7 @@
   <title><![CDATA[TRACTATUS ELEMENTALIS]]></title>
   <link href="https://tractatuslapipaplena.herokuapp.com/atom.xml" rel="self"/>
   <link href="https://tractatuslapipaplena.herokuapp.com/"/>
-  <updated>2014-07-13T17:41:32+02:00</updated>
+  <updated>2014-07-13T18:06:13+02:00</updated>
   <id>https://tractatuslapipaplena.herokuapp.com/</id>
   <author>
     <name><![CDATA[templix]]></name>
@@ -14,464 +14,9 @@
 
   
   <entry>
-    <title type="html"><![CDATA[stumpwm]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/stumpwm/"/>
-    <updated>2014-07-13T17:41:00+02:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/stumpwm</id>
-    <content type="html"><![CDATA[<p>Gestor de ventanas atilado escrito en common lisp y que solo usa el teclado. Los mesajes de texto, por defecto, aparecen en la parte superior derecha de la pantalla. El archivo de configuración de los atajos está en /usr/share/common-lisp/source/stumpwm/bindings.lisp.</p>
-
-<p>Atajos:</p>
-
-<pre><code>C-t C-g (Abortar lo que se haya pulsado)
-
-C-t n [C-t Space] (Ir a la siguiente ventana de la lista)
-
-C-t p (Ir a la ventana anterior de la lista)
-
-C-t " (Seleccionar y enfocar una ventana de una lista)
-
-C-t w (Imprime lista de ventanas, número y nombre)
-
-C-t : (evalua [eval] expresiones: (+ 2 2): evalúa una suma de dos más dos, (loadrc): evalúa el fichero .stumpwmrc, (quit): sale de la sesión)
-
-C-t o [C-t TAB] (En una ventana con varios paneles va saltando entre ellos)
-
-C-t flechas (Mueve el foco de un panel hacia el panel del lado que se indique con las flechas)
-
-C-t f (Seleccionar un panel por su número)
-
-C-t s (Dividir una ventana o un panel horizontalmente)
-
-C-t S (Dividir una ventana o un panel verticalmente)
-
-C-t k (Mata el panel actual y el programa que ejecute)
-
-C-t K (Equivalente a un kill -9 para el marco actual)
-
-C-t c (Ejecutar una terminal. xterm por defecto)
-
-C-t e (Ejecutar xemacs)
-
-C-t a (Muestra hora y fecha)
-
-C-t ! (Pregunta la aplicación gráfica que se quiere lanzar)
-
-C-t R (Suprimir una división. Si sólo existe una se maximiza)
-
-C-t b (Enviar el puntero del ratón a la esquina inferior derecha de la pantalla)
-
-C-t - (Minimizar aplicaciones del panel o ventana y mostrar la "fondo raiz")
-
-C-t Q (Eliminar todas la divisiones y maximizar el marco del foco)
-
-C-t m (Ver el último mensaje. Pulsando nuevamente las teclas muestra los anteriores)
-
-C-t t (Envia un C-t cuando se usan programas que usan esta combinación de teclas como firefox)
-</code></pre>
-
-<p>grupos (equivalente a escritorios):</p>
-
-<pre><code>C-t g c (Crear nuevo grupo)
-
-C-t g g (Mostrar la lista de grupos)
-
-C-t g N [C-t g SPC](Ir al siguiente grupo de la lista)
-
-C-t G (Ver todos los grupos y las ventanas de cada grupo)
-
-C-t g p (Ir al grupo anterior de la lista)
-
-C-t Fn (Salta al grupo "n" [F1, F2...])
-
-C-t g k (Mata el grupo actual. todas las ventanas se fusionan con el siguiente grupo)
-
-C-t g m (Mover la ventana actual al grupo que se le indique)
-
-C-t g 2 (Ir al grupo con el dígito 2)
-
-C-t g ' (Seleccionar un grupo por nombre o por número)
-
-C-t g " (Seleccionar un grupo de una lista y cambiar a él)
-
-C-t g A [C-t g r] (Cambiar el nombre del grupo actual)
-</code></pre>
-
-<p>Información y ayuda:</p>
-
-<pre><code>C-t i (Muestra información sobre la ventana actual)
-
-C-t w (Muestra unos segundos información de todas las ventanas)
-
-C-t F (Informa del panel activo)
-
-C-t ? (Muestra los comandos de ayuda)
-
-C-t h ? (lista atajos)
-
-C-t h k (Describe una combinación de teclas que se especifique)
-
-C-t h f (Describe una función que se especifique)
-
-C-t h v (Describe una variable que se especifique)
-
-C-t h w (Enumerar todas las secuencias de teclas asociadas a la orden especificada)
-
-C-t h c (Describe el comando que se especifique)
-
-C-t v (Mostrar la versión de stumpwm)
-</code></pre>
-
-<p>1.-</p>
-
-<p>Para que se muestre la opción en el gdm:</p>
-
-<pre><code># nano /usr/share/xsessions/stumpwm.desktop
-</code></pre>
-
-<p>Y pegar el siguiente texto:</p>
-
-<pre><code>[Desktop Entry]
-
-Encoding=UTF-8
-
-Name=StumpWM
-
-Comment=Tiling Window Manager
-
-Exec=/usr/bin/stumpwm
-
-Icon=
-
-loadType=Application
-</code></pre>
-
-<p>2.-</p>
-
-<p>Colocar un fondo de pantalla:</p>
-
-<blockquote><p>$ nano .stumpwmrc (Si no existe lo creamos)</p></blockquote>
-
-<p>I añadimos fondo negro:</p>
-
-<pre><code>(set-bg-color "black")
-</code></pre>
-
-<p>O bien una imagen:</p>
-
-<pre><code>(run-shell-command "xsetbg ~/fondos/fichero.png")
-</code></pre>
-
-<p>3.-</p>
-
-<p>Abrir una sesión gráfica stumpwm junto a otra:</p>
-
-<p>Crear un usuario con su home (P.e. pedro)</p>
-
-<blockquote><p># useradd -d /home/pedro -s /bin/bash -m pedro</p></blockquote>
-
-<p>Entrar la contraseña de pedro:</p>
-
-<blockquote><p># passwd pedro</p></blockquote>
-
-<p>Crear en su /home el archivo:</p>
-
-<blockquote><p># nano .xinitrc</p></blockquote>
-
-<p>Con el contenido de la ruta a stumpwm:</p>
-
-<pre><code>/usr/bin/stumpwm
-</code></pre>
-
-<p>Entrar en una tty (P.e la tty3):</p>
-
-<pre><code>Crtl + Alt + F3
-</code></pre>
-
-<p>Y logearse como pedro. Una vez entrado en el sistema lanzar:</p>
-
-<blockquote><p>$ startx</p></blockquote>
-
-<p>Y tendremos una sesion stumpwm en la tty8</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[portsentry]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/portsentry/"/>
-    <updated>2014-07-13T17:41:00+02:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/portsentry</id>
-    <content type="html"><![CDATA[<p>Herramienta de seguridad que detecta escaneo de puertos y permite monitorizar rastreos tipo NULL, SYN, TCP, ARP&#8230; Su configuración se realiza en el archivo /etc/portsentry/portsentry.conf, las opciones [tcp y/o udp] del demonio en /etc/default/portsentry y las máquinas i interficies a ignorar en /etc/portsentry/portsentry.ignore.static. Sin tocar del archivo de configuración el parámetro TCP_PORTS y UDC_PORTS portsentry simula que todos los especificados están abiertos, lo cual puede verificarse con un nmap:</p>
-
-<blockquote><p># nmap 192.168.1.x</p></blockquote>
-
-<p>La configuración por defecto con la explicación a modo de comentario:</p>
-
-<pre><code># Puertos que se simularán abiertos y que monitorizarán ataques:
-
-TCP_PORTS="1,11,15,79,111,119,143,540,635,1080,1524,2000,5742,6667,12345,12346,20034,27665,31337,32771,32772,32773,32774,40421,49724,54320"
-
-UDP_PORTS="1,7,9,69,161,162,513,635,640,641,700,37444,34555,31335,32770,32771,32772,32773,32774,31337,54321"
-
-# Monitorizar los servicios del rango de puertos del 1 al especificado [1024]:
-
-ADVANCED_PORTS_TCP="1024"
-
-ADVANCED_PORTS_UDP="1024"
-
-# puertos excluidos del scaneo:
-
-ADVANCED_EXCLUDE_TCP="113,139"
-
-ADVANCED_EXCLUDE_UDP="520,138,137,67"
-
-# Archivo con ips que no queremos bloquear:
-
-IGNORE_FILE="/etc/portsentry/portsentry.ignore"
-
-# Direcciones detectadas intentando accesar puertos monitoreados:
-
-HISTORY_FILE="/var/lib/portsentry/portsentry.history"
-
-BLOCKED_FILE="/var/lib/portsentry/portsentry.blocked"
-
-# No resolver la ip del host atacante [con valor 1 lo resuelve]:
-
-RESOLVE_HOST = "0"
-
-BLOCK_UDP="0"
-
-BLOCK_TCP="0"
-
-# Configurar la actuación de los distintos intentos de intrusión [0=no bloquear, 1=Bloquear y 2=Ejecutar un comando externo]:
-
-KILL_ROUTE="/sbin/route add -host $TARGET$ reject"
-
-# Opción para los atacantes insistentes [bloqueo total por TCPwrappers]:
-
-KILL_HOSTS_DENY="ALL: $TARGET$ : DENY"
-
-# Indica qué tan rápido marcar una intento fallido de conexión como un ataque. 0=paranoico, 1 y 2=permite algunos errores. Valores superiores a 2 mejor descartarlos]
-
-SCAN_TRIGGER="0"
-
-# Comunicar un mensaje al atacante:
-
-PORT_BANNER="** UNAUTHORIZED ACCESS PROHIBITED *** IP LOGGED "
-</code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[exim]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/exim/"/>
-    <updated>2014-07-13T17:41:00+02:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/exim</id>
-    <content type="html"><![CDATA[<p>Agente de transporte de correo.</p>
-
-<blockquote><p>$ exim -bp (Lista los correos en cola)</p>
-
-<p>$ exim -bpc (Muestra la cantidad de correos en cola)</p>
-
-<p>$ exim -bp | exiqsumm (Muestra resumen de los correos en cola)</p>
-
-<p>$ exim -Mrm 1X62E1-0006CU-61 (Eliminar un correo concreto por su ID)</p>
-
-<p>$ exim -Mf 1X62E1-0006CU-61 (Congelar un correo)</p>
-
-<p>$ exim -M 1X62E1-0006CU-61 (Procesar un correo)</p>
-
-<p>$ exiqgrep -z -i | xargs exim -Mrm (Eliminar todos los correos congelados)</p>
-
-<p>$ exiwhat (Mostrar qué está haciendo exim en este momento)</p>
-
-<p>$ exim -bt 1X62E1-0006CU-61 (Hacer un traceroute a una dirección de correo)</p>
-
-<p>$ exim -Mvh 1X62E1-0006CU-61 (Ver cabeceras de un correo)</p>
-
-<p>$ exim -Mvb 1X62E1-0006CU-61 (Ver el cuerpo de un correo)</p>
-
-<p>$ exim -Mvl 1X62E1-0006CU-61 (Ver los logs de un correo)</p>
-
-<p>$ exim -qff (Forzar cola de correo)</p></blockquote>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[dtrx]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/dtrx/"/>
-    <updated>2014-07-13T17:41:00+02:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/dtrx</id>
-    <content type="html"><![CDATA[<p>Descompresor de archivos comprimidos en varios formatos [ tar, zip, rpm, deb, gem, 7z, cpio, rar, bzip2, gzip&#8230;]</p>
-
-<blockquote><p>$ dtrx -r archivo.zip (descomprimir de forma recursiva el zip y todos los comprimidos de su interior)</p>
-
-<p>$ dtrx -l archivo.zip (Lista los archivos de archivo zip)</p></blockquote>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[systemctl]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/systemctl/"/>
-    <updated>2014-07-13T17:33:00+02:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/systemctl</id>
-    <content type="html"><![CDATA[<p>[systemd-sysv]. Systemd es un administrador del sistema y gestor de servicios compatible con SysV al que reemplaza.</p>
-
-<blockquote><p># systemctl reboot (Reiniciar el pc)</p>
-
-<p># systemctl poweroff (Parar el sistema)</p>
-
-<p># systemctl suspend (Suspender el sistema)</p>
-
-<p># systemctl hibernate (Poner el sistema en hivernación)</p>
-
-<p># systemctl (Listado de unidades activas)</p>
-
-<p># systemctl list-units (Listado de unidades activas)</p>
-
-<p># systemctl &#8211;failed (Listado de unidades que han tenido problemas)</p>
-
-<p># systemctl list-unit-files (Listado de unidades instaladas)</p>
-
-<p># systemctl start slim.service (Activa slim de inmediato)</p>
-
-<p># systemctl stop sshd.service (Parar ssh de inmediato)</p>
-
-<p># systemctl restart dhcpcd@eth0.service (Reiniciar conexión por dhcp)</p>
-
-<p># systemctl reload wicd.service (Recargar la configuración de wicd)</p>
-
-<p># systemctl status cronie.service (Muestra el estado de cron)</p>
-
-<p># systemctl is-enabled vsftpd.service (Comprueba si vsftpd está habilitada o no)</p>
-
-<p># systemctl enable NetworkManager.service (Activa el inicio automático de network-manager en el arranque)</p>
-
-<p># systemctl disable smbd.service (Desactiva el inicio automático de samba en el arranque)</p>
-
-<p># systemctl daemon-reload (Recarga systemd, escaneando en busca de unidades nuevas o modificadas)</p>
-
-<p># systemctl isolate multi-user.target (Arrancar en runlevel 3)</p>
-
-<p># systemctl isolate graphical.target (Arrancar en runlevel 5)</p></blockquote>
-
-<p>1.-</p>
-
-<p>Para incorporar el arranque a grub2, modificar del archivo:</p>
-
-<blockquote><p># nano /etc/default/grub</p></blockquote>
-
-<p>La linea:</p>
-
-<pre><code>GRUB_CMDLINE_LINUX_DEFAULT="quiet init=/bin/systemd"
-</code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[lilo]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/lilo/"/>
-    <updated>2014-07-13T17:33:00+02:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/lilo</id>
-    <content type="html"><![CDATA[<p>Gestor de arranque. La configuración en:</p>
-
-<blockquote><p># nano /etc/lilo.conf</p></blockquote>
-
-<p>Algunos parametros a especificar:</p>
-
-<blockquote><p># Indica que se instale en determinado disco:</p></blockquote>
-
-<p>boot = /dev/sda</p>
-
-<blockquote><p># El sistema que arrancará por defecto [el especificado en la etiqueta [label]]</p></blockquote>
-
-<p>default = Linux</p>
-
-<blockquote><p># Que muestre cualquier cosa que sea referenciado en la línea message:</p></blockquote>
-
-<p>prompt</p>
-
-<blockquote><p># Una imagen. Medidas 640x480:</p></blockquote>
-
-<p>bitmap = /boot/slack.bmp</p>
-
-<blockquote><p># un mensaje de inicio:</p></blockquote>
-
-<p>message = /boot/boot_message.txt</p>
-
-<blockquote><p># tiempo de espera para arrancar la partición por defecto [en segundos]:</p></blockquote>
-
-<p>timeout = 50</p>
-
-<blockquote><p># Una partición linux</p></blockquote>
-
-<p>image = /boot/vmlinuz</p>
-
-<pre><code>root = /dev/sda2
-
-label = Linux
-
-read only
-</code></pre>
-
-<blockquote><p># nota: read-only Indica que el sistema de ficheros raíz se montará en modo solo-lectura.</p>
-
-<p># Por norma general, el proceso de arranque lo remonta luego en modo lectura-escritura.</p>
-
-<p># Una partición windows:</p></blockquote>
-
-<p>other = /dev/hda1</p>
-
-<pre><code>label = Windows
-
-table = /dev/sda1
-</code></pre>
-
-<p>Si queremos una contraseña para entrar en alguno de los sistemas colocamos en su entrada:</p>
-
-<pre><code>password = 12345
-</code></pre>
-
-<p>Cualquier modificación en este archivo para guardar los cambios, implica lanzar:</p>
-
-<blockquote><p># lilo</p></blockquote>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[journalctl]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/journalctl/"/>
-    <updated>2014-07-13T17:33:00+02:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/journalctl</id>
-    <content type="html"><![CDATA[<p>Sistema de registro [log] propio de systemd.</p>
-
-<blockquote><p># journalctl (Leer el registro)</p>
-
-<p># journalctl -b (Mostrar todos los mesajes de arranque)</p>
-
-<p># journalctl -b -0 (Muestra los mensajes del arranque actual)</p>
-
-<p># journalctl -b -1 (Muestra los mensajes del arranque anterior)</p>
-
-<p># journalctl -b -2 (Muestra los mensajes desde los dos últimos arranques)</p>
-
-<p># journalctl -f (Seguir los mensajes nuevos)</p>
-
-<p># journalctl _PID=1 (Mostrar mensajes por su PID)</p>
-
-<p># journalctl -u netcfg (Mostrar mensajes de una unidad especifica)</p></blockquote>
-
-<p>1.-</p>
-
-<p>Hacer que el demonio syslog funcione con journal</p>
-
-<blockquote><p># systemctl enable syslog-ng</p></blockquote>
-]]></content>
-  </entry>
-  
-  <entry>
     <title type="html"><![CDATA[emacs]]></title>
     <link href="https://tractatuslapipaplena.herokuapp.com/blog/emacs/"/>
-    <updated>2014-07-13T17:33:00+02:00</updated>
+    <updated>2014-07-13T18:06:00+02:00</updated>
     <id>https://tractatuslapipaplena.herokuapp.com/blog/emacs</id>
     <content type="html"><![CDATA[<p>Tutorial completo en español: <a href="http://www.nongnu.org/emacs-man-es/">http://www.nongnu.org/emacs-man-es/</a> . Mucho más que un editor [no un procesador]. Lo que sigue es un pequeño manual de primeros auxilios.</p>
 
@@ -1189,6 +734,461 @@ calendar-month-name-array
 
 (insert (format "%s" system-name)))
 </code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[stumpwm]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/stumpwm/"/>
+    <updated>2014-07-13T17:41:00+02:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/stumpwm</id>
+    <content type="html"><![CDATA[<p>Gestor de ventanas atilado escrito en common lisp y que solo usa el teclado. Los mesajes de texto, por defecto, aparecen en la parte superior derecha de la pantalla. El archivo de configuración de los atajos está en /usr/share/common-lisp/source/stumpwm/bindings.lisp.</p>
+
+<p>Atajos:</p>
+
+<pre><code>C-t C-g (Abortar lo que se haya pulsado)
+
+C-t n [C-t Space] (Ir a la siguiente ventana de la lista)
+
+C-t p (Ir a la ventana anterior de la lista)
+
+C-t " (Seleccionar y enfocar una ventana de una lista)
+
+C-t w (Imprime lista de ventanas, número y nombre)
+
+C-t : (evalua [eval] expresiones: (+ 2 2): evalúa una suma de dos más dos, (loadrc): evalúa el fichero .stumpwmrc, (quit): sale de la sesión)
+
+C-t o [C-t TAB] (En una ventana con varios paneles va saltando entre ellos)
+
+C-t flechas (Mueve el foco de un panel hacia el panel del lado que se indique con las flechas)
+
+C-t f (Seleccionar un panel por su número)
+
+C-t s (Dividir una ventana o un panel horizontalmente)
+
+C-t S (Dividir una ventana o un panel verticalmente)
+
+C-t k (Mata el panel actual y el programa que ejecute)
+
+C-t K (Equivalente a un kill -9 para el marco actual)
+
+C-t c (Ejecutar una terminal. xterm por defecto)
+
+C-t e (Ejecutar xemacs)
+
+C-t a (Muestra hora y fecha)
+
+C-t ! (Pregunta la aplicación gráfica que se quiere lanzar)
+
+C-t R (Suprimir una división. Si sólo existe una se maximiza)
+
+C-t b (Enviar el puntero del ratón a la esquina inferior derecha de la pantalla)
+
+C-t - (Minimizar aplicaciones del panel o ventana y mostrar la "fondo raiz")
+
+C-t Q (Eliminar todas la divisiones y maximizar el marco del foco)
+
+C-t m (Ver el último mensaje. Pulsando nuevamente las teclas muestra los anteriores)
+
+C-t t (Envia un C-t cuando se usan programas que usan esta combinación de teclas como firefox)
+</code></pre>
+
+<p>grupos (equivalente a escritorios):</p>
+
+<pre><code>C-t g c (Crear nuevo grupo)
+
+C-t g g (Mostrar la lista de grupos)
+
+C-t g N [C-t g SPC](Ir al siguiente grupo de la lista)
+
+C-t G (Ver todos los grupos y las ventanas de cada grupo)
+
+C-t g p (Ir al grupo anterior de la lista)
+
+C-t Fn (Salta al grupo "n" [F1, F2...])
+
+C-t g k (Mata el grupo actual. todas las ventanas se fusionan con el siguiente grupo)
+
+C-t g m (Mover la ventana actual al grupo que se le indique)
+
+C-t g 2 (Ir al grupo con el dígito 2)
+
+C-t g ' (Seleccionar un grupo por nombre o por número)
+
+C-t g " (Seleccionar un grupo de una lista y cambiar a él)
+
+C-t g A [C-t g r] (Cambiar el nombre del grupo actual)
+</code></pre>
+
+<p>Información y ayuda:</p>
+
+<pre><code>C-t i (Muestra información sobre la ventana actual)
+
+C-t w (Muestra unos segundos información de todas las ventanas)
+
+C-t F (Informa del panel activo)
+
+C-t ? (Muestra los comandos de ayuda)
+
+C-t h ? (lista atajos)
+
+C-t h k (Describe una combinación de teclas que se especifique)
+
+C-t h f (Describe una función que se especifique)
+
+C-t h v (Describe una variable que se especifique)
+
+C-t h w (Enumerar todas las secuencias de teclas asociadas a la orden especificada)
+
+C-t h c (Describe el comando que se especifique)
+
+C-t v (Mostrar la versión de stumpwm)
+</code></pre>
+
+<p>1.-</p>
+
+<p>Para que se muestre la opción en el gdm:</p>
+
+<pre><code># nano /usr/share/xsessions/stumpwm.desktop
+</code></pre>
+
+<p>Y pegar el siguiente texto:</p>
+
+<pre><code>[Desktop Entry]
+
+Encoding=UTF-8
+
+Name=StumpWM
+
+Comment=Tiling Window Manager
+
+Exec=/usr/bin/stumpwm
+
+Icon=
+
+loadType=Application
+</code></pre>
+
+<p>2.-</p>
+
+<p>Colocar un fondo de pantalla:</p>
+
+<blockquote><p>$ nano .stumpwmrc (Si no existe lo creamos)</p></blockquote>
+
+<p>I añadimos fondo negro:</p>
+
+<pre><code>(set-bg-color "black")
+</code></pre>
+
+<p>O bien una imagen:</p>
+
+<pre><code>(run-shell-command "xsetbg ~/fondos/fichero.png")
+</code></pre>
+
+<p>3.-</p>
+
+<p>Abrir una sesión gráfica stumpwm junto a otra:</p>
+
+<p>Crear un usuario con su home (P.e. pedro)</p>
+
+<blockquote><p># useradd -d /home/pedro -s /bin/bash -m pedro</p></blockquote>
+
+<p>Entrar la contraseña de pedro:</p>
+
+<blockquote><p># passwd pedro</p></blockquote>
+
+<p>Crear en su /home el archivo:</p>
+
+<blockquote><p># nano .xinitrc</p></blockquote>
+
+<p>Con el contenido de la ruta a stumpwm:</p>
+
+<pre><code>/usr/bin/stumpwm
+</code></pre>
+
+<p>Entrar en una tty (P.e la tty3):</p>
+
+<pre><code>Crtl + Alt + F3
+</code></pre>
+
+<p>Y logearse como pedro. Una vez entrado en el sistema lanzar:</p>
+
+<blockquote><p>$ startx</p></blockquote>
+
+<p>Y tendremos una sesion stumpwm en la tty8</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[portsentry]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/portsentry/"/>
+    <updated>2014-07-13T17:41:00+02:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/portsentry</id>
+    <content type="html"><![CDATA[<p>Herramienta de seguridad que detecta escaneo de puertos y permite monitorizar rastreos tipo NULL, SYN, TCP, ARP&#8230; Su configuración se realiza en el archivo /etc/portsentry/portsentry.conf, las opciones [tcp y/o udp] del demonio en /etc/default/portsentry y las máquinas i interficies a ignorar en /etc/portsentry/portsentry.ignore.static. Sin tocar del archivo de configuración el parámetro TCP_PORTS y UDC_PORTS portsentry simula que todos los especificados están abiertos, lo cual puede verificarse con un nmap:</p>
+
+<blockquote><p># nmap 192.168.1.x</p></blockquote>
+
+<p>La configuración por defecto con la explicación a modo de comentario:</p>
+
+<pre><code># Puertos que se simularán abiertos y que monitorizarán ataques:
+
+TCP_PORTS="1,11,15,79,111,119,143,540,635,1080,1524,2000,5742,6667,12345,12346,20034,27665,31337,32771,32772,32773,32774,40421,49724,54320"
+
+UDP_PORTS="1,7,9,69,161,162,513,635,640,641,700,37444,34555,31335,32770,32771,32772,32773,32774,31337,54321"
+
+# Monitorizar los servicios del rango de puertos del 1 al especificado [1024]:
+
+ADVANCED_PORTS_TCP="1024"
+
+ADVANCED_PORTS_UDP="1024"
+
+# puertos excluidos del scaneo:
+
+ADVANCED_EXCLUDE_TCP="113,139"
+
+ADVANCED_EXCLUDE_UDP="520,138,137,67"
+
+# Archivo con ips que no queremos bloquear:
+
+IGNORE_FILE="/etc/portsentry/portsentry.ignore"
+
+# Direcciones detectadas intentando accesar puertos monitoreados:
+
+HISTORY_FILE="/var/lib/portsentry/portsentry.history"
+
+BLOCKED_FILE="/var/lib/portsentry/portsentry.blocked"
+
+# No resolver la ip del host atacante [con valor 1 lo resuelve]:
+
+RESOLVE_HOST = "0"
+
+BLOCK_UDP="0"
+
+BLOCK_TCP="0"
+
+# Configurar la actuación de los distintos intentos de intrusión [0=no bloquear, 1=Bloquear y 2=Ejecutar un comando externo]:
+
+KILL_ROUTE="/sbin/route add -host $TARGET$ reject"
+
+# Opción para los atacantes insistentes [bloqueo total por TCPwrappers]:
+
+KILL_HOSTS_DENY="ALL: $TARGET$ : DENY"
+
+# Indica qué tan rápido marcar una intento fallido de conexión como un ataque. 0=paranoico, 1 y 2=permite algunos errores. Valores superiores a 2 mejor descartarlos]
+
+SCAN_TRIGGER="0"
+
+# Comunicar un mensaje al atacante:
+
+PORT_BANNER="** UNAUTHORIZED ACCESS PROHIBITED *** IP LOGGED "
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[exim]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/exim/"/>
+    <updated>2014-07-13T17:41:00+02:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/exim</id>
+    <content type="html"><![CDATA[<p>Agente de transporte de correo.</p>
+
+<blockquote><p>$ exim -bp (Lista los correos en cola)</p>
+
+<p>$ exim -bpc (Muestra la cantidad de correos en cola)</p>
+
+<p>$ exim -bp | exiqsumm (Muestra resumen de los correos en cola)</p>
+
+<p>$ exim -Mrm 1X62E1-0006CU-61 (Eliminar un correo concreto por su ID)</p>
+
+<p>$ exim -Mf 1X62E1-0006CU-61 (Congelar un correo)</p>
+
+<p>$ exim -M 1X62E1-0006CU-61 (Procesar un correo)</p>
+
+<p>$ exiqgrep -z -i | xargs exim -Mrm (Eliminar todos los correos congelados)</p>
+
+<p>$ exiwhat (Mostrar qué está haciendo exim en este momento)</p>
+
+<p>$ exim -bt 1X62E1-0006CU-61 (Hacer un traceroute a una dirección de correo)</p>
+
+<p>$ exim -Mvh 1X62E1-0006CU-61 (Ver cabeceras de un correo)</p>
+
+<p>$ exim -Mvb 1X62E1-0006CU-61 (Ver el cuerpo de un correo)</p>
+
+<p>$ exim -Mvl 1X62E1-0006CU-61 (Ver los logs de un correo)</p>
+
+<p>$ exim -qff (Forzar cola de correo)</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[dtrx]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/dtrx/"/>
+    <updated>2014-07-13T17:41:00+02:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/dtrx</id>
+    <content type="html"><![CDATA[<p>Descompresor de archivos comprimidos en varios formatos [ tar, zip, rpm, deb, gem, 7z, cpio, rar, bzip2, gzip&#8230;]</p>
+
+<blockquote><p>$ dtrx -r archivo.zip (descomprimir de forma recursiva el zip y todos los comprimidos de su interior)</p>
+
+<p>$ dtrx -l archivo.zip (Lista los archivos de archivo zip)</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[systemctl]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/systemctl/"/>
+    <updated>2014-07-13T17:33:00+02:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/systemctl</id>
+    <content type="html"><![CDATA[<p>[systemd-sysv]. Systemd es un administrador del sistema y gestor de servicios compatible con SysV al que reemplaza.</p>
+
+<blockquote><p># systemctl reboot (Reiniciar el pc)</p>
+
+<p># systemctl poweroff (Parar el sistema)</p>
+
+<p># systemctl suspend (Suspender el sistema)</p>
+
+<p># systemctl hibernate (Poner el sistema en hivernación)</p>
+
+<p># systemctl (Listado de unidades activas)</p>
+
+<p># systemctl list-units (Listado de unidades activas)</p>
+
+<p># systemctl &#8211;failed (Listado de unidades que han tenido problemas)</p>
+
+<p># systemctl list-unit-files (Listado de unidades instaladas)</p>
+
+<p># systemctl start slim.service (Activa slim de inmediato)</p>
+
+<p># systemctl stop sshd.service (Parar ssh de inmediato)</p>
+
+<p># systemctl restart dhcpcd@eth0.service (Reiniciar conexión por dhcp)</p>
+
+<p># systemctl reload wicd.service (Recargar la configuración de wicd)</p>
+
+<p># systemctl status cronie.service (Muestra el estado de cron)</p>
+
+<p># systemctl is-enabled vsftpd.service (Comprueba si vsftpd está habilitada o no)</p>
+
+<p># systemctl enable NetworkManager.service (Activa el inicio automático de network-manager en el arranque)</p>
+
+<p># systemctl disable smbd.service (Desactiva el inicio automático de samba en el arranque)</p>
+
+<p># systemctl daemon-reload (Recarga systemd, escaneando en busca de unidades nuevas o modificadas)</p>
+
+<p># systemctl isolate multi-user.target (Arrancar en runlevel 3)</p>
+
+<p># systemctl isolate graphical.target (Arrancar en runlevel 5)</p></blockquote>
+
+<p>1.-</p>
+
+<p>Para incorporar el arranque a grub2, modificar del archivo:</p>
+
+<blockquote><p># nano /etc/default/grub</p></blockquote>
+
+<p>La linea:</p>
+
+<pre><code>GRUB_CMDLINE_LINUX_DEFAULT="quiet init=/bin/systemd"
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[lilo]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/lilo/"/>
+    <updated>2014-07-13T17:33:00+02:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/lilo</id>
+    <content type="html"><![CDATA[<p>Gestor de arranque. La configuración en:</p>
+
+<blockquote><p># nano /etc/lilo.conf</p></blockquote>
+
+<p>Algunos parametros a especificar:</p>
+
+<blockquote><p># Indica que se instale en determinado disco:</p></blockquote>
+
+<p>boot = /dev/sda</p>
+
+<blockquote><p># El sistema que arrancará por defecto [el especificado en la etiqueta [label]]</p></blockquote>
+
+<p>default = Linux</p>
+
+<blockquote><p># Que muestre cualquier cosa que sea referenciado en la línea message:</p></blockquote>
+
+<p>prompt</p>
+
+<blockquote><p># Una imagen. Medidas 640x480:</p></blockquote>
+
+<p>bitmap = /boot/slack.bmp</p>
+
+<blockquote><p># un mensaje de inicio:</p></blockquote>
+
+<p>message = /boot/boot_message.txt</p>
+
+<blockquote><p># tiempo de espera para arrancar la partición por defecto [en segundos]:</p></blockquote>
+
+<p>timeout = 50</p>
+
+<blockquote><p># Una partición linux</p></blockquote>
+
+<p>image = /boot/vmlinuz</p>
+
+<pre><code>root = /dev/sda2
+
+label = Linux
+
+read only
+</code></pre>
+
+<blockquote><p># nota: read-only Indica que el sistema de ficheros raíz se montará en modo solo-lectura.</p>
+
+<p># Por norma general, el proceso de arranque lo remonta luego en modo lectura-escritura.</p>
+
+<p># Una partición windows:</p></blockquote>
+
+<p>other = /dev/hda1</p>
+
+<pre><code>label = Windows
+
+table = /dev/sda1
+</code></pre>
+
+<p>Si queremos una contraseña para entrar en alguno de los sistemas colocamos en su entrada:</p>
+
+<pre><code>password = 12345
+</code></pre>
+
+<p>Cualquier modificación en este archivo para guardar los cambios, implica lanzar:</p>
+
+<blockquote><p># lilo</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[journalctl]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/journalctl/"/>
+    <updated>2014-07-13T17:33:00+02:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/journalctl</id>
+    <content type="html"><![CDATA[<p>Sistema de registro [log] propio de systemd.</p>
+
+<blockquote><p># journalctl (Leer el registro)</p>
+
+<p># journalctl -b (Mostrar todos los mesajes de arranque)</p>
+
+<p># journalctl -b -0 (Muestra los mensajes del arranque actual)</p>
+
+<p># journalctl -b -1 (Muestra los mensajes del arranque anterior)</p>
+
+<p># journalctl -b -2 (Muestra los mensajes desde los dos últimos arranques)</p>
+
+<p># journalctl -f (Seguir los mensajes nuevos)</p>
+
+<p># journalctl _PID=1 (Mostrar mensajes por su PID)</p>
+
+<p># journalctl -u netcfg (Mostrar mensajes de una unidad especifica)</p></blockquote>
+
+<p>1.-</p>
+
+<p>Hacer que el demonio syslog funcione con journal</p>
+
+<blockquote><p># systemctl enable syslog-ng</p></blockquote>
 ]]></content>
   </entry>
   
