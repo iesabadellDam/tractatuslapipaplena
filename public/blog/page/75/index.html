@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Listar todos los módulos cargados del kernel, y alguna información adicional de ellos.
-">
+  <meta name="description" content="Listar ficheros o procesos abiertos # lsof -i :4662 (servicios usados por el puerto 4662 aunque esten a la escucha) # lsof -X (Desactiva la &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +74,93 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/lsof/">Lsof</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Listar ficheros o procesos abiertos</p>
+
+<blockquote><p># lsof -i :4662  (servicios usados por el puerto 4662 aunque esten a la escucha)</p>
+
+<p># lsof -X (Desactiva la identifiación de conexiones)</p>
+
+<p># lsof -i@lapipaplena.homelinux.com  (verificar conexiones con una máquina)</p>
+
+<p># lsof -i@88.25.114.11   (lo mismo pero especificando la ip)</p>
+
+<p># lsof -i | grep ssh  (Para que muestre solo los que usan el protocolo ssh)</p>
+
+<p># lsof +D /var/log  (Mostrar los servicios que tiene abierto un directorio)</p>
+
+<p># lsof fichero  (Muestra los servicios que tiene abiertos fichero)</p>
+
+<p># lsof -nPi TCP   (Muestra los eventos de red de las conexiones TCP)</p>
+
+<p># lsof -p PID  (Ficheros que tiene abierto determinado proceso)</p>
+
+<p># lsof -N      (Muestra los archivos NFS abiertos)</p>
+
+<p># lsof -c firefox   (Muestra los ficheros abiertos por firefox)</p>
+
+<p># lsof -P -i -n -sTCP:LISTEN (listado de puertos en LISTEN)</p>
+
+<p># lsof -i -P | grep -i &#8220;listen&#8221; (otra forma de listarlos)</p>
+
+<p># lsof -i tcp -i udp  (lista puertos tcp y udp abiertos)</p>
+
+<p># lsof -Pni | grep LISTEN   (chequear puertos abiertos)</p>
+
+<p># lsof -c bash -r  (Monitorizar un proceso)</p>
+
+<p># lsof -i :631 | awk &#8216;{print $1,$2}&#8217; | sort -u  (muestra pid y demonio del puerto especificado)</p>
+
+<p># lsof -t -i :22 (Muestra el pid del puerto especificado)</p>
+
+<p># lsof -nPi | txt2html  > lsof.html (Mandar la salida a un html para visualizarlo por el navegador)</p></blockquote>
+
+<p>Opciones:</p>
+
+<pre><code>-P (Muestra los números de puerto en vez de la aplicación que corre en ellos)
+
+-n (Para que no resuelva las IP de las conexiones)
+
+-i (Hace referencia a los eventos utilizados por procesos de red)
+
+-u usuario (Muestra los procesos abiertos por “usuario”)
+
+-x (Sigue links y puntos de montaje)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -461,44 +547,6 @@ home_path       : '/home/USUARIO/'
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/lsat/">Lsat</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Herramienta de auditoria de seguridad. Emplea mucho tiempo y crea un fichero de varias megas (lsat.out)</p>
-
-<blockquote><p>$ lsat</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/76/">&larr; Older</a>
@@ -522,15 +570,19 @@ home_path       : '/home/USUARIO/'
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/iconv/">iconv</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/emacs/">emacs</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/dhcping/">dhcping</a>
       </li>
     
       <li class="post">
         <a href="/blog/sox/">sox</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/emacs/">emacs</a>
       </li>
     
       <li class="post">
@@ -555,10 +607,6 @@ home_path       : '/home/USUARIO/'
     
       <li class="post">
         <a href="/blog/lilo/">lilo</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/journalctl/">journalctl</a>
       </li>
     
   </ul>

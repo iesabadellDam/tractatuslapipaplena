@@ -9,7 +9,8 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Applet para albergar el area de notificación. $ stalonetray -bg #A78B5C -d title -geometry 6x1-0+0 -i 30 (con el color especificado [-bg], decoración &hellip;">
+  <meta name="description" content="Arrancar sistema gráfico $ startx &#8211; :1 (una segunda sesión gráfica accesible en ^Alt + F8)
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +75,44 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/startx/">Startx</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Arrancar sistema gráfico</p>
+
+<blockquote><p>$ startx &#8211; :1 (una segunda sesión gráfica accesible en ^Alt + F8)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -504,215 +543,6 @@ lapipaplena.net (Un host)
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ssh/">Ssh</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Comunicación cifrada entre dos máquinas.</p>
-
-<blockquote><p>$ ssh usuario@host (básica)</p>
-
-<p>$ ssh -v usuario@IP_o_host (comprobar errores en una conexión)</p>
-
-<p>$ ssh -p 4000 usuario@host (especificando un puerto)</p>
-
-<p>$ ssh -fND localhost:2080 usuario@host (Crear un servidor proxy en una máquina remota. La “N” es para que no se puedan ejecutar comandos)</p>
-
-<p>$ ssh -X -Y usuario@host akregator (Lanzar una aplicación remota en local. Ver punto 11 de esta entrada)</p>
-
-<p>$ ssh usuario@host ls (lanzar un comando remoto y visualizarlo en local)</p>
-
-<p>$ ssh -t usuario@host newsbeuter  (lo mismo si precisa consola)</p>
-
-<p>$ ssh -D 9999 usuario@host (abrir un puerto a partir del cual tunelar una conexión)</p>
-
-<p>$ ssh user@host_ip &#8216;DISPLAY=&#8221;:0.0&#8221; import -window root screenshot.png&#8217; (realizar pantallazo de una sesión remota. Se archiva en el remoto no en local)</p>
-
-<p>$ ssh usuario@host &#8220;tar -cf - /home/usuario/dir&#8221; | gzip dir.tar.gz (Comprimir un directorio remoto)</p>
-
-<p>$ ssh usuario@host cat /home/usuario/archivo.txt | xclip -selection (Copiar el contenido de un archivo remoto en el clipboard local)</p>
-
-<p># gedit /var/run/motd   (modificar el mensaje de bienvenida de ssh)</p></blockquote>
-
-<p>1.-</p>
-
-<p>conexión remota. El servidor ha de tener el archivo /etc/ssh/sshd_config con los siguientes parámetros:</p>
-
-<p>AllowTcpForwarding yes</p>
-
-<p>GatewayPorts yes</p>
-
-<p>Luego configurar Firefox para usar un servidor proxy 127.0.0.1 puerto 9999.</p>
-
-<p>2.-</p>
-
-<blockquote><p># gedit /etc/issue.net   (modificar el mensaje antes del login. Para activarlo, descomentar del archivo “/etc/ssh/sshd_config” la línea: Banner /etc/issue.net)</p></blockquote>
-
-<p>3.-</p>
-
-<p>Tunel inverso:</p>
-
-<blockquote><p>$ ssh -R 10000:localhost:22 usuario2@host2 (lanzado desde host1 hacia host2 crea un tunel por el puerto 10000)</p>
-
-<p>$ ssh usuario2@host2 (Lanzado desde host3 hacia host2)</p></blockquote>
-
-<p>Una vez entrado en host2, lanzar:</p>
-
-<blockquote><p>$ ssh usuario1@localhost -p 10000 (Para conectar el host3 con el host1)</p></blockquote>
-
-<p>4.-</p>
-
-<p>Crear clave publica para acceder a un remoto sin que pida identificación:</p>
-
-<blockquote><p>$ ssh-keygen -b 4096 -t rsa  (Crear la clave)</p>
-
-<p>$ ssh-copy-id usuario@IP_o_HOST (enviar la clave al remoto)</p></blockquote>
-
-<p>5.-</p>
-
-<p>Para deshabilitar el acceso a todos los usuarios excepto a root:</p>
-
-<blockquote><p># touch /etc/nologin</p>
-
-<p># chmod 644 /etc/nologin</p></blockquote>
-
-<p>6.-</p>
-
-<p>Deshabilitar/personalizar los mensajes que aparecen cuando nos logueamos en algunas distros a un host remoto mediante SSH.</p>
-
-<blockquote><p>$ touch /home/usuario/.hushlogin (Creando este fichero vacio se deshabilitan los mensajes. Borrandolo vuelven a aparecer)</p>
-
-<p># nano /etc/motd (Archivo para personalizar los mensaje de bienvenida a quien se loguea en el sistema)</p></blockquote>
-
-<p>7.-</p>
-
-<p>Crear un atajo para la conexión a un servidor remoto:</p>
-
-<blockquote><p>$ nano .ssh/config</p></blockquote>
-
-<p>Y pegar el siguiente contenido debidamente modificado con nuestros datos:</p>
-
-<pre><code>host servidor
-
- hostname 192.168.1.10
-
- user USUARIO_REMOTO
-</code></pre>
-
-<p>Nota.- Delante de la segunda y tercera linea existe un espacio.</p>
-
-<p>Al crear este archivo, la conexión se realizará con:</p>
-
-<blockquote><p>$ ssh servidor (Pedirá igualmente contraseña)</p></blockquote>
-
-<p>8.-</p>
-
-<p>Evitar desconexiones por inactividad:</p>
-
-<blockquote><p>$ nano .ssh/config</p></blockquote>
-
-<p>Y pegar el siguiente contenido:</p>
-
-<pre><code>Host *
-
-    ServerAliveInterval 120
-
-    ServerAliveCountMax 3
-</code></pre>
-
-<p>9.-</p>
-
-<p>Añadir un registro de las acciones realizadas dentro de cada sesión SFTP</p>
-
-<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
-
-<p>Y dejar la linea como se indica:</p>
-
-<p>Subsystem sftp /usr/lib/openssh/sftp-server -l INFO</p>
-
-<p>Tras reiniciar ssh, el registro se plasmará en /var/log/auth.log</p>
-
-<p>10.-</p>
-
-<p>Aumentando la seguridad del servidor ssh:</p>
-
-<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
-
-<p>Y añadir o modificar las siguientes lineas:</p>
-
-<pre><code>AllowUsers juan pedro andrés (Limitando a uno o varios los usuarios autorizados)
-
-AllowGroup oficina (Restringir acceso a solo un grupo)
-
-Port 372 (Modificando puerto. Aconsejable uno inferior al 1024)
-
-LoginGraceTime 40 (Mostrar la pantalla de login 40 segundos antes de cerrarse)
-
-MaxStartups 4 (Cantidad máxima de conexiones simultaneas)
-
-MaxAuthTries 3 (Limitar el número de intentos de logeo, tras los cuales se cierra la conexión)
-</code></pre>
-
-<p>11.-</p>
-
-<p>Ajustes para tunelar aplicaciones gráficas:</p>
-
-<p>En el servidor:</p>
-
-<blockquote><p># nano /etc/ssh/sshd_config</p></blockquote>
-
-<pre><code>AllowTcpForwarding yes
-
-X11Forwarding yes
-
-X11DisplayOffset 10
-
-X11UseLocalhost yes
-</code></pre>
-
-<p>En la máquina cliente:</p>
-
-<blockquote><p># nano /etc/ssh/ssh_config</p></blockquote>
-
-<pre><code>ForwardX11 yes
-
-ForwardX11Trusted yes
-</code></pre>
-
-<p>Después de reiniciar ssh, con el parámetro -X se visualizará la gui remota que tambien tiene que estar instalada en local.</p>
-
-<blockquote><p>$ ssh -X usuario@host akregator</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/32/">&larr; Older</a>
@@ -736,15 +566,19 @@ ForwardX11Trusted yes
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/iconv/">iconv</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/emacs/">emacs</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/dhcping/">dhcping</a>
       </li>
     
       <li class="post">
         <a href="/blog/sox/">sox</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/emacs/">emacs</a>
       </li>
     
       <li class="post">
@@ -769,10 +603,6 @@ ForwardX11Trusted yes
     
       <li class="post">
         <a href="/blog/lilo/">lilo</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/journalctl/">journalctl</a>
       </li>
     
   </ul>
