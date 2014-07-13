@@ -4,7 +4,7 @@
   <title><![CDATA[TRACTATUS ELEMENTALIS]]></title>
   <link href="https://tractatuslapipaplena.herokuapp.com/atom.xml" rel="self"/>
   <link href="https://tractatuslapipaplena.herokuapp.com/"/>
-  <updated>2014-07-13T17:33:55+02:00</updated>
+  <updated>2014-07-13T17:41:32+02:00</updated>
   <id>https://tractatuslapipaplena.herokuapp.com/</id>
   <author>
     <name><![CDATA[templix]]></name>
@@ -12,6 +12,302 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[stumpwm]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/stumpwm/"/>
+    <updated>2014-07-13T17:41:00+02:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/stumpwm</id>
+    <content type="html"><![CDATA[<p>Gestor de ventanas atilado escrito en common lisp y que solo usa el teclado. Los mesajes de texto, por defecto, aparecen en la parte superior derecha de la pantalla. El archivo de configuración de los atajos está en /usr/share/common-lisp/source/stumpwm/bindings.lisp.</p>
+
+<p>Atajos:</p>
+
+<pre><code>C-t C-g (Abortar lo que se haya pulsado)
+
+C-t n [C-t Space] (Ir a la siguiente ventana de la lista)
+
+C-t p (Ir a la ventana anterior de la lista)
+
+C-t " (Seleccionar y enfocar una ventana de una lista)
+
+C-t w (Imprime lista de ventanas, número y nombre)
+
+C-t : (evalua [eval] expresiones: (+ 2 2): evalúa una suma de dos más dos, (loadrc): evalúa el fichero .stumpwmrc, (quit): sale de la sesión)
+
+C-t o [C-t TAB] (En una ventana con varios paneles va saltando entre ellos)
+
+C-t flechas (Mueve el foco de un panel hacia el panel del lado que se indique con las flechas)
+
+C-t f (Seleccionar un panel por su número)
+
+C-t s (Dividir una ventana o un panel horizontalmente)
+
+C-t S (Dividir una ventana o un panel verticalmente)
+
+C-t k (Mata el panel actual y el programa que ejecute)
+
+C-t K (Equivalente a un kill -9 para el marco actual)
+
+C-t c (Ejecutar una terminal. xterm por defecto)
+
+C-t e (Ejecutar xemacs)
+
+C-t a (Muestra hora y fecha)
+
+C-t ! (Pregunta la aplicación gráfica que se quiere lanzar)
+
+C-t R (Suprimir una división. Si sólo existe una se maximiza)
+
+C-t b (Enviar el puntero del ratón a la esquina inferior derecha de la pantalla)
+
+C-t - (Minimizar aplicaciones del panel o ventana y mostrar la "fondo raiz")
+
+C-t Q (Eliminar todas la divisiones y maximizar el marco del foco)
+
+C-t m (Ver el último mensaje. Pulsando nuevamente las teclas muestra los anteriores)
+
+C-t t (Envia un C-t cuando se usan programas que usan esta combinación de teclas como firefox)
+</code></pre>
+
+<p>grupos (equivalente a escritorios):</p>
+
+<pre><code>C-t g c (Crear nuevo grupo)
+
+C-t g g (Mostrar la lista de grupos)
+
+C-t g N [C-t g SPC](Ir al siguiente grupo de la lista)
+
+C-t G (Ver todos los grupos y las ventanas de cada grupo)
+
+C-t g p (Ir al grupo anterior de la lista)
+
+C-t Fn (Salta al grupo "n" [F1, F2...])
+
+C-t g k (Mata el grupo actual. todas las ventanas se fusionan con el siguiente grupo)
+
+C-t g m (Mover la ventana actual al grupo que se le indique)
+
+C-t g 2 (Ir al grupo con el dígito 2)
+
+C-t g ' (Seleccionar un grupo por nombre o por número)
+
+C-t g " (Seleccionar un grupo de una lista y cambiar a él)
+
+C-t g A [C-t g r] (Cambiar el nombre del grupo actual)
+</code></pre>
+
+<p>Información y ayuda:</p>
+
+<pre><code>C-t i (Muestra información sobre la ventana actual)
+
+C-t w (Muestra unos segundos información de todas las ventanas)
+
+C-t F (Informa del panel activo)
+
+C-t ? (Muestra los comandos de ayuda)
+
+C-t h ? (lista atajos)
+
+C-t h k (Describe una combinación de teclas que se especifique)
+
+C-t h f (Describe una función que se especifique)
+
+C-t h v (Describe una variable que se especifique)
+
+C-t h w (Enumerar todas las secuencias de teclas asociadas a la orden especificada)
+
+C-t h c (Describe el comando que se especifique)
+
+C-t v (Mostrar la versión de stumpwm)
+</code></pre>
+
+<p>1.-</p>
+
+<p>Para que se muestre la opción en el gdm:</p>
+
+<pre><code># nano /usr/share/xsessions/stumpwm.desktop
+</code></pre>
+
+<p>Y pegar el siguiente texto:</p>
+
+<pre><code>[Desktop Entry]
+
+Encoding=UTF-8
+
+Name=StumpWM
+
+Comment=Tiling Window Manager
+
+Exec=/usr/bin/stumpwm
+
+Icon=
+
+loadType=Application
+</code></pre>
+
+<p>2.-</p>
+
+<p>Colocar un fondo de pantalla:</p>
+
+<blockquote><p>$ nano .stumpwmrc (Si no existe lo creamos)</p></blockquote>
+
+<p>I añadimos fondo negro:</p>
+
+<pre><code>(set-bg-color "black")
+</code></pre>
+
+<p>O bien una imagen:</p>
+
+<pre><code>(run-shell-command "xsetbg ~/fondos/fichero.png")
+</code></pre>
+
+<p>3.-</p>
+
+<p>Abrir una sesión gráfica stumpwm junto a otra:</p>
+
+<p>Crear un usuario con su home (P.e. pedro)</p>
+
+<blockquote><p># useradd -d /home/pedro -s /bin/bash -m pedro</p></blockquote>
+
+<p>Entrar la contraseña de pedro:</p>
+
+<blockquote><p># passwd pedro</p></blockquote>
+
+<p>Crear en su /home el archivo:</p>
+
+<blockquote><p># nano .xinitrc</p></blockquote>
+
+<p>Con el contenido de la ruta a stumpwm:</p>
+
+<pre><code>/usr/bin/stumpwm
+</code></pre>
+
+<p>Entrar en una tty (P.e la tty3):</p>
+
+<pre><code>Crtl + Alt + F3
+</code></pre>
+
+<p>Y logearse como pedro. Una vez entrado en el sistema lanzar:</p>
+
+<blockquote><p>$ startx</p></blockquote>
+
+<p>Y tendremos una sesion stumpwm en la tty8</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[portsentry]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/portsentry/"/>
+    <updated>2014-07-13T17:41:00+02:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/portsentry</id>
+    <content type="html"><![CDATA[<p>Herramienta de seguridad que detecta escaneo de puertos y permite monitorizar rastreos tipo NULL, SYN, TCP, ARP&#8230; Su configuración se realiza en el archivo /etc/portsentry/portsentry.conf, las opciones [tcp y/o udp] del demonio en /etc/default/portsentry y las máquinas i interficies a ignorar en /etc/portsentry/portsentry.ignore.static. Sin tocar del archivo de configuración el parámetro TCP_PORTS y UDC_PORTS portsentry simula que todos los especificados están abiertos, lo cual puede verificarse con un nmap:</p>
+
+<blockquote><p># nmap 192.168.1.x</p></blockquote>
+
+<p>La configuración por defecto con la explicación a modo de comentario:</p>
+
+<pre><code># Puertos que se simularán abiertos y que monitorizarán ataques:
+
+TCP_PORTS="1,11,15,79,111,119,143,540,635,1080,1524,2000,5742,6667,12345,12346,20034,27665,31337,32771,32772,32773,32774,40421,49724,54320"
+
+UDP_PORTS="1,7,9,69,161,162,513,635,640,641,700,37444,34555,31335,32770,32771,32772,32773,32774,31337,54321"
+
+# Monitorizar los servicios del rango de puertos del 1 al especificado [1024]:
+
+ADVANCED_PORTS_TCP="1024"
+
+ADVANCED_PORTS_UDP="1024"
+
+# puertos excluidos del scaneo:
+
+ADVANCED_EXCLUDE_TCP="113,139"
+
+ADVANCED_EXCLUDE_UDP="520,138,137,67"
+
+# Archivo con ips que no queremos bloquear:
+
+IGNORE_FILE="/etc/portsentry/portsentry.ignore"
+
+# Direcciones detectadas intentando accesar puertos monitoreados:
+
+HISTORY_FILE="/var/lib/portsentry/portsentry.history"
+
+BLOCKED_FILE="/var/lib/portsentry/portsentry.blocked"
+
+# No resolver la ip del host atacante [con valor 1 lo resuelve]:
+
+RESOLVE_HOST = "0"
+
+BLOCK_UDP="0"
+
+BLOCK_TCP="0"
+
+# Configurar la actuación de los distintos intentos de intrusión [0=no bloquear, 1=Bloquear y 2=Ejecutar un comando externo]:
+
+KILL_ROUTE="/sbin/route add -host $TARGET$ reject"
+
+# Opción para los atacantes insistentes [bloqueo total por TCPwrappers]:
+
+KILL_HOSTS_DENY="ALL: $TARGET$ : DENY"
+
+# Indica qué tan rápido marcar una intento fallido de conexión como un ataque. 0=paranoico, 1 y 2=permite algunos errores. Valores superiores a 2 mejor descartarlos]
+
+SCAN_TRIGGER="0"
+
+# Comunicar un mensaje al atacante:
+
+PORT_BANNER="** UNAUTHORIZED ACCESS PROHIBITED *** IP LOGGED "
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[exim]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/exim/"/>
+    <updated>2014-07-13T17:41:00+02:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/exim</id>
+    <content type="html"><![CDATA[<p>Agente de transporte de correo.</p>
+
+<blockquote><p>$ exim -bp (Lista los correos en cola)</p>
+
+<p>$ exim -bpc (Muestra la cantidad de correos en cola)</p>
+
+<p>$ exim -bp | exiqsumm (Muestra resumen de los correos en cola)</p>
+
+<p>$ exim -Mrm 1X62E1-0006CU-61 (Eliminar un correo concreto por su ID)</p>
+
+<p>$ exim -Mf 1X62E1-0006CU-61 (Congelar un correo)</p>
+
+<p>$ exim -M 1X62E1-0006CU-61 (Procesar un correo)</p>
+
+<p>$ exiqgrep -z -i | xargs exim -Mrm (Eliminar todos los correos congelados)</p>
+
+<p>$ exiwhat (Mostrar qué está haciendo exim en este momento)</p>
+
+<p>$ exim -bt 1X62E1-0006CU-61 (Hacer un traceroute a una dirección de correo)</p>
+
+<p>$ exim -Mvh 1X62E1-0006CU-61 (Ver cabeceras de un correo)</p>
+
+<p>$ exim -Mvb 1X62E1-0006CU-61 (Ver el cuerpo de un correo)</p>
+
+<p>$ exim -Mvl 1X62E1-0006CU-61 (Ver los logs de un correo)</p>
+
+<p>$ exim -qff (Forzar cola de correo)</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[dtrx]]></title>
+    <link href="https://tractatuslapipaplena.herokuapp.com/blog/dtrx/"/>
+    <updated>2014-07-13T17:41:00+02:00</updated>
+    <id>https://tractatuslapipaplena.herokuapp.com/blog/dtrx</id>
+    <content type="html"><![CDATA[<p>Descompresor de archivos comprimidos en varios formatos [ tar, zip, rpm, deb, gem, 7z, cpio, rar, bzip2, gzip&#8230;]</p>
+
+<blockquote><p>$ dtrx -r archivo.zip (descomprimir de forma recursiva el zip y todos los comprimidos de su interior)</p>
+
+<p>$ dtrx -l archivo.zip (Lista los archivos de archivo zip)</p></blockquote>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[systemctl]]></title>
@@ -1310,78 +1606,6 @@ deb http://http.us.debian.org/debian/ wheezy contrib non-free main
     <content type="html"><![CDATA[<p>Muestra diferencias entre dos archivos o directorios comprimidos (Ver diff)</p>
 
 <blockquote><p>$ zdiff archivo1 archivo2</p></blockquote>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[zcmp]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/zcmp/"/>
-    <updated>2014-07-13T16:53:00+02:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/zcmp</id>
-    <content type="html"><![CDATA[<p>Compara dos archivos comprimidos (Ver cmp)</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[zcat]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/zcat/"/>
-    <updated>2014-07-13T16:53:00+02:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/zcat</id>
-    <content type="html"><![CDATA[<p>Ver contenido de archivos comprimidos con gzip.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[yum]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/yum/"/>
-    <updated>2014-07-13T16:53:00+02:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/yum</id>
-    <content type="html"><![CDATA[<p>Gestor de programario de distros basadas Redhat</p>
-
-<blockquote><p># yum install paquete  (instala paquete)</p>
-
-<p># yum -y install paquete1 paquete2 (instala los paquetes mencionados)</p>
-
-<p># yum -y install paquete.arch (instala paquete con la arquitectura mencionada: firefox.i386)</p>
-
-<p># yum -y update   (actualiza todos los paquetes del sistema)</p>
-
-<p># yum -y update &#8211;exclude=mysql (actualiza todos menos mysql)</p>
-
-<p># yum -y update gftp  (actualiza solo el paquete mencionado)</p>
-
-<p># yum check-update   (Muestra la lista de paquetes que se han de actualizar)</p>
-
-<p># yum info paquete    (Muestra información de paquete)</p>
-
-<p># yum info available   (Muestra información de los paquetes actualizables)</p>
-
-<p># yum list     (lista los paquetes disponibles)</p>
-
-<p># yum list installed  (lista los paquetes instalados en el sistema)</p>
-
-<p># yum list available (lista los paquetes disponibles)</p>
-
-<p># yum list updates   (lista los paquetes actualizables)</p>
-
-<p># yum remove paquete (suprime paquete)</p>
-
-<p># yum -y remove paquete1 paquete2  (suprime los paquetes mencionados)</p>
-
-<p># yum search paquete  (busca paquete en la base de datos)</p>
-
-<p># yum clean packages  (limpia la caché)</p>
-
-<p># yum repolist   (Lista los repositorios)</p></blockquote>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[ytree]]></title>
-    <link href="https://tractatuslapipaplena.herokuapp.com/blog/ytree/"/>
-    <updated>2014-07-13T16:53:00+02:00</updated>
-    <id>https://tractatuslapipaplena.herokuapp.com/blog/ytree</id>
-    <content type="html"><![CDATA[<p>Navegador de archivos minimalista. Puede usarse para administrar permisos en directorios, ver distintos tipos de archivos [gif, jpg, txt., html] con los visores favoritos de cada uno y revisar archivos comprimidos [tar, arc, lha, zip, zoo].</p>
 ]]></content>
   </entry>
   

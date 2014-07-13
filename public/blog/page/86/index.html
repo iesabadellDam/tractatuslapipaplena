@@ -9,7 +9,8 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Problemas durante el arranque. Consiste en un fallo de lectura de los controladores ide de discos duros por parte del kernel del sistema operativo &hellip;">
+  <meta name="description" content="Monitorización del servidor de bases de datos mysql. $ innotop -u USER -p PASS -h localhost -P 3306 Nota.- Pulsar &#8220;q&#8221; para salir.
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +75,141 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/innotop/">Innotop</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Monitorización del servidor de bases de datos mysql.</p>
+
+<blockquote><p>$ innotop -u USER -p PASS -h localhost -P 3306</p></blockquote>
+
+<p>Nota.- Pulsar &#8220;q&#8221; para salir.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/inittab/">Inittab</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Fichero que gestiona el inicio del sistema o un cambio de estado (runlevel) con el comando init (ver).</p>
+
+<blockquote><p># nano /etc/inittab</p></blockquote>
+
+<p>Especificación de si el sistema arranca en modo monousuario (1) o multiusuario (2-5). Por defecto 2 o 3:</p>
+
+<pre><code>id:2:initdefault:
+</code></pre>
+
+<p>Scripts que se ejecutarán en el inicio y en el orden que lo harán independientemente del runlevel:</p>
+
+<pre><code>si::sysinit:/etc/init.d/rcS (En algunas distros si::sysinit:/etc/rc.d/rc.sysinit)
+</code></pre>
+
+<p>Este script llama a los scripts del directorio /etc/rcS.d. Por cada runlevel se ejecutan los scripts del directorio correpondiente: rc0.d/, rc1.d/, rc2.d/, rc3.d/, rc4.d/, rc5.d/, rc6.d/, rc.local y rcS.d/. El directorio /etc/rc.local se usa para ejecutar servicios porpios del usuario. En estos directorios los scripts que empiezan por una &#8220;K&#8221; paran servicios y los que empiezan por una &#8220;S&#8221; los arrancan.</p>
+
+<p>Qué hacer si se presiona CTRL-ALT-DEL:</p>
+
+<pre><code>ca:12345:ctrlaltdel:/sbin/shutdown -t1 -a -r now
+</code></pre>
+
+<p>Qué hacer si la corriente se va/vuelve</p>
+
+<pre><code>pf::powerwait:/etc/init.d/powerfail start
+
+pn::powerfailnow:/etc/init.d/powerfail now
+
+po::powerokwait:/etc/init.d/powerfail stop
+</code></pre>
+
+<p>Despues de ejecutar los scripts de inicio, init crea un conjunto de terminales virtuales:</p>
+
+<pre><code>1:2345:respawn:/sbin/getty 38400 tty1
+
+2:23:respawn:/sbin/getty 38400 tty2
+
+3:23:respawn:/sbin/getty 38400 tty3
+
+4:23:respawn:/sbin/getty 38400 tty4
+
+5:23:respawn:/sbin/getty 38400 tty5
+
+6:23:respawn:/sbin/getty 38400 tty6
+</code></pre>
+
+<p>Utilizando la opción respawn, si alguien trata de finalizar uno de estos procesos, el proceso simplemente será regenerado (respawned).</p>
+
+<p>1.-</p>
+
+<p>Entrar de forma automática:</p>
+
+<p>Comentar la siguiente línea</p>
+
+<blockquote><p>#1:2345:respawn:/sbin/getty 38400 tty1</p></blockquote>
+
+<p>Y Agrega la siguiente linea:</p>
+
+<p>1:2345:respawn:/bin/login -f USUARIO tty1 </dev/tty1 >/dev/tty1 2>&amp;1</p>
+
+<p>Siendo USUARIO el nombre de usuario que hará login automático.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -455,94 +591,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/iftop/">Iftop</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra el ancho de banda que está usando una red.</p>
-
-<blockquote><p># iftop -nP -i eth0 (sin resolver las IPs[n], mostrando puerto[P] y especificando red)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ifstat/">Ifstat</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Monitorización del trafico de red.</p>
-
-<blockquote><p>$ ifstat -z (Descarta los interfaces sin actividad)</p>
-
-<p>$ ifstat -i eth1 (Especificando una red)</p></blockquote>
-
-<p>Algunas opciones:</p>
-
-<p>-a (Muestra todas las redes)</p>
-
-<p>-T (monitorizando varias redes, muestra el total)</p>
-
-<p>-S (Muestra los resultados en la misma linea, si es posible)</p>
-
-<p>-b (Reporta los informes en Kbits / seg en lugar de kbytes / seg.)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/87/">&larr; Older</a>
@@ -566,6 +614,22 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/stumpwm/">stumpwm</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/portsentry/">portsentry</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/exim/">exim</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/dtrx/">dtrx</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/systemctl/">systemctl</a>
       </li>
     
@@ -587,22 +651,6 @@
     
       <li class="post">
         <a href="/blog/zypper/">zypper</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zmore/">zmore</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zmap/">zmap</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zless/">zless</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zip/">zip</a>
       </li>
     
   </ul>

