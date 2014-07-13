@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Buscar un paquete que contiene un fichero o ver el contenido de un paquete. Una vez instalado, para realizar la caché, lanzar en primer lugar: # apt- &hellip;">
+  <meta name="description" content="Crea, modifica y extrae archivos $ ar crv libfoo.a bill.o fred.o (Añade librerias objeto a un archivo de librería estática) $ ar vx paquete.deb ( &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,118 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ar/">Ar</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:22:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Crea, modifica y extrae archivos</p>
+
+<blockquote><p>$ ar crv libfoo.a bill.o fred.o (Añade librerias objeto a un archivo de librería estática)</p>
+
+<p>$ ar vx paquete.deb (extrae un .deb convirtiendolo en un tar.gz)</p>
+
+<p>$ ar x finalterm_0.1-0~64~saucy1_amd64.deb (Extraer los 3 archivos de un paquete deb)</p>
+
+<p>$ ar p finalterm_0.1-0~64~saucy1_amd64.deb data.tar.gz | tar xz (Extraer y descomprimir uno de los archivos de un paquete deb)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/apt-mirror/">Apt-mirror</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:22:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[apache2]. Configurar un repositorio local. Seguidamente se muestra el proceso:</p>
+
+<blockquote><p>$ mkdir repo (Crear el directorio)</p>
+
+<p># nano /etc/apt/mirror.list</p></blockquote>
+
+<p>Añadir al principio la linea del directorio:</p>
+
+<pre><code>set base_path /home/USER/repo
+</code></pre>
+
+<blockquote><p># apt-mirror (Recargar/actualizar el repositorio)</p></blockquote>
+
+<p>Crear el enlace para que esté disponible via web:</p>
+
+<blockquote><p>$ cd /var/www/html</p>
+
+<p>$ ln -s /home/USER/distro/mirror/us.archive.ubuntu.com/ubuntu ubuntu</p></blockquote>
+
+<p>Modificar el sources.list:</p>
+
+<blockquote><p># nano /etc/apt/sources.list</p></blockquote>
+
+<p>Añadir la lineas:</p>
+
+<pre><code>deb http://192.168.1.2/ubuntu trusty universe
+
+deb http://192.168.1.2/ubuntu trusty main restricted
+
+deb http://192.168.1.2/ubuntu trusty-updates main restricted
+</code></pre>
+
+<blockquote><p># apt-update (Actualizar el cliente)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -449,116 +561,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/apf/">Apf</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:22:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Cortafuegos. Todos los parámetros se configuran en el archivo conf.apf.</p>
-
-<blockquote><p># nano /etc/apf/conf.apf</p></blockquote>
-
-<p>La configuración básica:</p>
-
-<p>DEVEL_MODE=&#8221;0&#8221; # 1 en pruebas, 0 en producción</p>
-
-<p>IFACE_IN=&#8221;eth1&#8221; # Interfaces de red</p>
-
-<p>IFACE_OUT=&#8221;eth1&#8221; # interfaces de red</p>
-
-<p>IFACE_TRUSTED=&#8221;eth0&#8221; # Si existen interfaces locales</p>
-
-<p>IG_TCP_CPORTS=&#8221;21,22,80,110&#8221; # Puertos permitidos</p>
-
-<p>IG_UDP_CPORTS=&#8221;&#8220;IG_UDP_CPORTS=&#8221;&#8221; # Puertos UDP permitidos [si existen]</p>
-
-<p>IG_ICMP_TYPES=&#8221;3,5,11&#8221; 3 Puertos ICMP permitidos [si existen]</p>
-
-<p>Otros archivos importantes:</p>
-
-<p>/etc/apf/deny_host.rules (ips, rangos, etc denegados)</p>
-
-<p>/etc/apf/allow_host.rules (ips, rangos, etc permitidos)</p>
-
-<p>/var/log/apf_log (Archivo de logs)</p>
-
-<blockquote><p># apf -s (arrancar)</p>
-
-<p># apf -r (reiniciar)</p>
-
-<p># apf -f (parar)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/apariencia/">Apariencia</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:22:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Tener el escritorio root y de usuario con la misma apariencia . Crear enlaces entre las carpetas que contienen la apariencia de entorno del usuario y las de root:</p>
-
-<blockquote><p>$ sudo ln -s /home/usuario/.themes /root/.themes</p>
-
-<p>$ sudo ln -s /home/usuario/.icons /root/.icons</p>
-
-<p>$ sudo ln -s /home/usuario/.fonts /root/.fonts</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/137/">&larr; Older</a>
@@ -574,12 +576,20 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1406</li>
+	<li>1408</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/systemctl/">systemctl</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/journalctl/">journalctl</a>
+      </li>
     
       <li class="post">
         <a href="/blog/exim/">exim</a>
@@ -611,14 +621,6 @@
     
       <li class="post">
         <a href="/blog/fold/">fold</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/interfaces/">interfaces</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/stumpwm/">stumpwm</a>
       </li>
     
   </ul>

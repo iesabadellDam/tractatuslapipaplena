@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Agente de transporte de correo. $ exim -bp (Lista los correos en cola) $ exim -bpc (Muestra la cantidad de correos en cola) $ exim -bp | exiqsumm ( &hellip;">
+  <meta name="description" content="[systemd-sysv]. Systemd es un administrador del sistema y gestor de servicios compatible con SysV al que reemplaza. # systemctl reboot (Reiniciar el &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,138 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/systemctl/">Systemctl</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T08:02:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[systemd-sysv]. Systemd es un administrador del sistema y gestor de servicios compatible con SysV al que reemplaza.</p>
+
+<blockquote><p># systemctl reboot (Reiniciar el pc)</p>
+
+<p># systemctl poweroff (Parar el sistema)</p>
+
+<p># systemctl suspend (Suspender el sistema)</p>
+
+<p># systemctl hibernate (Poner el sistema en hivernación)</p>
+
+<p># systemctl (Listado de unidades activas)</p>
+
+<p># systemctl list-units (Listado de unidades activas)</p>
+
+<p># systemctl &#8211;failed (Listado de unidades que han tenido problemas)</p>
+
+<p># systemctl list-unit-files (Listado de unidades instaladas)</p>
+
+<p># systemctl start slim.service (Activa slim de inmediato)</p>
+
+<p># systemctl stop sshd.service (Parar ssh de inmediato)</p>
+
+<p># systemctl restart dhcpcd@eth0.service (Reiniciar conexión por dhcp)</p>
+
+<p># systemctl reload wicd.service (Recargar la configuración de wicd)</p>
+
+<p># systemctl status cronie.service (Muestra el estado de cron)</p>
+
+<p># systemctl is-enabled vsftpd.service (Comprueba si vsftpd está habilitada o no)</p>
+
+<p># systemctl enable NetworkManager.service (Activa el inicio automático de network-manager en el arranque)</p>
+
+<p># systemctl disable smbd.service (Desactiva el inicio automático de samba en el arranque)</p>
+
+<p># systemctl daemon-reload (Recarga systemd, escaneando en busca de unidades nuevas o modificadas)</p>
+
+<p># systemctl isolate multi-user.target (Arrancar en runlevel 3)</p>
+
+<p># systemctl isolate graphical.target (Arrancar en runlevel 5)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/journalctl/">Journalctl</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T08:02:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Sistema de registro [log] propio de systemd.</p>
+
+<blockquote><p># journalctl (Leer el registro)</p>
+
+<p># journalctl -b (Mostrar todos los mesajes de arranque)</p>
+
+<p># journalctl -b -0 (Muestra los mensajes del arranque actual)</p>
+
+<p># journalctl -b -1 (Muestra los mensajes del arranque anterior)</p>
+
+<p># journalctl -b -2 (Muestra los mensajes desde los dos últimos arranques)</p>
+
+<p># journalctl -f (Seguir los mensajes nuevos)</p>
+
+<p># journalctl _PID=1 (Mostrar mensajes por su PID)</p>
+
+<p># journalctl -u netcfg (Mostrar mensajes de una unidad especifica)</p></blockquote>
+
+<p>1.-</p>
+
+<p>Hacer que el demonio syslog funcione con journal</p>
+
+<blockquote><p># systemctl enable syslog-ng</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -525,329 +657,6 @@ PORT_BANNER="** UNAUTHORIZED ACCESS PROHIBITED *** IP LOGGED "
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/interfaces/">Interfaces</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-06T11:39:00+02:00" pubdate data-updated="true">06-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[/etc/network/interfaces]</p>
-
-<p>Archivo de configuración de la red en distros debian.</p>
-
-<p>1.-</p>
-
-<p>Con IP dinámica:</p>
-
-<p>Colocar en el archivo las lineas:</p>
-
-<pre><code>auto eth0
-
-iface eth0 inet dhcp
-</code></pre>
-
-<p>2.-</p>
-
-<p>Con IP fija</p>
-
-<p>Colocar en el archivo las lineas:</p>
-
-<pre><code>auto eth0
-
-iface eth0 inet static
-
-address 192.168.1.10
-
-gateway 192.168.1.1
-
-netmask 255.255.255.0
-
-broadcast 192.168.1.255
-</code></pre>
-
-<p>Reiniciar el servicio:</p>
-
-<blockquote><p># ifdown eth0</p>
-
-<p># ifup eth0</p></blockquote>
-
-<p>Nota.- Solo modificandolo en network-manager no funciona.</p>
-
-<p>3.-</p>
-
-<p>Creación de una segunda dirección IP virtual.</p>
-
-<p>Añadir las siguientes lineas a las de la IP fija:</p>
-
-<pre><code>auto eth0:1
-
-iface eth0:1 inet static
-
-address 192.168.0.15
-
-netmask 255.255.255.0
-
-broadcast 192.168.0.255
-
-gateway 192.168.0.1
-</code></pre>
-
-<p>Nota.- La instalación de nerwork-manager o wicd para la gestión de redes implica comentar las modificaciones de este archivo o en, en el caso de network-manager, editar:</p>
-
-<blockquote><p># nano  /etc/NetworkManager/NetworkManager.conf</p></blockquote>
-
-<p>Y modificar la linea:</p>
-
-<pre><code>[ifupdown]
-
-managed=true
-</code></pre>
-
-<p>4.-</p>
-
-<p>Obtener el módulo que usa una determinada interfaz de red:</p>
-
-<blockquote><p># ls /sys/class/net/ (Listar todas las interfaces de red del equipo)</p>
-
-<p># ls -la /sys/class/net/eth1/device/driver (Ver el módulo del kernel que está usando una interfaz de red)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/stumpwm/">Stumpwm</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-06T11:18:00+02:00" pubdate data-updated="true">06-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Gestor de ventanas atilado escrito en common lisp y que solo usa el teclado. Los mesajes de texto, por defecto, aparecen en la parte superior derecha de la pantalla. El archivo de configuración de los atajos está en /usr/share/common-lisp/source/stumpwm/bindings.lisp.</p>
-
-<p>Atajos:</p>
-
-<pre><code>C-t C-g (Abortar lo que se haya pulsado)
-
-C-t n [C-t Space] (Ir a la siguiente ventana de la lista)
-
-C-t p (Ir a la ventana anterior de la lista)
-
-C-t " (Seleccionar y enfocar una ventana de una lista)
-
-C-t w (Imprime lista de ventanas, número y nombre)
-
-C-t : (evalua [eval] expresiones: (+ 2 2): evalúa una suma de dos más dos, (loadrc): evalúa el fichero .stumpwmrc, (quit): sale de la sesión)
-
-C-t o [C-t TAB] (En una ventana con varios paneles va saltando entre ellos)
-
-C-t flechas (Mueve el foco de un panel hacia el panel del lado que se indique con las flechas)
-
-C-t f (Seleccionar un panel por su número)
-
-C-t s (Dividir una ventana o un panel horizontalmente)
-
-C-t S (Dividir una ventana o un panel verticalmente)
-
-C-t k (Mata el panel actual y el programa que ejecute)
-
-C-t K (Equivalente a un kill -9 para el marco actual)
-
-C-t c (Ejecutar una terminal. xterm por defecto)
-
-C-t e (Ejecutar xemacs)
-
-C-t a (Muestra hora y fecha)
-
-C-t ! (Pregunta la aplicación gráfica que se quiere lanzar)
-
-C-t R (Suprimir una división. Si sólo existe una se maximiza)
-
-C-t b (Enviar el puntero del ratón a la esquina inferior derecha de la pantalla)
-
-C-t - (Minimizar aplicaciones del panel o ventana y mostrar la "fondo raiz")
-
-C-t Q (Eliminar todas la divisiones y maximizar el marco del foco)
-
-C-t m (Ver el último mensaje. Pulsando nuevamente las teclas muestra los anteriores)
-
-C-t t (Envia un C-t cuando se usan programas que usan esta combinación de teclas como firefox)
-</code></pre>
-
-<p>grupos (equivalente a escritorios):</p>
-
-<pre><code>C-t g c (Crear nuevo grupo)
-
-C-t g g (Mostrar la lista de grupos)
-
-C-t g N [C-t g SPC](Ir al siguiente grupo de la lista)
-
-C-t G (Ver todos los grupos y las ventanas de cada grupo)
-
-C-t g p (Ir al grupo anterior de la lista)
-
-C-t Fn (Salta al grupo "n" [F1, F2...])
-
-C-t g k (Mata el grupo actual. todas las ventanas se fusionan con el siguiente grupo)
-
-C-t g m (Mover la ventana actual al grupo que se le indique)
-
-C-t g 2 (Ir al grupo con el dígito 2)
-
-C-t g ' (Seleccionar un grupo por nombre o por número)
-
-C-t g " (Seleccionar un grupo de una lista y cambiar a él)
-
-C-t g A [C-t g r] (Cambiar el nombre del grupo actual)
-</code></pre>
-
-<p>Información y ayuda:</p>
-
-<pre><code>C-t i (Muestra información sobre la ventana actual)
-
-C-t w (Muestra unos segundos información de todas las ventanas)
-
-C-t F (Informa del panel activo)
-
-C-t ? (Muestra los comandos de ayuda)
-
-C-t h ? (lista atajos)
-
-C-t h k (Describe una combinación de teclas que se especifique)
-
-C-t h f (Describe una función que se especifique)
-
-C-t h v (Describe una variable que se especifique)
-
-C-t h w (Enumerar todas las secuencias de teclas asociadas a la orden especificada)
-
-C-t h c (Describe el comando que se especifique)
-
-C-t v (Mostrar la versión de stumpwm)
-</code></pre>
-
-<p>1.-</p>
-
-<p>Para que se muestre la opción en el gdm:</p>
-
-<pre><code># nano /usr/share/xsessions/stumpwm.desktop
-</code></pre>
-
-<p>Y pegar el siguiente texto:</p>
-
-<pre><code>[Desktop Entry]
-
-Encoding=UTF-8
-
-Name=StumpWM
-
-Comment=Tiling Window Manager
-
-Exec=/usr/bin/stumpwm
-
-Icon=
-
-loadType=Application
-</code></pre>
-
-<p>2.-</p>
-
-<p>Colocar un fondo de pantalla:</p>
-
-<blockquote><p>$ nano .stumpwmrc (Si no existe lo creamos)</p></blockquote>
-
-<p>I añadimos fondo negro:</p>
-
-<pre><code>(set-bg-color "black")
-</code></pre>
-
-<p>O bien una imagen:</p>
-
-<pre><code>(run-shell-command "xsetbg ~/fondos/fichero.png")
-</code></pre>
-
-<p>3.-</p>
-
-<p>Abrir una sesión gráfica stumpwm junto a otra:</p>
-
-<p>Crear un usuario con su home (P.e. pedro)</p>
-
-<blockquote><p># useradd -d /home/pedro -s /bin/bash -m pedro</p></blockquote>
-
-<p>Entrar la contraseña de pedro:</p>
-
-<blockquote><p># passwd pedro</p></blockquote>
-
-<p>Crear en su /home el archivo:</p>
-
-<blockquote><p># nano .xinitrc</p></blockquote>
-
-<p>Con el contenido de la ruta a stumpwm:</p>
-
-<pre><code>/usr/bin/stumpwm
-</code></pre>
-
-<p>Entrar en una tty (P.e la tty3):</p>
-
-<pre><code>Crtl + Alt + F3
-</code></pre>
-
-<p>Y logearse como pedro. Una vez entrado en el sistema lanzar:</p>
-
-<blockquote><p>$ startx</p></blockquote>
-
-<p>Y tendremos una sesion stumpwm en la tty8</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -861,12 +670,20 @@ loadType=Application
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1406</li>
+	<li>1408</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/systemctl/">systemctl</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/journalctl/">journalctl</a>
+      </li>
     
       <li class="post">
         <a href="/blog/exim/">exim</a>
@@ -898,14 +715,6 @@ loadType=Application
     
       <li class="post">
         <a href="/blog/fold/">fold</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/interfaces/">interfaces</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/stumpwm/">stumpwm</a>
       </li>
     
   </ul>

@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Convertir/visualizar a formato ebook. $ ebook-convert texto.pdf texto.epub $ ebook-viewer texto.epub (Visualiza con la apliciación calibre)
-">
+  <meta name="description" content="[ecryptfs-utils cryptsetup]. Sistema de ficheros que permite encriptar la informacion. Puede ser montado en un sistema de ficheros convencional [ext4 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +74,149 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ecryptfs/">Ecryptfs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:24:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[ecryptfs-utils cryptsetup]. Sistema de ficheros que permite encriptar la informacion. Puede ser montado en un sistema de ficheros convencional [ext4, ext3&#8230;] lo cual siginifica que no tenemos que preocuparnos por asignarle espacio: conforme añadimos o eliminamos archivos, el espacio crece o decrece. Se podría coger un solo fichero encriptado, enviarse a otro PC y acceder a la información de ese fichero usando la misma contraseña.</p>
+
+<p>1.-</p>
+
+<p>Encriptar un directorio:</p>
+
+<blockquote><p>$ mkdir cripta (Crear directorio)</p>
+
+<p># chmod 700 cripta (Otorgarle permisos)</p>
+
+<p># mount -t ecryptfs cripta /media/tumba (Montar el directorio. Pregunta contraseña [la firma de la clave en el fichero /root/.ecryptfs/sig-cache.txt]. Las demás preguntas [método de cifrado, longitud de la contraseña&#8230;] pueden dejarse con las opciones por defecto)</p>
+
+<p># umount /media/tumba (Desmontar directorio)</p></blockquote>
+
+<p>Nota.- Es bastante usual, montar el directorio consigo mismo:</p>
+
+<blockquote><p># mount -t ecryptfs cripta cripta</p></blockquote>
+
+<p>2.-</p>
+
+<p>Ejecutar el asistente de creación de directorio cifrado:</p>
+
+<blockquote><p># ecryptfs-setup-private</p>
+
+<p># ecryptfs-umount-private (Desmontar el directorio)</p>
+
+<p># ecryptfs-mount-private (Montar el directorio)</p></blockquote>
+
+<p>Nota.- Para impedir que el directorio creado se monte automáticamente al inicio de sesión, borrar el archivo ~/.ecryptfs/auto-mount. Para revertir el proceso crear en el mismo directorio un archivo vacio:</p>
+
+<blockquote><p>$ touch ~/.ecryptfs/auto-mount</p></blockquote>
+
+<p>3.-</p>
+
+<p>Encriptar el directorio personal [$HOME]</p>
+
+<p>Salir de la cuenta de usuario y entrar en la de root.</p>
+
+<blockquote><p># modprobe ecryptfs (activar el módulo del kernel)</p>
+
+<p># ecryptfs-migrate-home -u USUARIO (Encriptar la $HOME del USUARIO)</p></blockquote>
+
+<p>Cerrar la cuenta de administrador y, sin reiniciar, entrar en la de USUARIO</p>
+
+<blockquote><p>$ ecryptfs-unwrap-passphrase (Pedirá la contraseña. Como medida de precaución es preciso anotar la cadena de texto que muestre)</p>
+
+<p># ecryptfs-setup-swap (Como media de seguridad es necesario encriptar la partición de intercambio [Swap])</p>
+
+<p># ecryptfs-rewrap-passphrase .ecryptfs/sig-cache.txt (Modificar la contraseña)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/echo/">Echo</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:24:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Muestra o incluye algo en un fichero.</p>
+
+<blockquote><p>$ echo $$   (muestra el PID de la consola)</p>
+
+<p>$ echo $PS1   (muestra el prompt)</p>
+
+<p># echo deb ftp://ftp.debian.org/debian etch main >> /etc/apt/source.list  (añade el repositorio mencionado al archivo sources.list)</p></blockquote>
+
+<p>Nota.- con un solo “>” pondria la linea especificada borrando todo lo demas.)</p>
+
+<blockquote><p>$ echo $((10*2)) (Realiza el cálculo matemático)</p>
+
+<p>$ echo “ Buenas.. voy a reiniciar ¿Haces algo?” >> /dev/pts/23 (Manda el mensaje a la consola 23)</p>
+
+<p>$ echo rm <em>.png (lista lo que se va a borrar, antes de lanzar rm </em>.png)</p>
+
+<p>$ echo &#8220;&#8221; > archivo.txt (Borra el contenido de archivo.txt. Para un borrado total mejor usar $ :> archivo.txt)</p></blockquote>
+
+<pre><code>$ echo -e "&lt;?php\nphpinfo();\n?&gt;" (la opción -e hace que se interprete los saltos de linea [\n], tabulaciones [\t] etc. en algunas distros es necesario lanzar: shopt -s extglob)
+
+$ echo -e "linux\\tes\\tgenial" (tabular cada palabra con \\t. La primera barra [\] sirva para escapar el caracter \t)
+
+$ echo -e "Dato1\n\tDato2\n\tDato3\n" &gt; ejemplo.txt (entra datos en ejemplo.txt con salto de linea despues de cada dato)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -454,117 +596,6 @@ Ctrl+g q (Salir)
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/dvgrab/">Dvgrab</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:24:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Catura de videos desde una cámara digital DV.</p>
-
-<p>Previas:</p>
-
-<blockquote><p># modprobe rw1394</p>
-
-<p># chmod o+rw /dev/raw1394</p></blockquote>
-
-<p>Uso:</p>
-
-<blockquote><p>$ dvgrab &#8211;buffers 500 (Los videos se almacenarán de forma secuencial [001.avi, 002.avi&#8230;] y 500 frames. Por defecto 100)</p>
-
-<p>$ dvgrab -f avi -s 0 videos/archivo.avi (Especificando formato, sin perdida de calidad y destino)</p></blockquote>
-
-<p>Algunas opciones:</p>
-
-<pre><code>-a 30 (crear nuevo archivo cada 30 segundos
-
--csize 5 (divide el archivo de captura cuando llega a 5MB)
-
--debug all (mostrar información de la captura.
-
--d 10,20 (tiempo total a capturar en formato SMIL. Por defecto ilimitado
-
--every 50 (grabar un cuadro cada 50)
-
--f dif (formato de captura. Por defecto raw. Algunos formatos: dif [raw con extensión .dif], qt [formato QuickTime], mpeg2 [compresión MPEG-2], jpeg [secuencia de imágenes]
-
--F 20 (cantidad máxima de fotogramas por archivo. Por defecto ilimitado)
-
--nostop (no detener la reproducción en el dispositivo al cerrar la captura)
-
--rewind (rebobina el MiniDV al finalizar)
-
--t (poner fecha y hora de registro como nombre del archivo)
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/dvdbackup/">Dvdbackup</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:24:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[dependencias: libdvdread, libdvdcss]. Ripeo de dvds.</p>
-
-<blockquote><p>$ dvdbackup -i /dev/cdrom  (/información del dvd)</p>
-
-<p>$ dvdbackup -M -i/dev/cdrom -o/home/usuario/carpeta_destino (lanzar la aplicación)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/109/">&larr; Older</a>
@@ -580,12 +611,20 @@ Ctrl+g q (Salir)
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1406</li>
+	<li>1408</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/systemctl/">systemctl</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/journalctl/">journalctl</a>
+      </li>
     
       <li class="post">
         <a href="/blog/exim/">exim</a>
@@ -617,14 +656,6 @@ Ctrl+g q (Salir)
     
       <li class="post">
         <a href="/blog/fold/">fold</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/interfaces/">interfaces</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/stumpwm/">stumpwm</a>
       </li>
     
   </ul>

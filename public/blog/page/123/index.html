@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Buscar duplicados en ejecutables. $ chkdupexe
-">
+  <meta name="description" content="Gestión de permisos de los ficheros y directorios. $ chmod ugo+rwx -R /home/usuario/directorio (todos los permisos a todos los usuarios sobre el &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +74,131 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/chmod/">Chmod</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:23:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Gestión de permisos de los ficheros y directorios.</p>
+
+<blockquote><p>$ chmod ugo+rwx -R /home/usuario/directorio  (todos los permisos a todos los usuarios sobre el directorio y subdirectorios)</p>
+
+<p>$ chmod 777 -R /home/usuario/directorio (Equivalente en octal)</p>
+
+<p>$ chmod a+w archivo (permiso de escritura para todos)</p>
+
+<p>$ chmod 222 -R /home/usuario/directorio (Equivalente en octal)</p>
+
+<p>$ chmod -w archivo (Quitar permiso de escritura a un archivo)</p>
+
+<p>$ chmod +x archivo (Dar permiso de ejecución)</p>
+
+<p>$ chmod 744 archivo (Lectura, escritura y ejecución para el usuario y sólo lectura para el grupo y otros)</p>
+
+<p>$ chmod u=rwx,go=r archivo (Equivalente en alfabético)</p>
+
+<p>$ chmod &#8211;reference=file1 file2 (Otorgar los mismos permisos de file1 a file2)</p></blockquote>
+
+<p>Código numérico (octal):</p>
+
+<pre><code>1 = ejecución [x]
+
+2 = escritura [w]
+
+3 (1+2) = escritura y ejecución [xw]
+
+4 = lectura [r]
+
+5 (4+1) = lectura y ejecución [rx]
+
+6 (4+2) = lectura y escritura [rw]
+
+7 (4+2+1) = lectura, escritura y ejecución [wxr]
+</code></pre>
+
+<p>Código alfabético:</p>
+
+<p>r (lectura), w (escritura), x (ejecución)</p>
+
+<p>u (usuario), g (grupo), o (otros), a (para todos)</p>
+
+<p>Nota.- Cuando un directorio está marcado como ejecutable [x] significa que se puede mirar dentro [ls] o entrar en él [cd]</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/chkrootkit/">Chkrootkit</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:23:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[incluye las aplicaciones chktmp y chklastlog]. Buscador de rootkits infiltrados en el sistema.</p>
+
+<blockquote><p># chkrootkit  (lanzar la aplicación)</p>
+
+<p># chkrootkit -l  (visualizar las opciones de escaneo)</p>
+
+<p># chkrootkit sshd tcpd  (verificar solo dos opciones)</p>
+
+<p># chkwtmp  (Verificar alteración de logs. Si no muestra nada: bien)</p>
+
+<p># chklastlog  (Lo mismo)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -416,88 +540,6 @@ Found 0 processes using old versions of upgraded files
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/chattr/">Chattr</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:23:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[ver lsattr]. Cambia los atributos de ficheros (bloquea el fichero).</p>
-
-<blockquote><p># chattr +i /etc/resolv.conf (impedirá modificaciones por  procesos o por root)</p>
-
-<p># chattr -i /etc/resolv.conf    (lo desbloquea)</p>
-
-<p># chattr -V -R +i /home/usuario/directorio (bloqueo recursivo y mostrando toda la información)</p>
-
-<p># chattr +a  archivo (desactiva el acceso al fichero excepto para añadir datos)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/chardet/">Chardet</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:23:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Detector de codificación.</p>
-
-<blockquote><p>$ chardet archivo</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/124/">&larr; Older</a>
@@ -513,12 +555,20 @@ Found 0 processes using old versions of upgraded files
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1406</li>
+	<li>1408</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/systemctl/">systemctl</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/journalctl/">journalctl</a>
+      </li>
     
       <li class="post">
         <a href="/blog/exim/">exim</a>
@@ -550,14 +600,6 @@ Found 0 processes using old versions of upgraded files
     
       <li class="post">
         <a href="/blog/fold/">fold</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/interfaces/">interfaces</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/stumpwm/">stumpwm</a>
       </li>
     
   </ul>

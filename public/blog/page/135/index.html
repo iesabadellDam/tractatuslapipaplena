@@ -9,7 +9,8 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Escanea la tabla arp. # arp-scan -I eth0 192.168.2.0/16 # arp-scan -l -I eth1 Nota.- En el primer ejemplo es una i mayúscula. En el segundo la &hellip;">
+  <meta name="description" content="Enviar solicitud ARP a una ip de la red. # arping -I eth0 IP # arping -D -I eth1 192.168.1.15; echo $? (Detectar ips duplicadas)
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +75,91 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/arping/">Arping</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:22:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Enviar solicitud ARP a una ip de la red.</p>
+
+<blockquote><p># arping -I eth0 IP</p>
+
+<p># arping -D -I eth1 192.168.1.15; echo $? (Detectar ips duplicadas)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/arpalert/">Arpalert</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T08:22:00+02:00" pubdate data-updated="true">08-06-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Prevenir conexiones no autorizadas en la red local. Previamente especificar en en el archivo de configuración las ips i su correspondiente MAC:</p>
+
+<blockquote><p>$ nano  /etc/arpon.sarpi</p></blockquote>
+
+<pre><code>192.168.1.130 00:21:97:23:9e:91
+
+192.168.1.25 F4:CE:26:43:E8:C9
+</code></pre>
+
+<blockquote><p># arpon -i eth0 -x 1 -s (Lanzar con actualización cada segundo)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -406,118 +492,6 @@ flechas derecha e izquierda (Va mostrando los distintos informes)
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ar/">Ar</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:22:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Crea, modifica y extrae archivos</p>
-
-<blockquote><p>$ ar crv libfoo.a bill.o fred.o (Añade librerias objeto a un archivo de librería estática)</p>
-
-<p>$ ar vx paquete.deb (extrae un .deb convirtiendolo en un tar.gz)</p>
-
-<p>$ ar x finalterm_0.1-0~64~saucy1_amd64.deb (Extraer los 3 archivos de un paquete deb)</p>
-
-<p>$ ar p finalterm_0.1-0~64~saucy1_amd64.deb data.tar.gz | tar xz (Extraer y descomprimir uno de los archivos de un paquete deb)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/apt-mirror/">Apt-mirror</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T08:22:00+02:00" pubdate data-updated="true">08-06-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[apache2]. Configurar un repositorio local. Seguidamente se muestra el proceso:</p>
-
-<blockquote><p>$ mkdir repo (Crear el directorio)</p>
-
-<p># nano /etc/apt/mirror.list</p></blockquote>
-
-<p>Añadir al principio la linea del directorio:</p>
-
-<pre><code>set base_path /home/USER/repo
-</code></pre>
-
-<blockquote><p># apt-mirror (Recargar/actualizar el repositorio)</p></blockquote>
-
-<p>Crear el enlace para que esté disponible via web:</p>
-
-<blockquote><p>$ cd /var/www/html</p>
-
-<p>$ ln -s /home/USER/distro/mirror/us.archive.ubuntu.com/ubuntu ubuntu</p></blockquote>
-
-<p>Modificar el sources.list:</p>
-
-<blockquote><p># nano /etc/apt/sources.list</p></blockquote>
-
-<p>Añadir la lineas:</p>
-
-<pre><code>deb http://192.168.1.2/ubuntu trusty universe
-
-deb http://192.168.1.2/ubuntu trusty main restricted
-
-deb http://192.168.1.2/ubuntu trusty-updates main restricted
-</code></pre>
-
-<blockquote><p># apt-update (Actualizar el cliente)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/136/">&larr; Older</a>
@@ -533,12 +507,20 @@ deb http://192.168.1.2/ubuntu trusty-updates main restricted
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1406</li>
+	<li>1408</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/systemctl/">systemctl</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/journalctl/">journalctl</a>
+      </li>
     
       <li class="post">
         <a href="/blog/exim/">exim</a>
@@ -570,14 +552,6 @@ deb http://192.168.1.2/ubuntu trusty-updates main restricted
     
       <li class="post">
         <a href="/blog/fold/">fold</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/interfaces/">interfaces</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/stumpwm/">stumpwm</a>
       </li>
     
   </ul>
