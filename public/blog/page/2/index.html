@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Sistema de registro [log] propio de systemd. # journalctl (Leer el registro) # journalctl -b (Mostrar todos los mesajes de arranque) # journalctl -b &hellip;">
+  <meta name="description" content="Gestor de arranque. La configuración en: # nano /etc/lilo.conf Algunos parametros a especificar: # Indica que se instale en determinado disco: boot &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,103 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/lilo/">Lilo</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T17:33:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Gestor de arranque. La configuración en:</p>
+
+<blockquote><p># nano /etc/lilo.conf</p></blockquote>
+
+<p>Algunos parametros a especificar:</p>
+
+<blockquote><p># Indica que se instale en determinado disco:</p></blockquote>
+
+<p>boot = /dev/sda</p>
+
+<blockquote><p># El sistema que arrancará por defecto [el especificado en la etiqueta [label]]</p></blockquote>
+
+<p>default = Linux</p>
+
+<blockquote><p># Que muestre cualquier cosa que sea referenciado en la línea message:</p></blockquote>
+
+<p>prompt</p>
+
+<blockquote><p># Una imagen. Medidas 640x480:</p></blockquote>
+
+<p>bitmap = /boot/slack.bmp</p>
+
+<blockquote><p># un mensaje de inicio:</p></blockquote>
+
+<p>message = /boot/boot_message.txt</p>
+
+<blockquote><p># tiempo de espera para arrancar la partición por defecto [en segundos]:</p></blockquote>
+
+<p>timeout = 50</p>
+
+<blockquote><p># Una partición linux</p></blockquote>
+
+<p>image = /boot/vmlinuz</p>
+
+<pre><code>root = /dev/sda2
+
+label = Linux
+
+read only
+</code></pre>
+
+<blockquote><p># nota: read-only Indica que el sistema de ficheros raíz se montará en modo solo-lectura.</p>
+
+<p># Por norma general, el proceso de arranque lo remonta luego en modo lectura-escritura.</p>
+
+<p># Una partición windows:</p></blockquote>
+
+<p>other = /dev/hda1</p>
+
+<pre><code>label = Windows
+
+table = /dev/sda1
+</code></pre>
+
+<p>Si queremos una contraseña para entrar en alguno de los sistemas colocamos en su entrada:</p>
+
+<pre><code>password = 12345
+</code></pre>
+
+<p>Cualquier modificación en este archivo para guardar los cambios, implica lanzar:</p>
+
+<blockquote><p># lilo</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -714,54 +811,6 @@ deb http://http.us.debian.org/debian/ wheezy contrib non-free main
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/zenity/">Zenity</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:53:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Creación de dialogos gráficos simples. Especialmente para scripts.</p>
-
-<blockquote><p>$ zenity -?   (muestra las opciones de la aplicación y de ayuda)</p>
-
-<p>$ zenity &#8211;title Archivo &#8211;width 800 &#8211;height 600 &#8211;text-info &#8211;filename /home/usuario/archivo.txt (mostrar un archivo)</p>
-
-<p>$ zenity &#8211;info &#8211;text=&#8221;Este PC va a explotar en 10 segundos. Date por muerto.&#8221;</p>
-
-<p>$ zenity &#8211;password &#8211;username (Muestra diálogo entrar usuario y contraseña)</p>
-
-<p>$ zenity &#8211;calendar (Muestra el calendario)</p>
-
-<p>$ zenity &#8211;scale (Muestra la escala)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -783,6 +832,10 @@ deb http://http.us.debian.org/debian/ wheezy contrib non-free main
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/nslookup/">nslookup</a>
+      </li>
     
       <li class="post">
         <a href="/blog/emacs/">emacs</a>
@@ -818,10 +871,6 @@ deb http://http.us.debian.org/debian/ wheezy contrib non-free main
     
       <li class="post">
         <a href="/blog/systemctl/">systemctl</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/lilo/">lilo</a>
       </li>
     
   </ul>
