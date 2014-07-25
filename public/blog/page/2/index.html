@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Descompresor de archivos comprimidos en varios formatos [ tar, zip, rpm, deb, gem, 7z, cpio, rar, bzip2, gzip&#8230;] $ dtrx -r archivo.zip ( &hellip;">
+  <meta name="description" content="Herramienta de seguridad que detecta escaneo de puertos y permite monitorizar rastreos tipo NULL, SYN, TCP, ARP&#8230; Su configuración se realiza en &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,161 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/portsentry/">Portsentry</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T17:41:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Herramienta de seguridad que detecta escaneo de puertos y permite monitorizar rastreos tipo NULL, SYN, TCP, ARP&#8230; Su configuración se realiza en el archivo /etc/portsentry/portsentry.conf, las opciones [tcp y/o udp] del demonio en /etc/default/portsentry y las máquinas i interficies a ignorar en /etc/portsentry/portsentry.ignore.static. Sin tocar del archivo de configuración el parámetro TCP_PORTS y UDC_PORTS portsentry simula que todos los especificados están abiertos, lo cual puede verificarse con un nmap:</p>
+
+<blockquote><p># nmap 192.168.1.x</p></blockquote>
+
+<p>La configuración por defecto con la explicación a modo de comentario:</p>
+
+<pre><code># Puertos que se simularán abiertos y que monitorizarán ataques:
+
+TCP_PORTS="1,11,15,79,111,119,143,540,635,1080,1524,2000,5742,6667,12345,12346,20034,27665,31337,32771,32772,32773,32774,40421,49724,54320"
+
+UDP_PORTS="1,7,9,69,161,162,513,635,640,641,700,37444,34555,31335,32770,32771,32772,32773,32774,31337,54321"
+
+# Monitorizar los servicios del rango de puertos del 1 al especificado [1024]:
+
+ADVANCED_PORTS_TCP="1024"
+
+ADVANCED_PORTS_UDP="1024"
+
+# puertos excluidos del scaneo:
+
+ADVANCED_EXCLUDE_TCP="113,139"
+
+ADVANCED_EXCLUDE_UDP="520,138,137,67"
+
+# Archivo con ips que no queremos bloquear:
+
+IGNORE_FILE="/etc/portsentry/portsentry.ignore"
+
+# Direcciones detectadas intentando accesar puertos monitoreados:
+
+HISTORY_FILE="/var/lib/portsentry/portsentry.history"
+
+BLOCKED_FILE="/var/lib/portsentry/portsentry.blocked"
+
+# No resolver la ip del host atacante [con valor 1 lo resuelve]:
+
+RESOLVE_HOST = "0"
+
+BLOCK_UDP="0"
+
+BLOCK_TCP="0"
+
+# Configurar la actuación de los distintos intentos de intrusión [0=no bloquear, 1=Bloquear y 2=Ejecutar un comando externo]:
+
+KILL_ROUTE="/sbin/route add -host $TARGET$ reject"
+
+# Opción para los atacantes insistentes [bloqueo total por TCPwrappers]:
+
+KILL_HOSTS_DENY="ALL: $TARGET$ : DENY"
+
+# Indica qué tan rápido marcar una intento fallido de conexión como un ataque. 0=paranoico, 1 y 2=permite algunos errores. Valores superiores a 2 mejor descartarlos]
+
+SCAN_TRIGGER="0"
+
+# Comunicar un mensaje al atacante:
+
+PORT_BANNER="** UNAUTHORIZED ACCESS PROHIBITED *** IP LOGGED "
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/exim/">Exim</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T17:41:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Agente de transporte de correo.</p>
+
+<blockquote><p>$ exim -bp (Lista los correos en cola)</p>
+
+<p>$ exim -bpc (Muestra la cantidad de correos en cola)</p>
+
+<p>$ exim -bp | exiqsumm (Muestra resumen de los correos en cola)</p>
+
+<p>$ exim -Mrm 1X62E1-0006CU-61 (Eliminar un correo concreto por su ID)</p>
+
+<p>$ exim -Mf 1X62E1-0006CU-61 (Congelar un correo)</p>
+
+<p>$ exim -M 1X62E1-0006CU-61 (Procesar un correo)</p>
+
+<p>$ exiqgrep -z -i | xargs exim -Mrm (Eliminar todos los correos congelados)</p>
+
+<p>$ exiwhat (Mostrar qué está haciendo exim en este momento)</p>
+
+<p>$ exim -bt 1X62E1-0006CU-61 (Hacer un traceroute a una dirección de correo)</p>
+
+<p>$ exim -Mvh 1X62E1-0006CU-61 (Ver cabeceras de un correo)</p>
+
+<p>$ exim -Mvb 1X62E1-0006CU-61 (Ver el cuerpo de un correo)</p>
+
+<p>$ exim -Mvl 1X62E1-0006CU-61 (Ver los logs de un correo)</p>
+
+<p>$ exim -qff (Forzar cola de correo)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -788,82 +943,6 @@ deb http://http.us.debian.org/debian/ wheezy contrib non-free main
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/zless/">Zless</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:53:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Pagina la visualización de un fichero comprimido (Ver less).</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/zip/">Zip</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:53:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[unzip]. comprime y empaqueta</p>
-
-<blockquote><p>$ zip archivo.zip fichero1 fichero2 (Comprimir varios ficheros)</p>
-
-<p>$ zip -r archivo.zip file1 file2 dir1 (comprimir varios files y directorios)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -885,6 +964,14 @@ deb http://http.us.debian.org/debian/ wheezy contrib non-free main
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/xfce4/">xfce4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/sysctl/">sysctl</a>
+      </li>
     
       <li class="post">
         <a href="/blog/php/">php</a>
@@ -916,14 +1003,6 @@ deb http://http.us.debian.org/debian/ wheezy contrib non-free main
     
       <li class="post">
         <a href="/blog/stumpwm/">stumpwm</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/portsentry/">portsentry</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/exim/">exim</a>
       </li>
     
   </ul>

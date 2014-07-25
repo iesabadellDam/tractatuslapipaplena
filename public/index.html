@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Lenguaje de programación diseñado originalmente para la creación de páginas web. $ php -v (Conocer la versión) $ php -m (Muestra módulos instalados &hellip;">
+  <meta name="description" content="Escritorio ligero. Para la confección de los atajos de teclado, tener en cuenta lo que lanzan algunas de las aplicaciones: $ xfce4-accesibility- &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,142 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/xfce4/">Xfce4</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-25T20:47:00+02:00" pubdate data-updated="true">25-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Escritorio ligero. Para la confección de los atajos de teclado, tener en cuenta lo que lanzan algunas de las aplicaciones:</p>
+
+<blockquote><p>$ xfce4-accesibility-settings (Configurar ratón y teclado)</p>
+
+<p>$ xfce4-appearance-settings (Estilo de ventana, iconos tipo de letra..)</p>
+
+<p>$ xfce4-appfinder (Buscar aplicaciones)</p>
+
+<p>$ xfce4-display-settings (resolución de pantalla)</p>
+
+<p>$ xfce4-keyboard-settings (Atajos de teclado, comportamiento&#8230;)</p>
+
+<p>$ xfce4-notes (Notas rápidas)</p>
+
+<p>$ xfce4-popup-applicationsmenu (Menu general)</p>
+
+<p>$ xfce4-screenshooter (Captura de pantalla)</p>
+
+<p>$ xfce4-session-logout (Menú salir, reiniciar&#8230;)</p>
+
+<p>$ xfce4-settings-manager (Parámetros de escritorio)</p>
+
+<p>$ xfce4-terminal (Terminal)</p></blockquote>
+
+<p>1.-</p>
+
+<p>Instalar applet de brillo de pantalla (backligth):</p>
+
+<blockquote><p># apt-get install xfce4-power-manager-plugins</p></blockquote>
+
+<p>Despues agregar el applet al panel</p>
+
+<p>2.-</p>
+
+<p>Restaurar / Reparar escritorio XFCE</p>
+
+<p>rm -Rv ~/.cache/sessions/</p>
+
+<p>xfwm4</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/sysctl/">Sysctl</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-25T20:47:00+02:00" pubdate data-updated="true">25-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Muestra la configuración de los parámetros del kernel</p>
+
+<blockquote><p># sysctl -a | more (Muestra todas las [muchisimas] variables)</p>
+
+<p># sysctl fs.file-max     (máximo de ficheros que pueden abrirse en el sistema)</p>
+
+<p># sysctl fs.file-max=256000   (modificarlo a 256000)</p>
+
+<p># sysctl -w vm.swappiness=10 (usar más memoria RAM y menos SWAP)</p>
+
+<p># sysctl kernel.panic=5 (forzar reinicio a los 5 segundos despues de un kernel panic)</p></blockquote>
+
+<p>Para hacer los cambios permanentes añadir las lineas al archivo /etc/sysctl.conf:</p>
+
+<blockquote><p># echo &#8220;kernel.panic=5&#8221; >> /etc/sysctl.conf</p>
+
+<p># echo &#8220;vm.swappiness=10&#8221; >> /etc/sysctl.conf</p></blockquote>
+
+<p>1.-</p>
+
+<p>Liberar memoria ram:</p>
+
+<blockquote><p># watch -n 1 free -m (Comprobar el estado actual)</p>
+
+<p># sync &amp;&amp; sysctl -w vm.drop_caches=3</p>
+
+<p># watch -n 1 free -m (Volver a lanzar el primer comando para ver la diferencia)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1430,161 +1566,6 @@ loadType=Application
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/portsentry/">Portsentry</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T17:41:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Herramienta de seguridad que detecta escaneo de puertos y permite monitorizar rastreos tipo NULL, SYN, TCP, ARP&#8230; Su configuración se realiza en el archivo /etc/portsentry/portsentry.conf, las opciones [tcp y/o udp] del demonio en /etc/default/portsentry y las máquinas i interficies a ignorar en /etc/portsentry/portsentry.ignore.static. Sin tocar del archivo de configuración el parámetro TCP_PORTS y UDC_PORTS portsentry simula que todos los especificados están abiertos, lo cual puede verificarse con un nmap:</p>
-
-<blockquote><p># nmap 192.168.1.x</p></blockquote>
-
-<p>La configuración por defecto con la explicación a modo de comentario:</p>
-
-<pre><code># Puertos que se simularán abiertos y que monitorizarán ataques:
-
-TCP_PORTS="1,11,15,79,111,119,143,540,635,1080,1524,2000,5742,6667,12345,12346,20034,27665,31337,32771,32772,32773,32774,40421,49724,54320"
-
-UDP_PORTS="1,7,9,69,161,162,513,635,640,641,700,37444,34555,31335,32770,32771,32772,32773,32774,31337,54321"
-
-# Monitorizar los servicios del rango de puertos del 1 al especificado [1024]:
-
-ADVANCED_PORTS_TCP="1024"
-
-ADVANCED_PORTS_UDP="1024"
-
-# puertos excluidos del scaneo:
-
-ADVANCED_EXCLUDE_TCP="113,139"
-
-ADVANCED_EXCLUDE_UDP="520,138,137,67"
-
-# Archivo con ips que no queremos bloquear:
-
-IGNORE_FILE="/etc/portsentry/portsentry.ignore"
-
-# Direcciones detectadas intentando accesar puertos monitoreados:
-
-HISTORY_FILE="/var/lib/portsentry/portsentry.history"
-
-BLOCKED_FILE="/var/lib/portsentry/portsentry.blocked"
-
-# No resolver la ip del host atacante [con valor 1 lo resuelve]:
-
-RESOLVE_HOST = "0"
-
-BLOCK_UDP="0"
-
-BLOCK_TCP="0"
-
-# Configurar la actuación de los distintos intentos de intrusión [0=no bloquear, 1=Bloquear y 2=Ejecutar un comando externo]:
-
-KILL_ROUTE="/sbin/route add -host $TARGET$ reject"
-
-# Opción para los atacantes insistentes [bloqueo total por TCPwrappers]:
-
-KILL_HOSTS_DENY="ALL: $TARGET$ : DENY"
-
-# Indica qué tan rápido marcar una intento fallido de conexión como un ataque. 0=paranoico, 1 y 2=permite algunos errores. Valores superiores a 2 mejor descartarlos]
-
-SCAN_TRIGGER="0"
-
-# Comunicar un mensaje al atacante:
-
-PORT_BANNER="** UNAUTHORIZED ACCESS PROHIBITED *** IP LOGGED "
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/exim/">Exim</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T17:41:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Agente de transporte de correo.</p>
-
-<blockquote><p>$ exim -bp (Lista los correos en cola)</p>
-
-<p>$ exim -bpc (Muestra la cantidad de correos en cola)</p>
-
-<p>$ exim -bp | exiqsumm (Muestra resumen de los correos en cola)</p>
-
-<p>$ exim -Mrm 1X62E1-0006CU-61 (Eliminar un correo concreto por su ID)</p>
-
-<p>$ exim -Mf 1X62E1-0006CU-61 (Congelar un correo)</p>
-
-<p>$ exim -M 1X62E1-0006CU-61 (Procesar un correo)</p>
-
-<p>$ exiqgrep -z -i | xargs exim -Mrm (Eliminar todos los correos congelados)</p>
-
-<p>$ exiwhat (Mostrar qué está haciendo exim en este momento)</p>
-
-<p>$ exim -bt 1X62E1-0006CU-61 (Hacer un traceroute a una dirección de correo)</p>
-
-<p>$ exim -Mvh 1X62E1-0006CU-61 (Ver cabeceras de un correo)</p>
-
-<p>$ exim -Mvb 1X62E1-0006CU-61 (Ver el cuerpo de un correo)</p>
-
-<p>$ exim -Mvl 1X62E1-0006CU-61 (Ver los logs de un correo)</p>
-
-<p>$ exim -qff (Forzar cola de correo)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1604,6 +1585,14 @@ PORT_BANNER="** UNAUTHORIZED ACCESS PROHIBITED *** IP LOGGED "
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/xfce4/">xfce4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/sysctl/">sysctl</a>
+      </li>
     
       <li class="post">
         <a href="/blog/php/">php</a>
@@ -1635,14 +1624,6 @@ PORT_BANNER="** UNAUTHORIZED ACCESS PROHIBITED *** IP LOGGED "
     
       <li class="post">
         <a href="/blog/stumpwm/">stumpwm</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/portsentry/">portsentry</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/exim/">exim</a>
       </li>
     
   </ul>

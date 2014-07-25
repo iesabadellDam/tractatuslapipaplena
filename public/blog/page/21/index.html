@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Permite visualizar o limitar los recursos del sistema. # ulimit -f 512000 (limita a los usuarios para que no puedan crear archivos de mayor tamaño &hellip;">
+  <meta name="description" content="Fija los permisos de un fichero o directorio. Los permisos base para los directorios son 0777 (rwxrwxrwx) y para los archivos 0666 (rw-rw-rw-). Por &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,61 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/umask/">Umask</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Fija los permisos de un fichero o directorio. Los permisos base para los directorios son 0777 (rwxrwxrwx) y para los archivos 0666 (rw-rw-rw-). Por tanto la cifra que proporciona umask ha de restarse de estos importes para conocer los permisos reales:</p>
+
+<blockquote><p>$ umask (muestra permisos actuales. Normalmente 0022 por tanto los permisos reales son 755 para directorios y 644 para ficheros)</p></blockquote>
+
+<p>Ejemplo:</p>
+
+<pre><code>$ touch archivo.txt
+
+$ mkdir dir
+
+$ ls -l
+
+total 4
+
+-rw-r--r-- 1 templix templix    0 abr 12 06:10 archivo.txt
+
+drwxr-xr-x 2 templix templix 4096 abr 12 06:10 dir
+</code></pre>
+
+<blockquote><p># umask 0002 (Modifica los permisos a 0775 para directorios y 664 para archivos)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -554,48 +609,6 @@ echo $suma
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/type/">Type</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Buscar la ubicación del ejecutable e informar si el comando es un alias.</p>
-
-<blockquote><p>$ type mplayer</p>
-
-<p>$ type -a algo (Conocer todas las definiciones de “algo”, teniendo en cuenta que si “algo” es una alias, una función y un script prevalece este orden)</p>
-
-<p>$ type -t cp (Conocer el tipo de un símbolo)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/22/">&larr; Older</a>
@@ -617,6 +630,14 @@ echo $suma
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/xfce4/">xfce4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/sysctl/">sysctl</a>
+      </li>
     
       <li class="post">
         <a href="/blog/php/">php</a>
@@ -648,14 +669,6 @@ echo $suma
     
       <li class="post">
         <a href="/blog/stumpwm/">stumpwm</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/portsentry/">portsentry</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/exim/">exim</a>
       </li>
     
   </ul>
