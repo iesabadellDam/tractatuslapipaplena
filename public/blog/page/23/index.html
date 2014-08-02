@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="1.- comando1 | comando2 (el resultado de comando1 se utiliza para comando2) $ dmesg (montón de datos) $ dmesg | grep &#8216;error&#8217; (solo los &hellip;">
+  <meta name="description" content="[tunefs +. Chequeo de la tabla de particiones # tune2fs -c 80 /dev/sda1 (cada 80 reinicios) # tune2fs -i 2m /dev/sda1 (cada 2 meses) # tune2fs -i 2w &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,78 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/tune2fs/">Tune2fs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[tunefs +. Chequeo de la tabla de particiones</p>
+
+<blockquote><p># tune2fs -c 80 /dev/sda1 (cada 80 reinicios)</p>
+
+<p># tune2fs -i 2m /dev/sda1 (cada 2 meses)</p>
+
+<p># tune2fs -i 2w /dev/hda3 (cada 2 semanas)</p>
+
+<p># tune2fs -i 2d /dev/sda1 (cada 2 dias)</p>
+
+<p># tune2fs -l /dev/sdb1 (ver registro completo de la partición)</p>
+
+<p># tune2fs -l /dev/hda3 | grep ‘Last checked’ (ver fecha del último escaneo)</p>
+
+<p># tune2fs -l /dev/hda3 | grep -i check (veces que se fuerza el chequeo)</p>
+
+<p># tune2fs -i 0 /dev/hda3 (desactivar chequeo)</p>
+
+<p># showfsck (saber cuantas reiniciadas faltan hasta el proximo chequeo)</p>
+
+<p># tune2fs -l /dev/hda3 | grep -i ‘mount count’ (lo mismo que el anterior)</p>
+
+<p># tune2fs -m 1 /dev/sda1 (modificar el espacio reservado para root al 1%. Por defecto es del 5%. Ver dumpe2fs)</p>
+
+<p># tune2fs -O ^has_journal /dev/sda1 (Desactivar journaling en una partición)</p>
+
+<p># tune2fs -O has_journal /dev/sda1 (Activar journaling)</p></blockquote>
+
+<p>1.-</p>
+
+<p>Convertir sistema de archivos de ext3 a ext4. Desde un livecd o una partición no montada :</p>
+
+<blockquote><p># tune2fs -O extents,uninit_bg,dir_index /dev/sdax (convertir)</p>
+
+<p># fsck -pf /dev/sdax  (Para dar consistencia al nuevo sistema)</p>
+
+<p># mount -t ext4 /dev/sdax /media/punto_de_montaje (montar la unidad)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -599,172 +671,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/truecrypt/">Truecrypt</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Aplicación que permite cifrar sistemas de archivos enteros, generar archivos cifrados y tambien generar sistemas ocultos dentro de otros sistemas. Descarga de : http://www.truecrypt.org/downloads</p>
-
-<p>Descomprimir y ejecutar:</p>
-
-<pre><code>$ tar xf truecrypt-7.1a-linux-console-x64.tar.gz
-
-# ./truecrypt-7.1a-setup-console-x64
-</code></pre>
-
-<blockquote><p># truecrypt -t -c (por consola [t] y ejecutar por primera vez [c]. Sin el parámetro &#8220;t&#8221; abre la gui)</p></blockquote>
-
-<pre><code>Volume type:
-
- 1) Normal
-
- 2) Hidden
-
-Select [1]: 1
-
-**[Seleccionar si va a estar oculto o no: 1]**
-
-Enter volume path: /media/cripta
-
-**[Donde se montará. No tiene que existir el directorio]**
-
-Enter volume size (sizeK/size[M]/sizeG): 20M
-
-**[Tamaño del volumen: a voluntad]**
-
-Encryption algorithm:
-
- 1) AES
-
- 2) Serpent
-
- 3) Twofish
-
- 4) AES-Twofish
-
- 5) AES-Twofish-Serpent
-
- 6) Serpent-AES
-
- 7) Serpent-Twofish-AES
-
- 8) Twofish-Serpent
-
-Select [1]: 5
-
-**[Algoritmo de encriptación: a voluntad]**
-
-Hash algorithm:
-
- 1) RIPEMD-160
-
- 2) SHA-512
-
- 3) Whirlpool
-
-Select [1]: 2
-
-**[El hash: a voluntad]**
-
-Filesystem:
-
- 1) None
-
- 2) FAT
-
- 3) Linux Ext2
-
- 4) Linux Ext3
-
- 5) Linux Ext4
-
-Select [2]: 5
-
-**[El sistema de archivo]**
-
-Enter password:
-
-WARNING: Short passwords are easy to crack using brute force techniques!
-
-**[CUIDADO: Contraseñas cortas son fáciles de romper usando técnicas de fuerza bruta!]**
-
-We recommend choosing a password consisting of more than 20 characters. Are you sure you want to use a short password? (y=Yes/n=No) [No]: y
-
-**[Informa que la contraseña tiene menos de 20 caracteres pero la aceptamos de todas formas]**
-
-Re-enter password:
-
-**[La repetimos]**
-
-Enter keyfile path [none]:
-
-**[Sin archivo de claves: enter]**
-
-Please type at least 320 randomly chosen characters and then press Enter:
-
-Characters remaining: 134
-
-Characters remaining: 26
-
-**[Nos hace tipear 320 caracteres en el teclado... todavia faltan 134... todavia faltan 26...]**
-
- Done: 100,000%  Speed:   22 MB/s  Left: 0 s
-
-**[Por fin... y toma sus notas... pasamos de ellas...]**
-
-The TrueCrypt volume has been successfully created.
-
-**[Finalmente se ha creado el volumen]**
-</code></pre>
-
-<blockquote><p># truecrypt -t /media/cripta (Ejecutando la aplicación. Intro a todo:)</p></blockquote>
-
-<pre><code>Enter mount directory [default]:
-
-Enter password for /media/cripta:
-
-Enter keyfile [none]:
-
-Protect hidden volume (if any)? (y=Yes/n=No) [No]:
-</code></pre>
-
-<blockquote><p># truecript -t -l (Comprobar dispositivo montado)</p></blockquote>
-
-<pre><code>1: /media/cripta /dev/mapper/truecrypt1 /media/truecrypt1
-</code></pre>
-
-<blockquote><p># truecrypt -d /media/cripta (Desmontar volumen)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/24/">&larr; Older</a>
@@ -786,6 +692,10 @@ Protect hidden volume (if any)? (y=Yes/n=No) [No]:
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/curl/">curl</a>
+      </li>
     
       <li class="post">
         <a href="/blog/cheat/">cheat</a>
@@ -821,10 +731,6 @@ Protect hidden volume (if any)? (y=Yes/n=No) [No]:
     
       <li class="post">
         <a href="/blog/iconv/">iconv</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/dhcping/">dhcping</a>
       </li>
     
   </ul>
