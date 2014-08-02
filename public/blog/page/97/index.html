@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Consulta las variables de configuración del sistema. $ getconf -a (Muestra el listado) $ getconf LONG_BIT (Informa sobre si se trata de un equipo de &hellip;">
+  <meta name="description" content="Comprobar el estado de selinux. # getenforce Estados posibles enforcing [impositivo] (Política de seguridad activa) permissive [permisivo] (Registra &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,81 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/getenforce/">Getenforce</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Comprobar el estado de selinux.</p>
+
+<blockquote><p># getenforce</p></blockquote>
+
+<p>Estados posibles</p>
+
+<p>enforcing [impositivo] (Política de seguridad activa)</p>
+
+<p>permissive [permisivo] (Registra los eventos pero no impone la política)</p>
+
+<p>disabled [inhabilitado] (Desactivado)</p>
+
+<blockquote><p># nano /etc/selinux/config</p></blockquote>
+
+<pre><code># This file controls the state of SELinux on the system.
+
+# SELINUX= can take one of these three values:
+
+# enforcing - SELinux security policy is enforced.
+
+# permissive - SELinux prints warnings instead of enforcing.
+
+# disabled - No SELinux policy is loaded.
+
+SELINUX=permissive
+
+# SELINUXTYPE= can take one of these two values:
+
+# default - equivalent to the old strict and targeted policies
+
+# mls     - Multi-Level Security (for military and educational use)
+
+# src     - Custom policy built from source
+
+SELINUXTYPE=default
+
+# SETLOCALDEFS= Check local definition changes
+
+SETLOCALDEFS=0
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -520,67 +595,6 @@ picture-options='zoom'
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/gdisk/">Gdisk</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Herramienta para particionar discos rígidos de cualquier tamaño con una tabla de particiones GPT de GUID (Globally Unique Identifier) imprescindible para los discos mayores de 2 TB. Para el caso de discos rígidos SSD, por defecto gdisk asegura que sus particiones estén correctamente alineadas [discos duros que no tienen 512 bytes por sectors]. El uso de particiones GPT, elimina la necesidad de basarse en particiones primarias, extendidas o lógicas propias del sistema MBR. GPT puede soportar un número casi ilimitado de particiones y tiene solamente el límite de la cantidad de espacio reservado para las entradas de las particiones en el disco GPT, por defecto gdisk tiene un límite 128 particiones.</p>
-
-<blockquote><p># gdisk /dev/sda</p></blockquote>
-
-<p>Algunos comandos:</p>
-
-<pre><code>i (información de las particiones)
-
-l (listar particiones)
-
-m (volver al menú principal)
-
-d (borrar partición)
-
-n (crear nueva partición)
-
-o (crear nueva tabla de particiones GUID)
-
-t (cambiar tipo de partición)
-
-c (cambiar de partición)
-
-q (salir guardando los cambios)
-
-? (mostar menú de opciones)
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/98/">&larr; Older</a>
@@ -596,12 +610,16 @@ q (salir guardando los cambios)
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1408</li>
+	<li>1409</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/cheat/">cheat</a>
+      </li>
     
       <li class="post">
         <a href="/blog/emacs/">emacs</a>
@@ -637,10 +655,6 @@ q (salir guardando los cambios)
     
       <li class="post">
         <a href="/blog/dhcping/">dhcping</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/sox/">sox</a>
       </li>
     
   </ul>

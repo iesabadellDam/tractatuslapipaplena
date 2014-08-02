@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Enviar solicitud ARP a una ip de la red. # arping -I eth0 IP # arping -D -I eth1 192.168.1.15; echo $? (Detectar ips duplicadas)
-">
+  <meta name="description" content="También llamado vector, arreglo o alineación es un conjunto o agrupación de variables del mismo tipo cuyo acceso se realiza por índices. El primer &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +74,141 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/arrays/">Arrays</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:47:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>También llamado vector, arreglo o alineación es un conjunto o agrupación de variables del mismo tipo cuyo acceso se realiza por índices. El primer indice de una array es el 0.</p>
+
+<p>Ejemplos de uso:</p>
+
+<p>1.-</p>
+
+<pre><code>#!/bin/bash
+
+array=($(ls -1))
+
+echo "escoge el archivo..."
+
+declare -p array | sed -e 's/ /\n/g'
+
+read MOD
+
+echo "Has escogido ${array[MOD]}"
+</code></pre>
+
+<p>2.-</p>
+
+<p>Recorrer un array:</p>
+
+<pre><code>fruta[1]=manzana
+
+fruta[2]=pera
+
+fruta[3]=limón
+
+fruta[4]=higo
+
+for i in "${fruta[@]}"
+
+  do
+
+    echo $i;
+
+  done
+</code></pre>
+
+<p>3.-</p>
+
+<p>Un array puede establecerse con &#8220;declare&#8221;. Tiene la misma salida:</p>
+
+<pre><code>declare -a distro=('Debian' 'Suse' 'Gentoo' 'Fedora' 'Puppy')
+
+echo ${distro[@]}
+</code></pre>
+
+<p>Que el siguiente:</p>
+
+<pre><code>distro=('Debian' 'Suse' 'Gentoo' 'Fedora' 'Puppy')
+
+echo ${distro[@]}
+</code></pre>
+
+<p>4.-</p>
+
+<p>Copiar un array:</p>
+
+<pre><code>distro=('Debian' 'Suse' 'Gentoo' 'Fedora' 'Puppy')
+
+opciones=("${distro[@]}")
+
+echo ${opciones[@]}
+</code></pre>
+
+<p>5.-</p>
+
+<p>Añadir un array a continuación de otro y mostrar el número de elementos:</p>
+
+<pre><code>distro=('Debian' 'Suse' 'Gentoo' 'Fedora' 'Puppy');
+
+Shell=('bash' 'csh' 'jsh' 'rsh' 'ksh');
+
+UnixShell=("${distro[@]}" "${Shell[@]}")
+
+echo ${UnixShell[@]}
+
+echo ${#UnixShell[@]}
+</code></pre>
+
+<p>6.-</p>
+
+<p>Algunas opciones con arrays:</p>
+
+<pre><code>echo ${#array[@]} (Mostrar la cantidad de elementos del array)
+
+echo ${#array[3]} (Mostrar el tamaño del elemento 3)
+
+echo ${!array[@]} (Mostrar los elementos que no son nulos)
+
+echo ${fruta[@]/pera/fresa} (En el ejemplo 2 substituir "pera" por "fresa")
+
+fruta=("${fruta[@]}" "melón") (Añadir un elemento)
+
+unset fruta[2] (Borrar un elemento)
+
+unset fruta (Borra todo el array)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -454,44 +588,6 @@ flechas derecha e izquierda (Va mostrando los distintos informes)
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/arch/">Arch</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:47:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra la arquitectura de la máquina.</p>
-
-<blockquote><p>$ arch</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/136/">&larr; Older</a>
@@ -507,12 +603,16 @@ flechas derecha e izquierda (Va mostrando los distintos informes)
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1408</li>
+	<li>1409</li>
 	</ul>
 </section>
 <section>
   <h1>Añadidos/modificados</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/cheat/">cheat</a>
+      </li>
     
       <li class="post">
         <a href="/blog/emacs/">emacs</a>
@@ -548,10 +648,6 @@ flechas derecha e izquierda (Va mostrando los distintos informes)
     
       <li class="post">
         <a href="/blog/dhcping/">dhcping</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/sox/">sox</a>
       </li>
     
   </ul>
