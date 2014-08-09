@@ -1,13 +1,13 @@
 ---
 layout: post
 title: "terminator"
-date: 2014-07-13 16:52
+date: 2014-08-09 07:04
 comments: true
 categories: 
 ---
 Terminal que puede dividirse horizontalmente y verticalmente.
 
->$ terminal -T linux –giometry 1150x250 (Especificando un titulo y medidas)
+>$ terminal -T linux –geometry 1150x250 (Especificando un titulo y medidas)
 
 Algunos atajos:
 
