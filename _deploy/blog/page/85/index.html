@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Define direcciones ip y dispositivos de red # ifconfig (ver los datos de conexión) # ifconfig eth0 up 192.168.1.2 (Levanta la placa de red eth0 y le &hellip;">
+  <meta name="description" content="Mostrar datos de la conexión. Copiar el arxivo de configuración: # cp /usr/share/doc/ipband/examples/ipband.conf-simple /etc/ipband.conf Y &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -26,7 +26,6 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <script src="/javascripts/links.js"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -37,12 +36,10 @@
 
 <body   >
   <header role="banner"><hgroup>
-  <div align=center>
+ <div align=center>
   <h1><a href="/">TRACTATUS ELEMENTALIS</a></h1>
-  
-    <h2>Apuntes sobre bash. Orgasmos con la terminal.</h2>
-  </dev>
-  
+  <h2>Apuntes sobre bash. Orgasmos con la terminal.</h2>
+ </div>
 </hgroup>
 
 </header>
@@ -59,15 +56,12 @@
 </form>
   
 <ul class="main-navigation">
-  <li><a href="/previa">Previa</a></li>
+  <li><a href=/previa">Previa</a></li>
   <li><a href="/">Últimas</a></li>
   <li><a href="/blog/archives">Todas</a></li>
-  <li><a href="/scripts">Scripts</a></li>
-  <li><a href="http://www.lapipaplena.net">Web</a></li>
-  <li><a href="http://lapipaplena.no-ip.org/wiki/">Wiki</a></li>
-  <li><a href="http://anonops.es">Foro</a></li>
-  <li><a href="http://panellpipa.no-ip.org">Socios</a></li>
-
+  <li><a href="http://lapipaplena.org">Web</a></li>
+  <li><a href="http://lapipaplena.no-ip.org/wiki">Pytrac</a></li>
+  <li><a href="http://panellpipa.no-ip.org>Noticias</a></li>
 </ul>
 
 </nav>
@@ -81,7 +75,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ifconfig/">Ifconfig</a></h1>
+      <h1 class="entry-title"><a href="/blog/ipband/">Ipband</a></h1>
     
     
       <p class="meta">
@@ -97,26 +91,47 @@
   
 
 
-<time datetime="2013-12-15T18:53:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Define direcciones ip y dispositivos de red</p>
+  <div class="entry-content"><p>Mostrar datos de la conexión. Copiar el arxivo de configuración:</p>
 
-<blockquote><p># ifconfig  (ver los datos de conexión)</p>
+<blockquote><p># cp /usr/share/doc/ipband/examples/ipband.conf-simple /etc/ipband.conf</p></blockquote>
 
-<p># ifconfig eth0 up 192.168.1.2 (Levanta la placa de red eth0 y le da la ip)</p>
+<p>Y descomentar o modificar los siguientes parámetros:</p>
 
-<p># ifconfig eth0 down (Cierra la red eth0)</p>
+<pre><code>debug 0
 
-<p># ifconfig eth0 promisc (Poner la placa en modo promiscuo)</p>
+interface eth1
 
-<p># ifconfig wlan0 up (si se trata de redes inalámbricas)</p>
+fork yes
 
-<p># ifconfig eth0 hw ether 00:01:02:03:04:05  (cambiar la dirección MAC)</p></blockquote>
+htmlfile /srv/www/htdocs/ipbandwidth/index.html
+
+htmltitle Consumo de banda
+
+average 10
+
+accumulate no
+
+maskbits 32
+
+localrange 192.168.1.0/24
+</code></pre>
+
+<p>Reiniciar el servicio:</p>
+
+<blockquote><p># /etc/init.d/ipband restart</p></blockquote>
+
+<p>Arrancar la aplicación:</p>
+
+<blockquote><p># ipband</p></blockquote>
+
+<p>Los informes se muestran poniendo en la barra del navegador: http://localhost/html/ipbandwidth/index.html</p>
 </div>
   
   
@@ -129,7 +144,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/if/">If</a></h1>
+      <h1 class="entry-title"><a href="/blog/ip-ajustes/">Ip-ajustes</a></h1>
     
     
       <p class="meta">
@@ -145,157 +160,518 @@
   
 
 
-<time datetime="2013-12-15T18:53:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Ejecuta uno o varios comandos dependiendo de si una condición se cumple o no. Algunos scripts de ejemplo para su uso [ver operadores]:</p>
+  <div class="entry-content"><p>1.- Estática</p>
+
+<blockquote><p># gedit /etc/network/interfaces</p></blockquote>
+
+<pre><code>auto eth0
+
+iface eth0 inet static
+
+address 192.168.x.x
+
+netmask 255.255.255.0
+
+network 192.168.x.0
+
+boadcast 192.168.2.255
+
+gateway 192.168.x.1
+</code></pre>
+
+<blockquote><p># /etc/init.d/networking restart (reiniciar el servicio)</p>
+
+<p>$ ifconfig (verificar la nueva ip)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ip/">Ip</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>(comando). Configuración de red. Muestra dispositivos, enrutamientos, tuneles.</p>
+
+<blockquote><p>$ ip addr (Revisar tarjetas)</p>
+
+<p>$ ip route show (Información)</p>
+
+<p>$ ip link show (Ver interfaces de red)</p>
+
+<p>$ ip link set dev eth0 down (bajar una red)</p>
+
+<p>$ ip route add default via 192.168.1.1 (establecer la ip del router)</p>
+
+<p>$ ip link set dev eth0 up (levantar una red)</p>
+
+<p>$ ip addr add 192.168.1.20 255.255.255.0 dev eth1 (establecer una ip estática)</p>
+
+<p>$ ip n  (MAC e IP del router)</p>
+
+<p>$ ip link set dev eth1 address 00:03:44:88:00:11 (Modificdar la MAC. Previamente bajar la red)</p>
+
+<p>$ ip route del default (Eliminar puerta de enlace para crear una nueva)</p>
+
+<p>$ ip route add default via 192.168.1.10 (Crear nueva puerta de enlace)</p>
+
+<p>$ ip -f inet addr show eth0 (información de la dirección ip)</p>
+
+<p>$ ip route add 192.168.2.0/24 via 192.168.1.10 (Añadir una red a una puerta de enlace)</p></blockquote>
+
+<p>Nota.- Verificar que /etc/resolv contenga una linea con el servidor DNS tipo: nameserver 8.8.8.8 [para las DNS de google]</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/iozone/">Iozone</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Realizar test de velocidad de sistemas de archivos (ext3, ext4&#8230;)</p>
+
+<blockquote><p>$ iozone -s 2g -r 64 -i 0 -i 1 -b test.xls</p>
+
+<p>$ iozone -a -g 2G -f /media/sda2</p></blockquote>
+
+<p>-a (automático)</p>
+
+<p>-g (Tamaño de los archivos generados)</p>
+
+<p>-f (el sistema de archivos a tratar)</p>
+
+<p>-i (0= escritura, 1= lectura, 2=lectura/escritura&#8230;.)</p>
+
+<p>-b (archivo que generará con los resultados)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/iotop/">Iotop</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>monitoriza el ratio de lectura/escritura en disco .</p>
+
+<blockquote><p>$ iotop -o -u usuario</p>
+
+<p>$ iotop -a -p $(sed &#8216;s, , -p ,g&#8217; &lt;&lt;&lt;<code>pgrep "_raid|_resync|jbd2"</code>) (un raid)</p></blockquote>
+
+<p>Alguns opciones:</p>
+
+<p>-d 2 (Actualización cada 2 segundos)</p>
+
+<p>-b (No interactivo)</p>
+
+<p>-o (Sólo mostrar procesos que hacen uso de entrada/salida)</p>
+
+<p>-t (Incluir una marca de tiempo)</p>
+
+<p>-p pid (Pid del proceso a monitorizar. Por defecto todos)</p>
+
+<p>-u usuario (especificando usuario)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/iostat/">Iostat</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>muestra estadísticas de la CPU y de la entrada y salida de los dispositivos y particiones.</p>
+
+<blockquote><p>$ iostat -x sda -d 1 6 (6 reportes con 1 segundo de intervalo sobre el disco sda. Suprimiendo la última cifra [6] continuará reportando datos hasta finalizar con Ctrl+c)</p>
+
+<p>$ iostat -d 3 (actualizará resultados cada 3 segundos)</p>
+
+<p>$ iostat -p sda (Ver estadisticas de un disco concreto con sus particiones)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/inxi/">Inxi</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Muestra información del equipo (<a href="http://inxi.googlecode.com/svn/trunk/inxi">http://inxi.googlecode.com/svn/trunk/inxi</a>).</p>
+
+<blockquote><p>$ inxi -Fpur -c 4</p></blockquote>
+
+<p>Algunas opciones (con inxi -h la lista completa):</p>
+
+<pre><code>-A (Audio y tarjetas de sonido)
+
+-b (informacio básica)
+
+-c (formato de color de 0 a 32 para la salida de datos)
+
+-C (CPUs)
+
+-d (drivers opticos)
+
+-D (disco duro)
+
+-F (salida extendida)
+
+-G (tarjeta gráfica)
+
+-i (Información de red)
+
+-I (Procesos, uptime, memoria...)
+
+-M (Datos de la máquina)
+
+-N (    tarjetas de red)
+
+-o (particiones no montadas)
+
+-p (particiones montadas)
+
+-r (repositorios)
+
+-s (sensors[temperaturas cpu])
+
+-S  (Host, Kernel,Escritorio y Distro)
+
+-t cm (Procesos que consumen más cpu [c] y memoria [m])
+
+-u (UUID de las particiones. -uo las no montadas, -up las montadas)
+
+-v 6 (Distintas etiquetas de información. Del 1 al 6)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/interfaces/">Interfaces</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[/etc/network/interfaces]</p>
+
+<p>Archivo de configuración de la red en distros debian.</p>
 
 <p>1.-</p>
 
-<pre><code>#!/bin/bash
+<p>Con IP dinámica:</p>
 
-read -p "Ingrese nombre del usuario: " USUARIO
+<p>Colocar en el archivo las lineas:</p>
 
-if grep -e ^$USUARIO: /etc/passwd
+<pre><code>auto eth0
 
-then
-
-    echo "El usuario existe en el sistema"
-
-else
-
-    echo "Usuario desconocido"
-
-fi
-
-exit 0
+iface eth0 inet dhcp
 </code></pre>
 
 <p>2.-</p>
 
-<pre><code>#!/bin/bash
+<p>Con IP fija</p>
 
-if [ "$(id -u)" != "0" ]; then 
+<p>Colocar en el archivo las lineas:</p>
 
-    echo "Solo root puede ejecutar este script." 
+<pre><code>auto eth0
 
-    exit 1 
+iface eth0 inet static
 
-fi
+address 192.168.1.10
+
+gateway 192.168.1.1
+
+netmask 255.255.255.0
+
+broadcast 192.168.1.255
 </code></pre>
+
+<p>Reiniciar el servicio:</p>
+
+<blockquote><p># ifdown eth0</p>
+
+<p># ifup eth0</p></blockquote>
+
+<p>Nota.- Solo modificandolo en network-manager no funciona.</p>
 
 <p>3.-</p>
 
-<pre><code>#!/bin/bash 
+<p>Creación de una segunda dirección IP virtual.</p>
 
-# Verificar si se ha entrado un argumento
+<p>Añadir las siguientes lineas a las de la IP fija:</p>
 
-if [ -z "$1" ]
+<pre><code>auto eth0:1
 
-then 
+iface eth0:1 inet static
 
-          echo "Falta el argumento después del nombre del script" 
+address 192.168.0.15
 
-exit 
+netmask 255.255.255.0
 
-fi 
+broadcast 192.168.0.255
+
+gateway 192.168.0.1
+</code></pre>
+
+<p>Nota.- La instalación de nerwork-manager o wicd para la gestión de redes implica comentar las modificaciones de este archivo o en, en el caso de network-manager, editar:</p>
+
+<blockquote><p># nano  /etc/NetworkManager/NetworkManager.conf</p></blockquote>
+
+<p>Y modificar la linea:</p>
+
+<pre><code>[ifupdown]
+
+managed=true
 </code></pre>
 
 <p>4.-</p>
 
-<pre><code>#!/bin/bash
+<p>Obtener el módulo que usa una determinada interfaz de red:</p>
 
-# Introducir dos números diferentes e indicar
+<blockquote><p># ls /sys/class/net/ (Listar todas las interfaces de red del equipo)</p>
 
-# cuál es el mayor 
+<p># ls -la /sys/class/net/eth1/device/driver (Ver el módulo del kernel que está usando una interfaz de red)</p></blockquote>
+</div>
+  
+  
 
-read -p "Introduce dos números: " A B
 
-if [ $A -gt $B ]
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/integrit/">Integrit</a></h1>
+    
+    
+      <p class="meta">
+        
 
-then
 
-        echo $A "es el mayor"
 
-else
 
-        echo $B "es el mayor"
 
-fi
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Detectar cuando algún archivo del sistema ha sido alterado mediante la creación, la primera vez que se lanza, de una base de datos con la que confrontar los nuevos escaneos.</p>
+
+<p>Configuración:</p>
+
+<blockquote><p># /etc/integrit/integrit.con</p></blockquote>
+
+<p>Descomentar las lineas:</p>
+
+<pre><code>root=/
+
+known=/var/lib/integrit/known.cdb
+
+current=/var/lib/integrit/current.cdb
 </code></pre>
 
-<p>Con varias opciones [elif]</p>
+<p>Y descartar los directorios que no se deseen incluir en el escaneo, descomentandolos [&#8220;cdrom&#8221; se descarta, &#8220;/dev&#8221; se escane, &#8220;/usr/src&#8221; no se escaneará de forma recursiva ]:</p>
 
-<p>5.-</p>
+<pre><code>!/cdrom
 
-<pre><code>#!/bin/bash
+# !/dev
 
-ls
-
-echo
-
-read -p "Cual leer: " LEER
-
-echo
-
-if [ -f $LEER ]
-
-then
-
-    echo
-
-    cat $LEER
-
-    echo
-
-elif [ -d $LEER ]
-
-then
-
-    echo
-
-    echo "Es un directorio...."
-
-else
-
-    echo
-
-    f_echo "¡¡NO EXISTE!!"
-
-    echo
-
-fi
+=/usr/src
 </code></pre>
 
-<p>6.-</p>
+<p>Crear la base de datos inicial:</p>
 
-<pre><code>#!/bin/bash 
+<blockquote><p># integrit -u -C /etc/integrit/integrit.conf</p></blockquote>
 
-echo "Diga si o no:"
+<p>Mover la base de datos a know.cdb:</p>
 
-read RESPUESTA 
+<blockquote><p># mv /var/lib/integrit/current.cdb /var/lib/integrit/known.cdb</p></blockquote>
 
-if  [ "$RESPUESTA" = si ]; then 
+<p>Lanzar la comprobación:</p>
 
-    echo "Has escrito si" 
+<blockquote><p># integrit -C /etc/integrit/integrit.conf -c</p></blockquote>
 
-elif [ "$RESPUESTA" = no ]; then 
+<p>Si queremos colocar la orden en el cron para ser lanzada cada hora y que envie un correo al administrador:</p>
 
-    echo "Has escrito no" 
+<blockquote><p># crontab -e</p></blockquote>
 
-elif [ "$RESPUESTA" = "" ]; then 
+<p>Y colocamos la linea:</p>
 
-    echo "No has escrito nada" 
-
-else 
-
-    echo "Has escrito una cosa no permitida" 
-
-fi 
+<pre><code>* 1 * * * integrit -C /etc/integrit/integrit.conf -c | mail root
 </code></pre>
 </div>
   
@@ -309,7 +685,7 @@ fi
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/idesk/">Idesk</a></h1>
+      <h1 class="entry-title"><a href="/blog/instmodsh/">Instmodsh</a></h1>
     
     
       <p class="meta">
@@ -325,341 +701,20 @@ fi
   
 
 
-<time datetime="2013-12-15T18:53:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Herramienta para la creación de iconos en el escritorio. Los archivos con extensión .lnk se colocan en el directorio ~/.idesktop. Una muestra:</p>
+  <div class="entry-content"><p>Para conocer los módulos perl instalados. Entra en el prompt (cmd?) con 3 preguntas:</p>
 
-<blockquote><p>$ nano .idesktop/home.lnk</p></blockquote>
+<p>l (List all installed modules)</p>
 
-<pre><code>table Icon 
+<p>m <module> (Select a module)</p>
 
-  Caption: Home 
-
-  Command[0]: thunar /home/usuario 
-
-  Icon: /usr/share/idesk/folder_home.xpm 
-
-  Width: 48 
-
-  Height: 48 
-
-  X: 29 
-
-  Y: 39 
-
-end 
-</code></pre>
-
-<p>Nombre del icono [Caption], El comando que se lanzará [0] con doble click izquierdo del ratón. Con [1], doble click derecho, en este caso thunar abrirá la carpeta personal [Command], la ruta al icono que se empleará [Icon], las medidas ancho [Width] y alto [Height] y la colocación en pantalla, x: distancia en pixels del lateral, y: distancia en pixels de la parte superior.</p>
-
-<p>Otros parámetros [fuentes, colores, medidas, fondos, transparencias&#8230;] pueden configurarse en el archivo ~/.ideskrc. Cualquier modificación en idesktop o ideskrc precisa matar el proceso:</p>
-
-<blockquote><p>$ killall idesk</p></blockquote>
-
-<p>Y relanzarlo:</p>
-
-<blockquote><p>$ idesk</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/identify/">Identify</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:53:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Ver las propiedades de una imagen</p>
-
-<blockquote><p>$ identify imagen.gif</p>
-
-<p>$ identify -verbose imagen.jpg   (Con mucha más información)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/id/">Id</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:53:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Conocer el uid y el gid del usuario especificado</p>
-
-<blockquote><p>$ id root</p>
-
-<p>$ id -u (Del usuario no root)</p>
-
-<p>$ id -a (De todos los grupos a los que pertenece el usuario)</p>
-
-<p>$ id -un (Muestra el usuario con el que estamos)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/iconv/">Iconv</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:53:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Modificar la codificación de un archivo</p>
-
-<blockquote><p>$ iconv -l   (Muestra todas las opciones posibles)</p>
-
-<p>$ iconv -t us-ascii -f utf-8 archivo.txt > re_codificado.txt (Para saber la codificación de un archivo: $ file &#8211;mime-encoding archivo.txt)</p>
-
-<p>$ iconv &#8211;from-code=ISO-8559-1 &#8211;to-code=UTF-8 viejo.txt -o nuevo.txt (Pasar viejo.txt de codificación ISO-8559-1 a UTF-8 en el nuevo.txt)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ibam/">Ibam</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:53:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Monitor de carga de la bateria</p>
-
-<blockquote><p>$ ibam -a</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/hwclock/">Hwclock</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:53:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Ver fecha y hora de la BIOS</p>
-
-<blockquote><p># hwclock -D (Muestra toda la información))</p>
-
-<p># hwclock -w (sincroniza la del hardware a la del sistema)</p>
-
-<p># hwclock -r  (verifica desfase entre ambas)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/httping/">Httping</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:53:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Ping específico para conexiones HTTP</p>
-
-<blockquote><p># httping -g http://www.tuxapuntes.com</p>
-
-<p># httping -h localhost</p>
-
-<p># httping -h localhost -p 80</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/httpd/">Httpd</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:53:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Servicio de protocolo de transferencia de apache</p>
-
-<blockquote><p>$ httpd -l  (visualizar los módulos activos de apache)</p>
-
-<p>$ httpd -L  (Listado de directivas disponibles)</p>
-
-<p>$ httpd -t  (realiza un test de los archivos de configuración [Syntax OK])</p>
-
-<p>$ httpd -h  (muestra las opciones)</p>
-
-<p>$ httpd -v (versión de apache)</p>
-
-<p>$ httpd -V (versión y parámetros compilados)</p></blockquote>
+<p>q (Quit the program)</p>
 </div>
   
   
@@ -682,51 +737,51 @@ end
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1358</li>
+	<li>1409</li>
 	</ul>
 </section>
 <section>
-  <h1>Añadidos/modificados</h1>
+  <h1>Recent Posts</h1>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/help/">help</a>
+        <a href="/blog/php/">php</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fc/">fc</a>
+        <a href="/blog/ranger/">ranger</a>
       </li>
     
       <li class="post">
-        <a href="/blog/shell/">shell</a>
+        <a href="/blog/terminator/">terminator</a>
       </li>
     
       <li class="post">
-        <a href="/blog/mupdf/">mupdf</a>
+        <a href="/blog/curl/">curl</a>
       </li>
     
       <li class="post">
-        <a href="/blog/continue/">continue</a>
+        <a href="/blog/cheat/">cheat</a>
       </li>
     
       <li class="post">
-        <a href="/blog/colores/">colores</a>
+        <a href="/blog/slim/">slim</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awstats/">awstats</a>
+        <a href="/blog/xfce4/">xfce4</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/sysctl/">sysctl</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dropbox/">dropbox</a>
+        <a href="/blog/latex/">latex</a>
       </li>
     
       <li class="post">
-        <a href="/blog/aewan/">aewan</a>
+        <a href="/blog/nslookup/">nslookup</a>
       </li>
     
   </ul>
@@ -735,7 +790,7 @@ end
 <section>
   <h1>Sobre mi</h1> 
   <center>
-  <img src="/images/linux_user.png" title="Linux user">
+  <img src="/images/lapipaplena.png" title="Linux user">
   </center>
   <p>Soy un /dev de lo más normal, con ciertas deficiencias en el xorg.conf como casi todo el mundo, con una apariencia común tirando a gráfica VGA y con algún pixel algo deteriorado y que vivirá hasta que su directorio / sufra un kernel pánic y me mande a /dev/null</p>
 </section>
@@ -762,10 +817,6 @@ end
 <section>
 <table border="0" cellspacing="0" cellpadding="0"><tr><td align="center"><script type="text/javascript" src="http://www.worldtimeserver.com/clocks/embed.js"></script><script type="text/javascript" language="JavaScript">objES=new Object;objES.wtsclock="wtsclock001.swf";objES.color="CC6600";objES.wtsid="ES";objES.width=200;objES.height=200;objES.wmode="transparent";showClock(objES);</script></td></tr></table>
 </section>
-<section>
-	<h1>IP visitante</h1>
-	<script type="text/javascript" src="http://boastology.com/tools/ip2c/?im=0&cn=0&ip=1"></script>
-</section>
 
   
 </aside>
@@ -773,7 +824,7 @@ end
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - templix -
+  Copyright &copy; 2014 - templix -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
@@ -799,9 +850,6 @@ end
 
 
 
-<div style="width: 1px; height: 1px; overflow: hidden; position: absolute; left: -1000px">
-<iframe src="http://crontux.homelinux.com/getip.php"></iframe>
-</div>
 
 </body>
 </html>

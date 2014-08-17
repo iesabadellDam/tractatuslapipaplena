@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Optimizar y reducir al mínimo archivos mp3. Crea una carpeta con el archivo resultante en ~/a2mp3. $ a2mp3 archivo.mp3
-">
+  <meta name="description" content="Crea, modifica y extrae archivos $ ar crv libfoo.a bill.o fred.o (Añade librerias objeto a un archivo de librería estática) $ ar vx paquete.deb ( &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -27,7 +26,6 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <script src="/javascripts/links.js"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -38,12 +36,10 @@
 
 <body   >
   <header role="banner"><hgroup>
-  <div align=center>
+ <div align=center>
   <h1><a href="/">TRACTATUS ELEMENTALIS</a></h1>
-  
-    <h2>Apuntes sobre bash. Orgasmos con la terminal.</h2>
-  </dev>
-  
+  <h2>Apuntes sobre bash. Orgasmos con la terminal.</h2>
+ </div>
 </hgroup>
 
 </header>
@@ -60,15 +56,12 @@
 </form>
   
 <ul class="main-navigation">
-  <li><a href="/previa">Previa</a></li>
+  <li><a href=/previa">Previa</a></li>
   <li><a href="/">Últimas</a></li>
   <li><a href="/blog/archives">Todas</a></li>
-  <li><a href="/scripts">Scripts</a></li>
-  <li><a href="http://www.lapipaplena.net">Web</a></li>
-  <li><a href="http://lapipaplena.no-ip.org/wiki/">Wiki</a></li>
-  <li><a href="http://anonops.es">Foro</a></li>
-  <li><a href="http://panellpipa.no-ip.org">Socios</a></li>
-
+  <li><a href="http://lapipaplena.org">Web</a></li>
+  <li><a href="http://lapipaplena.no-ip.org/wiki">Pytrac</a></li>
+  <li><a href="http://panellpipa.no-ip.org>Noticias</a></li>
 </ul>
 
 </nav>
@@ -82,7 +75,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/a2mp3/">A2mp3</a></h1>
+      <h1 class="entry-title"><a href="/blog/ar/">Ar</a></h1>
     
     
       <p class="meta">
@@ -98,16 +91,22 @@
   
 
 
-<time datetime="2013-12-15T18:50:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:47:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Optimizar y reducir al mínimo archivos mp3. Crea una carpeta con el archivo resultante en ~/a2mp3.</p>
+  <div class="entry-content"><p>Crea, modifica y extrae archivos</p>
 
-<blockquote><p>$ a2mp3 archivo.mp3</p></blockquote>
+<blockquote><p>$ ar crv libfoo.a bill.o fred.o (Añade librerias objeto a un archivo de librería estática)</p>
+
+<p>$ ar vx paquete.deb (extrae un .deb convirtiendolo en un tar.gz)</p>
+
+<p>$ ar x finalterm_0.1-0~64~saucy1_amd64.deb (Extraer los 3 archivos de un paquete deb)</p>
+
+<p>$ ar p finalterm_0.1-0~64~saucy1_amd64.deb data.tar.gz | tar xz (Extraer y descomprimir uno de los archivos de un paquete deb)</p></blockquote>
 </div>
   
   
@@ -120,7 +119,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/a2ensite/">A2ensite</a></h1>
+      <h1 class="entry-title"><a href="/blog/apt-mirror/">Apt-mirror</a></h1>
     
     
       <p class="meta">
@@ -136,16 +135,46 @@
   
 
 
-<time datetime="2013-12-15T18:50:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:47:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Habilita sitios de apache. Crear link simbólico a  la carpeta sites-enabled.</p>
+  <div class="entry-content"><p>[apache2]. Configurar un repositorio local. Seguidamente se muestra el proceso:</p>
 
-<blockquote><p># a2ensite host_virtual.com</p></blockquote>
+<blockquote><p>$ mkdir repo (Crear el directorio)</p>
+
+<p># nano /etc/apt/mirror.list</p></blockquote>
+
+<p>Añadir al principio la linea del directorio:</p>
+
+<pre><code>set base_path /home/USER/repo
+</code></pre>
+
+<blockquote><p># apt-mirror (Recargar/actualizar el repositorio)</p></blockquote>
+
+<p>Crear el enlace para que esté disponible via web:</p>
+
+<blockquote><p>$ cd /var/www/html</p>
+
+<p>$ ln -s /home/USER/distro/mirror/us.archive.ubuntu.com/ubuntu ubuntu</p></blockquote>
+
+<p>Modificar el sources.list:</p>
+
+<blockquote><p># nano /etc/apt/sources.list</p></blockquote>
+
+<p>Añadir la lineas:</p>
+
+<pre><code>deb http://192.168.1.2/ubuntu trusty universe
+
+deb http://192.168.1.2/ubuntu trusty main restricted
+
+deb http://192.168.1.2/ubuntu trusty-updates main restricted
+</code></pre>
+
+<blockquote><p># apt-update (Actualizar el cliente)</p></blockquote>
 </div>
   
   
@@ -158,7 +187,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/a2enmod/">A2enmod</a></h1>
+      <h1 class="entry-title"><a href="/blog/apt-file/">Apt-file</a></h1>
     
     
       <p class="meta">
@@ -174,16 +203,20 @@
   
 
 
-<time datetime="2013-12-15T18:50:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:47:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Activa módulos de apache.</p>
+  <div class="entry-content"><p>Buscar un paquete que contiene un fichero o ver el contenido de un paquete. Una vez instalado, para realizar la caché,  lanzar en primer lugar:</p>
 
-<blockquote><p># a2enmod defensible</p></blockquote>
+<blockquote><p># apt-file update</p>
+
+<p># apt-file search ifconfig</p>
+
+<p># apt-file list ifconfig</p></blockquote>
 </div>
   
   
@@ -196,7 +229,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/a2dssite/">A2dssite</a></h1>
+      <h1 class="entry-title"><a href="/blog/apt-fast/">Apt-fast</a></h1>
     
     
       <p class="meta">
@@ -212,16 +245,22 @@
   
 
 
-<time datetime="2013-12-15T18:50:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:47:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Deshabilita sitios de apache</p>
+  <div class="entry-content"><p>[axel o aria]</p>
 
-<blockquote><p># a2dissite host_virtual.com</p></blockquote>
+<p>Paquete que incrementa la velocidad de descarga de paquetes respecto de apt-get mediante el uso de axel [ver] o aria. Descargar el scrpt de http://www.mattparnell.com/linux/apt-fast/apt-fast.sh o via github de https://github.com/ilikenwf/apt-fast. Para reconfigurar el paquete:</p>
+
+<blockquote><p># dpkg-reconfigure apt-fast</p></blockquote>
+
+<p>Donde se podrá apreciar su velocidad es principalmente con los argumentos &#8220;update&#8221;, &#8220;upgrade&#8221; y &#8220;dist-upgrade&#8221;.</p>
+
+<blockquote><p># apt-fast update</p></blockquote>
 </div>
   
   
@@ -234,7 +273,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/a2dismod/">A2dismod</a></h1>
+      <h1 class="entry-title"><a href="/blog/apt/">Apt</a></h1>
     
     
       <p class="meta">
@@ -250,18 +289,32 @@
   
 
 
-<time datetime="2013-12-15T18:50:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:47:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Desactiva modulos de apache.</p>
+  <div class="entry-content"><p>Aplicación que unifica las opciones y parámetros de apt-cache y apt-get. Tambien cuenta con una barra de progreso. Tiene casi los mismo parametros que el comando apt-get.</p>
 
-<blockquote><p># a2dismod (Lista los módulos y pregunta cual desactivar)</p>
+<blockquote><p># apt list (Muestra todos los paquetes disponibles</p>
 
-<p># a2dismod defensible (Desactiva el modulo defensible)</p></blockquote>
+<p># apt list &#8211;installed (Muestra todos los paquetes instalados)</p>
+
+<p># apt list &#8211;upgradable (Muestra todos los paquetes instalables)</p>
+
+<p>$ apt search paquete (Buscar un paquete)</p>
+
+<p># apt update (Actualiza el listado de paquetes)</p>
+
+<p># apt upgrade (Actualiza todos los paquetes del sistema)</p>
+
+<p># apt install paquete (Instala un paquete)</p>
+
+<p># apt remove paquete (Suprime un paquete)</p>
+
+<p># apt edit-sources (Edita el sources.list)</p></blockquote>
 </div>
   
   
@@ -274,7 +327,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/9menu/">9menu</a></h1>
+      <h1 class="entry-title"><a href="/blog/apropos/">Apropos</a></h1>
     
     
       <p class="meta">
@@ -290,28 +343,18 @@
   
 
 
-<time datetime="2013-12-15T18:50:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:47:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Crear un lanzador de aplicaciones en el escritorio.</p>
+  <div class="entry-content"><p>Busca utilidades relacionadas con lo especificado.</p>
 
-<blockquote><p>$ 9menu -label gimp gimp &amp; (con el título “gimp” para lanzar “gimp”)</p>
+<blockquote><p>$ apropos jpeg</p>
 
-<p>$ 9menu &#8216;xterm -e script.sh&#8217; &amp; (lanzador para un script de bash)</p></blockquote>
-
-<p>Opciones:</p>
-
-<p>-geometry 30x20 (especificando medidas del lanzador)</p>
-
-<p>-bg yellow (color de fondo)</p>
-
-<p>-fg red (color de fuente)</p>
-
-<p>-popup (Que se cierre el lanzador una vez clicado)</p>
+<p>$ apropos “copy files”  (busca comandos relacionados)</p></blockquote>
 </div>
   
   
@@ -324,7 +367,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/7zip/">7zip</a></h1>
+      <h1 class="entry-title"><a href="/blog/apport/">Apport</a></h1>
     
     
       <p class="meta">
@@ -340,24 +383,24 @@
   
 
 
-<time datetime="2013-12-15T18:50:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:47:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Compresor/descompresor</p>
+  <div class="entry-content"><p>Herramienta encargada de capturar cualquier error que se produzca en una aplicación y recopilar información sobre el estado del sistema operativo en el momento de producirse el fallo. Para desactivarlo:</p>
 
-<blockquote><p>$ 7z a fichero.7z fichero (comprime)</p>
+<blockquote><p># nano /etc/default/apport</p></blockquote>
 
-<p>$ 7z e comprimido (Descomprime)</p>
+<p>enable=0</p>
 
-<p>$ 7z l comprimido (Muestra las propiedades)</p>
+<p>También:</p>
 
-<p>$ 7z t fichero_comprimido (chequea contenido)</p>
+<blockquote><p># service apport start forse_start=0</p></blockquote>
 
-<p>$ 7z a -tgzip -p fichero.gz fichero (proteger con una contraseña)</p></blockquote>
+<p>Para activarlo substituir el 0 por un 1</p>
 </div>
   
   
@@ -370,7 +413,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/4g8/">4g8</a></h1>
+      <h1 class="entry-title"><a href="/blog/apparmor/">Apparmor</a></h1>
     
     
       <p class="meta">
@@ -386,42 +429,126 @@
   
 
 
-<time datetime="2013-12-15T18:50:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:47:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Capturar paquetes de equipos de una red. Previamente preparar el equipo con los pasos previos para el envenenamiento arp lanzando en dos terminales y sin cerrarlas hasta terminar la captura:</p>
+  <div class="entry-content"><p>Módulo de seguridad del kernel. Los perfiles estan: /etc/apparmor.d/</p>
 
-<blockquote><p># arpspoof -i eth0 -t 192.168.1.12 192.168.1.1</p>
+<blockquote><p># apparmor_status (Ver estado)</p>
 
-<p># arpspoof -i eth0 -t 192.168.1.1 192.168.1.12</p></blockquote>
+<p># aa-complain /etc/apparmor.d/* (Activar todos los perfiles en modo complain, es decir, que no se bloquea ninguna aplicación y sólo registra sus eventos)</p>
 
-<p>El “12” el sniffado, el “1” el router y el -i … la red. El paquete que contiene arpspoof es dsniff. Activar forwarding para que los paquetes vayan a su verdadero dueño:</p>
+<p># aa-complain /usr/bin/firefox (Lo mismo activandolo para una aplicación)</p>
 
-<blockquote><p># echo 1 > /proc/sys/net/ipv4/ip_forward</p></blockquote>
+<p># aa-genprof /usr/bin/firefox (Crear un perfil para una aplicación. Preguntará unos datos. Sin cerrar la terminal, abrir firefox y usar la aplicación como normalmente se usa. Al rato, volver a la terminal y pulsar &#8220;S&#8221;. Se mostrará todos los ficheros a los cuales firefox ha accedido solicitando qué acción llevar a cabo)</p>
 
-<p>Para conocer los parámetros [ips y MACs] que luego tendremos que entrar en 4g8 lanzar:</p>
+<p># cat /etc/apparmor.d/usr.lib.firefox-3.0.10.firefox.sh (Consultar el perfil creado. Substituir versión por la correcta)</p>
 
-<blockquote><p># nmap 192.168.1.0/24</p></blockquote>
+<p># apparmor_parser -R &lt; /etc/apparmor.d/usr.lib.firefox-3.0.10.firefox.sh (Desactivar restricciones a un perfil)</p></blockquote>
+</div>
+  
+  
 
-<p>Para conocer los equipos de la red. Una vez escogida la victima, lanzar 4g8:</p>
 
-<blockquote><p># 4g8 -i eth0 -g 192.168.1.1 -G 64:69:0C:87:A8:DC -s 192.168.1.12 -S 00:19:01:54:F5:1F -w dump.pcap</p></blockquote>
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/aplay/">Aplay</a></h1>
+    
+    
+      <p class="meta">
+        
 
-<p>-g (la ip del router)</p>
 
-<p>-G (la MAC del router)</p>
 
-<p>-s (la ip de la victima)</p>
 
-<p>-S (la MAC de la victima)</p>
 
-<p>-w (el archivo donde guardar las capturas)</p>
 
-<p>Para el análisis del archivo dump.pcap usar wireshark.</p>
+
+
+  
+
+
+<time datetime="2014-07-13T16:47:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Relacionado con ALSA</p>
+
+<blockquote><p># aplay /usr/share/sounds/alsa/Front_Center.wav  (prueba de alsa)</p>
+
+<p># aplaymidi -l   (lista los puertos midi)</p>
+
+<p>$ aplay -l (saber el modelo de la tarjeta de sonido)</p>
+
+<p># aplaymidi -p 65 archivo.mid  (reproduce el mid sin timidity)</p>
+
+<p># aplay -fdat /dev/sda  (Escuchar el sonido del disco duro)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/apg/">Apg</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:47:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Generador de contraseñas aleatorias</p>
+
+<blockquote><p>$ apg -a 1 -n 8 -m 10 (Incluyendo signos, 8 propuestas y 10 caracteres)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<p>-a 0  (sin signos especiales [por defecto])</p>
+
+<p>-m 10 (número mínimo de caracteres [8 por defecto])</p>
+
+<p>-x 12 (número máximo de caracteres [10 por defecto])</p>
+
+<p>-M S  (Incluyendo un signo)</p>
+
+<p>-M N  (Incluyendo un número)</p>
+
+<p>-M C  (Incluyendo mayúsculas)</p>
+
+<p>-E aeiou9 (Excluyendo letras y números mencionados)</p>
 </div>
   
   
@@ -430,6 +557,8 @@
     </article>
   
   <div class="pagination">
+    
+      <a class="prev" href="/blog/page/137/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -442,51 +571,51 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1358</li>
+	<li>1409</li>
 	</ul>
 </section>
 <section>
-  <h1>Añadidos/modificados</h1>
+  <h1>Recent Posts</h1>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/help/">help</a>
+        <a href="/blog/php/">php</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fc/">fc</a>
+        <a href="/blog/ranger/">ranger</a>
       </li>
     
       <li class="post">
-        <a href="/blog/shell/">shell</a>
+        <a href="/blog/terminator/">terminator</a>
       </li>
     
       <li class="post">
-        <a href="/blog/mupdf/">mupdf</a>
+        <a href="/blog/curl/">curl</a>
       </li>
     
       <li class="post">
-        <a href="/blog/continue/">continue</a>
+        <a href="/blog/cheat/">cheat</a>
       </li>
     
       <li class="post">
-        <a href="/blog/colores/">colores</a>
+        <a href="/blog/slim/">slim</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awstats/">awstats</a>
+        <a href="/blog/xfce4/">xfce4</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/sysctl/">sysctl</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dropbox/">dropbox</a>
+        <a href="/blog/latex/">latex</a>
       </li>
     
       <li class="post">
-        <a href="/blog/aewan/">aewan</a>
+        <a href="/blog/nslookup/">nslookup</a>
       </li>
     
   </ul>
@@ -495,7 +624,7 @@
 <section>
   <h1>Sobre mi</h1> 
   <center>
-  <img src="/images/linux_user.png" title="Linux user">
+  <img src="/images/lapipaplena.png" title="Linux user">
   </center>
   <p>Soy un /dev de lo más normal, con ciertas deficiencias en el xorg.conf como casi todo el mundo, con una apariencia común tirando a gráfica VGA y con algún pixel algo deteriorado y que vivirá hasta que su directorio / sufra un kernel pánic y me mande a /dev/null</p>
 </section>
@@ -522,10 +651,6 @@
 <section>
 <table border="0" cellspacing="0" cellpadding="0"><tr><td align="center"><script type="text/javascript" src="http://www.worldtimeserver.com/clocks/embed.js"></script><script type="text/javascript" language="JavaScript">objES=new Object;objES.wtsclock="wtsclock001.swf";objES.color="CC6600";objES.wtsid="ES";objES.width=200;objES.height=200;objES.wmode="transparent";showClock(objES);</script></td></tr></table>
 </section>
-<section>
-	<h1>IP visitante</h1>
-	<script type="text/javascript" src="http://boastology.com/tools/ip2c/?im=0&cn=0&ip=1"></script>
-</section>
 
   
 </aside>
@@ -533,7 +658,7 @@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - templix -
+  Copyright &copy; 2014 - templix -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
@@ -559,9 +684,6 @@
 
 
 
-<div style="width: 1px; height: 1px; overflow: hidden; position: absolute; left: -1000px">
-<iframe src="http://crontux.homelinux.com/getip.php"></iframe>
-</div>
 
 </body>
 </html>

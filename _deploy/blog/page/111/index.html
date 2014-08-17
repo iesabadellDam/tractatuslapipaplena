@@ -9,7 +9,8 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Verificar la integridad de los ficheros. # debsums -s &amp;> log.txt (Modo silencioso [-s] y redirigiendo el resultado a un archivo para posterior &hellip;">
+  <meta name="description" content="Activa CRTL+ALT+Retroceso para reiniciar las X dontzap -d (Lo activa) dontzap -e (Lo desactiva)
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -26,7 +27,6 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <script src="/javascripts/links.js"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -37,12 +37,10 @@
 
 <body   >
   <header role="banner"><hgroup>
-  <div align=center>
+ <div align=center>
   <h1><a href="/">TRACTATUS ELEMENTALIS</a></h1>
-  
-    <h2>Apuntes sobre bash. Orgasmos con la terminal.</h2>
-  </dev>
-  
+  <h2>Apuntes sobre bash. Orgasmos con la terminal.</h2>
+ </div>
 </hgroup>
 
 </header>
@@ -59,15 +57,12 @@
 </form>
   
 <ul class="main-navigation">
-  <li><a href="/previa">Previa</a></li>
+  <li><a href=/previa">Previa</a></li>
   <li><a href="/">Últimas</a></li>
   <li><a href="/blog/archives">Todas</a></li>
-  <li><a href="/scripts">Scripts</a></li>
-  <li><a href="http://www.lapipaplena.net">Web</a></li>
-  <li><a href="http://lapipaplena.no-ip.org/wiki/">Wiki</a></li>
-  <li><a href="http://anonops.es">Foro</a></li>
-  <li><a href="http://panellpipa.no-ip.org">Socios</a></li>
-
+  <li><a href="http://lapipaplena.org">Web</a></li>
+  <li><a href="http://lapipaplena.no-ip.org/wiki">Pytrac</a></li>
+  <li><a href="http://panellpipa.no-ip.org>Noticias</a></li>
 </ul>
 
 </nav>
@@ -81,7 +76,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/debsums/">Debsums</a></h1>
+      <h1 class="entry-title"><a href="/blog/dontzap/">Dontzap</a></h1>
     
     
       <p class="meta">
@@ -97,22 +92,18 @@
   
 
 
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Verificar la integridad de los ficheros.</p>
+  <div class="entry-content"><p>Activa CRTL+ALT+Retroceso para reiniciar las X</p>
 
-<blockquote><p># debsums -s &amp;> log.txt  (Modo silencioso [-s] y redirigiendo el resultado a un archivo para posterior análisis)</p>
+<p>dontzap -d     (Lo activa)</p>
 
-<p># cat log.txt | grep &#8220;mismatch&#8221; | cut -d &#8221; &#8221; -f4 | uniq > reinstall.txt (A partir del archivo anterior, listar los que se han de reinstalar)</p>
-
-<p># debsums -s | grep &#8220;mismatch&#8221; | cut -d &#8221; &#8221; -f4 | uniq > reinstall.txt (Lo mismo)</p>
-
-<p># apt-get install &#8211;reinstall <code>(cat reinstall.txt)</code>  (para instalarlos a partir del listado)</p></blockquote>
+<p>dontzap -e      (Lo desactiva)</p>
 </div>
   
   
@@ -125,7 +116,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/deborphan/">Deborphan</a></h1>
+      <h1 class="entry-title"><a href="/blog/dog/">Dog</a></h1>
     
     
       <p class="meta">
@@ -141,36 +132,14 @@
   
 
 
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Visualizar paquetes huerfanos</p>
-
-<blockquote><p>$ deborphan &#8211;guess-all   (Los muestra todos)</p>
-
-<p># apt-get remove $(deborphan &#8211;guess-all)     (borra todos los mostrados)</p>
-
-<p># deborphan        (para ver las librerias huérfanas)</p>
-
-<p># dpkg -l $(deborphan)    (lo mismo que el anterior con más detalles)</p>
-
-<p># sudo dpkg &#8211;purge $(deborphan)   (eliminar los paquetes huérfanos)</p>
-
-<p># apt-get remove <code>deborphan</code> (Lo mismo)</p>
-
-<p># dpkg -l $(deborphan &#8211;find-config)  (para borrar configuraciones que no se han borrado tras la desinstalación de un paquete)</p>
-
-<p># dpkg &#8211;purge $(deborphan &#8211;ind-config)  (para eliminarlos)</p>
-
-<p># apt-get remove $(deborphan &#8211;guess-all)</p></blockquote>
-
-<p>Nota.- Normalmente estas aplicaciones han de repetirse varias veces hasta que al lanzar el comando no salga ninguna archivo huerfana.</p>
-
-<blockquote><p># deborphan | xargs sudo apt-get -y remove &#8211;purge (otra forma de eliminar paquetes huerfanos)</p></blockquote>
+  <div class="entry-content"><p>Parecido a cat.</p>
 </div>
   
   
@@ -183,7 +152,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/debian-timeline/">Debian-timeline</a></h1>
+      <h1 class="entry-title"><a href="/blog/do-release-upgrade/">Do-release-upgrade</a></h1>
     
     
       <p class="meta">
@@ -199,16 +168,138 @@
   
 
 
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Línea de tiempo del proyecto Debian basado en Javascript y HTML: Versiones, bugs, lanzamientos importantes&#8230; Colocar en la barra de navegación:</p>
+  <div class="entry-content"><p>Herramienta para actualizar por consola sistemas basados en Ubuntu a una nueva versión de la distribución. Para configurar si queremos actualizar entre versiones normales o versiones LTS, debemos modificar del fichero /etc/update-manager/release-upgrades la linea:</p>
 
-<pre><code>http://usr/share/debian-timeline/index.html
+<p>Para versiones LTS:</p>
+
+<p>Prompt=lts</p>
+
+<p>Para versiones normales:</p>
+
+<p>Prompt=normal</p>
+
+<p>Para no verificar nunca nuevas versiones:</p>
+
+<p>Prompt=never</p>
+
+<p>Estas modificaciones son válidas también para update-manager [ver]</p>
+
+<blockquote><p># do-release-upgrade -d</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/dnstracer/">Dnstracer</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Consultas DNS desde una ip o un host. dnstracer determina cuando un servidor de nombres de dominio [DNS] obtiene información de un nombre de anfitrión dado, y a continuación el servidor DNS manda la respuesta de autorización.</p>
+
+<blockquote><p>$ dnstracer host</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/dnstop/">Dnstop</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Monitorear el tráfico dns.</p>
+
+<blockquote><p># dnstop -i 192.168.1.3 -p -r 2 eth0 (Excluir la propia máquina [i], en modo no promiscuo [p], actualizando cada 2 segundos [r] y la red objetivo)</p></blockquote>
+
+<p>En la mayoria de los casos, lo normal en lanzar:</p>
+
+<blockquote><p># dnstop eth0</p></blockquote>
+
+<p>Y realizar las consultas de forma interactiva pulsando las siguientes teclas:</p>
+
+<pre><code>s (visualizar las direcciones de origen)
+
+d (visualizar las direcciones de destino)
+
+t (desglosar por tipo)
+
+r (mostrar el desglose de los códigos de respuesta)
+
+1 (mostrar consulta de primer nivel [.com, .net, .info])
+
+2 (mostrar consulta de segundo nivel)
+
+3 (mostrar consulta de tercer nivel)
+
+! (mostrar fuente y consulta de primer nivel)
+
+@ (mostrar fuente y consulta de segundo nivel)
+
+# (mostrar fuente y consulta de tercer nivel)
+
+Ctrl + r (Reinicia el contador)
+
+? (Muestra la ayuda)
+
+Ctrl + x (Salir)
 </code></pre>
 </div>
   
@@ -222,7 +313,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/debian-history/">Debian-history</a></h1>
+      <h1 class="entry-title"><a href="/blog/dnsmasq/">Dnsmasq</a></h1>
     
     
       <p class="meta">
@@ -238,17 +329,44 @@
   
 
 
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Historia de la distro Debian. Los idiomas disponibles son: Inglés, francés, alemán, italiano, japonés, coreano, portugués, ruso y lituano. Colocar en la barra de navegación [para el idioma francés]:</p>
+  <div class="entry-content"><p>Para que el ordenador guarde en cache las páginas visitadas y no vuelva a resolver las ips con el servidor DNS:</p>
 
-<pre><code>http://usr/share/doc/debian-history/fr/index.fr.html
-</code></pre>
+<blockquote><p># gedit /etc/resolv.conf</p></blockquote>
+
+<p>Independientemente de que existan más lineas indicando otras ips, añadir la siguiente:</p>
+
+<p>nameserver 127.0.0.1</p>
+
+<p>Y para distribuir la carga entre varios servidores, añadir la linea:</p>
+
+<p>options timeout:1 rotate attempts:1</p>
+
+<p>Comprobar el correcto funcionamiento:</p>
+
+<blockquote><p>$ dig tuxapuntes.com | grep Query</p></blockquote>
+
+<p>;; Query time: 369 msec</p>
+
+<p>Volver a lanzar dig:</p>
+
+<blockquote><p>$ dig tuxapuntes.com | grep Query</p></blockquote>
+
+<p>;; Query time: 0 msec</p>
+
+<p>Si nuestra IP es dinámica, NetworkManager nos modificará cada cierto tiempo el archivo /etc/resolv.conf, para substituir el creado automaticamente por el nuestro:</p>
+
+<blockquote><p># cp /etc/resolv.conf /etc/resolv.conf.local (Asegurándonos que este último tiene la linea “nameserver 127.0.0.1”)</p>
+
+<p># crontab -e</p></blockquote>
+
+<p>*/3 * * * * cp /etc/resolv.conf.local /etc/resolv.conf (actualizar cada 3 minutos)</p>
 </div>
   
   
@@ -261,7 +379,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/debget/">Debget</a></h1>
+      <h1 class="entry-title"><a href="/blog/dnsmap/">Dnsmap</a></h1>
     
     
       <p class="meta">
@@ -277,20 +395,20 @@
   
 
 
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>[debian-goodies]</p>
+  <div class="entry-content"><p>Herramienta que, mediante fuerza bruta, permite obtener los subdominios de un dominio.</p>
 
-<p>Descarga un paquete del repositorio o, caso de estar instalado, muestra la versión.</p>
+<blockquote><p>$ dnsmap url (forma básica)</p>
 
-<blockquote><p>$ debget debian-goodies</p>
+<p>$ dnsmap url -w words.txt -r resultado.txt (Usando un diccionario [w] y derivando el resultado a un fichero [r])</p></blockquote>
 
-<p>$ debget 0ad</p></blockquote>
+<p>Nota.- Descarga de diccionarios en <a href="http://packetstormsecurity.org/Crackers/wordlists/dictionaries/">http://packetstormsecurity.org/Crackers/wordlists/dictionaries/</a></p>
 </div>
   
   
@@ -303,7 +421,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/deb/">Deb</a></h1>
+      <h1 class="entry-title"><a href="/blog/dnsdomainname/">Dnsdomainname</a></h1>
     
     
       <p class="meta">
@@ -319,179 +437,16 @@
   
 
 
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Extensión de los paquetes para distros Debian.</p>
+  <div class="entry-content"><p>Muestra el nombre del dominio DNS del sistema.</p>
 
-<p>1.-</p>
-
-<p>Crear un paquete para esta distro a partir de un script:</p>
-
-<pre><code>$ mkdir deb 
-</code></pre>
-
-<p>En ese directorio recrear la estructura destino que queremos utilizar. En nuestro caso /usr/bin, el directorio para el icono y permisos:</p>
-
-<pre><code>$ mkdir -p deb/usr/bin
-
-$ mkdir -p deb/usr/share/applications
-</code></pre>
-
-<p>Copiar el script en el bin creado:</p>
-
-<pre><code>$ cp script deb/usr/bin 
-</code></pre>
-
-<p>Crear el subdirectorio DEBIAN:</p>
-
-<pre><code>$ mkdir deb/DEBIAN 
-</code></pre>
-
-<p>En su interior el fichero “control”:</p>
-
-<pre><code>$ nano deb/DEBIAN/control 
-</code></pre>
-
-<p>En el que pegamos datos del paquete:</p>
-
-<p>Package: nombre_que_queremos</p>
-
-<p>Priority: optional</p>
-
-<p>Section: misc</p>
-
-<p>Maintainer: el_mantenedor</p>
-
-<p>Architecture: all</p>
-
-<p>Version: 1.0</p>
-
-<p>Depends: Las_dependendias_del_paquete</p>
-
-<p>Description: Pequeña_descripción_de_la_maravilla</p>
-
-<p> Este script &#8230;. para &#8230;.. de &#8230;.. aquello&#8230;&#8230;.</p>
-
-<p>Notas: En el nombre del paquete (Package) no se admiten espacios ni barras bajas) y en la descripción (Description) el primer carácter de la segunda linea es un espacio y al final del texto, darle al intro para que ponga una linea vacia. Las dependencias que pongamos en “Depends” son las que se instalarán  con la instalación del .deb.</p>
-
-<p>Crear el paquete “menu” en el mismo directorio:</p>
-
-<pre><code>$ nano deb/DEBIAN/menu
-</code></pre>
-
-<p>Y en su interior pegar:</p>
-
-<pre><code>?package(nombre_script):needs="X11" \ 
-
-    section="Applications/Network/Monitoring" \ 
-
-    title="Suport VNC" command="gnome-terminal -e script_que_sea" \ 
-
-    icon="/usr/share/pixmaps/gnome-term-linux2.png"
-</code></pre>
-
-<p>Notas: Nombre del paquete, que precisa de las X (X11), donde se colocará en el menú “Aplicaciones” (otras opciones: section=”Apps/Multimedia”&#8230;), el comando que lo lanzará (gnome-terminal -e script) y el icono que hemos escogido. Crear el archivo nombre_script.desktop para los datos del icono:</p>
-
-<pre><code>$ gedit deb/usr/share/applications/nombre_script.desktop
-</code></pre>
-
-<p>Y pegar el siguiente contenido:</p>
-
-<pre><code>[Desktop Entry] 
-
-Version=1.0 
-
-Name=Nombre_script 
-
-GenericName=Nombre_script 
-
-Comment=Pequeño_comentario 
-
-Exec=Nombre_script_que_lo_lanzará 
-
-Terminal=true 
-
-Type=Application 
-
-Categories=Application;Network; 
-
-Icon=gnome-term-linux2.png 
-
-StartupNotify=true
-</code></pre>
-
-<p>Nota.- también varios modelos de iconos en:</p>
-
-<pre><code>$ ls /home/usuario/.local/share/applications/  
-</code></pre>
-
-<p>Cambiar el propietario del directorio:</p>
-
-<pre><code># chown -R root.root deb 
-</code></pre>
-
-<p>Finalmente crear el paquete .deb y que lo coloque en el escritorio:</p>
-
-<pre><code># dpkg -b deb /home/usuario/Escritorio/nombre.deb
-</code></pre>
-
-<p>2.-</p>
-
-<p>Crear un paquete a partir de un tar.gz:</p>
-
-<p>Para el ejemplo usaremos el paquete picpuz, un juego para crear puzles a partir de una fotografia, que aunque tenga versión .deb, para el caso nos sirve.</p>
-
-<p>Crear carpeta de trabajo y entrar en ella:</p>
-
-<pre><code>$ mkdir picpuz 
-
-$ cd picpuz 
-</code></pre>
-
-<p>Descargar y descomprimir el tar.gz y entrar en la carpeta descomprimida:</p>
-
-<blockquote><p>$ wget http://kornelix.squarespace.com/storage/downloads/picpuz-2.2.tar.gz</p>
-
-<p>$ tar xvzf picpuz-2.2.tar.gz</p>
-
-<p>$ cd picpuz-2.2</p></blockquote>
-
-<p>Crear el nuevo paquete .orig.tar.gz con los estandares de Debian, con licencia gpl3 y generando el paquete desde las fuentes:</p>
-
-<pre><code>$ dh_make --createorig  -c gpl3 -s
-</code></pre>
-
-<p>Construir el paquete .deb:</p>
-
-<pre><code>$ dpkg-buildpackage -rfakeroot 
-</code></pre>
-
-<p>Listar el contenido de un paquete .deb:</p>
-
-<pre><code>$ ar -tv picpuz_2.2-1_i386.deb
-</code></pre>
-
-<p>Información y perspectiva general de lo que ofrece el paquete:</p>
-
-<pre><code>$ dpkg-deb -I picpuz_2.2-1_i386.deb
-</code></pre>
-
-<p>Listar los ficheros que serán instalados:</p>
-
-<pre><code>$ dpkg-deb -c picpuz_2.2-1_i386.deb 
-</code></pre>
-
-<p>instalarlo:</p>
-
-<pre><code># dpkg -i picpuz_2.2-1_i386.deb
-</code></pre>
-
-<p>Lo encontraremos en aplicaciones/juegos</p>
+<blockquote><p>$ dnsdomainname</p></blockquote>
 </div>
   
   
@@ -504,7 +459,7 @@ $ cd picpuz
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/deallocvt/">Deallocvt</a></h1>
+      <h1 class="entry-title"><a href="/blog/dnscrypt/">Dnscrypt</a></h1>
     
     
       <p class="meta">
@@ -520,24 +475,42 @@ $ cd picpuz
   
 
 
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Libera memoria y estructuras de datos del núcleo para todas las consolas virtuales que no se usen. Una consola virtual se considera en desuso si no es la consola en primer plano, ni  ningún  proceso  la  tiene  abierta  para  lectura  o escritura, ni se ha seleccionado ningún texto en su pantalla. Ver openvt</p>
+  <div class="entry-content"><p>Cifrar el tráfico DNS.</p>
 
-<blockquote><p># deallocvt (Las desasigna todas)</p>
+<blockquote><p>$ wget https://github.com/downloads/opendns/dnscrypt-proxy/dnscrypt-proxy-1.2.0.tar.gz</p>
 
-<p># deallocvt 5 (Sólo desasigna la /dev/tty5)</p></blockquote>
+<p>$ tar xvvf dnscrypt-proxy-1.2.0.tar.gz</p>
 
-<p>Un ejemplo de uso:</p>
+<p>$ cd dnscrypt-proxy-1.2.0/</p>
 
-<blockquote><p># openvt -s ls (lanzara el comando ls en la primera consola virtual libre. Normalmente la /dev/tty8)</p>
+<p>$ ./configure</p>
 
-<p># deallocvt 8</p></blockquote>
+<p>$ make</p>
+
+<p># make install</p>
+
+<p># dnscrypt-proxy &#8211;daemonize (Arrancar el demonio)</p></blockquote>
+
+<p>Modificar las DNSs en:</p>
+
+<blockquote><p># nano /etc/resolv.conf</p></blockquote>
+
+<p>Colocar:</p>
+
+<p>nameserver 127.0.0.1</p>
+
+<p>Nota.- Comentar las existentes.</p>
+
+<p>Para evitar que network-manager sobreescriba el archivo resolv.conf, bloquear el fichero:</p>
+
+<blockquote><p># chattr +i /etc/resolv.conf (Para desbloquearlo -i)</p></blockquote>
 </div>
   
   
@@ -550,7 +523,7 @@ $ cd picpuz
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ddrescue/">Ddrescue</a></h1>
+      <h1 class="entry-title"><a href="/blog/dns/">Dns</a></h1>
     
     
       <p class="meta">
@@ -566,132 +539,46 @@ $ cd picpuz
   
 
 
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Recuperación de discos dañados. Proceso:</p>
+  <div class="entry-content"><p>El servidor DNS traduce los numeros ip a nombres inteligibles para los seres humanos. Estos servicios estan vinculados a los ISP, es decir, a nuestros proveedores de acceso a Internet. Sin embargo estas ips pueden ser modificadas para conseguir mejores rendimientos o por manias personales con algunas opciones mas libres o profesionales. La manera de saber si el servidor DNS responde correctamente es hacer un ping consistente en enviar una pequeña cantidad de información al servidor y medir la velocidad en milisegundos de la respuesta. Valores inferiores a 70 ms (Al final de la linea [time=62.9 ms]) son razonables:</p>
 
-<p>Descargar el paquete dd_rhelp (Comprobar si existe una versión posterior):</p>
+<blockquote><p>$ ping -c 3 8.8.8.8</p></blockquote>
 
-<blockquote><p>$ wget http://www.kalysto.org/pkg/dd_rhelp-0.1.2.tar.gz</p>
+<p>Algunas opciones a las ofrecidas por nuestras ISP:</p>
 
-<p>$ cd dd_rhelp-0.1.2</p>
+<pre><code>Google -&gt; 8.8.8.8,  8.8.4.4
 
-<p># ./dd_rhelp /dev/sdbx sdbx.img</p></blockquote>
+OpenDNS -&gt; 208.67.222.222, 208.67.220.220
 
-<p>Creará sdbx.img en el directorio actual, que podrá montarse:</p>
+Level3 -&gt; 4.2.2.1, 4.2.2.2, 4.2.2.3, 4.2.2.4, 4.2.2.5 y 4.2.2.6
 
-<blockquote><p># mount -o loop sdbx.img /media/imagen</p></blockquote>
+Dyn -&gt; 216.146.35.35, 216.146.36.36
 
-<p>Comprobar posibles errores (para partición ext3):</p>
+DNSadvantage -&gt; 156.154.70.1, 156.154.71.1
+</code></pre>
 
-<blockquote><p># fsck -y sdbx.img</p></blockquote>
+<p>Ona vez escogidas las DNSs:</p>
 
-<p>Restaurar la imagen:</p>
+<blockquote><p># nano /etc/resolv.conf</p></blockquote>
 
-<blockquote><p># dd_rhelp sdbx.img /dev/sdax</p></blockquote>
+<p>Colocar:</p>
 
-<p>Método de ejecutar ddrescue en dos pasadas, de forma que la primera sólo recupera los bloques que no contenga sectores defectuosos y el segundo se centre en recuperar el máximo de los defectuosos:</p>
+<pre><code>nameserver 4.2.2.1
 
-<blockquote><p># ddrescue -v -n /dev/sda /dev/sdb sda.txt</p>
+nameserver 4.2.2.2
+</code></pre>
 
-<p># ddrescue -v -r2 -d /dev/sda /dev/sdb sda.txt</p></blockquote>
+<p>Nota.- Comentar o borrar las existentes.</p>
 
-<p>Luego comprobar errores con fsck.</p>
-</div>
-  
-  
+<p>Para evitar que network-manager sobreescriba el archivo resolv.conf, bloquear el fichero:</p>
 
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ddclient/">Ddclient</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Configurar pc con una ip fija. Requiere registro en dyndns.org. Durante la instalación  ya preguntará los datos del registro en pero si se prefiere puede editarse el archivo de configuración y colocarlos a mano</p>
-
-<blockquote><p># gedit /etc/ddclient.conf</p></blockquote>
-
-<p>Completar los campos login y password con los datos correspondientes:</p>
-
-<p>protocol=dyndns2</p>
-
-<p>use=web, web=checkip.dyndns.com, web-skip=&#8217;IP Address&#8217;</p>
-
-<p>server=members.dyndns.org</p>
-
-<p>login=Nombre_registrado_en_dyndns</p>
-
-<p>password=&#8217;contraseña_de_dyndns&#8217;</p>
-
-<p>nombre_de_dominio.com</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ddate/">Ddate</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Convierte fechas gregorianas en fechas subrealistas. Algunas opciones coinciden con las de &#8220;date&#8221; (ver)</p>
-
-<blockquote><p>$ ddate +%d-%B-%Y</p></blockquote>
+<blockquote><p># chattr +i /etc/resolv.conf (Para desbloquearlo -i)</p></blockquote>
 </div>
   
   
@@ -714,51 +601,51 @@ $ cd picpuz
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1358</li>
+	<li>1409</li>
 	</ul>
 </section>
 <section>
-  <h1>Añadidos/modificados</h1>
+  <h1>Recent Posts</h1>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/help/">help</a>
+        <a href="/blog/php/">php</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fc/">fc</a>
+        <a href="/blog/ranger/">ranger</a>
       </li>
     
       <li class="post">
-        <a href="/blog/shell/">shell</a>
+        <a href="/blog/terminator/">terminator</a>
       </li>
     
       <li class="post">
-        <a href="/blog/mupdf/">mupdf</a>
+        <a href="/blog/curl/">curl</a>
       </li>
     
       <li class="post">
-        <a href="/blog/continue/">continue</a>
+        <a href="/blog/cheat/">cheat</a>
       </li>
     
       <li class="post">
-        <a href="/blog/colores/">colores</a>
+        <a href="/blog/slim/">slim</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awstats/">awstats</a>
+        <a href="/blog/xfce4/">xfce4</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/sysctl/">sysctl</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dropbox/">dropbox</a>
+        <a href="/blog/latex/">latex</a>
       </li>
     
       <li class="post">
-        <a href="/blog/aewan/">aewan</a>
+        <a href="/blog/nslookup/">nslookup</a>
       </li>
     
   </ul>
@@ -767,7 +654,7 @@ $ cd picpuz
 <section>
   <h1>Sobre mi</h1> 
   <center>
-  <img src="/images/linux_user.png" title="Linux user">
+  <img src="/images/lapipaplena.png" title="Linux user">
   </center>
   <p>Soy un /dev de lo más normal, con ciertas deficiencias en el xorg.conf como casi todo el mundo, con una apariencia común tirando a gráfica VGA y con algún pixel algo deteriorado y que vivirá hasta que su directorio / sufra un kernel pánic y me mande a /dev/null</p>
 </section>
@@ -794,10 +681,6 @@ $ cd picpuz
 <section>
 <table border="0" cellspacing="0" cellpadding="0"><tr><td align="center"><script type="text/javascript" src="http://www.worldtimeserver.com/clocks/embed.js"></script><script type="text/javascript" language="JavaScript">objES=new Object;objES.wtsclock="wtsclock001.swf";objES.color="CC6600";objES.wtsid="ES";objES.width=200;objES.height=200;objES.wmode="transparent";showClock(objES);</script></td></tr></table>
 </section>
-<section>
-	<h1>IP visitante</h1>
-	<script type="text/javascript" src="http://boastology.com/tools/ip2c/?im=0&cn=0&ip=1"></script>
-</section>
 
   
 </aside>
@@ -805,7 +688,7 @@ $ cd picpuz
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - templix -
+  Copyright &copy; 2014 - templix -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
@@ -831,9 +714,6 @@ $ cd picpuz
 
 
 
-<div style="width: 1px; height: 1px; overflow: hidden; position: absolute; left: -1000px">
-<iframe src="http://crontux.homelinux.com/getip.php"></iframe>
-</div>
 
 </body>
 </html>

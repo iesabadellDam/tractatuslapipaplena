@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Indica la temperatura del disco especificado $ hddtemp /dev/sda
-">
+  <meta name="description" content="Ejecuta uno o varios comandos dependiendo de si una condición se cumple o no. Algunos scripts de ejemplo para su uso [ver operadores]: 1.- #!/bin/ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -27,7 +26,6 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <script src="/javascripts/links.js"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -38,12 +36,10 @@
 
 <body   >
   <header role="banner"><hgroup>
-  <div align=center>
+ <div align=center>
   <h1><a href="/">TRACTATUS ELEMENTALIS</a></h1>
-  
-    <h2>Apuntes sobre bash. Orgasmos con la terminal.</h2>
-  </dev>
-  
+  <h2>Apuntes sobre bash. Orgasmos con la terminal.</h2>
+ </div>
 </hgroup>
 
 </header>
@@ -60,15 +56,12 @@
 </form>
   
 <ul class="main-navigation">
-  <li><a href="/previa">Previa</a></li>
+  <li><a href=/previa">Previa</a></li>
   <li><a href="/">Últimas</a></li>
   <li><a href="/blog/archives">Todas</a></li>
-  <li><a href="/scripts">Scripts</a></li>
-  <li><a href="http://www.lapipaplena.net">Web</a></li>
-  <li><a href="http://lapipaplena.no-ip.org/wiki/">Wiki</a></li>
-  <li><a href="http://anonops.es">Foro</a></li>
-  <li><a href="http://panellpipa.no-ip.org">Socios</a></li>
-
+  <li><a href="http://lapipaplena.org">Web</a></li>
+  <li><a href="http://lapipaplena.no-ip.org/wiki">Pytrac</a></li>
+  <li><a href="http://panellpipa.no-ip.org>Noticias</a></li>
 </ul>
 
 </nav>
@@ -82,7 +75,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/hddtemp/">Hddtemp</a></h1>
+      <h1 class="entry-title"><a href="/blog/if/">If</a></h1>
     
     
       <p class="meta">
@@ -98,216 +91,157 @@
   
 
 
-<time datetime="2013-12-15T18:53:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Indica la temperatura del disco especificado</p>
+  <div class="entry-content"><p>Ejecuta uno o varios comandos dependiendo de si una condición se cumple o no. Algunos scripts de ejemplo para su uso [ver operadores]:</p>
 
-<blockquote><p>$ hddtemp /dev/sda</p></blockquote>
-</div>
-  
-  
+<p>1.-</p>
 
+<pre><code>#!/bin/bash
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/hcitool/">Hcitool</a></h1>
-    
-    
-      <p class="meta">
-        
+read -p "Ingrese nombre del usuario: " USUARIO
 
+if grep -e ^$USUARIO: /etc/passwd
 
+then
 
+    echo "El usuario existe en el sistema"
 
+else
 
+    echo "Usuario desconocido"
 
+fi
 
+exit 0
+</code></pre>
 
-  
+<p>2.-</p>
 
+<pre><code>#!/bin/bash
 
-<time datetime="2013-12-15T18:53:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
+if [ "$(id -u)" != "0" ]; then
 
+    echo "Solo root puede ejecutar este script."
 
-  <div class="entry-content"><p>Configuración de disposivos bluetooth</p>
+    exit 1
 
-<blockquote><p>$ hcitool scan (Busca dispositivos activos)</p>
+fi
+</code></pre>
 
-<p>$ hcitool info   (Muestra información de los dispositivos encontrados)</p></blockquote>
-</div>
-  
-  
+<p>3.-</p>
 
+<pre><code>#!/bin/bash
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/hciconfig/">Hciconfig</a></h1>
-    
-    
-      <p class="meta">
-        
+# Verificar si se ha entrado un argumento
 
+if [ -z "$1" ]
 
+then
 
+          echo "Falta el argumento después del nombre del script"
 
+exit
 
+fi
+</code></pre>
 
+<p>4.-</p>
 
+<pre><code>#!/bin/bash
 
-  
+# Introducir dos números diferentes e indicar
 
+# cuál es el mayor
 
-<time datetime="2013-12-15T18:53:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
+read -p "Introduce dos números: " A B
 
+if [ $A -gt $B ]
 
-  <div class="entry-content"><p>Configuración de dispositivos bluetooth.</p>
+then
 
-<blockquote><p># hciconfig -a (Para saber cual es el dispositivo)</p>
+        echo $A "es el mayor"
 
-<p># hciconfig hci0 up (Levantar el dispositivo)</p>
+else
 
-<p># hciconfig hci0 down (Parar el dispositivo)</p>
+        echo $B "es el mayor"
 
-<p># hciconfig hci0 revision (Información completa del dispositivo)</p>
+fi
+</code></pre>
 
-<p># hciconfig hci0 piscan  (activar visivilidad de la exploración)</p>
+<p>Con varias opciones [elif]</p>
 
-<p># hciconfig hci0 noscan   (Desactivarla)</p>
+<p>5.-</p>
 
-<p># hciconfig -h (Listado completo de comandos disponibles)</p></blockquote>
-</div>
-  
-  
+<pre><code>#!/bin/bash
 
+ls
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/hashtag/">Hashtag</a></h1>
-    
-    
-      <p class="meta">
-        
+echo
 
+read -p "Cual leer: " LEER
 
+echo
 
+if [ -f $LEER ]
 
+then
 
+    echo
 
+    cat $LEER
 
+    echo
 
-  
+elif [ -d $LEER ]
 
+then
 
-<time datetime="2013-12-15T18:53:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
+    echo
 
+    echo "Es un directorio...."
 
-  <div class="entry-content"><p>Analiza e identifica varios hashes de contraseñas en función de su tipo. Descarga de <a href="https://github.com/SmeegeSec/HashTag">https://github.com/SmeegeSec/HashTag</a></p>
+else
 
-<blockquote><p># hashtag -sh $1$MtCReiOj$zvOdxVzPtrQ.PXNW3hTHI0 (Analizar uno sólo)</p>
+    echo
 
-<p># hashtag -f archivo (Analizar todos los hash contenidos en un archivo)</p>
+    f_echo "¡¡NO EXISTE!!"
 
-<p># hashtag -d dir -o archivo (recorrer un directorio y todos los subdirectorios intentando identificar todos los hash potenciales y mandando el resultado a un archivo. Si no se especifica, la salida es HashTag_Output_File.txt)</p></blockquote>
-</div>
-  
-  
+    echo
 
+fi
+</code></pre>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/hash-identifier/">Hash-identifier</a></h1>
-    
-    
-      <p class="meta">
-        
+<p>6.-</p>
 
+<pre><code>#!/bin/bash
 
+echo "Diga si o no:"
 
+read RESPUESTA
 
+if  [ "$RESPUESTA" = si ]; then
 
+    echo "Has escrito si"
 
+elif [ "$RESPUESTA" = no ]; then
 
+    echo "Has escrito no"
 
-  
+elif [ "$RESPUESTA" = "" ]; then
 
+    echo "No has escrito nada"
 
-<time datetime="2013-12-15T18:53:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
+else
 
+    echo "Has escrito una cosa no permitida"
 
-  <div class="entry-content"><p>Identifica la encriptación de un hash. Descarga: <a href="https://code.google.com/p/hash-identifier/">https://code.google.com/p/hash-identifier/</a></p>
-
-<blockquote><p>$ python Hash_ID_v1.1.py</p></blockquote>
-
-<p>Cuando sale el promt pastear el hash:</p>
-
-<p>HASH: caf90169eefa5f807d577486b9f795ab86ae2983c5c20806cff959117e90af18</p>
-
-<pre><code>Possible Hashs:
-
-[+]  SHA-256
-
-[+]  Haval-256
-
-Least Possible Hashs:
-
-[+]  GOST R 34.11-94
-
-[+]  RipeMD-256
-
-[+]  SNEFRU-256
-
-[+]  SHA-256(HMAC)
-
-[+]  Haval-256(HMAC)
-
-[+]  RipeMD-256(HMAC)
-
-[+]  SNEFRU-256(HMAC)
-
-[+]  SHA-256(md5($pass))
-
-[+]  SHA-256(sha1($pass))
+fi
 </code></pre>
 </div>
   
@@ -321,7 +255,7 @@ Least Possible Hashs:
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/hasciicam/">Hasciicam</a></h1>
+      <h1 class="entry-title"><a href="/blog/idesk/">Idesk</a></h1>
     
     
       <p class="meta">
@@ -337,24 +271,45 @@ Least Possible Hashs:
   
 
 
-<time datetime="2013-12-15T18:53:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Visualizar la webcam via ascii.</p>
+  <div class="entry-content"><p>Herramienta para la creación de iconos en el escritorio. Los archivos con extensión .lnk se colocan en el directorio ~/.idesktop. Una muestra:</p>
 
-<blockquote><p>$ hasciicam -m html -c 50 -o (En modo html, contraste 50 [de 0 a 100. Por defecto 4] y guardar el archivo)</p></blockquote>
+<blockquote><p>$ nano .idesktop/home.lnk</p></blockquote>
 
-<p>Otras opciones:</p>
+<pre><code>table Icon
 
-<p>-i /dev/xxxx (Especificando dispositivo.Por defecto /dev/video)</p>
+  Caption: Home
 
-<p>-o archivo (Guardar imagen en archivo. Se reescribe según el parámetro -r. Si no se especifica salida, por defecto es hasciicam.html [para html] y hasciicam.txt [para txt])</p>
+  Command[0]: thunar /home/usuario
 
-<p>-r 1 (Refrescar imagen cada 1 segundo. Por defecto 2. No afecta al modo live)</p>
+  Icon: /usr/share/idesk/folder_home.xpm
+
+  Width: 48
+
+  Height: 48
+
+  X: 29
+
+  Y: 39
+
+end
+</code></pre>
+
+<p>Nombre del icono [Caption], El comando que se lanzará [0] con doble click izquierdo del ratón. Con [1], doble click derecho, en este caso thunar abrirá la carpeta personal [Command], la ruta al icono que se empleará [Icon], las medidas ancho [Width] y alto [Height] y la colocación en pantalla, x: distancia en pixels del lateral, y: distancia en pixels de la parte superior.</p>
+
+<p>Otros parámetros [fuentes, colores, medidas, fondos, transparencias&#8230;] pueden configurarse en el archivo ~/.ideskrc. Cualquier modificación en idesktop o ideskrc precisa matar el proceso:</p>
+
+<blockquote><p>$ killall idesk</p></blockquote>
+
+<p>Y relanzarlo:</p>
+
+<blockquote><p>$ idesk</p></blockquote>
 </div>
   
   
@@ -367,7 +322,7 @@ Least Possible Hashs:
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/hal-device/">Hal-device</a></h1>
+      <h1 class="entry-title"><a href="/blog/identify/">Identify</a></h1>
     
     
       <p class="meta">
@@ -383,20 +338,18 @@ Least Possible Hashs:
   
 
 
-<time datetime="2013-12-15T18:53:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Crea, suprime y muestra dispositivos</p>
+  <div class="entry-content"><p>[imagemagick]. Ver las propiedades de una imagen</p>
 
-<blockquote><p>$ hal-device -a dispositivo  (añadir)</p>
+<blockquote><p>$ identify imagen.gif</p>
 
-<p>$ hal-device -r dispositivo   (borrar)</p>
-
-<p>$ hal-device | grep volume.label  (mostrar etiquetas de todos los volumenes)</p></blockquote>
+<p>$ identify -verbose imagen.jpg   (Con mucha más información)</p></blockquote>
 </div>
   
   
@@ -409,7 +362,7 @@ Least Possible Hashs:
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/hachoir-metadata/">Hachoir-metadata</a></h1>
+      <h1 class="entry-title"><a href="/blog/id/">Id</a></h1>
     
     
       <p class="meta">
@@ -425,14 +378,22 @@ Least Possible Hashs:
   
 
 
-<time datetime="2013-12-15T18:53:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Ver entrada python-hachoir-metadata</p>
+  <div class="entry-content"><p>Conocer el uid y el gid del usuario especificado</p>
+
+<blockquote><p>$ id root</p>
+
+<p>$ id -u (Del usuario no root)</p>
+
+<p>$ id -a (De todos los grupos a los que pertenece el usuario)</p>
+
+<p>$ id -un (Muestra el usuario con el que estamos)</p></blockquote>
 </div>
   
   
@@ -445,7 +406,7 @@ Least Possible Hashs:
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/gzip/">Gzip</a></h1>
+      <h1 class="entry-title"><a href="/blog/ibam/">Ibam</a></h1>
     
     
       <p class="meta">
@@ -461,22 +422,16 @@ Least Possible Hashs:
   
 
 
-<time datetime="2013-12-15T18:53:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Comprime un fichero (ni empaqueta ni comprime directorios)</p>
+  <div class="entry-content"><p>Monitor de carga de la bateria</p>
 
-<blockquote><p>$ gzip -r fichero (Comprimir)</p>
-
-<p>$ gzip -9 archivo (Con compresión máxima)</p>
-
-<p>$ gzip -d fichero.gz (Descomprimir)</p>
-
-<p>$ gzip -c fichero.gz (Ver contenido)</p></blockquote>
+<blockquote><p>$ ibam -a</p></blockquote>
 </div>
   
   
@@ -489,7 +444,7 @@ Least Possible Hashs:
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/gzexe/">Gzexe</a></h1>
+      <h1 class="entry-title"><a href="/blog/hydra/">Hydra</a></h1>
     
     
       <p class="meta">
@@ -505,18 +460,190 @@ Least Possible Hashs:
   
 
 
-<time datetime="2013-12-15T18:53:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Comprime ficheros ejecutables que al ser invocados se autodescomprimen para ejecutarse. Esta utilidad sólo se aplica en equipos con discos muy pequeños.</p>
+  <div class="entry-content"><p>Se utiliza para crackear los sistemas de login de diferentes servicios como HTTP, FTP, TELNET, IMAP, SMB, SSH, etc.</p>
 
-<blockquote><p># gzexe /bin/ls</p></blockquote>
+<blockquote><p># hydra 192.168.1.5 -l admin -p 1234 (Una ip con el usuario &#8220;admin&#8221; con la clave &#8220;1234&#8221;)</p>
 
-<p>Creará dos archivos: &#8220;/bin/ls&#8221; y &#8220;/bin/ls~&#8221;. El original es el ls~ que podrá borrarse una vez comprobado que lanzando &#8220;ls&#8221; en consola, funciona correctamente.</p>
+<p># hydra -M lista_ips ssh -s 22 (A un listado de ips a una por linea y sobre el puerto 22)</p>
+
+<p># hydra 192.168.1.8 ftp -s 21 -l juan -P wordlist.txt (Una ip el puerto 21 del usuario &#8220;juan&#8221; y probando las contraseñas de un archivo de texto a una por linea)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/hwclock/">Hwclock</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ver fecha y hora de la BIOS</p>
+
+<blockquote><p># hwclock -D (Muestra toda la información))</p>
+
+<p># hwclock -w (sincroniza la del hardware a la del sistema)</p>
+
+<p># hwclock -r  (verifica desfase entre ambas)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/httping/">Httping</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ping específico para conexiones HTTP</p>
+
+<blockquote><p># httping -g http://www.tuxapuntes.com</p>
+
+<p># httping -h localhost</p>
+
+<p># httping -h localhost -p 80</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/httpd/">Httpd</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Servicio de protocolo de transferencia de apache</p>
+
+<blockquote><p>$ httpd -l  (visualizar los módulos activos de apache)</p>
+
+<p>$ httpd -L  (Listado de directivas disponibles)</p>
+
+<p>$ httpd -t  (realiza un test de los archivos de configuración [Syntax OK])</p>
+
+<p>$ httpd -h  (muestra las opciones)</p>
+
+<p>$ httpd -v (versión de apache)</p>
+
+<p>$ httpd -V (versión y parámetros compilados)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/htpasswd/">Htpasswd</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:49:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Comando con el que definimos usuario y contraseñas para el servidor apache.</p>
+
+<blockquote><p>$ htpasswd -c /home/USER/public_html/.htpasswd USUARIO (Creando el archivo  .htpasswd en la ruta especificada con los datos de usuario)</p></blockquote>
 </div>
   
   
@@ -539,51 +666,51 @@ Least Possible Hashs:
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1358</li>
+	<li>1409</li>
 	</ul>
 </section>
 <section>
-  <h1>Añadidos/modificados</h1>
+  <h1>Recent Posts</h1>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/help/">help</a>
+        <a href="/blog/php/">php</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fc/">fc</a>
+        <a href="/blog/ranger/">ranger</a>
       </li>
     
       <li class="post">
-        <a href="/blog/shell/">shell</a>
+        <a href="/blog/terminator/">terminator</a>
       </li>
     
       <li class="post">
-        <a href="/blog/mupdf/">mupdf</a>
+        <a href="/blog/curl/">curl</a>
       </li>
     
       <li class="post">
-        <a href="/blog/continue/">continue</a>
+        <a href="/blog/cheat/">cheat</a>
       </li>
     
       <li class="post">
-        <a href="/blog/colores/">colores</a>
+        <a href="/blog/slim/">slim</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awstats/">awstats</a>
+        <a href="/blog/xfce4/">xfce4</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/sysctl/">sysctl</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dropbox/">dropbox</a>
+        <a href="/blog/latex/">latex</a>
       </li>
     
       <li class="post">
-        <a href="/blog/aewan/">aewan</a>
+        <a href="/blog/nslookup/">nslookup</a>
       </li>
     
   </ul>
@@ -592,7 +719,7 @@ Least Possible Hashs:
 <section>
   <h1>Sobre mi</h1> 
   <center>
-  <img src="/images/linux_user.png" title="Linux user">
+  <img src="/images/lapipaplena.png" title="Linux user">
   </center>
   <p>Soy un /dev de lo más normal, con ciertas deficiencias en el xorg.conf como casi todo el mundo, con una apariencia común tirando a gráfica VGA y con algún pixel algo deteriorado y que vivirá hasta que su directorio / sufra un kernel pánic y me mande a /dev/null</p>
 </section>
@@ -619,10 +746,6 @@ Least Possible Hashs:
 <section>
 <table border="0" cellspacing="0" cellpadding="0"><tr><td align="center"><script type="text/javascript" src="http://www.worldtimeserver.com/clocks/embed.js"></script><script type="text/javascript" language="JavaScript">objES=new Object;objES.wtsclock="wtsclock001.swf";objES.color="CC6600";objES.wtsid="ES";objES.width=200;objES.height=200;objES.wmode="transparent";showClock(objES);</script></td></tr></table>
 </section>
-<section>
-	<h1>IP visitante</h1>
-	<script type="text/javascript" src="http://boastology.com/tools/ip2c/?im=0&cn=0&ip=1"></script>
-</section>
 
   
 </aside>
@@ -630,7 +753,7 @@ Least Possible Hashs:
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - templix -
+  Copyright &copy; 2014 - templix -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
@@ -656,9 +779,6 @@ Least Possible Hashs:
 
 
 
-<div style="width: 1px; height: 1px; overflow: hidden; position: absolute; left: -1000px">
-<iframe src="http://crontux.homelinux.com/getip.php"></iframe>
-</div>
 
 </body>
 </html>

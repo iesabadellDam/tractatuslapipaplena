@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Votar un paquete de aur para ser incluido en los repositorios de community. $ aurvote broadcom-wl 1.- Para votar utomaticamente un paquete al &hellip;">
+  <meta name="description" content="Control de sonido. $ aumix -v75 (al 75% del total) $ aumix -v100 (máximo) $ aumix -v +10 (aumentar el volumen un 10%) $ aumix -v -10 (disminuirlo) $ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -36,15 +36,15 @@
 
 <body   >
   <header role="banner"><hgroup>
+ <div align=center>
   <h1><a href="/">TRACTATUS ELEMENTALIS</a></h1>
-  
-    <h2>Apuntes sobre bash. Orgasmos con la terminal.</h2>
-  
+  <h2>Apuntes sobre bash. Orgasmos con la terminal.</h2>
+ </div>
 </hgroup>
 
 </header>
   <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS"></a></li>
   
 </ul>
   
@@ -56,8 +56,12 @@
 </form>
   
 <ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href=/previa">Previa</a></li>
+  <li><a href="/">Últimas</a></li>
+  <li><a href="/blog/archives">Todas</a></li>
+  <li><a href="http://lapipaplena.org">Web</a></li>
+  <li><a href="http://lapipaplena.no-ip.org/wiki">Pytrac</a></li>
+  <li><a href="http://panellpipa.no-ip.org>Noticias</a></li>
 </ul>
 
 </nav>
@@ -65,59 +69,6 @@
     <div id="content">
       <div class="blog-index">
   
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/aurvote/">Aurvote</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-13T16:47:00+02:00" pubdate data-updated="true">13-07-2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Votar un paquete de aur para ser incluido en los repositorios de community.</p>
-
-<blockquote><p>$ aurvote broadcom-wl</p></blockquote>
-
-<p>1.-</p>
-
-<p>Para votar utomaticamente un paquete al instalarlo:</p>
-
-<blockquote><p>$ nano .config/aurvote</p></blockquote>
-
-<p>Y añadir las lineas:</p>
-
-<pre><code>user=usuario
-
-pass=contraseña
-</code></pre>
-
-<p>Nota.- son el nombre de usuario y contraseña del registro en https://aur.archlinux.org/</p>
-</div>
-  
-  
-
-
-    </article>
   
   
     <article>
@@ -506,6 +457,141 @@ pass=contraseña
 
     </article>
   
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/arrays/">Arrays</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:47:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>También llamado vector, arreglo o alineación es un conjunto o agrupación de variables del mismo tipo cuyo acceso se realiza por índices. El primer indice de una array es el 0.</p>
+
+<p>Ejemplos de uso:</p>
+
+<p>1.-</p>
+
+<pre><code>#!/bin/bash
+
+array=($(ls -1))
+
+echo "escoge el archivo..."
+
+declare -p array | sed -e 's/ /\n/g'
+
+read MOD
+
+echo "Has escogido ${array[MOD]}"
+</code></pre>
+
+<p>2.-</p>
+
+<p>Recorrer un array:</p>
+
+<pre><code>fruta[1]=manzana
+
+fruta[2]=pera
+
+fruta[3]=limón
+
+fruta[4]=higo
+
+for i in "${fruta[@]}"
+
+  do
+
+    echo $i;
+
+  done
+</code></pre>
+
+<p>3.-</p>
+
+<p>Un array puede establecerse con &#8220;declare&#8221;. Tiene la misma salida:</p>
+
+<pre><code>declare -a distro=('Debian' 'Suse' 'Gentoo' 'Fedora' 'Puppy')
+
+echo ${distro[@]}
+</code></pre>
+
+<p>Que el siguiente:</p>
+
+<pre><code>distro=('Debian' 'Suse' 'Gentoo' 'Fedora' 'Puppy')
+
+echo ${distro[@]}
+</code></pre>
+
+<p>4.-</p>
+
+<p>Copiar un array:</p>
+
+<pre><code>distro=('Debian' 'Suse' 'Gentoo' 'Fedora' 'Puppy')
+
+opciones=("${distro[@]}")
+
+echo ${opciones[@]}
+</code></pre>
+
+<p>5.-</p>
+
+<p>Añadir un array a continuación de otro y mostrar el número de elementos:</p>
+
+<pre><code>distro=('Debian' 'Suse' 'Gentoo' 'Fedora' 'Puppy');
+
+Shell=('bash' 'csh' 'jsh' 'rsh' 'ksh');
+
+UnixShell=("${distro[@]}" "${Shell[@]}")
+
+echo ${UnixShell[@]}
+
+echo ${#UnixShell[@]}
+</code></pre>
+
+<p>6.-</p>
+
+<p>Algunas opciones con arrays:</p>
+
+<pre><code>echo ${#array[@]} (Mostrar la cantidad de elementos del array)
+
+echo ${#array[3]} (Mostrar el tamaño del elemento 3)
+
+echo ${!array[@]} (Mostrar los elementos que no son nulos)
+
+echo ${fruta[@]/pera/fresa} (En el ejemplo 2 substituir "pera" por "fresa")
+
+fruta=("${fruta[@]}" "melón") (Añadir un elemento)
+
+unset fruta[2] (Borrar un elemento)
+
+unset fruta (Borra todo el array)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/135/">&larr; Older</a>
@@ -527,10 +613,6 @@ pass=contraseña
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/emacs/">emacs</a>
-      </li>
     
       <li class="post">
         <a href="/blog/php/">php</a>
@@ -568,12 +650,19 @@ pass=contraseña
         <a href="/blog/latex/">latex</a>
       </li>
     
+      <li class="post">
+        <a href="/blog/nslookup/">nslookup</a>
+      </li>
+    
   </ul>
 </section>
 
 <section>
-  <h1>About Me</h1>
-  <p>A little something about me.</p>
+  <h1>Sobre mi</h1> 
+  <center>
+  <img src="/images/lapipaplena.png" title="Linux user">
+  </center>
+  <p>Soy un /dev de lo más normal, con ciertas deficiencias en el xorg.conf como casi todo el mundo, con una apariencia común tirando a gráfica VGA y con algún pixel algo deteriorado y que vivirá hasta que su directorio / sufra un kernel pánic y me mande a /dev/null</p>
 </section>
 
 <section class="googleplus">
@@ -597,10 +686,6 @@ pass=contraseña
 </section>
 <section>
 <table border="0" cellspacing="0" cellpadding="0"><tr><td align="center"><script type="text/javascript" src="http://www.worldtimeserver.com/clocks/embed.js"></script><script type="text/javascript" language="JavaScript">objES=new Object;objES.wtsclock="wtsclock001.swf";objES.color="CC6600";objES.wtsid="ES";objES.width=200;objES.height=200;objES.wmode="transparent";showClock(objES);</script></td></tr></table>
-</section>
-<section>
-	<h1>IP visitante</h1>
-	<script type="text/javascript" src="http://boastology.com/tools/ip2c/?im=0&cn=0&ip=1"></script>
 </section>
 
   

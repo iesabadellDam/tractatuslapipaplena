@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Obtiene información del estado del demonio cpufreqd así como información de la CPU. $ cpufreq-info
-">
+  <meta name="description" content="Toda aplicación tiene siempre tres descriptores de fichero abiertos, el 0 para la entrada estándar [stdin], el 1 para la salida estándar [stdout], y &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -27,7 +26,6 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <script src="/javascripts/links.js"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -38,12 +36,10 @@
 
 <body   >
   <header role="banner"><hgroup>
-  <div align=center>
+ <div align=center>
   <h1><a href="/">TRACTATUS ELEMENTALIS</a></h1>
-  
-    <h2>Apuntes sobre bash. Orgasmos con la terminal.</h2>
-  </dev>
-  
+  <h2>Apuntes sobre bash. Orgasmos con la terminal.</h2>
+ </div>
 </hgroup>
 
 </header>
@@ -60,15 +56,12 @@
 </form>
   
 <ul class="main-navigation">
-  <li><a href="/previa">Previa</a></li>
+  <li><a href=/previa">Previa</a></li>
   <li><a href="/">Últimas</a></li>
   <li><a href="/blog/archives">Todas</a></li>
-  <li><a href="/scripts">Scripts</a></li>
-  <li><a href="http://www.lapipaplena.net">Web</a></li>
-  <li><a href="http://lapipaplena.no-ip.org/wiki/">Wiki</a></li>
-  <li><a href="http://anonops.es">Foro</a></li>
-  <li><a href="http://panellpipa.no-ip.org">Socios</a></li>
-
+  <li><a href="http://lapipaplena.org">Web</a></li>
+  <li><a href="http://lapipaplena.no-ip.org/wiki">Pytrac</a></li>
+  <li><a href="http://panellpipa.no-ip.org>Noticias</a></li>
 </ul>
 
 </nav>
@@ -82,7 +75,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/cpufreq-info/">Cpufreq-info</a></h1>
+      <h1 class="entry-title"><a href="/blog/descriptor/">Descriptor</a></h1>
     
     
       <p class="meta">
@@ -98,16 +91,24 @@
   
 
 
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Obtiene información del estado del demonio cpufreqd así como información de la CPU.</p>
+  <div class="entry-content"><p>Toda aplicación tiene siempre tres descriptores de fichero abiertos, el 0 para la entrada estándar [stdin], el 1 para la salida estándar [stdout], y el 2 para la salida de errores estándar [stderr]. Del 3 al 9 son descriptores adicionales [ver tuberias]. En el ejemplo:</p>
 
-<blockquote><p>$ cpufreq-info</p></blockquote>
+<blockquote><p>$ ls -a >> listado.txt</p></blockquote>
+
+<p>La salida estándart [descriptor 1] se envia al fichero listado.txt, consecuentemente en pantalla no veremos nada. En el caso:</p>
+
+<blockquote><p>$ ls -zy >> listado.txt</p></blockquote>
+
+<p>El error [descriptor 2] se mostrará por pantalla y listado.txt permanecerá vacio. Para redirigir el error [descriptor 2 ]al fichero listado.txt [descriptor 1]:</p>
+
+<blockquote><p>$ ls -zy >> listado.txt 2>&amp;1</p></blockquote>
 </div>
   
   
@@ -120,7 +121,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/cpio/">Cpio</a></h1>
+      <h1 class="entry-title"><a href="/blog/denyhosts/">Denyhosts</a></h1>
     
     
       <p class="meta">
@@ -136,350 +137,33 @@
   
 
 
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Copiar archivos a un contenedor de manera más eficiente que tar. Los respaldos se pueden restaurar en cualquier sistema UNIX.</p>
+  <div class="entry-content"><p>Protege contra ataques.</p>
 
-<blockquote><p>$ ls *.txt | cpio -ocv -O archivo.cpio (Creará [-o] &#8220;archivo.cpio&#8221; [-O] con todos los .txt del directorio, mostrando toda la salida [-v] y que escriba la información del encabezado en ASCII para facilitar el traspaso entre plataformas)</p></blockquote>
+<p>Configuración:</p>
 
-<p>cpio -icv &lt; archivo.cpio (Extraer el contenido)</p>
-
-<blockquote><p>$ cpio -it &lt; file.cpio > indice (Crear un indice con el contenido de un archivo cpio)</p></blockquote>
-
-<p>Opciones:</p>
-
-<p>-u (Sobreescribiendo si al extraer ya existe el fichero ya que sin este parámetro no lo hace)</p>
-
-<p>-i (extraer archivos de un fichero)</p>
-
-<p>-t (Desplegar sin extraer)</p>
-
-<p>-r (Dar nombre a los archivos que se están extrayendo de forma interactiva)</p>
-
-<p>-d (Extrae con la misma estructura de directorio, si así se creó el fichero)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/cpaldjvu/">Cpaldjvu</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Convierte documentos pdf o imagenes a formato djvu</p>
-
-<blockquote><p>$ cpaldjvu -colors 5 -dpi 50 -verbose entrada.jpg salida (especificando colores [por defecto 256] y resolución [entre 25 y 6000.Por defecto 300])</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/cp/">Cp</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Copiar archivos</p>
-
-<blockquote><p>$ cp -r  (Copia archivos y directorios de forma recursiva)</p>
-
-<p>$ cp -i   (Pide confirmacion antes de sobreescribir)</p>
-
-<p>$ cp -f   (Borra el archivo de destino sin preguntar)</p>
-
-<p>$ cp -u  (copia sólo cuando el archivo de origen es más reciente que el archivo de destino o cuando el archivo destino falta)</p>
-
-<p>$ cp -p  (Copiar conservando los permisos de usuario y grupo)</p>
-
-<p>$ cp archivo{,.back} (Hará una copia .back del archivo)</p>
-
-<p>$ cp archivo archivo.$$ (“$$” es una variable del shell que contiene el pid )</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/cowthink/">Cowthink</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Vaca pensando.</p>
-
-<blockquote><p>$ cowthink -p ¿¿Linux??</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/cowsay/">Cowsay</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Muestra figuras en consola</p>
-
-<blockquote><p>$ cowsay -l      (muestra todas las posibilidades de figuras)</p>
-
-<p>$ cowsay -f tux Esto es linux</p>
-
-<p>$ echo “linux” | cowsay -n | cowsay -n | cowsay -n (Anidando las figuras)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/copy/">Copy</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Carpetas en la nuve tipo Dropbox. Entrar en http://www.copy.com despues de registrarse y logearse, clicar en la pestaña &#8220;Install App&#8221; con lo que se nos descargará la aplicacion de escritorio.</p>
-
-<blockquote><p>$ tar -zvxf copy_agent-1.28.0657.tgz</p>
-
-<p>$ cd copy/x86_64/</p>
-
-<p>$ ./CopyAgent &#8211;install (Donde pondremos nombre de usuario y contraseña del registro y carpeta a compartir. Por defecto Copy)</p>
-
-<p>$ ./CopyConsole (Forzar actualizaciones)</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/convert/">Convert</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>redimensionar, cambiar formatos, extraer fotogramas, convertir blanco y negro imagenes. Este comando es tan extenso que él solo merecería un libro. Consulta más exhaustiva en http://www.imagemagick.org/script/convert.php o en español http://www.rpublica.net/imagemagick/intro.html#inicio_sec)</p>
-
-<blockquote><p>$ convert *.jpg imagenes.pdf        (Crear un pdf con todas las imágenes)</p>
-
-<p>$ convert {1,2,3,4,5,6,7,8,9}.png imagenes.pdf (Lo mismo especificando páginas y orden)</p>
-
-<p>$ convert color.jpg -monochrome blanconegro.jpg (Convertir a blanco y negro)</p>
-
-<p>$ convert original.png nueva.jpg        (Cambiar el formato de una imagen)</p>
-
-<p>$ convert &#8211;auto-orient in.jpg out.jpg  (Reorientar una foto)</p>
-
-<p>$ convert -resize 800x600 *.jpg %02d.jpg (Cambiar dimensiones de todas)</p>
-
-<p>$ convert -quality 40% imagen image_reducida         (lo mismo)</p>
-
-<p>$ convert -delay 60 1.jpg 2.jpg 3.jpg 123.gif (gif animado con varios jpg)</p>
-
-<p>$ convert 123.gif -adjoin 1-2-3.jpg     (extraer los fotogramas de un gif)</p>
-
-<p>$ convert -resize 200 awk.pdf[0] awk.png (primera imagen pdf a imagen)</p>
-
-<p>$ convert file.pdf file.jpg  (convertir pdf en jpg)</p>
-
-<p>$ convert imagen.png -pointsize 32 -gravity center -annotate 0 &#8220;Linux es genial&#8221; salida.png (Colocar un texto con medida 32 sin inclinación [-annnotate 0] en el centro [-gravity center] de una imagen )</p>
-
-<p>$ convert imagen.jpg -alpha set -channel A -fx 0.5 imagen.png (Aumentar la tranparencia de una imagen [valor de fx: 0 toda y 1 nada] y canviarla a jpg)</p>
-
-<p>$ convert -density 300 input.pdf -fill &#8220;rgb(255,255,255)&#8221; -opaque &#8220;rgb(29,5,114)&#8221; output.pdf  (convertir fondo negro a blanco para imprimir)</p>
-
-<p>$ convert entrada.jpg -font Bookman-Demi -pointsize 62 -stroke white -draw &#8220;text 5,60 &#8216;Texto&#8217;&#8221; salida.jpg (poner un texto en determinadas coordenadas [5,60] especificando fuente, medida y borde de las letras en blanco)</p></blockquote>
+<blockquote><p># nano /etc/denyhosts.conf</p></blockquote>
 
 <p>Algunas opciones:</p>
 
-<p>-fill red (Letra roja)</p>
+<pre><code>SECURE_LOG = /var/log/auth.log (Ruta a los logs)
 
-<p>-strokewidth 3 (Ancho del borde de letra)</p>
+DENY_THRESHOLD_INVALID = 5 (Intentos fallidos permitidos con una cuenta que no existe)
 
-<p>-border 3 (Emmarcar la imagen con un borde de 3 pixels)</p>
+DENY_THRESHOLD_VALID = 5 (Intentos falllidos con usuarios validos)
 
-<p>-frame  5x5+2+2 (Lo mismo estilo cuadro)</p>
+PURGE_DENY =5d (Tiempo de baneo de una IP. 5 dias en este caso)
 
-<p> Si quisieramos el texto en rojo añadiríamos: -fill red después de -stroke white)</p>
+BLOCK_SERVICE = sshd (Servicios que queremos proteger [ sshd, ALL...)
+</code></pre>
 
-<p>Notas.-”delay 60″ son 60 milisegundos por fotograma</p>
-
-<p>&#8220;resize 150×150&#8221; Respetará la proporción de la imagen.</p>
-
-<p>&#8220;imagen%02d&#8221;  Renombrará todas la imagenes con nombre “imagen” y dos dígitos.</p>
-
-<p>&#8220;imagen%03d&#8221;   Igual pero con tres dígitos.</p>
-
-<blockquote><p>$ ifconfig | convert -background yellow -fill black -font Courier -pointSize 14 label:@- ifconfig.png  (convertir la salida de un comando a imagen png)</p></blockquote>
-
-<p>ifconfig .- comando que se ejecuta</p>
-
-<p>-background   .- color del fondo</p>
-
-<p>-fill    .- color del texto</p>
-
-<p>-font  .-   fuente del texto</p>
-
-<p>-pointSize .-tamaño del texto</p>
-
-<p>label:@-    .-Nombre del archivo a generar</p>
-
-<p>Archivos nombre de fuentes, colores: /etc/ImageMagick/</p>
-
-<p>Tambien puede cambiarse el nombre de la fuente por su archivo:</p>
-
-<p>-font /home/usuario/.fonts/Albert.ttf</p>
+<p>Nota.- Tambien es posible arrancar el servicio con la opción &#8220;purge&#8221;  [/etc/init.d/denyhosts start &#8211;purge] para eliminar las ips bloqueadas y que se muestran en /etc/hosts.deny</p>
 </div>
   
   
@@ -492,7 +176,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/contrasenas/">Contraseñas</a></h1>
+      <h1 class="entry-title"><a href="/blog/deluser/">Deluser</a></h1>
     
     
       <p class="meta">
@@ -508,88 +192,16 @@
   
 
 
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>1.-</p>
+  <div class="entry-content"><p>Elimina un usuario del sistema sin borrar su directorio.</p>
 
-<p>Eliminar contraseña de root. Iniciar sesión con un live-cd y montar la partición del discon duro [suponemos /dev/sda2]</p>
-
-<pre><code># mount /dev/sda2 /media/sda2
-
-# gedit /dev/sda2/etc/passwd 
-</code></pre>
-
-<p>Y en la linea: root:x:0:0:root/root:/bin/bash</p>
-
-<p>Borrar la “x”, dejandola asi: root::0:0:root/root:/bin/bash y repetir la operación con el usuario normal.</p>
-
-<p>Reiniciar</p>
-
-<p>Activar  root en gdm [parecido con otros selectores de sesión: lightdm, xdm&#8230;]</p>
-
-<pre><code># gedit /etc/gdm/gdm.conf 
-</code></pre>
-
-<p>Cambiar la linea:  AllowRoot=false   por AllowRoot=true</p>
-
-<pre><code># passwd root 
-</code></pre>
-
-<p>Entrar la contraseña</p>
-
-<p>2.-</p>
-
-<p>Cambiar el tiempo en que el sistema &#8220;olvidará&#8221; la contraseña después de un sudo:</p>
-
-<pre><code># nano /etc/sudoers 
-</code></pre>
-
-<p>Y añadir la línea: Defaults timestamp_timeout = 5</p>
-
-<p>Donde el 5 es el tiempo en minutos que la contraseña será guardada.</p>
-
-<p>3.-</p>
-
-<p>Otra forma para cuando se pierde la contraseña</p>
-
-<p>Entrar con un cd live y visualizar /etc/shadow del sistema instalado y buscar el  usuario. La estructura es parecida a:</p>
-
-<p>pepe:$1$YpVPtTE9$jNPGevJ8IjHyAqh0h04V4.:13277:0:99999:7:::</p>
-
-<p>Borrar lo que sigue al nombre del usuario para que quede:</p>
-
-<p>pepe::13277:0:99999:7:::</p>
-
-<p>de este modo el usuario no tendrá contraseña y cuando se pida, dar al intro.  Tras reiniciar, cuando aparezca el menu de grub, situarse con el cursor en la línea del kernel que se quiera usar. Pulsar &#8216;e&#8217; para editar la entrada y editar la línea kernel [pulsando &#8216;e&#8217; de nuevo]. Añadir al final de la línea lo siguiente:</p>
-
-<p>init=/bin/bash</p>
-
-<p>Esto hace que el sistema arranque una shell root sin pedir password. Es posible que el teclado esté en inglés. Pulsar &#8216;b&#8217; para comenzar el arranque del kernel. La partición raíz suele montarse como sólo lectura, asi que se deberá montar como lectura/escritura:</p>
-
-<blockquote><p># mount -o remount,rw /dev/hda2</p></blockquote>
-
-<p>Por último, cambiar la clave de root ejecutando:</p>
-
-<blockquote><p># passwd root</p></blockquote>
-
-<p>4.-</p>
-
-<p>Establecer norma en el sistema de que la contraseña tenga como nímino 8 caracteres:</p>
-
-<blockquote><p># nano /etc/pam.d/common-password</p></blockquote>
-
-<p>Y dejar la linea:</p>
-
-<p>password        [success=2 default=ignore]      pam_unix.so obscure sha512 min=8</p>
-
-<p>5.-</p>
-
-<p>Página donde comprobar la fortaleza de una contraseña: <a href="https://howsecureismypassword.net/">https://howsecureismypassword.net/</a></p>
+<blockquote><p># deluser usuario</p></blockquote>
 </div>
   
   
@@ -602,7 +214,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/conspy/">Conspy</a></h1>
+      <h1 class="entry-title"><a href="/blog/delgroup/">Delgroup</a></h1>
     
     
       <p class="meta">
@@ -618,18 +230,288 @@
   
 
 
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Acceso a las tty1-6 en local o remoto.</p>
+  <div class="entry-content"><p>Elimina un grupo del sistema</p>
 
-<blockquote><p># conspy 1 (entra en la tty1)</p></blockquote>
+<blockquote><p># delgroup grupo</p></blockquote>
+</div>
+  
+  
 
-<p>Para salir pulsar tres veces seguidas la tecla “Esc”</p>
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/declare/">Declare</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Listar las variables de entorno. En caso de que una función tenga el mismo nombre que un script tiene preferencia la función. Usado principalmente en scripts.</p>
+
+<blockquote><p>$ declare -f (Imprime las funciones alfabeticamente y su definición)</p>
+
+<p>$ declare -f funcion (Mostrará la especificada)</p>
+
+<p>$ declare -F (Lista sólo los nombres de la funciones)</p>
+
+<p>$ declare -p var (Saber el tipo de la variable &#8220;var&#8221;)</p>
+
+<p>$ declare -i var=5 (Declarar una variable de tipo entero)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/debugfs/">Debugfs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Depurador de sistemas ext. Permite consultar datos del sistema en tiempo real.</p>
+
+<blockquote><p># debugfs (Entra en el promt de la aplicación. Pulsar letra &#8220;q&#8221; para salir del promt)</p></blockquote>
+
+<p>debugfs 1.42 (29-Nov-2011)</p>
+
+<p>debugfs: help (Muestra un listado de todas las opciones)</p>
+
+<p>debugfs: open /dev/sda2 (Abre un sistema de archivos)</p>
+
+<p>debugfs: stats (información de los superbloques)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/debsums/">Debsums</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Verificar la integridad de los ficheros.</p>
+
+<blockquote><p># debsums -s &amp;> log.txt  (Modo silencioso [-s] y redirigiendo el resultado a un archivo para posterior análisis)</p>
+
+<p># cat log.txt | grep &#8220;mismatch&#8221; | cut -d &#8221; &#8221; -f4 | uniq > reinstall.txt (A partir del archivo anterior, listar los que se han de reinstalar)</p>
+
+<p># debsums -s | grep &#8220;mismatch&#8221; | cut -d &#8221; &#8221; -f4 | uniq > reinstall.txt (Lo mismo)</p>
+
+<p># apt-get install &#8211;reinstall <code>(cat reinstall.txt)</code>  (para instalarlos a partir del listado)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/deborphan/">Deborphan</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Visualizar paquetes huerfanos</p>
+
+<blockquote><p>$ deborphan &#8211;guess-all   (Los muestra todos)</p>
+
+<p># apt-get remove $(deborphan &#8211;guess-all)     (borra todos los mostrados)</p>
+
+<p># deborphan        (para ver las librerias huérfanas)</p>
+
+<p># dpkg -l $(deborphan)    (lo mismo que el anterior con más detalles)</p>
+
+<p># sudo dpkg &#8211;purge $(deborphan)   (eliminar los paquetes huérfanos)</p>
+
+<p># apt-get remove <code>deborphan</code> (Lo mismo)</p>
+
+<p># dpkg -l $(deborphan &#8211;find-config)  (para borrar configuraciones que no se han borrado tras la desinstalación de un paquete)</p>
+
+<p># dpkg &#8211;purge $(deborphan &#8211;ind-config)  (para eliminarlos)</p>
+
+<p># apt-get remove $(deborphan &#8211;guess-all)</p></blockquote>
+
+<p>Nota.- Normalmente estas aplicaciones han de repetirse varias veces hasta que al lanzar el comando no salga ninguna archivo huerfana.</p>
+
+<blockquote><p># deborphan | xargs sudo apt-get -y remove &#8211;purge (otra forma de eliminar paquetes huerfanos)</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/debian-timeline/">Debian-timeline</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Línea de tiempo del proyecto Debian basado en Javascript y HTML: Versiones, bugs, lanzamientos importantes&#8230; Colocar en la barra de navegación:</p>
+
+<pre><code>http://usr/share/debian-timeline/index.html
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/debian-history/">Debian-history</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Historia de la distro Debian. Los idiomas disponibles son: Inglés, francés, alemán, italiano, japonés, coreano, portugués, ruso y lituano. Colocar en la barra de navegación [para el idioma francés]:</p>
+
+<pre><code>http://usr/share/doc/debian-history/fr/index.fr.html
+</code></pre>
 </div>
   
   
@@ -652,51 +534,51 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1358</li>
+	<li>1409</li>
 	</ul>
 </section>
 <section>
-  <h1>Añadidos/modificados</h1>
+  <h1>Recent Posts</h1>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/help/">help</a>
+        <a href="/blog/php/">php</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fc/">fc</a>
+        <a href="/blog/ranger/">ranger</a>
       </li>
     
       <li class="post">
-        <a href="/blog/shell/">shell</a>
+        <a href="/blog/terminator/">terminator</a>
       </li>
     
       <li class="post">
-        <a href="/blog/mupdf/">mupdf</a>
+        <a href="/blog/curl/">curl</a>
       </li>
     
       <li class="post">
-        <a href="/blog/continue/">continue</a>
+        <a href="/blog/cheat/">cheat</a>
       </li>
     
       <li class="post">
-        <a href="/blog/colores/">colores</a>
+        <a href="/blog/slim/">slim</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awstats/">awstats</a>
+        <a href="/blog/xfce4/">xfce4</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/sysctl/">sysctl</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dropbox/">dropbox</a>
+        <a href="/blog/latex/">latex</a>
       </li>
     
       <li class="post">
-        <a href="/blog/aewan/">aewan</a>
+        <a href="/blog/nslookup/">nslookup</a>
       </li>
     
   </ul>
@@ -705,7 +587,7 @@
 <section>
   <h1>Sobre mi</h1> 
   <center>
-  <img src="/images/linux_user.png" title="Linux user">
+  <img src="/images/lapipaplena.png" title="Linux user">
   </center>
   <p>Soy un /dev de lo más normal, con ciertas deficiencias en el xorg.conf como casi todo el mundo, con una apariencia común tirando a gráfica VGA y con algún pixel algo deteriorado y que vivirá hasta que su directorio / sufra un kernel pánic y me mande a /dev/null</p>
 </section>
@@ -732,10 +614,6 @@
 <section>
 <table border="0" cellspacing="0" cellpadding="0"><tr><td align="center"><script type="text/javascript" src="http://www.worldtimeserver.com/clocks/embed.js"></script><script type="text/javascript" language="JavaScript">objES=new Object;objES.wtsclock="wtsclock001.swf";objES.color="CC6600";objES.wtsid="ES";objES.width=200;objES.height=200;objES.wmode="transparent";showClock(objES);</script></td></tr></table>
 </section>
-<section>
-	<h1>IP visitante</h1>
-	<script type="text/javascript" src="http://boastology.com/tools/ip2c/?im=0&cn=0&ip=1"></script>
-</section>
 
   
 </aside>
@@ -743,7 +621,7 @@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - templix -
+  Copyright &copy; 2014 - templix -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
@@ -769,9 +647,6 @@
 
 
 
-<div style="width: 1px; height: 1px; overflow: hidden; position: absolute; left: -1000px">
-<iframe src="http://crontux.homelinux.com/getip.php"></iframe>
-</div>
 
 </body>
 </html>

@@ -9,8 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Compara dos ficheros octeto a octeto. $ cmp fichero1 fichero2
-">
+  <meta name="description" content="Lista ficheros que presumiblemente sobran, faltan o están de alguna forma incorrectos, tomando principalmente la información de la base de datos de &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -27,7 +26,6 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <script src="/javascripts/links.js"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -38,12 +36,10 @@
 
 <body   >
   <header role="banner"><hgroup>
-  <div align=center>
+ <div align=center>
   <h1><a href="/">TRACTATUS ELEMENTALIS</a></h1>
-  
-    <h2>Apuntes sobre bash. Orgasmos con la terminal.</h2>
-  </dev>
-  
+  <h2>Apuntes sobre bash. Orgasmos con la terminal.</h2>
+ </div>
 </hgroup>
 
 </header>
@@ -60,15 +56,12 @@
 </form>
   
 <ul class="main-navigation">
-  <li><a href="/previa">Previa</a></li>
+  <li><a href=/previa">Previa</a></li>
   <li><a href="/">Últimas</a></li>
   <li><a href="/blog/archives">Todas</a></li>
-  <li><a href="/scripts">Scripts</a></li>
-  <li><a href="http://www.lapipaplena.net">Web</a></li>
-  <li><a href="http://lapipaplena.no-ip.org/wiki/">Wiki</a></li>
-  <li><a href="http://anonops.es">Foro</a></li>
-  <li><a href="http://panellpipa.no-ip.org">Socios</a></li>
-
+  <li><a href="http://lapipaplena.org">Web</a></li>
+  <li><a href="http://lapipaplena.no-ip.org/wiki">Pytrac</a></li>
+  <li><a href="http://panellpipa.no-ip.org>Noticias</a></li>
 </ul>
 
 </nav>
@@ -82,7 +75,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/cmp/">Cmp</a></h1>
+      <h1 class="entry-title"><a href="/blog/cruft/">Cruft</a></h1>
     
     
       <p class="meta">
@@ -98,16 +91,20 @@
   
 
 
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Compara dos ficheros octeto a octeto.</p>
+  <div class="entry-content"><p>Lista ficheros que presumiblemente sobran, faltan o están de alguna forma incorrectos, tomando principalmente la información de la base de datos de dpkg</p>
 
-<blockquote><p>$ cmp fichero1 fichero2</p></blockquote>
+<blockquote><p># cruft -d /var/www</p>
+
+<p># cruft -r (Mostrar el informe)</p>
+
+<p># cruft &#8211;ignore /home/usuario (Descartando un directorio)</p></blockquote>
 </div>
   
   
@@ -120,7 +117,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/cmospwd/">Cmospwd</a></h1>
+      <h1 class="entry-title"><a href="/blog/crontab/">Crontab</a></h1>
     
     
       <p class="meta">
@@ -136,24 +133,76 @@
   
 
 
-<time datetime="2013-12-15T18:52:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Averiguar la contraseña de la BIOS. Arrancar con un cd-live [System rescue] y modificar la entrada del kernel del menú de opciones de grub para iniciar una shell [rw init=/bin/bash]</p>
+  <div class="entry-content"><p>configurar tareas para que se ejecuten automáticamente en el sistema</p>
 
-<blockquote><p># cmospwd /d   (pasar la información por pantalla)</p>
+<blockquote><p># crontab -e      (editar el archivo crontab, si no existe se crea)</p>
 
-<p># cmospwd /k   (resetear)</p>
+<p>$ crontab -e      (idem para el usuario no root)</p>
 
-<p># cmospwd /d /w bios.back  (copia de seguridad)</p>
+<p># crontab -l       (Muestra el contenido para root)</p>
 
-<p># cmospwd /l bios.back (Ver el contenido de la copia de seguridad)</p>
+<p># crontab -l -u usuario  (muestra el de usuario)</p>
 
-<p># cmospwd /r bios.back  (restablecer la copia de seguridad)</p></blockquote>
+<p>$ crontab -l       (idem para el usuario no root)</p>
+
+<p># crontab -r       (Borra el contenido de crontab)</p></blockquote>
+
+<p>Crontab consta de 6 campos separados por un espacio que indican:</p>
+
+<p>minuto (0-59), hora (0-23), dia del mes (1-31), mes (1-12), dia de la semana (0-6, domingo=0), y comando a ejecutar. Un asterisco * como valor en los primeros cinco campos, indicará todos (todos los minutos, todas las horas &#8230;)</p>
+
+<pre><code>01 * * * *       (Se ejecuta el primer minuto de cada hora todos los dias)
+
+20 9 * * *       (a las 9:20 de la mañana todos los dias)
+
+20 21 * * *     (a las 9:20 (21:20) de la tarde todos los dias)
+
+01 6 * * 1      (a las 6:01 de todos los lunes)
+
+* * 1 1 *         (todos los minutos de todas las horas del 1 de enero)
+
+00 12 * * 0     (a las doce en punto de todos los domingos)
+
+@reboot (Cada reinicio)
+</code></pre>
+
+<p>También es posible especificar listas en los campos:</p>
+
+<pre><code>01 15 * 1-4 1,2,3,4   (a las 3:01 de la tarde de lunes a viernes de enero a abril)
+
+*/15 * 1-15 *     (cada 15 minutos  entre el 1 y el 15 de todos los meses)
+
+*/5 * * * * cp /etc/resolv.conf.bak /etc/resolv.conf  (Ejecutar cada 5 minutos el comando especificado.)
+
+$ 0 8 * * * env DISPLAY=:0.0 vlc /home/usuario/musica/archivo.mp3 (Programar que cada dia a las 8 se abra un mp3 con el vlc)
+</code></pre>
+
+<p>El archivo donde se guardan las tareas a realizar es:</p>
+
+<blockquote><p>$ nano /var/spool/cron/usuario</p></blockquote>
+
+<p>También pueden añadirse o modificarse en este archivo.</p>
+
+<p>1.-</p>
+
+<p>En ocasiones, y especialmente con Archlinux, crontab cambia la codificación de caracteres de los scripts. Ejecutados directamente funcionan correctamente pero al colocarlos en el cron se muestran con caracteres estraños. La causa son las variables de entorno asociadas a la máquina y al demonio del cron. Para solucionar el problema:</p>
+
+<blockquote><p># nano /etc/environment</p></blockquote>
+
+<p>Y añadir la linea:</p>
+
+<p>LANG=es_ES.UTF-8</p>
+
+<p>Reiniciar cron:</p>
+
+<blockquote><p># /etc/rc.d/crond restart</p></blockquote>
 </div>
   
   
@@ -166,7 +215,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/cmatrix/">Cmatrix</a></h1>
+      <h1 class="entry-title"><a href="/blog/cpulimit/">Cpulimit</a></h1>
     
     
       <p class="meta">
@@ -182,20 +231,18 @@
   
 
 
-<time datetime="2013-12-15T18:51:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Salvapantallas estilo matrix</p>
+  <div class="entry-content"><p>Limitar el uso de la cpu para determinados procesos.</p>
 
-<blockquote><p>$ cmatrix -u 9 -B -C blue  (A velocidad lenta [0-9], usando todos los caracteres y especificando color [green, red, blue, white, yellow, cyan, magenta y black]</p></blockquote>
+<blockquote><p># cpulimit -e yes -l 20 (el de “yes”a un 20% de la cpu. Valor entre 0 y 100)</p>
 
-<p>Nota.- Si durante la ejecución se pulsan las teclas siguientes, se cambia al color indicado:</p>
-
-<p>! (rojo) @ (verde)# (amarillo) $ (azul) % (magenta) ^ (cyam) &amp; (blanco) ) (negro)</p>
+<p># cpulimit -p PID -l 50 (el proceso con el numero PID al 50%)</p></blockquote>
 </div>
   
   
@@ -208,7 +255,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/clive/">Clive</a></h1>
+      <h1 class="entry-title"><a href="/blog/cpuid/">Cpuid</a></h1>
     
     
       <p class="meta">
@@ -224,16 +271,16 @@
   
 
 
-<time datetime="2013-12-15T18:51:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Descarga de videos de youtube.</p>
+  <div class="entry-content"><p>Muestra el IP del proveedor, caracteristicas del procesador, información de caché, etc de procesadores Intel y AMD x86. No tiene opciones.</p>
 
-<blockquote><p>$ clive http://video -O titulo (Dándole un titulo al vídeo)</p></blockquote>
+<blockquote><p>$ cpuid</p></blockquote>
 </div>
   
   
@@ -246,7 +293,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/clex/">Clex</a></h1>
+      <h1 class="entry-title"><a href="/blog/cpufreq-set/">Cpufreq-set</a></h1>
     
     
       <p class="meta">
@@ -262,36 +309,24 @@
   
 
 
-<time datetime="2013-12-15T18:51:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Administrador de archivos.</p>
+  <div class="entry-content"><p>Define el perfil de la CPU [powersave, performance, conservative, userspace, ondemand] así como la velocidad y otros parámetros</p>
 
-<p>Algunas teclas de control:</p>
+<blockquote><p># cpufreq-set &#8211;governor powersave (Define el perfil de velocidad de la CPU. Perfiles disponibles: conservative, powersave, performance, ondemand, userspace)</p>
 
-<p>Ctrl-c (salir de cada una de las opciones siguientes)</p>
+<p># cpufreq-set -c 0 (Definimos que queremos aplicar el comando a la CPU 0. Si se omite, por defecto tomará este valor. El rango de este valor va de 0 a N-1 CPUs. Por ejemplo con 4 núcleos iria de 0 a 3)</p>
 
-<p>alt-m (menú principal)</p>
+<p># cpufreq-set &#8211;min 1200000 –governor PERFIL (define la velocidad mínima del procesador en Hz para el perfil seleccionado, requiere el uso de la opción &#8211;governor. En caso de que el valor sea inferior al permitido, se utiliza la velocidad mínima soportada por la CPU. Si tenemos más de una CPU o núcleo, debemos repetir el comando para cada CPU con la opción -c e indicar el número de esta)</p>
 
-<p>alt-w (Cambiar de directorio)</p>
+<p># cpufreq-set &#8211;max 2101000 &#8211;governor ondemand (lo mismo que –min pero con la velocidad máxima de la CPU)</p>
 
-<p>alt-s (Cambiar el tipo de visualización)</p>
-
-<p>alt-/ (entrar en el directorio raiz)</p>
-
-<p>alt-~ o alt-` (Entrar en el directorio $HOME)</p>
-
-<p>ctrl-r (Actualizar panel)</p>
-
-<p>F4 (Editar archivo [vim])</p>
-
-<p>F5 (Copiar)</p>
-
-<p>F8 (Borrar)</p>
+<p># cpufreq-set -f 1600000 (Especificamos que queremos que la CPU trabaje a la velocidad deseada. Requiere que estemos usando el perfil userspace)</p></blockquote>
 </div>
   
   
@@ -304,7 +339,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/clear/">Clear</a></h1>
+      <h1 class="entry-title"><a href="/blog/cpufreq-selector/">Cpufreq-selector</a></h1>
     
     
       <p class="meta">
@@ -320,14 +355,18 @@
   
 
 
-<time datetime="2013-12-15T18:51:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Limpiar la terminal.</p>
+  <div class="entry-content"><p>Permite definir el perfil de la CPU powersave, performance, conservative, userspace, ondemand así como la velocidad y otros parámetros</p>
+
+<blockquote><p>$ cpufreq-selector -g powersave -c 0 (Define perfil powersave para el nucleo 0)</p>
+
+<p>$ cpufreq-selector -f 1200000 (Define la velocidad exacta de la CPU, en Khz)</p></blockquote>
 </div>
   
   
@@ -340,7 +379,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/clamav/">Clamav</a></h1>
+      <h1 class="entry-title"><a href="/blog/cpufreq-info/">Cpufreq-info</a></h1>
     
     
       <p class="meta">
@@ -356,50 +395,71 @@
   
 
 
-<time datetime="2013-12-15T18:51:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Antivirus</p>
+  <div class="entry-content"><p>Obtiene información del estado del demonio cpufreqd así como información de la CPU.</p>
 
-<blockquote><p># freshclam -v (actualizar la lista de virus)</p>
+<blockquote><p>$ cpufreq-info</p></blockquote>
+</div>
+  
+  
 
-<p># freshclam -d -c 24    (arranca el demonio que actualizará clamav 24 veces diarias- Maximo 50 veces diarias)</p>
 
-<p># clamscan -ri    (Sin especificar directorio, escanear el del usuario)</p>
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/cpio/">Cpio</a></h1>
+    
+    
+      <p class="meta">
+        
 
-<p># clamscan -ri &#8211;remove /home/usuario  (escanea el directorio usuario y borra directamente los archivos infectados)</p>
 
-<p># clamscan -r -l test_clamav.txt  (manda el resultado a un archivo)</p>
 
-<p># sigtool &#8211;list-sigs > list (listado de virus y troyanos que detecta)</p>
 
-<p># clamscan -v -r &#8211;bell &#8211;move=/home/usuario/cuarentena &#8211;log=/var/log/clamav/clamav.log /media/win</p></blockquote>
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Copiar archivos a un contenedor de manera más eficiente que tar. Los respaldos se pueden restaurar en cualquier sistema UNIX.</p>
+
+<blockquote><p>$ ls *.txt | cpio -ocv -O archivo.cpio (Creará [-o] &#8220;archivo.cpio&#8221; [-O] con todos los .txt del directorio, mostrando toda la salida [-v] y que escriba la información del encabezado en ASCII para facilitar el traspaso entre plataformas)</p></blockquote>
+
+<p>cpio -icv &lt; archivo.cpio (Extraer el contenido)</p>
+
+<blockquote><p>$ cpio -it &lt; file.cpio > indice (Crear un indice con el contenido de un archivo cpio)</p></blockquote>
 
 <p>Opciones:</p>
 
-<p>-v (muestra la información)</p>
+<pre><code>-u (Sobreescribiendo si al extraer ya existe el fichero ya que sin este parámetro no lo hace)
 
-<p>-r  (revisa directorios y subdirectorios)</p>
+-i (extraer archivos de un fichero)
 
-<p>&#8211;bell  (aviso sonoro al detectar un virus)</p>
+-t (Desplegar sin extraer)
 
-<p>&#8211;move  (confina los virus en el directorio especificado)</p>
+-r (Dar nombre a los archivos que se están extrayendo de forma interactiva)
 
-<p>&#8211;log  (guarda los logs en el archivo especificado)</p>
-
-<p>-i  (solo mostrará los archivos infectados)</p>
-
-<p>-d  (arrancar en modo demonio)</p>
-
-<p>Archivo de logs: /var/log/clamav/clamav.log</p>
-
-<p>Configuración: /etc/clamav/clamd.conf</p>
-
-<p>Reconfigurar paquete: # dpkg-reconfigure clamav-base</p>
+-d (Extrae con la misma estructura de directorio, si así se creó el fichero)
+</code></pre>
 </div>
   
   
@@ -412,7 +472,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/cksum/">Cksum</a></h1>
+      <h1 class="entry-title"><a href="/blog/cpaldjvu/">Cpaldjvu</a></h1>
     
     
       <p class="meta">
@@ -428,16 +488,16 @@
   
 
 
-<time datetime="2013-12-15T18:51:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Suma de comprobación y número de bytes de un archivo.</p>
+  <div class="entry-content"><p>Convierte documentos pdf o imagenes a formato djvu</p>
 
-<blockquote><p>$ cksum archivo</p></blockquote>
+<blockquote><p>$ cpaldjvu -colors 5 -dpi 50 -verbose entrada.jpg salida (especificando colores [por defecto 256] y resolución [entre 25 y 6000.Por defecto 300])</p></blockquote>
 </div>
   
   
@@ -450,7 +510,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/ck-list-sessions/">Ck-list-sessions</a></h1>
+      <h1 class="entry-title"><a href="/blog/cp/">Cp</a></h1>
     
     
       <p class="meta">
@@ -466,56 +526,28 @@
   
 
 
-<time datetime="2013-12-15T18:51:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:48:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Listado de sesiones abiertas en la máquina.</p>
-</div>
-  
-  
+  <div class="entry-content"><p>Copiar archivos</p>
 
+<blockquote><p>$ cp -r  (Copia archivos y directorios de forma recursiva)</p>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ck-history/">Ck-history</a></h1>
-    
-    
-      <p class="meta">
-        
+<p>$ cp -i   (Pide confirmacion antes de sobreescribir)</p>
 
+<p>$ cp -f   (Borra el archivo de destino sin preguntar)</p>
 
+<p>$ cp -u  (copia sólo cuando el archivo de origen es más reciente que el archivo de destino o cuando el archivo destino falta)</p>
 
+<p>$ cp -p  (Copiar conservando los permisos de usuario y grupo)</p>
 
+<p>$ cp archivo{,.back} (Hará una copia .back del archivo)</p>
 
-
-
-
-  
-
-
-<time datetime="2013-12-15T18:51:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Listado de los logeos en el sistema (tty, pts, ssh&#8230;)</p>
-
-<blockquote><p>$ ck-history &#8211;frequent</p>
-
-<p>$ ck-history &#8211;last-compat</p>
-
-<p>$ ck-history &#8211;last | less</p></blockquote>
+<p>$ cp archivo archivo.$$ (“$$” es una variable del shell que contiene el pid )</p></blockquote>
 </div>
   
   
@@ -538,51 +570,51 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1358</li>
+	<li>1409</li>
 	</ul>
 </section>
 <section>
-  <h1>Añadidos/modificados</h1>
+  <h1>Recent Posts</h1>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/help/">help</a>
+        <a href="/blog/php/">php</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fc/">fc</a>
+        <a href="/blog/ranger/">ranger</a>
       </li>
     
       <li class="post">
-        <a href="/blog/shell/">shell</a>
+        <a href="/blog/terminator/">terminator</a>
       </li>
     
       <li class="post">
-        <a href="/blog/mupdf/">mupdf</a>
+        <a href="/blog/curl/">curl</a>
       </li>
     
       <li class="post">
-        <a href="/blog/continue/">continue</a>
+        <a href="/blog/cheat/">cheat</a>
       </li>
     
       <li class="post">
-        <a href="/blog/colores/">colores</a>
+        <a href="/blog/slim/">slim</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awstats/">awstats</a>
+        <a href="/blog/xfce4/">xfce4</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/sysctl/">sysctl</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dropbox/">dropbox</a>
+        <a href="/blog/latex/">latex</a>
       </li>
     
       <li class="post">
-        <a href="/blog/aewan/">aewan</a>
+        <a href="/blog/nslookup/">nslookup</a>
       </li>
     
   </ul>
@@ -591,7 +623,7 @@
 <section>
   <h1>Sobre mi</h1> 
   <center>
-  <img src="/images/linux_user.png" title="Linux user">
+  <img src="/images/lapipaplena.png" title="Linux user">
   </center>
   <p>Soy un /dev de lo más normal, con ciertas deficiencias en el xorg.conf como casi todo el mundo, con una apariencia común tirando a gráfica VGA y con algún pixel algo deteriorado y que vivirá hasta que su directorio / sufra un kernel pánic y me mande a /dev/null</p>
 </section>
@@ -618,10 +650,6 @@
 <section>
 <table border="0" cellspacing="0" cellpadding="0"><tr><td align="center"><script type="text/javascript" src="http://www.worldtimeserver.com/clocks/embed.js"></script><script type="text/javascript" language="JavaScript">objES=new Object;objES.wtsclock="wtsclock001.swf";objES.color="CC6600";objES.wtsid="ES";objES.width=200;objES.height=200;objES.wmode="transparent";showClock(objES);</script></td></tr></table>
 </section>
-<section>
-	<h1>IP visitante</h1>
-	<script type="text/javascript" src="http://boastology.com/tools/ip2c/?im=0&cn=0&ip=1"></script>
-</section>
 
   
 </aside>
@@ -629,7 +657,7 @@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - templix -
+  Copyright &copy; 2014 - templix -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
@@ -655,9 +683,6 @@
 
 
 
-<div style="width: 1px; height: 1px; overflow: hidden; position: absolute; left: -1000px">
-<iframe src="http://crontux.homelinux.com/getip.php"></iframe>
-</div>
 
 </body>
 </html>

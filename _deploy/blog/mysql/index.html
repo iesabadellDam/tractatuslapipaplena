@@ -26,7 +26,6 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <script src="/javascripts/links.js"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -37,12 +36,10 @@
 
 <body   >
   <header role="banner"><hgroup>
-  <div align=center>
+ <div align=center>
   <h1><a href="/">TRACTATUS ELEMENTALIS</a></h1>
-  
-    <h2>Apuntes sobre bash. Orgasmos con la terminal.</h2>
-  </dev>
-  
+  <h2>Apuntes sobre bash. Orgasmos con la terminal.</h2>
+ </div>
 </hgroup>
 
 </header>
@@ -59,15 +56,12 @@
 </form>
   
 <ul class="main-navigation">
-  <li><a href="/previa">Previa</a></li>
+  <li><a href=/previa">Previa</a></li>
   <li><a href="/">Últimas</a></li>
   <li><a href="/blog/archives">Todas</a></li>
-  <li><a href="/scripts">Scripts</a></li>
-  <li><a href="http://www.lapipaplena.net">Web</a></li>
-  <li><a href="http://lapipaplena.no-ip.org/wiki/">Wiki</a></li>
-  <li><a href="http://anonops.es">Foro</a></li>
-  <li><a href="http://panellpipa.no-ip.org">Socios</a></li>
-
+  <li><a href="http://lapipaplena.org">Web</a></li>
+  <li><a href="http://lapipaplena.no-ip.org/wiki">Pytrac</a></li>
+  <li><a href="http://panellpipa.no-ip.org>Noticias</a></li>
 </ul>
 
 </nav>
@@ -94,7 +88,7 @@
   
 
 
-<time datetime="2013-12-15T18:55:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
@@ -111,7 +105,7 @@
 
 <p>$ mysqldump -u root -p &#8211;all-databases > fichero.sql (Backup de todas las BDs)</p>
 
-<p>$ mysqldump -u root -p &#8211;databases clientes proveedores > fichero.sql (Backup de dos BDs)</p>
+<p>$ mysqldump -u root -p clientes proveedores > fichero.sql (Backup de dos BDs)</p>
 
 <p>$ mysqldump -u root -p proveedores &#8211;ignore-table=antiguos > fichero.sql (Backup ignorando una tabla)</p>
 
@@ -131,7 +125,7 @@
 
 <p>mysql> create database datos; (Crear la BD &#8220;datos&#8221;)</p>
 
-<p>mysql> DROP DATABASE datos; (Borrar toda una base de datos)</p>
+<p>mysql> DROP DATABASE datos; (Borrar toda una base de datos. El directorio /var/lib/mysql/datos/ tiene que estar vacio)</p>
 
 <p>mysql> USE datos (Entrar en la BD &#8220;datos&#8221;. Sin punto y coma final)</p>
 
@@ -145,13 +139,13 @@
 
 <p>Modelo de creación de una tabla dentro de una BD mysql:</p>
 
-<pre><code>mysql&gt; CREATE TABLE usuarios( 
+<pre><code>mysql&gt; CREATE TABLE usuarios(
 
--&gt; nombre VARCHAR(20), apellido VARCHAR(20), 
+-&gt; nombre VARCHAR(20), apellido VARCHAR(20),
 
--&gt; profesión VARCHAR(20), sexo CHAR(1), nacimiento DATE, 
+-&gt; profesión VARCHAR(20), sexo CHAR(1), nacimiento DATE,
 
--&gt; antiguedad DATE); 
+-&gt; antiguedad DATE);
 </code></pre>
 
 <p>VARCHAR(20) (Que los valores que se almacenarán son de longitud variable de hasta 20 caracteres)</p>
@@ -164,39 +158,39 @@
 
 <blockquote><p>$ nano usuarios.txt</p></blockquote>
 
-<p>Juan    Borras  contable    m   1964-05-12  1988-03-27</p>
+<pre><code>Juan    Borras  contable    m   1964-05-12  1988-03-27
 
-<p>Maria   Gil administrativo  f   1983-10-03  2004-08-05</p>
+Maria   Gil administrativo  f   1983-10-03  2004-08-05
 
-<p>Antonio Gomez   portero     m   \N      2006-11-01</p>
-
-<pre><code>Nota.- El final del archivo no ha de contener ninguna linea en blanco. 
+Antonio Gomez   portero     m   \N      2006-11-01
 </code></pre>
+
+<p>Nota.- El final del archivo no ha de contener ninguna linea en blanco. El archivo tiene que estar en /var/lib/mysql/datos (En el directorio de la misma base de datos donde se carga)</p>
 
 <p>Para cargarlo en la BD:</p>
 
-<p>mysql> LOAD DATA LOCAL INFILE &#8220;usuarios.txt&#8221; INTO TABLE datos;</p>
+<p>mysql> LOAD DATA INFILE &#8220;usuarios.txt&#8221; INTO TABLE datos;</p>
 
 <pre><code>Nota.- En caso de que salga el error: The used command is not allowed with this MySQL version:
 
 # nano /etc/mysql/my.cnf
 
-Y en la sección [mysql] añadir la linea "local-infile": 
+Y en la sección [mysql] añadir la linea "local-infile":
 
     [mysql]
 
     local-infile
 
-Reinciar mysql. 
+Reinciar mysql.
 </code></pre>
 
 <p>LOAD DATA (Permite especificar cuál es el separador de columnas y el separador de registros. Por defecto el tabulador es el separador de columnas (campos) y el salto de línea es el separador de registros)</p>
 
 <p>Para añadir un nuevo registro a la BD anterior:</p>
 
-<pre><code>mysql&gt; INSERT INTO usuarios 
+<pre><code>mysql&gt; INSERT INTO usuarios
 
-    -&gt; VALUES('Jose','Robles','administrativo','m',NULL,'2012-12-01'); 
+    -&gt; VALUES('Jose','Robles','administrativo','m',NULL,'2012-12-01');
 </code></pre>
 
 <p>Valores y fechas entre comillas simples y valores desconocidos NULL y no \N como entrando un archivo.</p>
@@ -207,13 +201,11 @@ Reinciar mysql.
 
 <p>mysql> DELETE FROM usuarios;</p>
 
-<p>mysql> LOAD DATA LOCAL INFILE &#8220;usuarios.txt&#8221; INTO TABLE usuarios;</p>
+<p>mysql> LOAD DATA INFILE &#8220;usuarios.txt&#8221; INTO TABLE usuarios;</p>
 
-<p>O modificando solo el registro:</p>
+<p>O modificando solo el registro que corresponda:</p>
 
-<p>mysql> UPDATE usuarios SET nacimiento=&#8221;1959-04-12&#8221;</p>
-
-<p>WHERE apellido=&#8221;Gomez&#8221;;</p>
+<p>mysql> UPDATE usuarios SET nacimiento=&#8221;1959-04-12&#8221; WHERE apellido=&#8221;Gomez&#8221;; (Modificar campo &#8220;nacimiento&#8221; del apellido &#8220;Gomez&#8221;</p>
 
 <p>mysql> SELECT * FROM usuarios WHERE apellido=&#8221;Gomez&#8221;; (Verificar si se ha realizado la modificación)</p>
 
@@ -223,9 +215,9 @@ Reinciar mysql.
 
 <p>mysql> SELECT * FROM usuarios WHERE profesion=&#8221;portero&#8221; OR profesion=&#8221;contable&#8221;; (filtrar porteros y contables)</p>
 
-<pre><code>mysql&gt; SELECT * FROM usuarios WHERE (profesion="portero" AND sexo="f") 
+<pre><code>mysql&gt; SELECT * FROM usuarios WHERE (profesion="portero" AND sexo="f")
 
-    -&gt; OR (nombre = "juan" AND sexo = "m"); (Filtrar distintas opciones encerradas entre parentesis) 
+    -&gt; OR (nombre = "juan" AND sexo = "m"); (Filtrar distintas opciones encerradas entre parentesis)
 </code></pre>
 
 <p>mysql> SELECT apellido, nacimiento FROM usuarios;</p>
@@ -236,9 +228,11 @@ Reinciar mysql.
 
 <p>mysql> SELECT * FROM la_tabla ORDER BY la_columna; (Ordenar por el número de una columna)</p>
 
-<p>mysql> drop table usuarios; (Eliminar una tabla)</p>
+<p>mysql> DELETE FROM usuarios WHERE nombre=&#8217;Maria&#8217;; (Eliminar toda la entrada que contenga &#8220;Maria&#8221;)</p>
 
-<p>mysql> drop table if exists usuarios; (Eliminar tabla si existe)</p>
+<p>mysql> DROP TABLE usuarios; (Eliminar una tabla)</p>
+
+<p>mysql> DROP TABLE IS EXIST usuarios; (Eliminar tabla si existe)</p>
 
 <p>mysql> CHECK TABLE la_tabla EXTENDED; (Chequear la integridad de una tabla)</p>
 
@@ -265,7 +259,7 @@ mysql&gt; SOURCE datos.sql;
 
 <p>Exportar una tabla a txt con determinado formato:</p>
 
-<pre><code>mysql&gt; SELECT * SELECT tabla INTO OUTFILE "tabla.txt"
+<pre><code>mysql&gt; SELECT * FROM tabla INTO OUTFILE "tabla.txt"
 
    --&gt; FIELDS TERMINATED BY '   '
 
@@ -328,10 +322,9 @@ mysql&gt; SOURCE datos.sql;
 
 <p>mysql> SHOW GRANTS FOR pedro; (Ver los privilegios de un usuario)</p>
 
-<pre><code>mysql&gt; GRANT ALL ON *.* TO juan@localhost (Otorgar todos los privilegios a un usuario)
+<p>mysql> GRANT ALL ON <em>.</em> TO juan@localhost (Otorgar todos los privilegios a un usuario)</p>
 
-mysql&gt; REVOKE ALL ON *.* FROM juan@localhost; (Anular todos los privilegios de un usuario)
-</code></pre>
+<p>mysql> REVOKE ALL ON <em>.</em> FROM juan@localhost; (Anular todos los privilegios de un usuario)</p>
 
 <p>6.-</p>
 
@@ -360,6 +353,24 @@ mysql&gt; FLUSH PRIVILEGES;
 
 mysql&gt; exit
 </code></pre>
+
+<p>7.-</p>
+
+<p>Solucionar:ERROR 1045 (28000): Access denied for user &#8216;root&#8217;@&#8217;localhost&#8217; (using password: NO)</p>
+
+<blockquote><p># /etc/init.d/mysql stop (Detener el servicio)</p>
+
+<p># mysqld_safe &#8211;user=mysql &#8211;skip-grant-tables (Saltar privilegios de MySQL)</p>
+
+<p>$ mysql (En otra terminal entrar en MySQL)</p></blockquote>
+
+<p>mysql> use mysql (Enrar en la BDs mysql)</p>
+
+<p>mysql> UPDATE user SET Password=PASSWORD(&#8216;12345&#8217;) WHERE user=&#8217;root&#8217;;(Actualizar el campo Password del usuario root)</p>
+
+<p>mysql> exit (Salir)</p>
+
+<blockquote><p>$ mysql -u root -p (Entrar en MySQL)</p></blockquote>
 </div>
 
 
@@ -368,7 +379,7 @@ mysql&gt; exit
       
   
 
-<span class="byline author vcard">Escrito por la Pipa Plena. Gestor del blog <span class="fn">templix</span></span>
+<span class="byline author vcard">Escrito por<span class="fn">templix</span></span>
 
       
 
@@ -382,7 +393,7 @@ mysql&gt; exit
   
 
 
-<time datetime="2013-12-15T18:55:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2014</time>
       
 
 
@@ -402,7 +413,7 @@ mysql&gt; exit
         <a class="basic-alignment left" href="/blog/mv/" title="Previous Post: mv">&laquo; mv</a>
       
       
-        <a class="basic-alignment right" href="/blog/namei/" title="Next Post: namei">namei &raquo;</a>
+        <a class="basic-alignment right" href="/blog/mysqladmin/" title="Next Post: mysqladmin">mysqladmin &raquo;</a>
       
     </p>
   </footer>
@@ -415,51 +426,51 @@ mysql&gt; exit
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1358</li>
+	<li>1409</li>
 	</ul>
 </section>
 <section>
-  <h1>Añadidos/modificados</h1>
+  <h1>Recent Posts</h1>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/help/">help</a>
+        <a href="/blog/php/">php</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fc/">fc</a>
+        <a href="/blog/ranger/">ranger</a>
       </li>
     
       <li class="post">
-        <a href="/blog/shell/">shell</a>
+        <a href="/blog/terminator/">terminator</a>
       </li>
     
       <li class="post">
-        <a href="/blog/mupdf/">mupdf</a>
+        <a href="/blog/curl/">curl</a>
       </li>
     
       <li class="post">
-        <a href="/blog/continue/">continue</a>
+        <a href="/blog/cheat/">cheat</a>
       </li>
     
       <li class="post">
-        <a href="/blog/colores/">colores</a>
+        <a href="/blog/slim/">slim</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awstats/">awstats</a>
+        <a href="/blog/xfce4/">xfce4</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/sysctl/">sysctl</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dropbox/">dropbox</a>
+        <a href="/blog/latex/">latex</a>
       </li>
     
       <li class="post">
-        <a href="/blog/aewan/">aewan</a>
+        <a href="/blog/nslookup/">nslookup</a>
       </li>
     
   </ul>
@@ -468,7 +479,7 @@ mysql&gt; exit
 <section>
   <h1>Sobre mi</h1> 
   <center>
-  <img src="/images/linux_user.png" title="Linux user">
+  <img src="/images/lapipaplena.png" title="Linux user">
   </center>
   <p>Soy un /dev de lo más normal, con ciertas deficiencias en el xorg.conf como casi todo el mundo, con una apariencia común tirando a gráfica VGA y con algún pixel algo deteriorado y que vivirá hasta que su directorio / sufra un kernel pánic y me mande a /dev/null</p>
 </section>
@@ -495,10 +506,6 @@ mysql&gt; exit
 <section>
 <table border="0" cellspacing="0" cellpadding="0"><tr><td align="center"><script type="text/javascript" src="http://www.worldtimeserver.com/clocks/embed.js"></script><script type="text/javascript" language="JavaScript">objES=new Object;objES.wtsclock="wtsclock001.swf";objES.color="CC6600";objES.wtsid="ES";objES.width=200;objES.height=200;objES.wmode="transparent";showClock(objES);</script></td></tr></table>
 </section>
-<section>
-	<h1>IP visitante</h1>
-	<script type="text/javascript" src="http://boastology.com/tools/ip2c/?im=0&cn=0&ip=1"></script>
-</section>
 
   
 </aside>
@@ -507,7 +514,7 @@ mysql&gt; exit
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - templix -
+  Copyright &copy; 2014 - templix -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
@@ -533,9 +540,6 @@ mysql&gt; exit
 
 
 
-<div style="width: 1px; height: 1px; overflow: hidden; position: absolute; left: -1000px">
-<iframe src="http://crontux.homelinux.com/getip.php"></iframe>
-</div>
 
 </body>
 </html>

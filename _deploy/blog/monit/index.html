@@ -26,7 +26,6 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <script src="/javascripts/links.js"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -37,12 +36,10 @@
 
 <body   >
   <header role="banner"><hgroup>
-  <div align=center>
+ <div align=center>
   <h1><a href="/">TRACTATUS ELEMENTALIS</a></h1>
-  
-    <h2>Apuntes sobre bash. Orgasmos con la terminal.</h2>
-  </dev>
-  
+  <h2>Apuntes sobre bash. Orgasmos con la terminal.</h2>
+ </div>
 </hgroup>
 
 </header>
@@ -59,15 +56,12 @@
 </form>
   
 <ul class="main-navigation">
-  <li><a href="/previa">Previa</a></li>
+  <li><a href=/previa">Previa</a></li>
   <li><a href="/">Últimas</a></li>
   <li><a href="/blog/archives">Todas</a></li>
-  <li><a href="/scripts">Scripts</a></li>
-  <li><a href="http://www.lapipaplena.net">Web</a></li>
-  <li><a href="http://lapipaplena.no-ip.org/wiki/">Wiki</a></li>
-  <li><a href="http://anonops.es">Foro</a></li>
-  <li><a href="http://panellpipa.no-ip.org">Socios</a></li>
-
+  <li><a href="http://lapipaplena.org">Web</a></li>
+  <li><a href="http://lapipaplena.no-ip.org/wiki">Pytrac</a></li>
+  <li><a href="http://panellpipa.no-ip.org>Noticias</a></li>
 </ul>
 
 </nav>
@@ -94,7 +88,7 @@
   
 
 
-<time datetime="2013-12-15T18:55:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
@@ -121,54 +115,54 @@
 
 <p>Configuración:</p>
 
-<pre><code># nano /etc/monitrc 
+<pre><code># nano /etc/monitrc
 </code></pre>
 
 <p>Las entradas globales empiezan por “set” y los servicios concretos por “check”</p>
 
 <p>Tiempo de actualización de datos, por defecto:</p>
 
-<pre><code>set daemon  60 
+<pre><code>set daemon  60
 </code></pre>
 
 <p>Especificar el archivo de eventos (logs)</p>
 
-<pre><code>set logfile /var/log/monit.log 
+<pre><code>set logfile /var/log/monit.log
 </code></pre>
 
 <p>Configurar para el envio de notificaciones:</p>
 
-<pre><code>set mailserver localhost 
+<pre><code>set mailserver localhost
 
-set alert usuario@localhost.localdomain 
+set alert usuario@localhost.localdomain
 
-set mail-format { 
+set mail-format {
 
-from: monit@$HOST 
+from: monit@$HOST
 
-subject: $SERVICE $EVENT 
+subject: $SERVICE $EVENT
 
-message: $ACTION $SERVICE at $DATE on $HOST: $DESCRIPTION. 
+message: $ACTION $SERVICE at $DATE on $HOST: $DESCRIPTION.
 
-} 
+}
 
-set mailserver mail@mail.com (servidor smtp que envia los correos [localhost para notificación local]). 
+set mailserver mail@mail.com (servidor smtp que envia los correos [localhost para notificación local]).
 
-set alert user@hots.com  (cuenta donde enviar los mensajes de alerta). Ejemplo para enviar notificaciones a correo gmail (en negrita los datos a modificar): 
+set alert user@hots.com  (cuenta donde enviar los mensajes de alerta). Ejemplo para enviar notificaciones a correo gmail (en negrita los datos a modificar):
 
-set mailserver smtp.gmail.com port 587 
+set mailserver smtp.gmail.com port 587
 
-username usuario@gmail.com password Tfer7¿-6j 
+username usuario@gmail.com password Tfer7¿-6j
 
-using tlsv1 
+using tlsv1
 
-with timeout 30 seconds 
+with timeout 30 seconds
 
-set alert usuario@gmail.com 
+set alert usuario@gmail.com
 
-Cambiar usuario y contraseña (por defecto: admin/monit) 
+Cambiar usuario y contraseña (por defecto: admin/monit)
 
-allow usuario:contraseña 
+allow usuario:contraseña
 </code></pre>
 
 <p>Especificar desde donde accederemos. Sólo acceso local [localhost:2812]:</p>
@@ -179,18 +173,18 @@ allow usuario:contraseña
 
 <p>o si queremos acceso remoto [http://ip_o_host:2812] modificar por:</p>
 
-<pre><code>set httpd port 2812 
+<pre><code>set httpd port 2812
 
-     allow localhost 
+     allow localhost
 </code></pre>
 
 <p>Tambien podemos especificar: ips, rangos, hosts concretos o usuarios para solo lectura:</p>
 
-<pre><code>allow 192.168.1.14 
+<pre><code>allow 192.168.1.14
 
-allow 192.168.1.1/24 
+allow 192.168.1.1/24
 
-allow host.com 
+allow host.com
 
 allow usuario:contraseña read-only
 </code></pre>
@@ -199,101 +193,101 @@ allow usuario:contraseña read-only
 
 <p>check system tux</p>
 
-<pre><code>if loadavg (1min) &gt; 4 then alert 
+<pre><code>if loadavg (1min) &gt; 4 then alert
 
-if memory usage &gt; 75% then alert 
+if memory usage &gt; 75% then alert
 
-if swap usage &gt; 85% then alert 
+if swap usage &gt; 85% then alert
 
-if cpu usage (user) &gt; 70% then alert 
+if cpu usage (user) &gt; 70% then alert
 
-if cpu usage (system) &gt; 70% then alert 
+if cpu usage (system) &gt; 70% then alert
 
-if cpu usage (wait) &gt; 70% then alert 
+if cpu usage (wait) &gt; 70% then alert
 </code></pre>
 
 <p>Configurar el monitoreo de apache (Las rutas a los ficheros pertenecen a una distro arch):</p>
 
 <p>check process apache with pidfile /run/httpd/httpd.pid</p>
 
-<pre><code>start program = "/etc/rc.d/httpd start" with timeout 60 seconds 
+<pre><code>start program = "/etc/rc.d/httpd start" with timeout 60 seconds
 
-stop program  = "/etc/rc.d/httpd stop" 
+stop program  = "/etc/rc.d/httpd stop"
 
-if cpu &gt; 80% for 5 cycles then restart 
+if cpu &gt; 80% for 5 cycles then restart
 
-if totalmem &gt; 1500.0 MB for 5 cycles then restart 
+if totalmem &gt; 1500.0 MB for 5 cycles then restart
 
-if children &gt; 250 then restart 
+if children &gt; 250 then restart
 
-if cpu usage &gt; 95% for 3 cycles then restart 
+if cpu usage &gt; 95% for 3 cycles then restart
 
-if failed port 80 protocol http then restart 
+if failed port 80 protocol http then restart
 </code></pre>
 
 <p>Configurar monitoreo de ssh</p>
 
 <p>check process ssh with pidfile /run/sshd.pid</p>
 
-<pre><code>start program = "/etc/rc.d/sshd start" with timeout 60 seconds 
+<pre><code>start program = "/etc/rc.d/sshd start" with timeout 60 seconds
 
-stop program  = "/etc/rc.d/sshd stop" 
+stop program  = "/etc/rc.d/sshd stop"
 
-if cpu &gt; 80% for 5 cycles then restart 
+if cpu &gt; 80% for 5 cycles then restart
 
-if totalmem &gt; 1500.0 MB for 5 cycles then restart 
+if totalmem &gt; 1500.0 MB for 5 cycles then restart
 
-if children &gt; 250 then restart 
+if children &gt; 250 then restart
 
-if cpu usage &gt; 95% for 3 cycles then restart 
+if cpu usage &gt; 95% for 3 cycles then restart
 
-if failed port 22 protocol ssh then restart 
+if failed port 22 protocol ssh then restart
 </code></pre>
 
 <p>Chequear determinados puertos:</p>
 
 <p>check host localhost with address localhost</p>
 
-<pre><code>  if failed icmp type echo count 10 with timeout 15 seconds 
+<pre><code>  if failed icmp type echo count 10 with timeout 15 seconds
 
-     then alert 
+     then alert
 
-  if failed port 22 proto ssh then alert 
+  if failed port 22 proto ssh then alert
 
-  if failed port 25 proto smtp then alert 
+  if failed port 25 proto smtp then alert
 
-  if failed port 80 proto http then alert 
+  if failed port 80 proto http then alert
 </code></pre>
 
 <p>Monitorear ciertos archivos de configuración [de apache y ssh] para que alerte si modifica el checksum:</p>
 
-<pre><code>check file httpd.conf with path /etc/httpd/conf/httpd.conf 
+<pre><code>check file httpd.conf with path /etc/httpd/conf/httpd.conf
 
-if changed checksum then alert 
+if changed checksum then alert
 
-check file ssh_config with path /etc/ssh/ssh_config 
+check file ssh_config with path /etc/ssh/ssh_config
 
-if changed checksum then alert 
+if changed checksum then alert
 </code></pre>
 
 <p>Monitorizar directorios para que envie una alerta en caso de modificación:</p>
 
-<pre><code>        check directory sbin with path /sbin 
+<pre><code>        check directory sbin with path /sbin
 
-    if changed timestamp then alert 
+    if changed timestamp then alert
 </code></pre>
 
 <p>Monitorizar dispositivos /dev/ [discos duros, usb&#8230;] para que avise en caso de sobrepasar determinado espacio en disco o lo desmonte al llegar a cierto porcentaje:</p>
 
-<pre><code>check device sda5 with path /dev/sda5 
+<pre><code>check device sda5 with path /dev/sda5
 
-start = “/bin/mount /dev/sda5” 
+start = “/bin/mount /dev/sda5”
 
-stop = “/bin/umount /dev/sda5” 
+stop = “/bin/umount /dev/sda5”
 
-if space usage &gt; 90% then alert 
+if space usage &gt; 90% then alert
 
-if space usage &gt; 98% then stop 
+if space usage &gt; 98% then stop
 </code></pre>
 
 <p>Si, al pasar algún evento queremos lanzar un script algunos ejemplos para hacerlo son:</p>
@@ -302,9 +296,9 @@ if space usage &gt; 98% then stop
 
 <p>check system dominio.com</p>
 
-<pre><code>if loadavg (1min) &gt; 5 then alert 
+<pre><code>if loadavg (1min) &gt; 5 then alert
 
-if loadavg (1min) &gt; 20 then exec "/bin/bash /root/script.sh" 
+if loadavg (1min) &gt; 20 then exec "/bin/bash /root/script.sh"
 </code></pre>
 
 <p>2.- Si falla el servidor ftp [puerto 21], al pasar 20 segundos alertará  y ejecutará el script</p>
@@ -318,7 +312,7 @@ if loadavg (1min) &gt; 20 then exec "/bin/bash /root/script.sh"
       
   
 
-<span class="byline author vcard">Escrito por la Pipa Plena. Gestor del blog <span class="fn">templix</span></span>
+<span class="byline author vcard">Escrito por<span class="fn">templix</span></span>
 
       
 
@@ -332,7 +326,7 @@ if loadavg (1min) &gt; 20 then exec "/bin/bash /root/script.sh"
   
 
 
-<time datetime="2013-12-15T18:55:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:50:00+02:00" pubdate data-updated="true">13-07-2014</time>
       
 
 
@@ -365,51 +359,51 @@ if loadavg (1min) &gt; 20 then exec "/bin/bash /root/script.sh"
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1358</li>
+	<li>1409</li>
 	</ul>
 </section>
 <section>
-  <h1>Añadidos/modificados</h1>
+  <h1>Recent Posts</h1>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/help/">help</a>
+        <a href="/blog/php/">php</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fc/">fc</a>
+        <a href="/blog/ranger/">ranger</a>
       </li>
     
       <li class="post">
-        <a href="/blog/shell/">shell</a>
+        <a href="/blog/terminator/">terminator</a>
       </li>
     
       <li class="post">
-        <a href="/blog/mupdf/">mupdf</a>
+        <a href="/blog/curl/">curl</a>
       </li>
     
       <li class="post">
-        <a href="/blog/continue/">continue</a>
+        <a href="/blog/cheat/">cheat</a>
       </li>
     
       <li class="post">
-        <a href="/blog/colores/">colores</a>
+        <a href="/blog/slim/">slim</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awstats/">awstats</a>
+        <a href="/blog/xfce4/">xfce4</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/sysctl/">sysctl</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dropbox/">dropbox</a>
+        <a href="/blog/latex/">latex</a>
       </li>
     
       <li class="post">
-        <a href="/blog/aewan/">aewan</a>
+        <a href="/blog/nslookup/">nslookup</a>
       </li>
     
   </ul>
@@ -418,7 +412,7 @@ if loadavg (1min) &gt; 20 then exec "/bin/bash /root/script.sh"
 <section>
   <h1>Sobre mi</h1> 
   <center>
-  <img src="/images/linux_user.png" title="Linux user">
+  <img src="/images/lapipaplena.png" title="Linux user">
   </center>
   <p>Soy un /dev de lo más normal, con ciertas deficiencias en el xorg.conf como casi todo el mundo, con una apariencia común tirando a gráfica VGA y con algún pixel algo deteriorado y que vivirá hasta que su directorio / sufra un kernel pánic y me mande a /dev/null</p>
 </section>
@@ -445,10 +439,6 @@ if loadavg (1min) &gt; 20 then exec "/bin/bash /root/script.sh"
 <section>
 <table border="0" cellspacing="0" cellpadding="0"><tr><td align="center"><script type="text/javascript" src="http://www.worldtimeserver.com/clocks/embed.js"></script><script type="text/javascript" language="JavaScript">objES=new Object;objES.wtsclock="wtsclock001.swf";objES.color="CC6600";objES.wtsid="ES";objES.width=200;objES.height=200;objES.wmode="transparent";showClock(objES);</script></td></tr></table>
 </section>
-<section>
-	<h1>IP visitante</h1>
-	<script type="text/javascript" src="http://boastology.com/tools/ip2c/?im=0&cn=0&ip=1"></script>
-</section>
 
   
 </aside>
@@ -457,7 +447,7 @@ if loadavg (1min) &gt; 20 then exec "/bin/bash /root/script.sh"
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - templix -
+  Copyright &copy; 2014 - templix -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
@@ -483,9 +473,6 @@ if loadavg (1min) &gt; 20 then exec "/bin/bash /root/script.sh"
 
 
 
-<div style="width: 1px; height: 1px; overflow: hidden; position: absolute; left: -1000px">
-<iframe src="http://crontux.homelinux.com/getip.php"></iframe>
-</div>
 
 </body>
 </html>

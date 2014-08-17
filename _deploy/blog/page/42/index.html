@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Capturar el proceso que se está ejecutando en otra consola. $ retty PID Ejemplo. En una consola lanzamos el proceso: $ watch -tn1 &#8216;date &#8220 &hellip;">
+  <meta name="description" content="Suspender/hibernar el pc e iniciarlo a una hora determinada. # rtcwake -u -m disk -s 150 &amp;&amp; deluge (Asume el tiempo UTC, suspende a disco y &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -26,7 +26,6 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <script src="/javascripts/links.js"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -37,12 +36,10 @@
 
 <body   >
   <header role="banner"><hgroup>
-  <div align=center>
+ <div align=center>
   <h1><a href="/">TRACTATUS ELEMENTALIS</a></h1>
-  
-    <h2>Apuntes sobre bash. Orgasmos con la terminal.</h2>
-  </dev>
-  
+  <h2>Apuntes sobre bash. Orgasmos con la terminal.</h2>
+ </div>
 </hgroup>
 
 </header>
@@ -59,15 +56,12 @@
 </form>
   
 <ul class="main-navigation">
-  <li><a href="/previa">Previa</a></li>
+  <li><a href=/previa">Previa</a></li>
   <li><a href="/">Últimas</a></li>
   <li><a href="/blog/archives">Todas</a></li>
-  <li><a href="/scripts">Scripts</a></li>
-  <li><a href="http://www.lapipaplena.net">Web</a></li>
-  <li><a href="http://lapipaplena.no-ip.org/wiki/">Wiki</a></li>
-  <li><a href="http://anonops.es">Foro</a></li>
-  <li><a href="http://panellpipa.no-ip.org">Socios</a></li>
-
+  <li><a href="http://lapipaplena.org">Web</a></li>
+  <li><a href="http://lapipaplena.no-ip.org/wiki">Pytrac</a></li>
+  <li><a href="http://panellpipa.no-ip.org>Noticias</a></li>
 </ul>
 
 </nav>
@@ -81,7 +75,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/retty/">Retty</a></h1>
+      <h1 class="entry-title"><a href="/blog/rtcwake/">Rtcwake</a></h1>
     
     
       <p class="meta">
@@ -97,30 +91,26 @@
   
 
 
-<time datetime="2013-12-15T18:56:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Capturar el proceso que se está ejecutando en otra consola.</p>
+  <div class="entry-content"><p>Suspender/hibernar el pc e iniciarlo a una hora determinada.</p>
 
-<blockquote><p>$ retty PID</p></blockquote>
+<blockquote><p># rtcwake -u -m disk -s 150 &amp;&amp; deluge (Asume el tiempo UTC, suspende a disco y vuelve a activarse dentro de 150 minutos arrancando la aplicación deluge)</p></blockquote>
 
-<p>Ejemplo.</p>
+<p>Otros modos [m]:</p>
 
-<p>En una consola lanzamos el proceso:</p>
+<p>standby (Modo por defecto y el que menos energia ahorra)</p>
 
-<blockquote><p>$ watch -tn1 &#8216;date &#8220;+%r %F %A&#8221;&#8217;</p></blockquote>
+<p>mem (Suspende a RAM. Más ahorrativo)</p>
 
-<p>En otra averiguamos el PID:</p>
+<p>off (Apaga el ordenador completamente)</p>
 
-<blockquote><p>$ ps aux | grep watch</p></blockquote>
-
-<p>Y capturamos el proceso:</p>
-
-<blockquote><p>$ retty PID</p></blockquote>
+<p>no (No suspende inmediatamente, unicamente establece la hora en que despierta el sistema)</p>
 </div>
   
   
@@ -133,7 +123,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/restore/">Restore</a></h1>
+      <h1 class="entry-title"><a href="/blog/rsync/">Rsync</a></h1>
     
     
       <p class="meta">
@@ -149,18 +139,54 @@
   
 
 
-<time datetime="2013-12-15T18:56:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Restaurar una copia de seguridad realizada con dump.</p>
+  <div class="entry-content"><p>Sincronizar archivos o directorios. Trabasjar con el directorio montado.</p>
 
-<blockquote><p>$  restore -rf home.bak (restaurar la copia completa [r] del archivo especificado [f])</p>
+<blockquote><p>$ rsync -av /home/usuario/Dropbox /home/usuario/Copias_seguridad/ (Copiar todo el directorio “Dropbox” en el directorio “Copias_seguridad”)</p>
 
-<p>$ restore -xaf fichero.bak fichero (restaurar solo la copia del fichero indicado [x], sin preguntar de qué volumen extraer los ficheros y especificando  archivo  [f])</p></blockquote>
+<p>$ rsync -av &#8211;exclude=Dropbox /media/servidor /home/usuario/servidor/ (Sincronizar un servidor con un directorio local excluyendo el dir Dropbox)</p></blockquote>
+
+<p>Nota.- Pueden excluirse varios directorios [&#8211;exclude=Dropbox &#8211;exclude=isos &#8211;exclcude=public &#8230;]</p>
+
+<blockquote><p>$ rsync -arvuz Documentos usuario@192.168.1.5:/home/usuario/ (Copiar el directorio en otra máquina)</p>
+
+<p>$ rsync -arvuz -e &#8216;ssh -p 30567&#8217; Documentos usuario@192.168.1.5:/home/usuario/ (Copiar el directorio en otra máquina pero especificando otro puerto SSH)</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<pre><code>-a (respaldar recursivamente directorios y subdirectorios)
+
+-g (conserva el atributo “group” de los archivos originales)
+
+-E (conserva el atributo “executable” del archivo originales)
+
+-v (aumentar el nivel de información desplegado
+
+-z (comprime los datos que serán transferidos)
+
+--exclude=tmp  (Excluir archivos o directorios. /tmp en este caso)
+
+--delete-during  (Borrar los archivos de origen a medida que son transferidos)
+</code></pre>
+
+<blockquote><p>$ rsync -aHxv root@dirección_IP:/* /carpeta_destino &#8211;exclude=/dev &#8211;exclude=/proc &#8211;exclude=/sys &#8211;exclude=/tmp (copia/clonación en vivo de todo un sistema remoto a un directorio local. Se recomienda parar todos los servicios en ejecución de la máquina remota y repetir el comando varias veces hasta que no haya ningún fichero copiado, para evitar ficheros corrompidos. Se deben crear las carpetas &#8220;/dev&#8221;, &#8220;/proc&#8221;, &#8220;/sys&#8221; y &#8220;/tmp&#8221; en la carpeta de destino).</p>
+
+<p>$ rsync -avz &#8211;exclude-from &#8216;rsync_exclude&#8217; /home/usuario/ /media/sda11/copa_seguridad (Copia de seguridad del /home/usuario a otra partición excluyendo los archivos especificados en el archivo rsync_exclude)</p></blockquote>
+
+<p>Nota.- El formato del archivo rsync_exclude para excluir los ficheros ocultos [.*] todos los de la carpeta Dropbox y el video alien de la carpeta Videos será:</p>
+
+<pre><code>.*
+
+Dropbox/*
+
+Videos/alien
+</code></pre>
 </div>
   
   
@@ -173,7 +199,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/resolveip/">Resolveip</a></h1>
+      <h1 class="entry-title"><a href="/blog/rsstail/">Rsstail</a></h1>
     
     
       <p class="meta">
@@ -189,16 +215,28 @@
   
 
 
-<time datetime="2013-12-15T18:56:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Buscar el host de una ip o la ip de un host</p>
+  <div class="entry-content"><p>Mostrar noticias rss en estilo multitail</p>
 
-<blockquote><p>$ resolveip -s www.google.com</p></blockquote>
+<blockquote><p>$ rsstail -n 1 -d -u http://web.com -u http://web1.com -u http://web3.com</p></blockquote>
+
+<p>Algunas opciones:</p>
+
+<p>-n 1  (Actualizar cada segundo)</p>
+
+<p>-d     (Mostrar descripción)</p>
+
+<p>-z      (Continuar incluso con errores xml)</p>
+
+<p>-l      (Mostrar enlaces)</p>
+
+<p>-u URL (Host del feed)</p>
 </div>
   
   
@@ -211,7 +249,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/resize2fs/">Resize2fs</a></h1>
+      <h1 class="entry-title"><a href="/blog/rrenice/">Rrenice</a></h1>
     
     
       <p class="meta">
@@ -227,16 +265,14 @@
   
 
 
-<time datetime="2013-12-15T18:56:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Cambiar la medida de una partición.</p>
-
-<blockquote><p># resize2fs /dev/sda3 600M</p></blockquote>
+  <div class="entry-content"><p>[pslist]. Herramienta con uso igual que renice [ver]</p>
 </div>
   
   
@@ -249,7 +285,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/resize/">Resize</a></h1>
+      <h1 class="entry-title"><a href="/blog/rpm/">Rpm</a></h1>
     
     
       <p class="meta">
@@ -265,16 +301,32 @@
   
 
 
-<time datetime="2013-12-15T18:56:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Ver las columnas y líneas de la consola.</p>
+  <div class="entry-content"><p>Gestor de paqueteria de distros basadas en Red Hat.</p>
 
-<blockquote><p>$ resize</p></blockquote>
+<blockquote><p># rpm -ivh paquete (instalar un paquete)</p>
+
+<p># rpm -ivh –nodeeps paquete (instalar paquete rpm ignorando dependencias)</p>
+
+<p># rpm -e paquete (eliminar paquete)</p>
+
+<p># rpm -qa (Listar todos los paquetes instalados)</p>
+
+<p># rpm -qi paquete (información de un paquete)</p>
+
+<p># rpm -q paquete &#8211;whatrequires (listar dependencias de un paquete)</p>
+
+<p># rpm -qf /etc/httpd/conf/httpd.conf (A qué paquete pertenece un archivo)</p>
+
+<p># rpm &#8211;checksig paquete (verificar integridad de un paquete)</p>
+
+<p># rpm -qa gpg-pubkey (verificar la integridad de todos los paquetes)</p></blockquote>
 </div>
   
   
@@ -287,7 +339,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/reset/">Reset</a></h1>
+      <h1 class="entry-title"><a href="/blog/rpcinfo/">Rpcinfo</a></h1>
     
     
       <p class="meta">
@@ -303,14 +355,16 @@
   
 
 
-<time datetime="2013-12-15T18:56:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Restablece la configuración de la terminal cuando al intentar abrir algún fichero se nos ha llenado de caracteres raros. Aunque no veamos el cursor o el prompt, tecleando &#8220;reset&#8221; y clicar &#8220;intro&#8221;, se restablece la terminal.</p>
+  <div class="entry-content"><p>Para saber los servicios que estan en marcha</p>
+
+<blockquote><p>$ rpcinfo -p</p></blockquote>
 </div>
   
   
@@ -323,7 +377,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/replace/">Replace</a></h1>
+      <h1 class="entry-title"><a href="/blog/routel/">Routel</a></h1>
     
     
       <p class="meta">
@@ -339,20 +393,16 @@
   
 
 
-<time datetime="2013-12-15T18:56:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Reemplazar letras o palabras de ficheros.</p>
+  <div class="entry-content"><p>Componente de ip route para listar las tablas de enrutado. [ver routef]</p>
 
-<blockquote><p>$ replace a A &#8211; archivo1 archivo2 (“a” por “A” en los dos ficheros)</p>
-
-<p>$ replace files DIRS  &#8211;  archivo (“files” por “DIRS” en archivo)</p>
-
-<p>$ replace DIRS dirs files FILES &#8211; archivo (“DIRS” por ”dirs” y “files” por “FILES”)</p></blockquote>
+<blockquote><p>$ routel</p></blockquote>
 </div>
   
   
@@ -365,7 +415,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/renice/">Renice</a></h1>
+      <h1 class="entry-title"><a href="/blog/routef/">Routef</a></h1>
     
     
       <p class="meta">
@@ -381,16 +431,16 @@
   
 
 
-<time datetime="2013-12-15T18:56:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Cambiar la prioridad de un proceso en marcha.</p>
+  <div class="entry-content"><p>Refresca las tablas de enrutado [ver routel]</p>
 
-<blockquote><p># renice -10 PID</p></blockquote>
+<blockquote><p># routef</p></blockquote>
 </div>
   
   
@@ -403,7 +453,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/rename/">Rename</a></h1>
+      <h1 class="entry-title"><a href="/blog/route/">Route</a></h1>
     
     
       <p class="meta">
@@ -419,16 +469,26 @@
   
 
 
-<time datetime="2013-12-15T18:56:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>renombrar archivos</p>
+  <div class="entry-content"><p>Para saber la IP del router</p>
 
-<blockquote><p>$ rename JPG jpg *.JPG (Renombrará todos los xxxx.JPG a xxxx.jpg)</p></blockquote>
+<blockquote><p>$ route -n</p>
+
+<p>$ route add default gw 192.168.1.50 (Establecer los protocolos de conexión después de levantar una red manualmente con ifconfig)</p>
+
+<p># ip route add 192.168.1.53 via 192.168.0.33 (redirigir un pc a otro)</p>
+
+<p># ip route add 192.168.1.0/24 via 192.168.0.33 (redirigir una red a un pc)</p>
+
+<p># route add &#8211;host 192.168.0.12 eth0 (agregar un host a una tabla de enrutamiento)</p>
+
+<p># route add -host IP reject (Rechaza la conexión de una ip en concreto)</p></blockquote>
 </div>
   
   
@@ -441,7 +501,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/reisub/">Reisub</a></h1>
+      <h1 class="entry-title"><a href="/blog/robots-dot-txt/">robots.txt</a></h1>
     
     
       <p class="meta">
@@ -457,26 +517,78 @@
   
 
 
-<time datetime="2013-12-15T18:56:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Combinación de teclas a usar cuando el sistema se cuelga. Pulsar las teclas  Alt+ImprPant [PetSis] y mientras mantenemos las dos teclas pulsadas teclear la combinación de teclas REISUB. Su significado:</p>
+  <div class="entry-content"><p>Archivo que evita que determinado contenido de un sitio web sea indexado por los motores de búsqueda. Este archivo distingue mayúsculas y minúsculas, puede incluir comentario mediante almohadilla [#] y cada grupo User-agen/Disallow debe de estar separado por una linea en blanco.</p>
 
-<p>R: Retorna el control al teclado y ratón.</p>
+<p>Algunos comandos:</p>
 
-<p>E: Envia a todos los procesos la señal TERM.</p>
+<p>User-agent (Indica qué tipo de robot debe cumplir con la directiva que se indica)</p>
 
-<p>I: Envia a todos los procesos la señal KILL.</p>
+<pre><code>User-agent: * (Incluir todos los buscadores)
 
-<p>S: Sincroniza sistemas y unidades montadas.</p>
+User-agent: Googlebot (Especificar el buscador de Google)
 
-<p>U: Desmonta todos los sistemas de archivos.</p>
+User-agent: Bingbot (Especificar el robot de Bing)
+</code></pre>
 
-<p>B: Reinicia la máquina.</p>
+<p>Disallow  (Niega el acceso a un directorio, un archivo o una página)</p>
+
+<pre><code>Disallow: (Permite la entrada a todo el sitio)
+
+Disallow: / (Denegar todo el sitio)
+
+Disallow: /directorio/ (Denegar un directorio)
+
+Disallow: /restringido*/ (Denegar directorios que comienzan por "restringido")
+
+Disallow: /pagina.html (Denegar una página)
+
+Disallow: /*.png$ (Denegar los archivos que terminen con la extensión .png)
+</code></pre>
+
+<p>Allow (Permitir el acceso a directorios, archivos o páginas)</p>
+
+<pre><code>Allow: /directorio/subdirectorio/ (Permitir un subdirectorio)
+</code></pre>
+
+<p>Sitemap (Indica la ruta a un mapa del sitio en XML)</p>
+
+<pre><code>Sitemap: http://web.com/sitemap.xml
+</code></pre>
+
+<p>Crawl-delay (Indica número de segundos que debe esperar para cada acceso a cada página)</p>
+
+<pre><code>Crawl-delay: 30
+</code></pre>
+
+<p>Aspecto que puede presentar un archivo robots.txt:</p>
+
+<pre><code>User-agent: wget
+
+Disallow: /
+
+\\ linea en blanco
+
+User-agent: grub-client
+
+Disallow: /
+
+\\ linea en blanco
+
+User-agent: *
+
+Disallow:
+
+\\ linea en blanco
+
+Sitemap: https://tractatuslapipaplena.herokuapp.com/sitemap.xml
+</code></pre>
 </div>
   
   
@@ -499,51 +611,51 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1358</li>
+	<li>1409</li>
 	</ul>
 </section>
 <section>
-  <h1>Añadidos/modificados</h1>
+  <h1>Recent Posts</h1>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/help/">help</a>
+        <a href="/blog/php/">php</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fc/">fc</a>
+        <a href="/blog/ranger/">ranger</a>
       </li>
     
       <li class="post">
-        <a href="/blog/shell/">shell</a>
+        <a href="/blog/terminator/">terminator</a>
       </li>
     
       <li class="post">
-        <a href="/blog/mupdf/">mupdf</a>
+        <a href="/blog/curl/">curl</a>
       </li>
     
       <li class="post">
-        <a href="/blog/continue/">continue</a>
+        <a href="/blog/cheat/">cheat</a>
       </li>
     
       <li class="post">
-        <a href="/blog/colores/">colores</a>
+        <a href="/blog/slim/">slim</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awstats/">awstats</a>
+        <a href="/blog/xfce4/">xfce4</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/sysctl/">sysctl</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dropbox/">dropbox</a>
+        <a href="/blog/latex/">latex</a>
       </li>
     
       <li class="post">
-        <a href="/blog/aewan/">aewan</a>
+        <a href="/blog/nslookup/">nslookup</a>
       </li>
     
   </ul>
@@ -552,7 +664,7 @@
 <section>
   <h1>Sobre mi</h1> 
   <center>
-  <img src="/images/linux_user.png" title="Linux user">
+  <img src="/images/lapipaplena.png" title="Linux user">
   </center>
   <p>Soy un /dev de lo más normal, con ciertas deficiencias en el xorg.conf como casi todo el mundo, con una apariencia común tirando a gráfica VGA y con algún pixel algo deteriorado y que vivirá hasta que su directorio / sufra un kernel pánic y me mande a /dev/null</p>
 </section>
@@ -579,10 +691,6 @@
 <section>
 <table border="0" cellspacing="0" cellpadding="0"><tr><td align="center"><script type="text/javascript" src="http://www.worldtimeserver.com/clocks/embed.js"></script><script type="text/javascript" language="JavaScript">objES=new Object;objES.wtsclock="wtsclock001.swf";objES.color="CC6600";objES.wtsid="ES";objES.width=200;objES.height=200;objES.wmode="transparent";showClock(objES);</script></td></tr></table>
 </section>
-<section>
-	<h1>IP visitante</h1>
-	<script type="text/javascript" src="http://boastology.com/tools/ip2c/?im=0&cn=0&ip=1"></script>
-</section>
 
   
 </aside>
@@ -590,7 +698,7 @@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - templix -
+  Copyright &copy; 2014 - templix -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
@@ -616,9 +724,6 @@
 
 
 
-<div style="width: 1px; height: 1px; overflow: hidden; position: absolute; left: -1000px">
-<iframe src="http://crontux.homelinux.com/getip.php"></iframe>
-</div>
 
 </body>
 </html>

@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Actualizar, en Ubuntu, a una nueva versión # update-manager -d (antes de salir la version estable final) # update-manager -c (despues de salir la &hellip;">
+  <meta name="description" content="modifica propiedades de los usuarios [directorio base, el shell, grupos a los que pertenece, expiración, bloqueo/desbloqueo de la cuenta] # usermod - &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -26,7 +26,6 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <script src="/javascripts/links.js"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -37,12 +36,10 @@
 
 <body   >
   <header role="banner"><hgroup>
-  <div align=center>
+ <div align=center>
   <h1><a href="/">TRACTATUS ELEMENTALIS</a></h1>
-  
-    <h2>Apuntes sobre bash. Orgasmos con la terminal.</h2>
-  </dev>
-  
+  <h2>Apuntes sobre bash. Orgasmos con la terminal.</h2>
+ </div>
 </hgroup>
 
 </header>
@@ -59,15 +56,12 @@
 </form>
   
 <ul class="main-navigation">
-  <li><a href="/previa">Previa</a></li>
+  <li><a href=/previa">Previa</a></li>
   <li><a href="/">Últimas</a></li>
   <li><a href="/blog/archives">Todas</a></li>
-  <li><a href="/scripts">Scripts</a></li>
-  <li><a href="http://www.lapipaplena.net">Web</a></li>
-  <li><a href="http://lapipaplena.no-ip.org/wiki/">Wiki</a></li>
-  <li><a href="http://anonops.es">Foro</a></li>
-  <li><a href="http://panellpipa.no-ip.org">Socios</a></li>
-
+  <li><a href="http://lapipaplena.org">Web</a></li>
+  <li><a href="http://lapipaplena.no-ip.org/wiki">Pytrac</a></li>
+  <li><a href="http://panellpipa.no-ip.org>Noticias</a></li>
 </ul>
 
 </nav>
@@ -81,7 +75,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/update-manager/">Update-manager</a></h1>
+      <h1 class="entry-title"><a href="/blog/usermod/">Usermod</a></h1>
     
     
       <p class="meta">
@@ -97,18 +91,32 @@
   
 
 
-<time datetime="2013-12-15T18:58:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Actualizar, en Ubuntu, a una nueva versión</p>
+  <div class="entry-content"><p>modifica propiedades de los usuarios [directorio base, el shell, grupos a los que pertenece, expiración, bloqueo/desbloqueo de la cuenta]</p>
 
-<blockquote><p># update-manager -d   (antes de salir la version estable final)</p>
+<blockquote><p># usermod -G grupo1,grupo2 usuario (añade usuario a grupos)</p>
 
-<p># update-manager -c   (despues de salir la version estable final)</p></blockquote>
+<p># usermod -a -G video usuario  (incluye usuario al grupo video. )</p>
+
+<p># usermod -e 2009-12-10 user  (la cuenta de user expira el 20-12-09)vsftpd</p>
+
+<p># usermod -L usuario  (Bloquea a usuario)</p>
+
+<p># usermod -U usuario  (Desbloquea a usuario)</p>
+
+<p># usermod -u 999 usuario (baja el ID del usuario, normalmente 1000, para ocultarlo de la pantalla de login [gdm])</p>
+
+<p># usermod -s /sbin/nologin apache (Otorga al usuario apache una shell que no permite la ejecución de ningún comando)</p>
+
+<p># usermod -l juan pedro (Cambiar el nombre de usuario “pedro” a “juan”)</p>
+
+<p># usermod -d /home/nuevo -m usuario (modificar el nombre del directorio  home de un usuario)</p></blockquote>
 </div>
   
   
@@ -121,7 +129,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/update-alternatives/">Update-alternatives</a></h1>
+      <h1 class="entry-title"><a href="/blog/userdel/">Userdel</a></h1>
     
     
       <p class="meta">
@@ -137,24 +145,20 @@
   
 
 
-<time datetime="2013-12-15T18:58:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Modificar las aplicaciones por defecto cuando existen otras posibilidades</p>
+  <div class="entry-content"><p>Borrar usuarios</p>
 
-<blockquote><p>$ ls /etc/alternatives  (Muestra todas las posibilidades)</p>
+<blockquote><p># userdel usuario (Elimina al usuario pero no su directorio personal)</p>
 
-<p>$ update-alternatives &#8211;list x-www-browser (muestra las alternativas al navegador por defecto)</p>
+<p># userdel -r usuario (lo borra junto a su directorio $HOME)</p>
 
-<p>$ update-alternatives &#8211;display x-www-browser (Para ver, de las opciones, la utilizada)</p>
-
-<p>$ update-alternatives &#8211;config x-www-browser (Para modificarla)</p>
-
-<p>$ update-alternatives &#8211;config x-cursor-theme (Modificar el tema del cursor)</p></blockquote>
+<p># userdel -f usuario (Borra al usuario y su directorio personal incluso aunque esté logeado en el sistema)</p></blockquote>
 </div>
   
   
@@ -167,7 +171,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/unzip/">Unzip</a></h1>
+      <h1 class="entry-title"><a href="/blog/useradd/">Useradd</a></h1>
     
     
       <p class="meta">
@@ -183,97 +187,56 @@
   
 
 
-<time datetime="2013-12-15T18:58:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Descomprimir archivos zip.</p>
+  <div class="entry-content"><p>Crear usuarios.</p>
 
-<blockquote><p>$ unzip archivo.zip</p>
+<blockquote><p># useradd -d /home/user -m user (Especifica la ruta a su $HOME)</p></blockquote>
 
-<p>$ unzip -v archivo.zip (Ver contenido)</p>
+<p>Otras opciones:</p>
 
-<p>$ unzip -l archivo.odt (Ver contenido de un archivo odt)</p></blockquote>
-</div>
-  
-  
+<p>-M usuario  (sin directorio $HOME)</p>
 
+<p>-g users user (grupo principal al que pertenece el usuario)</p>
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/until/">Until</a></h1>
-    
-    
-      <p class="meta">
-        
+<p>-e 20111231 user (fecha de expiración de un usuario: 2011-12-31)</p>
 
+<p>-G video,audio user (grupos adicionales a los que pertenece)</p>
 
+<p>-s /bin/bash (especifica la shell del usuario)</p>
 
+<p>-s /sbin/nologin (El usuario no podra logearse en el sistema. Ideal para usuarios con acceso a Samba o FTP sin acceso al interprete de comandos)</p>
 
+<p>-u 503 (Identificador que sera asignado al usuario. Por defecto la UID será a partir del numero 500. Si no se especifica, automáticamente se establece el siguiente número disponible a partir del último usuario creado.)</p>
 
+<p>Un ejemplo completo:</p>
 
-
-
-  
-
-
-<time datetime="2013-12-15T18:58:00+01:00" pubdate data-updated="true">15-12-2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Estructura muy parecida a while [until, do, done], pero con la forma de evaluar la condición al revés, es decir, se ejecuta mientras la condición sea falsa.</p>
-
-<p>Algunos ejemplos:</p>
+<blockquote><p># useradd -d /home/paco -g users -s /bin/bash -m paco</p></blockquote>
 
 <p>1.-</p>
 
-<p>Decrecer un contador hasta llegar a 5</p>
+<p>/etc/default/useradd</p>
 
-<pre><code>#!/bin/bash
+<p>Archivo donde se definen los valores [shell, directorio del directorio personal, ID del grupo, expiración de la contraseña&#8230;] por defecto para la creación de nuevos usuarios [ver useradd y skel]</p>
 
-CONTADOR=10
+<p>Algunos parámetros:</p>
 
-until [  $CONTADOR -lt 5 ]; do
+<pre><code>GROUP=100
 
-   echo "El contador a $CONTADOR"
+HOME=/home
 
-   let CONTADOR-=1
+INACTIVE=-1
 
-done
-</code></pre>
+EXPIRE=
 
-<p>2.-</p>
+SHELL=/bin/sh
 
-<pre><code>#!/bin/bash
-
-SALIR=si
-
-until [ "$OPCION" = "$SALIR" ]
-
-do
-
-  echo "Pulsar teclas... "
-
-  echo "(\"$SALIR\" para salir)"
-
-  read OPCION
-
-  echo "Pulsada la opción salir ($OPCION)"
-
-  echo
-
-done
+SKEL=/etc/skel
 </code></pre>
 </div>
   
@@ -287,7 +250,7 @@ done
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/unsort/">Unsort</a></h1>
+      <h1 class="entry-title"><a href="/blog/user-dirs-dot-dirs/">user-dirs.dirs</a></h1>
     
     
       <p class="meta">
@@ -303,20 +266,30 @@ done
   
 
 
-<time datetime="2013-12-15T18:58:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Reordena las lineas de un archivo de forma semialeatoria.</p>
+  <div class="entry-content"><p>Archivo donde se especifican los directorios que saldran por defecto en el $HOME:</p>
 
-<blockquote><p>$ unsort -p archivo.txt</p>
+<p>XDG_DESKTOP_DIR=”$HOME/Escritorio”</p>
 
-<p>$ unsort -M archivo1.txt archivo2.txt (Uniendo en la salida los dos archivos)</p>
+<p>XDG_DOWNLOAD_DIR=”$HOME/Descargas”</p>
 
-<p>$ unsort -n archivo1.txt archivo2.txt (Mezcla las lineas de forma aleatoria sin alterar el orden)</p></blockquote>
+<p>XDG_TEMPLATES_DIR=”$HOME/Plantillas”</p>
+
+<p>XDG_PUBLICSHARE_DIR=”$HOME/Público”</p>
+
+<p>XDG_DOCUMENTS_DIR=”$HOME/Documentos”</p>
+
+<p>XDG_MUSIC_DIR=”$HOME/Música”</p>
+
+<p>XDG_PICTURES_DIR=”$HOME/Imágenes”</p>
+
+<p>XDG_VIDEOS_DIR=”$HOME/Vídeos”</p>
 </div>
   
   
@@ -329,7 +302,7 @@ done
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/unset/">Unset</a></h1>
+      <h1 class="entry-title"><a href="/blog/usbmount/">Usbmount</a></h1>
     
     
       <p class="meta">
@@ -345,20 +318,24 @@ done
   
 
 
-<time datetime="2013-12-15T18:58:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>elimina variables locales o asigna NULL</p>
+  <div class="entry-content"><p>(+ autofs [demonio]). Automontar dispositivos de almacenamiento externo. Editar:</p>
 
-<blockquote><p>$ unset HISTFILE; unset SAVEHIST  (desactiva el historial de comandos)</p>
+<blockquote><p># nano /etc/usbmount/usbmount.conf</p></blockquote>
 
-<p>$ unset -f funcion (borrar una funcion)</p>
+<p>Y verificar/modificar según necesidades, las lineas:</p>
 
-<p>$ unset VAR (Eliminar una variable)</p></blockquote>
+<p>MOUNTPOINTS=&#8221;/media/usb0 /media/usb1 /media/usb2 /media/usb3 /media/usb4 /media/usb5 /media/usb6 /media/usb7&#8221;</p>
+
+<p>FILESYSTEMS=&#8221;vfat ext2 ext3 ext4 hfsplus&#8221;</p>
+
+<p>MOUNTOPTIONS=&#8221;sync,noexec,nodev,noatime,users,umask=000&#8221;</p>
 </div>
   
   
@@ -371,7 +348,7 @@ done
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/unrar/">Unrar</a></h1>
+      <h1 class="entry-title"><a href="/blog/usb-modeswitch/">Usb_modeswitch</a></h1>
     
     
       <p class="meta">
@@ -387,16 +364,69 @@ done
   
 
 
-<time datetime="2013-12-15T18:58:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Descomprimir archivos rar.</p>
+  <div class="entry-content"><p>Configuración del modem Huawei. Editar:</p>
 
-<blockquote><p>$ unrar x archivo.rar</p></blockquote>
+<blockquote><p># gedit /etc/usb_modeswitch.conf</p></blockquote>
+
+<pre><code>EnableLogging=0
+</code></pre>
+
+<p>Y pegar el siguiente contenido:</p>
+
+<pre><code># Huawei E1752
+
+#
+
+# Contributor:
+
+DefaultVendor=0x12d1
+
+DefaultProduct=0x1446
+
+TargetVendor=0x12d1
+
+TargetProduct=0x1417
+
+MessageEndpoint=0x01
+
+MessageContent="55534243000000000000000000000011060000000000000000000000000000"
+</code></pre>
+
+<p>Verificar que el número de TargetProduc coincida con la salida de:</p>
+
+<blockquote><p># lsusb</p></blockquote>
+
+<pre><code>Bus 006 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+
+Bus 005 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+
+Bus 004 Device 002: ID 0461:4d03 Primax Electronics, Ltd Kensington Mouse-in-a-box
+
+Bus 004 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+
+Bus 003 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+
+Bus 002 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+
+Bus 001 Device 006: ID 12d1:1417 Huawei Technologies Co., Ltd.
+
+Bus 001 Device 003: ID 0402:5602 ALi Corp. Video Camera Controller
+
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+</code></pre>
+
+<p>Arrancarlo con alguno de los siguientes comandos:</p>
+
+<blockquote><p># usb_modeswitch -v 12d1 -p 1417 -d 1</p>
+
+<p># usb_modeswitch -c /etc/usb_modeswitch.conf</p></blockquote>
 </div>
   
   
@@ -409,7 +439,7 @@ done
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/unoconv/">Unoconv</a></h1>
+      <h1 class="entry-title"><a href="/blog/urlwatch/">Urlwatch</a></h1>
     
     
       <p class="meta">
@@ -425,24 +455,27 @@ done
   
 
 
-<time datetime="2013-12-15T18:58:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Exporta todos los formatos soportados por openoffice/libreoffice a otros formatos como pdf, txt&#8230; creando un archivo con el mismo nombre de origen pero con la nueva extensión. Para una lista detallada consultar este enlace: <a href="http://dag.wieers.com/home-made/unoconv/">http://dag.wieers.com/home-made/unoconv/</a></p>
+  <div class="entry-content"><p>Comprueba si una página web ha sufrido cambios desde la última vez que se lanzó la aplicación. Configurar las URLs, una por linea en el archivo:</p>
 
-<blockquote><p>$ unoconv &#8211;show  (Visualizar formatos  soportados)</p>
+<blockquote><p>$ mkdir .urlwatch</p>
 
-<p>$ unoconv -f xls archivo.csv (convertir un csv a xls)</p>
+<p>$ nano .urlwatch/urls.txt</p></blockquote>
 
-<p>$ unoconv -f pdf <em>.odp </em>.odt (Convierte todos los .odt y .odp a pdfs)</p>
+<pre><code>http://www.tuxapuntes.com
 
-<p>$ unoconv &#8211;format=txt document1.odt (convierte el documento a texto plano)</p>
+http://crontux.homelinux.com/wiki
 
-<p>$ unoconv &#8211;format=txt &#8211;stdout document1.odt > salida.txt (envia la salida al STDOUT para redireccionarla a un fichero cualquiera)</p></blockquote>
+http://systemadmin.es
+</code></pre>
+
+<blockquote><p>$ urlwatch (Lanzar la aplicación)</p></blockquote>
 </div>
   
   
@@ -455,7 +488,7 @@ done
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/unix2dos/">Unix2dos</a></h1>
+      <h1 class="entry-title"><a href="/blog/urlview/">Urlview</a></h1>
     
     
       <p class="meta">
@@ -471,40 +504,16 @@ done
   
 
 
-<time datetime="2013-12-15T18:58:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Convertir formatos unix a msdos</p>
+  <div class="entry-content"><p>Extraer las direcciones URL de archivos de texto.</p>
 
-<blockquote><p>$ unix2dos fichero_unix fichero_dosServidor de archivos ftp. Toda la configuración de encuentra en el archivo:</p>
-
-<p># nano /etc/vsftpd.conf</p></blockquote>
-
-<p>Algunos de los parámetros:</p>
-
-<p>anonymous_enable=NO # si no queremos accesos anonimos</p>
-
-<p>local_enable=YES # Permitir accesos locales autentificados</p>
-
-<p>write_enable=YES # Permite escritura en el servidor</p>
-
-<p>ftpd_banner=Entrando en el servidor ftp&#8230;</p>
-
-<p>chroot_local_user=YES # Enjaular la conexión a su propio directorio personal</p>
-
-<p>max_clients=5 # limitar a 5 los accesos simultaneos</p>
-
-<p>Nota.- Han de redigirirse los puertos 20 y 21 y el rango especificado en el archivo de configuración:</p>
-
-<p>pasv_min_port=44000</p>
-
-<p>pasv_max_port=44100</p>
-
-<p>El cliente podrá conectarse al servidor via filezilla, gftp&#8230;</p>
+<blockquote><p>$ urlview archivo.txt</p></blockquote>
 </div>
   
   
@@ -517,7 +526,7 @@ done
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/unity/">Unity</a></h1>
+      <h1 class="entry-title"><a href="/blog/urlcrazy/">Urlcrazy</a></h1>
     
     
       <p class="meta">
@@ -533,20 +542,60 @@ done
   
 
 
-<time datetime="2013-12-15T18:58:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Escritorio.</p>
+  <div class="entry-content"><p>[ruby 1.8)]. http://www.morningstarsecurity.com/research/urlcrazy . Herramienta que genera posibles URLs de un dominio que podrian ser usados para ataques de phising, malversing o fraudes varios.</p>
 
-<blockquote><p>$ unity &#8211;reset (Resetear la configuración de unity)</p>
+<blockquote><p>$ ./urlcrazy (Muestra las opciones)</p>
 
-<p>$ unity &#8211;reset-icons (eliminar iconos agregados al launcher)</p>
+<p>$ ./urlcrazy -o paypal.txt paypal.com (Redirigiendo el resultado a un archivo)</p></blockquote>
 
-<p>$ unity &#8211;replace (reiniciar)</p></blockquote>
+<p>Otras opciones:</p>
+
+<p>-p (Mostrar URL parecidas más populares según google)</p>
+
+<p>-r (No resolviendo los nombre de dominio)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/uptime/">Uptime</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T16:52:00+02:00" pubdate data-updated="true">13-07-2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Tiempo transcurrido desde que se arrancó el sistema</p>
 </div>
   
   
@@ -569,51 +618,51 @@ done
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1358</li>
+	<li>1409</li>
 	</ul>
 </section>
 <section>
-  <h1>Añadidos/modificados</h1>
+  <h1>Recent Posts</h1>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/help/">help</a>
+        <a href="/blog/php/">php</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fc/">fc</a>
+        <a href="/blog/ranger/">ranger</a>
       </li>
     
       <li class="post">
-        <a href="/blog/shell/">shell</a>
+        <a href="/blog/terminator/">terminator</a>
       </li>
     
       <li class="post">
-        <a href="/blog/mupdf/">mupdf</a>
+        <a href="/blog/curl/">curl</a>
       </li>
     
       <li class="post">
-        <a href="/blog/continue/">continue</a>
+        <a href="/blog/cheat/">cheat</a>
       </li>
     
       <li class="post">
-        <a href="/blog/colores/">colores</a>
+        <a href="/blog/slim/">slim</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awstats/">awstats</a>
+        <a href="/blog/xfce4/">xfce4</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/sysctl/">sysctl</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dropbox/">dropbox</a>
+        <a href="/blog/latex/">latex</a>
       </li>
     
       <li class="post">
-        <a href="/blog/aewan/">aewan</a>
+        <a href="/blog/nslookup/">nslookup</a>
       </li>
     
   </ul>
@@ -622,7 +671,7 @@ done
 <section>
   <h1>Sobre mi</h1> 
   <center>
-  <img src="/images/linux_user.png" title="Linux user">
+  <img src="/images/lapipaplena.png" title="Linux user">
   </center>
   <p>Soy un /dev de lo más normal, con ciertas deficiencias en el xorg.conf como casi todo el mundo, con una apariencia común tirando a gráfica VGA y con algún pixel algo deteriorado y que vivirá hasta que su directorio / sufra un kernel pánic y me mande a /dev/null</p>
 </section>
@@ -649,10 +698,6 @@ done
 <section>
 <table border="0" cellspacing="0" cellpadding="0"><tr><td align="center"><script type="text/javascript" src="http://www.worldtimeserver.com/clocks/embed.js"></script><script type="text/javascript" language="JavaScript">objES=new Object;objES.wtsclock="wtsclock001.swf";objES.color="CC6600";objES.wtsid="ES";objES.width=200;objES.height=200;objES.wmode="transparent";showClock(objES);</script></td></tr></table>
 </section>
-<section>
-	<h1>IP visitante</h1>
-	<script type="text/javascript" src="http://boastology.com/tools/ip2c/?im=0&cn=0&ip=1"></script>
-</section>
 
   
 </aside>
@@ -660,7 +705,7 @@ done
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - templix -
+  Copyright &copy; 2014 - templix -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
@@ -686,9 +731,6 @@ done
 
 
 
-<div style="width: 1px; height: 1px; overflow: hidden; position: absolute; left: -1000px">
-<iframe src="http://crontux.homelinux.com/getip.php"></iframe>
-</div>
 
 </body>
 </html>

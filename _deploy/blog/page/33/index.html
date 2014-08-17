@@ -9,7 +9,7 @@
   <meta name="author" content="templix">
 
   
-  <meta name="description" content="Descarga páginas web o listado de archivos compartidos por ftp. $ snarf lapipaplena.net (Creará un archivo index.html) $ snarf ftp://usuario: &hellip;">
+  <meta name="description" content="Proxy caché (intermediario para nuestra conexion a internet, guardando las paginas visualizadas en una caché) # cp /etc/squid3/squid.conf{,.defaults &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -26,7 +26,6 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <script src="/javascripts/links.js"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -37,12 +36,10 @@
 
 <body   >
   <header role="banner"><hgroup>
-  <div align=center>
+ <div align=center>
   <h1><a href="/">TRACTATUS ELEMENTALIS</a></h1>
-  
-    <h2>Apuntes sobre bash. Orgasmos con la terminal.</h2>
-  </dev>
-  
+  <h2>Apuntes sobre bash. Orgasmos con la terminal.</h2>
+ </div>
 </hgroup>
 
 </header>
@@ -59,15 +56,12 @@
 </form>
   
 <ul class="main-navigation">
-  <li><a href="/previa">Previa</a></li>
+  <li><a href=/previa">Previa</a></li>
   <li><a href="/">Últimas</a></li>
   <li><a href="/blog/archives">Todas</a></li>
-  <li><a href="/scripts">Scripts</a></li>
-  <li><a href="http://www.lapipaplena.net">Web</a></li>
-  <li><a href="http://lapipaplena.no-ip.org/wiki/">Wiki</a></li>
-  <li><a href="http://anonops.es">Foro</a></li>
-  <li><a href="http://panellpipa.no-ip.org">Socios</a></li>
-
+  <li><a href="http://lapipaplena.org">Web</a></li>
+  <li><a href="http://lapipaplena.no-ip.org/wiki">Pytrac</a></li>
+  <li><a href="http://panellpipa.no-ip.org>Noticias</a></li>
 </ul>
 
 </nav>
@@ -81,7 +75,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/snarf/">Snarf</a></h1>
+      <h1 class="entry-title"><a href="/blog/squid/">Squid</a></h1>
     
     
       <p class="meta">
@@ -97,18 +91,52 @@
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Descarga páginas web o listado de archivos compartidos por ftp.</p>
+  <div class="entry-content"><p>Proxy caché (intermediario para nuestra conexion a internet, guardando las paginas visualizadas en una caché)</p>
 
-<blockquote><p>$ snarf lapipaplena.net (Creará un archivo index.html)</p>
+<blockquote><p># cp /etc/squid3/squid.conf{,.defaults} (Realizar copia de seguridad de la configuración)</p>
 
-<p>$ snarf ftp://usuario:contraseña@servidor (Creará un archivo ftpindex.txt)</p></blockquote>
+<p># nano /etc/squid3/squid.conf</p></blockquote>
+
+<p>Modificamos/adaptamos los siguientes ajustes basicos:</p>
+
+<p>http_port 3128 #puerto de escucha</p>
+
+<p>cache_mem 100 MB #Tamaño memoria caché</p>
+
+<p>cache_dir ufs /var/spool/squid 700 16 256 #directorio y tamaño</p>
+
+<p>acl NuestraRed src 192.168.1.0/24 #Nombre y red a la que afecta</p>
+
+<p>http_access allow NuestraRed #permitir acceso a toda la red</p>
+
+<p>http_access allow deny all #Denegamos a los de fuera de la red</p>
+
+<p>auth_param basic /usr/lib/squid/ncsa_auth /etc/squid/passwd #ruta a usuarios</p>
+
+<p>auth_param basic realm “Mensaje de acceso” #mensaje al logearse</p>
+
+<p>auth_param basic children 5 #Procesos de autentificación</p>
+
+<p>auth_param basic basic credentialsttl 1 hours #tiempo</p>
+
+<blockquote><p># squid3 -k parse (Revisión de la sintaxis del archivo squid.conf)</p></blockquote>
+
+<p>Después de las modificaciones reiniciar servicio:</p>
+
+<blockquote><p># /etc/init.d/squid3 restart</p></blockquote>
+
+<p>Configuración de usuarios (/etc/squid/passwd):</p>
+
+<blockquote><p># htpasswd -c /etc/squid3/passwd user1 (Crear archivo [-c] nombre de usuario y pedirá contraseña)</p>
+
+<p># htpasswd /etc/squid3/passwd usuario2 (Sin parámetro -c porque el archivo ya está creado. Otro usuario y contraseña)</p></blockquote>
 </div>
   
   
@@ -121,7 +149,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/smem/">Smem</a></h1>
+      <h1 class="entry-title"><a href="/blog/spumux/">Spumux</a></h1>
     
     
       <p class="meta">
@@ -137,22 +165,39 @@
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Informa del uso de la memoria.</p>
+  <div class="entry-content"><p>Generar subtítulos en un video mpeg.</p>
 
-<blockquote><p># smem -u (Por parte de los usuarios)</p>
+<blockquote><p>$ spumux -s0 subt.xml &lt; video.mpeg > video_subtitulado.mpeg</p></blockquote>
 
-<p># smem -w (por parte del sistema)</p>
+<p>Nota.- El archivo subt.xml con un contenido:</p>
 
-<p># smem -m (de todos los procesos)</p>
+<pre><code>&lt;subpictures&gt;
 
-<p># smem -p (resultado en porcentaje</p></blockquote>
+   &lt;stream&gt;
+
+        &lt;textsub filename="SUBTITULOS.srt" characterset="ISO8859-1"
+
+                 fontsize="24.0" font="Arial.ttf" horizontal-alignment="center"
+
+                 vertical-alignment="bottom" left-margin="60" right-margin="60"
+
+                 top-margin="20" bottom-margin="30" subtitle-fps="25"
+
+                 movie-fps="29.97" movie-width="720" movie-height="478"/&gt;
+
+   &lt;/stream&gt;
+
+&lt;/subpictures&gt;
+</code></pre>
+
+<p>La fuente Arial.ttf ha de estar [o tener un enlace] en el directorio ~/.spumux</p>
 </div>
   
   
@@ -165,7 +210,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/smbstatus/">Smbstatus</a></h1>
+      <h1 class="entry-title"><a href="/blog/sponge/">Sponge</a></h1>
     
     
       <p class="meta">
@@ -181,22 +226,18 @@
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Monitorizar el estado de las conexiones del servidor samba.</p>
+  <div class="entry-content"><p>[moreutils]. Herramienta que guarda todo el contenido a escribir hasta que recibe el EOF y luego lo escribe por lo que permite procesar un fichero y reescribirlo en el propio fichero sin perdida de datos.</p>
 
-<blockquote><p># smbstatus (Listado de equipos conectados a recursos compartidos y ficheros abiertos)</p>
+<blockquote><p>$ tac archivo | sponge archivo (Lee al reves un archivo y lo guarda en el mismo archivo)</p>
 
-<p># smbstatus -p (Solo el listado de los equipos conectados a samba)</p>
-
-<p># smbstatus -S (Listado de recursos y equipos conectados a ellos)</p>
-
-<p># smbstatus -L  (Listado de ficheros abiertos)</p></blockquote>
+<p>$ column -t datos | sponge datos</p></blockquote>
 </div>
   
   
@@ -209,7 +250,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/smbclient/">Smbclient</a></h1>
+      <h1 class="entry-title"><a href="/blog/splitvt/">Splitvt</a></h1>
     
     
       <p class="meta">
@@ -225,26 +266,16 @@
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Conectar recursos compartidos de windows desde linux.</p>
+  <div class="entry-content"><p>Lanzar dos shells simultaneas partiendo en dos ventanas una terminal.</p>
 
-<blockquote><p>$ smbclient //192.168.1.155/compartido -U usuario (Después de ingresar usuario y contraseña entra en el prompt del recurso compartido)</p>
-
-<p>$ smbclient -L //192.168.1.155 (Ver los recursos compartidos de la IP especificada.</p></blockquote>
-
-<p>1.-</p>
-
-<p>Para montarlo automaticamente:</p>
-
-<p>Entrar en el /etc/fstab la siguiente linea:</p>
-
-<p>//192.168.1.155/compartido /media/compartido cifs username=NOMBRE, password=CONTRASEÑA,user</p>
+<blockquote><p>$ splitvt -t &#8220;linux es genial&#8221; -upper ls -lower top (Con un título [-t] lanzando un ls en la ventana superior y top en la inferior)</p></blockquote>
 </div>
   
   
@@ -257,7 +288,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/smartctl/">Smartctl</a></h1>
+      <h1 class="entry-title"><a href="/blog/split/">Split</a></h1>
     
     
       <p class="meta">
@@ -273,66 +304,18 @@
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Comprobar el estado de los discos duros. Si el disco es IDE, suprimir en todos los comandos el &#8220;-d ata&#8221;</p>
+  <div class="entry-content"><p>Cortar archivos</p>
 
-<blockquote><p># smartctl -i -d ata /dev/sda (Verificar si un disco ATA suporta smart)</p>
+<blockquote><p>$ split -d -b 100m archivo otro_archivo. (Que tengan extensión con números: .00, .01, .02. Trozos de 200 MB, archivo de entrada y de salida terminado con un punto donde se añade la extension. En este ejemplo daría salidas tipo otro_archivo.00, otro_archivo.01&#8230;.)</p>
 
-<p># smartctl -s on -d ata /dev/hda (activar el soporte smart)</p>
-
-<p># smartctl -d ata -t short /dev/sda (lanzar el test corto)</p>
-
-<p># smartctl -d ata -t long /dev/sda  (lanzar el test largo)</p>
-
-<p># smartctl -d ata -l selftest -i /dev/sda (analizar la información de los comandos anteriores)</p></blockquote>
-
-<p>LifeTime indica las horas que el disco ha estado encendido. LBA_of_First_error indica los errores.</p>
-
-<blockquote><p># smartctl -d ata -Hc /dev/sda (Si al final se lee PASSED, correcto, si FAILED cambiar disco)</p>
-
-<p># smartctl -d ata -l error /dev/sda (Listar los errores)</p>
-
-<p># smartctl -d ara -A /dev/sda (Listar atributos internos)</p></blockquote>
-
-<p>Listado de algunos atributos smart</p>
-
-<p>Power_Cycle_Count (RAW_Value).- Veces que le ha llegado   corriente.</p>
-
-<p>Temperature Celsius. (RAW_Value) .- Temperatura del disco</p>
-
-<p>Reallocated_Sector_Ct (RAW_Value).-  número de sectores de repuesto que ha usado el disco para sustituir sectores dañados</p>
-
-<p>Raw_Read_Error_Rate (RAW_Value).- Frequencia de errores en la lectura del disco.</p>
-
-<p>Start_Stop_Count: Cantidad de veces que se ha parado y arrancado el disco</p>
-
-<p>Seek_Error_Rate: Tasa de errores de colocación de la aguja</p>
-
-<p>Power_On_Seconds: Tiempo funcionando</p>
-
-<p>Spin_Retry_Count: Numero de reintentos de arrancada</p>
-
-<p>El campo VALUE [valor] va del número 1 al 253, siendo 1 el peor. Los valores normales son los que estan entre 100 y 200. El campo WHEN_FAILED indica cuando se produjo una falla de algún atributo.</p>
-
-<p>1.-</p>
-
-<p>Para activar el demonio que nos avisa si se produce un error en disco:</p>
-
-<blockquote><p># apt-get install smart-notifier</p></blockquote>
-
-<p>Editar el archivo de configuración:</p>
-
-<blockquote><p># nano /etc/default/smartmontools</p></blockquote>
-
-<p>Y descomentar la linea:</p>
-
-<p>start_smartd=yes</p>
+<p>$ cat prefijo* > archivo  (volver a unirlos)</p></blockquote>
 </div>
   
   
@@ -345,7 +328,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/slurm/">Slurm</a></h1>
+      <h1 class="entry-title"><a href="/blog/speedtest-cli/">Speedtest_cli</a></h1>
     
     
       <p class="meta">
@@ -361,16 +344,29 @@
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Monitoriza la interfaz de red</p>
+  <div class="entry-content"><p>script en python que se conecta a un servidor y realiza un test de velocidad de nuestra conexió.</p>
 
-<blockquote><p># slurm -i eth0</p></blockquote>
+<p>Descarga y permisos:</p>
+
+<pre><code>$ wget https://raw.github.com/sivel/speedtest-cli/master/speedtest_cli.py
+
+$ chmod +x speedtest_cli.py
+</code></pre>
+
+<blockquote><p>$ ./speedtest_cli.py (Forma básica)</p>
+
+<p>$ ./speedtest_cli.py &#8211;sahre (Nos da una URL con la imagen en png de la conexión)</p>
+
+<p>$ ./speedtest_cli.py &#8211;list (Mostrará una lista ordenada de los servidores de Speedtest.net con los más cercanos en primer lugar.)</p>
+
+<p>$ ./speedtest_cli.py &#8211;server 804 (Especificar un servidor distinto al más cercano,     tomado del listado anterior)</p></blockquote>
 </div>
   
   
@@ -383,7 +379,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/slowhttptest/">Slowhttptest</a></h1>
+      <h1 class="entry-title"><a href="/blog/speedometer/">Speedometer</a></h1>
     
     
       <p class="meta">
@@ -399,40 +395,22 @@
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Efectuar ataques Slow Http Dos</p>
+  <div class="entry-content"><p>Monitor de transferencia de ficheros [velocímetro].</p>
 
-<blockquote><p>$ slowhttptest -c 1000 -H -g -o ataque -i 10 -r 200 -t GET -u http://192.168.1.154 -x 30 -p 3</p></blockquote>
+<blockquote><p># speedometer -p -rx eth0  (tráfico recibido y el resultado en consola [-p])</p>
 
-<p>c (Número de conexiones con límite en 65539)</p>
+<p># speedometer -tx eth0  (tráfico transmitido y el resultado en modo gráfico)</p>
 
-<p>H (ataque modo SlowLoris enviando paquetes sin completar)</p>
+<p># speedometer -i 0.25 -rx eth0 (t. recibido, en modo gráfico y muestreo cada 0.25 segundos.)</p></blockquote>
 
-<p>B (ataque modo Slow POST sin terminar de enviar el cuerpo del mensaje)</p>
-
-<p>X (ataque modo Slow Read de lectura de las respuestas http lentas)</p>
-
-<p>g (Generr estadistica en formato html)</p>
-
-<p>o (Archivo de salida)</p>
-
-<p>i (Intervalo de datos por segundo por conexión)</p>
-
-<p>r (Conexiones por segundo)</p>
-
-<p>t (Cabecera a utilizar)</p>
-
-<p>u (URL de destino)</p>
-
-<p>x (Longitud máxima de los datos)</p>
-
-<p>p (Tiempo de espera de respuesta http una vez el servidor se considera inaccesible)</p>
+<p>pulsar “q” para cerrar</p>
 </div>
   
   
@@ -445,7 +423,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/slim/">Slim</a></h1>
+      <h1 class="entry-title"><a href="/blog/speaker/">Speaker</a></h1>
     
     
       <p class="meta">
@@ -461,22 +439,16 @@
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Gestor de sesiones ligero. La configuración en el archivo /etc/slim.conf</p>
+  <div class="entry-content"><p>(ver aoss espeak). Pruebas de sonido.</p>
 
-<p>1.-</p>
-
-<p>Si al usar systemd el sistema no para ni reinicia, modificar las lineas existentes por las siguientes:</p>
-
-<p>halt_cmd /usr/bin/systemctl halt</p>
-
-<p>reboot_cmd /usr/bin/systemctl reboot</p>
+<blockquote><p># speaker-test -c 6 -t wav (probar altavoces usando voz [t])</p></blockquote>
 </div>
   
   
@@ -489,7 +461,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/sleep/">Sleep</a></h1>
+      <h1 class="entry-title"><a href="/blog/spacedream/">Spacedream</a></h1>
     
     
       <p class="meta">
@@ -505,24 +477,16 @@
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Esperar el tiempo especificado antes de lanzar un comando o aplicacion</p>
+  <div class="entry-content"><p>Muestra una imagen del cielo en la tty. Con las teclas del cursor permite moverse por entre la constelación de estrellas.</p>
 
-<blockquote><p>$ sleep 5s ; xwd -root -screen > pantalla.xwd   (Capturar la pantallas tras 5 segundos)</p>
-
-<p>$ sleep 20m; yes > /dev/dsp (alarma. En 20 minutos suena un pitido)</p>
-
-<p>$ sleep 3s &amp;&amp; aoss espeak -v es &#8220;Levantate gandul&#8230;..&#8221; 2>/dev/null (Otra forma de programar una alarma)</p>
-
-<p>$ sleep 3h &amp;&amp; halt (para el pc a las 3 horas)</p>
-
-<p>$ sleep 3d &amp;&amp; halt (para el pc a los 3 dias)</p></blockquote>
+<blockquote><p>$ spacedream</p></blockquote>
 </div>
   
   
@@ -535,7 +499,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/slay/">Slay</a></h1>
+      <h1 class="entry-title"><a href="/blog/sources-dot-list/">sources.list</a></h1>
     
     
       <p class="meta">
@@ -551,18 +515,38 @@
   
 
 
-<time datetime="2013-12-15T18:57:00+01:00" pubdate data-updated="true">15-12-2013</time>
+<time datetime="2014-07-13T16:51:00+02:00" pubdate data-updated="true">13-07-2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Matar todos los procesos de un usuario.</p>
+  <div class="entry-content"><p>Archivo que contiene las fuentes o repositorios de los paquetes de software en las distros derivadas de Debian.</p>
 
-<blockquote><p>$ slay usuario</p>
+<p>Generador de sources.list optimizado via web:</p>
 
-<p>$ slay -9 usuario</p></blockquote>
+<p><a href="http://debgen.simplylinux.ch/" title="sources.list a la carta">http://debgen.simplylinux.ch/</a></p>
+
+<p>División del programario según Debian y Ubuntu:</p>
+
+<p>DEBIAN:</p>
+
+<p>main (Paquetes 100% libres según las directovas de Debian)</p>
+
+<p>contrib (Paquetes que dependen de alguno que no es 100% libre según las directivas de Debian)</p>
+
+<p>non-free (Paquetes que o bien no cumplen la directiva de Debian o no facilitan el código fuente)</p>
+
+<p>UBUNTU:</p>
+
+<p>main (Paquetes que cumplen los requisitos de la licencia de Ubuntu)</p>
+
+<p>restricted (soportados por los desarrolladores de Ubuntu pero o bien no cumplen su licencia o no se tiene acceso al código fuente)</p>
+
+<p>Universe (Programas mantenidos por la comunidad)</p>
+
+<p>Multiverse (Programas comerciales o privativos de terceras empresas o fabricantes)</p>
 </div>
   
   
@@ -585,51 +569,51 @@
     <section>
 <h1>Número de entradas</h1>
 	<ul>
-	<li>1358</li>
+	<li>1409</li>
 	</ul>
 </section>
 <section>
-  <h1>Añadidos/modificados</h1>
+  <h1>Recent Posts</h1>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/help/">help</a>
+        <a href="/blog/php/">php</a>
       </li>
     
       <li class="post">
-        <a href="/blog/fc/">fc</a>
+        <a href="/blog/ranger/">ranger</a>
       </li>
     
       <li class="post">
-        <a href="/blog/shell/">shell</a>
+        <a href="/blog/terminator/">terminator</a>
       </li>
     
       <li class="post">
-        <a href="/blog/mupdf/">mupdf</a>
+        <a href="/blog/curl/">curl</a>
       </li>
     
       <li class="post">
-        <a href="/blog/continue/">continue</a>
+        <a href="/blog/cheat/">cheat</a>
       </li>
     
       <li class="post">
-        <a href="/blog/colores/">colores</a>
+        <a href="/blog/slim/">slim</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awstats/">awstats</a>
+        <a href="/blog/xfce4/">xfce4</a>
       </li>
     
       <li class="post">
-        <a href="/blog/awk/">awk</a>
+        <a href="/blog/sysctl/">sysctl</a>
       </li>
     
       <li class="post">
-        <a href="/blog/dropbox/">dropbox</a>
+        <a href="/blog/latex/">latex</a>
       </li>
     
       <li class="post">
-        <a href="/blog/aewan/">aewan</a>
+        <a href="/blog/nslookup/">nslookup</a>
       </li>
     
   </ul>
@@ -638,7 +622,7 @@
 <section>
   <h1>Sobre mi</h1> 
   <center>
-  <img src="/images/linux_user.png" title="Linux user">
+  <img src="/images/lapipaplena.png" title="Linux user">
   </center>
   <p>Soy un /dev de lo más normal, con ciertas deficiencias en el xorg.conf como casi todo el mundo, con una apariencia común tirando a gráfica VGA y con algún pixel algo deteriorado y que vivirá hasta que su directorio / sufra un kernel pánic y me mande a /dev/null</p>
 </section>
@@ -665,10 +649,6 @@
 <section>
 <table border="0" cellspacing="0" cellpadding="0"><tr><td align="center"><script type="text/javascript" src="http://www.worldtimeserver.com/clocks/embed.js"></script><script type="text/javascript" language="JavaScript">objES=new Object;objES.wtsclock="wtsclock001.swf";objES.color="CC6600";objES.wtsid="ES";objES.width=200;objES.height=200;objES.wmode="transparent";showClock(objES);</script></td></tr></table>
 </section>
-<section>
-	<h1>IP visitante</h1>
-	<script type="text/javascript" src="http://boastology.com/tools/ip2c/?im=0&cn=0&ip=1"></script>
-</section>
 
   
 </aside>
@@ -676,7 +656,7 @@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - templix -
+  Copyright &copy; 2014 - templix -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
@@ -702,9 +682,6 @@
 
 
 
-<div style="width: 1px; height: 1px; overflow: hidden; position: absolute; left: -1000px">
-<iframe src="http://crontux.homelinux.com/getip.php"></iframe>
-</div>
 
 </body>
 </html>
